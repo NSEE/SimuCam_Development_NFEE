@@ -1,0 +1,83 @@
+# Copyright (C) 2016  Intel Corporation. All rights reserved.
+# Your use of Intel Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Intel Program License 
+# Subscription Agreement, the Intel Quartus Prime License Agreement,
+# the Intel MegaCore Function License Agreement, or other 
+# applicable license agreement, including, without limitation, 
+# that your use is for the sole purpose of programming logic 
+# devices manufactured by Intel and sold by Intel or its 
+# authorized distributors.  Please refer to the applicable 
+# agreement for further details.
+
+# Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
+# File: /home/corsi/rfranca/SimuCam_X_GitHub/NewFolder/FT601-32Bit_Bus_Masters/Altera-Cyclone V GX_C5G/MC245/fifo_mst_top_assignments.csv
+# Generated on: Tue Jun 13 18:24:04 2017
+
+Status,From,To,Assignment Name,Value,Enabled,Entity,Comment,Tag
+Ok,,CLK,Location,PIN_N9,Yes,,,
+Ok,,BE[3],Location,PIN_A9,Yes,,,
+Ok,,BE[2],Location,PIN_A8,Yes,,,
+Ok,,BE[1],Location,PIN_C12,Yes,,,
+Ok,,BE[0],Location,PIN_C13,Yes,,,
+Ok,,DATA[31],Location,PIN_G17,Yes,,,
+Ok,,DATA[30],Location,PIN_G16,Yes,,,
+Ok,,DATA[29],Location,PIN_J11,Yes,,,
+Ok,,DATA[28],Location,PIN_J12,Yes,,,
+Ok,,DATA[27],Location,PIN_J16,Yes,,,
+Ok,,DATA[26],Location,PIN_H15,Yes,,,
+Ok,,DATA[25],Location,PIN_K11,Yes,,,
+Ok,,DATA[24],Location,PIN_L12,Yes,,,
+Ok,,DATA[23],Location,PIN_H17,Yes,,,
+Ok,,DATA[22],Location,PIN_H18,Yes,,,
+Ok,,DATA[21],Location,PIN_L11,Yes,,,
+Ok,,DATA[20],Location,PIN_M11,Yes,,,
+Ok,,DATA[19],Location,PIN_M12,Yes,,,
+Ok,,DATA[18],Location,PIN_N12,Yes,,,
+Ok,,DATA[17],Location,PIN_H13,Yes,,,
+Ok,,DATA[16],Location,PIN_H14,Yes,,,
+Ok,,DATA[15],Location,PIN_C15,Yes,,,
+Ok,,DATA[14],Location,PIN_B15,Yes,,,
+Ok,,DATA[13],Location,PIN_B19,Yes,,,
+Ok,,DATA[12],Location,PIN_C20,Yes,,,
+Ok,,DATA[11],Location,PIN_A11,Yes,,,
+Ok,,DATA[10],Location,PIN_B10,Yes,,,
+Ok,,DATA[9],Location,PIN_B11,Yes,,,
+Ok,,DATA[8],Location,PIN_A12,Yes,,,
+Ok,,DATA[7],Location,PIN_C10,Yes,,,
+Ok,,DATA[6],Location,PIN_D10,Yes,,,
+Ok,,DATA[5],Location,PIN_B9,Yes,,,
+Ok,,DATA[4],Location,PIN_C9,Yes,,,
+Ok,,DATA[3],Location,PIN_E11,Yes,,,
+Ok,,DATA[2],Location,PIN_E10,Yes,,,
+Ok,,DATA[1],Location,PIN_D12,Yes,,,
+Ok,,DATA[0],Location,PIN_D11,Yes,,,
+Ok,,RESET_N,Location,PIN_C23,Yes,,,
+Ok,,RXF_N,Location,PIN_F18,Yes,,,
+Ok,,TXE_N,Location,PIN_E18,Yes,,,
+Ok,,WR_N,Location,PIN_E15,Yes,,,
+Ok,,RD_N,Location,PIN_E13,Yes,,,
+Ok,,OE_N,Location,PIN_D13,Yes,,,
+Ok,,SIWU_N,Location,PIN_F16,Yes,,,
+Ok,,sys_led[0],Location,PIN_L7,Yes,,,
+Ok,,sys_led[1],Location,PIN_K6,Yes,,,
+'To' name unrecognized,,sys_led[2],Location,PIN_D8,Yes,,,
+'To' name unrecognized,,sys_led[3],Location,PIN_E9,Yes,,,
+'To' name unrecognized,,debug_sig,Location,PIN_AC22,Yes,,,
+Ok,,WR_N,Current Strength,12mA,Yes,fifo_mst_top,,
+'To' name unrecognized,,DATA[*],Current Strength,12mA,Yes,fifo_mst_top,,
+'To' name unrecognized,,BE[*],Current Strength,12mA,Yes,fifo_mst_top,,
+'To' name unrecognized,,sys_led[*],Current Strength,12mA,Yes,fifo_mst_top,,
+'To' name unrecognized,,debug_sig,Current Strength,12mA,Yes,fifo_mst_top,,
+Ok,,WR_N,Slew Rate,0,Yes,fifo_mst_top,,
+'To' name unrecognized,,DATA[*],Slew Rate,0,Yes,fifo_mst_top,,
+'To' name unrecognized,,BE[*],Slew Rate,0,Yes,fifo_mst_top,,
+'To' name unrecognized,,sys_led[*],Slew Rate,1,Yes,fifo_mst_top,,
+'To' name unrecognized,,debug_sig,Slew Rate,1,Yes,fifo_mst_top,,
+'To' name unrecognized,,fifo_mst_dpath:i_fifo_mst_dpath|tp_data[*],Fast Output Register,On,Yes,fifo_mst_top,,
+'To' name unrecognized,,fifo_mst_dpath:i_fifo_mst_dpath|tp_be[*],Fast Output Register,On,Yes,fifo_mst_top,,
+Ok,,fifo_mst_fsm:i_fifo_mst_fsm|tp_wr_n,Fast Output Register,On,Yes,fifo_mst_top,,
+,<<new>>,<<new>>,<<new>>,,,,,

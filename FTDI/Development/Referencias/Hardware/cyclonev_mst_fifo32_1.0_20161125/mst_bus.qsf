@@ -1,0 +1,166 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2014 Altera Corporation. All rights reserved.
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, the Altera Quartus II License Agreement,
+# the Altera MegaCore Function License Agreement, or other 
+# applicable license agreement, including, without limitation, 
+# that your use is for the sole purpose of programming logic 
+# devices manufactured by Altera and sold by Altera or its 
+# authorized distributors.  Please refer to the applicable 
+# agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 64-Bit
+# Version 14.1.0 Build 186 12/03/2014 SJ Web Edition
+# Date created = 13:00:09  February 17, 2015
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		fifo_mst_top_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+set_global_assignment -name FAMILY "Cyclone V"
+set_global_assignment -name DEVICE 5CGXFC5C6F27C6
+set_global_assignment -name TOP_LEVEL_ENTITY mst_fifo_top
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
+set_global_assignment -name DEVICE_FILTER_PACKAGE FBGA
+set_global_assignment -name DEVICE_FILTER_PIN_COUNT 672
+set_global_assignment -name DEVICE_FILTER_SPEED_GRADE FASTEST
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name TIMEQUEST_DO_CCPP_REMOVAL ON
+set_global_assignment -name TIMEQUEST_DO_REPORT_TIMING ON
+set_global_assignment -name AUTO_DELAY_CHAINS OFF
+set_global_assignment -name IO_PLACEMENT_OPTIMIZATION ON
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "2.5 V"
+#
+set_global_assignment -name VERILOG_MACRO "ALTERA_FPGA=1"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+#
+set_location_assignment PIN_N9 -to CLK
+set_location_assignment PIN_A9 -to BE[3]
+set_location_assignment PIN_A8 -to BE[2]
+set_location_assignment PIN_C12 -to BE[1]
+set_location_assignment PIN_C13 -to BE[0]
+set_location_assignment PIN_G17 -to DATA[31]
+set_location_assignment PIN_G16 -to DATA[30]
+set_location_assignment PIN_J11 -to DATA[29]
+set_location_assignment PIN_J12 -to DATA[28]
+set_location_assignment PIN_J16 -to DATA[27]
+set_location_assignment PIN_H15 -to DATA[26]
+set_location_assignment PIN_K11 -to DATA[25]
+set_location_assignment PIN_L12 -to DATA[24]
+set_location_assignment PIN_H17 -to DATA[23]
+set_location_assignment PIN_H18 -to DATA[22]
+set_location_assignment PIN_L11 -to DATA[21]
+set_location_assignment PIN_M11 -to DATA[20]
+set_location_assignment PIN_M12 -to DATA[19]
+set_location_assignment PIN_N12 -to DATA[18]
+set_location_assignment PIN_H13 -to DATA[17]
+set_location_assignment PIN_H14 -to DATA[16]
+set_location_assignment PIN_C15 -to DATA[15]
+set_location_assignment PIN_B15 -to DATA[14]
+set_location_assignment PIN_B19 -to DATA[13]
+set_location_assignment PIN_C20 -to DATA[12]
+set_location_assignment PIN_A11 -to DATA[11]
+set_location_assignment PIN_B10 -to DATA[10]
+set_location_assignment PIN_B11 -to DATA[9]
+set_location_assignment PIN_A12 -to DATA[8]
+set_location_assignment PIN_C10 -to DATA[7]
+set_location_assignment PIN_D10 -to DATA[6]
+set_location_assignment PIN_B9 -to DATA[5]
+set_location_assignment PIN_C9 -to DATA[4]
+set_location_assignment PIN_E11 -to DATA[3]
+set_location_assignment PIN_E10 -to DATA[2]
+set_location_assignment PIN_D12 -to DATA[1]
+set_location_assignment PIN_D11 -to DATA[0]
+set_location_assignment PIN_F18 -to RXF_N
+set_location_assignment PIN_E18 -to TXE_N
+set_location_assignment PIN_E15 -to WR_N
+set_location_assignment PIN_E13 -to RD_N
+set_location_assignment PIN_D13 -to OE_N
+set_location_assignment PIN_F16 -to SIWU_N
+set_location_assignment PIN_C22 -to WAKEUP_N
+# 
+set_location_assignment PIN_AC9 -to MLTCN
+set_location_assignment PIN_AE10 -to STREN
+set_location_assignment PIN_AD13 -to ERDIS
+#
+set_location_assignment PIN_P11 -to HRST_N
+set_location_assignment PIN_C23 -to SRST_N
+#
+set_location_assignment PIN_B12 -to W_OOB
+set_location_assignment PIN_A13 -to R_OOB
+#
+set_location_assignment PIN_F7 -to STRER[0]
+set_location_assignment PIN_F6 -to STRER[1]
+set_location_assignment PIN_G6 -to STRER[2]
+set_location_assignment PIN_G7 -to STRER[3]
+#
+set_location_assignment PIN_L7 -to debug_sig[0]
+set_location_assignment PIN_K6 -to debug_sig[1]
+set_location_assignment PIN_D8 -to debug_sig[2]
+set_location_assignment PIN_E9 -to debug_sig[3]
+#
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to "mst_fifo_fsm:i1_fsm|odata[*]"
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to "mst_fifo_fsm:i1_fsm|obe[*]"
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to "mst_fifo_fsm:i1_fsm|wr_n"
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to "mst_fifo_fsm:i1_fsm|rd_n"
+set_instance_assignment -name FAST_OUTPUT_REGISTER ON -to "mst_fifo_fsm:i1_fsm|oe_n"
+#
+set_global_assignment -name SYNTH_TIMING_DRIVEN_SYNTHESIS ON
+set_global_assignment -name OPTIMIZE_HOLD_TIMING "ALL PATHS"
+set_global_assignment -name OPTIMIZE_MULTI_CORNER_TIMING ON
+set_global_assignment -name FITTER_EFFORT "STANDARD FIT"
+set_global_assignment -name OPTIMIZE_POWER_DURING_FITTING "EXTRA EFFORT"
+set_global_assignment -name FIT_ONLY_ONE_ATTEMPT ON
+set_global_assignment -name ROUTER_TIMING_OPTIMIZATION_LEVEL MAXIMUM
+set_global_assignment -name SEED 3
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to BE[*]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to DATA[*]
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to WR_N
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to debug_sig
+set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to sys_led[*]
+set_instance_assignment -name SLEW_RATE 0 -to BE[*]
+set_instance_assignment -name SLEW_RATE 0 -to DATA[*]
+set_instance_assignment -name SLEW_RATE 0 -to WR_N
+set_instance_assignment -name SLEW_RATE 1 -to sys_led[*]
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name LAST_QUARTUS_VERSION "16.1.0 Standard Edition"
+set_global_assignment -name ENABLE_SIGNALTAP OFF
+set_global_assignment -name USE_SIGNALTAP_FILE stp1_32k.stp
+set_global_assignment -name OPTIMIZATION_MODE "HIGH PERFORMANCE EFFORT"
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to SRST_N
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HRST_N
+set_global_assignment -name VERILOG_FILE ./tech/sp_sram_16k36.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_fifo_top.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_fifo_io.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_fifo_fsm.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_fifo_ctl.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_data_gen.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_data_chk.v
+set_global_assignment -name SYSTEMVERILOG_FILE ./rtl/mst_pre_fet.v
+set_global_assignment -name SDC_FILE mst_bus.sdc
+set_global_assignment -name STATE_MACHINE_PROCESSING AUTO
+set_global_assignment -name SAFE_STATE_MACHINE OFF
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

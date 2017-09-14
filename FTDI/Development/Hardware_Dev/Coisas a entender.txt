@@ -1,0 +1,16 @@
+Coisas a entender:
+ - sys_led[3,4] -> Não está sendo usado? -- Não, foi apenas projetado
+ - debug_sig -> Pra que serve? -- No é utilizado neste projeto
+ - tp_data -> Fast Output Register? -- Recomendavel
+ - tp_be -> Fast Output Register? -- Recomendavel
+ - tp_wr_n -> Fast Output Register? -- Recomendavel
+
+ - Estrutura básica
+ - Utilização dos pinos inout (Buffers?, Tri-state? Fixed? Utilização de Output Enable?)  -- Utilização de Output Enable, com Tri-State Buffers
+ - Restrições / Partes críticas -- Nada particularmente restrito/crítico
+
+ - Comparar estrutura pinos! -- Correto
+ - Comparar estrutura sistema! -- 
+ - Preparar estrutura para Colocar na SimuCamX -- 
+ - Adaptar arquivo de restrições (Timing Restriction) -- 
+

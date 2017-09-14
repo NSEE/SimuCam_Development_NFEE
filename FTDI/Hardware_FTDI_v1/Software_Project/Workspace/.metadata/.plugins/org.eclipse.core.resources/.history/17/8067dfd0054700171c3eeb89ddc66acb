@@ -1,0 +1,371 @@
+/*************/
+/* Includes	 */
+/*************/
+
+#include <stdio.h>
+#include <io.h>
+#include <unistd.h>
+#include "system.h"
+
+#include "altera_avalon_pio_regs.h"
+#include "sys/alt_irq.h"
+#include <sys/alt_cache.h>
+#include "sys/alt_timestamp.h"
+#include <altera_msgdma.h>
+
+//#include "includes.h"
+
+#include "utils/util.h"
+#include "utils/meb_includes.h"
+
+#include "driver/i2c/i2c.h"
+#include "driver/leds/leds.h"
+#include "driver/power_spi/power_spi.h"
+#include "driver/seven_seg/seven_seg.h"
+
+#include "logic/dma/dma.h"
+#include "logic/sense/sense.h"
+#include "logic/ddr2/ddr2.h"
+
+/**************************************************
+ * Global
+**************************************************/
+
+void write_ddr2(alt_u32 address, alt_u32 size){
+	alt_u32 *pDes;
+	pDes = (alt_u32 *)address;
+
+	alt_u32 i;
+
+	for(i=0 ; i < size; i++){
+		*pDes = (alt_u32)i;
+		//printf("Writing 0x%08X at address 0x%08X\n", i, pDes);
+		pDes++;
+	}
+	printf("Done writing\n\n");
+}
+
+void write2_ddr2(alt_u32 address, alt_u32 size){
+	alt_u32 *pDes;
+	pDes = (alt_u32 *)address;
+
+	alt_u32 i;
+
+	for(i=0 ; i < size; i++){
+		*pDes = (alt_u32)0;
+		//printf("Writing 0x%08X at address 0x%08X\n", i, pDes);
+		pDes++;
+	}
+	printf("Done writing\n\n");
+}
+
+void read_ddr2(alt_u32 address, alt_u32 size){
+	alt_u32 *pSrc;
+	pSrc = (alt_u32 *)address;
+
+	alt_u32 i;
+
+	for(i=0 ; i < size; i++){
+		printf("Reading address 0x%08X; Data = 0x%08X\n", pSrc, *pSrc);
+		pSrc++;
+	}
+	printf("Done reading\n\n");
+}
+
+bool test_ddr2(alt_u32 address, alt_u32 size){
+	alt_u32 *pSrc;
+	pSrc = (alt_u32 *)address;
+
+	alt_u32 i;
+
+	bool bPass = TRUE;
+
+	for(i=0 ; i < size; i++){
+		//printf("Reading address 0x%08X; Data = 0x%08X\n", pSrc, *pSrc);
+		if (*pSrc != (alt_u32)i){
+			bPass = FALSE;
+		}
+		pSrc++;
+	}
+	printf("Done testing\n\n");
+	return bPass;
+}
+
+int main(void)
+{
+
+	  alt_8 tempFPGA = 0;
+	  alt_8 tempBoard = 0;
+	  alt_8 led = 1;
+
+  printf(" \n Nucleo de Sistemas Eletronicos Embarcados\n\n");
+
+  SSDP_CONFIG(SSDP_NORMAL_MODE);
+//  SSDP_CONFIG(SSDP_TEST_MODE);
+/*
+  while(1){
+	  
+	  switch(led){
+		  case 1:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_0_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_0_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_A_MASK);
+			led++;
+		  break;
+		  case 2:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_1_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_1_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_B_MASK);
+			led++;
+		  break;
+		  case 3:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_2_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_2_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_C_MASK);
+			led++;
+		  break;
+		  case 4:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_3_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_3_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_D_MASK);
+			led++;
+		  break;
+		  case 5:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_4_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_0_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_E_MASK);
+			led++;
+		  break;
+		  case 6:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_5_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_1_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_F_MASK);
+			led++;
+		  break;
+		  case 7:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_6_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_2_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_G_MASK);
+			led++;
+		  break;
+		  case 8:
+			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_7_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_3_MASK);
+			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_H_MASK);
+			led = 1;
+		  break;
+		  default:
+			led = 0;
+		}
+
+		usleep(1000*1000);
+	
+		LEDS_BOARD_DRIVE(LEDS_OFF, LEDS_BOARD_ALL_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_STATUS_ALL_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_SPW_ALL_MASK);
+	}
+*/
+//  DDR2_EEPROM_TEST(DDR2_M1_ID);
+//  DDR2_EEPROM_TEST(DDR2_M2_ID);
+  
+//  DDR2_EEPROM_DUMP(DDR2_M1_ID);
+//  DDR2_EEPROM_DUMP(DDR2_M2_ID);
+  
+//  DDR2_MEMORY_WRITE_TEST(DDR2_M1_ID);
+//  DDR2_MEMORY_READ_TEST(DDR2_M1_ID);
+
+//  DDR2_MEMORY_WRITE_TEST(DDR2_M2_ID);
+//  DDR2_MEMORY_READ_TEST(DDR2_M2_ID);
+
+  const alt_u32 testsize = 1*1024;
+
+  write_ddr2(DDR2_M1_MEMORY_BASE, testsize);
+  write2_ddr2(DDR2_M2_MEMORY_BASE, testsize);
+  //read_ddr2(DDR2_M1_MEMORY_BASE, 256);
+/*
+  //DMA Operation, simple model
+
+  //Variables for creating DMA
+  alt_msgdma_dev *DMADev;
+  //alt_u8  DMAName[32] = DMA_M1_M2_CSR_NAME;
+  alt_u32 DMACSR =  DMA_M1_M2_CSR_BASE;
+*/
+/*
+  printf("Stopping Dispatcher...\n");
+  IOWR_ALTERA_MSGDMA_CSR_CONTROL(DMACSR, 0x0001);
+  //Wait stop to be finished
+  printf("Waiting for the stop to be completed...\n");
+  while (IORD_ALTERA_MSGDMA_CSR_STATUS (DMACSR) & 0x0020) {
+  	usleep(1000*1000);
+  }
+*/
+/*
+  printf("CSR: 0x%08X\n", IORD_ALTERA_MSGDMA_CSR_STATUS(DMACSR));
+
+  //Reset Dispatcher on turn on
+  printf("Reseting Dispatcher...\n");
+  IOWR_ALTERA_MSGDMA_CSR_CONTROL(DMACSR, 0x0002);
+  //Wait reset to be finished
+  printf("Waiting for the reset to be completed...\n");
+  while (IORD_ALTERA_MSGDMA_CSR_STATUS (DMACSR) & 0x0040) {
+  	usleep(1000*1000);
+  }
+
+  printf("CSR: 0x%08X\n", IORD_ALTERA_MSGDMA_CSR_STATUS(DMACSR));
+
+
+  //Open DMA based on name
+  printf("Opening DMA device...\n");
+  DMADev = alt_msgdma_open((char *)DMA_M1_M2_CSR_NAME);
+  //Check if DMA opened correctely;
+  if(DMADev == NULL){
+  	printf("Error creating DMA device \n");
+  	goto END;
+  } else {
+	  printf("DMA device created successfully\n");
+  }
+
+  //Variaveis para cópia
+  alt_msgdma_standard_descriptor DMAdescriptor;
+  alt_u32 read_addr = DDR2_M1_MEMORY_BASE;
+  alt_u32 write_addr = DDR2_M2_MEMORY_BASE;
+  alt_u32 size = testsize*4;
+  //alt_u32 control_bits = 0 << 14; //Disable DMA
+  //alt_u32 control_bits = ALTERA_MSGDMA_DESCRIPTOR_CONTROL_TRANSFER_COMPLETE_IRQ_MASK;
+  alt_u32 control_bits = 0x00000000;
+  int rtn;
+
+  //Create descriptor
+  printf("Creating descriptor...\n");
+  rtn = alt_msgdma_construct_standard_mm_to_mm_descriptor(DMADev, &DMAdescriptor, (alt_u32 *)read_addr, (alt_u32 *)write_addr, size, control_bits);
+  if (rtn != 0){
+  	printf("Error creating descriptor \n");
+  	goto END;
+  } else {
+	  printf("Descriptor created successfully\n");
+  }
+
+  int TimeStart, TimeElapsed = 0;
+  //Initiate Transfer
+  if (rtn == 0){
+	  printf("Initiating transfer...\n");
+	  TimeStart = alt_nticks();
+  	alt_msgdma_standard_descriptor_async_transfer(DMADev, &DMAdescriptor);
+  	if (rtn != 0){
+  		printf("Error initiating transfer\n");
+  		goto END;
+  	} else {
+
+  		printf("Transfer initiated successfully\n");
+
+  	}
+  } else {
+	  printf("Not transferring because of descriptor not created correctly\n");
+  }
+
+*/
+
+  alt_u32 read_addr = DDR2_M1_MEMORY_BASE;
+  alt_u32 write_addr = DDR2_M2_MEMORY_BASE;
+  alt_u32 size = testsize*4;
+  alt_u32 control_bits = 0x00000000;
+  alt_msgdma_dev *DMADev = NULL;
+
+  if (DMA_OPEN_DEVICE(&DMADev, (char *)DMA_M1_M2_CSR_NAME) == FALSE){
+	  printf("Error 1");
+	  goto END;
+  }
+
+  if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT) == FALSE){
+    printf("Error 2");
+    goto END;
+  }
+/*
+  if (DMA_SINGLE_TRANSFER(DMADev, read_addr, write_addr, size, control_bits, DMA_WAIT) == FALSE){
+    printf("Error 3");
+    goto END;
+  }
+*/
+
+  alt_u32 read_addr_arr[2];
+    read_addr_arr[0] = DDR2_M1_MEMORY_BASE;
+    read_addr_arr[1] = DDR2_M1_MEMORY_BASE + size;
+  alt_u32 write_addr_arr[2];
+    write_addr_arr[0] = DDR2_M2_MEMORY_BASE;
+    write_addr_arr[1] = DDR2_M2_MEMORY_BASE + size;
+
+
+  if (DMA_SINGLE_TRANSFER(DMADev, read_addr, write_addr, size, control_bits, DMA_WAIT) == FALSE){
+    printf("Error 3");
+    goto END;
+  }
+
+  if (test_ddr2(DDR2_M2_MEMORY_BASE, testsize) == TRUE){
+	  printf("Transfer executed correctly\n");
+  } else {
+	  printf("Transfer failed\n");
+  }
+
+
+/*
+  printf("CSR: 0x%08X\n", IORD_ALTERA_MSGDMA_CSR_STATUS(DMACSR));
+  //while(1){}
+
+  while (IORD_ALTERA_MSGDMA_CSR_STATUS(DMACSR) & 0x0001) {
+  	usleep(1000*1000);
+  }
+  //usleep(5*1000*1000);
+  TimeElapsed = alt_nticks() - TimeStart;
+  printf("%.3f sec\n", (float)TimeElapsed/(float)alt_ticks_per_second());
+  if (test_ddr2(DDR2_M2_MEMORY_BASE, testsize) == TRUE){
+	  printf("Transfer executed correctly\n");
+  } else {
+	  printf("Transfer failed\n");
+  }
+*/
+
+
+
+
+  //printf("CSR: 0x%08X\n", IORD_ALTERA_MSGDMA_CSR_STATUS(DMACSR));
+
+/*
+	printf("Name of msgdma in Qsys system = %s\n", dev_M1_M2 -> name);
+	alt_u32 base = dev_M1_M2_d.csr_base;
+	printf("Base address of control and status register = 0x%08X\n", base);
+	printf("Base address of the descriptor slave port = 0x%08X\n", dev_M1_M2 -> descriptor_base);
+	printf("Base address of the response register = 0x%08X\n", dev_M1_M2 -> response_base);
+  printf("Base address of the prefetcher register = 0x%08X\n", dev_M1_M2 -> prefetcher_base);
+	printf("device IRQ controller ID = 0x%08X\n", dev_M1_M2 -> irq_controller_ID);
+	printf("device IRQ ID = 0x%08X", (dev_M1_M2 -> irq_ID));
+	printf("FIFO size to store descriptor count, { 8, 16, 32, 64,default:128, 256, 512, 1024 } = 0x%08X\n", dev_M1_M2 -> descriptor_fifo_depth);
+	printf("FIFO size to store response count = 0x%08X\n", dev_M1_M2 -> response_fifo_depth);
+	printf("user define control setting during interrupt registering = 0x%08X\n", dev_M1_M2 -> control);
+	printf("Enable burst transfer = 0x%02X\n", dev_M1_M2 -> burst_enable);
+	printf("Enable burst wrapping = 0x%02X\n", dev_M1_M2 -> burst_wrapping_support);
+  printf("Depth of the internal data path FIFO = 0x%08X\n", dev_M1_M2 -> data_fifo_depth);
+	printf("Data path Width. This parameter affect both read master and write master data width = 0x%08X\n", dev_M1_M2 -> data_width);
+	printf("Maximum burst count = 0x%08X\n", dev_M1_M2 -> max_burst_count);
+	printf("Maximum transfer length = 0x%08X\n", dev_M1_M2 -> max_byte);
+	printf("Maximum stride count = 0x%16X\n", dev_M1_M2 -> max_stride);
+	printf("Enable dynamic burst programming = 0x%02X\n", dev_M1_M2 -> programmable_burst_enable);
+	printf("Enable stride addressing = 0x%02X\n", dev_M1_M2 -> stride_enable);
+	printf("Supported transaction type = %s\n", dev_M1_M2 -> transfer_type);
+  printf("Extended feature support enable 1-enable  0-disable  = 0x%02X\n", dev_M1_M2 -> enhanced_features);
+  printf("Enable response port 0-memory-mapped, 1-streaming, 2-disable  = 0x%02X\n", dev_M1_M2 -> response_port);
+  printf("Prefetcher enabled 0-disabled, 1-enabled = 0x%02X\n", dev_M1_M2 -> prefetcher_enable);
+*/
+
+END:
+  LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_ALL_MASK);
+  while(1){
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	usleep(1000*1000);
+  }
+
+  return 0;
+}
+
+
+
