@@ -2,17 +2,18 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.tran_avalon_burst_pkg.all;
+use work.comm_avalon_burst_pkg.all;
 
-package tran_pipeline_fifo_pkg is
+package comm_pipeline_fifo_pkg is
 
-	constant PIPELINE_AVALON_ADDRESS_SIZE : natural := TRAN_AVALON_BURST_ADRESS_SIZE;
-	constant PIPELINE_AVALON_DATA_SIZE    : natural := TRAN_AVALON_BURST_DATA_SIZE;
-	constant PIPELINE_AVALON_SYMBOL_SIZE  : natural := TRAN_AVALON_BURST_SYMBOL_SIZE;
-	constant PIPELINE_AVALON_BURST_SIZE   : natural := TRAN_AVALON_BURST_BURST_SIZE;
+	constant PIPELINE_AVALON_ADDRESS_SIZE : natural := COMM_AVALON_BURST_ADRESS_SIZE;
+	constant PIPELINE_AVALON_DATA_SIZE    : natural := COMM_AVALON_BURST_DATA_SIZE;
+	constant PIPELINE_AVALON_SYMBOL_SIZE  : natural := COMM_AVALON_BURST_SYMBOL_SIZE;
+	constant PIPELINE_AVALON_BURST_SIZE   : natural := COMM_AVALON_BURST_BURST_SIZE;
+	constant PIPELINE_AVALON_PIPELINE_SIZE   : natural := COMM_AVALON_BURST_PIPELINE_SIZE;
 
 	constant PIPELINE_FIFO_WIDTH  : natural := (PIPELINE_AVALON_ADDRESS_SIZE) + (PIPELINE_AVALON_DATA_SIZE / PIPELINE_AVALON_SYMBOL_SIZE) + (PIPELINE_AVALON_BURST_SIZE);
-	constant PIPELINE_FIFO_LENGTH : natural := TRAN_AVALON_BURST_PIPELINE_SIZE;
+	constant PIPELINE_FIFO_LENGTH : natural := PIPELINE_AVALON_PIPELINE_SIZE;
 
 	type pipeline_fifo_data_type is record
 		address    : std_logic_vector((PIPELINE_AVALON_ADDRESS_SIZE - 1) downto 0);
@@ -32,4 +33,4 @@ package tran_pipeline_fifo_pkg is
 		q     : std_logic_vector((PIPELINE_FIFO_WIDTH - 1) downto 0);
 	end record pipeline_fifo_outputs_type;
 
-end package tran_pipeline_fifo_pkg;
+end package comm_pipeline_fifo_pkg;

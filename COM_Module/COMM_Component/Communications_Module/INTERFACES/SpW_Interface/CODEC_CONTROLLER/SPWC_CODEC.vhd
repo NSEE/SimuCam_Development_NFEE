@@ -27,6 +27,7 @@ architecture spwc_codec_arc of spwc_codec_ent is
 
 begin
 
+	-- SpaceWire Light Codec Component 
 	spwstream_inst : entity work.spwstream
 		generic map(
 			sysfreq         => SPWC_SYSFREQ,

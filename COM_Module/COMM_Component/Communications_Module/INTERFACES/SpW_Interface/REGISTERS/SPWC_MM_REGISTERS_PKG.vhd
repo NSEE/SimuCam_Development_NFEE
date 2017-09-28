@@ -15,8 +15,11 @@ package spwc_mm_registers_pkg is
 	--     4- 4 : TimeCode Received interrupt enable bit [R/W]
 	--     3- 3 : Link Running interrupt enable bit      [R/W]
 	--     2- 2 : Link Error interrupt flag              [R/-]
+	--     2- 2 : Link Error interrupt flag clear        [-/W]
 	--     1- 1 : TimeCode Received interrupt flag       [R/-]
+	--     1- 1 : TimeCode Received interrupt flag clear [-/W]
 	--     0- 0 : Link Running interrupt flag            [R/-]
+	--     0- 0 : Link Running interrupt flag clear      [-/W]
 	--  SpW Link Control and Status Register           (32 bits):
 	--    31-10 : Reserved                               [-/-]
 	--     9- 9 : Autostart control bit                  [R/W]
@@ -33,13 +36,13 @@ package spwc_mm_registers_pkg is
 	--    31-25 : Reserved                               [-/-]
 	--    24-23 : RX TimeCode Control bits               [R/-]
 	--    22-17 : RX TimeCode Counter value              [R/-]
-	--    16-16 : RX TimeCode control bit                [R/-]
+	--    16-16 : RX TimeCode status bit                 [R/-]
+	--    16-16 : RX TimeCode status bit clear           [-/W]
 	--    15- 9 : Reserved                               [R/-]
 	--     8- 7 : TX TimeCode Control bits               [R/W]
 	--     6- 1 : TX TimeCode Counter value              [R/W]
-	--     0- 0 : TX TimeCode status bit                 [R/W]
+	--     0- 0 : TX TimeCode controol bit               [R/W]
 
-	constant SPWC_MM_REGISTERS_ADDRESS_OFFSET             : natural := 0;
 	constant SPWC_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS : natural := 0;
 	constant SPWC_SPW_LINK_CONTROL_STATUS_MM_REG_ADDRESS  : natural := 1;
 	constant SPWC_TIMECODE_CONTROL_MM_REG_ADDRESS         : natural := 2;
@@ -84,11 +87,12 @@ package spwc_mm_registers_pkg is
 	end record spwc_timecode_register_type;
 
 	type spwc_mm_write_registers_type is record
-		INTERFACE_CONTROL_REGISTER : spwc_interface_control_register_type;
-		INTERRUPT_ENABLE_REGISTER  : spwc_interrupt_register_type;
-		INTERRUPT_FLAG_CLEAR_REGISTER  : spwc_interrupt_register_type;
-		SPW_LINK_MODE_REGISTER     : spwc_spw_link_mode_register_type;
-		TX_TIMECODE_REGISTER       : spwc_timecode_register_type;
+		INTERFACE_CONTROL_REGISTER    : spwc_interface_control_register_type;
+		INTERRUPT_ENABLE_REGISTER     : spwc_interrupt_register_type;
+		INTERRUPT_FLAG_CLEAR_REGISTER : spwc_interrupt_register_type;
+		SPW_LINK_MODE_REGISTER        : spwc_spw_link_mode_register_type;
+		RX_TIMECODE_CLEAR_REGISTER    : spwc_timecode_register_type;
+		TX_TIMECODE_REGISTER          : spwc_timecode_register_type;
 	end record spwc_mm_write_registers_type;
 
 	type spwc_mm_read_registers_type is record

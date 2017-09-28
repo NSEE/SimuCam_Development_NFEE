@@ -23,12 +23,16 @@ end entity spwc_data_dc_fifo_ent;
 
 architecture spwc_data_dc_fifo_arc of spwc_data_dc_fifo_ent is
 
+	-- Signals for RX DATA DC FIFO Control
 	signal spw_rx_dc_fifo_aclr_sig : std_logic;
+
+	-- Signals for RX DATA DC FIFO Control
 	signal spw_tx_dc_fifo_aclr_sig : std_logic;
 
 begin
 
-	-- rx : clk200 (wr) -> clk100 (rd)
+	-- RX : CLK200 (wr) --> CLK100 (rd)  (SpW --> Simucam)
+	-- RX DATA DC FIFO Component
 	spwc_rx_data_dc_fifo_inst : entity work.spwc_dc_data_fifo
 		port map(
 			aclr    => spw_rx_dc_fifo_aclr_sig,
@@ -43,8 +47,11 @@ begin
 			wrempty => spwc_rx_data_dc_fifo_clk200_outputs.wrempty,
 			wrfull  => spwc_rx_data_dc_fifo_clk200_outputs.wrfull
 		);
+		-- RX DATA DC FIFO aClear Control
+	spw_rx_dc_fifo_aclr_sig <= (rst) or ((spwc_rx_data_dc_fifo_clk100_inputs.aclr) or (spwc_rx_data_dc_fifo_clk200_inputs.aclr));
 
-		-- tx : clk100 (wr) -> clk200 (rd)
+	-- TX : CLK100 (wr) -> CLK200 (rd)  (Simucam --> SpW)
+	-- TX DATA DC FIFO Component
 	spwc_tx_dc_data_fifo_inst : entity work.spwc_dc_data_fifo
 		port map(
 			aclr    => spw_tx_dc_fifo_aclr_sig,
@@ -59,9 +66,7 @@ begin
 			wrempty => spwc_tx_data_dc_fifo_clk100_outputs.wrempty,
 			wrfull  => spwc_tx_data_dc_fifo_clk100_outputs.wrfull
 		);
-
-		-- Signals Assignments and Port Mappings
-	spw_rx_dc_fifo_aclr_sig <= (spwc_rx_data_dc_fifo_clk100_inputs.aclr) or (spwc_rx_data_dc_fifo_clk200_inputs.aclr) or (rst);
-	spw_tx_dc_fifo_aclr_sig <= (spwc_tx_data_dc_fifo_clk100_inputs.aclr) or (spwc_tx_data_dc_fifo_clk200_inputs.aclr) or (rst);
+		-- TX DATA DC FIFO aClear Control
+	spw_tx_dc_fifo_aclr_sig <= (rst) or ((spwc_tx_data_dc_fifo_clk100_inputs.aclr) or (spwc_tx_data_dc_fifo_clk200_inputs.aclr));
 
 end architecture spwc_data_dc_fifo_arc;

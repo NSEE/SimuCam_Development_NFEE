@@ -14,9 +14,13 @@ package tran_mm_registers_pkg is
 	--     5- 5 : RX FIFO Full interrupt enable bit    [R/W]
 	--     4- 4 : TX FIFO Empty interrupt enable bit   [R/W]
 	--     3- 3 : Interface Error interrupt flag       [R/-]
+	--     3- 3 : Interface Error interrupt flag       [-/W]
 	--     2- 2 : Data Received interrupt flag         [R/-]
+	--     2- 2 : Data Received interrupt flag clear   [-/W]
 	--     1- 1 : RX FIFO Full interrupt flag          [R/-]
+	--     1- 1 : RX FIFO Full interrupt flag clear    [-/W]
 	--     0- 0 : TX FIFO Empty interrupt flag         [R/-]
+	--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
 	--  RX Mode Control Register                     (32 bits):
 	--    31- 3 : Reserved                             [-/-]
 	--     2- 2 : RX FIFO Reset control bit            [R/W]
@@ -28,7 +32,6 @@ package tran_mm_registers_pkg is
 	--     1- 1 : TX FIFO Empty status bit             [R/-]
 	--     0- 0 : TX FIFO Full status bit              [R/-]
 
-	constant TRAN_MM_REGISTERS_ADDRESS_OFFSET             : natural := 32;
 	constant TRAN_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS : natural := 0;
 	constant TRAN_RX_MODE_CONTROL_MM_REG_ADDRESS          : natural := 1;
 	constant TRAN_TX_MODE_CONTROL_MM_REG_ADDRESS          : natural := 2;
@@ -56,10 +59,11 @@ package tran_mm_registers_pkg is
 	end record tran_fifo_status_register_type;
 
 	type tran_mm_write_registers_type is record
-		INTERFACE_CONTROL_REGISTER : tran_interface_control_register_type;
-		INTERRUPT_ENABLE_REGISTER  : tran_interrupt_register_type;
-		RX_FIFO_CONTROL_REGISTER   : tran_fifo_control_register_type;
-		TX_FIFO_CONTROL_REGISTER   : tran_fifo_control_register_type;
+		INTERFACE_CONTROL_REGISTER    : tran_interface_control_register_type;
+		INTERRUPT_ENABLE_REGISTER     : tran_interrupt_register_type;
+		INTERRUPT_FLAG_CLEAR_REGISTER : tran_interrupt_register_type;
+		RX_FIFO_CONTROL_REGISTER      : tran_fifo_control_register_type;
+		TX_FIFO_CONTROL_REGISTER      : tran_fifo_control_register_type;
 	end record tran_mm_write_registers_type;
 
 	type tran_mm_read_registers_type is record

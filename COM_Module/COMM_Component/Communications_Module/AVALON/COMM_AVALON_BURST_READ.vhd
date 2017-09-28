@@ -2,26 +2,27 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.tran_avalon_burst_pkg.all;
+use work.comm_avalon_burst_pkg.all;
+use work.comm_burst_registers_pkg.all;
+use work.comm_pipeline_fifo_pkg.all;
+use work.comm_avs_controller_pkg.all;
 use work.tran_burst_registers_pkg.all;
-use work.tran_pipeline_fifo_pkg.all;
-use work.tran_avs_controller_pkg.all;
 
-entity tran_avalon_burst_read_ent is
+entity comm_avalon_burst_read_ent is
 	port(
 		clk                         : in  std_logic;
 		rst                         : in  std_logic;
-		avalon_burst_inputs         : in  tran_avalon_burst_read_inputs_type;
-		avalon_burst_outputs        : out tran_avalon_burst_read_outputs_type;
-		burst_read_registers        : in  tran_burst_read_registers_type;
-		tran_avs_controller_inputs  : in  tran_avsdc_rx_avs_outputs_type;
-		tran_avs_controller_outputs : out tran_avsdc_rx_avs_inputs_type
+		avalon_burst_inputs         : in  comm_avalon_burst_read_inputs_type;
+		avalon_burst_outputs        : out comm_avalon_burst_read_outputs_type;
+		burst_read_registers        : in  comm_burst_read_registers_type;
+		comm_avs_controller_inputs  : in  comm_avsdc_rx_avs_outputs_type;
+		comm_avs_controller_outputs : out comm_avsdc_rx_avs_inputs_type
 	);
-end entity tran_avalon_burst_read_ent;
+end entity comm_avalon_burst_read_ent;
 
 -- RX : fifo --> avs  (SpW --> Simucam)
 
-architecture tran_avalon_burst_read_arc of tran_avalon_burst_read_ent is
+architecture comm_avalon_burst_read_arc of comm_avalon_burst_read_ent is
 
 	type read_state_machine_type is (
 		normal_state,
@@ -50,7 +51,7 @@ architecture tran_avalon_burst_read_arc of tran_avalon_burst_read_ent is
 
 begin
 
-	tran_pipeline_sc_fifo_inst : entity work.pipeline_sc_fifo
+	comm_pipeline_sc_fifo_inst : entity work.pipeline_sc_fifo
 		port map(
 			aclr  => rst,
 			clock => clk,
@@ -62,8 +63,8 @@ begin
 			q     => pipeline_fifo_outputs_sig.q
 		);
 
-	tran_avalon_burst_read_proc : process(clk, rst) is
-		procedure burst_readdata_procedure(burst_read_address_in : tran_avalon_burst_address_type; burst_bytes_enabled_in : tran_bytes_enabled_type) is
+	comm_avalon_burst_read_proc : process(clk, rst) is
+		procedure burst_readdata_procedure(burst_read_address_in : comm_avalon_burst_address_type; burst_bytes_enabled_in : comm_bytes_enabled_type) is
 			variable burst_readdata_var : std_logic_vector((avalon_burst_outputs.readdata'length - 1) downto 0);
 		begin
 
@@ -71,32 +72,36 @@ begin
 			case (burst_read_address_in) is
 				-- Case for access to all registers address
 
+				-- SPWC Module ReadData procedure
+
+				-- TRAN Module ReadData procedure
+
 				--  Transparent RX Burst Data Register (64 bits):
 				when (TRAN_RX_DATA_BURST_REG_ADDRESS + TRAN_BURST_REGISTERS_ADDRESS_OFFSET) =>
 					--    63-57 : Reserved                   [-/-]
 					burst_readdata_var(63 downto 57) := (others => '0');
 					--    56-56 : SpaceWire RX Flag 3        [R/-]
-					burst_readdata_var(56)           := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_3;
+					burst_readdata_var(56)           := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_3;
 					--    55-48 : SpaceWire RX Data 3        [R/-]
-					burst_readdata_var(55 downto 48) := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_3;
+					burst_readdata_var(55 downto 48) := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_3;
 					--    47-41 : Reserved                   [-/-]
 					burst_readdata_var(47 downto 41) := (others => '0');
 					--    40-40 : SpaceWire RX Flag 2        [R/-]
-					burst_readdata_var(40)           := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_2;
+					burst_readdata_var(40)           := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_2;
 					--    39-32 : SpaceWire RX Data 2        [R/-]
-					burst_readdata_var(39 downto 32) := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_2;
+					burst_readdata_var(39 downto 32) := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_2;
 					--    31-25 : Reserved                   [-/-]
 					burst_readdata_var(31 downto 25) := (others => '0');
 					--    24-24 : SpaceWire RX Flag 1        [R/-]
-					burst_readdata_var(24)           := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_1;
+					burst_readdata_var(24)           := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_1;
 					--    23-16 : SpaceWire RX Data 1        [R/-]
-					burst_readdata_var(23 downto 16) := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_1;
+					burst_readdata_var(23 downto 16) := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_1;
 					--    15- 9 : Reserved                   [-/-]
 					burst_readdata_var(15 downto 9)  := (others => '0');
 					--     8- 8 : SpaceWire RX Flag 0        [R/-]
-					burst_readdata_var(8)            := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_0;
+					burst_readdata_var(8)            := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_0;
 					--     7- 0 : SpaceWire RX Data 0        [R/-]
-					burst_readdata_var(7 downto 0)   := burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_0;
+					burst_readdata_var(7 downto 0)   := burst_read_registers.TRAN.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_0;
 
 				when others =>
 					burst_readdata_var := (others => '0');
@@ -133,9 +138,9 @@ begin
 
 		variable read_state_machine_var     : read_state_machine_type        := normal_state;
 		variable pipeline_state_machine_var : pipeline_state_machine_type    := standby_state;
-		variable burst_read_address_var     : tran_avalon_burst_address_type := 0;
-		variable burst_burst_counter_var    : tran_burst_counter_type        := 0;
-		variable burst_bytes_enabled_var    : tran_bytes_enabled_type        := (others => '0');
+		variable burst_read_address_var     : comm_avalon_burst_address_type := 0;
+		variable burst_burst_counter_var    : comm_burst_counter_type        := 0;
+		variable burst_bytes_enabled_var    : comm_bytes_enabled_type        := (others => '0');
 		variable burst_reading_started_flag : std_logic                      := '0';
 	begin
 		if (rst = '1') then
@@ -198,7 +203,7 @@ begin
 				case (read_state_machine_var) is
 
 					when normal_state => -- primeira leitura de um burst ou leitura única
-						if (tran_avs_controller_inputs.datavalid = '1') then -- existe dados válidos disponíveis
+						if (comm_avs_controller_inputs.TRAN.datavalid = '1') then -- existe dados válidos disponíveis
 							burst_readdata_procedure(burst_read_address_var, burst_bytes_enabled_var);
 							avalon_burst_outputs.readdatavalid <= '1';
 							if (burst_burst_counter_var > 1) then
@@ -222,7 +227,7 @@ begin
 						end if;
 
 					when burst_state => -- continuação de leitura em modo burst
-						if (tran_avs_controller_inputs.datavalid = '1') then -- existe dados válidos disponíveis, faz a leitura
+						if (comm_avs_controller_inputs.TRAN.datavalid = '1') then -- existe dados válidos disponíveis, faz a leitura
 							burst_readdata_procedure(burst_read_address_var, burst_bytes_enabled_var);
 							avalon_burst_outputs.readdatavalid <= '1';
 							avs_dataused_sig                   <= '1';
@@ -239,6 +244,7 @@ begin
 								read_state_machine_var     := fetching_state;
 							else        -- não existe comandos disponíveis no pipeline, aguarda novo início de leitura
 								burst_reading_started_flag := '0';
+							avs_dataused_sig                   <= '0';
 								read_state_machine_var     := normal_state;
 							end if;
 						end if;
@@ -263,11 +269,11 @@ begin
 			end if;
 
 		end if;
-	end process tran_avalon_burst_read_proc;
+	end process comm_avalon_burst_read_proc;
 
 	-- Signals assingments
-	avs_dataused_output_sig              <= (avs_dataused_sig) when not ((tran_avs_controller_inputs.datavalid = '1') and (avalon_burst_inputs.read = '1') and (burst_waitrequest_sig = '1')) else ('1');
-	tran_avs_controller_outputs.dataused <= (avs_dataused_output_sig) when (tran_avs_controller_inputs.datavalid = '1') else ('0');
+	avs_dataused_output_sig                   <= (avs_dataused_sig) when not ((comm_avs_controller_inputs.TRAN.datavalid = '1') and (avalon_burst_inputs.read = '1') and (burst_waitrequest_sig = '1')) else ('1');
+	comm_avs_controller_outputs.TRAN.dataused <= (avs_dataused_output_sig) when (comm_avs_controller_inputs.TRAN.datavalid = '1') else ('0');
 
 	avalon_burst_outputs.waitrequest <= burst_waitrequest_sig;
 
@@ -286,4 +292,4 @@ begin
 	pipeline_fifo_data_output_sig.byteenable <= pipeline_fifo_outputs_sig.q(15 downto 8);
 	pipeline_fifo_data_output_sig.burstcount <= pipeline_fifo_outputs_sig.q(7 downto 0);
 
-end architecture tran_avalon_burst_read_arc;
+end architecture comm_avalon_burst_read_arc;

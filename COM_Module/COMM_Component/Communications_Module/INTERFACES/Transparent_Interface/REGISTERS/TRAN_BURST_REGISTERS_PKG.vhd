@@ -31,7 +31,6 @@ package tran_burst_registers_pkg is
 	--     8- 8 : SpaceWire TX Flag 0        [-/W]
 	--     7- 0 : SpaceWire TX Data 0        [-/W]
 
-	constant TRAN_BURST_REGISTERS_ADDRESS_OFFSET : natural := 32;
 	constant TRAN_RX_DATA_BURST_REG_ADDRESS      : natural := 0;
 	constant TRAN_TX_DATA_BURST_REG_ADDRESS      : natural := 1;
 

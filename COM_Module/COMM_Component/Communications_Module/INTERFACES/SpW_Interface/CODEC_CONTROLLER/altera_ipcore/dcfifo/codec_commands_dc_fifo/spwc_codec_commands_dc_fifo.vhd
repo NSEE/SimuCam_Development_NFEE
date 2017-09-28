@@ -4,7 +4,7 @@
 -- MODULE: dcfifo 
 
 -- ============================================================
--- File Name: codec_commands_dc_fifo.vhd
+-- File Name: spwc_codec_commands_dc_fifo.vhd
 -- Megafunction Name(s):
 -- 			dcfifo
 --
@@ -40,27 +40,27 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY codec_commands_dc_fifo IS
+ENTITY spwc_codec_commands_dc_fifo IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';
-		data		: IN STD_LOGIC_VECTOR (23 DOWNTO 0);
+		data		: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
 		rdclk		: IN STD_LOGIC ;
 		rdreq		: IN STD_LOGIC ;
 		wrclk		: IN STD_LOGIC ;
 		wrreq		: IN STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (23 DOWNTO 0);
+		q		: OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
 		rdfull		: OUT STD_LOGIC ;
 		wrempty		: OUT STD_LOGIC ;
 		wrfull		: OUT STD_LOGIC 
 	);
-END codec_commands_dc_fifo;
+END spwc_codec_commands_dc_fifo;
 
 
-ARCHITECTURE SYN OF codec_commands_dc_fifo IS
+ARCHITECTURE SYN OF spwc_codec_commands_dc_fifo IS
 
-	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (23 DOWNTO 0);
+	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
 	SIGNAL sub_wire2	: STD_LOGIC ;
 	SIGNAL sub_wire3	: STD_LOGIC ;
@@ -86,12 +86,12 @@ ARCHITECTURE SYN OF codec_commands_dc_fifo IS
 	);
 	PORT (
 			aclr	: IN STD_LOGIC ;
-			data	: IN STD_LOGIC_VECTOR (23 DOWNTO 0);
+			data	: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
 			rdclk	: IN STD_LOGIC ;
 			rdreq	: IN STD_LOGIC ;
 			wrclk	: IN STD_LOGIC ;
 			wrreq	: IN STD_LOGIC ;
-			q	: OUT STD_LOGIC_VECTOR (23 DOWNTO 0);
+			q	: OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
 			rdempty	: OUT STD_LOGIC ;
 			rdfull	: OUT STD_LOGIC ;
 			wrempty	: OUT STD_LOGIC ;
@@ -100,7 +100,7 @@ ARCHITECTURE SYN OF codec_commands_dc_fifo IS
 	END COMPONENT;
 
 BEGIN
-	q    <= sub_wire0(23 DOWNTO 0);
+	q    <= sub_wire0(15 DOWNTO 0);
 	rdempty    <= sub_wire1;
 	rdfull    <= sub_wire2;
 	wrempty    <= sub_wire3;
@@ -110,9 +110,9 @@ BEGIN
 	GENERIC MAP (
 		intended_device_family => "Stratix IV",
 		lpm_numwords => 4,
-		lpm_showahead => "ON",
+		lpm_showahead => "OFF",
 		lpm_type => "dcfifo",
-		lpm_width => 24,
+		lpm_width => 16,
 		lpm_widthu => 2,
 		overflow_checking => "ON",
 		rdsync_delaypipe => 4,
@@ -154,7 +154,7 @@ END SYN;
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
--- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
+-- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
@@ -162,11 +162,11 @@ END SYN;
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "0"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
--- Retrieval info: PRIVATE: Width NUMERIC "24"
+-- Retrieval info: PRIVATE: Width NUMERIC "16"
 -- Retrieval info: PRIVATE: dc_aclr NUMERIC "1"
 -- Retrieval info: PRIVATE: diff_widths NUMERIC "0"
 -- Retrieval info: PRIVATE: msb_usedw NUMERIC "0"
--- Retrieval info: PRIVATE: output_width NUMERIC "24"
+-- Retrieval info: PRIVATE: output_width NUMERIC "16"
 -- Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 -- Retrieval info: PRIVATE: rsFull NUMERIC "1"
 -- Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
@@ -178,9 +178,9 @@ END SYN;
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "4"
--- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
+-- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
--- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "24"
+-- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "16"
 -- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "2"
 -- Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: RDSYNC_DELAYPIPE NUMERIC "4"
@@ -190,8 +190,8 @@ END SYN;
 -- Retrieval info: CONSTANT: WRITE_ACLR_SYNCH STRING "ON"
 -- Retrieval info: CONSTANT: WRSYNC_DELAYPIPE NUMERIC "4"
 -- Retrieval info: USED_PORT: aclr 0 0 0 0 INPUT GND "aclr"
--- Retrieval info: USED_PORT: data 0 0 24 0 INPUT NODEFVAL "data[23..0]"
--- Retrieval info: USED_PORT: q 0 0 24 0 OUTPUT NODEFVAL "q[23..0]"
+-- Retrieval info: USED_PORT: data 0 0 16 0 INPUT NODEFVAL "data[15..0]"
+-- Retrieval info: USED_PORT: q 0 0 16 0 OUTPUT NODEFVAL "q[15..0]"
 -- Retrieval info: USED_PORT: rdclk 0 0 0 0 INPUT NODEFVAL "rdclk"
 -- Retrieval info: USED_PORT: rdempty 0 0 0 0 OUTPUT NODEFVAL "rdempty"
 -- Retrieval info: USED_PORT: rdfull 0 0 0 0 OUTPUT NODEFVAL "rdfull"
@@ -201,19 +201,19 @@ END SYN;
 -- Retrieval info: USED_PORT: wrfull 0 0 0 0 OUTPUT NODEFVAL "wrfull"
 -- Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
 -- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
--- Retrieval info: CONNECT: @data 0 0 24 0 data 0 0 24 0
+-- Retrieval info: CONNECT: @data 0 0 16 0 data 0 0 16 0
 -- Retrieval info: CONNECT: @rdclk 0 0 0 0 rdclk 0 0 0 0
 -- Retrieval info: CONNECT: @rdreq 0 0 0 0 rdreq 0 0 0 0
 -- Retrieval info: CONNECT: @wrclk 0 0 0 0 wrclk 0 0 0 0
 -- Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
--- Retrieval info: CONNECT: q 0 0 24 0 @q 0 0 24 0
+-- Retrieval info: CONNECT: q 0 0 16 0 @q 0 0 16 0
 -- Retrieval info: CONNECT: rdempty 0 0 0 0 @rdempty 0 0 0 0
 -- Retrieval info: CONNECT: rdfull 0 0 0 0 @rdfull 0 0 0 0
 -- Retrieval info: CONNECT: wrempty 0 0 0 0 @wrempty 0 0 0 0
 -- Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL codec_commands_dc_fifo.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL codec_commands_dc_fifo.inc TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL codec_commands_dc_fifo.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL codec_commands_dc_fifo.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL codec_commands_dc_fifo_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.inc TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo_inst.vhd TRUE
 -- Retrieval info: LIB_FILE: altera_mf
