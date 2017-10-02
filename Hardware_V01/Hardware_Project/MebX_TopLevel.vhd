@@ -50,7 +50,28 @@ port(
 	 
     -- LEDs
     LED_DE4    	: out std_logic_vector(7 downto 0);
-    LED_PAINEL   	: out std_logic_vector(12 downto 0);   -- painel GPIO1
+    -- painel GPIO1
+    LED_PAINEL_LED_1G : out std_logic;
+    LED_PAINEL_LED_1R : out std_logic;
+    LED_PAINEL_LED_2G : out std_logic;
+    LED_PAINEL_LED_2R : out std_logic;
+    LED_PAINEL_LED_3G : out std_logic;
+    LED_PAINEL_LED_3R : out std_logic;
+    LED_PAINEL_LED_4G : out std_logic;
+    LED_PAINEL_LED_4R : out std_logic;
+    LED_PAINEL_LED_5G : out std_logic;
+    LED_PAINEL_LED_5R : out std_logic;
+    LED_PAINEL_LED_6G : out std_logic;
+    LED_PAINEL_LED_6R : out std_logic;
+    LED_PAINEL_LED_7G : out std_logic;
+    LED_PAINEL_LED_7R : out std_logic;
+    LED_PAINEL_LED_8G : out std_logic;
+    LED_PAINEL_LED_8R : out std_logic;
+    LED_PAINEL_LED_POWER : out std_logic;
+    LED_PAINEL_LED_ST1 : out std_logic;
+    LED_PAINEL_LED_ST2 : out std_logic;
+    LED_PAINEL_LED_ST3 : out std_logic;
+    LED_PAINEL_LED_ST4 : out std_logic;
 
 	 -- Seven Segment Display
     SEVEN_SEG_HEX1 : out std_logic_vector(7  downto 0);
@@ -138,7 +159,18 @@ port(
 	 CSENSE_CS_n		: out std_logic_vector(1 downto 0);
 	 CSENSE_SCK		: out std_logic;
 	 CSENSE_SDI		: out std_logic;
-	 CSENSE_SDO 		: in  std_logic
+	 CSENSE_SDO 		: in  std_logic;
+	 
+	 -- Real Time Clock
+	 RTCC_ALARM : in  std_logic;
+	 RTCC_CS_n	: out std_logic;
+	 RTCC_SCK	: out std_logic;
+	 RTCC_SDI	: out std_logic;
+	 RTCC_SDO   : in  std_logic;
+	 
+	 -- Sincronization
+	 SINC_IN    : in  std_logic;
+    SINC_OUT   : out std_logic
 
   );
 end entity;
@@ -169,7 +201,7 @@ signal enet_mdc : std_logic;
 -- LEDs
 -----------------------------------------
 signal leds_i : std_logic_vector(7  downto 0);
-signal leds_p : std_logic_vector(12 downto 0);
+signal leds_p : std_logic_vector(20 downto 0);
 
 -----------------------------------------
 -- RST CPU
@@ -250,7 +282,7 @@ signal pll_locked : std_logic;
             ext_export         : in    std_logic;            
 				
             led_de4_export                        : out   std_logic_vector(7 downto 0);  
-            led_painel_export                     : out   std_logic_vector(12 downto 0);
+            led_painel_export                                    : out   std_logic_vector(20 downto 0);
             ssdp_ssdp1                            : out   std_logic_vector(7 downto 0);
             ssdp_ssdp0                            : out   std_logic_vector(7 downto 0);
             sd_wp_n_export     : in    std_logic;            
@@ -271,7 +303,16 @@ signal pll_locked : std_logic;
             csense_cs_n_export    : out   std_logic_vector(1 downto 0);  
             csense_sck_export     : out   std_logic;                     
             csense_sdi_export     : out   std_logic;                     
-            csense_sdo_export     : in    std_logic
+            csense_sdo_export     : in    std_logic;
+				
+            rtcc_alarm_export     : in    std_logic  := 'X'; -- export
+            rtcc_cs_n_export      : out   std_logic;         -- export
+            rtcc_sck_export       : out   std_logic;         -- export
+            rtcc_sdi_export       : out   std_logic;         -- export
+            rtcc_sdo_export       : in    std_logic  := 'X'; -- export
+				
+				sinc_in_export        : in    std_logic  := 'X'; -- export
+            sinc_out_export       : out   std_logic          -- export
         );
     end component MebX_Qsys_Project;
 
@@ -389,8 +430,17 @@ SOPC_INST : MebX_Qsys_Project
     csense_cs_n_export       => csense_cs_n,
     csense_sck_export        => csense_sck,
     csense_sdi_export        => csense_sdi,
-    csense_sdo_export        => csense_sdo
+    csense_sdo_export        => csense_sdo,
 
+	 rtcc_alarm_export     => RTCC_ALARM,
+	 rtcc_cs_n_export      => RTCC_CS_n,
+	 rtcc_sck_export       => RTCC_SCK,
+	 rtcc_sdi_export       => RTCC_SDI,
+	 rtcc_sdo_export       => RTCC_SDO,
+	 
+	 sinc_in_export        => SINC_IN,
+	 sinc_out_export       => SINC_OUT
+	 
  );
 
 --==========--
@@ -409,10 +459,29 @@ FAN_CTRL <= '1';
 -- LEDs assumem estado diferente no rst.
 LED_DE4    <= X"F0" when rst = '0' else
               leds_i;
-                    
-LED_PAINEL <= ('0' & X"F0F") when rst = '0' else
-              leds_p;                    
 
+LED_PAINEL_LED_1G    <= ('0') when (rst = '0') else (leds_p(0));
+LED_PAINEL_LED_1R    <= ('0') when (rst = '0') else (leds_p(1));
+LED_PAINEL_LED_2G    <= ('0') when (rst = '0') else (leds_p(2));
+LED_PAINEL_LED_2R    <= ('0') when (rst = '0') else (leds_p(3));
+LED_PAINEL_LED_3G    <= ('0') when (rst = '0') else (leds_p(4));
+LED_PAINEL_LED_3R    <= ('0') when (rst = '0') else (leds_p(5));
+LED_PAINEL_LED_4G    <= ('0') when (rst = '0') else (leds_p(6));
+LED_PAINEL_LED_4R    <= ('0') when (rst = '0') else (leds_p(7));
+LED_PAINEL_LED_5G    <= ('0') when (rst = '0') else (leds_p(8));
+LED_PAINEL_LED_5R    <= ('0') when (rst = '0') else (leds_p(9));
+LED_PAINEL_LED_6G    <= ('0') when (rst = '0') else (leds_p(10));
+LED_PAINEL_LED_6R    <= ('0') when (rst = '0') else (leds_p(11));
+LED_PAINEL_LED_7G    <= ('0') when (rst = '0') else (leds_p(12));
+LED_PAINEL_LED_7R    <= ('0') when (rst = '0') else (leds_p(13));
+LED_PAINEL_LED_8G    <= ('0') when (rst = '0') else (leds_p(14));
+LED_PAINEL_LED_8R    <= ('0') when (rst = '0') else (leds_p(15));
+LED_PAINEL_LED_POWER <= ('0') when (rst = '0') else (leds_p(16));
+LED_PAINEL_LED_ST1   <= ('0') when (rst = '0') else (leds_p(17));
+LED_PAINEL_LED_ST2   <= ('0') when (rst = '0') else (leds_p(18));
+LED_PAINEL_LED_ST3   <= ('0') when (rst = '0') else (leds_p(19));
+LED_PAINEL_LED_ST4   <= ('0') when (rst = '0') else (leds_p(20));
+				  
 --==========--
 -- eth
 --==========--

@@ -11,7 +11,7 @@
 			eth_rst_export                                       : out   std_logic;                                        -- export
 			ext_export                                           : in    std_logic                     := 'X';             -- export
 			led_de4_export                                       : out   std_logic_vector(7 downto 0);                     -- export
-			led_painel_export                                    : out   std_logic_vector(12 downto 0);                    -- export
+			led_painel_export                                    : out   std_logic_vector(20 downto 0);                    -- export
 			m1_ddr2_i2c_scl_export                               : out   std_logic;                                        -- export
 			m1_ddr2_i2c_sda_export                               : inout std_logic                     := 'X';             -- export
 			m1_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    -- mem_a
@@ -65,6 +65,11 @@
 			m2_ddr2_oct_rdn                                      : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                      : in    std_logic                     := 'X';             -- rup
 			rst_reset_n                                          : in    std_logic                     := 'X';             -- reset_n
+			rtcc_alarm_export                                    : in    std_logic                     := 'X';             -- export
+			rtcc_cs_n_export                                     : out   std_logic;                                        -- export
+			rtcc_sck_export                                      : out   std_logic;                                        -- export
+			rtcc_sdi_export                                      : out   std_logic;                                        -- export
+			rtcc_sdo_export                                      : in    std_logic                     := 'X';             -- export
 			sd_clk_export                                        : out   std_logic;                                        -- export
 			sd_cmd_export                                        : inout std_logic                     := 'X';             -- export
 			sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- export
@@ -108,7 +113,9 @@
 			tse_mdio_mdio_out                                    : out   std_logic;                                        -- mdio_out
 			tse_mdio_mdio_oen                                    : out   std_logic;                                        -- mdio_oen
 			tse_serial_txp                                       : out   std_logic;                                        -- txp
-			tse_serial_rxp                                       : in    std_logic                     := 'X'              -- rxp
+			tse_serial_rxp                                       : in    std_logic                     := 'X';             -- rxp
+			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
+			sinc_out_export                                      : out   std_logic                                         -- export
 		);
 	end component MebX_Qsys_Project;
 

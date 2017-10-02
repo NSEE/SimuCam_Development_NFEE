@@ -65,6 +65,11 @@ module MebX_Qsys_Project (
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
 	rst_reset_n,
+	rtcc_alarm_export,
+	rtcc_cs_n_export,
+	rtcc_sck_export,
+	rtcc_sdi_export,
+	rtcc_sdo_export,
 	sd_clk_export,
 	sd_cmd_export,
 	sd_dat_export,
@@ -108,7 +113,9 @@ module MebX_Qsys_Project (
 	tse_mdio_mdio_out,
 	tse_mdio_mdio_oen,
 	tse_serial_txp,
-	tse_serial_rxp);	
+	tse_serial_rxp,
+	sinc_in_export,
+	sinc_out_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -121,7 +128,7 @@ module MebX_Qsys_Project (
 	output		eth_rst_export;
 	input		ext_export;
 	output	[7:0]	led_de4_export;
-	output	[12:0]	led_painel_export;
+	output	[20:0]	led_painel_export;
 	output		m1_ddr2_i2c_scl_export;
 	inout		m1_ddr2_i2c_sda_export;
 	output	[13:0]	m1_ddr2_memory_mem_a;
@@ -175,6 +182,11 @@ module MebX_Qsys_Project (
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
 	input		rst_reset_n;
+	input		rtcc_alarm_export;
+	output		rtcc_cs_n_export;
+	output		rtcc_sck_export;
+	output		rtcc_sdi_export;
+	input		rtcc_sdo_export;
 	output		sd_clk_export;
 	inout		sd_cmd_export;
 	inout	[3:0]	sd_dat_export;
@@ -219,4 +231,6 @@ module MebX_Qsys_Project (
 	output		tse_mdio_mdio_oen;
 	output		tse_serial_txp;
 	input		tse_serial_rxp;
+	input		sinc_in_export;
+	output		sinc_out_export;
 endmodule

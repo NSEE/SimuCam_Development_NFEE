@@ -64,6 +64,11 @@
 		.m2_ddr2_oct_rdn                                      (<connected-to-m2_ddr2_oct_rdn>),                                      //                       m2_ddr2_oct.rdn
 		.m2_ddr2_oct_rup                                      (<connected-to-m2_ddr2_oct_rup>),                                      //                                  .rup
 		.rst_reset_n                                          (<connected-to-rst_reset_n>),                                          //                               rst.reset_n
+		.rtcc_alarm_export                                    (<connected-to-rtcc_alarm_export>),                                    //                        rtcc_alarm.export
+		.rtcc_cs_n_export                                     (<connected-to-rtcc_cs_n_export>),                                     //                         rtcc_cs_n.export
+		.rtcc_sck_export                                      (<connected-to-rtcc_sck_export>),                                      //                          rtcc_sck.export
+		.rtcc_sdi_export                                      (<connected-to-rtcc_sdi_export>),                                      //                          rtcc_sdi.export
+		.rtcc_sdo_export                                      (<connected-to-rtcc_sdo_export>),                                      //                          rtcc_sdo.export
 		.sd_clk_export                                        (<connected-to-sd_clk_export>),                                        //                            sd_clk.export
 		.sd_cmd_export                                        (<connected-to-sd_cmd_export>),                                        //                            sd_cmd.export
 		.sd_dat_export                                        (<connected-to-sd_dat_export>),                                        //                            sd_dat.export
@@ -107,6 +112,8 @@
 		.tse_mdio_mdio_out                                    (<connected-to-tse_mdio_mdio_out>),                                    //                                  .mdio_out
 		.tse_mdio_mdio_oen                                    (<connected-to-tse_mdio_mdio_oen>),                                    //                                  .mdio_oen
 		.tse_serial_txp                                       (<connected-to-tse_serial_txp>),                                       //                        tse_serial.txp
-		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>)                                        //                                  .rxp
+		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>),                                       //                                  .rxp
+		.sinc_in_export                                       (<connected-to-sinc_in_export>),                                       //                           sinc_in.export
+		.sinc_out_export                                      (<connected-to-sinc_out_export>)                                       //                          sinc_out.export
 	);
 
