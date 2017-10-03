@@ -19,7 +19,7 @@ entity MebX_Qsys_Project is
 		eth_rst_export                                       : out   std_logic;                                        --                           eth_rst.export
 		ext_export                                           : in    std_logic                     := '0';             --                               ext.export
 		led_de4_export                                       : out   std_logic_vector(7 downto 0);                     --                           led_de4.export
-		led_painel_export                                    : out   std_logic_vector(12 downto 0);                    --                        led_painel.export
+		led_painel_export                                    : out   std_logic_vector(20 downto 0);                    --                        led_painel.export
 		m1_ddr2_i2c_scl_export                               : out   std_logic;                                        --                   m1_ddr2_i2c_scl.export
 		m1_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --                   m1_ddr2_i2c_sda.export
 		m1_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --                    m1_ddr2_memory.mem_a
@@ -73,10 +73,17 @@ entity MebX_Qsys_Project is
 		m2_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                       m2_ddr2_oct.rdn
 		m2_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                                  .rup
 		rst_reset_n                                          : in    std_logic                     := '0';             --                               rst.reset_n
+		rtcc_alarm_export                                    : in    std_logic                     := '0';             --                        rtcc_alarm.export
+		rtcc_cs_n_export                                     : out   std_logic;                                        --                         rtcc_cs_n.export
+		rtcc_sck_export                                      : out   std_logic;                                        --                          rtcc_sck.export
+		rtcc_sdi_export                                      : out   std_logic;                                        --                          rtcc_sdi.export
+		rtcc_sdo_export                                      : in    std_logic                     := '0';             --                          rtcc_sdo.export
 		sd_clk_export                                        : out   std_logic;                                        --                            sd_clk.export
 		sd_cmd_export                                        : inout std_logic                     := '0';             --                            sd_cmd.export
 		sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => '0'); --                            sd_dat.export
 		sd_wp_n_export                                       : in    std_logic                     := '0';             --                           sd_wp_n.export
+		sinc_in_export                                       : in    std_logic                     := '0';             --                           sinc_in.export
+		sinc_out_export                                      : out   std_logic;                                        --                          sinc_out.export
 		ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     --                              ssdp.ssdp0
 		ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     --                                  .ssdp1
 		temp_scl_export                                      : out   std_logic;                                        --                          temp_scl.export
@@ -535,7 +542,7 @@ architecture rtl of MebX_Qsys_Project is
 			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			chipselect : in  std_logic                     := 'X';             -- chipselect
 			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
-			out_port   : out std_logic_vector(12 downto 0)                     -- export
+			out_port   : out std_logic_vector(20 downto 0)                     -- export
 		);
 	end component MebX_Qsys_Project_pio_LED_painel;
 
@@ -815,7 +822,7 @@ architecture rtl of MebX_Qsys_Project is
 			sgdma_tx_m_read_read                                            : in  std_logic                      := 'X';             -- read
 			sgdma_tx_m_read_readdata                                        : out std_logic_vector(31 downto 0);                     -- readdata
 			sgdma_tx_m_read_readdatavalid                                   : out std_logic;                                         -- readdatavalid
-			clock_bridge_afi_50_s0_address                                  : out std_logic_vector(8 downto 0);                      -- address
+			clock_bridge_afi_50_s0_address                                  : out std_logic_vector(9 downto 0);                      -- address
 			clock_bridge_afi_50_s0_write                                    : out std_logic;                                         -- write
 			clock_bridge_afi_50_s0_read                                     : out std_logic;                                         -- read
 			clock_bridge_afi_50_s0_readdata                                 : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
@@ -932,7 +939,7 @@ architecture rtl of MebX_Qsys_Project is
 		port (
 			clk_50_clk_clk                                           : in  std_logic                     := 'X';             -- clk
 			clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
-			clock_bridge_afi_50_m0_address                           : in  std_logic_vector(8 downto 0)  := (others => 'X'); -- address
+			clock_bridge_afi_50_m0_address                           : in  std_logic_vector(9 downto 0)  := (others => 'X'); -- address
 			clock_bridge_afi_50_m0_waitrequest                       : out std_logic;                                        -- waitrequest
 			clock_bridge_afi_50_m0_burstcount                        : in  std_logic_vector(0 downto 0)  := (others => 'X'); -- burstcount
 			clock_bridge_afi_50_m0_byteenable                        : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
@@ -1008,6 +1015,25 @@ architecture rtl of MebX_Qsys_Project is
 			pio_RST_ETH_s1_readdata                                  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			pio_RST_ETH_s1_writedata                                 : out std_logic_vector(31 downto 0);                    -- writedata
 			pio_RST_ETH_s1_chipselect                                : out std_logic;                                        -- chipselect
+			rtcc_alarm_s1_address                                    : out std_logic_vector(1 downto 0);                     -- address
+			rtcc_alarm_s1_readdata                                   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			rtcc_cs_n_s1_address                                     : out std_logic_vector(1 downto 0);                     -- address
+			rtcc_cs_n_s1_write                                       : out std_logic;                                        -- write
+			rtcc_cs_n_s1_readdata                                    : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			rtcc_cs_n_s1_writedata                                   : out std_logic_vector(31 downto 0);                    -- writedata
+			rtcc_cs_n_s1_chipselect                                  : out std_logic;                                        -- chipselect
+			rtcc_sck_s1_address                                      : out std_logic_vector(1 downto 0);                     -- address
+			rtcc_sck_s1_write                                        : out std_logic;                                        -- write
+			rtcc_sck_s1_readdata                                     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			rtcc_sck_s1_writedata                                    : out std_logic_vector(31 downto 0);                    -- writedata
+			rtcc_sck_s1_chipselect                                   : out std_logic;                                        -- chipselect
+			rtcc_sdi_s1_address                                      : out std_logic_vector(1 downto 0);                     -- address
+			rtcc_sdi_s1_write                                        : out std_logic;                                        -- write
+			rtcc_sdi_s1_readdata                                     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			rtcc_sdi_s1_writedata                                    : out std_logic_vector(31 downto 0);                    -- writedata
+			rtcc_sdi_s1_chipselect                                   : out std_logic;                                        -- chipselect
+			rtcc_sdo_s1_address                                      : out std_logic_vector(1 downto 0);                     -- address
+			rtcc_sdo_s1_readdata                                     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			sd_clk_s1_address                                        : out std_logic_vector(1 downto 0);                     -- address
 			sd_clk_s1_write                                          : out std_logic;                                        -- write
 			sd_clk_s1_readdata                                       : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -1028,6 +1054,13 @@ architecture rtl of MebX_Qsys_Project is
 			SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_address     : out std_logic_vector(0 downto 0);                     -- address
 			SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_write       : out std_logic;                                        -- write
 			SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_writedata   : out std_logic_vector(31 downto 0);                    -- writedata
+			sinc_in_s1_address                                       : out std_logic_vector(1 downto 0);                     -- address
+			sinc_in_s1_readdata                                      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			sinc_out_s1_address                                      : out std_logic_vector(1 downto 0);                     -- address
+			sinc_out_s1_write                                        : out std_logic;                                        -- write
+			sinc_out_s1_readdata                                     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			sinc_out_s1_writedata                                    : out std_logic_vector(31 downto 0);                    -- writedata
+			sinc_out_s1_chipselect                                   : out std_logic;                                        -- chipselect
 			temp_scl_s1_address                                      : out std_logic_vector(1 downto 0);                     -- address
 			temp_scl_s1_write                                        : out std_logic;                                        -- write
 			temp_scl_s1_readdata                                     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
@@ -1406,7 +1439,7 @@ architecture rtl of MebX_Qsys_Project is
 			s0_readdatavalid : out std_logic;                                        -- readdatavalid
 			s0_burstcount    : in  std_logic_vector(0 downto 0)  := (others => 'X'); -- burstcount
 			s0_writedata     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			s0_address       : in  std_logic_vector(8 downto 0)  := (others => 'X'); -- address
+			s0_address       : in  std_logic_vector(9 downto 0)  := (others => 'X'); -- address
 			s0_write         : in  std_logic                     := 'X';             -- write
 			s0_read          : in  std_logic                     := 'X';             -- read
 			s0_byteenable    : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
@@ -1416,7 +1449,7 @@ architecture rtl of MebX_Qsys_Project is
 			m0_readdatavalid : in  std_logic                     := 'X';             -- readdatavalid
 			m0_burstcount    : out std_logic_vector(0 downto 0);                     -- burstcount
 			m0_writedata     : out std_logic_vector(31 downto 0);                    -- writedata
-			m0_address       : out std_logic_vector(8 downto 0);                     -- address
+			m0_address       : out std_logic_vector(9 downto 0);                     -- address
 			m0_write         : out std_logic;                                        -- write
 			m0_read          : out std_logic;                                        -- read
 			m0_byteenable    : out std_logic_vector(3 downto 0);                     -- byteenable
@@ -1611,7 +1644,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_readdata                        : std_logic_vector(31 downto 0);  -- clock_bridge_afi_50:s0_readdata -> mm_interconnect_0:clock_bridge_afi_50_s0_readdata
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_waitrequest                     : std_logic;                      -- clock_bridge_afi_50:s0_waitrequest -> mm_interconnect_0:clock_bridge_afi_50_s0_waitrequest
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_debugaccess                     : std_logic;                      -- mm_interconnect_0:clock_bridge_afi_50_s0_debugaccess -> clock_bridge_afi_50:s0_debugaccess
-	signal mm_interconnect_0_clock_bridge_afi_50_s0_address                         : std_logic_vector(8 downto 0);   -- mm_interconnect_0:clock_bridge_afi_50_s0_address -> clock_bridge_afi_50:s0_address
+	signal mm_interconnect_0_clock_bridge_afi_50_s0_address                         : std_logic_vector(9 downto 0);   -- mm_interconnect_0:clock_bridge_afi_50_s0_address -> clock_bridge_afi_50:s0_address
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_read                            : std_logic;                      -- mm_interconnect_0:clock_bridge_afi_50_s0_read -> clock_bridge_afi_50:s0_read
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_byteenable                      : std_logic_vector(3 downto 0);   -- mm_interconnect_0:clock_bridge_afi_50_s0_byteenable -> clock_bridge_afi_50:s0_byteenable
 	signal mm_interconnect_0_clock_bridge_afi_50_s0_readdatavalid                   : std_logic;                      -- clock_bridge_afi_50:s0_readdatavalid -> mm_interconnect_0:clock_bridge_afi_50_s0_readdatavalid
@@ -1656,7 +1689,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal clock_bridge_afi_50_m0_waitrequest                                       : std_logic;                      -- mm_interconnect_1:clock_bridge_afi_50_m0_waitrequest -> clock_bridge_afi_50:m0_waitrequest
 	signal clock_bridge_afi_50_m0_readdata                                          : std_logic_vector(31 downto 0);  -- mm_interconnect_1:clock_bridge_afi_50_m0_readdata -> clock_bridge_afi_50:m0_readdata
 	signal clock_bridge_afi_50_m0_debugaccess                                       : std_logic;                      -- clock_bridge_afi_50:m0_debugaccess -> mm_interconnect_1:clock_bridge_afi_50_m0_debugaccess
-	signal clock_bridge_afi_50_m0_address                                           : std_logic_vector(8 downto 0);   -- clock_bridge_afi_50:m0_address -> mm_interconnect_1:clock_bridge_afi_50_m0_address
+	signal clock_bridge_afi_50_m0_address                                           : std_logic_vector(9 downto 0);   -- clock_bridge_afi_50:m0_address -> mm_interconnect_1:clock_bridge_afi_50_m0_address
 	signal clock_bridge_afi_50_m0_read                                              : std_logic;                      -- clock_bridge_afi_50:m0_read -> mm_interconnect_1:clock_bridge_afi_50_m0_read
 	signal clock_bridge_afi_50_m0_byteenable                                        : std_logic_vector(3 downto 0);   -- clock_bridge_afi_50:m0_byteenable -> mm_interconnect_1:clock_bridge_afi_50_m0_byteenable
 	signal clock_bridge_afi_50_m0_readdatavalid                                     : std_logic;                      -- mm_interconnect_1:clock_bridge_afi_50_m0_readdatavalid -> clock_bridge_afi_50:m0_readdatavalid
@@ -1769,6 +1802,32 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_pio_rst_eth_s1_address                                 : std_logic_vector(1 downto 0);   -- mm_interconnect_1:pio_RST_ETH_s1_address -> pio_RST_ETH:address
 	signal mm_interconnect_1_pio_rst_eth_s1_write                                   : std_logic;                      -- mm_interconnect_1:pio_RST_ETH_s1_write -> mm_interconnect_1_pio_rst_eth_s1_write:in
 	signal mm_interconnect_1_pio_rst_eth_s1_writedata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_1:pio_RST_ETH_s1_writedata -> pio_RST_ETH:writedata
+	signal mm_interconnect_1_rtcc_alarm_s1_readdata                                 : std_logic_vector(31 downto 0);  -- rtcc_alarm:readdata -> mm_interconnect_1:rtcc_alarm_s1_readdata
+	signal mm_interconnect_1_rtcc_alarm_s1_address                                  : std_logic_vector(1 downto 0);   -- mm_interconnect_1:rtcc_alarm_s1_address -> rtcc_alarm:address
+	signal mm_interconnect_1_rtcc_sdo_s1_readdata                                   : std_logic_vector(31 downto 0);  -- rtcc_sdo:readdata -> mm_interconnect_1:rtcc_sdo_s1_readdata
+	signal mm_interconnect_1_rtcc_sdo_s1_address                                    : std_logic_vector(1 downto 0);   -- mm_interconnect_1:rtcc_sdo_s1_address -> rtcc_sdo:address
+	signal mm_interconnect_1_rtcc_sdi_s1_chipselect                                 : std_logic;                      -- mm_interconnect_1:rtcc_sdi_s1_chipselect -> rtcc_sdi:chipselect
+	signal mm_interconnect_1_rtcc_sdi_s1_readdata                                   : std_logic_vector(31 downto 0);  -- rtcc_sdi:readdata -> mm_interconnect_1:rtcc_sdi_s1_readdata
+	signal mm_interconnect_1_rtcc_sdi_s1_address                                    : std_logic_vector(1 downto 0);   -- mm_interconnect_1:rtcc_sdi_s1_address -> rtcc_sdi:address
+	signal mm_interconnect_1_rtcc_sdi_s1_write                                      : std_logic;                      -- mm_interconnect_1:rtcc_sdi_s1_write -> mm_interconnect_1_rtcc_sdi_s1_write:in
+	signal mm_interconnect_1_rtcc_sdi_s1_writedata                                  : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rtcc_sdi_s1_writedata -> rtcc_sdi:writedata
+	signal mm_interconnect_1_rtcc_sck_s1_chipselect                                 : std_logic;                      -- mm_interconnect_1:rtcc_sck_s1_chipselect -> rtcc_sck:chipselect
+	signal mm_interconnect_1_rtcc_sck_s1_readdata                                   : std_logic_vector(31 downto 0);  -- rtcc_sck:readdata -> mm_interconnect_1:rtcc_sck_s1_readdata
+	signal mm_interconnect_1_rtcc_sck_s1_address                                    : std_logic_vector(1 downto 0);   -- mm_interconnect_1:rtcc_sck_s1_address -> rtcc_sck:address
+	signal mm_interconnect_1_rtcc_sck_s1_write                                      : std_logic;                      -- mm_interconnect_1:rtcc_sck_s1_write -> mm_interconnect_1_rtcc_sck_s1_write:in
+	signal mm_interconnect_1_rtcc_sck_s1_writedata                                  : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rtcc_sck_s1_writedata -> rtcc_sck:writedata
+	signal mm_interconnect_1_rtcc_cs_n_s1_chipselect                                : std_logic;                      -- mm_interconnect_1:rtcc_cs_n_s1_chipselect -> rtcc_cs_n:chipselect
+	signal mm_interconnect_1_rtcc_cs_n_s1_readdata                                  : std_logic_vector(31 downto 0);  -- rtcc_cs_n:readdata -> mm_interconnect_1:rtcc_cs_n_s1_readdata
+	signal mm_interconnect_1_rtcc_cs_n_s1_address                                   : std_logic_vector(1 downto 0);   -- mm_interconnect_1:rtcc_cs_n_s1_address -> rtcc_cs_n:address
+	signal mm_interconnect_1_rtcc_cs_n_s1_write                                     : std_logic;                      -- mm_interconnect_1:rtcc_cs_n_s1_write -> mm_interconnect_1_rtcc_cs_n_s1_write:in
+	signal mm_interconnect_1_rtcc_cs_n_s1_writedata                                 : std_logic_vector(31 downto 0);  -- mm_interconnect_1:rtcc_cs_n_s1_writedata -> rtcc_cs_n:writedata
+	signal mm_interconnect_1_sinc_out_s1_chipselect                                 : std_logic;                      -- mm_interconnect_1:sinc_out_s1_chipselect -> sinc_out:chipselect
+	signal mm_interconnect_1_sinc_out_s1_readdata                                   : std_logic_vector(31 downto 0);  -- sinc_out:readdata -> mm_interconnect_1:sinc_out_s1_readdata
+	signal mm_interconnect_1_sinc_out_s1_address                                    : std_logic_vector(1 downto 0);   -- mm_interconnect_1:sinc_out_s1_address -> sinc_out:address
+	signal mm_interconnect_1_sinc_out_s1_write                                      : std_logic;                      -- mm_interconnect_1:sinc_out_s1_write -> mm_interconnect_1_sinc_out_s1_write:in
+	signal mm_interconnect_1_sinc_out_s1_writedata                                  : std_logic_vector(31 downto 0);  -- mm_interconnect_1:sinc_out_s1_writedata -> sinc_out:writedata
+	signal mm_interconnect_1_sinc_in_s1_readdata                                    : std_logic_vector(31 downto 0);  -- sinc_in:readdata -> mm_interconnect_1:sinc_in_s1_readdata
+	signal mm_interconnect_1_sinc_in_s1_address                                     : std_logic_vector(1 downto 0);   -- mm_interconnect_1:sinc_in_s1_address -> sinc_in:address
 	signal m1_clock_bridge_m0_waitrequest                                           : std_logic;                      -- mm_interconnect_2:m1_clock_bridge_m0_waitrequest -> m1_clock_bridge:m0_waitrequest
 	signal m1_clock_bridge_m0_readdata                                              : std_logic_vector(31 downto 0);  -- mm_interconnect_2:m1_clock_bridge_m0_readdata -> m1_clock_bridge:m0_readdata
 	signal m1_clock_bridge_m0_debugaccess                                           : std_logic;                      -- m1_clock_bridge:m0_debugaccess -> mm_interconnect_2:m1_clock_bridge_m0_debugaccess
@@ -1861,8 +1920,12 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_csense_adc_fo_s1_write_ports_inv                       : std_logic;                      -- mm_interconnect_1_csense_adc_fo_s1_write:inv -> csense_adc_fo:write_n
 	signal mm_interconnect_1_pio_led_painel_s1_write_ports_inv                      : std_logic;                      -- mm_interconnect_1_pio_led_painel_s1_write:inv -> pio_LED_painel:write_n
 	signal mm_interconnect_1_pio_rst_eth_s1_write_ports_inv                         : std_logic;                      -- mm_interconnect_1_pio_rst_eth_s1_write:inv -> pio_RST_ETH:write_n
+	signal mm_interconnect_1_rtcc_sdi_s1_write_ports_inv                            : std_logic;                      -- mm_interconnect_1_rtcc_sdi_s1_write:inv -> rtcc_sdi:write_n
+	signal mm_interconnect_1_rtcc_sck_s1_write_ports_inv                            : std_logic;                      -- mm_interconnect_1_rtcc_sck_s1_write:inv -> rtcc_sck:write_n
+	signal mm_interconnect_1_rtcc_cs_n_s1_write_ports_inv                           : std_logic;                      -- mm_interconnect_1_rtcc_cs_n_s1_write:inv -> rtcc_cs_n:write_n
+	signal mm_interconnect_1_sinc_out_s1_write_ports_inv                            : std_logic;                      -- mm_interconnect_1_sinc_out_s1_write:inv -> sinc_out:write_n
 	signal mm_interconnect_2_m1_ddr2_memory_avl_inv                                 : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_2:m1_ddr2_memory_avl_waitrequest
-	signal rst_controller_reset_out_reset_ports_inv                                 : std_logic;                      -- rst_controller_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_RST_ETH:reset_n, sd_clk:reset_n, sd_cmd:reset_n, sd_dat:reset_n, sd_wp_n:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
+	signal rst_controller_reset_out_reset_ports_inv                                 : std_logic;                      -- rst_controller_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_RST_ETH:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_clk:reset_n, sd_cmd:reset_n, sd_dat:reset_n, sd_wp_n:reset_n, sinc_in:reset_n, sinc_out:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	signal rst_controller_001_reset_out_reset_ports_inv                             : std_logic;                      -- rst_controller_001_reset_out_reset:inv -> [dma_M1_M2:reset_n_reset_n, dma_M2_M1:reset_n_reset_n, jtag_uart_0:rst_n, sysid_qsys:reset_n]
 	signal rst_controller_002_reset_out_reset_ports_inv                             : std_logic;                      -- rst_controller_002_reset_out_reset:inv -> [sgdma_rx:system_reset_n, sgdma_tx:system_reset_n]
 	signal rst_controller_004_reset_out_reset_ports_inv                             : std_logic;                      -- rst_controller_004_reset_out_reset:inv -> nios2_gen2_0:reset_n
@@ -1884,7 +1947,7 @@ begin
 		generic map (
 			DATA_WIDTH          => 32,
 			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 9,
+			HDL_ADDR_WIDTH      => 10,
 			BURSTCOUNT_WIDTH    => 1,
 			COMMAND_FIFO_DEPTH  => 4,
 			RESPONSE_FIFO_DEPTH => 4,
@@ -2416,6 +2479,60 @@ begin
 			out_port   => eth_rst_export                                    -- external_connection.export
 		);
 
+	rtcc_alarm : component MebX_Qsys_Project_csense_sdo
+		port map (
+			clk      => clk50_clk,                                --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_1_rtcc_alarm_s1_address,  --                  s1.address
+			readdata => mm_interconnect_1_rtcc_alarm_s1_readdata, --                    .readdata
+			in_port  => rtcc_alarm_export                         -- external_connection.export
+		);
+
+	rtcc_cs_n : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                      --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,       --               reset.reset_n
+			address    => mm_interconnect_1_rtcc_cs_n_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_1_rtcc_cs_n_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_1_rtcc_cs_n_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_1_rtcc_cs_n_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_1_rtcc_cs_n_s1_readdata,        --                    .readdata
+			out_port   => rtcc_cs_n_export                                -- external_connection.export
+		);
+
+	rtcc_sck : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                     --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,      --               reset.reset_n
+			address    => mm_interconnect_1_rtcc_sck_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_1_rtcc_sck_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_1_rtcc_sck_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_1_rtcc_sck_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_1_rtcc_sck_s1_readdata,        --                    .readdata
+			out_port   => rtcc_sck_export                                -- external_connection.export
+		);
+
+	rtcc_sdi : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                     --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,      --               reset.reset_n
+			address    => mm_interconnect_1_rtcc_sdi_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_1_rtcc_sdi_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_1_rtcc_sdi_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_1_rtcc_sdi_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_1_rtcc_sdi_s1_readdata,        --                    .readdata
+			out_port   => rtcc_sdi_export                                -- external_connection.export
+		);
+
+	rtcc_sdo : component MebX_Qsys_Project_csense_sdo
+		port map (
+			clk      => clk50_clk,                                --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_1_rtcc_sdo_s1_address,    --                  s1.address
+			readdata => mm_interconnect_1_rtcc_sdo_s1_readdata,   --                    .readdata
+			in_port  => rtcc_sdo_export                           -- external_connection.export
+		);
+
 	sd_clk : component MebX_Qsys_Project_csense_adc_fo
 		port map (
 			clk        => clk50_clk,                                   --                 clk.clk
@@ -2525,6 +2642,27 @@ begin
 			out_endofpacket               => sgdma_tx_out_endofpacket,                     --                 .endofpacket
 			out_startofpacket             => sgdma_tx_out_startofpacket,                   --                 .startofpacket
 			out_empty                     => sgdma_tx_out_empty                            --                 .empty
+		);
+
+	sinc_in : component MebX_Qsys_Project_csense_sdo
+		port map (
+			clk      => clk50_clk,                                --                 clk.clk
+			reset_n  => rst_controller_reset_out_reset_ports_inv, --               reset.reset_n
+			address  => mm_interconnect_1_sinc_in_s1_address,     --                  s1.address
+			readdata => mm_interconnect_1_sinc_in_s1_readdata,    --                    .readdata
+			in_port  => sinc_in_export                            -- external_connection.export
+		);
+
+	sinc_out : component MebX_Qsys_Project_csense_adc_fo
+		port map (
+			clk        => clk50_clk,                                     --                 clk.clk
+			reset_n    => rst_controller_reset_out_reset_ports_inv,      --               reset.reset_n
+			address    => mm_interconnect_1_sinc_out_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_1_sinc_out_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_1_sinc_out_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_1_sinc_out_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_1_sinc_out_s1_readdata,        --                    .readdata
+			out_port   => sinc_out_export                                -- external_connection.export
 		);
 
 	sysid_qsys : component MebX_Qsys_Project_sysid_qsys
@@ -2933,6 +3071,25 @@ begin
 			pio_RST_ETH_s1_readdata                                  => mm_interconnect_1_pio_rst_eth_s1_readdata,                                --                                                   .readdata
 			pio_RST_ETH_s1_writedata                                 => mm_interconnect_1_pio_rst_eth_s1_writedata,                               --                                                   .writedata
 			pio_RST_ETH_s1_chipselect                                => mm_interconnect_1_pio_rst_eth_s1_chipselect,                              --                                                   .chipselect
+			rtcc_alarm_s1_address                                    => mm_interconnect_1_rtcc_alarm_s1_address,                                  --                                      rtcc_alarm_s1.address
+			rtcc_alarm_s1_readdata                                   => mm_interconnect_1_rtcc_alarm_s1_readdata,                                 --                                                   .readdata
+			rtcc_cs_n_s1_address                                     => mm_interconnect_1_rtcc_cs_n_s1_address,                                   --                                       rtcc_cs_n_s1.address
+			rtcc_cs_n_s1_write                                       => mm_interconnect_1_rtcc_cs_n_s1_write,                                     --                                                   .write
+			rtcc_cs_n_s1_readdata                                    => mm_interconnect_1_rtcc_cs_n_s1_readdata,                                  --                                                   .readdata
+			rtcc_cs_n_s1_writedata                                   => mm_interconnect_1_rtcc_cs_n_s1_writedata,                                 --                                                   .writedata
+			rtcc_cs_n_s1_chipselect                                  => mm_interconnect_1_rtcc_cs_n_s1_chipselect,                                --                                                   .chipselect
+			rtcc_sck_s1_address                                      => mm_interconnect_1_rtcc_sck_s1_address,                                    --                                        rtcc_sck_s1.address
+			rtcc_sck_s1_write                                        => mm_interconnect_1_rtcc_sck_s1_write,                                      --                                                   .write
+			rtcc_sck_s1_readdata                                     => mm_interconnect_1_rtcc_sck_s1_readdata,                                   --                                                   .readdata
+			rtcc_sck_s1_writedata                                    => mm_interconnect_1_rtcc_sck_s1_writedata,                                  --                                                   .writedata
+			rtcc_sck_s1_chipselect                                   => mm_interconnect_1_rtcc_sck_s1_chipselect,                                 --                                                   .chipselect
+			rtcc_sdi_s1_address                                      => mm_interconnect_1_rtcc_sdi_s1_address,                                    --                                        rtcc_sdi_s1.address
+			rtcc_sdi_s1_write                                        => mm_interconnect_1_rtcc_sdi_s1_write,                                      --                                                   .write
+			rtcc_sdi_s1_readdata                                     => mm_interconnect_1_rtcc_sdi_s1_readdata,                                   --                                                   .readdata
+			rtcc_sdi_s1_writedata                                    => mm_interconnect_1_rtcc_sdi_s1_writedata,                                  --                                                   .writedata
+			rtcc_sdi_s1_chipselect                                   => mm_interconnect_1_rtcc_sdi_s1_chipselect,                                 --                                                   .chipselect
+			rtcc_sdo_s1_address                                      => mm_interconnect_1_rtcc_sdo_s1_address,                                    --                                        rtcc_sdo_s1.address
+			rtcc_sdo_s1_readdata                                     => mm_interconnect_1_rtcc_sdo_s1_readdata,                                   --                                                   .readdata
 			sd_clk_s1_address                                        => mm_interconnect_1_sd_clk_s1_address,                                      --                                          sd_clk_s1.address
 			sd_clk_s1_write                                          => mm_interconnect_1_sd_clk_s1_write,                                        --                                                   .write
 			sd_clk_s1_readdata                                       => mm_interconnect_1_sd_clk_s1_readdata,                                     --                                                   .readdata
@@ -2953,6 +3110,13 @@ begin
 			SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_address     => mm_interconnect_1_seven_segment_controller_0_ssdp_avalon_slave_address,   --       SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave.address
 			SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_write       => mm_interconnect_1_seven_segment_controller_0_ssdp_avalon_slave_write,     --                                                   .write
 			SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_writedata   => mm_interconnect_1_seven_segment_controller_0_ssdp_avalon_slave_writedata, --                                                   .writedata
+			sinc_in_s1_address                                       => mm_interconnect_1_sinc_in_s1_address,                                     --                                         sinc_in_s1.address
+			sinc_in_s1_readdata                                      => mm_interconnect_1_sinc_in_s1_readdata,                                    --                                                   .readdata
+			sinc_out_s1_address                                      => mm_interconnect_1_sinc_out_s1_address,                                    --                                        sinc_out_s1.address
+			sinc_out_s1_write                                        => mm_interconnect_1_sinc_out_s1_write,                                      --                                                   .write
+			sinc_out_s1_readdata                                     => mm_interconnect_1_sinc_out_s1_readdata,                                   --                                                   .readdata
+			sinc_out_s1_writedata                                    => mm_interconnect_1_sinc_out_s1_writedata,                                  --                                                   .writedata
+			sinc_out_s1_chipselect                                   => mm_interconnect_1_sinc_out_s1_chipselect,                                 --                                                   .chipselect
 			temp_scl_s1_address                                      => mm_interconnect_1_temp_scl_s1_address,                                    --                                        temp_scl_s1.address
 			temp_scl_s1_write                                        => mm_interconnect_1_temp_scl_s1_write,                                      --                                                   .write
 			temp_scl_s1_readdata                                     => mm_interconnect_1_temp_scl_s1_readdata,                                   --                                                   .readdata
@@ -3632,6 +3796,14 @@ begin
 	mm_interconnect_1_pio_led_painel_s1_write_ports_inv <= not mm_interconnect_1_pio_led_painel_s1_write;
 
 	mm_interconnect_1_pio_rst_eth_s1_write_ports_inv <= not mm_interconnect_1_pio_rst_eth_s1_write;
+
+	mm_interconnect_1_rtcc_sdi_s1_write_ports_inv <= not mm_interconnect_1_rtcc_sdi_s1_write;
+
+	mm_interconnect_1_rtcc_sck_s1_write_ports_inv <= not mm_interconnect_1_rtcc_sck_s1_write;
+
+	mm_interconnect_1_rtcc_cs_n_s1_write_ports_inv <= not mm_interconnect_1_rtcc_cs_n_s1_write;
+
+	mm_interconnect_1_sinc_out_s1_write_ports_inv <= not mm_interconnect_1_sinc_out_s1_write;
 
 	mm_interconnect_2_m1_ddr2_memory_avl_inv <= not m1_ddr2_memory_avl_waitrequest;
 
