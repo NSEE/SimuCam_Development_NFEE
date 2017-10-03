@@ -9,7 +9,7 @@
 #include "leds.h"
 
 alt_u8 LedsBoardControl = 0x00;
-alt_u16 LedsPainelControl = 0x0000;
+alt_u32 LedsPainelControl = 0x00000000;
 
 /**
  * @name    LEDS_BOARD_DRIVE
@@ -49,7 +49,7 @@ bool LEDS_BOARD_DRIVE(bool bDRIVE, alt_u8 LedsMask){
  * @retval TRUE : Sucesso
  *
  */
-bool LEDS_PAINEL_DRIVE(bool bDRIVE, alt_u16 LedsMask){
+bool LEDS_PAINEL_DRIVE(bool bDRIVE, alt_u32 LedsMask){
 
   if (bDRIVE == LEDS_ON){
 	LedsPainelControl |= LedsMask;

@@ -21,6 +21,7 @@
 #include "driver/i2c/i2c.h"
 #include "driver/leds/leds.h"
 #include "driver/power_spi/power_spi.h"
+#include "driver/rtcc_spi/rtcc_spi.h"
 #include "driver/seven_seg/seven_seg.h"
 
 #include "logic/dma/dma.h"
@@ -32,14 +33,13 @@
 **************************************************/
 
 void TestLeds(void);
-bool TestDMA_M1_M2(void);
-bool TestDMA_M2_M1(void);
+void TestSinc(void);
+void TestRTCC(void);
+//bool TestDMA_M1_M2(void);
+//bool TestDMA_M2_M1(void);
 
 int main(void)
 {
-
-  alt_8 tempFPGA = 0;
-  alt_8 tempBoard = 0;
 
   printf(" \n Nucleo de Sistemas Eletronicos Embarcados - MebX\n\n");
 
@@ -71,84 +71,219 @@ int main(void)
   //Teste de transferencia com DMA (M2 -> M1);
   //TestDMA_M2_M1();
 
-  //Acende os leds de status e atualiza a temperatura da FPGA no display de 7 segmentos a cada 1 segundo
-  LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_ALL_MASK);
-  while(1){
-	TEMP_Read(&tempFPGA, &tempBoard);
-	SSDP_UPDATE(tempFPGA);
-	usleep(1000*1000);
+  TestLeds();
+  //TestRTCC();
+  //TestSinc();
+
+   while(1){
+
   }
 
   return 0;
 }
 
-void TestLeds (void){
-  alt_8 led = 1;
-  SSDP_CONFIG(SSDP_TEST_MODE);
-  
-  while(1){
-    switch(led){
-      case 1:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_0_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_0_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_A_MASK);
-        led++;
-      break;
-      case 2:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_1_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_1_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_B_MASK);
-        led++;
-      break;
-      case 3:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_2_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_2_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_C_MASK);
-        led++;
-      break;
-      case 4:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_3_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_3_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_D_MASK);
-        led++;
-      break;
-      case 5:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_4_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_0_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_E_MASK);
-        led++;
-      break;
-      case 6:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_5_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_1_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_F_MASK);
-        led++;
-      break;
-      case 7:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_6_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_2_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_G_MASK);
-        led++;
-      break;
-      case 8:
-        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_7_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_3_MASK);
-        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_H_MASK);
-        led = 1;
-      break;
-      default:
-        led = 0;
-    }
-  
-  usleep(1000*1000);
-  
-  LEDS_BOARD_DRIVE(LEDS_OFF, LEDS_BOARD_ALL_MASK);
-  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_STATUS_ALL_MASK);
-  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_SPW_ALL_MASK);
-  
-  }
+void TestRTCC (void){
+
+	bool bPass = FALSE;
+	alt_u8 uc_EUI48_array[6];
+
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
+
+	   while(1){
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		usleep(1000*1000);
+
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		usleep(1000*1000);
+
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		usleep(1000*1000);
+
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		usleep(1000*1000);
+
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		usleep(1000*1000);
+
+		bPass = RTCC_SPI_R_MAC(uc_EUI48_array);
+
+	  }
+
 }
 
+void TestSinc (void){
+
+	alt_u8 uc_sinc_in = 0;
+
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
+
+	while (1){
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		IOWR_ALTERA_AVALON_PIO_DATA(SINC_OUT_BASE, 1);
+		usleep(1000*1000);
+		uc_sinc_in = (IORD_ALTERA_AVALON_PIO_DATA(SINC_IN_BASE) & 0x01);
+		if (uc_sinc_in == 1) {
+			printf("Success");
+		} else {
+			printf("Failure");
+		}
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		IOWR_ALTERA_AVALON_PIO_DATA(SINC_OUT_BASE, 0);
+		usleep(1000*1000);
+		uc_sinc_in = (IORD_ALTERA_AVALON_PIO_DATA(SINC_IN_BASE) & 0x01);
+		if (uc_sinc_in == 0) {
+			printf("Success");
+		} else {
+			printf("Failure");
+		}
+	}
+
+}
+
+void TestLeds (void){
+
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
+
+	while(1){
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_POWER_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_1_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_2_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_2_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_3_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_3_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_4_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_4_MASK);
+	}
+}
+/*
 bool TestDMA_M1_M2(void){
 
   alt_msgdma_dev *DMADev = NULL;
@@ -299,3 +434,4 @@ bool TestDMA_M2_M1(void){
   return TRUE;
 }
 
+*/
