@@ -74,6 +74,8 @@
 			sd_cmd_export                                        : inout std_logic                     := 'X';             -- export
 			sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			sd_wp_n_export                                       : in    std_logic                     := 'X';             -- export
+			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
+			sinc_out_export                                      : out   std_logic;                                        -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0
 			ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			temp_scl_export                                      : out   std_logic;                                        -- export
@@ -113,9 +115,7 @@
 			tse_mdio_mdio_out                                    : out   std_logic;                                        -- mdio_out
 			tse_mdio_mdio_oen                                    : out   std_logic;                                        -- mdio_oen
 			tse_serial_txp                                       : out   std_logic;                                        -- txp
-			tse_serial_rxp                                       : in    std_logic                     := 'X';             -- rxp
-			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
-			sinc_out_export                                      : out   std_logic                                         -- export
+			tse_serial_rxp                                       : in    std_logic                     := 'X'              -- rxp
 		);
 	end component MebX_Qsys_Project;
 
@@ -195,6 +195,8 @@
 			sd_cmd_export                                        => CONNECTED_TO_sd_cmd_export,                                        --                            sd_cmd.export
 			sd_dat_export                                        => CONNECTED_TO_sd_dat_export,                                        --                            sd_dat.export
 			sd_wp_n_export                                       => CONNECTED_TO_sd_wp_n_export,                                       --                           sd_wp_n.export
+			sinc_in_export                                       => CONNECTED_TO_sinc_in_export,                                       --                           sinc_in.export
+			sinc_out_export                                      => CONNECTED_TO_sinc_out_export,                                      --                          sinc_out.export
 			ssdp_ssdp0                                           => CONNECTED_TO_ssdp_ssdp0,                                           --                              ssdp.ssdp0
 			ssdp_ssdp1                                           => CONNECTED_TO_ssdp_ssdp1,                                           --                                  .ssdp1
 			temp_scl_export                                      => CONNECTED_TO_temp_scl_export,                                      --                          temp_scl.export
@@ -234,8 +236,6 @@
 			tse_mdio_mdio_out                                    => CONNECTED_TO_tse_mdio_mdio_out,                                    --                                  .mdio_out
 			tse_mdio_mdio_oen                                    => CONNECTED_TO_tse_mdio_mdio_oen,                                    --                                  .mdio_oen
 			tse_serial_txp                                       => CONNECTED_TO_tse_serial_txp,                                       --                        tse_serial.txp
-			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp,                                       --                                  .rxp
-			sinc_in_export                                       => CONNECTED_TO_sinc_in_export,                                       --                           sinc_in.export
-			sinc_out_export                                      => CONNECTED_TO_sinc_out_export                                       --                          sinc_out.export
+			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp                                        --                                  .rxp
 		);
 

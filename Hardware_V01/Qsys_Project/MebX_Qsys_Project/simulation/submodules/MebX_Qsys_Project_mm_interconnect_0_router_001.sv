@@ -47,7 +47,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_001_default_decode
      parameter DEFAULT_CHANNEL = 2,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 6 
+               DEFAULT_DESTID = 8 
    )
   (output [106 - 103 : 0] default_destination_id,
    output [16-1 : 0] default_wr_channel,
@@ -134,8 +134,8 @@ module MebX_Qsys_Project_mm_interconnect_0_router_001
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h81200000 - 64'h81100000); 
-    localparam PAD1 = log2ceil(64'h81201800 - 64'h81201000); 
+    localparam PAD0 = log2ceil(64'h41200000 - 64'h41100000); 
+    localparam PAD1 = log2ceil(64'h41201800 - 64'h41201000); 
     localparam PAD2 = log2ceil(64'h88000000 - 64'h84000000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
@@ -190,14 +190,14 @@ module MebX_Qsys_Project_mm_interconnect_0_router_001
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
-    // ( 0x81100000 .. 0x81200000 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 32'h81100000   ) begin
+    // ( 0x41100000 .. 0x41200000 )
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 32'h41100000   ) begin
             src_channel = 16'b010;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
     end
 
-    // ( 0x81201000 .. 0x81201800 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 32'h81201000   ) begin
+    // ( 0x41201000 .. 0x41201800 )
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 32'h41201000   ) begin
             src_channel = 16'b001;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 10;
     end
@@ -205,7 +205,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_001
     // ( 0x84000000 .. 0x88000000 )
     if ( {address[RG:PAD2],{PAD2{1'b0}}} == 32'h84000000   ) begin
             src_channel = 16'b100;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
     end
 
 end

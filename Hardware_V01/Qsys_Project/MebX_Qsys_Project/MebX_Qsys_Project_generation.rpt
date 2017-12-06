@@ -22,6 +22,8 @@ Progress: Adding csense_sdi [altera_avalon_pio 16.1]
 Progress: Parameterizing module csense_sdi
 Progress: Adding csense_sdo [altera_avalon_pio 16.1]
 Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 16.1]
+Progress: Parameterizing module ddr2_address_span_extender
 Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
 Progress: Parameterizing module descriptor_memory
 Progress: Adding dma_M1_M2 [altera_msgdma 16.1]
@@ -135,18 +137,18 @@ Info: MebX_Qsys_Project.sgdma_tx.out/tse_mac.transmit: The sink has a error sign
 Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: Ready latency is 2 for source and 0 for sink. Avalon-ST Adapter will be inserted..
 Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: The source has a error signal of 6 bits, but the sink does not. Avalon-ST Adapter will be inserted.
 Info: MebX_Qsys_Project: Generating MebX_Qsys_Project "MebX_Qsys_Project" for SIM_VHDL
+Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
 Info: Inserting clock-crossing logic between cmd_demux.src1 and cmd_mux_001.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src12 and cmd_mux_012.sink0
-Info: Inserting clock-crossing logic between cmd_demux_008.src0 and cmd_mux_012.sink1
-Info: Inserting clock-crossing logic between cmd_demux_009.src0 and cmd_mux_012.sink2
-Info: Inserting clock-crossing logic between cmd_demux_010.src0 and cmd_mux_001.sink1
-Info: Inserting clock-crossing logic between cmd_demux_011.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between cmd_demux_001.src0 and cmd_mux.sink1
+Info: Inserting clock-crossing logic between cmd_demux_002.src0 and cmd_mux.sink2
+Info: Inserting clock-crossing logic between cmd_demux_003.src0 and cmd_mux_001.sink1
+Info: Inserting clock-crossing logic between cmd_demux_004.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src1 and rsp_mux_001.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src2 and rsp_mux_002.sink0
 Info: Inserting clock-crossing logic between rsp_demux_001.src0 and rsp_mux.sink1
-Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_010.sink0
-Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_011.sink0
-Info: Inserting clock-crossing logic between rsp_demux_012.src0 and rsp_mux.sink12
-Info: Inserting clock-crossing logic between rsp_demux_012.src1 and rsp_mux_008.sink0
-Info: Inserting clock-crossing logic between rsp_demux_012.src2 and rsp_mux_009.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_003.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_004.sink0
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has readdata signal 32 bit wide, but the slave is 256 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has burstcount signal 8 bit wide, but the slave is 3 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has writedata signal 32 bit wide, but the slave is 256 bit wide.
@@ -162,78 +164,79 @@ Info: avalon_st_adapter_001: Inserting timing_adapter: timing_adapter_0
 Info: SEVEN_SEGMENT_CONTROLLER_0: "MebX_Qsys_Project" instantiated SEVEN_SEGMENT_CONTROLLER "SEVEN_SEGMENT_CONTROLLER_0"
 Info: clock_bridge_afi_50: "MebX_Qsys_Project" instantiated altera_avalon_mm_clock_crossing_bridge "clock_bridge_afi_50"
 Info: csense_adc_fo: Starting RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
-Info: csense_adc_fo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_adc_fo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0003_csense_adc_fo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0003_csense_adc_fo_gen//MebX_Qsys_Project_csense_adc_fo_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0003_csense_adc_fo_gen/  ]
+Info: csense_adc_fo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_adc_fo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0003_csense_adc_fo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0003_csense_adc_fo_gen//MebX_Qsys_Project_csense_adc_fo_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0003_csense_adc_fo_gen/  ]
 Info: csense_adc_fo: Done RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
 Info: csense_adc_fo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_adc_fo"
 Info: csense_cs_n: Starting RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
-Info: csense_cs_n:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_cs_n --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0004_csense_cs_n_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0004_csense_cs_n_gen//MebX_Qsys_Project_csense_cs_n_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0004_csense_cs_n_gen/  ]
+Info: csense_cs_n:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_cs_n --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0004_csense_cs_n_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0004_csense_cs_n_gen//MebX_Qsys_Project_csense_cs_n_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0004_csense_cs_n_gen/  ]
 Info: csense_cs_n: Done RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
 Info: csense_cs_n: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_cs_n"
 Info: csense_sdo: Starting RTL generation for module 'MebX_Qsys_Project_csense_sdo'
-Info: csense_sdo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_sdo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0005_csense_sdo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0005_csense_sdo_gen//MebX_Qsys_Project_csense_sdo_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0005_csense_sdo_gen/  ]
+Info: csense_sdo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_sdo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0005_csense_sdo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0005_csense_sdo_gen//MebX_Qsys_Project_csense_sdo_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0005_csense_sdo_gen/  ]
 Info: csense_sdo: Done RTL generation for module 'MebX_Qsys_Project_csense_sdo'
 Info: csense_sdo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_sdo"
+Info: ddr2_address_span_extender: "MebX_Qsys_Project" instantiated altera_address_span_extender "ddr2_address_span_extender"
 Info: descriptor_memory: Starting RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
-Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0006_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0006_descriptor_memory_gen//MebX_Qsys_Project_descriptor_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0006_descriptor_memory_gen/  ]
+Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0007_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0007_descriptor_memory_gen//MebX_Qsys_Project_descriptor_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0007_descriptor_memory_gen/  ]
 Info: descriptor_memory: Done RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
 Info: descriptor_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "descriptor_memory"
 Info: dma_M1_M2: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M1_M2"
 Info: dma_M2_M1: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M2_M1"
 Info: ext_flash: "MebX_Qsys_Project" instantiated altera_generic_tristate_controller "ext_flash"
 Info: jtag_uart_0: Starting RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
-Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0007_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0007_jtag_uart_0_gen//MebX_Qsys_Project_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0007_jtag_uart_0_gen/  ]
+Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0008_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0008_jtag_uart_0_gen//MebX_Qsys_Project_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0008_jtag_uart_0_gen/  ]
 Info: jtag_uart_0: Done RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
 Info: jtag_uart_0: "MebX_Qsys_Project" instantiated altera_avalon_jtag_uart "jtag_uart_0"
 Info: m1_ddr2_i2c_sda: Starting RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
-Info: m1_ddr2_i2c_sda:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_m1_ddr2_i2c_sda --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0008_m1_ddr2_i2c_sda_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0008_m1_ddr2_i2c_sda_gen//MebX_Qsys_Project_m1_ddr2_i2c_sda_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0008_m1_ddr2_i2c_sda_gen/  ]
+Info: m1_ddr2_i2c_sda:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_m1_ddr2_i2c_sda --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0009_m1_ddr2_i2c_sda_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0009_m1_ddr2_i2c_sda_gen//MebX_Qsys_Project_m1_ddr2_i2c_sda_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0009_m1_ddr2_i2c_sda_gen/  ]
 Info: m1_ddr2_i2c_sda: Done RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
 Info: m1_ddr2_i2c_sda: "MebX_Qsys_Project" instantiated altera_avalon_pio "m1_ddr2_i2c_sda"
 Info: m1_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m1_ddr2_memory"
 Info: m2_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m2_ddr2_memory"
 Info: nios2_gen2_0: "MebX_Qsys_Project" instantiated altera_nios2_gen2 "nios2_gen2_0"
 Info: onchip_memory: Starting RTL generation for module 'MebX_Qsys_Project_onchip_memory'
-Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0009_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0009_onchip_memory_gen//MebX_Qsys_Project_onchip_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0009_onchip_memory_gen/  ]
+Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0010_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0010_onchip_memory_gen//MebX_Qsys_Project_onchip_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0010_onchip_memory_gen/  ]
 Info: onchip_memory: Done RTL generation for module 'MebX_Qsys_Project_onchip_memory'
 Info: onchip_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "onchip_memory"
 Info: pio_BUTTON: Starting RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
-Info: pio_BUTTON:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_BUTTON --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0010_pio_BUTTON_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0010_pio_BUTTON_gen//MebX_Qsys_Project_pio_BUTTON_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0010_pio_BUTTON_gen/  ]
+Info: pio_BUTTON:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_BUTTON --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0011_pio_BUTTON_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0011_pio_BUTTON_gen//MebX_Qsys_Project_pio_BUTTON_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0011_pio_BUTTON_gen/  ]
 Info: pio_BUTTON: Done RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
 Info: pio_BUTTON: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_BUTTON"
 Info: pio_DIP: Starting RTL generation for module 'MebX_Qsys_Project_pio_DIP'
-Info: pio_DIP:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_DIP --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0011_pio_DIP_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0011_pio_DIP_gen//MebX_Qsys_Project_pio_DIP_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0011_pio_DIP_gen/  ]
+Info: pio_DIP:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_DIP --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0012_pio_DIP_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0012_pio_DIP_gen//MebX_Qsys_Project_pio_DIP_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0012_pio_DIP_gen/  ]
 Info: pio_DIP: Done RTL generation for module 'MebX_Qsys_Project_pio_DIP'
 Info: pio_DIP: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_DIP"
 Info: pio_EXT: Starting RTL generation for module 'MebX_Qsys_Project_pio_EXT'
-Info: pio_EXT:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_EXT --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0012_pio_EXT_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0012_pio_EXT_gen//MebX_Qsys_Project_pio_EXT_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0012_pio_EXT_gen/  ]
+Info: pio_EXT:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_EXT --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0013_pio_EXT_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0013_pio_EXT_gen//MebX_Qsys_Project_pio_EXT_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0013_pio_EXT_gen/  ]
 Info: pio_EXT: Done RTL generation for module 'MebX_Qsys_Project_pio_EXT'
 Info: pio_EXT: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_EXT"
 Info: pio_LED: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED'
-Info: pio_LED:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0013_pio_LED_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0013_pio_LED_gen//MebX_Qsys_Project_pio_LED_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0013_pio_LED_gen/  ]
+Info: pio_LED:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0014_pio_LED_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0014_pio_LED_gen//MebX_Qsys_Project_pio_LED_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0014_pio_LED_gen/  ]
 Info: pio_LED: Done RTL generation for module 'MebX_Qsys_Project_pio_LED'
 Info: pio_LED: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED"
 Info: pio_LED_painel: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
-Info: pio_LED_painel:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED_painel --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0014_pio_LED_painel_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0014_pio_LED_painel_gen//MebX_Qsys_Project_pio_LED_painel_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0014_pio_LED_painel_gen/  ]
+Info: pio_LED_painel:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED_painel --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0015_pio_LED_painel_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0015_pio_LED_painel_gen//MebX_Qsys_Project_pio_LED_painel_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0015_pio_LED_painel_gen/  ]
 Info: pio_LED_painel: Done RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
 Info: pio_LED_painel: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED_painel"
 Info: sd_dat: Starting RTL generation for module 'MebX_Qsys_Project_sd_dat'
-Info: sd_dat:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_sd_dat --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0015_sd_dat_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0015_sd_dat_gen//MebX_Qsys_Project_sd_dat_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0015_sd_dat_gen/  ]
+Info: sd_dat:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_sd_dat --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0016_sd_dat_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0016_sd_dat_gen//MebX_Qsys_Project_sd_dat_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0016_sd_dat_gen/  ]
 Info: sd_dat: Done RTL generation for module 'MebX_Qsys_Project_sd_dat'
 Info: sd_dat: "MebX_Qsys_Project" instantiated altera_avalon_pio "sd_dat"
 Info: sgdma_rx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
-Info: sgdma_rx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_rx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0016_sgdma_rx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0016_sgdma_rx_gen//MebX_Qsys_Project_sgdma_rx_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0016_sgdma_rx_gen/  ]
+Info: sgdma_rx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_rx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0017_sgdma_rx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0017_sgdma_rx_gen//MebX_Qsys_Project_sgdma_rx_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0017_sgdma_rx_gen/  ]
 Info: sgdma_rx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
 Info: sgdma_rx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_rx"
 Info: sgdma_tx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
-Info: sgdma_tx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_tx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0017_sgdma_tx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0017_sgdma_tx_gen//MebX_Qsys_Project_sgdma_tx_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0017_sgdma_tx_gen/  ]
+Info: sgdma_tx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_tx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0018_sgdma_tx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0018_sgdma_tx_gen//MebX_Qsys_Project_sgdma_tx_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0018_sgdma_tx_gen/  ]
 Info: sgdma_tx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
 Info: sgdma_tx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_tx"
 Info: sysid_qsys: "MebX_Qsys_Project" instantiated altera_avalon_sysid_qsys "sysid_qsys"
 Info: timer_1ms: Starting RTL generation for module 'MebX_Qsys_Project_timer_1ms'
-Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0019_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0019_timer_1ms_gen//MebX_Qsys_Project_timer_1ms_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0019_timer_1ms_gen/  ]
+Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0020_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0020_timer_1ms_gen//MebX_Qsys_Project_timer_1ms_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0020_timer_1ms_gen/  ]
 Info: timer_1ms: Done RTL generation for module 'MebX_Qsys_Project_timer_1ms'
 Info: timer_1ms: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1ms"
 Info: timer_1us: Starting RTL generation for module 'MebX_Qsys_Project_timer_1us'
-Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0020_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0020_timer_1us_gen//MebX_Qsys_Project_timer_1us_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0020_timer_1us_gen/  ]
+Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0021_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0021_timer_1us_gen//MebX_Qsys_Project_timer_1us_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0021_timer_1us_gen/  ]
 Info: timer_1us: Done RTL generation for module 'MebX_Qsys_Project_timer_1us'
 Info: timer_1us: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1us"
 Info: tristate_conduit_bridge_0: "MebX_Qsys_Project" instantiated altera_tristate_conduit_bridge "tristate_conduit_bridge_0"
@@ -255,6 +258,9 @@ Info: avalon_st_adapter_013: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_014: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_015: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_0: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_1"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
@@ -286,9 +292,9 @@ Info: avalon_st_adapter_027: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_028: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_029: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_030: Inserting error_adapter: error_adapter_0
-Info: mm_interconnect_1: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_1"
-Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_2: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_3: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_3"
 Info: irq_mapper: "MebX_Qsys_Project" instantiated altera_irq_mapper "irq_mapper"
 Info: irq_synchronizer: "MebX_Qsys_Project" instantiated altera_irq_clock_crosser "irq_synchronizer"
 Info: avalon_st_adapter: "MebX_Qsys_Project" instantiated altera_avalon_st_adapter "avalon_st_adapter"
@@ -368,27 +374,27 @@ Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardw
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_sv_phase_decode.v
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_sv_wrapper.sv
 Info: cpu: Starting RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
-Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0040_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0040_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0040_cpu_gen/  ]
-Info: cpu: # 2017.12.05 15:49:26 (*) Starting Nios II generation
-Info: cpu: # 2017.12.05 15:49:26 (*)   Checking for plaintext license.
-Info: cpu: # 2017.12.05 15:49:28 (*)   Plaintext license not found.
-Info: cpu: # 2017.12.05 15:49:28 (*)   Checking for encrypted license (non-evaluation).
-Info: cpu: # 2017.12.05 15:49:29 (*)   Encrypted license found.  SOF will not be time-limited.
-Info: cpu: # 2017.12.05 15:49:29 (*)   Elaborating CPU configuration settings
-Info: cpu: # 2017.12.05 15:49:30 (*)   Creating all objects for CPU
-Info: cpu: # 2017.12.05 15:49:30 (*)     Testbench
-Info: cpu: # 2017.12.05 15:49:30 (*)     Instruction decoding
-Info: cpu: # 2017.12.05 15:49:30 (*)       Instruction fields
-Info: cpu: # 2017.12.05 15:49:30 (*)       Instruction decodes
-Info: cpu: # 2017.12.05 15:49:30 (*)       Signals for RTL simulation waveforms
-Info: cpu: # 2017.12.05 15:49:30 (*)       Instruction controls
-Info: cpu: # 2017.12.05 15:49:30 (*)     Pipeline frontend
-Info: cpu: # 2017.12.05 15:49:30 (*)     Pipeline backend
-Info: cpu: # 2017.12.05 15:49:33 (*)   Creating 'C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0040_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_nios2_waves.do'
-Info: cpu: # 2017.12.05 15:49:33 (*)   Generating RTL from CPU objects
-Info: cpu: # 2017.12.05 15:49:34 (*)   Creating encrypted RTL
-Info: cpu: # 2017.12.05 15:49:34 (*)   Creating IP functional simulation model
-Info: cpu: # 2017.12.05 15:49:53 (*) Done Nios II generation
+Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0041_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0041_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0041_cpu_gen/  ]
+Info: cpu: # 2017.12.06 14:19:19 (*) Starting Nios II generation
+Info: cpu: # 2017.12.06 14:19:19 (*)   Checking for plaintext license.
+Info: cpu: # 2017.12.06 14:19:27 (*)   Plaintext license not found.
+Info: cpu: # 2017.12.06 14:19:27 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2017.12.06 14:19:30 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: cpu: # 2017.12.06 14:19:30 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2017.12.06 14:19:30 (*)   Creating all objects for CPU
+Info: cpu: # 2017.12.06 14:19:30 (*)     Testbench
+Info: cpu: # 2017.12.06 14:19:30 (*)     Instruction decoding
+Info: cpu: # 2017.12.06 14:19:30 (*)       Instruction fields
+Info: cpu: # 2017.12.06 14:19:30 (*)       Instruction decodes
+Info: cpu: # 2017.12.06 14:19:31 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2017.12.06 14:19:31 (*)       Instruction controls
+Info: cpu: # 2017.12.06 14:19:31 (*)     Pipeline frontend
+Info: cpu: # 2017.12.06 14:19:31 (*)     Pipeline backend
+Info: cpu: # 2017.12.06 14:19:33 (*)   Creating 'C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0041_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_nios2_waves.do'
+Info: cpu: # 2017.12.06 14:19:33 (*)   Generating RTL from CPU objects
+Info: cpu: # 2017.12.06 14:19:34 (*)   Creating encrypted RTL
+Info: cpu: # 2017.12.06 14:19:34 (*)   Creating IP functional simulation model
+Info: cpu: # 2017.12.06 14:20:02 (*) Done Nios II generation
 Info: cpu: Done RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
 Info: cpu: "nios2_gen2_0" instantiated altera_nios2_gen2_unit "cpu"
 Info: i_tse_mac: "tse_mac" instantiated altera_eth_tse_mac "i_tse_mac"
@@ -490,61 +496,62 @@ Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
 Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
 Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
-Info: router_010: "mm_interconnect_0" instantiated altera_merlin_router "router_010"
-Info: router_012: "mm_interconnect_0" instantiated altera_merlin_router "router_012"
-Info: router_013: "mm_interconnect_0" instantiated altera_merlin_router "router_013"
+Info: router_009: "mm_interconnect_0" instantiated altera_merlin_router "router_009"
+Info: router_016: "mm_interconnect_0" instantiated altera_merlin_router "router_016"
+Info: router_017: "mm_interconnect_0" instantiated altera_merlin_router "router_017"
 Info: router_020: "mm_interconnect_0" instantiated altera_merlin_router "router_020"
 Info: router_021: "mm_interconnect_0" instantiated altera_merlin_router "router_021"
-Info: router_024: "mm_interconnect_0" instantiated altera_merlin_router "router_024"
-Info: router_025: "mm_interconnect_0" instantiated altera_merlin_router "router_025"
-Info: router_026: "mm_interconnect_0" instantiated altera_merlin_router "router_026"
-Info: router_027: "mm_interconnect_0" instantiated altera_merlin_router "router_027"
+Info: router_022: "mm_interconnect_0" instantiated altera_merlin_router "router_022"
 Info: nios2_gen2_0_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_gen2_0_instruction_master_limiter"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_sc_fifo.v
-Info: m2_ddr2_memory_avl_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "m2_ddr2_memory_avl_burst_adapter"
+Info: nios2_gen2_0_debug_mem_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "nios2_gen2_0_debug_mem_slave_burst_adapter"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_st_pipeline_base.v
 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_002"
 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
-Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_001"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_008: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_008"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_012: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_012"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_013: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_013"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
-Info: cmd_mux_014: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_014"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
-Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_demux_008: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_008"
 Info: rsp_demux_012: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_012"
 Info: rsp_demux_013: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_013"
-Info: rsp_demux_014: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_014"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_002"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
-Info: dma_M1_M2_descriptor_slave_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "dma_M1_M2_descriptor_slave_cmd_width_adapter"
+Info: ddr2_address_span_extender_cntl_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "ddr2_address_span_extender_cntl_cmd_width_adapter"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_address_alignment.sv
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_burst_uncompressor.sv
-Info: crosser: "mm_interconnect_0" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_st_pipeline_base.v
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_std_synchronizer_nocut.v
 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: avalon_st_adapter_001: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
 Info: avalon_st_adapter_009: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_009"
-Info: avalon_st_adapter_015: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_015"
+Info: avalon_st_adapter_014: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_014"
 Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
 Info: router_001: "mm_interconnect_1" instantiated altera_merlin_router "router_001"
+Info: router_003: "mm_interconnect_1" instantiated altera_merlin_router "router_003"
+Info: router_005: "mm_interconnect_1" instantiated altera_merlin_router "router_005"
+Info: router_006: "mm_interconnect_1" instantiated altera_merlin_router "router_006"
 Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: crosser: "mm_interconnect_1" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_st_pipeline_base.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_std_synchronizer_nocut.v
+Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: router: "mm_interconnect_2" instantiated altera_merlin_router "router"
 Info: router_001: "mm_interconnect_2" instantiated altera_merlin_router "router_001"
 Info: cmd_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux"
@@ -552,6 +559,14 @@ Info: cmd_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_m
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "rsp_demux"
 Info: rsp_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: router: "mm_interconnect_3" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_3" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
@@ -561,8 +576,9 @@ Info: a0: "c0" instantiated alt_mem_ddrx_mm_st_converter "a0"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_009" instantiated error_adapter "error_adapter_0"
-Info: error_adapter_0: "avalon_st_adapter_015" instantiated error_adapter "error_adapter_0"
-Info: MebX_Qsys_Project: Done "MebX_Qsys_Project" with 120 modules, 639 files
+Info: error_adapter_0: "avalon_st_adapter_014" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: MebX_Qsys_Project: Done "MebX_Qsys_Project" with 130 modules, 649 files
 Info: qsys-generate succeeded.
 Info: Finished: Create simulation model
 Info: Starting: Create Modelsim Project.
@@ -608,6 +624,8 @@ Progress: Adding csense_sdi [altera_avalon_pio 16.1]
 Progress: Parameterizing module csense_sdi
 Progress: Adding csense_sdo [altera_avalon_pio 16.1]
 Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 16.1]
+Progress: Parameterizing module ddr2_address_span_extender
 Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
 Progress: Parameterizing module descriptor_memory
 Progress: Adding dma_M1_M2 [altera_msgdma 16.1]
@@ -747,6 +765,8 @@ Progress: Adding csense_sdi [altera_avalon_pio 16.1]
 Progress: Parameterizing module csense_sdi
 Progress: Adding csense_sdo [altera_avalon_pio 16.1]
 Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 16.1]
+Progress: Parameterizing module ddr2_address_span_extender
 Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
 Progress: Parameterizing module descriptor_memory
 Progress: Adding dma_M1_M2 [altera_msgdma 16.1]
@@ -860,18 +880,18 @@ Info: MebX_Qsys_Project.sgdma_tx.out/tse_mac.transmit: The sink has a error sign
 Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: Ready latency is 2 for source and 0 for sink. Avalon-ST Adapter will be inserted..
 Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: The source has a error signal of 6 bits, but the sink does not. Avalon-ST Adapter will be inserted.
 Info: MebX_Qsys_Project: Generating MebX_Qsys_Project "MebX_Qsys_Project" for QUARTUS_SYNTH
+Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
 Info: Inserting clock-crossing logic between cmd_demux.src1 and cmd_mux_001.sink0
-Info: Inserting clock-crossing logic between cmd_demux.src12 and cmd_mux_012.sink0
-Info: Inserting clock-crossing logic between cmd_demux_008.src0 and cmd_mux_012.sink1
-Info: Inserting clock-crossing logic between cmd_demux_009.src0 and cmd_mux_012.sink2
-Info: Inserting clock-crossing logic between cmd_demux_010.src0 and cmd_mux_001.sink1
-Info: Inserting clock-crossing logic between cmd_demux_011.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between cmd_demux_001.src0 and cmd_mux.sink1
+Info: Inserting clock-crossing logic between cmd_demux_002.src0 and cmd_mux.sink2
+Info: Inserting clock-crossing logic between cmd_demux_003.src0 and cmd_mux_001.sink1
+Info: Inserting clock-crossing logic between cmd_demux_004.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src1 and rsp_mux_001.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src2 and rsp_mux_002.sink0
 Info: Inserting clock-crossing logic between rsp_demux_001.src0 and rsp_mux.sink1
-Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_010.sink0
-Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_011.sink0
-Info: Inserting clock-crossing logic between rsp_demux_012.src0 and rsp_mux.sink12
-Info: Inserting clock-crossing logic between rsp_demux_012.src1 and rsp_mux_008.sink0
-Info: Inserting clock-crossing logic between rsp_demux_012.src2 and rsp_mux_009.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_003.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_004.sink0
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has readdata signal 32 bit wide, but the slave is 256 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has burstcount signal 8 bit wide, but the slave is 3 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has writedata signal 32 bit wide, but the slave is 256 bit wide.
@@ -887,78 +907,79 @@ Info: avalon_st_adapter_001: Inserting timing_adapter: timing_adapter_0
 Info: SEVEN_SEGMENT_CONTROLLER_0: "MebX_Qsys_Project" instantiated SEVEN_SEGMENT_CONTROLLER "SEVEN_SEGMENT_CONTROLLER_0"
 Info: clock_bridge_afi_50: "MebX_Qsys_Project" instantiated altera_avalon_mm_clock_crossing_bridge "clock_bridge_afi_50"
 Info: csense_adc_fo: Starting RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
-Info: csense_adc_fo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_adc_fo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0106_csense_adc_fo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0106_csense_adc_fo_gen//MebX_Qsys_Project_csense_adc_fo_component_configuration.pl  --do_build_sim=0  ]
+Info: csense_adc_fo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_adc_fo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0114_csense_adc_fo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0114_csense_adc_fo_gen//MebX_Qsys_Project_csense_adc_fo_component_configuration.pl  --do_build_sim=0  ]
 Info: csense_adc_fo: Done RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
 Info: csense_adc_fo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_adc_fo"
 Info: csense_cs_n: Starting RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
-Info: csense_cs_n:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_cs_n --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0107_csense_cs_n_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0107_csense_cs_n_gen//MebX_Qsys_Project_csense_cs_n_component_configuration.pl  --do_build_sim=0  ]
+Info: csense_cs_n:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_cs_n --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0115_csense_cs_n_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0115_csense_cs_n_gen//MebX_Qsys_Project_csense_cs_n_component_configuration.pl  --do_build_sim=0  ]
 Info: csense_cs_n: Done RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
 Info: csense_cs_n: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_cs_n"
 Info: csense_sdo: Starting RTL generation for module 'MebX_Qsys_Project_csense_sdo'
-Info: csense_sdo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_sdo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0108_csense_sdo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0108_csense_sdo_gen//MebX_Qsys_Project_csense_sdo_component_configuration.pl  --do_build_sim=0  ]
+Info: csense_sdo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_sdo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0116_csense_sdo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0116_csense_sdo_gen//MebX_Qsys_Project_csense_sdo_component_configuration.pl  --do_build_sim=0  ]
 Info: csense_sdo: Done RTL generation for module 'MebX_Qsys_Project_csense_sdo'
 Info: csense_sdo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_sdo"
+Info: ddr2_address_span_extender: "MebX_Qsys_Project" instantiated altera_address_span_extender "ddr2_address_span_extender"
 Info: descriptor_memory: Starting RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
-Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0109_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0109_descriptor_memory_gen//MebX_Qsys_Project_descriptor_memory_component_configuration.pl  --do_build_sim=0  ]
+Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0118_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0118_descriptor_memory_gen//MebX_Qsys_Project_descriptor_memory_component_configuration.pl  --do_build_sim=0  ]
 Info: descriptor_memory: Done RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
 Info: descriptor_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "descriptor_memory"
 Info: dma_M1_M2: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M1_M2"
 Info: dma_M2_M1: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M2_M1"
 Info: ext_flash: "MebX_Qsys_Project" instantiated altera_generic_tristate_controller "ext_flash"
 Info: jtag_uart_0: Starting RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
-Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0110_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0110_jtag_uart_0_gen//MebX_Qsys_Project_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0119_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0119_jtag_uart_0_gen//MebX_Qsys_Project_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
 Info: jtag_uart_0: Done RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
 Info: jtag_uart_0: "MebX_Qsys_Project" instantiated altera_avalon_jtag_uart "jtag_uart_0"
 Info: m1_ddr2_i2c_sda: Starting RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
-Info: m1_ddr2_i2c_sda:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_m1_ddr2_i2c_sda --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0111_m1_ddr2_i2c_sda_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0111_m1_ddr2_i2c_sda_gen//MebX_Qsys_Project_m1_ddr2_i2c_sda_component_configuration.pl  --do_build_sim=0  ]
+Info: m1_ddr2_i2c_sda:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_m1_ddr2_i2c_sda --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0120_m1_ddr2_i2c_sda_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0120_m1_ddr2_i2c_sda_gen//MebX_Qsys_Project_m1_ddr2_i2c_sda_component_configuration.pl  --do_build_sim=0  ]
 Info: m1_ddr2_i2c_sda: Done RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
 Info: m1_ddr2_i2c_sda: "MebX_Qsys_Project" instantiated altera_avalon_pio "m1_ddr2_i2c_sda"
 Info: m1_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m1_ddr2_memory"
 Info: m2_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m2_ddr2_memory"
 Info: nios2_gen2_0: "MebX_Qsys_Project" instantiated altera_nios2_gen2 "nios2_gen2_0"
 Info: onchip_memory: Starting RTL generation for module 'MebX_Qsys_Project_onchip_memory'
-Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0112_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0112_onchip_memory_gen//MebX_Qsys_Project_onchip_memory_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0121_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0121_onchip_memory_gen//MebX_Qsys_Project_onchip_memory_component_configuration.pl  --do_build_sim=0  ]
 Info: onchip_memory: Done RTL generation for module 'MebX_Qsys_Project_onchip_memory'
 Info: onchip_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "onchip_memory"
 Info: pio_BUTTON: Starting RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
-Info: pio_BUTTON:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_BUTTON --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0113_pio_BUTTON_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0113_pio_BUTTON_gen//MebX_Qsys_Project_pio_BUTTON_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_BUTTON:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_BUTTON --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0122_pio_BUTTON_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0122_pio_BUTTON_gen//MebX_Qsys_Project_pio_BUTTON_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_BUTTON: Done RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
 Info: pio_BUTTON: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_BUTTON"
 Info: pio_DIP: Starting RTL generation for module 'MebX_Qsys_Project_pio_DIP'
-Info: pio_DIP:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_DIP --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0114_pio_DIP_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0114_pio_DIP_gen//MebX_Qsys_Project_pio_DIP_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_DIP:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_DIP --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0123_pio_DIP_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0123_pio_DIP_gen//MebX_Qsys_Project_pio_DIP_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_DIP: Done RTL generation for module 'MebX_Qsys_Project_pio_DIP'
 Info: pio_DIP: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_DIP"
 Info: pio_EXT: Starting RTL generation for module 'MebX_Qsys_Project_pio_EXT'
-Info: pio_EXT:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_EXT --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0115_pio_EXT_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0115_pio_EXT_gen//MebX_Qsys_Project_pio_EXT_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_EXT:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_EXT --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0124_pio_EXT_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0124_pio_EXT_gen//MebX_Qsys_Project_pio_EXT_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_EXT: Done RTL generation for module 'MebX_Qsys_Project_pio_EXT'
 Info: pio_EXT: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_EXT"
 Info: pio_LED: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED'
-Info: pio_LED:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0116_pio_LED_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0116_pio_LED_gen//MebX_Qsys_Project_pio_LED_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_LED:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0125_pio_LED_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0125_pio_LED_gen//MebX_Qsys_Project_pio_LED_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_LED: Done RTL generation for module 'MebX_Qsys_Project_pio_LED'
 Info: pio_LED: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED"
 Info: pio_LED_painel: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
-Info: pio_LED_painel:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED_painel --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0117_pio_LED_painel_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0117_pio_LED_painel_gen//MebX_Qsys_Project_pio_LED_painel_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_LED_painel:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED_painel --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0126_pio_LED_painel_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0126_pio_LED_painel_gen//MebX_Qsys_Project_pio_LED_painel_component_configuration.pl  --do_build_sim=0  ]
 Info: pio_LED_painel: Done RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
 Info: pio_LED_painel: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED_painel"
 Info: sd_dat: Starting RTL generation for module 'MebX_Qsys_Project_sd_dat'
-Info: sd_dat:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_sd_dat --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0118_sd_dat_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0118_sd_dat_gen//MebX_Qsys_Project_sd_dat_component_configuration.pl  --do_build_sim=0  ]
+Info: sd_dat:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_sd_dat --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0127_sd_dat_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0127_sd_dat_gen//MebX_Qsys_Project_sd_dat_component_configuration.pl  --do_build_sim=0  ]
 Info: sd_dat: Done RTL generation for module 'MebX_Qsys_Project_sd_dat'
 Info: sd_dat: "MebX_Qsys_Project" instantiated altera_avalon_pio "sd_dat"
 Info: sgdma_rx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
-Info: sgdma_rx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_rx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0119_sgdma_rx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0119_sgdma_rx_gen//MebX_Qsys_Project_sgdma_rx_component_configuration.pl  --do_build_sim=0  ]
+Info: sgdma_rx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_rx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0128_sgdma_rx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0128_sgdma_rx_gen//MebX_Qsys_Project_sgdma_rx_component_configuration.pl  --do_build_sim=0  ]
 Info: sgdma_rx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
 Info: sgdma_rx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_rx"
 Info: sgdma_tx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
-Info: sgdma_tx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_tx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0120_sgdma_tx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0120_sgdma_tx_gen//MebX_Qsys_Project_sgdma_tx_component_configuration.pl  --do_build_sim=0  ]
+Info: sgdma_tx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_tx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0129_sgdma_tx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0129_sgdma_tx_gen//MebX_Qsys_Project_sgdma_tx_component_configuration.pl  --do_build_sim=0  ]
 Info: sgdma_tx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
 Info: sgdma_tx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_tx"
 Info: sysid_qsys: "MebX_Qsys_Project" instantiated altera_avalon_sysid_qsys "sysid_qsys"
 Info: timer_1ms: Starting RTL generation for module 'MebX_Qsys_Project_timer_1ms'
-Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0122_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0122_timer_1ms_gen//MebX_Qsys_Project_timer_1ms_component_configuration.pl  --do_build_sim=0  ]
+Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0131_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0131_timer_1ms_gen//MebX_Qsys_Project_timer_1ms_component_configuration.pl  --do_build_sim=0  ]
 Info: timer_1ms: Done RTL generation for module 'MebX_Qsys_Project_timer_1ms'
 Info: timer_1ms: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1ms"
 Info: timer_1us: Starting RTL generation for module 'MebX_Qsys_Project_timer_1us'
-Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0123_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0123_timer_1us_gen//MebX_Qsys_Project_timer_1us_component_configuration.pl  --do_build_sim=0  ]
+Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0132_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0132_timer_1us_gen//MebX_Qsys_Project_timer_1us_component_configuration.pl  --do_build_sim=0  ]
 Info: timer_1us: Done RTL generation for module 'MebX_Qsys_Project_timer_1us'
 Info: timer_1us: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1us"
 Info: tristate_conduit_bridge_0: "MebX_Qsys_Project" instantiated altera_tristate_conduit_bridge "tristate_conduit_bridge_0"
@@ -980,6 +1001,9 @@ Info: avalon_st_adapter_013: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_014: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_015: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_0: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_1"
 Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
@@ -1011,9 +1035,9 @@ Info: avalon_st_adapter_027: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_028: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_029: Inserting error_adapter: error_adapter_0
 Info: avalon_st_adapter_030: Inserting error_adapter: error_adapter_0
-Info: mm_interconnect_1: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_1"
-Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
 Info: mm_interconnect_2: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_3: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_3"
 Info: irq_mapper: "MebX_Qsys_Project" instantiated altera_irq_mapper "irq_mapper"
 Info: irq_synchronizer: "MebX_Qsys_Project" instantiated altera_irq_clock_crosser "irq_synchronizer"
 Info: avalon_st_adapter: "MebX_Qsys_Project" instantiated altera_avalon_st_adapter "avalon_st_adapter"
@@ -1107,25 +1131,25 @@ Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardw
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_sv_phase_decode.v
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_sv_wrapper.sv
 Info: cpu: Starting RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
-Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0143_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7505_3740415924374066885.dir/0143_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=0  ]
-Info: cpu: # 2017.12.05 15:52:58 (*) Starting Nios II generation
-Info: cpu: # 2017.12.05 15:52:58 (*)   Checking for plaintext license.
-Info: cpu: # 2017.12.05 15:52:59 (*)   Plaintext license not found.
-Info: cpu: # 2017.12.05 15:52:59 (*)   Checking for encrypted license (non-evaluation).
-Info: cpu: # 2017.12.05 15:53:01 (*)   Encrypted license found.  SOF will not be time-limited.
-Info: cpu: # 2017.12.05 15:53:01 (*)   Elaborating CPU configuration settings
-Info: cpu: # 2017.12.05 15:53:01 (*)   Creating all objects for CPU
-Info: cpu: # 2017.12.05 15:53:01 (*)     Testbench
-Info: cpu: # 2017.12.05 15:53:01 (*)     Instruction decoding
-Info: cpu: # 2017.12.05 15:53:01 (*)       Instruction fields
-Info: cpu: # 2017.12.05 15:53:01 (*)       Instruction decodes
-Info: cpu: # 2017.12.05 15:53:02 (*)       Signals for RTL simulation waveforms
-Info: cpu: # 2017.12.05 15:53:02 (*)       Instruction controls
-Info: cpu: # 2017.12.05 15:53:02 (*)     Pipeline frontend
-Info: cpu: # 2017.12.05 15:53:02 (*)     Pipeline backend
-Info: cpu: # 2017.12.05 15:53:04 (*)   Generating RTL from CPU objects
-Info: cpu: # 2017.12.05 15:53:05 (*)   Creating encrypted RTL
-Info: cpu: # 2017.12.05 15:53:06 (*) Done Nios II generation
+Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0152_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7506_4933999904429248728.dir/0152_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=0  ]
+Info: cpu: # 2017.12.06 14:23:15 (*) Starting Nios II generation
+Info: cpu: # 2017.12.06 14:23:15 (*)   Checking for plaintext license.
+Info: cpu: # 2017.12.06 14:23:16 (*)   Plaintext license not found.
+Info: cpu: # 2017.12.06 14:23:16 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2017.12.06 14:23:19 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: cpu: # 2017.12.06 14:23:19 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2017.12.06 14:23:19 (*)   Creating all objects for CPU
+Info: cpu: # 2017.12.06 14:23:19 (*)     Testbench
+Info: cpu: # 2017.12.06 14:23:19 (*)     Instruction decoding
+Info: cpu: # 2017.12.06 14:23:19 (*)       Instruction fields
+Info: cpu: # 2017.12.06 14:23:19 (*)       Instruction decodes
+Info: cpu: # 2017.12.06 14:23:20 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2017.12.06 14:23:20 (*)       Instruction controls
+Info: cpu: # 2017.12.06 14:23:20 (*)     Pipeline frontend
+Info: cpu: # 2017.12.06 14:23:20 (*)     Pipeline backend
+Info: cpu: # 2017.12.06 14:23:22 (*)   Generating RTL from CPU objects
+Info: cpu: # 2017.12.06 14:23:23 (*)   Creating encrypted RTL
+Info: cpu: # 2017.12.06 14:23:24 (*) Done Nios II generation
 Info: cpu: Done RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
 Info: cpu: "nios2_gen2_0" instantiated altera_nios2_gen2_unit "cpu"
 Info: i_tse_mac: "tse_mac" instantiated altera_eth_tse_mac "i_tse_mac"
@@ -1187,61 +1211,62 @@ Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_
 Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
 Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
 Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
-Info: router_010: "mm_interconnect_0" instantiated altera_merlin_router "router_010"
-Info: router_012: "mm_interconnect_0" instantiated altera_merlin_router "router_012"
-Info: router_013: "mm_interconnect_0" instantiated altera_merlin_router "router_013"
+Info: router_009: "mm_interconnect_0" instantiated altera_merlin_router "router_009"
+Info: router_016: "mm_interconnect_0" instantiated altera_merlin_router "router_016"
+Info: router_017: "mm_interconnect_0" instantiated altera_merlin_router "router_017"
 Info: router_020: "mm_interconnect_0" instantiated altera_merlin_router "router_020"
 Info: router_021: "mm_interconnect_0" instantiated altera_merlin_router "router_021"
-Info: router_024: "mm_interconnect_0" instantiated altera_merlin_router "router_024"
-Info: router_025: "mm_interconnect_0" instantiated altera_merlin_router "router_025"
-Info: router_026: "mm_interconnect_0" instantiated altera_merlin_router "router_026"
-Info: router_027: "mm_interconnect_0" instantiated altera_merlin_router "router_027"
+Info: router_022: "mm_interconnect_0" instantiated altera_merlin_router "router_022"
 Info: nios2_gen2_0_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_gen2_0_instruction_master_limiter"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_sc_fifo.v
-Info: m2_ddr2_memory_avl_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "m2_ddr2_memory_avl_burst_adapter"
+Info: nios2_gen2_0_debug_mem_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "nios2_gen2_0_debug_mem_slave_burst_adapter"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_st_pipeline_base.v
 Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
 Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_002"
 Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: cmd_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_001"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_008: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_008"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_012: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_012"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_013: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_013"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: cmd_mux_014: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_014"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: rsp_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_demux_008: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_008"
 Info: rsp_demux_012: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_012"
 Info: rsp_demux_013: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_013"
-Info: rsp_demux_014: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_014"
 Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_002"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: dma_M1_M2_descriptor_slave_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "dma_M1_M2_descriptor_slave_cmd_width_adapter"
+Info: ddr2_address_span_extender_cntl_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "ddr2_address_span_extender_cntl_cmd_width_adapter"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_address_alignment.sv
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_burst_uncompressor.sv
-Info: crosser: "mm_interconnect_0" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_st_pipeline_base.v
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_std_synchronizer_nocut.v
 Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: avalon_st_adapter_001: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
 Info: avalon_st_adapter_009: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_009"
-Info: avalon_st_adapter_015: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_015"
+Info: avalon_st_adapter_014: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_014"
 Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
 Info: router_001: "mm_interconnect_1" instantiated altera_merlin_router "router_001"
+Info: router_003: "mm_interconnect_1" instantiated altera_merlin_router "router_003"
+Info: router_005: "mm_interconnect_1" instantiated altera_merlin_router "router_005"
+Info: router_006: "mm_interconnect_1" instantiated altera_merlin_router "router_006"
 Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux_001"
 Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: crosser: "mm_interconnect_1" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_std_synchronizer_nocut.v
+Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
 Info: router: "mm_interconnect_2" instantiated altera_merlin_router "router"
 Info: router_001: "mm_interconnect_2" instantiated altera_merlin_router "router_001"
 Info: cmd_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux"
@@ -1249,6 +1274,14 @@ Info: cmd_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_m
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: rsp_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "rsp_demux"
 Info: rsp_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: router: "mm_interconnect_3" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_3" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "rsp_mux"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
@@ -1258,7 +1291,8 @@ Info: a0: "c0" instantiated alt_mem_ddrx_mm_st_converter "a0"
 Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
 Info: error_adapter_0: "avalon_st_adapter_009" instantiated error_adapter "error_adapter_0"
-Info: error_adapter_0: "avalon_st_adapter_015" instantiated error_adapter "error_adapter_0"
-Info: MebX_Qsys_Project: Done "MebX_Qsys_Project" with 120 modules, 498 files
+Info: error_adapter_0: "avalon_st_adapter_014" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: MebX_Qsys_Project: Done "MebX_Qsys_Project" with 130 modules, 508 files
 Info: qsys-generate succeeded.
 Info: Finished: Create HDL design files for synthesis

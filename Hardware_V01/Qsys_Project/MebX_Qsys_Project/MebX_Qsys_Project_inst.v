@@ -73,6 +73,8 @@
 		.sd_cmd_export                                        (<connected-to-sd_cmd_export>),                                        //                            sd_cmd.export
 		.sd_dat_export                                        (<connected-to-sd_dat_export>),                                        //                            sd_dat.export
 		.sd_wp_n_export                                       (<connected-to-sd_wp_n_export>),                                       //                           sd_wp_n.export
+		.sinc_in_export                                       (<connected-to-sinc_in_export>),                                       //                           sinc_in.export
+		.sinc_out_export                                      (<connected-to-sinc_out_export>),                                      //                          sinc_out.export
 		.ssdp_ssdp0                                           (<connected-to-ssdp_ssdp0>),                                           //                              ssdp.ssdp0
 		.ssdp_ssdp1                                           (<connected-to-ssdp_ssdp1>),                                           //                                  .ssdp1
 		.temp_scl_export                                      (<connected-to-temp_scl_export>),                                      //                          temp_scl.export
@@ -112,8 +114,6 @@
 		.tse_mdio_mdio_out                                    (<connected-to-tse_mdio_mdio_out>),                                    //                                  .mdio_out
 		.tse_mdio_mdio_oen                                    (<connected-to-tse_mdio_mdio_oen>),                                    //                                  .mdio_oen
 		.tse_serial_txp                                       (<connected-to-tse_serial_txp>),                                       //                        tse_serial.txp
-		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>),                                       //                                  .rxp
-		.sinc_in_export                                       (<connected-to-sinc_in_export>),                                       //                           sinc_in.export
-		.sinc_out_export                                      (<connected-to-sinc_out_export>)                                       //                          sinc_out.export
+		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>)                                        //                                  .rxp
 	);
 

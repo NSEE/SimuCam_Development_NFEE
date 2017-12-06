@@ -74,6 +74,8 @@ module MebX_Qsys_Project (
 	sd_cmd_export,
 	sd_dat_export,
 	sd_wp_n_export,
+	sinc_in_export,
+	sinc_out_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
 	temp_scl_export,
@@ -113,9 +115,7 @@ module MebX_Qsys_Project (
 	tse_mdio_mdio_out,
 	tse_mdio_mdio_oen,
 	tse_serial_txp,
-	tse_serial_rxp,
-	sinc_in_export,
-	sinc_out_export);	
+	tse_serial_rxp);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -191,6 +191,8 @@ module MebX_Qsys_Project (
 	inout		sd_cmd_export;
 	inout	[3:0]	sd_dat_export;
 	input		sd_wp_n_export;
+	input		sinc_in_export;
+	output		sinc_out_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
 	output		temp_scl_export;
@@ -231,6 +233,4 @@ module MebX_Qsys_Project (
 	output		tse_mdio_mdio_oen;
 	output		tse_serial_txp;
 	input		tse_serial_rxp;
-	input		sinc_in_export;
-	output		sinc_out_export;
 endmodule

@@ -1,5 +1,5 @@
 EDA Netlist Writer report for MebX_Quartus_Project
-Tue Dec 05 16:33:45 2017
+Wed Dec 06 15:15:46 2017
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
@@ -37,7 +37,7 @@ agreement for further details.
 +-------------------------------------------------------------------+
 ; EDA Netlist Writer Summary                                        ;
 +---------------------------+---------------------------------------+
-; EDA Netlist Writer Status ; Successful - Tue Dec 05 16:33:45 2017 ;
+; EDA Netlist Writer Status ; Successful - Wed Dec 06 15:15:46 2017 ;
 ; Revision Name             ; MebX_Quartus_Project                  ;
 ; Top-level Entity Name     ; MebX_TopLevel                         ;
 ; Family                    ; Stratix IV                            ;
@@ -89,7 +89,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime EDA Netlist Writer
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
-    Info: Processing started: Tue Dec 05 16:32:22 2017
+    Info: Processing started: Wed Dec 06 15:14:29 2017
 Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
 Info (204019): Generated file MebX_Quartus_Project_2_900mv_85c_slow.vho in folder "C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Quartus_Project/simulation/modelsim/" for EDA simulation tool
 Info (204019): Generated file MebX_Quartus_Project_2_900mv_0c_slow.vho in folder "C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Quartus_Project/simulation/modelsim/" for EDA simulation tool
@@ -104,9 +104,9 @@ Info (204019): Generated file MebX_Quartus_Project_min_900mv_0c_vhd_fast.sdo in 
 Warning (200000): Double data rate (DDR) timing delays reported by third party timing simulation are preliminary. Run the TimeQuest Timing Analyzer for analyzing delays on paths through the DDR.
 Info (204019): Generated file MebX_Quartus_Project_vhd.sdo in folder "C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Quartus_Project/simulation/modelsim/" for EDA simulation tool
 Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 1321 megabytes
-    Info: Processing ended: Tue Dec 05 16:33:46 2017
-    Info: Elapsed time: 00:01:24
-    Info: Total CPU time (on all processors): 00:01:14
+    Info: Peak virtual memory: 1337 megabytes
+    Info: Processing ended: Wed Dec 06 15:15:47 2017
+    Info: Elapsed time: 00:01:18
+    Info: Total CPU time (on all processors): 00:01:11
 
 

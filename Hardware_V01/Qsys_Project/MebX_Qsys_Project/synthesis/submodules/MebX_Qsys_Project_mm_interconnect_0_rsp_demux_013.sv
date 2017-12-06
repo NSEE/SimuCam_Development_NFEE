@@ -30,7 +30,7 @@
 //   output_name:         MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013
 //   ST_DATA_W:           120
 //   ST_CHANNEL_W:        16
-//   NUM_OUTPUTS:         4
+//   NUM_OUTPUTS:         5
 //   VALID_WIDTH:         1
 // ------------------------------------------
 
@@ -83,6 +83,13 @@ module MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013
     output reg                      src3_endofpacket,
     input                           src3_ready,
 
+    output reg                      src4_valid,
+    output reg [120-1    : 0] src4_data, // ST_DATA_W=120
+    output reg [16-1 : 0] src4_channel, // ST_CHANNEL_W=16
+    output reg                      src4_startofpacket,
+    output reg                      src4_endofpacket,
+    input                           src4_ready,
+
 
     // -------------------
     // Clock & Reset
@@ -94,7 +101,7 @@ module MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013
 
 );
 
-    localparam NUM_OUTPUTS = 4;
+    localparam NUM_OUTPUTS = 5;
     wire [NUM_OUTPUTS - 1 : 0] ready_vector;
 
     // -------------------
@@ -129,6 +136,13 @@ module MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013
 
         src3_valid         = sink_channel[3] && sink_valid;
 
+        src4_data          = sink_data;
+        src4_startofpacket = sink_startofpacket;
+        src4_endofpacket   = sink_endofpacket;
+        src4_channel       = sink_channel >> NUM_OUTPUTS;
+
+        src4_valid         = sink_channel[4] && sink_valid;
+
     end
 
     // -------------------
@@ -138,8 +152,9 @@ module MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013
     assign ready_vector[1] = src1_ready;
     assign ready_vector[2] = src2_ready;
     assign ready_vector[3] = src3_ready;
+    assign ready_vector[4] = src4_ready;
 
-    assign sink_ready = |(sink_channel & {{12{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+    assign sink_ready = |(sink_channel & {{11{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
 
 endmodule
 
