@@ -48,8 +48,8 @@ int main(void)
 
   //Teste inicial das memórias, para entender como o sub-windows funciona
 
-  alt_u32 *pDdr2Addr = DDR2_ADDRESS_SPAN_EXTENDER_CNTL_BASE;
-  alt_u32 *pDdr2DataAddr;
+  //alt_u32 *pDdr2Addr = DDR2_ADDRESS_SPAN_EXTENDER_CNTL_BASE;
+  //alt_u32 *pDdr2DataAddr;
 
   // Coloca o sub-window offset no address 0x00000000
 //  *(pDdr2Addr) = (alt_u32) 0x00000000;
