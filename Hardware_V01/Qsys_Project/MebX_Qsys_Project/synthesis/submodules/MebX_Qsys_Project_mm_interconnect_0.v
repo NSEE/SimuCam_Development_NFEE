@@ -68,7 +68,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		input  wire [63:0]  ddr2_address_span_extender_cntl_readdata,                //                                          .readdata
 		output wire [63:0]  ddr2_address_span_extender_cntl_writedata,               //                                          .writedata
 		output wire [7:0]   ddr2_address_span_extender_cntl_byteenable,              //                                          .byteenable
-		output wire [27:0]  ddr2_address_span_extender_windowed_slave_address,       // ddr2_address_span_extender_windowed_slave.address
+		output wire [28:0]  ddr2_address_span_extender_windowed_slave_address,       // ddr2_address_span_extender_windowed_slave.address
 		output wire         ddr2_address_span_extender_windowed_slave_write,         //                                          .write
 		output wire         ddr2_address_span_extender_windowed_slave_read,          //                                          .read
 		input  wire [31:0]  ddr2_address_span_extender_windowed_slave_readdata,      //                                          .readdata
@@ -2935,7 +2935,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (28),
+		.AV_ADDRESS_W                   (29),
 		.AV_DATA_W                      (32),
 		.UAV_DATA_W                     (32),
 		.AV_BURSTCOUNT_W                (8),

@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>07/12/2017 09:27:27</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1512646047693</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>07/12/2017 16:37:18</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1512671838392</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\software\G3U_DDR2_Extended_Address_Test_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -900,8 +900,8 @@
         </Setting>
         <MemoryMap>
                 <slaveDescriptor>ddr2_address_span_extender_windowed_slave</slaveDescriptor>
-                <addressRange>0x00000000 - 0x3FFFFFFF</addressRange>
-                <addressSpan>1073741824</addressSpan>
+                <addressRange>0x00000000 - 0x7FFFFFFF</addressRange>
+                <addressSpan>2147483648</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>

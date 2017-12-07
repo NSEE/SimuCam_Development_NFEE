@@ -18,9 +18,9 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		output wire [1:0]   afi_ras_n,           //             .afi_ras_n
 		output wire [1:0]   afi_we_n,            //             .afi_we_n
 		output wire [1:0]   afi_cas_n,           //             .afi_cas_n
-		output wire [1:0]   afi_odt,             //             .afi_odt
-		output wire [1:0]   afi_cke,             //             .afi_cke
-		output wire [1:0]   afi_cs_n,            //             .afi_cs_n
+		output wire [3:0]   afi_odt,             //             .afi_odt
+		output wire [3:0]   afi_cke,             //             .afi_cke
+		output wire [3:0]   afi_cs_n,            //             .afi_cs_n
 		output wire [15:0]  afi_dqs_burst,       //             .afi_dqs_burst
 		output wire [15:0]  afi_wdata_valid,     //             .afi_wdata_valid
 		output wire [255:0] afi_wdata,           //             .afi_wdata
@@ -38,7 +38,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		input  wire [5:0]   afi_rlat,            //             .afi_rlat
 		output wire         avl_ready,           //          avl.waitrequest_n
 		input  wire         avl_burstbegin,      //             .beginbursttransfer
-		input  wire [24:0]  avl_addr,            //             .address
+		input  wire [25:0]  avl_addr,            //             .address
 		output wire         avl_rdata_valid,     //             .readdatavalid
 		output wire [255:0] avl_rdata,           //             .readdata
 		input  wire [255:0] avl_wdata,           //             .writedata
@@ -69,7 +69,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 	wire          a0_native_st_itf_rd_data_ready;     // a0:itf_rd_data_ready -> ng0:itf_rd_data_ready
 	wire    [7:0] a0_native_st_itf_cmd_burstlen;      // a0:itf_cmd_burstlen -> ng0:itf_cmd_burstlen
 	wire          a0_native_st_itf_cmd;               // a0:itf_cmd -> ng0:itf_cmd
-	wire   [24:0] a0_native_st_itf_cmd_address;       // a0:itf_cmd_address -> ng0:itf_cmd_address
+	wire   [25:0] a0_native_st_itf_cmd_address;       // a0:itf_cmd_address -> ng0:itf_cmd_address
 	wire    [7:0] a0_native_st_itf_wr_data_id;        // a0:itf_wr_data_id -> ng0:itf_wr_data_id
 
 	alt_mem_if_nextgen_ddr2_controller_core #(
@@ -78,11 +78,11 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.MEM_IF_COL_ADDR_WIDTH            (10),
 		.MEM_IF_DM_WIDTH                  (8),
 		.MEM_IF_DQS_WIDTH                 (8),
-		.MEM_IF_CS_WIDTH                  (1),
+		.MEM_IF_CS_WIDTH                  (2),
 		.MEM_IF_CHIP_BITS                 (1),
 		.MEM_IF_BANKADDR_WIDTH            (3),
 		.MEM_IF_DQ_WIDTH                  (64),
-		.MEM_IF_CLK_EN_WIDTH              (1),
+		.MEM_IF_CLK_EN_WIDTH              (2),
 		.MEM_IF_CLK_PAIR_COUNT            (2),
 		.MEM_TRC                          (22),
 		.MEM_TRAS                         (16),
@@ -94,7 +94,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.MEM_TFAW                         (15),
 		.MEM_TRRD                         (3),
 		.MEM_TRTP                         (3),
-		.MEM_IF_ODT_WIDTH                 (1),
+		.MEM_IF_ODT_WIDTH                 (2),
 		.MEM_WTCL_INT                     (3),
 		.MEM_IF_RD_TO_WR_TURNAROUND_OCT   (3),
 		.MEM_IF_WR_TO_RD_TURNAROUND_OCT   (3),
@@ -107,7 +107,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.CSR_ADDR_WIDTH                   (8),
 		.CSR_DATA_WIDTH                   (32),
 		.CSR_BE_WIDTH                     (4),
-		.AVL_ADDR_WIDTH                   (25),
+		.AVL_ADDR_WIDTH                   (26),
 		.AVL_BE_WIDTH                     (32),
 		.AVL_DATA_WIDTH                   (256),
 		.AVL_SIZE_WIDTH                   (8),
@@ -126,11 +126,11 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.CFG_POWER_SAVING_EXIT_CYCLES     (5),
 		.CFG_MEM_CLK_ENTRY_CYCLES         (20),
 		.CFG_SELF_RFSH_EXIT_CYCLES        (200),
-		.CFG_PORT_WIDTH_WRITE_ODT_CHIP    (1),
-		.CFG_PORT_WIDTH_READ_ODT_CHIP     (1),
-		.CFG_WRITE_ODT_CHIP               (1),
+		.CFG_PORT_WIDTH_WRITE_ODT_CHIP    (4),
+		.CFG_PORT_WIDTH_READ_ODT_CHIP     (4),
+		.CFG_WRITE_ODT_CHIP               (9),
 		.CFG_READ_ODT_CHIP                (0),
-		.LOCAL_CS_WIDTH                   (0),
+		.LOCAL_CS_WIDTH                   (1),
 		.CFG_CLR_INTR                     (0),
 		.CFG_ENABLE_NO_DM                 (0),
 		.MEM_ADD_LAT                      (0),
@@ -156,16 +156,16 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.AFI_ADDR_WIDTH                   (28),
 		.AFI_BANKADDR_WIDTH               (6),
 		.AFI_CONTROL_WIDTH                (2),
-		.AFI_CS_WIDTH                     (2),
-		.AFI_CLK_EN_WIDTH                 (2),
+		.AFI_CS_WIDTH                     (4),
+		.AFI_CLK_EN_WIDTH                 (4),
 		.AFI_DM_WIDTH                     (32),
 		.AFI_DQ_WIDTH                     (256),
-		.AFI_ODT_WIDTH                    (2),
+		.AFI_ODT_WIDTH                    (4),
 		.AFI_WRITE_DQS_WIDTH              (16),
 		.AFI_RLAT_WIDTH                   (6),
 		.AFI_WLAT_WIDTH                   (6),
-		.AFI_RRANK_WIDTH                  (16),
-		.AFI_WRANK_WIDTH                  (16)
+		.AFI_RRANK_WIDTH                  (32),
+		.AFI_WRANK_WIDTH                  (32)
 	) ng0 (
 		.afi_reset_n             (afi_reset_n),                          //    afi_reset.reset_n
 		.afi_half_clk            (afi_half_clk),                         // afi_half_clk.clk
@@ -229,13 +229,13 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.csr_rdata_valid         (),                                     //  (terminated)
 		.local_multicast         (1'b0),                                 //  (terminated)
 		.local_refresh_req       (1'b0),                                 //  (terminated)
-		.local_refresh_chip      (1'b0),                                 //  (terminated)
+		.local_refresh_chip      (2'b00),                                //  (terminated)
 		.local_refresh_ack       (),                                     //  (terminated)
 		.local_self_rfsh_req     (1'b0),                                 //  (terminated)
-		.local_self_rfsh_chip    (1'b0),                                 //  (terminated)
+		.local_self_rfsh_chip    (2'b00),                                //  (terminated)
 		.local_self_rfsh_ack     (),                                     //  (terminated)
 		.local_deep_powerdn_req  (1'b0),                                 //  (terminated)
-		.local_deep_powerdn_chip (1'b0),                                 //  (terminated)
+		.local_deep_powerdn_chip (2'b00),                                //  (terminated)
 		.local_deep_powerdn_ack  (),                                     //  (terminated)
 		.local_powerdn_ack       (),                                     //  (terminated)
 		.local_priority          (1'b0)                                  //  (terminated)
@@ -243,7 +243,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 
 	alt_mem_ddrx_mm_st_converter #(
 		.AVL_SIZE_WIDTH   (8),
-		.AVL_ADDR_WIDTH   (25),
+		.AVL_ADDR_WIDTH   (26),
 		.AVL_DATA_WIDTH   (256),
 		.LOCAL_ID_WIDTH   (8),
 		.CFG_DWIDTH_RATIO (4)

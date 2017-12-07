@@ -134,7 +134,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h40000000 - 64'h0); 
+    localparam PAD0 = log2ceil(64'h80000000 - 64'h0); 
     localparam PAD1 = log2ceil(64'h80000400 - 64'h80000000); 
     localparam PAD2 = log2ceil(64'h81200000 - 64'h81100000); 
     localparam PAD3 = log2ceil(64'h81201000 - 64'h81200800); 
@@ -210,7 +210,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
         // Sets the channel and destination ID based on the address
         // --------------------------------------------------
 
-    // ( 0x0 .. 0x40000000 )
+    // ( 0x0 .. 0x80000000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 32'h0   ) begin
             src_channel = 16'b1000000000000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;

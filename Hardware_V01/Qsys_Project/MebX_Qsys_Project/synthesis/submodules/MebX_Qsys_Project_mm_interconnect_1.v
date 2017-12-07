@@ -23,33 +23,33 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		output wire         ddr2_address_span_extender_expanded_master_readdatavalid,        //                                                          .readdatavalid
 		input  wire         ddr2_address_span_extender_expanded_master_write,                //                                                          .write
 		input  wire [31:0]  ddr2_address_span_extender_expanded_master_writedata,            //                                                          .writedata
-		input  wire [29:0]  dma_M1_M2_mm_read_address,                                       //                                         dma_M1_M2_mm_read.address
+		input  wire [30:0]  dma_M1_M2_mm_read_address,                                       //                                         dma_M1_M2_mm_read.address
 		output wire         dma_M1_M2_mm_read_waitrequest,                                   //                                                          .waitrequest
 		input  wire [7:0]   dma_M1_M2_mm_read_burstcount,                                    //                                                          .burstcount
 		input  wire [7:0]   dma_M1_M2_mm_read_byteenable,                                    //                                                          .byteenable
 		input  wire         dma_M1_M2_mm_read_read,                                          //                                                          .read
 		output wire [63:0]  dma_M1_M2_mm_read_readdata,                                      //                                                          .readdata
 		output wire         dma_M1_M2_mm_read_readdatavalid,                                 //                                                          .readdatavalid
-		input  wire [30:0]  dma_M1_M2_mm_write_address,                                      //                                        dma_M1_M2_mm_write.address
+		input  wire [31:0]  dma_M1_M2_mm_write_address,                                      //                                        dma_M1_M2_mm_write.address
 		output wire         dma_M1_M2_mm_write_waitrequest,                                  //                                                          .waitrequest
 		input  wire [7:0]   dma_M1_M2_mm_write_burstcount,                                   //                                                          .burstcount
 		input  wire [7:0]   dma_M1_M2_mm_write_byteenable,                                   //                                                          .byteenable
 		input  wire         dma_M1_M2_mm_write_write,                                        //                                                          .write
 		input  wire [63:0]  dma_M1_M2_mm_write_writedata,                                    //                                                          .writedata
-		input  wire [30:0]  dma_M2_M1_mm_read_address,                                       //                                         dma_M2_M1_mm_read.address
+		input  wire [31:0]  dma_M2_M1_mm_read_address,                                       //                                         dma_M2_M1_mm_read.address
 		output wire         dma_M2_M1_mm_read_waitrequest,                                   //                                                          .waitrequest
 		input  wire [7:0]   dma_M2_M1_mm_read_burstcount,                                    //                                                          .burstcount
 		input  wire [7:0]   dma_M2_M1_mm_read_byteenable,                                    //                                                          .byteenable
 		input  wire         dma_M2_M1_mm_read_read,                                          //                                                          .read
 		output wire [63:0]  dma_M2_M1_mm_read_readdata,                                      //                                                          .readdata
 		output wire         dma_M2_M1_mm_read_readdatavalid,                                 //                                                          .readdatavalid
-		input  wire [29:0]  dma_M2_M1_mm_write_address,                                      //                                        dma_M2_M1_mm_write.address
+		input  wire [30:0]  dma_M2_M1_mm_write_address,                                      //                                        dma_M2_M1_mm_write.address
 		output wire         dma_M2_M1_mm_write_waitrequest,                                  //                                                          .waitrequest
 		input  wire [7:0]   dma_M2_M1_mm_write_burstcount,                                   //                                                          .burstcount
 		input  wire [7:0]   dma_M2_M1_mm_write_byteenable,                                   //                                                          .byteenable
 		input  wire         dma_M2_M1_mm_write_write,                                        //                                                          .write
 		input  wire [63:0]  dma_M2_M1_mm_write_writedata,                                    //                                                          .writedata
-		output wire [29:0]  m1_clock_bridge_s0_address,                                      //                                        m1_clock_bridge_s0.address
+		output wire [30:0]  m1_clock_bridge_s0_address,                                      //                                        m1_clock_bridge_s0.address
 		output wire         m1_clock_bridge_s0_write,                                        //                                                          .write
 		output wire         m1_clock_bridge_s0_read,                                         //                                                          .read
 		input  wire [63:0]  m1_clock_bridge_s0_readdata,                                     //                                                          .readdata
@@ -59,7 +59,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		input  wire         m1_clock_bridge_s0_readdatavalid,                                //                                                          .readdatavalid
 		input  wire         m1_clock_bridge_s0_waitrequest,                                  //                                                          .waitrequest
 		output wire         m1_clock_bridge_s0_debugaccess,                                  //                                                          .debugaccess
-		output wire [24:0]  m2_ddr2_memory_avl_address,                                      //                                        m2_ddr2_memory_avl.address
+		output wire [25:0]  m2_ddr2_memory_avl_address,                                      //                                        m2_ddr2_memory_avl.address
 		output wire         m2_ddr2_memory_avl_write,                                        //                                                          .write
 		output wire         m2_ddr2_memory_avl_read,                                         //                                                          .read
 		input  wire [255:0] m2_ddr2_memory_avl_readdata,                                     //                                                          .readdata
@@ -573,7 +573,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	altera_merlin_master_translator #(
-		.AV_ADDRESS_W                (31),
+		.AV_ADDRESS_W                (32),
 		.AV_DATA_W                   (64),
 		.AV_BURSTCOUNT_W             (8),
 		.AV_BYTEENABLE_W             (8),
@@ -633,7 +633,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	altera_merlin_master_translator #(
-		.AV_ADDRESS_W                (31),
+		.AV_ADDRESS_W                (32),
 		.AV_DATA_W                   (64),
 		.AV_BURSTCOUNT_W             (8),
 		.AV_BYTEENABLE_W             (8),
@@ -693,7 +693,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	altera_merlin_master_translator #(
-		.AV_ADDRESS_W                (30),
+		.AV_ADDRESS_W                (31),
 		.AV_DATA_W                   (64),
 		.AV_BURSTCOUNT_W             (8),
 		.AV_BYTEENABLE_W             (8),
@@ -753,7 +753,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	altera_merlin_master_translator #(
-		.AV_ADDRESS_W                (30),
+		.AV_ADDRESS_W                (31),
 		.AV_DATA_W                   (64),
 		.AV_BURSTCOUNT_W             (8),
 		.AV_BYTEENABLE_W             (8),
@@ -813,7 +813,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (25),
+		.AV_ADDRESS_W                   (26),
 		.AV_DATA_W                      (256),
 		.UAV_DATA_W                     (256),
 		.AV_BURSTCOUNT_W                (8),
@@ -877,7 +877,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (30),
+		.AV_ADDRESS_W                   (31),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
 		.AV_BURSTCOUNT_W                (8),

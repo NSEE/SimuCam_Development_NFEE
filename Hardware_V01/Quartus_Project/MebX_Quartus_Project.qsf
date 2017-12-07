@@ -296,7 +296,7 @@ set_location_assignment PIN_AC6 -to OSC_50_Bank5
 set_location_assignment PIN_AB6 -to OSC_50_Bank6
 set_location_assignment PIN_A19 -to OSC_50_Bank7
 set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
-set_global_assignment -name UNIPHY_TEMP_VER_CODE 533440147
+set_global_assignment -name UNIPHY_TEMP_VER_CODE 1837840291
 set_global_assignment -name ECO_REGENERATE_REPORT ON
 set_location_assignment PIN_AV20 -to SD_CMD
 set_location_assignment PIN_AT19 -to SD_CLK
@@ -619,11 +619,11 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to OSC_50_BANK4
 set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to OSC_50_BANK5
 set_instance_assignment -name IO_STANDARD "2.5 V" -to OSC_50_BANK6
 set_instance_assignment -name IO_STANDARD "1.8 V" -to OSC_50_BANK7
-set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_cke[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_cke[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_addr[15]
 set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_addr[14]
-set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_cs_n[1]
-set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_odt[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_cs_n[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M2_DDR2_odt[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name IO_STANDARD "1.8 V" -to M2_DDR2_SDA
 set_instance_assignment -name IO_STANDARD "1.8 V" -to M2_DDR2_SCL
 set_instance_assignment -name IO_STANDARD "1.8 V" -to M2_DDR2_SA[0]
@@ -1278,11 +1278,11 @@ set_instance_assignment -name IO_STANDARD "1.8 V" -to CSENSE_SDO
 set_instance_assignment -name IO_STANDARD "1.8 V" -to CSENSE_ADC_FO
 set_instance_assignment -name IO_STANDARD "1.8 V" -to CSENSE_CS_n[0]
 set_instance_assignment -name IO_STANDARD "1.8 V" -to CSENSE_CS_n[1]
-set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_cke[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_cke[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
 set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_addr[15]
 set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_addr[14]
-set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_cs_n[1]
-set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_odt[1]
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_cs_n[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name IO_STANDARD "SSTL-18 CLASS I" -to M1_DDR2_odt[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
 set_instance_assignment -name IO_STANDARD "1.8 V" -to M1_DDR2_SDA
 set_instance_assignment -name IO_STANDARD "1.8 V" -to M1_DDR2_SCL
 set_instance_assignment -name IO_STANDARD "1.8 V" -to M1_DDR2_SA[0]
@@ -2063,4 +2063,16 @@ set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|p0|
 set_instance_assignment -name GLOBAL_SIGNAL OFF -from SOPC_INST|m2_ddr2_memory|pll0|upll_memphy|auto_generated|clk[2] -to SOPC_INST|m2_ddr2_memory|dll0|dll_wys_m -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to SOPC_INST|m2_ddr2_memory -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name PLL_ENFORCE_USER_PHASE_SHIFT ON -to SOPC_INST|m2_ddr2_memory|pll0|upll_memphy|auto_generated|pll1 -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to M1_DDR2_cs_n[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to M1_DDR2_odt[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to M1_DDR2_cke[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to M1_DDR2_cs_n[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to M1_DDR2_odt[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to M1_DDR2_cke[1] -tag __MebX_Qsys_Project_m1_ddr2_memory_p0
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to M2_DDR2_cs_n[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to M2_DDR2_odt[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to M2_DDR2_cke[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to M2_DDR2_cs_n[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to M2_DDR2_odt[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
+set_instance_assignment -name PACKAGE_SKEW_COMPENSATION OFF -to M2_DDR2_cke[1] -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

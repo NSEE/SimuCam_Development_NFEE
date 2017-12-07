@@ -124,15 +124,15 @@ parameter OCT_TERM_CONTROL_WIDTH   = 14;
 parameter MEM_IF_ADDR_WIDTH			= 14;
 parameter MEM_IF_BANKADDR_WIDTH     = 3;
 parameter MEM_IF_CK_WIDTH			= 2;
-parameter MEM_IF_CLK_EN_WIDTH		= 1;
-parameter MEM_IF_CS_WIDTH			= 1;
+parameter MEM_IF_CLK_EN_WIDTH		= 2;
+parameter MEM_IF_CS_WIDTH			= 2;
 parameter MEM_IF_DM_WIDTH         	= 8;
 parameter MEM_IF_CONTROL_WIDTH    	= 1; 
 parameter MEM_IF_DQ_WIDTH         	= 64;
 parameter MEM_IF_DQS_WIDTH         	= 8;
 parameter MEM_IF_READ_DQS_WIDTH    	= 8;
 parameter MEM_IF_WRITE_DQS_WIDTH   	= 8;
-parameter MEM_IF_ODT_WIDTH         	= 1;
+parameter MEM_IF_ODT_WIDTH         	= 2;
 
 // PHY-Controller (AFI) Interface
 // The AFI interface widths are derived from the memory interface widths based on full/half rate operations.
@@ -140,10 +140,10 @@ parameter MEM_IF_ODT_WIDTH         	= 1;
 parameter AFI_ADDR_WIDTH 	        = 28; 
 parameter AFI_DM_WIDTH 	        	= 32; 
 parameter AFI_BANKADDR_WIDTH        = 6; 
-parameter AFI_CS_WIDTH				= 2;
-parameter AFI_CLK_EN_WIDTH			= 2;
+parameter AFI_CS_WIDTH				= 4;
+parameter AFI_CLK_EN_WIDTH			= 4;
 parameter AFI_CONTROL_WIDTH         = 2; 
-parameter AFI_ODT_WIDTH             = 2; 
+parameter AFI_ODT_WIDTH             = 4; 
 parameter AFI_DQ_WIDTH				= 256; 
 parameter AFI_WRITE_DQS_WIDTH		= 16;
 parameter AFI_RATE_RATIO			= 2;

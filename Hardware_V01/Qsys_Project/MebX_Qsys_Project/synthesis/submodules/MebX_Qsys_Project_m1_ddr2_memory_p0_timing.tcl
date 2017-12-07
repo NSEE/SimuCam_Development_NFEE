@@ -50,8 +50,8 @@ set t(IS) 0.575
 set t(IH) 0.5
 
 # Data Setup/Hold
-set t(DS) 0.446
-set t(DH) 0.356
+set t(DS) 0.453
+set t(DH) 0.362
 
 # DQS clock edge to DQ data edge (in same group)
 set t(DQSQ) [expr { 200 / 1000.0 }]
@@ -129,8 +129,8 @@ set SSN(rel_pullin_i)  [expr [get_micro_node_delay -micro SSI -parameters [list 
 # Intersymbol Interference
 set ISI(addresscmd_setup) 0.0
 set ISI(addresscmd_hold) 0.0
-set ISI(DQ) 0.0
-set ISI(DQS) 0.0
+set ISI(DQ) 0.006
+set ISI(DQS) 0.007
 
 # Board skews
 set board(abs_max_CK_delay) 0.6

@@ -394,6 +394,8 @@ int main(void)
   }
 */
 
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
 
   //Realiza teste dos LEDS, entra em um loop infinito.
   //TestLeds();
@@ -414,18 +416,26 @@ int main(void)
   //DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
   //DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
   
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+
   //Teste de transferencia com DMA (M1 -> M2);
   TestDMA_M1_M2();
   
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+
   //Teste de transferencia com DMA (M2 -> M1);
   TestDMA_M2_M1();
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 
   //TestLeds();
   //TestRTCC();
   //TestSinc();
 
-	alt_8 tempFPGA = 0;
-	alt_8 tempBoard = 0;
+
 	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
 	while(1){
 
@@ -642,6 +652,9 @@ void TestLeds (void){
 
 bool TestDMA_M1_M2(void){
 
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
+
   alt_msgdma_dev *DMADev = NULL;
 
   if (DMA_OPEN_DEVICE(&DMADev, (char *)DMA_M1_M2_CSR_NAME) == FALSE){
@@ -656,56 +669,47 @@ bool TestDMA_M1_M2(void){
 
   alt_u32 control_bits = 0x00000000;
   
-  const alt_u32 step = DDR2_M1_MEMORY_SIZE/16;
-  alt_u32 read_addr_arr[16];
-    read_addr_arr[0] = DDR2_M1_MEMORY_BASE;
-    read_addr_arr[1] = read_addr_arr[0] + step;
-    read_addr_arr[2] = read_addr_arr[1] + step;
-    read_addr_arr[3] = read_addr_arr[2] + step;
-    read_addr_arr[4] = read_addr_arr[3] + step;
-    read_addr_arr[5] = read_addr_arr[4] + step;
-    read_addr_arr[6] = read_addr_arr[5] + step;
-    read_addr_arr[7] = read_addr_arr[6] + step;
-    read_addr_arr[8] = read_addr_arr[7] + step;
-    read_addr_arr[9] = read_addr_arr[8] + step;
-    read_addr_arr[10] = read_addr_arr[9] + step;
-    read_addr_arr[11] = read_addr_arr[10] + step;
-    read_addr_arr[12] = read_addr_arr[11] + step;
-    read_addr_arr[13] = read_addr_arr[12] + step;
-    read_addr_arr[14] = read_addr_arr[13] + step;
-    read_addr_arr[15] = read_addr_arr[14] + step;
+  alt_u8 ns;
+  const alt_u8 nun_steps = 32;
+  const alt_u32 step = DDR2_M1_MEMORY_SIZE/nun_steps;
 
-  alt_u32 write_addr_arr[16];
-    write_addr_arr[0] = DDR2_M2_MEMORY_BASE;
-    write_addr_arr[1] = write_addr_arr[0] + step;
-    write_addr_arr[2] = write_addr_arr[1] + step;
-    write_addr_arr[3] = write_addr_arr[2] + step;
-    write_addr_arr[4] = write_addr_arr[3] + step;
-    write_addr_arr[5] = write_addr_arr[4] + step;
-    write_addr_arr[6] = write_addr_arr[5] + step;
-    write_addr_arr[7] = write_addr_arr[6] + step;
-    write_addr_arr[8] = write_addr_arr[7] + step;
-    write_addr_arr[9] = write_addr_arr[8] + step;
-    write_addr_arr[10] = write_addr_arr[9] + step;
-    write_addr_arr[11] = write_addr_arr[10] + step;
-    write_addr_arr[12] = write_addr_arr[11] + step;
-    write_addr_arr[13] = write_addr_arr[12] + step;
-    write_addr_arr[14] = write_addr_arr[13] + step;
-    write_addr_arr[15] = write_addr_arr[14] + step;
+  alt_u32 read_addr_arr[nun_steps];
+  read_addr_arr[0] = DDR2_M1_MEMORY_BASE;
+  for (ns = 1; ns < nun_steps; ns++) {
+	read_addr_arr[ns] = read_addr_arr[ns-1] + step;
+  }
+
+  alt_u32 write_addr_arr[nun_steps];
+  write_addr_arr[0] = DDR2_M2_MEMORY_BASE;
+  for (ns = 1; ns < nun_steps; ns++) {
+	  write_addr_arr[ns] = write_addr_arr[ns-1] + step;
+  }
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 
   DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
 	
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+
   DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 
   int TimeStart, TimeElapsed = 0;
 
   TimeStart = alt_nticks();
-  if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, 16, step, control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+  if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, nun_steps, step, control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
     printf("Error During DMA Transfer");
     return FALSE;
   }
   TimeElapsed = alt_nticks() - TimeStart;
   printf("%.3f sec\n", (float)TimeElapsed/(float)alt_ticks_per_second());
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 
   if (DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME) == TRUE){
     printf("Transfer executed correctly\n");
@@ -718,6 +722,9 @@ bool TestDMA_M1_M2(void){
 }
 
 bool TestDMA_M2_M1(void){
+
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
 
   alt_msgdma_dev *DMADev = NULL;
 
@@ -733,56 +740,47 @@ bool TestDMA_M2_M1(void){
 
   alt_u32 control_bits = 0x00000000;
   
-  const alt_u32 step = DDR2_M2_MEMORY_SIZE/16;
-  alt_u32 read_addr_arr[16];
-    read_addr_arr[0] = DDR2_M2_MEMORY_BASE;
-    read_addr_arr[1] = read_addr_arr[0] + step;
-    read_addr_arr[2] = read_addr_arr[1] + step;
-    read_addr_arr[3] = read_addr_arr[2] + step;
-    read_addr_arr[4] = read_addr_arr[3] + step;
-    read_addr_arr[5] = read_addr_arr[4] + step;
-    read_addr_arr[6] = read_addr_arr[5] + step;
-    read_addr_arr[7] = read_addr_arr[6] + step;
-    read_addr_arr[8] = read_addr_arr[7] + step;
-    read_addr_arr[9] = read_addr_arr[8] + step;
-    read_addr_arr[10] = read_addr_arr[9] + step;
-    read_addr_arr[11] = read_addr_arr[10] + step;
-    read_addr_arr[12] = read_addr_arr[11] + step;
-    read_addr_arr[13] = read_addr_arr[12] + step;
-    read_addr_arr[14] = read_addr_arr[13] + step;
-    read_addr_arr[15] = read_addr_arr[14] + step;
+  alt_u8 ns;
+  const alt_u8 nun_steps = 32;
+  const alt_u32 step = DDR2_M2_MEMORY_SIZE/nun_steps;
 
-  alt_u32 write_addr_arr[16];
-    write_addr_arr[0] = DDR2_M1_MEMORY_BASE;
-    write_addr_arr[1] = write_addr_arr[0] + step;
-    write_addr_arr[2] = write_addr_arr[1] + step;
-    write_addr_arr[3] = write_addr_arr[2] + step;
-    write_addr_arr[4] = write_addr_arr[3] + step;
-    write_addr_arr[5] = write_addr_arr[4] + step;
-    write_addr_arr[6] = write_addr_arr[5] + step;
-    write_addr_arr[7] = write_addr_arr[6] + step;
-    write_addr_arr[8] = write_addr_arr[7] + step;
-    write_addr_arr[9] = write_addr_arr[8] + step;
-    write_addr_arr[10] = write_addr_arr[9] + step;
-    write_addr_arr[11] = write_addr_arr[10] + step;
-    write_addr_arr[12] = write_addr_arr[11] + step;
-    write_addr_arr[13] = write_addr_arr[12] + step;
-    write_addr_arr[14] = write_addr_arr[13] + step;
-    write_addr_arr[15] = write_addr_arr[14] + step;
+  alt_u32 read_addr_arr[nun_steps];
+  read_addr_arr[0] = DDR2_M2_MEMORY_BASE;
+  for (ns = 1; ns < nun_steps; ns++) {
+	read_addr_arr[ns] = read_addr_arr[ns-1] + step;
+  }
+
+  alt_u32 write_addr_arr[nun_steps];
+  write_addr_arr[0] = DDR2_M1_MEMORY_BASE;
+  for (ns = 1; ns < nun_steps; ns++) {
+	  write_addr_arr[ns] = write_addr_arr[ns-1] + step;
+  }
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 
   DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
 
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+
   DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 	
   int TimeStart, TimeElapsed = 0;
 
   TimeStart = alt_nticks();
-  if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, 16, step, control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+  if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, nun_steps, step, control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
     printf("Error During DMA Transfer");
     return FALSE;
   }
   TimeElapsed = alt_nticks() - TimeStart;
   printf("%.3f sec\n", (float)TimeElapsed/(float)alt_ticks_per_second());
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
 
   if (DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME) == TRUE){
     printf("Transfer executed correctly\n");

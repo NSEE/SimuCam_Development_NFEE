@@ -135,8 +135,8 @@ module MebX_Qsys_Project (
 	output	[2:0]	m1_ddr2_memory_mem_ba;
 	output	[1:0]	m1_ddr2_memory_mem_ck;
 	output	[1:0]	m1_ddr2_memory_mem_ck_n;
-	output	[0:0]	m1_ddr2_memory_mem_cke;
-	output	[0:0]	m1_ddr2_memory_mem_cs_n;
+	output	[1:0]	m1_ddr2_memory_mem_cke;
+	output	[1:0]	m1_ddr2_memory_mem_cs_n;
 	output	[7:0]	m1_ddr2_memory_mem_dm;
 	output	[0:0]	m1_ddr2_memory_mem_ras_n;
 	output	[0:0]	m1_ddr2_memory_mem_cas_n;
@@ -144,7 +144,7 @@ module MebX_Qsys_Project (
 	inout	[63:0]	m1_ddr2_memory_mem_dq;
 	inout	[7:0]	m1_ddr2_memory_mem_dqs;
 	inout	[7:0]	m1_ddr2_memory_mem_dqs_n;
-	output	[0:0]	m1_ddr2_memory_mem_odt;
+	output	[1:0]	m1_ddr2_memory_mem_odt;
 	input		m1_ddr2_memory_pll_ref_clk_clk;
 	output		m1_ddr2_memory_status_local_init_done;
 	output		m1_ddr2_memory_status_local_cal_success;
@@ -157,8 +157,8 @@ module MebX_Qsys_Project (
 	output	[2:0]	m2_ddr2_memory_mem_ba;
 	output	[1:0]	m2_ddr2_memory_mem_ck;
 	output	[1:0]	m2_ddr2_memory_mem_ck_n;
-	output	[0:0]	m2_ddr2_memory_mem_cke;
-	output	[0:0]	m2_ddr2_memory_mem_cs_n;
+	output	[1:0]	m2_ddr2_memory_mem_cke;
+	output	[1:0]	m2_ddr2_memory_mem_cs_n;
 	output	[7:0]	m2_ddr2_memory_mem_dm;
 	output	[0:0]	m2_ddr2_memory_mem_ras_n;
 	output	[0:0]	m2_ddr2_memory_mem_cas_n;
@@ -166,7 +166,7 @@ module MebX_Qsys_Project (
 	inout	[63:0]	m2_ddr2_memory_mem_dq;
 	inout	[7:0]	m2_ddr2_memory_mem_dqs;
 	inout	[7:0]	m2_ddr2_memory_mem_dqs_n;
-	output	[0:0]	m2_ddr2_memory_mem_odt;
+	output	[1:0]	m2_ddr2_memory_mem_odt;
 	input		m2_ddr2_memory_dll_sharing_dll_pll_locked;
 	output	[5:0]	m2_ddr2_memory_dll_sharing_dll_delayctrl;
 	output		m2_ddr2_memory_pll_sharing_pll_mem_clk;

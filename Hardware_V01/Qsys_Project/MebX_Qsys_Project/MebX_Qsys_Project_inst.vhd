@@ -18,8 +18,8 @@
 			m1_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     -- mem_ba
 			m1_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     -- mem_ck
 			m1_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     -- mem_ck_n
-			m1_ddr2_memory_mem_cke                               : out   std_logic_vector(0 downto 0);                     -- mem_cke
-			m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(0 downto 0);                     -- mem_cs_n
+			m1_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     -- mem_cke
+			m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     -- mem_cs_n
 			m1_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     -- mem_dm
 			m1_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     -- mem_ras_n
 			m1_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     -- mem_cas_n
@@ -27,7 +27,7 @@
 			m1_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => 'X'); -- mem_dq
 			m1_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dqs
 			m1_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dqs_n
-			m1_ddr2_memory_mem_odt                               : out   std_logic_vector(0 downto 0);                     -- mem_odt
+			m1_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     -- mem_odt
 			m1_ddr2_memory_pll_ref_clk_clk                       : in    std_logic                     := 'X';             -- clk
 			m1_ddr2_memory_status_local_init_done                : out   std_logic;                                        -- local_init_done
 			m1_ddr2_memory_status_local_cal_success              : out   std_logic;                                        -- local_cal_success
@@ -40,8 +40,8 @@
 			m2_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     -- mem_ba
 			m2_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     -- mem_ck
 			m2_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     -- mem_ck_n
-			m2_ddr2_memory_mem_cke                               : out   std_logic_vector(0 downto 0);                     -- mem_cke
-			m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(0 downto 0);                     -- mem_cs_n
+			m2_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     -- mem_cke
+			m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     -- mem_cs_n
 			m2_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     -- mem_dm
 			m2_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     -- mem_ras_n
 			m2_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     -- mem_cas_n
@@ -49,7 +49,7 @@
 			m2_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => 'X'); -- mem_dq
 			m2_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dqs
 			m2_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => 'X'); -- mem_dqs_n
-			m2_ddr2_memory_mem_odt                               : out   std_logic_vector(0 downto 0);                     -- mem_odt
+			m2_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     -- mem_odt
 			m2_ddr2_memory_dll_sharing_dll_pll_locked            : in    std_logic                     := 'X';             -- dll_pll_locked
 			m2_ddr2_memory_dll_sharing_dll_delayctrl             : out   std_logic_vector(5 downto 0);                     -- dll_delayctrl
 			m2_ddr2_memory_pll_sharing_pll_mem_clk               : out   std_logic;                                        -- pll_mem_clk
