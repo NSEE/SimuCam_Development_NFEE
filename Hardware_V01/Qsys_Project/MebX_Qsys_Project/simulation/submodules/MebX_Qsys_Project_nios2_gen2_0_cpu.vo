@@ -14594,8 +14594,8 @@ module  MebX_Qsys_Project_nios2_gen2_0_cpu
 	assign		wire_n0100l_dataout = (ni0lOli === 1'b1) ? n0li0i : n0iiOi;
 	assign		wire_n0100O_dataout = (ni0lOli === 1'b1) ? n0li0l : n0iiOl;
 	and(wire_n0101i_dataout, wire_n01l1i_dataout, ~(n011l1l));
-	or(wire_n0101l_dataout, wire_n01l1l_dataout, n011l1l);
-	and(wire_n0101O_dataout, wire_n01l1O_dataout, ~(n011l1l));
+	and(wire_n0101l_dataout, wire_n01l1l_dataout, ~(n011l1l));
+	or(wire_n0101O_dataout, wire_n01l1O_dataout, n011l1l);
 	assign		wire_n010ii_dataout = (ni0lOli === 1'b1) ? n0li0O : n0iiOO;
 	assign		wire_n010il_dataout = (ni0lOli === 1'b1) ? n0liii : n0il1i;
 	assign		wire_n010iO_dataout = (ni0lOli === 1'b1) ? n0liil : n0il1l;
@@ -14722,7 +14722,7 @@ module  MebX_Qsys_Project_nios2_gen2_0_cpu
 	and(wire_n0i0liO_dataout, wire_n0i0O1i_dataout, ~(n1O0ill));
 	assign		wire_n0i0ll_dataout = ((~ n01000O) === 1'b1) ? wire_nlO1ilO_dataout : n00Oil;
 	and(wire_n0i0lli_dataout, wire_n0i0lOO_dataout, ~(n1O0ill));
-	and(wire_n0i0lll_dataout, wire_n0i0O1i_dataout, ~(n1O0ill));
+	or(wire_n0i0lll_dataout, wire_n0i0O1i_dataout, n1O0ill);
 	and(wire_n0i0llO_dataout, wire_n0i0O1l_dataout, ~(n1O0i0l));
 	assign		wire_n0i0lO_dataout = ((~ n01000O) === 1'b1) ? wire_nlO1iOi_dataout : n00OiO;
 	and(wire_n0i0lOi_dataout, n1O0i0O, ~(n1O0i0l));
@@ -15050,7 +15050,7 @@ module  MebX_Qsys_Project_nios2_gen2_0_cpu
 	assign		wire_n0l1i1l_dataout = (n0il1lO === 1'b1) ? wire_n0i0iil_q_a[24] : n1O0ill;
 	assign		wire_n0l1i1O_dataout = (n0il1lO === 1'b1) ? wire_n0i0iil_q_a[25] : wire_n0i0lil_dataout;
 	assign		wire_n0l1iii_dataout = (n0il1lO === 1'b1) ? wire_n0i0iil_q_a[29] : wire_n0i0lli_dataout;
-	assign		wire_n0l1iil_dataout = (n0il1lO === 1'b1) ? wire_n0i0iil_q_a[30] : n1O0ill;
+	and(wire_n0l1iil_dataout, wire_n0i0iil_q_a[30], n0il1lO);
 	assign		wire_n0l1iiO_dataout = (n0il1lO === 1'b1) ? wire_n0i0iil_q_a[31] : wire_n0i0lll_dataout;
 	assign		wire_n0l1l_dataout = (n101ll === 1'b1) ? n101ii : wire_ni11l_dataout;
 	assign		wire_n0l1O_dataout = (n101ll === 1'b1) ? n101il : wire_ni11O_dataout;
@@ -15326,8 +15326,8 @@ module  MebX_Qsys_Project_nios2_gen2_0_cpu
 	and(wire_n1OO0l_dataout, wire_n0100l_dataout, ~(n011l1l));
 	and(wire_n1OO0O_dataout, wire_n0100O_dataout, ~(n011l1l));
 	and(wire_n1OO1i_dataout, wire_n0101i_dataout, ~(n011iOl));
-	or(wire_n1OO1l_dataout, wire_n0101l_dataout, n011iOl);
-	and(wire_n1OO1O_dataout, wire_n0101O_dataout, ~(n011iOl));
+	and(wire_n1OO1l_dataout, wire_n0101l_dataout, ~(n011iOl));
+	or(wire_n1OO1O_dataout, wire_n0101O_dataout, n011iOl);
 	or(wire_n1OOii_dataout, wire_n010ii_dataout, n011l1l);
 	and(wire_n1OOil_dataout, wire_n010il_dataout, ~(n011l1l));
 	and(wire_n1OOiO_dataout, wire_n010iO_dataout, ~(n011l1l));

@@ -363,6 +363,14 @@
    type="SYSTEM_VERILOG"
    library="rsp_demux" />
  <file
+   path="simulation/submodules/MebX_Qsys_Project_mm_interconnect_1_cmd_mux_001.sv"
+   type="SYSTEM_VERILOG"
+   library="cmd_mux_001" />
+ <file
+   path="simulation/submodules/altera_merlin_arbitrator.sv"
+   type="SYSTEM_VERILOG"
+   library="cmd_mux_001" />
+ <file
    path="simulation/submodules/MebX_Qsys_Project_mm_interconnect_1_cmd_mux.sv"
    type="SYSTEM_VERILOG"
    library="cmd_mux" />

@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 196 win32 2017.12.06.14:20:13
+# ACDS 16.1 196 win32 2017.12.06.20:12:53
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -101,7 +101,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 196 win32 2017.12.06.14:20:13
+# ACDS 16.1 196 win32 2017.12.06.20:12:53
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="MebX_Qsys_Project"
@@ -155,6 +155,7 @@ mkdir -p ./libraries/avalon_st_adapter/
 mkdir -p ./libraries/crosser/
 mkdir -p ./libraries/rsp_mux_001/
 mkdir -p ./libraries/rsp_demux_001/
+mkdir -p ./libraries/cmd_mux_001/
 mkdir -p ./libraries/cmd_demux_001/
 mkdir -p ./libraries/router_006/
 mkdir -p ./libraries/router_005/
@@ -389,6 +390,8 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux_001.sv"                                       -work rsp_demux_001                                    
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux.sv"                                           -work rsp_demux                                        
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_cmd_mux_001.sv"                                         -work cmd_mux_001                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_001                                      
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_cmd_mux.sv"                                             -work cmd_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_cmd_demux_001.sv"                                       -work cmd_demux_001                                    

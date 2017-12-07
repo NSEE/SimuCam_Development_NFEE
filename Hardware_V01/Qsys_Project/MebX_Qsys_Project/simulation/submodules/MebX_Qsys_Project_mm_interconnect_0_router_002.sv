@@ -134,13 +134,13 @@ module MebX_Qsys_Project_mm_interconnect_0_router_002
     // Figure out the number of bits to mask off for each slave span
     // during address decoding
     // -------------------------------------------------------
-    localparam PAD0 = log2ceil(64'h41200000 - 64'h41100000); 
+    localparam PAD0 = log2ceil(64'h81200000 - 64'h81100000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h41200000;
+    localparam ADDR_RANGE = 64'h81200000;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -184,7 +184,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_002
         // --------------------------------------------------
            
          
-          // ( 41100000 .. 41200000 )
+          // ( 81100000 .. 81200000 )
           src_channel = 16'b1;
           src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
 	     

@@ -16,6 +16,7 @@ avalon_st_adapter:                                 ./libraries/avalon_st_adapter
 crosser:                                           ./libraries/crosser/                                          
 rsp_mux_001:                                       ./libraries/rsp_mux_001/                                      
 rsp_demux_001:                                     ./libraries/rsp_demux_001/                                    
+cmd_mux_001:                                       ./libraries/cmd_mux_001/                                      
 cmd_demux_001:                                     ./libraries/cmd_demux_001/                                    
 router_006:                                        ./libraries/router_006/                                       
 router_005:                                        ./libraries/router_005/                                       

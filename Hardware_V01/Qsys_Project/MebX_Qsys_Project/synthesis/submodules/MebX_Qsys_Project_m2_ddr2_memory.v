@@ -37,7 +37,7 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 		input  wire [31:0]  avl_be,                    //                 .byteenable
 		input  wire         avl_read_req,              //                 .read
 		input  wire         avl_write_req,             //                 .write
-		input  wire [2:0]   avl_size,                  //                 .burstcount
+		input  wire [7:0]   avl_size,                  //                 .burstcount
 		output wire         local_init_done,           //           status.local_init_done
 		output wire         local_cal_success,         //                 .local_cal_success
 		output wire         local_cal_fail,            //                 .local_cal_fail

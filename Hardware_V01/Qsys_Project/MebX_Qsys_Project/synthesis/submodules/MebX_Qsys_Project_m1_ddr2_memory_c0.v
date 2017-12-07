@@ -45,7 +45,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		input  wire [31:0]  avl_be,              //             .byteenable
 		input  wire         avl_read_req,        //             .read
 		input  wire         avl_write_req,       //             .write
-		input  wire [2:0]   avl_size             //             .burstcount
+		input  wire [7:0]   avl_size             //             .burstcount
 	);
 
 	wire          a0_native_st_itf_wr_data_begin;     // a0:itf_wr_data_begin -> ng0:itf_wr_data_begin
@@ -67,7 +67,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 	wire          a0_native_st_itf_cmd_valid;         // a0:itf_cmd_valid -> ng0:itf_cmd_valid
 	wire          ng0_native_st_itf_wr_data_ready;    // ng0:itf_wr_data_ready -> a0:itf_wr_data_ready
 	wire          a0_native_st_itf_rd_data_ready;     // a0:itf_rd_data_ready -> ng0:itf_rd_data_ready
-	wire    [2:0] a0_native_st_itf_cmd_burstlen;      // a0:itf_cmd_burstlen -> ng0:itf_cmd_burstlen
+	wire    [7:0] a0_native_st_itf_cmd_burstlen;      // a0:itf_cmd_burstlen -> ng0:itf_cmd_burstlen
 	wire          a0_native_st_itf_cmd;               // a0:itf_cmd -> ng0:itf_cmd
 	wire   [24:0] a0_native_st_itf_cmd_address;       // a0:itf_cmd_address -> ng0:itf_cmd_address
 	wire    [7:0] a0_native_st_itf_wr_data_id;        // a0:itf_wr_data_id -> ng0:itf_wr_data_id
@@ -95,13 +95,13 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.MEM_TRRD                         (3),
 		.MEM_TRTP                         (3),
 		.MEM_IF_ODT_WIDTH                 (1),
-		.MEM_WTCL_INT                     (5),
+		.MEM_WTCL_INT                     (3),
 		.MEM_IF_RD_TO_WR_TURNAROUND_OCT   (3),
 		.MEM_IF_WR_TO_RD_TURNAROUND_OCT   (3),
 		.CTL_RD_TO_PCH_EXTRA_CLK          (0),
 		.CTL_RD_TO_RD_DIFF_CHIP_EXTRA_CLK (1),
 		.CTL_WR_TO_WR_DIFF_CHIP_EXTRA_CLK (1),
-		.MEM_TCL                          (6),
+		.MEM_TCL                          (4),
 		.MEM_TMRD_CK                      (5),
 		.MEM_TWTR                         (3),
 		.CSR_ADDR_WIDTH                   (8),
@@ -110,7 +110,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 		.AVL_ADDR_WIDTH                   (25),
 		.AVL_BE_WIDTH                     (32),
 		.AVL_DATA_WIDTH                   (256),
-		.AVL_SIZE_WIDTH                   (3),
+		.AVL_SIZE_WIDTH                   (8),
 		.DWIDTH_RATIO                     (4),
 		.CTL_ODT_ENABLED                  (1),
 		.CTL_OUTPUT_REGD                  (0),
@@ -242,7 +242,7 @@ module MebX_Qsys_Project_m1_ddr2_memory_c0 (
 	);
 
 	alt_mem_ddrx_mm_st_converter #(
-		.AVL_SIZE_WIDTH   (3),
+		.AVL_SIZE_WIDTH   (8),
 		.AVL_ADDR_WIDTH   (25),
 		.AVL_DATA_WIDTH   (256),
 		.LOCAL_ID_WIDTH   (8),

@@ -15,12 +15,12 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		input  wire [29:0]  m1_clock_bridge_m0_address,                                      //                                        m1_clock_bridge_m0.address
 		output wire         m1_clock_bridge_m0_waitrequest,                                  //                                                          .waitrequest
 		input  wire [7:0]   m1_clock_bridge_m0_burstcount,                                   //                                                          .burstcount
-		input  wire [3:0]   m1_clock_bridge_m0_byteenable,                                   //                                                          .byteenable
+		input  wire [7:0]   m1_clock_bridge_m0_byteenable,                                   //                                                          .byteenable
 		input  wire         m1_clock_bridge_m0_read,                                         //                                                          .read
-		output wire [31:0]  m1_clock_bridge_m0_readdata,                                     //                                                          .readdata
+		output wire [63:0]  m1_clock_bridge_m0_readdata,                                     //                                                          .readdata
 		output wire         m1_clock_bridge_m0_readdatavalid,                                //                                                          .readdatavalid
 		input  wire         m1_clock_bridge_m0_write,                                        //                                                          .write
-		input  wire [31:0]  m1_clock_bridge_m0_writedata,                                    //                                                          .writedata
+		input  wire [63:0]  m1_clock_bridge_m0_writedata,                                    //                                                          .writedata
 		input  wire         m1_clock_bridge_m0_debugaccess,                                  //                                                          .debugaccess
 		output wire [24:0]  m1_ddr2_memory_avl_address,                                      //                                        m1_ddr2_memory_avl.address
 		output wire         m1_ddr2_memory_avl_write,                                        //                                                          .write
@@ -28,25 +28,25 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		input  wire [255:0] m1_ddr2_memory_avl_readdata,                                     //                                                          .readdata
 		output wire [255:0] m1_ddr2_memory_avl_writedata,                                    //                                                          .writedata
 		output wire         m1_ddr2_memory_avl_beginbursttransfer,                           //                                                          .beginbursttransfer
-		output wire [2:0]   m1_ddr2_memory_avl_burstcount,                                   //                                                          .burstcount
+		output wire [7:0]   m1_ddr2_memory_avl_burstcount,                                   //                                                          .burstcount
 		output wire [31:0]  m1_ddr2_memory_avl_byteenable,                                   //                                                          .byteenable
 		input  wire         m1_ddr2_memory_avl_readdatavalid,                                //                                                          .readdatavalid
 		input  wire         m1_ddr2_memory_avl_waitrequest                                   //                                                          .waitrequest
 	);
 
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_waitrequest;   // m1_clock_bridge_m0_agent:av_waitrequest -> m1_clock_bridge_m0_translator:uav_waitrequest
-	wire   [31:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_readdata;      // m1_clock_bridge_m0_agent:av_readdata -> m1_clock_bridge_m0_translator:uav_readdata
+	wire   [63:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_readdata;      // m1_clock_bridge_m0_agent:av_readdata -> m1_clock_bridge_m0_translator:uav_readdata
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_debugaccess;   // m1_clock_bridge_m0_translator:uav_debugaccess -> m1_clock_bridge_m0_agent:av_debugaccess
 	wire   [29:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_address;       // m1_clock_bridge_m0_translator:uav_address -> m1_clock_bridge_m0_agent:av_address
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_read;          // m1_clock_bridge_m0_translator:uav_read -> m1_clock_bridge_m0_agent:av_read
-	wire    [3:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_byteenable;    // m1_clock_bridge_m0_translator:uav_byteenable -> m1_clock_bridge_m0_agent:av_byteenable
+	wire    [7:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_byteenable;    // m1_clock_bridge_m0_translator:uav_byteenable -> m1_clock_bridge_m0_agent:av_byteenable
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_readdatavalid; // m1_clock_bridge_m0_agent:av_readdatavalid -> m1_clock_bridge_m0_translator:uav_readdatavalid
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_lock;          // m1_clock_bridge_m0_translator:uav_lock -> m1_clock_bridge_m0_agent:av_lock
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_write;         // m1_clock_bridge_m0_translator:uav_write -> m1_clock_bridge_m0_agent:av_write
-	wire   [31:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_writedata;     // m1_clock_bridge_m0_translator:uav_writedata -> m1_clock_bridge_m0_agent:av_writedata
-	wire    [9:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_burstcount;    // m1_clock_bridge_m0_translator:uav_burstcount -> m1_clock_bridge_m0_agent:av_burstcount
+	wire   [63:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_writedata;     // m1_clock_bridge_m0_translator:uav_writedata -> m1_clock_bridge_m0_agent:av_writedata
+	wire   [10:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_burstcount;    // m1_clock_bridge_m0_translator:uav_burstcount -> m1_clock_bridge_m0_agent:av_burstcount
 	wire          rsp_mux_src_valid;                                                     // rsp_mux:src_valid -> m1_clock_bridge_m0_agent:rp_valid
-	wire  [106:0] rsp_mux_src_data;                                                      // rsp_mux:src_data -> m1_clock_bridge_m0_agent:rp_data
+	wire  [145:0] rsp_mux_src_data;                                                      // rsp_mux:src_data -> m1_clock_bridge_m0_agent:rp_data
 	wire          rsp_mux_src_ready;                                                     // m1_clock_bridge_m0_agent:rp_ready -> rsp_mux:src_ready
 	wire    [0:0] rsp_mux_src_channel;                                                   // rsp_mux:src_channel -> m1_clock_bridge_m0_agent:rp_channel
 	wire          rsp_mux_src_startofpacket;                                             // rsp_mux:src_startofpacket -> m1_clock_bridge_m0_agent:rp_startofpacket
@@ -61,14 +61,14 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	wire          m1_ddr2_memory_avl_agent_m0_lock;                                      // m1_ddr2_memory_avl_agent:m0_lock -> m1_ddr2_memory_avl_translator:uav_lock
 	wire  [255:0] m1_ddr2_memory_avl_agent_m0_writedata;                                 // m1_ddr2_memory_avl_agent:m0_writedata -> m1_ddr2_memory_avl_translator:uav_writedata
 	wire          m1_ddr2_memory_avl_agent_m0_write;                                     // m1_ddr2_memory_avl_agent:m0_write -> m1_ddr2_memory_avl_translator:uav_write
-	wire    [7:0] m1_ddr2_memory_avl_agent_m0_burstcount;                                // m1_ddr2_memory_avl_agent:m0_burstcount -> m1_ddr2_memory_avl_translator:uav_burstcount
+	wire   [12:0] m1_ddr2_memory_avl_agent_m0_burstcount;                                // m1_ddr2_memory_avl_agent:m0_burstcount -> m1_ddr2_memory_avl_translator:uav_burstcount
 	wire          m1_ddr2_memory_avl_agent_rf_source_valid;                              // m1_ddr2_memory_avl_agent:rf_source_valid -> m1_ddr2_memory_avl_agent_rsp_fifo:in_valid
-	wire  [359:0] m1_ddr2_memory_avl_agent_rf_source_data;                               // m1_ddr2_memory_avl_agent:rf_source_data -> m1_ddr2_memory_avl_agent_rsp_fifo:in_data
+	wire  [362:0] m1_ddr2_memory_avl_agent_rf_source_data;                               // m1_ddr2_memory_avl_agent:rf_source_data -> m1_ddr2_memory_avl_agent_rsp_fifo:in_data
 	wire          m1_ddr2_memory_avl_agent_rf_source_ready;                              // m1_ddr2_memory_avl_agent_rsp_fifo:in_ready -> m1_ddr2_memory_avl_agent:rf_source_ready
 	wire          m1_ddr2_memory_avl_agent_rf_source_startofpacket;                      // m1_ddr2_memory_avl_agent:rf_source_startofpacket -> m1_ddr2_memory_avl_agent_rsp_fifo:in_startofpacket
 	wire          m1_ddr2_memory_avl_agent_rf_source_endofpacket;                        // m1_ddr2_memory_avl_agent:rf_source_endofpacket -> m1_ddr2_memory_avl_agent_rsp_fifo:in_endofpacket
 	wire          m1_ddr2_memory_avl_agent_rsp_fifo_out_valid;                           // m1_ddr2_memory_avl_agent_rsp_fifo:out_valid -> m1_ddr2_memory_avl_agent:rf_sink_valid
-	wire  [359:0] m1_ddr2_memory_avl_agent_rsp_fifo_out_data;                            // m1_ddr2_memory_avl_agent_rsp_fifo:out_data -> m1_ddr2_memory_avl_agent:rf_sink_data
+	wire  [362:0] m1_ddr2_memory_avl_agent_rsp_fifo_out_data;                            // m1_ddr2_memory_avl_agent_rsp_fifo:out_data -> m1_ddr2_memory_avl_agent:rf_sink_data
 	wire          m1_ddr2_memory_avl_agent_rsp_fifo_out_ready;                           // m1_ddr2_memory_avl_agent:rf_sink_ready -> m1_ddr2_memory_avl_agent_rsp_fifo:out_ready
 	wire          m1_ddr2_memory_avl_agent_rsp_fifo_out_startofpacket;                   // m1_ddr2_memory_avl_agent_rsp_fifo:out_startofpacket -> m1_ddr2_memory_avl_agent:rf_sink_startofpacket
 	wire          m1_ddr2_memory_avl_agent_rsp_fifo_out_endofpacket;                     // m1_ddr2_memory_avl_agent_rsp_fifo:out_endofpacket -> m1_ddr2_memory_avl_agent:rf_sink_endofpacket
@@ -76,71 +76,65 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	wire  [257:0] m1_ddr2_memory_avl_agent_rdata_fifo_src_data;                          // m1_ddr2_memory_avl_agent:rdata_fifo_src_data -> m1_ddr2_memory_avl_agent_rdata_fifo:in_data
 	wire          m1_ddr2_memory_avl_agent_rdata_fifo_src_ready;                         // m1_ddr2_memory_avl_agent_rdata_fifo:in_ready -> m1_ddr2_memory_avl_agent:rdata_fifo_src_ready
 	wire          m1_clock_bridge_m0_agent_cp_valid;                                     // m1_clock_bridge_m0_agent:cp_valid -> router:sink_valid
-	wire  [106:0] m1_clock_bridge_m0_agent_cp_data;                                      // m1_clock_bridge_m0_agent:cp_data -> router:sink_data
+	wire  [145:0] m1_clock_bridge_m0_agent_cp_data;                                      // m1_clock_bridge_m0_agent:cp_data -> router:sink_data
 	wire          m1_clock_bridge_m0_agent_cp_ready;                                     // router:sink_ready -> m1_clock_bridge_m0_agent:cp_ready
 	wire          m1_clock_bridge_m0_agent_cp_startofpacket;                             // m1_clock_bridge_m0_agent:cp_startofpacket -> router:sink_startofpacket
 	wire          m1_clock_bridge_m0_agent_cp_endofpacket;                               // m1_clock_bridge_m0_agent:cp_endofpacket -> router:sink_endofpacket
 	wire          router_src_valid;                                                      // router:src_valid -> cmd_demux:sink_valid
-	wire  [106:0] router_src_data;                                                       // router:src_data -> cmd_demux:sink_data
+	wire  [145:0] router_src_data;                                                       // router:src_data -> cmd_demux:sink_data
 	wire          router_src_ready;                                                      // cmd_demux:sink_ready -> router:src_ready
 	wire    [0:0] router_src_channel;                                                    // router:src_channel -> cmd_demux:sink_channel
 	wire          router_src_startofpacket;                                              // router:src_startofpacket -> cmd_demux:sink_startofpacket
 	wire          router_src_endofpacket;                                                // router:src_endofpacket -> cmd_demux:sink_endofpacket
 	wire          m1_ddr2_memory_avl_agent_rp_valid;                                     // m1_ddr2_memory_avl_agent:rp_valid -> router_001:sink_valid
-	wire  [358:0] m1_ddr2_memory_avl_agent_rp_data;                                      // m1_ddr2_memory_avl_agent:rp_data -> router_001:sink_data
+	wire  [361:0] m1_ddr2_memory_avl_agent_rp_data;                                      // m1_ddr2_memory_avl_agent:rp_data -> router_001:sink_data
 	wire          m1_ddr2_memory_avl_agent_rp_ready;                                     // router_001:sink_ready -> m1_ddr2_memory_avl_agent:rp_ready
 	wire          m1_ddr2_memory_avl_agent_rp_startofpacket;                             // m1_ddr2_memory_avl_agent:rp_startofpacket -> router_001:sink_startofpacket
 	wire          m1_ddr2_memory_avl_agent_rp_endofpacket;                               // m1_ddr2_memory_avl_agent:rp_endofpacket -> router_001:sink_endofpacket
-	wire          m1_ddr2_memory_avl_burst_adapter_source0_valid;                        // m1_ddr2_memory_avl_burst_adapter:source0_valid -> m1_ddr2_memory_avl_agent:cp_valid
-	wire  [358:0] m1_ddr2_memory_avl_burst_adapter_source0_data;                         // m1_ddr2_memory_avl_burst_adapter:source0_data -> m1_ddr2_memory_avl_agent:cp_data
-	wire          m1_ddr2_memory_avl_burst_adapter_source0_ready;                        // m1_ddr2_memory_avl_agent:cp_ready -> m1_ddr2_memory_avl_burst_adapter:source0_ready
-	wire    [0:0] m1_ddr2_memory_avl_burst_adapter_source0_channel;                      // m1_ddr2_memory_avl_burst_adapter:source0_channel -> m1_ddr2_memory_avl_agent:cp_channel
-	wire          m1_ddr2_memory_avl_burst_adapter_source0_startofpacket;                // m1_ddr2_memory_avl_burst_adapter:source0_startofpacket -> m1_ddr2_memory_avl_agent:cp_startofpacket
-	wire          m1_ddr2_memory_avl_burst_adapter_source0_endofpacket;                  // m1_ddr2_memory_avl_burst_adapter:source0_endofpacket -> m1_ddr2_memory_avl_agent:cp_endofpacket
+	wire          cmd_mux_src_valid;                                                     // cmd_mux:src_valid -> m1_ddr2_memory_avl_cmd_width_adapter:in_valid
+	wire  [145:0] cmd_mux_src_data;                                                      // cmd_mux:src_data -> m1_ddr2_memory_avl_cmd_width_adapter:in_data
+	wire          cmd_mux_src_ready;                                                     // m1_ddr2_memory_avl_cmd_width_adapter:in_ready -> cmd_mux:src_ready
+	wire    [0:0] cmd_mux_src_channel;                                                   // cmd_mux:src_channel -> m1_ddr2_memory_avl_cmd_width_adapter:in_channel
+	wire          cmd_mux_src_startofpacket;                                             // cmd_mux:src_startofpacket -> m1_ddr2_memory_avl_cmd_width_adapter:in_startofpacket
+	wire          cmd_mux_src_endofpacket;                                               // cmd_mux:src_endofpacket -> m1_ddr2_memory_avl_cmd_width_adapter:in_endofpacket
+	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_valid;                        // m1_ddr2_memory_avl_cmd_width_adapter:out_valid -> m1_ddr2_memory_avl_agent:cp_valid
+	wire  [361:0] m1_ddr2_memory_avl_cmd_width_adapter_src_data;                         // m1_ddr2_memory_avl_cmd_width_adapter:out_data -> m1_ddr2_memory_avl_agent:cp_data
+	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_ready;                        // m1_ddr2_memory_avl_agent:cp_ready -> m1_ddr2_memory_avl_cmd_width_adapter:out_ready
+	wire    [0:0] m1_ddr2_memory_avl_cmd_width_adapter_src_channel;                      // m1_ddr2_memory_avl_cmd_width_adapter:out_channel -> m1_ddr2_memory_avl_agent:cp_channel
+	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_startofpacket;                // m1_ddr2_memory_avl_cmd_width_adapter:out_startofpacket -> m1_ddr2_memory_avl_agent:cp_startofpacket
+	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_endofpacket;                  // m1_ddr2_memory_avl_cmd_width_adapter:out_endofpacket -> m1_ddr2_memory_avl_agent:cp_endofpacket
 	wire          router_001_src_valid;                                                  // router_001:src_valid -> m1_ddr2_memory_avl_rsp_width_adapter:in_valid
-	wire  [358:0] router_001_src_data;                                                   // router_001:src_data -> m1_ddr2_memory_avl_rsp_width_adapter:in_data
+	wire  [361:0] router_001_src_data;                                                   // router_001:src_data -> m1_ddr2_memory_avl_rsp_width_adapter:in_data
 	wire          router_001_src_ready;                                                  // m1_ddr2_memory_avl_rsp_width_adapter:in_ready -> router_001:src_ready
 	wire    [0:0] router_001_src_channel;                                                // router_001:src_channel -> m1_ddr2_memory_avl_rsp_width_adapter:in_channel
 	wire          router_001_src_startofpacket;                                          // router_001:src_startofpacket -> m1_ddr2_memory_avl_rsp_width_adapter:in_startofpacket
 	wire          router_001_src_endofpacket;                                            // router_001:src_endofpacket -> m1_ddr2_memory_avl_rsp_width_adapter:in_endofpacket
 	wire          m1_ddr2_memory_avl_rsp_width_adapter_src_valid;                        // m1_ddr2_memory_avl_rsp_width_adapter:out_valid -> rsp_demux:sink_valid
-	wire  [106:0] m1_ddr2_memory_avl_rsp_width_adapter_src_data;                         // m1_ddr2_memory_avl_rsp_width_adapter:out_data -> rsp_demux:sink_data
+	wire  [145:0] m1_ddr2_memory_avl_rsp_width_adapter_src_data;                         // m1_ddr2_memory_avl_rsp_width_adapter:out_data -> rsp_demux:sink_data
 	wire          m1_ddr2_memory_avl_rsp_width_adapter_src_ready;                        // rsp_demux:sink_ready -> m1_ddr2_memory_avl_rsp_width_adapter:out_ready
 	wire    [0:0] m1_ddr2_memory_avl_rsp_width_adapter_src_channel;                      // m1_ddr2_memory_avl_rsp_width_adapter:out_channel -> rsp_demux:sink_channel
 	wire          m1_ddr2_memory_avl_rsp_width_adapter_src_startofpacket;                // m1_ddr2_memory_avl_rsp_width_adapter:out_startofpacket -> rsp_demux:sink_startofpacket
 	wire          m1_ddr2_memory_avl_rsp_width_adapter_src_endofpacket;                  // m1_ddr2_memory_avl_rsp_width_adapter:out_endofpacket -> rsp_demux:sink_endofpacket
-	wire          cmd_mux_src_valid;                                                     // cmd_mux:src_valid -> m1_ddr2_memory_avl_cmd_width_adapter:in_valid
-	wire  [106:0] cmd_mux_src_data;                                                      // cmd_mux:src_data -> m1_ddr2_memory_avl_cmd_width_adapter:in_data
-	wire          cmd_mux_src_ready;                                                     // m1_ddr2_memory_avl_cmd_width_adapter:in_ready -> cmd_mux:src_ready
-	wire    [0:0] cmd_mux_src_channel;                                                   // cmd_mux:src_channel -> m1_ddr2_memory_avl_cmd_width_adapter:in_channel
-	wire          cmd_mux_src_startofpacket;                                             // cmd_mux:src_startofpacket -> m1_ddr2_memory_avl_cmd_width_adapter:in_startofpacket
-	wire          cmd_mux_src_endofpacket;                                               // cmd_mux:src_endofpacket -> m1_ddr2_memory_avl_cmd_width_adapter:in_endofpacket
-	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_valid;                        // m1_ddr2_memory_avl_cmd_width_adapter:out_valid -> m1_ddr2_memory_avl_burst_adapter:sink0_valid
-	wire  [358:0] m1_ddr2_memory_avl_cmd_width_adapter_src_data;                         // m1_ddr2_memory_avl_cmd_width_adapter:out_data -> m1_ddr2_memory_avl_burst_adapter:sink0_data
-	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_ready;                        // m1_ddr2_memory_avl_burst_adapter:sink0_ready -> m1_ddr2_memory_avl_cmd_width_adapter:out_ready
-	wire    [0:0] m1_ddr2_memory_avl_cmd_width_adapter_src_channel;                      // m1_ddr2_memory_avl_cmd_width_adapter:out_channel -> m1_ddr2_memory_avl_burst_adapter:sink0_channel
-	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_startofpacket;                // m1_ddr2_memory_avl_cmd_width_adapter:out_startofpacket -> m1_ddr2_memory_avl_burst_adapter:sink0_startofpacket
-	wire          m1_ddr2_memory_avl_cmd_width_adapter_src_endofpacket;                  // m1_ddr2_memory_avl_cmd_width_adapter:out_endofpacket -> m1_ddr2_memory_avl_burst_adapter:sink0_endofpacket
 	wire          cmd_demux_src0_valid;                                                  // cmd_demux:src0_valid -> crosser:in_valid
-	wire  [106:0] cmd_demux_src0_data;                                                   // cmd_demux:src0_data -> crosser:in_data
+	wire  [145:0] cmd_demux_src0_data;                                                   // cmd_demux:src0_data -> crosser:in_data
 	wire          cmd_demux_src0_ready;                                                  // crosser:in_ready -> cmd_demux:src0_ready
 	wire    [0:0] cmd_demux_src0_channel;                                                // cmd_demux:src0_channel -> crosser:in_channel
 	wire          cmd_demux_src0_startofpacket;                                          // cmd_demux:src0_startofpacket -> crosser:in_startofpacket
 	wire          cmd_demux_src0_endofpacket;                                            // cmd_demux:src0_endofpacket -> crosser:in_endofpacket
 	wire          crosser_out_valid;                                                     // crosser:out_valid -> cmd_mux:sink0_valid
-	wire  [106:0] crosser_out_data;                                                      // crosser:out_data -> cmd_mux:sink0_data
+	wire  [145:0] crosser_out_data;                                                      // crosser:out_data -> cmd_mux:sink0_data
 	wire          crosser_out_ready;                                                     // cmd_mux:sink0_ready -> crosser:out_ready
 	wire    [0:0] crosser_out_channel;                                                   // crosser:out_channel -> cmd_mux:sink0_channel
 	wire          crosser_out_startofpacket;                                             // crosser:out_startofpacket -> cmd_mux:sink0_startofpacket
 	wire          crosser_out_endofpacket;                                               // crosser:out_endofpacket -> cmd_mux:sink0_endofpacket
 	wire          rsp_demux_src0_valid;                                                  // rsp_demux:src0_valid -> crosser_001:in_valid
-	wire  [106:0] rsp_demux_src0_data;                                                   // rsp_demux:src0_data -> crosser_001:in_data
+	wire  [145:0] rsp_demux_src0_data;                                                   // rsp_demux:src0_data -> crosser_001:in_data
 	wire          rsp_demux_src0_ready;                                                  // crosser_001:in_ready -> rsp_demux:src0_ready
 	wire    [0:0] rsp_demux_src0_channel;                                                // rsp_demux:src0_channel -> crosser_001:in_channel
 	wire          rsp_demux_src0_startofpacket;                                          // rsp_demux:src0_startofpacket -> crosser_001:in_startofpacket
 	wire          rsp_demux_src0_endofpacket;                                            // rsp_demux:src0_endofpacket -> crosser_001:in_endofpacket
 	wire          crosser_001_out_valid;                                                 // crosser_001:out_valid -> rsp_mux:sink0_valid
-	wire  [106:0] crosser_001_out_data;                                                  // crosser_001:out_data -> rsp_mux:sink0_data
+	wire  [145:0] crosser_001_out_data;                                                  // crosser_001:out_data -> rsp_mux:sink0_data
 	wire          crosser_001_out_ready;                                                 // rsp_mux:sink0_ready -> crosser_001:out_ready
 	wire    [0:0] crosser_001_out_channel;                                               // crosser_001:out_channel -> rsp_mux:sink0_channel
 	wire          crosser_001_out_startofpacket;                                         // crosser_001:out_startofpacket -> rsp_mux:sink0_startofpacket
@@ -155,11 +149,11 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (30),
-		.AV_DATA_W                   (32),
+		.AV_DATA_W                   (64),
 		.AV_BURSTCOUNT_W             (8),
-		.AV_BYTEENABLE_W             (4),
+		.AV_BYTEENABLE_W             (8),
 		.UAV_ADDRESS_W               (30),
-		.UAV_BURSTCOUNT_W            (10),
+		.UAV_BURSTCOUNT_W            (11),
 		.USE_READ                    (1),
 		.USE_WRITE                   (1),
 		.USE_BEGINBURSTTRANSFER      (0),
@@ -170,7 +164,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
 		.USE_WRITERESPONSE           (0),
-		.AV_SYMBOLS_PER_WORD         (4),
+		.AV_SYMBOLS_PER_WORD         (8),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
 		.AV_CONSTANT_BURST_BEHAVIOR  (1),
@@ -217,11 +211,11 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.AV_ADDRESS_W                   (25),
 		.AV_DATA_W                      (256),
 		.UAV_DATA_W                     (256),
-		.AV_BURSTCOUNT_W                (3),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (32),
 		.UAV_BYTEENABLE_W               (32),
 		.UAV_ADDRESS_W                  (30),
-		.UAV_BURSTCOUNT_W               (8),
+		.UAV_BURSTCOUNT_W               (13),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (1),
 		.USE_WAITREQUEST                (1),
@@ -278,50 +272,50 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	);
 
 	altera_merlin_master_agent #(
-		.PKT_ORI_BURST_SIZE_H      (106),
-		.PKT_ORI_BURST_SIZE_L      (104),
-		.PKT_RESPONSE_STATUS_H     (103),
-		.PKT_RESPONSE_STATUS_L     (102),
-		.PKT_QOS_H                 (91),
-		.PKT_QOS_L                 (91),
-		.PKT_DATA_SIDEBAND_H       (89),
-		.PKT_DATA_SIDEBAND_L       (89),
-		.PKT_ADDR_SIDEBAND_H       (88),
-		.PKT_ADDR_SIDEBAND_L       (88),
-		.PKT_BURST_TYPE_H          (87),
-		.PKT_BURST_TYPE_L          (86),
-		.PKT_CACHE_H               (101),
-		.PKT_CACHE_L               (98),
-		.PKT_THREAD_ID_H           (94),
-		.PKT_THREAD_ID_L           (94),
-		.PKT_BURST_SIZE_H          (85),
-		.PKT_BURST_SIZE_L          (83),
-		.PKT_TRANS_EXCLUSIVE       (71),
-		.PKT_TRANS_LOCK            (70),
-		.PKT_BEGIN_BURST           (90),
-		.PKT_PROTECTION_H          (97),
-		.PKT_PROTECTION_L          (95),
-		.PKT_BURSTWRAP_H           (82),
-		.PKT_BURSTWRAP_L           (82),
-		.PKT_BYTE_CNT_H            (81),
-		.PKT_BYTE_CNT_L            (72),
-		.PKT_ADDR_H                (65),
-		.PKT_ADDR_L                (36),
-		.PKT_TRANS_COMPRESSED_READ (66),
-		.PKT_TRANS_POSTED          (67),
-		.PKT_TRANS_WRITE           (68),
-		.PKT_TRANS_READ            (69),
-		.PKT_DATA_H                (31),
+		.PKT_ORI_BURST_SIZE_H      (145),
+		.PKT_ORI_BURST_SIZE_L      (143),
+		.PKT_RESPONSE_STATUS_H     (142),
+		.PKT_RESPONSE_STATUS_L     (141),
+		.PKT_QOS_H                 (130),
+		.PKT_QOS_L                 (130),
+		.PKT_DATA_SIDEBAND_H       (128),
+		.PKT_DATA_SIDEBAND_L       (128),
+		.PKT_ADDR_SIDEBAND_H       (127),
+		.PKT_ADDR_SIDEBAND_L       (127),
+		.PKT_BURST_TYPE_H          (126),
+		.PKT_BURST_TYPE_L          (125),
+		.PKT_CACHE_H               (140),
+		.PKT_CACHE_L               (137),
+		.PKT_THREAD_ID_H           (133),
+		.PKT_THREAD_ID_L           (133),
+		.PKT_BURST_SIZE_H          (124),
+		.PKT_BURST_SIZE_L          (122),
+		.PKT_TRANS_EXCLUSIVE       (107),
+		.PKT_TRANS_LOCK            (106),
+		.PKT_BEGIN_BURST           (129),
+		.PKT_PROTECTION_H          (136),
+		.PKT_PROTECTION_L          (134),
+		.PKT_BURSTWRAP_H           (121),
+		.PKT_BURSTWRAP_L           (121),
+		.PKT_BYTE_CNT_H            (120),
+		.PKT_BYTE_CNT_L            (108),
+		.PKT_ADDR_H                (101),
+		.PKT_ADDR_L                (72),
+		.PKT_TRANS_COMPRESSED_READ (102),
+		.PKT_TRANS_POSTED          (103),
+		.PKT_TRANS_WRITE           (104),
+		.PKT_TRANS_READ            (105),
+		.PKT_DATA_H                (63),
 		.PKT_DATA_L                (0),
-		.PKT_BYTEEN_H              (35),
-		.PKT_BYTEEN_L              (32),
-		.PKT_SRC_ID_H              (92),
-		.PKT_SRC_ID_L              (92),
-		.PKT_DEST_ID_H             (93),
-		.PKT_DEST_ID_L             (93),
-		.ST_DATA_W                 (107),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_SRC_ID_H              (131),
+		.PKT_SRC_ID_L              (131),
+		.PKT_DEST_ID_H             (132),
+		.PKT_DEST_ID_L             (132),
+		.ST_DATA_W                 (146),
 		.ST_CHANNEL_W              (1),
-		.AV_BURSTCOUNT_W           (10),
+		.AV_BURSTCOUNT_W           (11),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (0),
 		.BURSTWRAP_VALUE           (1),
@@ -359,19 +353,19 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	);
 
 	altera_merlin_slave_agent #(
-		.PKT_ORI_BURST_SIZE_H      (358),
-		.PKT_ORI_BURST_SIZE_L      (356),
-		.PKT_RESPONSE_STATUS_H     (355),
-		.PKT_RESPONSE_STATUS_L     (354),
-		.PKT_BURST_SIZE_H          (337),
-		.PKT_BURST_SIZE_L          (335),
+		.PKT_ORI_BURST_SIZE_H      (361),
+		.PKT_ORI_BURST_SIZE_L      (359),
+		.PKT_RESPONSE_STATUS_H     (358),
+		.PKT_RESPONSE_STATUS_L     (357),
+		.PKT_BURST_SIZE_H          (340),
+		.PKT_BURST_SIZE_L          (338),
 		.PKT_TRANS_LOCK            (322),
-		.PKT_BEGIN_BURST           (342),
-		.PKT_PROTECTION_H          (349),
-		.PKT_PROTECTION_L          (347),
-		.PKT_BURSTWRAP_H           (334),
-		.PKT_BURSTWRAP_L           (334),
-		.PKT_BYTE_CNT_H            (333),
+		.PKT_BEGIN_BURST           (345),
+		.PKT_PROTECTION_H          (352),
+		.PKT_PROTECTION_L          (350),
+		.PKT_BURSTWRAP_H           (337),
+		.PKT_BURSTWRAP_L           (337),
+		.PKT_BYTE_CNT_H            (336),
 		.PKT_BYTE_CNT_L            (324),
 		.PKT_ADDR_H                (317),
 		.PKT_ADDR_L                (288),
@@ -383,14 +377,14 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.PKT_DATA_L                (0),
 		.PKT_BYTEEN_H              (287),
 		.PKT_BYTEEN_L              (256),
-		.PKT_SRC_ID_H              (344),
-		.PKT_SRC_ID_L              (344),
-		.PKT_DEST_ID_H             (345),
-		.PKT_DEST_ID_L             (345),
+		.PKT_SRC_ID_H              (347),
+		.PKT_SRC_ID_L              (347),
+		.PKT_DEST_ID_H             (348),
+		.PKT_DEST_ID_L             (348),
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (1),
-		.ST_DATA_W                 (359),
-		.AVS_BURSTCOUNT_W          (8),
+		.ST_DATA_W                 (362),
+		.AVS_BURSTCOUNT_W          (13),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -415,12 +409,12 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.rp_valid                (m1_ddr2_memory_avl_agent_rp_valid),                               //                .valid
 		.rp_data                 (m1_ddr2_memory_avl_agent_rp_data),                                //                .data
 		.rp_startofpacket        (m1_ddr2_memory_avl_agent_rp_startofpacket),                       //                .startofpacket
-		.cp_ready                (m1_ddr2_memory_avl_burst_adapter_source0_ready),                  //              cp.ready
-		.cp_valid                (m1_ddr2_memory_avl_burst_adapter_source0_valid),                  //                .valid
-		.cp_data                 (m1_ddr2_memory_avl_burst_adapter_source0_data),                   //                .data
-		.cp_startofpacket        (m1_ddr2_memory_avl_burst_adapter_source0_startofpacket),          //                .startofpacket
-		.cp_endofpacket          (m1_ddr2_memory_avl_burst_adapter_source0_endofpacket),            //                .endofpacket
-		.cp_channel              (m1_ddr2_memory_avl_burst_adapter_source0_channel),                //                .channel
+		.cp_ready                (m1_ddr2_memory_avl_cmd_width_adapter_src_ready),                  //              cp.ready
+		.cp_valid                (m1_ddr2_memory_avl_cmd_width_adapter_src_valid),                  //                .valid
+		.cp_data                 (m1_ddr2_memory_avl_cmd_width_adapter_src_data),                   //                .data
+		.cp_startofpacket        (m1_ddr2_memory_avl_cmd_width_adapter_src_startofpacket),          //                .startofpacket
+		.cp_endofpacket          (m1_ddr2_memory_avl_cmd_width_adapter_src_endofpacket),            //                .endofpacket
+		.cp_channel              (m1_ddr2_memory_avl_cmd_width_adapter_src_channel),                //                .channel
 		.rf_sink_ready           (m1_ddr2_memory_avl_agent_rsp_fifo_out_ready),                     //         rf_sink.ready
 		.rf_sink_valid           (m1_ddr2_memory_avl_agent_rsp_fifo_out_valid),                     //                .valid
 		.rf_sink_startofpacket   (m1_ddr2_memory_avl_agent_rsp_fifo_out_startofpacket),             //                .startofpacket
@@ -444,7 +438,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
-		.BITS_PER_SYMBOL     (360),
+		.BITS_PER_SYMBOL     (363),
 		.FIFO_DEPTH          (33),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
@@ -486,7 +480,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (258),
-		.FIFO_DEPTH          (256),
+		.FIFO_DEPTH          (2048),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
@@ -554,56 +548,6 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.src_channel        (router_001_src_channel),                                          //          .channel
 		.src_startofpacket  (router_001_src_startofpacket),                                    //          .startofpacket
 		.src_endofpacket    (router_001_src_endofpacket)                                       //          .endofpacket
-	);
-
-	altera_merlin_burst_adapter #(
-		.PKT_ADDR_H                (317),
-		.PKT_ADDR_L                (288),
-		.PKT_BEGIN_BURST           (342),
-		.PKT_BYTE_CNT_H            (333),
-		.PKT_BYTE_CNT_L            (324),
-		.PKT_BYTEEN_H              (287),
-		.PKT_BYTEEN_L              (256),
-		.PKT_BURST_SIZE_H          (337),
-		.PKT_BURST_SIZE_L          (335),
-		.PKT_BURST_TYPE_H          (339),
-		.PKT_BURST_TYPE_L          (338),
-		.PKT_BURSTWRAP_H           (334),
-		.PKT_BURSTWRAP_L           (334),
-		.PKT_TRANS_COMPRESSED_READ (318),
-		.PKT_TRANS_WRITE           (320),
-		.PKT_TRANS_READ            (321),
-		.OUT_NARROW_SIZE           (0),
-		.IN_NARROW_SIZE            (0),
-		.OUT_FIXED                 (0),
-		.OUT_COMPLETE_WRAP         (0),
-		.ST_DATA_W                 (359),
-		.ST_CHANNEL_W              (1),
-		.OUT_BYTE_CNT_H            (331),
-		.OUT_BURSTWRAP_H           (334),
-		.COMPRESSED_READ_SUPPORT   (1),
-		.BYTEENABLE_SYNTHESIS      (1),
-		.PIPE_INPUTS               (0),
-		.NO_WRAP_SUPPORT           (0),
-		.INCOMPLETE_WRAP_SUPPORT   (0),
-		.BURSTWRAP_CONST_MASK      (1),
-		.BURSTWRAP_CONST_VALUE     (1),
-		.ADAPTER_VERSION           ("13.1")
-	) m1_ddr2_memory_avl_burst_adapter (
-		.clk                   (m1_ddr2_memory_afi_clk_clk),                                      //       cr0.clk
-		.reset                 (m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset), // cr0_reset.reset
-		.sink0_valid           (m1_ddr2_memory_avl_cmd_width_adapter_src_valid),                  //     sink0.valid
-		.sink0_data            (m1_ddr2_memory_avl_cmd_width_adapter_src_data),                   //          .data
-		.sink0_channel         (m1_ddr2_memory_avl_cmd_width_adapter_src_channel),                //          .channel
-		.sink0_startofpacket   (m1_ddr2_memory_avl_cmd_width_adapter_src_startofpacket),          //          .startofpacket
-		.sink0_endofpacket     (m1_ddr2_memory_avl_cmd_width_adapter_src_endofpacket),            //          .endofpacket
-		.sink0_ready           (m1_ddr2_memory_avl_cmd_width_adapter_src_ready),                  //          .ready
-		.source0_valid         (m1_ddr2_memory_avl_burst_adapter_source0_valid),                  //   source0.valid
-		.source0_data          (m1_ddr2_memory_avl_burst_adapter_source0_data),                   //          .data
-		.source0_channel       (m1_ddr2_memory_avl_burst_adapter_source0_channel),                //          .channel
-		.source0_startofpacket (m1_ddr2_memory_avl_burst_adapter_source0_startofpacket),          //          .startofpacket
-		.source0_endofpacket   (m1_ddr2_memory_avl_burst_adapter_source0_endofpacket),            //          .endofpacket
-		.source0_ready         (m1_ddr2_memory_avl_burst_adapter_source0_ready)                   //          .ready
 	);
 
 	MebX_Qsys_Project_mm_interconnect_3_cmd_demux cmd_demux (
@@ -675,113 +619,47 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	);
 
 	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (317),
-		.IN_PKT_ADDR_L                 (288),
-		.IN_PKT_DATA_H                 (255),
+		.IN_PKT_ADDR_H                 (101),
+		.IN_PKT_ADDR_L                 (72),
+		.IN_PKT_DATA_H                 (63),
 		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (287),
-		.IN_PKT_BYTEEN_L               (256),
-		.IN_PKT_BYTE_CNT_H             (333),
-		.IN_PKT_BYTE_CNT_L             (324),
-		.IN_PKT_TRANS_COMPRESSED_READ  (318),
-		.IN_PKT_TRANS_WRITE            (320),
-		.IN_PKT_BURSTWRAP_H            (334),
-		.IN_PKT_BURSTWRAP_L            (334),
-		.IN_PKT_BURST_SIZE_H           (337),
-		.IN_PKT_BURST_SIZE_L           (335),
-		.IN_PKT_RESPONSE_STATUS_H      (355),
-		.IN_PKT_RESPONSE_STATUS_L      (354),
-		.IN_PKT_TRANS_EXCLUSIVE        (323),
-		.IN_PKT_BURST_TYPE_H           (339),
-		.IN_PKT_BURST_TYPE_L           (338),
-		.IN_PKT_ORI_BURST_SIZE_L       (356),
-		.IN_PKT_ORI_BURST_SIZE_H       (358),
-		.IN_ST_DATA_W                  (359),
-		.OUT_PKT_ADDR_H                (65),
-		.OUT_PKT_ADDR_L                (36),
-		.OUT_PKT_DATA_H                (31),
-		.OUT_PKT_DATA_L                (0),
-		.OUT_PKT_BYTEEN_H              (35),
-		.OUT_PKT_BYTEEN_L              (32),
-		.OUT_PKT_BYTE_CNT_H            (81),
-		.OUT_PKT_BYTE_CNT_L            (72),
-		.OUT_PKT_TRANS_COMPRESSED_READ (66),
-		.OUT_PKT_BURST_SIZE_H          (85),
-		.OUT_PKT_BURST_SIZE_L          (83),
-		.OUT_PKT_RESPONSE_STATUS_H     (103),
-		.OUT_PKT_RESPONSE_STATUS_L     (102),
-		.OUT_PKT_TRANS_EXCLUSIVE       (71),
-		.OUT_PKT_BURST_TYPE_H          (87),
-		.OUT_PKT_BURST_TYPE_L          (86),
-		.OUT_PKT_ORI_BURST_SIZE_L      (104),
-		.OUT_PKT_ORI_BURST_SIZE_H      (106),
-		.OUT_ST_DATA_W                 (107),
-		.ST_CHANNEL_W                  (1),
-		.OPTIMIZE_FOR_RSP              (0),
-		.RESPONSE_PATH                 (1),
-		.CONSTANT_BURST_SIZE           (1),
-		.PACKING                       (1),
-		.ENABLE_ADDRESS_ALIGNMENT      (0)
-	) m1_ddr2_memory_avl_rsp_width_adapter (
-		.clk                  (m1_ddr2_memory_afi_clk_clk),                                      //       clk.clk
-		.reset                (m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.in_valid             (router_001_src_valid),                                            //      sink.valid
-		.in_channel           (router_001_src_channel),                                          //          .channel
-		.in_startofpacket     (router_001_src_startofpacket),                                    //          .startofpacket
-		.in_endofpacket       (router_001_src_endofpacket),                                      //          .endofpacket
-		.in_ready             (router_001_src_ready),                                            //          .ready
-		.in_data              (router_001_src_data),                                             //          .data
-		.out_endofpacket      (m1_ddr2_memory_avl_rsp_width_adapter_src_endofpacket),            //       src.endofpacket
-		.out_data             (m1_ddr2_memory_avl_rsp_width_adapter_src_data),                   //          .data
-		.out_channel          (m1_ddr2_memory_avl_rsp_width_adapter_src_channel),                //          .channel
-		.out_valid            (m1_ddr2_memory_avl_rsp_width_adapter_src_valid),                  //          .valid
-		.out_ready            (m1_ddr2_memory_avl_rsp_width_adapter_src_ready),                  //          .ready
-		.out_startofpacket    (m1_ddr2_memory_avl_rsp_width_adapter_src_startofpacket),          //          .startofpacket
-		.in_command_size_data (3'b000)                                                           // (terminated)
-	);
-
-	altera_merlin_width_adapter #(
-		.IN_PKT_ADDR_H                 (65),
-		.IN_PKT_ADDR_L                 (36),
-		.IN_PKT_DATA_H                 (31),
-		.IN_PKT_DATA_L                 (0),
-		.IN_PKT_BYTEEN_H               (35),
-		.IN_PKT_BYTEEN_L               (32),
-		.IN_PKT_BYTE_CNT_H             (81),
-		.IN_PKT_BYTE_CNT_L             (72),
-		.IN_PKT_TRANS_COMPRESSED_READ  (66),
-		.IN_PKT_TRANS_WRITE            (68),
-		.IN_PKT_BURSTWRAP_H            (82),
-		.IN_PKT_BURSTWRAP_L            (82),
-		.IN_PKT_BURST_SIZE_H           (85),
-		.IN_PKT_BURST_SIZE_L           (83),
-		.IN_PKT_RESPONSE_STATUS_H      (103),
-		.IN_PKT_RESPONSE_STATUS_L      (102),
-		.IN_PKT_TRANS_EXCLUSIVE        (71),
-		.IN_PKT_BURST_TYPE_H           (87),
-		.IN_PKT_BURST_TYPE_L           (86),
-		.IN_PKT_ORI_BURST_SIZE_L       (104),
-		.IN_PKT_ORI_BURST_SIZE_H       (106),
-		.IN_ST_DATA_W                  (107),
+		.IN_PKT_BYTEEN_H               (71),
+		.IN_PKT_BYTEEN_L               (64),
+		.IN_PKT_BYTE_CNT_H             (120),
+		.IN_PKT_BYTE_CNT_L             (108),
+		.IN_PKT_TRANS_COMPRESSED_READ  (102),
+		.IN_PKT_TRANS_WRITE            (104),
+		.IN_PKT_BURSTWRAP_H            (121),
+		.IN_PKT_BURSTWRAP_L            (121),
+		.IN_PKT_BURST_SIZE_H           (124),
+		.IN_PKT_BURST_SIZE_L           (122),
+		.IN_PKT_RESPONSE_STATUS_H      (142),
+		.IN_PKT_RESPONSE_STATUS_L      (141),
+		.IN_PKT_TRANS_EXCLUSIVE        (107),
+		.IN_PKT_BURST_TYPE_H           (126),
+		.IN_PKT_BURST_TYPE_L           (125),
+		.IN_PKT_ORI_BURST_SIZE_L       (143),
+		.IN_PKT_ORI_BURST_SIZE_H       (145),
+		.IN_ST_DATA_W                  (146),
 		.OUT_PKT_ADDR_H                (317),
 		.OUT_PKT_ADDR_L                (288),
 		.OUT_PKT_DATA_H                (255),
 		.OUT_PKT_DATA_L                (0),
 		.OUT_PKT_BYTEEN_H              (287),
 		.OUT_PKT_BYTEEN_L              (256),
-		.OUT_PKT_BYTE_CNT_H            (333),
+		.OUT_PKT_BYTE_CNT_H            (336),
 		.OUT_PKT_BYTE_CNT_L            (324),
 		.OUT_PKT_TRANS_COMPRESSED_READ (318),
-		.OUT_PKT_BURST_SIZE_H          (337),
-		.OUT_PKT_BURST_SIZE_L          (335),
-		.OUT_PKT_RESPONSE_STATUS_H     (355),
-		.OUT_PKT_RESPONSE_STATUS_L     (354),
+		.OUT_PKT_BURST_SIZE_H          (340),
+		.OUT_PKT_BURST_SIZE_L          (338),
+		.OUT_PKT_RESPONSE_STATUS_H     (358),
+		.OUT_PKT_RESPONSE_STATUS_L     (357),
 		.OUT_PKT_TRANS_EXCLUSIVE       (323),
-		.OUT_PKT_BURST_TYPE_H          (339),
-		.OUT_PKT_BURST_TYPE_L          (338),
-		.OUT_PKT_ORI_BURST_SIZE_L      (356),
-		.OUT_PKT_ORI_BURST_SIZE_H      (358),
-		.OUT_ST_DATA_W                 (359),
+		.OUT_PKT_BURST_TYPE_H          (342),
+		.OUT_PKT_BURST_TYPE_L          (341),
+		.OUT_PKT_ORI_BURST_SIZE_L      (359),
+		.OUT_PKT_ORI_BURST_SIZE_H      (361),
+		.OUT_ST_DATA_W                 (362),
 		.ST_CHANNEL_W                  (1),
 		.OPTIMIZE_FOR_RSP              (0),
 		.RESPONSE_PATH                 (0),
@@ -806,9 +684,75 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.in_command_size_data (3'b000)                                                           // (terminated)
 	);
 
+	altera_merlin_width_adapter #(
+		.IN_PKT_ADDR_H                 (317),
+		.IN_PKT_ADDR_L                 (288),
+		.IN_PKT_DATA_H                 (255),
+		.IN_PKT_DATA_L                 (0),
+		.IN_PKT_BYTEEN_H               (287),
+		.IN_PKT_BYTEEN_L               (256),
+		.IN_PKT_BYTE_CNT_H             (336),
+		.IN_PKT_BYTE_CNT_L             (324),
+		.IN_PKT_TRANS_COMPRESSED_READ  (318),
+		.IN_PKT_TRANS_WRITE            (320),
+		.IN_PKT_BURSTWRAP_H            (337),
+		.IN_PKT_BURSTWRAP_L            (337),
+		.IN_PKT_BURST_SIZE_H           (340),
+		.IN_PKT_BURST_SIZE_L           (338),
+		.IN_PKT_RESPONSE_STATUS_H      (358),
+		.IN_PKT_RESPONSE_STATUS_L      (357),
+		.IN_PKT_TRANS_EXCLUSIVE        (323),
+		.IN_PKT_BURST_TYPE_H           (342),
+		.IN_PKT_BURST_TYPE_L           (341),
+		.IN_PKT_ORI_BURST_SIZE_L       (359),
+		.IN_PKT_ORI_BURST_SIZE_H       (361),
+		.IN_ST_DATA_W                  (362),
+		.OUT_PKT_ADDR_H                (101),
+		.OUT_PKT_ADDR_L                (72),
+		.OUT_PKT_DATA_H                (63),
+		.OUT_PKT_DATA_L                (0),
+		.OUT_PKT_BYTEEN_H              (71),
+		.OUT_PKT_BYTEEN_L              (64),
+		.OUT_PKT_BYTE_CNT_H            (120),
+		.OUT_PKT_BYTE_CNT_L            (108),
+		.OUT_PKT_TRANS_COMPRESSED_READ (102),
+		.OUT_PKT_BURST_SIZE_H          (124),
+		.OUT_PKT_BURST_SIZE_L          (122),
+		.OUT_PKT_RESPONSE_STATUS_H     (142),
+		.OUT_PKT_RESPONSE_STATUS_L     (141),
+		.OUT_PKT_TRANS_EXCLUSIVE       (107),
+		.OUT_PKT_BURST_TYPE_H          (126),
+		.OUT_PKT_BURST_TYPE_L          (125),
+		.OUT_PKT_ORI_BURST_SIZE_L      (143),
+		.OUT_PKT_ORI_BURST_SIZE_H      (145),
+		.OUT_ST_DATA_W                 (146),
+		.ST_CHANNEL_W                  (1),
+		.OPTIMIZE_FOR_RSP              (0),
+		.RESPONSE_PATH                 (1),
+		.CONSTANT_BURST_SIZE           (1),
+		.PACKING                       (1),
+		.ENABLE_ADDRESS_ALIGNMENT      (0)
+	) m1_ddr2_memory_avl_rsp_width_adapter (
+		.clk                  (m1_ddr2_memory_afi_clk_clk),                                      //       clk.clk
+		.reset                (m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.in_valid             (router_001_src_valid),                                            //      sink.valid
+		.in_channel           (router_001_src_channel),                                          //          .channel
+		.in_startofpacket     (router_001_src_startofpacket),                                    //          .startofpacket
+		.in_endofpacket       (router_001_src_endofpacket),                                      //          .endofpacket
+		.in_ready             (router_001_src_ready),                                            //          .ready
+		.in_data              (router_001_src_data),                                             //          .data
+		.out_endofpacket      (m1_ddr2_memory_avl_rsp_width_adapter_src_endofpacket),            //       src.endofpacket
+		.out_data             (m1_ddr2_memory_avl_rsp_width_adapter_src_data),                   //          .data
+		.out_channel          (m1_ddr2_memory_avl_rsp_width_adapter_src_channel),                //          .channel
+		.out_valid            (m1_ddr2_memory_avl_rsp_width_adapter_src_valid),                  //          .valid
+		.out_ready            (m1_ddr2_memory_avl_rsp_width_adapter_src_ready),                  //          .ready
+		.out_startofpacket    (m1_ddr2_memory_avl_rsp_width_adapter_src_startofpacket),          //          .startofpacket
+		.in_command_size_data (3'b000)                                                           // (terminated)
+	);
+
 	altera_avalon_st_handshake_clock_crosser #(
-		.DATA_WIDTH          (107),
-		.BITS_PER_SYMBOL     (107),
+		.DATA_WIDTH          (146),
+		.BITS_PER_SYMBOL     (146),
 		.USE_PACKETS         (1),
 		.USE_CHANNEL         (1),
 		.CHANNEL_WIDTH       (1),
@@ -841,8 +785,8 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	);
 
 	altera_avalon_st_handshake_clock_crosser #(
-		.DATA_WIDTH          (107),
-		.BITS_PER_SYMBOL     (107),
+		.DATA_WIDTH          (146),
+		.BITS_PER_SYMBOL     (146),
 		.USE_PACKETS         (1),
 		.USE_CHANNEL         (1),
 		.CHANNEL_WIDTH       (1),

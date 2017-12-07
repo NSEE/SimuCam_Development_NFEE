@@ -5772,7 +5772,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (121),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (9),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (1),
