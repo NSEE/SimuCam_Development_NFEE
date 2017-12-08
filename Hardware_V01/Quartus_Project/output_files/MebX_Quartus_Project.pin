@@ -292,9 +292,9 @@ VCCL_GXBR0                   : AE7       : power  :                   : 1.1V    
 VCC                          : AE8       : power  :                   : 0.9V    :           :                
 VCCIO5C                      : AE9       : power  :                   : 3.0V    : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE10      :        :                   :         : 5C        :                
-LED_PAINEL_LED_POWER         : AE11      : output : 3.0-V PCI-X       :         : 5C        : Y              
+LED_PAINEL_LED_POWER         : AE11      : output : 3.3-V LVCMOS      :         : 5C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE12      :        :                   :         : 5A        :                
-SINC_IN                      : AE13      : input  : 3.0-V PCI-X       :         : 5A        : Y              
+SINC_IN                      : AE13      : input  : 3.3-V LVTTL       :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE14      :        :                   :         : 4A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE15      :        :                   :         : 4A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE16      :        :                   :         : 4A        :                
@@ -408,7 +408,7 @@ SW[6]                        : AH6       : input  : 2.5 V             :         
 VCCIO5C                      : AH7       : power  :                   : 3.0V    : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH8       :        :                   :         : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH9       :        :                   :         : 5C        :                
-RESET_PAINEL_n               : AH10      : input  : 3.0-V PCI-X       :         : 5A        : Y              
+RESET_PAINEL_n               : AH10      : input  : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH11      :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH12      :        :                   :         : 5A        :                
 CSENSE_SCK                   : AH13      : output : 1.8 V             :         : 4A        : Y              
@@ -443,11 +443,11 @@ GXB_GND*                     : AJ2       :        :                   :         
 GND                          : AJ3       : gnd    :                   :         :           :                
 GND                          : AJ4       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AJ5       :        :                   :         : 5C        :                
-LED_PAINEL_LED_8R            : AJ6       : output : 3.0-V PCI-X       :         : 5C        : Y              
+LED_PAINEL_LED_8R            : AJ6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
 GND                          : AJ7       : gnd    :                   :         :           :                
 VCCIO5C                      : AJ8       : power  :                   : 3.0V    : 5C        :                
 GND                          : AJ9       : gnd    :                   :         :           :                
-LED_PAINEL_LED_8G            : AJ10      : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_8G            : AJ10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AJ11      :        :                   :         : 5A        :                
 GND                          : AJ12      : gnd    :                   :         :           :                
 CSENSE_SDI                   : AJ13      : output : 1.8 V             :         : 4A        : Y              
@@ -485,7 +485,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AK5       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AK6       :        :                   :         : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AK7       :        :                   :         : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AK8       :        :                   :         : 5C        :                
-LED_PAINEL_LED_7G            : AK9       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_7G            : AK9       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 VCCIO5A                      : AK10      : power  :                   : 3.0V    : 5A        :                
 NC                           : AK11      :        :                   :         :           :                
 VCCPGM                       : AK12      : power  :                   : 1.8V/2.5V/3.0V :           :                
@@ -520,11 +520,11 @@ GXB_GND*                     : AL1       :        :                   :         
 GXB_GND*                     : AL2       :        :                   :         : QR0       :                
 GND                          : AL3       : gnd    :                   :         :           :                
 GND                          : AL4       : gnd    :                   :         :           :                
-LED_PAINEL_LED_6G            : AL5       : output : 3.0-V PCI-X       :         : 5C        : Y              
-LED_PAINEL_LED_5G            : AL6       : output : 3.0-V PCI-X       :         : 5C        : Y              
+LED_PAINEL_LED_6G            : AL5       : output : 3.3-V LVCMOS      :         : 5C        : Y              
+LED_PAINEL_LED_5G            : AL6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
 VCCIO5C                      : AL7       : power  :                   : 3.0V    : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AL8       :        :                   :         : 5A        :                
-LED_PAINEL_LED_7R            : AL9       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_7R            : AL9       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AL10      :        :                   :         : 5A        :                
 GND                          : AL11      : gnd    :                   :         :           :                
 VCCAUX                       : AL12      : power  :                   : 2.5V    :           :                
@@ -560,7 +560,7 @@ GND                          : AM2       : gnd    :                   :         
 GXB_NC                       : AM3       :        :                   :         : QR0       :                
 GXB_NC                       : AM4       :        :                   :         : QR0       :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AM5       :        :                   :         : 5C        :                
-LED_PAINEL_LED_6R            : AM6       : output : 3.0-V PCI-X       :         : 5C        : Y              
+LED_PAINEL_LED_6R            : AM6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
 GND                          : AM7       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AM8       :        :                   :         : 5A        :                
 GND                          : AM9       : gnd    :                   :         :           :                
@@ -599,8 +599,8 @@ GXB_GND*                     : AN2       :        :                   :         
 GND                          : AN3       : gnd    :                   :         :           :                
 GND                          : AN4       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN5       :        :                   :         : 5C        :                
-LED_PAINEL_LED_5R            : AN6       : output : 3.0-V PCI-X       :         : 5C        : Y              
-LED_PAINEL_LED_4G            : AN7       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_5R            : AN6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
+LED_PAINEL_LED_4G            : AN7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 VCCIO5A                      : AN8       : power  :                   : 3.0V    : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN9       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN10      :        :                   :         : 5A        :                
@@ -638,11 +638,11 @@ GND                          : AP2       : gnd    :                   :         
 GXB_NC                       : AP3       :        :                   :         : QR0       :                
 GXB_NC                       : AP4       :        :                   :         : QR0       :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP5       :        :                   :         : 5C        :                
-LED_PAINEL_LED_3G            : AP6       : output : 3.0-V PCI-X       :         : 5C        : Y              
+LED_PAINEL_LED_3G            : AP6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP7       :        :                   :         : 5A        :                
-RTCC_CS_n                    : AP8       : output : 3.0-V PCI-X       :         : 5A        : Y              
+RTCC_CS_n                    : AP8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP9       :        :                   :         : 5A        :                
-SINC_OUT                     : AP10      : output : 3.0-V PCI-X       :         : 5A        : Y              
+SINC_OUT                     : AP10      : output : 3.3-V LVTTL       :         : 5A        : Y              
 nCSO                         : AP11      :        :                   :         : 1A        :                
 VCCIO4A                      : AP12      : power  :                   : 1.8V    : 4A        :                
 M1_DDR2_dq[56]               : AP13      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
@@ -676,7 +676,7 @@ GXB_GND*                     : AR1       :        :                   :         
 GXB_GND*                     : AR2       :        :                   :         : QR0       :                
 GND                          : AR3       : gnd    :                   :         :           :                
 GND                          : AR4       : gnd    :                   :         :           :                
-LED_PAINEL_LED_3R            : AR5       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_3R            : AR5       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 GND                          : AR6       : gnd    :                   :         :           :                
 VCCIO5A                      : AR7       : power  :                   : 3.0V    : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AR8       :        :                   :         : 5A        :                
@@ -716,11 +716,11 @@ GND                          : AT2       : gnd    :                   :         
 GXB_NC                       : AT3       :        :                   :         : QR0       :                
 GXB_NC                       : AT4       :        :                   :         : QR0       :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT5       :        :                   :         : 5A        :                
-LED_PAINEL_LED_2R            : AT6       : output : 3.0-V PCI-X       :         : 5A        : Y              
-LED_PAINEL_LED_4R            : AT7       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_2R            : AT6       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+LED_PAINEL_LED_4R            : AT7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT8       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT9       :        :                   :         : 5A        :                
-LED_PAINEL_LED_1R            : AT10      : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_1R            : AT10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 nCEO                         : AT11      :        :                   :         : 1A        :                
 M1_DDR2_dq[55]               : AT12      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 M1_DDR2_dqsn[7]              : AT13      : bidir  : Differential 1.8-V SSTL Class I :         : 4A        : Y              
@@ -755,11 +755,11 @@ GXB_GND*                     : AU2       :        :                   :         
 GND                          : AU3       : gnd    :                   :         :           :                
 GND                          : AU4       : gnd    :                   :         :           :                
 NC                           : AU5       :        :                   :         :           :                
-LED_PAINEL_LED_1G            : AU6       : output : 3.0-V PCI-X       :         : 5A        : Y              
-LED_PAINEL_LED_2G            : AU7       : output : 3.0-V PCI-X       :         : 5A        : Y              
-LED_PAINEL_LED_ST4           : AU8       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_1G            : AU6       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+LED_PAINEL_LED_2G            : AU7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+LED_PAINEL_LED_ST4           : AU8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU9       :        :                   :         : 5A        :                
-RTCC_SDI                     : AU10      : output : 3.0-V PCI-X       :         : 5A        : Y              
+RTCC_SDI                     : AU10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 M1_DDR2_dq[54]               : AU11      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 M1_DDR2_dq[51]               : AU12      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 VCCIO4A                      : AU13      : power  :                   : 1.8V    : 4A        :                
@@ -796,9 +796,9 @@ NC                           : AV4       :        :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV5       :        :                   :         : 5A        :                
 GND                          : AV6       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV7       :        :                   :         : 5A        :                
-RTCC_SDO                     : AV8       : input  : 3.0-V PCI-X       :         : 5A        : Y              
+RTCC_SDO                     : AV8       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
 GND                          : AV9       : gnd    :                   :         :           :                
-LED_PAINEL_LED_ST2           : AV10      : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_ST2           : AV10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV11      :        :                   :         : 4A        :                
 GND                          : AV12      : gnd    :                   :         :           :                
 M1_DDR2_dqs[6]               : AV13      : bidir  : Differential 1.8-V SSTL Class I :         : 4A        : Y              
@@ -830,13 +830,13 @@ GND                          : AV38      : gnd    :                   :         
 GND                          : AV39      : gnd    :                   :         :           :                
 RREF                         : AW2       :        :                   :         :           :                
 GND                          : AW3       : gnd    :                   :         :           :                
-RTCC_SCK                     : AW4       : output : 3.0-V PCI-X       :         : 5A        : Y              
-RTCC_ALARM                   : AW5       : input  : 3.0-V PCI-X       :         : 5A        : Y              
+RTCC_SCK                     : AW4       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+RTCC_ALARM                   : AW5       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AW6       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AW7       :        :                   :         : 5A        :                
-LED_PAINEL_LED_ST1           : AW8       : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_ST1           : AW8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 VCCIO5A                      : AW9       : power  :                   : 3.0V    : 5A        :                
-LED_PAINEL_LED_ST3           : AW10      : output : 3.0-V PCI-X       :         : 5A        : Y              
+LED_PAINEL_LED_ST3           : AW10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 M1_DDR2_dq[48]               : AW11      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 M1_DDR2_dq[49]               : AW12      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 M1_DDR2_dqsn[6]              : AW13      : bidir  : Differential 1.8-V SSTL Class I :         : 4A        : Y              
@@ -1324,7 +1324,7 @@ altera_reserved_tms          : N27       : input  : 2.5 V             :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : N28       :        :                   :         : 1A        :                
 LED_DE4[4]                   : N29       : output : 2.5 V             :         : 1A        : Y              
 LED_DE4[7]                   : N30       : output : 2.5 V             :         : 1A        : Y              
-FSM_A[0]                     : N31       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N31       :        :                   :         : 1A        :                
 VCCIO1C                      : N32       : power  :                   : 2.5V    : 1C        :                
 ETH_RX_p[1]                  : N33       : input  : LVDS              :         : 1C        : Y              
 ETH_RX_p[1](n)               : N34       : input  : LVDS              :         : 1C        : N              
@@ -1399,7 +1399,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :      
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
+FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 ETH_MDC[0]                   : R30       : output : 2.5 V             :         : 1C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                

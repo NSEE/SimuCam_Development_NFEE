@@ -1,0 +1,2 @@
+MAC do RTCC utilizado na DE4 (Placa Painel 2):
+  0x54:10:EC:60:1D:0A

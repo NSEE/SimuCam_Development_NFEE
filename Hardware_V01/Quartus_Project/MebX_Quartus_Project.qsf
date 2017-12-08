@@ -1959,7 +1959,7 @@ set_instance_assignment -name IO_STANDARD "2.5 V" -to SEVEN_SEG_HEX0[4]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to SEVEN_SEG_HEX0[5]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to SEVEN_SEG_HEX0[6]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to SEVEN_SEG_HEX0[7]
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to RESET_PAINEL_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RESET_PAINEL_n
 set_global_assignment -name QIP_FILE ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.qip
 set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/pll_125.cmp
 set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/pll_125.qip
@@ -1978,61 +1978,61 @@ set_global_assignment -name VHDL_FILE ../Hardware_Project/MebX_TopLevel.vhd
 set_global_assignment -name SDC_FILE DE4_DDR2.sdc
 set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/PLL.qip
 set_location_assignment PIN_AW8 -to LED_PAINEL_LED_ST1
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_ST1
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_ST1
 set_location_assignment PIN_AV10 -to LED_PAINEL_LED_ST2
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_ST2
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_ST2
 set_location_assignment PIN_AW10 -to LED_PAINEL_LED_ST3
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_ST3
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_ST3
 set_location_assignment PIN_AU8 -to LED_PAINEL_LED_ST4
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_ST4
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_ST4
 set_location_assignment PIN_AT10 -to LED_PAINEL_LED_1R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_1R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_1R
 set_location_assignment PIN_AT6 -to LED_PAINEL_LED_2R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_2R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_2R
 set_location_assignment PIN_AR5 -to LED_PAINEL_LED_3R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_3R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_3R
 set_location_assignment PIN_AT7 -to LED_PAINEL_LED_4R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_4R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_4R
 set_location_assignment PIN_AN6 -to LED_PAINEL_LED_5R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_5R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_5R
 set_location_assignment PIN_AM6 -to LED_PAINEL_LED_6R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_6R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_6R
 set_location_assignment PIN_AL9 -to LED_PAINEL_LED_7R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_7R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_7R
 set_location_assignment PIN_AJ6 -to LED_PAINEL_LED_8R
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_8R
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_8R
 set_location_assignment PIN_AE11 -to LED_PAINEL_LED_POWER
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_POWER
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_POWER
 set_location_assignment PIN_AU6 -to LED_PAINEL_LED_1G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_1G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_1G
 set_location_assignment PIN_AU7 -to LED_PAINEL_LED_2G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_2G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_2G
 set_location_assignment PIN_AP6 -to LED_PAINEL_LED_3G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_3G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_3G
 set_location_assignment PIN_AN7 -to LED_PAINEL_LED_4G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_4G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_4G
 set_location_assignment PIN_AL6 -to LED_PAINEL_LED_5G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_5G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_5G
 set_location_assignment PIN_AL5 -to LED_PAINEL_LED_6G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_6G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_6G
 set_location_assignment PIN_AK9 -to LED_PAINEL_LED_7G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_7G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_7G
 set_location_assignment PIN_AJ10 -to LED_PAINEL_LED_8G
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to LED_PAINEL_LED_8G
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to LED_PAINEL_LED_8G
 set_location_assignment PIN_AW5 -to RTCC_ALARM
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to RTCC_ALARM
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_ALARM
 set_location_assignment PIN_AP8 -to RTCC_CS_n
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to RTCC_CS_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_CS_n
 set_location_assignment PIN_AW4 -to RTCC_SCK
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to RTCC_SCK
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_SCK
 set_location_assignment PIN_AU10 -to RTCC_SDI
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to RTCC_SDI
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_SDI
 set_location_assignment PIN_AV8 -to RTCC_SDO
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to RTCC_SDO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_SDO
 set_location_assignment PIN_AE13 -to SINC_IN
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to SINC_IN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SINC_IN
 set_location_assignment PIN_AP10 -to SINC_OUT
-set_instance_assignment -name IO_STANDARD "3.0-V PCI-X" -to SINC_OUT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SINC_OUT
 set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|p0|umemphy|ureset|phy_reset_mem_stable_n -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|p0|umemphy|ureset|phy_reset_n -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|s0|sequencer_rw_mgr_inst|rw_mgr_inst|rw_mgr_core_inst|rw_soft_reset_n -tag __MebX_Qsys_Project_m2_ddr2_memory_p0

@@ -1,0 +1,10 @@
+Report de testes com mémoria:
+
+  Memória Kingston de 2GB modelo KVR800D2S6/2G : 
+    - Testada e funcionando com os 2GB na DE4;
+    - Velocidade máxima de transferência: 2048 MB em 4.027 s -> 508,57 MB/s ou 3,97 Gb/s;
+      > Condições: Transferência de 2 GB de informação da DDR2 M1 para DDR2 M2 (e vice e versa) com bus de 256 bits;
+    - Provável velocidade de transferência de operação: 2048 MB em 16,104 s -> 127,17 MB/s ou 0,99 Gb/s;
+      > Condições: Transferência de 2 GB de informação da DDR2 M1 para DDR2 M2 (e vice e versa) com bus de 64 bits;
+
+  

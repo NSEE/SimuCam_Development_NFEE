@@ -26,10 +26,12 @@ alt_u32 LedsPainelControl = 0x00000000;
  */
 bool LEDS_BOARD_DRIVE(bool bDRIVE, alt_u8 LedsMask){
 
+  // Board LEDs state: ON = 0; OFF = 1;
+
   if (bDRIVE == LEDS_ON){
-	LedsBoardControl |= LedsMask;
-  } else {
 	LedsBoardControl &= (~LedsMask);
+  } else {
+	LedsBoardControl |= LedsMask;
   }
   IOWR_ALTERA_AVALON_PIO_DATA(LEDS_BOARD_BASE, LedsBoardControl);
 
@@ -50,6 +52,8 @@ bool LEDS_BOARD_DRIVE(bool bDRIVE, alt_u8 LedsMask){
  *
  */
 bool LEDS_PAINEL_DRIVE(bool bDRIVE, alt_u32 LedsMask){
+
+  // Painel LEDs state: ON = 1; OFF = 0;
 
   if (bDRIVE == LEDS_ON){
 	LedsPainelControl |= LedsMask;

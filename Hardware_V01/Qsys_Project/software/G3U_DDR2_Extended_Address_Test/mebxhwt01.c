@@ -32,6 +32,7 @@
  * Global
 **************************************************/
 
+void DemoMode(void);
 void TestLeds(void);
 void TestSinc(void);
 void TestRTCC(void);
@@ -45,9 +46,6 @@ int main(void)
 
   //Configura Display de 7 segmentos
   SSDP_CONFIG(SSDP_NORMAL_MODE);
-
-	alt_8 tempFPGA = 0;
-	alt_8 tempBoard = 0;
 
   //Realiza teste dos LEDS, entra em um loop infinito.
   //TestLeds();
@@ -67,31 +65,159 @@ int main(void)
   //Teste de escrita de leitura da DDR2 M2
   //DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
   //DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
-  
-	TEMP_Read(&tempFPGA, &tempBoard);
-	SSDP_UPDATE(tempFPGA);
 
   //Teste de transferencia com DMA (M1 -> M2);
   //TestDMA_M1_M2();
   
   //Teste de transferencia com DMA (M2 -> M1);
-  TestDMA_M2_M1();
+  //TestDMA_M2_M1();
 
   //TestLeds();
   //TestRTCC();
   //TestSinc();
 
+  DemoMode();
 
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
 	while(1){
 
-			TEMP_Read(&tempFPGA, &tempBoard);
-			SSDP_UPDATE(tempFPGA);
 			usleep(1000*1000);
 
 	}
 
   return 0;
+}
+
+void DemoMode(void){
+
+	alt_8 tempFPGA = 0;
+	alt_8 tempBoard = 0;
+
+	LEDS_BOARD_DRIVE(LEDS_OFF, LEDS_BOARD_ALL_MASK);
+
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
+
+	while(1){
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_1_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_2_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_2_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_3_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_3_MASK);
+
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_4_MASK);
+	usleep(1000*1000);
+	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_4_MASK);
+	}
 }
 
 void TestRTCC (void){
