@@ -46,354 +46,6 @@ int main(void)
   //Configura Display de 7 segmentos
   SSDP_CONFIG(SSDP_NORMAL_MODE);
 
-  //Teste inicial das memórias, para entender como o sub-windows funciona
-
-  //alt_u32 *pDdr2Addr = DDR2_ADDRESS_SPAN_EXTENDER_CNTL_BASE;
-  //alt_u32 *pDdr2DataAddr;
-
-  // Coloca o sub-window offset no address 0x00000000
-//  *(pDdr2Addr) = (alt_u32) 0x00000000;
-//  *(pDdr2Addr) = (alt_u32) 0x00000000;
-/*
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  *pDdr2DataAddr = 0x00000000;
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  *pDdr2DataAddr = 0x00000000;
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  *pDdr2DataAddr = 0x00000000;
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  *pDdr2DataAddr = 0x00000000;
-
-  *(pDdr2Addr) = (alt_u32) 0x00000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  *pDdr2DataAddr = 0xABEC384E;
-  printf("Dado M1 0x00000000 escrito corretamente! \n");
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  *pDdr2DataAddr = 0xADB9FBE4;
-  printf("Dado M1 0x10000000 escrito corretamente! \n");
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  *pDdr2DataAddr = 0xC5BC2FC3;
-  printf("Dado M1 0x20000000 escrito corretamente! \n");
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  *pDdr2DataAddr = 0x66A9E26F;
-  printf("Dado M1 0x30000000 escrito corretamente! \n");
-
-  *(pDdr2Addr) = (alt_u32) 0x40000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  *pDdr2DataAddr = 0x00000000;
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  *pDdr2DataAddr = 0x00000000;
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  *pDdr2DataAddr = 0x00000000;
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  *pDdr2DataAddr = 0x00000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  *pDdr2DataAddr = 0x912BAD28;
-  printf("Dado M2 0x00000000 escrito corretamente! \n");
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  *pDdr2DataAddr = 0xD176A72E;
-  printf("Dado M2 0x10000000 escrito corretamente! \n");
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  *pDdr2DataAddr = 0xE15C1944;
-  printf("Dado M2 0x20000000 escrito corretamente! \n");
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  *pDdr2DataAddr = 0xC67737D6;
-  printf("Dado M2 0x30000000 escrito corretamente! \n");
-
-//  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-//  if (*pDdr2DataAddr == 0xABEC384E) {
-//	  printf("Dado 1 lido corretamente! \n");
-//  } else {
-//	  printf("Falha ao ler Dado 1! \n");
-//  }
-
-
-  *(pDdr2Addr) = (alt_u32) 0x00000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0xABEC384E) {
-	  printf("0x00000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xADB9FBE4) {
-	  printf("0x10000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xC5BC2FC3) {
-	  printf("0x20000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0x66A9E26F) {
-	  printf("0x30000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0x912BAD28) {
-	  printf("0x00000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xD176A72E) {
-	  printf("0x10000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xE15C1944) {
-	  printf("0x20000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0xC67737D6) {
-	  printf("0x30000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M2! \n");
-  }
-
-
-  *(pDdr2Addr) = (alt_u32) 0x40000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0xABEC384E) {
-	  printf("0x00000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xADB9FBE4) {
-	  printf("0x10000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xC5BC2FC3) {
-	  printf("0x20000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0x66A9E26F) {
-	  printf("0x30000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0x912BAD28) {
-	  printf("0x00000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xD176A72E) {
-	  printf("0x10000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xE15C1944) {
-	  printf("0x20000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0xC67737D6) {
-	  printf("0x30000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M2! \n");
-  }
-
-  *(pDdr2Addr) = (alt_u32) 0x00000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0xABEC384E) {
-	  printf("0x00000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xADB9FBE4) {
-	  printf("0x10000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xC5BC2FC3) {
-	  printf("0x20000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0x66A9E26F) {
-	  printf("0x30000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0x912BAD28) {
-	  printf("0x00000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xD176A72E) {
-	  printf("0x10000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xE15C1944) {
-	  printf("0x20000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0xC67737D6) {
-	  printf("0x30000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M2! \n");
-  }
-
-  *(pDdr2Addr) = (alt_u32) 0x40000000;
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0xABEC384E) {
-	  printf("0x00000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xADB9FBE4) {
-	  printf("0x10000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xC5BC2FC3) {
-	  printf("0x20000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0x66A9E26F) {
-	  printf("0x30000000: Dado M1 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M1! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x00000000);
-  if (*pDdr2DataAddr == 0x912BAD28) {
-	  printf("0x00000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x00000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x10000000);
-  if (*pDdr2DataAddr == 0xD176A72E) {
-	  printf("0x10000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x10000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x20000000);
-  if (*pDdr2DataAddr == 0xE15C1944) {
-	  printf("0x20000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x20000000: Falha ao ler Dado M2! \n");
-  }
-
-  pDdr2DataAddr = (alt_u32*)(0x0FFFFFFFF+0x30000000);
-  if (*pDdr2DataAddr == 0xC67737D6) {
-	  printf("0x30000000: Dado M2 lido corretamente! \n");
-  } else {
-	  printf("0x30000000: Falha ao ler Dado M2! \n");
-  }
-*/
-  /*
-  // Escreve dado 0xABEC384E no endereço 0x00000000
-  pDdr2DataAddr = (alt_u32*)(0x00000000+0x20000000);
-  *pDdr2DataAddr = 0xABEC384E;
-  printf("Dado 1 escrito corretamente! \n");
-
-  // Le e confere dado 0xABEC384E no endereço 0x00000000
-  pDdr2DataAddr = (alt_u32*)(0x00000000+0x20000000);
-  if (*pDdr2DataAddr == 0xABEC384E) {
-	  printf("Dado 1 lido corretamente! \n");
-  } else {
-	  printf("Falha ao ler Dado 1! \n");
-  }
-
-  // Coloca o sub-window offset no address 0x00000008
-  *(pDdr2Addr) = (alt_u32) 0x00000008;
-
-  // Le e confere dado 0xABEC384E no endereço 0x00000000
-  pDdr2DataAddr = (alt_u32*)(0x00000000+0x20000000);
-  if (*pDdr2DataAddr == 0xABEC384E) {
-	  printf("Dado 1 lido corretamente! \n");
-  } else {
-	  printf("Falha ao ler Dado 1! \n");
-  }
-
-  // Escreve dado 0x8E42E41C no endereço 0x00000000
-  pDdr2DataAddr = (alt_u32*)(0x00000000+0x20000000);
-  *pDdr2DataAddr = 0x8E42E41C;
-  printf("Dado 2 escrito corretamente! \n");
-
-  // Le e confere dado 0x8E42E41C no endereço 0x00000000
-  pDdr2DataAddr = (alt_u32*)(0x00000000+0x20000000);
-  if (*pDdr2DataAddr == 0x8E42E41C) {
-	  printf("Dado 2 lido corretamente! \n");
-  } else {
-	  printf("Falha ao ler Dado 2! \n");
-  }
-
-  // Coloca o sub-window offset no address 0x00000000
-  *(pDdr2Addr) = (alt_u32) 0x00000000;
-
-  // Le e confere dado 0x8E42E41C no endereço 0x00000000
-  pDdr2DataAddr = (alt_u32*)(0x00000000+0x20000000);
-  if (*pDdr2DataAddr == 0x8E42E41C) {
-	  printf("Dado 2 lido corretamente! \n");
-  } else {
-	  printf("Falha ao ler Dado 2! \n");
-  }
-*/
-
 	alt_8 tempFPGA = 0;
 	alt_8 tempBoard = 0;
 
@@ -420,16 +72,10 @@ int main(void)
 	SSDP_UPDATE(tempFPGA);
 
   //Teste de transferencia com DMA (M1 -> M2);
-  TestDMA_M1_M2();
+  //TestDMA_M1_M2();
   
-	TEMP_Read(&tempFPGA, &tempBoard);
-	SSDP_UPDATE(tempFPGA);
-
   //Teste de transferencia com DMA (M2 -> M1);
   TestDMA_M2_M1();
-
-	TEMP_Read(&tempFPGA, &tempBoard);
-	SSDP_UPDATE(tempFPGA);
 
   //TestLeds();
   //TestRTCC();
@@ -479,6 +125,12 @@ void TestRTCC (void){
 
 		bPass = RTCC_SPI_R_MAC(uc_EUI48_array);
 
+		if (bPass) {
+			printf("RTCC Test Succeeded!\n");
+		} else {
+			printf("RTCC Test Failed!\n");
+		}
+
 	  }
 
 }
@@ -489,27 +141,33 @@ void TestSinc (void){
 
 	alt_8 tempFPGA = 0;
 	alt_8 tempBoard = 0;
+	alt_u32 State = alt_nticks();
+	alt_u32 x = 0;
+	alt_u8 SincValue = 0;
 
 	while (1){
+
 		TEMP_Read(&tempFPGA, &tempBoard);
 		SSDP_UPDATE(tempFPGA);
-		IOWR_ALTERA_AVALON_PIO_DATA(SINC_OUT_BASE, 1);
+
+		//RNG - XorShift32
+		x = State;
+		x ^= x << 13;
+		x ^= x >> 17;
+		x ^= x << 5;
+		State = x;
+
+		//Informação do Sinc é se o valor é par ou ímpar
+		SincValue = (alt_u8)(State & 0x00000001);
+
+		IOWR_ALTERA_AVALON_PIO_DATA(SINC_OUT_BASE, SincValue);
 		usleep(1000*1000);
+
 		uc_sinc_in = (IORD_ALTERA_AVALON_PIO_DATA(SINC_IN_BASE) & 0x01);
-		if (uc_sinc_in == 1) {
-			printf("Success");
+		if (uc_sinc_in == SincValue) {
+			printf("Success, Value: %d\n", SincValue);
 		} else {
-			printf("Failure");
-		}
-		TEMP_Read(&tempFPGA, &tempBoard);
-		SSDP_UPDATE(tempFPGA);
-		IOWR_ALTERA_AVALON_PIO_DATA(SINC_OUT_BASE, 0);
-		usleep(1000*1000);
-		uc_sinc_in = (IORD_ALTERA_AVALON_PIO_DATA(SINC_IN_BASE) & 0x01);
-		if (uc_sinc_in == 0) {
-			printf("Success");
-		} else {
-			printf("Failure");
+			printf("Failure, Value: %d\n", SincValue);
 		}
 	}
 

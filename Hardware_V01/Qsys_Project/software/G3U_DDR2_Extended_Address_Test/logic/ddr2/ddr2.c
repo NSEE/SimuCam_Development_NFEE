@@ -585,7 +585,7 @@ bool DDR2_MEMORY_RANDOM_READ_TEST(alt_u8 MemoryId, bool bVerbose, bool bTime){
     if (xorshift32(&CurrentState) != *pSource){
       bSuccess = FALSE;
 	  if (bVerbose == DDR2_VERBOSE) {
-        printf("Failed to read adress 0x%08X\n", pSource);
+        //printf("Failed to read adress 0x%08X\n", pSource);
       }
     }
     if ((bVerbose == DDR2_VERBOSE) && ((alt_u32)pSource > NextMilestone)){
