@@ -2,28 +2,28 @@ Core: MebX_Qsys_Project_m1_ddr2_memory_p0 - Instance: SOPC_INST|m1_ddr2_memory
 Path, Setup Margin, Hold Margin
 "Address Command (Slow 900mV 85C Model)",0.099,0.655
 "Bus Turnaround Time (Slow 900mV 85C Model)",5.437,--
-"Core (Slow 900mV 85C Model)",0.181,0.094
-"Core Recovery/Removal (Slow 900mV 85C Model)",0.628,0.468
+"Core (Slow 900mV 85C Model)",0.321,0.091
+"Core Recovery/Removal (Slow 900mV 85C Model)",0.656,0.492
 "Read Capture (Slow 900mV 85C Model)",0.192,0.144
-"Read Resync (Slow 900mV 85C Model)",2.731,5.397
+"Read Resync (Slow 900mV 85C Model)",2.6,5.369
 "Write (Slow 900mV 85C Model)",-0.077,-0.077
 "Write Leveling tDQSS (Slow 900mV 85C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 85C Model)",0.42,0.42
 "Address Command (Slow 900mV 0C Model)",0.092,0.705
 "Bus Turnaround Time (Slow 900mV 0C Model)",5.463,--
-"Core (Slow 900mV 0C Model)",0.445,0.144
-"Core Recovery/Removal (Slow 900mV 0C Model)",0.91,0.453
-"Read Capture (Slow 900mV 0C Model)",0.195,0.147
-"Read Resync (Slow 900mV 0C Model)",2.803,5.431
+"Core (Slow 900mV 0C Model)",0.552,0.139
+"Core Recovery/Removal (Slow 900mV 0C Model)",0.934,0.473
+"Read Capture (Slow 900mV 0C Model)",0.194,0.146
+"Read Resync (Slow 900mV 0C Model)",2.638,5.438
 "Write (Slow 900mV 0C Model)",-0.065,-0.065
 "Write Leveling tDQSS (Slow 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 0C Model)",0.42,0.42
 "Address Command (Fast 900mV 0C Model)",0.065,0.864
 "Bus Turnaround Time (Fast 900mV 0C Model)",5.516,--
-"Core (Fast 900mV 0C Model)",0.669,0.096
-"Core Recovery/Removal (Fast 900mV 0C Model)",2.292,0.269
+"Core (Fast 900mV 0C Model)",0.677,0.142
+"Core Recovery/Removal (Fast 900mV 0C Model)",2.358,0.268
 "Read Capture (Fast 900mV 0C Model)",0.221,0.173
-"Read Resync (Fast 900mV 0C Model)",3.227,5.813
+"Read Resync (Fast 900mV 0C Model)",3.131,5.795
 "Write (Fast 900mV 0C Model)",-0.068,-0.068
 "Write Leveling tDQSS (Fast 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Fast 900mV 0C Model)",0.42,0.42
