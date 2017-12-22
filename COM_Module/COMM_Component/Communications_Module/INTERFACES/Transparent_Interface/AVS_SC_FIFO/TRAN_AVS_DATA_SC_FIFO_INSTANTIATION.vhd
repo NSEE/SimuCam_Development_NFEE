@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 use work.tran_avs_sc_fifo_pkg.all;
 
-entity tran_avs_sc_fifo_ent is
+entity tran_avs_sc_fifo_instantiation_ent is
 	port(
 		clk                              : in  std_logic;
 		rst                              : in  std_logic;
@@ -13,9 +13,9 @@ entity tran_avs_sc_fifo_ent is
 		tran_tx_inputs_avs_sc_fifo_type  : in  tran_fifo_intputs_avs_sc_fifo_type;
 		tran_tx_outputs_avs_sc_fifo_type : out tran_fifo_outputs_avs_sc_fifo_type
 	);
-end entity tran_avs_sc_fifo_ent;
+end entity tran_avs_sc_fifo_instantiation_ent;
 
-architecture tran_avs_sc_fifo_arc of tran_avs_sc_fifo_ent is
+architecture tran_avs_sc_fifo_instantiation_arc of tran_avs_sc_fifo_instantiation_ent is
 
 	-- Signals for RX AVS SC FIFO Control
 	signal rx_sclr_sig : std_logic;
@@ -59,4 +59,4 @@ begin
 		-- TX AVS SC FIFO sClear Control
 	tx_sclr_sig <= (tran_tx_inputs_avs_sc_fifo_type.read.sclr) or (tran_tx_inputs_avs_sc_fifo_type.write.sclr);
 
-end architecture tran_avs_sc_fifo_arc;
+end architecture tran_avs_sc_fifo_instantiation_arc;

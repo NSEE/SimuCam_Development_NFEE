@@ -11,7 +11,6 @@ entity tran_rx_avs_controller_ent is
 	port(
 		clk                              : in  std_logic;
 		rst                              : in  std_logic;
-		tran_mm_read_registers           : out tran_mm_read_registers_type;
 		tran_burst_read_registers        : out tran_burst_read_registers_type;
 		tran_rx_avsdc_rx_avs_inputs      : in  tran_avsdc_rx_avs_inputs_type;
 		tran_rx_avsdc_rx_avs_outputs     : out tran_avsdc_rx_avs_outputs_type;
@@ -83,9 +82,6 @@ begin
 	tran_burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_1 <= avsdc_rx_avs_data_sig.spacewire_data_1;
 	tran_burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_FLAG_0 <= avsdc_rx_avs_data_sig.spacewire_flag_0;
 	tran_burst_read_registers.RX_DATA_BURST_REGISTER.SPACEWIRE_DATA_0 <= avsdc_rx_avs_data_sig.spacewire_data_0;
-
-	-- RX FIFO Status Register Fifo Empty Signal assignment
-	tran_mm_read_registers.RX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT <= tran_rx_read_inputs_avs_sc_fifo.empty;
 
 end architecture tran_rx_avs_controller_arc;
 

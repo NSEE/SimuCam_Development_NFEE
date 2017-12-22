@@ -28,7 +28,8 @@ entity comm_component_ent is
 		conduit_end_spw_so                    : out std_logic; --                                     --                          .spw_so_signal
 		reset_sink_reset                      : in  std_logic                     := '0'; --          --                reset_sink.reset
 		interrupt_sender_irq                  : out std_logic; --                                     --          interrupt_sender.irq
-		avalon_mm_data_slave_address          : in  std_logic_vector(7 downto 0)  := (others => '0'); --      avalon_mm_data_slave.address
+--		avalon_mm_data_slave_address          : in  std_logic_vector(7 downto 0)  := (others => '0'); --      avalon_mm_data_slave.address
+		avalon_mm_data_slave_address          : in  std_logic_vector(25 downto 0)  := (others => '0'); --     avalon_mm_data_slave.address
 		avalon_mm_data_slave_read             : in  std_logic                     := '0'; --          --                          .read
 		avalon_mm_data_slave_readdata         : out std_logic_vector(63 downto 0); --                 --                          .readdata
 		avalon_mm_data_slave_waitrequest      : out std_logic; --                                     --                          .waitrequest

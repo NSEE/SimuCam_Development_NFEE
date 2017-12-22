@@ -25,24 +25,24 @@ begin
 		procedure mm_reset_registers_procedure is
 		begin
 			-- SPWC Module Reset procedure
-			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_ENABLE_BIT     <= '0';
-			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_RX_ENABLE_BIT  <= '0';
-			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT  <= '0';
-			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT    <= '0';
-			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.FORCE_RESET_BIT      <= '0';
-			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.LINK_ERROR            <= '0';
-			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.TIMECODE_RECEIVED     <= '0';
-			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.LINK_RUNNING          <= '0';
-			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_ERROR        <= '0';
-			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.TIMECODE_RECEIVED <= '0';
-			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_RUNNING      <= '0';
-			mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT            <= '0';
-			mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.LINK_START_BIT           <= '0';
-			mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT      <= '0';
-			mm_write_registers.SPWC.RX_TIMECODE_CLEAR_REGISTER.CONTROL_STATUS_BIT   <= '0';
-			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS      <= (others => '0');
-			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE     <= (others => '0');
-			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT         <= '0';
+			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_ENABLE_BIT       <= '0';
+			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_RX_ENABLE_BIT    <= '0';
+			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT    <= '0';
+			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT      <= '0';
+			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.FORCE_RESET_BIT        <= '0';
+			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.LINK_ERROR              <= '0';
+			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.TIMECODE_RECEIVED       <= '0';
+			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.LINK_RUNNING            <= '0';
+			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_ERROR          <= '0';
+			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.TIMECODE_RECEIVED   <= '0';
+			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_RUNNING        <= '0';
+			mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT              <= '0';
+			mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.LINK_START_BIT             <= '0';
+			mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT        <= '0';
+			mm_write_registers.SPWC.RX_TIMECODE_CLEAR_REGISTER.CONTROL_STATUS_BIT     <= '0';
+			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS        <= (others => '0');
+			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE       <= (others => '0');
+			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT           <= '0';
 
 			-- TRAN Module Reset procedure
 			mm_write_registers.TRAN.INTERFACE_CONTROL_REGISTER.INTERFACE_ENABLE_BIT    <= '0';
@@ -118,7 +118,7 @@ begin
 					--     0- 0 : Link Running interrupt flag clear      [-/W]
 					mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_RUNNING      <= avalon_mm_inputs.writedata(0);
 
-					--  SpW Link Control and Status Register           (32 bits):
+				--  SpW Link Control and Status Register           (32 bits):
 				when (SPWC_SPW_LINK_CONTROL_STATUS_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31-10 : Reserved                               [-/-]
 					--     9- 9 : Autostart control bit                  [R/W]
@@ -127,15 +127,15 @@ begin
 					mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.LINK_START_BIT      <= avalon_mm_inputs.writedata(8);
 					--     7- 7 : Link Disconnect control bit            [R/W]
 					mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT <= avalon_mm_inputs.writedata(7);
-					--     6- 6 : Link Disconnect error bit              [R/-]
-					--     5- 5 : Link Parity error bit                  [R/-]
-					--     4- 4 : Link Escape error bit                  [R/-]
-					--     3- 3 : Link Credit error bit                  [R/-]
-					--     2- 2 : Link Started status bit                [R/-]
-					--     1- 1 : Link Connecting status bit             [R/-]
-					--     0- 0 : Link Running status bit                [R/-]
+				--     6- 6 : Link Disconnect error bit              [R/-]
+				--     5- 5 : Link Parity error bit                  [R/-]
+				--     4- 4 : Link Escape error bit                  [R/-]
+				--     3- 3 : Link Credit error bit                  [R/-]
+				--     2- 2 : Link Started status bit                [R/-]
+				--     1- 1 : Link Connecting status bit             [R/-]
+				--     0- 0 : Link Running status bit                [R/-]
 
-					--  Timecode Control Register                      (32 bits):
+				--  Timecode Control Register                      (32 bits):
 				when (SPWC_TIMECODE_CONTROL_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31-25 : Reserved                               [-/-]
 					--    24-23 : RX TimeCode Control bits               [R/-]
@@ -151,9 +151,9 @@ begin
 					--     0- 0 : TX TimeCode control bit                [R/W]
 					mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT       <= avalon_mm_inputs.writedata(0);
 
-					-- TRAN Module WriteData procedure
+				-- TRAN Module WriteData procedure
 
-					--  Interface Control and Status Register        (32 bits):
+				--  Interface Control and Status Register        (32 bits):
 				when (TRAN_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31-11 : Reserved                             [-/-]
 					--    10-10 : Interface Enable control bit         [R/W]
@@ -183,21 +183,21 @@ begin
 					--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
 					mm_write_registers.TRAN.INTERRUPT_FLAG_CLEAR_REGISTER.RX_FIFO_FULL         <= avalon_mm_inputs.writedata(0);
 
-					--  RX Mode Control Register                     (32 bits):
+				--  RX Mode Control Register                     (32 bits):
 				when (TRAN_RX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31- 3 : Reserved                             [-/-]
 					--     2- 2 : RX FIFO Reset control bit            [R/W]
 					mm_write_registers.TRAN.RX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT <= avalon_mm_inputs.writedata(2);
-					--     1- 1 : RX FIFO Empty status bit             [R/-]
-					--     0- 0 : RX FIFO Full status bit              [R/-]
+				--     1- 1 : RX FIFO Empty status bit             [R/-]
+				--     0- 0 : RX FIFO Full status bit              [R/-]
 
-					--  TX Mode Control Register                     (32 bits):
+				--  TX Mode Control Register                     (32 bits):
 				when (TRAN_TX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31- 3 : Reserved                             [-/-]
 					--     2- 2 : TX FIFO Reset control bit            [R/W]
 					mm_write_registers.TRAN.TX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT <= avalon_mm_inputs.writedata(2);
-					--     1- 1 : TX FIFO Empty status bit             [R/-]
-					--     0- 0 : TX FIFO Full status bit              [R/-]
+				--     1- 1 : TX FIFO Empty status bit             [R/-]
+				--     0- 0 : TX FIFO Full status bit              [R/-]
 
 				when others =>
 					null;

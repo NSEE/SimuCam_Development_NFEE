@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.spwc_rx_data_dc_fifo_pkg.all;
 use work.spwc_tx_data_dc_fifo_pkg.all;
 
-entity spwc_data_dc_fifo_ent is
+entity spwc_data_dc_fifo_instantiation_ent is
 	port(
 		clk100                              : in  std_logic;
 		clk200                              : in  std_logic;
@@ -19,9 +19,9 @@ entity spwc_data_dc_fifo_ent is
 		spwc_tx_data_dc_fifo_clk200_inputs  : in  spwc_tx_data_dc_fifo_clk200_inputs_type;
 		spwc_tx_data_dc_fifo_clk200_outputs : out spwc_tx_data_dc_fifo_clk200_outputs_type
 	);
-end entity spwc_data_dc_fifo_ent;
+end entity spwc_data_dc_fifo_instantiation_ent;
 
-architecture spwc_data_dc_fifo_arc of spwc_data_dc_fifo_ent is
+architecture spwc_data_dc_fifo_instantiation_arc of spwc_data_dc_fifo_instantiation_ent is
 
 	-- Signals for RX DATA DC FIFO Control
 	signal spw_rx_dc_fifo_aclr_sig : std_logic;
@@ -69,4 +69,4 @@ begin
 		-- TX DATA DC FIFO aClear Control
 	spw_tx_dc_fifo_aclr_sig <= (rst) or ((spwc_tx_data_dc_fifo_clk100_inputs.aclr) or (spwc_tx_data_dc_fifo_clk200_inputs.aclr));
 
-end architecture spwc_data_dc_fifo_arc;
+end architecture spwc_data_dc_fifo_instantiation_arc;

@@ -4,7 +4,7 @@
 -- MODULE: dcfifo 
 
 -- ============================================================
--- File Name: spwc_codec_commands_dc_fifo.vhd
+-- File Name: spwc_clk200_codec_commands_dc_fifo.vhd
 -- Megafunction Name(s):
 -- 			dcfifo
 --
@@ -40,7 +40,7 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY spwc_codec_commands_dc_fifo IS
+ENTITY spwc_clk200_codec_commands_dc_fifo IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';
@@ -55,10 +55,10 @@ ENTITY spwc_codec_commands_dc_fifo IS
 		wrempty		: OUT STD_LOGIC ;
 		wrfull		: OUT STD_LOGIC 
 	);
-END spwc_codec_commands_dc_fifo;
+END spwc_clk200_codec_commands_dc_fifo;
 
 
-ARCHITECTURE SYN OF spwc_codec_commands_dc_fifo IS
+ARCHITECTURE SYN OF spwc_clk200_codec_commands_dc_fifo IS
 
 	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (15 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
@@ -211,9 +211,9 @@ END SYN;
 -- Retrieval info: CONNECT: rdfull 0 0 0 0 @rdfull 0 0 0 0
 -- Retrieval info: CONNECT: wrempty 0 0 0 0 @wrempty 0 0 0 0
 -- Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.inc TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_codec_commands_dc_fifo_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_clk200_codec_commands_dc_fifo.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_clk200_codec_commands_dc_fifo.inc TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_clk200_codec_commands_dc_fifo.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_clk200_codec_commands_dc_fifo.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spwc_clk200_codec_commands_dc_fifo_inst.vhd TRUE
 -- Retrieval info: LIB_FILE: altera_mf

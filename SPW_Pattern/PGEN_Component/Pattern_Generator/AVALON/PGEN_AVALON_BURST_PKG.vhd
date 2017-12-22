@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 package pgen_avalon_burst_pkg is
 
-	constant PGEN_AVALON_BURST_ADRESS_SIZE   : natural := 8;
+--	constant PGEN_AVALON_BURST_ADRESS_SIZE   : natural := 8;
+	constant PGEN_AVALON_BURST_ADRESS_SIZE   : natural := 26;
 	constant PGEN_AVALON_BURST_DATA_SIZE     : natural := 64;
 	constant PGEN_AVALON_BURST_SYMBOL_SIZE   : natural := 8;
 	constant PGEN_AVALON_BURST_BURST_SIZE    : natural := 8; -- Maximum burst length is 2^BURST_SIZE - 1;

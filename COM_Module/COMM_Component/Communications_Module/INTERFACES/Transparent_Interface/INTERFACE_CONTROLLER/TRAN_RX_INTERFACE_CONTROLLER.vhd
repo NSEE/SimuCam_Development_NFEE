@@ -11,7 +11,7 @@ entity tran_rx_interface_controller_ent is
 		clk                               : in  std_logic;
 		rst                               : in  std_logic;
 		tran_mm_write_registers           : in  tran_mm_write_registers_type;
-		tran_mm_read_registers            : out tran_mm_read_registers_type;
+		tran_rx_interrupt_registers       : out tran_interrupt_register_type;
 		tran_rx_read_outputs_bus_sc_fifo  : in  tran_read_outputs_bus_sc_fifo_type;
 		tran_rx_read_inputs_bus_sc_fifo   : out tran_read_inputs_bus_sc_fifo_type;
 		tran_rx_write_outputs_avs_sc_fifo : in  tran_write_outputs_avs_sc_fifo_type;
@@ -63,27 +63,27 @@ begin
 		-- Reset Procedures
 		if (rst = '1') then
 			-- Clear the Data Received Interrupt Flag
-			tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED <= '0';
+			tran_rx_interrupt_registers.DATA_RECEIVED <= '0';
 			-- Clear the RX FIFO Full Interrupt Flag
-			tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL  <= '0';
+			tran_rx_interrupt_registers.RX_FIFO_FULL  <= '0';
 			-- Clear AVS SC FIFO Write signal
-			ic_rx_avs_write_sig                                          <= '0';
+			ic_rx_avs_write_sig                       <= '0';
 			-- Clear all Clocked Data signals
-			ic_rx_avs_data_sig.spacewire_flag_3                          <= '0';
-			ic_rx_avs_data_sig.spacewire_data_3                          <= (others => '0');
-			ic_rx_avs_data_sig.spacewire_flag_2                          <= '0';
-			ic_rx_avs_data_sig.spacewire_data_2                          <= (others => '0');
-			ic_rx_avs_data_sig.spacewire_flag_1                          <= '0';
-			ic_rx_avs_data_sig.spacewire_data_1                          <= (others => '0');
-			ic_rx_avs_data_sig.spacewire_flag_0                          <= '0';
-			ic_rx_avs_data_sig.spacewire_data_0                          <= (others => '0');
+			ic_rx_avs_data_sig.spacewire_flag_3       <= '0';
+			ic_rx_avs_data_sig.spacewire_data_3       <= (others => '0');
+			ic_rx_avs_data_sig.spacewire_flag_2       <= '0';
+			ic_rx_avs_data_sig.spacewire_data_2       <= (others => '0');
+			ic_rx_avs_data_sig.spacewire_flag_1       <= '0';
+			ic_rx_avs_data_sig.spacewire_data_1       <= (others => '0');
+			ic_rx_avs_data_sig.spacewire_flag_0       <= '0';
+			ic_rx_avs_data_sig.spacewire_data_0       <= (others => '0');
 			-- Set sClear for BUS SC FIFO and AVS SC FIFO
-			tran_rx_read_inputs_bus_sc_fifo.sclr                         <= '1';
-			tran_rx_write_inputs_avs_sc_fifo.sclr                        <= '1';
+			tran_rx_read_inputs_bus_sc_fifo.sclr      <= '1';
+			tran_rx_write_inputs_avs_sc_fifo.sclr     <= '1';
 			-- Initiate RX Interface Controller State Machine
-			rx_interface_state_machine                                   := spacewire_packet_0_state;
+			rx_interface_state_machine                := spacewire_packet_0_state;
 			-- Zero RX Interface Timeout counter
-			rx_interface_timeout_counter                                 := 0;
+			rx_interface_timeout_counter              := 0;
 			-- Clocked Process
 		elsif rising_edge(clk) then
 			-- Clear AVS SC FIFO Write signal
@@ -134,7 +134,7 @@ begin
 						rx_interface_state_machine := spacewire_packet_0_state;
 					end if;
 
-					-- State for SpaceWire Packet 1 treatment
+				-- State for SpaceWire Packet 1 treatment
 				when spacewire_packet_1_state =>
 					-- Verifies if there is/Wait for data available in the BUS SC FIFO and space available in the AVS SC FIFO
 					if ((tran_rx_read_outputs_bus_sc_fifo.empty = '0') and (tran_rx_write_outputs_avs_sc_fifo.full = '0')) then
@@ -163,7 +163,7 @@ begin
 						rx_interface_state_machine   := spacewire_packet_0_state;
 					end if;
 
-					-- State for SpaceWire Packet 2 treatment
+				-- State for SpaceWire Packet 2 treatment
 				when spacewire_packet_2_state =>
 					-- Verifies if there is/Wait for data available in the BUS SC FIFO and space available in the AVS SC FIFO
 					if ((tran_rx_read_outputs_bus_sc_fifo.empty = '0') and (tran_rx_write_outputs_avs_sc_fifo.full = '0')) then
@@ -192,7 +192,7 @@ begin
 						rx_interface_state_machine   := spacewire_packet_0_state;
 					end if;
 
-					-- State for SpaceWire Packet 3 treatment
+				-- State for SpaceWire Packet 3 treatment
 				when spacewire_packet_3_state =>
 					-- Verifies if there is/Wait for data available in the BUS SC FIFO and space available in the AVS SC FIFO
 					if ((tran_rx_read_outputs_bus_sc_fifo.empty = '0') and (tran_rx_write_outputs_avs_sc_fifo.full = '0')) then
@@ -236,24 +236,24 @@ begin
 			-- Verifies if (the Data Received Interrupt is enabled) and (a new data arrived)
 			if ((tran_mm_write_registers.INTERRUPT_ENABLE_REGISTER.DATA_RECEIVED = '1') and (interrupts_flags_sig.DATA_RECEIVED = '1')) then
 				-- Set the Data Received Interrupt Flag
-				tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED <= '1';
+				tran_rx_interrupt_registers.DATA_RECEIVED <= '1';
 			end if;
 			-- Verifies if a command to clear the Data Received Interrupt Flag was received 
 			if (tran_mm_write_registers.INTERRUPT_FLAG_CLEAR_REGISTER.DATA_RECEIVED = '1') then
 				-- Clear the Data Received Interrupt Flag
-				tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED <= '0';
+				tran_rx_interrupt_registers.DATA_RECEIVED <= '0';
 			end if;
 
 			-- RX FIFO Full Interrupt
 			-- Verifies if (the LRX FIFO Full is enabled) and (the RX AVS SC FIFO is full)
 			if ((tran_mm_write_registers.INTERRUPT_ENABLE_REGISTER.RX_FIFO_FULL = '1') and (interrupts_flags_sig.RX_FIFO_FULL = '1')) then
 				-- Set the RX FIFO Full Interrupt Flag
-				tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL <= '1';
+				tran_rx_interrupt_registers.RX_FIFO_FULL <= '1';
 			end if;
 			-- Verifies if a command to clear the RX FIFO Full Interrupt Flag was received 
 			if (tran_mm_write_registers.INTERRUPT_FLAG_CLEAR_REGISTER.RX_FIFO_FULL = '1') then
 				-- Clear the RX FIFO Full Interrupt Flag
-				tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL <= '0';
+				tran_rx_interrupt_registers.RX_FIFO_FULL <= '0';
 			end if;
 
 		end if;                         -- End of Clocked Process
@@ -281,9 +281,6 @@ begin
 	tran_rx_write_inputs_avs_sc_fifo.data(16 downto 9)  <= ic_rx_avs_data_sig.spacewire_data_1;
 	tran_rx_write_inputs_avs_sc_fifo.data(8)            <= ic_rx_avs_data_sig.spacewire_flag_0;
 	tran_rx_write_inputs_avs_sc_fifo.data(7 downto 0)   <= ic_rx_avs_data_sig.spacewire_data_0;
-
-	-- RX FIFO Status Register Fifo Full Signal assignment
-	tran_mm_read_registers.RX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT <= tran_rx_write_outputs_avs_sc_fifo.full;
 
 	-- Interrupts Signal management
 

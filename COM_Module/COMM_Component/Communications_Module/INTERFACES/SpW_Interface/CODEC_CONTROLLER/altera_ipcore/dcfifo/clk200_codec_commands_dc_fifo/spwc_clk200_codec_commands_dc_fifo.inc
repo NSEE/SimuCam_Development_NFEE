@@ -14,19 +14,20 @@
 --agreement for further details.
 
 
-component spwc_codec_commands_dc_fifo
-	PORT
-	(
-		aclr		: IN STD_LOGIC  := '0';
-		data		: IN STD_LOGIC_VECTOR (15 DOWNTO 0);
-		rdclk		: IN STD_LOGIC ;
-		rdreq		: IN STD_LOGIC ;
-		wrclk		: IN STD_LOGIC ;
-		wrreq		: IN STD_LOGIC ;
-		q		: OUT STD_LOGIC_VECTOR (15 DOWNTO 0);
-		rdempty		: OUT STD_LOGIC ;
-		rdfull		: OUT STD_LOGIC ;
-		wrempty		: OUT STD_LOGIC ;
-		wrfull		: OUT STD_LOGIC 
-	);
-end component;
+FUNCTION spwc_clk200_codec_commands_dc_fifo 
+(
+	aclr,
+	data[15..0],
+	rdclk,
+	rdreq,
+	wrclk,
+	wrreq
+)
+
+RETURNS (
+	q[15..0],
+	rdempty,
+	rdfull,
+	wrempty,
+	wrfull
+);

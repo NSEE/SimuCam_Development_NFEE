@@ -23,21 +23,22 @@ use work.pgen_pipeline_fifo_pkg.all;
 
 entity pgen_component_ent is
 	port(
-		clock_sink_clk100                     : in  std_logic                     := '0'; --          -- clock_sink.clk
-		reset_sink_reset                      : in  std_logic                     := '0'; --          -- reset_sink.reset
-		avalon_mm_data_slave_address          : in  std_logic_vector(7 downto 0)  := (others => '0'); -- avalon_mm_data_slave.address
-		avalon_mm_data_slave_read             : in  std_logic                     := '0'; --          --                     .read
-		avalon_mm_data_slave_readdata         : out std_logic_vector(63 downto 0); --                 --                     .readdata
-		avalon_mm_data_slave_waitrequest      : out std_logic; --                                     --                     .waitrequest
-		avalon_mm_data_slave_burstcount       : in  std_logic_vector(7 downto 0)  := (others => '0'); --                     .burstcount
-		avalon_mm_data_slave_byteenable       : in  std_logic_vector(7 downto 0)  := (others => '0'); --                     .byteenable
-		avalon_mm_data_slave_readdatavalid    : out std_logic; --                                     --                     .readdatavalid
-		avalon_mm_registers_slave_address     : in  std_logic_vector(7 downto 0)  := (others => '0'); -- avalon_mm_registers_slave.address
-		avalon_mm_registers_slave_write       : in  std_logic                     := '0'; --          --                          .write
-		avalon_mm_registers_slave_writedata   : in  std_logic_vector(31 downto 0) := (others => '0'); --                          .writedata
-		avalon_mm_registers_slave_read        : in  std_logic                     := '0'; --          --                          .read
-		avalon_mm_registers_slave_readdata    : out std_logic_vector(31 downto 0); --                 --                          .readdata
-		avalon_mm_registers_slave_waitrequest : out std_logic --                                      --                          .waitrequest
+		clock_sink_clk100                     : in  std_logic                     := '0'; --           -- clock_sink.clk
+		reset_sink_reset                      : in  std_logic                     := '0'; --           -- reset_sink.reset
+--		avalon_mm_data_slave_address          : in  std_logic_vector(7 downto 0)  := (others => '0');  -- avalon_mm_data_slave.address
+		avalon_mm_data_slave_address          : in  std_logic_vector(25 downto 0)  := (others => '0'); -- avalon_mm_data_slave.address
+		avalon_mm_data_slave_read             : in  std_logic                     := '0'; --           --                     .read
+		avalon_mm_data_slave_readdata         : out std_logic_vector(63 downto 0); --                  --                     .readdata
+		avalon_mm_data_slave_waitrequest      : out std_logic; --                                      --                     .waitrequest
+		avalon_mm_data_slave_burstcount       : in  std_logic_vector(7 downto 0)  := (others => '0');  --                     .burstcount
+		avalon_mm_data_slave_byteenable       : in  std_logic_vector(7 downto 0)  := (others => '0');  --                     .byteenable
+		avalon_mm_data_slave_readdatavalid    : out std_logic; --                                      --                     .readdatavalid
+		avalon_mm_registers_slave_address     : in  std_logic_vector(7 downto 0)  := (others => '0');  -- avalon_mm_registers_slave.address
+		avalon_mm_registers_slave_write       : in  std_logic                     := '0'; --           --                          .write
+		avalon_mm_registers_slave_writedata   : in  std_logic_vector(31 downto 0) := (others => '0');  --                          .writedata
+		avalon_mm_registers_slave_read        : in  std_logic                     := '0'; --           --                          .read
+		avalon_mm_registers_slave_readdata    : out std_logic_vector(31 downto 0); --                  --                          .readdata
+		avalon_mm_registers_slave_waitrequest : out std_logic --                                       --                          .waitrequest
 	);
 end entity pgen_component_ent;
 

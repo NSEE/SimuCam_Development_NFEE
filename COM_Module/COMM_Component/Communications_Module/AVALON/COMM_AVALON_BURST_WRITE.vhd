@@ -141,7 +141,8 @@ begin
 				when normal_state =>    -- primeira escrita de um burst ou escrita única
 					burst_waitrequest_sig <= '1';
 					if (avalon_burst_inputs.write = '1') then -- chegou comando de escrita
-						burst_write_address_var := to_integer(unsigned(avalon_burst_inputs.address));
+--						burst_write_address_var := to_integer(unsigned(avalon_burst_inputs.address));
+						burst_write_address_var := TRAN_TX_DATA_BURST_REG_ADDRESS + TRAN_BURST_REGISTERS_ADDRESS_OFFSET;
 						burst_burst_counter_var := to_integer(unsigned(avalon_burst_inputs.burstcount));
 						burst_bytes_enabled_var := avalon_burst_inputs.byteenable;
 						if (comm_avs_controller_inputs.TRAN.full = '0') then -- existe espaço disponível para o dado

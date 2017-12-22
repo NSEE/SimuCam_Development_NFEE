@@ -140,7 +140,7 @@ set_interface_property avalon_mm_data_slave PORT_NAME_MAP ""
 set_interface_property avalon_mm_data_slave CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_mm_data_slave SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_mm_data_slave avalon_mm_data_slave_address address Input 8
+add_interface_port avalon_mm_data_slave avalon_mm_data_slave_address address Input 26
 add_interface_port avalon_mm_data_slave avalon_mm_data_slave_read read Input 1
 add_interface_port avalon_mm_data_slave avalon_mm_data_slave_readdata readdata Output 64
 add_interface_port avalon_mm_data_slave avalon_mm_data_slave_waitrequest waitrequest Output 1

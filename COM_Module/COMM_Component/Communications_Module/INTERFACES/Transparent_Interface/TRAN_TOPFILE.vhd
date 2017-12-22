@@ -69,6 +69,12 @@ architecture tran_topfile_arc of tran_topfile_ent is
 	-- Signals for Data BUS Controller for TRAN Module
 	signal tran_bc_control_inputs_sig : tran_bc_control_inputs_type;
 
+	-- Signals for RX Interface Controller Interrupts for TRAN Module
+	signal tran_rx_interrupt_registers_sig : tran_interrupt_register_type;
+
+	-- Signals for TX Interface Controller Interrupts for TRAN Module
+	signal tran_tx_interrupt_registers_sig : tran_interrupt_register_type;
+
 	-- Signals for RX AVS SC FIFO for TRAN Module
 	signal tran_rx_fifo_intputs_avs_sc_fifo_sig : tran_fifo_intputs_avs_sc_fifo_type;
 	signal tran_rx_fifo_outputs_avs_sc_fifo_sig : tran_fifo_outputs_avs_sc_fifo_type;
@@ -92,7 +98,6 @@ begin
 		port map(
 			clk                              => avalon_clock,
 			rst                              => reset,
-			tran_mm_read_registers           => tran_mm_read_registers_sig,
 			tran_burst_read_registers        => tran_burst_read_registers_sig,
 			tran_rx_avsdc_rx_avs_inputs      => tran_avsdc_rx_avs_inputs_sig,
 			tran_rx_avsdc_rx_avs_outputs     => tran_avsdc_rx_avs_outputs_sig,
@@ -100,21 +105,20 @@ begin
 			tran_rx_read_outputs_avs_sc_fifo => tran_rx_fifo_intputs_avs_sc_fifo_sig.read
 		);
 
-		-- TX AVS Controller Component
+	-- TX AVS Controller Component
 	tran_tx_avs_controller_ent_inst : entity work.tran_tx_avs_controller_ent
 		port map(
 			clk                               => avalon_clock,
 			rst                               => reset,
-			tran_mm_read_registers            => tran_mm_read_registers_sig,
 			tran_tx_avsdc_tx_avs_inputs       => tran_avsdc_tx_avs_inputs_sig,
 			tran_tx_avsdc_tx_avs_outputs      => tran_avsdc_tx_avs_outputs_sig,
-			tran_burst_write_registers             => tran_burst_write_registers_sig,
+			tran_burst_write_registers        => tran_burst_write_registers_sig,
 			tran_tx_write_inputs_avs_sc_fifo  => tran_tx_fifo_outputs_avs_sc_fifo_sig.write,
 			tran_tx_write_outputs_avs_sc_fifo => tran_tx_fifo_intputs_avs_sc_fifo_sig.write
 		);
 
-		-- AVS SC FIFO Component
-	tran_avs_sc_fifo_ent_inst : entity work.tran_avs_sc_fifo_ent
+	-- AVS SC FIFO Component
+	tran_avs_sc_fifo_instantiation_ent_inst : entity work.tran_avs_sc_fifo_instantiation_ent
 		port map(
 			clk                              => avalon_clock,
 			rst                              => reset,
@@ -124,33 +128,33 @@ begin
 			tran_tx_outputs_avs_sc_fifo_type => tran_tx_fifo_outputs_avs_sc_fifo_sig
 		);
 
-		-- RX Interface Controller Component
+	-- RX Interface Controller Component
 	tran_rx_interface_controller_ent_inst : entity work.tran_rx_interface_controller_ent
 		port map(
 			clk                               => avalon_clock,
 			rst                               => reset,
 			tran_mm_write_registers           => tran_mm_write_registers_sig,
-			tran_mm_read_registers            => tran_mm_read_registers_sig,
+			tran_rx_interrupt_registers       => tran_rx_interrupt_registers_sig,
 			tran_rx_read_outputs_bus_sc_fifo  => tran_rx_fifo_outputs_bus_sc_fifo_sig.read,
 			tran_rx_read_inputs_bus_sc_fifo   => tran_rx_fifo_intputs_bus_sc_fifo_sig.read,
 			tran_rx_write_outputs_avs_sc_fifo => tran_rx_fifo_outputs_avs_sc_fifo_sig.write,
 			tran_rx_write_inputs_avs_sc_fifo  => tran_rx_fifo_intputs_avs_sc_fifo_sig.write
 		);
 
-		-- TX Interface Controller Component
+	-- TX Interface Controller Component
 	tran_tx_interface_controller_ent_inst : entity work.tran_tx_interface_controller_ent
 		port map(
 			clk                               => avalon_clock,
 			rst                               => reset,
 			tran_mm_write_registers           => tran_mm_write_registers_sig,
-			tran_mm_read_registers            => tran_mm_read_registers_sig,
+			tran_tx_interrupt_registers       => tran_tx_interrupt_registers_sig,
 			tran_tx_read_outputs_avs_sc_fifo  => tran_tx_fifo_outputs_avs_sc_fifo_sig.read,
 			tran_tx_read_inputs_avs_sc_fifo   => tran_tx_fifo_intputs_avs_sc_fifo_sig.read,
 			tran_tx_write_outputs_bus_sc_fifo => tran_tx_fifo_outputs_bus_sc_fifo_sig.write,
 			tran_tx_write_inputs_bus_sc_fifo  => tran_tx_fifo_intputs_bus_sc_fifo_sig.write
 		);
 
-		-- RX BUS Controller Component
+	-- RX BUS Controller Component
 	tran_rx_bus_controller_ent_inst : entity work.tran_rx_bus_controller_ent
 		port map(
 			clk                               => avalon_clock,
@@ -162,7 +166,7 @@ begin
 			tran_rx_write_outputs_bus_sc_fifo => tran_rx_fifo_intputs_bus_sc_fifo_sig.write
 		);
 
-		-- TX BUS Controller Component
+	-- TX BUS Controller Component
 	tran_tx_bus_controller_ent_inst : entity work.tran_tx_bus_controller_ent
 		port map(
 			clk                              => avalon_clock,
@@ -174,8 +178,8 @@ begin
 			tran_tx_read_outputs_bus_sc_fifo => tran_tx_fifo_intputs_bus_sc_fifo_sig.read
 		);
 
-		-- BUS SC FIFO Component
-	tran_bus_sc_fifo_ent_inst : entity work.tran_bus_sc_fifo_ent
+	-- BUS SC FIFO Component
+	tran_bus_sc_fifo_instantiation_ent_inst : entity work.tran_bus_sc_fifo_instantiation_ent
 		port map(
 			clk                              => avalon_clock,
 			rst                              => reset,
@@ -185,16 +189,16 @@ begin
 			tran_tx_outputs_bus_sc_fifo_type => tran_tx_fifo_outputs_bus_sc_fifo_sig
 		);
 
-		--	reset_procedure_proc : process(reset) is
-		--	begin
-		--		if (reset = '1') then
-		--		else
-		--		end if;
-		--	end process reset_procedure_proc;
+	--	reset_procedure_proc : process(reset) is
+	--	begin
+	--		if (reset = '1') then
+	--		else
+	--		end if;
+	--	end process reset_procedure_proc;
 
-		-- Ports / Signals Mapping
+	-- Ports / Signals Mapping
 
-		-- Interrupt ports/signals mapping
+	-- Interrupt ports/signals mapping
 	tran_interrupt_outputs <= tran_mm_interrupt_sig;
 
 	-- MM Registers ports/signals mapping
@@ -228,13 +232,28 @@ begin
 	tran_bc_control_inputs_sig.bc_read_enable  <= tran_mm_write_registers_sig.INTERFACE_CONTROL_REGISTER.INTERFACE_RX_ENABLE_BIT; -- RX : bus  --> fifo (SpW --> Simucam) / -- Read  : leitura do bus
 	tran_bc_control_inputs_sig.bc_write_enable <= tran_mm_write_registers_sig.INTERFACE_CONTROL_REGISTER.INTERFACE_TX_ENABLE_BIT; -- TX : avs  --> fifo (Simucam --> SpW) / -- Write : escrita no bus
 
-	-- Clear the Interface Error Interrupt Flag
-	-- Interface error not implemented yet
-	tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.INTERFACE_ERROR <= '0';
+	-- TX Interrupts Flags Register Signal Assingment
+	tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY <= tran_rx_interrupt_registers_sig.TX_FIFO_EMPTY;
+
+	-- TX FIFO Status Register Fifo Empty Signal assignment
+	tran_mm_read_registers_sig.TX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT <= tran_tx_fifo_outputs_avs_sc_fifo_sig.read.empty;
+
+	-- TX FIFO Status Register Fifo Full Signal assignment
+	tran_mm_read_registers_sig.TX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT <= tran_tx_fifo_outputs_avs_sc_fifo_sig.write.full;
+
+	-- RX Interrupts Flags Register Signal Assingment
+	tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED <= tran_rx_interrupt_registers_sig.DATA_RECEIVED;
+	tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL  <= tran_rx_interrupt_registers_sig.RX_FIFO_FULL;
+
+	-- RX FIFO Status Register Fifo Empty Signal assignment
+	tran_mm_read_registers_sig.RX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT <= tran_rx_fifo_outputs_avs_sc_fifo_sig.read.empty;
+
+	-- RX FIFO Status Register Fifo Full Signal assignment
+	tran_mm_read_registers_sig.RX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT <= tran_rx_fifo_outputs_avs_sc_fifo_sig.write.full;
 
 	--Interrupt assingment
 	tran_mm_interrupt_sig <= (
-		(tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.INTERFACE_ERROR) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY)
-	) when (reset = '0') else ('0');
+			(tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY)
+		) when (reset = '0') else ('0');
 
 end architecture tran_topfile_arc;

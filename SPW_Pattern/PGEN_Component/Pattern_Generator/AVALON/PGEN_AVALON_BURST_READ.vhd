@@ -171,7 +171,8 @@ begin
 								pipeline_state_machine           := recording_state;
 							end if;
 						else
-							burst_read_address               := to_integer(unsigned(avalon_burst_inputs.address));
+--							burst_read_address               := to_integer(unsigned(avalon_burst_inputs.address));
+							burst_read_address               := PGEN_GENERATOR_BURST_REG_ADDRESS + PGEN_BURST_REGISTERS_ADDRESS_OFFSET;
 							burst_burst_counter              := to_integer(unsigned(avalon_burst_inputs.burstcount));
 							burst_bytes_enabled              := avalon_burst_inputs.byteenable;
 							burst_reading_started            := '1';
@@ -250,7 +251,8 @@ begin
 							burst_reading_started := '1';
 							read_state_machine    := fetching_state;
 						else
-							burst_read_address    := to_integer(unsigned(pipeline_fifo_data_output_sig.address));
+--							burst_read_address    := to_integer(unsigned(avalon_burst_inputs.address));
+							burst_read_address    := PGEN_GENERATOR_BURST_REG_ADDRESS + PGEN_BURST_REGISTERS_ADDRESS_OFFSET;
 							burst_burst_counter   := to_integer(unsigned(pipeline_fifo_data_output_sig.burstcount));
 							burst_bytes_enabled   := pipeline_fifo_data_output_sig.byteenable;
 							burst_reading_started := '1';
@@ -270,7 +272,7 @@ begin
 
 	pgen_controller_inputs.fifo_data_used <= (fifo_data_used_sig) when (pgen_controller_outputs.fifo_data_valid = '1') else ('0');
 
-	pipeline_fifo_data_input_sig.address    <= avalon_burst_inputs.address;
+	pipeline_fifo_data_input_sig.address    <= avalon_burst_inputs.address(7 downto 0);
 	pipeline_fifo_data_input_sig.byteenable <= avalon_burst_inputs.byteenable;
 	pipeline_fifo_data_input_sig.burstcount <= avalon_burst_inputs.burstcount;
 

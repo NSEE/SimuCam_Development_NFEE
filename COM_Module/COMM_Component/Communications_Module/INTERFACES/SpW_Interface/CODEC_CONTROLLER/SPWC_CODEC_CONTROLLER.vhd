@@ -48,20 +48,20 @@ architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 	-- Signals for TX DATA DC FIFO control
 	signal tx_dc_fifo_rdeq_sig : std_logic := '0';
 
-	-- Type for Commands DC FIFO operation
-	type codec_command_dc_fifo_type is record
-		data_in     : std_logic_vector(15 downto 0);
+	-- Type for CLK100 Commands DC FIFO operation
+	type clk100_codec_command_dc_fifo_type is record
+		data_in     : std_logic_vector(11 downto 0);
 		write       : std_logic;
 		write_empty : std_logic;
 		write_full  : std_logic;
-		data_out    : std_logic_vector(15 downto 0);
+		data_out    : std_logic_vector(11 downto 0);
 		read        : std_logic;
 		read_empty  : std_logic;
 		read_full   : std_logic;
-	end record codec_command_dc_fifo_type;
+	end record clk100_codec_command_dc_fifo_type;
 
 	-- Signals for CLK100 Commands DC FIFO operation
-	signal clk100_codec_commands_dc_fifo_sig : codec_command_dc_fifo_type;
+	signal clk100_codec_commands_dc_fifo_sig : clk100_codec_command_dc_fifo_type;
 
 	-- Signals for CLK100 Commands DC FIFO initialization
 	signal clk100_codec_commands_valid : std_logic := '0';
@@ -70,12 +70,24 @@ architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 	signal clk100_codec_commands_dc_fifo_write_sig : std_logic := '0';
 
 	-- Signals for CLK100 Commands DC FIFO update 
-	signal clk100_current_commands_sig : std_logic_vector(15 downto 0);
-	signal clk100_last_commands_sig    : std_logic_vector(15 downto 0);
+	signal clk100_current_commands_sig : std_logic_vector(11 downto 0);
+	signal clk100_last_commands_sig    : std_logic_vector(11 downto 0);
 	signal clk100_data_changed         : std_logic;
 
+	-- Type for CLK200 Commands DC FIFO operation
+	type clk200_codec_command_dc_fifo_type is record
+		data_in     : std_logic_vector(15 downto 0);
+		write       : std_logic;
+		write_empty : std_logic;
+		write_full  : std_logic;
+		data_out    : std_logic_vector(15 downto 0);
+		read        : std_logic;
+		read_empty  : std_logic;
+		read_full   : std_logic;
+	end record clk200_codec_command_dc_fifo_type;
+
 	-- Signals for CLK200 Commands DC FIFO operation
-	signal clk200_codec_commands_dc_fifo_sig : codec_command_dc_fifo_type;
+	signal clk200_codec_commands_dc_fifo_sig : clk200_codec_command_dc_fifo_type;
 
 	-- Signals for CLK200 Commands DC FIFO initialization
 	signal clk200_codec_commands_valid : std_logic := '0';
@@ -123,10 +135,10 @@ architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 	-- Codec Transmitter Data Status Signals
 	signal spwc_codec_data_tx_out_sig        : spwc_codec_data_tx_out_type;
 	-- Codec Reset Signals
-	signal spwc_codec_reset_in_sig           : std_logic := '0';
+	signal spwc_codec_reset_in_sig           : std_logic;
 
 	-- Signal for Codec Reset operation
-	signal codec_reset_sig : std_logic := '0';
+	signal codec_reset_sig : std_logic := '1';
 
 	-- Signals for RX Codec Receiver rxRead control
 	signal codec_rxread_sig : std_logic := '0';
@@ -165,7 +177,7 @@ begin
 
 		-- CLK100 Commands DC FIFO Component
 		-- Sends Commands from CLK100 (write) to CLK200 (read) 
-	clk100_codec_commands_dc_fifo_inst : entity work.spwc_codec_commands_dc_fifo -- Convert from clk100 to clk200
+	clk100_codec_commands_dc_fifo_inst : entity work.spwc_clk100_codec_commands_dc_fifo -- Convert from clk100 to clk200
 		port map(
 			aclr    => rst,
 			data    => clk100_codec_commands_dc_fifo_sig.data_in,
@@ -182,7 +194,7 @@ begin
 
 		-- CLK200 Commands DC FIFO Component
 		-- Sends Commands from CLK200 (write) to CLK100 (read) 
-	clk200_codec_commands_dc_fifo_inst : entity work.spwc_codec_commands_dc_fifo -- Convert from clk200 to clk100
+	clk200_codec_commands_dc_fifo_inst : entity work.spwc_clk200_codec_commands_dc_fifo -- Convert from clk200 to clk100
 		port map(
 			aclr    => rst,
 			data    => clk200_codec_commands_dc_fifo_sig.data_in,
@@ -455,7 +467,6 @@ begin
 	clk100_codec_commands_dc_fifo_sig.data_in(3)            <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
 	clk100_codec_commands_dc_fifo_sig.data_in(5 downto 4)   <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS(1 downto 0);
 	clk100_codec_commands_dc_fifo_sig.data_in(11 downto 6)  <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE(5 downto 0);
-	clk100_codec_commands_dc_fifo_sig.data_in(15 downto 12) <= (others => '0');
 
 	-- CLK100 Commands DC FIFO Read Signal assingment (data read in CLK200) 
 	-- '1' when there is CLK100 Commands ready to be used in CLK200, else '0'

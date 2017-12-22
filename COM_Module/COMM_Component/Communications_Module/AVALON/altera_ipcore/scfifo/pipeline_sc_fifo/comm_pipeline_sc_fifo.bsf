@@ -22,7 +22,7 @@ agreement for further details.
 (header "symbol" (version "1.2"))
 (symbol
 	(rect 0 0 176 184)
-	(text "pipeline_sc_fifo" (rect 44 0 147 16)(font "Arial" (font_size 10)))
+	(text "comm_pipeline_sc_fifo" (rect 23 0 177 16)(font "Arial" (font_size 10)))
 	(text "inst" (rect 8 168 25 180)(font "Arial" ))
 	(port
 		(pt 0 48)

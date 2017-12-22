@@ -1,4 +1,4 @@
-pipeline_sc_fifo_inst : pipeline_sc_fifo PORT MAP (
+comm_pipeline_sc_fifo_inst : comm_pipeline_sc_fifo PORT MAP (
 		aclr	 => aclr_sig,
 		clock	 => clock_sig,
 		data	 => data_sig,

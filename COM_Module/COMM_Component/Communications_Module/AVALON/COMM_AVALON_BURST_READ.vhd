@@ -51,7 +51,7 @@ architecture comm_avalon_burst_read_arc of comm_avalon_burst_read_ent is
 
 begin
 
-	comm_pipeline_sc_fifo_inst : entity work.pipeline_sc_fifo
+	comm_pipeline_sc_fifo_inst : entity work.comm_pipeline_sc_fifo
 		port map(
 			aclr  => rst,
 			clock => clk,
@@ -179,7 +179,8 @@ begin
 								pipeline_state_machine_var := recording_state;
 							end if;
 						else            -- burst reading não iniciado, prepara o inicio de uma nova leitura
-							burst_read_address_var     := to_integer(unsigned(avalon_burst_inputs.address));
+--							burst_read_address_var     := to_integer(unsigned(avalon_burst_inputs.address));
+							burst_read_address_var     := TRAN_RX_DATA_BURST_REG_ADDRESS + TRAN_BURST_REGISTERS_ADDRESS_OFFSET;
 							burst_burst_counter_var    := to_integer(unsigned(avalon_burst_inputs.burstcount));
 							burst_bytes_enabled_var    := avalon_burst_inputs.byteenable;
 							burst_reading_started_flag := '1';
@@ -256,7 +257,8 @@ begin
 							burst_reading_started_flag := '1';
 							read_state_machine_var     := fetching_state;
 						else            -- realizado o fetch, atualiza os dados atuais com os dados gravados
-							burst_read_address_var             := to_integer(unsigned(pipeline_fifo_data_output_sig.address));
+--							burst_read_address_var             := to_integer(unsigned(avalon_burst_inputs.address));
+							burst_read_address_var             := TRAN_RX_DATA_BURST_REG_ADDRESS + TRAN_BURST_REGISTERS_ADDRESS_OFFSET;
 							burst_burst_counter_var            := to_integer(unsigned(pipeline_fifo_data_output_sig.burstcount));
 							burst_bytes_enabled_var            := pipeline_fifo_data_output_sig.byteenable;
 							burst_reading_started_flag         := '1';
@@ -280,7 +282,7 @@ begin
 	pipeline_fifo_inputs_sig.wrreq <= (pipeline_fifo_wrreq_sig) when (pipeline_fifo_outputs_sig.full = '0') else ('0');
 	pipeline_fifo_inputs_sig.rdreq <= (pipeline_fifo_rdreq_sig) when (pipeline_fifo_outputs_sig.empty = '0') else ('0');
 
-	pipeline_fifo_data_input_sig.address    <= avalon_burst_inputs.address;
+	pipeline_fifo_data_input_sig.address    <= avalon_burst_inputs.address(7 downto 0);
 	pipeline_fifo_data_input_sig.byteenable <= avalon_burst_inputs.byteenable;
 	pipeline_fifo_data_input_sig.burstcount <= avalon_burst_inputs.burstcount;
 

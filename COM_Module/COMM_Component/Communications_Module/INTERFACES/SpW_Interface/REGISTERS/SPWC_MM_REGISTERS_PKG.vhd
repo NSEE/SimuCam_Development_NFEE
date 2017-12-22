@@ -41,7 +41,7 @@ package spwc_mm_registers_pkg is
 	--    15- 9 : Reserved                               [R/-]
 	--     8- 7 : TX TimeCode Control bits               [R/W]
 	--     6- 1 : TX TimeCode Counter value              [R/W]
-	--     0- 0 : TX TimeCode controol bit               [R/W]
+	--     0- 0 : TX TimeCode control bit               [R/W]
 
 	constant SPWC_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS : natural := 0;
 	constant SPWC_SPW_LINK_CONTROL_STATUS_MM_REG_ADDRESS  : natural := 1;
@@ -86,12 +86,16 @@ package spwc_mm_registers_pkg is
 		CONTROL_STATUS_BIT     : std_logic;
 	end record spwc_timecode_register_type;
 
+	type spwc_rx_timecode_clear_register_type is record
+		CONTROL_STATUS_BIT     : std_logic;
+	end record spwc_rx_timecode_clear_register_type;
+
 	type spwc_mm_write_registers_type is record
 		INTERFACE_CONTROL_REGISTER    : spwc_interface_control_register_type;
 		INTERRUPT_ENABLE_REGISTER     : spwc_interrupt_register_type;
 		INTERRUPT_FLAG_CLEAR_REGISTER : spwc_interrupt_register_type;
 		SPW_LINK_MODE_REGISTER        : spwc_spw_link_mode_register_type;
-		RX_TIMECODE_CLEAR_REGISTER    : spwc_timecode_register_type;
+		RX_TIMECODE_CLEAR_REGISTER    : spwc_rx_timecode_clear_register_type;
 		TX_TIMECODE_REGISTER          : spwc_timecode_register_type;
 	end record spwc_mm_write_registers_type;
 

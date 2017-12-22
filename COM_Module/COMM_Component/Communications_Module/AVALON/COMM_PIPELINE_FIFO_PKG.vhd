@@ -6,7 +6,8 @@ use work.comm_avalon_burst_pkg.all;
 
 package comm_pipeline_fifo_pkg is
 
-	constant PIPELINE_AVALON_ADDRESS_SIZE : natural := COMM_AVALON_BURST_ADRESS_SIZE;
+	--constant PIPELINE_AVALON_ADDRESS_SIZE : natural := COMM_AVALON_BURST_ADRESS_SIZE;
+	constant PIPELINE_AVALON_ADDRESS_SIZE : natural := 8;
 	constant PIPELINE_AVALON_DATA_SIZE    : natural := COMM_AVALON_BURST_DATA_SIZE;
 	constant PIPELINE_AVALON_SYMBOL_SIZE  : natural := COMM_AVALON_BURST_SYMBOL_SIZE;
 	constant PIPELINE_AVALON_BURST_SIZE   : natural := COMM_AVALON_BURST_BURST_SIZE;

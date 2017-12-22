@@ -11,7 +11,7 @@ entity tran_tx_interface_controller_ent is
 		clk                               : in  std_logic;
 		rst                               : in  std_logic;
 		tran_mm_write_registers           : in  tran_mm_write_registers_type;
-		tran_mm_read_registers            : out tran_mm_read_registers_type;
+		tran_tx_interrupt_registers       : out tran_interrupt_register_type;
 		tran_tx_read_outputs_avs_sc_fifo  : in  tran_read_outputs_avs_sc_fifo_type;
 		tran_tx_read_inputs_avs_sc_fifo   : out tran_read_inputs_avs_sc_fifo_type;
 		tran_tx_write_outputs_bus_sc_fifo : in  tran_write_outputs_bus_sc_fifo_type;
@@ -61,19 +61,19 @@ begin
 		-- Reset Procedures
 		if (rst = '1') then
 			-- Clear the TX FIFO Empty Interrupt Flag
-			tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY <= '0';
+			tran_tx_interrupt_registers.TX_FIFO_EMPTY <= '0';
 			-- Clear AVS SC FIFO Read signal
-			ic_tx_avs_read_sig                                           <= '0';
+			ic_tx_avs_read_sig                        <= '0';
 			-- Clear BUS SC FIFO Write signal
-			ic_tx_bus_write_sig                                          <= '0';
+			ic_tx_bus_write_sig                       <= '0';
 			-- Clear all Clocked Data signals
-			ic_tx_bus_data_sig.spacewire_flag                            <= '0';
-			ic_tx_bus_data_sig.spacewire_data                            <= (others => '0');
+			ic_tx_bus_data_sig.spacewire_flag         <= '0';
+			ic_tx_bus_data_sig.spacewire_data         <= (others => '0');
 			-- Set sClear for AVS SC FIFO and BUS SC FIFO
-			tran_tx_read_inputs_avs_sc_fifo.sclr                         <= '1';
-			tran_tx_write_inputs_bus_sc_fifo.sclr                        <= '1';
+			tran_tx_read_inputs_avs_sc_fifo.sclr      <= '1';
+			tran_tx_write_inputs_bus_sc_fifo.sclr     <= '1';
 			-- Initiate TX Interface Controller State Machine
-			tx_interface_state_machine                                   := spacewire_packet_0_state;
+			tx_interface_state_machine                := spacewire_packet_0_state;
 			-- Clocked Process
 		elsif rising_edge(clk) then
 			-- Clear AVS SC FIFO Read signal
@@ -143,7 +143,7 @@ begin
 						end if;
 					end if;
 
-					-- State for SpaceWire Packet 1 treatment
+				-- State for SpaceWire Packet 1 treatment
 				when spacewire_packet_1_state =>
 					-- Verifies if the SpaceWire Packet 1 is valid
 					if (((ic_tx_avs_data_sig.spacewire_flag_1) & (ic_tx_avs_data_sig.spacewire_data_1)) /= SPW_INVALID_PACKET) then
@@ -166,7 +166,7 @@ begin
 						tx_interface_state_machine := spacewire_packet_2_state;
 					end if;
 
-					-- State for SpaceWire Packet 2 treatment
+				-- State for SpaceWire Packet 2 treatment
 				when spacewire_packet_2_state =>
 					-- Verifies if the SpaceWire Packet 2 is valid
 					if (((ic_tx_avs_data_sig.spacewire_flag_2) & (ic_tx_avs_data_sig.spacewire_data_2)) /= SPW_INVALID_PACKET) then
@@ -189,7 +189,7 @@ begin
 						tx_interface_state_machine := spacewire_packet_3_state;
 					end if;
 
-					-- State for SpaceWire Packet 3 treatment
+				-- State for SpaceWire Packet 3 treatment
 				when spacewire_packet_3_state =>
 					-- Verifies if the SpaceWire Packet 3 is valid
 					if (((ic_tx_avs_data_sig.spacewire_flag_3) & (ic_tx_avs_data_sig.spacewire_data_3)) /= SPW_INVALID_PACKET) then
@@ -223,12 +223,12 @@ begin
 			-- Verifies if (the TX FIFO Empty Interrupt is enabled) and (the TX AVS SC FIFO is empty)
 			if ((tran_mm_write_registers.INTERRUPT_ENABLE_REGISTER.TX_FIFO_EMPTY = '1') and (interrupts_flags_sig.TX_FIFO_EMPTY = '1')) then
 				-- Set the TX FIFO Empty Interrupt Flag
-				tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY <= '1';
+				tran_tx_interrupt_registers.TX_FIFO_EMPTY <= '1';
 			end if;
 			-- Verifies if a command to clear the TX FIFO Empty Interrupt Flag was received 
 			if (tran_mm_write_registers.INTERRUPT_FLAG_CLEAR_REGISTER.TX_FIFO_EMPTY = '1') then
 				-- Clear the TX FIFO Empty Interrupt Flag
-				tran_mm_read_registers.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY <= '0';
+				tran_tx_interrupt_registers.TX_FIFO_EMPTY <= '0';
 			end if;
 
 		end if;                         -- End of Clocked Process
@@ -247,9 +247,6 @@ begin
 	-- BUS SC FIFO Data Signal assignment
 	tran_tx_write_inputs_bus_sc_fifo.data(8)          <= ic_tx_bus_data_sig.spacewire_flag;
 	tran_tx_write_inputs_bus_sc_fifo.data(7 downto 0) <= ic_tx_bus_data_sig.spacewire_data;
-
-	-- TX FIFO Status Register Fifo Empty Signal assignment
-	tran_mm_read_registers.TX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT <= tran_tx_read_outputs_avs_sc_fifo.empty;
 
 	-- Interrupts Signal management
 

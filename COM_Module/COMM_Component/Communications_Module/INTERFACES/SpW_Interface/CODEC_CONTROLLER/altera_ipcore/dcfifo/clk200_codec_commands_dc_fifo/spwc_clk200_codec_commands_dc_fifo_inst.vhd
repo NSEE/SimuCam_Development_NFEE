@@ -1,4 +1,4 @@
-spwc_codec_commands_dc_fifo_inst : spwc_codec_commands_dc_fifo PORT MAP (
+spwc_clk200_codec_commands_dc_fifo_inst : spwc_clk200_codec_commands_dc_fifo PORT MAP (
 		aclr	 => aclr_sig,
 		data	 => data_sig,
 		rdclk	 => rdclk_sig,

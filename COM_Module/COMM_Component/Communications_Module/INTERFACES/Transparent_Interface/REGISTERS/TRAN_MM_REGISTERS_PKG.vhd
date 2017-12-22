@@ -14,7 +14,7 @@ package tran_mm_registers_pkg is
 	--     5- 5 : RX FIFO Full interrupt enable bit    [R/W]
 	--     4- 4 : TX FIFO Empty interrupt enable bit   [R/W]
 	--     3- 3 : Interface Error interrupt flag       [R/-]
-	--     3- 3 : Interface Error interrupt flag       [-/W]
+	--     3- 3 : Interface Error interrupt flag clear [-/W]
 	--     2- 2 : Data Received interrupt flag         [R/-]
 	--     2- 2 : Data Received interrupt flag clear   [-/W]
 	--     1- 1 : RX FIFO Full interrupt flag          [R/-]

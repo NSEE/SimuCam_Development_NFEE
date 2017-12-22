@@ -117,7 +117,7 @@ begin
 		);
 
 		-- DATA DC FIFO Component
-	spwc_data_dc_fifo_ent_inst : entity work.spwc_data_dc_fifo_ent
+	spwc_data_dc_fifo_instantiation_ent_inst : entity work.spwc_data_dc_fifo_instantiation_ent
 		port map(
 			clk100                              => avalon_clock,
 			clk200                              => codec_clock,

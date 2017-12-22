@@ -11,7 +11,6 @@ entity tran_tx_avs_controller_ent is
 	port(
 		clk                               : in  std_logic;
 		rst                               : in  std_logic;
-		tran_mm_read_registers            : out tran_mm_read_registers_type;
 		tran_burst_write_registers        : in  tran_burst_write_registers_type;
 		tran_tx_avsdc_tx_avs_inputs       : in  tran_avsdc_tx_avs_inputs_type;
 		tran_tx_avsdc_tx_avs_outputs      : out tran_avsdc_tx_avs_outputs_type;
@@ -82,9 +81,6 @@ begin
 	tran_tx_write_outputs_avs_sc_fifo.data(16 downto 9)  <= avsdc_tx_fifo_data_sig.spacewire_data_1;
 	tran_tx_write_outputs_avs_sc_fifo.data(8)            <= avsdc_tx_fifo_data_sig.spacewire_flag_0;
 	tran_tx_write_outputs_avs_sc_fifo.data(7 downto 0)   <= avsdc_tx_fifo_data_sig.spacewire_data_0;
-
-	-- TX FIFO Status Register Fifo Full Signal assignment
-	tran_mm_read_registers.TX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT <= tran_tx_write_inputs_avs_sc_fifo.full;
 
 end architecture tran_tx_avs_controller_arc;
 
