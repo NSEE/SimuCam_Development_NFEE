@@ -27,6 +27,8 @@
 #include "logic/dma/dma.h"
 #include "logic/sense/sense.h"
 #include "logic/ddr2/ddr2.h"
+#include "logic/comm/comm.h"
+#include "logic/pgen/pgen.h"
 
 /**************************************************
  * Global
@@ -38,6 +40,14 @@ void TestSinc(void);
 void TestRTCC(void);
 bool TestDMA_M1_M2(void);
 bool TestDMA_M2_M1(void);
+bool Configure_SpW_A(void);
+bool Configure_SpW_B(void);
+bool Configure_SpW_C(void);
+bool Configure_SpW_D(void);
+bool Configure_SpW_E(void);
+bool Configure_SpW_F(void);
+bool Configure_SpW_G(void);
+bool Configure_SpW_H(void);
 
 int main(void)
 {
@@ -75,6 +85,15 @@ int main(void)
   //TestLeds();
   //TestRTCC();
   //TestSinc();
+  
+  Configure_SpW_A();
+  Configure_SpW_B();
+  Configure_SpW_C();
+  Configure_SpW_D();
+  Configure_SpW_E();
+  Configure_SpW_F();
+  Configure_SpW_G();
+  Configure_SpW_H();
 
   DemoMode();
 
@@ -576,4 +595,234 @@ bool TestDMA_M2_M1(void){
   return TRUE;
 }
 
+bool Configure_SpW_A(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('A');
+	v_Transparent_Interface_TX_FIFO_Reset('A');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('A', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('A');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('A', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('A', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('A', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire A configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
 
+bool Configure_SpW_B(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('B');
+	v_Transparent_Interface_TX_FIFO_Reset('B');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('B', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('B');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('B', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('B', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('B', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire B configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
+
+bool Configure_SpW_C(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('C');
+	v_Transparent_Interface_TX_FIFO_Reset('C');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('C', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('C');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('C', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('C', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('C', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire C configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
+
+bool Configure_SpW_D(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('D');
+	v_Transparent_Interface_TX_FIFO_Reset('D');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('D', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('D');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('D', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('D', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('D', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire D configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
+
+bool Configure_SpW_E(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('E');
+	v_Transparent_Interface_TX_FIFO_Reset('E');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('E', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('E');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('E', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('E', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('E', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire E configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
+
+bool Configure_SpW_F(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('F');
+	v_Transparent_Interface_TX_FIFO_Reset('F');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('F', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('F');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('F', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('F', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('F', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire F configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
+
+bool Configure_SpW_G(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('G');
+	v_Transparent_Interface_TX_FIFO_Reset('G');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('G', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('G');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('G', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('G', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('G', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire G configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
+
+bool Configure_SpW_H(void){
+	bool bPass = FALSE;
+	
+	// Configura COMM
+		// Reseta TX e RX Fifo
+	v_Transparent_Interface_RX_FIFO_Reset('H');
+	v_Transparent_Interface_TX_FIFO_Reset('H');
+	printf("Fifos da interface transparente resetados\n");
+		// Habilita a Interface Transparente
+	v_Transparent_Interface_Enable_Control('H', TRAN_REG_SET, TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface Transparente Habilitada\n");
+		// Reseta Codec
+	v_SpaceWire_Interface_Force_Reset('H');
+	printf("Codec Resetado\n");
+		// Habilita a Interface SpaceWire
+	b_SpaceWire_Interface_Enable_Control('H', SPWC_REG_SET, SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	printf("Interface SpaceWire Habilitado\n");
+		// Coloca Codec no modo Normal
+	b_SpaceWire_Interface_Mode_Control('H', SPWC_INTERFACE_NORMAL_MODE);
+	printf("Interface SpaceWire colocado no modo Normal\n");
+		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control('H', SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Autostart\n");
+	printf("SpaceWire H configurado\n");
+	
+	bPass = TRUE;
+	return bPass;
+}
