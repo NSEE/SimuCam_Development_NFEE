@@ -156,76 +156,76 @@ port(
 	HSMB_BUFFER_PEM1       : out std_logic;
 	-- SpaceWire A
 	HSMB_LVDS_RX_SPWA_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWA_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWA_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWA_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWA_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWA_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWA_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWA_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWA_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWA_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWA_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWA_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire B
 	HSMB_LVDS_RX_SPWB_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWB_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWB_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWB_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWB_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWB_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWB_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWB_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWB_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWB_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWB_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWB_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire C
 	HSMB_LVDS_RX_SPWC_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWC_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWC_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWC_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWC_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWC_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWC_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWC_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWC_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWC_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWC_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWC_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire D
 	HSMB_LVDS_RX_SPWD_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWD_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWD_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWD_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWD_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWD_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWD_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWD_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWD_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWD_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWD_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWD_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire E
 	HSMB_LVDS_RX_SPWE_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWE_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWE_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWE_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWE_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWE_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWE_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWE_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWE_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWE_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWE_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWE_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire F
 	HSMB_LVDS_RX_SPWF_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWF_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWF_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWF_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWF_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWF_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWF_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWF_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWF_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWF_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWF_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWF_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire G
 	HSMB_LVDS_RX_SPWG_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWG_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWG_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWG_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWG_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWG_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWG_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWG_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWG_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWG_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWG_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWG_SO_N : out std_logic_vector(0 downto 0);
 	-- SpaceWire H
 	HSMB_LVDS_RX_SPWH_DI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWH_DI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWH_DI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_RX_SPWH_SI_P : in  std_logic_vector(0 downto 0);
-	HSMB_LVDS_RX_SPWH_SI_N : in  std_logic_vector(0 downto 0);
+--	HSMB_LVDS_RX_SPWH_SI_N : in  std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWH_DO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWH_DO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWH_DO_N : out std_logic_vector(0 downto 0);
 	HSMB_LVDS_TX_SPWH_SO_P : out std_logic_vector(0 downto 0);
-	HSMB_LVDS_TX_SPWH_SO_N : out std_logic_vector(0 downto 0);
+--	HSMB_LVDS_TX_SPWH_SO_N : out std_logic_vector(0 downto 0);
 	
     -- Temperature 
 	TEMP_INT_n		: in    std_logic;

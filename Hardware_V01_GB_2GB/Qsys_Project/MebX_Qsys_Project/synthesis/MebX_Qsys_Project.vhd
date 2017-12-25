@@ -8,154 +8,154 @@ use IEEE.numeric_std.all;
 
 entity MebX_Qsys_Project is
 	port (
-		button_export                                        : in    std_logic_vector(3 downto 0)  := (others => '0'); --                             button.export
-		clk50_clk                                            : in    std_logic                     := '0';             --                              clk50.clk
-		communication_module_a_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_a_conduit_end.spw_si_signal
-		communication_module_a_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_a_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_a_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_b_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_b_conduit_end.spw_si_signal
-		communication_module_b_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_b_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_b_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_c_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_c_conduit_end.spw_si_signal
-		communication_module_c_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_c_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_c_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_d_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_d_conduit_end.spw_si_signal
-		communication_module_d_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_d_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_d_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_e_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_e_conduit_end.spw_si_signal
-		communication_module_e_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_e_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_e_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_f_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_f_conduit_end.spw_si_signal
-		communication_module_f_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_f_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_f_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_g_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_g_conduit_end.spw_si_signal
-		communication_module_g_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_g_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_g_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		communication_module_h_conduit_end_spw_si_signal     : in    std_logic                     := '0';             -- communication_module_h_conduit_end.spw_si_signal
-		communication_module_h_conduit_end_spw_di_signal     : in    std_logic                     := '0';             --                                   .spw_di_signal
-		communication_module_h_conduit_end_spw_do_signal     : out   std_logic;                                        --                                   .spw_do_signal
-		communication_module_h_conduit_end_spw_so_signal     : out   std_logic;                                        --                                   .spw_so_signal
-		csense_adc_fo_export                                 : out   std_logic;                                        --                      csense_adc_fo.export
-		csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     --                        csense_cs_n.export
-		csense_sck_export                                    : out   std_logic;                                        --                         csense_sck.export
-		csense_sdi_export                                    : out   std_logic;                                        --                         csense_sdi.export
-		csense_sdo_export                                    : in    std_logic                     := '0';             --                         csense_sdo.export
-		dip_export                                           : in    std_logic_vector(7 downto 0)  := (others => '0'); --                                dip.export
-		eth_rst_export                                       : out   std_logic;                                        --                            eth_rst.export
-		ext_export                                           : in    std_logic                     := '0';             --                                ext.export
-		led_de4_export                                       : out   std_logic_vector(7 downto 0);                     --                            led_de4.export
-		led_painel_export                                    : out   std_logic_vector(20 downto 0);                    --                         led_painel.export
-		m1_ddr2_i2c_scl_export                               : out   std_logic;                                        --                    m1_ddr2_i2c_scl.export
-		m1_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --                    m1_ddr2_i2c_sda.export
-		m1_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --                     m1_ddr2_memory.mem_a
-		m1_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                                   .mem_ba
-		m1_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                                   .mem_ck
-		m1_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                                   .mem_ck_n
-		m1_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                                   .mem_cke
-		m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                                   .mem_cs_n
-		m1_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                                   .mem_dm
-		m1_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                                   .mem_ras_n
-		m1_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                                   .mem_cas_n
-		m1_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                                   .mem_we_n
-		m1_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                                   .mem_dq
-		m1_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                   .mem_dqs
-		m1_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                   .mem_dqs_n
-		m1_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                                   .mem_odt
-		m1_ddr2_memory_pll_ref_clk_clk                       : in    std_logic                     := '0';             --         m1_ddr2_memory_pll_ref_clk.clk
-		m1_ddr2_memory_status_local_init_done                : out   std_logic;                                        --              m1_ddr2_memory_status.local_init_done
-		m1_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                                   .local_cal_success
-		m1_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                                   .local_cal_fail
-		m1_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                        m1_ddr2_oct.rdn
-		m1_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                                   .rup
-		m2_ddr2_i2c_scl_export                               : out   std_logic;                                        --                    m2_ddr2_i2c_scl.export
-		m2_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --                    m2_ddr2_i2c_sda.export
-		m2_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --                     m2_ddr2_memory.mem_a
-		m2_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                                   .mem_ba
-		m2_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                                   .mem_ck
-		m2_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                                   .mem_ck_n
-		m2_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                                   .mem_cke
-		m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                                   .mem_cs_n
-		m2_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                                   .mem_dm
-		m2_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                                   .mem_ras_n
-		m2_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                                   .mem_cas_n
-		m2_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                                   .mem_we_n
-		m2_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                                   .mem_dq
-		m2_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                   .mem_dqs
-		m2_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                   .mem_dqs_n
-		m2_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                                   .mem_odt
-		m2_ddr2_memory_dll_sharing_dll_pll_locked            : in    std_logic                     := '0';             --         m2_ddr2_memory_dll_sharing.dll_pll_locked
-		m2_ddr2_memory_dll_sharing_dll_delayctrl             : out   std_logic_vector(5 downto 0);                     --                                   .dll_delayctrl
-		m2_ddr2_memory_pll_sharing_pll_mem_clk               : out   std_logic;                                        --         m2_ddr2_memory_pll_sharing.pll_mem_clk
-		m2_ddr2_memory_pll_sharing_pll_write_clk             : out   std_logic;                                        --                                   .pll_write_clk
-		m2_ddr2_memory_pll_sharing_pll_locked                : out   std_logic;                                        --                                   .pll_locked
-		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk : out   std_logic;                                        --                                   .pll_write_clk_pre_phy_clk
-		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk          : out   std_logic;                                        --                                   .pll_addr_cmd_clk
-		m2_ddr2_memory_pll_sharing_pll_avl_clk               : out   std_logic;                                        --                                   .pll_avl_clk
-		m2_ddr2_memory_pll_sharing_pll_config_clk            : out   std_logic;                                        --                                   .pll_config_clk
-		m2_ddr2_memory_status_local_init_done                : out   std_logic;                                        --              m2_ddr2_memory_status.local_init_done
-		m2_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                                   .local_cal_success
-		m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                                   .local_cal_fail
-		m2_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                        m2_ddr2_oct.rdn
-		m2_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                                   .rup
-		rst_reset_n                                          : in    std_logic                     := '0';             --                                rst.reset_n
-		rtcc_alarm_export                                    : in    std_logic                     := '0';             --                         rtcc_alarm.export
-		rtcc_cs_n_export                                     : out   std_logic;                                        --                          rtcc_cs_n.export
-		rtcc_sck_export                                      : out   std_logic;                                        --                           rtcc_sck.export
-		rtcc_sdi_export                                      : out   std_logic;                                        --                           rtcc_sdi.export
-		rtcc_sdo_export                                      : in    std_logic                     := '0';             --                           rtcc_sdo.export
-		sd_clk_export                                        : out   std_logic;                                        --                             sd_clk.export
-		sd_cmd_export                                        : inout std_logic                     := '0';             --                             sd_cmd.export
-		sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => '0'); --                             sd_dat.export
-		sd_wp_n_export                                       : in    std_logic                     := '0';             --                            sd_wp_n.export
-		sinc_in_export                                       : in    std_logic                     := '0';             --                            sinc_in.export
-		sinc_out_export                                      : out   std_logic;                                        --                           sinc_out.export
-		ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     --                               ssdp.ssdp0
-		ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     --                                   .ssdp1
-		temp_scl_export                                      : out   std_logic;                                        --                           temp_scl.export
-		temp_sda_export                                      : inout std_logic                     := '0';             --                           temp_sda.export
-		timer_1ms_external_port_export                       : out   std_logic;                                        --            timer_1ms_external_port.export
-		timer_1us_external_port_export                       : out   std_logic;                                        --            timer_1us_external_port.export
-		tristate_conduit_tcm_address_out                     : out   std_logic_vector(25 downto 0);                    --                   tristate_conduit.tcm_address_out
-		tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     --                                   .tcm_read_n_out
-		tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     --                                   .tcm_write_n_out
-		tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => '0'); --                                   .tcm_data_out
-		tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0);                     --                                   .tcm_chipselect_n_out
-		tse_clk_clk                                          : in    std_logic                     := '0';             --                            tse_clk.clk
-		tse_led_crs                                          : out   std_logic;                                        --                            tse_led.crs
-		tse_led_link                                         : out   std_logic;                                        --                                   .link
-		tse_led_panel_link                                   : out   std_logic;                                        --                                   .panel_link
-		tse_led_col                                          : out   std_logic;                                        --                                   .col
-		tse_led_an                                           : out   std_logic;                                        --                                   .an
-		tse_led_char_err                                     : out   std_logic;                                        --                                   .char_err
-		tse_led_disp_err                                     : out   std_logic;                                        --                                   .disp_err
-		tse_mac_mac_misc_connection_xon_gen                  : in    std_logic                     := '0';             --        tse_mac_mac_misc_connection.xon_gen
-		tse_mac_mac_misc_connection_xoff_gen                 : in    std_logic                     := '0';             --                                   .xoff_gen
-		tse_mac_mac_misc_connection_magic_wakeup             : out   std_logic;                                        --                                   .magic_wakeup
-		tse_mac_mac_misc_connection_magic_sleep_n            : in    std_logic                     := '0';             --                                   .magic_sleep_n
-		tse_mac_mac_misc_connection_ff_tx_crc_fwd            : in    std_logic                     := '0';             --                                   .ff_tx_crc_fwd
-		tse_mac_mac_misc_connection_ff_tx_septy              : out   std_logic;                                        --                                   .ff_tx_septy
-		tse_mac_mac_misc_connection_tx_ff_uflow              : out   std_logic;                                        --                                   .tx_ff_uflow
-		tse_mac_mac_misc_connection_ff_tx_a_full             : out   std_logic;                                        --                                   .ff_tx_a_full
-		tse_mac_mac_misc_connection_ff_tx_a_empty            : out   std_logic;                                        --                                   .ff_tx_a_empty
-		tse_mac_mac_misc_connection_rx_err_stat              : out   std_logic_vector(17 downto 0);                    --                                   .rx_err_stat
-		tse_mac_mac_misc_connection_rx_frm_type              : out   std_logic_vector(3 downto 0);                     --                                   .rx_frm_type
-		tse_mac_mac_misc_connection_ff_rx_dsav               : out   std_logic;                                        --                                   .ff_rx_dsav
-		tse_mac_mac_misc_connection_ff_rx_a_full             : out   std_logic;                                        --                                   .ff_rx_a_full
-		tse_mac_mac_misc_connection_ff_rx_a_empty            : out   std_logic;                                        --                                   .ff_rx_a_empty
-		tse_mac_serdes_control_connection_export             : out   std_logic;                                        --  tse_mac_serdes_control_connection.export
-		tse_mdio_mdc                                         : out   std_logic;                                        --                           tse_mdio.mdc
-		tse_mdio_mdio_in                                     : in    std_logic                     := '0';             --                                   .mdio_in
-		tse_mdio_mdio_out                                    : out   std_logic;                                        --                                   .mdio_out
-		tse_mdio_mdio_oen                                    : out   std_logic;                                        --                                   .mdio_oen
-		tse_serial_txp                                       : out   std_logic;                                        --                         tse_serial.txp
-		tse_serial_rxp                                       : in    std_logic                     := '0'              --                                   .rxp
+		button_export                                        : in    std_logic_vector(3 downto 0)  := (others => '0'); --                            button.export
+		clk50_clk                                            : in    std_logic                     := '0';             --                             clk50.clk
+		comm_a_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_a_conduit_end.spw_si_signal
+		comm_a_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_a_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_a_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_b_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_b_conduit_end.spw_si_signal
+		comm_b_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_b_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_b_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_c_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_c_conduit_end.spw_si_signal
+		comm_c_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_c_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_c_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_d_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_d_conduit_end.spw_si_signal
+		comm_d_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_d_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_d_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_e_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_e_conduit_end.spw_si_signal
+		comm_e_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_e_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_e_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_f_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_f_conduit_end.spw_si_signal
+		comm_f_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_f_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_f_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_g_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_g_conduit_end.spw_si_signal
+		comm_g_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_g_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_g_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		comm_h_conduit_end_spw_si_signal                     : in    std_logic                     := '0';             --                comm_h_conduit_end.spw_si_signal
+		comm_h_conduit_end_spw_di_signal                     : in    std_logic                     := '0';             --                                  .spw_di_signal
+		comm_h_conduit_end_spw_do_signal                     : out   std_logic;                                        --                                  .spw_do_signal
+		comm_h_conduit_end_spw_so_signal                     : out   std_logic;                                        --                                  .spw_so_signal
+		csense_adc_fo_export                                 : out   std_logic;                                        --                     csense_adc_fo.export
+		csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     --                       csense_cs_n.export
+		csense_sck_export                                    : out   std_logic;                                        --                        csense_sck.export
+		csense_sdi_export                                    : out   std_logic;                                        --                        csense_sdi.export
+		csense_sdo_export                                    : in    std_logic                     := '0';             --                        csense_sdo.export
+		dip_export                                           : in    std_logic_vector(7 downto 0)  := (others => '0'); --                               dip.export
+		eth_rst_export                                       : out   std_logic;                                        --                           eth_rst.export
+		ext_export                                           : in    std_logic                     := '0';             --                               ext.export
+		led_de4_export                                       : out   std_logic_vector(7 downto 0);                     --                           led_de4.export
+		led_painel_export                                    : out   std_logic_vector(20 downto 0);                    --                        led_painel.export
+		m1_ddr2_i2c_scl_export                               : out   std_logic;                                        --                   m1_ddr2_i2c_scl.export
+		m1_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --                   m1_ddr2_i2c_sda.export
+		m1_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --                    m1_ddr2_memory.mem_a
+		m1_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                                  .mem_ba
+		m1_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                                  .mem_ck
+		m1_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                                  .mem_ck_n
+		m1_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                                  .mem_cke
+		m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                                  .mem_cs_n
+		m1_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                                  .mem_dm
+		m1_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                                  .mem_ras_n
+		m1_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                                  .mem_cas_n
+		m1_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                                  .mem_we_n
+		m1_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                                  .mem_dq
+		m1_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                  .mem_dqs
+		m1_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                  .mem_dqs_n
+		m1_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                                  .mem_odt
+		m1_ddr2_memory_pll_ref_clk_clk                       : in    std_logic                     := '0';             --        m1_ddr2_memory_pll_ref_clk.clk
+		m1_ddr2_memory_status_local_init_done                : out   std_logic;                                        --             m1_ddr2_memory_status.local_init_done
+		m1_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                                  .local_cal_success
+		m1_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                                  .local_cal_fail
+		m1_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                       m1_ddr2_oct.rdn
+		m1_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                                  .rup
+		m2_ddr2_i2c_scl_export                               : out   std_logic;                                        --                   m2_ddr2_i2c_scl.export
+		m2_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --                   m2_ddr2_i2c_sda.export
+		m2_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --                    m2_ddr2_memory.mem_a
+		m2_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                                  .mem_ba
+		m2_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                                  .mem_ck
+		m2_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                                  .mem_ck_n
+		m2_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                                  .mem_cke
+		m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                                  .mem_cs_n
+		m2_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                                  .mem_dm
+		m2_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                                  .mem_ras_n
+		m2_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                                  .mem_cas_n
+		m2_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                                  .mem_we_n
+		m2_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                                  .mem_dq
+		m2_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                  .mem_dqs
+		m2_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                                  .mem_dqs_n
+		m2_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                                  .mem_odt
+		m2_ddr2_memory_dll_sharing_dll_pll_locked            : in    std_logic                     := '0';             --        m2_ddr2_memory_dll_sharing.dll_pll_locked
+		m2_ddr2_memory_dll_sharing_dll_delayctrl             : out   std_logic_vector(5 downto 0);                     --                                  .dll_delayctrl
+		m2_ddr2_memory_pll_sharing_pll_mem_clk               : out   std_logic;                                        --        m2_ddr2_memory_pll_sharing.pll_mem_clk
+		m2_ddr2_memory_pll_sharing_pll_write_clk             : out   std_logic;                                        --                                  .pll_write_clk
+		m2_ddr2_memory_pll_sharing_pll_locked                : out   std_logic;                                        --                                  .pll_locked
+		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk : out   std_logic;                                        --                                  .pll_write_clk_pre_phy_clk
+		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk          : out   std_logic;                                        --                                  .pll_addr_cmd_clk
+		m2_ddr2_memory_pll_sharing_pll_avl_clk               : out   std_logic;                                        --                                  .pll_avl_clk
+		m2_ddr2_memory_pll_sharing_pll_config_clk            : out   std_logic;                                        --                                  .pll_config_clk
+		m2_ddr2_memory_status_local_init_done                : out   std_logic;                                        --             m2_ddr2_memory_status.local_init_done
+		m2_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                                  .local_cal_success
+		m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                                  .local_cal_fail
+		m2_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                       m2_ddr2_oct.rdn
+		m2_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                                  .rup
+		rst_reset_n                                          : in    std_logic                     := '0';             --                               rst.reset_n
+		rtcc_alarm_export                                    : in    std_logic                     := '0';             --                        rtcc_alarm.export
+		rtcc_cs_n_export                                     : out   std_logic;                                        --                         rtcc_cs_n.export
+		rtcc_sck_export                                      : out   std_logic;                                        --                          rtcc_sck.export
+		rtcc_sdi_export                                      : out   std_logic;                                        --                          rtcc_sdi.export
+		rtcc_sdo_export                                      : in    std_logic                     := '0';             --                          rtcc_sdo.export
+		sd_clk_export                                        : out   std_logic;                                        --                            sd_clk.export
+		sd_cmd_export                                        : inout std_logic                     := '0';             --                            sd_cmd.export
+		sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => '0'); --                            sd_dat.export
+		sd_wp_n_export                                       : in    std_logic                     := '0';             --                           sd_wp_n.export
+		sinc_in_export                                       : in    std_logic                     := '0';             --                           sinc_in.export
+		sinc_out_export                                      : out   std_logic;                                        --                          sinc_out.export
+		ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     --                              ssdp.ssdp0
+		ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     --                                  .ssdp1
+		temp_scl_export                                      : out   std_logic;                                        --                          temp_scl.export
+		temp_sda_export                                      : inout std_logic                     := '0';             --                          temp_sda.export
+		timer_1ms_external_port_export                       : out   std_logic;                                        --           timer_1ms_external_port.export
+		timer_1us_external_port_export                       : out   std_logic;                                        --           timer_1us_external_port.export
+		tristate_conduit_tcm_address_out                     : out   std_logic_vector(25 downto 0);                    --                  tristate_conduit.tcm_address_out
+		tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     --                                  .tcm_read_n_out
+		tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     --                                  .tcm_write_n_out
+		tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => '0'); --                                  .tcm_data_out
+		tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0);                     --                                  .tcm_chipselect_n_out
+		tse_clk_clk                                          : in    std_logic                     := '0';             --                           tse_clk.clk
+		tse_led_crs                                          : out   std_logic;                                        --                           tse_led.crs
+		tse_led_link                                         : out   std_logic;                                        --                                  .link
+		tse_led_panel_link                                   : out   std_logic;                                        --                                  .panel_link
+		tse_led_col                                          : out   std_logic;                                        --                                  .col
+		tse_led_an                                           : out   std_logic;                                        --                                  .an
+		tse_led_char_err                                     : out   std_logic;                                        --                                  .char_err
+		tse_led_disp_err                                     : out   std_logic;                                        --                                  .disp_err
+		tse_mac_mac_misc_connection_xon_gen                  : in    std_logic                     := '0';             --       tse_mac_mac_misc_connection.xon_gen
+		tse_mac_mac_misc_connection_xoff_gen                 : in    std_logic                     := '0';             --                                  .xoff_gen
+		tse_mac_mac_misc_connection_magic_wakeup             : out   std_logic;                                        --                                  .magic_wakeup
+		tse_mac_mac_misc_connection_magic_sleep_n            : in    std_logic                     := '0';             --                                  .magic_sleep_n
+		tse_mac_mac_misc_connection_ff_tx_crc_fwd            : in    std_logic                     := '0';             --                                  .ff_tx_crc_fwd
+		tse_mac_mac_misc_connection_ff_tx_septy              : out   std_logic;                                        --                                  .ff_tx_septy
+		tse_mac_mac_misc_connection_tx_ff_uflow              : out   std_logic;                                        --                                  .tx_ff_uflow
+		tse_mac_mac_misc_connection_ff_tx_a_full             : out   std_logic;                                        --                                  .ff_tx_a_full
+		tse_mac_mac_misc_connection_ff_tx_a_empty            : out   std_logic;                                        --                                  .ff_tx_a_empty
+		tse_mac_mac_misc_connection_rx_err_stat              : out   std_logic_vector(17 downto 0);                    --                                  .rx_err_stat
+		tse_mac_mac_misc_connection_rx_frm_type              : out   std_logic_vector(3 downto 0);                     --                                  .rx_frm_type
+		tse_mac_mac_misc_connection_ff_rx_dsav               : out   std_logic;                                        --                                  .ff_rx_dsav
+		tse_mac_mac_misc_connection_ff_rx_a_full             : out   std_logic;                                        --                                  .ff_rx_a_full
+		tse_mac_mac_misc_connection_ff_rx_a_empty            : out   std_logic;                                        --                                  .ff_rx_a_empty
+		tse_mac_serdes_control_connection_export             : out   std_logic;                                        -- tse_mac_serdes_control_connection.export
+		tse_mdio_mdc                                         : out   std_logic;                                        --                          tse_mdio.mdc
+		tse_mdio_mdio_in                                     : in    std_logic                     := '0';             --                                  .mdio_in
+		tse_mdio_mdio_out                                    : out   std_logic;                                        --                                  .mdio_out
+		tse_mdio_mdio_oen                                    : out   std_logic;                                        --                                  .mdio_oen
+		tse_serial_txp                                       : out   std_logic;                                        --                        tse_serial.txp
+		tse_serial_rxp                                       : in    std_logic                     := '0'              --                                  .rxp
 	);
 end entity MebX_Qsys_Project;
 
@@ -2312,10 +2312,10 @@ begin
 
 	communication_module_a : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_a_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_a_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_a_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_a_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_a_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_a_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_a_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_a_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver3_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_a_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2339,10 +2339,10 @@ begin
 
 	communication_module_b : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_b_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_b_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_b_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_b_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_b_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_b_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_b_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_b_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver4_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_b_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2366,10 +2366,10 @@ begin
 
 	communication_module_c : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_c_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_c_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_c_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_c_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_c_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_c_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_c_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_c_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver5_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_c_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2393,10 +2393,10 @@ begin
 
 	communication_module_d : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_d_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_d_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_d_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_d_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_d_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_d_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_d_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_d_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver6_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_d_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2420,10 +2420,10 @@ begin
 
 	communication_module_e : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_e_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_e_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_e_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_e_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_e_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_e_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_e_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_e_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver7_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_e_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2447,10 +2447,10 @@ begin
 
 	communication_module_f : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_f_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_f_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_f_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_f_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_f_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_f_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_f_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_f_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver8_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_f_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2474,10 +2474,10 @@ begin
 
 	communication_module_g : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_g_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_g_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_g_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_g_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_g_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_g_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_g_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_g_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver9_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_g_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
@@ -2501,10 +2501,10 @@ begin
 
 	communication_module_h : component comm_component_ent
 		port map (
-			conduit_end_spw_si                    => communication_module_h_conduit_end_spw_si_signal,                               --               conduit_end.spw_si_signal
-			conduit_end_spw_di                    => communication_module_h_conduit_end_spw_di_signal,                               --                          .spw_di_signal
-			conduit_end_spw_do                    => communication_module_h_conduit_end_spw_do_signal,                               --                          .spw_do_signal
-			conduit_end_spw_so                    => communication_module_h_conduit_end_spw_so_signal,                               --                          .spw_so_signal
+			conduit_end_spw_si                    => comm_h_conduit_end_spw_si_signal,                                               --               conduit_end.spw_si_signal
+			conduit_end_spw_di                    => comm_h_conduit_end_spw_di_signal,                                               --                          .spw_di_signal
+			conduit_end_spw_do                    => comm_h_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
+			conduit_end_spw_so                    => comm_h_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
 			interrupt_sender_irq                  => irq_mapper_receiver10_irq,                                                      --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_h_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address

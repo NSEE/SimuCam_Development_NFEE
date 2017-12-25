@@ -908,12 +908,12 @@ GXB_GND*                     : C1        :        :                   :         
 GXB_GND*                     : C2        :        :                   :         : QR2       :                
 GND                          : C3        : gnd    :                   :         :           :                
 GND                          : C4        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C5        :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWA_DI_P[0](n) : C5        : input  : LVDS              :         : 6A        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : C6        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C7        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C8        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C9        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : C10       :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWC_DI_P[0](n) : C7        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWB_SI_P[0](n) : C8        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWB_DI_P[0](n) : C9        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWA_SI_P[0](n) : C10       : input  : LVDS              :         : 6A        : N              
 M2_DDR2_addr[5]              : C11       : output : SSTL-18 Class I   :         : 7A        : Y              
 M2_DDR2_ba[0]                : C12       : output : SSTL-18 Class I   :         : 7A        : Y              
 M2_DDR2_addr[4]              : C13       : output : SSTL-18 Class I   :         : 7A        : Y              
@@ -947,12 +947,12 @@ GND                          : D1        : gnd    :                   :         
 GND                          : D2        : gnd    :                   :         :           :                
 GXB_NC                       : D3        :        :                   :         : QR2       :                
 GXB_NC                       : D4        :        :                   :         : QR2       :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : D5        :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWA_DI_P[0]    : D5        : input  : LVDS              :         : 6A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : D6        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : D7        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : D8        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : D9        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : D10       :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWC_DI_P[0]    : D7        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_RX_SPWB_SI_P[0]    : D8        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_RX_SPWB_DI_P[0]    : D9        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_RX_SPWA_SI_P[0]    : D10       : input  : LVDS              :         : 6A        : Y              
 M2_DDR2_cke[0]               : D11       : output : SSTL-18 Class I   :         : 7A        : Y              
 VCCIO7A                      : D12       : power  :                   : 1.8V    : 7A        :                
 M2_DDR2_dq[7]                : D13       : bidir  : SSTL-18 Class I   :         : 7A        : Y              
@@ -988,10 +988,10 @@ GND                          : E3        : gnd    :                   :         
 GND                          : E4        : gnd    :                   :         :           :                
 VCCIO6A                      : E5        : power  :                   : 2.5V    : 6A        :                
 GND                          : E6        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : E7        :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWE_DI_P[0](n) : E7        : input  : LVDS              :         : 6A        : N              
 VCCIO6A                      : E8        : power  :                   : 2.5V    : 6A        :                
 GND                          : E9        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : E10       :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWC_SI_P[0](n) : E10       : input  : LVDS              :         : 6A        : N              
 TEMPDIODEn                   : E11       :        :                   :         :           :                
 GND                          : E12       : gnd    :                   :         :           :                
 M2_DDR2_dqsn[0]              : E13       : bidir  : Differential 1.8-V SSTL Class I :         : 7A        : Y              
@@ -1025,12 +1025,12 @@ GND                          : F1        : gnd    :                   :         
 GND                          : F2        : gnd    :                   :         :           :                
 GXB_NC                       : F3        :        :                   :         : QR2       :                
 GXB_NC                       : F4        :        :                   :         : QR2       :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : F5        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : F6        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : F7        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : F8        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : F9        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : F10       :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWD_DI_P[0](n) : F5        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWD_SI_P[0](n) : F6        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWE_DI_P[0]    : F7        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_RX_SPWE_SI_P[0](n) : F8        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWF_DI_P[0](n) : F9        : input  : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWC_SI_P[0]    : F10       : input  : LVDS              :         : 6A        : Y              
 NC                           : F11       :        :                   :         :           :                
 M2_DDR2_dq[0]                : F12       : bidir  : SSTL-18 Class I   :         : 7A        : Y              
 M2_DDR2_dqs[0]               : F13       : bidir  : Differential 1.8-V SSTL Class I :         : 7A        : Y              
@@ -1064,11 +1064,11 @@ GXB_GND*                     : G1        :        :                   :         
 GXB_GND*                     : G2        :        :                   :         : QR2       :                
 GND                          : G3        : gnd    :                   :         :           :                
 GND                          : G4        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G5        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G6        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G7        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G8        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G9        :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWD_DI_P[0]    : G5        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_RX_SPWD_SI_P[0]    : G6        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_TX_SPWC_SO_P[0](n) : G7        : output : LVDS              :         : 6A        : N              
+HSMB_LVDS_RX_SPWE_SI_P[0]    : G8        : input  : LVDS              :         : 6A        : Y              
+HSMB_LVDS_RX_SPWF_DI_P[0]    : G9        : input  : LVDS              :         : 6A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : G10       :        :                   :         : 6A        :                
 VCCAUX                       : G11       : power  :                   : 2.5V    :           :                
 VREFB7AN0                    : G12       : power  :                   : 0.9V    : 7A        :                
@@ -1105,7 +1105,7 @@ GXB_NC                       : H3        :        :                   :         
 GXB_NC                       : H4        :        :                   :         : QR2       :                
 VCCIO6C                      : H5        : power  :                   : 2.5V    : 6C        :                
 GND                          : H6        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : H7        :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWC_SO_P[0]    : H7        : output : LVDS              :         : 6A        : Y              
 VCCIO6A                      : H8        : power  :                   : 2.5V    : 6A        :                
 GND                          : H9        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : H10       :        :                   :         : 6A        :                
@@ -1146,8 +1146,8 @@ ETH_MDC[3]                   : J5        : output : 2.5 V             :         
 ETH_MDC[2]                   : J6        : output : 2.5 V             :         : 6C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : J7        :        :                   :         : 6C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : J8        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : J9        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : J10       :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWB_DO_P[0](n) : J9        : output : LVDS              :         : 6A        : N              
+HSMB_LVDS_TX_SPWB_SO_P[0](n) : J10       : output : LVDS              :         : 6A        : N              
 MSEL0                        : J11       :        :                   :         : 1A        :                
 M2_DDR2_dq[4]                : J12       : bidir  : SSTL-18 Class I   :         : 7A        : Y              
 M2_DDR2_dq[5]                : J13       : bidir  : SSTL-18 Class I   :         : 7A        : Y              
@@ -1184,9 +1184,9 @@ GXB_NC                       : K4        :        :                   :         
 ETH_MDC[1]                   : K5        : output : 2.5 V             :         : 6C        : Y              
 ETH_MDIO[3]                  : K6        : bidir  : 2.5 V             :         : 6C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : K7        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : K8        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : K9        :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : K10       :        :                   :         : 6A        :                
+HSMB_BUFFER_PWDN_N           : K8        : output : 2.5 V             :         : 6A        : N              
+HSMB_LVDS_TX_SPWB_DO_P[0]    : K9        : output : LVDS              :         : 6A        : Y              
+HSMB_LVDS_TX_SPWB_SO_P[0]    : K10       : output : LVDS              :         : 6A        : Y              
 VCCBAT                       : K11       : power  :                   : 3.0V    :           :                
 M2_DDR2_cke[1]               : K12       : output : SSTL-18 Class I   :         : 7A        : Y              
 M2_DDR2_clk_n[0]             : K13       : bidir  : Differential 1.8-V SSTL Class I :         : 7A        : Y              
@@ -1220,13 +1220,13 @@ GXB_GND*                     : L1        :        :                   :         
 GXB_GND*                     : L2        :        :                   :         : QR2       :                
 GND                          : L3        : gnd    :                   :         :           :                
 GND                          : L4        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : L5        :        :                   :         : 6C        :                
+HSMB_LVDS_RX_SPWG_DI_P[0](n) : L5        : input  : LVDS              :         : 6C        : N              
 GND                          : L6        : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L7        :        :                   :         : 6C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : L8        :        :                   :         : 6C        :                
 GND                          : L9        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : L10       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : L11       :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWF_DO_P[0](n) : L10       : output : LVDS              :         : 6A        : N              
+HSMB_LVDS_TX_SPWE_DO_P[0](n) : L11       : output : LVDS              :         : 6A        : N              
 GND                          : L12       : gnd    :                   :         :           :                
 M2_DDR2_clk[0]               : L13       : bidir  : Differential 1.8-V SSTL Class I :         : 7A        : Y              
 M2_DDR2_addr[11]             : L14       : output : SSTL-18 Class I   :         : 7A        : Y              
@@ -1260,13 +1260,13 @@ GND                          : M2        : gnd    :                   :         
 GXB_NC                       : M3        :        :                   :         : QR2       :                
 GXB_NC                       : M4        :        :                   :         : QR2       :                
 VCCA_R                       : M5        : power  :                   : 2.5V    :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M6        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M7        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M8        :        :                   :         : 6C        :                
+HSMB_LVDS_RX_SPWG_DI_P[0]    : M6        : input  : LVDS              :         : 6C        : Y              
+HSMB_LVDS_TX_SPWF_SO_P[0](n) : M7        : output : LVDS              :         : 6C        : N              
+HSMB_LVDS_TX_SPWF_SO_P[0]    : M8        : output : LVDS              :         : 6C        : Y              
 VCCIO6A                      : M9        : power  :                   : 2.5V    : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M10       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M11       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : M12       :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWF_DO_P[0]    : M10       : output : LVDS              :         : 6A        : Y              
+HSMB_LVDS_TX_SPWE_DO_P[0]    : M11       : output : LVDS              :         : 6A        : Y              
+HSMB_LVDS_TX_SPWA_SO_P[0](n) : M12       : output : LVDS              :         : 6A        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : M13       :        :                   :         : 7A        :                
 M2_DDR2_addr[9]              : M14       : output : SSTL-18 Class I   :         : 7A        : Y              
 VCCIO7A                      : M15       : power  :                   : 1.8V    : 7A        :                
@@ -1298,14 +1298,14 @@ GXB_GND*                     : N1        :        :                   :         
 GXB_GND*                     : N2        :        :                   :         : QR2       :                
 GND                          : N3        : gnd    :                   :         :           :                
 GND                          : N4        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : N5        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : N6        :        :                   :         : 6C        :                
+HSMB_LVDS_RX_SPWF_SI_P[0](n) : N5        : input  : LVDS              :         : 6C        : N              
+HSMB_LVDS_RX_SPWF_SI_P[0]    : N6        : input  : LVDS              :         : 6C        : Y              
 ETH_MDIO[2]                  : N7        : bidir  : 2.5 V             :         : 6C        : Y              
 ETH_MDIO[1]                  : N8        : bidir  : 2.5 V             :         : 6C        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : N9        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : N10       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : N11       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : N12       :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWE_SO_P[0]    : N9        : output : LVDS              :         : 6C        : Y              
+HSMB_LVDS_TX_SPWA_DO_P[0](n) : N10       : output : LVDS              :         : 6A        : N              
+HSMB_LVDS_TX_SPWA_DO_P[0]    : N11       : output : LVDS              :         : 6A        : Y              
+HSMB_LVDS_TX_SPWA_SO_P[0]    : N12       : output : LVDS              :         : 6A        : Y              
 M2_DDR2_addr[7]              : N13       : output : SSTL-18 Class I   :         : 7A        : Y              
 M2_DDR2_oct_rdn              : N14       : input  : 1.8 V             :         : 7A        : Y              
 M2_DDR2_addr[12]             : N15       : output : SSTL-18 Class I   :         : 7A        : Y              
@@ -1338,14 +1338,14 @@ GND                          : P2        : gnd    :                   :         
 GXB_NC                       : P3        :        :                   :         : QR1       :                
 GXB_NC                       : P4        :        :                   :         : QR1       :                
 VCCT_R                       : P5        : power  :                   : 1.1V    :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : P6        :        :                   :         : 6C        :                
+HSMB_LVDS_RX_SPWH_DI_P[0](n) : P6        : input  : LVDS              :         : 6C        : N              
 GND                          : P7        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : P8        :        :                   :         : 6C        :                
+HSMB_LVDS_TX_SPWE_SO_P[0](n) : P8        : output : LVDS              :         : 6C        : N              
 GND                          : P9        : gnd    :                   :         :           :                
 VCCIO6C                      : P10       : power  :                   : 2.5V    : 6C        :                
 VREFB6AN0                    : P11       : power  :                   :         : 6A        :                
 GND                          : P12       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : P13       :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWC_DO_P[0](n) : P13       : output : LVDS              :         : 6A        : N              
 M2_DDR2_oct_rup              : P14       : input  : 1.8 V             :         : 7A        : Y              
 GND                          : P15       : gnd    :                   :         :           :                
 M2_DDR2_dq[12]               : P16       : bidir  : SSTL-18 Class I   :         : 7B        : Y              
@@ -1376,15 +1376,15 @@ GXB_GND*                     : R1        :        :                   :         
 GXB_GND*                     : R2        :        :                   :         : QR1       :                
 GND                          : R3        : gnd    :                   :         :           :                
 GND                          : R4        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R5        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R6        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R7        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R8        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R9        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R10       :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R11       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R12       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : R13       :        :                   :         : 6A        :                
+HSMB_LVDS_RX_SPWG_SI_P[0](n) : R5        : input  : LVDS              :         : 6C        : N              
+HSMB_LVDS_RX_SPWG_SI_P[0]    : R6        : input  : LVDS              :         : 6C        : Y              
+HSMB_LVDS_RX_SPWH_DI_P[0]    : R7        : input  : LVDS              :         : 6C        : Y              
+HSMB_LVDS_TX_SPWH_DO_P[0](n) : R8        : output : LVDS              :         : 6C        : N              
+HSMB_LVDS_TX_SPWH_DO_P[0]    : R9        : output : LVDS              :         : 6C        : Y              
+HSMB_LVDS_TX_SPWG_SO_P[0](n) : R10       : output : LVDS              :         : 6C        : N              
+HSMB_LVDS_TX_SPWD_DO_P[0](n) : R11       : output : LVDS              :         : 6A        : N              
+HSMB_LVDS_TX_SPWD_DO_P[0]    : R12       : output : LVDS              :         : 6A        : Y              
+HSMB_LVDS_TX_SPWC_DO_P[0]    : R13       : output : LVDS              :         : 6A        : Y              
 M2_DDR2_addr[3]              : R14       : output : SSTL-18 Class I   :         : 7A        : Y              
 VCCPD7A                      : R15       : power  :                   : 2.5V    : 7A        :                
 NC                           : R16       :        :                   :         :           :                
@@ -1419,11 +1419,11 @@ VCCR_R                       : T5        : power  :                   : 1.1V    
 GND                          : T6        : gnd    :                   :         :           :                
 VCCL_GXBR2                   : T7        : power  :                   : 1.1V    : QR2       :                
 GND                          : T8        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : T9        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : T10       :        :                   :         : 6C        :                
+HSMB_LVDS_TX_SPWH_SO_P[0](n) : T9        : output : LVDS              :         : 6C        : N              
+HSMB_LVDS_TX_SPWG_SO_P[0]    : T10       : output : LVDS              :         : 6C        : Y              
 VCCIO6C                      : T11       : power  :                   : 2.5V    : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : T12       :        :                   :         : 6A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : T13       :        :                   :         : 6A        :                
+HSMB_LVDS_TX_SPWD_SO_P[0](n) : T12       : output : LVDS              :         : 6A        : N              
+HSMB_LVDS_TX_SPWD_SO_P[0]    : T13       : output : LVDS              :         : 6A        : Y              
 VCC                          : T14       : power  :                   : 0.9V    :           :                
 GND                          : T15       : gnd    :                   :         :           :                
 VCC                          : T16       : power  :                   : 0.9V    :           :                
@@ -1454,12 +1454,12 @@ GXB_GND*                     : U1        :        :                   :         
 GXB_GND*                     : U2        :        :                   :         : QR1       :                
 GND                          : U3        : gnd    :                   :         :           :                
 GND                          : U4        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : U5        :        :                   :         : 6C        :                
+HSMB_LVDS_RX_SPWH_SI_P[0](n) : U5        : input  : LVDS              :         : 6C        : N              
 VCCH_GXBR2                   : U6        : power  :                   : 1.4V    : QR2       :                
 VCCL_GXBR2                   : U7        : power  :                   : 1.1V    : QR2       :                
 VCC                          : U8        : power  :                   : 0.9V    :           :                
 GND                          : U9        : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : U10       :        :                   :         : 6C        :                
+HSMB_LVDS_TX_SPWH_SO_P[0]    : U10       : output : LVDS              :         : 6C        : Y              
 VREFB6CN0                    : U11       : power  :                   :         : 6C        :                
 GND                          : U12       : gnd    :                   :         :           :                
 VCCPD6A                      : U13       : power  :                   : 2.5V    : 6A        :                
@@ -1494,13 +1494,13 @@ GND                          : V2        : gnd    :                   :         
 GXB_NC                       : V3        :        :                   :         : QR1       :                
 GXB_NC                       : V4        :        :                   :         : QR1       :                
 VCCT_R                       : V5        : power  :                   : 1.1V    :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : V6        :        :                   :         : 6C        :                
+HSMB_LVDS_RX_SPWH_SI_P[0]    : V6        : input  : LVDS              :         : 6C        : Y              
 GND                          : V7        : gnd    :                   :         :           :                
 VCC                          : V8        : power  :                   : 0.9V    :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : V9        :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : V10       :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : V11       :        :                   :         : 6C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : V12       :        :                   :         : 6C        :                
+HSMB_LVDS_TX_SPWG_DO_P[0](n) : V9        : output : LVDS              :         : 6C        : N              
+HSMB_LVDS_TX_SPWG_DO_P[0]    : V10       : output : LVDS              :         : 6C        : Y              
+HSMB_BUFFER_PEM1             : V11       : output : 2.5 V             :         : 6C        : Y              
+HSMB_BUFFER_PEM0             : V12       : output : 2.5 V             :         : 6C        : Y              
 VCCIO6C                      : V13       : power  :                   : 2.5V    : 6C        :                
 VCC                          : V14       : power  :                   : 0.9V    :           :                
 GND                          : V15       : gnd    :                   :         :           :                

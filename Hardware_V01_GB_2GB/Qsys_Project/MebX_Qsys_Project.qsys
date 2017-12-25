@@ -1472,42 +1472,42 @@
    dir="end" />
  <interface name="clk50" internal="clk_50.clk_in" type="clock" dir="end" />
  <interface
-   name="communication_module_a_conduit_end"
+   name="comm_a_conduit_end"
    internal="Communication_Module_A.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_b_conduit_end"
+   name="comm_b_conduit_end"
    internal="Communication_Module_B.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_c_conduit_end"
+   name="comm_c_conduit_end"
    internal="Communication_Module_C.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_d_conduit_end"
+   name="comm_d_conduit_end"
    internal="Communication_Module_D.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_e_conduit_end"
+   name="comm_e_conduit_end"
    internal="Communication_Module_E.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_f_conduit_end"
+   name="comm_f_conduit_end"
    internal="Communication_Module_F.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_g_conduit_end"
+   name="comm_g_conduit_end"
    internal="Communication_Module_G.conduit_end"
    type="conduit"
    dir="end" />
  <interface
-   name="communication_module_h_conduit_end"
+   name="comm_h_conduit_end"
    internal="Communication_Module_H.conduit_end"
    type="conduit"
    dir="end" />

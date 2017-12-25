@@ -6,6 +6,7 @@
    <connections preferredWidth="399" />
    <irq preferredWidth="207" />
    <name preferredWidth="295" />
+   <export preferredWidth="263" />
   </columns>
  </systemtable>
  <library expandedCategories="Library,Project" />
