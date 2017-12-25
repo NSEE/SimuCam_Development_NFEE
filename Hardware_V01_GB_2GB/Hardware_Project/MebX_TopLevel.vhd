@@ -149,27 +149,105 @@ port(
     FLASH_RYBY_n    : in std_logic;
     FLASH_WE_n      : out std_logic_vector(0 downto 0);
 
+	-- Sinais externos LVDS HSMC-B
+	-- Sinais de controle
+	HSMB_BUFFER_PWDN_N     : out std_logic;
+	HSMB_BUFFER_PEM0       : out std_logic;
+	HSMB_BUFFER_PEM1       : out std_logic;
+	-- SpaceWire A
+	HSMB_LVDS_RX_SPWA_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWA_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWA_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWA_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWA_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWA_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWA_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWA_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire B
+	HSMB_LVDS_RX_SPWB_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWB_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWB_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWB_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWB_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWB_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWB_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWB_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire C
+	HSMB_LVDS_RX_SPWC_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWC_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWC_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWC_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWC_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWC_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWC_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWC_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire D
+	HSMB_LVDS_RX_SPWD_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWD_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWD_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWD_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWD_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWD_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWD_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWD_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire E
+	HSMB_LVDS_RX_SPWE_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWE_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWE_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWE_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWE_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWE_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWE_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWE_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire F
+	HSMB_LVDS_RX_SPWF_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWF_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWF_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWF_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWF_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWF_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWF_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWF_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire G
+	HSMB_LVDS_RX_SPWG_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWG_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWG_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWG_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWG_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWG_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWG_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWG_SO_N : out std_logic_vector(0 downto 0);
+	-- SpaceWire H
+	HSMB_LVDS_RX_SPWH_DI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWH_DI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWH_SI_P : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_RX_SPWH_SI_N : in  std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWH_DO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWH_DO_N : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWH_SO_P : out std_logic_vector(0 downto 0);
+	HSMB_LVDS_TX_SPWH_SO_N : out std_logic_vector(0 downto 0);
+	
     -- Temperature 
-	 TEMP_INT_n		: in    std_logic;
-	 TEMP_SMCLK		: out   std_logic;
-	 TEMP_SMDAT		: inout std_logic;
+	TEMP_INT_n		: in    std_logic;
+	TEMP_SMCLK		: out   std_logic;
+	TEMP_SMDAT		: inout std_logic;
 
-	 -- Current 
-	 CSENSE_ADC_FO	: out std_logic;
-	 CSENSE_CS_n		: out std_logic_vector(1 downto 0);
-	 CSENSE_SCK		: out std_logic;
-	 CSENSE_SDI		: out std_logic;
-	 CSENSE_SDO 		: in  std_logic;
-	 
-	 -- Real Time Clock
-	 RTCC_ALARM : in  std_logic;
-	 RTCC_CS_n	: out std_logic;
-	 RTCC_SCK	: out std_logic;
-	 RTCC_SDI	: out std_logic;
-	 RTCC_SDO   : in  std_logic;
-	 
-	 -- Sincronization
-	 SINC_IN    : in  std_logic;
+	-- Current 
+	CSENSE_ADC_FO	: out std_logic;
+	CSENSE_CS_n		: out std_logic_vector(1 downto 0);
+	CSENSE_SCK		: out std_logic;
+	CSENSE_SDI		: out std_logic;
+	CSENSE_SDO 		: in  std_logic;
+	
+	-- Real Time Clock
+	RTCC_ALARM : in  std_logic;
+	RTCC_CS_n	: out std_logic;
+	RTCC_SCK	: out std_logic;
+	RTCC_SDI	: out std_logic;
+	RTCC_SDO   : in  std_logic;
+	
+	-- Sincronization
+	SINC_IN    : in  std_logic;
     SINC_OUT   : out std_logic
 
   );
@@ -210,6 +288,42 @@ signal rst : std_logic;
 
 
 signal pll_locked : std_logic;
+
+-----------------------------------------
+-- Signals
+-----------------------------------------
+signal spw_a_si : std_logic_vector (0 downto 0);
+signal spw_a_so : std_logic_vector (0 downto 0);
+signal spw_a_di : std_logic_vector (0 downto 0);
+signal spw_a_do : std_logic_vector (0 downto 0);
+signal spw_b_si : std_logic_vector (0 downto 0);
+signal spw_b_so : std_logic_vector (0 downto 0);
+signal spw_b_di : std_logic_vector (0 downto 0);
+signal spw_b_do : std_logic_vector (0 downto 0);
+signal spw_c_si : std_logic_vector (0 downto 0);
+signal spw_c_so : std_logic_vector (0 downto 0);
+signal spw_c_di : std_logic_vector (0 downto 0);
+signal spw_c_do : std_logic_vector (0 downto 0);
+signal spw_d_si : std_logic_vector (0 downto 0);
+signal spw_d_so : std_logic_vector (0 downto 0);
+signal spw_d_di : std_logic_vector (0 downto 0);
+signal spw_d_do : std_logic_vector (0 downto 0);
+signal spw_e_si : std_logic_vector (0 downto 0);
+signal spw_e_so : std_logic_vector (0 downto 0);
+signal spw_e_di : std_logic_vector (0 downto 0);
+signal spw_e_do : std_logic_vector (0 downto 0);
+signal spw_f_si : std_logic_vector (0 downto 0);
+signal spw_f_so : std_logic_vector (0 downto 0);
+signal spw_f_di : std_logic_vector (0 downto 0);
+signal spw_f_do : std_logic_vector (0 downto 0);
+signal spw_g_si : std_logic_vector (0 downto 0);
+signal spw_g_so : std_logic_vector (0 downto 0);
+signal spw_g_di : std_logic_vector (0 downto 0);
+signal spw_g_do : std_logic_vector (0 downto 0);
+signal spw_h_si : std_logic_vector (0 downto 0);
+signal spw_h_so : std_logic_vector (0 downto 0);
+signal spw_h_di : std_logic_vector (0 downto 0);
+signal spw_h_do : std_logic_vector (0 downto 0);
 
 -----------------------------------------
 -- Component
@@ -296,7 +410,39 @@ signal pll_locked : std_logic;
             m2_ddr2_i2c_scl_export  : out   std_logic;                                 
             m2_ddr2_i2c_sda_export  : inout std_logic;    
 
-
+			comm_a_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_a_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_a_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_a_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_b_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_b_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_b_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_b_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_c_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_c_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_c_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_c_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_d_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_d_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_d_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_d_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_e_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_e_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_e_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_e_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_f_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_f_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_f_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_f_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_g_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_g_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_g_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_g_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			comm_h_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_h_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_h_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
+			comm_h_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
+			
             temp_scl_export       : out   std_logic;                     
             temp_sda_export       : inout std_logic;
             csense_adc_fo_export  : out   std_logic;                     
@@ -424,24 +570,57 @@ SOPC_INST : MebX_Qsys_Project
     m2_ddr2_i2c_scl_export        => M2_DDR2_SCL,
     m2_ddr2_i2c_sda_export        => M2_DDR2_SDA,
     
+	comm_a_conduit_end_spw_di_signal => spw_a_di(0),
+	comm_a_conduit_end_spw_si_signal => spw_a_si(0),
+	comm_a_conduit_end_spw_do_signal => spw_a_do(0),
+	comm_a_conduit_end_spw_so_signal => spw_a_so(0),
+	comm_b_conduit_end_spw_di_signal => spw_b_di(0),
+	comm_b_conduit_end_spw_si_signal => spw_b_si(0),
+	comm_b_conduit_end_spw_do_signal => spw_b_do(0),
+	comm_b_conduit_end_spw_so_signal => spw_b_so(0),
+	comm_c_conduit_end_spw_di_signal => spw_c_di(0),
+	comm_c_conduit_end_spw_si_signal => spw_c_si(0),
+	comm_c_conduit_end_spw_do_signal => spw_c_do(0),
+	comm_c_conduit_end_spw_so_signal => spw_c_so(0),
+	comm_d_conduit_end_spw_di_signal => spw_d_di(0),
+	comm_d_conduit_end_spw_si_signal => spw_d_si(0),
+	comm_d_conduit_end_spw_do_signal => spw_d_do(0),
+	comm_d_conduit_end_spw_so_signal => spw_d_so(0),
+	comm_e_conduit_end_spw_di_signal => spw_e_di(0),
+	comm_e_conduit_end_spw_si_signal => spw_e_si(0),
+	comm_e_conduit_end_spw_do_signal => spw_e_do(0),
+	comm_e_conduit_end_spw_so_signal => spw_e_so(0),
+	comm_f_conduit_end_spw_di_signal => spw_f_di(0),
+	comm_f_conduit_end_spw_si_signal => spw_f_si(0),
+	comm_f_conduit_end_spw_do_signal => spw_f_do(0),
+	comm_f_conduit_end_spw_so_signal => spw_f_so(0),
+	comm_g_conduit_end_spw_di_signal => spw_g_di(0),
+	comm_g_conduit_end_spw_si_signal => spw_g_si(0),
+	comm_g_conduit_end_spw_do_signal => spw_g_do(0),
+	comm_g_conduit_end_spw_so_signal => spw_g_so(0),
+	comm_h_conduit_end_spw_di_signal => spw_h_di(0),
+	comm_h_conduit_end_spw_si_signal => spw_h_si(0),
+	comm_h_conduit_end_spw_do_signal => spw_h_do(0),
+	comm_h_conduit_end_spw_so_signal => spw_h_so(0),
+	
     temp_scl_export          => TEMP_SMCLK,
     temp_sda_export          => TEMP_SMDAT,
-                                           
+
     csense_adc_fo_export     => csense_adc_fo,
     csense_cs_n_export       => csense_cs_n,
     csense_sck_export        => csense_sck,
     csense_sdi_export        => csense_sdi,
     csense_sdo_export        => csense_sdo,
 
-	 rtcc_alarm_export     => RTCC_ALARM,
-	 rtcc_cs_n_export      => RTCC_CS_n,
-	 rtcc_sck_export       => RTCC_SCK,
-	 rtcc_sdi_export       => RTCC_SDI,
-	 rtcc_sdo_export       => RTCC_SDO,
-	 
-	 sinc_in_export        => SINC_IN,
-	 sinc_out_export       => SINC_OUT
-	 
+	rtcc_alarm_export     => RTCC_ALARM,
+	rtcc_cs_n_export      => RTCC_CS_n,
+	rtcc_sck_export       => RTCC_SCK,
+	rtcc_sdi_export       => RTCC_SDI,
+	rtcc_sdo_export       => RTCC_SDO,
+	
+	sinc_in_export        => SINC_IN,
+	sinc_out_export       => SINC_OUT
+	
  );
 
 --==========--
@@ -509,5 +688,193 @@ ETH_RST_n <= rst AND rst_eth;
 FLASH_RESET_n <= rst;
 FLASH_CLK     <= '0';
 FLASH_ADV_n   <= '0';
+
+--==========--
+-- LVDS Drivers control
+--==========--
+
+	HSMB_BUFFER_PWDN_N <= '1';
+	HSMB_BUFFER_PEM0   <= '0';
+	HSMB_BUFFER_PEM1   <= '0';
+
+--==========--
+-- LVDS
+--==========--
+
+	--SpW A
+	TX_DO_A : TX_LVDS 
+	port map(
+		tx_in  => spw_a_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWA_DO_P (0 downto 0)
+	);
+	TX_DI_A : RX_LVDS 
+	port map(
+		rx_out => spw_a_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWA_DI_P (0 downto 0)
+	);
+	TX_SO_A : TX_LVDS 
+	port map(
+		tx_in  => spw_a_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWA_SO_P (0 downto 0)
+	);
+	TX_SI_A : RX_LVDS 
+	port map(
+		rx_out => spw_a_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWA_SI_P (0 downto 0)
+	);
+		
+	--SpW B
+	TX_DO_B : TX_LVDS 
+	port map(
+		tx_in  => spw_b_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWB_DO_P (0 downto 0)
+	);
+	TX_DI_B : RX_LVDS 
+	port map(
+		rx_out => spw_b_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWB_DI_P (0 downto 0)
+	);
+	TX_SO_B : TX_LVDS 
+	port map(
+		tx_in  => spw_b_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWB_SO_P (0 downto 0)
+	);
+	TX_SI_B : RX_LVDS 
+	port map(
+		rx_out => spw_b_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWB_SI_P (0 downto 0)
+	);
+		
+	--SpW C
+	TX_DO_C : TX_LVDS 
+	port map(
+		tx_in  => spw_c_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWC_DO_P (0 downto 0)
+	);
+	TX_DI_C : RX_LVDS 
+	port map(
+		rx_out => spw_c_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWC_DI_P (0 downto 0)
+	);
+	TX_SO_C : TX_LVDS 
+	port map(
+		tx_in  => spw_c_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWC_SO_P (0 downto 0)
+	);
+	TX_SI_C : RX_LVDS 
+	port map(
+		rx_out => spw_c_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWC_SI_P (0 downto 0)
+	);
+		
+	--SpW D
+	TX_DO_D : TX_LVDS 
+	port map(
+		tx_in  => spw_d_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWD_DO_P (0 downto 0)
+	);
+	TX_DI_D : RX_LVDS 
+	port map(
+		rx_out => spw_d_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWD_DI_P (0 downto 0)
+	);
+	TX_SO_D : TX_LVDS 
+	port map(
+		tx_in  => spw_d_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWD_SO_P (0 downto 0)
+	);
+	TX_SI_D : RX_LVDS 
+	port map(
+		rx_out => spw_d_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWD_SI_P (0 downto 0)
+	);
+		
+	--SpW E
+	TX_DO_E : TX_LVDS 
+	port map(
+		tx_in  => spw_e_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWE_DO_P (0 downto 0)
+	);
+	TX_DI_E : RX_LVDS 
+	port map(
+		rx_out => spw_e_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWE_DI_P (0 downto 0)
+	);
+	TX_SO_E : TX_LVDS 
+	port map(
+		tx_in  => spw_e_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWE_SO_P (0 downto 0)
+	);
+	TX_SI_E : RX_LVDS 
+	port map(
+		rx_out => spw_e_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWE_SI_P (0 downto 0)
+	);
+		
+	--SpW F
+	TX_DO_F : TX_LVDS 
+	port map(
+		tx_in  => spw_f_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWF_DO_P (0 downto 0)
+	);
+	TX_DI_F : RX_LVDS 
+	port map(
+		rx_out => spw_f_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWF_DI_P (0 downto 0)
+	);
+	TX_SO_F : TX_LVDS 
+	port map(
+		tx_in  => spw_f_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWF_SO_P (0 downto 0)
+	);
+	TX_SI_F : RX_LVDS 
+	port map(
+		rx_out => spw_f_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWF_SI_P (0 downto 0)
+	);
+		
+	--SpW G
+	TX_DO_G : TX_LVDS 
+	port map(
+		tx_in  => spw_g_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWG_DO_P (0 downto 0)
+	);
+	TX_DI_G : RX_LVDS 
+	port map(
+		rx_out => spw_g_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWG_DI_P (0 downto 0)
+	);
+	TX_SO_G : TX_LVDS 
+	port map(
+		tx_in  => spw_g_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWG_SO_P (0 downto 0)
+	);
+	TX_SI_G : RX_LVDS 
+	port map(
+		rx_out => spw_g_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWG_SI_P (0 downto 0)
+	);
+		
+	--SpW H
+	TX_DO_H : TX_LVDS 
+	port map(
+		tx_in  => spw_h_do (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWH_DO_P (0 downto 0)
+	);
+	TX_DI_H : RX_LVDS 
+	port map(
+		rx_out => spw_h_di (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWH_DI_P (0 downto 0)
+	);
+	TX_SO_H : TX_LVDS 
+	port map(
+		tx_in  => spw_h_so (0 downto 0),
+		tx_out => HSMB_LVDS_TX_SPWH_SO_P (0 downto 0)
+	);
+	TX_SI_H : RX_LVDS 
+	port map(
+		rx_out => spw_h_si (0 downto 0),
+		rx_in  => HSMB_LVDS_RX_SPWH_SI_P (0 downto 0)
+	);
 
 end bhv;
