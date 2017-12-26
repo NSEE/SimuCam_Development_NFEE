@@ -17,7 +17,7 @@
 	alt_u32 ul_tran_h_interface_control_status_register_value = 0x00000000;
 
 	void TRAN_WRITE_REG32(char c_SpwID, alt_u8 RegisterOffset, alt_u32 RegisterValue){
-		alt_u32 *pTranAddr = TRAN_A_BASE;
+		alt_u32 *pTranAddr = (alt_u32 *)TRAN_A_BASE;
 		switch (c_SpwID) {
 			case 'A':
 				pTranAddr = (alt_u32 *)TRAN_A_BASE;
@@ -49,7 +49,7 @@
 
 	alt_u32 TRAN_READ_REG32(char c_SpwID, alt_u8 RegisterOffset){
 		alt_u32 RegisterValue = 0;
-		alt_u32 *pTranAddr = TRAN_A_BASE;
+		alt_u32 *pTranAddr = (alt_u32 *)TRAN_A_BASE;
 		switch (c_SpwID) {
 			case 'A':
 				pTranAddr = (alt_u32 *)TRAN_A_BASE;

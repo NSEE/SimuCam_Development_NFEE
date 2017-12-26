@@ -722,7 +722,7 @@ FLASH_ADV_n   <= '0';
 		rx_out => spw_a_si (0 downto 0),
 		rx_in  => HSMB_LVDS_RX_SPWA_SI_P (0 downto 0)
 	);
-		
+	
 	--SpW B
 	TX_DO_B : TX_LVDS 
 	port map(

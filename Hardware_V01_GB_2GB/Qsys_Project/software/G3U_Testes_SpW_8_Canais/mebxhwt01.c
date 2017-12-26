@@ -78,8 +78,22 @@ int main(void)
   //TestLeds();
   //TestRTCC();
   //TestSinc();
+
+  usleep(5*1000*1000);
+  sense_log();
   
-  Connection_Test_SpW('A', 15);
+  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
+  LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
+  LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_R_ALL_MASK);
+  //Connection_Test_SpW('A', 5);
+  //Connection_Test_SpW('B', 5);
+  //Connection_Test_SpW('C', 5);
+  //Connection_Test_SpW('D', 5);
+  Connection_Test_SpW('E', 5);
+  //Connection_Test_SpW('F', 5);
+  //Connection_Test_SpW('G', 5);
+  Connection_Test_SpW('H', 5);
+  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
 
   DemoMode();
 
@@ -586,6 +600,43 @@ bool TestDMA_M2_M1(void){
 bool Connection_Test_SpW(char c_SpwID, alt_u16 ui_minutos){
 	bool bPass = FALSE;
 	
+	alt_u32 ui_leds_mask_r = 0;
+	alt_u32 ui_leds_mask_g = 0;
+	switch (c_SpwID){
+		case 'A':
+			ui_leds_mask_r = LEDS_1R_MASK;
+			ui_leds_mask_g = LEDS_1G_MASK;
+		break;
+		case 'B':
+			ui_leds_mask_r = LEDS_2R_MASK;
+			ui_leds_mask_g = LEDS_2G_MASK;
+		break;
+		case 'C':
+			ui_leds_mask_r = LEDS_3R_MASK;
+			ui_leds_mask_g = LEDS_3G_MASK;
+		break;
+		case 'D':
+			ui_leds_mask_r = LEDS_4R_MASK;
+			ui_leds_mask_g = LEDS_4G_MASK;
+		break;
+		case 'E':
+			ui_leds_mask_r = LEDS_5R_MASK;
+			ui_leds_mask_g = LEDS_5G_MASK;
+		break;
+		case 'F':
+			ui_leds_mask_r = LEDS_6R_MASK;
+			ui_leds_mask_g = LEDS_6G_MASK;
+		break;
+		case 'G':
+			ui_leds_mask_r = LEDS_7R_MASK;
+			ui_leds_mask_g = LEDS_7G_MASK;
+		break;
+		case 'H':
+			ui_leds_mask_r = LEDS_8R_MASK;
+			ui_leds_mask_g = LEDS_8G_MASK;
+		break;
+	}
+
 	// Configura COMM
 		// Reseta TX e RX Fifo
 	v_Transparent_Interface_RX_FIFO_Reset(c_SpwID);
@@ -604,9 +655,13 @@ bool Connection_Test_SpW(char c_SpwID, alt_u16 ui_minutos){
 	b_SpaceWire_Interface_Mode_Control(c_SpwID, SPWC_INTERFACE_NORMAL_MODE);
 	printf("Interface SpaceWire colocado no modo Normal\n");
 		// Coloca Codec no link Autostart
+	v_SpaceWire_Interface_Link_Control(c_SpwID, SPWC_REG_CLEAR, SPWC_LINK_DISCONNECT_CONTROL_BIT_MASK | SPWC_LINK_START_CONTROL_BIT_MASK);
 	v_SpaceWire_Interface_Link_Control(c_SpwID, SPWC_REG_SET, SPWC_AUTOSTART_CONTROL_BIT_MASK);
 	printf("Codec SpaceWire colocado no Link Autostart\n");
-	printf("SpaceWire A configurado\n");
+	usleep(1000*1000);
+	v_SpaceWire_Interface_Link_Control(c_SpwID, SPWC_REG_SET, SPWC_LINK_START_CONTROL_BIT_MASK);
+	printf("Codec SpaceWire colocado no Link Start\n");
+	printf("SpaceWire %c configurado\n", c_SpwID);
 	
 	alt_8 tempFPGA = 0;
 	alt_8 tempBoard = 0;
@@ -620,11 +675,20 @@ bool Connection_Test_SpW(char c_SpwID, alt_u16 ui_minutos){
 	}
 	printf("Link SpaceWire %c iniciado!!\n", c_SpwID);
 
+	LEDS_PAINEL_DRIVE(LEDS_OFF, ui_leds_mask_r);
+	LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_g);
 	bPass = TRUE;
 
 	alt_u16 ui_min_couter = 0;
-	printf("Aguardando %d minutos para testar consistencia do link", ui_minutos);
+	alt_u16 ui_next_milestone = 60;
+	alt_u16 ui_minutos_print_counter = 0;
+	printf("Aguardando %d minutos para testar consistencia do link\n", ui_minutos);
 	for (ui_min_couter = 0; ui_min_couter < (ui_minutos*60); ui_min_couter++){
+		if (ui_min_couter >= ui_next_milestone){
+			ui_next_milestone += 60;
+			ui_minutos_print_counter++;
+			printf("  Faltando %d minutos...\n", ui_minutos - ui_minutos_print_counter);
+		}
 		TEMP_Read(&tempFPGA, &tempBoard);
 		SSDP_UPDATE(tempFPGA);
 		if ((!(ul_SpaceWire_Interface_Link_Status_Read(c_SpwID) & SPWC_LINK_RUNNING_STATUS_BIT_MASK))) {
@@ -637,8 +701,13 @@ bool Connection_Test_SpW(char c_SpwID, alt_u16 ui_minutos){
 		usleep(1000*1000);
 	}
 	printf("Desconectando Link SpaceWire %c!!\n", c_SpwID);
+	v_SpaceWire_Interface_Link_Control(c_SpwID, SPWC_REG_CLEAR, SPWC_LINK_START_CONTROL_BIT_MASK);
 	v_SpaceWire_Interface_Link_Control(c_SpwID, SPWC_REG_SET, SPWC_LINK_DISCONNECT_CONTROL_BIT_MASK);
-	printf("Testes terminados!!\n");
+
+	LEDS_PAINEL_DRIVE(LEDS_OFF, ui_leds_mask_g);
+	LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_r);
+
+	printf("Testes terminados!!\n\n");
 
 	return bPass;
 }
