@@ -2,38 +2,6 @@
 		port (
 			button_export                                        : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                            : in    std_logic                     := 'X';             -- clk
-			comm_a_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_a_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_a_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_a_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_b_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_b_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_b_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_b_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_c_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_c_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_c_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_c_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_d_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_d_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_d_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_d_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_e_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_e_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_e_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_e_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_f_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_f_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_f_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_f_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_g_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_g_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_g_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_g_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
-			comm_h_conduit_end_spw_si_signal                     : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_h_conduit_end_spw_di_signal                     : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_h_conduit_end_spw_do_signal                     : out   std_logic;                                        -- spw_do_signal
-			comm_h_conduit_end_spw_so_signal                     : out   std_logic;                                        -- spw_so_signal
 			csense_adc_fo_export                                 : out   std_logic;                                        -- export
 			csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     -- export
 			csense_sck_export                                    : out   std_logic;                                        -- export
@@ -155,38 +123,6 @@
 		port map (
 			button_export                                        => CONNECTED_TO_button_export,                                        --                            button.export
 			clk50_clk                                            => CONNECTED_TO_clk50_clk,                                            --                             clk50.clk
-			comm_a_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_a_conduit_end_spw_si_signal,                     --                comm_a_conduit_end.spw_si_signal
-			comm_a_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_a_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_a_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_a_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_a_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_a_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_b_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_b_conduit_end_spw_si_signal,                     --                comm_b_conduit_end.spw_si_signal
-			comm_b_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_b_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_b_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_b_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_b_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_b_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_c_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_c_conduit_end_spw_si_signal,                     --                comm_c_conduit_end.spw_si_signal
-			comm_c_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_c_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_c_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_c_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_c_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_c_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_d_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_d_conduit_end_spw_si_signal,                     --                comm_d_conduit_end.spw_si_signal
-			comm_d_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_d_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_d_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_d_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_d_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_d_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_e_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_e_conduit_end_spw_si_signal,                     --                comm_e_conduit_end.spw_si_signal
-			comm_e_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_e_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_e_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_e_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_e_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_e_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_f_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_f_conduit_end_spw_si_signal,                     --                comm_f_conduit_end.spw_si_signal
-			comm_f_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_f_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_f_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_f_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_f_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_f_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_g_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_g_conduit_end_spw_si_signal,                     --                comm_g_conduit_end.spw_si_signal
-			comm_g_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_g_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_g_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_g_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_g_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_g_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
-			comm_h_conduit_end_spw_si_signal                     => CONNECTED_TO_comm_h_conduit_end_spw_si_signal,                     --                comm_h_conduit_end.spw_si_signal
-			comm_h_conduit_end_spw_di_signal                     => CONNECTED_TO_comm_h_conduit_end_spw_di_signal,                     --                                  .spw_di_signal
-			comm_h_conduit_end_spw_do_signal                     => CONNECTED_TO_comm_h_conduit_end_spw_do_signal,                     --                                  .spw_do_signal
-			comm_h_conduit_end_spw_so_signal                     => CONNECTED_TO_comm_h_conduit_end_spw_so_signal,                     --                                  .spw_so_signal
 			csense_adc_fo_export                                 => CONNECTED_TO_csense_adc_fo_export,                                 --                     csense_adc_fo.export
 			csense_cs_n_export                                   => CONNECTED_TO_csense_cs_n_export,                                   --                       csense_cs_n.export
 			csense_sck_export                                    => CONNECTED_TO_csense_sck_export,                                    --                        csense_sck.export

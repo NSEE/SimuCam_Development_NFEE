@@ -14,7 +14,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		input  wire         m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset,           //           m1_ddr2_memory_soft_reset_reset_bridge_in_reset.reset
 		input  wire [30:0]  m1_clock_bridge_m0_address,                                      //                                        m1_clock_bridge_m0.address
 		output wire         m1_clock_bridge_m0_waitrequest,                                  //                                                          .waitrequest
-		input  wire [4:0]   m1_clock_bridge_m0_burstcount,                                   //                                                          .burstcount
+		input  wire [7:0]   m1_clock_bridge_m0_burstcount,                                   //                                                          .burstcount
 		input  wire [7:0]   m1_clock_bridge_m0_byteenable,                                   //                                                          .byteenable
 		input  wire         m1_clock_bridge_m0_read,                                         //                                                          .read
 		output wire [63:0]  m1_clock_bridge_m0_readdata,                                     //                                                          .readdata
@@ -44,7 +44,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_lock;          // m1_clock_bridge_m0_translator:uav_lock -> m1_clock_bridge_m0_agent:av_lock
 	wire          m1_clock_bridge_m0_translator_avalon_universal_master_0_write;         // m1_clock_bridge_m0_translator:uav_write -> m1_clock_bridge_m0_agent:av_write
 	wire   [63:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_writedata;     // m1_clock_bridge_m0_translator:uav_writedata -> m1_clock_bridge_m0_agent:av_writedata
-	wire    [7:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_burstcount;    // m1_clock_bridge_m0_translator:uav_burstcount -> m1_clock_bridge_m0_agent:av_burstcount
+	wire   [10:0] m1_clock_bridge_m0_translator_avalon_universal_master_0_burstcount;    // m1_clock_bridge_m0_translator:uav_burstcount -> m1_clock_bridge_m0_agent:av_burstcount
 	wire          rsp_mux_src_valid;                                                     // rsp_mux:src_valid -> m1_clock_bridge_m0_agent:rp_valid
 	wire  [146:0] rsp_mux_src_data;                                                      // rsp_mux:src_data -> m1_clock_bridge_m0_agent:rp_data
 	wire          rsp_mux_src_ready;                                                     // m1_clock_bridge_m0_agent:rp_ready -> rsp_mux:src_ready
@@ -150,10 +150,10 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (31),
 		.AV_DATA_W                   (64),
-		.AV_BURSTCOUNT_W             (5),
+		.AV_BURSTCOUNT_W             (8),
 		.AV_BYTEENABLE_W             (8),
 		.UAV_ADDRESS_W               (31),
-		.UAV_BURSTCOUNT_W            (8),
+		.UAV_BURSTCOUNT_W            (11),
 		.USE_READ                    (1),
 		.USE_WRITE                   (1),
 		.USE_BEGINBURSTTRANSFER      (0),
@@ -315,7 +315,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.PKT_DEST_ID_L             (133),
 		.ST_DATA_W                 (147),
 		.ST_CHANNEL_W              (1),
-		.AV_BURSTCOUNT_W           (8),
+		.AV_BURSTCOUNT_W           (11),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (0),
 		.BURSTWRAP_VALUE           (1),
@@ -480,7 +480,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (258),
-		.FIFO_DEPTH          (256),
+		.FIFO_DEPTH          (2048),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
@@ -818,7 +818,7 @@ module MebX_Qsys_Project_mm_interconnect_3 (
 		.out_error         ()                                                                 //   (terminated)
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_017 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter #(
 		.inBitsPerSymbol (258),
 		.inUsePackets    (0),
 		.inDataWidth     (258),

@@ -37,7 +37,7 @@
 #define SPI_CS_N(x) IOWR_ALTERA_AVALON_PIO_DATA(RTCC_CS_N_BASE,x)
 #define SPI_SDI(x)    IOWR_ALTERA_AVALON_PIO_DATA(RTCC_SDI_BASE,x)
 #define SPI_SDO       (IORD_ALTERA_AVALON_PIO_DATA(RTCC_SDO_BASE) & 0x01)
-#define SPI_DELAY     usleep(150)  // based on 50MHZ of CPU clock
+#define SPI_DELAY     usleep(15)  // based on 50MHZ of CPU clock
 
 void v_spi_start(void){
     //Pull CS_n Low to start communication

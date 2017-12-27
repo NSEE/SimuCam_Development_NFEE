@@ -11,9 +11,9 @@ entity mebx_qsys_project_m1_clock_bridge is
 		DATA_WIDTH          : integer := 64;
 		SYMBOL_WIDTH        : integer := 8;
 		HDL_ADDR_WIDTH      : integer := 31;
-		BURSTCOUNT_WIDTH    : integer := 5;
+		BURSTCOUNT_WIDTH    : integer := 8;
 		COMMAND_FIFO_DEPTH  : integer := 4;
-		RESPONSE_FIFO_DEPTH : integer := 64;
+		RESPONSE_FIFO_DEPTH : integer := 256;
 		MASTER_SYNC_DEPTH   : integer := 2;
 		SLAVE_SYNC_DEPTH    : integer := 2
 	);
@@ -25,7 +25,7 @@ entity mebx_qsys_project_m1_clock_bridge is
 		s0_waitrequest   : out std_logic;                                        --       s0.waitrequest
 		s0_readdata      : out std_logic_vector(63 downto 0);                    --         .readdata
 		s0_readdatavalid : out std_logic;                                        --         .readdatavalid
-		s0_burstcount    : in  std_logic_vector(4 downto 0)  := (others => '0'); --         .burstcount
+		s0_burstcount    : in  std_logic_vector(7 downto 0)  := (others => '0'); --         .burstcount
 		s0_writedata     : in  std_logic_vector(63 downto 0) := (others => '0'); --         .writedata
 		s0_address       : in  std_logic_vector(30 downto 0) := (others => '0'); --         .address
 		s0_write         : in  std_logic                     := '0';             --         .write
@@ -35,7 +35,7 @@ entity mebx_qsys_project_m1_clock_bridge is
 		m0_waitrequest   : in  std_logic                     := '0';             --       m0.waitrequest
 		m0_readdata      : in  std_logic_vector(63 downto 0) := (others => '0'); --         .readdata
 		m0_readdatavalid : in  std_logic                     := '0';             --         .readdatavalid
-		m0_burstcount    : out std_logic_vector(4 downto 0);                     --         .burstcount
+		m0_burstcount    : out std_logic_vector(7 downto 0);                     --         .burstcount
 		m0_writedata     : out std_logic_vector(63 downto 0);                    --         .writedata
 		m0_address       : out std_logic_vector(30 downto 0);                    --         .address
 		m0_write         : out std_logic;                                        --         .write
@@ -65,7 +65,7 @@ architecture rtl of mebx_qsys_project_m1_clock_bridge is
 			s0_waitrequest   : out std_logic;                                        -- waitrequest
 			s0_readdata      : out std_logic_vector(63 downto 0);                    -- readdata
 			s0_readdatavalid : out std_logic;                                        -- readdatavalid
-			s0_burstcount    : in  std_logic_vector(4 downto 0)  := (others => 'X'); -- burstcount
+			s0_burstcount    : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- burstcount
 			s0_writedata     : in  std_logic_vector(63 downto 0) := (others => 'X'); -- writedata
 			s0_address       : in  std_logic_vector(30 downto 0) := (others => 'X'); -- address
 			s0_write         : in  std_logic                     := 'X';             -- write
@@ -75,7 +75,7 @@ architecture rtl of mebx_qsys_project_m1_clock_bridge is
 			m0_waitrequest   : in  std_logic                     := 'X';             -- waitrequest
 			m0_readdata      : in  std_logic_vector(63 downto 0) := (others => 'X'); -- readdata
 			m0_readdatavalid : in  std_logic                     := 'X';             -- readdatavalid
-			m0_burstcount    : out std_logic_vector(4 downto 0);                     -- burstcount
+			m0_burstcount    : out std_logic_vector(7 downto 0);                     -- burstcount
 			m0_writedata     : out std_logic_vector(63 downto 0);                    -- writedata
 			m0_address       : out std_logic_vector(30 downto 0);                    -- address
 			m0_write         : out std_logic;                                        -- write

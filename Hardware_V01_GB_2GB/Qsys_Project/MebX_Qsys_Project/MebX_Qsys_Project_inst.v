@@ -1,38 +1,6 @@
 	MebX_Qsys_Project u0 (
 		.button_export                                        (<connected-to-button_export>),                                        //                            button.export
 		.clk50_clk                                            (<connected-to-clk50_clk>),                                            //                             clk50.clk
-		.comm_a_conduit_end_spw_si_signal                     (<connected-to-comm_a_conduit_end_spw_si_signal>),                     //                comm_a_conduit_end.spw_si_signal
-		.comm_a_conduit_end_spw_di_signal                     (<connected-to-comm_a_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_a_conduit_end_spw_do_signal                     (<connected-to-comm_a_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_a_conduit_end_spw_so_signal                     (<connected-to-comm_a_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_b_conduit_end_spw_si_signal                     (<connected-to-comm_b_conduit_end_spw_si_signal>),                     //                comm_b_conduit_end.spw_si_signal
-		.comm_b_conduit_end_spw_di_signal                     (<connected-to-comm_b_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_b_conduit_end_spw_do_signal                     (<connected-to-comm_b_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_b_conduit_end_spw_so_signal                     (<connected-to-comm_b_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_c_conduit_end_spw_si_signal                     (<connected-to-comm_c_conduit_end_spw_si_signal>),                     //                comm_c_conduit_end.spw_si_signal
-		.comm_c_conduit_end_spw_di_signal                     (<connected-to-comm_c_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_c_conduit_end_spw_do_signal                     (<connected-to-comm_c_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_c_conduit_end_spw_so_signal                     (<connected-to-comm_c_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_d_conduit_end_spw_si_signal                     (<connected-to-comm_d_conduit_end_spw_si_signal>),                     //                comm_d_conduit_end.spw_si_signal
-		.comm_d_conduit_end_spw_di_signal                     (<connected-to-comm_d_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_d_conduit_end_spw_do_signal                     (<connected-to-comm_d_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_d_conduit_end_spw_so_signal                     (<connected-to-comm_d_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_e_conduit_end_spw_si_signal                     (<connected-to-comm_e_conduit_end_spw_si_signal>),                     //                comm_e_conduit_end.spw_si_signal
-		.comm_e_conduit_end_spw_di_signal                     (<connected-to-comm_e_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_e_conduit_end_spw_do_signal                     (<connected-to-comm_e_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_e_conduit_end_spw_so_signal                     (<connected-to-comm_e_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_f_conduit_end_spw_si_signal                     (<connected-to-comm_f_conduit_end_spw_si_signal>),                     //                comm_f_conduit_end.spw_si_signal
-		.comm_f_conduit_end_spw_di_signal                     (<connected-to-comm_f_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_f_conduit_end_spw_do_signal                     (<connected-to-comm_f_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_f_conduit_end_spw_so_signal                     (<connected-to-comm_f_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_g_conduit_end_spw_si_signal                     (<connected-to-comm_g_conduit_end_spw_si_signal>),                     //                comm_g_conduit_end.spw_si_signal
-		.comm_g_conduit_end_spw_di_signal                     (<connected-to-comm_g_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_g_conduit_end_spw_do_signal                     (<connected-to-comm_g_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_g_conduit_end_spw_so_signal                     (<connected-to-comm_g_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
-		.comm_h_conduit_end_spw_si_signal                     (<connected-to-comm_h_conduit_end_spw_si_signal>),                     //                comm_h_conduit_end.spw_si_signal
-		.comm_h_conduit_end_spw_di_signal                     (<connected-to-comm_h_conduit_end_spw_di_signal>),                     //                                  .spw_di_signal
-		.comm_h_conduit_end_spw_do_signal                     (<connected-to-comm_h_conduit_end_spw_do_signal>),                     //                                  .spw_do_signal
-		.comm_h_conduit_end_spw_so_signal                     (<connected-to-comm_h_conduit_end_spw_so_signal>),                     //                                  .spw_so_signal
 		.csense_adc_fo_export                                 (<connected-to-csense_adc_fo_export>),                                 //                     csense_adc_fo.export
 		.csense_cs_n_export                                   (<connected-to-csense_cs_n_export>),                                   //                       csense_cs_n.export
 		.csense_sck_export                                    (<connected-to-csense_sck_export>),                                    //                        csense_sck.export
