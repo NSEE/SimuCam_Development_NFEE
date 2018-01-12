@@ -144,7 +144,7 @@ bool RTCC_SPI_R_MAC(alt_u8 uc_EUI48_array[6])
     uc_EUI48_array[4] = uc_EUI48_B4;
     uc_EUI48_array[5] = uc_EUI48_B5;
 
-    printf("RTCC EUI-48 MAC Address: 0x%02x:%02x:%02x:%02x:%02x:%02x \n", uc_EUI48_B0, uc_EUI48_B1, uc_EUI48_B2, uc_EUI48_B3, uc_EUI48_B4, uc_EUI48_B5);
+    printf("RTCC EUI-48 MAC Address: 0x%02x:%02x:%02x:%02x:%02x:%02x \n\n", uc_EUI48_B0, uc_EUI48_B1, uc_EUI48_B2, uc_EUI48_B3, uc_EUI48_B4, uc_EUI48_B5);
 
     return bSuccess;
 }

@@ -85,6 +85,9 @@ int main(void)
 
   sense_log();
   
+  alt_u8 mac_address_bytes[6] = {0, 0, 0, 0, 0, 0};
+  RTCC_SPI_R_MAC(mac_address_bytes);
+
   //LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
   //LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
   //LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_R_ALL_MASK);
