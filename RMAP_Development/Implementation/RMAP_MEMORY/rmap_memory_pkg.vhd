@@ -1,7 +1,7 @@
-package package is
+package rmap_memory_pkg is
 	
-end package package;
+end package rmap_memory_pkg;
 
-package body package is
+package body rmap_memory_pkg is
 	
-end package body package;
+end package body rmap_memory_pkg;

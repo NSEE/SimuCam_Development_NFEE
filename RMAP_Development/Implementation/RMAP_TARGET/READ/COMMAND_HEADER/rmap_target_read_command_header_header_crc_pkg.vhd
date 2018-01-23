@@ -1,7 +1,7 @@
-package package is
+package rmap_target_read_command_header_header_crc_pkg is
 	
-end package package;
+end package rmap_target_read_command_header_header_crc_pkg;
 
-package body package is
+package body rmap_target_read_command_header_header_crc_pkg is
 	
-end package body package;
+end package body rmap_target_read_command_header_header_crc_pkg;

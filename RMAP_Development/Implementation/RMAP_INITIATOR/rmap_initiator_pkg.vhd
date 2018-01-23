@@ -1,7 +1,7 @@
-package package is
+package rmap_initiator_pkg is
 	
-end package package;
+end package rmap_initiator_pkg;
 
-package body package is
+package body rmap_initiator_pkg is
 	
-end package body package;
+end package body rmap_initiator_pkg;

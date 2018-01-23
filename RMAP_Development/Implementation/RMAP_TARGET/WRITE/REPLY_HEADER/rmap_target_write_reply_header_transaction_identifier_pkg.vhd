@@ -1,7 +1,7 @@
-package package is
+package rmap_target_write_reply_header_transaction_identifier_pkg is
 	
-end package package;
+end package rmap_target_write_reply_header_transaction_identifier_pkg;
 
-package body package is
+package body rmap_target_write_reply_header_transaction_identifier_pkg is
 	
-end package body package;
+end package body rmap_target_write_reply_header_transaction_identifier_pkg;
