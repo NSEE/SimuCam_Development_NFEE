@@ -40,9 +40,7 @@ package body rmap_target_write_command_header_header_crc_pkg is
 				rmap_target_write_status_var.not_send_reply                          := '1';
 				rmap_target_write_status_var.unused_packet_type_or_command_code_flag := '1';
 				rmap_target_write_status_var.status_error_code                       := 2;
-			end if;
-
-			if (((rmap_target_write_status_var.command_write_read = '0') and (rmap_target_write_status_var.command_verify_data_before_write = '0') and (rmap_target_write_status_var.command_reply = '0')) 
+			elsif (((rmap_target_write_status_var.command_write_read = '0') and (rmap_target_write_status_var.command_verify_data_before_write = '0') and (rmap_target_write_status_var.command_reply = '0')) 
 				or ((rmap_target_write_status_var.command_write_read = '0') and (rmap_target_write_status_var.command_verify_data_before_write = '1') and (rmap_target_write_status_var.command_reply = '0')) 
 				or ((rmap_target_write_status_var.command_write_read = '0') and (rmap_target_write_status_var.command_verify_data_before_write = '1') and (rmap_target_write_status_var.command_reply = '1') and (rmap_target_write_status_var.command_increment_address = '0'))
 			) then -- Invalid command code
@@ -51,11 +49,11 @@ package body rmap_target_write_command_header_header_crc_pkg is
 				rmap_target_write_status_var.not_send_reply                          := '0';
 				rmap_target_write_status_var.unused_packet_type_or_command_code_flag := '1';
 				rmap_target_write_status_var.status_error_code                       := 2;
+			else
+				rmap_target_write_status_var.header_crc := rmap_target_write_control_const.header_crc;
+				rmap_target_write_status_var.error      := '0';
+				rmap_target_write_status_var.next_state := '1';
 			end if;
-
-			rmap_target_write_status_var.header_crc := rmap_target_write_control_const.header_crc;
-			rmap_target_write_status_var.error      := '0';
-			rmap_target_write_status_var.next_state := '1';
 		else                            -- Header CRC does not match, Header CRC error
 			rmap_target_write_status_var.error                 := '1';
 			rmap_target_write_status_var.discard_package       := '1';

@@ -30,7 +30,11 @@ package body rmap_target_write_command_header_key_pkg is
 			rmap_target_write_status_var.error      := '0';
 			rmap_target_write_status_var.next_state := '1';
 		else
-			rmap_target_write_status_var.error := '1';
+			rmap_target_write_status_var.error             := '1';
+			rmap_target_write_status_var.discard_package   := '1';
+			rmap_target_write_status_var.not_send_reply    := '0';
+			rmap_target_write_status_var.invalid_key_flag  := '1';
+			rmap_target_write_status_var.status_error_code := 3;
 		end if;
 
 	end procedure rmap_target_write_command_header_key_procedure;
