@@ -69,34 +69,118 @@ begin
 	begin
 		if (rst_i = '1') then
 			-- reset procedures
-			-- TODO: reset procedures
+
+			-- ports init
+			-- spw codec comunication (data receive)
+			spw_read_o                                   <= '0';
+			spw_codec_error_o                            <= '0';
+			-- header data
+			rmap_header_data_o.target_logical_address    <= (others => '0');
+			rmap_header_data_o.instructions              <= RMAP_INSTRUCTION_RESET;
+			rmap_header_data_o.key                       <= (others => '0');
+			rmap_header_data_o.reply_address             <= (others => x"00");
+			rmap_header_data_o.reply_address_is_used     <= '0';
+			rmap_header_data_o.initiator_logical_address <= (others => '0');
+			rmap_header_data_o.transaction_identifier    <= (others => x"00");
+			rmap_header_data_o.extended_address          <= (others => '0');
+			rmap_header_data_o.address                   <= (others => x"00");
+			rmap_header_data_o.data_length               <= (others => x"00");
+			-- error flags
+			rmap_header_error_o.early_eop                <= '0';
+			rmap_header_error_o.eep                      <= '0';
+			rmap_header_error_o.header_crc               <= '0';
+			rmap_header_error_o.unused_packet_type       <= '0';
+			rmap_header_error_o.invalid_command_code     <= '0';
+			rmap_header_error_o.too_much_data            <= '0';
+			-- status flags
+			rmap_header_flags_o.command_received         <= '0';
+			rmap_header_flags_o.write_request            <= '0';
+			rmap_header_flags_o.read_request             <= '0';
+			rmap_header_flags_o.discarded_package        <= '0';
+			-- busy flag
+			rmap_header_busy_o                           <= '0';
 
 			-- signals init
-			-- TODO: signals init
 
 			-- variables init
-			-- TODO: variables init
-			--rmap_header_data_var
-			--rmap_header_error_var
-			--rmap_header_flags_var
-			rmap_header_state_machine_var            := standby_state;
-			rmap_header_state_machine_next_state_var := standby_state;
-			rmap_header_crc_var                      := (others => '0');
-			rmap_header_byte_field_counter_var       := 0;
+			-- rmap_header_data_var
+			rmap_header_data_var.target_logical_address    := (others => '0');
+			rmap_header_data_var.instructions              := RMAP_INSTRUCTION_RESET;
+			rmap_header_data_var.key                       := (others => '0');
+			rmap_header_data_var.reply_address             := (others => x"00");
+			rmap_header_data_var.reply_address_is_used     := '0';
+			rmap_header_data_var.initiator_logical_address := (others => '0');
+			rmap_header_data_var.transaction_identifier    := (others => x"00");
+			rmap_header_data_var.extended_address          := (others => '0');
+			rmap_header_data_var.address                   := (others => x"00");
+			rmap_header_data_var.data_length               := (others => x"00");
+			-- rmap_header_error_var
+			rmap_header_error_var.early_eop                := '0';
+			rmap_header_error_var.eep                      := '0';
+			rmap_header_error_var.header_crc               := '0';
+			rmap_header_error_var.unused_packet_type       := '0';
+			rmap_header_error_var.invalid_command_code     := '0';
+			rmap_header_error_var.too_much_data            := '0';
+			-- rmap_header_flags_var
+			rmap_header_flags_var.command_received         := '0';
+			rmap_header_flags_var.write_request            := '0';
+			rmap_header_flags_var.read_request             := '0';
+			rmap_header_flags_var.discarded_package        := '0';
+			-- non-record variables
+			rmap_header_state_machine_var                  := standby_state;
+			rmap_header_state_machine_next_state_var       := standby_state;
+			rmap_header_crc_var                            := (others => '0');
+			rmap_header_byte_field_counter_var             := 0;
 		elsif (rising_edge(clk_i)) then
 
-			-- TODO: signals atribution to avoid latches and paths were no value is given to a signal
-			-- TODO: variables atribution checks to avoid a path where no value is given to a variable
+			-- signals atribution to avoid latches and paths were no value is given to a signal
+			spw_read_o          <= spw_read_o;
+			spw_codec_error_o   <= spw_codec_error_o;
+			rmap_header_data_o  <= rmap_header_data_o;
+			rmap_header_error_o <= rmap_header_error_o;
+			rmap_header_flags_o <= rmap_header_flags_o;
+			rmap_header_busy_o  <= rmap_header_busy_o;
+
+			-- variables atribution checks to avoid a path where no value is given to a variable
 
 			case (rmap_header_state_machine_var) is
 
 				when standby_state =>
 					-- does nothing until user application signals it is ready for a new package
-					rmap_header_busy_o <= '0';
+					rmap_header_busy_o                             <= '0';
 					-- reset internal information
-					-- TODO: reset internal information
+					-- rmap_header_data_var
+					rmap_header_data_var.target_logical_address    := (others => '0');
+					rmap_header_data_var.instructions              := RMAP_INSTRUCTION_RESET;
+					rmap_header_data_var.key                       := (others => '0');
+					rmap_header_data_var.reply_address             := (others => x"00");
+					rmap_header_data_var.reply_address_is_used     := '0';
+					rmap_header_data_var.initiator_logical_address := (others => '0');
+					rmap_header_data_var.transaction_identifier    := (others => x"00");
+					rmap_header_data_var.extended_address          := (others => '0');
+					rmap_header_data_var.address                   := (others => x"00");
+					rmap_header_data_var.data_length               := (others => x"00");
+					-- rmap_header_error_var
+					rmap_header_error_var.early_eop                := '0';
+					rmap_header_error_var.eep                      := '0';
+					rmap_header_error_var.header_crc               := '0';
+					rmap_header_error_var.unused_packet_type       := '0';
+					rmap_header_error_var.invalid_command_code     := '0';
+					rmap_header_error_var.too_much_data            := '0';
+					-- rmap_header_flags_var
+					rmap_header_flags_var.command_received         := '0';
+					rmap_header_flags_var.write_request            := '0';
+					rmap_header_flags_var.read_request             := '0';
+					rmap_header_flags_var.discarded_package        := '0';
+					-- non-record variables
+					rmap_header_crc_var                            := (others => '0');
+					rmap_header_byte_field_counter_var             := 0;
 					-- keep output as is
-					-- TODO: keep output as is
+					spw_read_o                                     <= '0';
+					spw_codec_error_o                              <= spw_codec_error_o;
+					rmap_header_data_o                             <= rmap_header_data_o;
+					rmap_header_error_o                            <= rmap_header_error_o;
+					rmap_header_flags_o                            <= rmap_header_flags_o;
 					-- check if user application is ready for another package
 					if (rmap_header_control_i.ready_for_another_package = '1') then
 						-- ready; set busy flag; go to waiting data
@@ -254,11 +338,37 @@ begin
 						spw_read_o                                     <= '1';
 						rmap_header_state_machine_var                  := waiting_data_state;
 						rmap_header_state_machine_next_state_var       := field_extended_address_state;
+						-- prepare byte field counter for multi-field header data
+						rmap_header_byte_field_counter_var             := 2;
 					end if;
 
 				when field_transaction_identifier_state =>
-					-- TODO: Transaction identifier
-					null;
+					-- check if an unexpected eop or eep arrived
+					if (spw_flag_i = '1') then
+						-- unexpected eop or eep, go to treatment state
+						rmap_header_state_machine_var := unexpected_package_end_state;
+					else
+						-- expected header field
+						-- collect field data
+						rmap_header_data_var.transaction_identifier(rmap_header_byte_field_counter_var) := spw_data_i;
+						-- update crc calculation
+						rmap_header_crc_var                                                             := RMAP_CalculateCRC(rmap_header_crc_var, spw_data_i);
+						-- update byte field counter
+						rmap_header_byte_field_counter_var                                              := rmap_header_byte_field_counter_var - 1;
+						-- indicate that the spw data was used; prepare for next field arrival
+						spw_read_o                                                                      <= '1';
+						rmap_header_state_machine_var                                                   := waiting_data_state;
+						-- check if multi-field header data ended
+						if (rmap_header_byte_field_counter_var = 0) then
+							-- last byte field processed, go to next header data
+							rmap_header_state_machine_next_state_var := field_extended_address_state;
+							-- prepare byte field counter for multi-field header data
+							rmap_header_byte_field_counter_var       := 3;
+						else
+							-- more byte fields remaining
+							rmap_header_state_machine_next_state_var := field_transaction_identifier_state;
+						end if;
+					end if;
 
 				when field_extended_address_state =>
 					-- check if an unexpected eop or eep arrived
@@ -431,21 +541,45 @@ begin
 
 				when discard_package_state =>
 					-- reset all collected information (excepted relevant errors)
-					-- TODO: reset all collected information (excepted relevant errors)
+					rmap_header_data_var.target_logical_address    := (others => '0');
+					rmap_header_data_var.instructions              := RMAP_INSTRUCTION_RESET;
+					rmap_header_data_var.key                       := (others => '0');
+					rmap_header_data_var.reply_address             := (others => x"00");
+					rmap_header_data_var.reply_address_is_used     := '0';
+					rmap_header_data_var.initiator_logical_address := (others => '0');
+					rmap_header_data_var.transaction_identifier    := (others => x"00");
+					rmap_header_data_var.extended_address          := (others => '0');
+					rmap_header_data_var.address                   := (others => x"00");
+					rmap_header_data_var.data_length               := (others => x"00");
 					-- flag that a package was discarded; update output information;
-					rmap_header_flags_var.discarded_package := '1';
-					rmap_header_data_o                      <= rmap_header_data_var;
-					rmap_header_flags_o                     <= rmap_header_flags_var;
+					rmap_header_flags_var.discarded_package        := '1';
+					rmap_header_data_o                             <= rmap_header_data_var;
+					rmap_header_flags_o                            <= rmap_header_flags_var;
 					-- go to wating package end
-					rmap_header_state_machine_var           := waiting_package_end_state;
+					rmap_header_state_machine_var                  := waiting_package_end_state;
 
 				when not_rmap_package_state =>
 					-- reset all collected information (including errors)
-					-- TODO: reset all collected information (including errors)
-					rmap_header_data_o            <= rmap_header_data_var;
-					rmap_header_flags_o           <= rmap_header_flags_var;
+					rmap_header_data_var.target_logical_address    := (others => '0');
+					rmap_header_data_var.instructions              := RMAP_INSTRUCTION_RESET;
+					rmap_header_data_var.key                       := (others => '0');
+					rmap_header_data_var.reply_address             := (others => x"00");
+					rmap_header_data_var.reply_address_is_used     := '0';
+					rmap_header_data_var.initiator_logical_address := (others => '0');
+					rmap_header_data_var.transaction_identifier    := (others => x"00");
+					rmap_header_data_var.extended_address          := (others => '0');
+					rmap_header_data_var.address                   := (others => x"00");
+					rmap_header_data_var.data_length               := (others => x"00");
+					rmap_header_error_var.early_eop                := '0';
+					rmap_header_error_var.eep                      := '0';
+					rmap_header_error_var.header_crc               := '0';
+					rmap_header_error_var.unused_packet_type       := '0';
+					rmap_header_error_var.invalid_command_code     := '0';
+					rmap_header_error_var.too_much_data            := '0';
+					rmap_header_data_o                             <= rmap_header_data_var;
+					rmap_header_flags_o                            <= rmap_header_flags_var;
 					-- go to wating package end
-					rmap_header_state_machine_var := waiting_package_end_state;
+					rmap_header_state_machine_var                  := waiting_package_end_state;
 
 				when waiting_package_end_state =>
 					-- check if an eop or eep arrived

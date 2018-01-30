@@ -11,11 +11,24 @@ package rmap_target_codec_pkg is
 		increment_address        : std_logic;
 	end record rmap_target_codec_header_instructions_command_type;
 
+	constant RMAP_INSTRUCTION_COMMAND_RESET : rmap_target_codec_header_instructions_command_type := (
+		write_read               => '0',
+		verify_data_before_write => '0',
+		reply                    => '0',
+		increment_address        => '0'
+	);
+
 	type rmap_target_codec_header_instructions_type is record
 		packet_type          : std_logic_vector(1 downto 0);
 		command              : rmap_target_codec_header_instructions_command_type;
 		reply_address_length : std_logic_vector(1 downto 0);
 	end record rmap_target_codec_header_instructions_type;
+
+	constant RMAP_INSTRUCTION_RESET : rmap_target_codec_header_instructions_type := (
+		packet_type          => "00",
+		command              => RMAP_INSTRUCTION_COMMAND_RESET,
+		reply_address_length => "00"
+	);
 
 	type rmap_target_codec_header_reply_address_type is array (1 to 12) of std_logic_vector(7 downto 0);
 	type rmap_target_codec_header_transaction_identifier_type is array (1 to 2) of std_logic_vector(7 downto 0);
@@ -54,7 +67,7 @@ package rmap_target_codec_pkg is
 		discarded_package : std_logic;
 	end record rmap_target_codec_header_flags_type;
 
-	type rmap_target_codec_header_control_type is record
+	type rmap_target_codec_header_control_type is record 
 		ready_for_another_package : std_logic;
 	end record rmap_target_codec_header_control_type;
 
@@ -71,9 +84,9 @@ package rmap_target_codec_pkg is
 		data_length               : rmap_target_codec_header_data_length_type;
 	end record rmap_target_codec_reply_data_type;
 
-	type rmap_target_codec_reply_error_type is record
-		dummy : std_logic;
-	end record rmap_target_codec_reply_error_type;
+--	type rmap_target_codec_reply_error_type is record
+--		dummy : std_logic;
+--	end record rmap_target_codec_reply_error_type;
 
 	type rmap_target_codec_reply_flags_type is record
 		write_reply_finished : std_logic;

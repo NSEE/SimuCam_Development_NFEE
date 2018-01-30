@@ -17,7 +17,7 @@ entity rmap_target_codec_reply_ent is
 		-- reply data
 		rmap_reply_data_i    : in  rmap_target_codec_reply_data_type;
 		-- error flags
-		rmap_reply_error_o   : out rmap_target_codec_reply_error_type;
+		--		rmap_reply_error_o   : out rmap_target_codec_reply_error_type;
 		-- status flags
 		rmap_reply_flags_o   : out rmap_target_codec_reply_flags_type;
 		-- control flags
@@ -51,7 +51,7 @@ architecture RTL of rmap_target_codec_reply_ent is
 begin
 
 	rmap_target_codec_reply_proc : process(clk_i, rst_i) is
-		variable rmap_reply_error_var                    : rmap_target_codec_reply_error_type;
+		--		variable rmap_reply_error_var                    : rmap_target_codec_reply_error_type;
 		variable rmap_reply_flags_var                    : rmap_target_codec_reply_flags_type;
 		variable rmap_reply_state_machine_var            : rmap_reply_state_machine_type := standby_state;
 		variable rmap_reply_state_machine_next_state_var : rmap_reply_state_machine_type := standby_state;
@@ -62,34 +62,60 @@ begin
 	begin
 		if (rst_i = '1') then
 			-- reset procedures
-			-- TODO: reset procedures
+
+			-- ports init
+			-- spw codec comunication (data transmission)
+			spw_flag_o                              <= '0';
+			spw_data_o                              <= (others => '0');
+			spw_write_o                             <= '0';
+			-- status flags      
+			rmap_reply_flags_o.write_reply_finished <= '0';
+			rmap_reply_flags_o.read_reply_finished  <= '0';
+			-- busy flag         
+			rmap_reply_busy_o                       <= '0';
 
 			-- signals init
-			-- TODO: signals init
 
 			-- variables init
-			-- TODO: variables init
-			--rmap_reply_error_var
-			--rmap_reply_flags_var
-			rmap_reply_state_machine_var            := standby_state;
-			rmap_reply_state_machine_next_state_var := standby_state;
-			rmap_reply_crc_var                      := (others => '0');
-			rmap_reply_byte_field_counter_var       := 0;
-			rmap_reply_reply_swp_address_flag       := '0';
+			-- rmap_reply_error_var
+			-- rmap_reply_flags_var
+			rmap_reply_flags_var.write_reply_finished := '0';
+			rmap_reply_flags_var.read_reply_finished  := '0';
+			-- non record variables
+			rmap_reply_state_machine_var              := standby_state;
+			rmap_reply_state_machine_next_state_var   := standby_state;
+			rmap_reply_crc_var                        := (others => '0');
+			rmap_reply_byte_field_counter_var         := 0;
+			rmap_reply_reply_swp_address_flag         := '0';
 		elsif (rising_edge(clk_i)) then
 
-			-- TODO: signals atribution to avoid latches and paths were no value is given to a signal
-			-- TODO: variables atribution checks to avoid a path where no value is given to a variable
+			-- signals atribution to avoid latches and paths were no value is given to a signal
+			spw_flag_o         <= spw_flag_o;
+			spw_data_o         <= spw_data_o;
+			spw_write_o        <= spw_write_o;
+			rmap_reply_flags_o <= rmap_reply_flags_o;
+			rmap_reply_busy_o  <= rmap_reply_busy_o;
+
+			-- variables atribution checks to avoid a path where no value is given to a variable
 
 			case (rmap_reply_state_machine_var) is
 
 				when standby_state =>
 					-- does nothing until user application signals it is ready to send a reply
-					rmap_reply_busy_o <= '0';
+					rmap_reply_busy_o                         <= '0';
 					-- reset internal information
-					-- TODO: reset internal information
+					-- rmap_reply_flags_var
+					rmap_reply_flags_var.write_reply_finished := '0';
+					rmap_reply_flags_var.read_reply_finished  := '0';
+					-- non record variables
+					rmap_reply_crc_var                        := (others => '0');
+					rmap_reply_byte_field_counter_var         := 0;
+					rmap_reply_reply_swp_address_flag         := '0';
 					-- keep output as is
-					-- TODO: keep output as is
+					spw_flag_o                                <= spw_flag_o;
+					spw_data_o                                <= spw_data_o;
+					spw_write_o                               <= spw_write_o;
+					rmap_reply_flags_o                        <= rmap_reply_flags_o;
 					-- check if user application is ready to send a reply
 					if (rmap_reply_control_i.ready_to_send_reply = '1') then
 						-- ready; set busy flag; go to waiting buffer space
@@ -319,7 +345,7 @@ begin
 						-- indicate the end of the read reply header
 						rmap_reply_flags_var.read_reply_finished := '1';
 						-- update output data
-						-- TODO: update output data
+						rmap_reply_flags_o                       <= rmap_reply_flags_var;
 						-- clear busy flag, go to standby
 						rmap_reply_busy_o                        <= '0';
 						rmap_reply_state_machine_var             := standby_state;
@@ -339,7 +365,7 @@ begin
 					spw_write_o                               <= '1';
 					rmap_reply_flags_var.write_reply_finished := '1';
 					-- update output data
-					-- TODO : update output data
+					rmap_reply_flags_o                        <= rmap_reply_flags_var;
 					-- clear busy flag, go to standby
 					rmap_reply_busy_o                         <= '0';
 					rmap_reply_state_machine_var              := standby_state;
