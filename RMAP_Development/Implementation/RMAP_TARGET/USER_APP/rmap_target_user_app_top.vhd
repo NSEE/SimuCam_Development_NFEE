@@ -15,11 +15,9 @@ architecture RTL of rmap_target_user_app_top is
 
 	type rmap_user_app_state_machine_type is (
 		standby_state,
-		waiting_state,
 		treatment_discarded_package,
-		treatment_write_request,
+		treatment_command_received,
 		treatment_write_authorized,
-		treatment_read_request,
 		treatment_read_authorized
 	);
 
@@ -49,48 +47,85 @@ begin
 
 	begin
 		if (rst_i = '1') then
-		-- reset procedures
-		-- TODO: reset procedures
+			-- reset procedures
 
-		-- ports init                        
-		-- TODO: ports init
+			-- ports init                        
 
-		-- signals init                      
-		-- TODO: signals init
+			-- signals init                      
+			-- rmap_user_codeccontrol_sig
+			rmap_user_codeccontrol_sig.ready_for_another_package <= '0';
+			rmap_user_codeccontrol_sig.write_authorization       <= '0';
+			rmap_user_codeccontrol_sig.read_authorization        <= '0';
+			rmap_user_codeccontrol_sig.discard_package           <= '0';
+			rmap_user_codeccontrol_sig.send_write_reply          <= '0';
+			rmap_user_codeccontrol_sig.send_read_reply           <= '0';
+			rmap_user_codeccontrol_sig.reply_error_code          <= 0;
 
-		-- variables init                    
-		-- TODO: variables init
+			-- variables init      
+			-- rmap_user_internal_flags_var
+			rmap_user_internal_flags_var.write_read := '0';
+			-- non record variables
+			rmap_user_app_state_machine_var         := standby_state;
 
 		elsif (rising_edge(clk_i)) then
+
+			-- signals atribution to avoid latches and paths were no value is given to a signal
+			rmap_user_headerdata_sig   <= rmap_user_headerdata_sig;
+			rmap_user_codecbusy_sig    <= rmap_user_codecbusy_sig;
+			rmap_user_codecflags_sig   <= rmap_user_codecflags_sig;
+			rmap_user_codecerror_sig   <= rmap_user_codecerror_sig;
+			rmap_user_codeccontrol_sig <= rmap_user_codeccontrol_sig;
+
+			-- variables atribution checks to avoid a path where no value is given to a variable
 
 			case (rmap_user_app_state_machine_var) is
 
 				when standby_state =>
-					-- TODO: standby state
+					-- wait for a flag
+					-- check for a discarded package flag
 					if (rmap_user_codecflags_sig.discarded_package = '1') then
+						-- go to discarded package treatment
 						rmap_user_app_state_machine_var := treatment_discarded_package;
+					-- check for a write request flag
+					elsif (rmap_user_codecflags_sig.write_request = '1') then
+						-- set internal write/-read flag (write = '1')
+						rmap_user_internal_flags_var.write_read := '1'; -- write
+						-- go to command treatment
+						rmap_user_app_state_machine_var         := treatment_command_received;
+					-- check for a read request flag	
+					elsif (rmap_user_codecflags_sig.read_request = '1') then
+						-- clear internal write/-read flag (read = '0')
+						rmap_user_internal_flags_var.write_read := '0'; -- read
+						-- go to command treatment
+						rmap_user_app_state_machine_var         := treatment_command_received;
+					-- no flag received
+					else
+						-- keep the user application in standby
+						rmap_user_app_state_machine_var := standby_state;
 					end if;
-					if (rmap_user_codecflags_sig.write_request = '1') then
-						rmap_user_app_state_machine_var := treatment_write_request;
-					end if;
-					if (rmap_user_codecflags_sig.read_request = '1') then
-						rmap_user_app_state_machine_var := treatment_read_request;
-					end if;
-
-				when waiting_state =>
-					-- TODO: waiting state
 
 				when treatment_discarded_package =>
-					-- TODO: package discarded reply and error retrieval
 					-- discarded package
 					-- retrieve error information
-					-- send error reply
-					-- clear codec state 
-					null;
+					if (rmap_user_codecerror_sig.invalid_command_code = '1') then
+						-- invalid command code error
+						rmap_user_codeccontrol_sig.reply_error_code <= ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE;
+						-- send error reply
+						rmap_user_codeccontrol_sig.send_reply       <= '1';
+					elsif (rmap_user_codecerror_sig.too_much_data = '1') then
+						-- data characters in read command error
+						rmap_user_codeccontrol_sig.reply_error_code <= ERROR_CODE_TOO_MUCH_DATA;
+						-- send error reply
+						rmap_user_codeccontrol_sig.send_reply       <= '1';
+					else
+						-- the condition for the package discard does not need a reply 
+						rmap_user_codeccontrol_sig.send_reply <= '0';
+					end if;
+					-- clear codec state
+					rmap_user_codeccontrol_sig.ready_for_another_package <= '1';
 
-				when treatment_write_request =>
-					-- TODO: write operation
-					-- write operation authorization request
+				when treatment_command_received =>
+					-- write or read operation authorization request
 					if (rmap_user_headerdata_sig.key /= RMAP_USER_REGISTER.key) then
 						-- invalid key
 						-- discard package
@@ -105,7 +140,7 @@ begin
 						-- reply invalid logical address error
 						rmap_user_codeccontrol_sig.reply_error_code <= ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS;
 						rmap_user_codeccontrol_sig.send_write_reply <= '1';
-					elsif (0) then
+					elsif ('0') then
 						-- command rejection
 						-- discard package
 						rmap_user_codeccontrol_sig.discard_package  <= '1';
@@ -113,12 +148,25 @@ begin
 						rmap_user_codeccontrol_sig.reply_error_code <= ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED;
 						rmap_user_codeccontrol_sig.send_write_reply <= '1';
 					else
-						-- write operation authorization
-						rmap_user_codeccontrol_sig.write_authorization <= '1';
-						rmap_user_app_state_machine_var                := treatment_write_authorized;
+						-- write or read operation authorization
+						if (rmap_user_internal_flags_var.write_read = '1') then
+							-- write request
+							-- write request without errors, authorize
+							rmap_user_codeccontrol_sig.write_authorization <= '1';
+							rmap_user_app_state_machine_var                := treatment_write_authorized;
+						else
+							-- read request
+							-- read command without errors, authorize and send reply header
+							rmap_user_codeccontrol_sig.read_authorization <= '1';
+							rmap_user_codeccontrol_sig.reply_error_code   <= ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY;
+							rmap_user_codeccontrol_sig.send_reply         <= '1';
+							rmap_user_app_state_machine_var               := treatment_read_authorized;
+						end if;
 					end if;
 
 				when treatment_write_authorized =>
+					-- write operation
+					-- check if the write operation resulted in error
 					if (rmap_user_codecflags_sig.write_operation_failed = '1') then
 						-- write data error
 						-- retrieve error information
@@ -143,41 +191,42 @@ begin
 							rmap_user_codeccontrol_sig.reply_error_code <= ERROR_CODE_GENERAL_ERROR_CODE;
 						end if;
 						-- send error reply
-						rmap_user_codeccontrol_sig.send_write_reply          <= '1';
+						rmap_user_codeccontrol_sig.send_reply                <= '1';
 						-- clear codec state						
 						rmap_user_codeccontrol_sig.ready_for_another_package <= '1';
+					-- check if write operation completed sucessfully
 					elsif (rmap_user_codecflags_sig.write_data_indication = '1') then
 						-- write data indication
-						-- write command complete confirmation
-						rmap_user_codeccontrol_sig.reply_error_code          <= ERROR_CODE_GENERAL_ERROR_CODE;
-						-- write reply
-						rmap_user_codeccontrol_sig.send_write_reply          <= '1';
+						-- write command executed sucessfully, send reply
+						rmap_user_codeccontrol_sig.reply_error_code          <= ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY;
+						rmap_user_codeccontrol_sig.send_reply                <= '1';
 						-- clear codec state
 						rmap_user_codeccontrol_sig.ready_for_another_package <= '1';
 					else
+						-- write operation not finished yet
 						-- keep waiting for the codec response to the write authorization
 						rmap_user_app_state_machine_var := treatment_write_authorized;
 					end if;
 
-				when treatment_read_request =>
-					-- TODO: read operation
-					-- read operation authorization request
-					--	-- invalid key
-					--	-- invalid logical address
-					--	-- command rejection
-					-- read operation authorization
-					--	-- read data error
-					--		-- retrieve error information
-					--		-- send error reply
-					--		-- clear codec state
-					--	-- read data indication
-					--		-- read reply
-					--		-- read command complete confirmation
-					--		-- clear codec state	
-					null;
-
 				when treatment_read_authorized =>
-					null;
+					-- read operation
+					-- check if the read operation resulted in error
+					if (rmap_user_codecflags_sig.read_operation_failed = '1') then
+						-- read data error
+						-- retrieve error information
+						-- clear codec state						
+						rmap_user_codeccontrol_sig.ready_for_another_package <= '1';
+					-- check if read operation completed sucessfully
+					elsif (rmap_user_codecflags_sig.read_data_indication = '1') then
+						-- read data indication
+						-- read command executed sucessfully
+						-- clear codec state
+						rmap_user_codeccontrol_sig.ready_for_another_package <= '1';
+					else
+						-- read operation not finished yet
+						-- keep waiting for the codec response to the read authorization
+						rmap_user_app_state_machine_var := treatment_write_authorized;
+					end if;
 
 			end case;
 

@@ -24,7 +24,7 @@ package rmap_target_user_app_pkg is
 	-- internal
 
 	type rmap_target_user_app_internal_flags_type is record
-		dummy : std_logic;
+		write_read : std_logic;
 	end record rmap_target_user_app_internal_flags_type;
 
 	-- header user data
