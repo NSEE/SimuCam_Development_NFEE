@@ -470,7 +470,6 @@ begin
 							rmap_header_error_var.header_crc := '1';
 							rmap_header_state_machine_var    := discard_package_state;
 						end if;
-
 					end if;
 
 				when field_eop_state =>

@@ -67,7 +67,7 @@ package rmap_target_codec_pkg is
 		discarded_package : std_logic;
 	end record rmap_target_codec_header_flags_type;
 
-	type rmap_target_codec_header_control_type is record 
+	type rmap_target_codec_header_control_type is record
 		ready_for_another_package : std_logic;
 	end record rmap_target_codec_header_control_type;
 
@@ -84,9 +84,9 @@ package rmap_target_codec_pkg is
 		data_length               : rmap_target_codec_header_data_length_type;
 	end record rmap_target_codec_reply_data_type;
 
---	type rmap_target_codec_reply_error_type is record
---		dummy : std_logic;
---	end record rmap_target_codec_reply_error_type;
+	--	type rmap_target_codec_reply_error_type is record
+	--		dummy : std_logic;
+	--	end record rmap_target_codec_reply_error_type;
 
 	type rmap_target_codec_reply_flags_type is record
 		write_reply_finished : std_logic;
@@ -96,6 +96,42 @@ package rmap_target_codec_pkg is
 	type rmap_target_codec_reply_control_type is record
 		ready_to_send_reply : std_logic;
 	end record rmap_target_codec_reply_control_type;
+
+	-- write
+
+	subtype rmap_target_codec_write_address_type is natural range 0 to ((2 ** 40) - 1);
+	subtype rmap_target_codec_write_data_length_type is natural range 0 to ((2 ** 24) - 1);
+
+	type rmap_target_codec_write_headerdata_type is record
+		instruction_verify_data_before_write : std_logic;
+		instruction_increment_address        : std_logic;
+		full_address                         : rmap_target_codec_write_address_type;
+		data_length                          : rmap_target_codec_write_data_length_type;
+	end record rmap_target_codec_write_headerdata_type;
+
+	type rmap_target_codec_write_data_type is record
+		writedata        : std_logic_vector(7 downto 0);
+		address          : rmap_target_codec_write_address_type;
+	end record rmap_target_codec_write_data_type;
+
+	type rmap_target_codec_write_error_type is record
+		early_eop             : std_logic;
+		eep                   : std_logic;
+		too_much_data         : std_logic;
+		verify_buffer_overrun : std_logic;
+		invalid_data_crc      : std_logic;
+	end record rmap_target_codec_write_error_type;
+
+	type rmap_target_codec_write_flags_type is record
+		write_data_indication  : std_logic;
+		write_operation_failed : std_logic;
+	end record rmap_target_codec_write_flags_type;
+
+	type rmap_target_codec_write_control_type is record
+		write_authorization : std_logic;
+	end record rmap_target_codec_write_control_type;
+
+	-- read
 
 end package rmap_target_codec_pkg;
 
