@@ -84,10 +84,6 @@ package rmap_target_codec_pkg is
 		data_length               : rmap_target_codec_header_data_length_type;
 	end record rmap_target_codec_reply_data_type;
 
-	--	type rmap_target_codec_reply_error_type is record
-	--		dummy : std_logic;
-	--	end record rmap_target_codec_reply_error_type;
-
 	type rmap_target_codec_reply_flags_type is record
 		write_reply_finished : std_logic;
 		read_reply_finished  : std_logic;
@@ -110,8 +106,8 @@ package rmap_target_codec_pkg is
 	end record rmap_target_codec_write_headerdata_type;
 
 	type rmap_target_codec_write_data_type is record
-		writedata        : std_logic_vector(7 downto 0);
-		address          : rmap_target_codec_write_address_type;
+		writedata : std_logic_vector(7 downto 0);
+		address   : rmap_target_codec_write_address_type;
 	end record rmap_target_codec_write_data_type;
 
 	type rmap_target_codec_write_error_type is record
@@ -132,6 +128,30 @@ package rmap_target_codec_pkg is
 	end record rmap_target_codec_write_control_type;
 
 	-- read
+
+	type rmap_target_codec_read_headerdata_type is record
+		instruction_increment_address : std_logic;
+		full_address                  : rmap_target_codec_write_address_type;
+		data_length                   : rmap_target_codec_write_data_length_type;
+	end record rmap_target_codec_read_headerdata_type;
+
+	type rmap_target_codec_read_mem_data_type is record
+		read_error : std_logic;
+		readdata   : std_logic_vector(7 downto 0);
+	end record rmap_target_codec_read_mem_data_type;
+
+	type rmap_target_codec_read_mem_control_type is record
+		address : rmap_target_codec_write_address_type;
+	end record rmap_target_codec_read_mem_control_type;
+
+	type rmap_target_codec_read_flags_type is record
+		read_data_indication  : std_logic;
+		read_operation_failed : std_logic;
+	end record rmap_target_codec_read_flags_type;
+
+	type rmap_target_codec_read_control_type is record
+		read_authorization : std_logic;
+	end record rmap_target_codec_read_control_type;
 
 end package rmap_target_codec_pkg;
 

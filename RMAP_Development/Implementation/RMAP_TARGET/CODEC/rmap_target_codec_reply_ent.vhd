@@ -16,8 +16,6 @@ entity rmap_target_codec_reply_ent is
 		spw_write_o          : out std_logic;
 		-- reply data
 		rmap_reply_data_i    : in  rmap_target_codec_reply_data_type;
-		-- error flags
-		--		rmap_reply_error_o   : out rmap_target_codec_reply_error_type;
 		-- status flags
 		rmap_reply_flags_o   : out rmap_target_codec_reply_flags_type;
 		-- control flags
@@ -51,7 +49,6 @@ architecture RTL of rmap_target_codec_reply_ent is
 begin
 
 	rmap_target_codec_reply_proc : process(clk_i, rst_i) is
-		--		variable rmap_reply_error_var                    : rmap_target_codec_reply_error_type;
 		variable rmap_reply_flags_var                    : rmap_target_codec_reply_flags_type;
 		variable rmap_reply_state_machine_var            : rmap_reply_state_machine_type := standby_state;
 		variable rmap_reply_state_machine_next_state_var : rmap_reply_state_machine_type := standby_state;
@@ -77,7 +74,6 @@ begin
 			-- signals init
 
 			-- variables init
-			-- rmap_reply_error_var
 			-- rmap_reply_flags_var
 			rmap_reply_flags_var.write_reply_finished := '0';
 			rmap_reply_flags_var.read_reply_finished  := '0';
@@ -358,7 +354,7 @@ begin
 				when field_eop_state =>
 					-- set spw flag (to indicate a package end)
 					spw_flag_o                                <= '1';
-					-- fill spw data with the eop identifier (0x01)
+					-- fill spw data with the eop identifier (0x00)
 					spw_data_o(7 downto 1)                    <= (others => '0');
 					spw_data_o(0)                             <= SPW_EOP_CONST;
 					-- write the spw data; indicate the end of the write reply

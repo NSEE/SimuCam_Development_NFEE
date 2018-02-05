@@ -1,8 +1,10 @@
+-- TODO: write to memory error 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.rmap_target_codec_pkg.all;
+use work.rmap_target_codec_crc_pkg.all;
 
 entity rmap_target_codec_write_ent is
 	port(
@@ -309,8 +311,8 @@ begin
 
 				when write_finish_operation_state =>
 					-- update output information
-					rmap_write_error_o           <= rmap_target_codec_write_error_type;
-					rmap_write_flags_o           <= rmap_target_codec_write_flags_type;
+					rmap_write_error_o           <= rmap_write_error_var;
+					rmap_write_flags_o           <= rmap_write_flags_var;
 					-- go to next state
 					rmap_write_state_machine_var := rmap_write_state_machine_next_state_var;
 
