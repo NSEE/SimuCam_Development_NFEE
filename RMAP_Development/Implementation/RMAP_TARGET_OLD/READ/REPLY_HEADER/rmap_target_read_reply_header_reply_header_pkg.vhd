@@ -1,7 +1,0 @@
-package rmap_target_read_reply_header_reply_header_pkg is
-	
-end package rmap_target_read_reply_header_reply_header_pkg;
-
-package body rmap_target_read_reply_header_reply_header_pkg is
-	
-end package body rmap_target_read_reply_header_reply_header_pkg;

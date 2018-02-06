@@ -1,7 +1,0 @@
-package rmap_target_read_reply_header_initiator_logical_address_pkg is
-	
-end package rmap_target_read_reply_header_initiator_logical_address_pkg;
-
-package body rmap_target_read_reply_header_initiator_logical_address_pkg is
-	
-end package body rmap_target_read_reply_header_initiator_logical_address_pkg;

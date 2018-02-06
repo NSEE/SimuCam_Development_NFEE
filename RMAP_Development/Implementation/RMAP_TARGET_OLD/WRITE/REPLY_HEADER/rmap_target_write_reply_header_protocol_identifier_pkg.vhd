@@ -1,7 +1,0 @@
-package rmap_target_write_reply_header_protocol_identifier_pkg is
-	
-end package rmap_target_write_reply_header_protocol_identifier_pkg;
-
-package body rmap_target_write_reply_header_protocol_identifier_pkg is
-	
-end package body rmap_target_write_reply_header_protocol_identifier_pkg;
