@@ -1,5 +1,18 @@
 package rmap_target_codec_pkg is
 
+	-- top
+
+	type rmap_target_codec_general_error_type is record
+		early_eop             : std_logic;
+		eep                   : std_logic;
+		header_crc            : std_logic;
+		unused_packet_type    : std_logic;
+		invalid_command_code  : std_logic;
+		too_much_data         : std_logic;
+		verify_buffer_overrun : std_logic;
+		invalid_data_crc      : std_logic;
+	end record rmap_target_codec_general_error_type;
+
 	-- header
 
 	constant RMAP_PROTOCOL_IDENTIFIER_CONST : std_logic_vector(7 downto 0) := x"01";
