@@ -1,5 +1,5 @@
 --=============================================================================
---! @file rmap_target_top.vhd
+--! @file rmap_target_pkg.vhd
 --=============================================================================
 --! Standard library
 library IEEE;
@@ -15,10 +15,10 @@ use IEEE.NUMERIC_STD.ALL;
 -- --
 -------------------------------------------------------------------------------
 --
--- unit name: RMAP Target Top (rmap_target_top)
+-- unit name: RMAP Target Package (rmap_target_pkg)
 --
---! @brief Top entity for the RMAP Target Codec developed to be used at  
---! Simucam. Suports Write and Read operations.
+--! @brief Package to be used for contants, type and functions declarations   
+--! for the RMAP Taget Codec.
 --
 --! @author Rodrigo França (rodrigo.franca@maua.br)
 --
@@ -47,48 +47,304 @@ use IEEE.NUMERIC_STD.ALL;
 -------------------------------------------------------------------------------
 
 --============================================================================
---! Entity declaration for RMAP Target Top
+--! Package declaration for RMAP Target Package
 --============================================================================
+package rmap_target_pkg is
 
-entity rmap_target_top is
-	port(
-		-- Global input signals
-		--! Local clock used by the RMAP Codec
-		clk_i     : in std_logic;       --! Local rmap clock
-		reset_n_i : in std_logic        --! Reset = '0': reset active; Reset = '1': no reset
-		-- global output signals
-		-- data bus(es)
-	);
-end entity rmap_target_top;
+	constant c_WIDTH_TRANSACTION_IDENTIFIER : natural := 16;
+	constant c_MAX_TRANSACTION_IDENTIFIER   : natural := ((2 ** c_WIDTH_TRANSACTION_IDENTIFIER) - 1);
+	constant c_WIDTH_ADDRESS                : natural := 32;
+	constant c_MAX_ADDRESS                  : natural := ((2 ** c_WIDTH_ADDRESS) - 1);
+	constant c_WIDTH_EXTENDED_ADDRESS       : natural := 40;
+	constant c_MAX_EXTENDED_ADDRESS         : natural := ((2 ** c_WIDTH_EXTENDED_ADDRESS) - 1);
+	constant c_WIDTH_DATA_LENGTH            : natural := 24;
+	constant c_MAX_DATA_LENGTH              : natural := ((2 ** c_WIDTH_DATA_LENGTH) - 1);
+
+	-- others
+
+	type t_rmap_target_instructions_command is record
+		write_read               : std_logic;
+		verify_data_before_write : std_logic;
+		reply                    : std_logic;
+		increment_address        : std_logic;
+	end record t_rmap_target_instructions_command;
+
+	type t_rmap_target_instructions is record
+		packet_type          : std_logic_vector(1 downto 0);
+		command              : t_rmap_target_instructions_command;
+		reply_address_length : std_logic_vector(1 downto 0);
+	end record t_rmap_target_instructions;
+
+	type t_rmap_target_reply_address is array (0 to 11) of std_logic_vector(7 downto 0);
+	type t_rmap_target_transaction_identifier is array (0 to 1) of std_logic_vector(7 downto 0);
+	type t_rmap_target_address is array (0 to 3) of std_logic_vector(7 downto 0);
+	type t_rmap_target_data_length is array (0 to 2) of std_logic_vector(7 downto 0);
+
+	-- command parsing
+
+	type t_rmap_target_command_control is record
+		user_ready : std_logic;
+	end record t_rmap_target_command_control;
+
+	type t_rmap_target_command_flags is record
+		command_received  : std_logic;
+		write_request     : std_logic;
+		read_request      : std_logic;
+		discarded_package : std_logic;
+		command_busy      : std_logic;
+	end record t_rmap_target_command_flags;
+
+	type t_rmap_target_command_error is record
+		early_eop            : std_logic;
+		eep                  : std_logic;
+		header_crc           : std_logic;
+		unused_packet_type   : std_logic;
+		invalid_command_code : std_logic;
+		too_much_data        : std_logic;
+	end record t_rmap_target_command_error;
+
+	type t_rmap_target_command_headerdata is record
+		target_logical_address    : std_logic_vector(7 downto 0);
+		instructions              : t_rmap_target_instructions;
+		key                       : std_logic_vector(7 downto 0);
+		reply_address             : t_rmap_target_reply_address;
+		initiator_logical_address : std_logic_vector(7 downto 0);
+		transaction_identifier    : t_rmap_target_transaction_identifier;
+		extended_address          : std_logic_vector(7 downto 0);
+		address                   : t_rmap_target_address;
+		data_length               : t_rmap_target_data_length;
+	end record t_rmap_target_command_headerdata;
+
+	-- reply generation
+
+	type t_rmap_target_reply_control is record
+		send_reply : std_logic;
+	end record t_rmap_target_reply_control;
+
+	type t_rmap_target_reply_flags is record
+		reply_finished : std_logic;
+		reply_busy     : std_logic;
+	end record t_rmap_target_reply_flags;
+
+	type t_rmap_target_reply_error is record
+		dummy : std_logic;
+	end record t_rmap_target_reply_error;
+
+	type t_rmap_target_reply_headerdata is record
+		reply_spw_address         : t_rmap_target_reply_address;
+		initiator_logical_address : std_logic_vector(7 downto 0);
+		instructions              : t_rmap_target_instructions;
+		status                    : std_logic_vector(7 downto 0);
+		target_logical_address    : std_logic_vector(7 downto 0);
+		transaction_identifier    : t_rmap_target_transaction_identifier;
+		data_length               : t_rmap_target_data_length;
+	end record t_rmap_target_reply_headerdata;
+
+	-- write operation
+
+	type t_rmap_target_write_control is record
+		write_authorization : std_logic;
+	end record t_rmap_target_write_control;
+
+	type t_rmap_target_write_flags is record
+		write_data_indication  : std_logic;
+		write_operation_failed : std_logic;
+		write_busy             : std_logic;
+	end record t_rmap_target_write_flags;
+
+	type t_rmap_target_write_error is record
+		early_eop             : std_logic;
+		eep                   : std_logic;
+		too_much_data         : std_logic;
+		verify_buffer_overrun : std_logic;
+		invalid_data_crc      : std_logic;
+	end record t_rmap_target_write_error;
+
+	type t_rmap_target_write_headerdata is record
+		instruction_verify_data_before_write : std_logic;
+		instruction_increment_address        : std_logic;
+		extended_address                     : std_logic_vector(7 downto 0);
+		address                              : t_rmap_target_address;
+		data_length                          : t_rmap_target_data_length;
+	end record t_rmap_target_write_headerdata;
+
+	-- read operation
+
+	type t_rmap_target_read_control is record
+		read_authorization : std_logic;
+		read_reset         : std_logic;
+	end record t_rmap_target_read_control;
+
+	type t_rmap_target_read_flags is record
+		read_data_indication  : std_logic;
+		read_operation_failed : std_logic;
+		read_busy             : std_logic;
+	end record t_rmap_target_read_flags;
+
+	type t_rmap_target_read_error is record
+		dummy : std_logic;
+	end record t_rmap_target_read_error;
+
+	type t_rmap_target_read_headerdata is record
+		instruction_increment_address : std_logic;
+		extended_address              : std_logic_vector(7 downto 0);
+		address                       : t_rmap_target_address;
+		data_length                   : t_rmap_target_data_length;
+	end record t_rmap_target_read_headerdata;
+
+	-- rmap codec
+
+	type t_rmap_target_control is record
+		command_parsing    : t_rmap_target_command_control;
+		reply_geneneration : t_rmap_target_reply_control;
+		write_operation    : t_rmap_target_write_control;
+		read_operation     : t_rmap_target_read_control;
+	end record t_rmap_target_control;
+
+	type t_rmap_target_flags is record
+		command_parsing    : t_rmap_target_command_flags;
+		reply_geneneration : t_rmap_target_reply_flags;
+		write_operation    : t_rmap_target_write_flags;
+		read_operation     : t_rmap_target_read_flags;
+	end record t_rmap_target_flags;
+
+	type t_rmap_target_error is record
+		command_parsing    : t_rmap_target_command_error;
+		reply_geneneration : t_rmap_target_reply_error;
+		write_operation    : t_rmap_target_write_error;
+		read_operation     : t_rmap_target_read_error;
+	end record t_rmap_target_error;
+
+	type t_rmap_target_rmap_data is record
+		target_logical_address    : std_logic_vector(7 downto 0);
+		instructions              : t_rmap_target_instructions;
+		key                       : std_logic_vector(7 downto 0);
+		status                    : std_logic_vector(7 downto 0);
+		reply_address             : t_rmap_target_reply_address;
+		initiator_logical_address : std_logic_vector(7 downto 0);
+		transaction_identifier    : t_rmap_target_transaction_identifier;
+		extended_address          : std_logic_vector(7 downto 0);
+		address                   : t_rmap_target_address;
+		data_length               : t_rmap_target_data_length;
+	end record t_rmap_target_rmap_data;
+
+	type t_rmap_target_rmap_error is record
+		early_eop             : std_logic;
+		eep                   : std_logic;
+		header_crc            : std_logic;
+		unused_packet_type    : std_logic;
+		invalid_command_code  : std_logic;
+		too_much_data         : std_logic;
+		verify_buffer_overrun : std_logic;
+		invalid_data_crc      : std_logic;
+	end record t_rmap_target_rmap_error;
+
+	-- user application
+
+	-- RMAP reply error code
+	constant c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY                  : natural := 0;
+	constant c_ERROR_CODE_GENERAL_ERROR_CODE                             : natural := 1;
+	constant c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE        : natural := 2;
+	constant c_ERROR_CODE_INVALID_KEY                                    : natural := 3;
+	constant c_ERROR_CODE_INVALID_DATA_CRC                               : natural := 4;
+	constant c_ERROR_CODE_EARLY_EOP                                      : natural := 5;
+	constant c_ERROR_CODE_TOO_MUCH_DATA                                  : natural := 6;
+	constant c_ERROR_CODE_EEP                                            : natural := 7;
+	constant c_ERROR_CODE_VERIFY_BUFFER_OVERRUN                          : natural := 9;
+	constant c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED : natural := 10;
+	constant c_ERROR_CODE_RMW_DATA_LENGTH_ERROR                          : natural := 11;
+	constant c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS                 : natural := 12;
+
+	type t_rmap_target_user_codecdata is record
+		target_logical_address    : std_logic_vector(7 downto 0);
+		instructions              : t_rmap_target_instructions;
+		key                       : std_logic_vector(7 downto 0);
+		initiator_logical_address : std_logic_vector(7 downto 0);
+		transaction_identifier    : t_rmap_target_transaction_identifier;
+		extended_address          : std_logic_vector(7 downto 0);
+		memory_address            : t_rmap_target_address;
+		data_length               : t_rmap_target_data_length;
+	end record t_rmap_target_user_codecdata;
+
+	-- spw
+
+	constant c_EOP_VALUE : std_logic_vector(7 downto 0) := x"00";
+	constant c_EEP_VALUE : std_logic_vector(7 downto 0) := x"01";
+
+	type t_rmap_target_spw_rx_control is record
+		read : std_logic;
+	end record t_rmap_target_spw_rx_control;
+
+	type t_rmap_target_spw_rx_flag is record
+		valid : std_logic;
+		flag  : std_logic;
+		data  : std_logic_vector(7 downto 0);
+		error : std_logic;
+	end record t_rmap_target_spw_rx_flag;
+
+	type t_rmap_target_spw_tx_control is record
+		write : std_logic;
+		flag  : std_logic;
+		data  : std_logic_vector(7 downto 0);
+	end record t_rmap_target_spw_tx_control;
+
+	type t_rmap_target_spw_tx_flag is record
+		ready : std_logic;
+		error : std_logic;
+	end record t_rmap_target_spw_tx_flag;
+
+	type t_rmap_target_spw_control is record
+		receiver    : t_rmap_target_spw_rx_control;
+		transmitter : t_rmap_target_spw_tx_control;
+	end record t_rmap_target_spw_control;
+
+	type t_rmap_target_spw_flag is record
+		receiver    : t_rmap_target_spw_rx_flag;
+		transmitter : t_rmap_target_spw_tx_flag;
+	end record t_rmap_target_spw_flag;
+
+	-- mem
+
+	type t_rmap_target_mem_wr_control is record
+		write   : std_logic;
+		address : std_logic_vector(7 downto 0);
+		data    : std_logic_vector(7 downto 0);
+	end record t_rmap_target_mem_wr_control;
+
+	type t_rmap_target_mem_wr_flag is record
+		ready : std_logic;
+		error : std_logic;
+	end record t_rmap_target_mem_wr_flag;
+
+	type t_rmap_target_mem_rd_control is record
+		read    : std_logic;
+		address : std_logic_vector(7 downto 0);
+	end record t_rmap_target_mem_rd_control;
+
+	type t_rmap_target_mem_rd_flag is record
+		valid : std_logic;
+		data  : std_logic_vector(7 downto 0);
+		error : std_logic;
+	end record t_rmap_target_mem_rd_flag;
+
+	type t_rmap_target_mem_control is record
+		write : t_rmap_target_mem_wr_control;
+		read  : t_rmap_target_mem_rd_control;
+	end record t_rmap_target_mem_control;
+
+	type t_rmap_target_mem_flag is record
+		write : t_rmap_target_mem_wr_flag;
+		read  : t_rmap_target_mem_rd_flag;
+	end record t_rmap_target_mem_flag;
+
+end package rmap_target_pkg;
 
 --============================================================================
--- ! architecture declaration
+-- ! package body declaration
 --============================================================================
-architecture rtl of rmap_target_top is
+package body rmap_target_pkg is
 
-	--============================================================================
-	-- architecture begin
-	--============================================================================
-begin
-
-	--============================================================================
-	-- Beginning of p_rmap_target_top
-	--! Top Process for RMAP Target Codec, responsible for general reset 
-	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
-	--! write: - \n
-	--! r/w: - \n
-	--============================================================================
-	p_rmap_target_top_process : process(clk_i)
-	begin
-		if (reset_n_i = '0') then       -- asynchronous reset
-			-- reset to default value
-		elsif (rising_edge(clk_i)) then -- synchronous process
-			-- generate clock signal and LED output
-		end if;
-	end process p_rmap_target_top_process;
-
-end architecture rtl;
+end package body rmap_target_pkg;
 --============================================================================
--- architecture end
+-- package body end
 --============================================================================

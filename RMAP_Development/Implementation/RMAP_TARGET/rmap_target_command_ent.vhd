@@ -7,7 +7,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 --! Specific packages
---use work.XXX.ALL;
+use work.RMAP_TARGET_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
 -- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
@@ -31,7 +31,7 @@ use IEEE.NUMERIC_STD.ALL;
 --! @details
 --!
 --! <b>Dependencies:</b>\n
---! None
+--! rmap_target_pkg
 --!
 --! <b>References:</b>\n
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
