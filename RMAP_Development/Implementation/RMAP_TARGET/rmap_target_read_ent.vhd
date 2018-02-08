@@ -86,7 +86,7 @@ end entity rmap_target_read_ent;
 architecture rtl of rmap_target_read_ent is
 
 	-- SYMBOLIC ENCODED state machine: s_RMAP_TARGET_READ_STATE
-	-- ===========================================
+	-- ========================================================
 	type t_rmap_target_read_state is (
 		IDLE,
 		WAITING_BUFFER_SPACE,
@@ -94,8 +94,8 @@ architecture rtl of rmap_target_read_ent is
 		FIELD_DATA_CRC,
 		FIELD_EOP,
 		READ_DATA,
-		READ_FINISH_OPERATION,
-		READ_NOT_OK
+		READ_NOT_OK,
+		READ_FINISH_OPERATION
 	);
 	signal s_rmap_target_read_state : t_rmap_target_read_state; -- current state
 
@@ -119,14 +119,6 @@ begin
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
-	p_rmap_target_read_process : process(clk_i, reset_n_i)
-	begin
-		if (reset_n_i = '0') then       -- asynchronous reset
-			-- reset to default value
-		elsif (rising_edge(clk_i)) then -- synchronous process
-			-- generate clock signal and LED output
-		end if;
-	end process p_rmap_target_read_process;
 
 	--=============================================================================
 	-- Begin of RMAP Target Read Finite State Machine
@@ -140,6 +132,9 @@ begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
 			s_rmap_target_read_state <= IDLE;
+			s_read_address           <= 0;
+			s_byte_counter           <= 0;
+			s_read_data_crc          <= x"00";
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_read_state) is
@@ -191,6 +186,7 @@ begin
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= FIELD_DATA;
 					-- default internal signal values
+					s_byte_counter                <= 0;
 					-- conditional state transition and internal signal values
 					-- check if all data has been read
 					if (s_byte_counter = 0) then
@@ -214,7 +210,8 @@ begin
 					-- default state transition
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= FIELD_EOP;
-				-- default internal signal values
+					-- default internal signal values
+					s_byte_counter                <= 0;
 				-- conditional state transition and internal signal values
 
 				-- state "FIELD_EOP"
@@ -223,7 +220,8 @@ begin
 					-- default state transition
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
-				-- default internal signal values
+					-- default internal signal values
+					s_byte_counter                <= 0;
 				-- conditional state transition and internal signal values
 
 				-- state "READ_DATA"
@@ -252,7 +250,8 @@ begin
 					-- default state transition
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
-				-- default internal signal values
+					-- default internal signal values
+					s_byte_counter                <= 0;
 				-- conditional state transition and internal signal values
 
 				-- state "READ_FINISH_OPERATION"
@@ -262,13 +261,14 @@ begin
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
+					s_byte_counter                <= 0;
+					-- conditional state transition and internal signal values
 					-- check if user application commanded a read reset
 					if (control_i.read_reset = '1') then
 						-- read reset commanded, go back to idle
 						s_rmap_target_read_state      <= IDLE;
 						s_rmap_target_read_next_state <= IDLE;
 					end if;
-				-- conditional state transition and internal signal values
 
 				-- all the other states (not defined)
 				when others =>
@@ -284,125 +284,140 @@ begin
 	-- Begin of RMAP Target Read Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_read_state
+	-- read: s_rmap_target_read_state, reset_n_i
 	-- write:
 	-- r/w:
-	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state)
+	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, reset_n_i)
 	begin
-		case (s_rmap_target_read_state) is
+		-- asynchronous reset
+		if (reset_n_i = '0') then
+			flags_o.read_busy             <= '0';
+			flags_o.read_data_indication  <= '0';
+			flags_o.read_operation_failed <= '0';
+			spw_control_o.data            <= x"00";
+			spw_control_o.flag            <= '0';
+			spw_control_o.write           <= '0';
+			mem_control_o.address         <= (others => '0');
+			mem_control_o.read            <= '0';
+			s_read_data_crc               <= x"00";
+		-- output generation when s_rmap_target_read_state changes
+		else
+			case (s_rmap_target_read_state) is
 
-			-- state "IDLE"
-			when IDLE =>
-				-- does nothing until user application signals a read authorization
-				-- default output signals
-				-- reset outputs
-				flags_o.read_busy             <= '0';
-				flags_o.read_data_indication  <= '0';
-				flags_o.read_operation_failed <= '0';
-				spw_control_o.data            <= x"00";
-				spw_control_o.flag            <= '0';
-				spw_control_o.write           <= '0';
-				mem_control_o.address         <= (others => '0');
-				mem_control_o.read            <= '0';
-			-- conditional output signals
-
-			-- state "WAITING_BUFFER_SPACE"
-			when WAITING_BUFFER_SPACE =>
-				-- wait until the spacewire tx buffer has space
-				-- default output signals
-				flags_o.read_busy   <= '1';
-				-- clear spw tx write signal
-				spw_control_o.write <= '0';
-			-- conditional output signals
-
-			-- state "FIELD_DATA"
-			when FIELD_DATA =>
-				-- data field, send read data to initiator
-				-- default output signals
-				flags_o.read_busy   <= '1';
-				mem_control_o.read  <= '0';
-				spw_control_o.write <= '0';
+				-- state "IDLE"
+				when IDLE =>
+					-- does nothing until user application signals a read authorization
+					-- default output signals
+					-- reset outputs
+					flags_o.read_busy             <= '0';
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';
+					spw_control_o.data            <= x"00";
+					spw_control_o.flag            <= '0';
+					spw_control_o.write           <= '0';
+					mem_control_o.address         <= (others => '0');
+					mem_control_o.read            <= '0';
+					s_read_data_crc               <= x"00";
 				-- conditional output signals
-				-- check if a read error ocurred
-				-- clear spw flag (to indicate a data)
-				spw_control_o.flag  <= '0';
-				-- fill spw data with field data
-				spw_control_o.data  <= mem_flag_i.data;
-				-- update crc calculation
-				s_read_data_crc     <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
-				-- write the spw data
-				spw_control_o.write <= '1';
 
-			-- state "FIELD_DATA_CRC"
-			when FIELD_DATA_CRC =>
-				-- data crc field, send read data crc to initiator
-				-- default output signals
-				flags_o.read_busy   <= '1';
-				-- clear spw flag (to indicate a data)
-				spw_control_o.flag  <= '0';
-				-- fill spw data with field data
-				spw_control_o.data  <= s_read_data_crc;
-				-- write the spw data
-				spw_control_o.write <= '1';
-			-- conditional output signals
+				-- state "WAITING_BUFFER_SPACE"
+				when WAITING_BUFFER_SPACE =>
+					-- wait until the spacewire tx buffer has space
+					-- default output signals
+					flags_o.read_busy   <= '1';
+					-- clear spw tx write signal
+					spw_control_o.write <= '0';
+				-- conditional output signals
 
-			-- state "FIELD_EOP"
-			when FIELD_EOP =>
-				-- eop field, send eop to indicate end of package
-				-- default output signals
-				flags_o.read_busy            <= '1';
-				-- indicate the end of the read operation
-				flags_o.read_data_indication <= '1';
-				-- set spw flag (to indicate a package end)
-				spw_control_o.flag           <= '1';
-				-- fill spw data with the eop identifier (0x00)
-				spw_control_o.data           <= c_EOP_VALUE;
-				-- write the spw data
-				spw_control_o.write          <= '1';
-			-- conditional output signals
+				-- state "FIELD_DATA"
+				when FIELD_DATA =>
+					-- data field, send read data to initiator
+					-- default output signals
+					flags_o.read_busy   <= '1';
+					mem_control_o.read  <= '0';
+					spw_control_o.write <= '0';
+					-- conditional output signals
+					-- check if a read error ocurred
+					-- clear spw flag (to indicate a data)
+					spw_control_o.flag  <= '0';
+					-- fill spw data with field data
+					spw_control_o.data  <= mem_flag_i.data;
+					-- update crc calculation
+					s_read_data_crc     <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
+					-- write the spw data
+					spw_control_o.write <= '1';
 
-			-- state "READ_DATA"
-			when READ_DATA =>
-				-- fetch memory data
-				-- default output signals
-				flags_o.read_busy     <= '1';
-				-- set memory address
-				mem_control_o.address <= std_logic_vector(to_unsigned(s_read_address, mem_control_o.address'length));
-				-- set memory read request
-				mem_control_o.read    <= '1';
-			-- conditional output signals
+				-- state "FIELD_DATA_CRC"
+				when FIELD_DATA_CRC =>
+					-- data crc field, send read data crc to initiator
+					-- default output signals
+					flags_o.read_busy   <= '1';
+					-- clear spw flag (to indicate a data)
+					spw_control_o.flag  <= '0';
+					-- fill spw data with field data
+					spw_control_o.data  <= s_read_data_crc;
+					-- write the spw data
+					spw_control_o.write <= '1';
+				-- conditional output signals
 
-			-- state "READ_NOT_OK"
-			when READ_NOT_OK =>
-				-- error in read operation
-				-- finish the read reply package with an EEP
-				-- default output signals
-				flags_o.read_busy             <= '1';
-				-- set the error flag
-				flags_o.read_operation_failed <= '1';
-				-- set spw flag (to indicate a package end)
-				spw_control_o.flag            <= '1';
-				-- fill spw data with the eep identifier (0x01)
-				spw_control_o.data            <= c_EEP_VALUE;
-				-- write the spw data
-				spw_control_o.write           <= '1';
-			-- conditional output signals
+				-- state "FIELD_EOP"
+				when FIELD_EOP =>
+					-- eop field, send eop to indicate end of package
+					-- default output signals
+					flags_o.read_busy            <= '1';
+					-- indicate the end of the read operation
+					flags_o.read_data_indication <= '1';
+					-- set spw flag (to indicate a package end)
+					spw_control_o.flag           <= '1';
+					-- fill spw data with the eop identifier (0x00)
+					spw_control_o.data           <= c_EOP_VALUE;
+					-- write the spw data
+					spw_control_o.write          <= '1';
+				-- conditional output signals
 
-			-- state "READ_FINISH_OPERATION"
-			when READ_FINISH_OPERATION =>
-				-- finish read operation
-				-- default output signals
-				flags_o.read_busy   <= '1';
-				spw_control_o.write <= '0';
-				mem_control_o.read  <= '0';
-			-- update output information
-			-- conditional output signals
+				-- state "READ_DATA"
+				when READ_DATA =>
+					-- fetch memory data
+					-- default output signals
+					flags_o.read_busy     <= '1';
+					-- set memory address
+					mem_control_o.address <= std_logic_vector(to_unsigned(s_read_address, mem_control_o.address'length));
+					-- set memory read request
+					mem_control_o.read    <= '1';
+				-- conditional output signals
 
-			-- all the other states (not defined)
-			when others =>
-				null;
+				-- state "READ_NOT_OK"
+				when READ_NOT_OK =>
+					-- error in read operation
+					-- finish the read reply package with an EEP
+					-- default output signals
+					flags_o.read_busy             <= '1';
+					-- set the error flag
+					flags_o.read_operation_failed <= '1';
+					-- set spw flag (to indicate a package end)
+					spw_control_o.flag            <= '1';
+					-- fill spw data with the eep identifier (0x01)
+					spw_control_o.data            <= c_EEP_VALUE;
+					-- write the spw data
+					spw_control_o.write           <= '1';
+				-- conditional output signals
 
-		end case;
+				-- state "READ_FINISH_OPERATION"
+				when READ_FINISH_OPERATION =>
+					-- finish read operation
+					-- default output signals
+					flags_o.read_busy   <= '1';
+					spw_control_o.write <= '0';
+					mem_control_o.read  <= '0';
+				-- update output information
+				-- conditional output signals
+
+				-- all the other states (not defined)
+				when others =>
+					null;
+
+			end case;
+		end if;
 	end process p_rmap_target_read_FSM_output;
 
 end architecture rtl;

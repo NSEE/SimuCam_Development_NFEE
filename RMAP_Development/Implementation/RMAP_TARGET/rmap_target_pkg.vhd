@@ -83,7 +83,8 @@ package rmap_target_pkg is
 	-- command parsing
 
 	type t_rmap_target_command_control is record
-		user_ready : std_logic;
+		user_ready    : std_logic;
+		command_reset : std_logic;
 	end record t_rmap_target_command_control;
 
 	type t_rmap_target_command_flags is record
@@ -118,7 +119,8 @@ package rmap_target_pkg is
 	-- reply generation
 
 	type t_rmap_target_reply_control is record
-		send_reply : std_logic;
+		send_reply  : std_logic;
+		reply_reset : std_logic;
 	end record t_rmap_target_reply_control;
 
 	type t_rmap_target_reply_flags is record
@@ -144,6 +146,7 @@ package rmap_target_pkg is
 
 	type t_rmap_target_write_control is record
 		write_authorization : std_logic;
+		write_reset         : std_logic;
 	end record t_rmap_target_write_control;
 
 	type t_rmap_target_write_flags is record
