@@ -335,9 +335,6 @@ begin
 					-- default output signals
 					flags_o.read_busy   <= '1';
 					mem_control_o.read  <= '0';
-					spw_control_o.write <= '0';
-					-- conditional output signals
-					-- check if a read error ocurred
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag  <= '0';
 					-- fill spw data with field data
@@ -346,6 +343,8 @@ begin
 					s_read_data_crc     <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
 					-- write the spw data
 					spw_control_o.write <= '1';
+					-- conditional output signals
+
 
 				-- state "FIELD_DATA_CRC"
 				when FIELD_DATA_CRC =>
