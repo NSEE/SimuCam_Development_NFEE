@@ -197,6 +197,8 @@ package rmap_target_pkg is
 
 	-- rmap codec
 
+	constant c_RMAP_PROTOCOL : std_logic_vector(7 downto 0) := x"01";
+	
 	type t_rmap_target_control is record
 		command_parsing    : t_rmap_target_command_control;
 		reply_geneneration : t_rmap_target_reply_control;

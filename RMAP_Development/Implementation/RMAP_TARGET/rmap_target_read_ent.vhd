@@ -163,6 +163,8 @@ begin
 						));
 						-- go to wating buffer space
 						s_rmap_target_read_state <= WAITING_BUFFER_SPACE;
+						-- prepare for next field (data field)
+						s_rmap_target_read_next_state <= FIELD_DATA;
 					end if;
 
 				-- state "WAITING_BUFFER_SPACE"
