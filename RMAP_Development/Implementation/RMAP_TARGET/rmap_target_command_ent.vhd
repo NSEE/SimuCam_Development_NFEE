@@ -59,7 +59,7 @@ entity rmap_target_command_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i     : in std_logic;       --! Local rmap clock
-		reset_n_i : in std_logic        --! Reset = '0': reset active; Reset = '1': no reset
+		reset_n_i : in std_logic;        --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i     : in  t_rmap_target_command_control;
 		spw_flag_i    : in  t_rmap_target_spw_rx_flag;
@@ -69,7 +69,7 @@ entity rmap_target_command_ent is
 		flags_o       : out t_rmap_target_command_flags;
 		error_o       : out t_rmap_target_command_error;
 		headerdata_o  : out t_rmap_target_command_headerdata;
-		spw_control_o : out t_rmap_target_spw_rx_control;
+		spw_control_o : out t_rmap_target_spw_rx_control
 		
 		-- data bus(es)
 	);
