@@ -131,10 +131,11 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
-			s_rmap_target_read_state <= IDLE;
-			s_read_address           <= 0;
-			s_byte_counter           <= 0;
-			s_read_data_crc          <= x"00";
+			s_rmap_target_read_state      <= IDLE;
+			s_rmap_target_read_next_state <= IDLE;
+			s_read_address                <= 0;
+			s_byte_counter                <= 0;
+			s_read_data_crc               <= x"00";
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_read_state) is
@@ -154,15 +155,15 @@ begin
 					if (control_i.read_authorization = '1') then
 						-- user application authorized read operation
 						-- update data address
-						s_read_address           <= to_integer(unsigned(
+						s_read_address                <= to_integer(unsigned(
 							headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0)
 						));
 						-- prepare byte counter for multi-byte read data
-						s_byte_counter           <= to_integer(unsigned(
+						s_byte_counter                <= to_integer(unsigned(
 							headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0)
 						));
 						-- go to wating buffer space
-						s_rmap_target_read_state <= WAITING_BUFFER_SPACE;
+						s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 						-- prepare for next field (data field)
 						s_rmap_target_read_next_state <= FIELD_DATA;
 					end if;
@@ -345,8 +346,7 @@ begin
 					s_read_data_crc     <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
 					-- write the spw data
 					spw_control_o.write <= '1';
-					-- conditional output signals
-
+				-- conditional output signals
 
 				-- state "FIELD_DATA_CRC"
 				when FIELD_DATA_CRC =>

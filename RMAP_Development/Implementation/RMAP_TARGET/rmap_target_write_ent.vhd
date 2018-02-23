@@ -138,6 +138,12 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
+			s_rmap_target_write_state      <= IDLE;
+			s_rmap_target_write_next_state <= IDLE;
+			s_write_address                <= 0;
+			s_byte_counter                 <= 0;
+			s_write_data_crc               <= x"00";
+			s_write_data_crc_ok            <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_write_state) is
@@ -396,6 +402,17 @@ begin
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
+			flags_o.write_data_indication  <= '0';
+			flags_o.write_operation_failed <= '0';
+			flags_o.write_busy             <= '0';
+			error_o.early_eop              <= '0';
+			error_o.eep                    <= '0';
+			error_o.too_much_data          <= '0';
+			error_o.invalid_data_crc       <= '0';
+			spw_control_o.read             <= '0';
+			mem_control_o.write            <= '0';
+			mem_control_o.address          <= (others => '0');
+			mem_control_o.data             <= (others => '0');
 		-- output generation when s_rmap_target_write_state changes
 		else
 			case (s_rmap_target_write_state) is
@@ -467,7 +484,6 @@ begin
 					mem_control_o.write <= '0';
 					-- default output signals
 					-- conditional output signals
-
 					-- check if data arrived insteady of an end of package
 					if (spw_flag_i.flag = '0') then
 						-- data arrived, not an end of package
@@ -506,6 +522,7 @@ begin
 					error_o.early_eop   <= '0';
 					error_o.eep         <= '0';
 					-- conditional output signals
+					-- check if the unexpected package end is an early eop or and eep
 					if (spw_flag_i.data = c_EOP_VALUE) then
 						-- early eop error
 						error_o.early_eop <= '1';
