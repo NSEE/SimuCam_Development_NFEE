@@ -271,6 +271,11 @@ package rmap_target_pkg is
 		data_length               : t_rmap_target_data_length;
 	end record t_rmap_target_user_codecdata;
 
+	type t_rmap_target_user_configs is record
+		user_key                    : std_logic_vector(7 downto 0);
+		user_target_logical_address : std_logic_vector(7 downto 0);
+	end record t_rmap_target_user_configs;
+
 	-- spw
 
 	constant c_EOP_VALUE : std_logic_vector(7 downto 0) := x"00";
