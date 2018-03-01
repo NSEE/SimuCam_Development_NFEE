@@ -57,9 +57,15 @@ entity rmap_target_mem_wr_ent is
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i     : in std_logic;       --! Local rmap clock
-		reset_n_i : in std_logic        --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i            : in  std_logic; --! Local rmap clock
+		reset_n_i        : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+
+		mem_control_i    : in  t_rmap_target_mem_wr_control;
 		-- global output signals
+
+		mem_flag_o       : out t_rmap_target_mem_wr_flag;
+		memory_address_o : out std_logic_vector(7 downto 0);
+		memory_data_o    : out std_logic_vector(7 downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_mem_wr_ent;
@@ -86,10 +92,22 @@ begin
 	begin
 		if (reset_n_i = '0') then       -- asynchronous reset
 			-- reset to default value
+			mem_flag_o.error <= '0';
+			mem_flag_o.ready <= '1';
 		elsif (rising_edge(clk_i)) then -- synchronous process
-			-- generate clock signal and LED output
+
+			if (mem_control_i.write = '1') then
+				memory_address_o <= mem_control_i.address;
+				memory_data_o    <= mem_control_i.data;
+			else
+				memory_address_o <= memory_address_o;
+				memory_data_o    <= memory_data_o;
+			end if;
+
 		end if;
 	end process p_rmap_target_mem_wr_process;
+
+	-- signal assingment
 
 end architecture rtl;
 --============================================================================

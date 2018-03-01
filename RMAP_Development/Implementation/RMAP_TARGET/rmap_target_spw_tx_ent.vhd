@@ -57,9 +57,17 @@ entity rmap_target_spw_tx_ent is
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i     : in std_logic;       --! Local rmap clock
-		reset_n_i : in std_logic        --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i         : in  std_logic;  --! Local rmap clock
+		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+
+		spw_control_i : in  t_rmap_target_spw_tx_control;
+		codec_ready_i : in  std_logic;
 		-- global output signals
+
+		spw_flag_o    : out t_rmap_target_spw_tx_flag;
+		codec_write_o : out std_logic;
+		codec_flag_o  : out std_logic;
+		codec_data_o  : out std_logic_vector(7 downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_spw_tx_ent;
@@ -86,10 +94,19 @@ begin
 	begin
 		if (reset_n_i = '0') then       -- asynchronous reset
 			-- reset to default value
+			spw_flag_o.error <= '0';
 		elsif (rising_edge(clk_i)) then -- synchronous process
 			-- generate clock signal and LED output
 		end if;
 	end process p_rmap_target_spw_tx_process;
+
+	-- signal assingment
+
+	spw_flag_o.ready <= codec_ready_i;
+
+	codec_write_o <= spw_control_i.write;
+	codec_flag_o  <= spw_control_i.flag;
+	codec_data_o  <= spw_control_i.data;
 
 end architecture rtl;
 --============================================================================

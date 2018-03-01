@@ -159,7 +159,6 @@ package rmap_target_pkg is
 		early_eop        : std_logic;
 		eep              : std_logic;
 		too_much_data    : std_logic;
-		--		verify_buffer_overrun : std_logic;
 		invalid_data_crc : std_logic;
 	end record t_rmap_target_write_error;
 
@@ -234,14 +233,13 @@ package rmap_target_pkg is
 	end record t_rmap_target_rmap_data;
 
 	type t_rmap_target_rmap_error is record
-		early_eop             : std_logic;
-		eep                   : std_logic;
-		header_crc            : std_logic;
-		unused_packet_type    : std_logic;
-		invalid_command_code  : std_logic;
-		too_much_data         : std_logic;
-		verify_buffer_overrun : std_logic;
-		invalid_data_crc      : std_logic;
+		early_eop            : std_logic;
+		eep                  : std_logic;
+		header_crc           : std_logic;
+		unused_packet_type   : std_logic;
+		invalid_command_code : std_logic;
+		too_much_data        : std_logic;
+		invalid_data_crc     : std_logic;
 	end record t_rmap_target_rmap_error;
 
 	-- user application
