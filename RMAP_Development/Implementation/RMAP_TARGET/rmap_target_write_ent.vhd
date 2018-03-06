@@ -115,10 +115,16 @@ architecture rtl of rmap_target_write_ent is
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 
+	signal s_write_address_vector : std_logic_vector(39 downto 0);
+	signal s_byte_counter_vector  : std_logic_vector(23 downto 0);
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
+
+	s_write_address_vector <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
+	s_byte_counter_vector  <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -166,9 +172,9 @@ begin
 					if (control_i.write_authorization = '1') then
 						-- user application authorized write operation
 						-- update data address
-						s_write_address                <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
+						s_write_address                <= s_write_address_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 						-- prepare byte counter for multi-byte write data
-						s_byte_counter                 <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
+						s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 						-- go to waiting buffer data
 						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
 						-- prepare for next field (data field)
@@ -263,7 +269,7 @@ begin
 							-- data need to be verified and data crc checked out
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
-							s_byte_counter                 <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
+							s_byte_counter                 <= s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
 						end if;
@@ -307,7 +313,6 @@ begin
 					s_rmap_target_write_state <= WRITE_DATA;
 					-- default state transition
 					-- default internal signal values
-					s_write_data_crc          <= x"00";
 					s_write_data_crc_ok       <= '0';
 					-- conditional state transition and internal signal values
 					-- check if a memory error occurred
@@ -396,6 +401,8 @@ begin
 	-- write:
 	-- r/w:
 	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_n_i)
+		variable v_write_error : std_logic;
+
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
@@ -410,6 +417,8 @@ begin
 			mem_control_o.write            <= '0';
 			mem_control_o.address          <= (others => '0');
 			mem_control_o.data             <= (others => '0');
+			s_write_verify_buffer          <= (others => x"00");
+			v_write_error                  := '0';
 		-- output generation when s_rmap_target_write_state changes
 		else
 			case (s_rmap_target_write_state) is
@@ -429,6 +438,7 @@ begin
 					mem_control_o.write            <= '0';
 					mem_control_o.address          <= (others => '0');
 					mem_control_o.data             <= (others => '0');
+					v_write_error                  := '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_DATA"
@@ -471,6 +481,7 @@ begin
 					if not (s_write_data_crc = spw_flag_i.data) then
 						-- flag the error
 						error_o.invalid_data_crc <= '1';
+						v_write_error            := '1';
 					end if;
 
 				-- state "FIELD_EOP"
@@ -479,6 +490,7 @@ begin
 					flags_o.write_busy  <= '1';
 					spw_control_o.read  <= '1';
 					mem_control_o.write <= '0';
+					v_write_error       := '0';
 					-- default output signals
 					-- conditional output signals
 					-- check if data arrived insteady of an end of package
@@ -486,6 +498,7 @@ begin
 						-- data arrived, not an end of package
 						-- too much data error
 						error_o.too_much_data <= '1';
+						v_write_error         := '1';
 					end if;
 
 				-- state "WRITE_VERIFIED_DATA"
@@ -518,6 +531,7 @@ begin
 					mem_control_o.write <= '0';
 					error_o.early_eop   <= '0';
 					error_o.eep         <= '0';
+					v_write_error       := '1';
 					-- conditional output signals
 					-- check if the unexpected package end is an early eop or and eep
 					if (spw_flag_i.data = c_EOP_VALUE) then
@@ -541,10 +555,20 @@ begin
 				when WRITE_FINISH_OPERATION =>
 					-- finish write operation
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '0';
-					mem_control_o.write <= '0';
-				-- conditional output signals
+					flags_o.write_busy             <= '1';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_indication  <= '0';
+					spw_control_o.read             <= '0';
+					mem_control_o.write            <= '0';
+					-- conditional output signals
+					-- check if a write error ocurred
+					if (v_write_error = '1') then
+						-- error ocurred, write operation failed
+						flags_o.write_operation_failed <= '1';
+					else
+						-- operation successful
+						flags_o.write_data_indication <= '1';
+					end if;
 
 				-- all the other states (not defined)
 				when others =>

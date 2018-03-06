@@ -195,6 +195,11 @@ begin
 
 				when 1033 =>
 					spw_tx_control.write <= '1';
+					spw_tx_control.flag  <= '0';
+					spw_tx_control.data  <= x"56";
+
+				when 1034 =>
+					spw_tx_control.write <= '1';
 					spw_tx_control.flag  <= '1';
 					spw_tx_control.data  <= x"00";
 

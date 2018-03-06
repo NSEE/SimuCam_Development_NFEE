@@ -14,7 +14,6 @@ add wave -noupdate -group User /rmap_testbench_top/rmap_target_top_inst/rmap_tar
 add wave -noupdate -group User /rmap_testbench_top/rmap_target_top_inst/rmap_target_user_ent_inst/s_error_verify_buffer_overrun
 add wave -noupdate -group User /rmap_testbench_top/rmap_target_top_inst/rmap_target_user_ent_inst/s_error_rmap_command_not_implemented_or_not_authorised
 add wave -noupdate -group User /rmap_testbench_top/rmap_target_top_inst/rmap_target_user_ent_inst/s_error_invalid_target_logical_address
-add wave -noupdate -group User /rmap_testbench_top/rmap_target_top_inst/rmap_target_user_ent_inst/s_byte_counter_vector
 add wave -noupdate -group User -expand /rmap_testbench_top/rmap_target_top_inst/rmap_target_user_ent_inst/p_rmap_target_user_FSM_state/v_authorization_granted
 add wave -noupdate -group Command /rmap_testbench_top/rmap_target_top_inst/rmap_target_command_ent_inst/clk_i
 add wave -noupdate -group Command /rmap_testbench_top/rmap_target_top_inst/rmap_target_command_ent_inst/reset_n_i
@@ -49,8 +48,6 @@ add wave -noupdate -group Write /rmap_testbench_top/rmap_target_top_inst/rmap_ta
 add wave -noupdate -group Write /rmap_testbench_top/rmap_target_top_inst/rmap_target_write_ent_inst/s_write_address
 add wave -noupdate -group Write /rmap_testbench_top/rmap_target_top_inst/rmap_target_write_ent_inst/s_byte_counter
 add wave -noupdate -group Write /rmap_testbench_top/rmap_target_top_inst/rmap_target_write_ent_inst/s_write_verify_buffer
-add wave -noupdate -group Write /rmap_testbench_top/rmap_target_top_inst/rmap_target_write_ent_inst/s_write_address_vector
-add wave -noupdate -group Write /rmap_testbench_top/rmap_target_top_inst/rmap_target_write_ent_inst/s_byte_counter_vector
 add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/clk_i
 add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/reset_n_i
 add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/control_i
@@ -65,15 +62,13 @@ add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_tar
 add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/s_read_data_crc
 add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/s_read_address
 add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/s_byte_counter
-add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/s_read_address_vector
-add wave -noupdate -group Read /rmap_testbench_top/rmap_target_top_inst/rmap_target_read_ent_inst/s_byte_counter_vector
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/clk_i
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/reset_n_i
 add wave -noupdate -group Reply -expand /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/control_i
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/headerdata_i
 add wave -noupdate -group Reply -expand /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_flag_i
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/flags_o
-add wave -noupdate -group Reply -childformat {{/rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_control_o.data -radix hexadecimal}} -expand -subitemconfig {/rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_control_o.data {-radix hexadecimal}} /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_control_o
+add wave -noupdate -group Reply -childformat {{/rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_control_o.data -radix hexadecimal}} -expand -subitemconfig {/rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_control_o.data {-height 15 -radix hexadecimal}} /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/spw_control_o
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/s_rmap_target_reply_state
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/s_rmap_target_reply_next_state
 add wave -noupdate -group Reply /rmap_testbench_top/rmap_target_top_inst/rmap_target_reply_ent_inst/s_reply_header_crc

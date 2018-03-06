@@ -108,10 +108,16 @@ architecture rtl of rmap_target_read_ent is
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 
+	signal s_read_address_vector : std_logic_vector(39 downto 0);
+	signal s_byte_counter_vector : std_logic_vector(23 downto 0);
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
+
+	s_read_address_vector <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
+	s_byte_counter_vector <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -157,9 +163,9 @@ begin
 					if (control_i.read_authorization = '1') then
 						-- user application authorized read operation
 						-- update data address
-						s_read_address                <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
+						s_read_address                <= s_read_address_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 						-- prepare byte counter for multi-byte read data
-						s_byte_counter                <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
+						s_byte_counter                <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 						-- go to wating buffer space
 						s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 						-- prepare for next field (data field)
@@ -289,6 +295,7 @@ begin
 	-- write:
 	-- r/w:
 	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, reset_n_i)
+		variable v_read_error : std_logic;
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
@@ -301,6 +308,7 @@ begin
 			mem_control_o.address         <= (others => '0');
 			mem_control_o.read            <= '0';
 			s_read_data_crc               <= x"00";
+			v_read_error                  := '0';
 		-- output generation when s_rmap_target_read_state changes
 		else
 			case (s_rmap_target_read_state) is
@@ -319,6 +327,7 @@ begin
 					mem_control_o.address         <= (others => '0');
 					mem_control_o.read            <= '0';
 					s_read_data_crc               <= x"00";
+					v_read_error                  := '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -363,15 +372,15 @@ begin
 				when FIELD_EOP =>
 					-- eop field, send eop to indicate end of package
 					-- default output signals
-					flags_o.read_busy            <= '1';
-					-- indicate the end of the read operation
-					flags_o.read_data_indication <= '1';
+					flags_o.read_busy   <= '1';
+					-- indicate that the read operation was successful
+					v_read_error        := '0';
 					-- set spw flag (to indicate a package end)
-					spw_control_o.flag           <= '1';
+					spw_control_o.flag  <= '1';
 					-- fill spw data with the eop identifier (0x00)
-					spw_control_o.data           <= c_EOP_VALUE;
+					spw_control_o.data  <= c_EOP_VALUE;
 					-- write the spw data
-					spw_control_o.write          <= '1';
+					spw_control_o.write <= '1';
 				-- conditional output signals
 
 				-- state "READ_DATA"
@@ -390,26 +399,36 @@ begin
 					-- error in read operation
 					-- finish the read reply package with an EEP
 					-- default output signals
-					flags_o.read_busy             <= '1';
+					flags_o.read_busy   <= '1';
 					-- set the error flag
-					flags_o.read_operation_failed <= '1';
+					v_read_error        := '1';
 					-- set spw flag (to indicate a package end)
-					spw_control_o.flag            <= '1';
+					spw_control_o.flag  <= '1';
 					-- fill spw data with the eep identifier (0x01)
-					spw_control_o.data            <= c_EEP_VALUE;
+					spw_control_o.data  <= c_EEP_VALUE;
 					-- write the spw data
-					spw_control_o.write           <= '1';
+					spw_control_o.write <= '1';
 				-- conditional output signals
 
 				-- state "READ_FINISH_OPERATION"
 				when READ_FINISH_OPERATION =>
 					-- finish read operation
 					-- default output signals
-					flags_o.read_busy   <= '1';
-					spw_control_o.write <= '0';
-					mem_control_o.read  <= '0';
-				-- update output information
-				-- conditional output signals
+					flags_o.read_busy             <= '1';
+					flags_o.read_operation_failed <= '0';
+					flags_o.read_data_indication  <= '0';
+					spw_control_o.write           <= '0';
+					mem_control_o.read            <= '0';
+					-- update output information
+					-- conditional output signals
+					-- check if a read error ocurred
+					if (v_read_error = '1') then
+						-- error ocurred, write operation failed
+						flags_o.read_operation_failed <= '1';
+					else
+						-- operation successful
+						flags_o.read_data_indication <= '1';
+					end if;
 
 				-- all the other states (not defined)
 				when others =>

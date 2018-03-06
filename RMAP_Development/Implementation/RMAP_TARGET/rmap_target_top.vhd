@@ -209,8 +209,8 @@ begin
 	begin
 		if (reset_n_i = '0') then       -- asynchronous reset
 			-- reset to default value
-			s_rmap_target_user_configs.user_key                    <= x"01";
-			s_rmap_target_user_configs.user_target_logical_address <= x"01";
+			s_rmap_target_user_configs.user_key                    <= x"00";
+			s_rmap_target_user_configs.user_target_logical_address <= x"FE";
 		elsif (rising_edge(clk_i)) then -- synchronous process
 			-- generate clock signal and LED output
 		end if;
