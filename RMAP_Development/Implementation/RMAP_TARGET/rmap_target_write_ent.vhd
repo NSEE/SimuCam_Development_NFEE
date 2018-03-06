@@ -192,7 +192,7 @@ begin
 					if (spw_flag_i.valid = '1') then
 						-- rx buffer have valid data
 						-- check if the the rx data is an end of package and not an expected eop
-						if ((spw_flag_i.flag = '1') and not ((spw_flag_i.data = c_EOP_VALUE) and (s_rmap_target_write_next_state = FIELD_EOP))) then
+						if ((spw_flag_i.flag = '1') and not (((spw_flag_i.data = c_EOP_VALUE) and (s_rmap_target_write_next_state = FIELD_EOP)) or (s_rmap_target_write_next_state = WAITING_PACKAGE_END))) then
 							-- rx data is an unexpected package end
 							-- go to unexpected end of package					
 							s_rmap_target_write_state <= UNEXPECTED_PACKAGE_END;
@@ -202,7 +202,7 @@ begin
 							s_rmap_target_write_state <= s_rmap_target_write_next_state;
 						end if;
 					end if;
-
+					
 				-- state "FIELD_DATA"
 				when FIELD_DATA =>
 					-- data field, receive write data from the initiator
@@ -320,7 +320,7 @@ begin
 					if (mem_flag_i.ready = '1') then
 						-- memory is ready for more data
 						-- go to next data field
-						s_rmap_target_write_state <= s_rmap_target_write_next_state;
+						s_rmap_target_write_state <= WAITING_BUFFER_DATA;
 					-- check if and write error occured
 					elsif (mem_flag_i.error = '1') then
 						-- write error ocurred
@@ -490,7 +490,6 @@ begin
 					flags_o.write_busy  <= '1';
 					spw_control_o.read  <= '1';
 					mem_control_o.write <= '0';
-					v_write_error       := '0';
 					-- default output signals
 					-- conditional output signals
 					-- check if data arrived insteady of an end of package

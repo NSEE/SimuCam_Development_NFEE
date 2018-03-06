@@ -198,7 +198,7 @@ begin
 					-- check if a reply is necessary
 					if (codecdata_i.instructions.command.reply = '1') then
 						-- reply requested
-						-- check if an repliable error ocurred (
+						-- check if an repliable error ocurred
 						if (            -- (error_i.unused_packet_type = '1') or 
 							(error_i.invalid_command_code = '1') or (error_i.too_much_data = '1')) then
 							-- repliable error occured, send error reply

@@ -21,6 +21,7 @@ architecture RTL of rmap_stimuli_ent is
 		header,
 		header_crc,
 		data,
+		data2,
 		data_crc,
 		eop,
 		idle
@@ -60,6 +61,43 @@ begin
 				v_crc           := x"00";
 
 			elsif (field_counter <= 2000) then
+
+				--				v_header(0)   := x"FE"; -- target logical address
+				--				v_header(1)   := x"01"; -- protocol identifier
+				--				v_header(2)   := x"6C"; -- instruction
+				--				v_header(3)   := x"00"; -- key
+				--				v_header(4)   := x"67"; -- initiator logical address
+				--				v_header(5)   := x"00"; -- transaction identifier ms
+				--				v_header(6)   := x"00"; -- transaction identifier ls 
+				--				v_header(7)   := x"00"; -- extended address
+				--				v_header(8)   := x"A0"; -- address ms
+				--				v_header(9)   := x"00"; -- address
+				--				v_header(10)  := x"00"; -- address
+				--				v_header(11)  := x"00"; -- address ls
+				--				v_header(12)  := x"00"; -- data length ms
+				--				v_header(13)  := x"00"; -- data length 
+				--				v_header(14)  := x"10"; -- data length ls
+				--				v_header_size := 14;
+				--				v_header(15)  := x"9F"; -- header CRC
+				--
+				--				v_data(0)   := x"01";   -- data
+				--				v_data(1)   := x"23";   -- data
+				--				v_data(2)   := x"45";   -- data
+				--				v_data(3)   := x"67";   -- data
+				--				v_data(4)   := x"89";   -- data
+				--				v_data(5)   := x"AB";   -- data
+				--				v_data(6)   := x"CD";   -- data
+				--				v_data(7)   := x"EF";   -- data
+				--				v_data(8)   := x"10";   -- data
+				--				v_data(9)   := x"11";   -- data
+				--				v_data(10)  := x"12";   -- data
+				--				v_data(11)  := x"13";   -- data
+				--				v_data(12)  := x"14";   -- data
+				--				v_data(13)  := x"15";   -- data
+				--				v_data(14)  := x"16";   -- data
+				--				v_data(15)  := x"17";   -- data
+				--				v_data_size := 15;
+				--				v_data(16)  := x"56";   -- data crc
 
 				v_header(0)   := x"FE"; -- target logical address
 				v_header(1)   := x"01"; -- protocol identifier
@@ -140,9 +178,22 @@ begin
 						spw_tx_control.write <= '1';
 						spw_tx_control.flag  <= '0';
 						--						spw_tx_control.data  <= v_data(v_field_counter);
-						spw_tx_control.data  <= v_crc;
+--						spw_tx_control.data  <= v_crc;
+						spw_tx_control.data  <= x"44";
 						v_crc                := x"00";
 						v_field_counter      := 0;
+
+					when data2 =>
+						v_rmap_machine       := data2;
+						spw_tx_control.write <= '1';
+						spw_tx_control.flag  <= '0';
+						spw_tx_control.data  <= v_data(v_field_counter);
+						v_crc                := RMAP_CalculateCRC(v_crc, v_data(v_field_counter));
+						if (v_field_counter = v_data_size) then
+							v_rmap_machine := eop;
+						else
+							v_field_counter := v_field_counter + 1;
+						end if;
 
 					when eop =>
 						v_rmap_machine       := idle;
@@ -154,6 +205,9 @@ begin
 						v_rmap_machine  := idle;
 						v_field_counter := 0;
 						v_crc           := x"00";
+
+					when others =>
+						null;
 
 				end case;
 
@@ -237,6 +291,9 @@ begin
 						v_rmap_machine  := idle;
 						v_field_counter := 0;
 						v_crc           := x"00";
+
+					when others =>
+						null;
 
 				end case;
 
@@ -347,6 +404,9 @@ begin
 						v_rmap_machine  := idle;
 						v_field_counter := 0;
 						v_crc           := x"00";
+						
+					when others =>
+						null;
 
 				end case;
 
@@ -434,6 +494,9 @@ begin
 						v_rmap_machine  := idle;
 						v_field_counter := 0;
 						v_crc           := x"00";
+
+					when others =>
+						null;
 
 				end case;
 
