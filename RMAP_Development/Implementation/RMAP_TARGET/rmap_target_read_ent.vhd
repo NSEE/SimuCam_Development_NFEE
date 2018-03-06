@@ -143,7 +143,6 @@ begin
 			s_rmap_target_read_next_state <= IDLE;
 			s_read_address                <= (others => '0');
 			s_byte_counter                <= (others => '0');
-			s_read_data_crc               <= x"00";
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_read_state) is
@@ -153,11 +152,10 @@ begin
 					-- does nothing until user application signals a read authorization
 					-- default state transition
 					s_rmap_target_read_state      <= IDLE;
-					s_rmap_target_read_next_state <= FIELD_DATA;
+					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
 					s_read_address                <= (others => '0');
 					s_byte_counter                <= (others => '0');
-					s_read_data_crc               <= x"00";
 					-- conditional state transition and internal signal values
 					-- check if user application authorized a read
 					if (control_i.read_authorization = '1') then
@@ -169,7 +167,7 @@ begin
 						-- go to wating buffer space
 						s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 						-- prepare for next field (data field)
-						s_rmap_target_read_next_state <= FIELD_DATA;
+						s_rmap_target_read_next_state <= READ_DATA;
 					end if;
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -191,7 +189,7 @@ begin
 					-- data field, send read data to initiator
 					-- default state transition
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
-					s_rmap_target_read_next_state <= FIELD_DATA;
+					s_rmap_target_read_next_state <= READ_DATA;
 					-- default internal signal values
 					s_byte_counter                <= (others => '0');
 					-- conditional state transition and internal signal values
@@ -242,7 +240,7 @@ begin
 					if (mem_flag_i.valid = '1') then
 						-- memory has valid data
 						-- go to next data field
-						s_rmap_target_read_state <= s_rmap_target_read_next_state;
+						s_rmap_target_read_state <= FIELD_DATA;
 					-- check if a read error ocurred
 					elsif (mem_flag_i.error = '1') then
 						-- read error occured
@@ -418,6 +416,8 @@ begin
 					flags_o.read_operation_failed <= '0';
 					flags_o.read_data_indication  <= '0';
 					spw_control_o.write           <= '0';
+					spw_control_o.flag            <= '0';
+					spw_control_o.data            <= x"00";
 					mem_control_o.read            <= '0';
 					-- update output information
 					-- conditional output signals

@@ -95,14 +95,18 @@ begin
 			mem_flag_o.error <= '0';
 			mem_flag_o.valid <= '1';
 		elsif (rising_edge(clk_i)) then -- synchronous process
-			-- generate clock signal and LED output
+			
+			if (mem_control_i.read = '1') then
+				mem_flag_o.data  <= memory_data_i;
+			end if;
+			
 		end if;
 	end process p_rmap_target_mem_rd_process;
 
 	-- signal assingment
 
 	memory_address_o <= mem_control_i.address;
-	mem_flag_o.data  <= memory_data_i;
+	
 
 end architecture rtl;
 --============================================================================

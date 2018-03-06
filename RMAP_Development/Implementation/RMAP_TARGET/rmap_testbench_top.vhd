@@ -23,9 +23,12 @@ architecture RTL of rmap_testbench_top is
 	signal s_rmap_mem_flag    : t_rmap_target_mem_flag;
 
 	type t_rmap_memory_type is array (0 to 255) of std_logic_vector(7 downto 0);
-	signal s_rmap_memory         : t_rmap_memory_type := (others => x"00");
-	signal s_rmap_memory_data    : std_logic_vector(7 downto 0);
-	signal s_rmap_memory_address : std_logic_vector(7 downto 0);
+	signal s_rmap_write_memory         : t_rmap_memory_type := (others => x"00");
+	signal s_rmap_write_memory_data    : std_logic_vector(7 downto 0);
+	signal s_rmap_write_memory_address : std_logic_vector(7 downto 0);
+	signal s_rmap_read_memory          : t_rmap_memory_type := (others => x"00");
+	signal s_rmap_read_memory_data     : std_logic_vector(7 downto 0);
+	signal s_rmap_read_memory_address  : std_logic_vector(7 downto 0);
 
 	signal s_codec_fifo_control : t_rmap_target_spw_control;
 	signal s_codec_fifo_flag    : t_rmap_target_spw_flag;
@@ -87,17 +90,19 @@ begin
 			codec_data_o  => s_codec_fifo_control.transmitter.data
 		);
 
-	s_rmap_memory_data <= s_rmap_memory(to_integer(unsigned(s_rmap_memory_address)));
+	s_rmap_read_memory <= s_rmap_write_memory;
 
 	rmap_target_mem_rd_ent_inst : entity work.rmap_target_mem_rd_ent
 		port map(
 			clk_i            => clk,
 			reset_n_i        => rst_n,
 			mem_control_i    => s_rmap_mem_control.read,
-			memory_data_i    => s_rmap_memory_data,
+			memory_data_i    => s_rmap_read_memory_data,
 			mem_flag_o       => s_rmap_mem_flag.read,
-			memory_address_o => s_rmap_memory_address
+			memory_address_o => s_rmap_read_memory_address
 		);
+
+	s_rmap_read_memory_data <= s_rmap_read_memory(to_integer(unsigned(s_rmap_read_memory_address)));
 
 	rmap_target_mem_wr_ent_inst : entity work.rmap_target_mem_wr_ent
 		port map(
@@ -105,9 +110,11 @@ begin
 			reset_n_i        => rst_n,
 			mem_control_i    => s_rmap_mem_control.write,
 			mem_flag_o       => s_rmap_mem_flag.write,
-			memory_address_o => s_rmap_memory_address,
-			memory_data_o    => s_rmap_memory_data
+			memory_address_o => s_rmap_write_memory_address,
+			memory_data_o    => s_rmap_write_memory_data
 		);
+
+	s_rmap_write_memory(to_integer(unsigned(s_rmap_write_memory_address))) <= s_rmap_write_memory_data;
 
 	spw_rx_fifo_inst : entity work.spw_fifo
 		port map(

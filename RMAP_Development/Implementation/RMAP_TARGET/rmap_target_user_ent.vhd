@@ -156,6 +156,7 @@ begin
 					s_error_verify_buffer_overrun                          <= '0';
 					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
 					s_error_invalid_target_logical_address                 <= '0';
+					v_authorization_granted                                := (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if the command parser finished parsing a command
 					if (flags_i.command_parsing.command_received = '1') then

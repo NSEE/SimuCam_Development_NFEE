@@ -63,11 +63,11 @@ entity rmap_target_reply_ent is
 		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i     : in  t_rmap_target_reply_control;
-		headerdata_i  : in  t_rmap_target_reply_headerdata; 
+		headerdata_i  : in  t_rmap_target_reply_headerdata;
 		spw_flag_i    : in  t_rmap_target_spw_tx_flag;
 		-- global output signals
 		flags_o       : out t_rmap_target_reply_flags;
---		error_o       : out t_rmap_target_reply_error;
+		--		error_o       : out t_rmap_target_reply_error;
 		spw_control_o : out t_rmap_target_spw_tx_control
 		-- data bus(es)
 	);
@@ -103,6 +103,8 @@ architecture rtl of rmap_target_reply_ent is
 	signal s_reply_header_crc : std_logic_vector(7 downto 0);
 
 	signal s_byte_counter : natural range 0 to 11;
+
+	signal s_reply_address_flag : std_logic;
 
 	--============================================================================
 	-- architecture begin
@@ -372,6 +374,7 @@ begin
 			spw_control_o.flag     <= '0';
 			spw_control_o.write    <= '0';
 			s_reply_header_crc     <= x"00";
+			s_reply_address_flag   <= '0';
 		-- output generation when s_rmap_target_reply_state changes
 		else
 			case (s_rmap_target_reply_state) is
@@ -387,6 +390,7 @@ begin
 					spw_control_o.flag     <= '0';
 					spw_control_o.write    <= '0';
 					s_reply_header_crc     <= x"00";
+					s_reply_address_flag   <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -402,9 +406,46 @@ begin
 				when FIELD_REPLY_SPW_ADDRESS =>
 					-- reply spw address field, send reply spw address to initiator
 					-- default output signals
+					flags_o.reply_busy   <= '1';
+					s_reply_address_flag <= '0';
+					spw_control_o.flag   <= '0';
+					spw_control_o.data   <= x"00";
+					spw_control_o.write  <= '0';
 					-- conditional output signals
+					-- check if a non-zero reply spw address data have already been detected
+					if (s_reply_address_flag = '1') then
+						-- reply spw address data arrived
+						s_reply_address_flag <= '1';
+						-- fill spw data with field data
+						spw_control_o.data   <= headerdata_i.reply_spw_address(s_byte_counter);
+						-- write the spw data
+						spw_control_o.write  <= '1';
+					else
+						-- non-zero data not detected yet
+						-- check if the reply spw address data is a zero
+						if (headerdata_i.reply_spw_address(s_byte_counter) = x"00") then
+							-- data is a zero
+							-- check if the data is the last reply spw address
+							if (s_byte_counter = 0) then
+								-- last reply spw address
+								-- send a single 0x00 as the reply spw address
+								spw_control_o.data  <= x"00";
+								-- write the spw data
+								spw_control_o.write <= '1';
+							end if;
+						-- if not last reply spw address, the data is a leading zero and will be ignored
+						else
+							-- data is not a zero, leading zeros are over
+							-- flag that a non-zero reply spw address data arrived
+							s_reply_address_flag <= '1';
+							-- fill spw data with field data
+							spw_control_o.data   <= headerdata_i.reply_spw_address(s_byte_counter);
+							-- write the spw data
+							spw_control_o.write  <= '1';
+						end if;
+					end if;
 
-					-- state "FIELD_INITIATOR_LOGICAL_ADDRESS"
+				-- state "FIELD_INITIATOR_LOGICAL_ADDRESS"
 				when FIELD_INITIATOR_LOGICAL_ADDRESS =>
 					-- initiator logical address field, send initiator logical address to initiator
 					-- default output signals
@@ -574,7 +615,9 @@ begin
 					-- finish reply generation
 					-- default output signals
 					flags_o.reply_busy  <= '1';
-					spw_control_o.write <= '0';
+					spw_control_o.write           <= '0';
+					spw_control_o.flag            <= '0';
+					spw_control_o.data            <= x"00";
 				-- conditional output signals
 
 				-- all the other states (not defined)
