@@ -53,9 +53,11 @@ package rmap_target_pkg is
 
 	constant c_WIDTH_TRANSACTION_IDENTIFIER : natural := 16;
 	constant c_MAX_TRANSACTION_IDENTIFIER   : natural := ((2 ** c_WIDTH_TRANSACTION_IDENTIFIER) - 1);
-	constant c_WIDTH_ADDRESS                : natural := 32;
+	--	constant c_WIDTH_ADDRESS                : natural := 32;
+	constant c_WIDTH_ADDRESS                : natural := 30;
 	constant c_MAX_ADDRESS                  : natural := ((2 ** c_WIDTH_ADDRESS) - 1);
-	constant c_WIDTH_EXTENDED_ADDRESS       : natural := 40;
+	--	constant c_WIDTH_EXTENDED_ADDRESS       : natural := 40;
+	constant c_WIDTH_EXTENDED_ADDRESS       : natural := 30;
 	constant c_MAX_EXTENDED_ADDRESS         : natural := ((2 ** c_WIDTH_EXTENDED_ADDRESS) - 1);
 	constant c_WIDTH_DATA_LENGTH            : natural := 24;
 	constant c_MAX_DATA_LENGTH              : natural := ((2 ** c_WIDTH_DATA_LENGTH) - 1);

@@ -57,7 +57,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 
 entity rmap_target_read_ent is
 	generic(
-		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 30;
 		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
 	);
 	port(
@@ -73,7 +73,7 @@ entity rmap_target_read_ent is
 		-- global output signals
 
 		flags_o       : out t_rmap_target_read_flags;
-		error_o       : out t_rmap_target_read_error;
+--		error_o       : out t_rmap_target_read_error;
 		spw_control_o : out t_rmap_target_spw_tx_control;
 		mem_control_o : out t_rmap_target_mem_rd_control
 		-- data bus(es)
@@ -106,10 +106,16 @@ architecture rtl of rmap_target_read_ent is
 	signal s_read_address : natural range 0 to ((2 ** g_MEMORY_ADDRESS_WIDTH) - 1);
 	signal s_byte_counter : natural range 0 to ((2 ** g_DATA_LENGTH_WIDTH) - 1);
 
+	signal s_read_address_vector : std_logic_vector(39 downto 0);
+	signal s_byte_counter_vector : std_logic_vector(23 downto 0);
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
+
+	s_read_address_vector <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
+	s_byte_counter_vector <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -156,11 +162,11 @@ begin
 						-- user application authorized read operation
 						-- update data address
 						s_read_address                <= to_integer(unsigned(
-							headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0)
+							s_read_address_vector
 						));
 						-- prepare byte counter for multi-byte read data
 						s_byte_counter                <= to_integer(unsigned(
-							headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0)
+							s_byte_counter_vector
 						));
 						-- go to wating buffer space
 						s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;

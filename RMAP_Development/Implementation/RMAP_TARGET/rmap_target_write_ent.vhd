@@ -58,7 +58,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 entity rmap_target_write_ent is
 	generic(
 		g_VERIFY_BUFFER_WIDTH  : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 8;
-		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 30;
 		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
 	);
 	port(
@@ -113,10 +113,16 @@ architecture rtl of rmap_target_write_ent is
 	type write_verify_buffer_t is array (0 to ((2 ** g_VERIFY_BUFFER_WIDTH) - 1)) of std_logic_vector(7 downto 0);
 	signal s_write_verify_buffer : write_verify_buffer_t;
 
+	signal s_write_address_vector : std_logic_vector(39 downto 0);
+	signal s_byte_counter_vector  : std_logic_vector(23 downto 0);
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
+
+	s_write_address_vector <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
+	s_byte_counter_vector  <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -165,11 +171,11 @@ begin
 						-- user application authorized write operation
 						-- update data address
 						s_write_address                <= to_integer(unsigned(
-							headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0)
+							s_write_address_vector
 						));
 						-- prepare byte counter for multi-byte write data
 						s_byte_counter                 <= to_integer(unsigned(
-							headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0)
+							s_byte_counter_vector
 						));
 						-- go to waiting buffer data
 						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
@@ -265,7 +271,7 @@ begin
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
 							s_byte_counter                 <= to_integer(unsigned(
-								headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0)
+								s_byte_counter_vector
 							));
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;

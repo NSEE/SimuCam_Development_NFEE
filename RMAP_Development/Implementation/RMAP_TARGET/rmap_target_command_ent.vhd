@@ -186,14 +186,14 @@ begin
 					if (spw_flag_i.valid = '1') then
 						-- rx buffer have valid data
 						-- check if the the rx data is an end of package and not an expected eop
-						if ((spw_flag_i.flag = '1') and not ((spw_flag_i.data = c_EOP_VALUE) and (s_rmap_target_command_next_state = FIELD_EOP))) then
+						if ((spw_flag_i.flag = '1') and not (((spw_flag_i.data = c_EOP_VALUE) and (s_rmap_target_command_next_state = FIELD_EOP)) or (s_rmap_target_command_next_state = WAITING_PACKAGE_END))) then
 							-- rx data is an unexpected package end
 							-- go to unexpected end of package					
 							s_rmap_target_command_state <= UNEXPECTED_PACKAGE_END;
 						else
 							-- rx data is not an end of package
 							-- go to next field
-							s_rmap_target_command_state <= s_rmap_target_write_next_state;
+							s_rmap_target_command_state <= s_rmap_target_command_next_state;
 						end if;
 					end if;
 
@@ -257,7 +257,7 @@ begin
 						s_invalid_command_code <= '1';
 					end if;
 					if (spw_flag_i.data(5) = '1') then
-						-- wirte command
+						-- write command
 						s_write_command <= '1';
 					else
 						-- read command
@@ -277,6 +277,9 @@ begin
 						-- reply address field has 12 bytes
 						when "11" =>
 							s_byte_counter <= 11;
+						-- non-specified value
+						when others =>
+							s_byte_counter <= 0;
 					end case;
 
 				-- state "FIELD_KEY"
@@ -346,7 +349,7 @@ begin
 					if (s_byte_counter = 0) then
 						-- multi-byte field ended
 						-- go to next field (extended address)
-						s_rmap_target_read_next_state <= FIELD_EXTENDED_ADDRESS;
+						s_rmap_target_command_next_state <= FIELD_EXTENDED_ADDRESS;
 					else
 						-- multi-byte field not ended
 						-- update byte counter (for next byte)
@@ -460,7 +463,7 @@ begin
 				-- state "ERROR_CHECK"
 				when ERROR_CHECK =>
 					-- verify if the received command has an error
-					s_rmap_target_command_state      <= WRITE_FINISH_OPERATION;
+					s_rmap_target_command_state      <= COMMAND_FINISH_OPERATION;
 					s_rmap_target_command_next_state <= IDLE;
 					-- default state transition
 					-- default internal signal values
@@ -472,7 +475,7 @@ begin
 					if ((s_unused_packet_type = '1') or (s_invalid_command_code = '1')) then
 						-- error ocurred, go to discard package
 						s_rmap_target_command_state      <= DISCARD_PACKAGE;
-						s_rmap_target_command_next_state <= WRITE_FINISH_OPERATION;
+						s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					end if;
 
 				-- state "UNEXPECTED_PACKAGE_END"
@@ -480,7 +483,7 @@ begin
 					-- unexpected package end arrived
 					-- default state transition
 					s_rmap_target_command_state      <= DISCARD_PACKAGE;
-					s_rmap_target_command_next_state <= WRITE_FINISH_OPERATION;
+					s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
@@ -493,7 +496,7 @@ begin
 				when WAITING_PACKAGE_END =>
 					-- wait until a package end arrives
 					-- default state transition
-					s_rmap_target_command_state      <= WAITING_BUFFER_SPACE;
+					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= WAITING_PACKAGE_END;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
@@ -506,7 +509,7 @@ begin
 					if (spw_flag_i.flag = '1') then
 						-- package ended
 						-- go to write finish operation
-						s_rmap_target_command_state      <= WRITE_FINISH_OPERATION;
+						s_rmap_target_command_state      <= COMMAND_FINISH_OPERATION;
 						s_rmap_target_command_next_state <= IDLE;
 					end if;
 
@@ -515,7 +518,7 @@ begin
 					-- incoming spw data is not a rmap package
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_PACKAGE_END;
-					s_rmap_target_command_next_state <= WRITE_FINISH_OPERATION;
+					s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
@@ -528,7 +531,7 @@ begin
 				when DISCARD_PACKAGE =>
 					-- discard current spw package data
 					-- default state transition
-					s_rmap_target_command_state      <= WRITE_FINISH_OPERATION;
+					s_rmap_target_command_state      <= COMMAND_FINISH_OPERATION;
 					s_rmap_target_command_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
@@ -878,7 +881,14 @@ begin
 					flags_o.command_received <= '1';
 					flags_o.command_busy     <= '1';
 					spw_control_o.read       <= '0';
-				-- conditional output signals
+					flags_o.write_request    <= '0';
+					flags_o.read_request     <= '0';
+					-- conditional output signals
+					if (s_write_command = '1') then
+						flags_o.write_request <= '1';
+					else
+						flags_o.read_request <= '1';
+					end if;
 
 				-- all the other states (not defined)
 				when others =>

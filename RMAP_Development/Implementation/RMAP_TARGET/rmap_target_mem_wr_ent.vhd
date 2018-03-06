@@ -99,9 +99,6 @@ begin
 			if (mem_control_i.write = '1') then
 				memory_address_o <= mem_control_i.address;
 				memory_data_o    <= mem_control_i.data;
-			else
-				memory_address_o <= memory_address_o;
-				memory_data_o    <= memory_data_o;
 			end if;
 
 		end if;

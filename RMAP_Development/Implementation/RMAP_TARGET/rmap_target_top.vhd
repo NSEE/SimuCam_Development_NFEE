@@ -54,10 +54,15 @@ entity rmap_target_top is
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i     : in std_logic;       --! Local rmap clock
-		reset_n_i : in std_logic        --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i         : in  std_logic;  --! Local rmap clock
+		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+
+		spw_flag_i    : in  t_rmap_target_spw_flag;
+		mem_flag_i    : in  t_rmap_target_mem_flag;
 		-- global output signals
 
+		spw_control_o : out t_rmap_target_spw_control;
+		mem_control_o : out t_rmap_target_mem_control
 		-- data bus(es)
 	);
 end entity rmap_target_top;
@@ -74,16 +79,10 @@ architecture rtl of rmap_target_top is
 	signal s_rmap_target_rmap_data  : t_rmap_target_rmap_data;
 	signal s_rmap_target_rmap_error : t_rmap_target_rmap_error;
 
-	signal s_rmap_target_spw_control : t_rmap_target_spw_control;
-	signal s_rmap_target_spw_flag    : t_rmap_target_spw_flag;
-
 	signal s_rmap_target_spw_command_rx_control : t_rmap_target_spw_rx_control;
 	signal s_rmap_target_spw_write_rx_control   : t_rmap_target_spw_rx_control;
 	signal s_rmap_target_spw_read_tx_control    : t_rmap_target_spw_tx_control;
 	signal s_rmap_target_spw_reply_tx_control   : t_rmap_target_spw_tx_control;
-
-	signal s_rmap_target_mem_control : t_rmap_target_mem_control;
-	signal s_rmap_target_mem_flag    : t_rmap_target_mem_flag;
 
 	signal s_rmap_target_user_configs : t_rmap_target_user_configs;
 
@@ -95,7 +94,7 @@ begin
 	rmap_target_user_ent_inst : entity work.rmap_target_user_ent
 		generic map(
 			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 32,
+			g_MEMORY_ADDRESS_WIDTH => 30,
 			g_DATA_LENGTH_WIDTH    => 24
 		)
 		port map(
@@ -121,7 +120,7 @@ begin
 			clk_i                                  => clk_i,
 			reset_n_i                              => reset_n_i,
 			control_i                              => s_rmap_target_control.command_parsing,
-			spw_flag_i                             => s_rmap_target_spw_flag.receiver,
+			spw_flag_i                             => spw_flag_i.receiver,
 			flags_o                                => s_rmap_target_flags.command_parsing,
 			error_o                                => s_rmap_target_error.command_parsing,
 			headerdata_o.target_logical_address    => s_rmap_target_rmap_data.target_logical_address,
@@ -139,7 +138,7 @@ begin
 	rmap_target_write_ent_inst : entity work.rmap_target_write_ent
 		generic map(
 			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 32,
+			g_MEMORY_ADDRESS_WIDTH => 30,
 			g_DATA_LENGTH_WIDTH    => 24
 		)
 		port map(
@@ -151,17 +150,17 @@ begin
 			headerdata_i.extended_address                     => s_rmap_target_rmap_data.extended_address,
 			headerdata_i.address                              => s_rmap_target_rmap_data.address,
 			headerdata_i.data_length                          => s_rmap_target_rmap_data.data_length,
-			spw_flag_i                                        => s_rmap_target_spw_flag.receiver,
-			mem_flag_i                                        => s_rmap_target_mem_flag.write,
+			spw_flag_i                                        => spw_flag_i.receiver,
+			mem_flag_i                                        => mem_flag_i.write,
 			flags_o                                           => s_rmap_target_flags.write_operation,
 			error_o                                           => s_rmap_target_error.write_operation,
 			spw_control_o                                     => s_rmap_target_spw_write_rx_control,
-			mem_control_o                                     => s_rmap_target_mem_control.write
+			mem_control_o                                     => mem_control_o.write
 		);
 
 	rmap_target_read_ent_inst : entity work.rmap_target_read_ent
 		generic map(
-			g_MEMORY_ADDRESS_WIDTH => 32,
+			g_MEMORY_ADDRESS_WIDTH => 30,
 			g_DATA_LENGTH_WIDTH    => 24
 		)
 		port map(
@@ -172,12 +171,12 @@ begin
 			headerdata_i.extended_address              => s_rmap_target_rmap_data.extended_address,
 			headerdata_i.address                       => s_rmap_target_rmap_data.address,
 			headerdata_i.data_length                   => s_rmap_target_rmap_data.data_length,
-			spw_flag_i                                 => s_rmap_target_spw_flag.transmitter,
-			mem_flag_i                                 => s_rmap_target_mem_flag.read,
+			spw_flag_i                                 => spw_flag_i.transmitter,
+			mem_flag_i                                 => mem_flag_i.read,
 			flags_o                                    => s_rmap_target_flags.read_operation,
-			error_o                                    => s_rmap_target_error.read_operation,
+--			error_o                                    => s_rmap_target_error.read_operation,
 			spw_control_o                              => s_rmap_target_spw_read_tx_control,
-			mem_control_o                              => s_rmap_target_mem_control.read
+			mem_control_o                              => mem_control_o.read
 		);
 
 	rmap_target_reply_ent_inst : entity work.rmap_target_reply_ent
@@ -192,9 +191,9 @@ begin
 			headerdata_i.target_logical_address    => s_rmap_target_rmap_data.target_logical_address,
 			headerdata_i.transaction_identifier    => s_rmap_target_rmap_data.transaction_identifier,
 			headerdata_i.data_length               => s_rmap_target_rmap_data.data_length,
-			spw_flag_i                             => s_rmap_target_spw_flag.transmitter,
+			spw_flag_i                             => spw_flag_i.transmitter,
 			flags_o                                => s_rmap_target_flags.reply_geneneration,
-			error_o                                => s_rmap_target_error.reply_geneneration,
+--			error_o                                => s_rmap_target_error.reply_geneneration,
 			spw_control_o                          => s_rmap_target_spw_reply_tx_control
 		);
 
@@ -229,10 +228,10 @@ begin
 	s_rmap_target_rmap_error.invalid_data_crc     <= s_rmap_target_error.write_operation.invalid_data_crc;
 
 	-- spw control signals
-	s_rmap_target_spw_control.receiver.read     <= (s_rmap_target_spw_command_rx_control.read) or (s_rmap_target_spw_write_rx_control.read);
-	s_rmap_target_spw_control.transmitter.flag  <= (s_rmap_target_spw_read_tx_control.flag) or (s_rmap_target_spw_reply_tx_control.flag);
-	s_rmap_target_spw_control.transmitter.data  <= (s_rmap_target_spw_read_tx_control.data) or (s_rmap_target_spw_reply_tx_control.data);
-	s_rmap_target_spw_control.transmitter.write <= (s_rmap_target_spw_read_tx_control.write) or (s_rmap_target_spw_reply_tx_control.write);
+	spw_control_o.receiver.read     <= (s_rmap_target_spw_command_rx_control.read) or (s_rmap_target_spw_write_rx_control.read);
+	spw_control_o.transmitter.flag  <= (s_rmap_target_spw_read_tx_control.flag) or (s_rmap_target_spw_reply_tx_control.flag);
+	spw_control_o.transmitter.data  <= (s_rmap_target_spw_read_tx_control.data) or (s_rmap_target_spw_reply_tx_control.data);
+	spw_control_o.transmitter.write <= (s_rmap_target_spw_read_tx_control.write) or (s_rmap_target_spw_reply_tx_control.write);
 
 end architecture rtl;
 --============================================================================

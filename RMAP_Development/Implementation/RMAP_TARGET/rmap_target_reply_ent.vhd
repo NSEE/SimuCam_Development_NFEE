@@ -63,11 +63,11 @@ entity rmap_target_reply_ent is
 		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i     : in  t_rmap_target_reply_control;
-		headerdata_i  : in  t_rmap_target_reply_headerdata;
+		headerdata_i  : in  t_rmap_target_reply_headerdata; 
 		spw_flag_i    : in  t_rmap_target_spw_tx_flag;
 		-- global output signals
 		flags_o       : out t_rmap_target_reply_flags;
-		error_o       : out t_rmap_target_reply_error;
+--		error_o       : out t_rmap_target_reply_error;
 		spw_control_o : out t_rmap_target_spw_tx_control
 		-- data bus(es)
 	);

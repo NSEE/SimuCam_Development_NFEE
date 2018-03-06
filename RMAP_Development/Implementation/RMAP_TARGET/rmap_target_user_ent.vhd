@@ -56,7 +56,7 @@ use work.RMAP_TARGET_PKG.ALL;
 entity rmap_target_user_ent is
 	generic(
 		g_VERIFY_BUFFER_WIDTH  : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 8;
-		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 30;
 		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
 	);
 	port(
@@ -106,10 +106,14 @@ architecture rtl of rmap_target_user_ent is
 	signal s_error_rmap_command_not_implemented_or_not_authorised : std_logic;
 	signal s_error_invalid_target_logical_address                 : std_logic;
 
+	signal s_byte_counter_vector : std_logic_vector(23 downto 0);
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
+
+	s_byte_counter_vector <= codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -128,7 +132,7 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_user_state
 	p_rmap_target_user_FSM_state : process(clk_i, reset_n_i)
-		variable v_authorization_granted : std_logic := '0';
+		variable v_authorization_granted : std_logic_vector(3 downto 0);
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
@@ -138,7 +142,7 @@ begin
 			s_error_verify_buffer_overrun                          <= '0';
 			s_error_rmap_command_not_implemented_or_not_authorised <= '0';
 			s_error_invalid_target_logical_address                 <= '0';
-			v_authorization_granted                                := '0';
+			v_authorization_granted                                := (others => '0');
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_user_state) is
@@ -214,54 +218,51 @@ begin
 					s_error_invalid_target_logical_address                 <= '0';
 					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
 					s_error_verify_buffer_overrun                          <= '0';
-					v_authorization_granted                                := '0';
+					v_authorization_granted                                := (others => '0');
+					v_authorization_granted(3)                             := '1';
 					-- conditional state transition and internal signal values
 					-- verify write command authorization
 					-- check user key
 					if (codecdata_i.key = configs_i.user_key) then
 						-- user key matches
-						v_authorization_granted := '1';
+						v_authorization_granted(0) := '1';
 					else
 						-- not authorized
-						s_error_invalid_key     <= '1';
-						v_authorization_granted := '0';
+						s_error_invalid_key <= '1';
 					end if;
 					-- check user target logical address
 					if (codecdata_i.target_logical_address = configs_i.user_target_logical_address) then
 						-- user target logical address matches
-						v_authorization_granted := '1';
+						v_authorization_granted(1) := '1';
 					else
 						-- not authorized
 						s_error_invalid_target_logical_address <= '1';
-						v_authorization_granted                := '0';
 					end if;
 					-- check if the write command data length is compatible
 					-- check if data need to be verified before being written
 					if (codecdata_i.instructions.command.verify_data_before_write = '1') then
 						-- data need to be verified
 						-- check if the verify buffer can accept the data
-						if (((2 ** g_VERIFY_BUFFER_WIDTH) - 1) >= to_integer(unsigned(codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0)))) then
+						if (((2 ** g_VERIFY_BUFFER_WIDTH) - 1) >= to_integer(unsigned(s_byte_counter_vector))) then
 							-- can accept the data
-							v_authorization_granted := '1';
+							v_authorization_granted(2) := '1';
 						else
 							-- not authorized
 							s_error_verify_buffer_overrun <= '1';
-							v_authorization_granted       := '0';
 						end if;
 					else
 						-- data does not need to be verified
 						-- check if the memory can accept the data						
-						if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= to_integer(unsigned(codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0)))) then
+						if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= to_integer(unsigned(s_byte_counter_vector))) then
 							-- can accept the data
-							v_authorization_granted := '1';
+							v_authorization_granted(2) := '1';
 						else
 							-- not authorized
 							s_error_rmap_command_not_implemented_or_not_authorised <= '1';
-							v_authorization_granted                                := '0';
 						end if;
 					end if;
 					-- check if command was authorized
-					if (v_authorization_granted = '1') then
+					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 						-- authorization granted
 						s_rmap_target_user_state <= WAITING_WRITE_FINISH;
 					else
@@ -311,44 +312,44 @@ begin
 					s_error_invalid_target_logical_address                 <= '0';
 					s_error_rmap_command_not_implemented_or_not_authorised <= '0';
 					s_error_verify_buffer_overrun                          <= '0';
-					v_authorization_granted                                := '0';
+					v_authorization_granted                                := (others => '0');
 					-- conditional state transition and internal signal values
 					-- verify read command authorization
 					-- check user key
 					if (codecdata_i.key = configs_i.user_key) then
 						-- user key matches
-						v_authorization_granted := '1';
+						v_authorization_granted(0) := '1';
 					else
 						-- not authorized
-						s_error_invalid_key     <= '1';
-						v_authorization_granted := '0';
+						s_error_invalid_key <= '1';
 					end if;
 					-- check user target logical address
 					if (codecdata_i.target_logical_address = configs_i.user_target_logical_address) then
 						-- user target logical address matches
-						v_authorization_granted := '1';
+						v_authorization_granted(1) := '1';
 					else
 						-- not authorized
 						s_error_invalid_target_logical_address <= '1';
-						v_authorization_granted                := '0';
 					end if;
 					-- check if an not implementend command arrived
 					if ((codecdata_i.instructions.command.write_read = '0') and (codecdata_i.instructions.command.verify_data_before_write = '1') and (codecdata_i.instructions.command.reply = '1') and (codecdata_i.instructions.command.increment_address = '1')) then
-						-- RWM command received 
+						-- RWM command received
+						-- not authorized 
 						s_error_rmap_command_not_implemented_or_not_authorised <= '1';
-						v_authorization_granted                                := '0';
+					else
+						-- valid command received
+						v_authorization_granted(2) := '1';
 					end if;
 					-- check if the read command data length is compatible
-					if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= to_integer(unsigned(codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0)))) then
+					if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= to_integer(unsigned(s_byte_counter_vector))) then
 						-- can accept the data
-						v_authorization_granted := '1';
+						v_authorization_granted(3) := '1';
 					else
 						-- not authorized
 						s_error_rmap_command_not_implemented_or_not_authorised <= '1';
-						v_authorization_granted                                := '0';
 					end if;
 					-- check if command was authorized
-					if (v_authorization_granted = '1') then
+					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 						-- authorization granted
 						s_rmap_target_user_state <= SEND_REPLY;
 					else
@@ -407,7 +408,7 @@ begin
 						else
 							-- read reply
 							-- check if a read was authorized
-							if (v_authorization_granted = '1') then
+							if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 								-- authorized, go to waiting read finish
 								s_rmap_target_user_state <= WAITING_READ_FINISH;
 							else
@@ -543,42 +544,42 @@ begin
 					-- send reply to initiator
 					-- default output signals
 					control_o.reply_geneneration.send_reply <= '0';
-					reply_status                            <= c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY;
+					reply_status                            <= std_logic_vector(to_unsigned(c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY, 8));
 					-- conditional output signals
 					-- check if an error ocurred
 					if (s_error_general_error = '1') then
 						-- general error ocurred
-						reply_status <= c_ERROR_CODE_GENERAL_ERROR_CODE;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_GENERAL_ERROR_CODE, 8));
 					elsif ((error_i.unused_packet_type = '1') or (error_i.invalid_command_code = '1')) then
 						-- unused rmap packet type or command code error ocurred
-						reply_status <= c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE, 8));
 					elsif (s_error_invalid_key = '1') then
 						-- invalid key error ocurred
-						reply_status <= c_ERROR_CODE_INVALID_KEY;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_KEY, 8));
 					elsif (error_i.invalid_data_crc = '1') then
 						-- invalid data crc error ocurred
-						reply_status <= c_ERROR_CODE_INVALID_DATA_CRC;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_DATA_CRC, 8));
 					elsif (error_i.early_eop = '1') then
 						-- early eop error ocurred
-						reply_status <= c_ERROR_CODE_EARLY_EOP;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EARLY_EOP, 8));
 					elsif (error_i.too_much_data = '1') then
 						-- too much data error ocurred
-						reply_status <= c_ERROR_CODE_TOO_MUCH_DATA;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_TOO_MUCH_DATA, 8));
 					elsif (error_i.eep = '1') then
 						-- eep error ocurred
-						reply_status <= c_ERROR_CODE_EEP;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EEP, 8));
 					elsif (s_error_verify_buffer_overrun = '1') then
 						-- verify buffer overrun error ocurred
-						reply_status <= c_ERROR_CODE_VERIFY_BUFFER_OVERRUN;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_VERIFY_BUFFER_OVERRUN, 8));
 					elsif (s_error_rmap_command_not_implemented_or_not_authorised = '1') then
 						-- rmap command not implemented or not authorised error ocurred
-						reply_status <= c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED, 8));
 					-- the next case is commented out because the RMW function is not implemented
 					-- elsif (s_error_rmw_data_length_error = '1') then
-					--   reply_status <= c_ERROR_CODE_RMW_DATA_LENGTH_ERROR;
+					--   reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMW_DATA_LENGTH_ERROR,8));
 					elsif (s_error_invalid_target_logical_address = '1') then
 						-- invalid target logical address error ocurred
-						reply_status <= c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS;
+						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS, 8));
 					end if;
 
 				-- state "WAITING_REPLY_FINISH"
