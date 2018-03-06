@@ -58,7 +58,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 entity rmap_target_write_ent is
 	generic(
 		g_VERIFY_BUFFER_WIDTH  : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 8;
-		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 30;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
 		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
 	);
 	port(
@@ -107,22 +107,18 @@ architecture rtl of rmap_target_write_ent is
 	signal s_write_data_crc    : std_logic_vector(7 downto 0);
 	signal s_write_data_crc_ok : std_logic;
 
-	signal s_write_address : natural range 0 to ((2 ** g_MEMORY_ADDRESS_WIDTH) - 1);
-	signal s_byte_counter  : natural range 0 to ((2 ** g_DATA_LENGTH_WIDTH) - 1);
+	signal s_write_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_byte_counter  : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 
 	type write_verify_buffer_t is array (0 to ((2 ** g_VERIFY_BUFFER_WIDTH) - 1)) of std_logic_vector(7 downto 0);
 	signal s_write_verify_buffer : write_verify_buffer_t;
 
-	signal s_write_address_vector : std_logic_vector(39 downto 0);
-	signal s_byte_counter_vector  : std_logic_vector(23 downto 0);
+	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
-
-	s_write_address_vector <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
-	s_byte_counter_vector  <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -146,8 +142,8 @@ begin
 		if (reset_n_i = '0') then
 			s_rmap_target_write_state      <= IDLE;
 			s_rmap_target_write_next_state <= IDLE;
-			s_write_address                <= 0;
-			s_byte_counter                 <= 0;
+			s_write_address                <= (others => '0');
+			s_byte_counter                 <= (others => '0');
 			s_write_data_crc               <= x"00";
 			s_write_data_crc_ok            <= '0';
 		-- state transitions are always synchronous to the clock
@@ -161,8 +157,8 @@ begin
 					s_rmap_target_write_state      <= IDLE;
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
-					s_write_address                <= 0;
-					s_byte_counter                 <= 0;
+					s_write_address                <= (others => '0');
+					s_byte_counter                 <= (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
@@ -170,13 +166,9 @@ begin
 					if (control_i.write_authorization = '1') then
 						-- user application authorized write operation
 						-- update data address
-						s_write_address                <= to_integer(unsigned(
-							s_write_address_vector
-						));
+						s_write_address                <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
 						-- prepare byte counter for multi-byte write data
-						s_byte_counter                 <= to_integer(unsigned(
-							s_byte_counter_vector
-						));
+						s_byte_counter                 <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 						-- go to waiting buffer data
 						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
 						-- prepare for next field (data field)
@@ -216,7 +208,7 @@ begin
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
-					if (s_byte_counter = 0) then
+					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
 						-- all data written
 						-- go to next field (data crc)
 						s_rmap_target_write_next_state <= FIELD_DATA_CRC;
@@ -230,11 +222,12 @@ begin
 							-- check if address need to be incremented
 							if (headerdata_i.instruction_increment_address = '1') then
 								-- increment address (for next data)
-								s_write_address <= s_write_address + 1;
+								s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
 							end if;
 						end if;
 						-- update byte counter (for next byte)
-						s_byte_counter <= s_byte_counter - 1;
+						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
+
 					end if;
 
 				-- state "FIELD_DATA_CRC"
@@ -244,7 +237,7 @@ begin
 					s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
 					s_rmap_target_write_next_state <= FIELD_EOP;
 					-- default internal signal values
-					s_byte_counter                 <= 0;
+					s_byte_counter                 <= (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
@@ -259,7 +252,7 @@ begin
 					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
-					s_byte_counter                 <= 0;
+					s_byte_counter                 <= (others => '0');
 					s_write_data_crc               <= x"00";
 					-- conditional state transition and internal signal values
 					-- check if an end of package arrived
@@ -270,9 +263,7 @@ begin
 							-- data need to be verified and data crc checked out
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
-							s_byte_counter                 <= to_integer(unsigned(
-								s_byte_counter_vector
-							));
+							s_byte_counter                 <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
 						end if;
@@ -294,7 +285,7 @@ begin
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
-					if (s_byte_counter = 0) then
+					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
 						-- all data written
 						-- finish write operation
 						s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
@@ -302,11 +293,11 @@ begin
 					else
 						-- there is still more data to be written
 						-- update byte counter (for next byte)
-						s_byte_counter <= s_byte_counter - 1;
+						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
 						-- check if address need to be incremented
 						if (headerdata_i.instruction_increment_address = '1') then
 							-- increment address (for next data)
-							s_write_address <= s_write_address + 1;
+							s_write_address <= std_logic_vector(unsigned(s_write_address) + 1);
 						end if;
 					end if;
 
@@ -347,7 +338,7 @@ begin
 					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
-					s_byte_counter                 <= 0;
+					s_byte_counter                 <= (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 				-- conditional state transition and internal signal values
@@ -377,7 +368,7 @@ begin
 					s_rmap_target_write_state      <= WRITE_FINISH_OPERATION;
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
-					s_byte_counter                 <= 0;
+					s_byte_counter                 <= (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
@@ -461,10 +452,10 @@ begin
 					if (headerdata_i.instruction_verify_data_before_write = '1') then
 						-- data need to be verified to be written
 						-- write data in verify buffer
-						s_write_verify_buffer(s_byte_counter) <= spw_flag_i.data;
+						s_write_verify_buffer(to_integer(unsigned(s_byte_counter))) <= spw_flag_i.data;
 					else
 						mem_control_o.write   <= '1';
-						mem_control_o.address <= std_logic_vector(to_unsigned(s_write_address, 8));
+						mem_control_o.address <= s_write_address((mem_control_o.address'length - 1) downto 0);
 						mem_control_o.data    <= spw_flag_i.data;
 					end if;
 
@@ -505,8 +496,8 @@ begin
 					mem_control_o.write   <= '0';
 					-- default output signals
 					mem_control_o.write   <= '1';
-					mem_control_o.address <= std_logic_vector(to_unsigned(s_write_address, 8));
-					mem_control_o.data    <= s_write_verify_buffer(s_byte_counter);
+					mem_control_o.address <= s_write_address((mem_control_o.address'length - 1) downto 0);
+					mem_control_o.data    <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
 				-- conditional output signals
 
 				-- state "WRITE_DATA"

@@ -57,7 +57,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 
 entity rmap_target_read_ent is
 	generic(
-		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 30;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
 		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
 	);
 	port(
@@ -73,7 +73,7 @@ entity rmap_target_read_ent is
 		-- global output signals
 
 		flags_o       : out t_rmap_target_read_flags;
---		error_o       : out t_rmap_target_read_error;
+		--		error_o       : out t_rmap_target_read_error;
 		spw_control_o : out t_rmap_target_spw_tx_control;
 		mem_control_o : out t_rmap_target_mem_rd_control
 		-- data bus(es)
@@ -103,19 +103,15 @@ architecture rtl of rmap_target_read_ent is
 
 	signal s_read_data_crc : std_logic_vector(7 downto 0);
 
-	signal s_read_address : natural range 0 to ((2 ** g_MEMORY_ADDRESS_WIDTH) - 1);
-	signal s_byte_counter : natural range 0 to ((2 ** g_DATA_LENGTH_WIDTH) - 1);
+	signal s_read_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_byte_counter : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 
-	signal s_read_address_vector : std_logic_vector(39 downto 0);
-	signal s_byte_counter_vector : std_logic_vector(23 downto 0);
+	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
-
-	s_read_address_vector <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
-	s_byte_counter_vector <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -139,8 +135,8 @@ begin
 		if (reset_n_i = '0') then
 			s_rmap_target_read_state      <= IDLE;
 			s_rmap_target_read_next_state <= IDLE;
-			s_read_address                <= 0;
-			s_byte_counter                <= 0;
+			s_read_address                <= (others => '0');
+			s_byte_counter                <= (others => '0');
 			s_read_data_crc               <= x"00";
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -153,21 +149,17 @@ begin
 					s_rmap_target_read_state      <= IDLE;
 					s_rmap_target_read_next_state <= FIELD_DATA;
 					-- default internal signal values
-					s_read_address                <= 0;
-					s_byte_counter                <= 0;
+					s_read_address                <= (others => '0');
+					s_byte_counter                <= (others => '0');
 					s_read_data_crc               <= x"00";
 					-- conditional state transition and internal signal values
 					-- check if user application authorized a read
 					if (control_i.read_authorization = '1') then
 						-- user application authorized read operation
 						-- update data address
-						s_read_address                <= to_integer(unsigned(
-							s_read_address_vector
-						));
+						s_read_address                <= headerdata_i.extended_address & headerdata_i.address(3) & headerdata_i.address(2) & headerdata_i.address(1) & headerdata_i.address(0);
 						-- prepare byte counter for multi-byte read data
-						s_byte_counter                <= to_integer(unsigned(
-							s_byte_counter_vector
-						));
+						s_byte_counter                <= headerdata_i.data_length(2) & headerdata_i.data_length(1) & headerdata_i.data_length(0);
 						-- go to wating buffer space
 						s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 						-- prepare for next field (data field)
@@ -195,21 +187,21 @@ begin
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= FIELD_DATA;
 					-- default internal signal values
-					s_byte_counter                <= 0;
+					s_byte_counter                <= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if all data has been read
-					if (s_byte_counter = 0) then
+					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
 						-- all data read
 						-- go to next field (data crc)
 						s_rmap_target_read_next_state <= FIELD_DATA_CRC;
 					else
 						-- there is still more data to be read
 						-- update byte counter (for next byte)
-						s_byte_counter <= s_byte_counter - 1;
+						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
 						-- check if address need to be incremented
 						if (headerdata_i.instruction_increment_address = '1') then
 							-- increment address (for next data)
-							s_read_address <= s_read_address + 1;
+							s_read_address <= std_logic_vector(unsigned(s_read_address) + 1);
 						end if;
 					end if;
 
@@ -220,7 +212,7 @@ begin
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= FIELD_EOP;
 					-- default internal signal values
-					s_byte_counter                <= 0;
+					s_byte_counter                <= (others => '0');
 				-- conditional state transition and internal signal values
 
 				-- state "FIELD_EOP"
@@ -230,7 +222,7 @@ begin
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
-					s_byte_counter                <= 0;
+					s_byte_counter                <= (others => '0');
 				-- conditional state transition and internal signal values
 
 				-- state "READ_DATA"
@@ -260,7 +252,7 @@ begin
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
-					s_byte_counter                <= 0;
+					s_byte_counter                <= (others => '0');
 				-- conditional state transition and internal signal values
 
 				-- state "READ_FINISH_OPERATION"
@@ -270,7 +262,7 @@ begin
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
-					s_byte_counter                <= 0;
+					s_byte_counter                <= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if user application commanded a read reset
 					if (control_i.read_reset = '1') then
@@ -388,7 +380,7 @@ begin
 					-- default output signals
 					flags_o.read_busy     <= '1';
 					-- set memory address
-					mem_control_o.address <= std_logic_vector(to_unsigned(s_read_address, mem_control_o.address'length));
+					mem_control_o.address <= s_read_address((mem_control_o.address'length - 1) downto 0);
 					-- set memory read request
 					mem_control_o.read    <= '1';
 				-- conditional output signals

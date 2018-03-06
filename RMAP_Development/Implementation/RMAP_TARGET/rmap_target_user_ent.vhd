@@ -106,14 +106,12 @@ architecture rtl of rmap_target_user_ent is
 	signal s_error_rmap_command_not_implemented_or_not_authorised : std_logic;
 	signal s_error_invalid_target_logical_address                 : std_logic;
 
-	signal s_byte_counter_vector : std_logic_vector(23 downto 0);
+	signal s_data_length_vector : std_logic_vector(23 downto 0);
 
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
-
-	s_byte_counter_vector <= codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0);
 
 	--============================================================================
 	-- Beginning of p_rmap_target_top
@@ -243,7 +241,7 @@ begin
 					if (codecdata_i.instructions.command.verify_data_before_write = '1') then
 						-- data need to be verified
 						-- check if the verify buffer can accept the data
-						if (((2 ** g_VERIFY_BUFFER_WIDTH) - 1) >= to_integer(unsigned(s_byte_counter_vector))) then
+						if (((2 ** g_VERIFY_BUFFER_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
 							-- can accept the data
 							v_authorization_granted(2) := '1';
 						else
@@ -253,7 +251,7 @@ begin
 					else
 						-- data does not need to be verified
 						-- check if the memory can accept the data						
-						if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= to_integer(unsigned(s_byte_counter_vector))) then
+						if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
 							-- can accept the data
 							v_authorization_granted(2) := '1';
 						else
@@ -341,7 +339,7 @@ begin
 						v_authorization_granted(2) := '1';
 					end if;
 					-- check if the read command data length is compatible
-					if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= to_integer(unsigned(s_byte_counter_vector))) then
+					if (((2 ** g_DATA_LENGTH_WIDTH) - 1) >= unsigned(s_data_length_vector)) then
 						-- can accept the data
 						v_authorization_granted(3) := '1';
 					else
@@ -611,6 +609,8 @@ begin
 			end case;
 		end if;
 	end process p_rmap_target_user_FSM_output;
+
+	s_data_length_vector <= codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0);
 
 end architecture rtl;
 --============================================================================

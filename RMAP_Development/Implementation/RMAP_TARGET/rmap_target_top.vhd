@@ -94,7 +94,7 @@ begin
 	rmap_target_user_ent_inst : entity work.rmap_target_user_ent
 		generic map(
 			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 30,
+			g_MEMORY_ADDRESS_WIDTH => 32,
 			g_DATA_LENGTH_WIDTH    => 24
 		)
 		port map(
@@ -138,7 +138,7 @@ begin
 	rmap_target_write_ent_inst : entity work.rmap_target_write_ent
 		generic map(
 			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 30,
+			g_MEMORY_ADDRESS_WIDTH => 32,
 			g_DATA_LENGTH_WIDTH    => 24
 		)
 		port map(
@@ -160,7 +160,7 @@ begin
 
 	rmap_target_read_ent_inst : entity work.rmap_target_read_ent
 		generic map(
-			g_MEMORY_ADDRESS_WIDTH => 30,
+			g_MEMORY_ADDRESS_WIDTH => 32,
 			g_DATA_LENGTH_WIDTH    => 24
 		)
 		port map(
