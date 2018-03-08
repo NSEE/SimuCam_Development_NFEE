@@ -107,6 +107,8 @@ architecture rtl of rmap_target_write_ent is
 	signal s_write_data_crc    : std_logic_vector(7 downto 0);
 	signal s_write_data_crc_ok : std_logic;
 
+	signal s_write_error : std_logic;
+
 	signal s_write_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 	signal s_byte_counter  : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 
@@ -179,6 +181,14 @@ begin
 						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
 						-- prepare for next field (data field)
 						s_rmap_target_write_next_state <= FIELD_DATA;
+					-- check if a write request was not authorized by the user application
+					elsif (control_i.write_not_authorized = '1') then
+						-- write request not authorized
+						-- discard rest of the write package
+						-- go to waiting buffer data
+						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+						-- prepare to wait for package end
+						s_rmap_target_write_next_state <= WAITING_PACKAGE_END;
 					end if;
 
 				-- state "WAITING_BUFFER_DATA"
@@ -202,7 +212,7 @@ begin
 							s_rmap_target_write_state <= s_rmap_target_write_next_state;
 						end if;
 					end if;
-					
+
 				-- state "FIELD_DATA"
 				when FIELD_DATA =>
 					-- data field, receive write data from the initiator
@@ -319,8 +329,14 @@ begin
 					-- check if the memory is ready for more data
 					if (mem_flag_i.ready = '1') then
 						-- memory is ready for more data
-						-- go to next data field
-						s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						-- check if the data need to be verified before written
+						if (headerdata_i.instruction_verify_data_before_write = '1') then
+							-- data need to be verified, go to write verified data
+							s_rmap_target_write_state <= WRITE_VERIFIED_DATA;
+						else
+							-- data does not need to be verified, go to waiting buffer data
+							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						end if;
 					-- check if and write error occured
 					elsif (mem_flag_i.error = '1') then
 						-- write error ocurred
@@ -331,7 +347,7 @@ begin
 							s_rmap_target_write_next_state <= IDLE;
 						else
 							-- data does not need to be verified, go to next data field
-							s_rmap_target_write_state <= s_rmap_target_write_next_state;
+							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
 						end if;
 
 					end if;
@@ -401,13 +417,12 @@ begin
 	-- write:
 	-- r/w:
 	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_n_i)
-		variable v_write_error : std_logic;
-
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
+			flags_o.write_data_discarded   <= '0';
 			flags_o.write_busy             <= '0';
 			error_o.early_eop              <= '0';
 			error_o.eep                    <= '0';
@@ -418,7 +433,7 @@ begin
 			mem_control_o.address          <= (others => '0');
 			mem_control_o.data             <= (others => '0');
 			s_write_verify_buffer          <= (others => x"00");
-			v_write_error                  := '0';
+			s_write_error                  <= '0';
 		-- output generation when s_rmap_target_write_state changes
 		else
 			case (s_rmap_target_write_state) is
@@ -429,6 +444,7 @@ begin
 					-- default output signals
 					flags_o.write_data_indication  <= '0';
 					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
 					flags_o.write_busy             <= '0';
 					error_o.early_eop              <= '0';
 					error_o.eep                    <= '0';
@@ -438,7 +454,8 @@ begin
 					mem_control_o.write            <= '0';
 					mem_control_o.address          <= (others => '0');
 					mem_control_o.data             <= (others => '0');
-					v_write_error                  := '0';
+					s_write_verify_buffer          <= (others => x"00");
+					s_write_error                  <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_DATA"
@@ -481,7 +498,7 @@ begin
 					if not (s_write_data_crc = spw_flag_i.data) then
 						-- flag the error
 						error_o.invalid_data_crc <= '1';
-						v_write_error            := '1';
+						s_write_error            <= '1';
 					end if;
 
 				-- state "FIELD_EOP"
@@ -497,7 +514,7 @@ begin
 						-- data arrived, not an end of package
 						-- too much data error
 						error_o.too_much_data <= '1';
-						v_write_error         := '1';
+						s_write_error         <= '1';
 					end if;
 
 				-- state "WRITE_VERIFIED_DATA"
@@ -530,7 +547,7 @@ begin
 					mem_control_o.write <= '0';
 					error_o.early_eop   <= '0';
 					error_o.eep         <= '0';
-					v_write_error       := '1';
+					s_write_error       <= '1';
 					-- conditional output signals
 					-- check if the unexpected package end is an early eop or and eep
 					if (spw_flag_i.data = c_EOP_VALUE) then
@@ -557,16 +574,24 @@ begin
 					flags_o.write_busy             <= '1';
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_indication  <= '0';
+					flags_o.write_data_discarded   <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
 					-- conditional output signals
-					-- check if a write error ocurred
-					if (v_write_error = '1') then
-						-- error ocurred, write operation failed
-						flags_o.write_operation_failed <= '1';
+					-- check if the rest of the write package was discarded
+					if (control_i.write_not_authorized = '1') then
+						-- rest of the write package discarded
+						flags_o.write_data_discarded <= '1';
 					else
-						-- operation successful
-						flags_o.write_data_indication <= '1';
+						-- write package not discarded
+						-- check if a write error ocurred
+						if (s_write_error = '1') then
+							-- error ocurred, write operation failed
+							flags_o.write_operation_failed <= '1';
+						else
+							-- operation successful
+							flags_o.write_data_indication <= '1';
+						end if;
 					end if;
 
 				-- all the other states (not defined)

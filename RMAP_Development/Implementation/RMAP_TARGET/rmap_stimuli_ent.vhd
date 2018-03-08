@@ -101,7 +101,15 @@ begin
 
 				v_header(0)   := x"FE"; -- target logical address
 				v_header(1)   := x"01"; -- protocol identifier
-				v_header(2)   := x"6C"; -- instruction
+--				v_header(2)   := x"6C"; -- instruction
+--				v_header(2)   := "01100000"; -- instruction
+--				v_header(2)   := "01100100"; -- instruction
+--				v_header(2)   := "01101000"; -- instruction
+--				v_header(2)   := "01101100"; -- instruction
+--				v_header(2)   := "01110000"; -- instruction
+--				v_header(2)   := "01110100"; -- instruction
+--				v_header(2)   := "01111000"; -- instruction
+				v_header(2)   := "01111100"; -- instruction
 				v_header(3)   := x"00"; -- key
 				v_header(4)   := x"67"; -- initiator logical address
 				v_header(5)   := x"00"; -- transaction identifier ms
@@ -110,7 +118,7 @@ begin
 				v_header(8)   := x"A0"; -- address ms
 				v_header(9)   := x"00"; -- address
 				v_header(10)  := x"00"; -- address
-				v_header(11)  := x"00"; -- address ls
+				v_header(11)  := x"05"; -- address ls
 				v_header(12)  := x"00"; -- data length ms
 				v_header(13)  := x"00"; -- data length 
 				v_header(14)  := x"10"; -- data length ls
@@ -178,8 +186,8 @@ begin
 						spw_tx_control.write <= '1';
 						spw_tx_control.flag  <= '0';
 						--						spw_tx_control.data  <= v_data(v_field_counter);
---						spw_tx_control.data  <= v_crc;
-						spw_tx_control.data  <= x"44";
+						spw_tx_control.data  <= v_crc;
+--						spw_tx_control.data  <= x"67";
 						v_crc                := x"00";
 						v_field_counter      := 0;
 

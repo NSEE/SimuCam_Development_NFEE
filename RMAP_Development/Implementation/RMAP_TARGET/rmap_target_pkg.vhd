@@ -145,13 +145,15 @@ package rmap_target_pkg is
 	-- write operation
 
 	type t_rmap_target_write_control is record
-		write_authorization : std_logic;
-		write_reset         : std_logic;
+		write_authorization  : std_logic;
+		write_not_authorized : std_logic;
+		write_reset          : std_logic;
 	end record t_rmap_target_write_control;
 
 	type t_rmap_target_write_flags is record
 		write_data_indication  : std_logic;
 		write_operation_failed : std_logic;
+		write_data_discarded   : std_logic;
 		write_busy             : std_logic;
 	end record t_rmap_target_write_flags;
 

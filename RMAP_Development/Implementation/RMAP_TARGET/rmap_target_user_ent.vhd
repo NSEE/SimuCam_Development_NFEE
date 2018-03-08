@@ -90,6 +90,7 @@ architecture rtl of rmap_target_user_ent is
 		DISCARDED_PACKAGE,
 		WRITE_AUTHORIZATION,
 		WAITING_WRITE_FINISH,
+		WAITING_WRITE_DISCARD,
 		WRITE_OPERATION_FINISH,
 		READ_AUTHORIZATION,
 		WAITING_READ_FINISH,
@@ -210,7 +211,7 @@ begin
 				when WRITE_AUTHORIZATION =>
 					-- write operation authorization
 					-- default state transition
-					s_rmap_target_user_state                               <= FINISH_USER_OPERATION;
+					s_rmap_target_user_state                               <= WAITING_WRITE_DISCARD;
 					-- default internal signal values
 					s_error_general_error                                  <= '0';
 					s_error_invalid_key                                    <= '0';
@@ -264,13 +265,6 @@ begin
 					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 						-- authorization granted
 						s_rmap_target_user_state <= WAITING_WRITE_FINISH;
-					else
-						-- authorization not granted
-						-- check if a reply is needed
-						if (codecdata_i.instructions.command.reply = '1') then
-							-- reply needed
-							s_rmap_target_user_state <= SEND_REPLY;
-						end if;
 					end if;
 
 				-- state "WAITING_WRITE_FINISH"
@@ -287,7 +281,20 @@ begin
 						s_rmap_target_user_state <= WRITE_OPERATION_FINISH;
 					end if;
 
-				-- state "WRITE_OPERATION_FINISH,"
+				-- state "WAITING_WRITE_DISCARD"
+				when WAITING_WRITE_DISCARD =>
+					-- write operation not authorized, wait for the write module to discard the rest of the write package
+					-- default state transition
+					s_rmap_target_user_state <= WAITING_WRITE_DISCARD;
+					-- default internal signal values
+					-- conditional state transition and internal signal values
+					-- check if the write module finished discarding the rest of the package				
+					if (flags_i.write_operation.write_data_discarded = '1') then
+						-- rest of the package discarded, go to write operation finish
+						s_rmap_target_user_state <= WRITE_OPERATION_FINISH;
+					end if;
+
+				-- state "WRITE_OPERATION_FINISH"
 				when WRITE_OPERATION_FINISH =>
 					-- write operation finished, error checking and reply generation
 					-- default state transition
@@ -445,15 +452,16 @@ begin
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
-			control_o.command_parsing.user_ready          <= '0';
-			control_o.command_parsing.command_reset       <= '0';
-			control_o.reply_geneneration.send_reply       <= '0';
-			control_o.reply_geneneration.reply_reset      <= '0';
-			control_o.write_operation.write_authorization <= '0';
-			control_o.write_operation.write_reset         <= '0';
-			control_o.read_operation.read_authorization   <= '0';
-			control_o.read_operation.read_reset           <= '0';
-			reply_status                                  <= x"00";
+			control_o.command_parsing.user_ready           <= '0';
+			control_o.command_parsing.command_reset        <= '0';
+			control_o.reply_geneneration.send_reply        <= '0';
+			control_o.reply_geneneration.reply_reset       <= '0';
+			control_o.write_operation.write_authorization  <= '0';
+			control_o.write_operation.write_not_authorized <= '0';
+			control_o.write_operation.write_reset          <= '0';
+			control_o.read_operation.read_authorization    <= '0';
+			control_o.read_operation.read_reset            <= '0';
+			reply_status                                   <= x"00";
 		-- output generation when s_rmap_target_user_state changes
 		else
 			case (s_rmap_target_user_state) is
@@ -462,15 +470,16 @@ begin
 				when IDLE =>
 					-- does nothing until a command package is received
 					-- default output signals
-					control_o.command_parsing.user_ready          <= '1';
-					control_o.command_parsing.command_reset       <= '0';
-					control_o.reply_geneneration.send_reply       <= '0';
-					control_o.reply_geneneration.reply_reset      <= '0';
-					control_o.write_operation.write_authorization <= '0';
-					control_o.write_operation.write_reset         <= '0';
-					control_o.read_operation.read_authorization   <= '0';
-					control_o.read_operation.read_reset           <= '0';
-					reply_status                                  <= x"00";
+					control_o.command_parsing.user_ready           <= '1';
+					control_o.command_parsing.command_reset        <= '0';
+					control_o.reply_geneneration.send_reply        <= '0';
+					control_o.reply_geneneration.reply_reset       <= '0';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.write_operation.write_reset          <= '0';
+					control_o.read_operation.read_authorization    <= '0';
+					control_o.read_operation.read_reset            <= '0';
+					reply_status                                   <= x"00";
 				-- conditional output signals
 
 				-- state "COMMAND_RECEIVED"
@@ -486,56 +495,72 @@ begin
 				when DISCARDED_PACKAGE =>
 					-- incoming package discarded, treat errors
 					-- default output signals
-					control_o.write_operation.write_authorization <= '0';
-					control_o.read_operation.read_authorization   <= '0';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '0';
 				-- conditional output signals
 
 				-- state "WRITE_AUTHORIZATION"
 				when WRITE_AUTHORIZATION =>
 					-- write operation authorization
 					-- default output signals
-					control_o.write_operation.write_authorization <= '0';
-					control_o.read_operation.read_authorization   <= '0';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_WRITE_FINISH"
 				when WAITING_WRITE_FINISH =>
 					-- wait the end of a write operation
 					-- default output signals
-					control_o.write_operation.write_authorization <= '1';
-					control_o.read_operation.read_authorization   <= '0';
+					control_o.write_operation.write_authorization  <= '1';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '0';
 				-- conditional output signals
+
+				-- state "WAITING_WRITE_DISCARD"
+				when WAITING_WRITE_DISCARD =>
+					-- write operation not authorized, wait for the write module to discard the rest of the write package
+					-- default output signals
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '1';
+					control_o.read_operation.read_authorization    <= '0';
+				-- conditional output signals	
 
 				-- state "WRITE_OPERATION_FINISH,"
 				when WRITE_OPERATION_FINISH =>
 					-- write operation finished, error checking and reply generation
 					-- default output signals
-					control_o.write_operation.write_authorization <= '1';
-					control_o.read_operation.read_authorization   <= '0';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '0';
 				-- conditional output signals
 
 				-- state "READ_AUTHORIZATION"
 				when READ_AUTHORIZATION =>
 					-- read operation authorization
 					-- default output signals
-					control_o.write_operation.write_authorization <= '0';
-					control_o.read_operation.read_authorization   <= '0';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_READ_FINISH"
 				when WAITING_READ_FINISH =>
 					-- wait the end of a read operation
 					-- default output signals
-					control_o.write_operation.write_authorization <= '0';
-					control_o.read_operation.read_authorization   <= '1';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '1';
 				-- conditional output signals
 
 				-- state "READ_OPERATION_FINISH,"
 				when READ_OPERATION_FINISH =>
 					-- read operation finished, error checking and reply generation
 					-- default output signals
-					control_o.write_operation.write_authorization <= '0';
-					control_o.read_operation.read_authorization   <= '1';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.read_operation.read_authorization    <= '0';
 				-- conditional output signals
 
 				-- state "SEND_REPLY"
@@ -592,15 +617,16 @@ begin
 				when FINISH_USER_OPERATION =>
 					-- finish the user module operation
 					-- default output signals
-					control_o.command_parsing.user_ready          <= '0';
-					control_o.command_parsing.command_reset       <= '1';
-					control_o.reply_geneneration.send_reply       <= '0';
-					control_o.reply_geneneration.reply_reset      <= '1';
-					control_o.write_operation.write_authorization <= '0';
-					control_o.write_operation.write_reset         <= '1';
-					control_o.read_operation.read_authorization   <= '0';
-					control_o.read_operation.read_reset           <= '1';
-					reply_status                                  <= x"00";
+					control_o.command_parsing.user_ready           <= '0';
+					control_o.command_parsing.command_reset        <= '1';
+					control_o.reply_geneneration.send_reply        <= '0';
+					control_o.reply_geneneration.reply_reset       <= '1';
+					control_o.write_operation.write_authorization  <= '0';
+					control_o.write_operation.write_not_authorized <= '0';
+					control_o.write_operation.write_reset          <= '1';
+					control_o.read_operation.read_authorization    <= '0';
+					control_o.read_operation.read_reset            <= '1';
+					reply_status                                   <= x"00";
 				-- conditional output signals
 
 				-- all the other states (not defined)

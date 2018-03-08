@@ -114,6 +114,7 @@ architecture rtl of rmap_target_command_ent is
 	signal s_invalid_command_code : std_logic;
 
 	signal s_discarted_package : std_logic;
+	signal s_not_rmap_package  : std_logic;
 
 	signal s_byte_counter : natural range 0 to 11;
 
@@ -609,6 +610,7 @@ begin
 			headerdata_o.data_length                                   <= (others => x"00");
 			spw_control_o.read                                         <= '0';
 			s_discarted_package                                        <= '0';
+			s_not_rmap_package                                         <= '0';
 		-- output generation when s_rmap_target_command_state changes
 		else
 			case (s_rmap_target_command_state) is
@@ -644,6 +646,7 @@ begin
 					headerdata_o.data_length                                   <= (others => x"00");
 					spw_control_o.read                                         <= '0';
 					s_discarted_package                                        <= '0';
+					s_not_rmap_package                                         <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_DATA"
@@ -849,19 +852,20 @@ begin
 					headerdata_o.address                                       <= (others => x"00");
 					headerdata_o.data_length                                   <= (others => x"00");
 					spw_control_o.read                                         <= '0';
+					s_not_rmap_package                                         <= '1';
 				-- conditional output signals
 
 				-- state "DISCARD_PACKAGE"
 				when DISCARD_PACKAGE =>
 					-- discard current spw package data
 					-- default output signals
-					flags_o.command_received                                   <= '0';
-					flags_o.write_request                                      <= '0';
-					flags_o.read_request                                       <= '0';
-					flags_o.discarded_package                                  <= '0';
-					flags_o.command_busy                                       <= '1';
-					spw_control_o.read                                         <= '0';
-					s_discarted_package                                        <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					flags_o.command_busy      <= '1';
+					spw_control_o.read        <= '0';
+					s_discarted_package       <= '1';
 				-- conditional output signals
 
 				-- state "COMMAND_FINISH_OPERATION"
@@ -875,19 +879,23 @@ begin
 					flags_o.write_request     <= '0';
 					flags_o.read_request      <= '0';
 					-- conditional output signals
-					-- check if the package was discarded
-					if (s_discarted_package = '1') then
-						-- discarded package, set the flag
-						flags_o.discarded_package <= '1';
-					else
-						-- package not discarded
-						-- check if the request is for a write or read
-						if (s_write_command = '1') then
-							-- write request, set the flag
-							flags_o.write_request <= '1';
+					-- check if the spw data was a rmap package
+					if not (s_not_rmap_package = '1') then
+						-- rmap package
+						-- check if the package was discarded
+						if (s_discarted_package = '1') then
+							-- discarded package, set the flag
+							flags_o.discarded_package <= '1';
 						else
-							-- read request, set the flag
-							flags_o.read_request <= '1';
+							-- package not discarded
+							-- check if the request is for a write or read
+							if (s_write_command = '1') then
+								-- write request, set the flag
+								flags_o.write_request <= '1';
+							else
+								-- read request, set the flag
+								flags_o.read_request <= '1';
+							end if;
 						end if;
 					end if;
 

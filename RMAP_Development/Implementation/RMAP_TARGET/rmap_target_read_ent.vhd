@@ -102,6 +102,8 @@ architecture rtl of rmap_target_read_ent is
 	signal s_rmap_target_read_next_state : t_rmap_target_read_state;
 
 	signal s_read_data_crc : std_logic_vector(7 downto 0);
+	
+	signal s_read_error : std_logic;
 
 	signal s_read_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 	signal s_byte_counter : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
@@ -293,7 +295,6 @@ begin
 	-- write:
 	-- r/w:
 	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, reset_n_i)
-		variable v_read_error : std_logic;
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
@@ -306,7 +307,7 @@ begin
 			mem_control_o.address         <= (others => '0');
 			mem_control_o.read            <= '0';
 			s_read_data_crc               <= x"00";
-			v_read_error                  := '0';
+			s_read_error                  <= '0';
 		-- output generation when s_rmap_target_read_state changes
 		else
 			case (s_rmap_target_read_state) is
@@ -325,7 +326,7 @@ begin
 					mem_control_o.address         <= (others => '0');
 					mem_control_o.read            <= '0';
 					s_read_data_crc               <= x"00";
-					v_read_error                  := '0';
+					s_read_error                  <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -372,7 +373,7 @@ begin
 					-- default output signals
 					flags_o.read_busy   <= '1';
 					-- indicate that the read operation was successful
-					v_read_error        := '0';
+					s_read_error        <= '0';
 					-- set spw flag (to indicate a package end)
 					spw_control_o.flag  <= '1';
 					-- fill spw data with the eop identifier (0x00)
@@ -399,7 +400,7 @@ begin
 					-- default output signals
 					flags_o.read_busy   <= '1';
 					-- set the error flag
-					v_read_error        := '1';
+					s_read_error        <= '1';
 					-- set spw flag (to indicate a package end)
 					spw_control_o.flag  <= '1';
 					-- fill spw data with the eep identifier (0x01)
@@ -422,7 +423,7 @@ begin
 					-- update output information
 					-- conditional output signals
 					-- check if a read error ocurred
-					if (v_read_error = '1') then
+					if (s_read_error = '1') then
 						-- error ocurred, write operation failed
 						flags_o.read_operation_failed <= '1';
 					else
