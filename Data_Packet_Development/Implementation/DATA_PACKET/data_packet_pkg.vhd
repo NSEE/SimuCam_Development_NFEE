@@ -11,12 +11,14 @@ package data_packet_pkg is
 
 	-- general
 
+	type t_data_packet_16b_field is array (0 to 1) of std_logic_vector(7 downto 0);
+
 	type t_data_packet_headerdata is record
 		logical_address  : std_logic_vector(7 downto 0);
-		length_field     : std_logic_vector(15 downto 0);
-		type_field       : std_logic_vector(15 downto 0);
-		frame_counter    : std_logic_vector(15 downto 0);
-		sequence_counter : std_logic_vector(15 downto 0);
+		length_field     : t_data_packet_16b_field;
+		type_field       : t_data_packet_16b_field;
+		frame_counter    : t_data_packet_16b_field;
+		sequence_counter : t_data_packet_16b_field;
 	end record t_data_packet_headerdata;
 
 	-- header unit

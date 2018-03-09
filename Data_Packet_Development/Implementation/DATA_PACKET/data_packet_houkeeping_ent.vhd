@@ -60,6 +60,7 @@ begin
 				-- conditional state transition and internal signal values
 
 				-- state "WAITING_BUFFER_SPACE"
+					-- TODO
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default state transition
@@ -67,6 +68,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "FIELD_HKDATA_TEMPERATURE"
+					-- TODO
 				when FIELD_HKDATA_TEMPERATURE =>
 					-- hk temperature field, send hk temperature to the target
 					-- default state transition
@@ -74,6 +76,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "FIELD_HKDATA_VOLTAGE"
+					-- TODO
 				when FIELD_HKDATA_VOLTAGE =>
 					-- hk voltage field, send hk voltage to the target
 					-- default state transition
@@ -81,6 +84,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "FIELD_HKDATA_CURRENT"
+					-- TODO
 				when FIELD_HKDATA_CURRENT =>
 					-- hk current field, send hk current to the target
 					-- default state transition
@@ -88,6 +92,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "FIELD_EOP"
+					-- TODO
 				when FIELD_EOP =>
 					-- eop field, send eop to the target
 					-- default state transition
@@ -95,6 +100,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "HK_ERROR"
+					-- TODO
 				when HK_ERROR =>
 					-- hk error ocurred, send eep to the target
 					-- default state transition
@@ -102,6 +108,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "HOUSEKEEPING_UNIT_FINISH_OPERATION"
+					-- TODO
 				when HOUSEKEEPING_UNIT_FINISH_OPERATION =>
 					-- finish housekeeping unit operation
 					-- default state transition
@@ -128,48 +135,56 @@ begin
 			case (s_data_packet_housekeeping_state) is
 
 				-- state "IDLE"
+					-- TODO
 				when IDLE =>
 					-- does nothing until the control unit signals it is ready to send housekeeping data
 					-- default output signals
 					-- conditional output signals
 
 					-- state "WAITING_BUFFER_SPACE"
+					-- TODO
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default output signals
 					-- conditional output signals
 
 					-- state "FIELD_HKDATA_TEMPERATURE"
+					-- TODO
 				when FIELD_HKDATA_TEMPERATURE =>
 					-- hk temperature field, send hk temperature to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "FIELD_HKDATA_VOLTAGE"
+					-- TODO
 				when FIELD_HKDATA_VOLTAGE =>
 					-- hk voltage field, send hk voltage to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "FIELD_HKDATA_CURRENT"
+					-- TODO
 				when FIELD_HKDATA_CURRENT =>
 					-- hk current field, send hk current to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "FIELD_EOP"
+					-- TODO
 				when FIELD_EOP =>
 					-- eop field, send eop to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "HK_ERROR"
+					-- TODO
 				when HK_ERROR =>
 					-- he error ocurred, send eep to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "HOUSEKEEPING_UNIT_FINISH_OPERATION"
+					-- TODO
 				when HOUSEKEEPING_UNIT_FINISH_OPERATION =>
 					-- finish housekeeping unit operation
 					-- default output signals

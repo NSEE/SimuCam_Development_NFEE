@@ -471,7 +471,7 @@ begin
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with the rmap protocol identifier (0x01)
-					spw_control_o.data     <= x"01";
+					spw_control_o.data     <= c_RMAP_PROTOCOL;
 					-- update crc calculation
 					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, x"01");
 					-- write the spw data

@@ -51,6 +51,7 @@ begin
 			case (s_data_packet_image_state) is
 
 				-- state "IDLE"
+					-- TODO
 				when IDLE =>
 					-- does nothing until the control unit signals it is ready to send image data
 					-- default state transition
@@ -60,6 +61,7 @@ begin
 				-- conditional state transition and internal signal values
 
 				-- state "WAITING_BUFFER_SPACE"
+					-- TODO
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default state transition
@@ -67,6 +69,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "FIELD_IMGDATA"
+					-- TODO
 				when FIELD_IMGDATA =>
 					-- img data field, send img data to the target
 					-- default state transition
@@ -74,6 +77,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "FIELD_EOP"
+					-- TODO
 				when FIELD_EOP =>
 					-- eop field, send eop to the target
 					-- default state transition
@@ -81,6 +85,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "READ_IMGDATA"
+					-- TODO
 				when READ_IMGDATA =>
 					-- fetch image data
 					-- default state transition
@@ -88,6 +93,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "IMG_ERROR"
+					-- TODO
 				when IMG_ERROR =>
 					-- img error ocurred, send eep to the target
 					-- default state transition
@@ -95,6 +101,7 @@ begin
 					-- conditional state transition and internal signal values
 
 					-- state "IMAGE_UNIT_FINISH_OPERATION"
+					-- TODO
 				when IMAGE_UNIT_FINISH_OPERATION =>
 					-- finish image unit operation
 					-- default state transition
@@ -121,42 +128,49 @@ begin
 			case (s_data_packet_image_state) is
 
 				-- state "IDLE"
+					-- TODO
 				when IDLE =>
 					-- does nothing until the control unit signals it is ready to send image data
 					-- default output signals
 					-- conditional output signals
 
 					-- state "WAITING_BUFFER_SPACE"
+					-- TODO
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default output signals
 					-- conditional output signals
 
 					-- state "FIELD_IMGDATA"
+					-- TODO
 				when FIELD_IMGDATA =>
 					-- img data field, send img data to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "FIELD_EOP"
+					-- TODO
 				when FIELD_EOP =>
 					-- eop field, send eop to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "READ_IMGDATA"
+					-- TODO
 				when READ_IMGDATA =>
 					-- fetch image data
 					-- default output signals
 					-- conditional output signals
 
 					-- state "IMG_ERROR"
+					-- TODO
 				when IMG_ERROR =>
 					-- img error ocurred, send eep to the target
 					-- default output signals
 					-- conditional output signals
 
 					-- state "IMAGE_UNIT_FINISH_OPERATION"
+					-- TODO
 				when IMAGE_UNIT_FINISH_OPERATION =>
 					-- finish image unit operation
 					-- default output signals
