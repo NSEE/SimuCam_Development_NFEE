@@ -262,7 +262,6 @@ begin
 				-- conditional output signals
 
 				-- state "FIELD_EOP"
-				-- TODO
 				when FIELD_EOP =>
 					-- eop field, send eop to the target
 					-- default output signals
@@ -305,10 +304,10 @@ begin
 					-- conditional output signals
 					-- check if an hk error ocurred
 					if (s_hk_error = '1') then
-						-- indicate that a hk error ocurred
+						-- error ocurred, housekeeping operation failed
 						flags_o.housekeeping_error <= '1';
 					else
-						-- indicate that the housekeeping unit operation is finished
+						-- operation successful
 						flags_o.housekeeping_finished <= '1';
 					end if;
 

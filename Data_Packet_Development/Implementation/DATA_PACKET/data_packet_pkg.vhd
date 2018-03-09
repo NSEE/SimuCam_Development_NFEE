@@ -59,6 +59,10 @@ package data_packet_pkg is
 		image_busy     : std_logic;
 	end record t_data_packet_image_flags;
 
+	type t_data_packet_image_headerdata is record
+		length_field : t_data_packet_16b_field;
+	end record t_data_packet_image_headerdata;
+
 	-- control unit
 
 	type t_data_packet_control is record
