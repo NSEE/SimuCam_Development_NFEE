@@ -397,9 +397,10 @@ begin
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default output signals
-					flags_o.reply_busy  <= '1';
+					flags_o.reply_busy     <= '1';
+					flags_o.reply_finished <= '0';
 					-- clear spw tx write signal
-					spw_control_o.write <= '0';
+					spw_control_o.write    <= '0';
 				-- conditional output signals
 
 				-- state "FIELD_REPLY_SPW_ADDRESS"

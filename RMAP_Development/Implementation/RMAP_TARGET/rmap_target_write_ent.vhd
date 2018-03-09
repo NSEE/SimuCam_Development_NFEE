@@ -462,18 +462,24 @@ begin
 				when WAITING_BUFFER_DATA =>
 					-- wait until the spacewire rx buffer has data
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '0';
-					mem_control_o.write <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '0';
+					mem_control_o.write            <= '0';
 				-- conditional output signals
 
 				-- state "FIELD_DATA"
 				when FIELD_DATA =>
 					-- data field, receive write data from the initiator
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '1';
-					mem_control_o.write <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '1';
+					mem_control_o.write            <= '0';
 					-- conditional output signals
 					-- check if the data need to be verified before written
 					if (headerdata_i.instruction_verify_data_before_write = '1') then
@@ -490,9 +496,12 @@ begin
 				when FIELD_DATA_CRC =>
 					-- data crc field, receive write data crc from the initiator
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '1';
-					mem_control_o.write <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '1';
+					mem_control_o.write            <= '0';
 					-- conditional output signals
 					-- check if error crc occured
 					if not (s_write_data_crc = spw_flag_i.data) then
@@ -504,9 +513,12 @@ begin
 				-- state "FIELD_EOP"
 				when FIELD_EOP =>
 					-- eop field, receive eop indicating the end of package
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '1';
-					mem_control_o.write <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '1';
+					mem_control_o.write            <= '0';
 					-- default output signals
 					-- conditional output signals
 					-- check if data arrived insteady of an end of package
@@ -520,34 +532,43 @@ begin
 				-- state "WRITE_VERIFIED_DATA"
 				when WRITE_VERIFIED_DATA =>
 					-- write verified memory data
-					flags_o.write_busy    <= '1';
-					spw_control_o.read    <= '0';
-					mem_control_o.write   <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '0';
+					mem_control_o.write            <= '0';
 					-- default output signals
-					mem_control_o.write   <= '1';
-					mem_control_o.address <= s_write_address((mem_control_o.address'length - 1) downto 0);
-					mem_control_o.data    <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
+					mem_control_o.write            <= '1';
+					mem_control_o.address          <= s_write_address((mem_control_o.address'length - 1) downto 0);
+					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
 				-- conditional output signals
 
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
 					-- write memory data
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '0';
-					mem_control_o.write <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '0';
+					mem_control_o.write            <= '0';
 				-- conditional output signals
 
 				-- state "UNEXPECTED_PACKAGE_END"
 				when UNEXPECTED_PACKAGE_END =>
 					-- unexpected package end arrived
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '1';
-					mem_control_o.write <= '0';
-					error_o.early_eop   <= '0';
-					error_o.eep         <= '0';
-					s_write_error       <= '1';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '1';
+					mem_control_o.write            <= '0';
+					error_o.early_eop              <= '0';
+					error_o.eep                    <= '0';
+					s_write_error                  <= '1';
 					-- conditional output signals
 					-- check if the unexpected package end is an early eop or and eep
 					if (spw_flag_i.data = c_EOP_VALUE) then
@@ -562,9 +583,12 @@ begin
 				when WAITING_PACKAGE_END =>
 					-- wait until a package end arrives
 					-- default output signals
-					flags_o.write_busy  <= '1';
-					spw_control_o.read  <= '1';
-					mem_control_o.write <= '0';
+					flags_o.write_busy             <= '1';
+					flags_o.write_data_indication  <= '0';
+					flags_o.write_operation_failed <= '0';
+					flags_o.write_data_discarded   <= '0';
+					spw_control_o.read             <= '1';
+					mem_control_o.write            <= '0';
 				-- conditional output signals
 
 				-- state "WRITE_FINISH_OPERATION"

@@ -94,6 +94,7 @@ begin
 			-- reset to default value
 			mem_flag_o.error <= '0';
 			mem_flag_o.valid <= '1';
+			mem_flag_o.data  <= (others => '0');
 		elsif (rising_edge(clk_i)) then -- synchronous process
 			
 			if (mem_control_i.read = '1') then

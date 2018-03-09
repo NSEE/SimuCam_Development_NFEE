@@ -94,6 +94,8 @@ begin
 			-- reset to default value
 			mem_flag_o.error <= '0';
 			mem_flag_o.ready <= '1';
+			memory_address_o <= (others => '0');
+			memory_data_o    <= (others => '0');
 		elsif (rising_edge(clk_i)) then -- synchronous process
 
 			if (mem_control_i.write = '1') then

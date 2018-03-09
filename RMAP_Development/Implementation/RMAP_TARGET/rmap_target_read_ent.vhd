@@ -333,64 +333,74 @@ begin
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default output signals
-					flags_o.read_busy   <= '1';
+					flags_o.read_busy             <= '1';
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';
 					-- clear spw tx write signal
-					spw_control_o.write <= '0';
+					spw_control_o.write           <= '0';
 				-- conditional output signals
 
 				-- state "FIELD_DATA"
 				when FIELD_DATA =>
 					-- data field, send read data to initiator
 					-- default output signals
-					flags_o.read_busy   <= '1';
-					mem_control_o.read  <= '0';
+					flags_o.read_busy             <= '1';
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';
+					mem_control_o.read            <= '0';
 					-- clear spw flag (to indicate a data)
-					spw_control_o.flag  <= '0';
+					spw_control_o.flag            <= '0';
 					-- fill spw data with field data
-					spw_control_o.data  <= mem_flag_i.data;
+					spw_control_o.data            <= mem_flag_i.data;
 					-- update crc calculation
-					s_read_data_crc     <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
+					s_read_data_crc               <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
 					-- write the spw data
-					spw_control_o.write <= '1';
+					spw_control_o.write           <= '1';
 				-- conditional output signals
 
 				-- state "FIELD_DATA_CRC"
 				when FIELD_DATA_CRC =>
 					-- data crc field, send read data crc to initiator
 					-- default output signals
-					flags_o.read_busy   <= '1';
+					flags_o.read_busy             <= '1'
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';;
 					-- clear spw flag (to indicate a data)
-					spw_control_o.flag  <= '0';
+					spw_control_o.flag            <= '0';
 					-- fill spw data with field data
-					spw_control_o.data  <= s_read_data_crc;
+					spw_control_o.data            <= s_read_data_crc;
 					-- write the spw data
-					spw_control_o.write <= '1';
+					spw_control_o.write           <= '1';
 				-- conditional output signals
 
 				-- state "FIELD_EOP"
 				when FIELD_EOP =>
 					-- eop field, send eop to indicate end of package
 					-- default output signals
-					flags_o.read_busy   <= '1';
+					flags_o.read_busy             <= '1';
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';
 					-- indicate that the read operation was successful
-					s_read_error        <= '0';
+					s_read_error                  <= '0';
 					-- set spw flag (to indicate a package end)
-					spw_control_o.flag  <= '1';
+					spw_control_o.flag            <= '1';
 					-- fill spw data with the eop identifier (0x00)
-					spw_control_o.data  <= c_EOP_VALUE;
+					spw_control_o.data            <= c_EOP_VALUE;
 					-- write the spw data
-					spw_control_o.write <= '1';
+					spw_control_o.write           <= '1';
 				-- conditional output signals
 
 				-- state "READ_DATA"
 				when READ_DATA =>
 					-- fetch memory data
 					-- default output signals
-					flags_o.read_busy     <= '1';
+					flags_o.read_busy             <= '1';
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';
 					-- set memory address
-					mem_control_o.address <= s_read_address((mem_control_o.address'length - 1) downto 0);
+					mem_control_o.address         <= s_read_address((mem_control_o.address'length - 1) downto 0);
 					-- set memory read request
-					mem_control_o.read    <= '1';
+					mem_control_o.read            <= '1';
 				-- conditional output signals
 
 				-- state "READ_NOT_OK"
@@ -398,15 +408,17 @@ begin
 					-- error in read operation
 					-- finish the read reply package with an EEP
 					-- default output signals
-					flags_o.read_busy   <= '1';
+					flags_o.read_busy             <= '1';
+					flags_o.read_data_indication  <= '0';
+					flags_o.read_operation_failed <= '0';
 					-- set the error flag
-					s_read_error        <= '1';
+					s_read_error                  <= '1';
 					-- set spw flag (to indicate a package end)
-					spw_control_o.flag  <= '1';
+					spw_control_o.flag            <= '1';
 					-- fill spw data with the eep identifier (0x01)
-					spw_control_o.data  <= c_EEP_VALUE;
+					spw_control_o.data            <= c_EEP_VALUE;
 					-- write the spw data
-					spw_control_o.write <= '1';
+					spw_control_o.write           <= '1';
 				-- conditional output signals
 
 				-- state "READ_FINISH_OPERATION"

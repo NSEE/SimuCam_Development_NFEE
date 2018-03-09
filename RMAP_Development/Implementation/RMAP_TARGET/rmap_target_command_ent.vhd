@@ -653,8 +653,12 @@ begin
 				when WAITING_BUFFER_DATA =>
 					-- wait until the spacewire rx buffer has data
 					-- default output signals
-					flags_o.command_busy <= '1';
-					spw_control_o.read   <= '0';
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '0';
 				-- conditional output signals
 
 				-- state "FIELD_TARGET_LOGICAL_ADDRESS"
@@ -662,6 +666,10 @@ begin
 					-- target logical address field, receive command target logical address from the initiator
 					-- default output signals
 					flags_o.command_busy                <= '1';
+					flags_o.command_received            <= '0';
+					flags_o.write_request               <= '0';
+					flags_o.read_request                <= '0';
+					flags_o.discarded_package           <= '0';
 					spw_control_o.read                  <= '1';
 					headerdata_o.target_logical_address <= spw_flag_i.data;
 				-- conditional output signals
@@ -670,8 +678,12 @@ begin
 				when FIELD_PROTOCOL_IDENTIFIER =>
 					-- protocol identifier field, receive command protocol identifier from the initiator
 					-- default output signals
-					flags_o.command_busy <= '1';
-					spw_control_o.read   <= '1';
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '1';
 				-- conditional output signals
 
 				-- state "FIELD_INSTRUCTION"
@@ -679,6 +691,10 @@ begin
 					-- instruction field, receive command instruction from the initiator
 					-- default output signals
 					flags_o.command_busy                                       <= '1';
+					flags_o.command_received                                   <= '0';
+					flags_o.write_request                                      <= '0';
+					flags_o.read_request                                       <= '0';
+					flags_o.discarded_package                                  <= '0';
 					spw_control_o.read                                         <= '1';
 					headerdata_o.instructions.packet_type                      <= spw_flag_i.data(7 downto 6);
 					headerdata_o.instructions.command.write_read               <= spw_flag_i.data(5);
@@ -692,9 +708,13 @@ begin
 				when FIELD_KEY =>
 					-- key field, receive command key from the initiator
 					-- default output signals
-					flags_o.command_busy <= '1';
-					spw_control_o.read   <= '1';
-					headerdata_o.key     <= spw_flag_i.data;
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '1';
+					headerdata_o.key          <= spw_flag_i.data;
 				-- conditional output signals
 
 				-- state "FIELD_REPLY_ADDRESS"
@@ -702,6 +722,10 @@ begin
 					-- reply address field, receive command reply address from the initiator
 					-- default output signals
 					flags_o.command_busy                       <= '1';
+					flags_o.command_received                   <= '0';
+					flags_o.write_request                      <= '0';
+					flags_o.read_request                       <= '0';
+					flags_o.discarded_package                  <= '0';
 					spw_control_o.read                         <= '1';
 					headerdata_o.reply_address(s_byte_counter) <= spw_flag_i.data;
 				-- conditional output signals
@@ -711,6 +735,10 @@ begin
 					-- initiator logical address field, receive command initiator logical address from the initiator
 					-- default output signals
 					flags_o.command_busy                   <= '1';
+					flags_o.command_received               <= '0';
+					flags_o.write_request                  <= '0';
+					flags_o.read_request                   <= '0';
+					flags_o.discarded_package              <= '0';
 					spw_control_o.read                     <= '1';
 					headerdata_o.initiator_logical_address <= spw_flag_i.data;
 				-- conditional output signals
@@ -720,6 +748,10 @@ begin
 					-- transaction identifier field, receive command transaction identifier from the initiator
 					-- default output signals
 					flags_o.command_busy                                <= '1';
+					flags_o.command_received                            <= '0';
+					flags_o.write_request                               <= '0';
+					flags_o.read_request                                <= '0';
+					flags_o.discarded_package                           <= '0';
 					spw_control_o.read                                  <= '1';
 					headerdata_o.transaction_identifier(s_byte_counter) <= spw_flag_i.data;
 				-- conditional output signals
@@ -729,6 +761,10 @@ begin
 					-- extended address field, receive command extended address from the initiator
 					-- default output signals
 					flags_o.command_busy          <= '1';
+					flags_o.command_received      <= '0';
+					flags_o.write_request         <= '0';
+					flags_o.read_request          <= '0';
+					flags_o.discarded_package     <= '0';
 					spw_control_o.read            <= '1';
 					headerdata_o.extended_address <= spw_flag_i.data;
 				-- conditional output signals
@@ -738,6 +774,10 @@ begin
 					-- address field, receive command address from the initiator
 					-- default output signals
 					flags_o.command_busy                 <= '1';
+					flags_o.command_received             <= '0';
+					flags_o.write_request                <= '0';
+					flags_o.read_request                 <= '0';
+					flags_o.discarded_package            <= '0';
 					spw_control_o.read                   <= '1';
 					headerdata_o.address(s_byte_counter) <= spw_flag_i.data;
 				-- conditional output signals
@@ -747,6 +787,10 @@ begin
 					-- data length field, receive command data length from the initiator
 					-- default output signals
 					flags_o.command_busy                     <= '1';
+					flags_o.command_received                 <= '0';
+					flags_o.write_request                    <= '0';
+					flags_o.read_request                     <= '0';
+					flags_o.discarded_package                <= '0';
 					spw_control_o.read                       <= '1';
 					headerdata_o.data_length(s_byte_counter) <= spw_flag_i.data;
 				-- conditional output signals
@@ -755,8 +799,12 @@ begin
 				when FIELD_HEADER_CRC =>
 					-- data crc field, receive command header crc from the initiator
 					-- default output signals
-					flags_o.command_busy <= '1';
-					spw_control_o.read   <= '1';
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '1';
 					-- conditional output signals
 					if not (s_command_header_crc = spw_flag_i.data) then
 						-- flag the error
@@ -767,9 +815,13 @@ begin
 				when FIELD_EOP =>
 					-- eop field, receive eop indicating the end of package
 					-- default output signals
-					flags_o.command_busy  <= '1';
-					spw_control_o.read    <= '1';
-					error_o.too_much_data <= '0';
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '1';
+					error_o.too_much_data     <= '0';
 					-- conditional output signals
 					-- check if data arrived insteady of an end of package
 					if (spw_flag_i.flag = '0') then
@@ -783,6 +835,10 @@ begin
 					-- verify if the received command has an error
 					-- default output signals
 					flags_o.command_busy         <= '1';
+					flags_o.command_received     <= '0';
+					flags_o.write_request        <= '0';
+					flags_o.read_request         <= '0';
+					flags_o.discarded_package    <= '0';
 					spw_control_o.read           <= '0';
 					error_o.unused_packet_type   <= '0';
 					error_o.invalid_command_code <= '0';
@@ -800,10 +856,14 @@ begin
 				when UNEXPECTED_PACKAGE_END =>
 					-- unexpected package end arrived
 					-- default output signals
-					flags_o.command_busy <= '1';
-					spw_control_o.read   <= '1';
-					error_o.early_eop    <= '0';
-					error_o.eep          <= '0';
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '1';
+					error_o.early_eop         <= '0';
+					error_o.eep               <= '0';
 					-- conditional output signals
 					-- check if the unexpected package end is an early eop or and eep
 					if (spw_flag_i.data = c_EOP_VALUE) then
@@ -818,8 +878,12 @@ begin
 				when WAITING_PACKAGE_END =>
 					-- wait until a package end arrives
 					-- default output signals
-					flags_o.command_busy <= '1';
-					spw_control_o.read   <= '1';
+					flags_o.command_busy      <= '1';
+					flags_o.command_received  <= '0';
+					flags_o.write_request     <= '0';
+					flags_o.read_request      <= '0';
+					flags_o.discarded_package <= '0';
+					spw_control_o.read        <= '1';
 				-- conditional output signals
 
 				-- state "NOT_RMAP_PACKAGE"
