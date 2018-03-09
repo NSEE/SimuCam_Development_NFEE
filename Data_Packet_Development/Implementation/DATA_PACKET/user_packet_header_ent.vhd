@@ -49,6 +49,7 @@ begin
 		if (reset_n_i = '0') then
 			s_data_packet_header_state      <= IDLE;
 			s_data_packet_header_next_state <= IDLE;
+			s_byte_counter                  <= 0;
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_data_packet_header_state) is
@@ -66,7 +67,8 @@ begin
 					if (control_i.send_header = '1') then
 						-- control unit ready to send a header
 						-- go to wating buffer space
-						s_data_packet_header_state <= WAITING_BUFFER_SPACE;
+						s_data_packet_header_state      <= WAITING_BUFFER_SPACE;
+						s_data_packet_header_next_state <= FIELD_LOGICAL_ADDRESS;
 					end if;
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -214,19 +216,27 @@ begin
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
-
+			flags_o.header_busy     <= '0';
+			flags_o.header_finished <= '0';
+			spw_control_o.data      <= x"00";
+			spw_control_o.flag      <= '0';
+			spw_control_o.write     <= '0';
 		-- output generation when s_data_packet_header_state changes
 		else
 			case (s_data_packet_header_state) is
 
 				-- state "IDLE"
-				-- TODO
 				when IDLE =>
 					-- does nothing until the control unit signals it is ready to send a header
 					-- default output signals
-					-- conditional output signals
+					flags_o.header_busy     <= '0';
+					flags_o.header_finished <= '0';
+					spw_control_o.data      <= x"00";
+					spw_control_o.flag      <= '0';
+					spw_control_o.write     <= '0';
+				-- conditional output signals
 
-					-- state "WAITING_BUFFER_SPACE"
+				-- state "WAITING_BUFFER_SPACE"
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default output signals

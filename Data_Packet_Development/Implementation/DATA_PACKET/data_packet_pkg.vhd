@@ -42,6 +42,7 @@ package data_packet_pkg is
 
 	type t_data_packet_housekeeping_flags is record
 		housekeeping_finished : std_logic;
+		housekeeping_error    : std_logic;
 		housekeeping_busy     : std_logic;
 	end record t_data_packet_housekeeping_flags;
 
@@ -54,6 +55,7 @@ package data_packet_pkg is
 
 	type t_data_packet_image_flags is record
 		image_finished : std_logic;
+		image_error    : std_logic;
 		image_busy     : std_logic;
 	end record t_data_packet_image_flags;
 
