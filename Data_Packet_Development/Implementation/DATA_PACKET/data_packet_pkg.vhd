@@ -7,7 +7,12 @@ package data_packet_pkg is
 
 	-- constants 
 
-	constant c_DATA_PACKET_PROTOCOL : std_logic_vector(7 downto 0) := x"F1";
+	constant c_DATA_PACKET_PROTOCOL : std_logic_vector(7 downto 0) := x"F0";
+	constant c_DPU_LOGICAL_ADDRESS  : std_logic_vector(7 downto 0) := x"50";
+
+	constant c_PACKET_TYPE_DATA_PACKET         : std_logic_vector(1 downto 0) := "00";
+	constant c_PACKET_TYPE_OVERSCAN_DATA       : std_logic_vector(1 downto 0) := "01";
+	constant c_PACKET_TYPE_HOUSEKEEPING_PACKET : std_logic_vector(1 downto 0) := "10";
 
 	-- general
 
@@ -76,6 +81,22 @@ package data_packet_pkg is
 		housekeeping_unit : t_data_packet_housekeeping_flags;
 		image_unit        : t_data_packet_image_flags;
 	end record t_data_packet_flags;
+
+	type t_data_packet_configdata is record
+		package_length           : std_logic_vector(15 downto 0);
+		package_type             : std_logic_vector(15 downto 0);
+		package_frame_counter    : std_logic_vector(15 downto 0);
+		package_sequence_counter : std_logic_vector(15 downto 0);
+	end record t_data_packet_configdata;
+
+	type t_data_packet_control_control is record
+		send_data_package : std_logic;
+	end record t_data_packet_control_control;
+
+	type t_data_packet_control_flags is record
+		control_busy     : std_logic;
+		control_finished : std_logic;
+	end record t_data_packet_control_flags;
 
 	-- others
 
