@@ -78,7 +78,7 @@ begin
 						-- go to wating buffer space
 						s_data_packet_image_state      <= WAITING_BUFFER_SPACE;
 						-- prepare for next field (imgdata field)
-						s_data_packet_image_next_state <= FIELD_IMGDATA;
+						s_data_packet_image_next_state <= READ_IMGDATA;
 					end if;
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -214,16 +214,18 @@ begin
 				-- conditional output signals
 
 				-- state "WAITING_BUFFER_SPACE"
-				-- TODO
 				when WAITING_BUFFER_SPACE =>
 					-- wait until the spacewire tx buffer has space
 					-- default output signals
 					flags_o.image_busy     <= '1';
 					flags_o.image_finished <= '0';
 					flags_o.image_error    <= '0';
+					imgdata_control_o.read <= '0';
 					s_img_error            <= '0';
 					-- clear spw tx write signal
 					spw_control_o.write    <= '0';
+					spw_control_o.flag     <= '0';
+					spw_control_o.data     <= x"00";
 				-- conditional output signals
 
 				-- state "FIELD_IMGDATA"
@@ -233,8 +235,9 @@ begin
 					flags_o.image_busy     <= '1';
 					flags_o.image_finished <= '0';
 					flags_o.image_error    <= '0';
-					imgdata_control_o.read <= '0';
 					s_img_error            <= '0';
+					-- flag a imgdata read
+					imgdata_control_o.read <= '1';
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag     <= '0';
 					-- fill spw data with field data
@@ -250,6 +253,7 @@ begin
 					flags_o.image_busy     <= '1';
 					flags_o.image_finished <= '0';
 					flags_o.image_error    <= '0';
+					imgdata_control_o.read <= '0';
 					s_img_error            <= '0';
 					-- set spw flag (to indicate a package end)
 					spw_control_o.flag     <= '1';
@@ -266,9 +270,11 @@ begin
 					flags_o.image_busy     <= '1';
 					flags_o.image_finished <= '0';
 					flags_o.image_error    <= '0';
+					spw_control_o.write    <= '0';
+					spw_control_o.flag     <= '0';
+					spw_control_o.data     <= x"00";
+					imgdata_control_o.read <= '0';
 					s_img_error            <= '0';
-					-- set imgdata read request
-					imgdata_control_o.read <= '1';
 				-- conditional output signals
 
 				-- state "IMG_ERROR"
@@ -278,6 +284,7 @@ begin
 					flags_o.image_busy     <= '1';
 					flags_o.image_finished <= '0';
 					flags_o.image_error    <= '0';
+					imgdata_control_o.read <= '0';
 					s_img_error            <= '1';
 					-- set spw flag (to indicate a package end)
 					spw_control_o.flag     <= '1';
