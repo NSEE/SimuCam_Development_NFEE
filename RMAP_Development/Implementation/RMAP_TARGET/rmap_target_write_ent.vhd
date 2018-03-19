@@ -177,8 +177,16 @@ begin
 						s_write_address                <= s_write_address_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 						-- prepare byte counter for multi-byte write data
 						s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
-						-- go to waiting buffer data
-						s_rmap_target_write_state      <= WAITING_BUFFER_DATA;
+						-- check if the data need to be verified before written
+						if (headerdata_i.instruction_verify_data_before_write = '1') then
+							-- data does need to be verified to be written
+							-- go to waiting buffer data
+							s_rmap_target_write_state <= WAITING_BUFFER_DATA;
+						else
+							-- data does not need to be verified to be written
+							-- go to write memory data
+							s_rmap_target_write_state <= WRITE_DATA;
+						end if;
 						-- prepare for next field (data field)
 						s_rmap_target_write_next_state <= FIELD_DATA;
 					-- check if a write request was not authorized by the user application
@@ -319,7 +327,7 @@ begin
 
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
-					-- write memory data
+					-- write memory data, waits for the memory to be ready for new data
 					s_rmap_target_write_state <= WRITE_DATA;
 					-- default state transition
 					-- default internal signal values
@@ -537,7 +545,6 @@ begin
 					flags_o.write_operation_failed <= '0';
 					flags_o.write_data_discarded   <= '0';
 					spw_control_o.read             <= '0';
-					mem_control_o.write            <= '0';
 					-- default output signals
 					mem_control_o.write            <= '1';
 					mem_control_o.address          <= s_write_address((mem_control_o.address'length - 1) downto 0);
@@ -546,7 +553,7 @@ begin
 
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
-					-- write memory data
+					-- write memory data, waits for the memory to be ready for new data
 					-- default output signals
 					flags_o.write_busy             <= '1';
 					flags_o.write_data_indication  <= '0';

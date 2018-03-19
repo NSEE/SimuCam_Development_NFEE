@@ -233,7 +233,7 @@ begin
 
 				-- state "READ_DATA"
 				when READ_DATA =>
-					-- fetch memory data
+					-- fetch memory data, wait for valid data in memory
 					-- default state transition
 					s_rmap_target_read_state <= READ_DATA;
 					-- default internal signal values
@@ -362,9 +362,9 @@ begin
 				when FIELD_DATA_CRC =>
 					-- data crc field, send read data crc to initiator
 					-- default output signals
-					flags_o.read_busy             <= '1'
+					flags_o.read_busy             <= '1';
 					flags_o.read_data_indication  <= '0';
-					flags_o.read_operation_failed <= '0';;
+					flags_o.read_operation_failed <= '0';
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag            <= '0';
 					-- fill spw data with field data
