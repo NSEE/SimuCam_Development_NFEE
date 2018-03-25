@@ -54,18 +54,23 @@ use work.RMAP_TARGET_PKG.ALL;
 --============================================================================
 
 entity rmap_target_mem_wr_ent is
+	generic(
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
+		g_MEMORY_ACCESS_WIDTH  : natural range 0 to c_WIDTH_MEMORY_ACCESS    := 2
+	);
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i            : in  std_logic; --! Local rmap clock
-		reset_n_i        : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i              : in  std_logic; --! Local rmap clock
+		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
-		mem_control_i    : in  t_rmap_target_mem_wr_control;
+		mem_control_i      : in  t_rmap_target_mem_wr_control;
+		mem_byte_address_i : in  std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
 		-- global output signals
 
-		mem_flag_o       : out t_rmap_target_mem_wr_flag;
-		memory_address_o : out std_logic_vector(7 downto 0);
-		memory_data_o    : out std_logic_vector(7 downto 0)
+		mem_flag_o         : out t_rmap_target_mem_wr_flag;
+		memory_address_o   : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+		memory_data_o      : out std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_mem_wr_ent;
@@ -74,6 +79,16 @@ end entity rmap_target_mem_wr_ent;
 -- ! architecture declaration
 --============================================================================
 architecture rtl of rmap_target_mem_wr_ent is
+
+	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
+
+	alias a_memory_address is mem_byte_address_i((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto g_MEMORY_ACCESS_WIDTH);
+	alias a_byte_address is mem_byte_address_i((g_MEMORY_ACCESS_WIDTH - 1) downto 0);
+
+	signal s_memory_data    : std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0);
+	signal s_memory_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+
+	signal s_write_flag : std_logic;
 
 	--============================================================================
 	-- architecture begin
@@ -96,11 +111,32 @@ begin
 			mem_flag_o.ready <= '1';
 			memory_address_o <= (others => '0');
 			memory_data_o    <= (others => '0');
+			s_memory_data    <= (others => '0');
+			s_memory_address <= (others => '0');
+			s_write_flag     <= '0';
 		elsif (rising_edge(clk_i)) then -- synchronous process
 
+			if (s_write_flag = '1') then
+				memory_address_o <= s_memory_address;
+				memory_data_o    <= s_memory_data;
+				s_write_flag     <= '0';
+			end if;
+
 			if (mem_control_i.write = '1') then
-				memory_address_o <= mem_control_i.address;
-				memory_data_o    <= mem_control_i.data;
+				if (c_MEMORY_ACCESS_SIZE > 1) then
+					-- more than one byte
+					s_memory_data(((8 * (1 + a_byte_address)) - 1) downto (8 * a_byte_address)) <= mem_control_i.data;
+					if (a_byte_address = (c_MEMORY_ACCESS_SIZE - 1)) then
+						-- ready to write
+						s_write_flag     <= '1';
+						s_memory_address <= a_memory_address;
+					end if;
+				else
+					-- one byte
+					s_write_flag     <= '1';
+					s_memory_address <= a_memory_address;
+					s_memory_data    <= mem_control_i.data;
+				end if;
 			end if;
 
 		end if;

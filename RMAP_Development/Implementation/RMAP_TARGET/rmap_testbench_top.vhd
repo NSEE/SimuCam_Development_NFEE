@@ -9,6 +9,11 @@ end entity rmap_testbench_top;
 
 architecture RTL of rmap_testbench_top is
 
+	constant c_TESTBENCH_VERIFY_BUFFER_WIDTH  : natural := 8;
+	constant c_TESTBENCH_MEMORY_ADDRESS_WIDTH : natural := 8;
+	constant c_TESTBENCH_DATA_LENGTH_WIDTH    : natural := 8;
+	constant c_TESTBENCH_MEMORY_ACCESS_WIDTH  : natural := 0;
+
 	signal clk   : std_logic := '0';
 	signal rst   : std_logic := '1';
 	signal rst_n : std_logic;
@@ -22,13 +27,16 @@ architecture RTL of rmap_testbench_top is
 	signal s_rmap_mem_control : t_rmap_target_mem_control;
 	signal s_rmap_mem_flag    : t_rmap_target_mem_flag;
 
+	signal s_rmap_mem_wr_byte_address : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH + c_TESTBENCH_MEMORY_ACCESS_WIDTH - 1) downto 0);
+	signal s_rmap_mem_rd_byte_address : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH + c_TESTBENCH_MEMORY_ACCESS_WIDTH - 1) downto 0);
+
 	type t_rmap_memory_type is array (0 to 255) of std_logic_vector(7 downto 0);
 	signal s_rmap_write_memory         : t_rmap_memory_type := (others => x"00");
-	signal s_rmap_write_memory_data    : std_logic_vector(7 downto 0);
-	signal s_rmap_write_memory_address : std_logic_vector(7 downto 0);
+	signal s_rmap_write_memory_data    : std_logic_vector(((8 * (2 ** c_TESTBENCH_MEMORY_ACCESS_WIDTH)) - 1) downto 0);
+	signal s_rmap_write_memory_address : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 	signal s_rmap_read_memory          : t_rmap_memory_type := (others => x"00");
-	signal s_rmap_read_memory_data     : std_logic_vector(7 downto 0);
-	signal s_rmap_read_memory_address  : std_logic_vector(7 downto 0);
+	signal s_rmap_read_memory_data     : std_logic_vector(((8 * (2 ** c_TESTBENCH_MEMORY_ACCESS_WIDTH)) - 1) downto 0);
+	signal s_rmap_read_memory_address  : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	signal s_codec_fifo_control : t_rmap_target_spw_control;
 	signal s_codec_fifo_flag    : t_rmap_target_spw_flag;
@@ -58,18 +66,20 @@ begin
 
 	rmap_target_top_inst : entity work.rmap_target_top
 		generic map(
-			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 8,
-			g_DATA_LENGTH_WIDTH    => 8,
-			g_MEMORY_ACCESS_WIDTH  => 0
+			g_VERIFY_BUFFER_WIDTH  => c_TESTBENCH_VERIFY_BUFFER_WIDTH,
+			g_MEMORY_ADDRESS_WIDTH => c_TESTBENCH_MEMORY_ADDRESS_WIDTH,
+			g_DATA_LENGTH_WIDTH    => c_TESTBENCH_DATA_LENGTH_WIDTH,
+			g_MEMORY_ACCESS_WIDTH  => c_TESTBENCH_MEMORY_ACCESS_WIDTH
 		)
 		port map(
-			clk_i         => clk,
-			reset_n_i     => rst_n,
-			spw_flag_i    => s_rmap_spw_flag,
-			mem_flag_i    => s_rmap_mem_flag,
-			spw_control_o => s_rmap_spw_control,
-			mem_control_o => s_rmap_mem_control
+			clk_i                 => clk,
+			reset_n_i             => rst_n,
+			spw_flag_i            => s_rmap_spw_flag,
+			mem_flag_i            => s_rmap_mem_flag,
+			spw_control_o         => s_rmap_spw_control,
+			mem_control_o         => s_rmap_mem_control,
+			mem_wr_byte_address_o => s_rmap_mem_wr_byte_address,
+			mem_rd_byte_address_o => s_rmap_mem_rd_byte_address
 		);
 
 	rmap_target_spw_rx_ent_inst : entity work.rmap_target_spw_rx_ent
@@ -99,25 +109,35 @@ begin
 	s_rmap_read_memory <= s_rmap_write_memory;
 
 	rmap_target_mem_rd_ent_inst : entity work.rmap_target_mem_rd_ent
+		generic map(
+			g_MEMORY_ADDRESS_WIDTH => c_TESTBENCH_MEMORY_ADDRESS_WIDTH,
+			g_MEMORY_ACCESS_WIDTH  => c_TESTBENCH_MEMORY_ACCESS_WIDTH
+		)
 		port map(
-			clk_i            => clk,
-			reset_n_i        => rst_n,
-			mem_control_i    => s_rmap_mem_control.read,
-			memory_data_i    => s_rmap_read_memory_data,
-			mem_flag_o       => s_rmap_mem_flag.read,
-			memory_address_o => s_rmap_read_memory_address
+			clk_i              => clk,
+			reset_n_i          => rst_n,
+			mem_control_i      => s_rmap_mem_control.read,
+			memory_data_i      => s_rmap_read_memory_data,
+			mem_byte_address_i => s_rmap_mem_rd_byte_address,
+			mem_flag_o         => s_rmap_mem_flag.read,
+			memory_address_o   => s_rmap_read_memory_address
 		);
 
 	s_rmap_read_memory_data <= s_rmap_read_memory(to_integer(unsigned(s_rmap_read_memory_address)));
 
 	rmap_target_mem_wr_ent_inst : entity work.rmap_target_mem_wr_ent
+		generic map(
+			g_MEMORY_ADDRESS_WIDTH => c_TESTBENCH_MEMORY_ADDRESS_WIDTH,
+			g_MEMORY_ACCESS_WIDTH  => c_TESTBENCH_MEMORY_ACCESS_WIDTH
+		)
 		port map(
-			clk_i            => clk,
-			reset_n_i        => rst_n,
-			mem_control_i    => s_rmap_mem_control.write,
-			mem_flag_o       => s_rmap_mem_flag.write,
-			memory_address_o => s_rmap_write_memory_address,
-			memory_data_o    => s_rmap_write_memory_data
+			clk_i              => clk,
+			reset_n_i          => rst_n,
+			mem_control_i      => s_rmap_mem_control.write,
+			mem_byte_address_i => s_rmap_mem_wr_byte_address,
+			mem_flag_o         => s_rmap_mem_flag.write,
+			memory_address_o   => s_rmap_write_memory_address,
+			memory_data_o      => s_rmap_write_memory_data
 		);
 
 	s_rmap_write_memory(to_integer(unsigned(s_rmap_write_memory_address))) <= s_rmap_write_memory_data;

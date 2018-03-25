@@ -54,6 +54,10 @@ use work.RMAP_TARGET_PKG.ALL;
 --============================================================================
 
 entity rmap_target_mem_rd_ent is
+	generic(
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
+		g_MEMORY_ACCESS_WIDTH  : natural range 0 to c_WIDTH_MEMORY_ACCESS    := 2
+	);
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
@@ -61,11 +65,12 @@ entity rmap_target_mem_rd_ent is
 		reset_n_i        : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		mem_control_i    : in  t_rmap_target_mem_rd_control;
-		memory_data_i    : in  std_logic_vector(7 downto 0);
+		memory_data_i    : in  std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0);
+		mem_byte_address_i : in  std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
 		-- global output signals
 
 		mem_flag_o       : out t_rmap_target_mem_rd_flag;
-		memory_address_o : out std_logic_vector(7 downto 0)
+		memory_address_o   : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_mem_rd_ent;
@@ -74,6 +79,9 @@ end entity rmap_target_mem_rd_ent;
 -- ! architecture declaration
 --============================================================================
 architecture rtl of rmap_target_mem_rd_ent is
+
+	alias a_memory_address is mem_byte_address_i((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto g_MEMORY_ACCESS_WIDTH);
+	alias a_byte_address is mem_byte_address_i((g_MEMORY_ACCESS_WIDTH - 1) downto 0);
 
 	--============================================================================
 	-- architecture begin
@@ -98,7 +106,7 @@ begin
 		elsif (rising_edge(clk_i)) then -- synchronous process
 			
 			if (mem_control_i.read = '1') then
-				mem_flag_o.data  <= memory_data_i;
+				mem_flag_o.data  <= memory_data_i(((8 * (1 + a_byte_address)) - 1) downto (8 * a_byte_address));
 			end if;
 			
 		end if;
@@ -106,7 +114,7 @@ begin
 
 	-- signal assingment
 
-	memory_address_o <= mem_control_i.address;
+	memory_address_o <= a_memory_address;
 	
 
 end architecture rtl;
