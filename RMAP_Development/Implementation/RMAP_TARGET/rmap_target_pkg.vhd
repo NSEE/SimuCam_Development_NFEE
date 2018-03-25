@@ -59,6 +59,7 @@ package rmap_target_pkg is
 	--	constant c_MAX_EXTENDED_ADDRESS         : natural := ((2 ** c_WIDTH_EXTENDED_ADDRESS) - 1);
 	constant c_WIDTH_DATA_LENGTH            : natural := 24;
 	--	constant c_MAX_DATA_LENGTH              : natural := ((2 ** c_WIDTH_DATA_LENGTH) - 1);
+	constant c_WIDTH_MEMORY_ACCESS          : natural := 6; -- data width = 8 * (2 ** c_WIDTH_MEMORY_ACCESS)
 
 	-- others
 
@@ -316,9 +317,8 @@ package rmap_target_pkg is
 	-- mem
 
 	type t_rmap_target_mem_wr_control is record
-		write   : std_logic;
-		address : std_logic_vector(7 downto 0);
-		data    : std_logic_vector(7 downto 0);
+		write : std_logic;
+		data  : std_logic_vector(7 downto 0);
 	end record t_rmap_target_mem_wr_control;
 
 	type t_rmap_target_mem_wr_flag is record
@@ -327,14 +327,13 @@ package rmap_target_pkg is
 	end record t_rmap_target_mem_wr_flag;
 
 	type t_rmap_target_mem_rd_control is record
-		read    : std_logic;
-		address : std_logic_vector(7 downto 0);
+		read : std_logic;
 	end record t_rmap_target_mem_rd_control;
 
 	type t_rmap_target_mem_rd_flag is record
 		valid : std_logic;
-		data  : std_logic_vector(7 downto 0);
 		error : std_logic;
+		data  : std_logic_vector(7 downto 0);
 	end record t_rmap_target_mem_rd_flag;
 
 	type t_rmap_target_mem_control is record

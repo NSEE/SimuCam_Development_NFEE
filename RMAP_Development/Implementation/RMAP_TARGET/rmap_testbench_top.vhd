@@ -57,6 +57,12 @@ begin
 		);
 
 	rmap_target_top_inst : entity work.rmap_target_top
+		generic map(
+			g_VERIFY_BUFFER_WIDTH  => 8,
+			g_MEMORY_ADDRESS_WIDTH => 8,
+			g_DATA_LENGTH_WIDTH    => 8,
+			g_MEMORY_ACCESS_WIDTH  => 0
+		)
 		port map(
 			clk_i         => clk,
 			reset_n_i     => rst_n,

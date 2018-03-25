@@ -58,24 +58,26 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 entity rmap_target_read_ent is
 	generic(
 		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
-		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
+		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24;
+		g_MEMORY_ACCESS_WIDTH  : natural range 0 to c_WIDTH_MEMORY_ACCESS    := 2
 	);
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i         : in  std_logic;  --! Local rmap clock
-		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i              : in  std_logic; --! Local rmap clock
+		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
-		control_i     : in  t_rmap_target_read_control;
-		headerdata_i  : in  t_rmap_target_read_headerdata;
-		spw_flag_i    : in  t_rmap_target_spw_tx_flag;
-		mem_flag_i    : in  t_rmap_target_mem_rd_flag;
+		control_i          : in  t_rmap_target_read_control;
+		headerdata_i       : in  t_rmap_target_read_headerdata;
+		spw_flag_i         : in  t_rmap_target_spw_tx_flag;
+		mem_flag_i         : in  t_rmap_target_mem_rd_flag;
 		-- global output signals
 
-		flags_o       : out t_rmap_target_read_flags;
+		flags_o            : out t_rmap_target_read_flags;
 		--		error_o       : out t_rmap_target_read_error;
-		spw_control_o : out t_rmap_target_spw_tx_control;
-		mem_control_o : out t_rmap_target_mem_rd_control
+		spw_control_o      : out t_rmap_target_spw_tx_control;
+		mem_control_o      : out t_rmap_target_mem_rd_control;
+		mem_byte_address_o : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_read_ent;
@@ -102,13 +104,14 @@ architecture rtl of rmap_target_read_ent is
 	signal s_rmap_target_read_next_state : t_rmap_target_read_state;
 
 	signal s_read_data_crc : std_logic_vector(7 downto 0);
-	
+
 	signal s_read_error : std_logic;
 
-	signal s_read_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
-	signal s_byte_counter : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
+	signal s_read_address      : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_read_byte_counter : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
+	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 
 	signal s_read_address_vector : std_logic_vector(39 downto 0);
 	signal s_byte_counter_vector : std_logic_vector(23 downto 0);
@@ -144,6 +147,7 @@ begin
 			s_rmap_target_read_state      <= IDLE;
 			s_rmap_target_read_next_state <= IDLE;
 			s_read_address                <= (others => '0');
+			s_read_byte_counter           <= 0;
 			s_byte_counter                <= (others => '0');
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -157,6 +161,7 @@ begin
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
 					s_read_address                <= (others => '0');
+					s_read_byte_counter           <= 0;
 					s_byte_counter                <= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if user application authorized a read
@@ -193,6 +198,7 @@ begin
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= READ_DATA;
 					-- default internal signal values
+					s_read_byte_counter           <= 0;
 					s_byte_counter                <= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if all data has been read
@@ -204,10 +210,15 @@ begin
 						-- there is still more data to be read
 						-- update byte counter (for next byte)
 						s_byte_counter <= std_logic_vector(unsigned(s_byte_counter) - 1);
-						-- check if address need to be incremented
+						-- check if memory address need to be incremented
 						if (headerdata_i.instruction_increment_address = '1') then
-							-- increment address (for next data)
+							-- increment memory address (for next data)
 							s_read_address <= std_logic_vector(unsigned(s_read_address) + 1);
+						end if;
+						-- check if byte counter can to be incremented (else it will be reseted)
+						if (s_read_byte_counter < (c_MEMORY_ACCESS_SIZE - 1)) then
+							-- can be incremented without overflowing
+							s_read_byte_counter <= s_read_byte_counter + 1;
 						end if;
 					end if;
 
@@ -304,8 +315,8 @@ begin
 			spw_control_o.data            <= x"00";
 			spw_control_o.flag            <= '0';
 			spw_control_o.write           <= '0';
-			mem_control_o.address         <= (others => '0');
 			mem_control_o.read            <= '0';
+			mem_byte_address_o            <= (others => '0');
 			s_read_data_crc               <= x"00";
 			s_read_error                  <= '0';
 		-- output generation when s_rmap_target_read_state changes
@@ -323,8 +334,8 @@ begin
 					spw_control_o.data            <= x"00";
 					spw_control_o.flag            <= '0';
 					spw_control_o.write           <= '0';
-					mem_control_o.address         <= (others => '0');
 					mem_control_o.read            <= '0';
+					mem_byte_address_o            <= (others => '0');
 					s_read_data_crc               <= x"00";
 					s_read_error                  <= '0';
 				-- conditional output signals
@@ -397,10 +408,17 @@ begin
 					flags_o.read_busy             <= '1';
 					flags_o.read_data_indication  <= '0';
 					flags_o.read_operation_failed <= '0';
-					-- set memory address
-					mem_control_o.address         <= s_read_address((mem_control_o.address'length - 1) downto 0);
+					-- check if memory access is more than one byte
+					if (c_MEMORY_ACCESS_SIZE > 1) then
+						-- memory access is more than one byte, need to send read address and byte address
+						mem_byte_address_o <= s_read_address & std_logic_vector(to_unsigned(s_read_byte_counter, g_MEMORY_ACCESS_WIDTH));
+					else
+						-- memory access is only one byte, need to send just the read address
+						mem_byte_address_o <= s_read_address;
+					end if;
+
 					-- set memory read request
-					mem_control_o.read            <= '1';
+					mem_control_o.read <= '1';
 				-- conditional output signals
 
 				-- state "READ_NOT_OK"

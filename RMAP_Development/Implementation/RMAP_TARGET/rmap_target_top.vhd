@@ -51,18 +51,26 @@ use work.RMAP_TARGET_PKG.ALL;
 --============================================================================
 
 entity rmap_target_top is
+	generic(
+		g_VERIFY_BUFFER_WIDTH  : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 8;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
+		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24;
+		g_MEMORY_ACCESS_WIDTH  : natural range 0 to c_WIDTH_MEMORY_ACCESS    := 2 -- 32 bits data
+	);
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i         : in  std_logic;  --! Local rmap clock
-		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i                 : in  std_logic; --! Local rmap clock
+		reset_n_i             : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
-		spw_flag_i    : in  t_rmap_target_spw_flag;
-		mem_flag_i    : in  t_rmap_target_mem_flag;
+		spw_flag_i            : in  t_rmap_target_spw_flag;
+		mem_flag_i            : in  t_rmap_target_mem_flag;
 		-- global output signals
 
-		spw_control_o : out t_rmap_target_spw_control;
-		mem_control_o : out t_rmap_target_mem_control
+		spw_control_o         : out t_rmap_target_spw_control;
+		mem_control_o         : out t_rmap_target_mem_control;
+		mem_wr_byte_address_o : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
+		mem_rd_byte_address_o : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_top;
@@ -93,9 +101,9 @@ begin
 
 	rmap_target_user_ent_inst : entity work.rmap_target_user_ent
 		generic map(
-			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 32,
-			g_DATA_LENGTH_WIDTH    => 8
+			g_VERIFY_BUFFER_WIDTH  => g_VERIFY_BUFFER_WIDTH,
+			g_MEMORY_ADDRESS_WIDTH => g_MEMORY_ADDRESS_WIDTH,
+			g_DATA_LENGTH_WIDTH    => g_DATA_LENGTH_WIDTH
 		)
 		port map(
 			clk_i                                 => clk_i,
@@ -137,9 +145,10 @@ begin
 
 	rmap_target_write_ent_inst : entity work.rmap_target_write_ent
 		generic map(
-			g_VERIFY_BUFFER_WIDTH  => 8,
-			g_MEMORY_ADDRESS_WIDTH => 32,
-			g_DATA_LENGTH_WIDTH    => 8
+			g_VERIFY_BUFFER_WIDTH  => g_VERIFY_BUFFER_WIDTH,
+			g_MEMORY_ADDRESS_WIDTH => g_MEMORY_ADDRESS_WIDTH,
+			g_DATA_LENGTH_WIDTH    => g_DATA_LENGTH_WIDTH,
+			g_MEMORY_ACCESS_WIDTH  => g_MEMORY_ACCESS_WIDTH
 		)
 		port map(
 			clk_i                                             => clk_i,
@@ -155,13 +164,14 @@ begin
 			flags_o                                           => s_rmap_target_flags.write_operation,
 			error_o                                           => s_rmap_target_error.write_operation,
 			spw_control_o                                     => s_rmap_target_spw_write_rx_control,
-			mem_control_o                                     => mem_control_o.write
+			mem_control_o                                     => mem_control_o.write,
+			mem_byte_address_o                                => mem_wr_byte_address_o
 		);
 
 	rmap_target_read_ent_inst : entity work.rmap_target_read_ent
 		generic map(
-			g_MEMORY_ADDRESS_WIDTH => 32,
-			g_DATA_LENGTH_WIDTH    => 8
+			g_MEMORY_ADDRESS_WIDTH => g_MEMORY_ADDRESS_WIDTH,
+			g_DATA_LENGTH_WIDTH    => g_DATA_LENGTH_WIDTH
 		)
 		port map(
 			clk_i                                      => clk_i,
@@ -174,9 +184,10 @@ begin
 			spw_flag_i                                 => spw_flag_i.transmitter,
 			mem_flag_i                                 => mem_flag_i.read,
 			flags_o                                    => s_rmap_target_flags.read_operation,
---			error_o                                    => s_rmap_target_error.read_operation,
+			--			error_o                                    => s_rmap_target_error.dummy,
 			spw_control_o                              => s_rmap_target_spw_read_tx_control,
-			mem_control_o                              => mem_control_o.read
+			mem_control_o                              => mem_control_o.read,
+			mem_byte_address_o                         => mem_rd_byte_address_o
 		);
 
 	rmap_target_reply_ent_inst : entity work.rmap_target_reply_ent
@@ -193,7 +204,7 @@ begin
 			headerdata_i.data_length               => s_rmap_target_rmap_data.data_length,
 			spw_flag_i                             => spw_flag_i.transmitter,
 			flags_o                                => s_rmap_target_flags.reply_geneneration,
---			error_o                                => s_rmap_target_error.reply_geneneration,
+			--			error_o                                => s_rmap_target_error.dummy,
 			spw_control_o                          => s_rmap_target_spw_reply_tx_control
 		);
 
