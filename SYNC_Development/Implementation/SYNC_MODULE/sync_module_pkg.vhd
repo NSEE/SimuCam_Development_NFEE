@@ -50,6 +50,9 @@ use IEEE.NUMERIC_STD.ALL;
 package sync_module_pkg is
 
 	-- others
+	constant c_SYNC_COUNTER_MAX_WIDTH  : integer := 64;
+	constant c_SYNC_COUNTER_WIDTH      : integer := 32;
+	constant c_SYNC_PULSE_NUMBER_WIDTH : integer := 2;
 
 	-- general
 
@@ -71,11 +74,10 @@ package sync_module_pkg is
 	end record t_sync_module_syncgen_error;
 
 	type t_sync_module_syncgen_configs is record
-		wave_polarity : std_logic;
-		pulse_period  : std_logic_vector(7 downto 0);
-		pulse_number  : std_logic_vector(7 downto 0);
-		master_width  : std_logic_vector(7 downto 0);
-		pulse_width   : std_logic_vector(7 downto 0);
+		pulse_period : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		pulse_number : std_logic_vector((c_SYNC_PULSE_NUMBER_WIDTH - 1) downto 0);
+		master_width : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		pulse_width  : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 	end record t_sync_module_syncgen_configs;
 
 end package sync_module_pkg;
