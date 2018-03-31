@@ -56,11 +56,14 @@ package sync_module_pkg is
 	-- syncgen
 
 	type t_sync_module_syncgen_control is record
-		dummy : std_logic;
+		start : std_logic;
+		stop  : std_logic;
+		reset : std_logic;
 	end record t_sync_module_syncgen_control;
 
 	type t_sync_module_syncgen_flags is record
-		dummy : std_logic;
+		running : std_logic;
+		stopped : std_logic;
 	end record t_sync_module_syncgen_flags;
 
 	type t_sync_module_syncgen_error is record
@@ -68,7 +71,11 @@ package sync_module_pkg is
 	end record t_sync_module_syncgen_error;
 
 	type t_sync_module_syncgen_configs is record
-		dummy : std_logic;
+		wave_polarity : std_logic;
+		pulse_period  : std_logic_vector(7 downto 0);
+		pulse_number  : std_logic_vector(7 downto 0);
+		master_width  : std_logic_vector(7 downto 0);
+		pulse_width   : std_logic_vector(7 downto 0);
 	end record t_sync_module_syncgen_configs;
 
 end package sync_module_pkg;

@@ -49,18 +49,22 @@ use work.SYNC_MODULE_PKG.ALL;
 --============================================================================
 
 entity sync_module_syncgen_ent is
+	generic(
+		g_SYNC_COUNTER_WIDTH : natural range 0 to 64 := 32
+	);
 	port(
 		-- Global input signals
 		--! Local clock used by the SYNC Module
-		clk_i     : in  std_logic;      --! Local sync clock
-		reset_n_i : in  std_logic;      --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i       : in  std_logic;    --! Local sync clock
+		reset_n_i   : in  std_logic;    --! Reset = '0': reset active; Reset = '1': no reset
 
-		control_i : in  t_sync_module_syncgen_control;
-		configs_i : in  t_sync_module_syncgen_configs;
+		control_i   : in  t_sync_module_syncgen_control;
+		configs_i   : in  t_sync_module_syncgen_configs;
 		-- global output signals
 
-		flags_o   : out t_sync_module_syncgen_flags;
-		error_o   : out t_sync_module_syncgen_error
+		flags_o     : out t_sync_module_syncgen_flags;
+		error_o     : out t_sync_module_syncgen_error;
+		sync_output : out std_logic
 		-- data bus(es)
 	);
 end entity sync_module_syncgen_ent;
@@ -74,9 +78,18 @@ architecture rtl of sync_module_syncgen_ent is
 	-- ===========================================================
 	type t_sync_module_syncgen_state is (
 		IDLE,
-		SYNCGEN_FINISH_OPERATION
+		POLARITY_0,
+		POLARITY_1,
+		STOPPED
 	);
-	signal s_sync_module_syncgen_state : t_sync_module_syncgen_state; -- current state
+	signal s_sync_module_syncgen_state      : t_sync_module_syncgen_state; -- current state
+	signal s_sync_module_syncgen_last_state : t_sync_module_syncgen_state;
+
+	signal s_sync_counter : std_logic_vector((g_SYNC_COUNTER_WIDTH - 1) downto 0);
+
+	signal s_toogle_counter : std_logic_vector((g_SYNC_COUNTER_WIDTH - 1) downto 0);
+
+	signal s_pulse_number : natural range 0 to 4;
 
 	--============================================================================
 	-- architecture begin
@@ -103,26 +116,103 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
-			s_sync_module_syncgen_state <= IDLE;
+			s_sync_module_syncgen_state      <= IDLE;
+			s_sync_module_syncgen_last_state <= IDLE;
+			s_sync_counter                   <= (others => '0');
+			s_toogle_counter                 <= (others => '0');
+			s_pulse_number                   <= 0;
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_sync_module_syncgen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
-					-- 
+					-- does nothing until a start is received
 					-- default state transition
-					s_sync_module_syncgen_state <= IDLE;
-				-- default internal signal values
-				-- conditional state transition and internal signal values
+					s_sync_module_syncgen_state      <= IDLE;
+					s_sync_module_syncgen_last_state <= IDLE;
+					-- default internal signal values
+					s_sync_counter                   <= (others => '0');
+					s_toogle_counter                 <= (others => '0');
+					s_pulse_number                   <= 0;
+					-- conditional state transition and internal signal values
+					-- check if a start sync was received
+					if (control_i.start = '1') then
+						s_sync_module_syncgen_state <= POLARITY_0;
+						s_toogle_counter            <= configs_i.master_width;
+						s_sync_counter              <= std_logic_vector(unsigned(s_sync_counter) + 1);
+					end if;
 
-				-- state "SYNCGEN_FINISH_OPERATION"
-				when SYNCGEN_FINISH_OPERATION =>
-					-- 
+				-- state "POLARITY_0"
+				when POLARITY_0 =>
+					-- initial polarity (pol_0) of the sync signal
 					-- default state transition
-					s_sync_module_syncgen_state <= SYNCGEN_FINISH_OPERATION;
-				-- default internal signal values
-				-- conditional state transition and internal signal values
+					s_sync_module_syncgen_state      <= POLARITY_0;
+					s_sync_module_syncgen_last_state <= POLARITY_0;
+					-- default internal signal values
+					s_sync_counter                   <= std_logic_vector(unsigned(s_sync_counter) + 1);
+					-- conditional state transition and internal signal values
+					-- check if it's the master pulse or not
+					if (s_pulse_number = 0) then
+						-- master pulse
+						s_toogle_counter <= configs_i.master_width;
+					else
+						-- normal pulse
+						s_toogle_counter <= configs_i.pulse_width;
+					end if;
+					-- check if the toogle value was reached
+					if (s_sync_counter = s_toogle_counter) then
+						-- toogle value reached, go to next polarity
+						s_sync_module_syncgen_state <= POLARITY_1;
+					end if;
+					-- check if a stop command was received
+					if (control_i.stop = '1') then
+						-- stop received, go to STOPPED
+						s_sync_module_syncgen_state <= STOPPED;
+					end if;
+
+				-- state "POLARITY_1"
+				when POLARITY_1 =>
+					-- final polarity (pol_1) of the sync signal 
+					-- default state transition
+					s_sync_module_syncgen_state      <= POLARITY_1;
+					s_sync_module_syncgen_last_state <= POLARITY_1;
+					-- default internal signal values
+					s_sync_counter                   <= std_logic_vector(unsigned(s_sync_counter) + 1);
+					-- conditional state transition and internal signal values
+					-- check if the pulse period was reached
+					if (s_sync_counter = configs_i.pulse_period) then
+						-- pulse period reached, go to first polarity
+						s_sync_module_syncgen_state <= POLARITY_0;
+						-- reset sync counter
+						s_sync_counter              <= (others => '0');
+					end if;
+					-- check if the pulse number can be incremented
+					if (s_pulse_number = (configs_i.pulse_number - 1)) then
+						-- pulse number can be incremented
+						s_pulse_number <= s_pulse_number + 1;
+					else
+						-- pulse number need to be reseted
+						s_pulse_number <= 0;
+					end if;
+					-- check if a stop command was received
+					if (control_i.stop = '1') then
+						-- stop received, go to STOPPED
+						s_sync_module_syncgen_state <= STOPPED;
+					end if;
+
+				-- state "STOPPED"
+				when STOPPED =>
+					-- keep the sync stopped
+					-- default state transition
+					s_sync_module_syncgen_state <= STOPPED;
+					-- default internal signal values
+					-- conditional state transition and internal signal values
+					-- check if a start command was received
+					if (control_i.start = '1') then
+						-- start received, return to the last polarity
+						s_sync_module_syncgen_state <= s_sync_module_syncgen_last_state;
+					end if;
 
 				-- all the other states (not defined)
 				when others =>
@@ -144,23 +234,49 @@ begin
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
-		-- output generation when s_sync_module_syncgen_state changes
+			-- output generation when s_sync_module_syncgen_state changes
+			sync_output     <= configs_i.wave_polarity;
+			flags_o.running <= '0';
+			flags_o.stopped <= '0';
 		else
 			case (s_sync_module_syncgen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
-					-- 
+					-- does nothing until a start is received
 					-- default output signals
-					-- conditional output signals
+					sync_output     <= configs_i.wave_polarity;
+					flags_o.running <= '0';
+					flags_o.stopped <= '0';
+				-- conditional output signals
 
-					-- state "SYNCGEN_FINISH_OPERATION"
-				when SYNCGEN_FINISH_OPERATION =>
-					-- 
+				-- state "POLARITY_0"
+				when POLARITY_0 =>
+					-- initial polarity (pol_0) of the sync signal
 					-- default output signals
-					-- conditional output signals
+					sync_output     <= configs_i.wave_polarity;
+					flags_o.running <= '1';
+					flags_o.stopped <= '0';
+				-- conditional output signals
 
-					-- all the other states (not defined)
+				-- state "POLARITY_1"
+				when POLARITY_1 =>
+					-- final polarity (pol_1) of the sync signal 
+					-- default output signals
+					sync_output     <= not configs_i.wave_polarity;
+					flags_o.running <= '1';
+					flags_o.stopped <= '0';
+				-- conditional output signals
+
+				-- state "STOPPED"
+				when STOPPED =>
+					-- keep the sync stopped
+					-- default output signals
+					flags_o.running <= '1';
+					flags_o.stopped <= '1';
+				-- conditional output signals
+
+				-- all the other states (not defined)
 				when others =>
 					null;
 
