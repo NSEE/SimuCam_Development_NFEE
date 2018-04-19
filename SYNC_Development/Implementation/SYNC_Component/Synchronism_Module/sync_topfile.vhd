@@ -1,4 +1,4 @@
--- new_component.vhd
+-- sync_topfile.vhd
 
 -- This file was auto-generated as a prototype implementation of a module
 -- created in component editor.  It ties off all outputs to ground and
@@ -12,7 +12,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity new_component is
+entity sync_component_ent is
 	generic (
 		Clock_Frequency_MHz : integer := 200
 	);
@@ -36,9 +36,9 @@ entity new_component is
 		conduit_sync_signal_syncout : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_syncout_signal
 		interrupt_sender_irq        : out std_logic                                         --    interrupt_sender.irq
 	);
-end entity new_component;
+end entity sync_component_ent;
 
-architecture rtl of new_component is
+architecture rtl of sync_component_ent is
 begin
 
 	-- TODO: Auto-generated HDL template
