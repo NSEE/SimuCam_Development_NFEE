@@ -1,0 +1,98 @@
+Protel Design System Design Rule Check
+PCB File : C:\projetos\simulador_spacewire\hw\pim_painel_meb\pcb\painel_meb.PcbDoc
+Date     : 02/08/2017
+Time     : 19:24:02
+
+WARNING: Unplated multi-layer pad(s) detected
+   Pad FD2-0(11.151mm,7.239mm) on Multi-Layer on Net GND
+   Pad FD1-0(162.433mm,32.36mm) on Multi-Layer on Net GND
+
+WARNING: Multilayer Pads with 0 size Hole found
+   Pad FD2-0(11.151mm,7.239mm) on Multi-Layer
+   Pad FD1-0(162.433mm,32.36mm) on Multi-Layer
+
+Processing Rule : Clearance Constraint (Gap=0.178mm) ((InComponent('U2'))),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.508mm) (InNamedPolygon('gnd_bottom')),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.508mm) (InNamedPolygon('gnd_top')),(All)
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.254mm) (Max=0.635mm) (Preferred=0.381mm) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0.025mm) (Max=150mm) (All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=0.254mm) (All),(All)
+   Violation between Hole To Hole Clearance Constraint: (0.231mm < 0.254mm) Between Via (25.019mm,28.829mm) from Top Layer to Bottom Layer And Via (24.562mm,28.423mm) from Top Layer to Bottom Layer 
+   Violation between Hole To Hole Clearance Constraint: (0.203mm < 0.254mm) Between Via (159.563mm,17.78mm) from Top Layer to Bottom Layer And Via (158.979mm,17.78mm) from Top Layer to Bottom Layer 
+   Violation between Hole To Hole Clearance Constraint: (0.181mm < 0.254mm) Between Via (25.019mm,28.829mm) from Top Layer to Bottom Layer And Via (25.552mm,29.007mm) from Top Layer to Bottom Layer 
+Rule Violations :3
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0.076mm) (IsPad),(All)
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.076mm) Between Track (2.413mm,19.202mm)(2.413mm,19.837mm) on Bottom Overlay And Pad X1-2(2.413mm,18.567mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+   Violation between Silk To Solder Mask Clearance Constraint: (Collision < 0.076mm) Between Track (4.953mm,19.202mm)(4.953mm,19.837mm) on Bottom Overlay And Pad X1-1(4.953mm,18.567mm) on Multi-Layer [Bottom Overlay] to [Bottom Solder] clearance [0mm]
+Rule Violations :2
+
+Processing Rule : Silk to Silk (Clearance=0.254mm) (All),(All)
+   Violation between Silk To Silk Clearance Constraint: (0.224mm < 0.254mm) Between Text "R37" (110.693mm,18.796mm) on Bottom Overlay And Track (112.383mm,18.695mm)(112.383mm,21.895mm) on Bottom Overlay Silk Text to Silk Clearance [0.224mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "R37" (110.693mm,18.796mm) on Bottom Overlay And Track (112.383mm,18.695mm)(114.083mm,18.695mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.224mm < 0.254mm) Between Text "R37" (110.693mm,18.796mm) on Bottom Overlay And Track (112.383mm,21.895mm)(114.083mm,21.895mm) on Bottom Overlay Silk Text to Silk Clearance [0.224mm]
+   Violation between Silk To Silk Clearance Constraint: (0.25mm < 0.254mm) Between Text "R21" (79.883mm,19.025mm) on Bottom Overlay And Track (81.598mm,18.771mm)(81.598mm,21.971mm) on Bottom Overlay Silk Text to Silk Clearance [0.25mm]
+   Violation between Silk To Silk Clearance Constraint: (0.138mm < 0.254mm) Between Text "Q20" (108.89mm,11.811mm) on Bottom Overlay And Text "R44" (107.29mm,11.862mm) on Bottom Overlay Silk Text to Silk Clearance [0.138mm]
+   Violation between Silk To Silk Clearance Constraint: (0.189mm < 0.254mm) Between Text "Q19" (108.941mm,30.912mm) on Bottom Overlay And Text "R43" (107.29mm,30.81mm) on Bottom Overlay Silk Text to Silk Clearance [0.189mm]
+   Violation between Silk To Silk Clearance Constraint: (0.189mm < 0.254mm) Between Text "Q18" (108.966mm,24.054mm) on Bottom Overlay And Text "R42" (107.315mm,23.901mm) on Bottom Overlay Silk Text to Silk Clearance [0.189mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "Q17" (93.624mm,18.948mm) on Bottom Overlay And Text "R41" (91.923mm,19.126mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "Q16" (93.624mm,12.217mm) on Bottom Overlay And Text "R40" (91.923mm,12.217mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.214mm < 0.254mm) Between Text "Q15" (93.65mm,30.734mm) on Bottom Overlay And Text "R39" (91.973mm,30.734mm) on Bottom Overlay Silk Text to Silk Clearance [0.214mm]
+   Violation between Silk To Silk Clearance Constraint: (0.138mm < 0.254mm) Between Text "Q14" (93.574mm,23.978mm) on Bottom Overlay And Text "R38" (91.973mm,23.978mm) on Bottom Overlay Silk Text to Silk Clearance [0.138mm]
+   Violation between Silk To Silk Clearance Constraint: (0.214mm < 0.254mm) Between Text "Q21" (109.017mm,18.898mm) on Bottom Overlay And Text "R37" (110.693mm,18.796mm) on Bottom Overlay Silk Text to Silk Clearance [0.214mm]
+   Violation between Silk To Silk Clearance Constraint: (0.087mm < 0.254mm) Between Text "Q20" (108.89mm,11.811mm) on Bottom Overlay And Text "R36" (110.439mm,11.938mm) on Bottom Overlay Silk Text to Silk Clearance [0.087mm]
+   Violation between Silk To Silk Clearance Constraint: (0.189mm < 0.254mm) Between Text "Q19" (108.941mm,30.912mm) on Bottom Overlay And Text "R35" (110.592mm,30.836mm) on Bottom Overlay Silk Text to Silk Clearance [0.189mm]
+   Violation between Silk To Silk Clearance Constraint: (0.087mm < 0.254mm) Between Text "Q18" (108.966mm,24.054mm) on Bottom Overlay And Text "R34" (110.515mm,23.927mm) on Bottom Overlay Silk Text to Silk Clearance [0.087mm]
+   Violation between Silk To Silk Clearance Constraint: (0.138mm < 0.254mm) Between Text "Q17" (93.624mm,18.948mm) on Bottom Overlay And Text "R33" (95.225mm,18.872mm) on Bottom Overlay Silk Text to Silk Clearance [0.138mm]
+   Violation between Silk To Silk Clearance Constraint: (0.189mm < 0.254mm) Between Text "Q16" (93.624mm,12.217mm) on Bottom Overlay And Text "R32" (95.275mm,12.116mm) on Bottom Overlay Silk Text to Silk Clearance [0.189mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "Q15" (93.65mm,30.734mm) on Bottom Overlay And Text "R31" (95.352mm,30.912mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.189mm < 0.254mm) Between Text "Q14" (93.574mm,23.978mm) on Bottom Overlay And Text "R30" (95.225mm,24.003mm) on Bottom Overlay Silk Text to Silk Clearance [0.189mm]
+   Violation between Silk To Silk Clearance Constraint: (0.164mm < 0.254mm) Between Text "Q13" (78.181mm,18.898mm) on Bottom Overlay And Text "R29" (76.556mm,19.025mm) on Bottom Overlay Silk Text to Silk Clearance [0.164mm]
+   Violation between Silk To Silk Clearance Constraint: (0.138mm < 0.254mm) Between Text "Q12" (78.232mm,12.116mm) on Bottom Overlay And Text "R28" (76.632mm,12.09mm) on Bottom Overlay Silk Text to Silk Clearance [0.138mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "Q11" (78.156mm,31.267mm) on Bottom Overlay And Text "R27" (76.454mm,31.318mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.214mm < 0.254mm) Between Text "Q10" (78.232mm,24.486mm) on Bottom Overlay And Text "R26" (76.556mm,24.536mm) on Bottom Overlay Silk Text to Silk Clearance [0.214mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "Q13" (78.181mm,18.898mm) on Bottom Overlay And Text "R21" (79.883mm,19.025mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.24mm < 0.254mm) Between Text "Q12" (78.232mm,12.116mm) on Bottom Overlay And Text "R20" (79.934mm,12.09mm) on Bottom Overlay Silk Text to Silk Clearance [0.24mm]
+   Violation between Silk To Silk Clearance Constraint: (0.189mm < 0.254mm) Between Text "Q10" (78.232mm,24.486mm) on Bottom Overlay And Text "R18" (79.883mm,24.486mm) on Bottom Overlay Silk Text to Silk Clearance [0.189mm]
+Rule Violations :26
+
+Processing Rule : Net Antennae (Tolerance=0mm) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=0.254mm) (Max=1.016mm) (Preferred=0.635mm) ((InNetClass('Alimentacoes')))
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.254mm) (All),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=0.127mm) ((InComponent('U1'))),(All)
+Rule Violations :0
+
+
+Violations Detected : 31
+Time Elapsed        : 00:00:04

@@ -1,0 +1,1290 @@
+Info: Starting: Create simulation model
+Info: qsys-generate C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project.qsys --simulation=VHDL --allow-mixed-language-simulation --output-directory=C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project\simulation --family="Stratix IV" --part=EP4SGX230KF40C2
+Progress: Loading Qsys_Project/MebX_Qsys_Project.qsys
+Progress: Reading input file
+Progress: Adding SEVEN_SEGMENT_CONTROLLER_0 [SEVEN_SEGMENT_CONTROLLER 1.0]
+Progress: Parameterizing module SEVEN_SEGMENT_CONTROLLER_0
+Progress: Adding clk_100 [clock_source 16.1]
+Progress: Parameterizing module clk_100
+Progress: Adding clk_200 [clock_source 16.1]
+Progress: Parameterizing module clk_200
+Progress: Adding clk_50 [clock_source 16.1]
+Progress: Parameterizing module clk_50
+Progress: Adding clock_bridge_afi_50 [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module clock_bridge_afi_50
+Progress: Adding csense_adc_fo [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_adc_fo
+Progress: Adding csense_cs_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_cs_n
+Progress: Adding csense_sck [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sck
+Progress: Adding csense_sdi [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sdi
+Progress: Adding csense_sdo [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 16.1]
+Progress: Parameterizing module ddr2_address_span_extender
+Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module descriptor_memory
+Progress: Adding dma_M1_M2 [altera_msgdma 16.1]
+Progress: Parameterizing module dma_M1_M2
+Progress: Adding dma_M2_M1 [altera_msgdma 16.1]
+Progress: Parameterizing module dma_M2_M1
+Progress: Adding ext_flash [altera_generic_tristate_controller 16.1]
+Progress: Parameterizing module ext_flash
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 16.1]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding m1_clock_bridge [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module m1_clock_bridge
+Progress: Adding m1_ddr2_i2c_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module m1_ddr2_i2c_scl
+Progress: Adding m1_ddr2_i2c_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module m1_ddr2_i2c_sda
+Progress: Adding m1_ddr2_memory [altera_mem_if_ddr2_emif 16.1]
+Progress: Parameterizing module m1_ddr2_memory
+Progress: Adding m2_ddr2_i2c_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module m2_ddr2_i2c_scl
+Progress: Adding m2_ddr2_i2c_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module m2_ddr2_i2c_sda
+Progress: Adding m2_ddr2_memory [altera_mem_if_ddr2_emif 16.1]
+Progress: Parameterizing module m2_ddr2_memory
+Progress: Adding nios2_gen2_0 [altera_nios2_gen2 16.1]
+Progress: Parameterizing module nios2_gen2_0
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding pio_BUTTON [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_BUTTON
+Progress: Adding pio_DIP [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_DIP
+Progress: Adding pio_EXT [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_EXT
+Progress: Adding pio_LED [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_LED
+Progress: Adding pio_LED_painel [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_LED_painel
+Progress: Adding pio_RST_ETH [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_RST_ETH
+Progress: Adding rtcc_alarm [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_alarm
+Progress: Adding rtcc_cs_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_cs_n
+Progress: Adding rtcc_sck [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sck
+Progress: Adding rtcc_sdi [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sdi
+Progress: Adding rtcc_sdo [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sdo
+Progress: Adding sd_clk [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_clk
+Progress: Adding sd_cmd [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_cmd
+Progress: Adding sd_dat [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_dat
+Progress: Adding sd_wp_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_wp_n
+Progress: Adding sgdma_rx [altera_avalon_sgdma 16.1]
+Progress: Parameterizing module sgdma_rx
+Progress: Adding sgdma_tx [altera_avalon_sgdma 16.1]
+Progress: Parameterizing module sgdma_tx
+Progress: Adding sinc_in [altera_avalon_pio 16.1]
+Progress: Parameterizing module sinc_in
+Progress: Adding sinc_out [altera_avalon_pio 16.1]
+Progress: Parameterizing module sinc_out
+Progress: Adding sysid_qsys [altera_avalon_sysid_qsys 16.1]
+Progress: Parameterizing module sysid_qsys
+Progress: Adding temp_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module temp_scl
+Progress: Adding temp_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module temp_sda
+Progress: Adding timer_1ms [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1ms
+Progress: Adding timer_1us [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1us
+Progress: Adding tristate_conduit_bridge_0 [altera_tristate_conduit_bridge 16.1]
+Progress: Parameterizing module tristate_conduit_bridge_0
+Progress: Adding tse_mac [altera_eth_tse 16.1]
+Progress: Parameterizing module tse_mac
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: MebX_Qsys_Project.csense_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.dma_M1_M2: Response information port is disabled. Enable the response port if data transfer information is required by host
+Info: MebX_Qsys_Project.dma_M2_M1: Response information port is disabled. Enable the response port if data transfer information is required by host
+Warning: MebX_Qsys_Project.ext_flash: Properties (isFlash,isMemoryDevice,isNonVolatileStorage) have been set on interface uas - in composed mode these are ignored
+Info: MebX_Qsys_Project.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: MebX_Qsys_Project.m1_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m1_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Info: MebX_Qsys_Project.m2_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m2_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Warning: MebX_Qsys_Project.m2_ddr2_memory.pll_bridge: pll_bridge.pll_sharing cannot be both connected and exported
+Info: MebX_Qsys_Project.pio_BUTTON: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_DIP: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_EXT: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_alarm: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_cmd: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_dat: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_wp_n: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sgdma_rx: Scatter-Gather DMA Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: MebX_Qsys_Project.sgdma_tx: Scatter-Gather DMA Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: MebX_Qsys_Project.sinc_in: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: MebX_Qsys_Project.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Info: MebX_Qsys_Project.temp_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.tse_mac: MII/GMII is automatically selected in 10/100/1000 Mb Ethernet MAC with 1000BASE-X/SGMII PCS core variations
+Info: MebX_Qsys_Project.sgdma_tx.out/tse_mac.transmit: The sink has a error signal of 1 bits, but the source does not. Avalon-ST Adapter will be inserted.
+Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: Ready latency is 2 for source and 0 for sink. Avalon-ST Adapter will be inserted..
+Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: The source has a error signal of 6 bits, but the sink does not. Avalon-ST Adapter will be inserted.
+Info: MebX_Qsys_Project: Generating MebX_Qsys_Project "MebX_Qsys_Project" for SIM_VHDL
+Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
+Info: Inserting clock-crossing logic between cmd_demux.src1 and cmd_mux_001.sink0
+Info: Inserting clock-crossing logic between cmd_demux_001.src0 and cmd_mux.sink1
+Info: Inserting clock-crossing logic between cmd_demux_002.src0 and cmd_mux.sink2
+Info: Inserting clock-crossing logic between cmd_demux_003.src0 and cmd_mux_001.sink1
+Info: Inserting clock-crossing logic between cmd_demux_004.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src1 and rsp_mux_001.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src2 and rsp_mux_002.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src0 and rsp_mux.sink1
+Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_003.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_004.sink0
+Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has address signal 31 bit wide, but the slave is 26 bit wide.
+Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has debugaccess signal 1 bit wide, but the slave is 0 bit wide.
+Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because they have different clock source.
+Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting timing_adapter: timing_adapter_0
+Info: SEVEN_SEGMENT_CONTROLLER_0: "MebX_Qsys_Project" instantiated SEVEN_SEGMENT_CONTROLLER "SEVEN_SEGMENT_CONTROLLER_0"
+Info: clock_bridge_afi_50: "MebX_Qsys_Project" instantiated altera_avalon_mm_clock_crossing_bridge "clock_bridge_afi_50"
+Info: csense_adc_fo: Starting RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
+Info: csense_adc_fo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_adc_fo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0003_csense_adc_fo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0003_csense_adc_fo_gen//MebX_Qsys_Project_csense_adc_fo_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0003_csense_adc_fo_gen/  ]
+Info: csense_adc_fo: Done RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
+Info: csense_adc_fo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_adc_fo"
+Info: csense_cs_n: Starting RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
+Info: csense_cs_n:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_cs_n --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0004_csense_cs_n_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0004_csense_cs_n_gen//MebX_Qsys_Project_csense_cs_n_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0004_csense_cs_n_gen/  ]
+Info: csense_cs_n: Done RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
+Info: csense_cs_n: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_cs_n"
+Info: csense_sdo: Starting RTL generation for module 'MebX_Qsys_Project_csense_sdo'
+Info: csense_sdo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_sdo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0005_csense_sdo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0005_csense_sdo_gen//MebX_Qsys_Project_csense_sdo_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0005_csense_sdo_gen/  ]
+Info: csense_sdo: Done RTL generation for module 'MebX_Qsys_Project_csense_sdo'
+Info: csense_sdo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_sdo"
+Info: ddr2_address_span_extender: "MebX_Qsys_Project" instantiated altera_address_span_extender "ddr2_address_span_extender"
+Info: descriptor_memory: Starting RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
+Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0007_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0007_descriptor_memory_gen//MebX_Qsys_Project_descriptor_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0007_descriptor_memory_gen/  ]
+Info: descriptor_memory: Done RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
+Info: descriptor_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "descriptor_memory"
+Info: dma_M1_M2: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M1_M2"
+Info: dma_M2_M1: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M2_M1"
+Info: ext_flash: "MebX_Qsys_Project" instantiated altera_generic_tristate_controller "ext_flash"
+Info: jtag_uart_0: Starting RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
+Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0008_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0008_jtag_uart_0_gen//MebX_Qsys_Project_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0008_jtag_uart_0_gen/  ]
+Info: jtag_uart_0: Done RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
+Info: jtag_uart_0: "MebX_Qsys_Project" instantiated altera_avalon_jtag_uart "jtag_uart_0"
+Info: m1_ddr2_i2c_sda: Starting RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
+Info: m1_ddr2_i2c_sda:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_m1_ddr2_i2c_sda --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0009_m1_ddr2_i2c_sda_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0009_m1_ddr2_i2c_sda_gen//MebX_Qsys_Project_m1_ddr2_i2c_sda_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0009_m1_ddr2_i2c_sda_gen/  ]
+Info: m1_ddr2_i2c_sda: Done RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
+Info: m1_ddr2_i2c_sda: "MebX_Qsys_Project" instantiated altera_avalon_pio "m1_ddr2_i2c_sda"
+Info: m1_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m1_ddr2_memory"
+Info: m2_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m2_ddr2_memory"
+Info: nios2_gen2_0: "MebX_Qsys_Project" instantiated altera_nios2_gen2 "nios2_gen2_0"
+Info: onchip_memory: Starting RTL generation for module 'MebX_Qsys_Project_onchip_memory'
+Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0010_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0010_onchip_memory_gen//MebX_Qsys_Project_onchip_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0010_onchip_memory_gen/  ]
+Info: onchip_memory: Done RTL generation for module 'MebX_Qsys_Project_onchip_memory'
+Info: onchip_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "onchip_memory"
+Info: pio_BUTTON: Starting RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
+Info: pio_BUTTON:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_BUTTON --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0011_pio_BUTTON_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0011_pio_BUTTON_gen//MebX_Qsys_Project_pio_BUTTON_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0011_pio_BUTTON_gen/  ]
+Info: pio_BUTTON: Done RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
+Info: pio_BUTTON: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_BUTTON"
+Info: pio_DIP: Starting RTL generation for module 'MebX_Qsys_Project_pio_DIP'
+Info: pio_DIP:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_DIP --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0012_pio_DIP_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0012_pio_DIP_gen//MebX_Qsys_Project_pio_DIP_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0012_pio_DIP_gen/  ]
+Info: pio_DIP: Done RTL generation for module 'MebX_Qsys_Project_pio_DIP'
+Info: pio_DIP: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_DIP"
+Info: pio_EXT: Starting RTL generation for module 'MebX_Qsys_Project_pio_EXT'
+Info: pio_EXT:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_EXT --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0013_pio_EXT_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0013_pio_EXT_gen//MebX_Qsys_Project_pio_EXT_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0013_pio_EXT_gen/  ]
+Info: pio_EXT: Done RTL generation for module 'MebX_Qsys_Project_pio_EXT'
+Info: pio_EXT: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_EXT"
+Info: pio_LED: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED'
+Info: pio_LED:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0014_pio_LED_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0014_pio_LED_gen//MebX_Qsys_Project_pio_LED_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0014_pio_LED_gen/  ]
+Info: pio_LED: Done RTL generation for module 'MebX_Qsys_Project_pio_LED'
+Info: pio_LED: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED"
+Info: pio_LED_painel: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
+Info: pio_LED_painel:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED_painel --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0015_pio_LED_painel_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0015_pio_LED_painel_gen//MebX_Qsys_Project_pio_LED_painel_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0015_pio_LED_painel_gen/  ]
+Info: pio_LED_painel: Done RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
+Info: pio_LED_painel: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED_painel"
+Info: sd_dat: Starting RTL generation for module 'MebX_Qsys_Project_sd_dat'
+Info: sd_dat:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_sd_dat --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0016_sd_dat_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0016_sd_dat_gen//MebX_Qsys_Project_sd_dat_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0016_sd_dat_gen/  ]
+Info: sd_dat: Done RTL generation for module 'MebX_Qsys_Project_sd_dat'
+Info: sd_dat: "MebX_Qsys_Project" instantiated altera_avalon_pio "sd_dat"
+Info: sgdma_rx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
+Info: sgdma_rx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_rx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0017_sgdma_rx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0017_sgdma_rx_gen//MebX_Qsys_Project_sgdma_rx_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0017_sgdma_rx_gen/  ]
+Info: sgdma_rx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
+Info: sgdma_rx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_rx"
+Info: sgdma_tx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
+Info: sgdma_tx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_tx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0018_sgdma_tx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0018_sgdma_tx_gen//MebX_Qsys_Project_sgdma_tx_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0018_sgdma_tx_gen/  ]
+Info: sgdma_tx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
+Info: sgdma_tx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_tx"
+Info: sysid_qsys: "MebX_Qsys_Project" instantiated altera_avalon_sysid_qsys "sysid_qsys"
+Info: timer_1ms: Starting RTL generation for module 'MebX_Qsys_Project_timer_1ms'
+Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0020_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0020_timer_1ms_gen//MebX_Qsys_Project_timer_1ms_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0020_timer_1ms_gen/  ]
+Info: timer_1ms: Done RTL generation for module 'MebX_Qsys_Project_timer_1ms'
+Info: timer_1ms: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1ms"
+Info: timer_1us: Starting RTL generation for module 'MebX_Qsys_Project_timer_1us'
+Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0021_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0021_timer_1us_gen//MebX_Qsys_Project_timer_1us_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0021_timer_1us_gen/  ]
+Info: timer_1us: Done RTL generation for module 'MebX_Qsys_Project_timer_1us'
+Info: timer_1us: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1us"
+Info: tristate_conduit_bridge_0: "MebX_Qsys_Project" instantiated altera_tristate_conduit_bridge "tristate_conduit_bridge_0"
+Info: tse_mac: "MebX_Qsys_Project" instantiated altera_eth_tse "tse_mac"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_008: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_009: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_010: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_011: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_012: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_013: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_014: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_015: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_008: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_009: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_010: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_011: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_012: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_013: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_014: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_015: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_016: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_017: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_018: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_019: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_020: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_021: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_022: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_023: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_024: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_025: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_026: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_027: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_028: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_029: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_030: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_2: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_3: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_3"
+Info: irq_mapper: "MebX_Qsys_Project" instantiated altera_irq_mapper "irq_mapper"
+Info: irq_synchronizer: "MebX_Qsys_Project" instantiated altera_irq_clock_crosser "irq_synchronizer"
+Info: avalon_st_adapter: "MebX_Qsys_Project" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_001: "MebX_Qsys_Project" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
+Info: rst_controller: "MebX_Qsys_Project" instantiated altera_reset_controller "rst_controller"
+Info: dispatcher_internal: "dma_M1_M2" instantiated modular_sgdma_dispatcher "dispatcher_internal"
+Info: read_mstr_internal: "dma_M1_M2" instantiated dma_read_master "read_mstr_internal"
+Info: write_mstr_internal: "dma_M1_M2" instantiated dma_write_master "write_mstr_internal"
+Info: tdt: "ext_flash" instantiated altera_tristate_controller_translator "tdt"
+Info: slave_translator: "ext_flash" instantiated altera_merlin_slave_translator "slave_translator"
+Info: tda: "ext_flash" instantiated altera_tristate_controller_aggregator "tda"
+Info: pll0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_pll "pll0"
+Info: p0: Generating clock pair generator
+Info: p0: Generating MebX_Qsys_Project_m1_ddr2_memory_p0_altdqdqs
+Info: p0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_phy_core "p0"
+Info: m0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_afi_mux "m0"
+Info: s0: Generating Qsys sequencer system
+Info: s0: QSYS sequencer system generated successfully
+Info: s0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_qseq "s0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_slave_translator.sv
+Info: c0: "m1_ddr2_memory" instantiated altera_mem_if_nextgen_ddr2_controller "c0"
+Info: oct0: "m1_ddr2_memory" instantiated altera_mem_if_oct "oct0"
+Info: dll0: "m1_ddr2_memory" instantiated altera_mem_if_dll "dll0"
+Info: pll0: "m2_ddr2_memory" instantiated altera_mem_if_ddr2_pll "pll0"
+Info: p0: Generating clock pair generator
+Info: p0: Generating MebX_Qsys_Project_m2_ddr2_memory_p0_altdqdqs
+Info: p0: "m2_ddr2_memory" instantiated altera_mem_if_ddr2_phy_core "p0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altdq_dqs2_ddio_3reg_stratixiv.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altdq_dqs2_abstract.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altdq_dqs2_cal_delays.sv
+Info: s0: Generating Qsys sequencer system
+Info: s0: QSYS sequencer system generated successfully
+Info: s0: "m2_ddr2_memory" instantiated altera_mem_if_ddr2_qseq "s0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_sc_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_mem_if_sequencer_cpu_no_ifdef_params_sim_cpu_inst.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_mem_if_sequencer_cpu_no_ifdef_params_sim_cpu_inst_test_bench.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_mem_if_sequencer_mem_no_ifdef_params.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_mem_if_sequencer_rst.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_burst_uncompressor.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_master_agent.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_master_translator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_slave_agent.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_slave_translator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_ac_ROM_no_ifdef_params.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_ac_ROM_reg.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_bitcheck.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_core.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_datamux.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_data_broadcast.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_data_decoder.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_ddr2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_di_buffer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_di_buffer_wrap.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_dm_decoder.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_generic.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_inst_ROM_no_ifdef_params.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_inst_ROM_reg.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_jumplogic.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_lfsr12.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_lfsr36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_lfsr72.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_pattern_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_ram.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_ram_csr.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_read_datapath.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/rw_manager_write_decoder.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_data_mgr.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_phy_mgr.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_reg_file.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_acv_phase_decode.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_acv_wrapper.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_mgr.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_reg_file.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_siii_phase_decode.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_siii_wrapper.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_sv_phase_decode.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/sequencer_scc_sv_wrapper.sv
+Info: cpu: Starting RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
+Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0041_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0041_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0041_cpu_gen/  ]
+Info: cpu: # 2017.12.08 01:18:47 (*) Starting Nios II generation
+Info: cpu: # 2017.12.08 01:18:47 (*)   Checking for plaintext license.
+Info: cpu: # 2017.12.08 01:18:47 (*)   Plaintext license not found.
+Info: cpu: # 2017.12.08 01:18:47 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2017.12.08 01:18:48 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: cpu: # 2017.12.08 01:18:48 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2017.12.08 01:18:48 (*)   Creating all objects for CPU
+Info: cpu: # 2017.12.08 01:18:48 (*)     Testbench
+Info: cpu: # 2017.12.08 01:18:49 (*)     Instruction decoding
+Info: cpu: # 2017.12.08 01:18:49 (*)       Instruction fields
+Info: cpu: # 2017.12.08 01:18:49 (*)       Instruction decodes
+Info: cpu: # 2017.12.08 01:18:49 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2017.12.08 01:18:49 (*)       Instruction controls
+Info: cpu: # 2017.12.08 01:18:49 (*)     Pipeline frontend
+Info: cpu: # 2017.12.08 01:18:49 (*)     Pipeline backend
+Info: cpu: # 2017.12.08 01:18:51 (*)   Creating 'C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0041_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_nios2_waves.do'
+Info: cpu: # 2017.12.08 01:18:51 (*)   Generating RTL from CPU objects
+Info: cpu: # 2017.12.08 01:18:52 (*)   Creating encrypted RTL
+Info: cpu: # 2017.12.08 01:18:52 (*)   Creating IP functional simulation model
+Info: cpu: # 2017.12.08 01:19:07 (*) Done Nios II generation
+Info: cpu: Done RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
+Info: cpu: "nios2_gen2_0" instantiated altera_nios2_gen2_unit "cpu"
+Info: i_tse_mac: "tse_mac" instantiated altera_eth_tse_mac "i_tse_mac"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_std_synchronizer_nocut.v
+Info: avalon_arbiter: "tse_mac" instantiated altera_eth_tse_avalon_arbiter "avalon_arbiter"
+Info: i_tse_pcs_0: "tse_mac" instantiated altera_eth_tse_pcs_pma_lvds "i_tse_pcs_0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_eth_tse_std_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_eth_tse_std_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_eth_tse_std_synchronizer_bundle.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_eth_tse_std_synchronizer_bundle.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_eth_tse_ptp_std_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_eth_tse_ptp_std_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_false_path_marker.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_false_path_marker.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_reset_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_reset_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_clock_crosser.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_clock_crosser.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_a_fifo_13.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_a_fifo_13.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_a_fifo_24.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_a_fifo_24.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_a_fifo_34.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_a_fifo_34.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_a_fifo_opt_1246.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_a_fifo_opt_1246.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_a_fifo_opt_14_44.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_a_fifo_opt_14_44.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_a_fifo_opt_36_10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_a_fifo_opt_36_10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_gray_cnt.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_gray_cnt.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_sdpm_altsyncram.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_sdpm_altsyncram.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_altsyncram_dpm_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_altsyncram_dpm_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_bin_cnt.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_bin_cnt.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ph_calculator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ph_calculator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_sdpm_gen.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_sdpm_gen.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x10_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x10_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x14.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x14.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x14.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x14.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x14_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x14_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x2_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x2_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x23.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x23.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x23.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x23.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x23_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x23_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x36_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x36_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x40.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x40.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x40.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x40.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x40_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x40_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_dec_x30.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_dec_x30.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x30.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x30.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_enc_x30_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_enc_x30_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/mentor/altera_tse_ecc_status_crosser.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/aldec/altera_tse_ecc_status_crosser.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_std_synchronizer_nocut.v
+Info: nios2_gen2_0_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "nios2_gen2_0_data_master_translator"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_master_translator.sv
+Info: nios2_gen2_0_data_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "nios2_gen2_0_data_master_agent"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_master_agent.sv
+Info: jtag_uart_0_avalon_jtag_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "jtag_uart_0_avalon_jtag_slave_agent"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_slave_agent.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_burst_uncompressor.sv
+Info: jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_sc_fifo.v
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
+Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
+Info: router_009: "mm_interconnect_0" instantiated altera_merlin_router "router_009"
+Info: router_016: "mm_interconnect_0" instantiated altera_merlin_router "router_016"
+Info: router_017: "mm_interconnect_0" instantiated altera_merlin_router "router_017"
+Info: router_020: "mm_interconnect_0" instantiated altera_merlin_router "router_020"
+Info: router_021: "mm_interconnect_0" instantiated altera_merlin_router "router_021"
+Info: router_022: "mm_interconnect_0" instantiated altera_merlin_router "router_022"
+Info: nios2_gen2_0_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_gen2_0_instruction_master_limiter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_sc_fifo.v
+Info: nios2_gen2_0_debug_mem_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "nios2_gen2_0_debug_mem_slave_burst_adapter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_st_pipeline_base.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_002"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_008: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_008"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_012: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_012"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_013: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_013"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux_008: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_008"
+Info: rsp_demux_012: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_012"
+Info: rsp_demux_013: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_013"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_002"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: ddr2_address_span_extender_cntl_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "ddr2_address_span_extender_cntl_cmd_width_adapter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_burst_uncompressor.sv
+Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_001: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
+Info: avalon_st_adapter_009: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_009"
+Info: avalon_st_adapter_014: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_014"
+Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_1" instantiated altera_merlin_router "router_001"
+Info: router_003: "mm_interconnect_1" instantiated altera_merlin_router "router_003"
+Info: router_005: "mm_interconnect_1" instantiated altera_merlin_router "router_005"
+Info: router_006: "mm_interconnect_1" instantiated altera_merlin_router "router_006"
+Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux_001"
+Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: crosser: "mm_interconnect_1" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_avalon_st_pipeline_base.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_std_synchronizer_nocut.v
+Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: router: "mm_interconnect_2" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_2" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: router: "mm_interconnect_3" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_3" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/submodules/altera_merlin_arbitrator.sv
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
+Info: timing_adapter_0: "avalon_st_adapter_001" instantiated timing_adapter "timing_adapter_0"
+Info: ng0: "c0" instantiated altera_mem_if_nextgen_ddr2_controller_core "ng0"
+Info: a0: "c0" instantiated alt_mem_ddrx_mm_st_converter "a0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_009" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_014" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: MebX_Qsys_Project: Done "MebX_Qsys_Project" with 130 modules, 649 files
+Info: qsys-generate succeeded.
+Info: Finished: Create simulation model
+Info: Starting: Create Modelsim Project.
+Info: sim-script-gen --spd=C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project\MebX_Qsys_Project.spd --output-directory=C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/ --use-relative-paths=true
+Info: Doing: ip-make-simscript --spd=C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project\MebX_Qsys_Project.spd --output-directory=C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/ --use-relative-paths=true
+Info: Generating the following file(s) for MODELSIM simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Skipping VCS script generation since VHDL file $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_syn_attributes.vhd is required for simulation
+Info: Generating the following file(s) for VCSMX simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	97 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/simulation/.
+Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: Finished: Create Modelsim Project.
+Info: Starting: Create block symbol file (.bsf)
+Info: qsys-generate C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project.qsys --block-symbol-file --output-directory=C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project --family="Stratix IV" --part=EP4SGX230KF40C2
+Progress: Loading Qsys_Project/MebX_Qsys_Project.qsys
+Progress: Reading input file
+Progress: Adding SEVEN_SEGMENT_CONTROLLER_0 [SEVEN_SEGMENT_CONTROLLER 1.0]
+Progress: Parameterizing module SEVEN_SEGMENT_CONTROLLER_0
+Progress: Adding clk_100 [clock_source 16.1]
+Progress: Parameterizing module clk_100
+Progress: Adding clk_200 [clock_source 16.1]
+Progress: Parameterizing module clk_200
+Progress: Adding clk_50 [clock_source 16.1]
+Progress: Parameterizing module clk_50
+Progress: Adding clock_bridge_afi_50 [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module clock_bridge_afi_50
+Progress: Adding csense_adc_fo [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_adc_fo
+Progress: Adding csense_cs_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_cs_n
+Progress: Adding csense_sck [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sck
+Progress: Adding csense_sdi [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sdi
+Progress: Adding csense_sdo [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 16.1]
+Progress: Parameterizing module ddr2_address_span_extender
+Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module descriptor_memory
+Progress: Adding dma_M1_M2 [altera_msgdma 16.1]
+Progress: Parameterizing module dma_M1_M2
+Progress: Adding dma_M2_M1 [altera_msgdma 16.1]
+Progress: Parameterizing module dma_M2_M1
+Progress: Adding ext_flash [altera_generic_tristate_controller 16.1]
+Progress: Parameterizing module ext_flash
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 16.1]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding m1_clock_bridge [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module m1_clock_bridge
+Progress: Adding m1_ddr2_i2c_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module m1_ddr2_i2c_scl
+Progress: Adding m1_ddr2_i2c_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module m1_ddr2_i2c_sda
+Progress: Adding m1_ddr2_memory [altera_mem_if_ddr2_emif 16.1]
+Progress: Parameterizing module m1_ddr2_memory
+Progress: Adding m2_ddr2_i2c_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module m2_ddr2_i2c_scl
+Progress: Adding m2_ddr2_i2c_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module m2_ddr2_i2c_sda
+Progress: Adding m2_ddr2_memory [altera_mem_if_ddr2_emif 16.1]
+Progress: Parameterizing module m2_ddr2_memory
+Progress: Adding nios2_gen2_0 [altera_nios2_gen2 16.1]
+Progress: Parameterizing module nios2_gen2_0
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding pio_BUTTON [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_BUTTON
+Progress: Adding pio_DIP [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_DIP
+Progress: Adding pio_EXT [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_EXT
+Progress: Adding pio_LED [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_LED
+Progress: Adding pio_LED_painel [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_LED_painel
+Progress: Adding pio_RST_ETH [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_RST_ETH
+Progress: Adding rtcc_alarm [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_alarm
+Progress: Adding rtcc_cs_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_cs_n
+Progress: Adding rtcc_sck [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sck
+Progress: Adding rtcc_sdi [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sdi
+Progress: Adding rtcc_sdo [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sdo
+Progress: Adding sd_clk [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_clk
+Progress: Adding sd_cmd [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_cmd
+Progress: Adding sd_dat [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_dat
+Progress: Adding sd_wp_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_wp_n
+Progress: Adding sgdma_rx [altera_avalon_sgdma 16.1]
+Progress: Parameterizing module sgdma_rx
+Progress: Adding sgdma_tx [altera_avalon_sgdma 16.1]
+Progress: Parameterizing module sgdma_tx
+Progress: Adding sinc_in [altera_avalon_pio 16.1]
+Progress: Parameterizing module sinc_in
+Progress: Adding sinc_out [altera_avalon_pio 16.1]
+Progress: Parameterizing module sinc_out
+Progress: Adding sysid_qsys [altera_avalon_sysid_qsys 16.1]
+Progress: Parameterizing module sysid_qsys
+Progress: Adding temp_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module temp_scl
+Progress: Adding temp_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module temp_sda
+Progress: Adding timer_1ms [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1ms
+Progress: Adding timer_1us [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1us
+Progress: Adding tristate_conduit_bridge_0 [altera_tristate_conduit_bridge 16.1]
+Progress: Parameterizing module tristate_conduit_bridge_0
+Progress: Adding tse_mac [altera_eth_tse 16.1]
+Progress: Parameterizing module tse_mac
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: MebX_Qsys_Project.csense_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.dma_M1_M2: Response information port is disabled. Enable the response port if data transfer information is required by host
+Info: MebX_Qsys_Project.dma_M2_M1: Response information port is disabled. Enable the response port if data transfer information is required by host
+Warning: MebX_Qsys_Project.ext_flash: Properties (isFlash,isMemoryDevice,isNonVolatileStorage) have been set on interface uas - in composed mode these are ignored
+Info: MebX_Qsys_Project.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: MebX_Qsys_Project.m1_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m1_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Info: MebX_Qsys_Project.m2_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m2_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Warning: MebX_Qsys_Project.m2_ddr2_memory.pll_bridge: pll_bridge.pll_sharing cannot be both connected and exported
+Info: MebX_Qsys_Project.pio_BUTTON: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_DIP: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_EXT: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_alarm: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_cmd: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_dat: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_wp_n: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sgdma_rx: Scatter-Gather DMA Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: MebX_Qsys_Project.sgdma_tx: Scatter-Gather DMA Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: MebX_Qsys_Project.sinc_in: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: MebX_Qsys_Project.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Info: MebX_Qsys_Project.temp_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.tse_mac: MII/GMII is automatically selected in 10/100/1000 Mb Ethernet MAC with 1000BASE-X/SGMII PCS core variations
+Info: MebX_Qsys_Project.sgdma_tx.out/tse_mac.transmit: The sink has a error signal of 1 bits, but the source does not. Avalon-ST Adapter will be inserted.
+Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: Ready latency is 2 for source and 0 for sink. Avalon-ST Adapter will be inserted..
+Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: The source has a error signal of 6 bits, but the sink does not. Avalon-ST Adapter will be inserted.
+Info: qsys-generate succeeded.
+Info: Finished: Create block symbol file (.bsf)
+Info: 
+Info: Starting: Create HDL design files for synthesis
+Info: qsys-generate C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project.qsys --synthesis=VHDL --output-directory=C:\Users\rfranca\Development\GitHub\SimuCam_Development\Hardware_V01\Qsys_Project\MebX_Qsys_Project\synthesis --family="Stratix IV" --part=EP4SGX230KF40C2
+Progress: Loading Qsys_Project/MebX_Qsys_Project.qsys
+Progress: Reading input file
+Progress: Adding SEVEN_SEGMENT_CONTROLLER_0 [SEVEN_SEGMENT_CONTROLLER 1.0]
+Progress: Parameterizing module SEVEN_SEGMENT_CONTROLLER_0
+Progress: Adding clk_100 [clock_source 16.1]
+Progress: Parameterizing module clk_100
+Progress: Adding clk_200 [clock_source 16.1]
+Progress: Parameterizing module clk_200
+Progress: Adding clk_50 [clock_source 16.1]
+Progress: Parameterizing module clk_50
+Progress: Adding clock_bridge_afi_50 [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module clock_bridge_afi_50
+Progress: Adding csense_adc_fo [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_adc_fo
+Progress: Adding csense_cs_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_cs_n
+Progress: Adding csense_sck [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sck
+Progress: Adding csense_sdi [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sdi
+Progress: Adding csense_sdo [altera_avalon_pio 16.1]
+Progress: Parameterizing module csense_sdo
+Progress: Adding ddr2_address_span_extender [altera_address_span_extender 16.1]
+Progress: Parameterizing module ddr2_address_span_extender
+Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module descriptor_memory
+Progress: Adding dma_M1_M2 [altera_msgdma 16.1]
+Progress: Parameterizing module dma_M1_M2
+Progress: Adding dma_M2_M1 [altera_msgdma 16.1]
+Progress: Parameterizing module dma_M2_M1
+Progress: Adding ext_flash [altera_generic_tristate_controller 16.1]
+Progress: Parameterizing module ext_flash
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 16.1]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding m1_clock_bridge [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module m1_clock_bridge
+Progress: Adding m1_ddr2_i2c_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module m1_ddr2_i2c_scl
+Progress: Adding m1_ddr2_i2c_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module m1_ddr2_i2c_sda
+Progress: Adding m1_ddr2_memory [altera_mem_if_ddr2_emif 16.1]
+Progress: Parameterizing module m1_ddr2_memory
+Progress: Adding m2_ddr2_i2c_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module m2_ddr2_i2c_scl
+Progress: Adding m2_ddr2_i2c_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module m2_ddr2_i2c_sda
+Progress: Adding m2_ddr2_memory [altera_mem_if_ddr2_emif 16.1]
+Progress: Parameterizing module m2_ddr2_memory
+Progress: Adding nios2_gen2_0 [altera_nios2_gen2 16.1]
+Progress: Parameterizing module nios2_gen2_0
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding pio_BUTTON [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_BUTTON
+Progress: Adding pio_DIP [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_DIP
+Progress: Adding pio_EXT [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_EXT
+Progress: Adding pio_LED [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_LED
+Progress: Adding pio_LED_painel [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_LED_painel
+Progress: Adding pio_RST_ETH [altera_avalon_pio 16.1]
+Progress: Parameterizing module pio_RST_ETH
+Progress: Adding rtcc_alarm [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_alarm
+Progress: Adding rtcc_cs_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_cs_n
+Progress: Adding rtcc_sck [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sck
+Progress: Adding rtcc_sdi [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sdi
+Progress: Adding rtcc_sdo [altera_avalon_pio 16.1]
+Progress: Parameterizing module rtcc_sdo
+Progress: Adding sd_clk [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_clk
+Progress: Adding sd_cmd [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_cmd
+Progress: Adding sd_dat [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_dat
+Progress: Adding sd_wp_n [altera_avalon_pio 16.1]
+Progress: Parameterizing module sd_wp_n
+Progress: Adding sgdma_rx [altera_avalon_sgdma 16.1]
+Progress: Parameterizing module sgdma_rx
+Progress: Adding sgdma_tx [altera_avalon_sgdma 16.1]
+Progress: Parameterizing module sgdma_tx
+Progress: Adding sinc_in [altera_avalon_pio 16.1]
+Progress: Parameterizing module sinc_in
+Progress: Adding sinc_out [altera_avalon_pio 16.1]
+Progress: Parameterizing module sinc_out
+Progress: Adding sysid_qsys [altera_avalon_sysid_qsys 16.1]
+Progress: Parameterizing module sysid_qsys
+Progress: Adding temp_scl [altera_avalon_pio 16.1]
+Progress: Parameterizing module temp_scl
+Progress: Adding temp_sda [altera_avalon_pio 16.1]
+Progress: Parameterizing module temp_sda
+Progress: Adding timer_1ms [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1ms
+Progress: Adding timer_1us [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1us
+Progress: Adding tristate_conduit_bridge_0 [altera_tristate_conduit_bridge 16.1]
+Progress: Parameterizing module tristate_conduit_bridge_0
+Progress: Adding tse_mac [altera_eth_tse 16.1]
+Progress: Parameterizing module tse_mac
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: MebX_Qsys_Project.csense_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.dma_M1_M2: Response information port is disabled. Enable the response port if data transfer information is required by host
+Info: MebX_Qsys_Project.dma_M2_M1: Response information port is disabled. Enable the response port if data transfer information is required by host
+Warning: MebX_Qsys_Project.ext_flash: Properties (isFlash,isMemoryDevice,isNonVolatileStorage) have been set on interface uas - in composed mode these are ignored
+Info: MebX_Qsys_Project.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: MebX_Qsys_Project.m1_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m1_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Info: MebX_Qsys_Project.m2_ddr2_i2c_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.m2_ddr2_memory: Auto interface leveling mode set to 'Leveling'
+Warning: MebX_Qsys_Project.m2_ddr2_memory.pll_bridge: pll_bridge.pll_sharing cannot be both connected and exported
+Info: MebX_Qsys_Project.pio_BUTTON: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_DIP: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.pio_EXT: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_alarm: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.rtcc_sdo: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_cmd: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_dat: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sd_wp_n: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sgdma_rx: Scatter-Gather DMA Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: MebX_Qsys_Project.sgdma_tx: Scatter-Gather DMA Controller will only be supported in Quartus Prime Standard Edition in the future release.
+Info: MebX_Qsys_Project.sinc_in: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: MebX_Qsys_Project.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Info: MebX_Qsys_Project.temp_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+Info: MebX_Qsys_Project.tse_mac: MII/GMII is automatically selected in 10/100/1000 Mb Ethernet MAC with 1000BASE-X/SGMII PCS core variations
+Info: MebX_Qsys_Project.sgdma_tx.out/tse_mac.transmit: The sink has a error signal of 1 bits, but the source does not. Avalon-ST Adapter will be inserted.
+Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: Ready latency is 2 for source and 0 for sink. Avalon-ST Adapter will be inserted..
+Info: MebX_Qsys_Project.tse_mac.receive/sgdma_rx.in: The source has a error signal of 6 bits, but the sink does not. Avalon-ST Adapter will be inserted.
+Info: MebX_Qsys_Project: Generating MebX_Qsys_Project "MebX_Qsys_Project" for QUARTUS_SYNTH
+Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
+Info: Inserting clock-crossing logic between cmd_demux.src1 and cmd_mux_001.sink0
+Info: Inserting clock-crossing logic between cmd_demux_001.src0 and cmd_mux.sink1
+Info: Inserting clock-crossing logic between cmd_demux_002.src0 and cmd_mux.sink2
+Info: Inserting clock-crossing logic between cmd_demux_003.src0 and cmd_mux_001.sink1
+Info: Inserting clock-crossing logic between cmd_demux_004.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src1 and rsp_mux_001.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src2 and rsp_mux_002.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src0 and rsp_mux.sink1
+Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_003.sink0
+Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_004.sink0
+Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has address signal 31 bit wide, but the slave is 26 bit wide.
+Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has debugaccess signal 1 bit wide, but the slave is 0 bit wide.
+Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because they have different clock source.
+Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src0 and rsp_mux.sink0
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting timing_adapter: timing_adapter_0
+Info: SEVEN_SEGMENT_CONTROLLER_0: "MebX_Qsys_Project" instantiated SEVEN_SEGMENT_CONTROLLER "SEVEN_SEGMENT_CONTROLLER_0"
+Info: clock_bridge_afi_50: "MebX_Qsys_Project" instantiated altera_avalon_mm_clock_crossing_bridge "clock_bridge_afi_50"
+Info: csense_adc_fo: Starting RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
+Info: csense_adc_fo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_adc_fo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0114_csense_adc_fo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0114_csense_adc_fo_gen//MebX_Qsys_Project_csense_adc_fo_component_configuration.pl  --do_build_sim=0  ]
+Info: csense_adc_fo: Done RTL generation for module 'MebX_Qsys_Project_csense_adc_fo'
+Info: csense_adc_fo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_adc_fo"
+Info: csense_cs_n: Starting RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
+Info: csense_cs_n:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_cs_n --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0115_csense_cs_n_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0115_csense_cs_n_gen//MebX_Qsys_Project_csense_cs_n_component_configuration.pl  --do_build_sim=0  ]
+Info: csense_cs_n: Done RTL generation for module 'MebX_Qsys_Project_csense_cs_n'
+Info: csense_cs_n: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_cs_n"
+Info: csense_sdo: Starting RTL generation for module 'MebX_Qsys_Project_csense_sdo'
+Info: csense_sdo:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_csense_sdo --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0116_csense_sdo_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0116_csense_sdo_gen//MebX_Qsys_Project_csense_sdo_component_configuration.pl  --do_build_sim=0  ]
+Info: csense_sdo: Done RTL generation for module 'MebX_Qsys_Project_csense_sdo'
+Info: csense_sdo: "MebX_Qsys_Project" instantiated altera_avalon_pio "csense_sdo"
+Info: ddr2_address_span_extender: "MebX_Qsys_Project" instantiated altera_address_span_extender "ddr2_address_span_extender"
+Info: descriptor_memory: Starting RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
+Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0118_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0118_descriptor_memory_gen//MebX_Qsys_Project_descriptor_memory_component_configuration.pl  --do_build_sim=0  ]
+Info: descriptor_memory: Done RTL generation for module 'MebX_Qsys_Project_descriptor_memory'
+Info: descriptor_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "descriptor_memory"
+Info: dma_M1_M2: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M1_M2"
+Info: dma_M2_M1: "MebX_Qsys_Project" instantiated altera_msgdma "dma_M2_M1"
+Info: ext_flash: "MebX_Qsys_Project" instantiated altera_generic_tristate_controller "ext_flash"
+Info: jtag_uart_0: Starting RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
+Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0119_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0119_jtag_uart_0_gen//MebX_Qsys_Project_jtag_uart_0_component_configuration.pl  --do_build_sim=0  ]
+Info: jtag_uart_0: Done RTL generation for module 'MebX_Qsys_Project_jtag_uart_0'
+Info: jtag_uart_0: "MebX_Qsys_Project" instantiated altera_avalon_jtag_uart "jtag_uart_0"
+Info: m1_ddr2_i2c_sda: Starting RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
+Info: m1_ddr2_i2c_sda:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_m1_ddr2_i2c_sda --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0120_m1_ddr2_i2c_sda_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0120_m1_ddr2_i2c_sda_gen//MebX_Qsys_Project_m1_ddr2_i2c_sda_component_configuration.pl  --do_build_sim=0  ]
+Info: m1_ddr2_i2c_sda: Done RTL generation for module 'MebX_Qsys_Project_m1_ddr2_i2c_sda'
+Info: m1_ddr2_i2c_sda: "MebX_Qsys_Project" instantiated altera_avalon_pio "m1_ddr2_i2c_sda"
+Info: m1_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m1_ddr2_memory"
+Info: m2_ddr2_memory: "MebX_Qsys_Project" instantiated altera_mem_if_ddr2_emif "m2_ddr2_memory"
+Info: nios2_gen2_0: "MebX_Qsys_Project" instantiated altera_nios2_gen2 "nios2_gen2_0"
+Info: onchip_memory: Starting RTL generation for module 'MebX_Qsys_Project_onchip_memory'
+Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0121_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0121_onchip_memory_gen//MebX_Qsys_Project_onchip_memory_component_configuration.pl  --do_build_sim=0  ]
+Info: onchip_memory: Done RTL generation for module 'MebX_Qsys_Project_onchip_memory'
+Info: onchip_memory: "MebX_Qsys_Project" instantiated altera_avalon_onchip_memory2 "onchip_memory"
+Info: pio_BUTTON: Starting RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
+Info: pio_BUTTON:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_BUTTON --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0122_pio_BUTTON_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0122_pio_BUTTON_gen//MebX_Qsys_Project_pio_BUTTON_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_BUTTON: Done RTL generation for module 'MebX_Qsys_Project_pio_BUTTON'
+Info: pio_BUTTON: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_BUTTON"
+Info: pio_DIP: Starting RTL generation for module 'MebX_Qsys_Project_pio_DIP'
+Info: pio_DIP:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_DIP --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0123_pio_DIP_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0123_pio_DIP_gen//MebX_Qsys_Project_pio_DIP_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_DIP: Done RTL generation for module 'MebX_Qsys_Project_pio_DIP'
+Info: pio_DIP: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_DIP"
+Info: pio_EXT: Starting RTL generation for module 'MebX_Qsys_Project_pio_EXT'
+Info: pio_EXT:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_EXT --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0124_pio_EXT_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0124_pio_EXT_gen//MebX_Qsys_Project_pio_EXT_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_EXT: Done RTL generation for module 'MebX_Qsys_Project_pio_EXT'
+Info: pio_EXT: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_EXT"
+Info: pio_LED: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED'
+Info: pio_LED:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0125_pio_LED_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0125_pio_LED_gen//MebX_Qsys_Project_pio_LED_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_LED: Done RTL generation for module 'MebX_Qsys_Project_pio_LED'
+Info: pio_LED: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED"
+Info: pio_LED_painel: Starting RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
+Info: pio_LED_painel:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_pio_LED_painel --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0126_pio_LED_painel_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0126_pio_LED_painel_gen//MebX_Qsys_Project_pio_LED_painel_component_configuration.pl  --do_build_sim=0  ]
+Info: pio_LED_painel: Done RTL generation for module 'MebX_Qsys_Project_pio_LED_painel'
+Info: pio_LED_painel: "MebX_Qsys_Project" instantiated altera_avalon_pio "pio_LED_painel"
+Info: sd_dat: Starting RTL generation for module 'MebX_Qsys_Project_sd_dat'
+Info: sd_dat:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_pio/generate_rtl.pl --name=MebX_Qsys_Project_sd_dat --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0127_sd_dat_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0127_sd_dat_gen//MebX_Qsys_Project_sd_dat_component_configuration.pl  --do_build_sim=0  ]
+Info: sd_dat: Done RTL generation for module 'MebX_Qsys_Project_sd_dat'
+Info: sd_dat: "MebX_Qsys_Project" instantiated altera_avalon_pio "sd_dat"
+Info: sgdma_rx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
+Info: sgdma_rx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_rx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0128_sgdma_rx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0128_sgdma_rx_gen//MebX_Qsys_Project_sgdma_rx_component_configuration.pl  --do_build_sim=0  ]
+Info: sgdma_rx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_rx'
+Info: sgdma_rx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_rx"
+Info: sgdma_tx: Starting RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
+Info: sgdma_tx:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_sgdma/generate_rtl.pl --name=MebX_Qsys_Project_sgdma_tx --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0129_sgdma_tx_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0129_sgdma_tx_gen//MebX_Qsys_Project_sgdma_tx_component_configuration.pl  --do_build_sim=0  ]
+Info: sgdma_tx: Done RTL generation for module 'MebX_Qsys_Project_sgdma_tx'
+Info: sgdma_tx: "MebX_Qsys_Project" instantiated altera_avalon_sgdma "sgdma_tx"
+Info: sysid_qsys: "MebX_Qsys_Project" instantiated altera_avalon_sysid_qsys "sysid_qsys"
+Info: timer_1ms: Starting RTL generation for module 'MebX_Qsys_Project_timer_1ms'
+Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0131_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0131_timer_1ms_gen//MebX_Qsys_Project_timer_1ms_component_configuration.pl  --do_build_sim=0  ]
+Info: timer_1ms: Done RTL generation for module 'MebX_Qsys_Project_timer_1ms'
+Info: timer_1ms: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1ms"
+Info: timer_1us: Starting RTL generation for module 'MebX_Qsys_Project_timer_1us'
+Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0132_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0132_timer_1us_gen//MebX_Qsys_Project_timer_1us_component_configuration.pl  --do_build_sim=0  ]
+Info: timer_1us: Done RTL generation for module 'MebX_Qsys_Project_timer_1us'
+Info: timer_1us: "MebX_Qsys_Project" instantiated altera_avalon_timer "timer_1us"
+Info: tristate_conduit_bridge_0: "MebX_Qsys_Project" instantiated altera_tristate_conduit_bridge "tristate_conduit_bridge_0"
+Info: tse_mac: "MebX_Qsys_Project" instantiated altera_eth_tse "tse_mac"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_008: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_009: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_010: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_011: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_012: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_013: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_014: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_015: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_008: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_009: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_010: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_011: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_012: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_013: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_014: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_015: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_016: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_017: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_018: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_019: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_020: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_021: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_022: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_023: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_024: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_025: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_026: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_027: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_028: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_029: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_030: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_2: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_3: "MebX_Qsys_Project" instantiated altera_mm_interconnect "mm_interconnect_3"
+Info: irq_mapper: "MebX_Qsys_Project" instantiated altera_irq_mapper "irq_mapper"
+Info: irq_synchronizer: "MebX_Qsys_Project" instantiated altera_irq_clock_crosser "irq_synchronizer"
+Info: avalon_st_adapter: "MebX_Qsys_Project" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_001: "MebX_Qsys_Project" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
+Info: rst_controller: "MebX_Qsys_Project" instantiated altera_reset_controller "rst_controller"
+Info: dispatcher_internal: "dma_M1_M2" instantiated modular_sgdma_dispatcher "dispatcher_internal"
+Info: read_mstr_internal: "dma_M1_M2" instantiated dma_read_master "read_mstr_internal"
+Info: write_mstr_internal: "dma_M1_M2" instantiated dma_write_master "write_mstr_internal"
+Info: tdt: "ext_flash" instantiated altera_tristate_controller_translator "tdt"
+Info: slave_translator: "ext_flash" instantiated altera_merlin_slave_translator "slave_translator"
+Info: tda: "ext_flash" instantiated altera_tristate_controller_aggregator "tda"
+Info: pll0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_pll "pll0"
+Info: p0: Generating clock pair generator
+Info: p0: Generating MebX_Qsys_Project_m1_ddr2_memory_p0_altdqdqs
+Info: p0: 
+Info: p0: *****************************
+Info: p0: 
+Info: p0: Remember to run the MebX_Qsys_Project_m1_ddr2_memory_p0_pin_assignments.tcl
+Info: p0: script after running Synthesis and before Fitting.
+Info: p0: 
+Info: p0: *****************************
+Info: p0: 
+Info: p0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_phy_core "p0"
+Info: m0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_afi_mux "m0"
+Info: s0: Generating Qsys sequencer system
+Info: s0: QSYS sequencer system generated successfully
+Info: s0: "m1_ddr2_memory" instantiated altera_mem_if_ddr2_qseq "s0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_slave_translator.sv
+Info: c0: "m1_ddr2_memory" instantiated altera_mem_if_nextgen_ddr2_controller "c0"
+Info: oct0: "m1_ddr2_memory" instantiated altera_mem_if_oct "oct0"
+Info: dll0: "m1_ddr2_memory" instantiated altera_mem_if_dll "dll0"
+Info: pll0: "m2_ddr2_memory" instantiated altera_mem_if_ddr2_pll "pll0"
+Info: p0: Generating clock pair generator
+Info: p0: Generating MebX_Qsys_Project_m2_ddr2_memory_p0_altdqdqs
+Info: p0: 
+Info: p0: *****************************
+Info: p0: 
+Info: p0: Remember to run the MebX_Qsys_Project_m2_ddr2_memory_p0_pin_assignments.tcl
+Info: p0: script after running Synthesis and before Fitting.
+Info: p0: 
+Info: p0: *****************************
+Info: p0: 
+Info: p0: "m2_ddr2_memory" instantiated altera_mem_if_ddr2_phy_core "p0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altdq_dqs2_ddio_3reg_stratixiv.sv
+Info: s0: Generating Qsys sequencer system
+Info: s0: QSYS sequencer system generated successfully
+Info: s0: "m2_ddr2_memory" instantiated altera_mem_if_ddr2_qseq "s0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_mem_if_sequencer_cpu_no_ifdef_params_synth_cpu_inst_test_bench.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_mem_if_sequencer_mem_no_ifdef_params.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_mem_if_sequencer_rst.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_master_agent.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_master_translator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_slave_agent.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_slave_translator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_ac_ROM_no_ifdef_params.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_ac_ROM_reg.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_bitcheck.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_core.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_datamux.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_data_broadcast.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_data_decoder.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_ddr2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_di_buffer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_di_buffer_wrap.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_dm_decoder.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_generic.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_inst_ROM_no_ifdef_params.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_inst_ROM_reg.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_jumplogic.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_lfsr12.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_lfsr36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_lfsr72.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_pattern_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_ram.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_ram_csr.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_read_datapath.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/rw_manager_write_decoder.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_data_mgr.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_phy_mgr.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_reg_file.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_acv_phase_decode.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_acv_wrapper.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_mgr.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_reg_file.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_siii_phase_decode.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_siii_wrapper.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_sv_phase_decode.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/sequencer_scc_sv_wrapper.sv
+Info: cpu: Starting RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
+Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0152_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7508_6421624941228279190.dir/0152_cpu_gen//MebX_Qsys_Project_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=0  ]
+Info: cpu: # 2017.12.08 01:21:58 (*) Starting Nios II generation
+Info: cpu: # 2017.12.08 01:21:58 (*)   Checking for plaintext license.
+Info: cpu: # 2017.12.08 01:21:59 (*)   Plaintext license not found.
+Info: cpu: # 2017.12.08 01:21:59 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2017.12.08 01:22:00 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: cpu: # 2017.12.08 01:22:00 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2017.12.08 01:22:00 (*)   Creating all objects for CPU
+Info: cpu: # 2017.12.08 01:22:00 (*)     Testbench
+Info: cpu: # 2017.12.08 01:22:00 (*)     Instruction decoding
+Info: cpu: # 2017.12.08 01:22:00 (*)       Instruction fields
+Info: cpu: # 2017.12.08 01:22:00 (*)       Instruction decodes
+Info: cpu: # 2017.12.08 01:22:00 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2017.12.08 01:22:00 (*)       Instruction controls
+Info: cpu: # 2017.12.08 01:22:01 (*)     Pipeline frontend
+Info: cpu: # 2017.12.08 01:22:01 (*)     Pipeline backend
+Info: cpu: # 2017.12.08 01:22:02 (*)   Generating RTL from CPU objects
+Info: cpu: # 2017.12.08 01:22:04 (*)   Creating encrypted RTL
+Info: cpu: # 2017.12.08 01:22:04 (*) Done Nios II generation
+Info: cpu: Done RTL generation for module 'MebX_Qsys_Project_nios2_gen2_0_cpu'
+Info: cpu: "nios2_gen2_0" instantiated altera_nios2_gen2_unit "cpu"
+Info: i_tse_mac: "tse_mac" instantiated altera_eth_tse_mac "i_tse_mac"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_std_synchronizer_nocut.v
+Info: avalon_arbiter: "tse_mac" instantiated altera_eth_tse_avalon_arbiter "avalon_arbiter"
+Info: i_tse_pcs_0: "tse_mac" instantiated altera_eth_tse_pcs_pma_lvds "i_tse_pcs_0"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_eth_tse_std_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_eth_tse_std_synchronizer_bundle.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_eth_tse_ptp_std_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_false_path_marker.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_reset_synchronizer.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_clock_crosser.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_a_fifo_13.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_a_fifo_24.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_a_fifo_34.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_a_fifo_opt_1246.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_a_fifo_opt_14_44.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_a_fifo_opt_36_10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_gray_cnt.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_sdpm_altsyncram.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_altsyncram_dpm_fifo.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_bin_cnt.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ph_calculator.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_sdpm_gen.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x10.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x10_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x14.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x14.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x14_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x2.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x2_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x23.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x23.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x23_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x36.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x36_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x40.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x40.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x40_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_dec_x30.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x30.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_enc_x30_wrapper.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_tse_ecc_status_crosser.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_std_synchronizer_nocut.v
+Info: nios2_gen2_0_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "nios2_gen2_0_data_master_translator"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_master_translator.sv
+Info: nios2_gen2_0_data_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "nios2_gen2_0_data_master_agent"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_master_agent.sv
+Info: jtag_uart_0_avalon_jtag_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "jtag_uart_0_avalon_jtag_slave_agent"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_slave_agent.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_004: "mm_interconnect_0" instantiated altera_merlin_router "router_004"
+Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
+Info: router_009: "mm_interconnect_0" instantiated altera_merlin_router "router_009"
+Info: router_016: "mm_interconnect_0" instantiated altera_merlin_router "router_016"
+Info: router_017: "mm_interconnect_0" instantiated altera_merlin_router "router_017"
+Info: router_020: "mm_interconnect_0" instantiated altera_merlin_router "router_020"
+Info: router_021: "mm_interconnect_0" instantiated altera_merlin_router "router_021"
+Info: router_022: "mm_interconnect_0" instantiated altera_merlin_router "router_022"
+Info: nios2_gen2_0_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_gen2_0_instruction_master_limiter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_sc_fifo.v
+Info: nios2_gen2_0_debug_mem_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "nios2_gen2_0_debug_mem_slave_burst_adapter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_demux_002: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_002"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_008: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_008"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_012: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_012"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_013: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_013"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux_008: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_008"
+Info: rsp_demux_012: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_012"
+Info: rsp_demux_013: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_013"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_002: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_002"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: ddr2_address_span_extender_cntl_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "ddr2_address_span_extender_cntl_cmd_width_adapter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_burst_uncompressor.sv
+Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_001: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_001"
+Info: avalon_st_adapter_009: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_009"
+Info: avalon_st_adapter_014: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_014"
+Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_1" instantiated altera_merlin_router "router_001"
+Info: router_003: "mm_interconnect_1" instantiated altera_merlin_router "router_003"
+Info: router_005: "mm_interconnect_1" instantiated altera_merlin_router "router_005"
+Info: router_006: "mm_interconnect_1" instantiated altera_merlin_router "router_006"
+Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux_001"
+Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: crosser: "mm_interconnect_1" instantiated altera_avalon_st_handshake_clock_crosser "crosser"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_avalon_st_pipeline_base.v
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_std_synchronizer_nocut.v
+Info: avalon_st_adapter: "mm_interconnect_1" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: router: "mm_interconnect_2" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_2" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: router: "mm_interconnect_3" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_3" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_3" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_3" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/Hardware_V01/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
+Info: timing_adapter_0: "avalon_st_adapter_001" instantiated timing_adapter "timing_adapter_0"
+Info: ng0: "c0" instantiated altera_mem_if_nextgen_ddr2_controller_core "ng0"
+Info: a0: "c0" instantiated alt_mem_ddrx_mm_st_converter "a0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_001" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_009" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_014" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: MebX_Qsys_Project: Done "MebX_Qsys_Project" with 130 modules, 508 files
+Info: qsys-generate succeeded.
+Info: Finished: Create HDL design files for synthesis

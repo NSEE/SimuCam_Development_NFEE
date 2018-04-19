@@ -1,0 +1,189 @@
+Flow report for MebX_Quartus_Project
+Fri Dec 08 09:05:10 2017
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++-------------------------------------------------------------------------------------+
+; Flow Summary                                                                        ;
++-----------------------------------+-------------------------------------------------+
+; Flow Status                       ; Successful - Fri Dec 08 09:05:10 2017           ;
+; Quartus Prime Version             ; 16.1.0 Build 196 10/24/2016 SJ Standard Edition ;
+; Revision Name                     ; MebX_Quartus_Project                            ;
+; Top-level Entity Name             ; MebX_TopLevel                                   ;
+; Family                            ; Stratix IV                                      ;
+; Device                            ; EP4SGX230KF40C2                                 ;
+; Timing Models                     ; Final                                           ;
+; Logic utilization                 ; 29 %                                            ;
+;     Combinational ALUTs           ; 35,498 / 182,400 ( 19 % )                       ;
+;     Memory ALUTs                  ; 1,415 / 91,200 ( 2 % )                          ;
+;     Dedicated logic registers     ; 40,625 / 182,400 ( 22 % )                       ;
+; Total registers                   ; 41913                                           ;
+; Total pins                        ; 413 / 888 ( 47 % )                              ;
+; Total virtual pins                ; 0                                               ;
+; Total block memory bits           ; 12,237,142 / 14,625,792 ( 84 % )                ;
+; DSP block 18-bit elements         ; 8 / 1,288 ( < 1 % )                             ;
+; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                  ;
+; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                  ;
+; Total GXB Transmitter Channel PCS ; 0 / 24 ( 0 % )                                  ;
+; Total GXB Transmitter Channel PMA ; 0 / 36 ( 0 % )                                  ;
+; Total PLLs                        ; 4 / 8 ( 50 % )                                  ;
+; Total DLLs                        ; 2 / 4 ( 50 % )                                  ;
++-----------------------------------+-------------------------------------------------+
+
+
++------------------------------------------+
+; Flow Settings                            ;
++-------------------+----------------------+
+; Option            ; Setting              ;
++-------------------+----------------------+
+; Start date & time ; 12/08/2017 08:33:23  ;
+; Main task         ; Compilation          ;
+; Revision Name     ; MebX_Quartus_Project ;
++-------------------+----------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                                                                                        ;
++---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-----------------------------+----------------+
+; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name                 ; Section Id     ;
++---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-----------------------------+----------------+
+; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                          ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 66485671440360.151272919709408                                                ; --                                   ; --                          ; --             ;
+; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                          ; --             ;
+; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                          ; eda_simulation ;
+; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                          ; --             ;
+; ENABLE_SIGNALTAP                                  ; Off                                                                           ; --                                   ; --                          ; --             ;
+; FITTER_EFFORT                                     ; Standard Fit                                                                  ; Auto Fit                             ; --                          ; --             ;
+; MAX_CORE_JUNCTION_TEMP                            ; 85                                                                            ; --                                   ; --                          ; --             ;
+; MESSAGE_DISABLE                                   ; 14320                                                                         ; --                                   ; altera_eth_tse_pcs_pma_lvds ; --             ;
+; MIN_CORE_JUNCTION_TEMP                            ; 0                                                                             ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Qsys_Project/MebX_Qsys_Project/synthesis/../MebX_Qsys_Project.cmp          ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Qsys_Project/MebX_Qsys_Project/synthesis/../../MebX_Qsys_Project.qsys      ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Qsys_Project/MebX_Qsys_Project/synthesis/submodules/alt_mem_ddrx_define.iv ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/pll_125.bsf                                        ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/pll_125_bb.v                                       ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/pll_125.cmp                                        ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/pll_125.ppf                                        ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec.bsf                          ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec_inst.vhd                     ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec.inc                          ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/FIFO_Codec/fifo_codec.cmp                          ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/TX_LVDS.bsf                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/TX_LVDS_inst.vhd                              ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/TX_LVDS.inc                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/TX_LVDS.cmp                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/TX_LVDS.ppf                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/RX_LVDS.bsf                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/RX_LVDS_inst.vhd                              ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/RX_LVDS.inc                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/RX_LVDS.cmp                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/LVDS/RX_LVDS.ppf                                   ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/PLL.bsf                                            ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/PLL_inst.vhd                                       ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/PLL.inc                                            ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/PLL.cmp                                            ; --                                   ; --                          ; --             ;
+; MISC_FILE                                         ; ../Hardware_Project/IPCore/PLL.ppf                                            ; --                                   ; --                          ; --             ;
+; MUX_RESTRUCTURE                                   ; Off                                                                           ; Auto                                 ; --                          ; --             ;
+; NUM_PARALLEL_PROCESSORS                           ; All                                                                           ; --                                   ; --                          ; --             ;
+; OPTIMIZATION_MODE                                 ; Aggressive Performance                                                        ; Balanced                             ; --                          ; --             ;
+; OPTIMIZATION_TECHNIQUE                            ; Speed                                                                         ; Balanced                             ; --                          ; --             ;
+; PARTITION_COLOR                                   ; -- (Not supported for targeted family)                                        ; --                                   ; MebX_TopLevel               ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL               ; -- (Not supported for targeted family)                                        ; --                                   ; MebX_TopLevel               ; Top            ;
+; PARTITION_NETLIST_TYPE                            ; -- (Not supported for targeted family)                                        ; --                                   ; MebX_TopLevel               ; Top            ;
+; PHYSICAL_SYNTHESIS_ASYNCHRONOUS_SIGNAL_PIPELINING ; On                                                                            ; Off                                  ; --                          ; --             ;
+; PHYSICAL_SYNTHESIS_COMBO_LOGIC                    ; On                                                                            ; Off                                  ; --                          ; --             ;
+; PHYSICAL_SYNTHESIS_REGISTER_DUPLICATION           ; On                                                                            ; Off                                  ; --                          ; --             ;
+; PHYSICAL_SYNTHESIS_REGISTER_RETIMING              ; On                                                                            ; Off                                  ; --                          ; --             ;
+; PLACEMENT_EFFORT_MULTIPLIER                       ; 4.0                                                                           ; 1.0                                  ; --                          ; --             ;
+; POWER_BOARD_THERMAL_MODEL                         ; None (CONSERVATIVE)                                                           ; --                                   ; --                          ; --             ;
+; POWER_PRESET_COOLING_SOLUTION                     ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                                         ; --                                   ; --                          ; --             ;
+; PROJECT_IP_REGENERATION_POLICY                    ; ALWAYS_REGENERATE_IP                                                          ; SKIP_REGENERATING_IP_IF_HDL_MODIFIED ; --                          ; --             ;
+; PROJECT_OUTPUT_DIRECTORY                          ; output_files                                                                  ; --                                   ; --                          ; --             ;
+; QII_AUTO_PACKED_REGISTERS                         ; Normal                                                                        ; Auto                                 ; --                          ; --             ;
+; ROUTER_CLOCKING_TOPOLOGY_ANALYSIS                 ; On                                                                            ; Off                                  ; --                          ; --             ;
+; ROUTER_LCELL_INSERTION_AND_LOGIC_DUPLICATION      ; On                                                                            ; Auto                                 ; --                          ; --             ;
+; ROUTER_TIMING_OPTIMIZATION_LEVEL                  ; MAXIMUM                                                                       ; Normal                               ; --                          ; --             ;
+; SLD_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.regmap          ; --                                   ; --                          ; --             ;
+; SLD_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.debuginfo       ; --                                   ; --                          ; --             ;
+; SLD_INFO                                          ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1512709942           ; --                                   ; MebX_Qsys_Project           ; --             ;
+; SMART_RECOMPILE                                   ; On                                                                            ; Off                                  ; --                          ; --             ;
+; SOPCINFO_FILE                                     ; ../Qsys_Project/MebX_Qsys_Project/synthesis/../../MebX_Qsys_Project.sopcinfo  ; --                                   ; --                          ; --             ;
+; STATE_MACHINE_PROCESSING                          ; One-Hot                                                                       ; Auto                                 ; --                          ; --             ;
+; SYNTHESIS_ONLY_QIP                                ; On                                                                            ; --                                   ; --                          ; --             ;
+; TOP_LEVEL_ENTITY                                  ; MebX_TopLevel                                                                 ; MebX_Quartus_Project                 ; --                          ; --             ;
++---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-----------------------------+----------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:08:00     ; 1.0                     ; 3056 MB             ; 00:08:26                           ;
+; Fitter                    ; 00:19:11     ; 1.2                     ; 3433 MB             ; 00:35:04                           ;
+; Assembler                 ; 00:00:36     ; 1.0                     ; 1174 MB             ; 00:00:31                           ;
+; TimeQuest Timing Analyzer ; 00:01:58     ; 1.2                     ; 1900 MB             ; 00:02:11                           ;
+; EDA Netlist Writer        ; 00:01:16     ; 1.0                     ; 1371 MB             ; 00:01:14                           ;
+; Total                     ; 00:31:01     ; --                      ; --                  ; 00:47:26                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                        ;
++---------------------------+------------------+-----------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++---------------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis      ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer        ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
++---------------------------+------------------+-----------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
+quartus_fit --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
+quartus_asm --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
+quartus_sta MebX_Quartus_Project -c MebX_Quartus_Project
+quartus_eda --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
+
+
+

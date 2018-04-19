@@ -1,0 +1,10 @@
+DRC Rules Export File for PCB: C:\projetos\simulador_spacewire\hw\pim_painel_meb\pcb\painel_meb.PcbDoc
+RuleKind=Clearance|RuleName=Clearance_4|Scope=Board|Minimum=7.00
+RuleKind=Clearance|RuleName=Clearance_2|Scope=Board|Minimum=20.00
+RuleKind=Clearance|RuleName=Clearance_1|Scope=Board|Minimum=20.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=10.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width_alim|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance|Scope=Board|Minimum=10.00
+RuleKind=Clearance|RuleName=Clearance_3|Scope=Board|Minimum=5.00
