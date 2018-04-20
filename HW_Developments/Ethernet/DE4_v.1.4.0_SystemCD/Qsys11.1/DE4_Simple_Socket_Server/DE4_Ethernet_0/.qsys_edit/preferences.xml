@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable>
+  <columns>
+   <connections preferredWidth="383" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="335" />
+   <inputclock preferredWidth="143" />
+  </columns>
+ </systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="440" />
+   <clocksource preferredWidth="439" />
+   <frequency preferredWidth="421" />
+  </columns>
+ </clocktable>
+ <window width="1936" height="1096" x="-1928" y="-8" />
+ <library
+   expandedCategories="Library/Interface Protocols/Ethernet,Library/Interface Protocols,Library/Interface Protocols/Ethernet/1G Multi-rate Ethernet,Project,Library" />
+ <hdlexample language="VERILOG" />
+</preferences>

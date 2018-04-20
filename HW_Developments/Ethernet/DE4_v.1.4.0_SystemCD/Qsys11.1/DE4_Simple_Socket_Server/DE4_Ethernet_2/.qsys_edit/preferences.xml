@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable>
+  <columns>
+   <connections preferredWidth="383" />
+   <irq preferredWidth="34" />
+   <name preferredWidth="263" />
+  </columns>
+ </systemtable>
+ <clocktable>
+  <columns>
+   <clockname preferredWidth="440" />
+   <clocksource preferredWidth="439" />
+   <frequency preferredWidth="421" />
+  </columns>
+ </clocktable>
+ <window width="1920" height="1040" x="-4" y="-4" />
+ <library expandedCategories="Project,Library" />
+ <hdlexample language="VERILOG" />
+</preferences>
