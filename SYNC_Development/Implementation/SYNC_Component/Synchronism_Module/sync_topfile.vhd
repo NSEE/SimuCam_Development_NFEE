@@ -12,33 +12,42 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
+use work.sync_avalon_mm_pkg.all;
+use work.sync_mm_registers_pkg.all;
+use work.sync_syncgen_pkg.all;
+
 entity sync_component_ent is
-	generic (
+	generic(
 		Clock_Frequency_MHz : integer := 200
 	);
-	port (
-		reset_sink_reset            : in  std_logic                     := '0';             --          reset_sink.reset
-		clock_sink_clk              : in  std_logic                     := '0';             --          clock_sink.clk
+	port(
+		reset_sink_reset            : in  std_logic                     := '0'; --          reset_sink.reset
+		clock_sink_clk              : in  std_logic                     := '0'; --          clock_sink.clk
 		avalon_slave_address        : in  std_logic_vector(7 downto 0)  := (others => '0'); --        avalon_slave.address
-		avalon_slave_read           : in  std_logic                     := '0';             --                    .read
-		avalon_slave_write          : in  std_logic                     := '0';             --                    .write
+		avalon_slave_read           : in  std_logic                     := '0'; --                    .read
+		avalon_slave_write          : in  std_logic                     := '0'; --                    .write
 		avalon_slave_writedata      : in  std_logic_vector(31 downto 0) := (others => '0'); --                    .writedata
-		avalon_slave_readdata       : out std_logic_vector(31 downto 0);                    --                    .readdata
-		avalon_slave_waitrequest    : out std_logic;                                        --                    .waitrequest
-		conduit_sync_signal_spwa    : out std_logic_vector(1 downto 0);                     -- conduit_sync_signal.conduit_sync_signal_spwa_signal
-		conduit_sync_signal_spwb    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwb_signal
-		conduit_sync_signal_spwc    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwc_signal
-		conduit_sync_signal_spwd    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwd_signal
-		conduit_sync_signal_spwe    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwe_signal
-		conduit_sync_signal_spwf    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwf_signal
-		conduit_sync_signal_spwg    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwg_signal
-		conduit_sync_signal_spwh    : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_spwh_signal
-		conduit_sync_signal_syncout : out std_logic_vector(1 downto 0);                     --                    .conduit_sync_signal_syncout_signal
-		interrupt_sender_irq        : out std_logic                                         --    interrupt_sender.irq
+		avalon_slave_readdata       : out std_logic_vector(31 downto 0); --                    .readdata
+		avalon_slave_waitrequest    : out std_logic; --                    .waitrequest
+		conduit_sync_signal_spwa    : out std_logic_vector(1 downto 0); -- conduit_sync_signal.conduit_sync_signal_spwa_signal
+		conduit_sync_signal_spwb    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwb_signal
+		conduit_sync_signal_spwc    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwc_signal
+		conduit_sync_signal_spwd    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwd_signal
+		conduit_sync_signal_spwe    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwe_signal
+		conduit_sync_signal_spwf    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwf_signal
+		conduit_sync_signal_spwg    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwg_signal
+		conduit_sync_signal_spwh    : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_spwh_signal
+		conduit_sync_signal_syncout : out std_logic_vector(1 downto 0); --                    .conduit_sync_signal_syncout_signal
+		interrupt_sender_irq        : out std_logic --    interrupt_sender.irq
 	);
 end entity sync_component_ent;
 
 architecture rtl of sync_component_ent is
+
+	alias reset is reset_sink_reset;
+	alias clock is clock_sink_clk;
+	alias irq is interrupt_sender_irq;
+
 begin
 
 	-- TODO: Auto-generated HDL template
@@ -67,4 +76,38 @@ begin
 
 	interrupt_sender_irq <= '0';
 
-end architecture rtl; -- of new_component
+	sync_avalon_mm_read_inst : entity work.sync_avalon_mm_read
+		port map(
+			clk_i          => clock_sink_clk,
+			rst_i          => reset,
+			avalon_mm_i    => avalon_mm_i,
+			mm_write_reg_i => mm_write_reg_i,
+			mm_read_reg_i  => mm_read_reg_i,
+			avalon_mm_o    => avalon_mm_o
+		);
+
+	sync_avalon_mm_write_inst : entity work.sync_avalon_mm_write
+		port map(
+			clk_i          => clock_sink_clk,
+			rst_i          => reset,
+			avalon_mm_i    => avalon_mm_i,
+			avalon_mm_o    => avalon_mm_o,
+			mm_write_reg_o => mm_write_reg_o
+		);
+
+	sync_syncgen_ent_inst : entity work.sync_syncgen_ent
+		generic map(
+			g_SYNC_COUNTER_WIDTH => g_SYNC_COUNTER_WIDTH,
+			g_SYNC_POLARITY      => g_SYNC_POLARITY
+		)
+		port map(
+			clk_i         => clock_sink_clk,
+			reset_n_i     => not reset,
+			control_i     => control_i,
+			configs_i     => configs_i,
+			flags_o       => flags_o,
+			error_o       => error_o,
+			sync_output_o => sync_output_o
+		);
+
+end architecture rtl;                   -- of sync_component_ent

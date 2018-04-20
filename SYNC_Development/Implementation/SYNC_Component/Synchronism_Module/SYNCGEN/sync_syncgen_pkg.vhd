@@ -1,5 +1,5 @@
 --=============================================================================
---! @file sync_module_pkg.vhd
+--! @file sync_syncgen_pkg.vhd
 --=============================================================================
 --! Standard library
 library IEEE;
@@ -15,7 +15,7 @@ use IEEE.NUMERIC_STD.ALL;
 -- --
 -------------------------------------------------------------------------------
 --
--- unit name: SYNC Module Package (sync_module_pkg)
+-- unit name: SYNC Module Package (sync_syncgen_pkg)
 --
 --! @brief 
 --
@@ -47,7 +47,7 @@ use IEEE.NUMERIC_STD.ALL;
 --============================================================================
 --! Package declaration for SYNC Module Package
 --============================================================================
-package sync_module_pkg is
+package sync_syncgen_pkg is
 
 	-- others
 	constant c_SYNC_COUNTER_MAX_WIDTH  : integer := 64;
@@ -58,36 +58,36 @@ package sync_module_pkg is
 
 	-- syncgen
 
-	type t_sync_module_syncgen_control is record
+	type t_sync_syncgen_control is record
 		start : std_logic;
 		stop  : std_logic;
 		reset : std_logic;
-	end record t_sync_module_syncgen_control;
+	end record t_sync_syncgen_control;
 
-	type t_sync_module_syncgen_flags is record
+	type t_sync_syncgen_flags is record
 		running : std_logic;
 		stopped : std_logic;
-	end record t_sync_module_syncgen_flags;
+	end record t_sync_syncgen_flags;
 
-	type t_sync_module_syncgen_error is record
+	type t_sync_syncgen_error is record
 		dummy : std_logic;
-	end record t_sync_module_syncgen_error;
+	end record t_sync_syncgen_error;
 
-	type t_sync_module_syncgen_configs is record
+	type t_sync_syncgen_configs is record
 		pulse_period : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		pulse_number : std_logic_vector((c_SYNC_PULSE_NUMBER_WIDTH - 1) downto 0);
 		master_width : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		pulse_width  : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
-	end record t_sync_module_syncgen_configs;
+	end record t_sync_syncgen_configs;
 
-end package sync_module_pkg;
+end package sync_syncgen_pkg;
 
 --============================================================================
 -- ! package body declaration
 --============================================================================
-package body sync_module_pkg is
+package body sync_syncgen_pkg is
 
-end package body sync_module_pkg;
+end package body sync_syncgen_pkg;
 --============================================================================
 -- package body end
 --============================================================================
