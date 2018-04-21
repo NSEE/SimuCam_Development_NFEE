@@ -3390,7 +3390,7 @@
   <parameter name="max_channels" value="1" />
   <parameter name="mdio_clk_div" value="40" />
   <parameter name="nf_phyip_rcfg_enable" value="false" />
-  <parameter name="phy_identifier" value="0" />
+  <parameter name="phy_identifier" value="3" />
   <parameter name="phyip_en_synce_support" value="false" />
   <parameter name="phyip_pll_base_data_rate" value="1250 Mbps" />
   <parameter name="phyip_pll_type" value="CMU" />

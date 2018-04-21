@@ -34,6 +34,7 @@ package spwc_codec_pkg is
 		autostart : std_logic;
 		linkstart : std_logic;
 		linkdis   : std_logic;
+		txdivcnt  : std_logic_vector(7 downto 0);
 	end record spwc_codec_link_command_in_type;
 
 	-- Codec Link Status Signals

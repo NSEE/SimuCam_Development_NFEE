@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 package spwc_mm_registers_pkg is
 
 	--  Interface Control and Status Register          (32 bits):
-	--    31-11 : Reserved                               [-/-]
+	--    31-12 : Reserved                               [-/-]
+	--    11-11 : External Loopback Mode control bit     [R/W]
 	--    10-10 : Codec Enable control bit               [R/W]
 	--     9- 9 : Codec RX Enable control bit            [R/W]
 	--     8- 8 : Codec TX Enable control bit            [R/W]
@@ -21,7 +22,8 @@ package spwc_mm_registers_pkg is
 	--     0- 0 : Link Running interrupt flag            [R/-]
 	--     0- 0 : Link Running interrupt flag clear      [-/W]
 	--  SpW Link Control and Status Register           (32 bits):
-	--    31-10 : Reserved                               [-/-]
+	--    31-18 : Reserved                               [-/-]
+	--    17-10 : TX Clock Divisor value                 [R/W]
 	--     9- 9 : Autostart control bit                  [R/W]
 	--     8- 8 : Link Start control bit                 [R/W]
 	--     7- 7 : Link Disconnect control bit            [R/W]
@@ -41,18 +43,20 @@ package spwc_mm_registers_pkg is
 	--    15- 9 : Reserved                               [R/-]
 	--     8- 7 : TX TimeCode Control bits               [R/W]
 	--     6- 1 : TX TimeCode Counter value              [R/W]
-	--     0- 0 : TX TimeCode control bit               [R/W]
+	--     0- 0 : TX TimeCode control bit                [R/W]
+	--  Timecode Control Register                      (32 bits):
 
 	constant SPWC_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS : natural := 0;
 	constant SPWC_SPW_LINK_CONTROL_STATUS_MM_REG_ADDRESS  : natural := 1;
 	constant SPWC_TIMECODE_CONTROL_MM_REG_ADDRESS         : natural := 2;
 
 	type spwc_interface_control_register_type is record
-		CODEC_ENABLE_BIT    : std_logic;
-		CODEC_RX_ENABLE_BIT : std_logic;
-		CODEC_TX_ENABLE_BIT : std_logic;
-		LOOPBACK_MODE_BIT   : std_logic;
-		FORCE_RESET_BIT     : std_logic;
+		CODEC_ENABLE_BIT           : std_logic;
+		CODEC_RX_ENABLE_BIT        : std_logic;
+		CODEC_TX_ENABLE_BIT        : std_logic;
+		LOOPBACK_MODE_BIT          : std_logic;
+		EXTERNAL_LOOPBACK_MODE_BIT : std_logic;
+		FORCE_RESET_BIT            : std_logic;
 	end record spwc_interface_control_register_type;
 
 	type spwc_interrupt_register_type is record
@@ -65,6 +69,7 @@ package spwc_mm_registers_pkg is
 		AUTOSTART_BIT       : std_logic;
 		LINK_START_BIT      : std_logic;
 		LINK_DISCONNECT_BIT : std_logic;
+		TX_CLOCK_DIV        : std_logic_vector(7 downto 0);
 	end record spwc_spw_link_mode_register_type;
 
 	type spwc_spw_link_error_register_type is record
@@ -87,7 +92,7 @@ package spwc_mm_registers_pkg is
 	end record spwc_timecode_register_type;
 
 	type spwc_rx_timecode_clear_register_type is record
-		CONTROL_STATUS_BIT     : std_logic;
+		CONTROL_STATUS_BIT : std_logic;
 	end record spwc_rx_timecode_clear_register_type;
 
 	type spwc_mm_write_registers_type is record

@@ -33,8 +33,10 @@ begin
 
 				--  Interface Control and Status Register          (32 bits):
 				when (SPWC_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31-11 : Reserved                               [-/-]
-					avalon_mm_outputs.readdata(31 downto 11) <= (others => '0');
+					--    31-12 : Reserved                               [-/-]
+					avalon_mm_outputs.readdata(31 downto 12) <= (others => '0');
+					--    11-11 : External Loopback Mode control bit     [R/W]
+					avalon_mm_outputs.readdata(11)           <= mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT;
 					--    10-10 : Codec Enable control bit               [R/W]
 					avalon_mm_outputs.readdata(10)           <= mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_ENABLE_BIT;
 					--     9- 9 : Codec RX Enable control bit            [R/W]
@@ -59,12 +61,14 @@ begin
 					--     0- 0 : Link Running interrupt flag            [R/-]
 					--     1- 1 : TimeCode Received interrupt flag clear [-/W]
 					avalon_mm_outputs.readdata(0)            <= mm_read_registers.SPWC.INTERRUPT_FLAG_REGISTER.LINK_RUNNING;
-					--     0- 0 : Link Running interrupt flag clear      [-/W]
+				--     0- 0 : Link Running interrupt flag clear      [-/W]
 
-					--  SpW Link Control and Status Register           (32 bits):
+				--  SpW Link Control and Status Register           (32 bits):
 				when (SPWC_SPW_LINK_CONTROL_STATUS_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31-10 : Reserved                               [-/-]
-					avalon_mm_outputs.readdata(31 downto 10) <= (others => '0');
+					--    31-18 : Reserved                               [-/-]
+					avalon_mm_outputs.readdata(31 downto 18) <= (others => '0');
+					--    17-10 : TX Clock Divisor value                 [R/W]
+					avalon_mm_outputs.readdata(17 downto 10) <= mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.TX_CLOCK_DIV;
 					--     9- 9 : Autostart control bit                  [R/W]
 					avalon_mm_outputs.readdata(9)            <= mm_write_registers.SPWC.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT;
 					--     8- 8 : Link Start control bit                 [R/W]
@@ -86,7 +90,7 @@ begin
 					--     0- 0 : Link Running status bit                [R/-]
 					avalon_mm_outputs.readdata(0)            <= mm_read_registers.SPWC.SPW_LINK_STATUS_REGISTER.RUNNING;
 
-					--  Timecode Control Register                      (32 bits):
+				--  Timecode Control Register                      (32 bits):
 				when (SPWC_TIMECODE_CONTROL_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31-25 : Reserved                               [-/-]
 					avalon_mm_outputs.readdata(31 downto 25) <= (others => '0');
@@ -106,9 +110,9 @@ begin
 					--     0- 0 : TX TimeCode control bit                [R/-]
 					avalon_mm_outputs.readdata(0)            <= mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
 
-					-- TRAN Module ReadData procedure
+				-- TRAN Module ReadData procedure
 
-					--  Interface Control and Status Register        (32 bits):
+				--  Interface Control and Status Register        (32 bits):
 				when (TRAN_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31-11 : Reserved                             [-/-]
 					avalon_mm_outputs.readdata(31 downto 11) <= (others => '0');
@@ -137,9 +141,9 @@ begin
 					--     1- 1 : RX FIFO Full interrupt flag clear    [-/W]
 					--     0- 0 : TX FIFO Empty interrupt flag         [R/-]
 					avalon_mm_outputs.readdata(0)            <= mm_read_registers.TRAN.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY;
-					--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
+				--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
 
-					--  RX Mode Control Register                     (32 bits):
+				--  RX Mode Control Register                     (32 bits):
 				when (TRAN_RX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31- 3 : Reserved                             [-/-]
 					avalon_mm_outputs.readdata(31 downto 3) <= (others => '0');
@@ -150,7 +154,7 @@ begin
 					--     0- 0 : RX FIFO Full status bit              [R/-]
 					avalon_mm_outputs.readdata(0)           <= mm_read_registers.TRAN.RX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT;
 
-					--  TX Mode Control Register                     (32 bits):
+				--  TX Mode Control Register                     (32 bits):
 				when (TRAN_TX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--    31- 3 : Reserved                             [-/-]
 					avalon_mm_outputs.readdata(31 downto 3) <= (others => '0');

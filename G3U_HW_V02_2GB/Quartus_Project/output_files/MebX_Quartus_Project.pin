@@ -1142,8 +1142,8 @@ GXB_GND*                     : J1        :        :                   :         
 GXB_GND*                     : J2        :        :                   :         : QR2       :                
 GND                          : J3        : gnd    :                   :         :           :                
 GND                          : J4        : gnd    :                   :         :           :                
-ETH_MDC[3]                   : J5        : output : 2.5 V             :         : 6C        : Y              
-ETH_MDC[2]                   : J6        : output : 2.5 V             :         : 6C        : Y              
+ETH_MDIO[1]                  : J5        : bidir  : 2.5 V             :         : 6C        : Y              
+ETH_MDC[1]                   : J6        : output : 2.5 V             :         : 6C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : J7        :        :                   :         : 6C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : J8        :        :                   :         : 6A        :                
 HSMB_LVDS_TX_SPWB_DO_P[0](n) : J9        : output : LVDS              :         : 6A        : N              
@@ -1181,8 +1181,8 @@ GND                          : K1        : gnd    :                   :         
 GND                          : K2        : gnd    :                   :         :           :                
 GXB_NC                       : K3        :        :                   :         : QR2       :                
 GXB_NC                       : K4        :        :                   :         : QR2       :                
-ETH_MDC[1]                   : K5        : output : 2.5 V             :         : 6C        : Y              
-ETH_MDIO[3]                  : K6        : bidir  : 2.5 V             :         : 6C        : Y              
+ETH_MDIO[2]                  : K5        : bidir  : 2.5 V             :         : 6C        : Y              
+ETH_MDC[2]                   : K6        : output : 2.5 V             :         : 6C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : K7        :        :                   :         : 6C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : K8        :        :                   :         : 6A        :                
 HSMB_LVDS_TX_SPWB_DO_P[0]    : K9        : output : LVDS              :         : 6A        : Y              
@@ -1300,8 +1300,8 @@ GND                          : N3        : gnd    :                   :         
 GND                          : N4        : gnd    :                   :         :           :                
 HSMB_LVDS_RX_SPWF_SI_P[0](n) : N5        : input  : LVDS              :         : 6C        : N              
 HSMB_LVDS_RX_SPWF_SI_P[0]    : N6        : input  : LVDS              :         : 6C        : Y              
-ETH_MDIO[2]                  : N7        : bidir  : 2.5 V             :         : 6C        : Y              
-ETH_MDIO[1]                  : N8        : bidir  : 2.5 V             :         : 6C        : Y              
+ETH_MDC[3]                   : N7        : output : 2.5 V             :         : 6C        : Y              
+ETH_MDIO[3]                  : N8        : bidir  : 2.5 V             :         : 6C        : Y              
 HSMB_LVDS_TX_SPWE_SO_P[0]    : N9        : output : LVDS              :         : 6C        : Y              
 HSMB_LVDS_TX_SPWA_DO_P[0](n) : N10       : output : LVDS              :         : 6A        : N              
 HSMB_LVDS_TX_SPWA_DO_P[0]    : N11       : output : LVDS              :         : 6A        : Y              
@@ -1321,7 +1321,7 @@ GND                          : N24       : gnd    :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : N25       :        :                   :         : 8A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N26       :        :                   :         : 8A        :                
 altera_reserved_tms          : N27       : input  : 2.5 V             :         : 1A        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : N28       :        :                   :         : 1A        :                
+FSM_A[0]                     : N28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[4]                   : N29       : output : 2.5 V             :         : 1A        : Y              
 LED_DE4[7]                   : N30       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : N31       :        :                   :         : 1A        :                
@@ -1398,7 +1398,7 @@ VCCPD8B                      : R23       : power  :                   : 2.5V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :         : 8A        :                
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
-FSM_A[0]                     : R27       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 ETH_MDC[0]                   : R30       : output : 2.5 V             :         : 1C        : Y              

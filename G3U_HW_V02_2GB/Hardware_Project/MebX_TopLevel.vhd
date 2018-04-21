@@ -270,10 +270,15 @@ attribute KEEP of clk80: signal is true;
 -- Ethernet 
 -----------------------------------------
 signal rst_eth            : std_logic := '0';
-signal tse_mdio_mdio_in   : std_logic;  
-signal tse_mdio_mdio_out  : std_logic; 
-signal tse_mdio_mdio_oen  : std_logic;
-signal enet_mdc : std_logic;
+signal enet_refclk_125MHz : std_logic := '0';
+
+signal enet_mdc      : std_logic;
+signal enet_mdio_in  : std_logic;
+signal enet_mdio_oen : std_logic;
+signal enet_mdio_out : std_logic;
+
+signal lvds_rxp : std_logic;
+signal lvds_txp : std_logic;
 
 -----------------------------------------
 -- LEDs
@@ -463,10 +468,10 @@ signal spw_h_do : std_logic_vector (0 downto 0);
     end component MebX_Qsys_Project;
 
 component pll_125
-	PORT
+	port
 	(
-		inclk0		: IN STD_LOGIC  := '0';
-		c0				: OUT STD_LOGIC 
+		inclk0 : in  std_logic  := '0';
+		c0     : out std_logic 
 	);
 end component;
 
@@ -477,9 +482,9 @@ begin
 --==========--
 -- Clk
 --==========--
-PLL_inst_125 : pll_125 PORT MAP (
-		inclk0	 => OSC_50_BANK2,
-		c0	 	    => clk125
+PLL_inst_125 : pll_125 port map (
+		inclk0 => OSC_50_BANK2,
+		c0     => enet_refclk_125MHz
 	);
 
 --==========--
@@ -509,21 +514,22 @@ SOPC_INST : MebX_Qsys_Project
     sd_clk_export    => sd_clk,
     sd_dat_export    => sd_dat,
 
-    tse_clk_clk 						          => clk125, 
-    ETH_rst_export                         => rst_eth,
-    tse_mdio_mdc                           => OPEN,
-    tse_mdio_mdio_in                       => tse_mdio_mdio_in,
-    tse_mdio_mdio_out                      => tse_mdio_mdio_out,
-    tse_mdio_mdio_oen                      => tse_mdio_mdio_oen,
-    tse_led_crs                            => OPEN, 
-    tse_led_link                           => OPEN, 
-    tse_led_col                            => OPEN, 
-    tse_led_an                             => OPEN, 
-    tse_led_char_err                       => OPEN, 
-    tse_led_disp_err                       => OPEN, 
-    tse_serial_txp                         => ETH_TX_p(0), 
-    tse_serial_rxp                         => ETH_RX_p(0),
     
+    ETH_rst_export                         => rst_eth,
+    tse_led_an                             => open, 
+	tse_led_char_err                       => open, 
+	tse_led_col                            => open, 
+	tse_led_crs                            => open, 
+    tse_led_disp_err                       => open, 
+	tse_led_link                           => open, 
+    tse_mdio_mdc                           => enet_mdc,
+    tse_mdio_mdio_in                       => enet_mdio_in,
+    tse_mdio_mdio_oen                      => enet_mdio_oen,
+	tse_mdio_mdio_out                      => enet_mdio_out,
+    tse_clk_clk 						   => enet_refclk_125MHz,
+    tse_serial_rxp                         => lvds_rxp,
+	tse_serial_txp                         => lvds_txp,
+	
     tristate_conduit_tcm_address_out       => FSM_A(25 downto 0),
     tristate_conduit_tcm_data_out          => FSM_D,
     tristate_conduit_tcm_chipselect_n_out  => FLASH_CE_n, 
@@ -674,12 +680,35 @@ LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
 -- eth
 --==========--
 
-tse_mdio_mdio_in <= ETH_MDIO(0);
+ETH_RST_n <= (rst) and (rst_eth);
 
-ETH_MDIO(0) <=  tse_mdio_mdio_out WHEN (tse_mdio_mdio_oen = '0') else
-                '1';
+-- ETH0
+-- lvds_rxp     <= ETH_RX_p(0);
+-- ETH_TX_p(0)  <= lvds_txp;
+-- enet_mdio_in <= ETH_MDIO(0);
+-- ETH_MDIO(0)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+-- ETH_MDC(0)   <= enet_mdc;
 
-ETH_RST_n <= rst AND rst_eth;
+-- ETH1
+-- lvds_rxp     <= ETH_RX_p(1);
+-- ETH_TX_p(1)  <= lvds_txp;
+-- enet_mdio_in <= ETH_MDIO(1);
+-- ETH_MDIO(1)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+-- ETH_MDC(1)   <= enet_mdc;
+
+-- ETH2
+-- lvds_rxp     <= ETH_RX_p(2);
+-- ETH_TX_p(2)  <= lvds_txp;
+-- enet_mdio_in <= ETH_MDIO(2);
+-- ETH_MDIO(2)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+-- ETH_MDC(2)   <= enet_mdc;
+
+-- ETH3
+lvds_rxp     <= ETH_RX_p(3);
+ETH_TX_p(3)  <= lvds_txp;
+enet_mdio_in <= ETH_MDIO(3);
+ETH_MDIO(3)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+ETH_MDC(3)   <= enet_mdc;
 
 --==========--
 -- Flash

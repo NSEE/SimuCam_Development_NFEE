@@ -534,7 +534,7 @@ module MebX_Qsys_Project_tse_mac (
 		.SYNCHRONIZER_DEPTH  (4),
 		.ENABLE_CLK_SHARING  (0),
 		.ENABLE_SGMII        (1),
-		.PHY_IDENTIFIER      (0)
+		.PHY_IDENTIFIER      (3)
 	) i_tse_pcs_0 (
 		.clk                   (clk),                                           // control_port_clock_connection.clk
 		.reset                 (reset),                                         //              reset_connection.reset
