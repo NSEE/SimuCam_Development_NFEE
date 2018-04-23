@@ -65,7 +65,7 @@ entity sync_syncgen_ent is
 
 		flags_o       : out t_sync_syncgen_flags;
 		error_o       : out t_sync_syncgen_error;
-		sync_output_o : out std_logic
+		sync_output_o : out std_logic_vector(1 downto 0)
 		-- data bus(es)
 	);
 end entity sync_syncgen_ent;
@@ -118,8 +118,8 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
-			s_sync_syncgen_state       <= IDLE;
-			s_sync_syncgen_last_state  <= IDLE;
+			s_sync_syncgen_state              <= IDLE;
+			s_sync_syncgen_last_state         <= IDLE;
 			s_sync_free_counter               <= (others => '0');
 			s_sync_toogle_counter             <= (others => '1');
 			s_pulse_number_counter            <= 0;
@@ -135,8 +135,8 @@ begin
 				when IDLE =>
 					-- does nothing until a start is received
 					-- default state transition
-					s_sync_syncgen_state       <= IDLE;
-					s_sync_syncgen_last_state  <= IDLE;
+					s_sync_syncgen_state              <= IDLE;
+					s_sync_syncgen_last_state         <= IDLE;
 					-- default internal signal values
 					s_sync_free_counter               <= (others => '0');
 					s_sync_toogle_counter             <= (others => '1');
@@ -149,11 +149,11 @@ begin
 					-- check if a start sync was received
 					if (control_i.start = '1') then
 						-- go to first polarity
-						s_sync_syncgen_state <= POLARITY_0;
+						s_sync_syncgen_state  <= POLARITY_0;
 						-- register configurations
-						s_registered_configs        <= configs_i;
+						s_registered_configs  <= configs_i;
 						-- set the toogle value (master pulse)
-						s_sync_toogle_counter       <= std_logic_vector(unsigned(s_registered_configs.master_width) - 1);
+						s_sync_toogle_counter <= std_logic_vector(unsigned(s_registered_configs.master_width) - 1);
 					end if;
 
 				-- state "POLARITY_0"
@@ -199,7 +199,7 @@ begin
 							-- pulse period reached, go to first polarity
 							s_sync_syncgen_state <= POLARITY_0;
 							-- reset sync counter
-							s_sync_free_counter         <= (others => '0');
+							s_sync_free_counter  <= (others => '0');
 							-- check if the pulse number can be incremented
 							if (s_pulse_number_counter = (unsigned(s_registered_configs.pulse_number) - 1)) then
 								-- pulse number can be incremented
@@ -254,9 +254,10 @@ begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
 			-- output generation when s_sync_syncgen_state changes
-			sync_output_o   <= g_SYNC_POLARITY;
-			flags_o.running <= '0';
-			flags_o.stopped <= '0';
+			sync_output_o(1) <= '0';
+			sync_output_o(0) <= g_SYNC_POLARITY;
+			flags_o.running  <= '0';
+			flags_o.stopped  <= '0';
 		else
 			case (s_sync_syncgen_state) is
 
@@ -264,28 +265,41 @@ begin
 				when IDLE =>
 					-- does nothing until a start is received
 					-- default output signals
-					sync_output_o   <= g_SYNC_POLARITY;
-					flags_o.running <= '0';
-					flags_o.stopped <= '0';
+					sync_output_o(1) <= '0';
+					sync_output_o(0) <= g_SYNC_POLARITY;
+					flags_o.running  <= '0';
+					flags_o.stopped  <= '0';
 				-- conditional output signals
 
 				-- state "POLARITY_0"
 				when POLARITY_0 =>
 					-- initial polarity (pol_0) of the sync signal
 					-- default output signals
-					sync_output_o   <= g_SYNC_POLARITY;
-					flags_o.running <= '1';
-					flags_o.stopped <= '0';
-				-- conditional output signals
+					sync_output_o(1) <= '0';
+					sync_output_o(0) <= g_SYNC_POLARITY;
+					flags_o.running  <= '1';
+					flags_o.stopped  <= '0';
+					-- conditional output signals
+					-- check if the sync signal is in the master pulse
+					if (s_pulse_number_counter = 0) then
+						-- flag the master pulse
+						sync_output_o(1) <= '1';
+					end if;
 
 				-- state "POLARITY_1"
 				when POLARITY_1 =>
 					-- final polarity (pol_1) of the sync signal 
 					-- default output signals
-					sync_output_o   <= not g_SYNC_POLARITY;
-					flags_o.running <= '1';
-					flags_o.stopped <= '0';
-				-- conditional output signals
+					sync_output_o(1) <= '0';
+					sync_output_o(0) <= g_SYNC_POLARITY;
+					flags_o.running  <= '1';
+					flags_o.stopped  <= '0';
+					-- conditional output signals
+					-- check if the sync signal is in the master pulse
+					if (s_pulse_number_counter = 0) then
+						-- flag the master pulse
+						sync_output_o(1) <= '1';
+					end if;
 
 				-- state "STOPPED"
 				when STOPPED =>

@@ -50,9 +50,10 @@ use IEEE.NUMERIC_STD.ALL;
 package sync_syncgen_pkg is
 
 	-- others
-	constant c_SYNC_COUNTER_MAX_WIDTH  : integer := 64;
-	constant c_SYNC_COUNTER_WIDTH      : integer := 32;
-	constant c_SYNC_PULSE_NUMBER_WIDTH : integer := 2;
+	constant c_SYNC_COUNTER_MAX_WIDTH  : integer          := 64;
+	constant c_SYNC_COUNTER_WIDTH      : integer          := 32;
+	constant c_SYNC_PULSE_NUMBER_WIDTH : integer          := 2;
+	constant c_SYNC_POLARITY           : std_logic_vector := '1';
 
 	-- general
 
