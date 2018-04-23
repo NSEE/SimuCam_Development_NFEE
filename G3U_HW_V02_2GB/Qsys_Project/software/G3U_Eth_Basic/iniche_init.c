@@ -35,7 +35,7 @@
 #include "libport.h"
 #include "osport.h"
 
-/* Necessário para funcionamento do ETH (eth_reset) */
+/* Necessary for the ETH to work (eth_reset) [rfranca]*/
 #include "io.h"
 
 /* Definition of task stack for the initial task which will initialize the NicheStack
@@ -114,7 +114,7 @@ void SSSInitialTask(void *task_data)
 int main (int argc, char* argv[], char* envp[])
 {
   
-  /* Necessário para funcionamento do ETH (eth_reset) */
+  /* Necessary for the ETH to work (eth_reset) [rfranca]*/
   IOWR(PIO_RST_ETH_BASE, 0, 0xFFFF);
 
   INT8U error_code;

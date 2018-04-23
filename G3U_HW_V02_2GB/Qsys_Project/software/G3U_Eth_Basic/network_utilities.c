@@ -23,7 +23,7 @@
 #include "tcpport.h"
 #include "network_utilities.h"
 
-/* Modified to read the MAC address from the RTCC */
+/* Modified to read the MAC address from the RTCC [rfranca]*/
 #include "driver/rtcc_spi/rtcc_spi.h"
 
 #define IP4_ADDR(ipaddr, a,b,c,d) ipaddr = \
@@ -43,7 +43,7 @@ int get_mac_addr(NET net, unsigned char mac_addr[6])
 {
     error_t error = 0;
     
-    /* Modified to read the MAC address from the RTCC */
+    /* Modified to read the MAC address from the RTCC [rfranca]*/
     /* error = get_board_mac_addr(mac_addr); */
     RTCC_SPI_R_MAC(mac_addr);
     
