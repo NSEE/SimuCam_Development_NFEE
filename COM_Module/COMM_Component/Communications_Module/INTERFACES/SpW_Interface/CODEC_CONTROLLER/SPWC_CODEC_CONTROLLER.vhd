@@ -28,11 +28,10 @@ end entity spwc_codec_controller_ent;
 architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 
 	-- Signals for Codec Controller configuration
-	signal codec_enable_sig           : std_logic := '0';
-	signal codec_rx_enable_sig        : std_logic := '0';
-	signal codec_tx_enable_sig        : std_logic := '0';
-	signal loopback_mode_sig          : std_logic := '0';
-	signal external_loopback_mode_sig : std_logic := '0';
+	signal codec_enable_sig    : std_logic := '0';
+	signal codec_rx_enable_sig : std_logic := '0';
+	signal codec_tx_enable_sig : std_logic := '0';
+	signal loopback_mode_sig   : std_logic := '0';
 
 	-- Signals for Codec Controller Interrupts operation
 	signal interrupts_flags_sig           : spwc_interrupt_register_type;
@@ -176,8 +175,8 @@ begin
 			spwc_codec_data_tx_out        => spwc_codec_data_tx_out_sig
 		);
 
-	-- CLK100 Commands DC FIFO Component
-	-- Sends Commands from CLK100 (write) to CLK200 (read) 
+		-- CLK100 Commands DC FIFO Component
+		-- Sends Commands from CLK100 (write) to CLK200 (read) 
 	clk100_codec_commands_dc_fifo_inst : entity work.spwc_clk100_codec_commands_dc_fifo -- Convert from clk100 to clk200
 		port map(
 			aclr    => rst,
@@ -193,8 +192,8 @@ begin
 			wrfull  => clk100_codec_commands_dc_fifo_sig.write_full
 		);
 
-	-- CLK200 Commands DC FIFO Component
-	-- Sends Commands from CLK200 (write) to CLK100 (read) 
+		-- CLK200 Commands DC FIFO Component
+		-- Sends Commands from CLK200 (write) to CLK100 (read) 
 	clk200_codec_commands_dc_fifo_inst : entity work.spwc_clk200_codec_commands_dc_fifo -- Convert from clk200 to clk100
 		port map(
 			aclr    => rst,
@@ -210,7 +209,7 @@ begin
 			wrfull  => clk200_codec_commands_dc_fifo_sig.write_full
 		);
 
-	-- CLK100 Codec Controller Process (Avalon Clock)
+		-- CLK100 Codec Controller Process (Avalon Clock)
 	spwc_codec_controller_clk100_proc : process(clk100, rst) is
 	begin
 		-- CLK100 Reset Procedures
@@ -223,8 +222,6 @@ begin
 			codec_tx_enable_sig                                              <= '0';
 			-- Clear Codec Controller Loopback Mode control signal
 			loopback_mode_sig                                                <= '0';
-			-- Clear Codec Controller External Loopback Mode control signal
-			external_loopback_mode_sig                                       <= '0';
 			-- Clear the Link Error Interrupt Flag
 			spwc_mm_read_registers.INTERRUPT_FLAG_REGISTER.LINK_ERROR        <= '0';
 			-- Clear the Link Running Interrupt Flag
@@ -242,7 +239,7 @@ begin
 			-- Set the TX DATA DC FIFO aClear control
 			spwc_tx_data_dc_fifo_clk200_inputs.aclr                          <= '1';
 
-		-- CLK100 Clocked Process
+			-- CLK100 Clocked Process
 		elsif rising_edge(clk100) then
 
 			-- Codec Controller Force Reset operation
@@ -265,15 +262,13 @@ begin
 
 			-- Codec Controller Configuration Registers Reading
 			-- Read Codec Controller Enable Enable value from the Interface Control Register 
-			codec_enable_sig           <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_ENABLE_BIT;
+			codec_enable_sig    <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_ENABLE_BIT;
 			-- Read Codec Controller RX Enable value from the Interface Control Register
-			codec_rx_enable_sig        <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_RX_ENABLE_BIT;
+			codec_rx_enable_sig <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_RX_ENABLE_BIT;
 			-- Read Codec Controller TX Enable value from the Interface Control Register
-			codec_tx_enable_sig        <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT;
+			codec_tx_enable_sig <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT;
 			-- Read Codec Controller Loopback Mode Enable value from the Interface Control Register
-			loopback_mode_sig          <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT;
-			-- Read Codec Controller External Loopback Mode Enable value from the Interface Control Register
-			external_loopback_mode_sig <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT;
+			loopback_mode_sig   <= spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT;
 
 			-- CLK100 Commands DC FIFO write operation
 			-- Update delayed CLK100 Commands Signal, to check if a command has changed
@@ -355,7 +350,7 @@ begin
 			-- Clear the Timecode Tick In Trigger signal
 			timecode_tick_in_trigger_sig <= '0';
 
-		-- CLK200 Clocked Process
+			-- CLK200 Clocked Process
 		elsif rising_edge(clk200) then
 
 			-- CLK200 Commands DC FIFO write operation
@@ -399,24 +394,21 @@ begin
 	spwc_codec_ds_encoding_tx_out.spw_do    <= (spwc_codec_ds_encoding_tx_out_sig.spw_do) when (loopback_mode_sig = '0') else ('0');
 	spwc_codec_ds_encoding_tx_out.spw_so    <= (spwc_codec_ds_encoding_tx_out_sig.spw_so) when (loopback_mode_sig = '0') else ('0');
 
-	-- External Loopback/Normal Mode Signal assignment
-	-- In External Loopback Mode, the Codec RX FIFO is connected directly to the Codec TX FIFO, meaning that all received data is looped back to the sender
-
 	-- RX Codec Reset Signal assingment
 	spwc_codec_reset_in_sig <= (codec_reset_sig) when (rst = '0') else ('1');
 
 	-- RX Codec Receiver rxRead Control Signal assingment
 	-- '1' when ((Codec Receiver has valid data) and (RX DATA DC FIFO has space available)), else '0'
-	codec_rxread_sig <= ('1') when ((spwc_codec_data_rx_out_sig.rxvalid = '1') and (((external_loopback_mode_sig = '0') and (spwc_rx_data_dc_fifo_clk200_outputs.wrfull = '0')) or ((external_loopback_mode_sig = '1') and (spwc_codec_data_tx_out_sig.txrdy = '1')))) else ('0');
+	codec_rxread_sig <= ('1') when ((spwc_codec_data_rx_out_sig.rxvalid = '1') and (spwc_rx_data_dc_fifo_clk200_outputs.wrfull = '0')) else ('0');
 
 	-- RX Enable Management (Codec Data Receiver)
 	spwc_codec_data_rx_in_sig.rxread <= (codec_rxread_sig) when ((codec_enable_sig = '1') and (codec_rx_enable_sig = '1')) else ('0');
 
 	-- RX DATA DC FIFO Write Signal assingment and Enable management 
-	rx_dc_fifo_wreq_sig <= (codec_rxread_sig) when ((codec_enable_sig = '1') and (codec_rx_enable_sig = '1') and (external_loopback_mode_sig = '0')) else ('0');
+	rx_dc_fifo_wreq_sig <= (codec_rxread_sig) when ((codec_enable_sig = '1') and (codec_rx_enable_sig = '1')) else ('0');
 
 	-- RX DATA DC FIFO Underflow/Overflow protection management
-	spwc_rx_data_dc_fifo_clk200_inputs.wrreq <= (rx_dc_fifo_wreq_sig) when ((spwc_rx_data_dc_fifo_clk200_outputs.wrfull = '0') and (external_loopback_mode_sig = '0')) else ('0');
+	spwc_rx_data_dc_fifo_clk200_inputs.wrreq <= (rx_dc_fifo_wreq_sig) when (spwc_rx_data_dc_fifo_clk200_outputs.wrfull = '0') else ('0');
 
 	-- RX Enable Management (Codec Timecode Receiver)
 	timecode_tick_out_sig <= (codec_timecode_rx_tick_out_sig) when ((codec_enable_sig = '1') and (codec_rx_enable_sig = '1')) else ('0');
@@ -426,21 +418,21 @@ begin
 	rx_data.spacewire_data <= spwc_codec_data_rx_out_sig.rxdata;
 
 	-- RX DATA DC FIFO Data Signal assignment
-	spwc_rx_data_dc_fifo_clk200_inputs.data(8)          <= (rx_data.spacewire_flag) when (external_loopback_mode_sig = '0') else ('0');
-	spwc_rx_data_dc_fifo_clk200_inputs.data(7 downto 0) <= (rx_data.spacewire_data) when (external_loopback_mode_sig = '0') else (x"00");
+	spwc_rx_data_dc_fifo_clk200_inputs.data(8)          <= rx_data.spacewire_flag;
+	spwc_rx_data_dc_fifo_clk200_inputs.data(7 downto 0) <= rx_data.spacewire_data;
 
 	-- TX Codec Transmitter txWrite Control Signal assingment
 	-- '1' when ((Codec Transmitter is ready) and (TX DATA DC FIFO has data available)), else '0'
-	codec_txwrite_sig <= ('1') when ((spwc_codec_data_tx_out_sig.txrdy = '1') and (((external_loopback_mode_sig = '0') and (spwc_tx_data_dc_fifo_clk200_outputs.rdempty = '0')) or ((external_loopback_mode_sig = '1') and (spwc_codec_data_rx_out_sig.rxvalid = '1')))) else ('0');
+	codec_txwrite_sig <= ('1') when ((spwc_codec_data_tx_out_sig.txrdy = '1') and (spwc_tx_data_dc_fifo_clk200_outputs.rdempty = '0')) else ('0');
 
 	-- TX Enable Management (Codec Data Transmitter)
 	spwc_codec_data_tx_in_sig.txwrite <= (codec_txwrite_sig) when ((codec_enable_sig = '1') and (codec_tx_enable_sig = '1')) else ('0');
 
 	-- TX DATA DC FIFO Write Signal assingment and Enable management
-	tx_dc_fifo_rdeq_sig <= (codec_txwrite_sig) when ((codec_enable_sig = '1') and (codec_tx_enable_sig = '1') and (external_loopback_mode_sig = '0')) else ('0');
+	tx_dc_fifo_rdeq_sig <= (codec_txwrite_sig) when ((codec_enable_sig = '1') and (codec_tx_enable_sig = '1')) else ('0');
 
 	-- TX DATA DC FIFO Underflow/Overflow protection management
-	spwc_tx_data_dc_fifo_clk200_inputs.rdreq <= (tx_dc_fifo_rdeq_sig) when ((spwc_tx_data_dc_fifo_clk200_outputs.rdempty = '0') and (external_loopback_mode_sig = '0')) else ('0');
+	spwc_tx_data_dc_fifo_clk200_inputs.rdreq <= (tx_dc_fifo_rdeq_sig) when (spwc_tx_data_dc_fifo_clk200_outputs.rdempty = '0') else ('0');
 
 	-- TX Enable Management (Codec Timecode Transmitter)
 	spwc_codec_timecode_tx_in_sig.tick_in <= (codec_timecode_tx_tick_in_sig) when ((codec_enable_sig = '1') and (codec_tx_enable_sig = '1')) else ('0');
@@ -450,8 +442,8 @@ begin
 	spwc_codec_data_tx_in_sig.txdata <= tx_data.spacewire_data;
 
 	-- TX DATA DC FIFO Data Signal assignment
-	tx_data.spacewire_flag <= (spwc_tx_data_dc_fifo_clk200_outputs.q(8)) when (external_loopback_mode_sig = '0') else (rx_data.spacewire_flag);
-	tx_data.spacewire_data <= (spwc_tx_data_dc_fifo_clk200_outputs.q(7 downto 0)) when (external_loopback_mode_sig = '0') else (rx_data.spacewire_data);
+	tx_data.spacewire_flag <= spwc_tx_data_dc_fifo_clk200_outputs.q(8);
+	tx_data.spacewire_data <= spwc_tx_data_dc_fifo_clk200_outputs.q(7 downto 0);
 
 	-- CLK100 Current Commands Signal assingment
 	clk100_current_commands_sig <= clk100_codec_commands_dc_fifo_sig.data_in;
@@ -469,12 +461,12 @@ begin
 	clk100_codec_commands_dc_fifo_sig.write <= (clk100_codec_commands_dc_fifo_write_sig) when (clk100_codec_commands_dc_fifo_sig.write_full = '0') else ('0');
 
 	-- CLK100 Commands DC FIFO Write Data Signal assingment (data write in CLK100)
-	clk100_codec_commands_dc_fifo_sig.data_in(0)           <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(1)           <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_START_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(2)           <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(3)           <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(5 downto 4)  <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS(1 downto 0);
-	clk100_codec_commands_dc_fifo_sig.data_in(11 downto 6) <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE(5 downto 0);
+	clk100_codec_commands_dc_fifo_sig.data_in(0)            <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(1)            <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_START_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(2)            <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(3)            <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(5 downto 4)   <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS(1 downto 0);
+	clk100_codec_commands_dc_fifo_sig.data_in(11 downto 6)  <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE(5 downto 0);
 
 	-- CLK100 Commands DC FIFO Read Signal assingment (data read in CLK200) 
 	-- '1' when there is CLK100 Commands ready to be used in CLK200, else '0'
@@ -484,7 +476,6 @@ begin
 	spwc_codec_link_command_in_sig.autostart <= (clk100_codec_commands_dc_fifo_sig.data_out(0)) when (clk200_codec_commands_valid = '1') else ('0');
 	spwc_codec_link_command_in_sig.linkstart <= (clk100_codec_commands_dc_fifo_sig.data_out(1)) when (clk200_codec_commands_valid = '1') else ('0');
 	spwc_codec_link_command_in_sig.linkdis   <= (clk100_codec_commands_dc_fifo_sig.data_out(2)) when (clk200_codec_commands_valid = '1') else ('0');
-	spwc_codec_link_command_in_sig.txdivcnt  <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.TX_CLOCK_DIV;
 	timecode_tick_in_sig                     <= (clk100_codec_commands_dc_fifo_sig.data_out(3)) when (clk200_codec_commands_valid = '1') else ('0');
 	spwc_codec_timecode_tx_in_sig.ctrl_in    <= (clk100_codec_commands_dc_fifo_sig.data_out(5 downto 4)) when (clk200_codec_commands_valid = '1') else ((others => '0'));
 	spwc_codec_timecode_tx_in_sig.time_in    <= (clk100_codec_commands_dc_fifo_sig.data_out(11 downto 6)) when (clk200_codec_commands_valid = '1') else ((others => '0'));
