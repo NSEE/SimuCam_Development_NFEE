@@ -157,11 +157,14 @@ architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 
 begin
 
-	-- SpaceWire Light Codec Encapsulation Component
-	spwc_codec_ent_inst : entity work.spwc_codec_ent
+	-- SpaceWire Light Codec Encapsulation Component (Loopback Version)
+	spwc_codec_ent_inst : entity work.spwc_codec_loopback_ent
 		port map(
+			clk_100                       => clk100,
 			clk_200                       => clk200,
-			rst                           => spwc_codec_reset_in_sig,
+			rst                           => rst,
+			spwc_codec_reset              => spwc_codec_reset_in_sig,
+			spwc_mm_write_registers       => spwc_mm_write_registers,
 			spwc_codec_link_command_in    => spwc_codec_link_command_in_sig,
 			spwc_codec_link_status_out    => spwc_codec_link_status_out_sig,
 			spwc_codec_ds_encoding_rx_in  => spwc_codec_ds_encoding_rx_in_sig,
@@ -175,8 +178,8 @@ begin
 			spwc_codec_data_tx_out        => spwc_codec_data_tx_out_sig
 		);
 
-		-- CLK100 Commands DC FIFO Component
-		-- Sends Commands from CLK100 (write) to CLK200 (read) 
+	-- CLK100 Commands DC FIFO Component
+	-- Sends Commands from CLK100 (write) to CLK200 (read) 
 	clk100_codec_commands_dc_fifo_inst : entity work.spwc_clk100_codec_commands_dc_fifo -- Convert from clk100 to clk200
 		port map(
 			aclr    => rst,
@@ -192,8 +195,8 @@ begin
 			wrfull  => clk100_codec_commands_dc_fifo_sig.write_full
 		);
 
-		-- CLK200 Commands DC FIFO Component
-		-- Sends Commands from CLK200 (write) to CLK100 (read) 
+	-- CLK200 Commands DC FIFO Component
+	-- Sends Commands from CLK200 (write) to CLK100 (read) 
 	clk200_codec_commands_dc_fifo_inst : entity work.spwc_clk200_codec_commands_dc_fifo -- Convert from clk200 to clk100
 		port map(
 			aclr    => rst,
@@ -209,7 +212,7 @@ begin
 			wrfull  => clk200_codec_commands_dc_fifo_sig.write_full
 		);
 
-		-- CLK100 Codec Controller Process (Avalon Clock)
+	-- CLK100 Codec Controller Process (Avalon Clock)
 	spwc_codec_controller_clk100_proc : process(clk100, rst) is
 	begin
 		-- CLK100 Reset Procedures
@@ -239,7 +242,7 @@ begin
 			-- Set the TX DATA DC FIFO aClear control
 			spwc_tx_data_dc_fifo_clk200_inputs.aclr                          <= '1';
 
-			-- CLK100 Clocked Process
+		-- CLK100 Clocked Process
 		elsif rising_edge(clk100) then
 
 			-- Codec Controller Force Reset operation
@@ -350,7 +353,7 @@ begin
 			-- Clear the Timecode Tick In Trigger signal
 			timecode_tick_in_trigger_sig <= '0';
 
-			-- CLK200 Clocked Process
+		-- CLK200 Clocked Process
 		elsif rising_edge(clk200) then
 
 			-- CLK200 Commands DC FIFO write operation
@@ -461,12 +464,12 @@ begin
 	clk100_codec_commands_dc_fifo_sig.write <= (clk100_codec_commands_dc_fifo_write_sig) when (clk100_codec_commands_dc_fifo_sig.write_full = '0') else ('0');
 
 	-- CLK100 Commands DC FIFO Write Data Signal assingment (data write in CLK100)
-	clk100_codec_commands_dc_fifo_sig.data_in(0)            <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(1)            <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_START_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(2)            <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(3)            <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
-	clk100_codec_commands_dc_fifo_sig.data_in(5 downto 4)   <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS(1 downto 0);
-	clk100_codec_commands_dc_fifo_sig.data_in(11 downto 6)  <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE(5 downto 0);
+	clk100_codec_commands_dc_fifo_sig.data_in(0)           <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(1)           <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_START_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(2)           <= spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(3)           <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
+	clk100_codec_commands_dc_fifo_sig.data_in(5 downto 4)  <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS(1 downto 0);
+	clk100_codec_commands_dc_fifo_sig.data_in(11 downto 6) <= spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE(5 downto 0);
 
 	-- CLK100 Commands DC FIFO Read Signal assingment (data read in CLK200) 
 	-- '1' when there is CLK100 Commands ready to be used in CLK200, else '0'
