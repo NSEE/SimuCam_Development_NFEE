@@ -100,6 +100,18 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwrecv
 -- Compiling architecture spwrecv_arch of spwrecv
 
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwc_mm_registers_pkg
+-- Loading package spwc_rx_data_dc_fifo_pkg
+-- Loading package spwc_tx_data_dc_fifo_pkg
+-- Compiling entity spw_config_stimuli_ent
+-- Compiling architecture RTL of spw_config_stimuli_ent
+
 } {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
