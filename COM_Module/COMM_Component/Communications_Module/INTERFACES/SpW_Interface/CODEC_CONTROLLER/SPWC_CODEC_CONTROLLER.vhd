@@ -158,7 +158,7 @@ architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 begin
 
 	-- SpaceWire Light Codec Encapsulation Component (Loopback Version)
-	spwc_codec_ent_inst : entity work.spwc_codec_loopback_ent
+	spwc_codec_loopback_ent_inst : entity work.spwc_codec_loopback_ent
 		port map(
 			clk_100                       => clk100,
 			clk_200                       => clk200,

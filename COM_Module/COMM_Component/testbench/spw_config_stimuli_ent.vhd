@@ -32,7 +32,7 @@ begin
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_RX_ENABLE_BIT        <= '1';
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT        <= '1';
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT          <= '0';
-			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT <= '1';
+			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT <= '0';
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.FORCE_RESET_BIT            <= '0';
 
 			spwc_mm_write_registers.INTERRUPT_ENABLE_REGISTER.LINK_ERROR            <= '0';
@@ -42,7 +42,7 @@ begin
 			spwc_mm_write_registers.INTERRUPT_FLAG_CLEAR_REGISTER.TIMECODE_RECEIVED <= '0';
 			spwc_mm_write_registers.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_RUNNING      <= '0';
 
-			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT       <= '1';
+			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT       <= '0';
 			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_START_BIT      <= '0';
 			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_DISCONNECT_BIT <= '0';
 			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.TX_CLOCK_DIV        <= x"01";
@@ -53,6 +53,10 @@ begin
 			spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT       <= '0';
 
 		elsif rising_edge(clk_100) then
+
+			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT       <= '1' after 10 us;
+			
+			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.TX_CLOCK_DIV        <= x"14" after 100 us;
 
 		end if;
 	end process spw_config_stimuli_clk100_proc;
