@@ -1,12 +1,12 @@
-# system info MebX_Qsys_Project on 2018.04.21.17:20:56
+# system info MebX_Qsys_Project on 2018.04.26.22:47:45
 system_info:
 name,value
 DEVICE,EP4SGX230KF40C2
 DEVICE_FAMILY,Stratix IV
-GENERATION_ID,1524341849
+GENERATION_ID,1524793458
 #
 #
-# Files generated for MebX_Qsys_Project on 2018.04.21.17:20:56
+# Files generated for MebX_Qsys_Project on 2018.04.26.22:47:45
 files:
 filepath,kind,attributes,module,is_top
 simulation/MebX_Qsys_Project.vhd,VHDL,,MebX_Qsys_Project,true
@@ -36,6 +36,7 @@ simulation/submodules/syncdff.vhd,VHDL,,comm_component_ent,false
 simulation/submodules/spwstream.vhd,VHDL,,comm_component_ent,false
 simulation/submodules/SPWC_CODEC_PKG.vhd,VHDL,,comm_component_ent,false
 simulation/submodules/SPWC_CODEC.vhd,VHDL,,comm_component_ent,false
+simulation/submodules/SPWC_CODEC_LOOPBACK.vhd,VHDL,,comm_component_ent,false
 simulation/submodules/spwc_clk100_codec_commands_dc_fifo.vhd,VHDL,,comm_component_ent,false
 simulation/submodules/spwc_clk200_codec_commands_dc_fifo.vhd,VHDL,,comm_component_ent,false
 simulation/submodules/SPWC_CODEC_CONTROLLER.vhd,VHDL,,comm_component_ent,false

@@ -695,6 +695,7 @@ set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file joi
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/spwstream.vhd"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/SPWC_CODEC_PKG.vhd"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/SPWC_CODEC.vhd"]
+set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/SPWC_CODEC_LOOPBACK.vhd"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/spwc_clk100_codec_commands_dc_fifo.vhd"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/spwc_clk200_codec_commands_dc_fifo.vhd"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/SPWC_CODEC_CONTROLLER.vhd"]

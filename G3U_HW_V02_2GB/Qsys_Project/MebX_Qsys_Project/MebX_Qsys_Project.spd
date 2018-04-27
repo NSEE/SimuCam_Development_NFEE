@@ -3831,6 +3831,10 @@
    type="VHDL"
    library="Communication_Module_A" />
  <file
+   path="simulation/submodules/SPWC_CODEC_LOOPBACK.vhd"
+   type="VHDL"
+   library="Communication_Module_A" />
+ <file
    path="simulation/submodules/spwc_clk100_codec_commands_dc_fifo.vhd"
    type="VHDL"
    library="Communication_Module_A" />
