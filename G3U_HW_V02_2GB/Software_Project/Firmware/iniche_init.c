@@ -131,13 +131,10 @@ int main (int argc, char* argv[], char* envp[])
   /* Clear the RTOS timer */
   OSTimeSet(0);
 
-<<<<<<< HEAD
-=======
   /* SimuCam basic configurations and tasks */
   Init_Simucam_Config();
   Init_Simucam_Tasks();
 
->>>>>>> HW_CTI_SPW_Ethernet_Dev
   /* SSSInitialTask will initialize the NicheStack
    * TCP/IP Stack and then initialize the rest of the Simple Socket Server example 
    * RTOS structures and tasks. 

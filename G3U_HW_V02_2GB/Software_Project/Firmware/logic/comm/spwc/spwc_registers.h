@@ -43,6 +43,6 @@
 	#define SPWC_RX_TIMECODE_STATUS_BIT_MASK                    (1 << 16)
 	#define SPWC_TX_TIMECODE_CONTROL_BITS_MASK                  (0b11 << 7)
 	#define SPWC_TX_TIMECODE_COUNTER_VALUE_MASK                 (0b111111 << 1)
-	#define SPWC_TX_TIMECODE_CONTROL_BIT_MASK                  (1 << 0)
+	#define SPWC_TX_TIMECODE_CONTROL_BIT_MASK                   (1 << 0)
 
 #endif /* SPWC_REGISTERS_H_ */

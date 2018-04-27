@@ -30,8 +30,8 @@
 	#define SPWC_REG_SET   1
 
 	#define SPWC_INTERFACE_NORMAL_MODE            0
-	#define SPWC_INTERFACE_LOOPBACK_MODE          1
-	#define SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE 2
+	#define SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE 1
+	#define SPWC_INTERFACE_LOOPBACK_MODE          2
 
 	bool b_SpaceWire_Interface_Write_Register(char c_SpwID, alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue);
 	alt_u32 ul_SpaceWire_Interface_Read_Register(char c_SpwID, alt_u8 uc_RegisterAddress);
