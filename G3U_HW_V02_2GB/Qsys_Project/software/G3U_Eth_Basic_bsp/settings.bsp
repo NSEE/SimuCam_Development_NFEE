@@ -2,8 +2,13 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>default</BspVersion>
+<<<<<<< HEAD
         <BspGeneratedTimeStamp>23/04/2018 11:55:32</BspGeneratedTimeStamp>
         <BspGeneratedUnixTimeStamp>1524495332851</BspGeneratedUnixTimeStamp>
+=======
+        <BspGeneratedTimeStamp>27/04/2018 17:01:34</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1524859294783</BspGeneratedUnixTimeStamp>
+>>>>>>> HW_CTI_SPW_Ethernet_Dev
         <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\G3U_Eth_Basic_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -878,7 +883,7 @@
                 <SettingName>ucosii.os_max_tasks</SettingName>
                 <Identifier>OS_MAX_TASKS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>10</Value>
+                <Value>30</Value>
                 <DefaultValue>10</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of tasks</Description>
@@ -890,7 +895,7 @@
                 <SettingName>ucosii.os_lowest_prio</SettingName>
                 <Identifier>OS_LOWEST_PRIO</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>20</Value>
+                <Value>60</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Lowest assignable priority</Description>
@@ -1010,7 +1015,7 @@
                 <SettingName>ucosii.miscellaneous.os_max_events</SettingName>
                 <Identifier>OS_MAX_EVENTS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>60</Value>
+                <Value>120</Value>
                 <DefaultValue>60</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of event control blocks</Description>

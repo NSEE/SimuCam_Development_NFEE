@@ -8,21 +8,21 @@
 	#include "spwc.h"
 
 	alt_u32 ul_spwc_a_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_a_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_a_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_b_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_b_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_b_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_c_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_c_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_c_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_d_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_d_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_d_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_e_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_e_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_e_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_f_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_f_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_f_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_g_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_g_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_g_spacewire_link_control_status_register_value = 0x00000400;
 	alt_u32 ul_spwc_h_interface_control_status_register_value      = 0x00000000;
-	alt_u32 ul_spwc_h_spacewire_link_control_status_register_value = 0x00000000;
+	alt_u32 ul_spwc_h_spacewire_link_control_status_register_value = 0x00000400;
 
 	void SPWC_WRITE_REG32(char c_SpwID, alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue){
 		alt_u32 *pSpwcAddr = (alt_u32 *)SPWC_A_BASE;
@@ -217,12 +217,21 @@
 	
 				case SPWC_INTERFACE_NORMAL_MODE:
 					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;
 	
+				case SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE:
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK;
+					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
+					bSuccess = TRUE;
+				break;
+
 				case SPWC_INTERFACE_LOOPBACK_MODE:
 					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK;
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;
@@ -480,3 +489,65 @@
 
 		return ui_timecode_value;
 	}
+
+	alt_u8 uc_SpaceWire_Interface_Get_TX_Div(char c_SpwID){
+
+		const alt_u32 ul_spwc_mask = SPWC_TX_CLOCK_DIVISOR_VALUE_MASK;
+		alt_u8 uc_txdiv_value = (alt_u8)((SPWC_READ_REG32(c_SpwID, SPWC_SPACEWIRE_LINK_CONTROL_STATUS_REGISTER_ADDRESS) & ul_spwc_mask) >> 10);
+
+		return uc_txdiv_value;
+	}
+
+	bool uc_SpaceWire_Interface_Set_TX_Div(char c_SpwID, alt_u8 uc_TxDiv){
+
+		bool bSuccess = FALSE;
+
+		const alt_u32 ul_spwc_mask = SPWC_TX_CLOCK_DIVISOR_VALUE_MASK;
+		const alt_u32 ul_txdiv_mask = (alt_u32)(uc_TxDiv << 10);
+		alt_u32 *ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_a_spacewire_link_control_status_register_value;
+		switch (c_SpwID) {
+			case 'A':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_a_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'B':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_b_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'C':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_c_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'D':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_d_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'E':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_e_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'F':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_f_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'G':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_g_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+			case 'H':
+				ul_spwc_spacewire_link_control_status_register_value = &ul_spwc_h_spacewire_link_control_status_register_value;
+				bSuccess = TRUE;
+			break;
+		}
+		if (bSuccess == TRUE){
+			*ul_spwc_spacewire_link_control_status_register_value &= ~(ul_spwc_mask);
+			*ul_spwc_spacewire_link_control_status_register_value |= ul_txdiv_mask;
+			SPWC_WRITE_REG32(c_SpwID, SPWC_SPACEWIRE_LINK_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_spacewire_link_control_status_register_value);
+			bSuccess = TRUE;
+		} else {
+			bSuccess = FALSE;
+		}
+
+		return bSuccess;
+	}
+

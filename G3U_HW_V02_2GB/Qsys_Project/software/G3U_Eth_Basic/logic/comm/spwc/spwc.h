@@ -29,8 +29,9 @@
 	#define SPWC_REG_CLEAR 0
 	#define SPWC_REG_SET   1
 
-	#define SPWC_INTERFACE_NORMAL_MODE   0
-	#define SPWC_INTERFACE_LOOPBACK_MODE 1
+	#define SPWC_INTERFACE_NORMAL_MODE            0
+	#define SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE 1
+	#define SPWC_INTERFACE_LOOPBACK_MODE          2
 
 	bool b_SpaceWire_Interface_Write_Register(char c_SpwID, alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue);
 	alt_u32 ul_SpaceWire_Interface_Read_Register(char c_SpwID, alt_u8 uc_RegisterAddress);
@@ -45,5 +46,7 @@
 	alt_u32 ul_SpaceWire_Interface_Link_Status_Read(char c_SpwID);
 	void v_SpaceWire_Interface_Send_TimeCode(char c_SpwID, alt_u8 TimeCode);
 	alt_u16 ui_SpaceWire_Interface_Get_TimeCode(char c_SpwID);
+	alt_u8 uc_SpaceWire_Interface_Get_TX_Div(char c_SpwID);
+	bool uc_SpaceWire_Interface_Set_TX_Div(char c_SpwID, alt_u8 uc_TxDiv);
 
 #endif /* SPWC_H_ */

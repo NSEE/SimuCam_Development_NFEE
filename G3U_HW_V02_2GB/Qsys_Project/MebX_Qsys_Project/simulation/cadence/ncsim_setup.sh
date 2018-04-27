@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 196 win32 2018.04.21.17:20:57
+# ACDS 16.1 196 win32 2018.04.27.16:01:46
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -101,7 +101,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 196 win32 2018.04.21.17:20:57
+# ACDS 16.1 196 win32 2018.04.27.16:01:46
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="MebX_Qsys_Project"
@@ -750,6 +750,7 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spwstream.vhd"                                                                              -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC_PKG.vhd"                                                                         -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC.vhd"                                                                             -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
+  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC_LOOPBACK.vhd"                                                                    -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spwc_clk100_codec_commands_dc_fifo.vhd"                                                     -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spwc_clk200_codec_commands_dc_fifo.vhd"                                                     -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC_CONTROLLER.vhd"                                                                  -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           

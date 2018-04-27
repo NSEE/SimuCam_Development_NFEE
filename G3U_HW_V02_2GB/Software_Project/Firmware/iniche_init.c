@@ -35,8 +35,14 @@
 #include "libport.h"
 #include "osport.h"
 
+<<<<<<< HEAD
 /* Necessary for the ETH to work (eth_reset) [rfranca]*/
 #include "io.h"
+=======
+/* Includes for SimuCam */
+#include "rtos/default_configs.h"
+#include "rtos/rtos_tasks.h"
+>>>>>>> HW_CTI_SPW_Ethernet_Dev
 
 /* Definition of task stack for the initial task which will initialize the NicheStack
  * TCP/IP Stack and then initialize the rest of the Simple Socket Server example tasks. 
@@ -114,14 +120,24 @@ void SSSInitialTask(void *task_data)
 int main (int argc, char* argv[], char* envp[])
 {
   
+<<<<<<< HEAD
   /* Necessary for the ETH to work (eth_reset) [rfranca]*/
   IOWR(PIO_RST_ETH_BASE, 0, 0xFFFF);
 
+=======
+>>>>>>> HW_CTI_SPW_Ethernet_Dev
   INT8U error_code;
 
   /* Clear the RTOS timer */
   OSTimeSet(0);
 
+<<<<<<< HEAD
+=======
+  /* SimuCam basic configurations and tasks */
+  Init_Simucam_Config();
+  Init_Simucam_Tasks();
+
+>>>>>>> HW_CTI_SPW_Ethernet_Dev
   /* SSSInitialTask will initialize the NicheStack
    * TCP/IP Stack and then initialize the rest of the Simple Socket Server example 
    * RTOS structures and tasks. 

@@ -4,7 +4,11 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
+<<<<<<< HEAD
  * Generated: Mon Apr 23 11:55:33 BRT 2018
+=======
+ * Generated: Fri Apr 27 10:39:41 BRT 2018
+>>>>>>> HW_CTI_SPW_Ethernet_Dev
  */
 
 /*
