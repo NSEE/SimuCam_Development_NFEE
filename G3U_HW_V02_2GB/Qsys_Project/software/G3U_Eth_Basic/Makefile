@@ -160,6 +160,9 @@ C_SRCS += logic/dma/dma.c
 C_SRCS += logic/pgen/pgen.c
 C_SRCS += logic/sense/sense.c
 C_SRCS += utils/util.c
+C_SRCS += rtos/default_configs.c
+C_SRCS += rtos/rtos_tasks.c
+C_SRCS += logic/eth/eth.c
 CXX_SRCS :=
 ASM_SRCS :=
 
