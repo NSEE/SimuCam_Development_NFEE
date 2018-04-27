@@ -222,16 +222,16 @@
 					bSuccess = TRUE;
 				break;
 	
-				case SPWC_INTERFACE_LOOPBACK_MODE:
-					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK;
-					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
+				case SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE:
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK;
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;
 
-				case SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE:
-					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
-					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK;
+				case SPWC_INTERFACE_LOOPBACK_MODE:
+					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK;
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;

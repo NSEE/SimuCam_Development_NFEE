@@ -259,12 +259,12 @@ void Configure_SpW_Autostart(char c_SpwID) {
 	// Habilita a Interface Transparente
 	v_Transparent_Interface_Enable_Control(c_SpwID, TRAN_REG_SET,
 			TRAN_INTERFACE_ENABLE_CONTROL_BIT_MASK
-					| TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK);
+					| TRAN_INTERFACE_TX_ENABLE_CONTROL_BIT_MASK | TRAN_INTERFACE_RX_ENABLE_CONTROL_BIT_MASK);
 	// Reseta Codec
 	v_SpaceWire_Interface_Force_Reset(c_SpwID);
 	// Habilita a Interface SpaceWire
 	b_SpaceWire_Interface_Enable_Control(c_SpwID, SPWC_REG_SET,
-	SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK);
+	SPWC_CODEC_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_TX_ENABLE_CONTROL_BIT_MASK | SPWC_CODEC_RX_ENABLE_CONTROL_BIT_MASK);
 	// Coloca Codec no modo Normal
 	b_SpaceWire_Interface_Mode_Control(c_SpwID, SPWC_INTERFACE_NORMAL_MODE);
 	// Coloca Codec no link Autostart
