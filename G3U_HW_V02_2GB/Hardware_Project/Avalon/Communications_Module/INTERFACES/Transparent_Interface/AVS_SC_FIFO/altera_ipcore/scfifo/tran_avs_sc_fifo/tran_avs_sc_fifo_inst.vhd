@@ -7,5 +7,6 @@ tran_avs_sc_fifo_inst : tran_avs_sc_fifo PORT MAP (
 		wrreq	 => wrreq_sig,
 		empty	 => empty_sig,
 		full	 => full_sig,
-		q	 => q_sig
+		q	 => q_sig,
+		usedw	 => usedw_sig
 	);

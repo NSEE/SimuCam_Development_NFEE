@@ -6,6 +6,7 @@ use ieee.numeric_std.all;
 package tran_avs_sc_fifo_pkg is
 
 	constant TRAN_AVS_SC_FIFO_WIDTH     : natural := 36;
+	constant TRAN_AVS_SC_FIFO_USEDW     : natural := 8;
 	constant TRAN_RX_AVS_SC_FIFO_LENGTH : natural := 256;
 	constant TRAN_TX_AVS_SC_FIFO_LENGTH : natural := 256;
 
@@ -41,6 +42,7 @@ package tran_avs_sc_fifo_pkg is
 	type tran_read_outputs_avs_sc_fifo_type is record
 		empty : std_logic;
 		q     : std_logic_vector((TRAN_AVS_SC_FIFO_WIDTH - 1) downto 0);
+		usedw : std_logic_vector((TRAN_AVS_SC_FIFO_USEDW - 1) downto 0);
 	end record tran_read_outputs_avs_sc_fifo_type;
 
 	type tran_fifo_intputs_avs_sc_fifo_type is record

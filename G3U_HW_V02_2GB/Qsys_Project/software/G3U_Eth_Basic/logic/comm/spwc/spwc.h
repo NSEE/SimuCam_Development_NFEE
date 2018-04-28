@@ -45,7 +45,8 @@
 	alt_u32 ul_SpaceWire_Interface_Link_Error_Read(char c_SpwID);
 	alt_u32 ul_SpaceWire_Interface_Link_Status_Read(char c_SpwID);
 	void v_SpaceWire_Interface_Send_TimeCode(char c_SpwID, alt_u8 TimeCode);
-	alt_u16 ui_SpaceWire_Interface_Get_TimeCode(char c_SpwID);
+	bool b_SpaceWire_Interface_TimeCode_Arrived(char c_SpwID);
+	alt_u8 uc_SpaceWire_Interface_Get_TimeCode(char c_SpwID);
 	alt_u8 uc_SpaceWire_Interface_Get_TX_Div(char c_SpwID);
 	bool uc_SpaceWire_Interface_Set_TX_Div(char c_SpwID, alt_u8 uc_TxDiv);
 

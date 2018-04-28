@@ -291,12 +291,44 @@
 
 	alt_u32 ul_Transparent_Interface_RX_FIFO_Status_Read(char c_SpwID){
 
-		const alt_u32 ul_tran_mask = TRAN_RX_FIFO_EMPTY_STATUS_BIT_MASK | TRAN_RX_FIFO_FULL_STATUS_BIT_MASK;
+		const alt_u32 ul_tran_mask = TRAN_RX_FIFO_USED_SPACE_VALUE_MASK | TRAN_RX_FIFO_EMPTY_STATUS_BIT_MASK | TRAN_RX_FIFO_FULL_STATUS_BIT_MASK;
 		alt_u32 ul_tran_rx_fifo_status_value = TRAN_READ_REG32(c_SpwID, TRAN_RX_MODE_CONTROL_REGISTER_ADDRESS) & ul_tran_mask;
 
 		return ul_tran_rx_fifo_status_value;
 	}
 
+	bool b_Transparent_Interface_RX_FIFO_Status_Empty(char c_SpwID){
+		
+		bool b_rx_fifo_empty = FALSE;
+		
+		if (TRAN_READ_REG32(c_SpwID, TRAN_RX_MODE_CONTROL_REGISTER_ADDRESS) & TRAN_RX_FIFO_EMPTY_STATUS_BIT_MASK) {
+			b_rx_fifo_empty = TRUE;
+		}
+		
+		return b_rx_fifo_empty;		
+	}
+	
+	bool b_Transparent_Interface_RX_FIFO_Status_Full(char c_SpwID){
+		
+		bool b_rx_fifo_full = FALSE;
+		
+		if (TRAN_READ_REG32(c_SpwID, TRAN_RX_MODE_CONTROL_REGISTER_ADDRESS) & TRAN_RX_FIFO_FULL_STATUS_BIT_MASK) {
+			b_rx_fifo_full = TRUE;
+		}
+		
+		return b_rx_fifo_full;
+	}
+
+	alt_u8 uc_Transparent_Interface_RX_FIFO_Status_Used(char c_SpwID){
+		
+		alt_u8 uc_rx_fifo_used = 0;
+		
+		uc_rx_fifo_used = (alt_u8)((TRAN_READ_REG32(c_SpwID, TRAN_RX_MODE_CONTROL_REGISTER_ADDRESS) & TRAN_RX_FIFO_USED_SPACE_VALUE_MASK) >> 3);
+		
+		return uc_rx_fifo_used;
+	}
+	
+	
 	void v_Transparent_Interface_TX_FIFO_Reset(char c_SpwID){
 
 		TRAN_WRITE_REG32(c_SpwID, TRAN_TX_MODE_CONTROL_REGISTER_ADDRESS, (alt_u32)TRAN_TX_FIFO_RESET_CONTROL_BIT_MASK);
@@ -305,8 +337,80 @@
 
 	alt_u32 ul_Transparent_Interface_TX_FIFO_Status_Read(char c_SpwID){
 
-		const alt_u32 ul_tran_mask = TRAN_TX_FIFO_EMPTY_STATUS_BIT_MASK | TRAN_TX_FIFO_FULL_STATUS_BIT_MASK;
+		const alt_u32 ul_tran_mask = TRAN_TX_FIFO_USED_SPACE_VALUE_MASK | TRAN_TX_FIFO_EMPTY_STATUS_BIT_MASK | TRAN_TX_FIFO_FULL_STATUS_BIT_MASK;
 		alt_u32 ul_tran_tx_fifo_status_value = TRAN_READ_REG32(c_SpwID, TRAN_TX_MODE_CONTROL_REGISTER_ADDRESS) & ul_tran_mask;
 
 		return ul_tran_tx_fifo_status_value;
 	}
+
+	bool b_Transparent_Interface_TX_FIFO_Status_Full(char c_SpwID){
+		
+		bool b_tx_fifo_empty = FALSE;
+		
+		if (TRAN_READ_REG32(c_SpwID, TRAN_TX_MODE_CONTROL_REGISTER_ADDRESS) & TRAN_TX_FIFO_EMPTY_STATUS_BIT_MASK) {
+			b_tx_fifo_empty = TRUE;
+		}
+		
+		return b_tx_fifo_empty;		
+	}
+	
+	bool b_Transparent_Interface_TX_FIFO_Status_Empty(char c_SpwID){
+		
+		bool b_tx_fifo_full = FALSE;
+		
+		if (TRAN_READ_REG32(c_SpwID, TRAN_TX_MODE_CONTROL_REGISTER_ADDRESS) & TRAN_TX_FIFO_FULL_STATUS_BIT_MASK) {
+			b_tx_fifo_full = TRUE;
+		}
+		
+		return b_tx_fifo_full;
+	}
+	
+	alt_u8 uc_Transparent_Interface_TX_FIFO_Status_Used(char c_SpwID){
+		
+		alt_u8 uc_tx_fifo_used = 0;
+		
+		uc_tx_fifo_used = (alt_u8)((TRAN_READ_REG32(c_SpwID, TRAN_TX_MODE_CONTROL_REGISTER_ADDRESS) & TRAN_TX_FIFO_USED_SPACE_VALUE_MASK) >> 3);
+		
+		return uc_tx_fifo_used;
+	}
+	
+	bool b_Transparent_Interface_Send_SpaceWire_Data(char c_SpwID, alt_u8 *data_buffer, alt_u16 data_size){
+		
+		bSuccess = FALSE;
+
+		/* Check if the TX Buffer has enough space for the data */
+		
+		/* Initiate the Channel Memory Location for the Transparent Interface */
+		
+		/* Write the data_buffer data in the correct format to be send by the Transparent Interface in the Channel Memory Location */
+		
+		/* Append an EOP to the end of the data in the Channel Memory Location */
+		
+		/* Generate the DMA transfer parameters */
+		
+		/* Queque the DMA transfer */
+		
+		return bSuccess;
+	}
+	
+	alt_u16 ui_Transparent_Interface_Get_SpaceWire_Data(char c_SpwID, alt_u8 *data_buffer){
+		
+		alt_u16 ui_rx_data_size = 0;
+		
+		/* Initiate the Channel Memory Location for the Transparent Interface */
+		
+		/* Check the amount of data in the RX Buffer*/
+		
+		/* Transfer the available data to the Channel Memory Location */		
+		
+		/* Generate the DMA transfer parameters */
+		
+		/* Queque the DMA transfer */
+
+		/* Data will be transfered until the RX buffer is empty */
+		
+		/* Convert all the available data in the Channel Memory Location to the data_buffer */
+		
+		return ui_rx_data_size;
+	}
+	

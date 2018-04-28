@@ -141,29 +141,33 @@ begin
 					--     1- 1 : RX FIFO Full interrupt flag clear    [-/W]
 					--     0- 0 : TX FIFO Empty interrupt flag         [R/-]
 					avalon_mm_outputs.readdata(0)            <= mm_read_registers.TRAN.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY;
-				--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
+					--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
 
 				--  RX Mode Control Register                     (32 bits):
 				when (TRAN_RX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31- 3 : Reserved                             [-/-]
-					avalon_mm_outputs.readdata(31 downto 3) <= (others => '0');
+					--    31-11 : Reserved                             [-/-]
+					avalon_mm_outputs.readdata(31 downto 11) <= (others => '0');
+					--    10- 3 : RX FIFO Used Space value             [R/-]
+					avalon_mm_outputs.readdata(10 downto 3)  <= mm_read_registers.TRAN.RX_FIFO_STATUS_REGISTER.FIFO_USED_SPACE;
 					--     2- 2 : RX FIFO Reset control bit            [R/W]
-					avalon_mm_outputs.readdata(2)           <= mm_write_registers.TRAN.RX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT;
+					avalon_mm_outputs.readdata(2)            <= mm_write_registers.TRAN.RX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT;
 					--     1- 1 : RX FIFO Empty status bit             [R/-]
-					avalon_mm_outputs.readdata(1)           <= mm_read_registers.TRAN.RX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT;
+					avalon_mm_outputs.readdata(1)            <= mm_read_registers.TRAN.RX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT;
 					--     0- 0 : RX FIFO Full status bit              [R/-]
-					avalon_mm_outputs.readdata(0)           <= mm_read_registers.TRAN.RX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT;
+					avalon_mm_outputs.readdata(0)            <= mm_read_registers.TRAN.RX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT;
 
 				--  TX Mode Control Register                     (32 bits):
 				when (TRAN_TX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31- 3 : Reserved                             [-/-]
-					avalon_mm_outputs.readdata(31 downto 3) <= (others => '0');
+					--    31-11 : Reserved                             [-/-]
+					avalon_mm_outputs.readdata(31 downto 11) <= (others => '0');
+					--    10- 3 : TX FIFO Used Space value             [R/-]
+					avalon_mm_outputs.readdata(10 downto 3)  <= mm_read_registers.TRAN.TX_FIFO_STATUS_REGISTER.FIFO_USED_SPACE;
 					--     2- 2 : TX FIFO Reset control bit            [R/W]
-					avalon_mm_outputs.readdata(2)           <= mm_write_registers.TRAN.TX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT;
+					avalon_mm_outputs.readdata(2)            <= mm_write_registers.TRAN.TX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT;
 					--     1- 1 : TX FIFO Empty status bit             [R/-]
-					avalon_mm_outputs.readdata(1)           <= mm_read_registers.TRAN.TX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT;
+					avalon_mm_outputs.readdata(1)            <= mm_read_registers.TRAN.TX_FIFO_STATUS_REGISTER.FIFO_EMPTY_BIT;
 					--     0- 0 : TX FIFO Full status bit              [R/-]
-					avalon_mm_outputs.readdata(0)           <= mm_read_registers.TRAN.TX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT;
+					avalon_mm_outputs.readdata(0)            <= mm_read_registers.TRAN.TX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT;
 
 				when others =>
 					avalon_mm_outputs.readdata <= (others => '0');

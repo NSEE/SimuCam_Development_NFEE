@@ -483,11 +483,26 @@
 
 	}
 
-	alt_u16 ui_SpaceWire_Interface_Get_TimeCode(char c_SpwID){
+	bool b_SpaceWire_Interface_TimeCode_Arrived(char c_SpwID){
+		
+		bool b_timecode_arrived = FALSE;
+		
+		if (SPWC_READ_REG32(c_SpwID, SPWC_TIMECODE_CONTROL_REGISTER_ADDRESS) & SPWC_RX_TIMECODE_STATUS_BIT_MASK) {
+			b_timecode_arrived = TRUE;
+		}
+		
+		return b_timecode_arrived;
+	}
+	
+	alt_u8 uc_SpaceWire_Interface_Get_TimeCode(char c_SpwID){
 
-		alt_u16 ui_timecode_value = (alt_u16)(SPWC_READ_REG32(c_SpwID, SPWC_SPACEWIRE_LINK_CONTROL_STATUS_REGISTER_ADDRESS) >> 16);
+		alt_u32 ul_timecode_register = SPWC_READ_REG32(c_SpwID, SPWC_TIMECODE_CONTROL_REGISTER_ADDRESS);
+		
+		alt_u8 uc_timecode_value = (alt_u8)((ul_timecode_register & (SPWC_RX_TIMECODE_CONTROL_BITS_MASK | SPWC_RX_TIMECODE_COUNTER_VALUE_MASK)) >> 17);
+	
+		SPWC_WRITE_REG32(c_SpwID, SPWC_TIMECODE_CONTROL_REGISTER_ADDRESS, (ul_timecode_register | SPWC_RX_TIMECODE_STATUS_BIT_MASK));
 
-		return ui_timecode_value;
+		return uc_timecode_value;
 	}
 
 	alt_u8 uc_SpaceWire_Interface_Get_TX_Div(char c_SpwID){

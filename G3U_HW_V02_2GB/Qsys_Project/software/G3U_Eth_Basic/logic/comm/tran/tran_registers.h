@@ -24,11 +24,13 @@
 	#define TRAN_TX_FIFO_EMPTY_INTERRUPT_FLAG_MASK              (1 << 0)
 
 	#define TRAN_RX_MODE_CONTROL_REGISTER_ADDRESS               (0x01 + TRAN_TRANSPARENT_INTERFACE_REGISTERS_ADDRESS_OFFSET)
+	#define TRAN_RX_FIFO_USED_SPACE_VALUE_MASK                  (0b11111111 << 3)
 	#define TRAN_RX_FIFO_RESET_CONTROL_BIT_MASK                 (1 << 2)
 	#define TRAN_RX_FIFO_EMPTY_STATUS_BIT_MASK                  (1 << 1)
 	#define TRAN_RX_FIFO_FULL_STATUS_BIT_MASK                   (1 << 0)
 
 	#define TRAN_TX_MODE_CONTROL_REGISTER_ADDRESS               (0x02 + TRAN_TRANSPARENT_INTERFACE_REGISTERS_ADDRESS_OFFSET)
+	#define TRAN_TX_FIFO_USED_SPACE_VALUE_MASK                  (0b11111111 << 3)
 	#define TRAN_TX_FIFO_RESET_CONTROL_BIT_MASK                 (1 << 2)
 	#define TRAN_TX_FIFO_EMPTY_STATUS_BIT_MASK                  (1 << 1)
 	#define TRAN_TX_FIFO_FULL_STATUS_BIT_MASK                   (1 << 0)

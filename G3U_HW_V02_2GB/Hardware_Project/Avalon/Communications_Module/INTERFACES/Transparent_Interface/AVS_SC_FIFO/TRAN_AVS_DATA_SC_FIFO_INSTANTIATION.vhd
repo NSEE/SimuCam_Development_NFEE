@@ -37,9 +37,10 @@ begin
 			wrreq => tran_rx_inputs_avs_sc_fifo_type.write.wrreq,
 			empty => tran_rx_outputs_avs_sc_fifo_type.read.empty,
 			full  => tran_rx_outputs_avs_sc_fifo_type.write.full,
-			q     => tran_rx_outputs_avs_sc_fifo_type.read.q
+			q     => tran_rx_outputs_avs_sc_fifo_type.read.q,
+			usedw => tran_rx_outputs_avs_sc_fifo_type.read.usedw
 		);
-		-- RX AVS SC FIFO sClear Control		
+	-- RX AVS SC FIFO sClear Control		
 	rx_sclr_sig <= (tran_rx_inputs_avs_sc_fifo_type.read.sclr) or (tran_rx_inputs_avs_sc_fifo_type.write.sclr);
 
 	-- TX : avs  --> fifo (Simucam --> SpW);
@@ -54,9 +55,10 @@ begin
 			wrreq => tran_tx_inputs_avs_sc_fifo_type.write.wrreq,
 			empty => tran_tx_outputs_avs_sc_fifo_type.read.empty,
 			full  => tran_tx_outputs_avs_sc_fifo_type.write.full,
-			q     => tran_tx_outputs_avs_sc_fifo_type.read.q
+			q     => tran_tx_outputs_avs_sc_fifo_type.read.q,
+			usedw => tran_tx_outputs_avs_sc_fifo_type.read.usedw
 		);
-		-- TX AVS SC FIFO sClear Control
+	-- TX AVS SC FIFO sClear Control
 	tx_sclr_sig <= (tran_tx_inputs_avs_sc_fifo_type.read.sclr) or (tran_tx_inputs_avs_sc_fifo_type.write.sclr);
 
 end architecture tran_avs_sc_fifo_instantiation_arc;

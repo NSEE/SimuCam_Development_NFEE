@@ -191,19 +191,21 @@ begin
 
 				--  RX Mode Control Register                     (32 bits):
 				when (TRAN_RX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31- 3 : Reserved                             [-/-]
+					--    31-11 : Reserved                             [-/-]
+					--    10- 3 : RX FIFO Used Space value             [R/-]
 					--     2- 2 : RX FIFO Reset control bit            [R/W]
 					mm_write_registers.TRAN.RX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT <= avalon_mm_inputs.writedata(2);
-				--     1- 1 : RX FIFO Empty status bit             [R/-]
-				--     0- 0 : RX FIFO Full status bit              [R/-]
+					--     1- 1 : RX FIFO Empty status bit             [R/-]
+					--     0- 0 : RX FIFO Full status bit              [R/-]
 
 				--  TX Mode Control Register                     (32 bits):
 				when (TRAN_TX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31- 3 : Reserved                             [-/-]
+					--    31-11 : Reserved                             [-/-]
+					--    10- 3 : TX FIFO Used Space value             [R/-]
 					--     2- 2 : TX FIFO Reset control bit            [R/W]
 					mm_write_registers.TRAN.TX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT <= avalon_mm_inputs.writedata(2);
-				--     1- 1 : TX FIFO Empty status bit             [R/-]
-				--     0- 0 : TX FIFO Full status bit              [R/-]
+					--     1- 1 : TX FIFO Empty status bit             [R/-]
+					--     0- 0 : TX FIFO Full status bit              [R/-]
 
 				when others =>
 					null;
