@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.04.27.16:02:00 -->
+ <!-- 2018.04.28.17:21:16 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1524855720</value>
+  <value>1524946875</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -162,7 +162,7 @@
  <module
    name="Communication_Module_A"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -1221,7 +1221,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_B"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2280,7 +2280,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_C"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3339,7 +3339,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_D"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -4398,7 +4398,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_E"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -5457,7 +5457,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_F"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -6516,7 +6516,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_G"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_G">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7575,7 +7575,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="Communication_Module_H"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    path="Communication_Module_H">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -75884,7 +75884,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1524855720</value>
+   <value>1524946875</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -75904,7 +75904,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1524855720</value>
+   <value>1524946875</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -75920,7 +75920,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1524855720</value>
+   <value>1524946875</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -90425,7 +90425,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>COMM</displayName>
-  <version>1.1</version>
+  <version>1.2</version>
  </plugin>
  <plugin>
   <instanceCount>53</instanceCount>

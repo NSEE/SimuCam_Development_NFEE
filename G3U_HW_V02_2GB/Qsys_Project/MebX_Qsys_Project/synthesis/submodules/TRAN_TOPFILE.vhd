@@ -241,6 +241,9 @@ begin
 	-- TX FIFO Status Register Fifo Full Signal assignment
 	tran_mm_read_registers_sig.TX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT <= tran_tx_fifo_outputs_avs_sc_fifo_sig.write.full;
 
+	-- TX FIFO Status Register Space Used Signal assignment
+	tran_mm_read_registers_sig.TX_FIFO_STATUS_REGISTER.FIFO_USED_SPACE <= tran_tx_fifo_outputs_avs_sc_fifo_sig.read.usedw;
+
 	-- RX Interrupts Flags Register Signal Assingment
 	tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED <= tran_rx_interrupt_registers_sig.DATA_RECEIVED;
 	tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL  <= tran_rx_interrupt_registers_sig.RX_FIFO_FULL;
@@ -251,9 +254,10 @@ begin
 	-- RX FIFO Status Register Fifo Full Signal assignment
 	tran_mm_read_registers_sig.RX_FIFO_STATUS_REGISTER.FIFO_FULL_BIT <= tran_rx_fifo_outputs_avs_sc_fifo_sig.write.full;
 
+	-- RX FIFO Status Register Space Used Signal assignment
+	tran_mm_read_registers_sig.RX_FIFO_STATUS_REGISTER.FIFO_USED_SPACE <= tran_rx_fifo_outputs_avs_sc_fifo_sig.read.usedw;
+
 	--Interrupt assingment
-	tran_mm_interrupt_sig <= (
-			(tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY)
-		) when (reset = '0') else ('0');
+	tran_mm_interrupt_sig <= ((tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.DATA_RECEIVED) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.RX_FIFO_FULL) or (tran_mm_read_registers_sig.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY)) when (reset = '0') else ('0');
 
 end architecture tran_topfile_arc;

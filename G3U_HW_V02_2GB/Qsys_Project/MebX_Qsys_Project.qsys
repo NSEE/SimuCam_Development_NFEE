@@ -1745,42 +1745,42 @@
  <module
    name="Communication_Module_A"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_B"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_C"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_D"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_E"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_F"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_G"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Communication_Module_H"
    kind="Communication_Module"
-   version="1.1"
+   version="1.2"
    enabled="1" />
  <module
    name="Pattern_Generator_A"

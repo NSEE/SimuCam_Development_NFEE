@@ -22,12 +22,14 @@ package tran_mm_registers_pkg is
 	--     0- 0 : TX FIFO Empty interrupt flag         [R/-]
 	--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
 	--  RX Mode Control Register                     (32 bits):
-	--    31- 3 : Reserved                             [-/-]
+	--    31-11 : Reserved                             [-/-]
+	--    10- 3 : RX FIFO Used Space value             [R/-]
 	--     2- 2 : RX FIFO Reset control bit            [R/W]
 	--     1- 1 : RX FIFO Empty status bit             [R/-]
 	--     0- 0 : RX FIFO Full status bit              [R/-]
 	--  TX Mode Control Register                     (32 bits):
-	--    31- 3 : Reserved                             [-/-]
+	--    31-11 : Reserved                             [-/-]
+	--    10- 3 : TX FIFO Used Space value             [R/-]
 	--     2- 2 : TX FIFO Reset control bit            [R/W]
 	--     1- 1 : TX FIFO Empty status bit             [R/-]
 	--     0- 0 : TX FIFO Full status bit              [R/-]
@@ -54,8 +56,9 @@ package tran_mm_registers_pkg is
 	end record tran_fifo_control_register_type;
 
 	type tran_fifo_status_register_type is record
-		FIFO_EMPTY_BIT : std_logic;
-		FIFO_FULL_BIT  : std_logic;
+		FIFO_EMPTY_BIT  : std_logic;
+		FIFO_FULL_BIT   : std_logic;
+		FIFO_USED_SPACE : std_logic_vector(7 downto 0);
 	end record tran_fifo_status_register_type;
 
 	type tran_mm_write_registers_type is record
