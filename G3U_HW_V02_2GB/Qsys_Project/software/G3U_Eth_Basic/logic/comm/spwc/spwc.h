@@ -12,7 +12,7 @@
 	#include "alt_types.h"
 	
 	#include "spwc_registers.h"
-
+	
 	typedef int bool;
 	#define TRUE    1
 	#define FALSE   0

@@ -25,8 +25,8 @@
 	#define LOG_TASK_PRIORITY     28
 	
 	typedef struct DMA_Transfer {
-		alt_u32 read_addr;
-		alt_u32 write_addr;
+		alt_u64 read_addr;
+		alt_u64 write_addr;
 		alt_u32 transfer_size_bytes;
 	} t_DMA_Transfer;
 
