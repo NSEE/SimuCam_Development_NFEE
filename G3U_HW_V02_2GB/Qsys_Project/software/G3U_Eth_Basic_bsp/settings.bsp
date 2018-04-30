@@ -2,13 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>default</BspVersion>
-<<<<<<< HEAD
-        <BspGeneratedTimeStamp>23/04/2018 11:55:32</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1524495332851</BspGeneratedUnixTimeStamp>
-=======
-        <BspGeneratedTimeStamp>27/04/2018 17:01:34</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1524859294783</BspGeneratedUnixTimeStamp>
->>>>>>> HW_CTI_SPW_Ethernet_Dev
+        <BspGeneratedTimeStamp>30/04/2018 08:34:58</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1525088098963</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\G3U_Eth_Basic_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -883,7 +878,7 @@
                 <SettingName>ucosii.os_max_tasks</SettingName>
                 <Identifier>OS_MAX_TASKS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>30</Value>
+                <Value>20</Value>
                 <DefaultValue>10</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of tasks</Description>

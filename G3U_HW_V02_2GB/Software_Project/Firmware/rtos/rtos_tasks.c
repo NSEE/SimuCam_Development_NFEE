@@ -67,24 +67,51 @@ void MemDMATask(void *task_data) {
 		printf("Error Reseting Dispatcher");
 	}
 	
-	alt_u32 control_bits = 0x00000000;
-	
-	/* struct for dma transfers parameters */
-	t_DMA_Transfer transfer;
 	/* read address - source address (data buffer) */
 	/* write address - destination address (transparent interface) */
-	/* transfer size byter - number of bytes to be transfered */
+	/* transfer size bytes - number of bytes to be transfered */
+
+	/* Test Procedures */
+	OSTimeDlyHMSM(0, 0, 5, 0);
+	// C -> H
+	v_SpaceWire_Interface_Link_Control('C', SPWC_REG_SET,	SPWC_LINK_START_CONTROL_BIT_MASK);
+	DDR2_SWITCH_MEMORY(DDR2_M1_ID);
+
+	OSTimeDlyHMSM(0, 0, 5, 0);
+	printf("Teste iniciado \n");
+
+	alt_u8 spw_send_buffer[32] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27, 0x28, 0x29, 0x30, 0x31};
+	alt_u16 tx_size = 32;
+
+	if (b_Transparent_Interface_Send_SpaceWire_Data('C', spw_send_buffer, tx_size)) {
+		printf("Dados enviados com sucesso \n");
+	} else {
+		printf("Falha no envio de dados \n");
+	}
+
+	OSTimeDlyHMSM(0, 0, 5, 0);
+
+	alt_u8 spw_receive_buffer[64] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+	alt_u16 rx_size;
+	alt_u16 i = 0;
+
+	rx_size = ui_Transparent_Interface_Get_SpaceWire_Data('H', spw_receive_buffer);
+	if (rx_size == 0) {
+		printf("Falha no recebimento de dados \n");
+	} else {
+		printf("Dados recebidos com sucesso \n");
+
+		for (i = 0; i < rx_size; i++){
+			printf("spw_receive_buffer[%u] = %02x \n", i,  spw_receive_buffer[i]);
+		}
+
+	}
+
+
+	/* Test Procedures */
 
 	while (1) {
-	
-		/* waits for a new transfer to be requested by queque */
-		///////////////////////////////////////////////////////// TODO
-		
-		/* start DMA transfer */
-		if (DMA_SINGLE_TRANSFER(DMADev, transfer.read_addr, transfer.write_addr, transfer.transfer_size_bytes, control_bits, DMA_NO_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
-			printf("Error During DMA Transfer");
-		}
-		
+		OSTimeDlyHMSM(0, 1, 0, 0);
 	}
 }
 

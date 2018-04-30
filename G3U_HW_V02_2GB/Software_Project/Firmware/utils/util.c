@@ -1,9 +1,8 @@
-
  /**
  * @file   util.c
  * @Author Rafael Corsi (corsiferrao@gmail.com)
- * @date   MarrÃ§o, 2015
- * @brief  DefiniÃ§Ãµeses para acesso aos mÃ³dulos via Avalon
+ * @date   Março, 2015
+ * @brief  Definiçõeses para acesso aos módulos via Avalon
  *
  * tab = 4
  */
@@ -16,10 +15,10 @@
  * @brief   Escrita dos registradores de config. RMAP/SPW
  * @ingroup UTIL
  *
- * Acessa os registradores do mÃ³dulos RMAP_SPW via acesso a memoria AVALON
+ * Acessa os registradores do módulos RMAP_SPW via acesso a memoria AVALON
  *
- * @param [in] BASE_ADD EndereÃ§o base de acesso ao registrador
- * @param [in] REG_ADD  EndereÃ§o do registador (Offset)
+ * @param [in] BASE_ADD Endereço base de acesso ao registrador
+ * @param [in] REG_ADD  Endereço do registador (Offset)
  * @param [in] REG_DADO Dado a ser gravado no registrador
  *
  * @retval 1 : Sucesso 
@@ -38,10 +37,10 @@ alt_32 _reg_write(int BASE_ADD, alt_32 REG_ADD, alt_32 REG_Dado ){
  * @brief   Leitura dos registradores de config. RMAP/SPW
  * @ingroup UTIL
  *
- * Acessa os registradores do mÃ³dulos RMAP_SPW via acesso a memoria AVALON
+ * Acessa os registradores do módulos RMAP_SPW via acesso a memoria AVALON
  *
- * @param [in] BASE_ADD EndereÃ§o base de acesso ao registrador
- * @param [in] REG_ADD  EndereÃ§o do registador (Offset)
+ * @param [in] BASE_ADD Endereço base de acesso ao registrador
+ * @param [in] REG_ADD  Endereço do registador (Offset)
  * @param [in] REG_DADO Retorno do dado lido
  *
  * @retval 1 : Sucesso 
@@ -98,3 +97,34 @@ void _split_codec_status(int codec_status, int *started, int *connecting, int *r
 	*running    = (int)((codec_status >> 4) & 1);
 }
 
+/**
+ * @name    aatoh
+ * @brief   Converts chars to hexa
+ * @ingroup UTIL
+ *
+ * Converts 2 chars to hexadecimal value
+ *
+ * @param [in] &char[n]
+ * *
+ * @retval INT8U of hecadecimal value
+ *
+ */
+INT8U aatoh(INT8U *buffer){
+	INT8U* a;
+	INT8U v;
+	a = buffer;
+	v = ((a[0]-(48+7*(a[0]>57)))<<4) + (a[1]-(48+7*(a[1]>57)));
+	return v;
+}
+
+INT8U Verif_Error(INT8U error_code){
+	if (!error_code) {
+						printf("ERROR LOOPBACK\n\r");
+						return 0;
+					} else
+					return 1;
+}
+
+INT8U toint(INT8U ascii){
+	return (int)ascii - 48;
+}

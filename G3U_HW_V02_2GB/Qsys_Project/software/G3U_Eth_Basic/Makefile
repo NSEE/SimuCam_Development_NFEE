@@ -157,12 +157,12 @@ C_SRCS += logic/comm/spwc/spwc.c
 C_SRCS += logic/comm/tran/tran.c
 C_SRCS += logic/ddr2/ddr2.c
 C_SRCS += logic/dma/dma.c
+C_SRCS += logic/eth/eth.c
 C_SRCS += logic/pgen/pgen.c
 C_SRCS += logic/sense/sense.c
-C_SRCS += utils/util.c
 C_SRCS += rtos/default_configs.c
 C_SRCS += rtos/rtos_tasks.c
-C_SRCS += logic/eth/eth.c
+C_SRCS += utils/util.c
 CXX_SRCS :=
 ASM_SRCS :=
 

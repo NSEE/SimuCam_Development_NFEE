@@ -10,6 +10,7 @@
 
 	#include "system.h"
 	#include "alt_types.h"
+	#include <altera_msgdma.h>
 
 	#define SIMUCAM_TASK_STACKSIZE 2048
 

@@ -2,7 +2,7 @@
  /**
   *  @file   util.h
   * @Author Rafael Corsi (corsiferrao@gmail.com)
-  * @date   Marï¿½ï¿½o, 2015
+  * @date   Março, 2015
   * @brief  Utilidades
   *
   */
@@ -14,6 +14,7 @@
 #include <io.h>         /* Leiutura e escrita no Avalon */
 #include "system.h"
 #include <stdio.h>
+#include "os_cpu.h"
 
 #define DEBUG_HIGH
 #define DEBUG_MID
@@ -33,6 +34,11 @@ void _split_codec_status(int codec_status, int *started, int *connecting, int *r
 void _print_codec_status(int codec_status);
 //void _print_link_config(LinkConfig *link);
 
+INT8U aatoh(INT8U *buffer);
+INT8U toint(INT8U ascii);
+INT8U Verif_Error(INT8U error_code);
+
+
 /**
  * @brief Set the High level log file
  */
@@ -49,5 +55,4 @@ void _print_codec_status(int codec_status);
 
 
 #endif /*UTIL */
-
 
