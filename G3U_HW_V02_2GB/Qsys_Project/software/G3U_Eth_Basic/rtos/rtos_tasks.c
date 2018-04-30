@@ -32,6 +32,9 @@ alt_u8 error_code = 0;
 alt_8 tempFPGA = 0;
 alt_8 tempBoard = 0;
 
+/* DMA Variables*/
+alt_msgdma_dev *DMADev = NULL;
+
 /* OS Tasks Variables */
 OS_STK MemDMATaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWATaskStk[SIMUCAM_TASK_STACKSIZE];
@@ -54,8 +57,6 @@ void Set_SpW_Led(char c_SpwID);
 void MemDMATask(void *task_data) {
 	printf("Created \"mem dma\" Task (Prio:%d) \n", MEM_DMA_TASK_PRIORITY);
 
-	alt_msgdma_dev *DMADev = NULL;
-	
 	/* Open DMA Device */
 	if (DMA_OPEN_DEVICE(&DMADev, (char *)DMA_DDR_M_CSR_NAME) == FALSE){
 		printf("Error Opening DMA Device");

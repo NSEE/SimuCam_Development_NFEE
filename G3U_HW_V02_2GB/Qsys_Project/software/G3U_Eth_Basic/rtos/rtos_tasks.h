@@ -24,11 +24,7 @@
 	#define SPW_H_TASK_PRIORITY   27
 	#define LOG_TASK_PRIORITY     28
 	
-	typedef struct DMA_Transfer {
-		alt_u64 read_addr;
-		alt_u64 write_addr;
-		alt_u32 transfer_size_bytes;
-	} t_DMA_Transfer;
+	extern alt_msgdma_dev *DMADev;
 
 	void Init_Simucam_Tasks(void);
 

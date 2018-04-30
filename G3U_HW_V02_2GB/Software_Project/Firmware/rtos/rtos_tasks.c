@@ -32,8 +32,11 @@ alt_u8 error_code = 0;
 alt_8 tempFPGA = 0;
 alt_8 tempBoard = 0;
 
+/* DMA Variables*/
+alt_msgdma_dev *DMADev = NULL;
+
 /* OS Tasks Variables */
-OS_STK LogTaskStk[SIMUCAM_TASK_STACKSIZE];
+OS_STK MemDMATaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWATaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWBTaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWCTaskStk[SIMUCAM_TASK_STACKSIZE];
@@ -42,6 +45,7 @@ OS_STK SPWETaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWFTaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWGTaskStk[SIMUCAM_TASK_STACKSIZE];
 OS_STK SPWHTaskStk[SIMUCAM_TASK_STACKSIZE];
+OS_STK LogTaskStk[SIMUCAM_TASK_STACKSIZE];
 
 /* SpW Functions */
 void Configure_SpW_Autostart(char c_SpwID);
@@ -49,13 +53,38 @@ void Set_SpW_Led(char c_SpwID);
 
 /* OS Tasks */
 
-/* Log Task, show the FPGA core temperature in the seven segments display, update rate of 1 s */
-void LogTask(void *task_data) {
-	printf("Created \"log\" Task (Prio:%d) \n", LOG_TASK_PRIORITY);
+/* Mem DMA Task, configure and manages the Memories DMA for use of the SpW Transparent Interface*/
+void MemDMATask(void *task_data) {
+	printf("Created \"mem dma\" Task (Prio:%d) \n", MEM_DMA_TASK_PRIORITY);
+
+	/* Open DMA Device */
+	if (DMA_OPEN_DEVICE(&DMADev, (char *)DMA_DDR_M_CSR_NAME) == FALSE){
+		printf("Error Opening DMA Device");
+	}
+	
+	/* Reset DMA Device */
+	if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+		printf("Error Reseting Dispatcher");
+	}
+	
+	alt_u32 control_bits = 0x00000000;
+	
+	/* struct for dma transfers parameters */
+	t_DMA_Transfer transfer;
+	/* read address - source address (data buffer) */
+	/* write address - destination address (transparent interface) */
+	/* transfer size byter - number of bytes to be transfered */
+
 	while (1) {
-		TEMP_Read(&tempFPGA, &tempBoard);
-		SSDP_UPDATE(tempFPGA);
-		OSTimeDlyHMSM(0, 0, 1, 0);
+	
+		/* waits for a new transfer to be requested by queque */
+		///////////////////////////////////////////////////////// TODO
+		
+		/* start DMA transfer */
+		if (DMA_SINGLE_TRANSFER(DMADev, transfer.read_addr, transfer.write_addr, transfer.transfer_size_bytes, control_bits, DMA_NO_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+			printf("Error During DMA Transfer");
+		}
+		
 	}
 }
 
@@ -147,15 +176,25 @@ void SPWHTask(void *task_data) {
 	}
 }
 
+/* Log Task, show the FPGA core temperature in the seven segments display, update rate of 1 s */
+void LogTask(void *task_data) {
+	printf("Created \"log\" Task (Prio:%d) \n", LOG_TASK_PRIORITY);
+	while (1) {
+		TEMP_Read(&tempFPGA, &tempBoard);
+		SSDP_UPDATE(tempFPGA);
+		OSTimeDlyHMSM(0, 0, 1, 0);
+	}
+}
+
 /* Initialize the SimuCam Tasks */
 void Init_Simucam_Tasks(void) {
 
-	error_code = OSTaskCreateExt(LogTask,
+	error_code = OSTaskCreateExt(MemDMATask,
 	                             NULL,
-	                             (void *) &LogTaskStk[SIMUCAM_TASK_STACKSIZE],
-	                             LOG_TASK_PRIORITY,
-	                             LOG_TASK_PRIORITY,
-	                             LogTaskStk,
+	                             (void *) &MemDMATaskStk[SIMUCAM_TASK_STACKSIZE],
+	                             MEM_DMA_TASK_PRIORITY,
+	                             MEM_DMA_TASK_PRIORITY,
+	                             MemDMATaskStk,
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
@@ -244,6 +283,17 @@ void Init_Simucam_Tasks(void) {
 	                             SPW_H_TASK_PRIORITY,
 	                             SPW_H_TASK_PRIORITY,
 	                             SPWHTaskStk,
+	                             SIMUCAM_TASK_STACKSIZE,
+	                             NULL,
+	                             0);
+	alt_uCOSIIErrorHandler(error_code, 0);
+	
+	error_code = OSTaskCreateExt(LogTask,
+	                             NULL,
+	                             (void *) &LogTaskStk[SIMUCAM_TASK_STACKSIZE],
+	                             LOG_TASK_PRIORITY,
+	                             LOG_TASK_PRIORITY,
+	                             LogTaskStk,
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);

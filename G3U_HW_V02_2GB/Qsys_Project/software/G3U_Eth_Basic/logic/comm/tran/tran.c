@@ -381,59 +381,76 @@
 		bool bSuccess = FALSE;
 		
 		alt_u16 *memory_location;
-		alt_u64 memdata_addr;
-		alt_u64 spwdata_addr;
-		t_DMA_Transfer spw_data_transfer;
+		alt_u32 memdata_addr_low;
+		alt_u32 memdata_addr_high;
+		alt_u32 spwdata_addr_low;
+		alt_u32 spwdata_addr_high;
 		alt_u16 cnt = 0;
 		
 		/* Initiate the Channel Memory Location for the Transparent Interface */
 		switch (c_SpwID) {
 			case 'A':
-				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE);
-				spwdata_addr = (alt_u64)(TRAN_A_SPWDATA_BASE);
-				bSuccess = TRUE;
+				memory_location   = (alt_u32)(TRAN_MEM_LOCATION_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_M1_MEMDATA_BASE);
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_M1_MEMDATA_BASE) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_A_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_A_SPWDATA_BASE) >> 32);
+				bSuccess          = TRUE;
 			break;
 			case 'B':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_B_SPWDATA_BASE);				
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_B_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_B_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 			case 'C':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 2*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 2*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_C_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 2*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 2*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_C_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_C_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 			case 'D':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 3*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 3*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_D_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 3*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 3*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_D_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_D_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 			case 'E':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 4*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 4*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_E_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 4*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 4*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_E_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_E_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 			case 'F':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 5*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 5*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_F_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 5*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 5*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_F_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_F_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 			case 'G':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 6*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 6*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_G_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 6*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 6*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_G_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_G_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 			case 'H':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 7*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 7*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_H_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 7*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 7*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_H_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_H_SPWDATA_BASE) >> 32);
 				bSuccess = TRUE;
 			break;
 		}
@@ -456,11 +473,23 @@
 			}
 			
 			/* Generate the DMA transfer parameters */
-			spw_data_transfer.read_addr = memdata_addr;
-			spw_data_transfer.write_addr = spwdata_addr;
-			spw_data_transfer.transfer_size_bytes = (alt_u32)(cnt < 1);
-			
 			/* Queque the DMA transfer */
+			if (!DMA_EXTENDED_SINGLE_TRANSFER(DMADev,
+			                                  memdata_addr_high,
+											  memdata_addr_low,
+											  spwdata_addr_high,
+											  spwdata_addr_low,
+											  (alt_u32)(cnt < 1),
+											  0x00000000,
+											  DMA_NO_WAIT,
+											  DMA_DEFAULT_WAIT_PERIOD)){
+				bSuccess = FALSE;
+			}
+			
+			/* Wait for all data to be transfered */
+			do {
+				OSTimeDlyHMSM(0, 0, 0, 10);
+			} while (DMA_BUSY(DMADev));
 			
 		} else {
 			bSuccess = FALSE;
@@ -474,83 +503,117 @@
 		alt_u16 ui_rx_data_size = 0;
 		
 		alt_u16 *memory_location;
-		alt_u64 memdata_addr;
-		alt_u64 spwdata_addr;
-		t_DMA_Transfer spw_data_transfer;
+		alt_u32 memdata_addr_low;
+		alt_u32 memdata_addr_high;
+		alt_u32 spwdata_addr_low;
+		alt_u32 spwdata_addr_high;
 		alt_u16 cnt = 0;
 		alt_u16 rx_buffer_data_size = 0;
 		
 		/* Initiate the Channel Memory Location for the Transparent Interface */
 		switch (c_SpwID) {
 			case 'A':
-				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE);
-				spwdata_addr = (alt_u64)(TRAN_A_SPWDATA_BASE);
-				bSuccess = TRUE;
+				memory_location   = (alt_u32)(TRAN_MEM_LOCATION_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_M1_MEMDATA_BASE);
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_M1_MEMDATA_BASE) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_A_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_A_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'B':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_B_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_B_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_B_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'C':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 2*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 2*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_C_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 2*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 2*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_C_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_C_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'D':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 3*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 3*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_D_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 3*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 3*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_D_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_D_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'E':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 4*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 4*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_E_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 4*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 4*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_E_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_E_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'F':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 5*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 5*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_F_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 5*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 5*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_F_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_F_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'G':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 6*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 6*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_G_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 6*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 6*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_G_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_G_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
 			case 'H':
 				memory_location = (alt_u32)(TRAN_MEM_LOCATION_BASE + 7*TRAN_DATA_OFFSET);
-				memdata_addr = (alt_u64)(TRAN_M1_MEMDATA_BASE + 7*TRAN_DATA_OFFSET);
-				spwdata_addr = (alt_u64)(TRAN_H_SPWDATA_BASE);
+				memdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & (TRAN_M1_MEMDATA_BASE + 7*TRAN_DATA_OFFSET));
+				memdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & (TRAN_M1_MEMDATA_BASE + 7*TRAN_DATA_OFFSET)) >> 32);
+				spwdata_addr_low  = (alt_u32)(0x00000000FFFFFFFF & TRAN_H_SPWDATA_BASE);
+				spwdata_addr_high = (alt_u32)((0xFFFFFFFF00000000 & TRAN_H_SPWDATA_BASE) >> 32);
 				rx_buffer_data_size = 0xFFFF;
 			break;
+		}
 		
 		if (rx_buffer_data_size = 0xFFFF) {
 			/* Check the amount of data in the RX Buffer*/
 			rx_buffer_data_size = (alt_u16)(uc_Transparent_Interface_TX_FIFO_Status_Used(c_SpwID) << 2);
 			if (rx_buffer_data_size > 0) {
 				/* Transfer the available data to the Channel Memory Location */
-				/* Generate the DMA transfer parameters */
-				spw_data_transfer.read_addr = spwdata_addr;
-				spw_data_transfer.write_addr = memdata_addr;
-				spw_data_transfer.transfer_size_bytes = (alt_u32)(rx_buffer_data_size << 1);
-				/* Queque the DMA transfer */
 				
-				/* Convert all the available data in the Channel Memory Location to the data_buffer */
-				for (cnt = 0; cnt < rx_buffer_data_size; cnt++) {
-					/* check if the data is not an eop or invalid */
-					if (!((memory_location[cnt] & 0x0100) || (memory_location[cnt] = 0xFFFF))) {
-						data_buffer[ui_rx_data_size] = (alt_u8)(0x00FF & memory_location[cnt]);
-						ui_rx_data_size++;
-					}
+				/* Generate the DMA transfer parameters */
+				/* Queque the DMA transfer */
+				if (DMA_EXTENDED_SINGLE_TRANSFER(DMADev,
+												spwdata_addr_high,
+												spwdata_addr_low,
+												memdata_addr_high,
+												memdata_addr_low,
+												(alt_u32)(rx_buffer_data_size << 1),
+												0x00000000,
+												DMA_NO_WAIT,
+												DMA_DEFAULT_WAIT_PERIOD)){
+
+					/* Wait for all data to be transfered */
+					do {
+						OSTimeDlyHMSM(0, 0, 0, 10);
+					} while (DMA_BUSY(DMADev));
+					
+					/* Convert all the available data in the Channel Memory Location to the data_buffer */
+					for (cnt = 0; cnt < rx_buffer_data_size; cnt++) {
+						/* check if the data is not an eop or invalid */
+						if (!((memory_location[cnt] & 0x0100) || (memory_location[cnt] = 0xFFFF))) {
+							data_buffer[ui_rx_data_size] = (alt_u8)(0x00FF & memory_location[cnt]);
+							ui_rx_data_size++;
+						}
+					}													
+				} else {
+					ui_rx_data_size = 0;
 				}
+			} else {
+				ui_rx_data_size = 0;
 			}
 		}
 	
