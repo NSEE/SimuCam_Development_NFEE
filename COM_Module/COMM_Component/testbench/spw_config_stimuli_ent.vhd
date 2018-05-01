@@ -22,6 +22,8 @@ end entity spw_config_stimuli_ent;
 
 architecture RTL of spw_config_stimuli_ent is
 
+	signal cnt : natural := 0;
+
 begin
 
 	spw_config_stimuli_clk100_proc : process(clk_100, rst) is
@@ -33,6 +35,7 @@ begin
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT        <= '1';
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT          <= '0';
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT <= '0';
+			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT          <= '0';
 			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.FORCE_RESET_BIT            <= '0';
 
 			spwc_mm_write_registers.INTERRUPT_ENABLE_REGISTER.LINK_ERROR            <= '0';
@@ -52,11 +55,108 @@ begin
 			spwc_mm_write_registers.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE   <= (others => '0');
 			spwc_mm_write_registers.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT       <= '0';
 
+			spwc_mm_write_registers.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '0';
+			spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '0';
+			spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+			spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= (others => '0');
+
+			cnt <= 0;
+
 		elsif rising_edge(clk_100) then
 
-			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT       <= '1' after 10 us;
-			
-			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.TX_CLOCK_DIV        <= x"14" after 100 us;
+			spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT <= '1' after 5 us;
+
+			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.AUTOSTART_BIT  <= '1' after 10 us;
+			spwc_mm_write_registers.SPW_LINK_MODE_REGISTER.LINK_START_BIT <= '1' after 15 us;
+
+			cnt <= cnt + 1;
+
+			spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '0';
+			spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+			spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= (others => '0');
+
+			case (cnt) is
+
+				when 10000 to 10001 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"54";
+					end if;
+
+				when 10005 to 10006 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"84";
+					end if;
+
+				when 10010 to 10011 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"EF";
+					end if;
+
+				when 10015 to 10016 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"03";
+					end if;
+
+				when 10020 to 10021 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"01";
+					end if;
+
+				when 10025 to 10026 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"75";
+					end if;
+
+				when 10030 to 10031 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"5E";
+					end if;
+
+				when 10035 to 10036 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"01";
+					end if;
+
+				when 10040 to 10041 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"45";
+					end if;
+
+				when 10045 to 10046 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"25";
+					end if;
+
+				when 10050 to 10051 =>
+					if (spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY = '1') then
+						spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= '1';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= '0';
+						spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= x"76";
+					end if;
+
+				when others => null;
+
+			end case;
 
 		end if;
 	end process spw_config_stimuli_clk100_proc;

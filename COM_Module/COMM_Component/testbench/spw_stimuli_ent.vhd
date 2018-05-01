@@ -49,7 +49,7 @@ begin
 
 		elsif rising_edge(clk_200) then
 
-			spwc_codec_link_command_out.linkstart <= '1' after 15 us;
+			spwc_codec_link_command_out.linkstart <= '1' after 10 us;
 
 			cnt <= cnt + 1;
 
@@ -87,6 +87,31 @@ begin
 				when 10025 =>
 					spwc_codec_data_tx_out.txflag  <= '0';
 					spwc_codec_data_tx_out.txdata  <= X"F6";
+					spwc_codec_data_tx_out.txwrite <= '1';
+					
+				when 10030 =>
+					spwc_codec_data_tx_out.txflag  <= '0';
+					spwc_codec_data_tx_out.txdata  <= X"F7";
+					spwc_codec_data_tx_out.txwrite <= '1';
+
+				when 10035 =>
+					spwc_codec_data_tx_out.txflag  <= '0';
+					spwc_codec_data_tx_out.txdata  <= X"F8";
+					spwc_codec_data_tx_out.txwrite <= '1';
+
+				when 10040 =>
+					spwc_codec_data_tx_out.txflag  <= '0';
+					spwc_codec_data_tx_out.txdata  <= X"F9";
+					spwc_codec_data_tx_out.txwrite <= '1';
+
+				when 10045 =>
+					spwc_codec_data_tx_out.txflag  <= '0';
+					spwc_codec_data_tx_out.txdata  <= X"FA";
+					spwc_codec_data_tx_out.txwrite <= '1';
+
+				when 10050 =>
+					spwc_codec_data_tx_out.txflag  <= '0';
+					spwc_codec_data_tx_out.txdata  <= X"FB";
 					spwc_codec_data_tx_out.txwrite <= '1';
 
 				when others => null;

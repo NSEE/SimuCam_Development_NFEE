@@ -152,6 +152,9 @@ begin
 			delay100tx_sig <= '0';
 			delay100rx_sig <= '0';
 
+			rx_control_trigger <= '0';
+			tx_control_trigger <= '0';
+
 			rx_backdoor_fifo_read.rdreq  <= '0';
 			tx_backdoor_fifo_write.data  <= (others => '0');
 			tx_backdoor_fifo_write.wrreq <= '0';
@@ -174,14 +177,16 @@ begin
 			if (spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT = '1') then
 
 				-- tx fifo write
+
 				spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= '0';
+				tx_control_trigger                                                       <= spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE;
 				tx_backdoor_fifo_write.wrreq                                             <= '0';
 				tx_backdoor_fifo_write.data                                              <= (others => '0');
 				delay100tx_sig                                                           <= '0';
 				if (delay100tx_sig = '0') then
 					if (tx_backdoor_fifo_write.wrfull = '0') then
 						spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= '1';
-						if (spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE = '1') then
+						if ((spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE = '1') and (tx_control_trigger = '0')) then
 							tx_backdoor_fifo_write.wrreq            <= '1';
 							tx_backdoor_fifo_write.data(8)          <= spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG;
 							tx_backdoor_fifo_write.data(7 downto 0) <= spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA;
@@ -192,22 +197,23 @@ begin
 
 				-- rx fifo read
 				spwc_mm_read_registers.RX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= '0';
-				tx_backdoor_fifo_read.rdreq                                              <= '0';
+				rx_control_trigger                                                       <= spwc_mm_write_registers.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE;
+				rx_backdoor_fifo_read.rdreq                                              <= '0';
 				spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG          <= '0';
 				spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA          <= (others => '0');
 				delay100rx_sig                                                           <= '0';
 				if (delay100rx_sig = '0') then
-					if (tx_backdoor_fifo_read.rdempty = '0') then
+					if (rx_backdoor_fifo_read.rdempty = '0') then
 						spwc_mm_read_registers.RX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= '1';
-						if (spwc_mm_write_registers.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE = '1') then
-							tx_backdoor_fifo_read.rdreq                                     <= '1';
-							spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG <= tx_backdoor_fifo_read.q(8);
-							spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA <= tx_backdoor_fifo_read.q(7 downto 0);
+						if ((spwc_mm_write_registers.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE = '1') and (rx_control_trigger = '0')) then
+							rx_backdoor_fifo_read.rdreq                                     <= '1';
+							spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG <= rx_backdoor_fifo_read.q(8);
+							spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA <= rx_backdoor_fifo_read.q(7 downto 0);
 							delay100rx_sig                                                  <= '1';
 						end if;
 					end if;
 				end if;
-				
+
 			end if;
 		end if;
 	end process spwc_codec_loopback_clk100_proc;
@@ -277,10 +283,10 @@ begin
 				delay200rx_sig                            <= '0';
 				if (delay200rx_sig = '0') then
 					if (rx_backdoor_fifo_write.wrfull = '0') then
-						if (spwc_codec_data_rx_out_loopback_sig.rxvalid = '1') then
+						if (spwc_codec_data_rx_out_sig.rxvalid = '1') then
 							rx_backdoor_fifo_write.wrreq              <= '1';
-							rx_backdoor_fifo_write.data(8)            <= spwc_codec_data_rx_out_loopback_sig.rxflag;
-							rx_backdoor_fifo_write.data(7 downto 0)   <= spwc_codec_data_rx_out_loopback_sig.rxdata;
+							rx_backdoor_fifo_write.data(8)            <= spwc_codec_data_rx_out_sig.rxflag;
+							rx_backdoor_fifo_write.data(7 downto 0)   <= spwc_codec_data_rx_out_sig.rxdata;
 							spwc_codec_data_rx_in_loopback_sig.rxread <= '1';
 							delay200rx_sig                            <= '1';
 						end if;
@@ -295,7 +301,7 @@ begin
 				delay200tx_sig                             <= '0';
 				if (delay200tx_sig = '0') then
 					if (tx_backdoor_fifo_read.rdempty = '0') then
-						if (spwc_codec_data_tx_out_loopback_sig.txrdy = '1') then
+						if (spwc_codec_data_tx_out_sig.txrdy = '1') then
 							tx_backdoor_fifo_read.rdreq                <= '1';
 							spwc_codec_data_tx_in_loopback_sig.txflag  <= tx_backdoor_fifo_read.q(8);
 							spwc_codec_data_tx_in_loopback_sig.txdata  <= tx_backdoor_fifo_read.q(7 downto 0);
