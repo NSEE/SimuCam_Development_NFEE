@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 196 win32 2018.04.30.16:10:35
+# ACDS 16.1 196 win32 2018.05.01.15:06:30
 
 # ----------------------------------------
 # ncsim - auto-generated simulation script
@@ -101,7 +101,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 196 win32 2018.04.30.16:10:35
+# ACDS 16.1 196 win32 2018.05.01.15:06:30
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="MebX_Qsys_Project"
@@ -151,13 +151,12 @@ mkdir -p ./libraries/cmd_mux/
 mkdir -p ./libraries/cmd_demux/
 mkdir -p ./libraries/router_001/
 mkdir -p ./libraries/router/
-mkdir -p ./libraries/rsp_demux_001/
-mkdir -p ./libraries/crosser/
 mkdir -p ./libraries/rsp_mux_002/
 mkdir -p ./libraries/rsp_mux_001/
 mkdir -p ./libraries/rsp_demux_010/
 mkdir -p ./libraries/rsp_demux_003/
 mkdir -p ./libraries/rsp_demux_002/
+mkdir -p ./libraries/rsp_demux_001/
 mkdir -p ./libraries/cmd_mux_010/
 mkdir -p ./libraries/cmd_mux_002/
 mkdir -p ./libraries/cmd_mux_001/
@@ -168,25 +167,26 @@ mkdir -p ./libraries/router_005/
 mkdir -p ./libraries/router_004/
 mkdir -p ./libraries/router_003/
 mkdir -p ./libraries/router_002/
-mkdir -p ./libraries/avalon_st_adapter_014/
-mkdir -p ./libraries/avalon_st_adapter_009/
-mkdir -p ./libraries/avalon_st_adapter_002/
+mkdir -p ./libraries/avalon_st_adapter_021/
+mkdir -p ./libraries/avalon_st_adapter_017/
+mkdir -p ./libraries/avalon_st_adapter_010/
 mkdir -p ./libraries/avalon_st_adapter/
+mkdir -p ./libraries/crosser/
 mkdir -p ./libraries/ddr2_address_span_extender_cntl_cmd_width_adapter/
-mkdir -p ./libraries/rsp_demux_013/
-mkdir -p ./libraries/rsp_demux_012/
-mkdir -p ./libraries/rsp_demux_008/
-mkdir -p ./libraries/cmd_mux_013/
-mkdir -p ./libraries/cmd_mux_012/
-mkdir -p ./libraries/cmd_mux_008/
+mkdir -p ./libraries/rsp_demux_020/
+mkdir -p ./libraries/rsp_demux_019/
+mkdir -p ./libraries/rsp_demux_016/
+mkdir -p ./libraries/cmd_mux_020/
+mkdir -p ./libraries/cmd_mux_019/
+mkdir -p ./libraries/cmd_mux_016/
 mkdir -p ./libraries/nios2_gen2_0_debug_mem_slave_burst_adapter/
 mkdir -p ./libraries/nios2_gen2_0_instruction_master_limiter/
-mkdir -p ./libraries/router_022/
-mkdir -p ./libraries/router_021/
-mkdir -p ./libraries/router_020/
-mkdir -p ./libraries/router_017/
-mkdir -p ./libraries/router_016/
-mkdir -p ./libraries/router_010/
+mkdir -p ./libraries/router_029/
+mkdir -p ./libraries/router_028/
+mkdir -p ./libraries/router_027/
+mkdir -p ./libraries/router_025/
+mkdir -p ./libraries/router_024/
+mkdir -p ./libraries/router_018/
 mkdir -p ./libraries/router_008/
 mkdir -p ./libraries/jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo/
 mkdir -p ./libraries/jtag_uart_0_avalon_jtag_slave_agent/
@@ -212,7 +212,6 @@ mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/avalon_st_adapter_001/
 mkdir -p ./libraries/irq_synchronizer/
 mkdir -p ./libraries/irq_mapper/
-mkdir -p ./libraries/mm_interconnect_4/
 mkdir -p ./libraries/mm_interconnect_3/
 mkdir -p ./libraries/mm_interconnect_2/
 mkdir -p ./libraries/mm_interconnect_1/
@@ -243,7 +242,7 @@ mkdir -p ./libraries/ddr2_address_span_extender/
 mkdir -p ./libraries/csense_sdo/
 mkdir -p ./libraries/csense_cs_n/
 mkdir -p ./libraries/csense_adc_fo/
-mkdir -p ./libraries/clock_bridge_afi_200/
+mkdir -p ./libraries/clock_bridge_afi_50/
 mkdir -p ./libraries/SEVEN_SEGMENT_CONTROLLER_0/
 mkdir -p ./libraries/Pattern_Generator_A/
 mkdir -p ./libraries/Communication_Module_A/
@@ -326,9 +325,9 @@ fi
 # ----------------------------------------
 # compile design files in correct order
 if [ $SKIP_COM -eq 0 ]; then
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_014_error_adapter_0.sv"               -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009_error_adapter_0.sv"               -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_002_error_adapter_0.sv"               -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_021_error_adapter_0.sv"               -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_017_error_adapter_0.sv"               -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_010_error_adapter_0.sv"               -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv"                   -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/alt_mem_ddrx_mm_st_converter.v"                                                             -work a0                                                -cdslib ./cds_libs/a0.cds.lib                                               
   ncvlog $USER_DEFINED_COMPILE_OPTIONS      -incdir "$QSYS_SIMDIR/submodules/" "$QSYS_SIMDIR/submodules/alt_mem_ddrx_addr_cmd.v"                                                                    -work ng0                                               -cdslib ./cds_libs/ng0.cds.lib                                              
@@ -370,17 +369,8 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter_001_timing_adapter_0_fifo.sv"                           -work timing_adapter_0                                  -cdslib ./cds_libs/timing_adapter_0.cds.lib                                 
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter_001_error_adapter_0.sv"                                 -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter_error_adapter_0.sv"                                     -work error_adapter_0                                   -cdslib ./cds_libs/error_adapter_0.cds.lib                                  
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_rsp_mux.sv"                                             -work rsp_mux                                           -cdslib ./cds_libs/rsp_mux.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                           -cdslib ./cds_libs/rsp_mux.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_rsp_demux.sv"                                           -work rsp_demux                                         -cdslib ./cds_libs/rsp_demux.cds.lib                                        
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_cmd_mux.sv"                                             -work cmd_mux                                           -cdslib ./cds_libs/cmd_mux.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                           -cdslib ./cds_libs/cmd_mux.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_cmd_demux.sv"                                           -work cmd_demux                                         -cdslib ./cds_libs/cmd_demux.cds.lib                                        
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_router_001.sv"                                          -work router_001                                        -cdslib ./cds_libs/router_001.cds.lib                                       
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_router.sv"                                              -work router                                            -cdslib ./cds_libs/router.cds.lib                                           
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_rsp_mux.sv"                                             -work rsp_mux                                           -cdslib ./cds_libs/rsp_mux.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                           -cdslib ./cds_libs/rsp_mux.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_rsp_demux_001.sv"                                       -work rsp_demux_001                                     -cdslib ./cds_libs/rsp_demux_001.cds.lib                                    
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_rsp_demux.sv"                                           -work rsp_demux                                         -cdslib ./cds_libs/rsp_demux.cds.lib                                        
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_cmd_mux.sv"                                             -work cmd_mux                                           -cdslib ./cds_libs/cmd_mux.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                           -cdslib ./cds_libs/cmd_mux.cds.lib                                          
@@ -395,10 +385,6 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_2_cmd_demux.sv"                                           -work cmd_demux                                         -cdslib ./cds_libs/cmd_demux.cds.lib                                        
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_2_router_001.sv"                                          -work router_001                                        -cdslib ./cds_libs/router_001.cds.lib                                       
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_2_router.sv"                                              -work router                                            -cdslib ./cds_libs/router.cds.lib                                           
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_handshake_clock_crosser.v"                                                 -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_clock_crosser.v"                                                           -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_pipeline_base.v"                                                           -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_std_synchronizer_nocut.v"                                                            -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_mux_002.sv"                                         -work rsp_mux_002                                       -cdslib ./cds_libs/rsp_mux_002.cds.lib                                      
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux_002                                       -cdslib ./cds_libs/rsp_mux_002.cds.lib                                      
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_mux_001.sv"                                         -work rsp_mux_001                                       -cdslib ./cds_libs/rsp_mux_001.cds.lib                                      
@@ -428,10 +414,14 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_router_002.sv"                                          -work router_002                                        -cdslib ./cds_libs/router_002.cds.lib                                       
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_router_001.sv"                                          -work router_001                                        -cdslib ./cds_libs/router_001.cds.lib                                       
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_router.sv"                                              -work router                                            -cdslib ./cds_libs/router.cds.lib                                           
-  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_014.vhd"                              -work avalon_st_adapter_014                             -cdslib ./cds_libs/avalon_st_adapter_014.cds.lib                            
-  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009.vhd"                              -work avalon_st_adapter_009                             -cdslib ./cds_libs/avalon_st_adapter_009.cds.lib                            
-  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_002.vhd"                              -work avalon_st_adapter_002                             -cdslib ./cds_libs/avalon_st_adapter_002.cds.lib                            
+  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_021.vhd"                              -work avalon_st_adapter_021                             -cdslib ./cds_libs/avalon_st_adapter_021.cds.lib                            
+  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_017.vhd"                              -work avalon_st_adapter_017                             -cdslib ./cds_libs/avalon_st_adapter_017.cds.lib                            
+  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_010.vhd"                              -work avalon_st_adapter_010                             -cdslib ./cds_libs/avalon_st_adapter_010.cds.lib                            
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter.vhd"                                  -work avalon_st_adapter                                 -cdslib ./cds_libs/avalon_st_adapter.cds.lib                                
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_handshake_clock_crosser.v"                                                 -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_clock_crosser.v"                                                           -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_pipeline_base.v"                                                           -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_std_synchronizer_nocut.v"                                                            -work crosser                                           -cdslib ./cds_libs/crosser.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_width_adapter.sv"                                                             -work ddr2_address_span_extender_cntl_cmd_width_adapter -cdslib ./cds_libs/ddr2_address_span_extender_cntl_cmd_width_adapter.cds.lib
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_address_alignment.sv"                                                         -work ddr2_address_span_extender_cntl_cmd_width_adapter -cdslib ./cds_libs/ddr2_address_span_extender_cntl_cmd_width_adapter.cds.lib
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_burst_uncompressor.sv"                                                        -work ddr2_address_span_extender_cntl_cmd_width_adapter -cdslib ./cds_libs/ddr2_address_span_extender_cntl_cmd_width_adapter.cds.lib
@@ -441,15 +431,16 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux_001                                       -cdslib ./cds_libs/rsp_mux_001.cds.lib                                      
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_mux.sv"                                             -work rsp_mux                                           -cdslib ./cds_libs/rsp_mux.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                           -cdslib ./cds_libs/rsp_mux.cds.lib                                          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013.sv"                                       -work rsp_demux_013                                     -cdslib ./cds_libs/rsp_demux_013.cds.lib                                    
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_012.sv"                                       -work rsp_demux_012                                     -cdslib ./cds_libs/rsp_demux_012.cds.lib                                    
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_008.sv"                                       -work rsp_demux_008                                     -cdslib ./cds_libs/rsp_demux_008.cds.lib                                    
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_013.sv"                                         -work cmd_mux_013                                       -cdslib ./cds_libs/cmd_mux_013.cds.lib                                      
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_013                                       -cdslib ./cds_libs/cmd_mux_013.cds.lib                                      
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_012.sv"                                         -work cmd_mux_012                                       -cdslib ./cds_libs/cmd_mux_012.cds.lib                                      
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_012                                       -cdslib ./cds_libs/cmd_mux_012.cds.lib                                      
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_008.sv"                                         -work cmd_mux_008                                       -cdslib ./cds_libs/cmd_mux_008.cds.lib                                      
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_008                                       -cdslib ./cds_libs/cmd_mux_008.cds.lib                                      
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_020.sv"                                       -work rsp_demux_020                                     -cdslib ./cds_libs/rsp_demux_020.cds.lib                                    
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_019.sv"                                       -work rsp_demux_019                                     -cdslib ./cds_libs/rsp_demux_019.cds.lib                                    
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_016.sv"                                       -work rsp_demux_016                                     -cdslib ./cds_libs/rsp_demux_016.cds.lib                                    
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_003.sv"                                       -work rsp_demux_003                                     -cdslib ./cds_libs/rsp_demux_003.cds.lib                                    
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_020.sv"                                         -work cmd_mux_020                                       -cdslib ./cds_libs/cmd_mux_020.cds.lib                                      
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_020                                       -cdslib ./cds_libs/cmd_mux_020.cds.lib                                      
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019.sv"                                         -work cmd_mux_019                                       -cdslib ./cds_libs/cmd_mux_019.cds.lib                                      
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_019                                       -cdslib ./cds_libs/cmd_mux_019.cds.lib                                      
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016.sv"                                         -work cmd_mux_016                                       -cdslib ./cds_libs/cmd_mux_016.cds.lib                                      
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_016                                       -cdslib ./cds_libs/cmd_mux_016.cds.lib                                      
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux.sv"                                             -work cmd_mux                                           -cdslib ./cds_libs/cmd_mux.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                           -cdslib ./cds_libs/cmd_mux.cds.lib                                          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_demux_002.sv"                                       -work cmd_demux_002                                     -cdslib ./cds_libs/cmd_demux_002.cds.lib                                    
@@ -469,12 +460,12 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_merlin_reorder_memory.sv"                                                            -work nios2_gen2_0_instruction_master_limiter           -cdslib ./cds_libs/nios2_gen2_0_instruction_master_limiter.cds.lib          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_sc_fifo.v"                                                                    -work nios2_gen2_0_instruction_master_limiter           -cdslib ./cds_libs/nios2_gen2_0_instruction_master_limiter.cds.lib          
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_avalon_st_pipeline_base.v"                                                           -work nios2_gen2_0_instruction_master_limiter           -cdslib ./cds_libs/nios2_gen2_0_instruction_master_limiter.cds.lib          
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_022.sv"                                          -work router_022                                        -cdslib ./cds_libs/router_022.cds.lib                                       
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_021.sv"                                          -work router_021                                        -cdslib ./cds_libs/router_021.cds.lib                                       
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_020.sv"                                          -work router_020                                        -cdslib ./cds_libs/router_020.cds.lib                                       
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_017.sv"                                          -work router_017                                        -cdslib ./cds_libs/router_017.cds.lib                                       
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_016.sv"                                          -work router_016                                        -cdslib ./cds_libs/router_016.cds.lib                                       
-  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_010.sv"                                          -work router_010                                        -cdslib ./cds_libs/router_010.cds.lib                                       
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_029.sv"                                          -work router_029                                        -cdslib ./cds_libs/router_029.cds.lib                                       
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_028.sv"                                          -work router_028                                        -cdslib ./cds_libs/router_028.cds.lib                                       
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_027.sv"                                          -work router_027                                        -cdslib ./cds_libs/router_027.cds.lib                                       
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_025.sv"                                          -work router_025                                        -cdslib ./cds_libs/router_025.cds.lib                                       
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_024.sv"                                          -work router_024                                        -cdslib ./cds_libs/router_024.cds.lib                                       
+  ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_018.sv"                                          -work router_018                                        -cdslib ./cds_libs/router_018.cds.lib                                       
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_008.sv"                                          -work router_008                                        -cdslib ./cds_libs/router_008.cds.lib                                       
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_004.sv"                                          -work router_004                                        -cdslib ./cds_libs/router_004.cds.lib                                       
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_002.sv"                                          -work router_002                                        -cdslib ./cds_libs/router_002.cds.lib                                       
@@ -688,7 +679,6 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter.vhd"                                                    -work avalon_st_adapter                                 -cdslib ./cds_libs/avalon_st_adapter.cds.lib                                
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/altera_irq_clock_crosser.sv"                                                                -work irq_synchronizer                                  -cdslib ./cds_libs/irq_synchronizer.cds.lib                                 
   ncvlog -sv $USER_DEFINED_COMPILE_OPTIONS                                     "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_irq_mapper.sv"                                                            -work irq_mapper                                        -cdslib ./cds_libs/irq_mapper.cds.lib                                       
-  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4.v"                                                      -work mm_interconnect_4                                 -cdslib ./cds_libs/mm_interconnect_4.cds.lib                                
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3.v"                                                      -work mm_interconnect_3                                 -cdslib ./cds_libs/mm_interconnect_3.cds.lib                                
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_2.v"                                                      -work mm_interconnect_2                                 -cdslib ./cds_libs/mm_interconnect_2.cds.lib                                
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1.v"                                                      -work mm_interconnect_1                                 -cdslib ./cds_libs/mm_interconnect_1.cds.lib                                
@@ -719,10 +709,10 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_csense_sdo.v"                                                             -work csense_sdo                                        -cdslib ./cds_libs/csense_sdo.cds.lib                                       
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_csense_cs_n.v"                                                            -work csense_cs_n                                       -cdslib ./cds_libs/csense_cs_n.cds.lib                                      
   ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_csense_adc_fo.v"                                                          -work csense_adc_fo                                     -cdslib ./cds_libs/csense_adc_fo.cds.lib                                    
-  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_avalon_mm_clock_crossing_bridge.v"                                                   -work clock_bridge_afi_200                              -cdslib ./cds_libs/clock_bridge_afi_200.cds.lib                             
-  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_avalon_dc_fifo.v"                                                                    -work clock_bridge_afi_200                              -cdslib ./cds_libs/clock_bridge_afi_200.cds.lib                             
-  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_dcfifo_synchronizer_bundle.v"                                                        -work clock_bridge_afi_200                              -cdslib ./cds_libs/clock_bridge_afi_200.cds.lib                             
-  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_std_synchronizer_nocut.v"                                                            -work clock_bridge_afi_200                              -cdslib ./cds_libs/clock_bridge_afi_200.cds.lib                             
+  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_avalon_mm_clock_crossing_bridge.v"                                                   -work clock_bridge_afi_50                               -cdslib ./cds_libs/clock_bridge_afi_50.cds.lib                              
+  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_avalon_dc_fifo.v"                                                                    -work clock_bridge_afi_50                               -cdslib ./cds_libs/clock_bridge_afi_50.cds.lib                              
+  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_dcfifo_synchronizer_bundle.v"                                                        -work clock_bridge_afi_50                               -cdslib ./cds_libs/clock_bridge_afi_50.cds.lib                              
+  ncvlog $USER_DEFINED_COMPILE_OPTIONS                                         "$QSYS_SIMDIR/submodules/altera_std_synchronizer_nocut.v"                                                            -work clock_bridge_afi_50                               -cdslib ./cds_libs/clock_bridge_afi_50.cds.lib                              
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SEVEN_SEG_REGISTER.vhd"                                                                     -work SEVEN_SEGMENT_CONTROLLER_0                        -cdslib ./cds_libs/SEVEN_SEGMENT_CONTROLLER_0.cds.lib                       
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/DOUBLE_DABBLE_8BIT.vhd"                                                                     -work SEVEN_SEGMENT_CONTROLLER_0                        -cdslib ./cds_libs/SEVEN_SEGMENT_CONTROLLER_0.cds.lib                       
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SEVEN_SEG_DPS.vhd"                                                                          -work SEVEN_SEGMENT_CONTROLLER_0                        -cdslib ./cds_libs/SEVEN_SEGMENT_CONTROLLER_0.cds.lib                       
@@ -763,6 +753,7 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spwstream.vhd"                                                                              -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC_PKG.vhd"                                                                         -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC.vhd"                                                                             -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
+  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spw_backdoor_dc_fifo.vhd"                                                                   -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/SPWC_CODEC_LOOPBACK.vhd"                                                                    -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spwc_clk100_codec_commands_dc_fifo.vhd"                                                     -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/submodules/spwc_clk200_codec_commands_dc_fifo.vhd"                                                     -work Communication_Module_A                            -cdslib ./cds_libs/Communication_Module_A.cds.lib                           
@@ -804,7 +795,6 @@ if [ $SKIP_COM -eq 0 ]; then
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/mebx_qsys_project_rst_controller.vhd"                                                                                                                                                                                                      
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/mebx_qsys_project_rst_controller_001.vhd"                                                                                                                                                                                                  
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/mebx_qsys_project_rst_controller_003.vhd"                                                                                                                                                                                                  
-  ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/mebx_qsys_project_clock_bridge_afi_200.vhd"                                                                                                                                                                                                
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/mebx_qsys_project_clock_bridge_afi_50.vhd"                                                                                                                                                                                                 
   ncvhdl -v93 $USER_DEFINED_COMPILE_OPTIONS                                    "$QSYS_SIMDIR/mebx_qsys_project_m1_clock_bridge.vhd"                                                                                                                                                                                                     
 fi

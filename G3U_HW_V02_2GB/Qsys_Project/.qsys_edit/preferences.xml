@@ -3,7 +3,7 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="575" />
+   <connections preferredWidth="559" />
    <irq preferredWidth="207" />
    <name preferredWidth="288" />
    <export preferredWidth="263" />

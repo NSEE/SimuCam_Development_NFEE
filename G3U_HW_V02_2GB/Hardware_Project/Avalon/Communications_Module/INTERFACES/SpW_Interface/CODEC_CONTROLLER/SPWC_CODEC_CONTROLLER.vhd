@@ -155,6 +155,9 @@ architecture spwc_codec_controller_arc of spwc_codec_controller_ent is
 	signal timecode_tick_in_trigger_sig  : std_logic := '0';
 	signal codec_timecode_tx_tick_in_sig : std_logic := '0';
 
+	-- Signals for Backdoor Mode control
+	signal backdoor_read_registers : spwc_mm_read_registers_type;
+
 begin
 
 	-- SpaceWire Light Codec Encapsulation Component (Loopback Version)
@@ -165,7 +168,7 @@ begin
 			rst                           => rst,
 			spwc_codec_reset              => spwc_codec_reset_in_sig,
 			spwc_mm_write_registers       => spwc_mm_write_registers,
-			spwc_mm_read_registers        => spwc_mm_read_registers,
+			spwc_mm_read_registers        => backdoor_read_registers,
 			spwc_codec_link_command_in    => spwc_codec_link_command_in_sig,
 			spwc_codec_link_status_out    => spwc_codec_link_status_out_sig,
 			spwc_codec_ds_encoding_rx_in  => spwc_codec_ds_encoding_rx_in_sig,
@@ -554,5 +557,10 @@ begin
 	interrupts_drivers_current_sig.TIMECODE_RECEIVED <= timecode_tick_out_sig;
 	-- Timecode Received Rising Edge Signal assingment
 	interrupts_flags_sig.TIMECODE_RECEIVED           <= ('1') when ((interrupts_drivers_current_sig.TIMECODE_RECEIVED = '1') and (interrupts_drivers_past_sig.TIMECODE_RECEIVED = '0')) else ('0');
+
+	-- Backdoor Mode Signals 
+	spwc_mm_read_registers.RX_BACKDOOR_STATUS_REGISTER <= backdoor_read_registers.RX_BACKDOOR_STATUS_REGISTER;
+	spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER   <= backdoor_read_registers.RX_BACKDOOR_DATA_REGISTER;
+	spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER <= backdoor_read_registers.TX_BACKDOOR_STATUS_REGISTER;
 
 end architecture spwc_codec_controller_arc;
