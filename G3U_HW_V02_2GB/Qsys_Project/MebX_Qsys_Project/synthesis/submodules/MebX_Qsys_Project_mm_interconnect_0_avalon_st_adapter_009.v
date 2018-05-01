@@ -7,16 +7,16 @@
 
 `timescale 1 ps / 1 ps
 module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009 #(
-		parameter inBitsPerSymbol = 130,
+		parameter inBitsPerSymbol = 258,
 		parameter inUsePackets    = 0,
-		parameter inDataWidth     = 130,
+		parameter inDataWidth     = 258,
 		parameter inChannelWidth  = 0,
 		parameter inErrorWidth    = 0,
 		parameter inUseEmptyPort  = 0,
 		parameter inUseValid      = 1,
 		parameter inUseReady      = 1,
 		parameter inReadyLatency  = 0,
-		parameter outDataWidth    = 130,
+		parameter outDataWidth    = 258,
 		parameter outChannelWidth = 0,
 		parameter outErrorWidth   = 1,
 		parameter outUseEmptyPort = 0,
@@ -26,10 +26,10 @@ module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009 #(
 	) (
 		input  wire         in_clk_0_clk,   // in_clk_0.clk
 		input  wire         in_rst_0_reset, // in_rst_0.reset
-		input  wire [129:0] in_0_data,      //     in_0.data
+		input  wire [257:0] in_0_data,      //     in_0.data
 		input  wire         in_0_valid,     //         .valid
 		output wire         in_0_ready,     //         .ready
-		output wire [129:0] out_0_data,     //    out_0.data
+		output wire [257:0] out_0_data,     //    out_0.data
 		output wire         out_0_valid,    //         .valid
 		input  wire         out_0_ready,    //         .ready
 		output wire [0:0]   out_0_error     //         .error
@@ -41,7 +41,7 @@ module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009 #(
 		// has been instantiated this module with a set of parameters different
 		// from those it was generated for.  This will usually result in a
 		// non-functioning system.
-		if (inBitsPerSymbol != 130)
+		if (inBitsPerSymbol != 258)
 		begin
 			initial begin
 				$display("Generated module instantiated with wrong parameters");
@@ -59,7 +59,7 @@ module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009 #(
 			instantiated_with_wrong_parameters_error_see_comment_above
 					inusepackets_check ( .error(1'b1) );
 		end
-		if (inDataWidth != 130)
+		if (inDataWidth != 258)
 		begin
 			initial begin
 				$display("Generated module instantiated with wrong parameters");
@@ -122,7 +122,7 @@ module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009 #(
 			instantiated_with_wrong_parameters_error_see_comment_above
 					inreadylatency_check ( .error(1'b1) );
 		end
-		if (outDataWidth != 130)
+		if (outDataWidth != 258)
 		begin
 			initial begin
 				$display("Generated module instantiated with wrong parameters");

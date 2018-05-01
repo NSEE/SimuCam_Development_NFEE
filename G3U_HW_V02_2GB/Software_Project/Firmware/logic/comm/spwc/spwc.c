@@ -214,24 +214,35 @@
 		}
 		if (bSuccess == TRUE){
 			switch (uc_InterfaceMode){
-	
-				case SPWC_INTERFACE_NORMAL_MODE:
-					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
+
+				case SPWC_INTERFACE_BACKDOOR_MODE:
+					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_BACKDOOR_MODE_CONTROL_BIT_MASK;
 					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;
-	
+
 				case SPWC_INTERFACE_EXTERNAL_LOOPBACK_MODE:
-					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_BACKDOOR_MODE_CONTROL_BIT_MASK);
 					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK;
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;
 
 				case SPWC_INTERFACE_LOOPBACK_MODE:
-					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK;
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_BACKDOOR_MODE_CONTROL_BIT_MASK);
 					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value |= (alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK;
+					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
+					bSuccess = TRUE;
+				break;
+
+				case SPWC_INTERFACE_NORMAL_MODE:
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_BACKDOOR_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_EXTERNAL_LOOPBACK_MODE_CONTROL_BIT_MASK);
+					*ul_spwc_interface_control_status_register_value &= ~((alt_u32)SPWC_LOOPBACK_MODE_CONTROL_BIT_MASK);
 					SPWC_WRITE_REG32(c_SpwID, SPWC_INTERFACE_CONTROL_STATUS_REGISTER_ADDRESS, *ul_spwc_interface_control_status_register_value);
 					bSuccess = TRUE;
 				break;
@@ -566,3 +577,68 @@
 		return bSuccess;
 	}
 
+	bool b_SpaceWire_Interface_Write_TX_Data(char c_SpwID, alt_u8 uc_TxFlag, alt_u8 uc_TxData){
+
+		bool bSuccess = FALSE;
+		if (SPWC_READ_REG32(c_SpwID, SPWC_BACKDOOR_CONTROL_REGISTER_ADDRESS) & SPWC_TX_CODEC_TX_READY_STATUS_BIT_MASK) {
+			SPWC_WRITE_REG32(c_SpwID,
+					         SPWC_BACKDOOR_CONTROL_REGISTER_ADDRESS,
+					         (alt_u32)(SPWC_TX_CODEC_TX_WRITE_CONTROL_BIT_MASK | ((uc_TxFlag & 0x01) << 8) | uc_TxData));
+			bSuccess = TRUE;
+		}
+
+		return bSuccess;
+	}
+
+	bool b_SpaceWire_Interface_Send_SpaceWire_Data(char c_SpwID, alt_u8 *data_buffer, alt_u16 data_size){
+		bool bSuccess = FALSE;
+
+		alt_u16 cnt = 0;
+		while ((b_SpaceWire_Interface_Write_TX_Data(c_SpwID, 0, data_buffer[cnt])) && (cnt < (data_size - 1))) {
+			cnt++;
+		}
+		if (cnt == (data_size - 1)) {
+			if (b_SpaceWire_Interface_Write_TX_Data(c_SpwID, 1, 0)){
+				bSuccess = TRUE;
+			}
+		}
+
+		return bSuccess;
+	}
+
+	bool b_SpaceWire_Interface_Read_RX_Data(char c_SpwID, alt_u8 *uc_RxFlag, alt_u8 *uc_RxData){
+
+		bool bSuccess = FALSE;
+		alt_u32 backdoor_register = 0;
+
+		backdoor_register = SPWC_READ_REG32(c_SpwID, SPWC_BACKDOOR_CONTROL_REGISTER_ADDRESS);
+		if (backdoor_register & SPWC_RX_CODEC_RX_DATAVALID_STATUS_BIT_MASK) {
+
+			*uc_RxFlag = (alt_u8)((backdoor_register & SPWC_RX_CODEC_SPACEWIRE_FLAG_VALUE_MASK) >> 24);
+			*uc_RxData = (alt_u8)((backdoor_register & SPWC_RX_CODEC_SPACEWIRE_DATA_VALUE_MASK) >> 16);
+
+			SPWC_WRITE_REG32(c_SpwID,
+					         SPWC_BACKDOOR_CONTROL_REGISTER_ADDRESS,
+					         (alt_u32)(SPWC_RX_CODEC_RX_READ_CONTROL_BIT_MASK));
+			bSuccess = TRUE;
+		}
+
+		return bSuccess;
+	}
+
+	alt_u16 ui_SpaceWire_Interface_Get_SpaceWire_Data(char c_SpwID, alt_u8 *data_buffer, alt_u16 buffer_size){
+
+		alt_u16 ui_rx_data_size = 0;
+
+		alt_u8 spw_flag = 0;
+		alt_u8 spw_data = 0;
+
+		while ((b_SpaceWire_Interface_Read_RX_Data(c_SpwID, &spw_flag, &spw_data)) && (ui_rx_data_size < (buffer_size - 1))) {
+			if (spw_flag == 0) {
+				data_buffer[ui_rx_data_size] = spw_data;
+				ui_rx_data_size++;
+			}
+		}
+
+		return ui_rx_data_size;
+	}

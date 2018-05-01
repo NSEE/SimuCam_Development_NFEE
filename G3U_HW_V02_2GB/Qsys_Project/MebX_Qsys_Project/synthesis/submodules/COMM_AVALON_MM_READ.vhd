@@ -33,8 +33,10 @@ begin
 
 				--  Interface Control and Status Register          (32 bits):
 				when (SPWC_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31-12 : Reserved                               [-/-]
-					avalon_mm_outputs.readdata(31 downto 12) <= (others => '0');
+					--    31-13 : Reserved                               [-/-]
+					avalon_mm_outputs.readdata(31 downto 13) <= (others => '0');
+					--    12-12 : Backdoor Mode control bit              [R/W]
+					avalon_mm_outputs.readdata(12)           <= mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT;
 					--    11-11 : External Loopback Mode control bit     [R/W]
 					avalon_mm_outputs.readdata(11)           <= mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT;
 					--    10-10 : Codec Enable control bit               [R/W]
@@ -110,6 +112,29 @@ begin
 					--     0- 0 : TX TimeCode control bit                [R/-]
 					avalon_mm_outputs.readdata(0)            <= mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT;
 
+				--  Backdoor Mode Control Register                 (32 bits):
+				when (SPWC_BACKDOOR_MODE_CONTROL_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
+					--    31-27 : Reserved                               [-/-]
+					avalon_mm_outputs.readdata(31 downto 27) <= (others => '0');
+					--    26-26 : RX Codec RX DataValid status bit       [R/-]
+					avalon_mm_outputs.readdata(26)           <= mm_read_registers.SPWC.RX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY;
+					--    25-25 : RX Codec RX Read control bit           [R/W]
+					avalon_mm_outputs.readdata(25)           <= mm_write_registers.SPWC.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE;
+					--    24-24 : RX Codec SpaceWire Flag value          [R/-]
+					avalon_mm_outputs.readdata(24)           <= mm_read_registers.SPWC.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG;
+					--    23-16 : RX Codec SpaceWire Data value          [R/-]
+					avalon_mm_outputs.readdata(23 downto 16) <= mm_read_registers.SPWC.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA;
+					--    15-11 : Reserved                               [-/-]
+					avalon_mm_outputs.readdata(15 downto 11) <= (others => '0');
+					--    10-10 : TX Codec TX Ready status bit           [R/-]
+					avalon_mm_outputs.readdata(10)           <= mm_read_registers.SPWC.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY;
+					--     9- 9 : TX Codec TX Write control bit          [R/W]
+					avalon_mm_outputs.readdata(9)            <= mm_write_registers.SPWC.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE;
+					--     8- 8 : TX Codec SpaceWire Flag value          [R/W]
+					avalon_mm_outputs.readdata(8)            <= mm_write_registers.SPWC.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG;
+					--     7- 0 : TX Codec SpaceWire Data value          [R/W]
+					avalon_mm_outputs.readdata(7 downto 0)   <= mm_write_registers.SPWC.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA;
+
 				-- TRAN Module ReadData procedure
 
 				--  Interface Control and Status Register        (32 bits):
@@ -141,7 +166,7 @@ begin
 					--     1- 1 : RX FIFO Full interrupt flag clear    [-/W]
 					--     0- 0 : TX FIFO Empty interrupt flag         [R/-]
 					avalon_mm_outputs.readdata(0)            <= mm_read_registers.TRAN.INTERRUPT_FLAG_REGISTER.TX_FIFO_EMPTY;
-					--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
+				--     0- 0 : TX FIFO Empty interrupt flag clear   [-/W]
 
 				--  RX Mode Control Register                     (32 bits):
 				when (TRAN_RX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>

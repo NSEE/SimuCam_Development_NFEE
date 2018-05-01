@@ -2,7 +2,7 @@
  /**
   *  @file   util.h
   * @Author Rafael Corsi (corsiferrao@gmail.com)
-  * @date   Março, 2015
+  * @date   Mar??o, 2015
   * @brief  Utilidades
   *
   */

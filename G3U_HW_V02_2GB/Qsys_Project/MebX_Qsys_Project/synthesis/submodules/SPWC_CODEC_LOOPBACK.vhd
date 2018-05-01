@@ -14,6 +14,7 @@ entity spwc_codec_loopback_ent is
 		clk_200                       : in  std_logic;
 		rst                           : in  std_logic;
 		spwc_mm_write_registers       : in  spwc_mm_write_registers_type;
+		spwc_mm_read_registers        : out spwc_mm_read_registers_type;
 		spwc_codec_reset              : in  std_logic;
 		spwc_codec_link_command_in    : in  spwc_codec_link_command_in_type;
 		spwc_codec_link_status_out    : out spwc_codec_link_status_out_type;
@@ -55,6 +56,9 @@ architecture spwc_codec_loopback_arc of spwc_codec_loopback_ent is
 
 	signal external_loopback_sig : std_logic;
 	signal delay_sig             : std_logic;
+
+	signal rx_control_trigger : std_logic;
+	signal tx_control_trigger : std_logic;
 
 begin
 
@@ -112,6 +116,14 @@ begin
 			spwc_codec_data_tx_out_loopback_sig.txrdy   <= '0';
 			spwc_codec_data_tx_out_loopback_sig.txhalff <= '0';
 
+			spwc_mm_read_registers.RX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= '0';
+			spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG          <= '0';
+			spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA          <= (others => '0');
+			spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= '0';
+			
+			rx_control_trigger <= '0';
+			tx_control_trigger <= '0';
+
 		elsif (rising_edge(clk_200)) then
 			spwc_codec_link_command_in_sig.txdivcnt <= txdiv_ff2_sig;
 			external_loopback_sig                   <= loopback_ff2_sig;
@@ -143,6 +155,28 @@ begin
 						end if;
 					end if;
 				end if;
+			elsif (spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT = '1') then
+				-- backdoor mode, connect the codec data in/out with the avalon mm registers
+
+				spwc_mm_read_registers.RX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= spwc_codec_data_rx_out_sig.rxvalid;
+				spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG          <= spwc_codec_data_rx_out_sig.rxflag;
+				spwc_mm_read_registers.RX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA          <= spwc_codec_data_rx_out_sig.rxdata;
+				spwc_codec_data_rx_in_loopback_sig.rxread                                <= rx_control_trigger;
+				if ((spwc_mm_write_registers.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE = '1') and (rx_control_trigger = '0')) then
+					rx_control_trigger <= '1';
+				else
+					rx_control_trigger <= '0';
+				end if;
+
+				spwc_mm_read_registers.TX_BACKDOOR_STATUS_REGISTER.CODEC_DATAVALID_READY <= spwc_codec_data_tx_out_sig.txrdy;
+				spwc_codec_data_tx_in_loopback_sig.txflag                                <= spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG;
+				spwc_codec_data_tx_in_loopback_sig.txdata                                <= spwc_mm_write_registers.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA;
+				spwc_codec_data_tx_in_loopback_sig.txwrite                               <= tx_control_trigger;
+				if ((spwc_mm_write_registers.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE = '1') and (tx_control_trigger = '0')) then
+					tx_control_trigger <= '1';
+				else
+					tx_control_trigger <= '0';
+				end if;
 			end if;
 
 		end if;
@@ -152,10 +186,10 @@ begin
 	spwc_codec_link_command_in_sig.linkdis   <= spwc_codec_link_command_in.linkdis;
 	spwc_codec_link_command_in_sig.linkstart <= spwc_codec_link_command_in.linkstart;
 
-	spwc_codec_data_rx_in_sig <= (spwc_codec_data_rx_in) when (external_loopback_sig = '0') else (spwc_codec_data_rx_in_loopback_sig);
-	spwc_codec_data_rx_out    <= (spwc_codec_data_rx_out_sig) when (external_loopback_sig = '0') else (spwc_codec_data_rx_out_loopback_sig);
-	spwc_codec_data_tx_in_sig <= (spwc_codec_data_tx_in) when (external_loopback_sig = '0') else (spwc_codec_data_tx_in_loopback_sig);
-	spwc_codec_data_tx_out    <= (spwc_codec_data_tx_out_sig) when (external_loopback_sig = '0') else (spwc_codec_data_tx_out_loopback_sig);
+	spwc_codec_data_rx_in_sig <= (spwc_codec_data_rx_in) when ((external_loopback_sig = '0') and (spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT = '0')) else (spwc_codec_data_rx_in_loopback_sig);
+	spwc_codec_data_rx_out    <= (spwc_codec_data_rx_out_sig) when ((external_loopback_sig = '0') and (spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT = '0')) else (spwc_codec_data_rx_out_loopback_sig);
+	spwc_codec_data_tx_in_sig <= (spwc_codec_data_tx_in) when ((external_loopback_sig = '0') and (spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT = '0')) else (spwc_codec_data_tx_in_loopback_sig);
+	spwc_codec_data_tx_out    <= (spwc_codec_data_tx_out_sig) when ((external_loopback_sig = '0') and (spwc_mm_write_registers.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT = '0')) else (spwc_codec_data_tx_out_loopback_sig);
 
 end architecture spwc_codec_loopback_arc;
 

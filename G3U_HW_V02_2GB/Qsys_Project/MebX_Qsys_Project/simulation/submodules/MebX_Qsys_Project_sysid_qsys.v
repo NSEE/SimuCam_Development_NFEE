@@ -49,7 +49,7 @@ module MebX_Qsys_Project_sysid_qsys (
 
   wire    [ 31: 0] readdata;
   //control_slave, which is an e_avalon_slave
-  assign readdata = address ? 1524946668 : 0;
+  assign readdata = address ? 1525115239 : 0;
 
 endmodule
 

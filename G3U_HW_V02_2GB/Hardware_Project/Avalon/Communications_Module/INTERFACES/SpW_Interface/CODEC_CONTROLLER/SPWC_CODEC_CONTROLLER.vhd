@@ -165,6 +165,7 @@ begin
 			rst                           => rst,
 			spwc_codec_reset              => spwc_codec_reset_in_sig,
 			spwc_mm_write_registers       => spwc_mm_write_registers,
+			spwc_mm_read_registers        => spwc_mm_read_registers,
 			spwc_codec_link_command_in    => spwc_codec_link_command_in_sig,
 			spwc_codec_link_status_out    => spwc_codec_link_status_out_sig,
 			spwc_codec_ds_encoding_rx_in  => spwc_codec_ds_encoding_rx_in_sig,

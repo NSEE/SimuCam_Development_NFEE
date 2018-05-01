@@ -289,42 +289,42 @@ bool DMA_MULTIPLE_TRANSFER(alt_msgdma_dev *DmaDevice, alt_u32 SourceAddressArray
   return bSuccess;
 }
 
-bool DMA_EXTENDED_SINGLE_TRANSFER(alt_msgdma_dev *DmaDevice, alt_u32 SourceAddressHigh, alt_u32 SourceAddressLow, alt_u32 DestinationAddressHigh, alt_u32 DestinationAddressLow, alt_u32 TransferSizeBytes, alt_u32 ControlBits, bool bWait, alt_32 WaitPeriodUs){
-  bool bSuccess = TRUE;
-  alt_msgdma_extended_descriptor DmaExtendedDescriptor;
-
-
-  if (alt_msgdma_construct_extended_mm_to_mm_descriptor (DmaDevice,
-  		                                                 &DmaExtendedDescriptor,
-  		                                                 (alt_u32 *)SourceAddressLow,
-  		                                                 (alt_u32 *)DestinationAddressLow,
-  		                                                 TransferSizeBytes,
-  		                                                 0,
-  		                                                 0,
-  		                                                 0,
-  		                                                 1,
-  		                                                 0,
-  		                                                 (alt_u32 *)SourceAddressHigh,
-  		                                                 (alt_u32 *)DestinationAddressHigh,
-  		                                                 ControlBits) != 0){
-	bSuccess = FALSE;
-	return bSuccess;
-  } else {
-	if (alt_msgdma_extended_descriptor_async_transfer(DmaDevice, &DmaExtendedDescriptor) != 0) {
-	  bSuccess = FALSE;
-	  return bSuccess;
-	}
-  }
-
-  if ((bSuccess == TRUE) & (bWait == DMA_WAIT)) {
-	while (IORD_ALTERA_MSGDMA_CSR_STATUS (DmaDevice->csr_base) & ALTERA_MSGDMA_CSR_BUSY_MASK) {
-	  if (WaitPeriodUs == DMA_DEFAULT_WAIT_PERIOD){
-		usleep(1000);
-	  } else {
-		usleep(WaitPeriodUs);
-	  }
-	}
-  }
-
-  return bSuccess;
-}
+//bool DMA_EXTENDED_SINGLE_TRANSFER(alt_msgdma_dev *DmaDevice, alt_u32 SourceAddressHigh, alt_u32 SourceAddressLow, alt_u32 DestinationAddressHigh, alt_u32 DestinationAddressLow, alt_u32 TransferSizeBytes, alt_u32 ControlBits, bool bWait, alt_32 WaitPeriodUs){
+//  bool bSuccess = TRUE;
+//  alt_msgdma_extended_descriptor DmaExtendedDescriptor;
+//
+//
+//  if (alt_msgdma_construct_extended_mm_to_mm_descriptor (DmaDevice,
+//  		                                                 &DmaExtendedDescriptor,
+//  		                                                 (alt_u32 *)SourceAddressLow,
+//  		                                                 (alt_u32 *)DestinationAddressLow,
+//  		                                                 TransferSizeBytes,
+//  		                                                 0,
+//  		                                                 0,
+//  		                                                 0,
+//  		                                                 1,
+//  		                                                 0,
+//  		                                                 (alt_u32 *)SourceAddressHigh,
+//  		                                                 (alt_u32 *)DestinationAddressHigh,
+//  		                                                 ControlBits) != 0){
+//	bSuccess = FALSE;
+//	return bSuccess;
+//  } else {
+//	if (alt_msgdma_extended_descriptor_async_transfer(DmaDevice, &DmaExtendedDescriptor) != 0) {
+//	  bSuccess = FALSE;
+//	  return bSuccess;
+//	}
+//  }
+//
+//  if ((bSuccess == TRUE) & (bWait == DMA_WAIT)) {
+//	while (IORD_ALTERA_MSGDMA_CSR_STATUS (DmaDevice->csr_base) & ALTERA_MSGDMA_CSR_BUSY_MASK) {
+//	  if (WaitPeriodUs == DMA_DEFAULT_WAIT_PERIOD){
+//		usleep(1000);
+//	  } else {
+//		usleep(WaitPeriodUs);
+//	  }
+//	}
+//  }
+//
+//  return bSuccess;
+//}

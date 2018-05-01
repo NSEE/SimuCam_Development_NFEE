@@ -33,6 +33,20 @@
 	#define TRAN_G_SPWDATA_BASE 0x0000000220000000
 	#define TRAN_H_SPWDATA_BASE 0x0000000200000000
 
+	#define	TRAN_A_CHANNEL_WINDOWED_OFFSET 0x00000001e0000000
+	#define	TRAN_B_CHANNEL_WINDOWED_OFFSET 0x00000001c0000000
+	#define	TRAN_C_CHANNEL_WINDOWED_OFFSET 0x00000001a0000000
+	#define	TRAN_D_CHANNEL_WINDOWED_OFFSET 0x0000000180000000
+	#define	TRAN_E_CHANNEL_WINDOWED_OFFSET 0x0000000160000000
+	#define	TRAN_F_CHANNEL_WINDOWED_OFFSET 0x0000000140000000
+	#define	TRAN_G_CHANNEL_WINDOWED_OFFSET 0x0000000120000000
+	#define	TRAN_H_CHANNEL_WINDOWED_OFFSET 0x0000000100000000
+
+	#define	TRAN_BURST_REGISTERS_OFFSET 32
+
+	#define	TRAN_RX_REGISTER_OFFSET 0
+	#define	TRAN_TX_REGISTER_OFFSET 1
+
 	#define TRAN_M1_MEMDATA_BASE 0x0000000000000000
 	#define TRAN_M2_MEMDATA_BASE 0x0000000080000000
 	
@@ -61,6 +75,7 @@
 	bool b_Transparent_Interface_TX_FIFO_Status_Empty(char c_SpwID);
 	bool b_Transparent_Interface_TX_FIFO_Status_Full(char c_SpwID);
 	alt_u8 uc_Transparent_Interface_TX_FIFO_Status_Used(char c_SpwID);
+	bool b_Transparent_Interface_Switch_Channel(char c_SpwID);
 	bool b_Transparent_Interface_Send_SpaceWire_Data(char c_SpwID, alt_u8 *data_buffer, alt_u16 data_size);
 	alt_u16 ui_Transparent_Interface_Get_SpaceWire_Data(char c_SpwID, alt_u8 *data_buffer);
 	

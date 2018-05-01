@@ -9,7 +9,7 @@ package comm_mm_registers_pkg is
 
 	constant SPWC_MM_REGISTERS_ADDRESS_OFFSET : natural := 0;
 	constant TRAN_MM_REGISTERS_ADDRESS_OFFSET : natural := 32;
-	
+
 	type comm_mm_write_registers_type is record
 		SPWC : spwc_mm_write_registers_type;
 		TRAN : tran_mm_write_registers_type;

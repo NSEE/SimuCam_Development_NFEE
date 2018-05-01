@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Mon Apr 30 08:33:16 BRT 2018
+ * Generated: Mon Apr 30 17:26:55 BRT 2018
  */
 
 /*
@@ -50,17 +50,17 @@
 
 MEMORY
 {
-    onchip_memory_BEFORE_EXCEPTION : ORIGIN = 0x81100000, LENGTH = 32
-    onchip_memory : ORIGIN = 0x81100020, LENGTH = 1023968
-    descriptor_memory : ORIGIN = 0x81200800, LENGTH = 2048
+    onchip_memory_BEFORE_EXCEPTION : ORIGIN = 0x82100000, LENGTH = 32
+    onchip_memory : ORIGIN = 0x82100020, LENGTH = 1023968
+    descriptor_memory : ORIGIN = 0x82200800, LENGTH = 2048
     ext_flash_BEFORE_RESET : ORIGIN = 0x84000000, LENGTH = 33685504
     reset : ORIGIN = 0x86020000, LENGTH = 32
     ext_flash : ORIGIN = 0x86020020, LENGTH = 33423328
 }
 
 /* Define symbols for each memory base-address */
-__alt_mem_onchip_memory = 0x81100000;
-__alt_mem_descriptor_memory = 0x81200800;
+__alt_mem_onchip_memory = 0x82100000;
+__alt_mem_descriptor_memory = 0x82200800;
 __alt_mem_ext_flash = 0x84000000;
 
 OUTPUT_FORMAT( "elf32-littlenios2",
@@ -360,7 +360,7 @@ SECTIONS
 /*
  * Don't override this, override the __alt_stack_* symbols instead.
  */
-__alt_data_end = 0x811fa000;
+__alt_data_end = 0x821fa000;
 
 /*
  * The next two symbols define the location of the default stack.  You can
@@ -376,4 +376,4 @@ PROVIDE( __alt_stack_limit   = __alt_stack_base );
  * Override this symbol to put the heap in a different memory.
  */
 PROVIDE( __alt_heap_start    = end );
-PROVIDE( __alt_heap_limit    = 0x811fa000 );
+PROVIDE( __alt_heap_limit    = 0x821fa000 );

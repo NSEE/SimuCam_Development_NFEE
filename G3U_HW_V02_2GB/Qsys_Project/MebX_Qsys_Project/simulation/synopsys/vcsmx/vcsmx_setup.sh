@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 196 win32 2018.04.28.17:21:04
+# ACDS 16.1 196 win32 2018.04.30.16:10:34
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -101,7 +101,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 196 win32 2018.04.28.17:21:04
+# ACDS 16.1 196 win32 2018.04.30.16:10:34
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="MebX_Qsys_Project"
@@ -151,12 +151,13 @@ mkdir -p ./libraries/cmd_mux/
 mkdir -p ./libraries/cmd_demux/
 mkdir -p ./libraries/router_001/
 mkdir -p ./libraries/router/
+mkdir -p ./libraries/rsp_demux_001/
 mkdir -p ./libraries/crosser/
 mkdir -p ./libraries/rsp_mux_002/
 mkdir -p ./libraries/rsp_mux_001/
 mkdir -p ./libraries/rsp_demux_010/
+mkdir -p ./libraries/rsp_demux_003/
 mkdir -p ./libraries/rsp_demux_002/
-mkdir -p ./libraries/rsp_demux_001/
 mkdir -p ./libraries/cmd_mux_010/
 mkdir -p ./libraries/cmd_mux_002/
 mkdir -p ./libraries/cmd_mux_001/
@@ -167,25 +168,25 @@ mkdir -p ./libraries/router_005/
 mkdir -p ./libraries/router_004/
 mkdir -p ./libraries/router_003/
 mkdir -p ./libraries/router_002/
-mkdir -p ./libraries/avalon_st_adapter_021/
-mkdir -p ./libraries/avalon_st_adapter_017/
-mkdir -p ./libraries/avalon_st_adapter_010/
+mkdir -p ./libraries/avalon_st_adapter_014/
+mkdir -p ./libraries/avalon_st_adapter_009/
+mkdir -p ./libraries/avalon_st_adapter_002/
 mkdir -p ./libraries/avalon_st_adapter/
 mkdir -p ./libraries/ddr2_address_span_extender_cntl_cmd_width_adapter/
-mkdir -p ./libraries/rsp_demux_020/
-mkdir -p ./libraries/rsp_demux_019/
-mkdir -p ./libraries/rsp_demux_016/
-mkdir -p ./libraries/cmd_mux_020/
-mkdir -p ./libraries/cmd_mux_019/
-mkdir -p ./libraries/cmd_mux_016/
+mkdir -p ./libraries/rsp_demux_013/
+mkdir -p ./libraries/rsp_demux_012/
+mkdir -p ./libraries/rsp_demux_008/
+mkdir -p ./libraries/cmd_mux_013/
+mkdir -p ./libraries/cmd_mux_012/
+mkdir -p ./libraries/cmd_mux_008/
 mkdir -p ./libraries/nios2_gen2_0_debug_mem_slave_burst_adapter/
 mkdir -p ./libraries/nios2_gen2_0_instruction_master_limiter/
-mkdir -p ./libraries/router_029/
-mkdir -p ./libraries/router_028/
-mkdir -p ./libraries/router_027/
-mkdir -p ./libraries/router_025/
-mkdir -p ./libraries/router_024/
-mkdir -p ./libraries/router_018/
+mkdir -p ./libraries/router_022/
+mkdir -p ./libraries/router_021/
+mkdir -p ./libraries/router_020/
+mkdir -p ./libraries/router_017/
+mkdir -p ./libraries/router_016/
+mkdir -p ./libraries/router_010/
 mkdir -p ./libraries/router_008/
 mkdir -p ./libraries/jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo/
 mkdir -p ./libraries/jtag_uart_0_avalon_jtag_slave_agent/
@@ -211,6 +212,7 @@ mkdir -p ./libraries/rst_controller/
 mkdir -p ./libraries/avalon_st_adapter_001/
 mkdir -p ./libraries/irq_synchronizer/
 mkdir -p ./libraries/irq_mapper/
+mkdir -p ./libraries/mm_interconnect_4/
 mkdir -p ./libraries/mm_interconnect_3/
 mkdir -p ./libraries/mm_interconnect_2/
 mkdir -p ./libraries/mm_interconnect_1/
@@ -241,7 +243,7 @@ mkdir -p ./libraries/ddr2_address_span_extender/
 mkdir -p ./libraries/csense_sdo/
 mkdir -p ./libraries/csense_cs_n/
 mkdir -p ./libraries/csense_adc_fo/
-mkdir -p ./libraries/clock_bridge_afi_50/
+mkdir -p ./libraries/clock_bridge_afi_200/
 mkdir -p ./libraries/SEVEN_SEGMENT_CONTROLLER_0/
 mkdir -p ./libraries/Pattern_Generator_A/
 mkdir -p ./libraries/Communication_Module_A/
@@ -324,9 +326,9 @@ fi
 # ----------------------------------------
 # compile design files in correct order
 if [ $SKIP_COM -eq 0 ]; then
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_021_error_adapter_0.sv"               -work error_adapter_0                                  
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_017_error_adapter_0.sv"               -work error_adapter_0                                  
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_010_error_adapter_0.sv"               -work error_adapter_0                                  
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_014_error_adapter_0.sv"               -work error_adapter_0                                  
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009_error_adapter_0.sv"               -work error_adapter_0                                  
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_002_error_adapter_0.sv"               -work error_adapter_0                                  
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_error_adapter_0.sv"                   -work error_adapter_0                                  
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/alt_mem_ddrx_mm_st_converter.v"                                                             -work a0                                               
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS           \"+incdir+$QSYS_SIMDIR/submodules/\" "$QSYS_SIMDIR/submodules/alt_mem_ddrx_addr_cmd.v"                                                                    -work ng0                                              
@@ -368,8 +370,17 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter_001_timing_adapter_0_fifo.sv"                           -work timing_adapter_0                                 
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter_001_error_adapter_0.sv"                                 -work error_adapter_0                                  
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter_error_adapter_0.sv"                                     -work error_adapter_0                                  
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_rsp_mux.sv"                                             -work rsp_mux                                          
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                          
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_rsp_demux.sv"                                           -work rsp_demux                                        
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_cmd_mux.sv"                                             -work cmd_mux                                          
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                          
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_cmd_demux.sv"                                           -work cmd_demux                                        
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_router_001.sv"                                          -work router_001                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4_router.sv"                                              -work router                                           
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_rsp_mux.sv"                                             -work rsp_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                          
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_rsp_demux_001.sv"                                       -work rsp_demux_001                                    
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_rsp_demux.sv"                                           -work rsp_demux                                        
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3_cmd_mux.sv"                                             -work cmd_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                          
@@ -395,6 +406,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_mux.sv"                                             -work rsp_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux_010.sv"                                       -work rsp_demux_010                                    
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux_003.sv"                                       -work rsp_demux_003                                    
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux_002.sv"                                       -work rsp_demux_002                                    
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux_001.sv"                                       -work rsp_demux_001                                    
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_rsp_demux.sv"                                           -work rsp_demux                                        
@@ -416,9 +428,9 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_router_002.sv"                                          -work router_002                                       
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_router_001.sv"                                          -work router_001                                       
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1_router.sv"                                              -work router                                           
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_021.vhd"                              -work avalon_st_adapter_021                            
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_017.vhd"                              -work avalon_st_adapter_017                            
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_010.vhd"                              -work avalon_st_adapter_010                            
+  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_014.vhd"                              -work avalon_st_adapter_014                            
+  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_009.vhd"                              -work avalon_st_adapter_009                            
+  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_002.vhd"                              -work avalon_st_adapter_002                            
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter.vhd"                                  -work avalon_st_adapter                                
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_width_adapter.sv"                                                             -work ddr2_address_span_extender_cntl_cmd_width_adapter
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_address_alignment.sv"                                                         -work ddr2_address_span_extender_cntl_cmd_width_adapter
@@ -429,15 +441,15 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux_001                                      
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_mux.sv"                                             -work rsp_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work rsp_mux                                          
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_020.sv"                                       -work rsp_demux_020                                    
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_019.sv"                                       -work rsp_demux_019                                    
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_016.sv"                                       -work rsp_demux_016                                    
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_020.sv"                                         -work cmd_mux_020                                      
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_020                                      
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_019.sv"                                         -work cmd_mux_019                                      
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_019                                      
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016.sv"                                         -work cmd_mux_016                                      
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_016                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_013.sv"                                       -work rsp_demux_013                                    
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_012.sv"                                       -work rsp_demux_012                                    
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_rsp_demux_008.sv"                                       -work rsp_demux_008                                    
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_013.sv"                                         -work cmd_mux_013                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_013                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_012.sv"                                         -work cmd_mux_012                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_012                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux_008.sv"                                         -work cmd_mux_008                                      
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux_008                                      
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_mux.sv"                                             -work cmd_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_arbitrator.sv"                                                                -work cmd_mux                                          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_cmd_demux_002.sv"                                       -work cmd_demux_002                                    
@@ -457,12 +469,12 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_merlin_reorder_memory.sv"                                                            -work nios2_gen2_0_instruction_master_limiter          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_avalon_sc_fifo.v"                                                                    -work nios2_gen2_0_instruction_master_limiter          
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_avalon_st_pipeline_base.v"                                                           -work nios2_gen2_0_instruction_master_limiter          
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_029.sv"                                          -work router_029                                       
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_028.sv"                                          -work router_028                                       
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_027.sv"                                          -work router_027                                       
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_025.sv"                                          -work router_025                                       
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_024.sv"                                          -work router_024                                       
-  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_018.sv"                                          -work router_018                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_022.sv"                                          -work router_022                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_021.sv"                                          -work router_021                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_020.sv"                                          -work router_020                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_017.sv"                                          -work router_017                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_016.sv"                                          -work router_016                                       
+  vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_010.sv"                                          -work router_010                                       
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_008.sv"                                          -work router_008                                       
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_004.sv"                                          -work router_004                                       
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_0_router_002.sv"                                          -work router_002                                       
@@ -676,6 +688,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_avalon_st_adapter.vhd"                                                    -work avalon_st_adapter                                
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/altera_irq_clock_crosser.sv"                                                                -work irq_synchronizer                                 
   vlogan +v2k -sverilog $USER_DEFINED_COMPILE_OPTIONS                                      "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_irq_mapper.sv"                                                            -work irq_mapper                                       
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_4.v"                                                      -work mm_interconnect_4                                
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_3.v"                                                      -work mm_interconnect_3                                
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_2.v"                                                      -work mm_interconnect_2                                
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_mm_interconnect_1.v"                                                      -work mm_interconnect_1                                
@@ -706,10 +719,10 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_csense_sdo.v"                                                             -work csense_sdo                                       
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_csense_cs_n.v"                                                            -work csense_cs_n                                      
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_csense_adc_fo.v"                                                          -work csense_adc_fo                                    
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_avalon_mm_clock_crossing_bridge.v"                                                   -work clock_bridge_afi_50                              
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_avalon_dc_fifo.v"                                                                    -work clock_bridge_afi_50                              
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_dcfifo_synchronizer_bundle.v"                                                        -work clock_bridge_afi_50                              
-  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_std_synchronizer_nocut.v"                                                            -work clock_bridge_afi_50                              
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_avalon_mm_clock_crossing_bridge.v"                                                   -work clock_bridge_afi_200                             
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_avalon_dc_fifo.v"                                                                    -work clock_bridge_afi_200                             
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_dcfifo_synchronizer_bundle.v"                                                        -work clock_bridge_afi_200                             
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/altera_std_synchronizer_nocut.v"                                                            -work clock_bridge_afi_200                             
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/SEVEN_SEG_REGISTER.vhd"                                                                     -work SEVEN_SEGMENT_CONTROLLER_0                       
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/DOUBLE_DABBLE_8BIT.vhd"                                                                     -work SEVEN_SEGMENT_CONTROLLER_0                       
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/SEVEN_SEG_DPS.vhd"                                                                          -work SEVEN_SEGMENT_CONTROLLER_0                       
@@ -790,7 +803,8 @@ if [ $SKIP_COM -eq 0 ]; then
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/MebX_Qsys_Project.vhd"                                                                                                                                        
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_rst_controller.vhd"                                                                                                                         
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_rst_controller_001.vhd"                                                                                                                     
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_rst_controller_002.vhd"                                                                                                                     
+  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_rst_controller_003.vhd"                                                                                                                     
+  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_clock_bridge_afi_200.vhd"                                                                                                                   
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_clock_bridge_afi_50.vhd"                                                                                                                    
   vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/mebx_qsys_project_m1_clock_bridge.vhd"                                                                                                                        
 fi

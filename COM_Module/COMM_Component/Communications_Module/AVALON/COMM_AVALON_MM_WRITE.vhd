@@ -30,6 +30,7 @@ begin
 			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.CODEC_TX_ENABLE_BIT        <= '0';
 			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.LOOPBACK_MODE_BIT          <= '0';
 			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT <= '0';
+			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT          <= '0';
 			mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.FORCE_RESET_BIT            <= '0';
 			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.LINK_ERROR                  <= '0';
 			mm_write_registers.SPWC.INTERRUPT_ENABLE_REGISTER.TIMECODE_RECEIVED           <= '0';
@@ -45,6 +46,10 @@ begin
 			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.TIMECODE_CONTROL_BITS            <= (others => '0');
 			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.TIMECODE_COUNTER_VALUE           <= (others => '0');
 			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT               <= '0';
+			mm_write_registers.SPWC.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE         <= '0';
+			mm_write_registers.SPWC.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE         <= '0';
+			mm_write_registers.SPWC.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG              <= '0';
+			mm_write_registers.SPWC.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA              <= (others => '0');
 
 			-- TRAN Module Reset procedure
 			mm_write_registers.TRAN.INTERFACE_CONTROL_REGISTER.INTERFACE_ENABLE_BIT    <= '0';
@@ -72,6 +77,8 @@ begin
 			mm_write_registers.SPWC.INTERRUPT_FLAG_CLEAR_REGISTER.LINK_RUNNING      <= '0';
 			mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT         <= '0';
 			mm_write_registers.SPWC.RX_TIMECODE_CLEAR_REGISTER.CONTROL_STATUS_BIT   <= '0';
+			mm_write_registers.SPWC.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE   <= '0';
+			mm_write_registers.SPWC.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE   <= '0';
 
 			-- TRAN Module Control Triggers procedure
 			mm_write_registers.TRAN.INTERRUPT_FLAG_CLEAR_REGISTER.INTERFACE_ERROR <= '0';
@@ -93,7 +100,9 @@ begin
 
 				--  Interface Control and Status Register          (32 bits):
 				when (SPWC_INTERFACE_CONTROL_STATUS_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--    31-12 : Reserved                               [-/-]
+					--    31-13 : Reserved                               [-/-]
+					--    12-12 : Backdoor Mode control bit              [R/W]
+					mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.BACKDOOR_MODE_BIT          <= avalon_mm_inputs.writedata(12);
 					--    11-11 : External Loopback Mode control bit     [R/W]
 					mm_write_registers.SPWC.INTERFACE_CONTROL_REGISTER.EXTERNAL_LOOPBACK_MODE_BIT <= avalon_mm_inputs.writedata(11);
 					--    10-10 : Codec Enable control bit               [R/W]
@@ -157,6 +166,23 @@ begin
 					--     0- 0 : TX TimeCode control bit                [R/W]
 					mm_write_registers.SPWC.TX_TIMECODE_REGISTER.CONTROL_STATUS_BIT       <= avalon_mm_inputs.writedata(0);
 
+				--  Backdoor Mode Control Register                 (32 bits):
+				when (SPWC_BACKDOOR_MODE_CONTROL_MM_REG_ADDRESS + SPWC_MM_REGISTERS_ADDRESS_OFFSET) =>
+					--    31-27 : Reserved                               [-/-]
+					--    26-26 : RX Codec RX DataValid status bit       [R/-]
+					--    25-25 : RX Codec RX Read control bit           [R/W]
+					mm_write_registers.SPWC.RX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= avalon_mm_inputs.writedata(25);
+					--    24-24 : RX Codec SpaceWire Flag value          [R/-]
+					--    23-16 : RX Codec SpaceWire Data value          [R/-]
+					--    15-11 : Reserved                               [-/-]
+					--    10-10 : TX Codec TX Ready status bit           [R/-]
+					--     9- 9 : TX Codec TX Write control bit          [R/W]
+					mm_write_registers.SPWC.TX_BACKDOOR_CONTROL_REGISTER.CODEC_READ_WRITE <= avalon_mm_inputs.writedata(9);
+					--     8- 8 : TX Codec SpaceWire Flag value          [R/W]
+					mm_write_registers.SPWC.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_FLAG      <= avalon_mm_inputs.writedata(8);
+					--     7- 0 : TX Codec SpaceWire Data value          [R/W]
+					mm_write_registers.SPWC.TX_BACKDOOR_DATA_REGISTER.CODEC_SPW_DATA      <= avalon_mm_inputs.writedata(7 downto 0);
+
 				-- TRAN Module WriteData procedure
 
 				--  Interface Control and Status Register        (32 bits):
@@ -195,8 +221,8 @@ begin
 					--    10- 3 : RX FIFO Used Space value             [R/-]
 					--     2- 2 : RX FIFO Reset control bit            [R/W]
 					mm_write_registers.TRAN.RX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT <= avalon_mm_inputs.writedata(2);
-					--     1- 1 : RX FIFO Empty status bit             [R/-]
-					--     0- 0 : RX FIFO Full status bit              [R/-]
+				--     1- 1 : RX FIFO Empty status bit             [R/-]
+				--     0- 0 : RX FIFO Full status bit              [R/-]
 
 				--  TX Mode Control Register                     (32 bits):
 				when (TRAN_TX_MODE_CONTROL_MM_REG_ADDRESS + TRAN_MM_REGISTERS_ADDRESS_OFFSET) =>
@@ -204,8 +230,8 @@ begin
 					--    10- 3 : TX FIFO Used Space value             [R/-]
 					--     2- 2 : TX FIFO Reset control bit            [R/W]
 					mm_write_registers.TRAN.TX_FIFO_CONTROL_REGISTER.FIFO_RESET_BIT <= avalon_mm_inputs.writedata(2);
-					--     1- 1 : TX FIFO Empty status bit             [R/-]
-					--     0- 0 : TX FIFO Full status bit              [R/-]
+				--     1- 1 : TX FIFO Empty status bit             [R/-]
+				--     0- 0 : TX FIFO Full status bit              [R/-]
 
 				when others =>
 					null;

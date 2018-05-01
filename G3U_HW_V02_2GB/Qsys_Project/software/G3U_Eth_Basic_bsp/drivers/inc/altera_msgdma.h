@@ -277,17 +277,15 @@ int alt_msgdma_construct_extended_mm_to_st_descriptor (
 int alt_msgdma_construct_extended_mm_to_mm_descriptor (
 	alt_msgdma_dev *dev,
 	alt_msgdma_extended_descriptor *descriptor, 
-	alt_u32 *read_address_low,
-	alt_u32 *write_address_low,
-	alt_u32 transfer_length,
+	alt_u32 *read_address, 
+	alt_u32 *write_address, 
+	alt_u32 length, 
+	alt_u32 control,
 	alt_u16 sequence_number,
 	alt_u8 read_burst_count,
 	alt_u8 write_burst_count, 
 	alt_u16 read_stride, 
-	alt_u16 write_stride,
-	alt_u32 *read_address_high,
-	alt_u32 *write_address_high,
-	alt_u32 control);
+	alt_u16 write_stride);
 
 int alt_msgdma_standard_descriptor_sync_transfer(
 	alt_msgdma_dev *dev,
