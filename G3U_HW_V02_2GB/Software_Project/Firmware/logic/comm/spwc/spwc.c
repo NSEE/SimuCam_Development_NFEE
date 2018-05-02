@@ -524,7 +524,7 @@
 		return uc_txdiv_value;
 	}
 
-	bool uc_SpaceWire_Interface_Set_TX_Div(char c_SpwID, alt_u8 uc_TxDiv){
+	bool b_SpaceWire_Interface_Set_TX_Div(char c_SpwID, alt_u8 uc_TxDiv){
 
 		bool bSuccess = FALSE;
 

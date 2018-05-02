@@ -35,8 +35,8 @@ void CommandManagementTask() {
 
 	//INT8U timecode;
 
-	static INT16U data[SSS_TX_BUF_SIZE];
-	INT16U* data_pos = data;
+	static INT8U data[SSS_TX_BUF_SIZE];
+	INT8U* data_pos = data;
 
 	static int size;
 
@@ -81,7 +81,7 @@ void CommandManagementTask() {
 
 				div = aatoh(&cmd_pos[2]);
 				printf("Divider conversion: %u\n\r", div);
-				error_code = uc_SpaceWire_Interface_Set_TX_Div(
+				error_code = b_SpaceWire_Interface_Set_TX_Div(
 						(char) cmd_pos[1], aatoh(&cmd_pos[2]));
 				exec_error = Verif_Error(error_code);
 
@@ -150,7 +150,7 @@ void CommandManagementTask() {
 			if (cmd_pos[1] >= 'A' && cmd_pos[1] <= 'H') {
 
 				size = ui_SpaceWire_Interface_Get_SpaceWire_Data(
-						cmd_pos[1], data_pos[1], 256);
+						cmd_pos[1], data_pos, 512);
 
 				printf("size: %i\n", size);
 				exec_error = Verif_Error(size);

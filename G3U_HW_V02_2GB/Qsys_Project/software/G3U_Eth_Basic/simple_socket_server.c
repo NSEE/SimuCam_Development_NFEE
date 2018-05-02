@@ -38,6 +38,8 @@
 #include "ipport.h"
 #include "tcpport.h"
 
+#include "driver/leds/leds.h"
+
 /*
  * Global handles (pointers) to our MicroC/OS-II resources. All of resources 
  * beginning with "SSS" are declared and created in this file.
@@ -530,6 +532,8 @@ void SSSSimpleSocketServerTask() {
 	 */
 	sss_reset_connection(&conn);
 	printf("[sss_task] Simple Socket Server listening on port %d\n", SSS_PORT);
+
+	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
 
 	while (1) {
 		/*

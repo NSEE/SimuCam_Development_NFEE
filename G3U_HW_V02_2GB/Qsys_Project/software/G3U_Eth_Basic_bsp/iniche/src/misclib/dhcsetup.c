@@ -25,7 +25,6 @@
 #include "net.h"        /* For nets[] */
 #include "in_utils.h"   /* For netexit() */
 
-
 int dhc_main_ipset(int iface, int state);
 
 
