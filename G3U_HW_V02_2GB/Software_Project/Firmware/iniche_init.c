@@ -35,14 +35,8 @@
 #include "libport.h"
 #include "osport.h"
 
-<<<<<<< HEAD
-/* Necessary for the ETH to work (eth_reset) [rfranca]*/
-#include "io.h"
-=======
-/* Includes for SimuCam */
 #include "rtos/default_configs.h"
 #include "rtos/rtos_tasks.h"
->>>>>>> HW_CTI_SPW_Ethernet_Dev
 
 /* Definition of task stack for the initial task which will initialize the NicheStack
  * TCP/IP Stack and then initialize the rest of the Simple Socket Server example tasks. 
@@ -99,8 +93,10 @@ void SSSInitialTask(void *task_data)
   /* Create the main simple socket server task. */
   TK_NEWTASK(&ssstask);
   
-  /*create os data structures */
-  SSSCreateOSDataStructs(); 
+  /*create os data structures [yb] */
+  SSSCreateOSDataStructs();
+  SimucamCreateOSQ();
+  DataCreateOSQ();
 
   /* create the other tasks */
   SSSCreateTasks();
@@ -117,21 +113,19 @@ void SSSInitialTask(void *task_data)
 /* Main creates a single task, SSSInitialTask, and starts task scheduler.
  */
 
+
 int main (int argc, char* argv[], char* envp[])
 {
-  
-<<<<<<< HEAD
-  /* Necessary for the ETH to work (eth_reset) [rfranca]*/
-  IOWR(PIO_RST_ETH_BASE, 0, 0xFFFF);
 
-=======
->>>>>>> HW_CTI_SPW_Ethernet_Dev
   INT8U error_code;
 
   /* Clear the RTOS timer */
   OSTimeSet(0);
 
-  /* SimuCam basic configurations and tasks */
+  /*
+   * Simucam Inicialization
+   */
+
   Init_Simucam_Config();
   Init_Simucam_Tasks();
 
@@ -149,6 +143,8 @@ int main (int argc, char* argv[], char* envp[])
                              NULL,
                              0);
   alt_uCOSIIErrorHandler(error_code, 0);
+
+
 
   /*
    * As with all MicroC/OS-II designs, once the initial thread(s) and 

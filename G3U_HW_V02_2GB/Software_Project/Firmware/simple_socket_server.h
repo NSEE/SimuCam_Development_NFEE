@@ -83,6 +83,12 @@ void LEDManagementTask();
 void LED7SegLightshowTask();
 void SSSSimpleSocketServerTask();
 
+/*
+ * Command task prototype
+ */
+
+void CommandManagementTask();
+
 void SSSCreateOSDataStructs();
 void SSSCreateTasks();
 
@@ -205,6 +211,8 @@ extern OS_FLAG_GRP *SSSLEDEventFlag;
  * lightshow command over the TCPIP socket.
  */
 extern OS_EVENT *SSSLEDLightshowSem;
+
+extern INT8U *data_addr;
 
 #endif /* __SIMPLE_SOCKET_SERVER_H__ */
 
