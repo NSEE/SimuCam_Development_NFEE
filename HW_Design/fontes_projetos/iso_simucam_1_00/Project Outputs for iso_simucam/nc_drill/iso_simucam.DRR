@@ -1,0 +1,21 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: iso_simucam.PcbDoc   09/03/2018  17:11:52
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top Layer to Bottom Layer
+ASCII RoundHoles File : iso_simucam.TXT
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T2      10mil (0.25mm)                                            Round             16        PTH        10.70inch (271.82mm)
+T3      15mil (0.381mm)                                           Round             508       PTH        63.58inch (1614.84mm)
+T4      28mil (0.7mm)                                             Round             152       PTH        16.93inch (430.04mm)
+T5      33mil (0.85mm)                                            Round             2         PTH        0.38inch (9.53mm)
+T6      35mil (0.9mm)                                             Round             28        PTH        8.51inch (216.05mm)
+T7      36mil (0.914mm)                                           Round             2         PTH        0.20inch (4.98mm)
+T8      43mil (1.1mm)                                             Round             20        PTH        3.70inch (94.04mm)
+T1      125mil (3.175mm)                                          Round             2         NPTH       2.80inch (71.12mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              730
+
+Total Processing Time (hh:mm:ss) : 00:00:00

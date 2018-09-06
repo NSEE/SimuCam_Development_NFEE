@@ -1,0 +1,45 @@
+Designator Footprint               Mid X         Mid Y         Ref X         Ref Y         Pad X         Pad Y TB      Rotation Comment        
+
+CN8        MHDR1X9_Axonn         2440mil        450mil       2440mil        250mil       2440mil        250mil  B         90.00 MHDR1X9        
+CN7        MHDR1X9_Axonn         2440mil        970mil       2440mil        770mil       2440mil        770mil  B         90.00 MHDR1X9        
+CN6        MHDR1X9_Axonn         2440mil       1490mil       2440mil       1290mil       2440mil       1290mil  B         90.00 MHDR1X9        
+CN5        MHDR1X9_Axonn         2440mil       2010mil       2440mil       1810mil       2440mil       1810mil  B         90.00 MHDR1X9        
+CN4        MHDR1X11_Axonn         170mil        320mil        170mil        570mil        170mil        570mil  B        270.00 MHDR1X11       
+CN3        MHDR1X11_Axonn         170mil        940mil        170mil       1190mil        170mil       1190mil  B        270.00 MHDR1X11       
+CN2        MHDR1X11_Axonn         170mil       1560mil        170mil       1810mil        170mil       1810mil  B        270.00 MHDR1X11       
+CN1        MHDR1X11_Axonn         170mil       2180mil        170mil       2430mil        170mil       2430mil  B        270.00 MHDR1X11       
+FD3        FIDUCIAL              1080mil        320mil       1080mil        320mil       1080mil        320mil  T          0.00 ##nl           
+FD2        FIDUCIAL              2020mil       2355mil       2020mil       2355mil       2020mil       2355mil  T          0.00 ##nl           
+FD1        FIDUCIAL               505mil       2365mil        505mil       2365mil        505mil       2365mil  T          0.00 ##nl           
+AT3        LEIA_DOCUMENTACAO      -1000mil      -1000mil       1740mil       2980mil      -1000mil      -1000mil  B        360.00 ##nl           
+ESD2       ESTATICA             -1000mil      -1000mil       2300mil       2980mil      -1000mil      -1000mil  B        360.00 ##nl           
+fab1       TEXTO_FABRICACAO      -1000mil      -1000mil       1300mil       6040mil      -1000mil      -1000mil  T          0.00 Comment        
+AT1        LEIA_DOCUMENTACAO      -1000mil      -1000mil       2340mil       2840mil      -1000mil      -1000mil  T          0.00 ##nl           
+C1         0603_-_CAP_-_montagem_na_maquina        680mil       1920mil        680mil       1920mil     647.52mil       1920mil  B        360.00 Capacitor Cerâmico SMD
+C2         0603_-_CAP_-_montagem_na_maquina        680mil        980mil        680mil        980mil     647.52mil        980mil  B        360.00 Capacitor Cerâmico SMD
+C3         0603_-_CAP_-_montagem_na_maquina        680mil       1480mil        680mil       1480mil     647.52mil       1480mil  B        360.00 Capacitor Cerâmico SMD
+C4         0603_-_CAP_-_montagem_na_maquina        680mil        540mil        680mil        540mil     647.52mil        540mil  B        360.00 Capacitor Cerâmico SMD
+C5         CASE-B                1300mil       2060mil       1300mil       2060mil   1394.488mil       2060mil  B        180.00 Capacitor de tântalo
+C6         0603_-_CAP_-_montagem_na_maquina       1920mil       1920mil       1920mil       1920mil    1887.52mil       1920mil  B        360.00 Capacitor Cerâmico SMD
+C7         0603_-_CAP_-_montagem_na_maquina       1920mil        980mil       1920mil        980mil    1887.52mil        980mil  B        360.00 Capacitor Cerâmico SMD
+C8         0603_-_CAP_-_montagem_na_maquina       1920mil       1480mil       1920mil       1480mil    1887.52mil       1480mil  B        360.00 Capacitor Cerâmico SMD
+C9         0603_-_CAP_-_montagem_na_maquina       1920mil        540mil       1920mil        540mil    1887.52mil        540mil  B        360.00 Capacitor Cerâmico SMD
+CN21       ASP-122952-01         1300mil       1600mil       1300mil       1600mil   1421.653mil   2672.835mil  T        270.00 ASP-122952-01  
+ESD        ESTATICA             -1000mil      -1000mil       1820mil       2840mil      -1000mil      -1000mil  T          0.00 ##nl           
+JS1        Jumper_de_solda_3_vias       1760mil        220mil       1760mil        220mil       1760mil    269.212mil  T        270.00 ##Obs          
+R1         0603_-_MONTAGEM_MÁQUINA       1520mil        240mil       1520mil        240mil       1520mil     207.52mil  T         90.00 Res3           
+R2         0603_-_MONTAGEM_MÁQUINA       1680mil        240mil       1680mil        240mil       1680mil     207.52mil  T         90.00 Res3           
+R3         0603_-_MONTAGEM_MÁQUINA       1600mil        240mil       1600mil        240mil       1600mil     207.52mil  T         90.00 Res3           
+U1         VBC48A_N               680mil       1920mil        680mil       1920mil    788.268mil   2079.449mil  T        270.00 DS90LV004TVS/NOPB
+U2         VBC48A_N               680mil        980mil        680mil        980mil    788.268mil   1139.449mil  T        270.00 DS90LV004TVS/NOPB
+U3         VBC48A_N               680mil       1480mil        680mil       1480mil    788.268mil   1639.449mil  T        270.00 DS90LV004TVS/NOPB
+U4         VBC48A_N               680mil        540mil        680mil        540mil    788.268mil    699.449mil  T        270.00 DS90LV004TVS/NOPB
+U5         VBC48A_N              1920mil       1920mil       1920mil       1920mil   2028.268mil   2079.449mil  T        270.00 DS90LV004TVS/NOPB
+U6         VBC48A_N              1920mil        980mil       1920mil        980mil   2028.268mil   1139.449mil  T        270.00 DS90LV004TVS/NOPB
+U7         VBC48A_N              1920mil       1480mil       1920mil       1480mil   2028.268mil   1639.449mil  T        270.00 DS90LV004TVS/NOPB
+U8         VBC48A_N              1920mil        540mil       1920mil        540mil   2028.268mil    699.449mil  T        270.00 DS90LV004TVS/NOPB
+C10        0603_-_CAP_-_montagem_na_maquina       1300mil       1900mil       1300mil       1900mil    1267.52mil       1900mil  B        360.00 Capacitor Cerâmico SMD
+R4         0603_-_MONTAGEM_MÁQUINA       1520mil        380mil       1520mil        380mil       1520mil     347.52mil  T         90.00 Res3           
+TP_GND     Testpoint              240mil       2580mil        240mil       2580mil        240mil       2580mil  B        180.00 Comment        
+TP_3V3     Testpoint             2260mil       2580mil       2260mil       2580mil       2260mil       2580mil  B        180.00 Comment        
+

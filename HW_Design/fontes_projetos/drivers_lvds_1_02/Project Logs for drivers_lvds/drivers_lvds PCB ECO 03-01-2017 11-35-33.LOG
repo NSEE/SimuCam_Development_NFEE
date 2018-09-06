@@ -1,0 +1,80 @@
+Added Component: Designator=CN1(MHDR1X11_Axonn)
+Added Component: Designator=CN2(MHDR1X11_Axonn)
+Added Component: Designator=CN3(MHDR1X11_Axonn)
+Added Component: Designator=CN4(MHDR1X11_Axonn)
+Added Component: Designator=CN5(MHDR1X9_Axonn)
+Added Component: Designator=CN6(MHDR1X9_Axonn)
+Added Component: Designator=CN7(MHDR1X9_Axonn)
+Added Component: Designator=CN8(MHDR1X9_Axonn)
+Added Pin To Net: NetName=RX1_P Pin=CN1-1
+Added Pin To Net: NetName=RX1_N Pin=CN1-2
+Added Pin To Net: NetName=RX2_P Pin=CN1-3
+Added Pin To Net: NetName=RX2_N Pin=CN1-4
+Added Pin To Net: NetName=GND Pin=CN1-6
+Added Pin To Net: NetName=RX3_P Pin=CN1-7
+Added Pin To Net: NetName=RX3_N Pin=CN1-8
+Added Pin To Net: NetName=RX4_P Pin=CN1-9
+Added Pin To Net: NetName=RX4_N Pin=CN1-10
+Added Pin To Net: NetName=GND Pin=CN1-11
+Added Pin To Net: NetName=RX5_P Pin=CN2-1
+Added Pin To Net: NetName=RX5_N Pin=CN2-2
+Added Pin To Net: NetName=RX6_P Pin=CN2-3
+Added Pin To Net: NetName=RX6_N Pin=CN2-4
+Added Pin To Net: NetName=GND Pin=CN2-6
+Added Pin To Net: NetName=RX7_P Pin=CN2-7
+Added Pin To Net: NetName=RX7_N Pin=CN2-8
+Added Pin To Net: NetName=RX8_P Pin=CN2-9
+Added Pin To Net: NetName=RX8_N Pin=CN2-10
+Added Pin To Net: NetName=GND Pin=CN2-11
+Added Pin To Net: NetName=RX9_P Pin=CN3-1
+Added Pin To Net: NetName=RX9_N Pin=CN3-2
+Added Pin To Net: NetName=RX10_P Pin=CN3-3
+Added Pin To Net: NetName=RX10_N Pin=CN3-4
+Added Pin To Net: NetName=GND Pin=CN3-6
+Added Pin To Net: NetName=RX11_P Pin=CN3-7
+Added Pin To Net: NetName=RX11_N Pin=CN3-8
+Added Pin To Net: NetName=RX12_P Pin=CN3-9
+Added Pin To Net: NetName=RX12_N Pin=CN3-10
+Added Pin To Net: NetName=GND Pin=CN3-11
+Added Pin To Net: NetName=RX13_P Pin=CN4-1
+Added Pin To Net: NetName=RX13_N Pin=CN4-2
+Added Pin To Net: NetName=RX14_P Pin=CN4-3
+Added Pin To Net: NetName=RX14_N Pin=CN4-4
+Added Pin To Net: NetName=GND Pin=CN4-6
+Added Pin To Net: NetName=RX15_P Pin=CN4-7
+Added Pin To Net: NetName=RX15_N Pin=CN4-8
+Added Pin To Net: NetName=RX16_P Pin=CN4-9
+Added Pin To Net: NetName=RX16_N Pin=CN4-10
+Added Pin To Net: NetName=GND Pin=CN4-11
+Added Pin To Net: NetName=TX4_N Pin=CN5-1
+Added Pin To Net: NetName=TX4_P Pin=CN5-2
+Added Pin To Net: NetName=TX3_N Pin=CN5-3
+Added Pin To Net: NetName=TX3_P Pin=CN5-5
+Added Pin To Net: NetName=TX2_N Pin=CN5-6
+Added Pin To Net: NetName=TX2_P Pin=CN5-7
+Added Pin To Net: NetName=TX1_N Pin=CN5-8
+Added Pin To Net: NetName=TX1_P Pin=CN5-9
+Added Pin To Net: NetName=TX8_N Pin=CN6-1
+Added Pin To Net: NetName=TX8_P Pin=CN6-2
+Added Pin To Net: NetName=TX7_N Pin=CN6-3
+Added Pin To Net: NetName=TX7_P Pin=CN6-5
+Added Pin To Net: NetName=TX6_N Pin=CN6-6
+Added Pin To Net: NetName=TX6_P Pin=CN6-7
+Added Pin To Net: NetName=TX5_N Pin=CN6-8
+Added Pin To Net: NetName=TX5_P Pin=CN6-9
+Added Pin To Net: NetName=TX12_N Pin=CN7-1
+Added Pin To Net: NetName=TX12_P Pin=CN7-2
+Added Pin To Net: NetName=TX11_N Pin=CN7-3
+Added Pin To Net: NetName=TX11_P Pin=CN7-5
+Added Pin To Net: NetName=TX10_N Pin=CN7-6
+Added Pin To Net: NetName=TX10_P Pin=CN7-7
+Added Pin To Net: NetName=TX9_N Pin=CN7-8
+Added Pin To Net: NetName=TX9_P Pin=CN7-9
+Added Pin To Net: NetName=TX16_N Pin=CN8-1
+Added Pin To Net: NetName=TX16_P Pin=CN8-2
+Added Pin To Net: NetName=TX15_N Pin=CN8-3
+Added Pin To Net: NetName=TX15_P Pin=CN8-5
+Added Pin To Net: NetName=TX14_N Pin=CN8-6
+Added Pin To Net: NetName=TX14_P Pin=CN8-7
+Added Pin To Net: NetName=TX13_N Pin=CN8-8
+Added Pin To Net: NetName=TX13_P Pin=CN8-9

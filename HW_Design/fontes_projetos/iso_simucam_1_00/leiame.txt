@@ -1,0 +1,1 @@
+Arquivos de bom, gerber, pick & place, etc -> pasta "Project Outputs for iso_simucam".
