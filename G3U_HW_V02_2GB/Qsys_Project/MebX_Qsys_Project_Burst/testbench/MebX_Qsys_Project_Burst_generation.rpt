@@ -1,0 +1,492 @@
+Info: Starting: Create testbench Qsys system
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst.ipx
+Info: qsys-generate C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst.qsys --testbench=STANDARD --output-directory=C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project --family="Stratix IV" --part=EP4SGX230KF40C2
+Progress: Loading Qsys_Project/MebX_Qsys_Project_Burst.qsys
+Progress: Reading input file
+Progress: Adding Communication_Module_A [Communication_Module 1.4]
+Progress: Parameterizing module Communication_Module_A
+Progress: Adding Pattern_Generator_A [Pattern_Generator 1.0]
+Progress: Parameterizing module Pattern_Generator_A
+Progress: Adding clk_100 [clock_source 16.1]
+Progress: Parameterizing module clk_100
+Progress: Adding clk_200 [clock_source 16.1]
+Progress: Parameterizing module clk_200
+Progress: Adding clk_50 [clock_source 16.1]
+Progress: Parameterizing module clk_50
+Progress: Adding clock_bridge_afi_50 [altera_avalon_mm_clock_crossing_bridge 16.1]
+Progress: Parameterizing module clock_bridge_afi_50
+Progress: Adding descriptor_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module descriptor_memory
+Progress: Adding dma_DDR_M [altera_msgdma 16.1]
+Progress: Parameterizing module dma_DDR_M
+Progress: Adding jtag_uart_0 [altera_avalon_jtag_uart 16.1]
+Progress: Parameterizing module jtag_uart_0
+Progress: Adding nios2_gen2_0 [altera_nios2_gen2 16.1]
+Progress: Parameterizing module nios2_gen2_0
+Progress: Adding onchip_memory [altera_avalon_onchip_memory2 16.1]
+Progress: Parameterizing module onchip_memory
+Progress: Adding sysid_qsys [altera_avalon_sysid_qsys 16.1]
+Progress: Parameterizing module sysid_qsys
+Progress: Adding timer_1ms [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1ms
+Progress: Adding timer_1us [altera_avalon_timer 16.1]
+Progress: Parameterizing module timer_1us
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: MebX_Qsys_Project_Burst.dma_DDR_M: Response information port is disabled. Enable the response port if data transfer information is required by host
+Info: MebX_Qsys_Project_Burst.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: MebX_Qsys_Project_Burst.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: MebX_Qsys_Project_Burst.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Info: qsys-generate succeeded.
+Info: Loading IP catalog for testbench.
+Progress: 
+Progress: 
+Progress: 
+Progress: (2) searching C:/intelfpga/16.1/quartus/sopc_builder/bin/root_components.ipx (ipx file)
+Info: Reading index C:\intelfpga\16.1\quartus\sopc_builder\bin\root_components.ipx
+Info: C:\intelfpga\16.1\quartus\sopc_builder\bin\root_components.ipx: Loading now from components.ipx
+Info: Reading index C:\intelfpga\16.1\quartus\sopc_builder\bin\ip_component_categories.ipx
+Info: C:\intelfpga\16.1\quartus\sopc_builder\bin\ip_component_categories.ipx described 0 plugins, 0 paths, in 0,00 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/bin/ip_component_categories.ipx matched 1 files in 0,00 seconds
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ip/**/* matched 0 files in 0,00 seconds
+Info: Reading index C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst\testbench\MebX_Qsys_Project_Burst.ipx
+Progress: Loading Qsys_Project/MebX_Qsys_Project.qsys
+Progress: Loading Qsys_Project/MebX_Qsys_Project_Burst.qsys
+Info: Reading index C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\user_components.ipx
+Progress: Loading Avalon/Communication_Module_hw.tcl
+Progress: Loading Avalon/Pattern_Generator_hw.tcl
+Progress: Loading Avalon/RMAP_SPW_hw.tcl
+Progress: Loading Avalon/SEVEN_SEGMENT_CONTROLLER_hw.tcl
+Progress: Loading Avalon/SIMUSpW_hw.tcl
+Progress: Loading Avalon/sync_hw.tcl
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Hardware_Project/Avalon/**/* matched 17 files in 0,12 seconds
+Info: C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\user_components.ipx described 0 plugins, 1 paths, in 0,12 seconds
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/* matched 11 files in 0,13 seconds
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/ip/**/* matched 0 files in 0,00 seconds
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/*/* matched 28 files in 0,00 seconds
+Info: C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst\testbench\MebX_Qsys_Project_Burst.ipx described 0 plugins, 3 paths, in 0,13 seconds
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/* matched 4 files in 0,13 seconds
+Info: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/*/* matched 0 files in 0,00 seconds
+Info: Reading index C:\Users\rfranca\.altera.quartus\ip\16.1\ip_search_path\user_components.ipx
+Info: C:\Users\rfranca\.altera.quartus\ip\16.1\ip_search_path\user_components.ipx described 0 plugins, 0 paths, in 0,00 seconds
+Info: C:/Users/rfranca/.altera.quartus/ip/16.1/**/* matched 2 files in 0,00 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/bin/$$QUARTUS_IP_PROJECTDIR/* matched 0 files in 0,00 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/bin/$$QUARTUS_IP_USERDIR/* matched 0 files in 0,00 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/bin/$$QUARTUS_IP_GLOBALDIR/* matched 0 files in 0,00 seconds
+Info: Reading index C:\intelfpga\16.1\ip\altera\altera_components.ipx
+Info: C:\intelfpga\16.1\ip\altera\altera_components.ipx described 1974 plugins, 0 paths, in 0,15 seconds
+Info: C:/intelfpga/16.1/ip/**/* matched 141 files in 0,16 seconds
+Info: C:/intelfpga/ip/**/* matched 0 files in 0,00 seconds
+Info: Reading index C:\intelfpga\16.1\quartus\sopc_builder\builtin.ipx
+Info: C:\intelfpga\16.1\quartus\sopc_builder\builtin.ipx described 83 plugins, 0 paths, in 0,01 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/**/* matched 8 files in 0,01 seconds
+Info: Reading index C:\intelfpga\16.1\quartus\common\librarian\factories\index.ipx
+Info: C:\intelfpga\16.1\quartus\common\librarian\factories\index.ipx described 151 plugins, 0 paths, in 0,01 seconds
+Info: C:/intelfpga/16.1/quartus/common/librarian/factories/**/* matched 4 files in 0,01 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/bin/$IP_IPX_PATH matched 1 files in 0,00 seconds
+Info: C:\intelfpga\16.1\quartus\sopc_builder\bin\root_components.ipx described 0 plugins, 13 paths, in 0,32 seconds
+Info: C:/intelfpga/16.1/quartus/sopc_builder/bin/root_components.ipx matched 1 files in 0,32 seconds
+Progress: 
+Progress: 
+Progress: 
+Info: Running script C:/intelfpga/16.1/quartus/sopc_builder/bin/tbgen.tcl
+Info: send_message Info TB_Gen: QSYS Testbench Generator Rev: $Revision: #1 $
+Info: TB_Gen: QSYS Testbench Generator Rev: $Revision: #1 $
+Info: get_module_property NAME
+Info: send_message Info TB_Gen: System design is: MebX_Qsys_Project_Burst
+Info: TB_Gen: System design is: MebX_Qsys_Project_Burst
+Info: get_interfaces 
+Info: get_connections 
+Info: get_interface_property clk50 EXPORT_OF
+Info: get_instance_property clk_50 CLASS_NAME
+Info: get_instance_assignment clk_50 testbench.partner.map.clk_in
+Info: get_interface_property comm_a_conduit_end EXPORT_OF
+Info: get_instance_property Communication_Module_A CLASS_NAME
+Info: get_instance_assignment Communication_Module_A testbench.partner.map.conduit_end
+Info: get_interface_property rst EXPORT_OF
+Info: get_instance_property clk_50 CLASS_NAME
+Info: get_instance_assignment clk_50 testbench.partner.map.clk_in_reset
+Info: get_interface_property timer_1ms_external_port EXPORT_OF
+Info: get_instance_property timer_1ms CLASS_NAME
+Info: get_instance_assignment timer_1ms testbench.partner.map.external_port
+Info: get_interface_property timer_1us_external_port EXPORT_OF
+Info: get_instance_property timer_1us CLASS_NAME
+Info: get_instance_assignment timer_1us testbench.partner.map.external_port
+Info: get_interface_property clk100 EXPORT_OF
+Info: get_instance_property clk_100 CLASS_NAME
+Info: get_instance_assignment clk_100 testbench.partner.map.clk_in
+Info: get_interface_property clk200 EXPORT_OF
+Info: get_instance_property clk_200 CLASS_NAME
+Info: get_instance_assignment clk_200 testbench.partner.map.clk_in
+Info: send_message Info TB_Gen: Creating testbench system : MebX_Qsys_Project_Burst_tb with all standard BFMs
+Info: TB_Gen: Creating testbench system : MebX_Qsys_Project_Burst_tb with all standard BFMs
+Info: create_system MebX_Qsys_Project_Burst_tb
+Info: add_instance MebX_Qsys_Project_Burst_inst MebX_Qsys_Project_Burst 
+Info: set_use_testbench_naming_pattern true MebX_Qsys_Project_Burst
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk100 CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk200 CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk50 CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst rst CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1us_external_port CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk100 CLASS_NAME
+Info: send_message Info TB_Gen: clock_sink found: clk100
+Info: TB_Gen: clock_sink found: clk100
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk100 CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_clk100_bfm altera_avalon_clock_source 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_clk100_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst clk100 clockRate
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_clk100_bfm CLOCK_RATE 100000000.0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_clk100_bfm CLOCK_UNIT 1
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_clk100_bfm CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk100 CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_clk100_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_clk100_bfm clk CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_clk100_bfm.clk MebX_Qsys_Project_Burst_inst.clk100
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk200 CLASS_NAME
+Info: send_message Info TB_Gen: clock_sink found: clk200
+Info: TB_Gen: clock_sink found: clk200
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk200 CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_clk200_bfm altera_avalon_clock_source 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_clk200_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst clk200 clockRate
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_clk200_bfm CLOCK_RATE 200000000.0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_clk200_bfm CLOCK_UNIT 1
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_clk200_bfm CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk200 CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_clk200_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_clk200_bfm clk CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_clk200_bfm.clk MebX_Qsys_Project_Burst_inst.clk200
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk50 CLASS_NAME
+Info: send_message Info TB_Gen: clock_sink found: clk50
+Info: TB_Gen: clock_sink found: clk50
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk50 CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_clk50_bfm altera_avalon_clock_source 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_clk50_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst clk50 clockRate
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_clk50_bfm CLOCK_RATE 50000000.0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_clk50_bfm CLOCK_UNIT 1
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_clk50_bfm CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk50 CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_clk50_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_clk50_bfm clk CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_clk50_bfm.clk MebX_Qsys_Project_Burst_inst.clk50
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst rst CLASS_NAME
+Info: send_message Info TB_Gen: reset_sink found: rst
+Info: TB_Gen: reset_sink found: rst
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst rst CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_rst_bfm altera_avalon_reset_source 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_rst_bfm CLASS_NAME
+Info: get_instance_interface_ports MebX_Qsys_Project_Burst_inst rst
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst rst rst_reset_n ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst rst rst_reset_n ROLE
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_rst_bfm ASSERT_HIGH_RESET 0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_rst_bfm INITIAL_RESET_CYCLES 50
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_rst_bfm CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_rst_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_rst_bfm reset CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_rst_bfm clk CLASS_NAME
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_rst_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst rst associatedClock
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_clk100_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_clk100_bfm clk CLASS_NAME
+Info: send_message Warning TB_Gen: MebX_Qsys_Project_Burst_inst_rst_bfm is not associated to any clock; connecting MebX_Qsys_Project_Burst_inst_rst_bfm to 'MebX_Qsys_Project_Burst_inst_clk100_bfm.clk'
+Warning: TB_Gen: MebX_Qsys_Project_Burst_inst_rst_bfm is not associated to any clock; connecting MebX_Qsys_Project_Burst_inst_rst_bfm to 'MebX_Qsys_Project_Burst_inst_clk100_bfm.clk'
+Info: add_connection MebX_Qsys_Project_Burst_inst_clk100_bfm.clk MebX_Qsys_Project_Burst_inst_rst_bfm.clk
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst rst CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_rst_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_rst_bfm reset CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_rst_bfm clk CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_rst_bfm.reset MebX_Qsys_Project_Burst_inst.rst
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end CLASS_NAME
+Info: send_message Info TB_Gen: conduit_end found: comm_a_conduit_end
+Info: TB_Gen: conduit_end found: comm_a_conduit_end
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm altera_conduit_bfm 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst comm_a_conduit_end associatedClock
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst comm_a_conduit_end associatedReset
+Info: get_instance_interface_ports MebX_Qsys_Project_Burst_inst comm_a_conduit_end
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_si_signal ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_si_signal WIDTH
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_si_signal DIRECTION
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_di_signal ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_di_signal WIDTH
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_di_signal DIRECTION
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_do_signal ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_do_signal WIDTH
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_do_signal DIRECTION
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_so_signal ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_so_signal WIDTH
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end comm_a_conduit_end_spw_so_signal DIRECTION
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm CLOCKED_SIGNAL 1
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm SIGNAL_ROLES spw_si_signal spw_di_signal spw_do_signal spw_so_signal
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm SIGNAL_WIDTHS 1 1 1 1
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm SIGNAL_DIRECTIONS output output input input
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm clk CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm conduit CLASS_NAME
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst comm_a_conduit_end associatedClock
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst clk100 CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_clk100_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_clk100_bfm clk CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_clk100_bfm.clk MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm.clk
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst comm_a_conduit_end CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm clk CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm conduit CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm.conduit MebX_Qsys_Project_Burst_inst.comm_a_conduit_end
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port CLASS_NAME
+Info: send_message Info TB_Gen: conduit_end found: timer_1ms_external_port
+Info: TB_Gen: conduit_end found: timer_1ms_external_port
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm altera_conduit_bfm 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst timer_1ms_external_port associatedClock
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst timer_1ms_external_port associatedReset
+Info: get_instance_interface_ports MebX_Qsys_Project_Burst_inst timer_1ms_external_port
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port timer_1ms_external_port_export ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port timer_1ms_external_port_export WIDTH
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port timer_1ms_external_port_export DIRECTION
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm SIGNAL_ROLES export
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm SIGNAL_WIDTHS 1
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm SIGNAL_DIRECTIONS input
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1ms_external_port CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm conduit CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm.conduit MebX_Qsys_Project_Burst_inst.timer_1ms_external_port
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1us_external_port CLASS_NAME
+Info: send_message Info TB_Gen: conduit_end found: timer_1us_external_port
+Info: TB_Gen: conduit_end found: timer_1us_external_port
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1us_external_port CLASS_NAME
+Info: add_instance MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm altera_conduit_bfm 
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm CLASS_NAME
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst timer_1us_external_port associatedClock
+Info: get_instance_interface_parameter_value MebX_Qsys_Project_Burst_inst timer_1us_external_port associatedReset
+Info: get_instance_interface_ports MebX_Qsys_Project_Burst_inst timer_1us_external_port
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst timer_1us_external_port timer_1us_external_port_export ROLE
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst timer_1us_external_port timer_1us_external_port_export WIDTH
+Info: get_instance_interface_port_property MebX_Qsys_Project_Burst_inst timer_1us_external_port timer_1us_external_port_export DIRECTION
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm CLOCKED_SIGNAL 0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm ENABLE_RESET 0
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm SIGNAL_ROLES export
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm SIGNAL_WIDTHS 1
+Info: set_instance_parameter_value MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm SIGNAL_DIRECTIONS input
+Info: get_instance_property MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm CLASS_NAME
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst timer_1us_external_port CLASS_NAME
+Info: get_instance_interfaces MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm
+Info: get_instance_interface_property MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm conduit CLASS_NAME
+Info: add_connection MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm.conduit MebX_Qsys_Project_Burst_inst.timer_1us_external_port
+Info: send_message Info TB_Gen: Saving testbench system: MebX_Qsys_Project_Burst_tb.qsys
+Info: TB_Gen: Saving testbench system: MebX_Qsys_Project_Burst_tb.qsys
+Info: save_system MebX_Qsys_Project_Burst_tb.qsys
+Info: send_message Info TB_Gen: TBGEN SUCCESSFUL
+Info: TB_Gen: TBGEN SUCCESSFUL
+Info: Testbench system: C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb.qsys
+Info: Done
+Info: qsys-generate C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst.qsys --simulation=VHDL --allow-mixed-language-simulation --testbench=STANDARD --testbench-simulation=VHDL --allow-mixed-language-testbench-simulation --output-directory=C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst\testbench\MebX_Qsys_Project_Burst_tb\simulation --family="Stratix IV" --part=EP4SGX230KF40C2
+Progress: Loading testbench/MebX_Qsys_Project_Burst_tb.qsys
+Progress: Reading input file
+Progress: Adding MebX_Qsys_Project_Burst_inst [MebX_Qsys_Project_Burst 1.0]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst
+Progress: Adding MebX_Qsys_Project_Burst_inst_clk100_bfm [altera_avalon_clock_source 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_clk100_bfm
+Progress: Adding MebX_Qsys_Project_Burst_inst_clk200_bfm [altera_avalon_clock_source 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_clk200_bfm
+Progress: Adding MebX_Qsys_Project_Burst_inst_clk50_bfm [altera_avalon_clock_source 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_clk50_bfm
+Progress: Adding MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm [altera_conduit_bfm 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm
+Progress: Adding MebX_Qsys_Project_Burst_inst_rst_bfm [altera_avalon_reset_source 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_rst_bfm
+Progress: Adding MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm [altera_conduit_bfm 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm
+Progress: Adding MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm [altera_conduit_bfm 16.1]
+Progress: Parameterizing module MebX_Qsys_Project_Burst_inst_timer_1us_external_port_bfm
+Progress: Building connections
+Progress: Parameterizing connections
+Progress: Validating
+Progress: Done reading input file
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst.dma_DDR_M: Response information port is disabled. Enable the response port if data transfer information is required by host
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst.jtag_uart_0: JTAG UART IP input clock need to be at least double (2x) the operating frequency of JTAG TCK on board
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst.sysid_qsys: System ID is not assigned automatically. Edit the System ID parameter to provide a unique ID
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst.sysid_qsys: Time stamp will be automatically updated when this component is generated.
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk100_bfm: Elaborate: altera_clock_source
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk100_bfm:            $Revision: #1 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk100_bfm:            $Date: 2016/08/07 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk200_bfm: Elaborate: altera_clock_source
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk200_bfm:            $Revision: #1 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk200_bfm:            $Date: 2016/08/07 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk50_bfm: Elaborate: altera_clock_source
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk50_bfm:            $Revision: #1 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_clk50_bfm:            $Date: 2016/08/07 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_rst_bfm: Elaborate: altera_reset_source
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_rst_bfm:            $Revision: #1 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_rst_bfm:            $Date: 2016/08/07 $
+Info: MebX_Qsys_Project_Burst_tb.MebX_Qsys_Project_Burst_inst_rst_bfm: Reset is negatively asserted.
+Info: MebX_Qsys_Project_Burst_tb: Generating MebX_Qsys_Project_Burst_tb "MebX_Qsys_Project_Burst_tb" for SIM_VHDL
+Info: MebX_Qsys_Project_Burst_inst: "MebX_Qsys_Project_Burst_tb" instantiated MebX_Qsys_Project_Burst "MebX_Qsys_Project_Burst_inst"
+Info: MebX_Qsys_Project_Burst_inst_clk100_bfm: "MebX_Qsys_Project_Burst_tb" instantiated altera_avalon_clock_source "MebX_Qsys_Project_Burst_inst_clk100_bfm"
+Info: MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm: "MebX_Qsys_Project_Burst_tb" instantiated altera_conduit_bfm "MebX_Qsys_Project_Burst_inst_comm_a_conduit_end_bfm"
+Info: MebX_Qsys_Project_Burst_inst_rst_bfm: "MebX_Qsys_Project_Burst_tb" instantiated altera_avalon_reset_source "MebX_Qsys_Project_Burst_inst_rst_bfm"
+Info: MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm: "MebX_Qsys_Project_Burst_tb" instantiated altera_conduit_bfm "MebX_Qsys_Project_Burst_inst_timer_1ms_external_port_bfm"
+Info: Communication_Module_A: "MebX_Qsys_Project_Burst_inst" instantiated Communication_Module "Communication_Module_A"
+Info: Pattern_Generator_A: "MebX_Qsys_Project_Burst_inst" instantiated Pattern_Generator "Pattern_Generator_A"
+Info: clock_bridge_afi_50: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_mm_clock_crossing_bridge "clock_bridge_afi_50"
+Info: descriptor_memory: Starting RTL generation for module 'MebX_Qsys_Project_Burst_descriptor_memory'
+Info: descriptor_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_Burst_descriptor_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0008_descriptor_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0008_descriptor_memory_gen//MebX_Qsys_Project_Burst_descriptor_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0008_descriptor_memory_gen/  ]
+Info: descriptor_memory: Done RTL generation for module 'MebX_Qsys_Project_Burst_descriptor_memory'
+Info: descriptor_memory: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_onchip_memory2 "descriptor_memory"
+Info: dma_DDR_M: "MebX_Qsys_Project_Burst_inst" instantiated altera_msgdma "dma_DDR_M"
+Info: jtag_uart_0: Starting RTL generation for module 'MebX_Qsys_Project_Burst_jtag_uart_0'
+Info: jtag_uart_0:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_jtag_uart/generate_rtl.pl --name=MebX_Qsys_Project_Burst_jtag_uart_0 --dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0009_jtag_uart_0_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0009_jtag_uart_0_gen//MebX_Qsys_Project_Burst_jtag_uart_0_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0009_jtag_uart_0_gen/  ]
+Info: jtag_uart_0: Done RTL generation for module 'MebX_Qsys_Project_Burst_jtag_uart_0'
+Info: jtag_uart_0: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_jtag_uart "jtag_uart_0"
+Info: nios2_gen2_0: "MebX_Qsys_Project_Burst_inst" instantiated altera_nios2_gen2 "nios2_gen2_0"
+Info: onchip_memory: Starting RTL generation for module 'MebX_Qsys_Project_Burst_onchip_memory'
+Info: onchip_memory:   Generation command is [exec C:/intelfpga/16.1/quartus/bin64/perl/bin/perl.exe -I C:/intelfpga/16.1/quartus/bin64/perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2 -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_onchip_memory2/generate_rtl.pl --name=MebX_Qsys_Project_Burst_onchip_memory --dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0010_onchip_memory_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0010_onchip_memory_gen//MebX_Qsys_Project_Burst_onchip_memory_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0010_onchip_memory_gen/  ]
+Info: onchip_memory: Done RTL generation for module 'MebX_Qsys_Project_Burst_onchip_memory'
+Info: onchip_memory: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_onchip_memory2 "onchip_memory"
+Info: sysid_qsys: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_sysid_qsys "sysid_qsys"
+Info: timer_1ms: Starting RTL generation for module 'MebX_Qsys_Project_Burst_timer_1ms'
+Info: timer_1ms:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_Burst_timer_1ms --dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0012_timer_1ms_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0012_timer_1ms_gen//MebX_Qsys_Project_Burst_timer_1ms_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0012_timer_1ms_gen/  ]
+Info: timer_1ms: Done RTL generation for module 'MebX_Qsys_Project_Burst_timer_1ms'
+Info: timer_1ms: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_timer "timer_1ms"
+Info: timer_1us: Starting RTL generation for module 'MebX_Qsys_Project_Burst_timer_1us'
+Info: timer_1us:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//perl/bin/perl.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/common -I C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer -- C:/intelfpga/16.1/quartus/../ip/altera/sopc_builder_ip/altera_avalon_timer/generate_rtl.pl --name=MebX_Qsys_Project_Burst_timer_1us --dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0013_timer_1us_gen/ --quartus_dir=C:/intelfpga/16.1/quartus --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0013_timer_1us_gen//MebX_Qsys_Project_Burst_timer_1us_component_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0013_timer_1us_gen/  ]
+Info: timer_1us: Done RTL generation for module 'MebX_Qsys_Project_Burst_timer_1us'
+Info: timer_1us: "MebX_Qsys_Project_Burst_inst" instantiated altera_avalon_timer "timer_1us"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_002: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_003: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_004: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_005: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_006: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_007: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_008: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_009: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_0: "MebX_Qsys_Project_Burst_inst" instantiated altera_mm_interconnect "mm_interconnect_0"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_1: "MebX_Qsys_Project_Burst_inst" instantiated altera_mm_interconnect "mm_interconnect_1"
+Info: avalon_st_adapter: Inserting error_adapter: error_adapter_0
+Info: avalon_st_adapter_001: Inserting error_adapter: error_adapter_0
+Info: mm_interconnect_2: "MebX_Qsys_Project_Burst_inst" instantiated altera_mm_interconnect "mm_interconnect_2"
+Info: irq_mapper: "MebX_Qsys_Project_Burst_inst" instantiated altera_irq_mapper "irq_mapper"
+Info: irq_synchronizer: "MebX_Qsys_Project_Burst_inst" instantiated altera_irq_clock_crosser "irq_synchronizer"
+Info: rst_controller: "MebX_Qsys_Project_Burst_inst" instantiated altera_reset_controller "rst_controller"
+Info: dispatcher_internal: "dma_DDR_M" instantiated modular_sgdma_dispatcher "dispatcher_internal"
+Info: read_mstr_internal: "dma_DDR_M" instantiated dma_read_master "read_mstr_internal"
+Info: write_mstr_internal: "dma_DDR_M" instantiated dma_write_master "write_mstr_internal"
+Info: cpu: Starting RTL generation for module 'MebX_Qsys_Project_Burst_nios2_gen2_0_cpu'
+Info: cpu:   Generation command is [exec C:/intelFPGA/16.1/quartus/bin64//eperlcmd.exe -I C:/intelFPGA/16.1/quartus/bin64//perl/lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin/europa -I C:/intelfpga/16.1/quartus/sopc_builder/bin/perl_lib -I C:/intelfpga/16.1/quartus/sopc_builder/bin -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/cpu_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/nios_lib -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -I C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2 -- C:/intelfpga/16.1/quartus/../ip/altera/nios2_ip/altera_nios2_gen2/generate_rtl.epl --name=MebX_Qsys_Project_Burst_nios2_gen2_0_cpu --dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0020_cpu_gen/ --quartus_bindir=C:/intelFPGA/16.1/quartus/bin64/ --verilog --config=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0020_cpu_gen//MebX_Qsys_Project_Burst_nios2_gen2_0_cpu_processor_configuration.pl  --do_build_sim=1    --sim_dir=C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0020_cpu_gen/  ]
+Info: cpu: # 2018.09.12 11:34:39 (*) Starting Nios II generation
+Info: cpu: # 2018.09.12 11:34:39 (*)   Checking for plaintext license.
+Info: cpu: # 2018.09.12 11:34:41 (*)   Plaintext license not found.
+Info: cpu: # 2018.09.12 11:34:41 (*)   Checking for encrypted license (non-evaluation).
+Info: cpu: # 2018.09.12 11:34:42 (*)   Encrypted license found.  SOF will not be time-limited.
+Info: cpu: # 2018.09.12 11:34:42 (*)   Elaborating CPU configuration settings
+Info: cpu: # 2018.09.12 11:34:42 (*)   Creating all objects for CPU
+Info: cpu: # 2018.09.12 11:34:42 (*)     Testbench
+Info: cpu: # 2018.09.12 11:34:43 (*)     Instruction decoding
+Info: cpu: # 2018.09.12 11:34:43 (*)       Instruction fields
+Info: cpu: # 2018.09.12 11:34:43 (*)       Instruction decodes
+Info: cpu: # 2018.09.12 11:34:43 (*)       Signals for RTL simulation waveforms
+Info: cpu: # 2018.09.12 11:34:43 (*)       Instruction controls
+Info: cpu: # 2018.09.12 11:34:43 (*)     Pipeline frontend
+Info: cpu: # 2018.09.12 11:34:43 (*)     Pipeline backend
+Info: cpu: # 2018.09.12 11:34:45 (*)   Creating 'C:/Users/rfranca/AppData/Local/Temp/alt7786_4658228646896632272.dir/0020_cpu_gen//MebX_Qsys_Project_Burst_nios2_gen2_0_cpu_nios2_waves.do'
+Info: cpu: # 2018.09.12 11:34:45 (*)   Generating RTL from CPU objects
+Info: cpu: # 2018.09.12 11:34:47 (*)   Creating encrypted RTL
+Info: cpu: # 2018.09.12 11:34:47 (*)   Creating IP functional simulation model
+Info: cpu: # 2018.09.12 11:35:06 (*) Done Nios II generation
+Info: cpu: Done RTL generation for module 'MebX_Qsys_Project_Burst_nios2_gen2_0_cpu'
+Info: cpu: "nios2_gen2_0" instantiated altera_nios2_gen2_unit "cpu"
+Info: nios2_gen2_0_data_master_translator: "mm_interconnect_0" instantiated altera_merlin_master_translator "nios2_gen2_0_data_master_translator"
+Info: jtag_uart_0_avalon_jtag_slave_translator: "mm_interconnect_0" instantiated altera_merlin_slave_translator "jtag_uart_0_avalon_jtag_slave_translator"
+Info: nios2_gen2_0_data_master_agent: "mm_interconnect_0" instantiated altera_merlin_master_agent "nios2_gen2_0_data_master_agent"
+Info: jtag_uart_0_avalon_jtag_slave_agent: "mm_interconnect_0" instantiated altera_merlin_slave_agent "jtag_uart_0_avalon_jtag_slave_agent"
+Info: jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo: "mm_interconnect_0" instantiated altera_avalon_sc_fifo "jtag_uart_0_avalon_jtag_slave_agent_rsp_fifo"
+Info: router: "mm_interconnect_0" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_0" instantiated altera_merlin_router "router_001"
+Info: router_002: "mm_interconnect_0" instantiated altera_merlin_router "router_002"
+Info: router_007: "mm_interconnect_0" instantiated altera_merlin_router "router_007"
+Info: router_008: "mm_interconnect_0" instantiated altera_merlin_router "router_008"
+Info: nios2_gen2_0_instruction_master_limiter: "mm_interconnect_0" instantiated altera_merlin_traffic_limiter "nios2_gen2_0_instruction_master_limiter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_avalon_sc_fifo.v
+Info: nios2_gen2_0_debug_mem_slave_burst_adapter: "mm_interconnect_0" instantiated altera_merlin_burst_adapter "nios2_gen2_0_debug_mem_slave_burst_adapter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_avalon_st_pipeline_base.v
+Info: cmd_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: cmd_mux_005: "mm_interconnect_0" instantiated altera_merlin_multiplexer "cmd_mux_005"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_demux_005: "mm_interconnect_0" instantiated altera_merlin_demultiplexer "rsp_demux_005"
+Info: rsp_mux: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_0" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: dma_DDR_M_descriptor_slave_cmd_width_adapter: "mm_interconnect_0" instantiated altera_merlin_width_adapter "dma_DDR_M_descriptor_slave_cmd_width_adapter"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_address_alignment.sv
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_burst_uncompressor.sv
+Info: avalon_st_adapter: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: avalon_st_adapter_006: "mm_interconnect_0" instantiated altera_avalon_st_adapter "avalon_st_adapter_006"
+Info: router: "mm_interconnect_1" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_1" instantiated altera_merlin_router "router_001"
+Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: router: "mm_interconnect_2" instantiated altera_merlin_router "router"
+Info: router_001: "mm_interconnect_2" instantiated altera_merlin_router "router_001"
+Info: router_002: "mm_interconnect_2" instantiated altera_merlin_router "router_002"
+Info: router_003: "mm_interconnect_2" instantiated altera_merlin_router "router_003"
+Info: cmd_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux"
+Info: cmd_demux_001: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "cmd_demux_001"
+Info: cmd_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: cmd_mux_001: "mm_interconnect_2" instantiated altera_merlin_multiplexer "cmd_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_demux: "mm_interconnect_2" instantiated altera_merlin_demultiplexer "rsp_demux"
+Info: rsp_mux: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: rsp_mux_001: "mm_interconnect_2" instantiated altera_merlin_multiplexer "rsp_mux_001"
+Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/MebX_Qsys_Project_Burst_tb/simulation/submodules/altera_merlin_arbitrator.sv
+Info: avalon_st_adapter: "mm_interconnect_2" instantiated altera_avalon_st_adapter "avalon_st_adapter"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter_006" instantiated error_adapter "error_adapter_0"
+Info: error_adapter_0: "avalon_st_adapter" instantiated error_adapter "error_adapter_0"
+Info: MebX_Qsys_Project_Burst_tb: Done "MebX_Qsys_Project_Burst_tb" with 71 modules, 199 files
+Info: qsys-generate succeeded.
+Info: sim-script-gen --spd=C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst_tb.spd --output-directory=C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ --use-relative-paths=true
+Info: Doing: ip-make-simscript --spd=C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project_Burst_tb.spd --output-directory=C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ --use-relative-paths=true
+Info: Generating the following file(s) for MODELSIM simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ directory:
+Info: 	mentor/msim_setup.tcl
+Info: Skipping VCS script generation since VHDL file $QUARTUS_INSTALL_DIR/eda/sim_lib/altera_syn_attributes.vhd is required for simulation
+Info: Generating the following file(s) for VCSMX simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ directory:
+Info: 	synopsys/vcsmx/synopsys_sim.setup
+Info: 	synopsys/vcsmx/vcsmx_setup.sh
+Info: Generating the following file(s) for NCSIM simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ directory:
+Info: 	cadence/cds.lib
+Info: 	cadence/hdl.var
+Info: 	cadence/ncsim_setup.sh
+Info: 	52 .cds.lib files in cadence/cds_libs/ directory
+Info: Generating the following file(s) for RIVIERA simulator in C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/ directory:
+Info: 	aldec/rivierapro_setup.tcl
+Info: For information on how to simulate your IP, see the explanatory comments in the simulator-specific subdirectories under C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project_Burst/testbench/.
+Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
+Info: Finished: Create testbench Qsys system

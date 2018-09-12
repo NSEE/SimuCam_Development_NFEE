@@ -1,0 +1,139 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+*/
+(header "symbol" (version "1.1"))
+(symbol
+	(rect 0 0 496 392)
+	(text "MebX_Qsys_Project_Burst" (rect 168 -1 280 11)(font "Arial" (font_size 10)))
+	(text "inst" (rect 8 376 20 388)(font "Arial" ))
+	(port
+		(pt 0 72)
+		(input)
+		(text "clk100_clk" (rect 0 0 40 12)(font "Arial" (font_size 8)))
+		(text "clk100_clk" (rect 4 61 64 72)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 208 72)(line_width 1))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "clk200_clk" (rect 0 0 41 12)(font "Arial" (font_size 8)))
+		(text "clk200_clk" (rect 4 101 64 112)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 208 112)(line_width 1))
+	)
+	(port
+		(pt 0 152)
+		(input)
+		(text "clk50_clk" (rect 0 0 36 12)(font "Arial" (font_size 8)))
+		(text "clk50_clk" (rect 4 141 58 152)(font "Arial" (font_size 8)))
+		(line (pt 0 152)(pt 208 152)(line_width 1))
+	)
+	(port
+		(pt 0 192)
+		(input)
+		(text "comm_a_conduit_end_spw_si_signal" (rect 0 0 149 12)(font "Arial" (font_size 8)))
+		(text "comm_a_conduit_end_spw_si_signal" (rect 4 181 196 192)(font "Arial" (font_size 8)))
+		(line (pt 0 192)(pt 208 192)(line_width 1))
+	)
+	(port
+		(pt 0 208)
+		(input)
+		(text "comm_a_conduit_end_spw_di_signal" (rect 0 0 149 12)(font "Arial" (font_size 8)))
+		(text "comm_a_conduit_end_spw_di_signal" (rect 4 197 196 208)(font "Arial" (font_size 8)))
+		(line (pt 0 208)(pt 208 208)(line_width 1))
+	)
+	(port
+		(pt 0 280)
+		(input)
+		(text "rst_reset_n" (rect 0 0 47 12)(font "Arial" (font_size 8)))
+		(text "rst_reset_n" (rect 4 269 70 280)(font "Arial" (font_size 8)))
+		(line (pt 0 280)(pt 208 280)(line_width 1))
+	)
+	(port
+		(pt 0 224)
+		(output)
+		(text "comm_a_conduit_end_spw_do_signal" (rect 0 0 153 12)(font "Arial" (font_size 8)))
+		(text "comm_a_conduit_end_spw_do_signal" (rect 4 213 196 224)(font "Arial" (font_size 8)))
+		(line (pt 0 224)(pt 208 224)(line_width 1))
+	)
+	(port
+		(pt 0 240)
+		(output)
+		(text "comm_a_conduit_end_spw_so_signal" (rect 0 0 153 12)(font "Arial" (font_size 8)))
+		(text "comm_a_conduit_end_spw_so_signal" (rect 4 229 196 240)(font "Arial" (font_size 8)))
+		(line (pt 0 240)(pt 208 240)(line_width 1))
+	)
+	(port
+		(pt 0 320)
+		(output)
+		(text "timer_1ms_external_port_export" (rect 0 0 130 12)(font "Arial" (font_size 8)))
+		(text "timer_1ms_external_port_export" (rect 4 309 184 320)(font "Arial" (font_size 8)))
+		(line (pt 0 320)(pt 208 320)(line_width 1))
+	)
+	(port
+		(pt 0 360)
+		(output)
+		(text "timer_1us_external_port_export" (rect 0 0 127 12)(font "Arial" (font_size 8)))
+		(text "timer_1us_external_port_export" (rect 4 349 184 360)(font "Arial" (font_size 8)))
+		(line (pt 0 360)(pt 208 360)(line_width 1))
+	)
+	(drawing
+		(text "clk100" (rect 174 43 384 99)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 213 67 444 144)(font "Arial" (color 0 0 0)))
+		(text "clk200" (rect 172 83 380 179)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 213 107 444 224)(font "Arial" (color 0 0 0)))
+		(text "clk50" (rect 179 123 388 259)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "clk" (rect 213 147 444 304)(font "Arial" (color 0 0 0)))
+		(text "comm_a_conduit_end" (rect 81 163 270 339)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "spw_si_signal" (rect 213 187 504 384)(font "Arial" (color 0 0 0)))
+		(text "spw_di_signal" (rect 213 203 504 416)(font "Arial" (color 0 0 0)))
+		(text "spw_do_signal" (rect 213 219 504 448)(font "Arial" (color 0 0 0)))
+		(text "spw_so_signal" (rect 213 235 504 480)(font "Arial" (color 0 0 0)))
+		(text "rst" (rect 193 251 404 515)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "reset_n" (rect 213 275 468 560)(font "Arial" (color 0 0 0)))
+		(text "timer_1ms_external_port" (rect 63 291 264 595)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 213 315 462 640)(font "Arial" (color 0 0 0)))
+		(text "timer_1us_external_port" (rect 67 331 272 675)(font "Arial" (color 128 0 0)(font_size 9)))
+		(text "export" (rect 213 355 462 720)(font "Arial" (color 0 0 0)))
+		(text " MebX_Qsys_Project_Burst " (rect 375 376 900 762)(font "Arial" ))
+		(line (pt 208 32)(pt 288 32)(line_width 1))
+		(line (pt 288 32)(pt 288 376)(line_width 1))
+		(line (pt 208 376)(pt 288 376)(line_width 1))
+		(line (pt 208 32)(pt 208 376)(line_width 1))
+		(line (pt 209 52)(pt 209 76)(line_width 1))
+		(line (pt 210 52)(pt 210 76)(line_width 1))
+		(line (pt 209 92)(pt 209 116)(line_width 1))
+		(line (pt 210 92)(pt 210 116)(line_width 1))
+		(line (pt 209 132)(pt 209 156)(line_width 1))
+		(line (pt 210 132)(pt 210 156)(line_width 1))
+		(line (pt 209 172)(pt 209 244)(line_width 1))
+		(line (pt 210 172)(pt 210 244)(line_width 1))
+		(line (pt 209 260)(pt 209 284)(line_width 1))
+		(line (pt 210 260)(pt 210 284)(line_width 1))
+		(line (pt 209 300)(pt 209 324)(line_width 1))
+		(line (pt 210 300)(pt 210 324)(line_width 1))
+		(line (pt 209 340)(pt 209 364)(line_width 1))
+		(line (pt 210 340)(pt 210 364)(line_width 1))
+		(line (pt 0 0)(pt 496 0)(line_width 1))
+		(line (pt 496 0)(pt 496 392)(line_width 1))
+		(line (pt 0 392)(pt 496 392)(line_width 1))
+		(line (pt 0 0)(pt 0 392)(line_width 1))
+	)
+)
