@@ -11,15 +11,19 @@ package pgen_mm_registers_pkg is
 	--    2- 2 : Reset control bit          [R/W]
 	--    1- 1 : Reseted status bit         [R]
 	--    0- 0 : Stopped status bit         [R]
-	-- Initial Transmission State Register  (32 bits):
+	-- Pattern Size Register                 (32 bits):
+	--   31-16 : Lines Quantity             [R/W]
+	--   15- 0 : Columns Quantity           [R/W]
+	-- Pattern Parameters Register           (32 bits):
 	--   31-11 : Reserved                   [-]
-	--   10- 9 : Initial CCD ID             [R/W]
-	--    8- 8 : Initial CCD Side           [R/W]
-	--    7- 0 : Initial TimeCode           [R/W]
+	--   10-10 : CCD Side                   [R/W]
+	--    9- 8 : CCD Number                 [R/W]
+	--    7- 0 : TimeCode                   [R/W]
 
-	constant PGEN_MM_REGISTERS_ADDRESS_OFFSET               : natural := 0;
-	constant PGEN_GENERATOR_CONTROL_STATUS_MM_REG_ADDRESS   : natural := 0;
-	constant PGEN_INITIAL_TRANSMISSION_STATE_MM_REG_ADDRESS : natural := 1;
+	constant PGEN_MM_REGISTERS_ADDRESS_OFFSET             : natural := 0;
+	constant PGEN_GENERATOR_CONTROL_STATUS_MM_REG_ADDRESS : natural := 0;
+	constant PGEN_PATTERN_SIZE_MM_REG_ADDRESS             : natural := 1;
+	constant PGEN_PATTERN_PARAMETERS_MM_REG_ADDRESS       : natural := 2;
 
 	type pgen_generator_control_register_type is record
 		START_BIT : std_logic;
@@ -32,15 +36,21 @@ package pgen_mm_registers_pkg is
 		STOPPED_BIT : std_logic;
 	end record pgen_generator_status_register_type;
 
-	type pgen_initial_transmission_state_register_type is record
-		INITIAL_CCD_ID   : std_logic_vector(1 downto 0);
-		INITIAL_CCD_SIDE : std_logic_vector(0 downto 0);
-		INITIAL_TIMECODE : std_logic_vector(7 downto 0);
-	end record pgen_initial_transmission_state_register_type;
+	type pgen_pattern_size_register_type is record
+		LINES_QUANTITY   : std_logic_vector(15 downto 0);
+		COLUMNS_QUANTITY : std_logic_vector(15 downto 0);
+	end record pgen_pattern_size_register_type;
+
+	type pgen_pattern_parameters_register_type is record
+		CCD_SIDE   : std_logic;
+		CCD_NUMBER : std_logic_vector(1 downto 0);
+		TIMECODE   : std_logic_vector(7 downto 0);
+	end record pgen_pattern_parameters_register_type;
 
 	type pgen_mm_write_registers_type is record
-		GENERATOR_CONTROL_REGISTER          : pgen_generator_control_register_type;
-		INITIAL_TRANSMISSION_STATE_REGISTER : pgen_initial_transmission_state_register_type;
+		GENERATOR_CONTROL_REGISTER : pgen_generator_control_register_type;
+		PATTERN_SIZE               : pgen_pattern_size_register_type;
+		PATTERN_PARAMETERS         : pgen_pattern_parameters_register_type;
 	end record pgen_mm_write_registers_type;
 
 	type pgen_mm_read_registers_type is record
