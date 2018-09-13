@@ -42,16 +42,23 @@ begin
 					--    0- 0 : Stopped status bit         [R]
 					avalon_mm_outputs.readdata(0)           <= mm_read_registers.GENERATOR_STATUS_REGISTER.STOPPED_BIT;
 
-					-- Initial Transmission State Register  (32 bits):
-				when (PGEN_INITIAL_TRANSMISSION_STATE_MM_REG_ADDRESS + PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
+				-- Pattern Size Register                 (32 bits):
+				when (PGEN_PATTERN_SIZE_MM_REG_ADDRESS + PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
+					--   31-16 : Lines Quantity             [R/W]
+					avalon_mm_outputs.readdata(31 downto 16) <= mm_write_registers.PATTERN_SIZE.LINES_QUANTITY;
+					--   15- 0 : Columns Quantity           [R/W]
+					avalon_mm_outputs.readdata(15 downto 0)  <= mm_write_registers.PATTERN_SIZE.COLUMNS_QUANTITY;
+
+				-- Pattern Parameters Register           (32 bits):
+				when (PGEN_PATTERN_PARAMETERS_MM_REG_ADDRESS + PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--   31-11 : Reserved                   [-]
 					avalon_mm_outputs.readdata(31 downto 11) <= (others => '0');
-					--   10- 9 : Initial CCD ID             [R/W]
-					avalon_mm_outputs.readdata(10 downto 9)  <= mm_write_registers.INITIAL_TRANSMISSION_STATE_REGISTER.INITIAL_CCD_ID;
-					--    8- 8 : Initial CCD Side           [R/W]
-					avalon_mm_outputs.readdata(8 downto 8)   <= mm_write_registers.INITIAL_TRANSMISSION_STATE_REGISTER.INITIAL_CCD_SIDE;
-					--    7- 0 : Initial TimeCode           [R/W]
-					avalon_mm_outputs.readdata(7 downto 0)   <= mm_write_registers.INITIAL_TRANSMISSION_STATE_REGISTER.INITIAL_TIMECODE;
+					--   10-10 : CCD Side                   [R/W]
+					avalon_mm_outputs.readdata(10)           <= mm_write_registers.PATTERN_PARAMETERS.CCD_SIDE;
+					--    9- 8 : CCD Number                 [R/W]
+					avalon_mm_outputs.readdata(9 downto 8)   <= mm_write_registers.PATTERN_PARAMETERS.CCD_NUMBER;
+					--    7- 0 : TimeCode                   [R/W]
+					avalon_mm_outputs.readdata(7 downto 0)   <= mm_write_registers.PATTERN_PARAMETERS.TIMECODE;
 
 				when others =>
 					avalon_mm_outputs.readdata <= (others => '0');
