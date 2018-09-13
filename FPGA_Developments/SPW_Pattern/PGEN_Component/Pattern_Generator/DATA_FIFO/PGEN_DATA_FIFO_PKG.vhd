@@ -4,14 +4,14 @@ use ieee.numeric_std.all;
 
 package pgen_data_fifo_pkg is
 
-	constant DATA_FIFO_WIDTH  : natural := 34;
-	constant DATA_FIFO_LENGTH : natural := 64;
+	constant DATA_FIFO_WIDTH  : natural := 64;
+	constant DATA_FIFO_LENGTH : natural := 16;
 
 	type pgen_data_fifo_data_type is record
-		flag_1    : std_logic;
-		pattern_1 : std_logic_vector(15 downto 0);
-		flag_0    : std_logic;
-		pattern_0 : std_logic_vector(15 downto 0);
+		pattern_pixel_3 : std_logic_vector(15 downto 0);
+		pattern_pixel_2 : std_logic_vector(15 downto 0);
+		pattern_pixel_1 : std_logic_vector(15 downto 0);
+		pattern_pixel_0 : std_logic_vector(15 downto 0);
 	end record pgen_data_fifo_data_type;
 
 	type pgen_data_fifo_inputs_type is record
