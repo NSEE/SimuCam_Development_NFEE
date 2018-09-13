@@ -4,7 +4,6 @@ use ieee.numeric_std.all;
 
 package pgen_avalon_burst_pkg is
 
---	constant PGEN_AVALON_BURST_ADRESS_SIZE   : natural := 8;
 	constant PGEN_AVALON_BURST_ADRESS_SIZE   : natural := 26;
 	constant PGEN_AVALON_BURST_DATA_SIZE     : natural := 64;
 	constant PGEN_AVALON_BURST_SYMBOL_SIZE   : natural := 8;
