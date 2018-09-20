@@ -44,8 +44,8 @@ begin
 
 				-- Pattern Size Register                         (32 bits):
 				when (c_PGEN_PATTERN_SIZE_MM_REG_ADDRESS + c_PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--   31-16 : Lines Quantity value                  [R/W]
-					avalon_mm_read_outputs_o.readdata(31 downto 16) <= mm_write_registers_i.pattern_size_register.lines_quantity;
+					--   31-16 : Rows Quantity value                   [R/W]
+					avalon_mm_read_outputs_o.readdata(31 downto 16) <= mm_write_registers_i.pattern_size_register.rows_quantity;
 					--   15- 0 : Columns Quantity value                [R/W]
 					avalon_mm_read_outputs_o.readdata(15 downto 0)  <= mm_write_registers_i.pattern_size_register.columns_quantity;
 

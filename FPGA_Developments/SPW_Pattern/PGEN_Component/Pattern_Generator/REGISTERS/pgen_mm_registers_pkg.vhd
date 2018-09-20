@@ -12,7 +12,7 @@ package pgen_mm_registers_pkg is
 	--    1- 1 : Reseted status bit                    [R/-]
 	--    0- 0 : Stopped status bit                    [R/-]
 	-- Pattern Size Register                         (32 bits):
-	--   31-16 : Lines Quantity value                  [R/W]
+	--   31-16 : Rows Quantity value                   [R/W]
 	--   15- 0 : Columns Quantity value                [R/W]
 	-- Pattern Parameters Register                   (32 bits):
 	--   31-11 : Reserved                              [-/-]
@@ -38,7 +38,7 @@ package pgen_mm_registers_pkg is
 	end record t_pgen_generator_status_register;
 
 	type t_pgen_pattern_size_register is record
-		lines_quantity   : std_logic_vector(15 downto 0);
+		rows_quantity    : std_logic_vector(15 downto 0);
 		columns_quantity : std_logic_vector(15 downto 0);
 	end record t_pgen_pattern_size_register;
 

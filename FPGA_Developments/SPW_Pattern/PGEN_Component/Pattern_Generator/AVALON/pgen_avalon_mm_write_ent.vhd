@@ -25,7 +25,7 @@ begin
 			mm_write_registers_o.generator_control_register.start_bit <= '0';
 			mm_write_registers_o.generator_control_register.stop_bit  <= '0';
 			mm_write_registers_o.generator_control_register.reset_bit <= '0';
-			mm_write_registers_o.pattern_size.lines_quantity          <= (others => '0');
+			mm_write_registers_o.pattern_size.rows_quantity           <= (others => '0');
 			mm_write_registers_o.pattern_size.columns_quantity        <= (others => '0');
 			mm_write_registers_o.pattern_parameters.ccd_side          <= '0';
 			mm_write_registers_o.pattern_parameters.ccd_number        <= (others => '0');
@@ -54,13 +54,13 @@ begin
 					mm_write_registers_o.generator_control_register.stop_bit  <= avalon_mm_write_inputs_i.writedata(3);
 					--    2- 2 : Reset control bit                     [R/W]
 					mm_write_registers_o.generator_control_register.reset_bit <= avalon_mm_write_inputs_i.writedata(2);
-				    --    1- 1 : Reseted status bit                    [R/-]
-				    --    0- 0 : Stopped status bit                    [R/-]
+				--    1- 1 : Reseted status bit                    [R/-]
+				--    0- 0 : Stopped status bit                    [R/-]
 
 				-- Pattern Size Register                         (32 bits):
 				when (c_PGEN_PATTERN_SIZE_MM_REG_ADDRESS + c_PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--   31-16 : Lines Quantity value                  [R/W]
-					mm_write_registers_o.pattern_size.lines_quantity   <= avalon_mm_write_inputs_i.writedata(31 downto 16);
+					--   31-16 : Rows Quantity value                   [R/W]
+					mm_write_registers_o.pattern_size.rows_quantity    <= avalon_mm_write_inputs_i.writedata(31 downto 16);
 					--   15- 0 : Columns Quantity value                [R/W]
 					mm_write_registers_o.pattern_size.columns_quantity <= avalon_mm_write_inputs_i.writedata(15 downto 0);
 
