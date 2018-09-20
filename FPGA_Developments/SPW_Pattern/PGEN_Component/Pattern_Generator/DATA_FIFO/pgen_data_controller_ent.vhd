@@ -11,11 +11,11 @@ entity pgen_data_controller_ent is
 	port(
 		clk_i                    : in  std_logic;
 		rst_i                    : in  std_logic;
-		write_control_i          : in  t_pgen_data_write_control;
-		read_control_i           : in  t_pgen_data_read_control;
+		write_control_i          : in  t_pgen_data_controller_write_control;
+		read_control_i           : in  t_pgen_data_controller_read_control;
 		pattern_generator_data_i : in  t_pgen_pattern_generator_data;
-		write_status_o           : out t_pgen_data_write_status;
-		read_status_o            : out t_pgen_data_read_status;
+		write_status_o           : out t_pgen_data_controller_write_status;
+		read_status_o            : out t_pgen_data_controller_read_status;
 		pattern_data_register_o  : out t_pgen_pattern_data_register
 	);
 end entity pgen_data_controller_ent;

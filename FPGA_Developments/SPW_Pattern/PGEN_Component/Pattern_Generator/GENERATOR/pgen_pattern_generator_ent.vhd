@@ -11,10 +11,10 @@ entity pgen_pattern_generator_ent is
 		rst_i                           : in  std_logic;
 		control_i                       : in  t_pgen_pattern_generator_control;
 		config_i                        : in  t_pgen_pattern_generator_config;
-		data_controller_write_status_i  : in  t_pgen_data_write_status;
+		data_controller_write_status_i  : in  t_pgen_data_controller_write_status;
 		status_o                        : out t_pgen_pattern_generator_status;
 		data_o                          : out t_pgen_pattern_generator_data;
-		data_controller_write_control_o : out t_pgen_data_write_control
+		data_controller_write_control_o : out t_pgen_data_controller_write_control
 	);
 end entity pgen_pattern_generator_ent;
 

@@ -5,17 +5,17 @@ use ieee.numeric_std.all;
 use work.pgen_avalon_burst_pkg.all;
 use work.pgen_burst_registers_pkg.all;
 use work.pgen_pipeline_fifo_pkg.all;
-use work.pgen_controller_pkg.all;
+use work.pgen_data_controller_pkg.all;
 
 entity pgen_avalon_burst_read_ent is
 	port(
-		clk_i                       : in  std_logic;
-		rst_i                       : in  std_logic;
-		burst_read_registers_i      : in  t_pgen_burst_read_registers;
-		avalon_burst_read_inputs_i  : in  t_pgen_avalon_burst_read_inputs;
-		pgen_controller_outputs_i   : in  t_pgen_controller_outputs;
-		avalon_burst_read_outputs_o : out t_pgen_avalon_burst_read_outputs;
-		pgen_controller_inputs_o    : out t_pgen_controller_inputs
+		clk_i                          : in  std_logic;
+		rst_i                          : in  std_logic;
+		burst_read_registers_i         : in  t_pgen_burst_read_registers;
+		avalon_burst_read_inputs_i     : in  t_pgen_avalon_burst_read_inputs;
+		data_controller_read_status_i  : in  t_pgen_data_controller_read_status;
+		avalon_burst_read_outputs_o    : out t_pgen_avalon_burst_read_outputs;
+		data_controller_read_control_o : out t_pgen_data_controller_read_control
 	);
 end entity pgen_avalon_burst_read_ent;
 
@@ -34,8 +34,8 @@ architecture rtl of pgen_avalon_burst_read_ent is
 	);
 
 	signal s_pipeline_fifo_i      : t_pipeline_fifo_inputs;
-	signal s_pipeline_fifo_o     : t_pipeline_fifo_outputs;
-	signal s_pipeline_fifo_data_i  : t_pipeline_fifo_data;
+	signal s_pipeline_fifo_o      : t_pipeline_fifo_outputs;
+	signal s_pipeline_fifo_data_i : t_pipeline_fifo_data;
 	signal s_pipeline_fifo_data_o : t_pipeline_fifo_data;
 
 	signal s_rdreq : std_logic;
@@ -135,7 +135,7 @@ begin
 		variable v_burst_read_address     : t_pgen_avalon_burst_address := 0;
 		variable v_burst_burst_counter    : t_pgen_burst_counter        := 0;
 		variable v_burst_bytes_enabled    : t_pgen_bytes_enabled        := (others => '0');
-		variable vf_burst_reading_started  : std_logic                   := '0';
+		variable vf_burst_reading_started : std_logic                   := '0';
 	begin
 		if (rst_i = '1') then
 			avalon_burst_read_outputs_o.waitrequest   <= '1';
@@ -146,13 +146,13 @@ begin
 			v_burst_read_address                      := 0;
 			v_burst_burst_counter                     := 0;
 			v_burst_bytes_enabled                     := (others => '0');
-			vf_burst_reading_started                   := '0';
-			s_pipeline_fifo_rdreq                                   <= '0';
-			s_pipeline_fifo_wrreq                                   <= '0';
+			vf_burst_reading_started                  := '0';
+			s_pipeline_fifo_rdreq                     <= '0';
+			s_pipeline_fifo_wrreq                     <= '0';
 			s_fifo_data_used                          <= '0';
 		elsif (rising_edge(clk_i)) then
-			s_pipeline_fifo_wrreq                                   <= '0';
-			s_pipeline_fifo_rdreq                                   <= '0';
+			s_pipeline_fifo_wrreq                     <= '0';
+			s_pipeline_fifo_rdreq                     <= '0';
 			s_fifo_data_used                          <= '0';
 			avalon_burst_read_outputs_o.readdatavalid <= '0';
 			s_burst_waitrequest                       <= '1';
@@ -173,13 +173,13 @@ begin
 								v_pipeline_state_machine := RECORDING;
 							end if;
 						else            -- burst reading não iniciado, prepara o inicio de uma nova leitura
-							v_burst_read_address               := to_integer(unsigned(avalon_burst_read_inputs_i.address));
-							v_burst_burst_counter                   := to_integer(unsigned(avalon_burst_read_inputs_i.burstcount));
-							v_burst_bytes_enabled                   := avalon_burst_read_inputs_i.byteenable;
-							vf_burst_reading_started                 := '1';
+							v_burst_read_address     := to_integer(unsigned(avalon_burst_read_inputs_i.address));
+							v_burst_burst_counter    := to_integer(unsigned(avalon_burst_read_inputs_i.burstcount));
+							v_burst_bytes_enabled    := avalon_burst_read_inputs_i.byteenable;
+							vf_burst_reading_started := '1';
 							s_burst_waitrequest      <= '0';
-							s_pipeline_fifo_wrreq                                 <= '0';
-							v_pipeline_state_machine                := WAITING;
+							s_pipeline_fifo_wrreq    <= '0';
+							v_pipeline_state_machine := WAITING;
 						end if;
 
 					when WAITING =>     -- delay de um ciclo de clock para que o master retire a requisição de leitura
@@ -199,22 +199,22 @@ begin
 					when NORMAL =>      -- primeira leitura de um burst ou leitura única
 
 						if (s_datavalid = '1') then -- existe dados válidos disponíveis
-								p_burst_readdata(v_burst_read_address, v_burst_bytes_enabled);
+							p_burst_readdata(v_burst_read_address, v_burst_bytes_enabled);
 							avalon_burst_read_outputs_o.readdatavalid <= '1';
 							s_avs_dataused                            <= '1';
-								if (v_burst_burst_counter > 1) then
-									v_burst_burst_counter := v_burst_burst_counter - 1;
+							if (v_burst_burst_counter > 1) then
+								v_burst_burst_counter := v_burst_burst_counter - 1;
 								v_burst_read_address  := v_burst_read_address + 1;
-									s_fifo_data_used      <= '1';
-									v_read_state_machine  := BURST;
-								else
+								s_fifo_data_used      <= '1';
+								v_read_state_machine  := BURST;
+							else
 								if (s_pipeline_fifo_o.empty = '0') then -- existem comandos disponíveis no pipeline, faz o ftdiand fetching
-										s_pipeline_fifo_rdreq                 <= '1';
-										vf_burst_reading_started := '1';
-										v_read_state_machine    := FETCHING;
+									s_pipeline_fifo_rdreq    <= '1';
+									vf_burst_reading_started := '1';
+									v_read_state_machine     := FETCHING;
 								else    -- não existe comandos disponíveis no pipeline, aguarda novo início de leitura
-										vf_burst_reading_started := '0';
-										v_read_state_machine    := NORMAL;
+									vf_burst_reading_started := '0';
+									v_read_state_machine     := NORMAL;
 								end if;
 							end if;
 						else
@@ -226,7 +226,7 @@ begin
 							p_burst_readdata(v_burst_read_address, v_burst_bytes_enabled);
 							avalon_burst_read_outputs_o.readdatavalid <= '1';
 							-- s_avs_dataused                            <= '1';
-								v_burst_burst_counter := v_burst_burst_counter - 1;
+							v_burst_burst_counter                     := v_burst_burst_counter - 1;
 							--v_burst_read_address  := v_burst_read_address + 1;
 						end if;
 						if (v_burst_burst_counter > 0) then
@@ -249,17 +249,17 @@ begin
 							-- s_avs_dataused           <= '0';
 							s_pipeline_fifo_rdreq    <= '0';
 							vf_burst_reading_started := '1';
-							v_read_state_machine    := FETCHING;
+							v_read_state_machine     := FETCHING;
 						else            -- realizado o fetch, atualiza os dados atuais com os dados gravados
-							-- s_avs_dataused                            <= '1';
-							v_burst_read_address                      := to_integer(unsigned(s_pipeline_fifo_data_o.address));
+						-- s_avs_dataused                            <= '1';
+							v_burst_read_address := to_integer(unsigned(s_pipeline_fifo_data_o.address));
 
-							v_burst_burst_counter   := to_integer(unsigned(s_pipeline_fifo_data_o.burstcount));
-							v_burst_bytes_enabled   := s_pipeline_fifo_data_o.byteenable;
-							vf_burst_reading_started := '1';
+							v_burst_burst_counter                     := to_integer(unsigned(s_pipeline_fifo_data_o.burstcount));
+							v_burst_bytes_enabled                     := s_pipeline_fifo_data_o.byteenable;
+							vf_burst_reading_started                  := '1';
 							p_burst_readdata(v_burst_read_address, v_burst_bytes_enabled);
 							avalon_burst_read_outputs_o.readdatavalid <= '1';
-							v_read_state_machine := NORMAL;
+							v_read_state_machine                      := NORMAL;
 						end if;
 
 				end case;
@@ -269,16 +269,16 @@ begin
 	end process p_pgen_avalon_burst_read;
 
 	-- Signals assingments
-	s_avs_dataused_output                <= (s_avs_dataused) when not ((avs_controller_rx_status_i.datavalid = '1') and (avalon_burst_read_inputs_i.read = '1') and (s_burst_waitrequest = '1')) else ('1');
-	avs_controller_rx_control_o.dataused <= (s_avs_dataused_output) when ((avs_controller_rx_status_i.datavalid = '1') and ((to_integer(unsigned(avalon_burst_read_inputs_i.address)) = c_FTDI_DATA_BURST_REG_ADDRESS) or ((s_avs_read_address >= c_FTDI_DATA_BURST_REG_ADDRESS) and (s_avs_read_address <= (c_FTDI_DATA_BURST_REG_ADDRESS + c_FTDI_DATA_BURST_ADDRESS_LENGTH - 1))))) else ('0');
+	s_avs_dataused_output                   <= (s_avs_dataused) when not ((avs_controller_rx_status_i.datavalid = '1') and (avalon_burst_read_inputs_i.read = '1') and (s_burst_waitrequest = '1')) else ('1');
+	avs_controller_rx_control_o.dataused    <= (s_avs_dataused_output) when ((avs_controller_rx_status_i.datavalid = '1') and ((to_integer(unsigned(avalon_burst_read_inputs_i.address)) = c_FTDI_DATA_BURST_REG_ADDRESS) or ((s_avs_read_address >= c_FTDI_DATA_BURST_REG_ADDRESS) and (s_avs_read_address <= (c_FTDI_DATA_BURST_REG_ADDRESS + c_FTDI_DATA_BURST_ADDRESS_LENGTH - 1))))) else ('0');
 	--avs_controller_rx_control_o.dataused <= (s_avs_dataused_output) when ((avs_controller_rx_status_i.datavalid = '1')) else ('0');
-	s_pipeline_fifo_i.wrreq <= (s_pipeline_fifo_wrreq) when (s_pipeline_fifo_o.full = '0') else ('0');
+	s_pipeline_fifo_i.wrreq                 <= (s_pipeline_fifo_wrreq) when (s_pipeline_fifo_o.full = '0') else ('0');
 	avalon_burst_read_outputs_o.waitrequest <= s_burst_waitrequest;
-	s_pipeline_fifo_i.rdreq <= (s_pipeline_fifo_rdreq) when (s_pipeline_fifo_o.empty = '0') else ('0');
-	s_datavalid <= (avs_controller_rx_status_i.datavalid) when ((s_avs_read_address >= c_FTDI_DATA_BURST_REG_ADDRESS) and (s_avs_read_address <= (c_FTDI_DATA_BURST_REG_ADDRESS + c_FTDI_DATA_BURST_ADDRESS_LENGTH - 1))) else ('1');
+	s_pipeline_fifo_i.rdreq                 <= (s_pipeline_fifo_rdreq) when (s_pipeline_fifo_o.empty = '0') else ('0');
+	s_datavalid                             <= (avs_controller_rx_status_i.datavalid) when ((s_avs_read_address >= c_FTDI_DATA_BURST_REG_ADDRESS) and (s_avs_read_address <= (c_FTDI_DATA_BURST_REG_ADDRESS + c_FTDI_DATA_BURST_ADDRESS_LENGTH - 1))) else ('1');
 
 	pgen_controller_inputs_o.fifo_data_used <= (s_fifo_data_used) when (pgen_controller_outputs_i.fifo_data_valid = '1') else ('0');
-	s_pipeline_fifo_i.rdreq <= (s_pipeline_fifo_rdreq) when (s_pipeline_fifo_o.empty = '0') else ('0');
+	s_pipeline_fifo_i.rdreq                 <= (s_pipeline_fifo_rdreq) when (s_pipeline_fifo_o.empty = '0') else ('0');
 
 	s_pipeline_fifo_data_i.address    <= avalon_burst_read_inputs_i.address;
 	s_pipeline_fifo_data_i.byteenable <= avalon_burst_read_inputs_i.byteenable;
