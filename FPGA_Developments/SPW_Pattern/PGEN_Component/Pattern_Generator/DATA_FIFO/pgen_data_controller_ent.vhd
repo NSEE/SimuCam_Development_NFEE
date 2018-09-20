@@ -9,14 +9,14 @@ use work.pgen_data_fifo_pkg.all;
 
 entity pgen_data_controller_ent is
 	port(
-		clk_i                      : in  std_logic;
-		rst_i                      : in  std_logic;
-		write_control_i            : in  t_pgen_data_write_control;
-		read_control_i             : in  t_pgen_data_read_control;
-		pattern_generator_data_i   : in  t_pgen_pattern_generator_data;
-		write_status_o             : out t_pgen_data_write_status;
-		read_status_o              : out t_pgen_data_read_status;
-		generator_burst_register_o : out t_pgen_generator_burst_register
+		clk_i                    : in  std_logic;
+		rst_i                    : in  std_logic;
+		write_control_i          : in  t_pgen_data_write_control;
+		read_control_i           : in  t_pgen_data_read_control;
+		pattern_generator_data_i : in  t_pgen_pattern_generator_data;
+		write_status_o           : out t_pgen_data_write_status;
+		read_status_o            : out t_pgen_data_read_status;
+		pattern_data_register_o  : out t_pgen_pattern_data_register
 	);
 end entity pgen_data_controller_ent;
 
@@ -42,21 +42,21 @@ begin
 
 	-- Signals assingments
 
-	s_data_fifo_i.data(63 downto 48) <= pattern_data_i.pattern_pixel_3;
-	s_data_fifo_i.data(47 downto 32) <= pattern_data_i.pattern_pixel_2;
-	s_data_fifo_i.data(31 downto 16) <= pattern_data_i.pattern_pixel_1;
-	s_data_fifo_i.data(15 downto 0)  <= pattern_data_i.pattern_pixel_0;
+	s_data_fifo_i.data(63 downto 48) <= pattern_generator_data_i.pattern_pixel_3;
+	s_data_fifo_i.data(47 downto 32) <= pattern_generator_data_i.pattern_pixel_2;
+	s_data_fifo_i.data(31 downto 16) <= pattern_generator_data_i.pattern_pixel_1;
+	s_data_fifo_i.data(15 downto 0)  <= pattern_generator_data_i.pattern_pixel_0;
 	s_data_fifo_i.rdreq              <= read_control_i.data_fetch;
 	s_data_fifo_i.sclr               <= write_control_i.data_erase;
 	s_data_fifo_i.wrreq              <= write_control_i.data_write;
 
-	write_status_o.empty                       <= s_data_fifo_o.empty;
-	read_status_o.data_available               <= not (s_data_fifo_o.empty);
-	write_status_o.full                        <= s_data_fifo_o.full;
-	read_status_o.full                         <= s_data_fifo_o.full;
-	generator_burst_register_o.pattern_pixel_3 <= s_data_fifo_o.q(63 downto 48);
-	generator_burst_register_o.pattern_pixel_2 <= s_data_fifo_o.q(47 downto 32);
-	generator_burst_register_o.pattern_pixel_1 <= s_data_fifo_o.q(31 downto 16);
-	generator_burst_register_o.pattern_pixel_0 <= s_data_fifo_o.q(15 downto 0);
+	write_status_o.empty                    <= s_data_fifo_o.empty;
+	read_status_o.data_available            <= not (s_data_fifo_o.empty);
+	write_status_o.full                     <= s_data_fifo_o.full;
+	read_status_o.full                      <= s_data_fifo_o.full;
+	pattern_data_register_o.pattern_pixel_3 <= s_data_fifo_o.q(63 downto 48);
+	pattern_data_register_o.pattern_pixel_2 <= s_data_fifo_o.q(47 downto 32);
+	pattern_data_register_o.pattern_pixel_1 <= s_data_fifo_o.q(31 downto 16);
+	pattern_data_register_o.pattern_pixel_0 <= s_data_fifo_o.q(15 downto 0);
 
 end architecture rtl;
