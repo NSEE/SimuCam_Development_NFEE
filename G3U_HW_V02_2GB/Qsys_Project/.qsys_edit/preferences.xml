@@ -10,7 +10,11 @@
   </columns>
  </systemtable>
  <library expandedCategories="Library,Project" />
- <window width="1920" height="1040" x="0" y="0" />
- <generation synthesis="VHDL" simulation="VHDL" testbench_simulation="VHDL" />
+ <window width="1936" height="1096" x="-1928" y="-8" />
+ <generation
+   synthesis="VHDL"
+   simulation="VHDL"
+   testbench_simulation="VHDL"
+   block_symbol_file="1" />
  <hdlexample language="VHDL" />
 </preferences>

@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2018.05.01.15:06:45</td>
+    <td class="l">2018.09.27.17:07:53</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -209,6 +209,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> altera_avalon_pio 16.1
      <br/>&#160;&#160;
      <a href="#module_pio_RST_ETH"><b>pio_RST_ETH</b>
+     </a> altera_avalon_pio 16.1
+     <br/>&#160;&#160;
+     <a href="#module_pio_ctrl_io_lvds"><b>pio_ctrl_io_lvds</b>
      </a> altera_avalon_pio 16.1
      <br/>&#160;&#160;
      <a href="#module_rtcc_alarm"><b>rtcc_alarm</b>
@@ -1508,6 +1511,37 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="addr"><span style="color:#989898">0x</span>800000b0</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slavemodule">&#160;
+     <a href="#module_pio_ctrl_io_lvds"><b>pio_ctrl_io_lvds</b>
+     </a>
+    </td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+   </tr>
+   <tr>
+    <td class="slaveb">s1&#160;</td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="empty"></td>
+    <td class="addr"><span style="color:#989898">0x</span>80000210</td>
     <td class="empty"></td>
     <td class="empty"></td>
     <td class="empty"></td>
@@ -3889,7 +3923,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="104">clock_bridge_afi_50</td>
+      <td class="main" rowspan="107">clock_bridge_afi_50</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;s0</td>
@@ -4416,6 +4450,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">m0&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
        <a href="#module_sinc_in">sinc_in</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;s1</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">m0&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_pio_ctrl_io_lvds">pio_ctrl_io_lvds</a>
       </td>
      </tr>
      <tr>
@@ -21069,7 +21119,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">dataSlaveMapParam</td>
-        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /&gt;&lt;slave name='timer_1us.s1' start='0x80000000' end='0x80000020' type='altera_avalon_timer.s1' /&gt;&lt;slave name='timer_1ms.s1' start='0x80000020' end='0x80000040' type='altera_avalon_timer.s1' /&gt;&lt;slave name='sinc_in.s1' start='0x80000040' end='0x80000050' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sinc_out.s1' start='0x80000050' end='0x80000060' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_cs_n.s1' start='0x80000060' end='0x80000070' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sck.s1' start='0x80000070' end='0x80000080' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdi.s1' start='0x80000080' end='0x80000090' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdo.s1' start='0x80000090' end='0x800000A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_alarm.s1' start='0x800000A0' end='0x800000B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_RST_ETH.s1' start='0x800000B0' end='0x800000C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED_painel.s1' start='0x800000C0' end='0x800000D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_adc_fo.s1' start='0x800000D0' end='0x800000E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_cs_n.s1' start='0x800000E0' end='0x800000F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sck.s1' start='0x800000F0' end='0x80000100' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdi.s1' start='0x80000100' end='0x80000110' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdo.s1' start='0x80000110' end='0x80000120' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_scl.s1' start='0x80000120' end='0x80000130' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_sda.s1' start='0x80000130' end='0x80000140' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_sda.s1' start='0x80000140' end='0x80000150' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_scl.s1' start='0x80000150' end='0x80000160' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_clk.s1' start='0x80000160' end='0x80000170' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_cmd.s1' start='0x80000170' end='0x80000180' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_dat.s1' start='0x80000180' end='0x80000190' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_wp_n.s1' start='0x80000190' end='0x800001A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_EXT.s1' start='0x800001A0' end='0x800001B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_DIP.s1' start='0x800001B0' end='0x800001C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED.s1' start='0x800001C0' end='0x800001D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_BUTTON.s1' start='0x800001D0' end='0x800001E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_scl.s1' start='0x800001E0' end='0x800001F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_sda.s1' start='0x800001F0' end='0x80000200' type='altera_avalon_pio.s1' /&gt;&lt;slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000200' end='0x80000208' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /&gt;&lt;slave name='onchip_memory.s1' start='0x81100000' end='0x811FA000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='descriptor_memory.s1' start='0x81200800' end='0x81201000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='nios2_gen2_0.debug_mem_slave' start='0x81201000' end='0x81201800' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='Communication_Module_H.avalon_mm_registers_slave' start='0x81201800' end='0x81201C00' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_G.avalon_mm_registers_slave' start='0x81201C00' end='0x81202000' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_F.avalon_mm_registers_slave' start='0x81202000' end='0x81202400' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_E.avalon_mm_registers_slave' start='0x81202400' end='0x81202800' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_D.avalon_mm_registers_slave' start='0x81202800' end='0x81202C00' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_C.avalon_mm_registers_slave' start='0x81202C00' end='0x81203000' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_B.avalon_mm_registers_slave' start='0x81203000' end='0x81203400' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_A.avalon_mm_registers_slave' start='0x81203400' end='0x81203800' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='tse_mac.control_port' start='0x81203800' end='0x81203C00' type='altera_eth_tse.control_port' /&gt;&lt;slave name='Pattern_Generator_A.avalon_mm_registers_slave' start='0x81203C00' end='0x81204000' type='Pattern_Generator.avalon_mm_registers_slave' /&gt;&lt;slave name='sgdma_rx.csr' start='0x81204000' end='0x81204040' type='altera_avalon_sgdma.csr' /&gt;&lt;slave name='sgdma_tx.csr' start='0x81204040' end='0x81204080' type='altera_avalon_sgdma.csr' /&gt;&lt;slave name='dma_DDR_M.descriptor_slave' start='0x81204080' end='0x812040A0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_DDR_M.csr' start='0x812040A0' end='0x812040C0' type='altera_msgdma.csr' /&gt;&lt;slave name='sysid_qsys.control_slave' start='0x812040C0' end='0x812040C8' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;slave name='ddr2_address_span_extender.cntl' start='0x812040C8' end='0x812040D0' type='altera_address_span_extender.cntl' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x812040D0' end='0x812040D8' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /&gt;&lt;/address-map&gt;</td>
+        <td class="parametervalue">&lt;address-map&gt;&lt;slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /&gt;&lt;slave name='timer_1us.s1' start='0x80000000' end='0x80000020' type='altera_avalon_timer.s1' /&gt;&lt;slave name='timer_1ms.s1' start='0x80000020' end='0x80000040' type='altera_avalon_timer.s1' /&gt;&lt;slave name='sinc_in.s1' start='0x80000040' end='0x80000050' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sinc_out.s1' start='0x80000050' end='0x80000060' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_cs_n.s1' start='0x80000060' end='0x80000070' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sck.s1' start='0x80000070' end='0x80000080' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdi.s1' start='0x80000080' end='0x80000090' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_sdo.s1' start='0x80000090' end='0x800000A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='rtcc_alarm.s1' start='0x800000A0' end='0x800000B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_RST_ETH.s1' start='0x800000B0' end='0x800000C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED_painel.s1' start='0x800000C0' end='0x800000D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_adc_fo.s1' start='0x800000D0' end='0x800000E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_cs_n.s1' start='0x800000E0' end='0x800000F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sck.s1' start='0x800000F0' end='0x80000100' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdi.s1' start='0x80000100' end='0x80000110' type='altera_avalon_pio.s1' /&gt;&lt;slave name='csense_sdo.s1' start='0x80000110' end='0x80000120' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_scl.s1' start='0x80000120' end='0x80000130' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m2_ddr2_i2c_sda.s1' start='0x80000130' end='0x80000140' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_sda.s1' start='0x80000140' end='0x80000150' type='altera_avalon_pio.s1' /&gt;&lt;slave name='temp_scl.s1' start='0x80000150' end='0x80000160' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_clk.s1' start='0x80000160' end='0x80000170' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_cmd.s1' start='0x80000170' end='0x80000180' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_dat.s1' start='0x80000180' end='0x80000190' type='altera_avalon_pio.s1' /&gt;&lt;slave name='sd_wp_n.s1' start='0x80000190' end='0x800001A0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_EXT.s1' start='0x800001A0' end='0x800001B0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_DIP.s1' start='0x800001B0' end='0x800001C0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_LED.s1' start='0x800001C0' end='0x800001D0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='pio_BUTTON.s1' start='0x800001D0' end='0x800001E0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_scl.s1' start='0x800001E0' end='0x800001F0' type='altera_avalon_pio.s1' /&gt;&lt;slave name='m1_ddr2_i2c_sda.s1' start='0x800001F0' end='0x80000200' type='altera_avalon_pio.s1' /&gt;&lt;slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000200' end='0x80000208' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /&gt;&lt;slave name='pio_ctrl_io_lvds.s1' start='0x80000210' end='0x80000220' type='altera_avalon_pio.s1' /&gt;&lt;slave name='onchip_memory.s1' start='0x81100000' end='0x811FA000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='descriptor_memory.s1' start='0x81200800' end='0x81201000' type='altera_avalon_onchip_memory2.s1' /&gt;&lt;slave name='nios2_gen2_0.debug_mem_slave' start='0x81201000' end='0x81201800' type='altera_nios2_gen2.debug_mem_slave' /&gt;&lt;slave name='Communication_Module_H.avalon_mm_registers_slave' start='0x81201800' end='0x81201C00' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_G.avalon_mm_registers_slave' start='0x81201C00' end='0x81202000' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_F.avalon_mm_registers_slave' start='0x81202000' end='0x81202400' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_E.avalon_mm_registers_slave' start='0x81202400' end='0x81202800' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_D.avalon_mm_registers_slave' start='0x81202800' end='0x81202C00' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_C.avalon_mm_registers_slave' start='0x81202C00' end='0x81203000' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_B.avalon_mm_registers_slave' start='0x81203000' end='0x81203400' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='Communication_Module_A.avalon_mm_registers_slave' start='0x81203400' end='0x81203800' type='Communication_Module.avalon_mm_registers_slave' /&gt;&lt;slave name='tse_mac.control_port' start='0x81203800' end='0x81203C00' type='altera_eth_tse.control_port' /&gt;&lt;slave name='Pattern_Generator_A.avalon_mm_registers_slave' start='0x81203C00' end='0x81204000' type='Pattern_Generator.avalon_mm_registers_slave' /&gt;&lt;slave name='sgdma_rx.csr' start='0x81204000' end='0x81204040' type='altera_avalon_sgdma.csr' /&gt;&lt;slave name='sgdma_tx.csr' start='0x81204040' end='0x81204080' type='altera_avalon_sgdma.csr' /&gt;&lt;slave name='dma_DDR_M.descriptor_slave' start='0x81204080' end='0x812040A0' type='altera_msgdma.descriptor_slave' /&gt;&lt;slave name='dma_DDR_M.csr' start='0x812040A0' end='0x812040C0' type='altera_msgdma.csr' /&gt;&lt;slave name='sysid_qsys.control_slave' start='0x812040C0' end='0x812040C8' type='altera_avalon_sysid_qsys.control_slave' /&gt;&lt;slave name='ddr2_address_span_extender.cntl' start='0x812040C8' end='0x812040D0' type='altera_address_span_extender.cntl' /&gt;&lt;slave name='jtag_uart_0.avalon_jtag_slave' start='0x812040D0' end='0x812040D8' type='altera_avalon_jtag_uart.avalon_jtag_slave' /&gt;&lt;slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /&gt;&lt;/address-map&gt;</td>
        </tr>
        <tr>
         <td class="parametername">tightlyCoupledDataMaster0MapParam</td>
@@ -22797,6 +22847,204 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <tr>
         <td class="parametername">RESET_VALUE</td>
         <td class="parametervalue">0</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+  </div>
+  <a name="module_pio_ctrl_io_lvds"> </a>
+  <div>
+   <hr/>
+   <h2>pio_ctrl_io_lvds</h2>altera_avalon_pio v16.1
+   <br/>
+   <div class="greydiv">
+    <table class="connectionboxes">
+     <tr>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_clock_bridge_afi_50">clock_bridge_afi_50</a>
+      </td>
+      <td class="from">m0&#160;&#160;</td>
+      <td class="main" rowspan="7">pio_ctrl_io_lvds</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;s1</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_clk_50">clk_50</a>
+      </td>
+      <td class="from">clk&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;clk</td>
+     </tr>
+     <tr>
+      <td class="from">clk_reset&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+    </table>
+   </div>
+   <br/>
+   <br/>
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Parameters</h2>
+      <table>
+       <tr>
+        <td class="parametername">bitClearingEdgeCapReg</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">bitModifyingOutReg</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">captureEdge</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">direction</td>
+        <td class="parametervalue">Output</td>
+       </tr>
+       <tr>
+        <td class="parametername">edgeType</td>
+        <td class="parametervalue">RISING</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateIRQ</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">irqType</td>
+        <td class="parametervalue">LEVEL</td>
+       </tr>
+       <tr>
+        <td class="parametername">resetValue</td>
+        <td class="parametervalue">4</td>
+       </tr>
+       <tr>
+        <td class="parametername">simDoTestBenchWiring</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">simDrivenValue</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">width</td>
+        <td class="parametervalue">4</td>
+       </tr>
+       <tr>
+        <td class="parametername">clockRate</td>
+        <td class="parametervalue">50000000</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_has_tri</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_has_out</td>
+        <td class="parametervalue">true</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_has_in</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_do_test_bench_wiring</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_capture</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_edge_type</td>
+        <td class="parametervalue">NONE</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_irq_type</td>
+        <td class="parametervalue">NONE</td>
+       </tr>
+       <tr>
+        <td class="parametername">derived_has_irq</td>
+        <td class="parametervalue">false</td>
+       </tr>
+       <tr>
+        <td class="parametername">deviceFamily</td>
+        <td class="parametervalue">UNKNOWN</td>
+       </tr>
+       <tr>
+        <td class="parametername">generateLegacySim</td>
+        <td class="parametervalue">false</td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>&#160;&#160;
+   <table class="flowbox">
+    <tr>
+     <td class="parametersbox">
+      <h2>Software Assignments</h2>
+      <table>
+       <tr>
+        <td class="parametername">BIT_CLEARING_EDGE_REGISTER</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">BIT_MODIFYING_OUTPUT_REGISTER</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">CAPTURE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">DATA_WIDTH</td>
+        <td class="parametervalue">4</td>
+       </tr>
+       <tr>
+        <td class="parametername">DO_TEST_BENCH_WIRING</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">DRIVEN_SIM_VALUE</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">EDGE_TYPE</td>
+        <td class="parametervalue">NONE</td>
+       </tr>
+       <tr>
+        <td class="parametername">FREQ</td>
+        <td class="parametervalue">50000000</td>
+       </tr>
+       <tr>
+        <td class="parametername">HAS_IN</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">HAS_OUT</td>
+        <td class="parametervalue">1</td>
+       </tr>
+       <tr>
+        <td class="parametername">HAS_TRI</td>
+        <td class="parametervalue">0</td>
+       </tr>
+       <tr>
+        <td class="parametername">IRQ_TYPE</td>
+        <td class="parametervalue">NONE</td>
+       </tr>
+       <tr>
+        <td class="parametername">RESET_VALUE</td>
+        <td class="parametervalue">4</td>
        </tr>
       </table>
      </td>
@@ -25707,7 +25955,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1525198004</td>
+        <td class="parametervalue">1538078872</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -25732,7 +25980,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1525198004</td>
+        <td class="parametervalue">1538078872</td>
        </tr>
       </table>
      </td>
@@ -27008,7 +27256,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <table class="blueBar">
    <tr>
     <td class="l">generation took 0,01 seconds</td>
-    <td class="r">rendering took 0,32 seconds</td>
+    <td class="r">rendering took 0,24 seconds</td>
    </tr>
   </table>
  </body>

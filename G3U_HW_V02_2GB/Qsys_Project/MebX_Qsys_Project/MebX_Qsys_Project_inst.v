@@ -146,6 +146,7 @@
 		.tse_mdio_mdio_out                                    (<connected-to-tse_mdio_mdio_out>),                                    //                                  .mdio_out
 		.tse_mdio_mdio_oen                                    (<connected-to-tse_mdio_mdio_oen>),                                    //                                  .mdio_oen
 		.tse_serial_txp                                       (<connected-to-tse_serial_txp>),                                       //                        tse_serial.txp
-		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>)                                        //                                  .rxp
+		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>),                                       //                                  .rxp
+		.ctrl_io_lvds_export                                  (<connected-to-ctrl_io_lvds_export>)                                   //                      ctrl_io_lvds.export
 	);
 

@@ -149,11 +149,13 @@ port(
     FLASH_RYBY_n    : in std_logic;
     FLASH_WE_n      : out std_logic_vector(0 downto 0);
 
+	-- Sinais de controle - placa isoladora - habilitacao dos transmissores SpW e Sinc_out
+	EN_DRIVERS				: out std_logic;
 	-- Sinais externos LVDS HSMC-B
-	-- Sinais de controle
-	HSMB_BUFFER_PWDN_N     : out std_logic;
-	HSMB_BUFFER_PEM0       : out std_logic;
-	HSMB_BUFFER_PEM1       : out std_logic;
+	-- Sinais de controle - placa drivers_lvds
+	HSMB_BUFFER_PWDN_N		: out std_logic;
+	HSMB_BUFFER_PEM1       	: out std_logic;
+	HSMB_BUFFER_PEM0       	: out std_logic;
 	-- SpaceWire A
 	HSMB_LVDS_RX_SPWA_DI_P : in  std_logic_vector(0 downto 0);
 --	HSMB_LVDS_RX_SPWA_DI_N : in  std_logic_vector(0 downto 0);
@@ -249,7 +251,6 @@ port(
 	-- Sincronization
 	SINC_IN    : in  std_logic;
     SINC_OUT   : out std_logic
-
   );
 end entity;
 
@@ -285,6 +286,11 @@ signal lvds_txp : std_logic;
 -----------------------------------------
 signal leds_b : std_logic_vector(7  downto 0);
 signal leds_p : std_logic_vector(20 downto 0);
+
+-----------------------------------------
+-- Ctrl io lvds
+-----------------------------------------
+signal ctrl_io_lvds : std_logic_vector(3 downto 0);
 
 -----------------------------------------
 -- RST CPU
@@ -408,7 +414,8 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             sd_cmd_export      : inout std_logic;            
             sd_clk_export      : out   std_logic;                                       
             sd_dat_export      : inout std_logic_vector(3 downto 0);
-				
+
+			ctrl_io_lvds_export   : out   std_logic_vector(3 downto 0);            
 				
             m1_ddr2_i2c_scl_export  : out   std_logic;                                 
             m1_ddr2_i2c_sda_export  : inout std_logic;      
@@ -462,7 +469,7 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             rtcc_sdi_export       : out   std_logic;         -- export
             rtcc_sdo_export       : in    std_logic  := 'X'; -- export
 				
-				sinc_in_export        : in    std_logic  := 'X'; -- export
+				sinc_in_export    : in    std_logic  := 'X'; -- export
             sinc_out_export       : out   std_logic          -- export
         );
     end component MebX_Qsys_Project;
@@ -514,6 +521,7 @@ SOPC_INST : MebX_Qsys_Project
     sd_clk_export    => sd_clk,
     sd_dat_export    => sd_dat,
 
+	ctrl_io_lvds_export	=> ctrl_io_lvds,
     
     ETH_rst_export                         => rst_eth,
     tse_led_an                             => open, 
@@ -626,7 +634,6 @@ SOPC_INST : MebX_Qsys_Project
 	
 	sinc_in_export        => SINC_IN,
 	sinc_out_export       => SINC_OUT
-	
  );
 
 --==========--
@@ -722,9 +729,16 @@ FLASH_ADV_n   <= '0';
 -- LVDS Drivers control
 --==========--
 
-	HSMB_BUFFER_PWDN_N <= '1';
-	HSMB_BUFFER_PEM0   <= '0';
-	HSMB_BUFFER_PEM1   <= '0';
+-- TODO - passar comando para módulo ctrl_io_lvds, via Qsys/Nios
+--	HSMB_BUFFER_PWDN_N	<= '1';
+--	HSMB_BUFFER_PEM0	<= '0';
+--	HSMB_BUFFER_PEM1	<= '0';
+--	EN_DRIVERS			<= '0';
+
+	EN_DRIVERS			<= ctrl_io_lvds(3);
+	HSMB_BUFFER_PWDN_N	<= ctrl_io_lvds(2);
+	HSMB_BUFFER_PEM1	<= ctrl_io_lvds(1);
+	HSMB_BUFFER_PEM0	<= ctrl_io_lvds(0);
 
 --==========--
 -- LVDS

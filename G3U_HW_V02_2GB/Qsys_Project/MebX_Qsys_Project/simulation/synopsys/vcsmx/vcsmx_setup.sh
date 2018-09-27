@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 196 win32 2018.05.01.15:06:29
+# ACDS 16.1 196 win32 2018.09.27.17:07:41
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -101,7 +101,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 196 win32 2018.05.01.15:06:29
+# ACDS 16.1 196 win32 2018.09.27.17:07:41
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="MebX_Qsys_Project"
@@ -224,6 +224,7 @@ mkdir -p ./libraries/sysid_qsys/
 mkdir -p ./libraries/sgdma_tx/
 mkdir -p ./libraries/sgdma_rx/
 mkdir -p ./libraries/sd_dat/
+mkdir -p ./libraries/pio_ctrl_io_lvds/
 mkdir -p ./libraries/pio_LED_painel/
 mkdir -p ./libraries/pio_LED/
 mkdir -p ./libraries/pio_EXT/
@@ -691,6 +692,7 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sgdma_tx.v"                                                               -work sgdma_tx                                         
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sgdma_rx.v"                                                               -work sgdma_rx                                         
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sd_dat.v"                                                                 -work sd_dat                                           
+  vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_pio_ctrl_io_lvds.v"                                                       -work pio_ctrl_io_lvds                                 
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_pio_LED_painel.v"                                                         -work pio_LED_painel                                   
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_pio_LED.v"                                                                -work pio_LED                                          
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_pio_EXT.v"                                                                -work pio_EXT                                          

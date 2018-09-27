@@ -147,7 +147,8 @@ module MebX_Qsys_Project (
 	tse_mdio_mdio_out,
 	tse_mdio_mdio_oen,
 	tse_serial_txp,
-	tse_serial_rxp);	
+	tse_serial_rxp,
+	ctrl_io_lvds_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -297,4 +298,5 @@ module MebX_Qsys_Project (
 	output		tse_mdio_mdio_oen;
 	output		tse_serial_txp;
 	input		tse_serial_rxp;
+	output	[3:0]	ctrl_io_lvds_export;
 endmodule

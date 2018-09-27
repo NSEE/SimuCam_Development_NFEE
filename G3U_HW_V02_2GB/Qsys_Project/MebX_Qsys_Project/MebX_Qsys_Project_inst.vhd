@@ -147,7 +147,8 @@
 			tse_mdio_mdio_out                                    : out   std_logic;                                        -- mdio_out
 			tse_mdio_mdio_oen                                    : out   std_logic;                                        -- mdio_oen
 			tse_serial_txp                                       : out   std_logic;                                        -- txp
-			tse_serial_rxp                                       : in    std_logic                     := 'X'              -- rxp
+			tse_serial_rxp                                       : in    std_logic                     := 'X';             -- rxp
+			ctrl_io_lvds_export                                  : out   std_logic_vector(3 downto 0)                      -- export
 		);
 	end component MebX_Qsys_Project;
 
@@ -300,6 +301,7 @@
 			tse_mdio_mdio_out                                    => CONNECTED_TO_tse_mdio_mdio_out,                                    --                                  .mdio_out
 			tse_mdio_mdio_oen                                    => CONNECTED_TO_tse_mdio_mdio_oen,                                    --                                  .mdio_oen
 			tse_serial_txp                                       => CONNECTED_TO_tse_serial_txp,                                       --                        tse_serial.txp
-			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp                                        --                                  .rxp
+			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp,                                       --                                  .rxp
+			ctrl_io_lvds_export                                  => CONNECTED_TO_ctrl_io_lvds_export                                   --                      ctrl_io_lvds.export
 		);
 

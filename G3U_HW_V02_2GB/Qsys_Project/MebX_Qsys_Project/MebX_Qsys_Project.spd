@@ -3587,6 +3587,10 @@
    type="VERILOG"
    library="sd_dat" />
  <file
+   path="simulation/submodules/MebX_Qsys_Project_pio_ctrl_io_lvds.v"
+   type="VERILOG"
+   library="pio_ctrl_io_lvds" />
+ <file
    path="simulation/submodules/MebX_Qsys_Project_pio_LED_painel.v"
    type="VERILOG"
    library="pio_LED_painel" />

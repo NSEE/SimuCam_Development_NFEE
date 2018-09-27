@@ -85,6 +85,7 @@ sysid_qsys:                                        ./libraries/sysid_qsys/
 sgdma_tx:                                          ./libraries/sgdma_tx/                                         
 sgdma_rx:                                          ./libraries/sgdma_rx/                                         
 sd_dat:                                            ./libraries/sd_dat/                                           
+pio_ctrl_io_lvds:                                  ./libraries/pio_ctrl_io_lvds/                                 
 pio_LED_painel:                                    ./libraries/pio_LED_painel/                                   
 pio_LED:                                           ./libraries/pio_LED/                                          
 pio_EXT:                                           ./libraries/pio_EXT/                                          

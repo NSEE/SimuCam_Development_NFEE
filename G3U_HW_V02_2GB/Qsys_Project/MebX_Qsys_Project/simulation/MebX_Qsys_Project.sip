@@ -428,6 +428,7 @@ set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file joi
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_sgdma_tx.v"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_sgdma_rx.v"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_sd_dat.v"]
+set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_pio_ctrl_io_lvds.v"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_pio_LED_painel.v"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_pio_LED.v"]
 set_global_assignment -library "lib_MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(sip_path) "submodules/MebX_Qsys_Project_pio_EXT.v"]

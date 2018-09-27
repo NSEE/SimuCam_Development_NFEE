@@ -47,6 +47,7 @@ entity MebX_Qsys_Project is
 		csense_sck_export                                    : out   std_logic;                                        --                        csense_sck.export
 		csense_sdi_export                                    : out   std_logic;                                        --                        csense_sdi.export
 		csense_sdo_export                                    : in    std_logic                     := '0';             --                        csense_sdo.export
+		ctrl_io_lvds_export                                  : out   std_logic_vector(3 downto 0);                     --                      ctrl_io_lvds.export
 		dip_export                                           : in    std_logic_vector(7 downto 0)  := (others => '0'); --                               dip.export
 		eth_rst_export                                       : out   std_logic;                                        --                           eth_rst.export
 		ext_export                                           : in    std_logic                     := '0';             --                               ext.export
@@ -636,6 +637,19 @@ architecture rtl of MebX_Qsys_Project is
 			out_port   : out std_logic_vector(20 downto 0)                     -- export
 		);
 	end component MebX_Qsys_Project_pio_LED_painel;
+
+	component MebX_Qsys_Project_pio_ctrl_io_lvds is
+		port (
+			clk        : in  std_logic                     := 'X';             -- clk
+			reset_n    : in  std_logic                     := 'X';             -- reset_n
+			address    : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			write_n    : in  std_logic                     := 'X';             -- write_n
+			writedata  : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			chipselect : in  std_logic                     := 'X';             -- chipselect
+			readdata   : out std_logic_vector(31 downto 0);                    -- readdata
+			out_port   : out std_logic_vector(3 downto 0)                      -- export
+		);
+	end component MebX_Qsys_Project_pio_ctrl_io_lvds;
 
 	component MebX_Qsys_Project_sd_dat is
 		port (
@@ -1228,6 +1242,11 @@ architecture rtl of MebX_Qsys_Project is
 			m2_ddr2_i2c_sda_s1_chipselect                            : out std_logic;                                        -- chipselect
 			pio_BUTTON_s1_address                                    : out std_logic_vector(1 downto 0);                     -- address
 			pio_BUTTON_s1_readdata                                   : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			pio_ctrl_io_lvds_s1_address                              : out std_logic_vector(1 downto 0);                     -- address
+			pio_ctrl_io_lvds_s1_write                                : out std_logic;                                        -- write
+			pio_ctrl_io_lvds_s1_readdata                             : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			pio_ctrl_io_lvds_s1_writedata                            : out std_logic_vector(31 downto 0);                    -- writedata
+			pio_ctrl_io_lvds_s1_chipselect                           : out std_logic;                                        -- chipselect
 			pio_DIP_s1_address                                       : out std_logic_vector(1 downto 0);                     -- address
 			pio_DIP_s1_readdata                                      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			pio_EXT_s1_address                                       : out std_logic_vector(1 downto 0);                     -- address
@@ -2203,6 +2222,11 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_sinc_out_s1_writedata                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_2:sinc_out_s1_writedata -> sinc_out:writedata
 	signal mm_interconnect_2_sinc_in_s1_readdata                                          : std_logic_vector(31 downto 0);  -- sinc_in:readdata -> mm_interconnect_2:sinc_in_s1_readdata
 	signal mm_interconnect_2_sinc_in_s1_address                                           : std_logic_vector(1 downto 0);   -- mm_interconnect_2:sinc_in_s1_address -> sinc_in:address
+	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_chipselect                               : std_logic;                      -- mm_interconnect_2:pio_ctrl_io_lvds_s1_chipselect -> pio_ctrl_io_lvds:chipselect
+	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_readdata                                 : std_logic_vector(31 downto 0);  -- pio_ctrl_io_lvds:readdata -> mm_interconnect_2:pio_ctrl_io_lvds_s1_readdata
+	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_address                                  : std_logic_vector(1 downto 0);   -- mm_interconnect_2:pio_ctrl_io_lvds_s1_address -> pio_ctrl_io_lvds:address
+	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_write                                    : std_logic;                      -- mm_interconnect_2:pio_ctrl_io_lvds_s1_write -> mm_interconnect_2_pio_ctrl_io_lvds_s1_write:in
+	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_writedata                                : std_logic_vector(31 downto 0);  -- mm_interconnect_2:pio_ctrl_io_lvds_s1_writedata -> pio_ctrl_io_lvds:writedata
 	signal m1_clock_bridge_m0_waitrequest                                                 : std_logic;                      -- mm_interconnect_3:m1_clock_bridge_m0_waitrequest -> m1_clock_bridge:m0_waitrequest
 	signal m1_clock_bridge_m0_readdata                                                    : std_logic_vector(63 downto 0);  -- mm_interconnect_3:m1_clock_bridge_m0_readdata -> m1_clock_bridge:m0_readdata
 	signal m1_clock_bridge_m0_debugaccess                                                 : std_logic;                      -- m1_clock_bridge:m0_debugaccess -> mm_interconnect_3:m1_clock_bridge_m0_debugaccess
@@ -2307,9 +2331,10 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_rtcc_sck_s1_write_ports_inv                                  : std_logic;                      -- mm_interconnect_2_rtcc_sck_s1_write:inv -> rtcc_sck:write_n
 	signal mm_interconnect_2_rtcc_cs_n_s1_write_ports_inv                                 : std_logic;                      -- mm_interconnect_2_rtcc_cs_n_s1_write:inv -> rtcc_cs_n:write_n
 	signal mm_interconnect_2_sinc_out_s1_write_ports_inv                                  : std_logic;                      -- mm_interconnect_2_sinc_out_s1_write:inv -> sinc_out:write_n
+	signal mm_interconnect_2_pio_ctrl_io_lvds_s1_write_ports_inv                          : std_logic;                      -- mm_interconnect_2_pio_ctrl_io_lvds_s1_write:inv -> pio_ctrl_io_lvds:write_n
 	signal mm_interconnect_3_m1_ddr2_memory_avl_inv                                       : std_logic;                      -- m1_ddr2_memory_avl_waitrequest:inv -> mm_interconnect_3:m1_ddr2_memory_avl_waitrequest
 	signal rst_controller_reset_out_reset_ports_inv                                       : std_logic;                      -- rst_controller_reset_out_reset:inv -> [dma_DDR_M:reset_n_reset_n, jtag_uart_0:rst_n, sysid_qsys:reset_n]
-	signal rst_controller_002_reset_out_reset_ports_inv                                   : std_logic;                      -- rst_controller_002_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_RST_ETH:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_clk:reset_n, sd_cmd:reset_n, sd_dat:reset_n, sd_wp_n:reset_n, sinc_in:reset_n, sinc_out:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
+	signal rst_controller_002_reset_out_reset_ports_inv                                   : std_logic;                      -- rst_controller_002_reset_out_reset:inv -> [csense_adc_fo:reset_n, csense_cs_n:reset_n, csense_sck:reset_n, csense_sdi:reset_n, csense_sdo:reset_n, m1_ddr2_i2c_scl:reset_n, m1_ddr2_i2c_sda:reset_n, m2_ddr2_i2c_scl:reset_n, m2_ddr2_i2c_sda:reset_n, pio_BUTTON:reset_n, pio_DIP:reset_n, pio_EXT:reset_n, pio_LED:reset_n, pio_LED_painel:reset_n, pio_RST_ETH:reset_n, pio_ctrl_io_lvds:reset_n, rtcc_alarm:reset_n, rtcc_cs_n:reset_n, rtcc_sck:reset_n, rtcc_sdi:reset_n, rtcc_sdo:reset_n, sd_clk:reset_n, sd_cmd:reset_n, sd_dat:reset_n, sd_wp_n:reset_n, sinc_in:reset_n, sinc_out:reset_n, temp_scl:reset_n, temp_sda:reset_n, timer_1ms:reset_n, timer_1us:reset_n]
 	signal rst_controller_003_reset_out_reset_ports_inv                                   : std_logic;                      -- rst_controller_003_reset_out_reset:inv -> [sgdma_rx:system_reset_n, sgdma_tx:system_reset_n]
 	signal rst_controller_005_reset_out_reset_ports_inv                                   : std_logic;                      -- rst_controller_005_reset_out_reset:inv -> nios2_gen2_0:reset_n
 
@@ -3108,6 +3133,18 @@ begin
 			out_port   => eth_rst_export                                    -- external_connection.export
 		);
 
+	pio_ctrl_io_lvds : component MebX_Qsys_Project_pio_ctrl_io_lvds
+		port map (
+			clk        => clk50_clk,                                             --                 clk.clk
+			reset_n    => rst_controller_002_reset_out_reset_ports_inv,          --               reset.reset_n
+			address    => mm_interconnect_2_pio_ctrl_io_lvds_s1_address,         --                  s1.address
+			write_n    => mm_interconnect_2_pio_ctrl_io_lvds_s1_write_ports_inv, --                    .write_n
+			writedata  => mm_interconnect_2_pio_ctrl_io_lvds_s1_writedata,       --                    .writedata
+			chipselect => mm_interconnect_2_pio_ctrl_io_lvds_s1_chipselect,      --                    .chipselect
+			readdata   => mm_interconnect_2_pio_ctrl_io_lvds_s1_readdata,        --                    .readdata
+			out_port   => ctrl_io_lvds_export                                    -- external_connection.export
+		);
+
 	rtcc_alarm : component MebX_Qsys_Project_csense_sdo
 		port map (
 			clk      => clk50_clk,                                    --                 clk.clk
@@ -3821,6 +3858,11 @@ begin
 			m2_ddr2_i2c_sda_s1_chipselect                            => mm_interconnect_2_m2_ddr2_i2c_sda_s1_chipselect,                          --                                                   .chipselect
 			pio_BUTTON_s1_address                                    => mm_interconnect_2_pio_button_s1_address,                                  --                                      pio_BUTTON_s1.address
 			pio_BUTTON_s1_readdata                                   => mm_interconnect_2_pio_button_s1_readdata,                                 --                                                   .readdata
+			pio_ctrl_io_lvds_s1_address                              => mm_interconnect_2_pio_ctrl_io_lvds_s1_address,                            --                                pio_ctrl_io_lvds_s1.address
+			pio_ctrl_io_lvds_s1_write                                => mm_interconnect_2_pio_ctrl_io_lvds_s1_write,                              --                                                   .write
+			pio_ctrl_io_lvds_s1_readdata                             => mm_interconnect_2_pio_ctrl_io_lvds_s1_readdata,                           --                                                   .readdata
+			pio_ctrl_io_lvds_s1_writedata                            => mm_interconnect_2_pio_ctrl_io_lvds_s1_writedata,                          --                                                   .writedata
+			pio_ctrl_io_lvds_s1_chipselect                           => mm_interconnect_2_pio_ctrl_io_lvds_s1_chipselect,                         --                                                   .chipselect
 			pio_DIP_s1_address                                       => mm_interconnect_2_pio_dip_s1_address,                                     --                                         pio_DIP_s1.address
 			pio_DIP_s1_readdata                                      => mm_interconnect_2_pio_dip_s1_readdata,                                    --                                                   .readdata
 			pio_EXT_s1_address                                       => mm_interconnect_2_pio_ext_s1_address,                                     --                                         pio_EXT_s1.address
@@ -4596,6 +4638,8 @@ begin
 	mm_interconnect_2_rtcc_cs_n_s1_write_ports_inv <= not mm_interconnect_2_rtcc_cs_n_s1_write;
 
 	mm_interconnect_2_sinc_out_s1_write_ports_inv <= not mm_interconnect_2_sinc_out_s1_write;
+
+	mm_interconnect_2_pio_ctrl_io_lvds_s1_write_ports_inv <= not mm_interconnect_2_pio_ctrl_io_lvds_s1_write;
 
 	mm_interconnect_3_m1_ddr2_memory_avl_inv <= not m1_ddr2_memory_avl_waitrequest;
 
