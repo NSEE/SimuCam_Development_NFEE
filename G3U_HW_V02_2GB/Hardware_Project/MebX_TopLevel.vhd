@@ -150,7 +150,7 @@ port(
     FLASH_WE_n      : out std_logic_vector(0 downto 0);
 
 	-- Sinais de controle - placa isoladora - habilitacao dos transmissores SpW e Sinc_out
-	EN_DRIVERS				: out std_logic;
+	EN_ISO_DRIVERS			: out std_logic;
 	-- Sinais externos LVDS HSMC-B
 	-- Sinais de controle - placa drivers_lvds
 	HSMB_BUFFER_PWDN_N		: out std_logic;
@@ -729,13 +729,13 @@ FLASH_ADV_n   <= '0';
 -- LVDS Drivers control
 --==========--
 
--- TODO - passar comando para módulo ctrl_io_lvds, via Qsys/Nios
+-- Comando foi passado para modulo ctrl_io_lvds, via Qsys/Nios
 --	HSMB_BUFFER_PWDN_N	<= '1';
 --	HSMB_BUFFER_PEM0	<= '0';
 --	HSMB_BUFFER_PEM1	<= '0';
---	EN_DRIVERS			<= '0';
+--	EN_ISO_DRIVERS		<= '0';
 
-	EN_DRIVERS			<= ctrl_io_lvds(3);
+	EN_ISO_DRIVERS		<= ctrl_io_lvds(3);
 	HSMB_BUFFER_PWDN_N	<= ctrl_io_lvds(2);
 	HSMB_BUFFER_PEM1	<= ctrl_io_lvds(1);
 	HSMB_BUFFER_PEM0	<= ctrl_io_lvds(0);

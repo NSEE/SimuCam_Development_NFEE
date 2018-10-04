@@ -24,5 +24,7 @@ typedef int bool;
 #define TRUE    1
 #define FALSE   0
 
+#define PUBLIC
+#define PRIVATE static
 
 #endif /*MEB_INCLUDES_H_*/
