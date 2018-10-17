@@ -793,7 +793,7 @@ GND                          : AV1       : gnd    :                   :         
 GND                          : AV2       : gnd    :                   :         :           :                
 GND                          : AV3       : gnd    :                   :         :           :                
 NC                           : AV4       :        :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AV5       :        :                   :         : 5A        :                
+EN_ISO_DRIVERS               : AV5       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 GND                          : AV6       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AV7       :        :                   :         : 5A        :                
 RTCC_SDO                     : AV8       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
