@@ -291,7 +291,7 @@ begin
 					-- final polarity (pol_1) of the sync signal 
 					-- default output signals
 					sync_output_o(1) <= '0';
-					sync_output_o(0) <= g_SYNC_POLARITY;
+					sync_output_o(0) <= not (g_SYNC_POLARITY);
 					flags_o.running  <= '1';
 					flags_o.stopped  <= '0';
 					-- conditional output signals
