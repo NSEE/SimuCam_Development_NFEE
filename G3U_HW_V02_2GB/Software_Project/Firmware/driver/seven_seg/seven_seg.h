@@ -38,7 +38,7 @@
 /* prototype */
 extern alt_u8 SspdConfigControl;
 
-bool SSDP_CONFIG(alt_u8 SsdpConfig);
-bool SSDP_UPDATE(alt_u8 SsdpData);
+bool bSSDisplayConfig(alt_u8 SsdpConfig);
+bool bSSDisplayUpdate(alt_u8 SsdpData);
 
 #endif /* SEVEN_SEG */

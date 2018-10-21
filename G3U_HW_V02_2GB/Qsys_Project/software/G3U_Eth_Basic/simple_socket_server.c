@@ -533,7 +533,7 @@ void SSSSimpleSocketServerTask() {
 	sss_reset_connection(&conn);
 	printf("[sss_task] Simple Socket Server listening on port %d\n", SSS_PORT);
 
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
+	bTogglePainelLedsDriver(LEDS_ON, LEDS_ST_1_MASK);
 
 	while (1) {
 		/*

@@ -169,7 +169,7 @@ void LogTask(void *task_data) {
 	printf("Created \"log\" Task (Prio:%d) \n", LOG_TASK_PRIORITY);
 	while (1) {
 		TEMP_Read(&tempFPGA, &tempBoard);
-		SSDP_UPDATE(tempFPGA);
+		bSSDisplayUpdate(tempFPGA);
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 }
@@ -353,16 +353,16 @@ void Set_SpW_Led(char c_SpwID) {
 	}
 	alt_u32 SpW_Link_Status = ul_SpaceWire_Interface_Link_Status_Read(c_SpwID);
 	if (SpW_Link_Status & SPWC_LINK_RUNNING_STATUS_BIT_MASK) {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, ui_leds_mask_r);
-		LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_g);
+		bTogglePainelLedsDriver(LEDS_OFF, ui_leds_mask_r);
+		bTogglePainelLedsDriver(LEDS_ON, ui_leds_mask_g);
 	} else if (SpW_Link_Status
 			& (SPWC_LINK_DISCONNECT_ERROR_BIT_MASK
 					| SPWC_LINK_PARITY_ERROR_BIT_MASK
 					| SPWC_LINK_ESCAPE_ERROR_BIT_MASK
 					| SPWC_LINK_CREDIT_ERROR_BIT_MASK)) {
-		LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_g | ui_leds_mask_r);
+		bTogglePainelLedsDriver(LEDS_ON, ui_leds_mask_g | ui_leds_mask_r);
 	} else {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, ui_leds_mask_g);
-		LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_r);
+		bTogglePainelLedsDriver(LEDS_OFF, ui_leds_mask_g);
+		bTogglePainelLedsDriver(LEDS_ON, ui_leds_mask_r);
 	}
 }

@@ -143,7 +143,6 @@ ELF := G3U_Eth_Basic.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS += alt_error_handler.c
-C_SRCS += iniche_init.c
 C_SRCS += led.c
 C_SRCS += network_utilities.c
 C_SRCS += simple_socket_server.c
@@ -160,10 +159,13 @@ C_SRCS += logic/dma/dma.c
 C_SRCS += logic/eth/eth.c
 C_SRCS += logic/pgen/pgen.c
 C_SRCS += logic/sense/sense.c
-C_SRCS += rtos/default_configs.c
 C_SRCS += rtos/rtos_tasks.c
 C_SRCS += utils/util.c
 C_SRCS += command_control.c
+C_SRCS += simucam.c
+C_SRCS += utils/initialization_simucam.c
+C_SRCS += utils/error_handler_simucam.c
+C_SRCS += utils/test_module_simucam.c
 CXX_SRCS :=
 ASM_SRCS :=
 
