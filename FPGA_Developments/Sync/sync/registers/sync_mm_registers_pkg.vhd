@@ -1,31 +1,52 @@
 package sync_mm_registers_pkg is
 
-	--  Sync Module Control and Status Register           (32 bits):
-	--    31-23 : Reserved                                  [-/-]
-	--    22-22 : Sync Start control bit                    [R/W]
-	--    21-21 : Sync Stop control bit                     [R/W]
-	--    20-20 : Sync Reset control bit                    [R/W]
-	--    19-19 : Sync Running status bit                   [R/-]
-	--    18-18 : Sync Stopped status bit                   [R/-]
-	--    17-17 : Sync Error interrupt enable bit           [R/W]
-	--    16-16 : Sync Master Start interrupt enable bit    [R/W]
-	--    15-15 : Sync Pulse Start interrupt enable bit     [R/W]
-	--    14-14 : Sync Master Stop interrupt enable bit     [R/W]
-	--    13-13 : Sync Pulse Stop interrupt enable bit      [R/W]
-	--    12-12 : Sync Reseted interrupt enable bit         [R/W]
-	--    11-11 : Sync Error interrupt flag                 [R/-]
-	--    10-10 : Sync Error interrupt flag clear           [-/W]
-	--     9- 9 : Sync Master Start interrupt flag          [R/-]
-	--     8- 8 : Sync Master Start interrupt flag clear    [-/W]
-	--     7- 7 : Sync Pulse Start interrupt flag           [R/-]
-	--     6- 6 : Sync Pulse Start interrupt flag clear     [-/W]
-	--     5- 5 : Sync Master Stop interrupt flag           [R/-]
-	--     4- 4 : Sync Master Stop interrupt flag clear     [-/W]
-	--     3- 3 : Sync Pulse Stop interrupt flag            [R/-]
-	--     2- 2 : Sync Pulse Stop interrupt flag clear      [-/W]
+	--  Sync Status Register           						(32 bits):
+	--    31-15 : Reserved                                  [-/-]
+	--    14-14 : Sync Start control bit                    [R/W]
+	--    13-13 : Sync Reset control bit                    [R/W]
+	--    12-12 : Sync Running status bit                   [R/-]
+	--    11-11 : Sync Error interrupt enable bit           [R/W]
+	--    10-10 : Sync Master Blank interrupt enable bit    [R/W]
+	--     9- 9 : Sync Blank interrupt enable bit	        [R/W]
+	--     8- 8 : Sync Reseted interrupt enable bit         [R/W]
+	--     7- 7 : Sync Error interrupt flag                 [R/-]
+	--     6- 6 : Sync Error interrupt flag clear           [-/W]
+	--     5- 5 : Sync Master Blank interrupt flag          [R/-]
+	--     4- 4 : Sync Master Blank interrupt flag clear    [-/W]
+	--     3- 3 : Sync Blank interrupt flag		            [R/-]
+	--     2- 2 : Sync Blank interrupt flag clear		    [-/W]
 	--     1- 1 : Sync Reseted interrupt flag               [R/-]
 	--     0- 0 : Sync Reseted interrupt flag clear         [-/W]
-	--  Sync Signal Configuration Register                (32 bits):
+
+	--  Sync Interrupt Register           					(32 bits):
+	--    31-15 : Reserved                                  [-/-]
+	--    14-14 : Sync Start control bit                    [R/W]
+	--    13-13 : Sync Reset control bit                    [R/W]
+	--    12-12 : Sync Running status bit                   [R/-]
+	--    11-11 : Sync Error interrupt enable bit           [R/W]
+	--    10-10 : Sync Master Blank interrupt enable bit    [R/W]
+	--     9- 9 : Sync Blank interrupt enable bit	        [R/W]
+	--     8- 8 : Sync Reseted interrupt enable bit         [R/W]
+	--     7- 7 : Sync Error interrupt flag                 [R/-]
+	--     6- 6 : Sync Error interrupt flag clear           [-/W]
+	--     5- 5 : Sync Master Blank interrupt flag          [R/-]
+	--     4- 4 : Sync Master Blank interrupt flag clear    [-/W]
+	--     3- 3 : Sync Blank interrupt flag		            [R/-]
+	--     2- 2 : Sync Blank interrupt flag clear		    [-/W]
+	--     1- 1 : Sync Reseted interrupt flag               [R/-]
+	--     0- 0 : Sync Reseted interrupt flag clear         [-/W]
+
+	--  Sync config registers
+	--  Sync Period Register			                 	(32 bits):
+	--    31-0 : Sync Period value				            [R/W]
+	
+	--  Sync Master Blank Time Register   	              	(32 bits):
+	--    31-0 : Sync MBT value             				[R/W]
+	
+	--  Sync Blank Time Register		                    (32 bits):
+	--    31-0 : Sync BT value				                [R/W]
+
+	--  Sync Control Register				                (32 bits):
 	--    31-14 : Reserved                                  [-/-]
 	--    13-12 : Sync Signal Number of Pulses value        [R/W]
 	--    11-11 : Sync Signal Polarity bit                  [R/W]
@@ -40,12 +61,6 @@ package sync_mm_registers_pkg is
 	--     2- 2 : Sync Signal Channel F enable bit          [R/W]
 	--     1- 1 : Sync Signal Channel G enable bit          [R/W]
 	--     0- 0 : Sync Signal Channel H enable bit          [R/W]
-	--  Sync Signal Master Width Register                 (32 bits):
-	--    31-0 : Sync Signal Master Width value             [R/W]
-	--  Sync Signal Pulse Width Register                  (32 bits):
-	--    31-0 : Sync Signal Pulse Width value              [R/W]
-	--  Sync Signal Pulse Period Register                 (32 bits):
-	--    31-0 : Sync Signal Pulse Period value             [R/W]
 
 	-- Registers Address
 	constant c_SYNC_MODULE_CONTROL_STATUS_MM_REG_ADDRESS : natural := 0;

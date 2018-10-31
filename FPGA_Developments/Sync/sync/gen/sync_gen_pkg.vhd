@@ -4,8 +4,8 @@
 --! Standard library
 library IEEE;
 --! Standard packages
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 --! Specific packages
 --use work.XXX.ALL;
 -------------------------------------------------------------------------------

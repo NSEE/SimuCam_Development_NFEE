@@ -1,13 +1,13 @@
 --=============================================================================
---! @file sync_syncgen_ent.vhd
+--! @file sync_gen_ent.vhd
 --=============================================================================
 --! Standard library
 library IEEE;
 --! Standard packages
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
 --! Specific packages
-use work.SYNC_MODULE_PKG.ALL;
+use work.sync_gen_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
