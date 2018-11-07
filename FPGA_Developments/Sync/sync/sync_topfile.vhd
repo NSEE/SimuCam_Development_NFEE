@@ -52,8 +52,8 @@ architecture rtl of sync_ent is
 
 	signal s_reset_n : std_logic;
 
-	signal s_avalon_mm_read_waitrequest  : std_logic_vector;
-	signal s_avalon_mm_write_waitrequest : std_logic_vector;
+	signal s_avalon_mm_read_waitrequest  : std_logic_vector(0 downto 0);
+	signal s_avalon_mm_write_waitrequest : std_logic_vector(0 downto 0);
 
 	signal s_sync_mm_write_registers : t_sync_mm_write_registers;
 	signal s_sync_mm_read_registers  : t_sync_mm_read_registers;
@@ -62,11 +62,11 @@ architecture rtl of sync_ent is
 	signal s_syncgen_signal : std_logic_vector(0 downto 0);
 
 begin
-	avalon_slave_readdata <= "00000000000000000000000000000000";
+	a_avalon_mm_readata <= "00000000000000000000000000000000";
 
-	avalon_slave_waitrequest <= '0';
+	a_avalon_mm_waitrequest <= '0';
 
-	interrupt_sender_irq <= '0';
+	a_irq <= '0';
 
 	sync_avalon_mm_read_inst : entity work.sync_avalon_mm_read
 		port map (
