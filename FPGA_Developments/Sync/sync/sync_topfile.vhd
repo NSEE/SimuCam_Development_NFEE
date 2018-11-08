@@ -93,40 +93,53 @@ begin
 
 	sync_gen_ent_inst : entity work.sync_gen_ent
 		generic map (
-			g_SYNC_COUNTER_WIDTH => c_SYNC_COUNTER_WIDTH,
-			g_SYNC_POLARITY      => c_SYNC_POLARITY
+			g_SYNC_COUNTER_WIDTH => c_SYNC_COUNTER_WIDTH
 		)
 		port map (
-			clk_i                  => a_clock,
-			reset_n_i              => s_reset_n,
-			control_i.start        => s_sync_mm_write_registers.module_control_register.sync_start,
-			control_i.reset        => s_sync_mm_write_registers.module_control_register.sync_reset,
-			configs_i.pulse_period => s_sync_mm_write_registers.signal_pulse_period_register.signal_pulse_period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			configs_i.pulse_number => s_sync_mm_write_registers.signal_configuration_register.signal_number_pulses((c_SYNC_PULSE_NUMBER_WIDTH - 1) downto 0),
-			configs_i.master_width => s_sync_mm_write_registers.signal_master_width_register.signal_master_width((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			configs_i.pulse_width  => s_sync_mm_write_registers.signal_pulse_width_register.signal_pulse_width((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			flags_o.running        => s_sync_mm_read_registers.module_status_register.sync_running,
-			error_o                => open,
-			sync_output_o          => s_syncgen_signal
+			clk_i                  	=> a_clock,
+			reset_n_i             	=> s_reset_n,
+
+			control_i.start        	=> s_sync_mm_write_registers.control_register.sync_start,
+			control_i.reset        	=> s_sync_mm_write_registers.control_register.sync_reset,
+			control_i.one_shot     	=> s_sync_mm_write_registers.control_register.sync_one_shot,
+			control_i.err_inj	   	=> s_sync_mm_write_registers.control_register.sync_err_inj,
+
+			configs_i.master_blank_time => s_sync_mm_write_registers.config_register.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			configs_i.blank_time 		=> s_sync_mm_write_registers.config_register.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			configs_i.period 			=> s_sync_mm_write_registers.config_register.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			configs_i.one_shot_time 	=> s_sync_mm_write_registers.config_register.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			configs_i.number_of_cycles 	=> s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_PULSE_NUMBER_WIDTH - 1) downto 0),
+			configs_i.polarity		 	=> s_sync_mm_write_registers.config_register.general.signal_polarity,
+
+			error_injection_i		=> s_sync_mm_write_registers.error_injection_register.error_injection(31 downto 0),
+
+-- TODO - port map do interrupt register
+
+-- TODO - revisar port map do status register
+			flags_o.running        	=> s_sync_mm_read_registers.module_status_register.sync_running,
+			error_o                	=> open,
+--			
+			sync_gen_o				=> s_syncgen_signal
 		);
 
 	sync_outen_ent_inst : entity work.sync_outen_ent
-		generic map (
-			g_SYNC_POLARITY => c_SYNC_POLARITY
-		)
 		port map (
 			clk_i                            => a_clock,
 			reset_n_i                        => s_reset_n,
+
+			-- Post mux sync signal (ext/int)
 			sync_signal_i                    => s_sync_signal,
-			sync_control_i.channel_a_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_a_enable,
-			sync_control_i.channel_b_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_b_enable,
-			sync_control_i.channel_c_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_c_enable,
-			sync_control_i.channel_d_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_d_enable,
-			sync_control_i.channel_e_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_e_enable,
-			sync_control_i.channel_f_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_f_enable,
-			sync_control_i.channel_g_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_g_enable,
-			sync_control_i.channel_h_enable  => s_sync_mm_write_registers.signal_configuration_register.channel_h_enable,
-			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.signal_configuration_register.sync_out_enable,
+
+			sync_control_i.channel_a_enable  => s_sync_mm_write_registers.control_register.channel_a_enable,
+			sync_control_i.channel_b_enable  => s_sync_mm_write_registers.control_register.channel_b_enable,
+			sync_control_i.channel_c_enable  => s_sync_mm_write_registers.control_register.channel_c_enable,
+			sync_control_i.channel_d_enable  => s_sync_mm_write_registers.control_register.channel_d_enable,
+			sync_control_i.channel_e_enable  => s_sync_mm_write_registers.control_register.channel_e_enable,
+			sync_control_i.channel_f_enable  => s_sync_mm_write_registers.control_register.channel_f_enable,
+			sync_control_i.channel_g_enable  => s_sync_mm_write_registers.control_register.channel_g_enable,
+			sync_control_i.channel_h_enable  => s_sync_mm_write_registers.control_register.channel_h_enable,
+			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.control_register.sync_out_enable,
+
 			sync_channels_o.channel_a_signal => conduit_sync_signal_spwa,
 			sync_channels_o.channel_b_signal => conduit_sync_signal_spwb,
 			sync_channels_o.channel_c_signal => conduit_sync_signal_spwc,
@@ -138,10 +151,13 @@ begin
 			sync_channels_o.sync_out_signal  => conduit_sync_signal_syncout
 		);
 
-	-- signals assignment
+	-- Signals assignment
 	s_reset_n               <= not a_reset;
 	a_avalon_mm_waitrequest <= (s_avalon_mm_write_waitrequest) or (s_avalon_mm_read_waitrequest);
-	-- TODO - substituir o registro sync_in_enable pelo seletor int_ext_n
-	s_sync_signal           <= (s_syncgen_signal) when (s_sync_mm_write_registers.signal_configuration_register.sync_in_enable = '1') else (conduit_sync_signal_syncin);
+	
+	-- Selection mux: internal ou external sync
+	-- '1' -> internal sync
+	-- '0' -> external sync
+	s_sync_signal           <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.sync_int_ext_n = '1') else (conduit_sync_signal_syncin);
 
 end architecture rtl;                   -- of sync_ent

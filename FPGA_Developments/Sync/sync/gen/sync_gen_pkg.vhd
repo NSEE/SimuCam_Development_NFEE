@@ -7,7 +7,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
---use work.XXX.ALL;
+--use work.xxx.all;
 -------------------------------------------------------------------------------
 -- --
 -- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
@@ -15,7 +15,7 @@ use IEEE.numeric_std.all;
 -- --
 -------------------------------------------------------------------------------
 --
--- unit name: SYNC Module Package (sync_gen_pkg)
+-- unit name: SYNC Generator Package (sync_gen_pkg)
 --
 --! @brief 
 --
@@ -33,10 +33,11 @@ use IEEE.numeric_std.all;
 --! <b>References:</b>\n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo França
+--! Author: Cassio Berni
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 29\03\2018 RF File Creation\n
+--! 08\11\2018 CB Module optimization & revised\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -45,7 +46,7 @@ use IEEE.numeric_std.all;
 -------------------------------------------------------------------------------
 
 --============================================================================
---! Package declaration for SYNC Module Package
+--! Package declaration for SYNC Generator Package
 --============================================================================
 package sync_syncgen_pkg is
 
@@ -53,7 +54,7 @@ package sync_syncgen_pkg is
 	constant c_SYNC_COUNTER_MAX_WIDTH  : integer          := 64;
 	
 	constant c_SYNC_COUNTER_WIDTH      : integer          := 32;
-	constant c_SYNC_PULSE_NUMBER_WIDTH : integer          := 2;
+	constant c_SYNC_PULSE_NUMBER_WIDTH : integer          :=  8;
 	constant c_SYNC_POLARITY           : std_logic_vector := '1';
 
 	-- general
@@ -61,9 +62,10 @@ package sync_syncgen_pkg is
 	-- syncgen
 
 	type t_sync_syncgen_control is record
-		start : std_logic;
-		stop  : std_logic;
-		reset : std_logic;
+		start		: std_logic;
+		reset		: std_logic;
+		one_shot	: std_logic;
+		err_inj		: std_logic;
 	end record t_sync_syncgen_control;
 
 	type t_sync_syncgen_flags is record
@@ -88,7 +90,6 @@ end package sync_syncgen_pkg;
 -- ! package body declaration
 --============================================================================
 package body sync_syncgen_pkg is
-
 end package body sync_syncgen_pkg;
 --============================================================================
 -- package body end

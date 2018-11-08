@@ -29,5 +29,4 @@ package sync_avalon_mm_pkg is
 end package sync_avalon_mm_pkg;
 
 package body sync_avalon_mm_pkg is
-
 end package body sync_avalon_mm_pkg;
