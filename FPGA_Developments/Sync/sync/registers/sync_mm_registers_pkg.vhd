@@ -1,59 +1,109 @@
+--=============================================================================
+--! @file sync_mm_registers_pkg.vhd
+--=============================================================================
+--! Standard library
+library IEEE;
+--! Standard packages
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+--! Specific packages
+--use work.xxx.all;
+-------------------------------------------------------------------------------
+-- --
+-- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
+-- Plato Project --
+-- --
+-------------------------------------------------------------------------------
+--
+-- unit name: sync mm registers package (sync_mm_registers_pkg)
+--
+--! @brief 
+--
+--! @author Rodrigo França (rodrigo.franca@maua.br)
+--
+--! @date 06\02\2018
+--
+--! @version v1.0
+--
+--! @details
+--!
+--! <b>Dependencies:</b>\n
+--! None
+--!
+--! <b>References:</b>\n
+--!
+--! <b>Modified by:</b>\n
+--! Author: Cassio Berni (ccberni@hotmail.com)
+-------------------------------------------------------------------------------
+--! \n\n<b>Last changes:</b>\n
+--! 29\03\2018 RF File Creation\n
+--! 08\11\2018 CB Module optimization & revision\n
+--
+-------------------------------------------------------------------------------
+--! @todo <next thing to do> \n
+--! <another thing to do> \n
+--
+-------------------------------------------------------------------------------
+
+--============================================================================
+--! Package declaration for sync mm registers package
+--============================================================================
 package sync_mm_registers_pkg is
 
 	--  Sync Status Register           						(32 bits):
-	--	  31-31 : Sync Internal/External_n				    [R/W]
+	--	  31-31 : Internal/External_n					    [R/W]
 	--    30-24 : Reserved                                  [-/-]
-	--    23-16 : Sync State							    [R/W]
-	--    15- 8 : Sync Error code			                [R/W]
-	--     7- 0 : Sync Cycle number					        [R/W]
+	--    23-16 : State									    [R/W]
+	--    15- 8 : Error code				                [R/W]
+	--     7- 0 : Cycle number						        [R/W]
 
 	--  Sync Interrupt Register           					(32 bits):
 	--    31-10 : Reserved                                  [-/-]
-	--     9- 9 : Sync Error interrupt enable bit           [R/W]
-	--     8- 8 : Sync Blank pulse interrupt enable bit     [R/W]
+	--     9- 9 : Error interrupt enable bit				[R/W]
+	--     8- 8 : Blank pulse interrupt enable bit		    [R/W]
 	--     7- 2 : Reserved                                  [-/-]
-	--     1- 1 : Sync Error interrupt flag                 [R/W]
-	--     0- 0 : Sync Blank interrupt flag		            [R/W]
+	--     1- 1 : Error interrupt flag                 		[R/W]
+	--     0- 0 : Blank pulse interrupt flag            	[R/W]
 	
 	--  Sync config registers -----------------------------------
-	--  Sync Master Blank Time Register   	              	(32 bits):
-	--    31-0 : Sync MBT value             				[R/W]
+	--  Master Blank Time Register		   	              	(32 bits):
+	--    31-0 : MBT value             						[R/W]
 	
-	--  Sync Blank Time Register		                    (32 bits):
-	--    31-0 : Sync BT value				                [R/W]
+	--  Blank Time Register				                    (32 bits):
+	--    31-0 : BT value					                [R/W]
 
-	--  Sync Period Register			                 	(32 bits):
-	--    31-0 : Sync Period value				            [R/W]
+	--  Period Register					                 	(32 bits):
+	--	  31-0 : Period value					            [R/W]
 
-	--  Sync One Shot Time Register		                 	(32 bits):
-	--    31-0 : Sync OST value					            [R/W]
+	--  Shot Time Register				                 	(32 bits):
+	--    31-0 : OST value						            [R/W]
 
-	--  Sync General Config Register	                 	(32 bits):
+	--  General Config Register			                 	(32 bits):
 	--    31- 9 : Reserved                                  [-/-]
-	--     8- 8 : Sync signal polarity			            [R/W]
-	--     7- 0 : Sync number of cycles					    [R/W]
+	--     8- 8 : Signal polarity				            [R/W]
+	--     7- 0 : Number of cycles						    [R/W]
 -----------------------------------------------------------------
 
 	--  Sync Error Injection Register	                 	(32 bits):
 	--    31- 0 : Reserved (TBD)                            [R/W]
 
 	--  Sync Control Register				                (32 bits):
-	--    31-31 : Sync Internal/External(n) bit			    [R/W]
+	--    31-31 : Internal/External(n) bit				    [R/W]
 	--    30-20 : Reserved                                  [-/-]
-	--    19-19 : Sync Start bit		                    [R/W]
-	--    18-18 : Sync Reset bit					        [R/W]
-	--    17-17 : Sync One Shot bit						    [R/W]
-	--    16-16 : Sync Err_inj bit						    [R/W]
+	--    19-19 : Start bit				                    [R/W]
+	--    18-18 : Reset bit							        [R/W]
+	--    17-17 : One Shot bit							    [R/W]
+	--    16-16 : Err_inj bit							    [R/W]
 	--    15- 9 : Reserved                                  [-/-]
-	--     8- 8 : Sync Sync_out  out enable bit         	[R/W]
-	--     7- 7 : Sync Channel H out enable bit          	[R/W]
-	--     6- 6 : Sync Channel G out enable bit          	[R/W]
-	--     5- 5 : Sync Channel F out enable bit          	[R/W]
-	--     4- 4 : Sync Channel E out enable bit          	[R/W]
-	--     3- 3 : Sync Channel D out enable bit          	[R/W]
-	--     2- 2 : Sync Channel C out enable bit          	[R/W]
-	--     1- 1 : Sync Channel B out enable bit          	[R/W]
-	--     0- 0 : Sync Channel A out enable bit	            [R/W]
+	--     8- 8 : Sync_out  out enable bit		         	[R/W]
+	--     7- 7 : Channel H out enable bit      	    	[R/W]
+	--     6- 6 : Channel G out enable bit          		[R/W]
+	--     5- 5 : Channel F out enable bit          		[R/W]
+	--     4- 4 : Channel E out enable bit         		 	[R/W]
+	--     3- 3 : Channel D out enable bit         	 		[R/W]
+	--     2- 2 : Channel C out enable bit          		[R/W]
+	--     1- 1 : Channel B out enable bit          		[R/W]
+	--     0- 0 : Channel A out enable bit	           		[R/W]
 
 	-- Registers Address
 	constant c_SYNC_STATUS_MM_REG_ADDRESS 					: natural := 0;
@@ -115,7 +165,7 @@ package sync_mm_registers_pkg is
 		channel_a_enable    : std_logic;
 	end record t_sync_control_register;
 
-	-- Avalon MM Types
+	-- Avalon mm types
 	type t_sync_mm_write_registers is record
 		interrupt_enable_register     	: t_sync_interrupt_register;
 		interrupt_flag_register 		: t_sync_interrupt_register;
@@ -135,5 +185,11 @@ package sync_mm_registers_pkg is
 
 end package sync_mm_registers_pkg;
 
+--============================================================================
+--! package body declaration
+--============================================================================
 package body sync_mm_registers_pkg is
 end package body sync_mm_registers_pkg;
+--============================================================================
+-- package body end
+--============================================================================

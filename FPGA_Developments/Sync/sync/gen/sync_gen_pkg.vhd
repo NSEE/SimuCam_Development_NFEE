@@ -10,12 +10,12 @@ use IEEE.numeric_std.all;
 --use work.xxx.all;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
+-- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
 --
--- unit name: SYNC Generator Package (sync_gen_pkg)
+-- unit name: sync generator package (sync_gen_pkg)
 --
 --! @brief 
 --
@@ -33,11 +33,11 @@ use IEEE.numeric_std.all;
 --! <b>References:</b>\n
 --!
 --! <b>Modified by:</b>\n
---! Author: Cassio Berni
+--! Author: Cassio Berni (ccberni@hotmail.com)
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 29\03\2018 RF File Creation\n
---! 08\11\2018 CB Module optimization & revised\n
+--! 08\11\2018 CB Module optimization & revision\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -46,20 +46,38 @@ use IEEE.numeric_std.all;
 -------------------------------------------------------------------------------
 
 --============================================================================
---! Package declaration for SYNC Generator Package
+--! Package declaration for sync generator package
 --============================================================================
 package sync_syncgen_pkg is
 
-	-- others
-	constant c_SYNC_COUNTER_MAX_WIDTH  : integer          := 64;
-	
-	constant c_SYNC_COUNTER_WIDTH      : integer          := 32;
-	constant c_SYNC_PULSE_NUMBER_WIDTH : integer          :=  8;
-	constant c_SYNC_POLARITY           : std_logic_vector := '1';
+	constant c_SYNC_COUNTER_MAX_WIDTH		: integer          := 64;
+	constant c_SYNC_COUNTER_WIDTH			: integer          := 32;
+	constant c_SYNC_STATE_WIDTH				: integer          :=  8;
+	constant c_SYNC_CYCLE_NUMBER_WIDTH		: integer          :=  8;
+	constant c_SYNC_DEFAULT_STBY_POLARITY	: std_logic_vector := '1';
 
-	-- general
+	type t_sync_syncgen_status is record
+		state			: std_logic_vector((c_SYNC_STATE_WIDTH - 1) downto 0);
+		cycle_number	: std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);
+	end record t_sync_syncgen_status;
 
-	-- syncgen
+	type t_sync_syncgen_isr is record
+		blank_pulse_isr_enable	: std_logic;
+		blank_pulse_isr_flag	: std_logic;
+	end record t_sync_syncgen_isr;
+
+	type t_sync_syncgen_config is record
+		master_blank_time	: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		blank_time			: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		period				: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		one_shot_time		: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
+		signal_polarity		: std_logic;
+		number_of_cycles	: std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);
+	end record t_sync_syncgen_config;
+
+	type t_sync_syncgen_error_injection is record
+		error_injection	: std_logic_vector(31 downto 0);
+	end record t_sync_syncgen_error_injection;
 
 	type t_sync_syncgen_control is record
 		start		: std_logic;
@@ -68,26 +86,10 @@ package sync_syncgen_pkg is
 		err_inj		: std_logic;
 	end record t_sync_syncgen_control;
 
-	type t_sync_syncgen_flags is record
-		running : std_logic;
-		stopped : std_logic;
-	end record t_sync_syncgen_flags;
-
-	type t_sync_syncgen_error is record
-		dummy : std_logic;
-	end record t_sync_syncgen_error;
-
-	type t_sync_syncgen_configs is record
-		pulse_period : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
-		pulse_number : std_logic_vector((c_SYNC_PULSE_NUMBER_WIDTH - 1) downto 0);
-		master_width : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
-		pulse_width  : std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
-	end record t_sync_syncgen_configs;
-
 end package sync_syncgen_pkg;
 
 --============================================================================
--- ! package body declaration
+--! package body declaration
 --============================================================================
 package body sync_syncgen_pkg is
 end package body sync_syncgen_pkg;

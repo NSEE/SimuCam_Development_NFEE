@@ -1,3 +1,53 @@
+--=============================================================================
+--! @file sync_outen_pkg.vhd
+--=============================================================================
+--! Standard library
+library IEEE;
+--! Standard packages
+use IEEE.std_logic_1164.all;
+use IEEE.numeric_std.all;
+--! Specific packages
+--use work.xxx.all;
+-------------------------------------------------------------------------------
+-- --
+-- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
+-- Plato Project --
+-- --
+-------------------------------------------------------------------------------
+--
+-- unit name: sync output enable package (sync_outen_pkg)
+--
+--! @brief 
+--
+--! @author Rodrigo França (rodrigo.franca@maua.br)
+--
+--! @date 06\02\2018
+--
+--! @version v1.0
+--
+--! @details
+--!
+--! <b>Dependencies:</b>\n
+--! None
+--!
+--! <b>References:</b>\n
+--!
+--! <b>Modified by:</b>\n
+--! Author: Cassio Berni (ccberni@hotmail.com)
+-------------------------------------------------------------------------------
+--! \n\n<b>Last changes:</b>\n
+--! 29\03\2018 RF File Creation\n
+--! 08\11\2018 CB Module optimization & revision\n
+--
+-------------------------------------------------------------------------------
+--! @todo <next thing to do> \n
+--! <another thing to do> \n
+--
+-------------------------------------------------------------------------------
+
+--============================================================================
+--! Package declaration for sync mm registers package
+--============================================================================
 package sync_outen_pkg is
 
 	type t_sync_outen_control is record
@@ -26,5 +76,11 @@ package sync_outen_pkg is
 
 end package sync_outen_pkg;
 
+--============================================================================
+--! package body declaration
+--============================================================================
 package body sync_outen_pkg is
 end package body sync_outen_pkg;
+--============================================================================
+-- package body end
+--============================================================================

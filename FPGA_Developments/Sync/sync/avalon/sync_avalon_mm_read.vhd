@@ -1,12 +1,57 @@
+--=============================================================================
+--! @file sync_avalon_mm_read.vhd
+--=============================================================================
+--! Standard library
 library ieee;
+--! Standard packages
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+--! Specific packages
 use work.sync_avalon_mm_pkg.all;
 use work.sync_mm_registers_pkg.all;
 
+-------------------------------------------------------------------------------
+-- --
+-- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
+-- Plato Project --
+-- --
+-------------------------------------------------------------------------------
+--
+-- unit name: sync avalon mm read (sync_avalon_mm_read)
+--
+--! @brief 
+--
+--! @author Rodrigo França (rodrigo.franca@maua.br)
+--
+--! @date 06\02\2018
+--
+--! @version v1.0
+--
+--! @details
+--!
+--! <b>Dependencies:</b>\n
+--! None
+--!
+--! <b>References:</b>\n
+--!
+--! <b>Modified by:</b>\n
+--! Author: Cassio Berni (ccberni@hotmail.com)
+-------------------------------------------------------------------------------
+--! \n\n<b>Last changes:</b>\n
+--! 29\03\2018 RF File Creation\n
+--! 08\11\2018 CB Module optimization & revision\n
+--
+-------------------------------------------------------------------------------
+--! @todo <next thing to do> \n
+--! <another thing to do> \n
+--
+-------------------------------------------------------------------------------
+
+--============================================================================
+--! Entity declaration for sync avalon mm read
+--============================================================================
 entity sync_avalon_mm_read is
-	port(
+	port (
 		-- in
 		clk_i          : in  std_logic;
 		rst_i          : in  std_logic;
@@ -18,10 +63,15 @@ entity sync_avalon_mm_read is
 	);
 end entity sync_avalon_mm_read;
 
-architecture RTL of sync_avalon_mm_read is
+--============================================================================
+--! architecture declaration
+--============================================================================
+architecture rtl of sync_avalon_mm_read is
 
+--============================================================================
+-- architecture begin
+--============================================================================
 begin
-
 	p_sync_avalon_mm_read : process(clk_i, rst_i) is
 		procedure p_mm_readdata(mm_read_address_i : t_sync_avalon_mm_address) is
 		begin
@@ -149,4 +199,7 @@ begin
 		end if;
 	end process p_sync_avalon_mm_read;
 
-end architecture RTL;
+end architecture rtl;
+--============================================================================
+-- architecture end
+--============================================================================

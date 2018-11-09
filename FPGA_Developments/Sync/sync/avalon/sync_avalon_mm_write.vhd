@@ -1,12 +1,57 @@
+--=============================================================================
+--! @file sync_avalon_mm_write.vhd
+--=============================================================================
+--! Standard library
 library ieee;
+--! Standard packages
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
+--! Specific packages
 use work.sync_avalon_mm_pkg.all;
 use work.sync_mm_registers_pkg.all;
 
+-------------------------------------------------------------------------------
+-- --
+-- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
+-- Plato Project --
+-- --
+-------------------------------------------------------------------------------
+--
+-- unit name: sync avalon mm write (sync_avalon_mm_write)
+--
+--! @brief 
+--
+--! @author Rodrigo França (rodrigo.franca@maua.br)
+--
+--! @date 06\02\2018
+--
+--! @version v1.0
+--
+--! @details
+--!
+--! <b>Dependencies:</b>\n
+--! None
+--!
+--! <b>References:</b>\n
+--!
+--! <b>Modified by:</b>\n
+--! Author: Cassio Berni (ccberni@hotmail.com)
+-------------------------------------------------------------------------------
+--! \n\n<b>Last changes:</b>\n
+--! 29\03\2018 RF File Creation\n
+--! 08\11\2018 CB Module optimization & revision\n
+--
+-------------------------------------------------------------------------------
+--! @todo <next thing to do> \n
+--! <another thing to do> \n
+--
+-------------------------------------------------------------------------------
+
+--============================================================================
+--! Entity declaration for sync avalon mm write
+--============================================================================
 entity sync_avalon_mm_write is
-	port(
+	port (
 		clk_i          : in  std_logic;
 		rst_i          : in  std_logic;
 		avalon_mm_i    : in  t_sync_avalon_mm_write_i;
@@ -16,10 +61,15 @@ entity sync_avalon_mm_write is
 	);
 end entity sync_avalon_mm_write;
 
-architecture RTL of sync_avalon_mm_write is
+--============================================================================
+--! architecture declaration
+--============================================================================
+architecture rtl of sync_avalon_mm_write is
 
+--============================================================================
+-- architecture begin
+--============================================================================
 begin
-
 	p_sync_avalon_mm_write : process(clk_i, rst_i) is
 		procedure p_mm_reset_registers is
 		begin
@@ -181,4 +231,7 @@ begin
 		end if;
 	end process p_sync_avalon_mm_write;
 
-end architecture RTL;
+end architecture rtl;
+--============================================================================
+-- architecture end
+--============================================================================
