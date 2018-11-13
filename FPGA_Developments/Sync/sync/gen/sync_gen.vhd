@@ -110,10 +110,10 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
-			s_sync_gen_state                  <= IDLE;
-			s_sync_cnt			              <= (others => '0');
-			s_sync_blank		              <= (others => '0');
-			s_sync_cycle_cnt		          <= 0;
+			s_sync_gen_state                  		<= IDLE;
+			s_sync_cnt				              	<= (others => '0');
+			s_sync_blank		              		<= (others => '0');
+			s_sync_cycle_cnt		          		<= 0;
 			s_registered_configs.master_blank_time	<= (others => '0');
 			s_registered_configs.blank_time 		<= (others => '0');
 			s_registered_configs.period 			<= (others => '0');
@@ -128,12 +128,11 @@ begin
 				when IDLE =>
 					-- does nothing until a start/one_shot/err_inj is received
 					-- default state transition
-					s_sync_gen_state                  <= IDLE;
+					s_sync_gen_state                  		<= IDLE;
 					-- default internal signal values
-					s_sync_cnt			              <= (others => '0');
-					-- TODO - confirm s_sync_blank load
-					s_sync_blank		              <= (others => '0');
-					s_sync_cycle_cnt		          <= 0;
+					s_sync_cnt			              		<= (others => '0');
+					s_sync_blank		              		<= config_i.master_blank_time;
+					s_sync_cycle_cnt		          		<= 0;
 					s_registered_configs.master_blank_time	<= (others => '0');
 					s_registered_configs.blank_time 		<= (others => '0');
 					s_registered_configs.period 			<= (others => '0');
@@ -224,7 +223,7 @@ begin
 							-- go to R_BLANK state
 							s_sync_gen_state    <= R_BLANK;
 						else
-							-- keep running
+							-- keep counting
 							s_sync_cnt <= std_logic_vector(unsigned(s_sync_cnt) + 1);
 						end if;
 					end if;
