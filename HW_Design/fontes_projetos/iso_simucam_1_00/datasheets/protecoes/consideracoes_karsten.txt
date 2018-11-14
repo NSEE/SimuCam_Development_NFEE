@@ -1,0 +1,24 @@
+Dear Vanderlei.
+ 
+Regarding the SIMUCAM safety to the flight-hardware: Whether isolation provides additional protection depends on the implementation. Done wrong the isolated side may have the same weak points as the original side. The major issues of LVDS inputs and outputs is the sensitivity against over-voltages. A short peak of 20 Volts can destroy a LVDS-receiver. The two main reasons for over-voltage are:
+ 
+1.       Connecting two devices without establishing a ground-connection. The capacity of a device is sufficient to damage a LVDS-receiver, if ground-voltage levels differ.
+2.       Overvoltage on the power-supply of the LVDS devices.
+ 
+Both events may happen on an isolated side as well. Therefore I recommend to ensure the ground connection before the LVDS-cables are plugged in. Furthermore the SIMUCAM  should contain an overvoltage protection in the power-supply and an additional protection on the LVDS-line.
+ 
+Another point is the ability of SIMUCAM to disable the LVDS-drivers. If the payload-subunit is not powered, an enabled LVDS-output could power the opponent subunit. The device will not be damaged, but the unit could behave unpredictable. With flight-hardware reverse-powering is not an issue, because cold-spare LVDS driver/receiver will be used there. But the EM/EQM units may be prone to reverse-powering. 
+ 
+Best regards
+ 
+Karsten
+
+
+
+Sugestões - prof. Márcio:
+
+Olá Cássio,
+Basicamente eu sugeri o uso de conectores onde o(s) pino(s) de terra sejam mais longos que os de sinal. No caso, em linhas diferenciais, a blindagem deverá ser o primeiro condutor a fazer contato com o equipamento, assegurando que se estabeleça o equilíbrio eletrostático entre os dois equipamentos.
+Assumo aqui que exista essa conexão galvânica entre os dois pontos (equipamentos). Na interface, tanto no lado do transmissor quando to receptor,  devem existir supressores de sobretensão (em anexo coloco algumas sugestões).  
+Abraços,
+Marcio.

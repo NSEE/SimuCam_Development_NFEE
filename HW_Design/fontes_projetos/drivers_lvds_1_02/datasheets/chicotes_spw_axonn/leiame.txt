@@ -1,0 +1,3 @@
+Essas seriam as opções da Axonn para melhorar o sistema de interconexão dos links SpW, do painel até a placa drivers_lvds.
+
+Se aprovada a alteração, o layout da placa drivers_lvds necessita ser alterado.

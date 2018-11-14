@@ -1,0 +1,13 @@
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(98): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(107): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(116): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(245): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(254): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(263): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(272): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at de4_sopc_clock_0.v(281): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at cpu.v(2008): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at cpu.v(2010): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at cpu.v(2166): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at cpu.v(3085): conditional expression evaluates to a constant
+Warning (10037): Verilog HDL or VHDL warning at sgdma_tx.v(1462): conditional expression evaluates to a constant

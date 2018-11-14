@@ -1,0 +1,15 @@
+Pacote completo de hw do Simucam - descrição das pastas:
+
+1. fontes_projetos
+
+Contém os projetos integrais de hw das placas painel_meb, drivers_lvds, e iso_simucam.
+
+
+2. pacote_final_gerado_em_31082018_producao
+
+Contém os arquivos de produção das placas, com os bom´s atualizados (resistores de 100R dos output drivers não montados).
+
+
+3. lote_5_placas_produzido_jul_ago_2018_nao_usar_mais
+
+Contém os arquivos que foram utilizados para a produção de 5 conjuntos de placas montadas pela LinkCell em jul-ago/2018. Não deve mais ser utilizado para novos pedidos de compra.

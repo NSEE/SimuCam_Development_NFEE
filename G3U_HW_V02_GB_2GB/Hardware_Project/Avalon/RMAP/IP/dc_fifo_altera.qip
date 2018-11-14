@@ -1,8 +1,0 @@
-set_global_assignment -name IP_TOOL_NAME "FIFO"
-set_global_assignment -name IP_TOOL_VERSION "14.0"
-set_global_assignment -name IP_GENERATED_DEVICE_FAMILY "{Stratix IV}"
-set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "dc_fifo_altera.vhd"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "dc_fifo_altera.bsf"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "dc_fifo_altera_inst.vhd"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "dc_fifo_altera.inc"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "dc_fifo_altera.cmp"]

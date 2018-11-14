@@ -1,0 +1,1050 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/16.1
+Espw_backdoor_dc_fifo
+Z0 w1525146959
+Z1 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z2 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z3 dC:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench
+Z4 8C:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/spw_backdoor_dc_fifo/spw_backdoor_dc_fifo.vhd
+Z5 FC:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/spw_backdoor_dc_fifo/spw_backdoor_dc_fifo.vhd
+l0
+L43
+V9HIcO2djzhI0l<6^R=UIM3
+!s100 a5fe<mNnJ8AanYz_lRMSL1
+Z6 OV;C;10.5b;63
+32
+Z7 !s110 1525195556
+!i10b 1
+Z8 !s108 1525195556.000000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/spw_backdoor_dc_fifo/spw_backdoor_dc_fifo.vhd|
+Z10 !s107 C:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/spw_backdoor_dc_fifo/spw_backdoor_dc_fifo.vhd|
+!i113 1
+Z11 o-work work -2002 -explicit
+Z12 tExplicit 1 CvgOpt 0
+Asyn
+R1
+R2
+Z13 DEx4 work 20 spw_backdoor_dc_fifo 0 22 9HIcO2djzhI0l<6^R=UIM3
+l102
+L61
+V0J9;gad@UPZS18K4j>Fd81
+!s100 8Jz:P<JWSje9G;KzVI2N:1
+R6
+32
+R7
+!i10b 1
+R8
+R9
+R10
+!i113 1
+R11
+R12
+Espw_config_stimuli_ent
+Z14 w1525196229
+Z15 DPx4 work 24 spwc_tx_data_dc_fifo_pkg 0 22 8=h9gcRI9jTCamfka:`=<0
+Z16 DPx4 work 24 spwc_rx_data_dc_fifo_pkg 0 22 9oIUM[fJlM=MVJP8:aWeF0
+Z17 DPx4 work 21 spwc_mm_registers_pkg 0 22 DlXz7kYWh>=aNSh6=fRPK1
+Z18 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+R1
+R2
+R3
+Z19 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd
+Z20 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd
+l0
+L9
+VCamHYnUz>d2aI`FFf[R`C1
+!s100 MW?K7Qi1iWE]];8FaXFbF2
+R6
+32
+Z21 !s110 1525196236
+!i10b 1
+Z22 !s108 1525196236.000000
+Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd|
+Z24 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd|
+!i113 1
+R11
+R12
+Artl
+R15
+R16
+R17
+R18
+R1
+R2
+Z25 DEx4 work 22 spw_config_stimuli_ent 0 22 CamHYnUz>d2aI`FFf[R`C1
+l27
+L23
+VDedImJBTV8_PjBC^L1XNN0
+!s100 G5Lh15D52RO[[N@2Fj[n;2
+R6
+32
+R21
+!i10b 1
+R22
+R23
+R24
+!i113 1
+R11
+R12
+Espw_stimuli_ent
+Z26 w1525195453
+Z27 DPx4 work 6 spwpkg 0 22 X0V^]0k6^b0BBTEk>VVP>0
+Z28 DPx4 work 14 spwc_codec_pkg 0 22 `nCWeo>Ti2mHK0`KmQ;^S3
+R18
+R1
+R2
+R3
+Z29 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_stimuli_ent.vhd
+Z30 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_stimuli_ent.vhd
+l0
+L7
+V6d4lURI:hnzP2k@zn]ze32
+!s100 QDbJ59_m4`6Hz]@^fDKH10
+R6
+32
+Z31 !s110 1525195557
+!i10b 1
+Z32 !s108 1525195557.000000
+Z33 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_stimuli_ent.vhd|
+Z34 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_stimuli_ent.vhd|
+!i113 1
+R11
+R12
+Artl
+R27
+R28
+R18
+R1
+R2
+Z35 DEx4 work 15 spw_stimuli_ent 0 22 6d4lURI:hnzP2k@zn]ze32
+l27
+L23
+V2:GQW]^LAMQHhkfWlBCi]3
+!s100 g7jn>LZ=b?6GPgn[h]ibo0
+R6
+32
+R31
+!i10b 1
+R32
+R33
+R34
+!i113 1
+R11
+R12
+Espw_testbench_top
+R26
+R15
+R16
+R17
+R27
+R28
+R18
+R1
+R2
+R3
+Z36 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_testbench_top.vhd
+Z37 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_testbench_top.vhd
+l0
+L10
+VlnKJ<UeNmLjD3mc<8SC2]1
+!s100 iDf5BAJ]N;2;=Dh<8o<aQ0
+R6
+32
+R31
+!i10b 1
+R32
+Z38 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_testbench_top.vhd|
+Z39 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_testbench_top.vhd|
+!i113 1
+R11
+R12
+Artl
+R25
+R35
+Z40 DPx8 synopsys 10 attributes 0 22 liCm]LV3<lX4Zl>o6^8IV1
+Z41 DPx4 ieee 14 std_logic_misc 0 22 BLzBaQbXS>Q1z>5YO]m[52
+Z42 DEx4 work 25 spwc_codec_controller_ent 0 22 G@l:m00dbb?eAzY6=MPD]3
+Z43 DEx4 work 14 spwc_codec_ent 0 22 ePDNFRNX4F]4YZVnPZ_z<1
+R15
+R16
+R17
+R27
+R28
+R18
+R1
+R2
+DEx4 work 17 spw_testbench_top 0 22 lnKJ<UeNmLjD3mc<8SC2]1
+l42
+L13
+VLTHZM6JVk@J?>n9]n4U=D3
+!s100 JgneG7@ZaI>555;FmdU5H0
+R6
+32
+R31
+!i10b 1
+R32
+R38
+R39
+!i113 1
+R11
+R12
+Espwc_clk100_codec_commands_dc_fifo
+Z44 w1524881703
+R1
+R2
+R3
+Z45 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd
+Z46 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd
+l0
+L43
+VKhzZ1n@NGTDPZe9m5>MHF1
+!s100 17[K_zMm487bD3`IS[c4^1
+R6
+32
+Z47 !s110 1525195555
+!i10b 1
+Z48 !s108 1525195555.000000
+Z49 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd|
+Z50 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd|
+!i113 1
+R11
+R12
+Asyn
+R1
+R2
+Z51 DEx4 work 34 spwc_clk100_codec_commands_dc_fifo 0 22 KhzZ1n@NGTDPZe9m5>MHF1
+l102
+L61
+VN=iA^5I>NJ0YGjFS1EVSS0
+!s100 l3F]Sa4hm>`Mff0Wi6jR21
+R6
+32
+R47
+!i10b 1
+R48
+R49
+R50
+!i113 1
+R11
+R12
+Espwc_clk200_codec_commands_dc_fifo
+R44
+R1
+R2
+R3
+Z52 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk200_codec_commands_dc_fifo/spwc_clk200_codec_commands_dc_fifo.vhd
+Z53 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk200_codec_commands_dc_fifo/spwc_clk200_codec_commands_dc_fifo.vhd
+l0
+L43
+VX<6ImX[8_mK0ZSg<k9Z5^2
+!s100 45`=<2L4gKcQIAfJ5VlVe1
+R6
+32
+R47
+!i10b 1
+R48
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk200_codec_commands_dc_fifo/spwc_clk200_codec_commands_dc_fifo.vhd|
+Z55 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk200_codec_commands_dc_fifo/spwc_clk200_codec_commands_dc_fifo.vhd|
+!i113 1
+R11
+R12
+Asyn
+R1
+R2
+Z56 DEx4 work 34 spwc_clk200_codec_commands_dc_fifo 0 22 X<6ImX[8_mK0ZSg<k9Z5^2
+l102
+L61
+VGWiAVUNd4HNJMOK?oKUQh0
+!s100 >?B2S3]FnlKiemD<dR7ah2
+R6
+32
+R47
+!i10b 1
+R48
+R54
+R55
+!i113 1
+R11
+R12
+Espwc_codec_controller_ent
+Z57 w1525191451
+R15
+R16
+R17
+R28
+R27
+R40
+R41
+R18
+R1
+R2
+R3
+Z58 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_CONTROLLER.vhd
+Z59 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_CONTROLLER.vhd
+l0
+L12
+VG@l:m00dbb?eAzY6=MPD]3
+!s100 :klcBa:2>4Tb3dbdZ>ESd2
+R6
+32
+R7
+!i10b 1
+R8
+Z60 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_CONTROLLER.vhd|
+Z61 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_CONTROLLER.vhd|
+!i113 1
+R11
+R12
+Aspwc_codec_controller_arc
+R56
+R51
+Z62 DEx4 work 23 spwc_codec_loopback_ent 0 22 ffdn^:7U^iS2LWAmk2;h82
+R15
+R16
+R17
+R28
+R27
+R40
+R41
+R18
+R1
+R2
+R42
+l161
+L28
+V37^:RZ?gcGhkIz6J8eTRN0
+!s100 Sc?<_XHF9K:[_@2N1<kWg1
+R6
+32
+R7
+!i10b 1
+R8
+R60
+R61
+!i113 1
+R11
+R12
+Espwc_codec_ent
+R44
+R28
+R27
+R18
+R1
+R2
+R3
+Z63 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC.vhd
+Z64 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC.vhd
+l0
+L8
+VePDNFRNX4F]4YZVnPZ_z<1
+!s100 co?HLAjVJ<lnfQO^`9zdg2
+R6
+32
+R7
+!i10b 1
+R8
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC.vhd|
+Z66 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC.vhd|
+!i113 1
+R11
+R12
+Aspwc_codec_arc
+Z67 DEx4 work 9 spwstream 0 22 QCaVQ_FYNZUeIUKT3GSc90
+R28
+R27
+R18
+R1
+R2
+R43
+l28
+L26
+VX9GmO;Fe1;kU8B[a4A2bZ0
+!s100 jz8PTTiChzOiPAkaJiP5^3
+R6
+32
+R7
+!i10b 1
+R8
+R65
+R66
+!i113 1
+R11
+R12
+Espwc_codec_loopback_ent
+Z68 w1525196594
+R15
+R16
+R17
+R28
+R27
+R18
+R1
+R2
+R3
+Z69 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_LOOPBACK.vhd
+Z70 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_LOOPBACK.vhd
+l0
+L11
+Vffdn^:7U^iS2LWAmk2;h82
+!s100 QCJ^m`91Jl6mg2>;<<c4I1
+R6
+32
+Z71 !s110 1525196601
+!i10b 1
+Z72 !s108 1525196601.000000
+Z73 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_LOOPBACK.vhd|
+Z74 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_LOOPBACK.vhd|
+!i113 1
+R11
+R12
+Aspwc_codec_loopback_arc
+R43
+R13
+R15
+R16
+R17
+R28
+R27
+R18
+R1
+R2
+R62
+l90
+L33
+VLiXTU7l<J038P3z6Q81`<0
+!s100 E;8?3I?3lS0XOg1DleniP3
+R6
+32
+R71
+!i10b 1
+R72
+R73
+R74
+!i113 1
+R11
+R12
+Pspwc_codec_pkg
+R27
+R18
+R1
+R2
+R0
+R3
+8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_PKG.vhd
+FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_PKG.vhd
+l0
+L7
+V`nCWeo>Ti2mHK0`KmQ;^S3
+!s100 mm1D=PcL>9aOd=RI4Vb2h2
+R6
+32
+R47
+!i10b 1
+R48
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_PKG.vhd|
+!s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_PKG.vhd|
+!i113 1
+R11
+R12
+Espwc_data_dc_fifo_instantiation_ent
+Z75 w1524255912
+R15
+R16
+R18
+R1
+R2
+Z76 dC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench
+Z77 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_DATA_DC_FIFO_INSTANTIATION.vhd
+Z78 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_DATA_DC_FIFO_INSTANTIATION.vhd
+l0
+L8
+V0fCml5o:cD7F]A4gaO1l12
+!s100 ?I@@CEGlEQi5<oZk]aCAQ3
+R6
+32
+Z79 !s110 1524773971
+!i10b 1
+Z80 !s108 1524773971.000000
+Z81 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_DATA_DC_FIFO_INSTANTIATION.vhd|
+Z82 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_DATA_DC_FIFO_INSTANTIATION.vhd|
+!i113 1
+R11
+R12
+Aspwc_data_dc_fifo_instantiation_arc
+Z83 DEx4 work 17 spwc_dc_data_fifo 0 22 =ASK66hWZ5nDiWhndGgdT2
+R15
+R16
+R18
+R1
+R2
+DEx4 work 35 spwc_data_dc_fifo_instantiation_ent 0 22 0fCml5o:cD7F]A4gaO1l12
+l32
+L24
+V=3Q3Vz>50gL:;^Ho:XG=Q3
+!s100 `cnd9[dokFc3OK8CImEW`3
+R6
+32
+R79
+!i10b 1
+R80
+R81
+R82
+!i113 1
+R11
+R12
+Espwc_dc_data_fifo
+Z84 w1524255913
+R1
+R2
+R76
+Z85 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/altera_ipcore/dcfifo/spwc_dc_data_fifo/spwc_dc_data_fifo.vhd
+Z86 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/altera_ipcore/dcfifo/spwc_dc_data_fifo/spwc_dc_data_fifo.vhd
+l0
+L43
+V=ASK66hWZ5nDiWhndGgdT2
+!s100 N5EZ02LPb9nnRLBMRO8f21
+R6
+32
+R79
+!i10b 1
+R80
+Z87 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/altera_ipcore/dcfifo/spwc_dc_data_fifo/spwc_dc_data_fifo.vhd|
+Z88 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/altera_ipcore/dcfifo/spwc_dc_data_fifo/spwc_dc_data_fifo.vhd|
+!i113 1
+R11
+R12
+Asyn
+R1
+R2
+R83
+l102
+L61
+VzA6@?^WRgbf^IL0X9ab:_1
+!s100 jz@LVNK==kz=I7<Nk0ZbK3
+R6
+32
+R79
+!i10b 1
+R80
+R87
+R88
+!i113 1
+R11
+R12
+Pspwc_mm_registers_pkg
+R18
+R1
+R2
+w1525194752
+R3
+8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/REGISTERS/SPWC_MM_REGISTERS_PKG.vhd
+FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/REGISTERS/SPWC_MM_REGISTERS_PKG.vhd
+l0
+L5
+VDlXz7kYWh>=aNSh6=fRPK1
+!s100 2VeXhdjJ6XMDT0D?YYQa30
+R6
+32
+Z89 !s110 1525195554
+!i10b 1
+Z90 !s108 1525195554.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/REGISTERS/SPWC_MM_REGISTERS_PKG.vhd|
+!s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/REGISTERS/SPWC_MM_REGISTERS_PKG.vhd|
+!i113 1
+R11
+R12
+Pspwc_rx_data_dc_fifo_pkg
+R18
+R1
+R2
+R44
+R3
+8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_RX_DATA_DC_FIFO_PKG.vhd
+FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_RX_DATA_DC_FIFO_PKG.vhd
+l0
+L6
+V9oIUM[fJlM=MVJP8:aWeF0
+!s100 e0QYf@:MA41UC0ODgYAhZ2
+R6
+32
+R47
+!i10b 1
+R48
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_RX_DATA_DC_FIFO_PKG.vhd|
+!s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_RX_DATA_DC_FIFO_PKG.vhd|
+!i113 1
+R11
+R12
+Pspwc_tx_data_dc_fifo_pkg
+R18
+R1
+R2
+R44
+R3
+8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_TX_DATA_DC_FIFO_PKG.vhd
+FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_TX_DATA_DC_FIFO_PKG.vhd
+l0
+L6
+V8=h9gcRI9jTCamfka:`=<0
+!s100 6nKjjaT1zb6QW57niIJ5c2
+R6
+32
+R47
+!i10b 1
+R48
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_TX_DATA_DC_FIFO_PKG.vhd|
+!s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_TX_DATA_DC_FIFO_PKG.vhd|
+!i113 1
+R11
+R12
+Espwlink
+R44
+R27
+R18
+R1
+R2
+R3
+Z91 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwlink.vhd
+Z92 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwlink.vhd
+l0
+L13
+VDVV9f:bl>X1SaBYD^hBg01
+!s100 AbCKSf6NUYHaeJ^N`>De13
+R6
+32
+R89
+!i10b 1
+R90
+Z93 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwlink.vhd|
+Z94 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwlink.vhd|
+!i113 1
+R11
+R12
+Aspwlink_arch
+R27
+R18
+R1
+R2
+DEx4 work 7 spwlink 0 22 DVV9f:bl>X1SaBYD^hBg01
+l89
+L51
+VRDMUL1C;MaQif@oGQg5E<1
+!s100 I2Rm4`I9^2o`hJ6T[blUR3
+R6
+32
+R89
+!i10b 1
+R90
+R93
+R94
+!i113 1
+R11
+R12
+Pspwpkg
+R1
+R2
+R44
+R3
+8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwpkg.vhd
+FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwpkg.vhd
+l0
+L8
+VX0V^]0k6^b0BBTEk>VVP>0
+!s100 _:]e>`=coA7N4KIDH^?jo1
+R6
+32
+Z95 !s110 1525195552
+!i10b 1
+Z96 !s108 1525195552.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwpkg.vhd|
+!s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwpkg.vhd|
+!i113 1
+R11
+R12
+Espwram
+R44
+R18
+R1
+R2
+R3
+Z97 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwram.vhd
+Z98 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwram.vhd
+l0
+L10
+Vio9em64ZTWROlDce^iN>C2
+!s100 EUQJ1>]QNWjIj6Zn>4WQh1
+R6
+32
+R95
+!i10b 1
+R96
+Z99 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwram.vhd|
+Z100 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwram.vhd|
+!i113 1
+R11
+R12
+Aspwram_arch
+R18
+R1
+R2
+DEx4 work 6 spwram 0 22 io9em64ZTWROlDce^iN>C2
+l35
+L28
+V]Ea3=B_9;5YVZ>JM20JKS2
+!s100 okl6iPF>3QaCh2Ldczd@T2
+R6
+32
+R95
+!i10b 1
+R96
+R99
+R100
+!i113 1
+R11
+R12
+Espwrecv
+R44
+R27
+R18
+R1
+R2
+R3
+Z101 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecv.vhd
+Z102 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecv.vhd
+l0
+L16
+VnElH@Q?YVh1CAIm5BaGHT1
+!s100 MI=YX3oiWafcI@TofD^@]1
+R6
+32
+R95
+!i10b 1
+R96
+Z103 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecv.vhd|
+Z104 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecv.vhd|
+!i113 1
+R11
+R12
+Aspwrecv_arch
+R27
+R18
+R1
+R2
+DEx4 work 7 spwrecv 0 22 nElH@Q?YVh1CAIm5BaGHT1
+l101
+L49
+Vnl_6EJj_Mfe`jb1=8h]bU3
+!s100 ^c3WTJ4Ao3z@Jg7kh6P:=2
+R6
+32
+R95
+!i10b 1
+R96
+R103
+R104
+!i113 1
+R11
+R12
+Espwrecvfront_fast
+R44
+R27
+R18
+R1
+R2
+R3
+Z105 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_fast.vhd
+Z106 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_fast.vhd
+l0
+L70
+V_fDO<4<WND<?kUVcC0:ZY3
+!s100 HVf=b37B5G;[TGUR<nXmQ2
+R6
+32
+Z107 !s110 1525195553
+!i10b 1
+R96
+Z108 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_fast.vhd|
+Z109 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_fast.vhd|
+!i113 1
+R11
+R12
+Aspwrecvfront_arch
+R27
+R18
+R1
+R2
+DEx4 work 17 spwrecvfront_fast 0 22 _fDO<4<WND<?kUVcC0:ZY3
+l199
+L110
+V_^9R1b`C]Qm;l^c6fR=7S0
+!s100 edW5LU7X:j>mGgNM1jo>Q1
+R6
+32
+R107
+!i10b 1
+R96
+R108
+R109
+!i113 1
+R11
+R12
+Espwrecvfront_generic
+R44
+R18
+R1
+R2
+R3
+Z110 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_generic.vhd
+Z111 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_generic.vhd
+l0
+L16
+VEl06nCMSZ=?6GcFiGIA;D3
+!s100 cQd9MjILFQD4L=2ST@9`j1
+R6
+32
+R107
+!i10b 1
+Z112 !s108 1525195553.000000
+Z113 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_generic.vhd|
+Z114 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_generic.vhd|
+!i113 1
+R11
+R12
+Aspwrecvfront_arch
+R18
+R1
+R2
+DEx4 work 20 spwrecvfront_generic 0 22 El06nCMSZ=?6GcFiGIA;D3
+l59
+L44
+VY?X;jNeQ`i00595];L?CD1
+!s100 @Qjz2IQjaJ]eejN]K`WIM3
+R6
+32
+R107
+!i10b 1
+R112
+R113
+R114
+!i113 1
+R11
+R12
+Espwstream
+R44
+R27
+R18
+R1
+R2
+R3
+Z115 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwstream.vhd
+Z116 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwstream.vhd
+l0
+L23
+VQCaVQ_FYNZUeIUKT3GSc90
+!s100 ZNia^zR_8XcEL]8RUbP3P1
+R6
+32
+R107
+!i10b 1
+R112
+Z117 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwstream.vhd|
+Z118 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwstream.vhd|
+!i113 1
+R11
+R12
+Aspwstream_arch
+R27
+R18
+R1
+R2
+R67
+l275
+L189
+V:kZzohgV4>@<RW34`LdXf0
+!s100 C5UHXeODgY=lfP]3QzVCJ3
+R6
+32
+R107
+!i10b 1
+R112
+R117
+R118
+!i113 1
+R11
+R12
+Espwxmit
+R44
+R27
+R18
+R1
+R2
+R3
+Z119 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit.vhd
+Z120 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit.vhd
+l0
+L13
+V0[CGLQJbUNZ37OLkdh=Ea3
+!s100 kd;DUhQR]86fMJ0WDD`c?2
+R6
+32
+R107
+!i10b 1
+R112
+Z121 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit.vhd|
+Z122 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit.vhd|
+!i113 1
+R11
+R12
+Aspwxmit_arch
+R27
+R18
+R1
+R2
+DEx4 work 7 spwxmit 0 22 0[CGLQJbUNZ37OLkdh=Ea3
+l88
+L43
+V3lS20dBH09XK4;hj[Y0?;3
+!s100 1KG5JXQKLP61KfiiYLWD61
+R6
+32
+R107
+!i10b 1
+R112
+R121
+R122
+!i113 1
+R11
+R12
+Espwxmit_fast
+R44
+R27
+R18
+R1
+R2
+R3
+Z123 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit_fast.vhd
+Z124 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit_fast.vhd
+l0
+L150
+Vb02QZKFLXHS9b<dCnj];61
+!s100 fJ>eURSKh1MkMPIPNFLfC1
+R6
+32
+R107
+!i10b 1
+R112
+Z125 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit_fast.vhd|
+Z126 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit_fast.vhd|
+!i113 1
+R11
+R12
+Aspwxmit_fast_arch
+R27
+R18
+R1
+R2
+DEx4 work 12 spwxmit_fast 0 22 b02QZKFLXHS9b<dCnj];61
+l328
+L188
+VPo^4@PUXb_k0eKb:o=aD12
+!s100 UhR1WOiM6e@gLz;aKC0A:0
+R6
+32
+R107
+!i10b 1
+R112
+R125
+R126
+!i113 1
+R11
+R12
+Estreamtest
+R44
+R27
+R18
+R1
+R2
+R3
+Z127 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/streamtest.vhd
+Z128 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/streamtest.vhd
+l0
+L28
+VKH2f^M0C?OfK6;?^fjkba2
+!s100 oBz1R7fU=hnfCg^ak7HKm1
+R6
+32
+R89
+!i10b 1
+R90
+Z129 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/streamtest.vhd|
+Z130 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/streamtest.vhd|
+!i113 1
+R11
+R12
+Astreamtest_arch
+R27
+R18
+R1
+R2
+DEx4 work 10 streamtest 0 22 KH2f^M0C?OfK6;?^fjkba2
+l209
+L115
+V=6_B@Moi;`V3[AGMhKYjb1
+!s100 Pl=_Z[F6CNa?@_oz?^YI71
+R6
+32
+R89
+!i10b 1
+R90
+R129
+R130
+!i113 1
+R11
+R12
+Esyncdff
+R44
+R1
+R2
+R3
+Z131 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/syncdff.vhd
+Z132 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/syncdff.vhd
+l0
+L16
+VI]G>AQfHR4^`PCB7]6X^;3
+!s100 jmnDgZK4I8fKM9T6giQB?2
+R6
+32
+R89
+!i10b 1
+R90
+Z133 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/syncdff.vhd|
+Z134 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/syncdff.vhd|
+!i113 1
+R11
+R12
+Asyncdff_arch
+R1
+R2
+DEx4 work 7 syncdff 0 22 I]G>AQfHR4^`PCB7]6X^;3
+l52
+L31
+VEVT_@k:Czz>^_@VAm4c5z1
+!s100 ;P9@79nVHoRZ2GXS^7Ulh1
+R6
+32
+R89
+!i10b 1
+R90
+R133
+R134
+!i113 1
+R11
+R12
