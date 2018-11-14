@@ -51,19 +51,28 @@ use IEEE.numeric_std.all;
 package sync_mm_registers_pkg is
 
 	--  Sync Status Register           						(32 bits):
-	--	  31-31 : Internal/External_n					    [R/W]
+	--	  31-31 : Internal/External_n					    [R/-]
 	--    30-24 : Reserved                                  [-/-]
-	--    23-16 : State									    [R/W]
-	--    15- 8 : Error code				                [R/W]
-	--     7- 0 : Cycle number						        [R/W]
+	--    23-16 : State									    [R/-]
+	--    15- 8 : Error code				                [R/-]
+	--     7- 0 : Cycle number						        [R/-]
 
-	--  Sync Interrupt Register           					(32 bits):
-	--    31-10 : Reserved                                  [-/-]
-	--     9- 9 : Error interrupt enable bit				[R/W]
-	--     8- 8 : Blank pulse interrupt enable bit		    [R/W]
-	--     7- 2 : Reserved                                  [-/-]
-	--     1- 1 : Error interrupt flag                 		[R/W]
-	--     0- 0 : Blank pulse interrupt flag            	[R/W]
+	--  Sync Interrupt Registers -------------------------------- 
+	--  Enable Register				                 	(32 bits):
+	--    31- 2 : Reserved                                  [-/-]
+	--     1- 1 : Error interrupt enable bit	            [R/W]
+	--     0- 0 : Blank pulse interrupt enable bit		    [R/W]
+
+	--  Flag Clear Register				                 	(32 bits):
+	--    31- 2 : Reserved                                  [-/-]
+	--     1- 1 : Error interrupt flag clear bit            [R/W]
+	--     0- 0 : Blank pulse interrupt flag clear bit	    [R/W]
+
+	--  Flag Register				                 	(32 bits):
+	--    31- 2 : Reserved                                  [-/-]
+	--     1- 1 : Error interrupt flag bit	  	          	[R/-]
+	--     0- 0 : Blank pulse interrupt flag bit		    [R/-]
+-----------------------------------------------------------------
 	
 	--  Sync config registers -----------------------------------
 	--  Master Blank Time Register		   	              	(32 bits):
@@ -107,14 +116,20 @@ package sync_mm_registers_pkg is
 
 	-- Registers Address
 	constant c_SYNC_STATUS_MM_REG_ADDRESS 					: natural := 0;
-	constant c_SYNC_INTERRUPT_MM_REG_ADDRESS 				: natural := 1;
-	constant c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS	: natural := 2;
-	constant c_SYNC_CONFIG_BLANK_TIME_MM_REG_ADDRESS		: natural := 3;
-	constant c_SYNC_CONFIG_PERIOD_MM_REG_ADDRESS			: natural := 4;
-	constant c_SYNC_CONFIG_ONE_SHOT_TIME_MM_REG_ADDRESS		: natural := 5;
-	constant c_SYNC_CONFIG_GENERAL_MM_REG_ADDRESS			: natural := 6;
-	constant c_SYNC_ERROR_INJECTION_MM_REG_ADDRESS			: natural := 7;
-	constant c_SYNC_CONTROL_MM_REG_ADDRESS					: natural := 8;
+
+	constant c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS 		: natural := 1;
+	constant c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS 	: natural := 2;
+	constant c_SYNC_INTERRUPT_MM_FLAG_REG_ADDRESS 			: natural := 3;
+
+	constant c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS	: natural := 4;
+	constant c_SYNC_CONFIG_BLANK_TIME_MM_REG_ADDRESS		: natural := 5;
+	constant c_SYNC_CONFIG_PERIOD_MM_REG_ADDRESS			: natural := 6;
+	constant c_SYNC_CONFIG_ONE_SHOT_TIME_MM_REG_ADDRESS		: natural := 7;
+	constant c_SYNC_CONFIG_GENERAL_MM_REG_ADDRESS			: natural := 8;
+
+	constant c_SYNC_ERROR_INJECTION_MM_REG_ADDRESS			: natural := 9;
+
+	constant c_SYNC_CONTROL_MM_REG_ADDRESS					: natural := 10;
 
 	-- Registers Types
 	type t_sync_status_register is record
@@ -125,10 +140,12 @@ package sync_mm_registers_pkg is
 	end record t_sync_status_register;
 
 	type t_sync_interrupt_register is record
-		error_isr_enable		: std_logic;
-		blank_pulse_isr_enable	: std_logic;
-		error_isr_flag			: std_logic;
-		blank_pulse_isr_flag	: std_logic;
+		error_int_enable			: std_logic;
+		blank_pulse_int_enable		: std_logic;
+		error_int_flag_clear		: std_logic;
+		blank_pulse_int_flag_clear	: std_logic;
+		error_int_flag				: std_logic;
+		blank_pulse_int_flag		: std_logic;
 	end record t_sync_interrupt_register;
 
 	type t_sync_general_config_register is record
@@ -167,7 +184,8 @@ package sync_mm_registers_pkg is
 
 	-- Avalon mm types
 	type t_sync_mm_write_registers is record
-		interrupt_register		     	: t_sync_interrupt_register;
+		int_enable_register		     	: t_sync_interrupt_register;
+		int_flag_clear_register	     	: t_sync_interrupt_register;
 		config_register				  	: t_sync_config_register;
 		error_injection_register		: t_sync_error_injection_register;
 		control_register				: t_sync_control_register;
@@ -175,7 +193,7 @@ package sync_mm_registers_pkg is
 
 	type t_sync_mm_read_registers is record
 		status_register  				: t_sync_status_register;
-		interrupt_register		     	: t_sync_interrupt_register;
+		int_flag_register		     	: t_sync_interrupt_register;
 		config_register				  	: t_sync_config_register;
 		error_injection_register		: t_sync_error_injection_register;
 		control_register				: t_sync_control_register;
