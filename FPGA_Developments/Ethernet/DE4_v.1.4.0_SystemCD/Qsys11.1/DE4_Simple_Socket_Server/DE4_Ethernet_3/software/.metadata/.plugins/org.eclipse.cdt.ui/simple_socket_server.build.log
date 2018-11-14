@@ -1,0 +1,8 @@
+
+**** Build of configuration Nios II for project simple_socket_server ****
+
+make all 
+Info: Building ../simple_socket_server_bsp/
+make --no-print-directory -C ../simple_socket_server_bsp/
+[BSP build complete]
+[simple_socket_server build complete]

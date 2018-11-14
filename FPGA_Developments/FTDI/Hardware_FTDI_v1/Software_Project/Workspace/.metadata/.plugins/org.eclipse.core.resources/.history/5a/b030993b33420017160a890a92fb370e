@@ -1,0 +1,327 @@
+/*************/
+/* Includes	 */
+/*************/
+
+#include <stdio.h>
+#include <io.h>
+#include <unistd.h>
+#include "system.h"
+
+#include "altera_avalon_pio_regs.h"
+#include "sys/alt_irq.h"
+#include <sys/alt_cache.h>
+#include "sys/alt_timestamp.h"
+#include <altera_msgdma.h>
+
+//#include "includes.h"
+
+#include "utils/util.h"
+#include "utils/meb_includes.h"
+
+#include "driver/temp_i2c/i2c.h"
+#include "driver/power_spi/power_spi.h"
+#include "driver/seven_seg/seven_seg.h"
+
+#include "logic/dma/dma.h"
+#include "logic/sense/sense.h"
+#include "logic/ddr2/mem_test.h"
+
+/**************************************************
+ * Global
+**************************************************/
+
+int main(void)
+{
+
+printf(" \n Nucleo de Sistemas Eletronicos Embarcados\n");
+
+
+
+	  alt_u8 dspCounter = 0;
+	  alt_8 tempFPGA = 0;
+	  alt_8 tempBoard = 0;
+	  alt_u16 cnt = 0;
+	  alt_u16 cnt2 = 0;
+	  alt_u16 aux = 0;
+	  alt_u8 ledDE4 = 1;
+	  alt_u16 ledStatus = 0;
+	  alt_u16 ledSpW = 0;
+	  alt_u16 ledPainel = 0;
+
+  SevenSegConfig(SEG1_ON | SEG1_UPDATE_ON | SEG0_ON | SEG0_UPDATE_ON);
+
+  //while(1){
+
+//Preparar Loop de ~1s;
+/*
+    for (cnt = 0;cnt < 75; cnt++)
+    {
+    	for (cnt2 = 0;cnt2 < 50000; cnt2++)
+    	{
+    		aux = cnt + cnt2;
+    	}
+    }
+    //printf(" \n Nucleo de Sistemas Eletronicos Embarcados");
+*/
+//Fazer contador com o 7 Segmentos;
+ /*
+//    usleep(1000*1000);
+
+    SevenSegUpdate(dspCounter);
+    dspCounter++;
+    if (dspCounter > 99) {
+      dspCounter = 0;
+    }
+    usleep(1000*1000);
+}
+*/
+//Ler temperatura e colocar no display;
+/**
+    TEMP_Read(&tempFPGA, &tempBoard);
+    printf("[Temp: FPGA %d, Board %d]\n", tempFPGA, tempBoard);
+    SevenSegUpdate(tempFPGA);
+
+//Fazer Led Shift (DE4);
+
+    if (ledDE4 == 0){
+      ledDE4 = 1;
+    } else if (ledDE4 == 128){
+      ledDE4 = 1;
+    } else {
+      ledDE4 = ledDE4 << 1;
+    }
+    IOWR(PIO_LED_BASE,0, ledDE4);
+
+//Fazer Led Shift (Status);
+
+    if (ledStatus == 0){
+      ledStatus = 16;
+    } else if (ledStatus == 128){
+      ledStatus = 16;
+    } else {
+      ledStatus = ledStatus << 1;
+    }
+    ledPainel = ledStatus | ledSpW;
+    IOWR(PIO_LED_PAINEL_BASE,0, ledPainel);
+
+//Fazer Led Shift (SpW);
+
+    if (ledSpW == 0){
+      ledSpW = 1;
+    } else if (ledSpW == 8){
+      ledSpW = 256;
+    } else if (ledSpW == 2048){
+      ledSpW = 1;
+    } else {
+      ledSpW = ledSpW << 1;
+    }
+    ledPainel = ledStatus | ledSpW;
+    IOWR(PIO_LED_PAINEL_BASE,0, ledPainel);
+
+//-------------
+
+    //LedPainel Values:
+    // 0x001 -> SpW A
+    // 0x002 -> SpW C
+    // 0x004 -> SpW B
+    // 0x008 -> SpW D
+    // 0x010 -> Status 4
+    // 0x020 -> Status 3
+    // 0x040 -> Status 2
+    // 0x080 -> Status 1
+    // 0x100 -> SpW E
+    // 0x200 -> SpW G
+    // 0x400 -> SpW F
+    // 0x800 -> SpW H
+  }
+//----------------------------------------------------------------------------------------
+**/
+
+    bool bPass, bLoop = FALSE;
+    int MemSize = M1_DDR2_MEMORY_SPAN;
+    int TimeStart, TimeElapsed, TestIndex = 0;
+    void *ddr2_base = (void *)M1_DDR2_MEMORY_BASE;
+    alt_u32 InitValue;
+    alt_u8 ButtonMask;
+    
+    printf("===== DE4 DDR2 Test Program (UniPHY) =====\n");
+    printf("DDR2 Clock: 400 MHZ\n");
+    printf("DDR2  Size: %d MBytes\n", M1_DDR2_MEMORY_SPAN/1024/1024);
+    //printf("DDR2  Rank: %d Rank(s)\n", DDR2_NUM_CHIPSELECTS);
+    //printf("DDR2  Bank: %d Bank(s)\n", DDR2_BA_WIDTH);
+    //printf("DDR2   Row: %d \n", DDR2_ROW_WIDTH);
+    //printf("DDR2   Col: %d \n", DDR2_COL_WIDTH);
+
+  //EEPROM Scanner;
+/*
+  alt_u8 scan_addr = 0;
+  printf("I2C Scanner Start\n");
+  bool bSuccess = TRUE;
+  for (scan_addr = 128;scan_addr < 255; scan_addr++){
+	usleep(1000*1000);
+    bSuccess = I2C_TestAdress(M1_DDR2_I2C_SCL_BASE, M1_DDR2_I2C_SDA_BASE, scan_addr);
+    if (bSuccess){
+      printf("Device found in address %#x!!\n", scan_addr);
+    } else {
+      printf("Device not found in address %#x!!\n", scan_addr);
+    }
+  }
+  printf("I2C Scanner Stop\n");
+*/
+  //EEPROM ler informações simples;
+/*
+const alt_u8 DeviceAddr = 0xA0; // 1010-000x
+bool bSuccess;
+int i;
+
+    alt_u8 ControlAddr, Value;
+    printf("DDR2 EEPROM Dump\n");
+    bSuccess = TRUE;
+    usleep(20*1000);
+    for(i=0;i<256 && bSuccess;i++){
+        ControlAddr = i;
+        bSuccess = I2C_Read(M1_DDR2_I2C_SCL_BASE, M1_DDR2_I2C_SDA_BASE, DeviceAddr, ControlAddr, &Value);
+        if (bSuccess){
+            printf("EEPROM[%03d]=%02Xh\n", ControlAddr, Value);
+        }else{
+            printf("Failed to read EEPROM\n");
+        }
+    }
+*/
+  //EEPROM ler informações completo;
+
+const alt_u8 DeviceAddr = 0xA0; // 1010-000x
+bool bSuccess;
+int i;
+
+    alt_u8 szData[256];
+    bSuccess = I2C_MultipleRead(DDR2_I2C_SCL_BASE, DDR2_I2C_SDA_BASE, DeviceAddr, szData, sizeof(szData));
+    if (bSuccess){
+        for(i=0;i<256 && bSuccess;i++){
+            printf("EEPROM[%03d]=%02Xh ", i, szData[i]);
+            //
+            if (i == 0)
+                printf("(Number of SPD Bytes Used)\n");
+            else if (i == 1)
+                printf("(Total Number of Bytes in SPD Device, Log2(N))\n");
+            else if (i == 2)
+                printf("(Basic Memory Type[08h:DDR2])\n");
+            else if (i == 3)
+                printf("(Number of Row Addresses on Assembly)\n");
+            else if (i == 4)
+                printf("(Number of Column Addresses on Assembly)\n");
+            else if (i == 5)
+                printf("(DIMM Height and Module Rank Number[b2b1b0+1])\n");
+            else if (i == 6)
+                printf("(Module Data Width)\n");
+            else if (i == 7)
+                printf("(Module Data Width, Continued)\n");
+            else if (i == 16)
+                printf("(Burst Lengths Supported[bitmap: x x x x 8 4 x x])\n");
+            else if (i == 13)
+                printf("(Primary SDRAM width)\n");
+            else if (i == 14)
+                printf("(ECC SDRAM width)\n");
+            else if (i == 17)
+                printf("(Banks per SDRAM device)\n");
+            else if (i == 18)
+                printf("(CAS lantencies supported[bitmap: x x 5 4 3 2 x x])\n");
+            else if (i == 20)
+                printf("(DIMM Type: x x Mini-UDIMM Mini-RDIMM Micro-DIMM SO-DIMM UDIMMM RDIMM)\n");
+            else if (i == 22)
+                printf("(Memory Chip feature bitmap)\n");
+            else if (i == 27)
+                printf("(Minimun row precharge time[tRP;nsx4])\n");
+            else if (i == 28)
+                printf("(Minimun row active-row activce delay[tRRD;nsx4])\n");
+            else if (i == 29)
+                printf("(Minimun RAS to CAS delay[tRCD;nsx4])\n");
+            else if (i == 30)
+                printf("(Minimun acive to precharge time[tRAS;ns])\n");
+            else if (i == 31)
+                printf("(Size of each rank[bitmap:512MB,256MB,128MB,16GB,8GB,4GB,2GB,1GB)\n");
+            else if (i == 36)
+                printf("(Minimun write receovery time[tWR;nsx4])\n");
+            else if (i == 37)
+                printf("(Internal write to read command delay[tWTR;nsx4])\n");
+            else if (i == 38)
+                printf("(Internal read to precharge command delay[tRTP;nsx4])\n");
+            else if (i == 41)
+                printf("(Minimun activce to active/refresh time[tRC;ns])\n");
+            else if (i == 42)
+                printf("(Minimun refresh to active/refresh time[tRFC;ns])\n");
+            else if (i == 62)
+                printf("(SPD Revision)\n");
+            else if (i == 63)
+                printf("(Checksum)\n");
+            else if (i == 64)
+                printf("(64~71: Manufacturer JEDEC ID)\n");
+            else if (i == 72)
+                printf("(Module manufacturing location[Vendor-specific code])\n");
+            else if (i == 73)
+                printf("(73~90: Moduloe part number)\n");
+            else if (i == 91)
+                printf("(91~92: Moduloe revision code)\n");
+            else if (i == 93)
+                printf("(Manufacture Years since 2000[0-255])\n");
+            else if (i == 94)
+                printf("(Manufacture Weeks[1-52])\n");
+            else if (i == 95)
+                printf("(95~98[4-bytes]: Module serial number)\n");
+            else if (i == 99)
+                printf("(99~128: Manufacturer-specific data)\n");
+            else
+                printf("\n");
+        }
+    }else{
+        printf("Failed to read EEPROM\n"); 
+    }
+
+  //EEPORM teste escrita
+/*
+const alt_u8 DeviceAddr = 0xA0; // 1010-000x
+bool bSuccess;
+int i;
+
+    if (bSuccess){
+        alt_u8 WriteData = 0x12, TestAddr = 128;
+        alt_u8 ReadData;
+        usleep(20*1000);
+        bSuccess = I2C_Write(DDR2_I2C_SCL_BASE, DDR2_I2C_SDA_BASE, DeviceAddr, TestAddr, WriteData);
+        if (!bSuccess){
+            printf("Failed to write EEPROM\n");            
+        }else{
+            bSuccess = I2C_Read(DDR2_I2C_SCL_BASE, DDR2_I2C_SDA_BASE, DeviceAddr, TestAddr, &ReadData);
+            if (!bSuccess){
+                printf("Failed to read EEPROM for verify\n");            
+            }else{
+                if (ReadData != WriteData){
+                    bSuccess = FALSE;
+                    printf("Verify EEPROM write fail, ReadData=%02Xh, WriteData=%02Xh\n", ReadData, WriteData);            
+                }
+            }                                        
+        }    
+        if (bSuccess)
+            printf("Success to write EEPROM\n");
+        else
+            printf("Failed to write EEPROM\n");            
+    }            
+*/
+  //MEM_TEST
+/*
+            InitValue = alt_nticks();
+            bPass = TMEM_Verify((alt_u32)ddr2_base, MemSize, InitValue);
+            TimeElapsed = alt_nticks()-TimeStart;
+            if (bPass){
+                printf("DDR2 test pass, size=%d bytes, %.3f sec\n", MemSize, (float)TimeElapsed/(float)alt_ticks_per_second());
+            }else{
+                printf("DDR2 test fail\n");
+            }
+*/
+  while(1){}
+
+  return 0;
+}
+
+
+

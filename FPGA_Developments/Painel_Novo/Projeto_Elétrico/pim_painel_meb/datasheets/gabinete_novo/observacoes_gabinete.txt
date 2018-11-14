@@ -1,0 +1,15 @@
+    - A parte branca é sem metal;
+    - O desenho considera que a porta foi removida;
+    - O furo que já existe é utilizado para travar a tampa superior enquanto as portas estiverem fechadas e pode ser utilizado ou não.
+    - A parte cinza já possui coisas e não pode ser ocupada.
+    - O posicionamento da PCB e dos componentes foi apenas para ter uma ideia de espaço e não precisa ser seguido.
+    - Eu coloquei esse tamanho de PCB levando em consideração que precisamos de espaço para adicionar os conectores SpW em baixo.
+
+  Eu estou "preocupado" com os LEDs SMD, pois a PCB teria que ficar bem colada com o metal e os rasgos teriam que ser muito bem alinhados. Talvez seria mais interessante utilizar leds tradicionais bicolores (como esse https://http2.mlstatic.com/100-un-led-bicolor-5mm-verde-vermelho-led-5mm-D_NQ_NP_925711-MLB20616078142_032016-F.jpg, por exemplo). Eu acredito que um dos problemas que tivemos com os leds do outro gabinete foi eles terem ficado por dentro do gabinete, se colocarmos eles passando o gabinete, acredito que não teríamos problemas de visualização. Gostaria de saber sua opinião.
+
+Caso seja preferível o uso de LEDs PHT, acredito que ele pode usar as mesmas cores sem problemas (acredito que precisaria de menos modificações no esquemático) e que um tamanho de 3mm ficaria bem visível.
+
+  - Sinc´s: vou continuar prevendo os furos de passagem para os conectores bnc, ok? --> Ok. Estou realizando o questionamento de qual será o conector final, mas não acredito que haverá uma definição neste momento. Por enquanto é melhor continuar usando o BNC.
+    
+  - Conector para o flat principal: existe algum canto de preferência para coloca-lo na placa? Seria bom que ele estivesse numa posição mais próxima possível do JP4 da DE4 (conexão GPIO1).  --> Acredito que coloca-lo próximo a parede do gabinete (próximo de onde eu deixei o RTC) seria interessante. Caso continuemos com a ideia de rotacionar a DE4 para deixar os cabos SpW mais próximos do painel, eu acredito que essa seria uma boa posição para o conector do flat cable (próxima a JP4 e sem a necessidade de muitas curvas).
+

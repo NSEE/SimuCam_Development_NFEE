@@ -1,0 +1,251 @@
+C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spwc_codec_pkg
+-- Compiling entity spwc_codec_ent
+-- Compiling architecture spwc_codec_arc of spwc_codec_ent
+-- Loading entity spwstream
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_PKG.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_PKG.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling package spwc_codec_pkg
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_RX_DATA_DC_FIFO_PKG.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_RX_DATA_DC_FIFO_PKG.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package spwc_rx_data_dc_fifo_pkg
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/syncdff.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/syncdff.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity syncdff
+-- Compiling architecture syncdff_arch of syncdff
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_stimuli_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_stimuli_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spwc_codec_pkg
+-- Compiling entity spw_stimuli_ent
+-- Compiling architecture RTL of spw_stimuli_ent
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk200_codec_commands_dc_fifo/spwc_clk200_codec_commands_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk200_codec_commands_dc_fifo/spwc_clk200_codec_commands_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_clk200_codec_commands_dc_fifo
+-- Compiling architecture SYN of spwc_clk200_codec_commands_dc_fifo
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_CONTROLLER.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_CONTROLLER.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Loading package spwpkg
+-- Loading package spwc_codec_pkg
+-- Loading package spwc_mm_registers_pkg
+-- Loading package spwc_rx_data_dc_fifo_pkg
+-- Loading package spwc_tx_data_dc_fifo_pkg
+-- Compiling entity spwc_codec_controller_ent
+-- Compiling architecture spwc_codec_controller_arc of spwc_codec_controller_ent
+-- Loading entity spwc_codec_loopback_ent
+-- Loading entity spwc_clk100_codec_commands_dc_fifo
+-- Loading entity spwc_clk200_codec_commands_dc_fifo
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_TX_DATA_DC_FIFO_PKG.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/DATA_DC_FIFO/SPWC_TX_DATA_DC_FIFO_PKG.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package spwc_tx_data_dc_fifo_pkg
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecv.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecv.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwrecv
+-- Compiling architecture spwrecv_arch of spwrecv
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwram.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwram.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity spwram
+-- Compiling architecture spwram_arch of spwram
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_config_stimuli_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwc_mm_registers_pkg
+-- Loading package spwc_rx_data_dc_fifo_pkg
+-- Loading package spwc_tx_data_dc_fifo_pkg
+-- Compiling entity spw_config_stimuli_ent
+-- Compiling architecture RTL of spw_config_stimuli_ent
+
+} {} {}} C:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/spw_backdoor_dc_fifo/spw_backdoor_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Desktop/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/spw_backdoor_dc_fifo/spw_backdoor_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spw_backdoor_dc_fifo
+-- Compiling architecture SYN of spw_backdoor_dc_fifo
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/altera_ipcore/dcfifo/clk100_codec_commands_dc_fifo/spwc_clk100_codec_commands_dc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity spwc_clk100_codec_commands_dc_fifo
+-- Compiling architecture SYN of spwc_clk100_codec_commands_dc_fifo
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/streamtest.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/streamtest.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity streamtest
+-- Compiling architecture streamtest_arch of streamtest
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwxmit
+-- Compiling architecture spwxmit_arch of spwxmit
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwpkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwpkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling package spwpkg
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_LOOPBACK.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/SPWC_CODEC_LOOPBACK.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spwc_codec_pkg
+-- Loading package spwc_mm_registers_pkg
+-- Loading package spwc_rx_data_dc_fifo_pkg
+-- Loading package spwc_tx_data_dc_fifo_pkg
+-- Compiling entity spwc_codec_loopback_ent
+-- Compiling architecture spwc_codec_loopback_arc of spwc_codec_loopback_ent
+-- Loading entity spw_backdoor_dc_fifo
+-- Loading entity spwc_codec_ent
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwstream.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwstream.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwstream
+-- Compiling architecture spwstream_arch of spwstream
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/REGISTERS/SPWC_MM_REGISTERS_PKG.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/REGISTERS/SPWC_MM_REGISTERS_PKG.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package spwc_mm_registers_pkg
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_generic.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_generic.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity spwrecvfront_generic
+-- Compiling architecture spwrecvfront_arch of spwrecvfront_generic
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwlink.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwlink.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwlink
+-- Compiling architecture spwlink_arch of spwlink
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwrecvfront_fast.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwrecvfront_fast
+-- Compiling architecture spwrecvfront_arch of spwrecvfront_fast
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/Communications_Module/INTERFACES/SpW_Interface/CODEC_CONTROLLER/spacewire_light_codec/spwxmit_fast.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Compiling entity spwxmit_fast
+-- Compiling architecture spwxmit_fast_arch of spwxmit_fast
+
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/COM_Module/COMM_Component/testbench/spw_testbench_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package spwpkg
+-- Loading package spwc_codec_pkg
+-- Loading package spwc_mm_registers_pkg
+-- Loading package spwc_rx_data_dc_fifo_pkg
+-- Loading package spwc_tx_data_dc_fifo_pkg
+-- Compiling entity spw_testbench_top
+-- Compiling architecture RTL of spw_testbench_top
+-- Loading entity spwc_codec_ent
+-- Loading package ATTRIBUTES
+-- Loading package std_logic_misc
+-- Loading entity spwc_codec_controller_ent
+-- Loading entity spw_stimuli_ent
+-- Loading entity spw_config_stimuli_ent
+
+} {} {}}

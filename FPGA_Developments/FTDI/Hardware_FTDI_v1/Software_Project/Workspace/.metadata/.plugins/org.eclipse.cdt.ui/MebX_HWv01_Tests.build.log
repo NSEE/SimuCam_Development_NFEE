@@ -1,0 +1,70 @@
+17:58:04 **** Incremental Build of configuration Nios II for project MebX_HWv01_Tests ****
+make all 
+Info: Building ../MebX_HWv01_Tests_bsp/
+C:/intelFPGA/16.1/nios2eds/bin/gnu/H-x86_64-mingw32/bin/make --no-print-directory -C ../MebX_HWv01_Tests_bsp/
+[BSP build complete]
+Info: Compiling logic/ddr2/ddr2.c to obj/default/logic/ddr2/ddr2.o
+nios2-elf-gcc -xc -MP -MMD -c -I../MebX_HWv01_Tests_bsp//drivers/inc -I../MebX_HWv01_Tests_bsp//HAL/inc -I../MebX_HWv01_Tests_bsp/ -I../MebX_HWv01_Tests_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALTERA_TRIPLE_SPEED_MAC -DALT_SINGLE_THREADED    -O0 -g -Wall   -mhw-div -mhw-mul -mhw-mulx -mgpopt=global  -o obj/default/logic/ddr2/ddr2.o logic/ddr2/ddr2.c
+logic/ddr2/ddr2.c: In function 'DDR2_MEMORY_WRITE_TEST':
+logic/ddr2/ddr2.c:259:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+   printf("DDR2 Size: %d MBytes\n", ByteLen/1024/1024);
+          ^
+logic/ddr2/ddr2.c:259:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+logic/ddr2/ddr2.c:313:12: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+     printf("DDR2 write test pass, size=%d bytes, %.3f sec\n", ByteLen, (float)TimeElapsed/(float)alt_ticks_per_second());
+            ^
+logic/ddr2/ddr2.c:313:12: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+logic/ddr2/ddr2.c: In function 'DDR2_MEMORY_READ_TEST':
+logic/ddr2/ddr2.c:357:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+   printf("DDR2 Size: %d MBytes\n", ByteLen/1024/1024);
+          ^
+logic/ddr2/ddr2.c:357:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+logic/ddr2/ddr2.c:404:12: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+     printf("DDR2 read test pass, size=%d bytes, %.3f sec\n", ByteLen, (float)TimeElapsed/(float)alt_ticks_per_second());
+            ^
+logic/ddr2/ddr2.c:404:12: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+logic/ddr2/ddr2.c: In function 'DDR2_MEMORY_RANDOM_WRITE_TEST':
+logic/ddr2/ddr2.c:450:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+   printf("DDR2 Size: %d MBytes\n", ByteLen/1024/1024);
+          ^
+logic/ddr2/ddr2.c:450:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+logic/ddr2/ddr2.c:486:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+       printf("DDR2 write test pass, size=%d bytes, %.3f sec\n", ByteLen, (float)TimeElapsed/(float)alt_ticks_per_second());
+              ^
+logic/ddr2/ddr2.c:486:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+logic/ddr2/ddr2.c:488:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+       printf("DDR2 write test pass, size=%d bytes\n", ByteLen);
+              ^
+logic/ddr2/ddr2.c:488:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+logic/ddr2/ddr2.c: In function 'DDR2_MEMORY_RANDOM_READ_TEST':
+logic/ddr2/ddr2.c:535:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+   printf("DDR2 Size: %d MBytes\n", ByteLen/1024/1024);
+          ^
+logic/ddr2/ddr2.c:535:10: warning: format '%d' expects argument of type 'int', but argument 2 has type 'long unsigned int' [-Wformat=]
+logic/ddr2/ddr2.c:559:16: warning: format '%X' expects argument of type 'unsigned int', but argument 2 has type 'alt_u32 * {aka long unsigned int *}' [-Wformat=]
+         printf("Failed to read adress 0x%08X\n", pSource);
+                ^
+logic/ddr2/ddr2.c:559:16: warning: format '%X' expects argument of type 'unsigned int', but argument 2 has type 'alt_u32 * {aka long unsigned int *}' [-Wformat=]
+logic/ddr2/ddr2.c:575:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+       printf("DDR2 read test pass, size=%d bytes, %.3f sec\n", ByteLen, (float)TimeElapsed/(float)alt_ticks_per_second());
+              ^
+logic/ddr2/ddr2.c:575:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+logic/ddr2/ddr2.c:577:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+       printf("DDR2 read test pass, size=%d bytes\n", ByteLen);
+              ^
+logic/ddr2/ddr2.c:577:14: warning: format '%d' expects argument of type 'int', but argument 2 has type 'alt_u32 {aka long unsigned int}' [-Wformat=]
+Info: Compiling logic/dma/dma.c to obj/default/logic/dma/dma.o
+nios2-elf-gcc -xc -MP -MMD -c -I../MebX_HWv01_Tests_bsp//drivers/inc -I../MebX_HWv01_Tests_bsp//HAL/inc -I../MebX_HWv01_Tests_bsp/ -I../MebX_HWv01_Tests_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALTERA_TRIPLE_SPEED_MAC -DALT_SINGLE_THREADED    -O0 -g -Wall   -mhw-div -mhw-mul -mhw-mulx -mgpopt=global  -o obj/default/logic/dma/dma.o logic/dma/dma.c
+Info: Compiling mebxhwt01.c to obj/default/mebxhwt01.o
+nios2-elf-gcc -xc -MP -MMD -c -I../MebX_HWv01_Tests_bsp//drivers/inc -I../MebX_HWv01_Tests_bsp//HAL/inc -I../MebX_HWv01_Tests_bsp/ -I../MebX_HWv01_Tests_bsp//drivers/inc  -pipe -D__hal__ -DALT_NO_INSTRUCTION_EMULATION -DALTERA_TRIPLE_SPEED_MAC -DALT_SINGLE_THREADED    -O0 -g -Wall   -mhw-div -mhw-mul -mhw-mulx -mgpopt=global  -o obj/default/mebxhwt01.o mebxhwt01.c
+Info: Linking MebX_HWv01_Tests.elf
+nios2-elf-g++  -T'../MebX_HWv01_Tests_bsp//linker.x' -msys-crt0='../MebX_HWv01_Tests_bsp//obj/HAL/src/crt0.o' -msys-lib=hal_bsp -L../MebX_HWv01_Tests_bsp/   -Wl,-Map=MebX_HWv01_Tests.map   -O0 -g -Wall   -mhw-div -mhw-mul -mhw-mulx -mgpopt=global  -o MebX_HWv01_Tests.elf obj/default/driver/i2c/i2c.o obj/default/driver/leds/leds.o obj/default/driver/power_spi/power_spi.o obj/default/driver/seven_seg/seven_seg.o obj/default/logic/ddr2/ddr2.o obj/default/logic/dma/dma.o obj/default/logic/sense/sense.o obj/default/mebxhwt01.o obj/default/utils/util.o -lm -msys-lib=m
+nios2-elf-insert MebX_HWv01_Tests.elf --thread_model hal --cpu_name nios2_gen2_0 --qsys true --simulation_enabled false --id 0 --sidp 0x81201ce0 --timestamp 1495731638 --stderr_dev jtag_uart_0 --stdin_dev jtag_uart_0 --stdout_dev jtag_uart_0 --sopc_system_name MebX_Qsys_Project --quartus_project_dir "D:/NSEE-DEV/HW_V01/Qsys_Project" --sopcinfo D:/NSEE-DEV/HW_V01/Qsys_Project/software/MebX_HWv01_Tests_bsp/../../MebX_Qsys_Project.sopcinfo
+Info: (MebX_HWv01_Tests.elf) 105 KBytes program size (code + initialized data).
+Info:                        894 KBytes free for stack + heap.
+Info: Creating MebX_HWv01_Tests.objdump
+nios2-elf-objdump --disassemble --syms --all-header --source MebX_HWv01_Tests.elf >MebX_HWv01_Tests.objdump
+[MebX_HWv01_Tests build complete]
+
+17:58:07 Build Finished (took 3s.750ms)
+

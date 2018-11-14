@@ -1,0 +1,19 @@
+!SESSION 2012-02-03 13:53:54.484 -----------------------------------------------
+eclipse.buildId=M20100909-0800
+java.version=1.6.0_23
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=zh_CN
+Framework arguments:  -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+Command-line arguments:  -os win32 -ws win32 -arch x86 -product org.eclipse.epp.package.cpp.product -perspective com.altera.sbtgui.ui.cPerspective
+
+!ENTRY org.eclipse.cdt.core 1 0 2012-02-03 13:55:50.687
+!MESSAGE Indexed 'simple_socket_server_bsp' (101 sources, 76 headers) in 2.47 sec: 3,550 declarations; 15,502 references; 135 unresolved inclusions; 5 syntax errors; 316 unresolved names (1.63%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2012-02-03 13:56:10.625
+!MESSAGE Indexed 'simple_socket_server' (0 sources, 13 headers) in 0.02 sec: 0 declarations; 0 references; 13 unresolved inclusions; 0 syntax errors; 0 unresolved names (0.00%)
+
+!ENTRY com.altera.sbtgui.launch 1 0 2012-02-03 14:10:09.218
+!MESSAGE Executing: [C:\WINDOWS\system32\cmd.exe, /C, C:/altera/11.1/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --stop --accept-bad-sysid --sidp=0x5101ce0]
+
+!ENTRY com.altera.sbtgui.launch 1 0 2012-02-03 14:10:11.593
+!MESSAGE Executing: [C:\WINDOWS\system32\cmd.exe, /C, C:/altera/11.1/quartus\bin\cygwin\bin\bash.exe, -c, nios2-download '--cable=USB-Blaster on localhost [USB-0]' --device=1 --instance=0 --go --accept-bad-sysid --sidp=0x5101ce0 /cygdrive/d/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/software/simple_socket_server/simple_socket_server.elf]

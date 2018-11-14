@@ -1,0 +1,105 @@
+Assembler report for MebX_Quartus_Project_FTDI
+Tue Jun 27 13:42:02 2017
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Assembler Summary
+  3. Assembler Settings
+  4. Assembler Encrypted IP Cores Summary
+  5. Assembler Generated Files
+  6. Assembler Device Options: C:/Users/rfranca/Dev/GitHub/SimuCamX_Development/FTDI/Hardware_FTDI_v1/Quartus_Project/output_files/MebX_Quartus_Project_FTDI.sof
+  7. Assembler Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2016  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
+
+
+
++---------------------------------------------------------------+
+; Assembler Summary                                             ;
++-----------------------+---------------------------------------+
+; Assembler Status      ; Successful - Tue Jun 27 13:42:02 2017 ;
+; Revision Name         ; MebX_Quartus_Project_FTDI             ;
+; Top-level Entity Name ; MebX_TopLevel                         ;
+; Family                ; Stratix IV                            ;
+; Device                ; EP4SGX230KF40C2                       ;
++-----------------------+---------------------------------------+
+
+
++----------------------------------+
+; Assembler Settings               ;
++--------+---------+---------------+
+; Option ; Setting ; Default Value ;
++--------+---------+---------------+
+
+
++-----------------------------------------------------------+
+; Assembler Encrypted IP Cores Summary                      ;
++--------+-----------------------------------+--------------+
+; Vendor ; IP Core Name                      ; License Type ;
++--------+-----------------------------------+--------------+
+; Altera ; Nios II Processor (6AF7 00A2)     ; Licensed     ;
+; Altera ; Triple-Speed Ethernet (6AF7 00BD) ; Licensed     ;
+; Altera ; Signal Tap (6AF7 BCE1)            ; Licensed     ;
+; Altera ; Signal Tap (6AF7 BCEC)            ; Licensed     ;
++--------+-----------------------------------+--------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------+
+; Assembler Generated Files                                                                                                         ;
++-----------------------------------------------------------------------------------------------------------------------------------+
+; File Name                                                                                                                         ;
++-----------------------------------------------------------------------------------------------------------------------------------+
+; C:/Users/rfranca/Dev/GitHub/SimuCamX_Development/FTDI/Hardware_FTDI_v1/Quartus_Project/output_files/MebX_Quartus_Project_FTDI.sof ;
++-----------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/rfranca/Dev/GitHub/SimuCamX_Development/FTDI/Hardware_FTDI_v1/Quartus_Project/output_files/MebX_Quartus_Project_FTDI.sof ;
++----------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+; Option         ; Setting                                                                                                                                    ;
++----------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+; Device         ; EP4SGX230KF40C2                                                                                                                            ;
+; JTAG usercode  ; 0x09D3F068                                                                                                                                 ;
+; Checksum       ; 0x09D3F068                                                                                                                                 ;
++----------------+--------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------+
+; Assembler Messages ;
++--------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Assembler
+    Info: Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
+    Info: Processing started: Tue Jun 27 13:41:23 2017
+Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project_FTDI
+Info (115031): Writing out detailed assembly data for power analysis
+Info (115030): Assembler is generating device programming files
+Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 1162 megabytes
+    Info: Processing ended: Tue Jun 27 13:42:03 2017
+    Info: Elapsed time: 00:00:40
+    Info: Total CPU time (on all processors): 00:00:39
+
+

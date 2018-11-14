@@ -1,0 +1,138 @@
+Flow report for fifo_mst_top
+Tue Jul 14 13:51:39 2015
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Full Version
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++-----------------------------------------------------------------------------------+
+; Flow Summary                                                                      ;
++-------------------------------------+---------------------------------------------+
+; Flow Status                         ; Successful - Tue Jul 14 13:51:27 2015       ;
+; Quartus II 64-Bit Version           ; 13.0.0 Build 156 04/24/2013 SJ Full Version ;
+; Revision Name                       ; fifo_mst_top                                ;
+; Top-level Entity Name               ; fifo_mst_top                                ;
+; Family                              ; Cyclone V                                   ;
+; Device                              ; 5CGTFD5C5F27C7                              ;
+; Timing Models                       ; Preliminary                                 ;
+; Logic utilization (in ALMs)         ; 102 / 29,080 ( < 1 % )                      ;
+; Total registers                     ; 108                                         ;
+; Total pins                          ; 46 / 364 ( 13 % )                           ;
+; Total virtual pins                  ; 0                                           ;
+; Total block memory bits             ; 131,072 / 4,567,040 ( 3 % )                 ;
+; Total DSP Blocks                    ; 0 / 150 ( 0 % )                             ;
+; Total HSSI RX PCSs                  ; 0 / 6 ( 0 % )                               ;
+; Total HSSI PMA RX Deserializers     ; 0 / 6 ( 0 % )                               ;
+; Total HSSI PMA RX ATT Deserializers ; 0                                           ;
+; Total HSSI TX PCSs                  ; 0 / 6 ( 0 % )                               ;
+; Total HSSI PMA TX Serializers       ; 0 / 6 ( 0 % )                               ;
+; Total HSSI PMA TX ATT Serializers   ; 0 / 6 ( 0 % )                               ;
+; Total PLLs                          ; 0 / 12 ( 0 % )                              ;
+; Total DLLs                          ; 0 / 4 ( 0 % )                               ;
++-------------------------------------+---------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 07/14/2015 13:50:32 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; fifo_mst_top        ;
++-------------------+---------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                            ;
++-------------------------------------+---------------------------------------+--------------------+-------------+------------+
+; Assignment Name                     ; Value                                 ; Default Value      ; Entity Name ; Section Id ;
++-------------------------------------+---------------------------------------+--------------------+-------------+------------+
+; AUTO_DELAY_CHAINS                   ; Off                                   ; On                 ; --          ; --         ;
+; COMPILER_SIGNATURE_ID               ; 150937318611.143685303206228          ; --                 ; --          ; --         ;
+; FITTER_EFFORT                       ; Standard Fit                          ; Auto Fit           ; --          ; --         ;
+; FIT_ONLY_ONE_ATTEMPT                ; On                                    ; Off                ; --          ; --         ;
+; MAX_CORE_JUNCTION_TEMP              ; 85                                    ; --                 ; --          ; --         ;
+; MIN_CORE_JUNCTION_TEMP              ; 0                                     ; --                 ; --          ; --         ;
+; OPTIMIZATION_TECHNIQUE              ; Speed                                 ; Balanced           ; --          ; --         ;
+; OPTIMIZE_POWER_DURING_FITTING       ; Extra effort                          ; Normal compilation ; --          ; --         ;
+; OPTIMIZE_POWER_DURING_SYNTHESIS     ; Extra effort                          ; Normal compilation ; --          ; --         ;
+; PARTITION_COLOR                     ; 16764057                              ; --                 ; --          ; Top        ;
+; PARTITION_FITTER_PRESERVATION_LEVEL ; PLACEMENT_AND_ROUTING                 ; --                 ; --          ; Top        ;
+; PARTITION_NETLIST_TYPE              ; SOURCE                                ; --                 ; --          ; Top        ;
+; POWER_BOARD_THERMAL_MODEL           ; None (CONSERVATIVE)                   ; --                 ; --          ; --         ;
+; POWER_PRESET_COOLING_SOLUTION       ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW ; --                 ; --          ; --         ;
+; REMOVE_DUPLICATE_REGISTERS          ; Off                                   ; On                 ; --          ; --         ;
+; ROUTER_TIMING_OPTIMIZATION_LEVEL    ; MAXIMUM                               ; Normal             ; --          ; --         ;
+; SEED                                ; 3                                     ; 1                  ; --          ; --         ;
+; TIMEQUEST_DO_REPORT_TIMING          ; On                                    ; Off                ; --          ; --         ;
++-------------------------------------+---------------------------------------+--------------------+-------------+------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:00:01     ; 1.0                     ; 521 MB              ; 00:00:02                           ;
+; Fitter                    ; 00:00:45     ; 1.6                     ; 2422 MB             ; 00:01:02                           ;
+; Assembler                 ; 00:00:07     ; 1.0                     ; 607 MB              ; 00:00:07                           ;
+; TimeQuest Timing Analyzer ; 00:00:11     ; 1.0                     ; 1144 MB             ; 00:00:11                           ;
+; Total                     ; 00:01:04     ; --                      ; --                  ; 00:01:22                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                        ;
++---------------------------+------------------+-----------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++---------------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis      ; sg-pc-049        ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; sg-pc-049        ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; sg-pc-049        ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; sg-pc-049        ; Windows 7 ; 6.1        ; x86_64         ;
++---------------------------+------------------+-----------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off AL_MC245 -c fifo_mst_top
+quartus_fit --read_settings_files=off --write_settings_files=off AL_MC245 -c fifo_mst_top
+quartus_asm --read_settings_files=off --write_settings_files=off AL_MC245 -c fifo_mst_top
+quartus_sta AL_MC245 -c fifo_mst_top
+
+
+

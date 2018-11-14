@@ -1,0 +1,171 @@
+% ------------------------------------------------------------------------
+% Projeto de pesquisa - FAPESP
+%
+% Modelo criado por: Rodrigo Romano
+% "Rodrigo A. Romano" <rromano@maua.br>
+%
+% Alteraćoes: Rafael Corsi
+% "Rafael Corsi" <corsiferrao@gmail.com>
+% 
+% ------------------------------------------------------------------------
+\documentclass[12pt,a4paper,twoside=semi]{scrreprt}
+%\usepackage[a4paper,left=3.5cm,right=1.5cm,top=3cm,bottom=2.5cm]{geometry}
+
+\usepackage[utf8]{inputenc}       %Permite acentuação
+\usepackage[T1]{fontenc}
+%\usepackage[english]{babel}
+\usepackage[portuguese]{babel}
+\usepackage[centertags]{amsmath}
+
+% ------------------------------------------------------------------------
+\usepackage[automark,headsepline]{scrlayer-scrpage}
+\clearpairofpagestyles
+\cfoot[\pagemark]{\pagemark}
+\lehead{\headmark}
+\rohead{\headmark}
+\cfoot[\raisebox{-0.5em}{ -- \, \textnormal{\thepage} \, --}]{\raisebox{-0.5em}{ -- \, \textnormal{\thepage} \, --}}
+\pagestyle{scrheadings}
+%\include{authorpart}
+% ------------------------------------------------------------------------
+
+\usepackage{lmodern,
+			url,
+			hyperref,
+			multirow,
+			array,
+			indentfirst,
+			ncccomma,
+			pst-node,
+			pstricks,
+			schemabloc,
+			amssymb,
+			amsfonts,
+			graphicx,
+			etoolbox, 
+			pdfpages,
+			hyperref,
+			paralist,
+			tabularx,
+			pdflscape,
+			color,				
+			doc,
+			vhistory,
+			tcolorbox,
+			titlepic,
+			hyperref}
+			
+			
+\usepackage[titletoc,toc,title]{appendix}
+% ------------------------------------------------------------------------
+% Reduz espacamento na bibliografia
+%\usepackage{natbib}
+%\setlength{\bibsep}{0.0pt}
+
+%Matem figura na secção !
+%\usepackage[section]{placeins}
+
+% sub figuras
+%ajuste do tamanho entre figuras
+\usepackage{subfigure}
+\setlength\subfigcapmargin{0.8em}
+
+% Fuzz 
+\hfuzz1pt % Don't bother to report over-full boxes if over-edge is < 2pt
+
+% Numeração das notas de rodapé 
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+% Different font in captions 
+\newcommand{\captionfonts}{\small}
+
+\makeatletter  % Allow the use of @ in command names
+\long\def\@makecaption#1#2{%
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{{\captionfonts #1: #2}}%
+  \ifdim \wd\@tempboxa >\hsize
+    {\captionfonts #1: #2\par}
+  \else
+    \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi
+  \vskip\belowcaptionskip}
+\makeatother   % Cancel the effect of \makeatletter
+
+% Espaçamento
+\setlength{\parindent}{30pt} \setlength{\parskip}{6pt}
+\newlength{\defbaselineskip}
+\setlength{\defbaselineskip}{\baselineskip}
+
+\newcommand{\setlinespacing}[1]{\setlength{\baselineskip}{#1 \defbaselineskip}}
+% ---
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\let\PBS=\PreserveBackslash %
+\def\baselinestretch{1}
+\setlinespacing{1.5}
+% ------------------------------------------------------------------------
+
+% Alteracões Corsi
+
+% Use the microtype package for better typography
+% http://www.khirevich.com/latex/microtype/
+%
+% activate={true,nocompatibility} - activate protrusion and expansion
+% final - enable microtype; use "draft" to disable
+% tracking=true, kerning=true, spacing=true - activate these techniques
+% factor=1100 - add 10% to the protrusion amount (default is 1000)
+% stretch=10, shrink=10 - reduce stretchability/shrinkability (default is 20/20)
+\usepackage[activate={true,nocompatibility},
+			final,
+			tracking=true,
+			kerning=true,
+			spacing=true,
+			factor=1100,
+			stretch=10,
+			shrink=10]
+			{microtype} 
+
+% Possibilita que caracteres saiam da margem p/ melhor caber o texto
+\SetProtrusion{encoding={*},
+			   family={bch},
+			   series={*},size={6,7}}
+               {1={ ,750},2={ ,500},3={ ,500},4={ ,500},5={ ,500},
+               6={ ,500},7={ ,600},8={ ,500},9={ ,500},0={ ,500}}
+
+\microtypecontext{spacing=nonfrench}
+% ------------------------------------------------------------------------
+               
+% Todo notes
+%\usepackage[disable]{todonotes}
+\usepackage[colorinlistoftodos]{todonotes}  
+\setlength{\marginparwidth}{2cm}
+\reversemarginpar             
+%\makeatletter\let\chapter\@undefined\makeatother
+
+\newcommand\todoin[2][]{\todo[inline, caption={2do}, #1, color={red!100!green!33}]{
+\begin{minipage}{\textwidth-4pt}#2\end{minipage}}}
+
+% ------------------------------------------------------------------------
+
+% Restora contagem da nota a cada pagina
+\usepackage{perpage}
+\MakePerPage{footnote}
+
+% Qualidade e compressão do pdf
+%\pdfminorversion=5
+%\pdfcompresslevel=9
+%\pdfobjcompresslevel=2
+
+% ------------------------------------------------------------------------
+% Possibilita inserir pdf com texto fora do arquivo
+% util para figs geradas no inkscape
+\newcommand{\executeiffilenewer}[3]{%
+\ifnum\pdfstrcmp{\pdffilemoddate{#1}}%
+{\pdffilemoddate{#2}}>0%
+{\immediate\write18{#3}}\fi%
+}
+
+\newcommand{\includesvg}[1]{%
+\executeiffilenewer{#1.svg}{#1.pdf}%
+{inkscape -z -D --file=./Figs/#1.svg %
+--export-pdf=./Figs/#1.pdf --export-latex}%
+\input{./figs/#1.pdf_tex}%
+}

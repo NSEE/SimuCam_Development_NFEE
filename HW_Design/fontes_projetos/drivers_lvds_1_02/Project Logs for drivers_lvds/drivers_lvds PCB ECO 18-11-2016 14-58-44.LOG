@@ -1,0 +1,9 @@
+Change Component Comment : Designator=FD1 Old Comment=Comment New Comment=##nl
+Change Component Comment : Designator=FD2 Old Comment=Comment New Comment=##nl
+Change Component Comment : Designator=FD3 Old Comment=Comment New Comment=##nl
+Change Component Description : Designator=FD1 Old Description= New Description=Fiducial
+Change Component Description : Designator=FD2 Old Description= New Description=Fiducial
+Change Component Description : Designator=FD3 Old Description= New Description=Fiducial
+Added Component: Designator=R4(0603 - MONTAGEM MÁQUINA)
+Added Pin To Net: NetName=\PWDN Pin=R4-1
+Added Pin To Net: NetName=+3V3 Pin=R4-2

@@ -1,0 +1,303 @@
+/*************/
+/* Includes	 */
+/*************/
+
+#include <stdio.h>
+#include <io.h>
+#include <unistd.h>
+#include "system.h"
+
+#include "altera_avalon_pio_regs.h"
+#include "sys/alt_irq.h"
+#include <sys/alt_cache.h>
+#include "sys/alt_timestamp.h"
+#include <altera_msgdma.h>
+
+//#include "includes.h"
+
+#include "utils/util.h"
+#include "utils/meb_includes.h"
+
+#include "driver/i2c/i2c.h"
+#include "driver/leds/leds.h"
+#include "driver/power_spi/power_spi.h"
+#include "driver/seven_seg/seven_seg.h"
+
+#include "logic/dma/dma.h"
+#include "logic/sense/sense.h"
+#include "logic/ddr2/ddr2.h"
+
+/**************************************************
+ * Global
+**************************************************/
+
+void TestLeds(void);
+bool TestDMA_M1_M2(void);
+bool TestDMA_M2_M1(void);
+
+int main(void)
+{
+
+  alt_8 tempFPGA = 0;
+  alt_8 tempBoard = 0;
+
+  printf(" \n Nucleo de Sistemas Eletronicos Embarcados - MebX\n\n");
+
+  //Configura Display de 7 segmentos
+  SSDP_CONFIG(SSDP_NORMAL_MODE);
+
+  printf("0x%08X", *(DDR2_M1_MEMORY_BASE+1200));
+
+  //Realiza teste dos LEDS, entra em um loop infinito.
+  //TestLeds();
+
+  //Teste das DDR2 EEPROMs
+  //DDR2_EEPROM_TEST(DDR2_M1_ID);
+  //DDR2_EEPROM_TEST(DDR2_M2_ID);
+  
+  //Dump das DDR2 EEPROMs
+  //DDR2_EEPROM_DUMP(DDR2_M1_ID);
+  //DDR2_EEPROM_DUMP(DDR2_M2_ID);
+
+  //Teste de escrita de leitura da DDR2 M1
+  DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+  DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+
+  //Teste de escrita de leitura da DDR2 M2
+  //DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+  //DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+  
+  //Teste de transferencia com DMA (M1 -> M2);
+  //TestDMA_M1_M2();
+  
+  //Teste de transferencia com DMA (M2 -> M1);
+  //TestDMA_M2_M1();
+
+  //Acende os leds de status e atualiza a temperatura da FPGA no display de 7 segmentos a cada 1 segundo
+  LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_ALL_MASK);
+  while(1){
+	TEMP_Read(&tempFPGA, &tempBoard);
+	SSDP_UPDATE(tempFPGA);
+	usleep(1000*1000);
+  }
+
+  return 0;
+}
+
+void TestLeds (void){
+  alt_8 led = 1;
+  SSDP_CONFIG(SSDP_TEST_MODE);
+  
+  while(1){
+    switch(led){
+      case 1:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_0_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_0_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_A_MASK);
+        led++;
+      break;
+      case 2:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_1_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_1_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_B_MASK);
+        led++;
+      break;
+      case 3:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_2_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_2_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_C_MASK);
+        led++;
+      break;
+      case 4:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_3_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_3_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_D_MASK);
+        led++;
+      break;
+      case 5:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_4_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_0_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_E_MASK);
+        led++;
+      break;
+      case 6:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_5_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_1_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_F_MASK);
+        led++;
+      break;
+      case 7:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_6_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_2_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_G_MASK);
+        led++;
+      break;
+      case 8:
+        LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_7_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_STATUS_3_MASK);
+        LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_SPW_H_MASK);
+        led = 1;
+      break;
+      default:
+        led = 0;
+    }
+  
+  usleep(1000*1000);
+  
+  LEDS_BOARD_DRIVE(LEDS_OFF, LEDS_BOARD_ALL_MASK);
+  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_STATUS_ALL_MASK);
+  LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_SPW_ALL_MASK);
+  
+  }
+}
+
+bool TestDMA_M1_M2(void){
+
+  alt_msgdma_dev *DMADev = NULL;
+
+  if (DMA_OPEN_DEVICE(&DMADev, (char *)DMA_M1_M2_CSR_NAME) == FALSE){
+    printf("Error Opening DMA Device");
+    return FALSE;
+  }
+
+  if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+    printf("Error Reseting Dispatcher");
+    return FALSE;
+  }
+
+  alt_u32 control_bits = 0x00000000;
+  
+  const alt_u32 step = DDR2_M1_MEMORY_SIZE/16;
+  alt_u32 read_addr_arr[16];
+    read_addr_arr[0] = DDR2_M1_MEMORY_BASE;
+    read_addr_arr[1] = read_addr_arr[0] + step;
+    read_addr_arr[2] = read_addr_arr[1] + step;
+    read_addr_arr[3] = read_addr_arr[2] + step;
+    read_addr_arr[4] = read_addr_arr[3] + step;
+    read_addr_arr[5] = read_addr_arr[4] + step;
+    read_addr_arr[6] = read_addr_arr[5] + step;
+    read_addr_arr[7] = read_addr_arr[6] + step;
+    read_addr_arr[8] = read_addr_arr[7] + step;
+    read_addr_arr[9] = read_addr_arr[8] + step;
+    read_addr_arr[10] = read_addr_arr[9] + step;
+    read_addr_arr[11] = read_addr_arr[10] + step;
+    read_addr_arr[12] = read_addr_arr[11] + step;
+    read_addr_arr[13] = read_addr_arr[12] + step;
+    read_addr_arr[14] = read_addr_arr[13] + step;
+    read_addr_arr[15] = read_addr_arr[14] + step;
+
+  alt_u32 write_addr_arr[16];
+    write_addr_arr[0] = DDR2_M2_MEMORY_BASE;
+    write_addr_arr[1] = write_addr_arr[0] + step;
+    write_addr_arr[2] = write_addr_arr[1] + step;
+    write_addr_arr[3] = write_addr_arr[2] + step;
+    write_addr_arr[4] = write_addr_arr[3] + step;
+    write_addr_arr[5] = write_addr_arr[4] + step;
+    write_addr_arr[6] = write_addr_arr[5] + step;
+    write_addr_arr[7] = write_addr_arr[6] + step;
+    write_addr_arr[8] = write_addr_arr[7] + step;
+    write_addr_arr[9] = write_addr_arr[8] + step;
+    write_addr_arr[10] = write_addr_arr[9] + step;
+    write_addr_arr[11] = write_addr_arr[10] + step;
+    write_addr_arr[12] = write_addr_arr[11] + step;
+    write_addr_arr[13] = write_addr_arr[12] + step;
+    write_addr_arr[14] = write_addr_arr[13] + step;
+    write_addr_arr[15] = write_addr_arr[14] + step;
+
+  DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+	
+  int TimeStart, TimeElapsed = 0;
+
+  TimeStart = alt_nticks();
+  if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, 16, step, control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+    printf("Error During DMA Transfer");
+    return FALSE;
+  }
+  TimeElapsed = alt_nticks() - TimeStart;
+  printf("%.3f sec\n", (float)TimeElapsed/(float)alt_ticks_per_second());
+
+  if (DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME) == TRUE){
+    printf("Transfer executed correctly\n");
+  } else {
+    printf("Transfer failed\n");
+    return FALSE;
+  }
+
+  return TRUE;
+}
+
+bool TestDMA_M2_M1(void){
+
+  alt_msgdma_dev *DMADev = NULL;
+
+  if (DMA_OPEN_DEVICE(&DMADev, (char *)DMA_M2_M1_CSR_NAME) == FALSE){
+    printf("Error Opening DMA Device");
+    return FALSE;
+  }
+
+  if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+    printf("Error Reseting Dispatcher");
+    return FALSE;
+  }
+
+  alt_u32 control_bits = 0x00000000;
+  
+  const alt_u32 step = DDR2_M2_MEMORY_SIZE/16;
+  alt_u32 read_addr_arr[16];
+    read_addr_arr[0] = DDR2_M2_MEMORY_BASE;
+    read_addr_arr[1] = read_addr_arr[0] + step;
+    read_addr_arr[2] = read_addr_arr[1] + step;
+    read_addr_arr[3] = read_addr_arr[2] + step;
+    read_addr_arr[4] = read_addr_arr[3] + step;
+    read_addr_arr[5] = read_addr_arr[4] + step;
+    read_addr_arr[6] = read_addr_arr[5] + step;
+    read_addr_arr[7] = read_addr_arr[6] + step;
+    read_addr_arr[8] = read_addr_arr[7] + step;
+    read_addr_arr[9] = read_addr_arr[8] + step;
+    read_addr_arr[10] = read_addr_arr[9] + step;
+    read_addr_arr[11] = read_addr_arr[10] + step;
+    read_addr_arr[12] = read_addr_arr[11] + step;
+    read_addr_arr[13] = read_addr_arr[12] + step;
+    read_addr_arr[14] = read_addr_arr[13] + step;
+    read_addr_arr[15] = read_addr_arr[14] + step;
+
+  alt_u32 write_addr_arr[16];
+    write_addr_arr[0] = DDR2_M1_MEMORY_BASE;
+    write_addr_arr[1] = write_addr_arr[0] + step;
+    write_addr_arr[2] = write_addr_arr[1] + step;
+    write_addr_arr[3] = write_addr_arr[2] + step;
+    write_addr_arr[4] = write_addr_arr[3] + step;
+    write_addr_arr[5] = write_addr_arr[4] + step;
+    write_addr_arr[6] = write_addr_arr[5] + step;
+    write_addr_arr[7] = write_addr_arr[6] + step;
+    write_addr_arr[8] = write_addr_arr[7] + step;
+    write_addr_arr[9] = write_addr_arr[8] + step;
+    write_addr_arr[10] = write_addr_arr[9] + step;
+    write_addr_arr[11] = write_addr_arr[10] + step;
+    write_addr_arr[12] = write_addr_arr[11] + step;
+    write_addr_arr[13] = write_addr_arr[12] + step;
+    write_addr_arr[14] = write_addr_arr[13] + step;
+    write_addr_arr[15] = write_addr_arr[14] + step;
+
+  DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+	
+  int TimeStart, TimeElapsed = 0;
+
+  TimeStart = alt_nticks();
+  if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, 16, step, control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE){
+    printf("Error During DMA Transfer");
+    return FALSE;
+  }
+  TimeElapsed = alt_nticks() - TimeStart;
+  printf("%.3f sec\n", (float)TimeElapsed/(float)alt_ticks_per_second());
+
+  if (DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME) == TRUE){
+    printf("Transfer executed correctly\n");
+  } else {
+    printf("Transfer failed\n");
+    return FALSE;
+  }
+
+  return TRUE;
+}
+

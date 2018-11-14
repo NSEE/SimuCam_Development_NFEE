@@ -1,0 +1,169 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_reset -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.pll0 -pg 1
+preplace inst MebX_Qsys_Project.clk_50 -pg 1 -lvl 5 -y 1840
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_clk -pg 1
+preplace inst MebX_Qsys_Project.tse_mac.avalon_arbiter -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.pll0 -pg 1
+preplace inst MebX_Qsys_Project.ext_flash.tda -pg 1
+preplace inst MebX_Qsys_Project.dma_M1_M2.cb_inst -pg 1
+preplace inst MebX_Qsys_Project.m1_clock_bridge -pg 1 -lvl 9 -y 1550
+preplace inst MebX_Qsys_Project.dma_M1_M2.rst_inst -pg 1
+preplace inst MebX_Qsys_Project.descriptor_memory -pg 1 -lvl 9 -y 2830
+preplace inst MebX_Qsys_Project.pio_EXT -pg 1 -lvl 9 -y 2270
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_reset_export -pg 1
+preplace inst MebX_Qsys_Project.csense_sdo -pg 1 -lvl 9 -y 530
+preplace inst MebX_Qsys_Project.temp_scl -pg 1 -lvl 9 -y 2070
+preplace inst MebX_Qsys_Project.sd_clk -pg 1 -lvl 9 -y 1670
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.soft_reset -pg 1
+preplace inst MebX_Qsys_Project.dma_M2_M1 -pg 1 -lvl 5 -y 2880
+preplace inst MebX_Qsys_Project.dma_M2_M1.read_mstr_internal -pg 1
+preplace inst MebX_Qsys_Project.tse_mac -pg 1 -lvl 4 -y 2880
+preplace inst MebX_Qsys_Project.ext_flash -pg 1 -lvl 8 -y 2680
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.a0 -pg 1
+preplace inst MebX_Qsys_Project.clock_bridge_afi_50 -pg 1 -lvl 8 -y 2470
+preplace inst MebX_Qsys_Project.csense_adc_fo -pg 1 -lvl 9 -y 130
+preplace inst MebX_Qsys_Project.tse_mac.i_tse_pcs_0 -pg 1
+preplace inst MebX_Qsys_Project.sgdma_tx -pg 1 -lvl 3 -y 2730
+preplace inst MebX_Qsys_Project.ext_flash.reset -pg 1
+preplace inst MebX_Qsys_Project.pio_LED -pg 1 -lvl 9 -y 1330
+preplace inst MebX_Qsys_Project.jtag_uart_0 -pg 1 -lvl 9 -y 2730
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.a0 -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_reset -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.p0 -pg 1
+preplace inst MebX_Qsys_Project.dma_M2_M1.write_mstr_internal -pg 1
+preplace inst MebX_Qsys_Project.csense_cs_n -pg 1 -lvl 9 -y 230
+preplace inst MebX_Qsys_Project.clk_200 -pg 1 -lvl 7 -y 1710
+preplace inst MebX_Qsys_Project -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.m0 -pg 1
+preplace inst MebX_Qsys_Project.sd_dat -pg 1 -lvl 9 -y 1870
+preplace inst MebX_Qsys_Project.sd_cmd -pg 1 -lvl 9 -y 1770
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.ng0 -pg 1
+preplace inst MebX_Qsys_Project.ext_flash.slave_translator -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0 -pg 1
+preplace inst MebX_Qsys_Project.tse_mac.ref_clk_module -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.dll0 -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_half_clk -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0 -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.afi_reset -pg 1
+preplace inst MebX_Qsys_Project.pio_LED_painel -pg 1 -lvl 9 -y 1450
+preplace inst MebX_Qsys_Project.pio_RST_ETH -pg 1 -lvl 9 -y 1230
+preplace inst MebX_Qsys_Project.nios2_gen2_0.cpu -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.dll_bridge -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory -pg 1 -lvl 8 -y 1000
+preplace inst MebX_Qsys_Project.ext_flash.tdt -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.ng0 -pg 1
+preplace inst MebX_Qsys_Project.temp_sda -pg 1 -lvl 9 -y 2170
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.oct0 -pg 1
+preplace inst MebX_Qsys_Project.clk_100 -pg 1 -lvl 1 -y 2770
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.soft_reset -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.pll_bridge -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.as0 -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.s0 -pg 1
+preplace inst MebX_Qsys_Project.sysid_qsys -pg 1 -lvl 9 -y 2990
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.afi_half_clk -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.s0 -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_i2c_scl -pg 1 -lvl 9 -y 630
+preplace inst MebX_Qsys_Project.tse_mac.reg_clk_module -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.pll_ref_clk -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.dll0 -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.afi_clk -pg 1
+preplace inst MebX_Qsys_Project.dma_M1_M2 -pg 1 -lvl 5 -y 2720
+preplace inst MebX_Qsys_Project.dma_M2_M1.dispatcher_internal -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_i2c_scl -pg 1 -lvl 9 -y 830
+preplace inst MebX_Qsys_Project.dma_M1_M2.dispatcher_internal -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_clk -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.oct0 -pg 1
+preplace inst MebX_Qsys_Project.nios2_gen2_0.clock_bridge -pg 1
+preplace inst MebX_Qsys_Project.nios2_gen2_0 -pg 1 -lvl 2 -y 2740
+preplace inst MebX_Qsys_Project.m1_ddr2_i2c_sda -pg 1 -lvl 9 -y 730
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.pll_ref_clk -pg 1
+preplace inst MebX_Qsys_Project.dma_M1_M2.read_mstr_internal -pg 1
+preplace inst MebX_Qsys_Project.timer_1ms -pg 1 -lvl 9 -y 2390
+preplace inst MebX_Qsys_Project.dma_M1_M2.write_mstr_internal -pg 1
+preplace inst MebX_Qsys_Project.tse_mac.i_tse_mac -pg 1
+preplace inst MebX_Qsys_Project.pio_BUTTON -pg 1 -lvl 9 -y 30
+preplace inst MebX_Qsys_Project.onchip_memory -pg 1 -lvl 9 -y 2910
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.c0.afi_reset -pg 1
+preplace inst MebX_Qsys_Project.sd_wp_n -pg 1 -lvl 9 -y 1970
+preplace inst MebX_Qsys_Project.nios2_gen2_0.reset_bridge -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.p0 -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.global_reset -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.global_reset -pg 1
+preplace inst MebX_Qsys_Project.dma_M2_M1.rst_inst -pg 1
+preplace inst MebX_Qsys_Project.csense_sck -pg 1 -lvl 9 -y 330
+preplace inst MebX_Qsys_Project.tse_mac.reg_rst_module -pg 1
+preplace inst MebX_Qsys_Project.sgdma_rx -pg 1 -lvl 5 -y 3030
+preplace inst MebX_Qsys_Project.m2_ddr2_i2c_sda -pg 1 -lvl 9 -y 930
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.afi_reset_export -pg 1
+preplace inst MebX_Qsys_Project.tristate_conduit_bridge_0 -pg 1 -lvl 9 -y 2630
+preplace inst MebX_Qsys_Project.timer_1us -pg 1 -lvl 9 -y 2510
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.m0 -pg 1
+preplace inst MebX_Qsys_Project.SEVEN_SEGMENT_CONTROLLER_0 -pg 1 -lvl 9 -y 1030
+preplace inst MebX_Qsys_Project.dma_M2_M1.cb_inst -pg 1
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.afi_half_clk -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory -pg 1 -lvl 6 -y 1780
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.afi_clk -pg 1
+preplace inst MebX_Qsys_Project.csense_sdi -pg 1 -lvl 9 -y 430
+preplace inst MebX_Qsys_Project.m1_ddr2_memory.c0.afi_half_clk -pg 1
+preplace inst MebX_Qsys_Project.m2_ddr2_memory.as0 -pg 1
+preplace inst MebX_Qsys_Project.pio_DIP -pg 1 -lvl 9 -y 1130
+preplace inst MebX_Qsys_Project.ext_flash.clk -pg 1
+preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(SLAVE)descriptor_memory.reset1,(SLAVE)clock_bridge_afi_50.s0_reset,(SLAVE)pio_BUTTON.reset,(SLAVE)m1_ddr2_memory.soft_reset,(SLAVE)pio_RST_ETH.reset,(SLAVE)sgdma_tx.reset,(SLAVE)tse_mac.reset_connection,(SLAVE)dma_M1_M2.reset_n,(SLAVE)ext_flash.reset,(SLAVE)m1_clock_bridge.s0_reset,(SLAVE)m2_ddr2_memory.soft_reset,(SLAVE)csense_cs_n.reset,(SLAVE)sd_wp_n.reset,(SLAVE)csense_adc_fo.reset,(SLAVE)dma_M2_M1.reset_n,(SLAVE)clk_200.clk_in_reset,(SLAVE)pio_EXT.reset,(SLAVE)temp_sda.reset,(SLAVE)csense_sdo.reset,(SLAVE)sd_dat.reset,(SLAVE)m2_ddr2_i2c_scl.reset,(MASTER)clk_200.clk_reset,(SLAVE)sysid_qsys.reset,(SLAVE)m1_ddr2_i2c_sda.reset,(SLAVE)clk_100.clk_in_reset,(SLAVE)timer_1ms.reset,(SLAVE)m1_clock_bridge.m0_reset,(SLAVE)m2_ddr2_memory.global_reset,(SLAVE)sgdma_rx.reset,(MASTER)clk_50.clk_reset,(SLAVE)nios2_gen2_0.reset,(SLAVE)csense_sdi.reset,(SLAVE)sd_cmd.reset,(SLAVE)jtag_uart_0.reset,(SLAVE)m1_ddr2_memory.global_reset,(SLAVE)timer_1us.reset,(SLAVE)sd_clk.reset,(SLAVE)temp_scl.reset,(SLAVE)pio_LED.reset,(SLAVE)m1_ddr2_i2c_scl.reset,(SLAVE)SEVEN_SEGMENT_CONTROLLER_0.SSDP_RST,(SLAVE)pio_DIP.reset,(SLAVE)tristate_conduit_bridge_0.reset,(SLAVE)m2_ddr2_i2c_sda.reset,(SLAVE)pio_LED_painel.reset,(SLAVE)csense_sck.reset,(SLAVE)clock_bridge_afi_50.m0_reset,(SLAVE)onchip_memory.reset1) 1 0 9 230 2840 430 2900 850 3010 1060 3160 1530 2680 1900 1740 2300 1800 2520 2800 2920
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_i2c_sda.external_connection,(SLAVE)MebX_Qsys_Project.m1_ddr2_i2c_sda) 1 0 9 NJ 760 NJ 760 NJ 760 NJ 760 NJ 760 NJ 760 NJ 760 NJ 760 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)timer_1us.external_port,(SLAVE)MebX_Qsys_Project.timer_1us_external_port) 1 0 9 NJ 2460 NJ 2460 NJ 2460 NJ 2460 NJ 2460 NJ 2460 NJ 2460 NJ 2460 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_EXT.external_connection,(SLAVE)MebX_Qsys_Project.ext) 1 0 9 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ 2300 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.dip,(SLAVE)pio_DIP.external_connection) 1 0 9 NJ 1200 NJ 1200 NJ 1200 NJ 1200 NJ 1200 NJ 1200 NJ 1200 NJ 1200 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_i2c_scl,(SLAVE)m1_ddr2_i2c_scl.external_connection) 1 0 9 NJ 660 NJ 660 NJ 660 NJ 660 NJ 660 NJ 660 NJ 660 NJ 660 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_sdo,(SLAVE)csense_sdo.external_connection) 1 0 9 NJ 560 NJ 560 NJ 560 NJ 560 NJ 560 NJ 560 NJ 560 NJ 560 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m1_ddr2_memory.memory,(SLAVE)MebX_Qsys_Project.m1_ddr2_memory) 1 0 8 NJ 1050 NJ 1050 NJ 1050 NJ 1050 NJ 1050 NJ 1050 NJ 1050 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.oct,(SLAVE)MebX_Qsys_Project.m2_ddr2_oct) 1 0 6 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ 1930 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_i2c_sda.external_connection,(SLAVE)MebX_Qsys_Project.m2_ddr2_i2c_sda) 1 0 9 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ 960 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_EXT.s1,(SLAVE)sd_wp_n.s1,(SLAVE)pio_LED_painel.s1,(SLAVE)m1_ddr2_i2c_scl.s1,(SLAVE)csense_adc_fo.s1,(SLAVE)pio_LED.s1,(SLAVE)pio_DIP.s1,(SLAVE)csense_sck.s1,(SLAVE)sd_cmd.s1,(SLAVE)temp_scl.s1,(SLAVE)csense_sdi.s1,(SLAVE)csense_cs_n.s1,(SLAVE)SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave,(SLAVE)m2_ddr2_i2c_sda.s1,(SLAVE)timer_1ms.s1,(SLAVE)sd_dat.s1,(MASTER)clock_bridge_afi_50.m0,(SLAVE)temp_sda.s1,(SLAVE)timer_1us.s1,(SLAVE)pio_BUTTON.s1,(SLAVE)m2_ddr2_i2c_scl.s1,(SLAVE)csense_sdo.s1,(SLAVE)m1_ddr2_i2c_sda.s1,(SLAVE)sd_clk.s1,(SLAVE)pio_RST_ETH.s1) 1 8 1 2980
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.tse_led,(SLAVE)tse_mac.status_led_connection) 1 0 4 NJ 3070 NJ 3070 NJ 3070 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.ssdp,(SLAVE)SEVEN_SEGMENT_CONTROLLER_0.SSDP_conduit) 1 0 9 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ 1180 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)ext_flash.tcm,(SLAVE)tristate_conduit_bridge_0.tcs) 1 8 1 3040
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_cs_n,(SLAVE)csense_cs_n.external_connection) 1 0 9 NJ 260 NJ 260 NJ 260 NJ 260 NJ 260 NJ 260 NJ 260 NJ 260 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)m2_ddr2_memory.afi_clk,(SLAVE)clk_200.clk_in) 1 6 1 2260
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)tse_mac.serial_connection,(SLAVE)MebX_Qsys_Project.tse_serial) 1 0 4 NJ 3050 NJ 3050 NJ 3050 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)SEVEN_SEGMENT_CONTROLLER_0.SSDP_CLK,(SLAVE)csense_cs_n.clk,(SLAVE)m2_ddr2_memory.pll_ref_clk,(SLAVE)sd_clk.clk,(SLAVE)m2_ddr2_i2c_scl.clk,(SLAVE)temp_scl.clk,(SLAVE)pio_RST_ETH.clk,(MASTER)clk_50.clk,(SLAVE)clock_bridge_afi_50.m0_clk,(SLAVE)sd_dat.clk,(SLAVE)pio_LED_painel.clk,(SLAVE)m2_ddr2_i2c_sda.clk,(SLAVE)sd_wp_n.clk,(SLAVE)timer_1us.clk,(SLAVE)csense_sdi.clk,(SLAVE)csense_sdo.clk,(SLAVE)pio_BUTTON.clk,(SLAVE)m1_ddr2_i2c_sda.clk,(SLAVE)timer_1ms.clk,(SLAVE)csense_adc_fo.clk,(SLAVE)pio_DIP.clk,(SLAVE)pio_EXT.clk,(SLAVE)temp_sda.clk,(SLAVE)pio_LED.clk,(SLAVE)csense_sck.clk,(SLAVE)m1_ddr2_i2c_scl.clk,(SLAVE)sd_cmd.clk) 1 5 4 1860 2480 NJ 2480 2560 2400 3000
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_memory.dll_sharing,(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_dll_sharing) 1 0 6 NJ 1810 NJ 1810 NJ 1810 NJ 1810 NJ 1810 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)m1_ddr2_memory.afi_half_clk,(SLAVE)m1_clock_bridge.m0_clk) 1 8 1 2880
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)tristate_conduit_bridge_0.out,(SLAVE)MebX_Qsys_Project.tristate_conduit) 1 0 9 NJ 2620 NJ 2620 NJ 2620 NJ 2620 NJ 2620 NJ 2620 NJ 2620 NJ 2620 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)csense_adc_fo.external_connection,(SLAVE)MebX_Qsys_Project.csense_adc_fo) 1 0 9 NJ 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ 160 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)timer_1ms.irq,(SLAVE)dma_M1_M2.csr_irq,(SLAVE)timer_1us.irq,(SLAVE)sgdma_rx.csr_irq,(SLAVE)sgdma_tx.csr_irq,(SLAVE)dma_M2_M1.csr_irq,(SLAVE)pio_EXT.irq,(MASTER)nios2_gen2_0.irq,(SLAVE)jtag_uart_0.irq) 1 2 7 830 2700 NJ 2700 1470 3180 NJ 3180 NJ 3180 NJ 3180 3020
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(MASTER)m2_ddr2_memory.afi_half_clk,(SLAVE)m1_clock_bridge.s0_clk,(SLAVE)clk_100.clk_in) 1 0 9 230 2640 NJ 2640 NJ 2640 NJ 2640 NJ 2660 NJ 2660 2260 1850 NJ 1850 2960
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)sgdma_tx.out,(SLAVE)tse_mac.transmit) 1 3 1 1080
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.eth_rst,(SLAVE)pio_RST_ETH.external_connection) 1 0 9 NJ 1260 NJ 1260 NJ 1260 NJ 1260 NJ 1260 NJ 1260 NJ 1260 NJ 1260 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_oct,(SLAVE)m1_ddr2_memory.oct) 1 0 8 NJ 1070 NJ 1070 NJ 1070 NJ 1070 NJ 1070 NJ 1070 NJ 1070 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sd_dat,(SLAVE)sd_dat.external_connection) 1 0 9 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ 2000 NJ 1900 NJ 1900 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.tse_mac_mac_misc_connection,(SLAVE)tse_mac.mac_misc_connection) 1 0 4 NJ 2950 NJ 2950 NJ 2950 NJ
+preplace netloc INTERCONNECT<net_container>MebX_Qsys_Project</net_container>(MASTER)sgdma_rx.descriptor_read,(SLAVE)clock_bridge_afi_50.s0,(MASTER)nios2_gen2_0.data_master,(SLAVE)ext_flash.uas,(SLAVE)dma_M1_M2.descriptor_slave,(SLAVE)m1_clock_bridge.s0,(MASTER)sgdma_tx.m_read,(SLAVE)sgdma_rx.csr,(SLAVE)descriptor_memory.s1,(MASTER)dma_M1_M2.mm_write,(MASTER)dma_M2_M1.mm_read,(SLAVE)dma_M2_M1.csr,(SLAVE)tse_mac.control_port,(SLAVE)sysid_qsys.control_slave,(MASTER)dma_M2_M1.mm_write,(SLAVE)jtag_uart_0.avalon_jtag_slave,(MASTER)sgdma_rx.m_write,(MASTER)sgdma_tx.descriptor_write,(MASTER)sgdma_rx.descriptor_write,(SLAVE)m2_ddr2_memory.avl,(SLAVE)nios2_gen2_0.debug_mem_slave,(MASTER)dma_M1_M2.mm_read,(SLAVE)dma_M2_M1.descriptor_slave,(SLAVE)onchip_memory.s1,(SLAVE)dma_M1_M2.csr,(MASTER)nios2_gen2_0.instruction_master,(MASTER)sgdma_tx.descriptor_read,(SLAVE)sgdma_tx.csr) 1 1 8 450 2880 810 2840 1120 2680 1510 3160 1940 2520 NJ 2520 2540 2600 2940
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory,(SLAVE)m2_ddr2_memory.memory) 1 0 6 NJ 1830 NJ 1830 NJ 1830 NJ 1830 NJ 1830 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sd_cmd,(SLAVE)sd_cmd.external_connection) 1 0 9 NJ 1720 NJ 1720 NJ 1720 NJ 1720 NJ 1720 NJ 1720 NJ 1820 NJ 1800 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_memory_pll_ref_clk,(SLAVE)m1_ddr2_memory.pll_ref_clk) 1 0 8 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ 1090 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_pll_sharing,(SLAVE)m2_ddr2_memory.pll_sharing) 1 0 6 NJ 1910 NJ 1910 NJ 1910 NJ 1910 NJ 1910 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.button,(SLAVE)pio_BUTTON.external_connection) 1 0 9 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ 60 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)clk_50.clk_in_reset,(SLAVE)MebX_Qsys_Project.rst) 1 0 5 NJ 1870 NJ 1870 NJ 1870 NJ 1870 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)tse_mac.receive,(SLAVE)sgdma_rx.in) 1 4 1 1490
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)temp_sda.external_connection,(SLAVE)MebX_Qsys_Project.temp_sda) 1 0 9 NJ 2200 NJ 2200 NJ 2200 NJ 2200 NJ 2200 NJ 2200 NJ 2200 NJ 2200 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)sd_wp_n.external_connection,(SLAVE)MebX_Qsys_Project.sd_wp_n) 1 0 9 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ 2040 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)clk_50.clk_in,(SLAVE)MebX_Qsys_Project.clk50) 1 0 5 NJ 1850 NJ 1850 NJ 1850 NJ 1850 NJ
+preplace netloc POINT_TO_POINT<net_container>MebX_Qsys_Project</net_container>(MASTER)m1_clock_bridge.m0,(SLAVE)m1_ddr2_memory.avl) 1 7 3 2560 1440 NJ 1440 3290
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)csense_sdi.external_connection,(SLAVE)MebX_Qsys_Project.csense_sdi) 1 0 9 NJ 460 NJ 460 NJ 460 NJ 460 NJ 460 NJ 460 NJ 460 NJ 460 NJ
+preplace netloc FAN_OUT<net_container>MebX_Qsys_Project</net_container>(SLAVE)descriptor_memory.clk1,(SLAVE)tristate_conduit_bridge_0.clk,(SLAVE)onchip_memory.clk1,(SLAVE)dma_M2_M1.clock,(SLAVE)tse_mac.receive_clock_connection,(SLAVE)nios2_gen2_0.clk,(SLAVE)jtag_uart_0.clk,(SLAVE)sgdma_tx.clk,(SLAVE)dma_M1_M2.clock,(SLAVE)clock_bridge_afi_50.s0_clk,(MASTER)clk_100.clk,(SLAVE)sgdma_rx.clk,(SLAVE)ext_flash.clk,(SLAVE)tse_mac.control_port_clock_connection,(SLAVE)sysid_qsys.clk,(SLAVE)tse_mac.transmit_clock_connection) 1 1 8 430 2700 810 2720 1100 2660 1550 2640 NJ 2640 NJ 2640 2560 2780 2960
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)tse_mac.serdes_control_connection,(SLAVE)MebX_Qsys_Project.tse_mac_serdes_control_connection) 1 0 4 NJ 3030 NJ 3030 NJ 3030 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)tse_mac.pcs_ref_clk_clock_connection,(SLAVE)MebX_Qsys_Project.tse_clk) 1 0 4 NJ 2970 NJ 2970 NJ 2970 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.led_painel,(SLAVE)pio_LED_painel.external_connection) 1 0 9 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ 1480 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)pio_LED.external_connection,(SLAVE)MebX_Qsys_Project.led_de4) 1 0 9 NJ 1360 NJ 1360 NJ 1360 NJ 1360 NJ 1360 NJ 1360 NJ 1360 NJ 1360 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.temp_scl,(SLAVE)temp_scl.external_connection) 1 0 9 NJ 2100 NJ 2100 NJ 2100 NJ 2100 NJ 2100 NJ 2100 NJ 2100 NJ 2100 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m1_ddr2_memory_status,(SLAVE)m1_ddr2_memory.status) 1 0 8 NJ 1130 NJ 1130 NJ 1130 NJ 1130 NJ 1130 NJ 1130 NJ 1130 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)m2_ddr2_i2c_scl.external_connection,(SLAVE)MebX_Qsys_Project.m2_ddr2_i2c_scl) 1 0 9 NJ 860 NJ 860 NJ 860 NJ 860 NJ 860 NJ 860 NJ 860 NJ 860 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)timer_1ms.external_port,(SLAVE)MebX_Qsys_Project.timer_1ms_external_port) 1 0 9 NJ 2420 NJ 2420 NJ 2420 NJ 2420 NJ 2420 NJ 2420 NJ 2420 NJ 2420 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.m2_ddr2_memory_status,(SLAVE)m2_ddr2_memory.status) 1 0 6 NJ 1950 NJ 1950 NJ 1950 NJ 1950 NJ 1950 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.csense_sck,(SLAVE)csense_sck.external_connection) 1 0 9 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ 360 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.tse_mdio,(SLAVE)tse_mac.mac_mdio_connection) 1 0 4 NJ 2930 NJ 2930 NJ 2930 NJ
+preplace netloc EXPORT<net_container>MebX_Qsys_Project</net_container>(SLAVE)MebX_Qsys_Project.sd_clk,(SLAVE)sd_clk.external_connection) 1 0 9 NJ 1700 NJ 1700 NJ 1700 NJ 1700 NJ 1700 NJ 1700 NJ 1780 NJ 1700 NJ
+levelinfo -pg 1 0 200 3330
+levelinfo -hier MebX_Qsys_Project 210 260 570 900 1340 1670 2060 2330 2680 3130 3310
