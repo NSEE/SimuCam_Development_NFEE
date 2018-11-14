@@ -51,11 +51,14 @@ use work.sync_mm_registers_pkg.all;
 --! Entity declaration for sync avalon mm write
 --============================================================================
 entity sync_avalon_mm_write is
+	generic (
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := '1'
+	);
 	port (
 		clk_i          : in  std_logic;
 		rst_i          : in  std_logic;
 		avalon_mm_i    : in  t_sync_avalon_mm_write_i;
-		-- out
+
 		avalon_mm_o    : out t_sync_avalon_mm_write_o;
 		mm_write_reg_o : out t_sync_mm_write_registers
 	);
@@ -71,143 +74,132 @@ architecture rtl of sync_avalon_mm_write is
 --============================================================================
 begin
 	p_sync_avalon_mm_write : process(clk_i, rst_i) is
+  		-- Sync registers reset procedure
 		procedure p_mm_reset_registers is
 		begin
-			-- SYNC Module Reset procedure
-			mm_write_reg_o.module_control_register.sync_start                 <= '0';
-			mm_write_reg_o.module_control_register.sync_stop                  <= '0';
-			mm_write_reg_o.module_control_register.sync_reset                 <= '0';
-			mm_write_reg_o.interrupt_enable_register.sync_error               <= '0';
-			mm_write_reg_o.interrupt_enable_register.master_start             <= '0';
-			mm_write_reg_o.interrupt_enable_register.pulse_start              <= '0';
-			mm_write_reg_o.interrupt_enable_register.master_stop              <= '0';
-			mm_write_reg_o.interrupt_enable_register.pulse_stop               <= '0';
-			mm_write_reg_o.interrupt_enable_register.sync_reseted             <= '0';
-			mm_write_reg_o.interrupt_flag_clear_register.sync_error           <= '0';
-			mm_write_reg_o.interrupt_flag_clear_register.pulse_start          <= '0';
-			mm_write_reg_o.interrupt_flag_clear_register.master_stop          <= '0';
-			mm_write_reg_o.interrupt_flag_clear_register.pulse_stop           <= '0';
-			mm_write_reg_o.interrupt_flag_clear_register.sync_reseted         <= '0';
-			mm_write_reg_o.signal_configuration_register.signal_number_pulses <= (others => '0');
-			mm_write_reg_o.signal_configuration_register.signal_polarity      <= '0';
-			mm_write_reg_o.signal_configuration_register.sync_external        <= '0';
-			mm_write_reg_o.signal_configuration_register.sync_in_enable       <= '0';
-			mm_write_reg_o.signal_configuration_register.sync_out_enable      <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_A_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_B_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_C_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_D_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_E_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_F_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_G_enable     <= '0';
-			mm_write_reg_o.signal_configuration_register.channel_H_enable     <= '0';
-			mm_write_reg_o.signal_master_width_register.signal_master_width   <= (others => '0');
-			mm_write_reg_o.signal_pulse_width_register.signal_pulse_width     <= (others => '0');
-			mm_write_reg_o.signal_pulse_period_register.signal_pulse_period   <= (others => '0');
+			mm_write_reg_o.interrupt_register.error_isr_enable			<= '0';
+			mm_write_reg_o.interrupt_register.blank_pulse_isr_enable	<= '0';
+
+			mm_write_reg_o.interrupt_register.error_isr_flag			<= '0';
+			mm_write_reg_o.interrupt_register.blank_pulse_isr_flag		<= '0';
+
+			mm_write_reg_o.config_register.master_blank_time			<= (others => '0');
+			mm_write_reg_o.config_register.blank_time					<= (others => '0');
+			mm_write_reg_o.config_register.period						<= (others => '0');
+			mm_write_reg_o.config_register.one_shot_time				<= (others => '0');
+			mm_write_reg_o.config_register.general.signal_polarity		<= g_SYNC_DEFAULT_STBY_POLARITY;
+			mm_write_reg_o.config_register.general.number_of_cycles		<= (others => '0');
+
+			mm_write_reg_o.error_injection_register.error_injection		<= (others => '0');
+
+			mm_write_reg_o.control_register.int_ext_n					<= '0';
+			mm_write_reg_o.control_register.start						<= '0';
+			mm_write_reg_o.control_register.reset						<= '0';
+			mm_write_reg_o.control_register.one_shot					<= '0';
+			mm_write_reg_o.control_register.err_inj						<= '0';
+
+			mm_write_reg_o.control_register.out_enable					<= '0';
+			mm_write_reg_o.control_register.channel_h_enable			<= '0';
+			mm_write_reg_o.control_register.channel_g_enable			<= '0';
+			mm_write_reg_o.control_register.channel_f_enable			<= '0';
+			mm_write_reg_o.control_register.channel_e_enable			<= '0';
+			mm_write_reg_o.control_register.channel_d_enable			<= '0';
+			mm_write_reg_o.control_register.channel_c_enable			<= '0';
+			mm_write_reg_o.control_register.channel_b_enable			<= '0';
+			mm_write_reg_o.control_register.channel_a_enable			<= '0';
 		end procedure p_mm_reset_registers;
 
+		-- Sync control triggers reset procedure
 		procedure p_mm_control_triggers is
 		begin
-			-- SYNC Module Control Triggers procedure
-			mm_write_reg_o.module_control_register.sync_start <= '0';
-			mm_write_reg_o.module_control_register.sync_stop  <= '0';
-			mm_write_reg_o.module_control_register.sync_reset <= '0';
+			mm_write_reg_o.control_register.start 	 <= '0';
+			mm_write_reg_o.control_register.reset	 <= '0';
+			mm_write_reg_o.control_register.one_shot <= '0';
+			mm_write_reg_o.control_register.err_inj  <= '0';
 		end procedure p_mm_control_triggers;
 
+		-- Sync writedata procedure
 		procedure p_mm_writedata(mm_write_address_i : t_sync_avalon_mm_address) is
 		begin
-			-- Registers Write Data
 			case (mm_write_address_i) is
-				-- Case for access to all registers address
+				-- Interrupt Register (32 bits):
+				when (c_SYNC_INTERRUPT_MM_REG_ADDRESS) =>
+					--    31-10 : Reserved                                  [-/-]
+					--     9- 9 : Error interrupt enable bit                [R/W]
+					mm_write_reg_o.interrupt_register.error_isr_en				<= avalon_mm_i.writedata(9);
+					--     8- 8 : Blank pulse interrupt enable bit          [R/W]
+					mm_write_reg_o.interrupt_register.blank_pulse_isr_enable	<= avalon_mm_i.writedata(8);
+					--     7- 2 : Reserved                                  [-/-]
+					--     1- 1 : Error interrupt flag clear bit            [R/W]
+					mm_write_reg_o.interrupt_register.error_isr_flag			<= avalon_mm_i.writedata(1);
+					--     0- 0 : Blank pulse interrupt flag clear bit      [R/W]
+					mm_write_reg_o.interrupt_register.blank_pulse_isr_flag		<= avalon_mm_i.writedata(0);
 
-				-- SYNC Module WriteData procedure
+				-- Master blank time register (32 bits):
+				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>
+					--    31-0 : Master blank time value		            [R/W]
+					mm_write_reg_o.config_register.master_blank_time			<= avalon_mm_i.writedata(31 downto 0);
 
-				--  Sync Module Control and Status Register           (32 bits):
-				when (c_SYNC_MODULE_CONTROL_STATUS_MM_REG_ADDRESS) =>
-					--    31-23 : Reserved                                  [-/-]
-					--    22-22 : Sync Start control bit                    [R/W]
-					mm_write_reg_i.module_control_register.sync_start         <= avalon_mm_o.writedata(22);
-					--    21-21 : Sync Stop control bit                     [R/W]
-					mm_write_reg_i.module_control_register.sync_stop          <= avalon_mm_o.writedata(21);
-					--    20-20 : Sync Reset control bit                    [R/W]
-					mm_write_reg_i.module_control_register.sync_reset         <= avalon_mm_o.writedata(20);
-					--    19-19 : Sync Running status bit                   [R/-]
-					--    18-18 : Sync Stopped status bit                   [R/-]
-					--    17-17 : Sync Error interrupt enable bit           [R/W]
-					mm_write_reg_i.interrupt_enable_register.sync_error       <= avalon_mm_o.writedata(17);
-					--    16-16 : Sync Master Start interrupt enable bit    [R/W]
-					mm_write_reg_i.interrupt_enable_register.master_start     <= avalon_mm_o.writedata(16);
-					--    15-15 : Sync Pulse Start interrupt enable bit     [R/W]
-					mm_write_reg_i.interrupt_enable_register.pulse_start      <= avalon_mm_o.writedata(15);
-					--    14-14 : Sync Master Stop interrupt enable bit     [R/W]
-					mm_write_reg_i.interrupt_enable_register.master_stop      <= avalon_mm_o.writedata(14);
-					--    13-13 : Sync Pulse Stop interrupt enable bit      [R/W]
-					mm_write_reg_i.interrupt_enable_register.pulse_stop       <= avalon_mm_o.writedata(13);
-					--    12-12 : Sync Reseted interrupt enable bit         [R/W]
-					mm_write_reg_i.interrupt_enable_register.sync_reseted     <= avalon_mm_o.writedata(12);
-					--    11-11 : Sync Error interrupt flag                 [R/-]
-					--    10-10 : Sync Error interrupt flag clear           [-/W]
-					mm_write_reg_i.interrupt_flag_clear_register.sync_error   <= avalon_mm_o.writedata(10);
-					--     9- 9 : Sync Master Start interrupt flag          [R/-]
-					--     8- 8 : Sync Master Start interrupt flag clear    [-/W]
-					mm_write_reg_i.interrupt_flag_clear_register.master_start <= avalon_mm_o.writedata(8);
-					--     7- 7 : Sync Pulse Start interrupt flag           [R/-]
-					--     6- 6 : Sync Pulse Start interrupt flag clear     [-/W]
-					mm_write_reg_i.interrupt_flag_clear_register.pulse_start  <= avalon_mm_o.writedata(6);
-					--     5- 5 : Sync Master Stop interrupt flag           [R/-]
-					--     4- 4 : Sync Master Stop interrupt flag clear     [-/W]
-					mm_write_reg_i.interrupt_flag_clear_register.master_stop  <= avalon_mm_o.writedata(4);
-					--     3- 3 : Sync Pulse Stop interrupt flag            [R/-]
-					--     2- 2 : Sync Pulse Stop interrupt flag clear      [-/W]
-					mm_write_reg_i.interrupt_flag_clear_register.pulse_stop   <= avalon_mm_o.writedata(2);
-					--     1- 1 : Sync Reseted interrupt flag               [R/-]
-					--     0- 0 : Sync Reseted interrupt flag clear         [-/W]
-					mm_write_reg_i.interrupt_flag_clear_register.sync_reseted <= avalon_mm_o.writedata(0);
+				--  Blank time register (32 bits):
+				when (c_SYNC_CONFIG_BLANK_TIME_MM_REG_ADDRESS) =>
+					--    31-0 : Blank time value		            		[R/W]
+					mm_write_reg_o.config_register.blank_time					<= avalon_mm_i.writedata(31 downto 0);
 
-				--  Sync Signal Configuration Register                (32 bits):
-				when (c_SYNC_SIGNAL_CONFIGURATION_MM_REG_ADDRESS) =>
-					--    31-14 : Reserved                                  [-/-]
-					--    13-12 : Sync Signal Number of Pulses value        [R/W]
-					mm_write_reg_i.signal_configuration_register.signal_number_pulses <= avalon_mm_o.writedata(13 downto 12);
-					--    11-11 : Sync Signal Polarity bit                  [R/W]
-					mm_write_reg_i.signal_configuration_register.signal_polarity      <= avalon_mm_o.writedata(11);
-					--    10-10 : Sync External/Internal(n) control bit     [R/W]
-					mm_write_reg_i.signal_configuration_register.sync_external        <= avalon_mm_o.writedata(10);
-					--     9- 9 : Sync Signal Sync In enable bit            [R/W]
-					mm_write_reg_i.signal_configuration_register.sync_in_enable       <= avalon_mm_o.writedata(9);
-					--     8- 8 : Sync Signal Sync Out enable bit           [R/W]
-					mm_write_reg_i.signal_configuration_register.sync_out_enable      <= avalon_mm_o.writedata(8);
-					--     7- 7 : Sync Signal Channel A enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_A_enable     <= avalon_mm_o.writedata(7);
-					--     6- 6 : Sync Signal Channel B enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_B_enable     <= avalon_mm_o.writedata(6);
-					--     5- 5 : Sync Signal Channel C enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_C_enable     <= avalon_mm_o.writedata(5);
-					--     4- 4 : Sync Signal Channel D enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_D_enable     <= avalon_mm_o.writedata(4);
-					--     3- 3 : Sync Signal Channel E enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_E_enable     <= avalon_mm_o.writedata(3);
-					--     2- 2 : Sync Signal Channel F enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_F_enable     <= avalon_mm_o.writedata(2);
-					--     1- 1 : Sync Signal Channel G enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_G_enable     <= avalon_mm_o.writedata(1);
-					--     0- 0 : Sync Signal Channel H enable bit          [R/W]
-					mm_write_reg_i.signal_configuration_register.channel_H_enable     <= avalon_mm_o.writedata(0);
+				--  Period register (32 bits):
+				when (c_SYNC_CONFIG_PERIOD_MM_REG_ADDRESS) =>
+					--    31-0 : Period value		            			[R/W]
+					mm_write_reg_o.config_register.period						<= avalon_mm_i.writedata(31 downto 0);
 
-				--  Sync Signal Master Width Register                 (32 bits):
-				when (c_SYNC_SIGNAL_MASTER_WIDTH_MM_REG_ADDRESS) =>
-					--    31-0 : Sync Signal Master Width value             [R/W]
-					mm_write_reg_i.signal_master_width_register.signal_master_width <= avalon_mm_o.writedata(31 downto 0);
+				--  One shot time register (32 bits):
+				when (c_SYNC_CONFIG_ONE_SHOT_TIME_MM_REG_ADDRESS) =>
+					--    31-0 : One shot time value	           			[R/W]
+					mm_write_reg_o.config_register.one_shot_time				<= avalon_mm_i.writedata(31 downto 0);
 
-				--  Sync Signal Pulse Width Register                  (32 bits):
-				when (c_SYNC_SIGNAL_PULSE_WIDTH_MM_REG_ADDRESS) =>
-					--    31-0 : Sync Signal Pulse Width value              [R/W]
-					mm_write_reg_i.signal_pulse_width_register.signal_pulse_width <= avalon_mm_o.writedata(31 downto 0);
+				--  General config register (32 bits):
+				when (c_SYNC_CONFIG_GENERAL_MM_REG_ADDRESS) =>
+					--    31- 9 : Reserved                                  [-/-]
+					--     8- 8 : Signal polarity bit		                [R/W]
+					mm_write_reg_o.config_register.general.signal_polarity		<= avalon_mm_i.writedata(8);
+					--     7- 0 : Number of cycles value           			[R/W]
+					mm_write_reg_o.config_register.general.number_of_cycles		<= avalon_mm_i.writedata(7 downto 0);
 
-				--  Sync Signal Pulse Period Register                 (32 bits):
-				when (c_SYNC_SIGNAL_PULSE_PERIOD_MM_REG_ADDRESS) =>
-					--    31-0 : Sync Signal Pulse Period value             [R/W]
-					mm_write_reg_i.signal_pulse_period_register.signal_pulse_period <= avalon_mm_o.writedata(31 downto 0);
+				--  Error injection register (32 bits):
+				when (c_SYNC_ERROR_INJECTION_MM_REG_ADDRESS) =>
+					--    31-0 : Error injection value	           			[R/W]
+					mm_write_reg_o.error_injection_register.error_injection		<= avalon_mm_i.writedata(31 downto 0);
+
+				--  Control register (32 bits):
+				when (c_SYNC_CONTROL_MM_REG_ADDRESS) =>
+					--    31-31 : Internal/External_n sync bit              [R/W]
+					mm_write_reg_o.control_register.int_ext_n					<= avalon_mm_i.writedata(31);
+					--    30-20 : Reserved                                  [-/-]
+					--    19-19 : Start bit		                			[R/W]
+					mm_write_reg_o.control_register.start						<= avalon_mm_i.writedata(19);
+					--    18-18 : Reset bit		                			[R/W]
+					mm_write_reg_o.control_register.reset						<= avalon_mm_i.writedata(18);
+					--    17-17 : One_shot bit		                		[R/W]
+					mm_write_reg_o.control_register.one_shot					<= avalon_mm_i.writedata(17);
+					--    16-16 : Err_inj bit		                		[R/W]
+					mm_write_reg_o.control_register.err_inj						<= avalon_mm_i.writedata(16);
+					--    15- 9 : Reserved                                  [-/-]
+					--     8- 8 : sync out enable bit               		[R/W]
+					mm_write_reg_o.control_register.out_enable					<= avalon_mm_i.writedata(8);
+					--     7- 7 : channel H out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_h_enable			<= avalon_mm_i.writedata(7);
+					--     6- 6 : channel G out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_g_enable			<= avalon_mm_i.writedata(6);
+					--     5- 5 : channel F out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_f_enable			<= avalon_mm_i.writedata(5);
+					--     4- 4 : channel E out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_e_enable			<= avalon_mm_i.writedata(4);
+					--     3- 3 : channel D out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_d_enable			<= avalon_mm_i.writedata(3);
+					--     2- 2 : channel C out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_c_enable			<= avalon_mm_i.writedata(2);
+					--     1- 1 : channel B out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_b_enable			<= avalon_mm_i.writedata(1);
+					--     0- 0 : channel A out enable bit               	[R/W]
+					mm_write_reg_o.control_register.channel_a_enable			<= avalon_mm_i.writedata(0);
 
 				when others =>
 					null;

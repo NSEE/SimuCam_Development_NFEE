@@ -125,8 +125,8 @@ package sync_mm_registers_pkg is
 	end record t_sync_status_register;
 
 	type t_sync_interrupt_register is record
-		error_isr_en			: std_logic;
-		blank_pulse_isr_en		: std_logic;
+		error_isr_enable		: std_logic;
+		blank_pulse_isr_enable	: std_logic;
 		error_isr_flag			: std_logic;
 		blank_pulse_isr_flag	: std_logic;
 	end record t_sync_interrupt_register;
@@ -149,12 +149,12 @@ package sync_mm_registers_pkg is
 	end record t_sync_error_injection_register;
 
 	type t_sync_control_register is record
-		sync_int_ext_n      : std_logic;
-		sync_start			: std_logic;
-		sync_reset			: std_logic;
-		sync_one_shot		: std_logic;
-		sync_err_inj		: std_logic;
-		sync_out_enable     : std_logic;
+		int_ext_n      		: std_logic;
+		start				: std_logic;
+		reset				: std_logic;
+		one_shot			: std_logic;
+		err_inj				: std_logic;
+		out_enable		    : std_logic;
 		channel_h_enable	: std_logic;
 		channel_g_enable    : std_logic;
 		channel_f_enable    : std_logic;
@@ -167,8 +167,7 @@ package sync_mm_registers_pkg is
 
 	-- Avalon mm types
 	type t_sync_mm_write_registers is record
-		interrupt_enable_register     	: t_sync_interrupt_register;
-		interrupt_flag_register 		: t_sync_interrupt_register;
+		interrupt_register		     	: t_sync_interrupt_register;
 		config_register				  	: t_sync_config_register;
 		error_injection_register		: t_sync_error_injection_register;
 		control_register				: t_sync_control_register;
@@ -176,8 +175,7 @@ package sync_mm_registers_pkg is
 
 	type t_sync_mm_read_registers is record
 		status_register  				: t_sync_status_register;
-		interrupt_enable_register     	: t_sync_interrupt_register;
-		interrupt_flag_register 		: t_sync_interrupt_register;
+		interrupt_register		     	: t_sync_interrupt_register;
 		config_register				  	: t_sync_config_register;
 		error_injection_register		: t_sync_error_injection_register;
 		control_register				: t_sync_control_register;

@@ -110,11 +110,6 @@ architecture rtl of sync_ent is
 -- architecture begin
 --============================================================================
 begin
-	-- Init
-	a_avalon_mm_readata <= "00000000_00000000_00000000_00000000";
-	a_avalon_mm_waitrequest <= '0';
-	a_irq <= '0';
-
 	-- avalon_mm_read module instantiation
 	sync_avalon_mm_read_inst : entity work.sync_avalon_mm_read
 		port map (
@@ -150,10 +145,10 @@ begin
 			reset_n_i             	=> s_reset_n,
 
 			-- Control
-			control_i.start        	=> s_sync_mm_write_registers.control_register.sync_start,
-			control_i.reset        	=> s_sync_mm_write_registers.control_register.sync_reset,
-			control_i.one_shot     	=> s_sync_mm_write_registers.control_register.sync_one_shot,
-			control_i.err_inj	   	=> s_sync_mm_write_registers.control_register.sync_err_inj,
+			control_i.start        	=> s_sync_mm_write_registers.control_register.start,
+			control_i.reset        	=> s_sync_mm_write_registers.control_register.reset,
+			control_i.one_shot     	=> s_sync_mm_write_registers.control_register.one_shot,
+			control_i.err_inj	   	=> s_sync_mm_write_registers.control_register.err_inj,
 
 			-- Config
 			config_i.master_blank_time	=> s_sync_mm_write_registers.config_register.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
@@ -166,16 +161,15 @@ begin
 			-- Error injection
 			err_inj_i				=> s_sync_mm_write_registers.error_injection_register.error_injection(31 downto 0),
 
-			-- Isr enable and flag clear
-			isr_i.blank_pulse_isr_enable => s_sync_mm_write_registers.interrupt_enable_register.blank_pulse_isr_en,
-			isr_i.blank_pulse_isr_flag   => s_sync_mm_write_registers.interrupt_enable_register.blank_pulse_isr_flag,
+			-- Isr enable
+			isr_i.blank_pulse_isr_enable	=> s_sync_mm_write_registers.interrupt_register.blank_pulse_isr_enable,
 			
 			-- Status
 			status_o.state     		=> s_sync_mm_read_registers.status_register.state,
 			status_o.cycle_number	=> s_sync_mm_read_registers.status_register.cycle_number,
 
 			-- Isr flag
-			isr_o.blank_pulse_isr_flag   => s_sync_mm_read_registers.interrupt_enable_register.blank_pulse_isr_flag,
+			isr_o.blank_pulse_isr_flag   => s_sync_mm_read_registers.interrupt_register.blank_pulse_isr_flag,
 
 			-- Final internal generated sync signal
 			sync_gen_o				=> s_syncgen_signal
@@ -202,7 +196,7 @@ begin
 			sync_control_i.channel_f_enable  => s_sync_mm_write_registers.control_register.channel_f_enable,
 			sync_control_i.channel_g_enable  => s_sync_mm_write_registers.control_register.channel_g_enable,
 			sync_control_i.channel_h_enable  => s_sync_mm_write_registers.control_register.channel_h_enable,
-			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.control_register.sync_out_enable,
+			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.control_register.out_enable,
 
 			-- Sync signal routing
 			sync_channels_o.channel_a_signal => conduit_sync_signal_spwa,
@@ -217,14 +211,20 @@ begin
 		);
 
 	-- Signals assignment
-	s_reset_n               <= not a_reset;
+	s_reset_n <= not a_reset;
 	a_avalon_mm_waitrequest <= (s_avalon_mm_write_waitrequest) or (s_avalon_mm_read_waitrequest);
+	-- Error isr flag kept to '0'. When used, check isr enable flag first.
+	s_sync_mm_read_registers.interrupt_register.error_isr_flag <= '0';
+	-- Main irq port
+	a_irq <= (s_sync_mm_read_registers.interrupt_register.blank_pulse_isr_flag) or (s_sync_mm_read_registers.interrupt_register.error_isr_flag);
 	
 	-- Selection mux: internal ou external sync
 	-- '1' -> internal sync
 	-- '0' -> external sync
-	s_sync_signal           <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.sync_int_ext_n = '1') else (conduit_sync_signal_syncin);
-
+	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else (conduit_sync_signal_syncin);
+	-- Status
+	s_sync_mm_read_registers.status_register.int_ext_n <= s_sync_mm_write_registers.control_register.int_ext_n;
+	
 end architecture rtl;
 --============================================================================
 -- architecture end

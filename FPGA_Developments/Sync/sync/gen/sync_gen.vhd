@@ -248,7 +248,7 @@ begin
 							-- return to IDLE state
 							s_sync_gen_state    <= IDLE;
 						else
-							-- keep running
+							-- keep counting
 							s_sync_cnt <= std_logic_vector(unsigned(s_sync_cnt) + 1);
 						end if;
 					end if;
@@ -268,9 +268,28 @@ begin
 						-- check if the blank value was reached
 						if (s_sync_cnt = s_sync_blank) then
 							-- blank value reached, check cycle and update s_sync_blank
-							-- TODO - cycle cnt & s_sync_blank logic
+							if (unsigned(s_registered_configs.number_of_cycles) <= 1) then
+								-- ok, only one cycle, s_sync_blank already contains MBT
+								s_sync_cycle_cnt <= 0;
+								s_sync_blank <= s_registered_configs.master_blank_time;
+								-- goto to E_RELEASE state
+								s_sync_gen_state <= E_RELEASE;
+							else
+								-- more than one cycle, check upper limit of cycle counter
+								if (s_sync_cycle_cnt = (unsigned(s_registered_configs.number_of_cycles) - 1)) then
+									-- upper limit reached
+									-- reset cycle counter
+									s_sync_cycle_cnt <= 0;
+									-- return to master blank time
+									s_sync_blank <= s_registered_configs.master_blank_time;
+								else	
+									-- keep cycle counting
+									s_sync_cycle_cnt <= s_sync_cycle_cnt + 1;
+									s_sync_blank <= s_registered_configs.blank_time;
+								end if;								
 							-- goto to E_RELEASE state
 							s_sync_gen_state <= E_RELEASE;
+							end if;							
 						else
 							-- keep counting
 							s_sync_cnt <= std_logic_vector(unsigned(s_sync_cnt) + 1);
@@ -297,7 +316,7 @@ begin
 							-- go to E_BLANK state
 							s_sync_gen_state    <= E_BLANK;
 						else
-							-- keep running
+							-- keep counting
 							s_sync_cnt <= std_logic_vector(unsigned(s_sync_cnt) + 1);
 						end if;
 					end if;
@@ -321,52 +340,60 @@ begin
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
-			sync_gen_o(0) <= not s_registered_configs.signal_polarity;
-			status_o.state 					<= "00000000";
-			status_o.cycle_number			<= "00000000";
-			isr_o.blank_pulse_isr_enable	<= '0';
-			isr_o.blank_pulse_isr_flag		<= '0';
+			sync_gen_o(0)							<= not s_registered_configs.signal_polarity;
+			status_o.state 							<= "00000000";
+			status_o.cycle_number					<= "00000000";
+			isr_o.blank_pulse_isr_flag				<= '0';
 		else
 			case (s_sync_gen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
-					sync_output_o(0) <= not s_registered_configs.signal_polarity;
-					-- idle
+					sync_output_o(0)				<= not s_registered_configs.signal_polarity;
+					-- state: idle = 0
 					status_o.state 					<= "00000000";
 					status_o.cycle_number			<= "00000000";
-					isr_o.blank_pulse_isr_enable	<= '0';
 					isr_o.blank_pulse_isr_flag		<= '0';
 
 				-- state "R_BLANK"
 				when R_BLANK =>
-					sync_output_o(0) <= s_registered_configs.signal_polarity;
-					-- running
+					sync_output_o(0)				<= s_registered_configs.signal_polarity;
+					-- state: running = 1
 					status_o.state 					<= "00000001";
 					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, c_SYNC_CYCLE_NUMBER_WIDTH));
+					if (isr_i.blank_pulse_isr_enable = '1') then
+						isr_o.blank_pulse_isr_flag	<= '1';
+					end if;
 				
 				-- state "R_RELEASE"
 				when R_RELEASE =>
-					sync_output_o(0) <= not s_registered_configs.signal_polarity;
-					-- running
+					sync_output_o(0)				<= not s_registered_configs.signal_polarity;
+					-- state: running = 1
 					status_o.state 					<= "00000001";
 
 				-- state "ONE_SHOT"
 				when ONE_SHOT =>
-					sync_output_o(0) <= s_registered_configs.signal_polarity;
-					-- one shot
+					sync_output_o(0)				<= s_registered_configs.signal_polarity;
+					-- state: one shot = 2
 					status_o.state 					<= "00000010";
+					if (isr_i.blank_pulse_isr_enable = '1') then
+						isr_o.blank_pulse_isr_flag	<= '1';
+					end if;
 
 				-- state "E_BLANK"
 				when E_BLANK =>
-					sync_output_o(0) <= s_registered_configs.signal_polarity;
-					-- err_inj
+					sync_output_o(0)				<= s_registered_configs.signal_polarity;
+					-- state: error injection = 3
 					status_o.state 					<= "00000011";
+					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, c_SYNC_CYCLE_NUMBER_WIDTH));
+					if (isr_i.blank_pulse_isr_enable = '1') then
+						isr_o.blank_pulse_isr_flag	<= '1';
+					end if;
 
 				-- state "E_RELEASE"
 				when E_RELEASE =>
-					sync_output_o(0) <= not s_registered_configs.signal_polarity;
-					-- err_inj
+					sync_output_o(0)				<= not s_registered_configs.signal_polarity;
+					-- state: error injection = 3
 					status_o.state 					<= "00000011";
 
 				-- not defined states
