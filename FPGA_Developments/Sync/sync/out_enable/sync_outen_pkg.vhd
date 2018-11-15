@@ -7,7 +7,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
---use work.xxx.all;
+use work.sync_common_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
@@ -63,16 +63,33 @@ package sync_outen_pkg is
 	end record t_sync_outen_control;
 
 	type t_sync_outen_output is record
-		sync_out_signal  : std_logic_vector(0 downto 0);
-		channel_h_signal : std_logic_vector(0 downto 0);
-		channel_g_signal : std_logic_vector(0 downto 0);
-		channel_f_signal : std_logic_vector(0 downto 0);
-		channel_e_signal : std_logic_vector(0 downto 0);
-		channel_d_signal : std_logic_vector(0 downto 0);
-		channel_c_signal : std_logic_vector(0 downto 0);
-		channel_b_signal : std_logic_vector(0 downto 0);
-		channel_a_signal : std_logic_vector(0 downto 0);
+		sync_out_signal  : std_logic;
+		channel_h_signal : std_logic;
+		channel_g_signal : std_logic;
+		channel_f_signal : std_logic;
+		channel_e_signal : std_logic;
+		channel_d_signal : std_logic;
+		channel_c_signal : std_logic;
+		channel_b_signal : std_logic;
+		channel_a_signal : std_logic;
 	end record t_sync_outen_output;
+
+--=======================================
+--! Component declaration for sync_outen
+--=======================================
+component sync_outen is
+	generic (
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
+	);
+	port (
+		clk_i           : in  std_logic;
+		reset_n_i       : in  std_logic;
+		sync_signal_i   : in  std_logic;
+		sync_control_i  : in  t_sync_outen_control;
+		sync_pol_i		: in  std_logic;
+		sync_channels_o : out t_sync_outen_output
+	);
+end component sync_outen;
 
 end package sync_outen_pkg;
 

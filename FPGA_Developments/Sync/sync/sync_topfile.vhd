@@ -7,11 +7,11 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
-use work.sync_avalon_mm_pkg.all;
 use work.sync_mm_registers_pkg.all;
+use work.sync_avalon_mm_pkg.all;
 use work.sync_gen_pkg.all;
 use work.sync_outen_pkg.all;
-
+use work.sync_int_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
@@ -59,22 +59,23 @@ entity sync_ent is
 	port (
 		reset_sink_reset            : in  std_logic                     := '0';
 		clock_sink_clk              : in  std_logic                     := '0';
+		conduit_sync_signal_syncin  : in  std_logic;
 		avalon_slave_address        : in  std_logic_vector(7 downto 0)  := (others => '0');
 		avalon_slave_read           : in  std_logic                     := '0';
 		avalon_slave_write          : in  std_logic                     := '0';
 		avalon_slave_writedata      : in  std_logic_vector(31 downto 0) := (others => '0');
+
 		avalon_slave_readdata       : out std_logic_vector(31 downto 0);
 		avalon_slave_waitrequest    : out std_logic;
-		conduit_sync_signal_spwa    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwb    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwc    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwd    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwe    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwf    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwg    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_spwh    : out std_logic_vector(0 downto 0);
-		conduit_sync_signal_syncin  : in  std_logic_vector(0 downto 0);
-		conduit_sync_signal_syncout : out std_logic_vector(0 downto 0);
+		conduit_sync_signal_spwa    : out std_logic;
+		conduit_sync_signal_spwb    : out std_logic;
+		conduit_sync_signal_spwc    : out std_logic;
+		conduit_sync_signal_spwd    : out std_logic;
+		conduit_sync_signal_spwe    : out std_logic;
+		conduit_sync_signal_spwf    : out std_logic;
+		conduit_sync_signal_spwg    : out std_logic;
+		conduit_sync_signal_spwh    : out std_logic;
+		conduit_sync_signal_syncout : out std_logic;
 		interrupt_sender_irq        : out std_logic
 	);
 end entity sync_ent;
@@ -97,14 +98,14 @@ architecture rtl of sync_ent is
 
 	signal s_reset_n : std_logic;
 
-	signal s_avalon_mm_read_waitrequest  : std_logic_vector(0 downto 0);
-	signal s_avalon_mm_write_waitrequest : std_logic_vector(0 downto 0);
+	signal s_avalon_mm_read_waitrequest  : std_logic;
+	signal s_avalon_mm_write_waitrequest : std_logic;
 
 	signal s_sync_mm_write_registers : t_sync_mm_write_registers;
 	signal s_sync_mm_read_registers  : t_sync_mm_read_registers;
 
-	signal s_sync_signal    : std_logic_vector(0 downto 0);
-	signal s_syncgen_signal : std_logic_vector(0 downto 0);
+	signal s_sync_signal    : std_logic;
+	signal s_syncgen_signal : std_logic;
 
 --============================================================================
 -- architecture begin
@@ -136,10 +137,7 @@ begin
 		);
 
 	-- Sync generator module instantiation
-	sync_gen_ent_inst : entity work.sync_gen_ent
-		generic map (
-			g_SYNC_COUNTER_WIDTH => c_SYNC_COUNTER_WIDTH
-		)
+	sync_gen_inst : entity work.sync_gen
 		port map (
 			clk_i                  	=> a_clock,
 			reset_n_i             	=> s_reset_n,
@@ -161,22 +159,16 @@ begin
 			-- Error injection
 			err_inj_i				=> s_sync_mm_write_registers.error_injection_register.error_injection(31 downto 0),
 
-			-- Isr enable
-			isr_i.blank_pulse_isr_enable	=> s_sync_mm_write_registers.interrupt_register.blank_pulse_isr_enable,
-			
 			-- Status
 			status_o.state     		=> s_sync_mm_read_registers.status_register.state,
 			status_o.cycle_number	=> s_sync_mm_read_registers.status_register.cycle_number,
-
-			-- Isr flag
-			isr_o.blank_pulse_isr_flag   => s_sync_mm_read_registers.interrupt_register.blank_pulse_isr_flag,
 
 			-- Final internal generated sync signal
 			sync_gen_o				=> s_syncgen_signal
 		);
 
 	-- Output enable module instantiation
-	sync_outen_ent_inst : entity work.sync_outen_ent
+	sync_outen_inst : entity work.sync_outen
 		port map (
 			clk_i                            => a_clock,
 			reset_n_i                        => s_reset_n,
@@ -210,20 +202,47 @@ begin
 			sync_channels_o.sync_out_signal  => conduit_sync_signal_syncout
 		);
 
-	-- Signals assignment
+	-- Sync Interrupt module instantiation
+	sync_int_inst : entity work.sync_int
+		port map (
+			clk_i                  				=> a_clock,
+			reset_n_i             				=> s_reset_n,
+
+			-- Int enable
+			int_enable_i.error_int_enable		=> s_sync_mm_write_registers.int_enable_register.error_int_enable,
+			int_enable_i.blank_pulse_int_enable	=> s_sync_mm_write_registers.int_enable_register.blank_pulse_int_enable,
+			
+			-- Int flag clear
+			int_flag_clear_i.error_int_flag_clear		=> s_sync_mm_write_registers.int_flag_clear_register.error_int_flag_clear,
+			int_flag_clear_i.blank_pulse_int_flag_clear => s_sync_mm_write_registers.int_flag_clear_register.blank_pulse_int_flag_clear,
+
+			-- Input watch signals (that can produce interrupts)
+			int_watch_i.error_code_watch		=> s_sync_mm_read_registers.status_register.error_code,
+			int_watch_i.sync_wave_watch			=> s_sync_signal,
+			-- Aux to inform sync polarity
+			int_watch_i.sync_pol_watch			=> s_sync_mm_write_registers.config_register.general.signal_polarity,
+
+			-- Int flag
+			int_flag_o.error_int_flag  	 		=> s_sync_mm_read_registers.int_flag_register.error_int_flag,
+			int_flag_o.blank_pulse_int_flag   	=> s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag,
+			
+			irq_o								=> a_irq
+		);
+
+	-- Signals assignment (concurrent code)
 	s_reset_n <= not a_reset;
 	a_avalon_mm_waitrequest <= (s_avalon_mm_write_waitrequest) or (s_avalon_mm_read_waitrequest);
-	-- Error isr flag kept to '0'. When used, check isr enable flag first.
-	s_sync_mm_read_registers.interrupt_register.error_isr_flag <= '0';
-	-- Main irq port
-	a_irq <= (s_sync_mm_read_registers.interrupt_register.blank_pulse_isr_flag) or (s_sync_mm_read_registers.interrupt_register.error_isr_flag);
 	
-	-- Selection mux: internal ou external sync
+	-- Sync mux: internal ou external sync
 	-- '1' -> internal sync
 	-- '0' -> external sync
-	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else (conduit_sync_signal_syncin);
-	-- Status
+	s_sync_signal <= (s_syncgen_signal)			  when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else
+					 (conduit_sync_signal_syncin) when (others);
+	-- Sync mux status
 	s_sync_mm_read_registers.status_register.int_ext_n <= s_sync_mm_write_registers.control_register.int_ext_n;
+	
+	-- Keep error code status reseted (no error) - It´s logic should be conceived
+	s_sync_mm_read_registers.status_register.error_code <= (others => '0');
 	
 end architecture rtl;
 --============================================================================

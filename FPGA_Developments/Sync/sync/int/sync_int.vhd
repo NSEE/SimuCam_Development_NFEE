@@ -1,5 +1,5 @@
 --=============================================================================
---! @file sync_outen.vhd
+--! @file sync_int.vhd
 --=============================================================================
 --! Standard library
 library ieee;
@@ -7,7 +7,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 --! Specific packages
-use work.sync_outen_pkg.all;
+use work.sync_int_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --
@@ -16,13 +16,13 @@ use work.sync_outen_pkg.all;
 -- --
 -------------------------------------------------------------------------------
 --
--- unit name: sync output enable (sync_outen)
+-- unit name: sync interrupt (sync_int)
 --
 --! @brief 
 --
---! @author Rodrigo França (rodrigo.franca@maua.br)
+--! @author Cassio Berni (ccberni@hotmail.com)
 --
---! @date 06\02\2018
+--! @date 15\11\2018
 --
 --! @version v1.0
 --
@@ -34,11 +34,10 @@ use work.sync_outen_pkg.all;
 --! <b>References:</b>\n
 --!
 --! <b>Modified by:</b>\n
---! Author: Cassio Berni (ccberni@hotmail.com)
+--! Author: 
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
---! 29\03\2018 RF File Creation\n
---! 08\11\2018 CB Module optimization & revision\n
+--! 15\11\2018 CB File Creation\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -47,99 +46,89 @@ use work.sync_outen_pkg.all;
 -------------------------------------------------------------------------------
 
 --============================================================================
---! Entity declaration for sync_outen
+--! Entity declaration for sync_int
 --============================================================================
-entity sync_outen is
+entity sync_int is
 	generic (
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := '1'
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY;
+		g_SYNC_DEFAULT_IRQ_POLARITY  : std_logic := c_SYNC_DEFAULT_IRQ_POLARITY
 	);
 	port (
-		clk_i           : in  std_logic;
-		reset_n_i       : in  std_logic;
-		sync_signal_i   : in  std_logic_vector(0 downto 0);
-		sync_control_i  : in  t_sync_outen_control;
-		sync_pol_i		: in  std_logic;
-		sync_channels_o : out t_sync_outen_output
+		clk_i           	: in std_logic;
+		reset_n_i      		: in std_logic;
+		int_enable_i 		: in t_sync_int_enable;
+		int_flag_clear_i	: in t_sync_int_flag_clear;
+		int_watch_i			: in t_sync_int_watch; 
+		
+		int_flag_o 			: out t_sync_int_flag;
+		irq_o				: out std_logic
 	);
-end entity sync_outen;
+end entity sync_int;
 
 --============================================================================
 --! architecture declaration
 --============================================================================
-architecture rtl of sync_outen is
+architecture rtl of sync_int is
+
+	-- Aux to read back int flags outputs
+	-- It´s not necessary with vhdl 2008 and further
+	signal s_int_flag		: t_sync_int_flag;
 
 --============================================================================
 -- architecture begin
 --============================================================================
 begin
-	p_sync_outen : process(clk_i, reset_n_i) is
+	
+	-- "Copy" output int flags so they can be read back to irq logic
+	-- It´s not necessary with vhdl 2008 and further
+	s_int_flag <= int_flag_o;
+	
+	p_sync_int : process(clk_i, reset_n_i) is
 	begin
 		if (reset_n_i = '0') then
-			sync_channels_o.channel_a_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_b_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_c_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_d_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_e_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_f_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_g_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_h_signal(0) <= not(sync_pol_i);
-			sync_channels_o.sync_out_signal(0)  <= not(sync_pol_i);
+			-- Reset flags and irq
+			int_flag_o.error_int_flag	<= '0';
+			int_flag_o.blank_pulse_int_flag	<= '0';
+			irq_o <= not g_SYNC_DEFAULT_IRQ_POLARITY;
+			
 		elsif (rising_edge(clk_i)) then
-			if (sync_control_i.channel_a_enable = '1') then
-				sync_channels_o.channel_a_signal <= sync_signal_i;
+			-- Logic for error
+			if (int_flag_clear_i.error_int_flag_clear = '1') then
+				int_flag_o.error_int_flag	<= '0';
 			else
-				sync_channels_o.channel_a_signal(0) <= not(sync_pol_i);
+				-- Activate error flag if: error code non zero and enable bit = 1
+				if ( (int_watch_i.error_code_watch /= (others => '0')) and (int_enable_i.error_int_enable = '1') ) then
+					int_flag_o.error_int_flag	<= '1';
+				else
+					int_flag_o.error_int_flag	<= '0';
+				end if;
 			end if;
-
-			if (sync_control_i.channel_b_enable = '1') then
-				sync_channels_o.channel_b_signal <= sync_signal_i;
+		
+			-- Logic for blank pulse
+			if (int_flag_clear_i.blank_pulse_int_flag_clear = '1') then
+				int_flag_o.blank_pulse_int_flag	<= '0';
+			else	
+				-- Activate blank pulse flag if: sync wave is at blank level and enable bit = 1
+				if ( (int_watch_i.sync_wave_watch = int_watch_i.sync_pol_watch) and (int_enable_i.blank_pulse_int_enable = '1') ) then
+					int_flag_o.blank_pulse_int_flag	<= '1';
+				else
+					int_flag_o.blank_pulse_int_flag	<= '0';
+				end if;
+			end if;
+			
+			-- Logic for irq
+			-- For vhdl 2008 and further, use int_flag_o. If not, use s_int_flag signal
+-- Use line below to keep irq active as long as int flags are active			
+			if ( (int_flag_o.error_int_flag = '1') or (int_flag_o.blank_pulse_int_flag = '1') ) then
+-- Use line below to generate only one clock period irq pulse per int flag active
+--			if ( rising_edge(int_flag_o.error_int_flag) or rising_edge(int_flag_o.blank_pulse_int_flag) ) then
+				irq_o <= g_SYNC_DEFAULT_IRQ_POLARITY;
 			else
-				sync_channels_o.channel_b_signal(0) <= not(sync_pol_i);
+				irq_o <= not g_SYNC_DEFAULT_IRQ_POLARITY;
 			end if;
-
-			if (sync_control_i.channel_c_enable = '1') then
-				sync_channels_o.channel_c_signal <= sync_signal_i;
-			else
-				sync_channels_o.channel_c_signal(0) <= not(sync_pol_i);
-			end if;
-
-			if (sync_control_i.channel_d_enable = '1') then
-				sync_channels_o.channel_d_signal <= sync_signal_i;
-			else
-				sync_channels_o.channel_d_signal(0) <= not(sync_pol_i);
-			end if;
-
-			if (sync_control_i.channel_e_enable = '1') then
-				sync_channels_o.channel_e_signal <= sync_signal_i;
-			else
-				sync_channels_o.channel_e_signal(0) <= not(sync_pol_i);
-			end if;
-
-			if (sync_control_i.channel_f_enable = '1') then
-				sync_channels_o.channel_f_signal <= sync_signal_i;
-			else
-				sync_channels_o.channel_f_signal(0) <= not(sync_pol_i);
-			end if;
-
-			if (sync_control_i.channel_g_enable = '1') then
-				sync_channels_o.channel_g_signal <= sync_signal_i;
-			else
-				sync_channels_o.channel_g_signal(0) <= not(sync_pol_i);
-			end if;
-
-			if (sync_control_i.channel_h_enable = '1') then
-				sync_channels_o.channel_h_signal <= sync_signal_i;
-			else
-				sync_channels_o.channel_h_signal(0) <= not(sync_pol_i);
-			end if;
-
-			if (sync_control_i.sync_out_enable = '1') then
-				sync_channels_o.sync_out_enable <= sync_signal_i;
-			else
-				sync_channels_o.sync_out_signal(0) <= not(sync_pol_i);
-			end if;
+		
 		end if;
-	end process p_sync_outen;
+	end process p_sync_int;
 
 end architecture rtl;
 --============================================================================

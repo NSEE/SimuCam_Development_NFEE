@@ -51,12 +51,12 @@ use work.sync_outen_pkg.all;
 --============================================================================
 entity sync_outen is
 	generic (
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := '1'
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
 	);
 	port (
 		clk_i           : in  std_logic;
 		reset_n_i       : in  std_logic;
-		sync_signal_i   : in  std_logic_vector(0 downto 0);
+		sync_signal_i   : in  std_logic;
 		sync_control_i  : in  t_sync_outen_control;
 		sync_pol_i		: in  std_logic;
 		sync_channels_o : out t_sync_outen_output
@@ -84,7 +84,8 @@ begin
 			sync_channels_o.channel_g_signal(0) <= not(sync_pol_i);
 			sync_channels_o.channel_h_signal(0) <= not(sync_pol_i);
 			sync_channels_o.sync_out_signal(0)  <= not(sync_pol_i);
-		elsif (rising_edge(clk_i)) then
+			
+		elsif (rising_edge(clk_i)) then			
 			if (sync_control_i.channel_a_enable = '1') then
 				sync_channels_o.channel_a_signal <= sync_signal_i;
 			else

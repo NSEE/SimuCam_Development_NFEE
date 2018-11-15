@@ -52,7 +52,7 @@ use work.sync_mm_registers_pkg.all;
 --============================================================================
 entity sync_avalon_mm_write is
 	generic (
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := '1'
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
 	);
 	port (
 		clk_i          : in  std_logic;
@@ -77,11 +77,11 @@ begin
   		-- Sync registers reset procedure
 		procedure p_mm_reset_registers is
 		begin
-			mm_write_reg_o.interrupt_register.error_isr_enable			<= '0';
-			mm_write_reg_o.interrupt_register.blank_pulse_isr_enable	<= '0';
+			mm_write_reg_o.int_enable_register.error_int_enable			<= '0';
+			mm_write_reg_o.int_enable_register.blank_pulse_int_enable	<= '0';
 
-			mm_write_reg_o.interrupt_register.error_isr_flag			<= '0';
-			mm_write_reg_o.interrupt_register.blank_pulse_isr_flag		<= '0';
+			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear			<= '0';
+			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear	<= '0';
 
 			mm_write_reg_o.config_register.master_blank_time			<= (others => '0');
 			mm_write_reg_o.config_register.blank_time					<= (others => '0');
@@ -122,18 +122,21 @@ begin
 		procedure p_mm_writedata(mm_write_address_i : t_sync_avalon_mm_address) is
 		begin
 			case (mm_write_address_i) is
-				-- Interrupt Register (32 bits):
-				when (c_SYNC_INTERRUPT_MM_REG_ADDRESS) =>
-					--    31-10 : Reserved                                  [-/-]
-					--     9- 9 : Error interrupt enable bit                [R/W]
-					mm_write_reg_o.interrupt_register.error_isr_en				<= avalon_mm_i.writedata(9);
-					--     8- 8 : Blank pulse interrupt enable bit          [R/W]
-					mm_write_reg_o.interrupt_register.blank_pulse_isr_enable	<= avalon_mm_i.writedata(8);
-					--     7- 2 : Reserved                                  [-/-]
+				-- Interrupt enable register (32 bits):
+				when (c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS) =>
+					--    31- 2 : Reserved	                                [-/-]
+					--     1- 1 : Error interrupt enable bit                [R/W]
+					mm_write_reg_o.int_enable_register.error_int_enable			<= avalon_mm_i.writedata(1);
+					--     0- 0 : Blank pulse interrupt enable bit          [R/W]
+					mm_write_reg_o.int_enable_register.blank_pulse_int_enable	<= avalon_mm_i.writedata(0);
+
+				-- Interrupt flag clear register (32 bits):
+				when (c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS) =>
+					--    31- 2 : Reserved	                                [-/-]
 					--     1- 1 : Error interrupt flag clear bit            [R/W]
-					mm_write_reg_o.interrupt_register.error_isr_flag			<= avalon_mm_i.writedata(1);
+					mm_write_reg_o.int_flag_clear_register.error_int_flag_clear			<= avalon_mm_i.writedata(1);
 					--     0- 0 : Blank pulse interrupt flag clear bit      [R/W]
-					mm_write_reg_o.interrupt_register.blank_pulse_isr_flag		<= avalon_mm_i.writedata(0);
+					mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear	<= avalon_mm_i.writedata(0);
 
 				-- Master blank time register (32 bits):
 				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>

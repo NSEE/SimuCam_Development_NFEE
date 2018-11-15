@@ -52,20 +52,18 @@ use work.sync_gen_pkg.all;
 entity sync_gen is
 	generic (
 		g_SYNC_COUNTER_WIDTH : natural range 0 to c_SYNC_COUNTER_MAX_WIDTH := c_SYNC_COUNTER_WIDTH;
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := '1'
+		g_SYNC_CYCLE_NUMBER_WIDTH : natural := c_SYNC_CYCLE_NUMBER_WIDTH;
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
 	);
 	port (
 		clk_i      : in  std_logic;
 		reset_n_i  : in  std_logic;
-		
 		control_i  : in  t_sync_syncgen_control;
 		config_i   : in  t_sync_syncgen_config;
 		err_inj_i  : in  t_sync_syncgen_error_injection;
-		isr_i      : in  t_sync_syncgen_isr;
-		
+	
 		status_o   : out t_sync_syncgen_status;
-		isr_o      : out t_sync_syncgen_isr;
-		sync_gen_o : out std_logic_vector(0 downto 0)
+		sync_gen_o : out std_logic
 	);
 end entity sync_gen;
 
@@ -91,7 +89,7 @@ architecture rtl of sync_gen is
 	-- actual blank value
 	signal s_sync_blank				: std_logic_vector((g_SYNC_COUNTER_WIDTH - 1) downto 0);
 	-- cycle counter
-	signal s_sync_cycle_cnt			: natural range 0 to ((2 ** c_SYNC_CYCLE_NUMBER_WIDTH) - 1);
+	signal s_sync_cycle_cnt			: natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
 	-- registered config record
 	signal s_registered_configs		: t_sync_syncgen_config;
 
@@ -343,56 +341,45 @@ begin
 			sync_gen_o(0)							<= not s_registered_configs.signal_polarity;
 			status_o.state 							<= "00000000";
 			status_o.cycle_number					<= "00000000";
-			isr_o.blank_pulse_isr_flag				<= '0';
 		else
 			case (s_sync_gen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
-					sync_output_o(0)				<= not s_registered_configs.signal_polarity;
+					sync_gen_o(0)					<= not s_registered_configs.signal_polarity;
 					-- state: idle = 0
 					status_o.state 					<= "00000000";
 					status_o.cycle_number			<= "00000000";
-					isr_o.blank_pulse_isr_flag		<= '0';
 
 				-- state "R_BLANK"
 				when R_BLANK =>
-					sync_output_o(0)				<= s_registered_configs.signal_polarity;
+					sync_gen_o(0)					<= s_registered_configs.signal_polarity;
 					-- state: running = 1
 					status_o.state 					<= "00000001";
-					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, c_SYNC_CYCLE_NUMBER_WIDTH));
-					if (isr_i.blank_pulse_isr_enable = '1') then
-						isr_o.blank_pulse_isr_flag	<= '1';
-					end if;
+					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 				
 				-- state "R_RELEASE"
 				when R_RELEASE =>
-					sync_output_o(0)				<= not s_registered_configs.signal_polarity;
+					sync_gen_o(0)					<= not s_registered_configs.signal_polarity;
 					-- state: running = 1
 					status_o.state 					<= "00000001";
 
 				-- state "ONE_SHOT"
 				when ONE_SHOT =>
-					sync_output_o(0)				<= s_registered_configs.signal_polarity;
+					sync_gen_o(0)					<= s_registered_configs.signal_polarity;
 					-- state: one shot = 2
 					status_o.state 					<= "00000010";
-					if (isr_i.blank_pulse_isr_enable = '1') then
-						isr_o.blank_pulse_isr_flag	<= '1';
-					end if;
 
 				-- state "E_BLANK"
 				when E_BLANK =>
-					sync_output_o(0)				<= s_registered_configs.signal_polarity;
+					sync_gen_o(0)					<= s_registered_configs.signal_polarity;
 					-- state: error injection = 3
 					status_o.state 					<= "00000011";
-					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, c_SYNC_CYCLE_NUMBER_WIDTH));
-					if (isr_i.blank_pulse_isr_enable = '1') then
-						isr_o.blank_pulse_isr_flag	<= '1';
-					end if;
+					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 
 				-- state "E_RELEASE"
 				when E_RELEASE =>
-					sync_output_o(0)				<= not s_registered_configs.signal_polarity;
+					sync_gen_o(0)					<= not s_registered_configs.signal_polarity;
 					-- state: error injection = 3
 					status_o.state 					<= "00000011";
 

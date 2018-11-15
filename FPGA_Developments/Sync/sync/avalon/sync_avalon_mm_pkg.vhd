@@ -7,7 +7,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
---use work.xxx.all;
+use work.sync_common_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
@@ -75,6 +75,38 @@ package sync_avalon_mm_pkg is
 	type t_sync_avalon_mm_write_o is record
 		waitrequest : std_logic;
 	end record t_sync_avalon_mm_write_o;
+
+--================================================
+--! Component declaration for sync_avalon_mm_read
+--================================================
+component sync_avalon_mm_read is
+	port (
+		clk_i          : in  std_logic;
+		rst_i          : in  std_logic;
+		avalon_mm_i    : in  t_sync_avalon_mm_read_i;
+		mm_write_reg_i : in  t_sync_mm_write_registers;
+		mm_read_reg_i  : in  t_sync_mm_read_registers;
+
+		avalon_mm_o    : out t_sync_avalon_mm_read_o
+	);
+end component sync_avalon_mm_read;
+
+--================================================
+--! Component declaration for sync_avalon_mm_write
+--================================================
+component sync_avalon_mm_write is
+	generic (
+		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
+	);
+	port (
+		clk_i          : in  std_logic;
+		rst_i          : in  std_logic;
+		avalon_mm_i    : in  t_sync_avalon_mm_write_i;
+
+		avalon_mm_o    : out t_sync_avalon_mm_write_o;
+		mm_write_reg_o : out t_sync_mm_write_registers
+	);
+end component sync_avalon_mm_write;
 
 end package sync_avalon_mm_pkg;
 
