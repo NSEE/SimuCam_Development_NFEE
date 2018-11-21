@@ -66,7 +66,7 @@ entity rmap_target_write_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i              : in  std_logic; --! Local rmap clock
-		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i            : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i          : in  t_rmap_target_write_control;
 		headerdata_i       : in  t_rmap_target_write_headerdata;
@@ -136,7 +136,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, reset_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -148,10 +148,10 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_write_state
-	p_rmap_target_write_FSM_state : process(clk_i, reset_n_i)
+	p_rmap_target_write_FSM_state : process(clk_i, reset_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_rmap_target_write_state      <= IDLE;
 			s_rmap_target_write_next_state <= IDLE;
 			s_write_address                <= (others => '0');
@@ -237,7 +237,7 @@ begin
 					s_write_byte_counter           <= 0;
 					s_write_data_crc               <= RMAP_CalculateCRC(s_write_data_crc, spw_flag_i.data);
 					s_write_data_crc_ok            <= '0';
-					s_byte_counter                <= (others => '0');
+					s_byte_counter                 <= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
 					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
@@ -440,13 +440,13 @@ begin
 	-- Begin of RMAP Target Write Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_write_state, reset_n_i
+	-- read: s_rmap_target_write_state, reset_i
 	-- write:
 	-- r/w:
-	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_n_i)
+	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
 			flags_o.write_data_discarded   <= '0';

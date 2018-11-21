@@ -58,7 +58,7 @@ entity rmap_target_spw_rx_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i         : in  std_logic;  --! Local rmap clock
-		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i       : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
 
 		spw_control_i : in  t_rmap_target_spw_rx_control;
 		codec_valid_i : in  std_logic;
@@ -86,13 +86,13 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, reset_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
 	p_rmap_target_spw_rx_process : process(clk_i)
 	begin
-		if (reset_n_i = '0') then       -- asynchronous reset
+		if (reset_i = '1') then         -- asynchronous reset
 			-- reset to default value
 			spw_flag_o.error <= '0';
 		elsif (rising_edge(clk_i)) then -- synchronous process

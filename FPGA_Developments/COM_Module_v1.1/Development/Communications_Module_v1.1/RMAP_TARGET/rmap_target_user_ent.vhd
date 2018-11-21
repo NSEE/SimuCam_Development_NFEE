@@ -63,7 +63,7 @@ entity rmap_target_user_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i        : in  std_logic;   --! Local rmap clock
-		reset_n_i    : in  std_logic;   --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i      : in  std_logic;   --! Reset = '0': reset active; Reset = '1': no reset
 
 		flags_i      : in  t_rmap_target_flags;
 		error_i      : in  t_rmap_target_rmap_error;
@@ -118,7 +118,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, reset_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -130,11 +130,11 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_user_state
-	p_rmap_target_user_FSM_state : process(clk_i, reset_n_i)
+	p_rmap_target_user_FSM_state : process(clk_i, reset_i)
 		variable v_authorization_granted : std_logic_vector(3 downto 0);
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_rmap_target_user_state                               <= IDLE;
 			s_error_general_error                                  <= '0';
 			s_error_invalid_key                                    <= '0';
@@ -445,13 +445,13 @@ begin
 	-- Begin of RMAP Target User Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_user_state, reset_n_i
+	-- read: s_rmap_target_user_state, reset_i
 	-- write:
 	-- r/w:
-	p_rmap_target_user_FSM_output : process(s_rmap_target_user_state, reset_n_i)
+	p_rmap_target_user_FSM_output : process(s_rmap_target_user_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			control_o.command_parsing.user_ready           <= '0';
 			control_o.command_parsing.command_reset        <= '0';
 			control_o.reply_geneneration.send_reply        <= '0';

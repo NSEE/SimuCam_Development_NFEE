@@ -59,7 +59,7 @@ entity rmap_target_command_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i         : in  std_logic;  --! Local rmap clock
-		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i       : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i     : in  t_rmap_target_command_control;
 		spw_flag_i    : in  t_rmap_target_spw_rx_flag;
@@ -127,7 +127,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, reset_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -139,10 +139,10 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_command_state
-	p_rmap_target_command_FSM_state : process(clk_i, reset_n_i)
+	p_rmap_target_command_FSM_state : process(clk_i, reset_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_rmap_target_command_state      <= IDLE;
 			s_rmap_target_command_next_state <= IDLE;
 			s_byte_counter                   <= 0;
@@ -576,13 +576,13 @@ begin
 	-- Begin of RMAP Target Command Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_command_state, reset_n_i
+	-- read: s_rmap_target_command_state, reset_i
 	-- write:
 	-- r/w:
-	p_rmap_target_command_FSM_output : process(s_rmap_target_command_state, reset_n_i)
+	p_rmap_target_command_FSM_output : process(s_rmap_target_command_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			flags_o.command_received                                   <= '0';
 			flags_o.write_request                                      <= '0';
 			flags_o.read_request                                       <= '0';

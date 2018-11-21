@@ -61,15 +61,15 @@ entity rmap_target_mem_rd_ent is
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i            : in  std_logic; --! Local rmap clock
-		reset_n_i        : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i              : in  std_logic; --! Local rmap clock
+		reset_i            : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
-		mem_control_i    : in  t_rmap_target_mem_rd_control;
-		memory_data_i    : in  std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0);
+		mem_control_i      : in  t_rmap_target_mem_rd_control;
+		memory_data_i      : in  std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0);
 		mem_byte_address_i : in  std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
 		-- global output signals
 
-		mem_flag_o       : out t_rmap_target_mem_rd_flag;
+		mem_flag_o         : out t_rmap_target_mem_rd_flag;
 		memory_address_o   : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0)
 		-- data bus(es)
 	);
@@ -92,30 +92,29 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, reset_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
 	p_rmap_target_mem_rd_process : process(clk_i)
 	begin
-		if (reset_n_i = '0') then       -- asynchronous reset
+		if (reset_i = '1') then         -- asynchronous reset
 			-- reset to default value
 			mem_flag_o.error <= '0';
 			mem_flag_o.valid <= '1';
 			mem_flag_o.data  <= (others => '0');
 		elsif (rising_edge(clk_i)) then -- synchronous process
-			
+
 			if (mem_control_i.read = '1') then
-				mem_flag_o.data  <= memory_data_i(((8 * (1 + a_byte_address)) - 1) downto (8 * a_byte_address));
+				mem_flag_o.data <= memory_data_i(((8 * (1 + a_byte_address)) - 1) downto (8 * a_byte_address));
 			end if;
-			
+
 		end if;
 	end process p_rmap_target_mem_rd_process;
 
 	-- signal assingment
 
 	memory_address_o <= a_memory_address;
-	
 
 end architecture rtl;
 --============================================================================

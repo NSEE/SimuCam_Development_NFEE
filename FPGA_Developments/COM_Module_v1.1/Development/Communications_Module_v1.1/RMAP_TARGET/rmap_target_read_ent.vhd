@@ -65,7 +65,7 @@ entity rmap_target_read_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i              : in  std_logic; --! Local rmap clock
-		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i            : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i          : in  t_rmap_target_read_control;
 		headerdata_i       : in  t_rmap_target_read_headerdata;
@@ -108,8 +108,8 @@ architecture rtl of rmap_target_read_ent is
 	signal s_read_error : std_logic;
 
 	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
-	signal s_read_address      : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
-	signal s_read_byte_counter : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
+	signal s_read_address         : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_read_byte_counter    : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
@@ -129,7 +129,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_n_i \n
+	--! read: clk_i, reset_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -141,10 +141,10 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_read_state
-	p_rmap_target_read_FSM_state : process(clk_i, reset_n_i)
+	p_rmap_target_read_FSM_state : process(clk_i, reset_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_rmap_target_read_state      <= IDLE;
 			s_rmap_target_read_next_state <= IDLE;
 			s_read_address                <= (others => '0');
@@ -303,13 +303,13 @@ begin
 	-- Begin of RMAP Target Read Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_read_state, reset_n_i
+	-- read: s_rmap_target_read_state, reset_i
 	-- write:
 	-- r/w:
-	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, reset_n_i)
+	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			flags_o.read_busy             <= '0';
 			flags_o.read_data_indication  <= '0';
 			flags_o.read_operation_failed <= '0';

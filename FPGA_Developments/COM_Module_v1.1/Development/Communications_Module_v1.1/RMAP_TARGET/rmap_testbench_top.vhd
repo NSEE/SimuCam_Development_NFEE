@@ -41,7 +41,7 @@ architecture RTL of rmap_testbench_top is
 	signal s_codec_fifo_control : t_rmap_target_spw_control;
 	signal s_codec_fifo_flag    : t_rmap_target_spw_flag;
 
-	signal s_codec_tx_fifo_data    : std_logic_vector(8 downto 0);
+	signal s_codec_tx_fifo_data    : std_loogic_vector(8 downto 0);
 	signal s_codec_tx_fifo_q       : std_logic_vector(8 downto 0);
 	signal s_codec_tx_fifo_ready_n : std_logic;
 	signal s_codec_tx_fifo_valid_n : std_logic;
