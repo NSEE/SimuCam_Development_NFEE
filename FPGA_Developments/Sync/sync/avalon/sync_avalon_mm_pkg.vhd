@@ -8,6 +8,7 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
 use work.sync_common_pkg.all;
+use work.sync_mm_registers_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --

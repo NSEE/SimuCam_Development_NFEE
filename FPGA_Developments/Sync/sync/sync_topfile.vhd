@@ -12,6 +12,7 @@ use work.sync_avalon_mm_pkg.all;
 use work.sync_gen_pkg.all;
 use work.sync_outen_pkg.all;
 use work.sync_int_pkg.all;
+use work.sync_common_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
@@ -53,13 +54,10 @@ use work.sync_int_pkg.all;
 --! Entity declaration for sync top level
 --============================================================================
 entity sync_ent is
-	generic (
-		CLOCK_MHZ : integer := 50
-	);
 	port (
 		reset_sink_reset            : in  std_logic                     := '0';
 		clock_sink_clk              : in  std_logic                     := '0';
-		conduit_sync_signal_syncin  : in  std_logic;
+		conduit_sync_signal_syncin  : in  std_logic						:= '0';
 		avalon_slave_address        : in  std_logic_vector(7 downto 0)  := (others => '0');
 		avalon_slave_read           : in  std_logic                     := '0';
 		avalon_slave_write          : in  std_logic                     := '0';
@@ -153,11 +151,11 @@ begin
 			config_i.blank_time 		=> s_sync_mm_write_registers.config_register.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.period 			=> s_sync_mm_write_registers.config_register.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
 			config_i.one_shot_time		=> s_sync_mm_write_registers.config_register.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.polarity		 	=> s_sync_mm_write_registers.config_register.general.signal_polarity,
-			config_i.number_of_cycles 	=> s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_PULSE_NUMBER_WIDTH - 1) downto 0),
+			config_i.signal_polarity 	=> s_sync_mm_write_registers.config_register.general.signal_polarity,
+			config_i.number_of_cycles 	=> s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 
 			-- Error injection
-			err_inj_i				=> s_sync_mm_write_registers.error_injection_register.error_injection(31 downto 0),
+			err_inj_i.error_injection	=> s_sync_mm_write_registers.error_injection_register.error_injection,
 
 			-- Status
 			status_o.state     		=> s_sync_mm_read_registers.status_register.state,
@@ -236,8 +234,9 @@ begin
 	-- Sync mux: internal ou external sync
 	-- '1' -> internal sync
 	-- '0' -> external sync
-	s_sync_signal <= (s_syncgen_signal)			  when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else
-					 (conduit_sync_signal_syncin) when (others);
+	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else
+					 (conduit_sync_signal_syncin);
+
 	-- Sync mux status
 	s_sync_mm_read_registers.status_register.int_ext_n <= s_sync_mm_write_registers.control_register.int_ext_n;
 	

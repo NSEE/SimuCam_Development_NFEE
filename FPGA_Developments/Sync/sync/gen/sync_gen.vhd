@@ -8,6 +8,7 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
 use work.sync_gen_pkg.all;
+use work.sync_common_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --
@@ -58,11 +59,11 @@ entity sync_gen is
 	port (
 		clk_i      : in  std_logic;
 		reset_n_i  : in  std_logic;
-		control_i  : in  t_sync_syncgen_control;
-		config_i   : in  t_sync_syncgen_config;
-		err_inj_i  : in  t_sync_syncgen_error_injection;
+		control_i  : in  t_sync_gen_control;
+		config_i   : in  t_sync_gen_config;
+		err_inj_i  : in  t_sync_gen_error_injection;
 	
-		status_o   : out t_sync_syncgen_status;
+		status_o   : out t_sync_gen_status;
 		sync_gen_o : out std_logic
 	);
 end entity sync_gen;
@@ -91,7 +92,7 @@ architecture rtl of sync_gen is
 	-- cycle counter
 	signal s_sync_cycle_cnt			: natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
 	-- registered config record
-	signal s_registered_configs		: t_sync_syncgen_config;
+	signal s_registered_configs		: t_sync_gen_config;
 
 --============================================================================
 -- architecture begin
@@ -116,7 +117,7 @@ begin
 			s_registered_configs.blank_time 		<= (others => '0');
 			s_registered_configs.period 			<= (others => '0');
 			s_registered_configs.one_shot_time		<= (others => '0');
-			s_registered_configs.signal_polarity	<= (others => '0');
+			s_registered_configs.signal_polarity	<= g_SYNC_DEFAULT_STBY_POLARITY;
 			s_registered_configs.number_of_cycles	<= (others => '0');
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -135,7 +136,7 @@ begin
 					s_registered_configs.blank_time 		<= (others => '0');
 					s_registered_configs.period 			<= (others => '0');
 					s_registered_configs.one_shot_time		<= (others => '0');
-					s_registered_configs.signal_polarity	<= (others => '0');
+					s_registered_configs.signal_polarity	<= g_SYNC_DEFAULT_STBY_POLARITY;
 					s_registered_configs.number_of_cycles	<= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if a start was received
@@ -338,7 +339,7 @@ begin
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
-			sync_gen_o(0)							<= not s_registered_configs.signal_polarity;
+			sync_gen_o								<= not s_registered_configs.signal_polarity;
 			status_o.state 							<= "00000000";
 			status_o.cycle_number					<= "00000000";
 		else
@@ -346,40 +347,40 @@ begin
 
 				-- state "IDLE"
 				when IDLE =>
-					sync_gen_o(0)					<= not s_registered_configs.signal_polarity;
+					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: idle = 0
 					status_o.state 					<= "00000000";
 					status_o.cycle_number			<= "00000000";
 
 				-- state "R_BLANK"
 				when R_BLANK =>
-					sync_gen_o(0)					<= s_registered_configs.signal_polarity;
+					sync_gen_o						<= s_registered_configs.signal_polarity;
 					-- state: running = 1
 					status_o.state 					<= "00000001";
 					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 				
 				-- state "R_RELEASE"
 				when R_RELEASE =>
-					sync_gen_o(0)					<= not s_registered_configs.signal_polarity;
+					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: running = 1
 					status_o.state 					<= "00000001";
 
 				-- state "ONE_SHOT"
 				when ONE_SHOT =>
-					sync_gen_o(0)					<= s_registered_configs.signal_polarity;
+					sync_gen_o						<= s_registered_configs.signal_polarity;
 					-- state: one shot = 2
 					status_o.state 					<= "00000010";
 
 				-- state "E_BLANK"
 				when E_BLANK =>
-					sync_gen_o(0)					<= s_registered_configs.signal_polarity;
+					sync_gen_o						<= s_registered_configs.signal_polarity;
 					-- state: error injection = 3
 					status_o.state 					<= "00000011";
 					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 
 				-- state "E_RELEASE"
 				when E_RELEASE =>
-					sync_gen_o(0)					<= not s_registered_configs.signal_polarity;
+					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: error injection = 3
 					status_o.state 					<= "00000011";
 

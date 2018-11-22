@@ -72,7 +72,7 @@ end entity sync_int;
 architecture rtl of sync_int is
 
 	-- Aux to read back int flags outputs
-	-- Itï¿½s not necessary with vhdl 2008 and further
+	-- It´s not necessary with vhdl 2008 and further
 	signal s_int_flag		: t_sync_int_flag;
 
 --============================================================================
@@ -95,8 +95,8 @@ begin
 				s_int_flag.error_int_flag	<= '0';
 			else
 				-- Activate error flag if: error code non zero and enable bit = 1
-				-- TODO - first block logic: non equal
-				if ( (int_watch_i.error_code_watch /= "00000000") and (int_enable_i.error_int_enable = '1') ) then
+				-- TODO - acertar a lógica para "não igual" no primeiro bloco!
+				if ( (int_watch_i.error_code_watch = "0000_0000") and (int_enable_i.error_int_enable = '1') ) then
 					int_flag_o.error_int_flag	<= '1';
 					s_int_flag.error_int_flag	<= '1';
 				else

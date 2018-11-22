@@ -8,6 +8,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 --! Specific packages
 use work.sync_outen_pkg.all;
+use work.sync_common_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --
@@ -75,69 +76,69 @@ begin
 	p_sync_outen : process(clk_i, reset_n_i) is
 	begin
 		if (reset_n_i = '0') then
-			sync_channels_o.channel_a_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_b_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_c_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_d_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_e_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_f_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_g_signal(0) <= not(sync_pol_i);
-			sync_channels_o.channel_h_signal(0) <= not(sync_pol_i);
-			sync_channels_o.sync_out_signal(0)  <= not(sync_pol_i);
+			sync_channels_o.channel_a_signal 	<= not(sync_pol_i);
+			sync_channels_o.channel_b_signal 	<= not(sync_pol_i);
+			sync_channels_o.channel_c_signal 	<= not(sync_pol_i);
+			sync_channels_o.channel_d_signal 	<= not(sync_pol_i);
+			sync_channels_o.channel_e_signal 	<= not(sync_pol_i);
+			sync_channels_o.channel_f_signal 	<= not(sync_pol_i);
+			sync_channels_o.channel_g_signal	<= not(sync_pol_i);
+			sync_channels_o.channel_h_signal	<= not(sync_pol_i);
+			sync_channels_o.sync_out_signal		<= not(sync_pol_i);
 			
 		elsif (rising_edge(clk_i)) then			
 			if (sync_control_i.channel_a_enable = '1') then
-				sync_channels_o.channel_a_signal <= sync_signal_i;
+				sync_channels_o.channel_a_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_a_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_a_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_b_enable = '1') then
-				sync_channels_o.channel_b_signal <= sync_signal_i;
+				sync_channels_o.channel_b_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_b_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_b_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_c_enable = '1') then
-				sync_channels_o.channel_c_signal <= sync_signal_i;
+				sync_channels_o.channel_c_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_c_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_c_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_d_enable = '1') then
-				sync_channels_o.channel_d_signal <= sync_signal_i;
+				sync_channels_o.channel_d_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_d_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_d_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_e_enable = '1') then
-				sync_channels_o.channel_e_signal <= sync_signal_i;
+				sync_channels_o.channel_e_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_e_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_e_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_f_enable = '1') then
-				sync_channels_o.channel_f_signal <= sync_signal_i;
+				sync_channels_o.channel_f_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_f_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_f_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_g_enable = '1') then
-				sync_channels_o.channel_g_signal <= sync_signal_i;
+				sync_channels_o.channel_g_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_g_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_g_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_h_enable = '1') then
-				sync_channels_o.channel_h_signal <= sync_signal_i;
+				sync_channels_o.channel_h_signal	<= sync_signal_i;
 			else
-				sync_channels_o.channel_h_signal(0) <= not(sync_pol_i);
+				sync_channels_o.channel_h_signal	<= not(sync_pol_i);
 			end if;
 
 			if (sync_control_i.sync_out_enable = '1') then
-				sync_channels_o.sync_out_enable <= sync_signal_i;
+				sync_channels_o.sync_out_signal		<= sync_signal_i;
 			else
-				sync_channels_o.sync_out_signal(0) <= not(sync_pol_i);
+				sync_channels_o.sync_out_signal		<= not(sync_pol_i);
 			end if;
 		end if;
 	end process p_sync_outen;

@@ -48,37 +48,37 @@ use work.sync_common_pkg.all;
 --============================================================================
 --! Package declaration for sync generator package
 --============================================================================
-package sync_syncgen_pkg is
+package sync_gen_pkg is
 
 	constant c_SYNC_COUNTER_MAX_WIDTH		: integer          := 64;
 	constant c_SYNC_COUNTER_WIDTH			: integer          := 32;
 	constant c_SYNC_STATE_WIDTH				: integer          :=  8;
 	constant c_SYNC_CYCLE_NUMBER_WIDTH		: integer          :=  8;
 
-	type t_sync_syncgen_status is record
+	type t_sync_gen_status is record
 		state			: std_logic_vector((c_SYNC_STATE_WIDTH - 1) downto 0);
 		cycle_number	: std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);
-	end record t_sync_syncgen_status;
+	end record t_sync_gen_status;
 
-	type t_sync_syncgen_config is record
+	type t_sync_gen_config is record
 		master_blank_time	: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		blank_time			: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		period				: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		one_shot_time		: std_logic_vector((c_SYNC_COUNTER_WIDTH - 1) downto 0);
 		signal_polarity		: std_logic;
 		number_of_cycles	: std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);
-	end record t_sync_syncgen_config;
+	end record t_sync_gen_config;
 
-	type t_sync_syncgen_error_injection is record
+	type t_sync_gen_error_injection is record
 		error_injection	: std_logic_vector(31 downto 0);
-	end record t_sync_syncgen_error_injection;
+	end record t_sync_gen_error_injection;
 
-	type t_sync_syncgen_control is record
+	type t_sync_gen_control is record
 		start		: std_logic;
 		reset		: std_logic;
 		one_shot	: std_logic;
 		err_inj		: std_logic;
-	end record t_sync_syncgen_control;
+	end record t_sync_gen_control;
 
 --=======================================
 --! Component declaration for sync_gen
@@ -93,22 +93,22 @@ component sync_gen is
 		clk_i      : in  std_logic;
 		reset_n_i  : in  std_logic;
 		
-		control_i  : in  t_sync_syncgen_control;
-		config_i   : in  t_sync_syncgen_config;
-		err_inj_i  : in  t_sync_syncgen_error_injection;
+		control_i  : in  t_sync_gen_control;
+		config_i   : in  t_sync_gen_config;
+		err_inj_i  : in  t_sync_gen_error_injection;
 		
-		status_o   : out t_sync_syncgen_status;
+		status_o   : out t_sync_gen_status;
 		sync_gen_o : out std_logic
 	);
 end component sync_gen;
 
-end package sync_syncgen_pkg;
+end package sync_gen_pkg;
 
 --============================================================================
 --! package body declaration
 --============================================================================
-package body sync_syncgen_pkg is
-end package body sync_syncgen_pkg;
+package body sync_gen_pkg is
+end package body sync_gen_pkg;
 --============================================================================
 -- package body end
 --============================================================================

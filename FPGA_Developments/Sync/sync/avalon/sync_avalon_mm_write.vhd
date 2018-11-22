@@ -9,6 +9,7 @@ use ieee.numeric_std.all;
 --! Specific packages
 use work.sync_avalon_mm_pkg.all;
 use work.sync_mm_registers_pkg.all;
+use work.sync_common_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --

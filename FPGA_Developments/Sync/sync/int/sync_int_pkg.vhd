@@ -59,7 +59,7 @@ package sync_int_pkg is
 	type t_sync_int_flag_clear is record
 		error_int_flag_clear		: std_logic;
 		blank_pulse_int_flag_clear	: std_logic;
-	end record t_sync_flag_clear;
+	end record t_sync_int_flag_clear;
 
 	type t_sync_int_flag is record
 		error_int_flag				: std_logic;
