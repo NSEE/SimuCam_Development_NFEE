@@ -9,6 +9,9 @@
 #define LOGGER_MANAGER_SIMUCAM_H_
 
 
+#include "meb_includes.h"
+
+
 bool bLogWriteSDCard ( const char * cDataIn, const char * cFilename );
 bool bLogWriteETH ( const char * cDataIn );
 

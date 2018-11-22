@@ -70,7 +70,7 @@
 extern alt_u8 LedsBoardControl;
 extern alt_u32 LedsPainelControl;
 
-bool bToggleBoardLedsDriver(bool bDRIVE, alt_u8 LedsMask);
-bool bTogglePainelLedsDriver(bool bDRIVE, alt_u32 LedsMask);
+bool bSetBoardLeds(bool bDRIVE, alt_u8 LedsMask);
+bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask);
 
 #endif /* LEDS_H_ */

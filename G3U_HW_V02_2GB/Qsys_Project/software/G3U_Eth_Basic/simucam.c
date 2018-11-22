@@ -24,6 +24,14 @@
 #include "utils/error_handler_simucam.h"
 #include "rtos/rtos_tasks.h"
 
+/* SDCard Libs */
+#include "utils/terasic_lib/terasic_includes.h"
+#include "utils/terasic_fat/FatFileSystem.h"
+
+
+
+
+
 /* Definition of task stack for the initial task which will initialize the NicheStack
  * TCP/IP Stack and then initialize the rest of the Simple Socket Server example tasks.
  */
@@ -105,7 +113,8 @@ int main (int argc, char* argv[], char* envp[])
   INT8U error_code;
   /* Clear the RTOS timer */
   OSTimeSet(0);
-  bool bIniSimucam = TRUE;
+  bool bIniSimucamStatus = TRUE;
+  unsigned char mac_addr[6];
 
   /**********************************************
    *          Block of Simucam Initialization	*
@@ -114,9 +123,9 @@ int main (int argc, char* argv[], char* envp[])
   /* Initialization of basic HW */
   vInitSimucamBasicHW();
 
-  /* Test of some critical IPCores in the Simucam */
-  bIniSimucam = bTestSimucamCriticalHW();
-  if (bIniSimucam == FALSE) {
+  /* Test of some critical IPCores HW interfaces in the Simucam */
+  bIniSimucamStatus = bTestSimucamCriticalHW();
+  if (bIniSimucamStatus == FALSE) {
 	  vFailTestCriticasParts();
 	  return -1;
   }
@@ -124,7 +133,39 @@ int main (int argc, char* argv[], char* envp[])
 
 
 
-// Até aqui!!!!!!!!!!!! TIAGO
+  /* Log file Initialization in the SDCard */
+
+
+
+  /* Load default value from SDCard
+   * - Get Fixed IP Address
+   * - Get Op. mode of Simucam
+   * - Get default for each Fee-simlator
+   */
+
+
+  /* Get MAC Address from RTC module */
+  memset(mac_addr,0, 6);
+  bIniSimucamStatus = RTCC_SPI_R_MAC(mac_addr);
+  if (bIniSimucamStatus == FALSE) {
+	  vFailGetMacRTC();
+	  return -1;
+  }
+
+  /* Socket server initialization for debug, not control */
+
+
+  /* Run second batch of tests: RAM, SPW (internal functionalities) */
+
+
+  /* Fill and prepare the RAM memory for operation (Pattern, pre-loaded image etc)
+   * Zerar toda memoria
+   * Zerar buffer SPW
+   * Conf time code
+   * */
+
+
+  /* Sign with Leds or display that the Simucam is ready to operate */
 
 
 

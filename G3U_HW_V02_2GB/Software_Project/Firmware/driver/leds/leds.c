@@ -24,7 +24,7 @@ alt_u32 LedsPainelControl = 0x00000000;
  * @retval TRUE : Sucesso
  *
  */
-bool bToggleBoardLedsDriver(bool bDRIVE, alt_u8 LedsMask){
+bool bSetBoardLeds(bool bDRIVE, alt_u8 LedsMask){
 
   // Board LEDs state: ON = 0; OFF = 1;
 
@@ -51,7 +51,7 @@ bool bToggleBoardLedsDriver(bool bDRIVE, alt_u8 LedsMask){
  * @retval TRUE : Sucesso
  *
  */
-bool bTogglePainelLedsDriver(bool bDRIVE, alt_u32 LedsMask){
+bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask){
 
   // Painel LEDs state: ON = 1; OFF = 0;
 

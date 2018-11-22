@@ -353,16 +353,16 @@ void Set_SpW_Led(char c_SpwID) {
 	}
 	alt_u32 SpW_Link_Status = ul_SpaceWire_Interface_Link_Status_Read(c_SpwID);
 	if (SpW_Link_Status & SPWC_LINK_RUNNING_STATUS_BIT_MASK) {
-		bTogglePainelLedsDriver(LEDS_OFF, ui_leds_mask_r);
-		bTogglePainelLedsDriver(LEDS_ON, ui_leds_mask_g);
+		bSetPainelLeds(LEDS_OFF, ui_leds_mask_r);
+		bSetPainelLeds(LEDS_ON, ui_leds_mask_g);
 	} else if (SpW_Link_Status
 			& (SPWC_LINK_DISCONNECT_ERROR_BIT_MASK
 					| SPWC_LINK_PARITY_ERROR_BIT_MASK
 					| SPWC_LINK_ESCAPE_ERROR_BIT_MASK
 					| SPWC_LINK_CREDIT_ERROR_BIT_MASK)) {
-		bTogglePainelLedsDriver(LEDS_ON, ui_leds_mask_g | ui_leds_mask_r);
+		bSetPainelLeds(LEDS_ON, ui_leds_mask_g | ui_leds_mask_r);
 	} else {
-		bTogglePainelLedsDriver(LEDS_OFF, ui_leds_mask_g);
-		bTogglePainelLedsDriver(LEDS_ON, ui_leds_mask_r);
+		bSetPainelLeds(LEDS_OFF, ui_leds_mask_g);
+		bSetPainelLeds(LEDS_ON, ui_leds_mask_r);
 	}
 }

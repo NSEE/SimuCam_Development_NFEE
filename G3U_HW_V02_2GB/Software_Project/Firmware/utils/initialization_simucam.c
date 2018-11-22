@@ -12,11 +12,11 @@ void vInitSimucamBasicHW(void)
 {
 
 	/* Turn Off all LEDs */
-	bToggleBoardLedsDriver(LEDS_OFF, LEDS_BOARD_ALL_MASK);
-	bTogglePainelLedsDriver(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
+	bSetBoardLeds(LEDS_OFF, LEDS_BOARD_ALL_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_PAINEL_ALL_MASK);
 
 	/* Turn On Power LED */
-	bTogglePainelLedsDriver(LEDS_ON, LEDS_POWER_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_POWER_MASK);
 
 	/* Release ETH Reset */
 	vEthReleaseReset();

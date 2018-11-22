@@ -9,6 +9,18 @@
 
 INT8U vFailTestCriticasParts( void )
 {
+	printf("vFailTestCriticasParts");
+	/*
+	 * Implementação de indicação de falha antes de finalizar a execução
+	 * Indicar falha com LEDs pois é o unico HW inicializada até o momento
+	 */
+
+}
+
+
+INT8U vFailGetMacRTC( void )
+{
+	printf("vFailGetMacRTC");
 	/*
 	 * Implementação de indicação de falha antes de finalizar a execução
 	 * Indicar falha com LEDs pois é o unico HW inicializada até o momento
