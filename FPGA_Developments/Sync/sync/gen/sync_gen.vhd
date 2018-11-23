@@ -117,7 +117,7 @@ begin
 			s_registered_configs.blank_time 		<= (others => '0');
 			s_registered_configs.period 			<= (others => '0');
 			s_registered_configs.one_shot_time		<= (others => '0');
-			s_registered_configs.signal_polarity	<= g_SYNC_DEFAULT_STBY_POLARITY;
+			s_registered_configs.signal_polarity	<= not g_SYNC_DEFAULT_STBY_POLARITY;
 			s_registered_configs.number_of_cycles	<= (others => '0');
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -136,7 +136,7 @@ begin
 					s_registered_configs.blank_time 		<= (others => '0');
 					s_registered_configs.period 			<= (others => '0');
 					s_registered_configs.one_shot_time		<= (others => '0');
-					s_registered_configs.signal_polarity	<= g_SYNC_DEFAULT_STBY_POLARITY;
+					s_registered_configs.signal_polarity	<= not g_SYNC_DEFAULT_STBY_POLARITY;
 					s_registered_configs.number_of_cycles	<= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if a start was received
@@ -335,54 +335,58 @@ begin
 	-- read: s_sync_gen_state, reset_n_i
 	-- write:
 	-- r/w:
-	p_sync_gen_fsm_output : process(s_sync_gen_state, reset_n_i)
+	p_sync_gen_fsm_output : process(s_sync_gen_state, reset_n_i,s_registered_configs,s_sync_cycle_cnt)
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
 			sync_gen_o								<= not s_registered_configs.signal_polarity;
-			status_o.state 							<= "00000000";
-			status_o.cycle_number					<= "00000000";
+			status_o.state	 						<= (others => '0');
+			status_o.cycle_number					<= (others => '0');
 		else
+			-- Ensure default status_o condition before case, to avoid latches
+			status_o.state	 						<= (others => '0');
+			status_o.cycle_number					<= (others => '0');
+			
 			case (s_sync_gen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
 					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: idle = 0
-					status_o.state 					<= "00000000";
-					status_o.cycle_number			<= "00000000";
+					status_o.state					<= (others => '0');
+					status_o.cycle_number			<= (others => '0');
 
 				-- state "R_BLANK"
 				when R_BLANK =>
 					sync_gen_o						<= s_registered_configs.signal_polarity;
 					-- state: running = 1
-					status_o.state 					<= "00000001";
+					status_o.state 					<= (0 => '1', others => '0');
 					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 				
 				-- state "R_RELEASE"
 				when R_RELEASE =>
 					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: running = 1
-					status_o.state 					<= "00000001";
+					status_o.state	 				<= (0 => '1', others => '0');
 
 				-- state "ONE_SHOT"
 				when ONE_SHOT =>
 					sync_gen_o						<= s_registered_configs.signal_polarity;
 					-- state: one shot = 2
-					status_o.state 					<= "00000010";
+					status_o.state					<= (1 => '1', others => '0');
 
 				-- state "E_BLANK"
 				when E_BLANK =>
 					sync_gen_o						<= s_registered_configs.signal_polarity;
 					-- state: error injection = 3
-					status_o.state 					<= "00000011";
+					status_o.state	 				<= (0|1 => '1', others => '0');
 					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 
 				-- state "E_RELEASE"
 				when E_RELEASE =>
 					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: error injection = 3
-					status_o.state 					<= "00000011";
+					status_o.state					<= (0|1 => '1', others => '0');
 
 				-- not defined states
 				when others =>

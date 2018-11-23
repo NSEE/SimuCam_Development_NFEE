@@ -8,7 +8,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 --! Specific packages
 use work.sync_outen_pkg.all;
-use work.sync_common_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --
@@ -51,9 +50,6 @@ use work.sync_common_pkg.all;
 --! Entity declaration for sync_outen
 --============================================================================
 entity sync_outen is
-	generic (
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
-	);
 	port (
 		clk_i           : in  std_logic;
 		reset_n_i       : in  std_logic;
@@ -73,7 +69,7 @@ architecture rtl of sync_outen is
 -- architecture begin
 --============================================================================
 begin
-	p_sync_outen : process(clk_i, reset_n_i) is
+	p_sync_outen : process(clk_i, reset_n_i, sync_pol_i) is
 	begin
 		if (reset_n_i = '0') then
 			sync_channels_o.channel_a_signal 	<= not(sync_pol_i);

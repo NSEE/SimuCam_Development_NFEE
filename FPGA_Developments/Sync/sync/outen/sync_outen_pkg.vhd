@@ -7,7 +7,6 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
-use work.sync_common_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --
@@ -79,9 +78,6 @@ package sync_outen_pkg is
 --! Component declaration for sync_outen
 --=======================================
 component sync_outen is
-	generic (
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
-	);
 	port (
 		clk_i           : in  std_logic;
 		reset_n_i       : in  std_logic;

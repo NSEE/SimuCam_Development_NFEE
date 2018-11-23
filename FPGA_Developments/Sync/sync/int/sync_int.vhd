@@ -71,8 +71,10 @@ end entity sync_int;
 --============================================================================
 architecture rtl of sync_int is
 
+	constant c_ZERO			: std_logic_vector(7 downto 0) := (others => '0');
+
 	-- Aux to read back int flags outputs
-	-- It�s not necessary with vhdl 2008 and further
+	-- It is not necessary with vhdl 2008 and further
 	signal s_int_flag		: t_sync_int_flag;
 
 --============================================================================
@@ -91,37 +93,32 @@ begin
 		elsif (rising_edge(clk_i)) then
 			-- Logic for error
 			if (int_flag_clear_i.error_int_flag_clear = '1') then
-				int_flag_o.error_int_flag	<= '0';
 				s_int_flag.error_int_flag	<= '0';
 			else
 				-- Activate error flag if: error code non zero and enable bit = 1
-				-- TODO - first block logic: non equal
-				if ( (int_watch_i.error_code_watch /= "00000000") and (int_enable_i.error_int_enable = '1') ) then
-					int_flag_o.error_int_flag	<= '1';
+				if ( (unsigned(int_watch_i.error_code_watch) /= unsigned(c_ZERO)) and (int_enable_i.error_int_enable = '1') ) then
 					s_int_flag.error_int_flag	<= '1';
 				else
-					int_flag_o.error_int_flag	<= '0';
 					s_int_flag.error_int_flag	<= '0';
 				end if;
 			end if;
 		
 			-- Logic for blank pulse
 			if (int_flag_clear_i.blank_pulse_int_flag_clear = '1') then
-				int_flag_o.blank_pulse_int_flag	<= '0';
 				s_int_flag.blank_pulse_int_flag	<= '0';
 			else	
 				-- Activate blank pulse flag if: sync wave is at blank level and enable bit = 1
 				if ( (int_watch_i.sync_wave_watch = int_watch_i.sync_pol_watch) and (int_enable_i.blank_pulse_int_enable = '1') ) then
-					int_flag_o.blank_pulse_int_flag	<= '1';
 					s_int_flag.blank_pulse_int_flag	<= '1';
 				else
-					int_flag_o.blank_pulse_int_flag	<= '0';
 					s_int_flag.blank_pulse_int_flag	<= '0';
 				end if;
 			end if;
-			
+
+			-- update int_flag_o
+			int_flag_o <= s_int_flag;
+
 			-- Logic for irq
-			-- For vhdl 2008 and further, use int_flag_o. If not, use s_int_flag signal
 -- Use line below to keep irq active as long as int flags are active			
 			if ( (s_int_flag.error_int_flag = '1') or (s_int_flag.blank_pulse_int_flag = '1') ) then
 -- Use line below to generate only one clock period irq pulse per int flag active

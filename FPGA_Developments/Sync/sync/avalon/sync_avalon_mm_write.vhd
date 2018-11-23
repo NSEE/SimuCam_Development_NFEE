@@ -88,7 +88,7 @@ begin
 			mm_write_reg_o.config_register.blank_time					<= (others => '0');
 			mm_write_reg_o.config_register.period						<= (others => '0');
 			mm_write_reg_o.config_register.one_shot_time				<= (others => '0');
-			mm_write_reg_o.config_register.general.signal_polarity		<= g_SYNC_DEFAULT_STBY_POLARITY;
+			mm_write_reg_o.config_register.general.signal_polarity		<= not g_SYNC_DEFAULT_STBY_POLARITY;
 			mm_write_reg_o.config_register.general.number_of_cycles		<= (others => '0');
 
 			mm_write_reg_o.error_injection_register.error_injection		<= (others => '0');

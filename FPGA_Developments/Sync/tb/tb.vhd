@@ -42,6 +42,8 @@ begin
 	clk <= not clk after 10 ns;
 	-- Initial rst active level, release after that
 	rst <= '0' after 100 ns;
+	-- Sync in signal emulation
+	s_dut_sinc_signal_in <= not s_dut_sinc_signal_in after 250 ns;
 
 	-- avs_stimuli instantiation
 	avs_stimuli_inst : entity work.avs_stimuli

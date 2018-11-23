@@ -12,7 +12,7 @@ use work.sync_avalon_mm_pkg.all;
 use work.sync_gen_pkg.all;
 use work.sync_outen_pkg.all;
 use work.sync_int_pkg.all;
-use work.sync_common_pkg.all;
+
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
