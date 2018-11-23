@@ -102,10 +102,11 @@
 			rtcc_sck_export                                      : out   std_logic;                                        -- export
 			rtcc_sdi_export                                      : out   std_logic;                                        -- export
 			rtcc_sdo_export                                      : in    std_logic                     := 'X';             -- export
-			sd_clk_export                                        : out   std_logic;                                        -- export
-			sd_cmd_export                                        : inout std_logic                     := 'X';             -- export
-			sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- export
-			sd_wp_n_export                                       : in    std_logic                     := 'X';             -- export
+			sd_card_ip_b_SD_cmd                                  : inout std_logic                     := 'X';             -- b_SD_cmd
+			sd_card_ip_b_SD_dat                                  : inout std_logic                     := 'X';             -- b_SD_dat
+			sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
+			sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
+			sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
 			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
 			sinc_out_export                                      : out   std_logic;                                        -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0

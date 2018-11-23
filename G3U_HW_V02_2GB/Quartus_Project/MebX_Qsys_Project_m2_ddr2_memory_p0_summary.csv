@@ -2,28 +2,28 @@ Core: MebX_Qsys_Project_m2_ddr2_memory_p0 - Instance: SOPC_INST|m2_ddr2_memory
 Path, Setup Margin, Hold Margin
 "Address Command (Slow 900mV 85C Model)",0.109,0.66
 "Bus Turnaround Time (Slow 900mV 85C Model)",5.443,--
-"Core (Slow 900mV 85C Model)",0.48,0.203
-"Core Recovery/Removal (Slow 900mV 85C Model)",1.001,0.487
+"Core (Slow 900mV 85C Model)",0.248,0.15
+"Core Recovery/Removal (Slow 900mV 85C Model)",0.915,0.45
 "Read Capture (Slow 900mV 85C Model)",0.192,0.144
-"Read Resync (Slow 900mV 85C Model)",2.662,5.375
-"Write (Slow 900mV 85C Model)",-0.083,-0.083
+"Read Resync (Slow 900mV 85C Model)",2.885,5.431
+"Write (Slow 900mV 85C Model)",-0.082,-0.082
 "Write Leveling tDQSS (Slow 900mV 85C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 85C Model)",0.42,0.42
 "Address Command (Slow 900mV 0C Model)",0.099,0.715
 "Bus Turnaround Time (Slow 900mV 0C Model)",5.474,--
-"Core (Slow 900mV 0C Model)",0.68,0.24
-"Core Recovery/Removal (Slow 900mV 0C Model)",1.247,0.469
+"Core (Slow 900mV 0C Model)",0.435,0.255
+"Core Recovery/Removal (Slow 900mV 0C Model)",1.129,0.436
 "Read Capture (Slow 900mV 0C Model)",0.195,0.147
-"Read Resync (Slow 900mV 0C Model)",2.701,5.401
-"Write (Slow 900mV 0C Model)",-0.064,-0.064
+"Read Resync (Slow 900mV 0C Model)",2.929,5.492
+"Write (Slow 900mV 0C Model)",-0.063,-0.063
 "Write Leveling tDQSS (Slow 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 0C Model)",0.42,0.42
 "Address Command (Fast 900mV 0C Model)",0.073,0.872
 "Bus Turnaround Time (Fast 900mV 0C Model)",5.523,--
-"Core (Fast 900mV 0C Model)",0.679,0.14
-"Core Recovery/Removal (Fast 900mV 0C Model)",2.557,0.265
+"Core (Fast 900mV 0C Model)",0.637,0.144
+"Core Recovery/Removal (Fast 900mV 0C Model)",2.458,0.26
 "Read Capture (Fast 900mV 0C Model)",0.221,0.173
-"Read Resync (Fast 900mV 0C Model)",3.183,5.824
+"Read Resync (Fast 900mV 0C Model)",3.343,5.835
 "Write (Fast 900mV 0C Model)",-0.069,-0.069
 "Write Leveling tDQSS (Fast 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Fast 900mV 0C Model)",0.42,0.42
