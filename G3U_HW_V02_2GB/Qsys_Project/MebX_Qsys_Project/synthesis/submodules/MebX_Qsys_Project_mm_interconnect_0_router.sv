@@ -135,7 +135,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
     // during address decoding
     // -------------------------------------------------------
     localparam PAD0 = log2ceil(64'h80000000 - 64'h0); 
-    localparam PAD1 = log2ceil(64'h80000400 - 64'h80000000); 
+    localparam PAD1 = log2ceil(64'h80000800 - 64'h80000000); 
     localparam PAD2 = log2ceil(64'h81200000 - 64'h81100000); 
     localparam PAD3 = log2ceil(64'h81201000 - 64'h81200800); 
     localparam PAD4 = log2ceil(64'h81201800 - 64'h81201000); 
@@ -223,7 +223,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 11;
     end
 
-    // ( 0x80000000 .. 0x80000400 )
+    // ( 0x80000000 .. 0x80000800 )
     if ( {address[RG:PAD1],{PAD1{1'b0}}} == 32'h80000000   ) begin
             src_channel = 23'b00001000000000000000000;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
@@ -249,56 +249,56 @@ module MebX_Qsys_Project_mm_interconnect_0_router
 
     // ( 0x81201800 .. 0x81201c00 )
     if ( {address[RG:PAD5],{PAD5{1'b0}}} == 32'h81201800   ) begin
-            src_channel = 23'b00000000000001000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
+            src_channel = 23'b00000000000100000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 22;
     end
 
     // ( 0x81201c00 .. 0x81202000 )
     if ( {address[RG:PAD6],{PAD6{1'b0}}} == 32'h81201c00   ) begin
-            src_channel = 23'b00000000000000100000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
+            src_channel = 23'b00000000000001000000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 7;
     end
 
     // ( 0x81202000 .. 0x81202400 )
     if ( {address[RG:PAD7],{PAD7{1'b0}}} == 32'h81202000   ) begin
-            src_channel = 23'b00000000000000010000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
+            src_channel = 23'b00000000000000100000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 6;
     end
 
     // ( 0x81202400 .. 0x81202800 )
     if ( {address[RG:PAD8],{PAD8{1'b0}}} == 32'h81202400   ) begin
-            src_channel = 23'b00000000000000001000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
+            src_channel = 23'b00000000000000010000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
     end
 
     // ( 0x81202800 .. 0x81202c00 )
     if ( {address[RG:PAD9],{PAD9{1'b0}}} == 32'h81202800   ) begin
-            src_channel = 23'b00000000000000000100000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
+            src_channel = 23'b00000000000000001000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
     end
 
     // ( 0x81202c00 .. 0x81203000 )
     if ( {address[RG:PAD10],{PAD10{1'b0}}} == 32'h81202c00   ) begin
-            src_channel = 23'b00000000000000000010000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
+            src_channel = 23'b00000000000000000100000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
     end
 
     // ( 0x81203000 .. 0x81203400 )
     if ( {address[RG:PAD11],{PAD11{1'b0}}} == 32'h81203000   ) begin
-            src_channel = 23'b00000000000000000001000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
+            src_channel = 23'b00000000000000000010000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
     // ( 0x81203400 .. 0x81203800 )
     if ( {address[RG:PAD12],{PAD12{1'b0}}} == 32'h81203400   ) begin
-            src_channel = 23'b00000000000000000000100;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
+            src_channel = 23'b00000000000000000001000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
     end
 
     // ( 0x81203800 .. 0x81203c00 )
     if ( {address[RG:PAD13],{PAD13{1'b0}}} == 32'h81203800   ) begin
-            src_channel = 23'b00000000000100000000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 22;
+            src_channel = 23'b00000000000000000000100;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
     end
 
     // ( 0x81203c00 .. 0x81204000 )

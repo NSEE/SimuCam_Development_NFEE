@@ -102,10 +102,7 @@ module MebX_Qsys_Project (
 	rtcc_sck_export,
 	rtcc_sdi_export,
 	rtcc_sdo_export,
-	sd_clk_export,
-	sd_cmd_export,
-	sd_dat_export,
-	sd_wp_n_export,
+	sd_card_wp_n_io_export,
 	sinc_in_export,
 	sinc_out_export,
 	ssdp_ssdp0,
@@ -147,7 +144,11 @@ module MebX_Qsys_Project (
 	tse_mdio_mdio_out,
 	tse_mdio_mdio_oen,
 	tse_serial_txp,
-	tse_serial_rxp);	
+	tse_serial_rxp,
+	sd_card_ip_b_SD_cmd,
+	sd_card_ip_b_SD_dat,
+	sd_card_ip_b_SD_dat3,
+	sd_card_ip_o_SD_clock);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -251,10 +252,7 @@ module MebX_Qsys_Project (
 	output		rtcc_sck_export;
 	output		rtcc_sdi_export;
 	input		rtcc_sdo_export;
-	output		sd_clk_export;
-	inout		sd_cmd_export;
-	inout	[3:0]	sd_dat_export;
-	input		sd_wp_n_export;
+	input		sd_card_wp_n_io_export;
 	input		sinc_in_export;
 	output		sinc_out_export;
 	output	[7:0]	ssdp_ssdp0;
@@ -297,4 +295,8 @@ module MebX_Qsys_Project (
 	output		tse_mdio_mdio_oen;
 	output		tse_serial_txp;
 	input		tse_serial_rxp;
+	inout		sd_card_ip_b_SD_cmd;
+	inout		sd_card_ip_b_SD_dat;
+	inout		sd_card_ip_b_SD_dat3;
+	output		sd_card_ip_o_SD_clock;
 endmodule
