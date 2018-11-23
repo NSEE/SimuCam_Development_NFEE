@@ -25,8 +25,7 @@
 #include "rtos/rtos_tasks.h"
 
 /* SDCard Libs */
-#include "utils/terasic_lib/terasic_includes.h"
-#include "utils/terasic_fat/FatFileSystem.h"
+
 
 
 

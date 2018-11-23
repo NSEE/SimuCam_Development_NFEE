@@ -167,14 +167,6 @@ C_SRCS += utils/initialization_simucam.c
 C_SRCS += utils/error_handler_simucam.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/log_manager_simucam.c
-C_SRCS += utils/terasic_fat/FatFileSystem.c
-C_SRCS += utils/terasic_fat/FatInternal.c
-C_SRCS += utils/terasic_lib/debug.c
-C_SRCS += utils/terasic_sdcard/crc16.c
-C_SRCS += utils/terasic_sdcard/crc7.c
-C_SRCS += utils/terasic_sdcard/sd_hal.c
-C_SRCS += utils/terasic_sdcard/sd_lib.c
-C_SRCS += utils/terasic_sdcard/sd_protocol.c
 CXX_SRCS :=
 ASM_SRCS :=
 
