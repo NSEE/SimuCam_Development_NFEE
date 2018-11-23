@@ -25,8 +25,7 @@
 #include "rtos/rtos_tasks.h"
 
 /* SDCard Libs */
-
-
+#include "utils/sdcard_file_manager.h"
 
 
 
@@ -133,9 +132,13 @@ int main (int argc, char* argv[], char* envp[])
 
 
   /* Log file Initialization in the SDCard */
-
-
-
+  bIniSimucamStatus = bInitializeSDCard();
+  if (bIniSimucamStatus == FALSE) {
+	  //vFailTestCriticasParts();
+	  return -1;
+  }
+  vJustAWriteTest();
+  return 0;
   /* Load default value from SDCard
    * - Get Fixed IP Address
    * - Get Op. mode of Simucam
