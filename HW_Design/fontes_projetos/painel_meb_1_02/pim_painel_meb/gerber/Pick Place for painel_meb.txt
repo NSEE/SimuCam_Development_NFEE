@@ -1,0 +1,115 @@
+Designator Footprint               Mid X         Mid Y         Ref X         Ref Y         Pad X         Pad Y TB      Rotation Comment        
+
+CN6        Soquete_para_bateria_SB19    936.701mil       1047mil        543mil       1047mil        543mil       1047mil  B         90.00 11.0137        
+fx4        fixa_m3                200mil        200mil        200mil        200mil        200mil        200mil  T          0.00 Comment        
+fx3        fixa_m3               6730mil        200mil       6730mil        200mil       6730mil        200mil  T          0.00 Comment        
+fx2        fixa_m3               6730mil       1380mil       6730mil       1380mil       6730mil       1380mil  T          0.00 Comment        
+fx1        fixa_m3                200mil       1380mil        200mil       1380mil        200mil       1380mil  T          0.00 Comment        
+U1         MCHP-MSOP-MS10_N        431mil        667mil        431mil        667mil     391.63mil    746.724mil  B        270.00 MCP79511-I/MS  
+D1         SOT23-3N_-_BAT54FAIRCHILD        526mil       1338mil        526mil       1338mil    571.669mil   1276.976mil  B         90.00 04.0100        
+FD2        FIDUCIAL               439mil        285mil        439mil        285mil        439mil        285mil  B        180.00 ##nl           
+FD1        FIDUCIAL              6395mil       1274mil       6395mil       1274mil       6395mil       1274mil  B        180.00 ##nl           
+X1         CRISTAL_DT-38          145mil        731mil        145mil        731mil        195mil        731mil  B         90.00 XTAL           
+U2         DGK8_L                5764mil       1020mil       5764mil       1020mil   5802.386mil    939.291mil  B         90.00 SN65LVDS179MDGKREP
+R50        0603_-_MONTAGEM_MÁQUINA       5844mil       1290mil       5844mil       1290mil       5844mil    1322.48mil  B        270.00 Res3           
+R49        0603_-_MONTAGEM_MÁQUINA       5677mil       1291mil       5677mil       1291mil       5677mil    1258.52mil  B         90.00 Res3           
+R48        0603_-_MONTAGEM_MÁQUINA       6536mil        807mil       6536mil        807mil    6568.48mil        807mil  B        180.00 Res3           
+R47        0603_-_MONTAGEM_MÁQUINA       6681mil        808mil       6681mil        808mil    6713.48mil        808mil  B        180.00 Res3           
+R46        0603_-_MONTAGEM_MÁQUINA       6631mil        928mil       6631mil        928mil       6631mil     895.52mil  B         90.00 Res3           
+R45        0603_-_MONTAGEM_MÁQUINA       4458mil        799mil       4458mil        799mil       4458mil     766.52mil  B         90.00 Res3           
+R44        0603_-_MONTAGEM_MÁQUINA       4451mil        530mil       4451mil        530mil       4451mil     497.52mil  B         90.00 Res3           
+R43        0603_-_MONTAGEM_MÁQUINA       4458mil       1272mil       4458mil       1272mil       4458mil    1239.52mil  B         90.00 Res3           
+R42        0603_-_MONTAGEM_MÁQUINA       4454mil       1005mil       4454mil       1005mil       4454mil     972.52mil  B         90.00 Res3           
+R41        0603_-_MONTAGEM_MÁQUINA       3852mil        804mil       3852mil        804mil       3852mil     771.52mil  B         90.00 Res3           
+R40        0603_-_MONTAGEM_MÁQUINA       3853mil        532mil       3853mil        532mil       3853mil     499.52mil  B         90.00 Res3           
+R39        0603_-_MONTAGEM_MÁQUINA       3856mil       1281mil       3856mil       1281mil       3856mil    1248.52mil  B         90.00 Res3           
+R38        0603_-_MONTAGEM_MÁQUINA       3853mil       1009mil       3853mil       1009mil       3853mil     976.52mil  B         90.00 Res3           
+R37        0603_-_MONTAGEM_MÁQUINA       4689mil        802mil       4689mil        802mil       4689mil     834.48mil  B        270.00 Res3           
+R36        0603_-_MONTAGEM_MÁQUINA       4682mil        536mil       4682mil        536mil       4682mil     568.48mil  B        270.00 Res3           
+R35        0603_-_MONTAGEM_MÁQUINA       4689mil       1277mil       4689mil       1277mil       4689mil    1309.48mil  B        270.00 Res3           
+R34        0603_-_MONTAGEM_MÁQUINA       4686mil       1005mil       4686mil       1005mil       4686mil    1037.48mil  B        270.00 Res3           
+R33        0603_-_MONTAGEM_MÁQUINA       4082mil        805mil       4082mil        805mil       4082mil     837.48mil  B        270.00 Res3           
+R32        0603_-_MONTAGEM_MÁQUINA       4082mil        537mil       4082mil        537mil       4082mil     569.48mil  B        270.00 Res3           
+R31        0603_-_MONTAGEM_MÁQUINA       4086mil       1278mil       4086mil       1278mil       4086mil    1310.48mil  B        270.00 Res3           
+R30        0603_-_MONTAGEM_MÁQUINA       4086mil       1012mil       4086mil       1012mil       4086mil    1044.48mil  B        270.00 Res3           
+R29        0603_-_MONTAGEM_MÁQUINA       3246mil        802mil       3246mil        802mil       3246mil     769.52mil  B         90.00 Res3           
+R28        0603_-_MONTAGEM_MÁQUINA       3253mil        537mil       3253mil        537mil       3253mil     504.52mil  B         90.00 Res3           
+R27        0603_-_MONTAGEM_MÁQUINA       3248mil       1283mil       3248mil       1283mil       3248mil    1250.52mil  B         90.00 Res3           
+R26        0603_-_MONTAGEM_MÁQUINA       3251mil       1022mil       3251mil       1022mil       3251mil     989.52mil  B         90.00 Res3           
+R25        0603_-_MONTAGEM_MÁQUINA       2629mil        801mil       2629mil        801mil       2629mil     768.52mil  B         90.00 Res3           
+R24        0603_-_MONTAGEM_MÁQUINA       2633mil        560mil       2633mil        560mil       2633mil     527.52mil  B         90.00 Res3           
+R23        0603_-_MONTAGEM_MÁQUINA       2635mil       1265mil       2635mil       1265mil       2635mil    1232.52mil  B         90.00 Res3           
+R22        0603_-_MONTAGEM_MÁQUINA       2631mil       1030mil       2631mil       1030mil       2631mil     997.52mil  B         90.00 Res3           
+R21        0603_-_MONTAGEM_MÁQUINA       3479mil        805mil       3479mil        805mil       3479mil     837.48mil  B        270.00 Res3           
+R20        0603_-_MONTAGEM_MÁQUINA       3482mil        537mil       3482mil        537mil       3482mil     569.48mil  B        270.00 Res3           
+R19        0603_-_MONTAGEM_MÁQUINA       3482mil       1278mil       3482mil       1278mil       3482mil    1310.48mil  B        270.00 Res3           
+R18        0603_-_MONTAGEM_MÁQUINA       3486mil       1020mil       3486mil       1020mil       3486mil    1052.48mil  B        270.00 Res3           
+R17        0603_-_MONTAGEM_MÁQUINA       2872mil        807mil       2872mil        807mil       2872mil     839.48mil  B        270.00 Res3           
+R16        0603_-_MONTAGEM_MÁQUINA       2874mil        558mil       2874mil        558mil       2874mil     590.48mil  B        270.00 Res3           
+R15        0603_-_MONTAGEM_MÁQUINA       2872mil       1266mil       2872mil       1266mil       2872mil    1298.48mil  B        270.00 Res3           
+R14        0603_-_MONTAGEM_MÁQUINA       2871mil       1023mil       2871mil       1023mil       2871mil    1055.48mil  B        270.00 Res3           
+R13        0603_-_MONTAGEM_MÁQUINA        344mil       1073mil        344mil       1073mil        344mil    1105.48mil  B        270.00 Res3           
+R12        0603_-_MONTAGEM_MÁQUINA       5220mil    228.787mil       5220mil    228.787mil    5252.48mil    228.787mil  B        180.00 Res3           
+R11        0603_-_MONTAGEM_MÁQUINA       5544mil    228.787mil       5544mil    228.787mil    5576.48mil    228.787mil  B        180.00 Res3           
+R10        0603_-_MONTAGEM_MÁQUINA       5863mil    228.787mil       5863mil    228.787mil    5895.48mil    228.787mil  B        180.00 Res3           
+R9         0603_-_MONTAGEM_MÁQUINA       6189mil    228.787mil       6189mil    228.787mil    6221.48mil    228.787mil  B        180.00 Res3           
+R8         0603_-_MONTAGEM_MÁQUINA       4879mil    228.787mil       4879mil    228.787mil    4911.48mil    228.787mil  B        180.00 Res3           
+R7         0603_-_MONTAGEM_MÁQUINA       5397mil    421.992mil       5397mil    421.992mil       5397mil    389.512mil  B         90.00 Res3           
+R6         0603_-_MONTAGEM_MÁQUINA       5728mil    421.992mil       5728mil    421.992mil       5728mil    389.512mil  B         90.00 Res3           
+R5         0603_-_MONTAGEM_MÁQUINA       6061mil    421.992mil       6061mil    421.992mil       6061mil    389.512mil  B         90.00 Res3           
+R4         0603_-_MONTAGEM_MÁQUINA       6357mil    421.992mil       6357mil    421.992mil       6357mil    389.512mil  B         90.00 Res3           
+R3         0603_-_MONTAGEM_MÁQUINA       5090mil    421.992mil       5090mil    421.992mil       5090mil    389.512mil  B         90.00 Res3           
+R2         0603_-_MONTAGEM_MÁQUINA        436mil        418mil        436mil        418mil        436mil     450.48mil  B        270.00 Res3           
+R1         0603_-_MONTAGEM_MÁQUINA        604mil        689mil        604mil        689mil        604mil     721.48mil  B        270.00 Res3           
+Q21        SOT-23B               4562mil        804mil       4562mil        804mil   4599.402mil    754.787mil  B        180.00 QNPN           
+Q20        SOT-23B               4556mil        539mil       4556mil        539mil   4593.402mil    489.787mil  B        180.00 QNPN           
+Q19        SOT-23B               4562mil       1279mil       4562mil       1279mil   4599.402mil   1229.787mil  B        180.00 QNPN           
+Q18        SOT-23B               4558mil       1010mil       4558mil       1010mil   4595.402mil    960.787mil  B        180.00 QNPN           
+Q17        SOT-23B               3956mil        811mil       3956mil        811mil   3993.402mil    761.787mil  B        180.00 QNPN           
+Q16        SOT-23B               3955mil        539mil       3955mil        539mil   3992.402mil    489.787mil  B        180.00 QNPN           
+Q15        SOT-23B               3959mil       1288mil       3959mil       1288mil   3996.402mil   1238.787mil  B        180.00 QNPN           
+Q14        SOT-23B               3957mil       1016mil       3957mil       1016mil   3994.402mil    966.787mil  B        180.00 QNPN           
+Q13        SOT-23B               3352mil        807mil       3352mil        807mil   3389.402mil    757.787mil  B        180.00 QNPN           
+Q12        SOT-23B               3356mil        542mil       3356mil        542mil   3393.402mil    492.787mil  B        180.00 QNPN           
+Q11        SOT-23B               3354mil       1287mil       3354mil       1287mil   3391.402mil   1237.787mil  B        180.00 QNPN           
+Q10        SOT-23B               3358mil       1025mil       3358mil       1025mil   3395.402mil    975.787mil  B        180.00 QNPN           
+Q9         SOT-23B               2743mil        812mil       2743mil        812mil   2780.402mil    762.787mil  B        180.00 QNPN           
+Q8         SOT-23B               2745mil        570mil       2745mil        570mil   2782.402mil    520.787mil  B        180.00 QNPN           
+Q7         SOT-23B               2745mil       1273mil       2745mil       1273mil   2782.402mil   1223.787mil  B        180.00 QNPN           
+Q6         SOT-23B               2739mil       1036mil       2739mil       1036mil   2776.402mil    986.787mil  B        180.00 QNPN           
+Q5         SOT-23B               5392mil        278mil       5392mil        278mil   5342.787mil    240.598mil  B         90.00 QNPN           
+Q4         SOT-23B               5697mil        278mil       5697mil        278mil   5647.787mil    240.598mil  B         90.00 QNPN           
+Q3         SOT-23B               6021mil        278mil       6021mil        278mil   5971.787mil    240.598mil  B         90.00 QNPN           
+Q2         SOT-23B               6342mil        278mil       6342mil        278mil   6292.787mil    240.598mil  B         90.00 QNPN           
+Q1         SOT-23B               5045mil        278mil       5045mil        278mil   4995.787mil    240.598mil  B         90.00 QNPN           
+D9         Led_3mm_bicolor       4787mil    667.559mil       4787mil    667.559mil       4787mil    567.559mil  T          0.00 SSL-LX3059IGW-CA
+D8         Led_3mm_bicolor       4787mil       1140mil       4787mil       1140mil       4787mil       1040mil  T          0.00 SSL-LX3059IGW-CA
+D7         Led_3mm_bicolor       4182mil    667.559mil       4182mil    667.559mil       4182mil    567.559mil  T          0.00 SSL-LX3059IGW-CA
+D6         Led_3mm_bicolor       4182mil       1140mil       4182mil       1140mil       4182mil       1040mil  T          0.00 SSL-LX3059IGW-CA
+D5         Led_3mm_bicolor       3577mil    667.559mil       3577mil    667.559mil       3577mil    567.559mil  T          0.00 SSL-LX3059IGW-CA
+D4         Led_3mm_bicolor       3577mil       1140mil       3577mil       1140mil       3577mil       1040mil  T          0.00 SSL-LX3059IGW-CA
+D3         Led_3mm_bicolor       2972mil    667.559mil       2972mil    667.559mil       2972mil    567.559mil  T          0.00 SSL-LX3059IGW-CA
+D2         Led_3mm_bicolor       2972mil       1140mil       2972mil       1140mil       2972mil       1040mil  T          0.00 SSL-LX3059IGW-CA
+CN10       HDR1X2                5957mil       1297mil       5957mil       1247mil       5957mil       1247mil  B         90.00 Header 2       
+CN9        HDR1X2                6819mil        873mil       6819mil        823mil       6819mil        823mil  B         90.00 Header 2       
+CN8        HDR1X2                5571mil       1288mil       5571mil       1238mil       5571mil       1238mil  B         90.00 Header 2       
+CN7        HDR2X20               1563mil        284mil        613mil        334mil        613mil        334mil  B        360.00 Header 20X2    
+CN5        HDR1X2                5509mil        459mil       5509mil        409mil       5509mil        409mil  B         90.00 Header 2       
+CN4        HDR1X2                5840mil        459mil       5840mil        409mil       5840mil        409mil  B         90.00 Header 2       
+CN3        HDR1X2                6166mil        459mil       6166mil        409mil       6166mil        409mil  B         90.00 Header 2       
+CN2        HDR1X2                6468mil        459mil       6468mil        409mil       6468mil        409mil  B         90.00 Header 2       
+CN1        HDR1X2                5216mil        459mil       5216mil        409mil       5216mil        409mil  B         90.00 Header 2       
+C8         CASE-B                2011mil        643mil       2011mil        643mil       2011mil    548.512mil  T         90.00 Capacitor de tântalo
+C7         CASE-B                1113mil        643mil       1113mil        643mil       1113mil    548.512mil  T         90.00 Capacitor de tântalo
+C6         0603_-_CAP_-_montagem_na_maquina       6519mil        926mil       6519mil        926mil       6519mil     893.52mil  B         90.00 Capacitor Cerâmico SMD
+C5         0603_-_CAP_-_montagem_na_maquina       5853mil        835mil       5853mil        835mil       5853mil     867.48mil  B        270.00 Capacitor Cerâmico SMD
+C4         0603_-_CAP_-_montagem_na_maquina        406mil        853mil        406mil        853mil     373.52mil        853mil  B        360.00 Capacitor Cerâmico SMD
+C3         0603_-_CAP_-_montagem_na_maquina         90mil        592mil         90mil        592mil         90mil     624.48mil  B        270.00 Capacitor Cerâmico SMD
+C2         0603_-_CAP_-_montagem_na_maquina        199mil        592mil        199mil        592mil        199mil     624.48mil  B        270.00 Capacitor Cerâmico SMD
+C1         0603_-_CAP_-_montagem_na_maquina        313mil        468mil        313mil        468mil     345.48mil        468mil  B        180.00 Capacitor Cerâmico SMD
+Fab_orient TEXTO_FABRICACAO       -575mil       -700mil       2093mil       4632mil       -575mil       -700mil  T          0.00 Comment        
+AT1        LEIA_DOCUMENTACAO       -575mil       -700mil       2455mil        648mil       -575mil       -700mil  T          0.00 ##nl           
+ESD        ESTATICA              -575mil       -700mil       2461mil       1221mil       -575mil       -700mil  T          0.00 ##nl           
+ESD1       ESTATICA              -575mil       -700mil       1935mil       1227mil       -575mil       -700mil  B        180.00 ##nl           
+AT1        LEIA_DOCUMENTACAO       -575mil       -700mil       1942mil        661mil       -575mil       -700mil  B        180.00 ##nl           
+

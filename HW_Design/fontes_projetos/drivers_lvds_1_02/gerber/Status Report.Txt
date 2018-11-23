@@ -1,0 +1,10 @@
+Output: Generates pick and place files
+Type  : Pick Place
+From  : Variant [[No Variations]] of PCB Document [drivers_lvds.PcbDoc]
+   Generated File[Pick Place for drivers_lvds.txt]
+
+
+Files Generated   : 1
+Documents Printed : 0
+
+Finished Output Generation At 10:20:21 On 12/01/2017

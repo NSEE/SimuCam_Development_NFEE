@@ -1,0 +1,6 @@
+Change Component DesignItemId : Designator=TP_3V3 Old DesignItemId= New DesignItemId=TESTPOINT
+Change Component DesignItemId : Designator=TP_GND Old DesignItemId= New DesignItemId=TESTPOINT
+Change Component Description : Designator=TP_3V3 Old Description= New Description=Testpoint
+Change Component Description : Designator=TP_GND Old Description= New Description=Testpoint
+Change Component Library : Designator=TP_3V3 Old Library= New Library=Miscellaneous Devices.IntLib
+Change Component Library : Designator=TP_GND Old Library= New Library=Miscellaneous Devices.IntLib

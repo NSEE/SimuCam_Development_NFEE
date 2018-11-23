@@ -1,0 +1,74 @@
+Protel Design System Design Rule Check
+PCB File : C:\projetos\simulador_spacewire\hw\pim_drivers_lvds\pcb\drivers_lvds.PcbDoc
+Date     : 12/01/2017
+Time     : 10:07:34
+
+WARNING: Unplated multi-layer pad(s) detected
+   Pad FD3-0(1080mil,320mil) on Multi-Layer on Net GND
+   Pad FD1-0(505mil,2365mil) on Multi-Layer on Net GND
+   Pad FD2-0(2020mil,2355mil) on Multi-Layer on Net GND
+
+WARNING: Multilayer Pads with 0 size Hole found
+   Pad FD3-0(1080mil,320mil) on Multi-Layer
+   Pad FD1-0(505mil,2365mil) on Multi-Layer
+   Pad FD2-0(2020mil,2355mil) on Multi-Layer
+   Pad CN1-5(170mil,2230mil) on Multi-Layer
+   Pad CN2-5(170mil,1610mil) on Multi-Layer
+   Pad CN3-5(170mil,990mil) on Multi-Layer
+   Pad CN4-5(170mil,370mil) on Multi-Layer
+   Pad CN8-4(2440mil,400mil) on Multi-Layer
+   Pad CN7-4(2440mil,920mil) on Multi-Layer
+   Pad CN6-4(2440mil,1440mil) on Multi-Layer
+   Pad CN5-4(2440mil,1960mil) on Multi-Layer
+
+Processing Rule : Clearance Constraint (Gap=7mil) (((InComponent('JS1'))  Or  HasFootprint('VBC48A_N') Or InComponent('CN21')) Or IsTrack),(All)
+Rule Violations :0
+
+Processing Rule : Net Antennae (Tolerance=0mil) (All)
+Rule Violations :0
+
+Processing Rule : Silk to Silk (Clearance=5mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Silk To Solder Mask (Clearance=0mil) (IsPad),(All)
+Rule Violations :0
+
+Processing Rule : Minimum Solder Mask Sliver (Gap=0mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole To Hole Clearance (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Hole Size Constraint (Min=0mil) (Max=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=10mil) (Max=25mil) (Preferred=10mil) (All)
+Rule Violations :0
+
+Processing Rule : Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=10mil) (All),(All)
+Rule Violations :0
+
+Processing Rule : Un-Routed Net Constraint ( (All) )
+Rule Violations :0
+
+Processing Rule : Short-Circuit Constraint (Allowed=No) (All),(All)
+Rule Violations :0
+
+Processing Rule : Width Constraint (Min=12mil) (Max=25mil) (Preferred=20mil) (InNetClass(Alim))
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=20mil) (InNamedPolygon('gnd_top')),(All)
+Rule Violations :0
+
+Processing Rule : Clearance Constraint (Gap=20mil) (InNamedPolygon('gnd_bottom')),(All)
+Rule Violations :0
+
+
+Violations Detected : 0
+Time Elapsed        : 00:00:04

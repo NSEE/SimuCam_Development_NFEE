@@ -1,0 +1,1877 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <title>Report</title>
+  <style type="text/css">
+body { font-family:arial ;}
+a { text-decoration:underline ; color:#003000 ;}
+a:hover { text-decoration:underline ; color:0030f0 ;}
+td { padding : 5px ;}
+table.topTitle { width:100% ;}
+table.topTitle td.l { text-align:left ; font-weight: bold ; font-size:30px ;}
+table.topTitle td.r { text-align:right ; font-weight: bold ; font-size:16px ;}
+table.blueBar { width : 100% ; border-spacing : 0px ;}
+table.blueBar td { background:#0036ff ; font-size:12px ; color : white ; text-align : left ; font-weight : bold ;}
+table.blueBar td.l { text-align : left ;}
+table.blueBar td.r { text-align : right ;}
+table.items { width:100% ; border-collapse:collapse ;}
+table.items td.label { font-weight:bold ; font-size:16px ; vertical-align:top ;}
+table.items td.mono { font-family:courier ; font-size:12px ; white-space:pre ;}
+div.label { font-weight:bold ; font-size:16px ; vertical-align:top ; text-align:center ;}
+table.grid { border-collapse:collapse ;}
+table.grid td { border:1px solid #bbb ; font-size:12px ;}
+body { font-family:arial ;}
+table.x { font-family:courier ; border-collapse:collapse ; padding:2px ;}
+table.x td { border:1px solid #bbb ;}
+td.tableTitle { font-weight:bold ; text-align:center ;}
+table.grid { border-collapse:collapse ;}
+table.grid td { border:1px solid #bbb ;}
+table.grid td.tableTitle { font-weight:bold ; text-align:center ;}
+table.mmap { border-collapse:collapse ; text-size:11px ; border:1px solid #d8d8d8 ;}
+table.mmap td { border-color:#d8d8d8 ; border-width:1px ; border-style:solid ;}
+table.mmap td.empty { border-style:none ; background-color:#f0f0f0 ;}
+table.mmap td.slavemodule { text-align:left ; font-size:11px ; border-style:solid solid none solid ;}
+table.mmap td.slavem { text-align:right ; font-size:9px ; font-style:italic ; border-style:none solid none solid ;}
+table.mmap td.slaveb { text-align:right ; font-size:9px ; font-style:italic ; border-style:none solid solid solid ;}
+table.mmap td.mastermodule { text-align:center ; font-size:11px ; border-style:solid solid none solid ;}
+table.mmap td.masterlr { text-align:center ; font-size:9px ; font-style:italic ; border-style:none solid solid solid ;}
+table.mmap td.masterl { text-align:center ; font-size:9px ; font-style:italic ; border-style:none none solid solid ;}
+table.mmap td.masterm { text-align:center ; font-size:9px ; font-style:italic ; border-style:none none solid none ;}
+table.mmap td.masterr { text-align:center ; font-size:9px ; font-style:italic ; border-style:none solid solid none ;}
+table.mmap td.addr { font-family:courier ; font-size:9px ; text-align:right ;}
+table.connectionboxes { border-collapse:separate ; border-spacing:0px ; font-family:arial ;}
+table.connectionboxes td.from { border-bottom:1px solid black ; font-size:9px ; font-style:italic ; vertical-align:bottom ; text-align:left ;}
+table.connectionboxes td.to { font-size:9px ; font-style:italic ; vertical-align:top ; text-align:right ;}
+table.connectionboxes td.lefthandwire { border-bottom:1px solid black ; font-size:9px ; font-style:italic ; vertical-align:bottom ; text-align:right ;}
+table.connectionboxes td.righthandwire { border-bottom:1px solid black ; font-size:9px ; font-style:italic ; vertical-align:bottom ; text-align:left ;}
+table.connectionboxes td.righthandlabel { font-size:11px ; vertical-align:bottom ; text-align:left ;}
+table.connectionboxes td.neighbor { padding:3px ; border:1px solid black ; font-size: 11px ; background:#e8e8e8 ; vertical-align:center ; text-align:center ;}
+table.connectionboxes td.main { padding:8px ; border:1px solid black ; font-size: 14px ; font-weight:bold ; background:#ffffff ; vertical-align:center ; text-align:center ;}
+.parametersbox { border:1px solid #d0d0d0 ; display:inline-block ; max-height:160px ; overflow:auto ; width:360px ; font-size:10px ;}
+.flowbox { display:inline-block ;}
+.parametersbox table { font-size:10px ;}
+td.parametername { font-style:italic ;}
+td.parametervalue { font-weight:bold ;}
+div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; border-top:1px solid #707070 ; border-bottom:1px solid #707070 ; padding:20px ; margin:20px ; width:auto ;}</style>
+ </head>
+ <body>
+  <table class="topTitle">
+   <tr>
+    <td class="l">DE4_SOPC</td>
+    <td class="r">DE4_SOPC
+     <br/>1.0
+     <br/>
+    </td>
+   </tr>
+  </table>
+  <table class="blueBar">
+   <tr>
+    <td class="l">2012.02.03.13:47:45</td>
+    <td class="r">Generation Report</td>
+   </tr>
+  </table>
+  <table class="items">
+   <tr>
+    <td class="label">Output Directory</td>
+    <td class="mono">D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/</td>
+   </tr>
+   <tr>
+    <td class="label">Files</td>
+    <td class="mono">D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/DE4_SOPC.v (888641 bytes VERILOG)
+     <br/>
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_onchip_memory.hex (2688030 bytes HEX)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_onchip_memory.v (4028 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_jtag_uart.v (23819 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_jtag_uart_input_mutex.dat (3 bytes OTHER)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_jtag_uart_input_stream.dat (10 bytes OTHER)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_jtag_uart_output_stream.dat (0 bytes OTHER)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_high_res_timer.v (7014 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_sys_timer.v (6956 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_tse_mac.v (17971 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_tse_mac_constraints.sdc (31316 bytes SDC)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_tse_mac_constraints.tcl (14694 bytes OTHER)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_tse_mac_loopback.v (3200 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_align_sync.v (5944 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_alt2gxb_arriagx.v (20936 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_alt2gxb_basic.v (21836 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_alt2gxb_gige.v (26480 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_alt2gxb_gige_wo_rmfifo.v (26566 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_alt4gxb_gige.v (76156 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_alt4gxb_gige_wo_rmfifo.v (76191 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_altgx_civgx_gige.v (60400 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_altgx_civgx_gige_wo_rmfifo.v (60466 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_altshifttaps.v (1696 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_altsyncram_dpm_fifo.v (2888 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_a_fifo_13.v (7656 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_a_fifo_24.v (6736 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_a_fifo_34.v (6152 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_a_fifo_opt_1246.v (13488 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_a_fifo_opt_14_44.v (11520 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_a_fifo_opt_36_10.v (14536 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_bin_cnt.v (2448 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_carrier_sense.v (3392 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_clk_cntl.v (4104 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_clk_gen.v (1168 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_colision_detect.v (3520 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_crc328checker.v (3808 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_crc328generator.v (2696 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_crc32ctl8.v (1848 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_crc32galois8.v (6976 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_dc_fifo.v (7920 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_dec10b8b.v (6304 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_dec_func.v (45008 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_dpram_16x32.v (9720 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_dpram_8x32.v (9712 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_enc8b10b.v (12248 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_fifoless_mac_rx.v (118424 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_fifoless_mac_tx.v (95408 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_fifoless_retransmit_cntl.v (27544 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_geth_pcs_wo_ratematch.v (20424 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_gige_reset_ctrl.v (21928 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_gmii_io.v (5704 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_gray_cnt.v (4136 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_gxb_aligned_rxsync.v (11835 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_gxb_gige_inst.v (15351 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_gxb_gige_phyip_inst.v (8683 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_hashing.v (3816 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_host_control.v (11984 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_host_control_small.v (10984 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_lb_read_cntl.v (2816 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_lb_wrt_cntl.v (3312 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_lfsr_10.v (3224 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_loopback_ff.v (6224 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_lvds_reset_sequencer.v (4447 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac.v (17960 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_control.v (44032 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs.v (20711 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_gige_woff.v (24408 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_pma.v (18042 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_pma_ena.v (20328 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_pma_gige.v (20742 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_pma_gige_phyip.v (19542 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_pma_strx_gx_ena.v (20848 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_pcs_woff.v (23904 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_rx.v (110792 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_tx.v (84104 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_woff.ocp (1744 bytes unknown type)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mac_woff.v (54384 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_magic_detection.v (17104 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mdio.v (16952 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mdio_clk_gen.v (2576 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mdio_cntl.v (8424 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mdio_reg.v (25144 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mii_rx_if.v (7328 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mii_rx_if_pcs.v (6776 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mii_tx_if.v (5312 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_mii_tx_if_pcs.v (3528 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_multi_channel_arbiter.v (8960 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_multi_mac.v (180844 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_multi_mac_pcs.v (141670 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_multi_mac_pcs_pma.v (251314 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_multi_mac_pcs_pma_gige.v (324239 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_multi_mac_pcs_pma_gige_phyip.v (274075 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pcs.v (7088 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pcs_control.v (6048 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pcs_host_control.v (12216 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pcs_pma.v (12261 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pcs_pma_gige.v (15243 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pcs_pma_gige_phyip.v (13468 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pma_lvds_rx.v (12598 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_pma_lvds_tx.v (8490 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_quad_16x32.v (8032 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_quad_8x32.v (8024 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_register_map.v (82256 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_register_map_small.v (75064 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_reset_ctrl_lego.sv (10161 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_reset_sequencer.sv (8400 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_reset_synchronizer.v (3349 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_retransmit_cntl.v (25304 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rgmii_in1.v (4277 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rgmii_in4.v (4192 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rgmii_module.v (7700 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rgmii_out1.v (4468 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rgmii_out4.v (4352 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_converter.v (6856 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_counter_cntl.v (20736 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_encapsulation.v (20944 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_encapsulation_strx_gx.v (26144 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_ff.v (21968 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_ff_cntrl.v (19976 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_ff_cntrl_32.v (21560 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_ff_cntrl_32_shift16.v (29992 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_ff_length.v (3112 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_fifo_rd.v (3976 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_min_ff.v (27856 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_stat_extract.v (14984 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_rx_sync.v (11224 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_sdpm_altsyncram.v (2984 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_sdpm_gen.v (1712 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_sgmii_clk_cntl.v (3864 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_sgmii_clk_div.v (2152 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_sgmii_clk_enable.v (2904 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_sgmii_clk_scheduler.v (3688 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_shared_mac_control.v (29840 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_shared_register_map.v (77432 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_timing_adapter32.v (4704 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_timing_adapter8.v (4512 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_timing_adapter_fifo32.v (11360 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_timing_adapter_fifo8.v (11352 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_1000_base_x.ocp (1688 bytes unknown type)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_1000_base_x.v (13824 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_1000_base_x_strx_gx.ocp (1664 bytes unknown type)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_1000_base_x_strx_gx.v (12920 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_1geth.v (29688 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_autoneg.v (23888 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_fifoless_1geth.v (30000 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_gen_host.ocp (1672 bytes unknown type)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_gen_host.v (63680 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_mdio.v (6280 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_multi_mac.v (278640 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_multi_mac_pcs.v (235456 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_multi_mac_pcs_gige.v (244528 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_pcs.v (6440 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_pcs_strx_gx.v (6624 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_rx.v (5752 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_rx_converter.v (9552 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_sgmii.v (8136 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_sgmii_strx_gx.v (8440 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_tx.v (4704 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_tx_converter.v (9880 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_wo_fifo.v (30040 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_wo_fifo_10_100_1000.v (39592 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_w_fifo.v (48784 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_top_w_fifo_10_100_1000.v (45800 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_converter.v (6496 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_counter_cntl.v (15520 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_encapsulation.v (14944 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_ff.v (43256 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_ff_cntrl.v (9664 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_ff_cntrl_32.v (11448 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_ff_cntrl_32_shift16.v (15872 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_ff_length.v (2320 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_ff_read_cntl.v (9144 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_min_ff.v (27160 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_tx_stat_extract.v (13512 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tse_xcvr_resync.v (2673 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_sgdma_tx.v (94174 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_sgdma_rx.v (91983 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_descriptor_memory.hex (10765 bytes HEX)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_descriptor_memory.v (4076 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_led_pio.v (2240 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_sw_pio.v (1915 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_pb_pio.v (1915 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_seven_seg_pio.v (2315 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_mm_clock_crossing_bridge.v (10052 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_dc_fifo.v (23570 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_dcfifo_synchronizer_bundle.v (1458 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu.ocp (848 bytes OTHER)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu.sdc (3743 bytes SDC)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu.v (439176 bytes VERILOG_ENCRYPT)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_bht_ram.mif (2392 bytes MIF)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_dc_tag_ram.mif (920 bytes MIF)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_ic_tag_ram.mif (1881 bytes MIF)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_jtag_debug_module_sysclk.v (7033 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_jtag_debug_module_tck.v (8319 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_jtag_debug_module_wrapper.v (10163 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_mult_cell.v (4773 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_ociram_default_contents.mif (5714 bytes MIF)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_oci_test_bench.v (1468 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_rf_ram_a.mif (600 bytes MIF)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_rf_ram_b.mif (600 bytes MIF)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cpu_test_bench.v (31415 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_sysid.v (1447 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_flash_tristate_bridge_bridge_0.sv (5715 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0.v (4981 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0_pin_sharer.sv (4127 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_std_arbitrator_core.sv (8940 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0_arbiter.sv (2882 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_ext_flash.v (28099 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tristate_controller_translator.sv (7099 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_slave_translator.sv (16043 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_tristate_controller_aggregator.sv (9385 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_altpll_0.v (11073 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_master_translator.sv (16802 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_slave_agent.sv (19132 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_burst_uncompressor.sv (10373 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_sc_fifo.v (32228 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_master_agent.sv (8686 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_addr_router.sv (6755 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_addr_router_001.sv (9611 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_addr_router_002.sv (6052 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_addr_router_006.sv (6050 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_id_router.sv (6043 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_id_router_001.sv (6225 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_id_router_002.sv (6055 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_id_router_003.sv (5973 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_id_router_010.sv (6313 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_addr_router_008.sv (6927 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_id_router_013.sv (5967 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_traffic_limiter.sv (12802 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_st_pipeline_base.v (4716 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_burst_adapter.sv (37064 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_reset_controller.v (3595 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_reset_synchronizer.v (3564 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_reset_controller.sdc (1179 bytes SDC)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_demux.sv (4758 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_demux_001.sv (11183 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_demux_002.sv (3492 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_demux_003.sv (3487 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_arbitrator.sv (9460 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_mux.sv (11844 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_mux_001.sv (13554 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_mux_010.sv (14405 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_demux.sv (4113 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_demux_001.sv (5389 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_demux_010.sv (6023 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_mux.sv (12048 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_mux_001.sv (20206 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_cmd_xbar_demux_008.sv (5390 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_demux_013.sv (3482 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_rsp_xbar_mux_008.sv (12855 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_width_adapter.sv (35861 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_st_handshake_clock_crosser.v (7493 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_st_clock_crosser.v (4900 bytes VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/DE4_SOPC_irq_mapper.sv (2080 bytes SYSTEM_VERILOG)
+     <br/>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_irq_clock_crosser.sv (1651 bytes SYSTEM_VERILOG)
+     <br/>
+    </td>
+   </tr>
+   <tr>
+    <td class="label">Instantiations</td>
+    <td class="mono">
+     <table class="grid">
+      <tr>
+       <td><b>DE4_SOPC</b>
+        <br/>DE4_SOPC v1.0</td>
+       <td><b>DE4_SOPC_onchip_memory</b> as onchip_memory
+        <br/><b>DE4_SOPC_jtag_uart</b> as jtag_uart
+        <br/><b>DE4_SOPC_high_res_timer</b> as high_res_timer
+        <br/><b>DE4_SOPC_sys_timer</b> as sys_timer
+        <br/><b>DE4_SOPC_tse_mac</b> as tse_mac
+        <br/><b>DE4_SOPC_sgdma_tx</b> as sgdma_tx
+        <br/><b>DE4_SOPC_sgdma_rx</b> as sgdma_rx
+        <br/><b>DE4_SOPC_descriptor_memory</b> as descriptor_memory
+        <br/><b>DE4_SOPC_led_pio</b> as led_pio
+        <br/><b>DE4_SOPC_sw_pio</b> as sw_pio
+        <br/><b>DE4_SOPC_pb_pio</b> as pb_pio
+        <br/><b>DE4_SOPC_seven_seg_pio</b> as seven_seg_pio
+        <br/><b>altera_avalon_mm_clock_crossing_bridge</b> as peripheral_clock_crossing
+        <br/><b>DE4_SOPC_cpu</b> as cpu
+        <br/><b>DE4_SOPC_sysid</b> as sysid
+        <br/><b>DE4_SOPC_flash_tristate_bridge_bridge_0</b> as flash_tristate_bridge_bridge_0
+        <br/><b>DE4_SOPC_flash_tristate_bridge_pinSharer_0</b> as flash_tristate_bridge_pinSharer_0
+        <br/><b>DE4_SOPC_ext_flash</b> as ext_flash
+        <br/><b>DE4_SOPC_altpll_0</b> as altpll_0
+        <br/><b>altera_merlin_master_translator</b> as cpu_instruction_master_translator, cpu_data_master_translator, sgdma_rx_descriptor_read_translator, sgdma_rx_descriptor_write_translator, sgdma_tx_descriptor_read_translator, sgdma_tx_descriptor_write_translator, sgdma_rx_m_write_translator, sgdma_tx_m_read_translator, peripheral_clock_crossing_m0_translator
+        <br/><b>altera_merlin_slave_translator</b> as cpu_jtag_debug_module_translator, onchip_memory_s1_translator, ext_flash_uas_translator, sysid_control_slave_translator, jtag_uart_avalon_jtag_slave_translator, high_res_timer_s1_translator, sys_timer_s1_translator, tse_mac_control_port_translator, sgdma_tx_csr_translator, sgdma_rx_csr_translator, descriptor_memory_s1_translator, peripheral_clock_crossing_s0_translator, altpll_0_pll_slave_translator, led_pio_s1_translator, sw_pio_s1_translator, pb_pio_s1_translator, seven_seg_pio_s1_translator
+        <br/><b>altera_merlin_slave_agent</b> as high_res_timer_s1_translator_avalon_universal_slave_0_agent, cpu_jtag_debug_module_translator_avalon_universal_slave_0_agent, ext_flash_uas_translator_avalon_universal_slave_0_agent, peripheral_clock_crossing_s0_translator_avalon_universal_slave_0_agent, sys_timer_s1_translator_avalon_universal_slave_0_agent, sgdma_tx_csr_translator_avalon_universal_slave_0_agent, sysid_control_slave_translator_avalon_universal_slave_0_agent, tse_mac_control_port_translator_avalon_universal_slave_0_agent, sgdma_rx_csr_translator_avalon_universal_slave_0_agent, onchip_memory_s1_translator_avalon_universal_slave_0_agent, descriptor_memory_s1_translator_avalon_universal_slave_0_agent, altpll_0_pll_slave_translator_avalon_universal_slave_0_agent, jtag_uart_avalon_jtag_slave_translator_avalon_universal_slave_0_agent, seven_seg_pio_s1_translator_avalon_universal_slave_0_agent, sw_pio_s1_translator_avalon_universal_slave_0_agent, led_pio_s1_translator_avalon_universal_slave_0_agent, pb_pio_s1_translator_avalon_universal_slave_0_agent
+        <br/><b>altera_avalon_sc_fifo</b> as high_res_timer_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, high_res_timer_s1_translator_avalon_universal_slave_0_agent_rdata_fifo, cpu_jtag_debug_module_translator_avalon_universal_slave_0_agent_rsp_fifo, ext_flash_uas_translator_avalon_universal_slave_0_agent_rsp_fifo, peripheral_clock_crossing_s0_translator_avalon_universal_slave_0_agent_rsp_fifo, sys_timer_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, sys_timer_s1_translator_avalon_universal_slave_0_agent_rdata_fifo, sgdma_tx_csr_translator_avalon_universal_slave_0_agent_rsp_fifo, sysid_control_slave_translator_avalon_universal_slave_0_agent_rsp_fifo, sysid_control_slave_translator_avalon_universal_slave_0_agent_rdata_fifo, tse_mac_control_port_translator_avalon_universal_slave_0_agent_rsp_fifo, sgdma_rx_csr_translator_avalon_universal_slave_0_agent_rsp_fifo, onchip_memory_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, descriptor_memory_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, altpll_0_pll_slave_translator_avalon_universal_slave_0_agent_rsp_fifo, altpll_0_pll_slave_translator_avalon_universal_slave_0_agent_rdata_fifo, jtag_uart_avalon_jtag_slave_translator_avalon_universal_slave_0_agent_rsp_fifo, seven_seg_pio_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, sw_pio_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, led_pio_s1_translator_avalon_universal_slave_0_agent_rsp_fifo, pb_pio_s1_translator_avalon_universal_slave_0_agent_rsp_fifo
+        <br/><b>altera_merlin_master_agent</b> as sgdma_rx_m_write_translator_avalon_universal_master_0_agent, sgdma_rx_descriptor_write_translator_avalon_universal_master_0_agent, sgdma_tx_m_read_translator_avalon_universal_master_0_agent, sgdma_tx_descriptor_read_translator_avalon_universal_master_0_agent, sgdma_tx_descriptor_write_translator_avalon_universal_master_0_agent, cpu_instruction_master_translator_avalon_universal_master_0_agent, sgdma_rx_descriptor_read_translator_avalon_universal_master_0_agent, cpu_data_master_translator_avalon_universal_master_0_agent, peripheral_clock_crossing_m0_translator_avalon_universal_master_0_agent
+        <br/><b>DE4_SOPC_addr_router</b> as addr_router
+        <br/><b>DE4_SOPC_addr_router_001</b> as addr_router_001
+        <br/><b>DE4_SOPC_addr_router_002</b> as addr_router_002, addr_router_003, addr_router_004, addr_router_005
+        <br/><b>DE4_SOPC_addr_router_006</b> as addr_router_006, addr_router_007
+        <br/><b>DE4_SOPC_id_router</b> as id_router
+        <br/><b>DE4_SOPC_id_router_001</b> as id_router_001
+        <br/><b>DE4_SOPC_id_router_002</b> as id_router_002
+        <br/><b>DE4_SOPC_id_router_003</b> as id_router_003, id_router_004, id_router_005, id_router_006, id_router_007, id_router_008, id_router_009, id_router_011, id_router_012
+        <br/><b>DE4_SOPC_id_router_010</b> as id_router_010
+        <br/><b>DE4_SOPC_addr_router_008</b> as addr_router_008
+        <br/><b>DE4_SOPC_id_router_013</b> as id_router_013, id_router_014, id_router_015, id_router_016
+        <br/><b>altera_merlin_traffic_limiter</b> as limiter, limiter_001, limiter_002, limiter_003, limiter_004, limiter_005
+        <br/><b>altera_merlin_burst_adapter</b> as burst_adapter
+        <br/><b>altera_reset_controller</b> as rst_controller, rst_controller_001, rst_controller_002
+        <br/><b>DE4_SOPC_cmd_xbar_demux</b> as cmd_xbar_demux
+        <br/><b>DE4_SOPC_cmd_xbar_demux_001</b> as cmd_xbar_demux_001
+        <br/><b>DE4_SOPC_cmd_xbar_demux_002</b> as cmd_xbar_demux_002, cmd_xbar_demux_004, cmd_xbar_demux_007
+        <br/><b>DE4_SOPC_cmd_xbar_demux_003</b> as cmd_xbar_demux_003, cmd_xbar_demux_005, cmd_xbar_demux_006, rsp_xbar_demux_003, rsp_xbar_demux_004, rsp_xbar_demux_005, rsp_xbar_demux_006, rsp_xbar_demux_007, rsp_xbar_demux_008, rsp_xbar_demux_009, rsp_xbar_demux_011, rsp_xbar_demux_012
+        <br/><b>DE4_SOPC_cmd_xbar_mux</b> as cmd_xbar_mux, cmd_xbar_mux_002
+        <br/><b>DE4_SOPC_cmd_xbar_mux_001</b> as cmd_xbar_mux_001
+        <br/><b>DE4_SOPC_cmd_xbar_mux_010</b> as cmd_xbar_mux_010
+        <br/><b>DE4_SOPC_rsp_xbar_demux</b> as rsp_xbar_demux, rsp_xbar_demux_002
+        <br/><b>DE4_SOPC_rsp_xbar_demux_001</b> as rsp_xbar_demux_001
+        <br/><b>DE4_SOPC_rsp_xbar_demux_010</b> as rsp_xbar_demux_010
+        <br/><b>DE4_SOPC_rsp_xbar_mux</b> as rsp_xbar_mux
+        <br/><b>DE4_SOPC_rsp_xbar_mux_001</b> as rsp_xbar_mux_001
+        <br/><b>DE4_SOPC_cmd_xbar_demux_008</b> as cmd_xbar_demux_008
+        <br/><b>DE4_SOPC_rsp_xbar_demux_013</b> as rsp_xbar_demux_013, rsp_xbar_demux_014, rsp_xbar_demux_015, rsp_xbar_demux_016
+        <br/><b>DE4_SOPC_rsp_xbar_mux_008</b> as rsp_xbar_mux_008
+        <br/><b>altera_merlin_width_adapter</b> as width_adapter, width_adapter_001
+        <br/><b>altera_avalon_st_handshake_clock_crosser</b> as crosser, crosser_001, crosser_002, crosser_003, crosser_004, crosser_005, crosser_006, crosser_007
+        <br/><b>DE4_SOPC_irq_mapper</b> as irq_mapper
+        <br/><b>altera_irq_clock_crosser</b> as irq_synchronizer, irq_synchronizer_001
+        <br/>
+       </td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_onchip_memory</b>
+        <br/>altera_avalon_onchip_memory2 v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_jtag_uart</b>
+        <br/>altera_avalon_jtag_uart v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_high_res_timer</b>
+        <br/>altera_avalon_timer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_sys_timer</b>
+        <br/>altera_avalon_timer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_tse_mac</b>
+        <br/>triple_speed_ethernet v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_sgdma_tx</b>
+        <br/>altera_avalon_sgdma v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_sgdma_rx</b>
+        <br/>altera_avalon_sgdma v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_descriptor_memory</b>
+        <br/>altera_avalon_onchip_memory2 v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_led_pio</b>
+        <br/>altera_avalon_pio v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_sw_pio</b>
+        <br/>altera_avalon_pio v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_pb_pio</b>
+        <br/>altera_avalon_pio v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_seven_seg_pio</b>
+        <br/>altera_avalon_pio v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_avalon_mm_clock_crossing_bridge</b>
+        <br/>altera_avalon_mm_clock_crossing_bridge v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cpu</b>
+        <br/>altera_nios2_qsys v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_sysid</b>
+        <br/>altera_avalon_sysid_qsys v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_flash_tristate_bridge_bridge_0</b>
+        <br/>altera_tristate_conduit_bridge v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_flash_tristate_bridge_pinSharer_0</b>
+        <br/>altera_tristate_conduit_pin_sharer v11.1</td>
+       <td><b>DE4_SOPC_flash_tristate_bridge_pinSharer_0_pin_sharer</b> as pin_sharer
+        <br/><b>DE4_SOPC_flash_tristate_bridge_pinSharer_0_arbiter</b> as arbiter
+        <br/>
+       </td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_ext_flash</b>
+        <br/>altera_generic_tristate_controller v11.1</td>
+       <td><b>altera_tristate_controller_translator</b> as tdt
+        <br/><b>altera_merlin_slave_translator</b> as slave_translator
+        <br/><b>altera_tristate_controller_aggregator</b> as tda
+        <br/>
+       </td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_altpll_0</b>
+        <br/>altpll v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_master_translator</b>
+        <br/>altera_merlin_master_translator v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_slave_translator</b>
+        <br/>altera_merlin_slave_translator v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_slave_agent</b>
+        <br/>altera_merlin_slave_agent v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_avalon_sc_fifo</b>
+        <br/>altera_avalon_sc_fifo v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_master_agent</b>
+        <br/>altera_merlin_master_agent v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_addr_router</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_addr_router_001</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_addr_router_002</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_addr_router_006</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_id_router</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_id_router_001</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_id_router_002</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_id_router_003</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_id_router_010</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_addr_router_008</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_id_router_013</b>
+        <br/>altera_merlin_router v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_traffic_limiter</b>
+        <br/>altera_merlin_traffic_limiter v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_burst_adapter</b>
+        <br/>altera_merlin_burst_adapter v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_reset_controller</b>
+        <br/>altera_reset_controller v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_demux</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_demux_001</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_demux_002</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_demux_003</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_mux</b>
+        <br/>altera_merlin_multiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_mux_001</b>
+        <br/>altera_merlin_multiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_mux_010</b>
+        <br/>altera_merlin_multiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_demux</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_demux_001</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_demux_010</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_mux</b>
+        <br/>altera_merlin_multiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_mux_001</b>
+        <br/>altera_merlin_multiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_cmd_xbar_demux_008</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_demux_013</b>
+        <br/>altera_merlin_demultiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_rsp_xbar_mux_008</b>
+        <br/>altera_merlin_multiplexer v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_merlin_width_adapter</b>
+        <br/>altera_merlin_width_adapter v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_avalon_st_handshake_clock_crosser</b>
+        <br/>altera_avalon_st_handshake_clock_crosser v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_irq_mapper</b>
+        <br/>altera_irq_mapper v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_irq_clock_crosser</b>
+        <br/>altera_irq_clock_crosser v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_flash_tristate_bridge_pinSharer_0_pin_sharer</b>
+        <br/>altera_tristate_conduit_pin_sharer_core v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>DE4_SOPC_flash_tristate_bridge_pinSharer_0_arbiter</b>
+        <br/>altera_merlin_std_arbitrator v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_tristate_controller_translator</b>
+        <br/>altera_tristate_controller_translator v11.1</td>
+       <td></td>
+      </tr>
+      <tr>
+       <td><b>altera_tristate_controller_aggregator</b>
+        <br/>altera_tristate_controller_aggregator v11.1</td>
+       <td></td>
+      </tr>
+     </table>
+    </td>
+   </tr>
+  </table>
+  <div style="width:100% ;  height:10px"> </div>
+  <div class="label">Generation Messages</div>
+  <div style="white-space:pre ; font-family:courier">2012.02.03.13:45:42 [Info] DE4_SOPC.onchip_memory: Memory will be initialized from onchip_memory.hex
+2012.02.03.13:45:42 [Info] DE4_SOPC.tse_mac: MII/GMII is automatically selected in 10/100/1000 Mb Ethernet MAC with 1000BASE-X/SGMII PCS core variations
+2012.02.03.13:45:42 [Info] DE4_SOPC.descriptor_memory: Memory will be initialized from descriptor_memory.hex
+2012.02.03.13:45:42 [Info] DE4_SOPC.sw_pio: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+2012.02.03.13:45:42 [Info] DE4_SOPC.pb_pio: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
+2012.02.03.13:45:42 [Debug] DE4_SOPC.peripheral_clock_crossing: Timing: ELA:1/0.000s
+2012.02.03.13:41:48 [Debug] DE4_SOPC.altera_nios2_qsys: When a generate simulation callback is defined a synthesis generation callback should also be defined
+2012.02.03.13:45:41 [Info] DE4_SOPC.cpu: CPUID control register value is 0. Please manually assign CPUID if creating multiple Nios II system
+2012.02.03.13:45:42 [Debug] DE4_SOPC.cpu: Timing: VAL:1/0.046s ELA:1/0.000s
+2012.02.03.13:45:42 [Info] DE4_SOPC.sysid: System ID will no longer be automatically assigned.
+2012.02.03.13:45:42 [Info] DE4_SOPC.sysid: Time stamp will be automatically updated when this component is generated.
+2012.02.03.13:45:42 [Debug] DE4_SOPC.sysid: Timing: VAL:2/0.000s/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.flash_tristate_bridge_bridge_0: Timing: ELA:1/0.000s
+2012.02.03.13:45:41 [Debug] DE4_SOPC.flash_tristate_bridge_pinSharer_0.clock: Timing: ELA:2/0.000s/0.000s
+2012.02.03.13:45:41 [Debug] DE4_SOPC.flash_tristate_bridge_pinSharer_0.reset: Timing: ELA:2/0.008s/0.016s
+2012.02.03.13:45:41 [Debug] DE4_SOPC.flash_tristate_bridge_pinSharer_0.pin_sharer: Timing: ELA:10/0.006s/0.016s
+2012.02.03.13:45:41 [Debug] DE4_SOPC.flash_tristate_bridge_pinSharer_0.arbiter: Timing: ELA:2/0.000s/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.flash_tristate_bridge_pinSharer_0: Timing: COM:1/0.093s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.ext_flash.clk: Timing: ELA:2/0.000s/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.ext_flash.reset: Timing: ELA:2/0.000s/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.ext_flash.tdt: Timing: ELA:4/0.000s/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.ext_flash.slave_translator: Timing: ELA:5/0.000s/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.ext_flash.tda: Timing: ELA:4/0.008s/0.016s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.ext_flash: Timing: COM:1/0.015s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.c0: Timing: ELA:1/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.c1: Timing: ELA:1/0.000s
+2012.02.03.13:45:42 [Debug] DE4_SOPC.altpll_0: Timing: VAL:1/0.016s ELA:1/0.000s
+2012.02.03.13:45:42 [Info] DE4_SOPC: Generating <b>DE4_SOPC</b> "<b>DE4_SOPC</b>" for QUARTUS_SYNTH
+2012.02.03.13:45:42 [Debug] DE4_SOPC: queue size: 0 starting:DE4_SOPC "DE4_SOPC"
+2012.02.03.13:45:42 [Debug] Transform: PipelineBridgeSwap
+2012.02.03.13:45:42 [Info] pipeline_bridge_swap_transform: After transform: <b>22</b> modules, <b>98</b> connections
+2012.02.03.13:45:42 [Debug] Transform: ClockCrossingBridgeSwap
+2012.02.03.13:45:42 [Debug] Transform: QsysBetaIPSwap
+2012.02.03.13:45:42 [Debug] Transform: CustomInstructionTransform
+2012.02.03.13:45:42 [Info] No custom instruction connections, skipping transform 
+2012.02.03.13:45:42 [Debug] Transform: TristateConduitUpgradeTransform
+2012.02.03.13:45:43 [Debug] Transform: TranslatorTransform
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Info] merlin_translator_transform: After transform: <b>48</b> modules, <b>201</b> connections
+2012.02.03.13:45:43 [Debug] Transform: DomainTransform
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces cpu.instruction_master and cpu_instruction_master_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces cpu.data_master and cpu_data_master_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_rx.descriptor_read and sgdma_rx_descriptor_read_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_rx.descriptor_write and sgdma_rx_descriptor_write_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_tx.descriptor_read and sgdma_tx_descriptor_read_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_tx.descriptor_write and sgdma_tx_descriptor_write_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_rx.m_write and sgdma_rx_m_write_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_tx.m_read and sgdma_tx_m_read_translator.avalon_anti_master_0
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:43 [Progress] min: 0
+2012.02.03.13:45:43 [Progress] max: 1
+2012.02.03.13:45:43 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces cpu_jtag_debug_module_translator.avalon_anti_slave_0 and cpu.jtag_debug_module
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces onchip_memory_s1_translator.avalon_anti_slave_0 and onchip_memory.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces ext_flash_uas_translator.avalon_anti_slave_0 and ext_flash.uas
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces sysid_control_slave_translator.avalon_anti_slave_0 and sysid.control_slave
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces jtag_uart_avalon_jtag_slave_translator.avalon_anti_slave_0 and jtag_uart.avalon_jtag_slave
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces high_res_timer_s1_translator.avalon_anti_slave_0 and high_res_timer.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces sys_timer_s1_translator.avalon_anti_slave_0 and sys_timer.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces tse_mac_control_port_translator.avalon_anti_slave_0 and tse_mac.control_port
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_tx_csr_translator.avalon_anti_slave_0 and sgdma_tx.csr
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces sgdma_rx_csr_translator.avalon_anti_slave_0 and sgdma_rx.csr
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces descriptor_memory_s1_translator.avalon_anti_slave_0 and descriptor_memory.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces peripheral_clock_crossing_s0_translator.avalon_anti_slave_0 and peripheral_clock_crossing.s0
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces altpll_0_pll_slave_translator.avalon_anti_slave_0 and altpll_0.pll_slave
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces peripheral_clock_crossing.m0 and peripheral_clock_crossing_m0_translator.avalon_anti_master_0
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces led_pio_s1_translator.avalon_anti_slave_0 and led_pio.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces sw_pio_s1_translator.avalon_anti_slave_0 and sw_pio.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces pb_pio_s1_translator.avalon_anti_slave_0 and pb_pio.s1
+2012.02.03.13:45:44 [Debug] Transform merlin_domain_transform not run on matched interfaces seven_seg_pio_s1_translator.avalon_anti_slave_0 and seven_seg_pio.s1
+2012.02.03.13:45:44 [Info] merlin_domain_transform: After transform: <b>97</b> modules, <b>523</b> connections
+2012.02.03.13:45:44 [Debug] Transform: RouterTransform
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Info] merlin_router_transform: After transform: <b>123</b> modules, <b>626</b> connections
+2012.02.03.13:45:44 [Debug] Transform: TrafficLimiterTransform
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:44 [Progress] min: 0
+2012.02.03.13:45:44 [Progress] max: 1
+2012.02.03.13:45:44 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] merlin_traffic_limiter_transform: After transform: <b>129</b> modules, <b>656</b> connections
+2012.02.03.13:45:45 [Debug] Transform: BurstTransform
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] merlin_burst_transform: After transform: <b>130</b> modules, <b>660</b> connections
+2012.02.03.13:45:45 [Debug] Transform: ResetAdaptation
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] reset_adaptation_transform: After transform: <b>133</b> modules, <b>523</b> connections
+2012.02.03.13:45:45 [Debug] Transform: NetworkToSwitchTransform
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] merlin_network_to_switch_transform: After transform: <b>183</b> modules, <b>627</b> connections
+2012.02.03.13:45:45 [Debug] Transform: WidthTransform
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] merlin_width_transform: After transform: <b>185</b> modules, <b>633</b> connections
+2012.02.03.13:45:45 [Debug] Transform: RouterTableTransform
+2012.02.03.13:45:45 [Debug] Transform: ClockCrossingTransform
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between cmd_xbar_demux_001.src3 and cmd_xbar_mux_003.sink0
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between cmd_xbar_demux_001.src5 and cmd_xbar_mux_005.sink0
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between cmd_xbar_demux_001.src6 and cmd_xbar_mux_006.sink0
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between cmd_xbar_demux_001.src12 and cmd_xbar_mux_012.sink0
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between rsp_xbar_demux_003.src0 and rsp_xbar_mux_001.sink3
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between rsp_xbar_demux_005.src0 and rsp_xbar_mux_001.sink5
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between rsp_xbar_demux_006.src0 and rsp_xbar_mux_001.sink6
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] Inserting clock-crossing logic between rsp_xbar_demux_012.src0 and rsp_xbar_mux_001.sink12
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:45 [Info] com_altera_sopcmodel_transforms_avalon_ClockCrossingTransform: After transform: <b>193</b> modules, <b>673</b> connections
+2012.02.03.13:45:45 [Debug] Transform: TrafficLimiterUpdateTransform
+2012.02.03.13:45:45 [Info] limiter_update_transform: After transform: <b>193</b> modules, <b>679</b> connections
+2012.02.03.13:45:45 [Debug] Transform: InterruptMapperTransform
+2012.02.03.13:45:45 [Progress] min: 0
+2012.02.03.13:45:45 [Progress] max: 1
+2012.02.03.13:45:45 [Progress] current: 1
+2012.02.03.13:45:46 [Info] merlin_interrupt_mapper_transform: After transform: <b>194</b> modules, <b>682</b> connections
+2012.02.03.13:45:46 [Debug] Transform: InterruptSyncTransform
+2012.02.03.13:45:46 [Progress] min: 0
+2012.02.03.13:45:46 [Progress] max: 1
+2012.02.03.13:45:46 [Progress] current: 1
+2012.02.03.13:45:46 [Progress] min: 0
+2012.02.03.13:45:46 [Progress] max: 1
+2012.02.03.13:45:46 [Progress] current: 1
+2012.02.03.13:45:46 [Info] merlin_interrupt_sync_transform: After transform: <b>196</b> modules, <b>692</b> connections
+2012.02.03.13:45:46 [Debug] Transform: InterruptFanoutTransform
+2012.02.03.13:45:47 [Warning] system: "No matching role found for jtag_uart:avalon_jtag_slave:dataavailable (dataavailable)"
+2012.02.03.13:45:47 [Warning] system: "No matching role found for jtag_uart:avalon_jtag_slave:readyfordata (readyfordata)"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_onchip_memory2</b> "<b>submodules/DE4_SOPC_onchip_memory</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_jtag_uart</b> "<b>submodules/DE4_SOPC_jtag_uart</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_timer</b> "<b>submodules/DE4_SOPC_high_res_timer</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_timer</b> "<b>submodules/DE4_SOPC_sys_timer</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>triple_speed_ethernet</b> "<b>submodules/DE4_SOPC_tse_mac</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sgdma</b> "<b>submodules/DE4_SOPC_sgdma_tx</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sgdma</b> "<b>submodules/DE4_SOPC_sgdma_rx</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_onchip_memory2</b> "<b>submodules/DE4_SOPC_descriptor_memory</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_pio</b> "<b>submodules/DE4_SOPC_led_pio</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_pio</b> "<b>submodules/DE4_SOPC_sw_pio</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_pio</b> "<b>submodules/DE4_SOPC_pb_pio</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_pio</b> "<b>submodules/DE4_SOPC_seven_seg_pio</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_mm_clock_crossing_bridge</b> "<b>submodules/altera_avalon_mm_clock_crossing_bridge</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_nios2_qsys</b> "<b>submodules/DE4_SOPC_cpu</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sysid_qsys</b> "<b>submodules/DE4_SOPC_sysid</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_tristate_conduit_bridge</b> "<b>submodules/DE4_SOPC_flash_tristate_bridge_bridge_0</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_tristate_conduit_pin_sharer</b> "<b>submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_generic_tristate_controller</b> "<b>submodules/DE4_SOPC_ext_flash</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altpll</b> "<b>submodules/DE4_SOPC_altpll_0</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_translator</b> "<b>submodules/altera_merlin_master_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_master_agent</b> "<b>submodules/altera_merlin_master_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_slave_agent</b> "<b>submodules/altera_merlin_slave_agent</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_sc_fifo</b> "<b>submodules/altera_avalon_sc_fifo</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_001</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_006</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_006</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_001</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_010</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_addr_router_008</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_router</b> "<b>submodules/DE4_SOPC_id_router_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_traffic_limiter</b> "<b>submodules/altera_merlin_traffic_limiter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_traffic_limiter</b> "<b>submodules/altera_merlin_traffic_limiter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_traffic_limiter</b> "<b>submodules/altera_merlin_traffic_limiter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_traffic_limiter</b> "<b>submodules/altera_merlin_traffic_limiter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_traffic_limiter</b> "<b>submodules/altera_merlin_traffic_limiter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_traffic_limiter</b> "<b>submodules/altera_merlin_traffic_limiter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_burst_adapter</b> "<b>submodules/altera_merlin_burst_adapter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_reset_controller</b> "<b>submodules/altera_reset_controller</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_reset_controller</b> "<b>submodules/altera_reset_controller</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_reset_controller</b> "<b>submodules/altera_reset_controller</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_001</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_002</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_mux</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_mux_001</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_mux</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_mux_010</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux_001</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux_010</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_003</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_mux</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_mux_001</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_cmd_xbar_demux_008</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_demultiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_demux_013</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_multiplexer</b> "<b>submodules/DE4_SOPC_rsp_xbar_mux_008</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_width_adapter</b> "<b>submodules/altera_merlin_width_adapter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_merlin_width_adapter</b> "<b>submodules/altera_merlin_width_adapter</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_avalon_st_handshake_clock_crosser</b> "<b>submodules/altera_avalon_st_handshake_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_irq_mapper</b> "<b>submodules/DE4_SOPC_irq_mapper</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_irq_clock_crosser</b> "<b>submodules/altera_irq_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: "<b>DE4_SOPC</b>" reuses <b>altera_irq_clock_crosser</b> "<b>submodules/altera_irq_clock_crosser</b>"
+2012.02.03.13:45:47 [Debug] DE4_SOPC: queue size: 173 starting:altera_avalon_onchip_memory2 "submodules/DE4_SOPC_onchip_memory"
+2012.02.03.13:45:48 [Info] Starting classic module elaboration.
+2012.02.03.13:45:49 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0001_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0001_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:45:51 [Info] Finished elaborating classic module.
+2012.02.03.13:45:51 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0001_sopclgen/yysystem.ptf
+2012.02.03.13:45:51 [Info] Running sopc_builder...
+2012.02.03.13:45:52 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0001_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0001_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:45:54 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:45:54 [Progress] .
+2012.02.03.13:45:59 [Progress] # 2012.02.03 13:45:59 (*) Success: sopc_builder finished.
+2012.02.03.13:46:00 [Info] onchip_memory: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_onchip_memory2</b> "<b>onchip_memory</b>"
+2012.02.03.13:46:00 [Debug] DE4_SOPC: queue size: 172 starting:altera_avalon_jtag_uart "submodules/DE4_SOPC_jtag_uart"
+2012.02.03.13:46:00 [Info] Starting classic module elaboration.
+2012.02.03.13:46:01 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0002_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0002_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:03 [Info] Finished elaborating classic module.
+2012.02.03.13:46:03 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0002_sopclgen/yysystem.ptf
+2012.02.03.13:46:03 [Info] Running sopc_builder...
+2012.02.03.13:46:04 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0002_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0002_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:05 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:05 [Progress] .
+2012.02.03.13:46:07 [Progress] # 2012.02.03 13:46:07 (*) Success: sopc_builder finished.
+2012.02.03.13:46:07 [Info] jtag_uart: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_jtag_uart</b> "<b>jtag_uart</b>"
+2012.02.03.13:46:07 [Debug] DE4_SOPC: queue size: 171 starting:altera_avalon_timer "submodules/DE4_SOPC_high_res_timer"
+2012.02.03.13:46:07 [Info] Starting classic module elaboration.
+2012.02.03.13:46:08 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0003_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0003_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:09 [Info] Finished elaborating classic module.
+2012.02.03.13:46:09 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0003_sopclgen/yysystem.ptf
+2012.02.03.13:46:09 [Info] Running sopc_builder...
+2012.02.03.13:46:10 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0003_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0003_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:12 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:12 [Progress] .
+2012.02.03.13:46:13 [Progress] # 2012.02.03 13:46:13 (*) Success: sopc_builder finished.
+2012.02.03.13:46:13 [Info] high_res_timer: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_timer</b> "<b>high_res_timer</b>"
+2012.02.03.13:46:13 [Debug] DE4_SOPC: queue size: 170 starting:altera_avalon_timer "submodules/DE4_SOPC_sys_timer"
+2012.02.03.13:46:13 [Info] Starting classic module elaboration.
+2012.02.03.13:46:14 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0004_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0004_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:16 [Info] Finished elaborating classic module.
+2012.02.03.13:46:16 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0004_sopclgen/yysystem.ptf
+2012.02.03.13:46:16 [Info] Running sopc_builder...
+2012.02.03.13:46:17 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0004_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0004_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:18 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:18 [Progress] .
+2012.02.03.13:46:19 [Progress] # 2012.02.03 13:46:19 (*) Success: sopc_builder finished.
+2012.02.03.13:46:20 [Info] sys_timer: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_timer</b> "<b>sys_timer</b>"
+2012.02.03.13:46:20 [Debug] DE4_SOPC: queue size: 169 starting:triple_speed_ethernet "submodules/DE4_SOPC_tse_mac"
+2012.02.03.13:46:20 [Info] tse_mac: HDL generated
+2012.02.03.13:46:21 [Info] tse_mac: Variation name : DE4_SOPC_tse_mac
+2012.02.03.13:46:21 [Info] tse_mac: Variation language : Verilog HDL
+2012.02.03.13:46:21 [Info] tse_mac: Output directory : C:\DOCUME~1\ADMINI~1\LOCALS~1\Temp\alt5373_3002971578928195195.dir\0005_iptb_gen
+2012.02.03.13:46:21 [Info] tse_mac: Generating HDL... 
+2012.02.03.13:46:21 [Info] tse_mac: Generating QIP file ...
+2012.02.03.13:46:23 [Info] tse_mac: Updating user's project directory...
+2012.02.03.13:46:20 [Info] tse_mac: HDL generated
+2012.02.03.13:46:24 [Info] tse_mac: Generation successful.
+2012.02.03.13:46:24 [Info] tse_mac: "<b>DE4_SOPC</b>" instantiated <b>triple_speed_ethernet</b> "<b>tse_mac</b>"
+2012.02.03.13:46:24 [Debug] DE4_SOPC: queue size: 168 starting:altera_avalon_sgdma "submodules/DE4_SOPC_sgdma_tx"
+2012.02.03.13:46:24 [Info] Starting classic module elaboration.
+2012.02.03.13:46:25 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0006_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0006_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:27 [Info] Finished elaborating classic module.
+2012.02.03.13:46:27 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0006_sopclgen/yysystem.ptf
+2012.02.03.13:46:27 [Info] Running sopc_builder...
+2012.02.03.13:46:28 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0006_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0006_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:30 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:30 [Progress] .
+2012.02.03.13:46:33 [Progress] # 2012.02.03 13:46:33 (*) Success: sopc_builder finished.
+2012.02.03.13:46:34 [Info] sgdma_tx: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_sgdma</b> "<b>sgdma_tx</b>"
+2012.02.03.13:46:34 [Debug] DE4_SOPC: queue size: 167 starting:altera_avalon_sgdma "submodules/DE4_SOPC_sgdma_rx"
+2012.02.03.13:46:34 [Info] Starting classic module elaboration.
+2012.02.03.13:46:35 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0007_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0007_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:36 [Info] Finished elaborating classic module.
+2012.02.03.13:46:36 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0007_sopclgen/yysystem.ptf
+2012.02.03.13:46:36 [Info] Running sopc_builder...
+2012.02.03.13:46:37 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0007_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0007_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:39 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:39 [Progress] .
+2012.02.03.13:46:43 [Progress] # 2012.02.03 13:46:43 (*) Success: sopc_builder finished.
+2012.02.03.13:46:43 [Info] sgdma_rx: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_sgdma</b> "<b>sgdma_rx</b>"
+2012.02.03.13:46:43 [Debug] DE4_SOPC: queue size: 166 starting:altera_avalon_onchip_memory2 "submodules/DE4_SOPC_descriptor_memory"
+2012.02.03.13:46:43 [Info] Starting classic module elaboration.
+2012.02.03.13:46:44 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0008_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0008_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:46 [Info] Finished elaborating classic module.
+2012.02.03.13:46:46 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0008_sopclgen/yysystem.ptf
+2012.02.03.13:46:46 [Info] Running sopc_builder...
+2012.02.03.13:46:47 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0008_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0008_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:48 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:48 [Progress] .
+2012.02.03.13:46:49 [Progress] # 2012.02.03 13:46:49 (*) Success: sopc_builder finished.
+2012.02.03.13:46:50 [Info] descriptor_memory: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_onchip_memory2</b> "<b>descriptor_memory</b>"
+2012.02.03.13:46:50 [Debug] DE4_SOPC: queue size: 165 starting:altera_avalon_pio "submodules/DE4_SOPC_led_pio"
+2012.02.03.13:46:50 [Info] Starting classic module elaboration.
+2012.02.03.13:46:51 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0009_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0009_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:53 [Info] Finished elaborating classic module.
+2012.02.03.13:46:53 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0009_sopclgen/yysystem.ptf
+2012.02.03.13:46:53 [Info] Running sopc_builder...
+2012.02.03.13:46:54 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0009_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0009_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:55 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:46:55 [Progress] .
+2012.02.03.13:46:56 [Progress] # 2012.02.03 13:46:56 (*) Success: sopc_builder finished.
+2012.02.03.13:46:57 [Info] led_pio: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_pio</b> "<b>led_pio</b>"
+2012.02.03.13:46:57 [Debug] DE4_SOPC: queue size: 164 starting:altera_avalon_pio "submodules/DE4_SOPC_sw_pio"
+2012.02.03.13:46:57 [Info] Starting classic module elaboration.
+2012.02.03.13:46:57 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0010_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0010_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:46:59 [Info] Finished elaborating classic module.
+2012.02.03.13:46:59 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0010_sopclgen/yysystem.ptf
+2012.02.03.13:46:59 [Info] Running sopc_builder...
+2012.02.03.13:47:00 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0010_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0010_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:47:02 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:47:02 [Progress] .
+2012.02.03.13:47:03 [Progress] # 2012.02.03 13:47:03 (*) Success: sopc_builder finished.
+2012.02.03.13:47:03 [Info] sw_pio: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_pio</b> "<b>sw_pio</b>"
+2012.02.03.13:47:03 [Debug] DE4_SOPC: queue size: 163 starting:altera_avalon_pio "submodules/DE4_SOPC_pb_pio"
+2012.02.03.13:47:03 [Info] Starting classic module elaboration.
+2012.02.03.13:47:04 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0011_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0011_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:47:05 [Info] Finished elaborating classic module.
+2012.02.03.13:47:05 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0011_sopclgen/yysystem.ptf
+2012.02.03.13:47:05 [Info] Running sopc_builder...
+2012.02.03.13:47:06 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0011_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0011_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:47:08 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:47:08 [Progress] .
+2012.02.03.13:47:09 [Progress] # 2012.02.03 13:47:09 (*) Success: sopc_builder finished.
+2012.02.03.13:47:09 [Info] pb_pio: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_pio</b> "<b>pb_pio</b>"
+2012.02.03.13:47:09 [Debug] DE4_SOPC: queue size: 162 starting:altera_avalon_pio "submodules/DE4_SOPC_seven_seg_pio"
+2012.02.03.13:47:09 [Info] Starting classic module elaboration.
+2012.02.03.13:47:10 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0012_sopclgen  --no_splash --refresh C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0012_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:47:12 [Info] Finished elaborating classic module.
+2012.02.03.13:47:12 [Progress] Executing: C:/altera/11.1/quartus//sopc_builder/bin/sopc_builder --classic --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0012_sopclgen/yysystem.ptf
+2012.02.03.13:47:12 [Info] Running sopc_builder...
+2012.02.03.13:47:13 [Progress] "c:/altera/11.1/quartus/bin/jre/bin/java.exe" -Xmx512M -classpath "c:/altera/11.1/quartus/sopc_builder/bin/sopc_builder.jar;c:/altera/11.1/quartus/sopc_builder/bin/PinAssigner.jar;c:/altera/11.1/quartus/sopc_builder/bin/sopc_wizard.jar;c:/altera/11.1/quartus/sopc_builder/bin/jptf.jar" sopc_builder.sopc_builder  -d"c:/altera/11.1/quartus/sopc_builder" -notalkback=1 -projectnameyysystem.qpf -projectpathC:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0012_sopclgen  --generate C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0012_sopclgen/yysystem.v --quartus_dir="c:/altera/11.1/quartus" --sopc_perl="c:/altera/11.1/quartus/bin/perl" --sopc_lib_path="++c:/altera/11.1/quartus/../ip/altera/sopc_builder_ip+c:/altera/11.1/quartus/../ip/altera/nios2_ip"
+2012.02.03.13:47:14 [Progress] No .sopc_builder configuration file(!)
+2012.02.03.13:47:14 [Progress] .
+2012.02.03.13:47:16 [Progress] # 2012.02.03 13:47:16 (*) Success: sopc_builder finished.
+2012.02.03.13:47:16 [Info] seven_seg_pio: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_pio</b> "<b>seven_seg_pio</b>"
+2012.02.03.13:47:16 [Debug] DE4_SOPC: queue size: 161 starting:altera_avalon_mm_clock_crossing_bridge "submodules/altera_avalon_mm_clock_crossing_bridge"
+2012.02.03.13:47:16 [Info] peripheral_clock_crossing: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_mm_clock_crossing_bridge</b> "<b>peripheral_clock_crossing</b>"
+2012.02.03.13:47:16 [Debug] DE4_SOPC: queue size: 160 starting:altera_nios2_qsys "submodules/DE4_SOPC_cpu"
+2012.02.03.13:47:16 [Info] cpu: Starting RTL generation for module 'DE4_SOPC_cpu'
+2012.02.03.13:47:16 [Info] cpu:   Generation command is [exec C:/altera/11.1/quartus/../ip/altera/nios2_ip/altera_nios2/eperl.exe -I C:/altera/11.1/quartus/common/ip/altera/common/perl/5.8.3 -I C:/altera/11.1/quartus/sopc_builder/bin/europa -I C:/altera/11.1/quartus/sopc_builder/bin/perl_lib -I C:/altera/11.1/quartus/sopc_builder/bin -I C:/altera/11.1/quartus/../ip/altera/nios2_ip/altera_nios2/cpu_lib -I C:/altera/11.1/quartus/../ip/altera/nios2_ip/altera_nios2/nios_lib -I C:/altera/11.1/quartus/../ip/altera/nios2_ip/altera_nios2 -I C:/altera/11.1/quartus/../ip/altera/nios2_ip/altera_nios2 -- C:/altera/11.1/quartus/../ip/altera/nios2_ip/altera_nios2/generate_rtl.epl --name=DE4_SOPC_cpu --dir=C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0013_cpu_gen/ --quartus_dir=C:/altera/11.1/quartus --verilog --config=C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0013_cpu_gen//DE4_SOPC_cpu_processor_configuration.pl  --do_build_sim=0    --bogus  ]
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:17 (*) Starting Nios II generation
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:17 (*)   Checking for encrypted license (non-evaluation).
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)   Encrypted license found.  SOF will not be time-limited.
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)   Elaborating CPU configuration settings
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)   Creating all objects for CPU
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)     Testbench
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)     Instruction decoding
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)       Instruction fields
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:25 (*)       Instruction decodes
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:26 (*)       Signals for RTL simulation waveforms
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:26 (*)       Instruction controls
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:26 (*)     Pipeline frontend
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:26 (*)     Pipeline backend
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:30 (*)   Generating RTL from CPU objects
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:32 (*)   Creating encrypted RTL
+2012.02.03.13:47:34 [Info] cpu: # 2012.02.03 13:47:34 (*) Done Nios II generation
+2012.02.03.13:47:34 [Info] cpu: Done RTL generation for module 'DE4_SOPC_cpu'
+2012.02.03.13:47:34 [Info] cpu: "<b>DE4_SOPC</b>" instantiated <b>altera_nios2_qsys</b> "<b>cpu</b>"
+2012.02.03.13:47:34 [Debug] DE4_SOPC: queue size: 159 starting:altera_avalon_sysid_qsys "submodules/DE4_SOPC_sysid"
+2012.02.03.13:47:34 [Info] sysid: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_sysid_qsys</b> "<b>sysid</b>"
+2012.02.03.13:47:34 [Debug] DE4_SOPC: queue size: 158 starting:altera_tristate_conduit_bridge "submodules/DE4_SOPC_flash_tristate_bridge_bridge_0"
+2012.02.03.13:47:34 [Info] flash_tristate_bridge_bridge_0: "<b>DE4_SOPC</b>" instantiated <b>altera_tristate_conduit_bridge</b> "<b>flash_tristate_bridge_bridge_0</b>"
+2012.02.03.13:47:34 [Debug] DE4_SOPC: queue size: 157 starting:altera_tristate_conduit_pin_sharer "submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0"
+2012.02.03.13:47:34 [Info] flash_tristate_bridge_pinSharer_0: Running transform <b>AvalonTransform</b>
+2012.02.03.13:47:34 [Debug] Transform: PipelineBridgeSwap
+2012.02.03.13:47:34 [Info] pipeline_bridge_swap_transform: After transform: <b>4</b> modules, <b>7</b> connections
+2012.02.03.13:47:34 [Debug] Transform: ClockCrossingBridgeSwap
+2012.02.03.13:47:34 [Debug] Transform: QsysBetaIPSwap
+2012.02.03.13:47:34 [Debug] Transform: CustomInstructionTransform
+2012.02.03.13:47:34 [Info] No custom instruction connections, skipping transform 
+2012.02.03.13:47:34 [Debug] Transform: TristateConduitUpgradeTransform
+2012.02.03.13:47:34 [Debug] Transform: TranslatorTransform
+2012.02.03.13:47:34 [Info] No Avalon connections, skipping transform 
+2012.02.03.13:47:34 [Debug] Transform: DomainTransform
+2012.02.03.13:47:34 [Debug] Transform: RouterTransform
+2012.02.03.13:47:34 [Debug] Transform: TrafficLimiterTransform
+2012.02.03.13:47:34 [Debug] Transform: BurstTransform
+2012.02.03.13:47:34 [Debug] Transform: ResetAdaptation
+2012.02.03.13:47:34 [Debug] Transform: NetworkToSwitchTransform
+2012.02.03.13:47:34 [Debug] Transform: WidthTransform
+2012.02.03.13:47:34 [Debug] Transform: RouterTableTransform
+2012.02.03.13:47:34 [Debug] Transform: ClockCrossingTransform
+2012.02.03.13:47:34 [Debug] Transform: TrafficLimiterUpdateTransform
+2012.02.03.13:47:34 [Debug] Transform: InterruptMapperTransform
+2012.02.03.13:47:34 [Debug] Transform: InterruptSyncTransform
+2012.02.03.13:47:34 [Debug] Transform: InterruptFanoutTransform
+2012.02.03.13:47:34 [Info] flash_tristate_bridge_pinSharer_0: Running transform <b>AvalonTransform</b> took 0.093s
+2012.02.03.13:47:34 [Debug] flash_tristate_bridge_pinSharer_0: "<b>flash_tristate_bridge_pinSharer_0</b>" reuses <b>altera_tristate_conduit_pin_sharer_core</b> "<b>submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0_pin_sharer</b>"
+2012.02.03.13:47:34 [Debug] flash_tristate_bridge_pinSharer_0: "<b>flash_tristate_bridge_pinSharer_0</b>" reuses <b>altera_merlin_std_arbitrator</b> "<b>submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0_arbiter</b>"
+2012.02.03.13:47:34 [Info] flash_tristate_bridge_pinSharer_0: "<b>DE4_SOPC</b>" instantiated <b>altera_tristate_conduit_pin_sharer</b> "<b>flash_tristate_bridge_pinSharer_0</b>"
+2012.02.03.13:47:34 [Debug] DE4_SOPC: queue size: 158 starting:altera_generic_tristate_controller "submodules/DE4_SOPC_ext_flash"
+2012.02.03.13:47:34 [Info] ext_flash: Running transform <b>AvalonTransform</b>
+2012.02.03.13:47:35 [Debug] Transform: PipelineBridgeSwap
+2012.02.03.13:47:35 [Info] pipeline_bridge_swap_transform: After transform: <b>5</b> modules, <b>10</b> connections
+2012.02.03.13:47:35 [Debug] Transform: ClockCrossingBridgeSwap
+2012.02.03.13:47:35 [Debug] Transform: QsysBetaIPSwap
+2012.02.03.13:47:35 [Debug] Transform: CustomInstructionTransform
+2012.02.03.13:47:35 [Info] No custom instruction connections, skipping transform 
+2012.02.03.13:47:35 [Debug] Transform: TristateConduitUpgradeTransform
+2012.02.03.13:47:35 [Debug] Transform: TranslatorTransform
+2012.02.03.13:47:35 [Debug] Transform merlin_translator_transform not run on matched interfaces tdt.avalon_universal_master_0 and slave_translator.avalon_universal_slave_0
+2012.02.03.13:47:35 [Debug] Transform merlin_translator_transform not run on matched interfaces slave_translator.avalon_anti_slave_0 and tda.avalon_slave_0
+2012.02.03.13:47:35 [Debug] Transform: DomainTransform
+2012.02.03.13:47:35 [Debug] Transform merlin_domain_transform not run on matched interfaces tdt.avalon_universal_master_0 and slave_translator.avalon_universal_slave_0
+2012.02.03.13:47:35 [Debug] Transform merlin_domain_transform not run on matched interfaces slave_translator.avalon_anti_slave_0 and tda.avalon_slave_0
+2012.02.03.13:47:35 [Debug] Transform: RouterTransform
+2012.02.03.13:47:35 [Debug] Transform: TrafficLimiterTransform
+2012.02.03.13:47:35 [Debug] Transform: BurstTransform
+2012.02.03.13:47:35 [Debug] Transform: ResetAdaptation
+2012.02.03.13:47:35 [Debug] Transform: NetworkToSwitchTransform
+2012.02.03.13:47:35 [Debug] Transform: WidthTransform
+2012.02.03.13:47:35 [Debug] Transform: RouterTableTransform
+2012.02.03.13:47:35 [Debug] Transform: ClockCrossingTransform
+2012.02.03.13:47:35 [Debug] Transform: TrafficLimiterUpdateTransform
+2012.02.03.13:47:35 [Debug] Transform: InterruptMapperTransform
+2012.02.03.13:47:35 [Debug] Transform: InterruptSyncTransform
+2012.02.03.13:47:35 [Debug] Transform: InterruptFanoutTransform
+2012.02.03.13:47:35 [Info] ext_flash: Running transform <b>AvalonTransform</b> took 0.109s
+2012.02.03.13:47:35 [Debug] ext_flash: "<b>ext_flash</b>" reuses <b>altera_tristate_controller_translator</b> "<b>submodules/altera_tristate_controller_translator</b>"
+2012.02.03.13:47:35 [Debug] ext_flash: "<b>ext_flash</b>" reuses <b>altera_merlin_slave_translator</b> "<b>submodules/altera_merlin_slave_translator</b>"
+2012.02.03.13:47:35 [Debug] ext_flash: "<b>ext_flash</b>" reuses <b>altera_tristate_controller_aggregator</b> "<b>submodules/altera_tristate_controller_aggregator</b>"
+2012.02.03.13:47:35 [Info] ext_flash: "<b>DE4_SOPC</b>" instantiated <b>altera_generic_tristate_controller</b> "<b>ext_flash</b>"
+2012.02.03.13:47:35 [Debug] DE4_SOPC: queue size: 160 starting:altpll "submodules/DE4_SOPC_altpll_0"
+2012.02.03.13:47:35 [Debug] set ALTERA_HW_TCL_KEEP_TEMP_FILES=1 to retain temp files
+2012.02.03.13:47:35 [Debug] Command: C:/altera/11.1/quartus/bin/quartus_map.exe not_a_project --generate_hdl_interface=C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0016_sopcgen/DE4_SOPC_altpll_0.v --source=C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0016_sopcgen/DE4_SOPC_altpll_0.v --set=HDL_INTERFACE_OUTPUT_PATH=C:/DOCUME~1/ADMINI~1/LOCALS~1/Temp/alt5373_3002971578928195195.dir/0017_sopcqmap/
+2012.02.03.13:47:42 [Debug] Command took 7.109s
+2012.02.03.13:47:42 [Info] altpll_0: "<b>DE4_SOPC</b>" instantiated <b>altpll</b> "<b>altpll_0</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 159 starting:altera_merlin_master_translator "submodules/altera_merlin_master_translator"
+2012.02.03.13:47:42 [Info] cpu_instruction_master_translator: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_master_translator</b> "<b>cpu_instruction_master_translator</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 151 starting:altera_merlin_slave_translator "submodules/altera_merlin_slave_translator"
+2012.02.03.13:47:42 [Info] cpu_jtag_debug_module_translator: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_slave_translator</b> "<b>cpu_jtag_debug_module_translator</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 133 starting:altera_merlin_slave_agent "submodules/altera_merlin_slave_agent"
+2012.02.03.13:47:42 [Info] high_res_timer_s1_translator_avalon_universal_slave_0_agent: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_slave_agent</b> "<b>high_res_timer_s1_translator_avalon_universal_slave_0_agent</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 132 starting:altera_avalon_sc_fifo "submodules/altera_avalon_sc_fifo"
+2012.02.03.13:47:42 [Info] high_res_timer_s1_translator_avalon_universal_slave_0_agent_rsp_fifo: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_sc_fifo</b> "<b>high_res_timer_s1_translator_avalon_universal_slave_0_agent_rsp_fifo</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 124 starting:altera_merlin_master_agent "submodules/altera_merlin_master_agent"
+2012.02.03.13:47:42 [Info] sgdma_rx_m_write_translator_avalon_universal_master_0_agent: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_master_agent</b> "<b>sgdma_rx_m_write_translator_avalon_universal_master_0_agent</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 86 starting:altera_merlin_router "submodules/DE4_SOPC_addr_router"
+2012.02.03.13:47:42 [Info] addr_router: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>addr_router</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 85 starting:altera_merlin_router "submodules/DE4_SOPC_addr_router_001"
+2012.02.03.13:47:42 [Info] addr_router_001: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>addr_router_001</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 84 starting:altera_merlin_router "submodules/DE4_SOPC_addr_router_002"
+2012.02.03.13:47:42 [Info] addr_router_002: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>addr_router_002</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 80 starting:altera_merlin_router "submodules/DE4_SOPC_addr_router_006"
+2012.02.03.13:47:42 [Info] addr_router_006: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>addr_router_006</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 78 starting:altera_merlin_router "submodules/DE4_SOPC_id_router"
+2012.02.03.13:47:42 [Info] id_router: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>id_router</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 77 starting:altera_merlin_router "submodules/DE4_SOPC_id_router_001"
+2012.02.03.13:47:42 [Info] id_router_001: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>id_router_001</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 76 starting:altera_merlin_router "submodules/DE4_SOPC_id_router_002"
+2012.02.03.13:47:42 [Info] id_router_002: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>id_router_002</b>"
+2012.02.03.13:47:42 [Debug] DE4_SOPC: queue size: 75 starting:altera_merlin_router "submodules/DE4_SOPC_id_router_003"
+2012.02.03.13:47:43 [Info] id_router_003: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>id_router_003</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 68 starting:altera_merlin_router "submodules/DE4_SOPC_id_router_010"
+2012.02.03.13:47:43 [Info] id_router_010: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>id_router_010</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 65 starting:altera_merlin_router "submodules/DE4_SOPC_addr_router_008"
+2012.02.03.13:47:43 [Info] addr_router_008: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>addr_router_008</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 64 starting:altera_merlin_router "submodules/DE4_SOPC_id_router_013"
+2012.02.03.13:47:43 [Info] id_router_013: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_router</b> "<b>id_router_013</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 60 starting:altera_merlin_traffic_limiter "submodules/altera_merlin_traffic_limiter"
+2012.02.03.13:47:43 [Info] limiter: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_traffic_limiter</b> "<b>limiter</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 54 starting:altera_merlin_burst_adapter "submodules/altera_merlin_burst_adapter"
+2012.02.03.13:47:43 [Info] burst_adapter: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_burst_adapter</b> "<b>burst_adapter</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 53 starting:altera_reset_controller "submodules/altera_reset_controller"
+2012.02.03.13:47:43 [Info] rst_controller: "<b>DE4_SOPC</b>" instantiated <b>altera_reset_controller</b> "<b>rst_controller</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 50 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_cmd_xbar_demux"
+2012.02.03.13:47:43 [Info] cmd_xbar_demux: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>cmd_xbar_demux</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 49 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_cmd_xbar_demux_001"
+2012.02.03.13:47:43 [Info] cmd_xbar_demux_001: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>cmd_xbar_demux_001</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 48 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_cmd_xbar_demux_002"
+2012.02.03.13:47:43 [Info] cmd_xbar_demux_002: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>cmd_xbar_demux_002</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 47 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_cmd_xbar_demux_003"
+2012.02.03.13:47:43 [Info] cmd_xbar_demux_003: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>cmd_xbar_demux_003</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 42 starting:altera_merlin_multiplexer "submodules/DE4_SOPC_cmd_xbar_mux"
+2012.02.03.13:47:43 [Info] cmd_xbar_mux: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_multiplexer</b> "<b>cmd_xbar_mux</b>"
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 41 starting:altera_merlin_multiplexer "submodules/DE4_SOPC_cmd_xbar_mux_001"
+2012.02.03.13:47:43 [Info] cmd_xbar_mux_001: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_multiplexer</b> "<b>cmd_xbar_mux_001</b>"
+2012.02.03.13:47:43 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_arbitrator.sv</b>
+2012.02.03.13:47:43 [Debug] DE4_SOPC: queue size: 39 starting:altera_merlin_multiplexer "submodules/DE4_SOPC_cmd_xbar_mux_010"
+2012.02.03.13:47:44 [Info] cmd_xbar_mux_010: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_multiplexer</b> "<b>cmd_xbar_mux_010</b>"
+2012.02.03.13:47:44 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_arbitrator.sv</b>
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 38 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_rsp_xbar_demux"
+2012.02.03.13:47:44 [Info] rsp_xbar_demux: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>rsp_xbar_demux</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 37 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_rsp_xbar_demux_001"
+2012.02.03.13:47:44 [Info] rsp_xbar_demux_001: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>rsp_xbar_demux_001</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 28 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_rsp_xbar_demux_010"
+2012.02.03.13:47:44 [Info] rsp_xbar_demux_010: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>rsp_xbar_demux_010</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 25 starting:altera_merlin_multiplexer "submodules/DE4_SOPC_rsp_xbar_mux"
+2012.02.03.13:47:44 [Info] rsp_xbar_mux: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_multiplexer</b> "<b>rsp_xbar_mux</b>"
+2012.02.03.13:47:44 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_arbitrator.sv</b>
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 24 starting:altera_merlin_multiplexer "submodules/DE4_SOPC_rsp_xbar_mux_001"
+2012.02.03.13:47:44 [Info] rsp_xbar_mux_001: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_multiplexer</b> "<b>rsp_xbar_mux_001</b>"
+2012.02.03.13:47:44 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_arbitrator.sv</b>
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 23 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_cmd_xbar_demux_008"
+2012.02.03.13:47:44 [Info] cmd_xbar_demux_008: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>cmd_xbar_demux_008</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 22 starting:altera_merlin_demultiplexer "submodules/DE4_SOPC_rsp_xbar_demux_013"
+2012.02.03.13:47:44 [Info] rsp_xbar_demux_013: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_demultiplexer</b> "<b>rsp_xbar_demux_013</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 18 starting:altera_merlin_multiplexer "submodules/DE4_SOPC_rsp_xbar_mux_008"
+2012.02.03.13:47:44 [Info] rsp_xbar_mux_008: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_multiplexer</b> "<b>rsp_xbar_mux_008</b>"
+2012.02.03.13:47:44 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_arbitrator.sv</b>
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 17 starting:altera_merlin_width_adapter "submodules/altera_merlin_width_adapter"
+2012.02.03.13:47:44 [Info] width_adapter: "<b>DE4_SOPC</b>" instantiated <b>altera_merlin_width_adapter</b> "<b>width_adapter</b>"
+2012.02.03.13:47:44 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_merlin_burst_uncompressor.sv</b>
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 15 starting:altera_avalon_st_handshake_clock_crosser "submodules/altera_avalon_st_handshake_clock_crosser"
+2012.02.03.13:47:44 [Info] crosser: "<b>DE4_SOPC</b>" instantiated <b>altera_avalon_st_handshake_clock_crosser</b> "<b>crosser</b>"
+2012.02.03.13:47:44 [Info] Reusing file <b>D:/SVN/de4/test/cd_demo_version/Q11.1_sp1_QSYS/DE4_230/DE4_Simple_Socket_Server/DE4_Ethernet_0/DE4_SOPC/synthesis/submodules/altera_avalon_st_pipeline_base.v</b>
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 7 starting:altera_irq_mapper "submodules/DE4_SOPC_irq_mapper"
+2012.02.03.13:47:44 [Info] irq_mapper: "<b>DE4_SOPC</b>" instantiated <b>altera_irq_mapper</b> "<b>irq_mapper</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 6 starting:altera_irq_clock_crosser "submodules/altera_irq_clock_crosser"
+2012.02.03.13:47:44 [Info] irq_synchronizer: "<b>DE4_SOPC</b>" instantiated <b>altera_irq_clock_crosser</b> "<b>irq_synchronizer</b>"
+2012.02.03.13:47:44 [Debug] DE4_SOPC: queue size: 4 starting:altera_tristate_conduit_pin_sharer_core "submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0_pin_sharer"
+2012.02.03.13:47:45 [Info] pin_sharer: "<b>flash_tristate_bridge_pinSharer_0</b>" instantiated <b>altera_tristate_conduit_pin_sharer_core</b> "<b>pin_sharer</b>"
+2012.02.03.13:47:45 [Debug] DE4_SOPC: queue size: 3 starting:altera_merlin_std_arbitrator "submodules/DE4_SOPC_flash_tristate_bridge_pinSharer_0_arbiter"
+2012.02.03.13:47:45 [Info] arbiter: "<b>flash_tristate_bridge_pinSharer_0</b>" instantiated <b>altera_merlin_std_arbitrator</b> "<b>arbiter</b>"
+2012.02.03.13:47:45 [Debug] DE4_SOPC: queue size: 2 starting:altera_tristate_controller_translator "submodules/altera_tristate_controller_translator"
+2012.02.03.13:47:45 [Info] tdt: "<b>ext_flash</b>" instantiated <b>altera_tristate_controller_translator</b> "<b>tdt</b>"
+2012.02.03.13:47:45 [Debug] DE4_SOPC: queue size: 0 starting:altera_tristate_controller_aggregator "submodules/altera_tristate_controller_aggregator"
+2012.02.03.13:47:45 [Info] tda: "<b>ext_flash</b>" instantiated <b>altera_tristate_controller_aggregator</b> "<b>tda</b>"
+2012.02.03.13:47:45 [Info] DE4_SOPC: Done <b>DE4_SOPC</b>" with 62 modules, 414 files, 11752105 bytes
+</div>
+  <div style="width:100% ; background:#eee ; height:10px"> </div>
+ </body>
+</html>
