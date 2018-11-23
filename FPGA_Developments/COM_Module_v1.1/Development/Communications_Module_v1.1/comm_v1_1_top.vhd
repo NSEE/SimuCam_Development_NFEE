@@ -4,6 +4,7 @@ use ieee.numeric_std.all;
 
 use work.spw_codec_pkg.all;
 use work.rmap_target_pkg.all;
+use work.data_packet_pkg.all;
 
 entity comm_v1_1_top is
 	port(
@@ -123,6 +124,42 @@ begin
 			rmap_mem_wr_byte_address_i => s_rmap_mem_wr_byte_address,
 			rmap_mem_rd_byte_address_i => s_rmap_mem_rd_byte_address,
 			rmap_mem_flag_o            => s_rmap_mem_flag
+		);
+
+	-- data packet instantiation
+	data_packet_top_inst : entity work.data_packet_top
+		port map(
+			clk_i                  => clk_i,
+			reset_n_i              => reset_n_i,
+			data_packet_start_i    => data_packet_start_i,
+			data_packet_config_i   => data_packet_config_i,
+			spw_flag_i             => spw_flag_i,
+			hkdata_i               => hkdata_i,
+			imgdata_flag_i         => imgdata_flag_i,
+			data_packet_finished_o => data_packet_finished_o,
+			spw_control_o          => spw_control_o,
+			imgdata_control_o      => imgdata_control_o
+		);
+
+	-- data buffer instantiation
+	data_buffer_ent_inst : entity work.data_buffer_ent
+		port map(
+			clk_i => clk_i,
+			rst_i => rst_i
+		);
+
+	-- windowing buffer instantiation
+	windowing_buffer_ent_inst : entity work.windowing_buffer_ent
+		port map(
+			clk_i => clk_i,
+			rst_i => rst_i
+		);
+
+	-- windowing machine instantiation
+	windowing_machine_ent_inst : entity work.windowing_machine_ent
+		port map(
+			clk_i => clk_i,
+			rst_i => rst_i
 		);
 
 end architecture RTL;
