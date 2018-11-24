@@ -74,6 +74,16 @@ architecture rtl of sync_avalon_mm_write is
 -- architecture begin
 --============================================================================
 begin
+	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value" 
+	mm_write_reg_o.int_enable_register.error_int_flag_clear			<= '0';
+	mm_write_reg_o.int_enable_register.blank_pulse_int_flag_clear	<= '0';
+	mm_write_reg_o.int_enable_register.error_int_flag 				<= '0';
+	mm_write_reg_o.int_enable_register.blank_pulse_int_flag 		<= '0';
+	mm_write_reg_o.int_flag_clear_register.error_int_enable			<= '0';
+	mm_write_reg_o.int_flag_clear_register.blank_pulse_int_enable	<= '0';
+	mm_write_reg_o.int_flag_clear_register.error_int_flag 			<= '0';
+	mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag 	<= '0';
+
 	p_sync_avalon_mm_write : process(clk_i, rst_i) is
   		-- Sync registers reset procedure
 		procedure p_mm_reset_registers is

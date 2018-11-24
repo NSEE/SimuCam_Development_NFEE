@@ -119,10 +119,7 @@ begin
 			int_flag_o <= s_int_flag;
 
 			-- Logic for irq
--- Use line below to keep irq active as long as int flags are active			
 			if ( (s_int_flag.error_int_flag = '1') or (s_int_flag.blank_pulse_int_flag = '1') ) then
--- Use line below to generate only one clock period irq pulse per int flag active
---			if ( rising_edge(s_int_flag.error_int_flag) or rising_edge(s_int_flag.blank_pulse_int_flag) ) then
 				irq_o <= g_SYNC_DEFAULT_IRQ_POLARITY;
 			else
 				irq_o <= not g_SYNC_DEFAULT_IRQ_POLARITY;

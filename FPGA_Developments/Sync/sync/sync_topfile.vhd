@@ -243,6 +243,20 @@ begin
 	-- Keep error code status reseted (no error) - It´s logic should be conceived
 	s_sync_mm_read_registers.status_register.error_code <= (others => '0');
 	
+	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
+	s_sync_mm_read_registers.int_flag_register.error_int_enable				<= '0';
+	s_sync_mm_read_registers.int_flag_register.blank_pulse_int_enable		<= '0';
+	s_sync_mm_read_registers.int_flag_register.error_int_flag_clear			<= '0';
+	s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag_clear	<= '0';
+	s_sync_mm_read_registers.error_injection_register.error_injection 		<= (others => '0');
+	s_sync_mm_read_registers.config_register.master_blank_time				<= (others => '0');
+	s_sync_mm_read_registers.config_register.blank_time						<= (others => '0');
+	s_sync_mm_read_registers.config_register.period							<= (others => '0');
+	s_sync_mm_read_registers.config_register.one_shot_time					<= (others => '0');
+	s_sync_mm_read_registers.config_register.general.signal_polarity		<= '0';
+	s_sync_mm_read_registers.config_register.general.number_of_cycles		<= (others => '0');
+	s_sync_mm_read_registers.control_register								<= (others => '0');
+
 end architecture rtl;
 --============================================================================
 -- architecture end
