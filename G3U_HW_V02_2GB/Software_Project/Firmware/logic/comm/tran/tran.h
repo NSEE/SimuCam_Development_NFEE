@@ -51,10 +51,18 @@
 	#define TRAN_M2_MEMDATA_BASE 0x0000000080000000
 	
 	#define TRAN_DATA_OFFSET 1024
-		
-	typedef int bool;
-	#define TRUE    1
-	#define FALSE   0
+
+	#ifndef bool
+		typedef short int bool;
+		#define false 0
+		#define true 1
+		#define FALSE 0
+		#define TRUE 1
+	#endif
+
+	//typedef int bool;
+	//#define TRUE    1
+	//#define FALSE   0
 
 	#define TRAN_REG_CLEAR 0
 	#define TRAN_REG_SET   1

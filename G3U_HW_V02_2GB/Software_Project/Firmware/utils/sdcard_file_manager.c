@@ -5,7 +5,7 @@
  *      Author: Tiago-Low
  */
 
-#include "sdcard_file_manager"
+#include "sdcard_file_manager.h"
 
 
 TSDHandle xSdHandle;
@@ -22,50 +22,92 @@ bool bInitializeSDCard( void ){
 	bool bSucess = FALSE;
 	xSdHandle.deviceHandle = NULL;
 
-	bSucess = bSDcardIsPresent();
-	if ( bSucess ) {
-		bSucess = bSDcardFAT16Check();
+	xSdHandle.deviceHandle = alt_up_sd_card_open_dev(ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_NAME);
+	if ( xSdHandle.deviceHandle != NULL ) {
+
+		bSucess = bSDcardIsPresent();
 		if ( bSucess ) {
-			xSdHandle.deviceHandle = alt_up_sd_card_open_dev("ALTERA_UP_SD_CARD_AVALON_INTERFACE_0_NAME");
-			if ( xSdHandle.deviceHandle != NULL ) {
+			bSucess = bSDcardFAT16Check();
+			if ( bSucess ) {
 				xSdHandle.connected = TRUE;
+				printf("Conectado");
 			} else {
-				/* Não foi possivel instanciar, problema de comunicação com o SDCard. */
-				bSucess = FALSE;
+				/* O SDCard não é um FAT 16, enviar mensagem informando. */
+				printf("Não é fat 16");
 			}
 		} else {
-			/* O SDCard não é um FAT 16, enviar mensagem informando. */
-			printf("Não é fat 16");
+			/* Enviar mensagem que precisa inserir um SDCARD */
+			printf("Não tem sdcard");
 		}
+
 	} else {
-		/* Enviar mensagem que precisa inserir um SDCARD */
-		printf("Não tem sdcard");
+		/* Não foi possivel instanciar, problema de comunicação com o SDCard. */
+		bSucess = FALSE;
+		printf("Não deu nao");
 	}
 
 	return bSucess;
 }
 
+/*Function with low performance, avoid to use as much as possible*/
+char cGetCharbyIndex( short int file_handle, unsigned int positionByte ) {
+	short int readCharacter;
+	vSetBytePosition(file_handle, positionByte);
+	readCharacter = alt_up_sd_card_read(file_handle);
+	if ( readCharacter < 0 ) {
+		readCharacter = -1;
+	}
+	return (char)readCharacter;
+}
+
+char cGetNextChar( short int file_handle ) {
+	return (char)alt_up_sd_card_read(file_handle);
+}
+
+unsigned int uiGetEOFPointer( short int file_handle ) {
+	vSetBytePosition(0);
+	while ( alt_up_sd_card_read(file_handle) > 0 ) {;}
+
+	return uiGetBytePosition(file_handle);
+}
+
+//ReadLine?
+
+//WriteLine?
+
 
 void vJustAWriteTest( void ) {
 
-	short int sdFile;
-	char buffer[SD_BUFFER_SIZE] = "O Class quer o peixe mas está de olho no gato!!\r\n\0";
+	short int sdFile = 0;
+	char buffer[SD_BUFFER_SIZE] = "Nova mensagem que nao envolve o Class\r\n\0";
 
 	printf(" Verificando sd ");
 	if ( xSdHandle.connected ) {
-		printf(" Acessando/criando o arquivo de teste ");
-		sdFile = alt_up_sd_card_fopen("file.txt", TRUE);
+		printf(" Acessando/criando o arquivo de teste\r\n");
+		sdFile = alt_up_sd_card_fopen("FI.TXT", false);
+
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+		alt_up_sd_card_read(sdFile);
+
+		printf("Será que é 8? ou 9? => %i",sdFile);
 
 		if ( sdFile >= 0 ) {
-			short int index = 0;
+			int index = 0;
 			while (buffer[index] != '\0')
 			{
 			  alt_up_sd_card_write(sdFile, buffer[index]);
 			  index = index + 1;
 			}
-			printf(" Teoricamente deu certo ... ");
+			printf(" Teoricamente deu certo ... \r\n");
+			 alt_up_sd_card_fclose(sdFile);
 		} else {
-			printf(" Falhou, culpa do ... ");
+			printf(" Falhou, culpa do ...  %i\r\n", sdFile);
 		}
 	}
 

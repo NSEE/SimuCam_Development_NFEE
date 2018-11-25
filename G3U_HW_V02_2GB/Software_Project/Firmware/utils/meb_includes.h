@@ -17,12 +17,17 @@
 #include "sys/alt_stdio.h"
 #include "system.h"
 #include <fcntl.h>
+#include <altera_up_sd_card_avalon_interface.h>
 
 #define DEBUG_DUMP  /*printf */ 
 
-typedef int bool;
-#define TRUE    1
-#define FALSE   0
+#ifndef bool
+	typedef short int bool;
+	#define false 0
+	#define true 1
+	#define FALSE 0
+	#define TRUE 1
+#endif
 
 
 #endif /*MEB_INCLUDES_H_*/

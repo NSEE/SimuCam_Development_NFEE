@@ -11,9 +11,17 @@
 	#include "system.h"
 	#include "alt_types.h"
 
-	typedef int bool;
-	#define TRUE    1
-	#define FALSE   0
+	#ifndef bool
+		typedef short int bool;
+		#define false 0
+		#define true 1
+		#define FALSE 0
+		#define TRUE 1
+	#endif
+
+	//typedef int bool;
+	//#define TRUE    1
+	//#define FALSE   0
 
 	#define PGEN_BASE PATTERN_GENERATOR_A_BASE
 
