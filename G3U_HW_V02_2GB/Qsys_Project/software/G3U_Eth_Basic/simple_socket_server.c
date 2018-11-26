@@ -23,21 +23,9 @@
  * networking stack and MicroC/OS-II Real-Time Operating System.  
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h> 
-
-/* MicroC/OS-II definitions */
-#include "includes.h"
 
 /* Simple Socket Server definitions */
 #include "simple_socket_server.h"                                                                    
-#include "alt_error_handler.h"
-
-/* Nichestack definitions */
-#include "ipport.h"
-#include "tcpport.h"
-
 #include "driver/leds/leds.h"
 
 /*

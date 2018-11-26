@@ -11,10 +11,8 @@
 #define __UTIL_H__
 
 
-#include <io.h>         /* Leiutura e escrita no Avalon */
-#include "system.h"
-#include <stdio.h>
-#include "os_cpu.h"
+#include "../simucam_defs_vars_structs_includes.h"
+
 
 #define DEBUG_HIGH
 #define DEBUG_MID

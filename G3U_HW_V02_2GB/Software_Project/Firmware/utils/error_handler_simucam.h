@@ -8,8 +8,7 @@
 #ifndef ERROR_HANDLER_SIMUCAM_H_
 #define ERROR_HANDLER_SIMUCAM_H_
 
-#include "includes.h"
-#include "osport.h"
+#include "../simucam_defs_vars_structs_includes.h"
 
 
 INT8U vFailTestCriticasParts( void );

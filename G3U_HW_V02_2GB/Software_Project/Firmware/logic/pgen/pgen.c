@@ -6,7 +6,7 @@
  */
 
 	#include "pgen.h"
-	#include "pgen_registers.h"
+
 
 	void PGEN_WRITE_REG32(alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue){
 		alt_u32 *pPgenAddr = PGEN_BASE;

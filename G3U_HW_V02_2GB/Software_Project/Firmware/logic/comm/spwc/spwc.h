@@ -8,22 +8,9 @@
 #ifndef SPWC_H_
 #define SPWC_H_
 
-	#include "system.h"
-	#include "alt_types.h"
-	
+	#include "../../../simucam_defs_vars_structs_includes.h"
 	#include "spwc_registers.h"
 	
-	//typedef int bool;
-	//#define TRUE    1
-	//#define FALSE   0
-
-	#ifndef bool
-		typedef short int bool;
-		#define false 0
-		#define true 1
-		#define FALSE 0
-		#define TRUE 1
-	#endif
 
 	#define SPWC_A_BASE (COMMUNICATION_MODULE_A_BASE)
 	#define SPWC_B_BASE (COMMUNICATION_MODULE_B_BASE)

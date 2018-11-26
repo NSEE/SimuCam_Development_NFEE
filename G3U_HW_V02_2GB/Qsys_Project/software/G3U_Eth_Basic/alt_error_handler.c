@@ -94,9 +94,6 @@
  * alt_error_handler.h: Altera Error Handler suite of development 
  * error handling functions.
  */
-#include <stdio.h>
-#include <errno.h>
-#include "includes.h"
 #include "alt_error_handler.h"
  
 void alt_uCOSIIErrorHandler(INT8U error_code, void *expanded_diagnosis_ptr)

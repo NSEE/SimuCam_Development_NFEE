@@ -5,27 +5,19 @@
  *      Author: TiagoLow
  */
 
-#include <stdio.h>
-#include "system.h"
 
-/* MicroC/OS-II definitions */
-#include "includes.h"
-#include "alt_types.h"
+
+#include "simucam_defs_vars_structs_includes.h"
 
 /* Simple Socket Server definitions */
-#include "simple_socket_server.h"
+
 #include "alt_error_handler.h"
 
-/* Nichestack definitions */
-#include "ipport.h"
-#include "libport.h"
-#include "osport.h"
-
+#include "simple_socket_server.h"
 #include "utils/initialization_simucam.h"
 #include "utils/test_module_simucam.h"
 #include "utils/error_handler_simucam.h"
 #include "rtos/rtos_tasks.h"
-
 
 /* SDCard Libs */
 #include "utils/sdcard_file_manager.h"

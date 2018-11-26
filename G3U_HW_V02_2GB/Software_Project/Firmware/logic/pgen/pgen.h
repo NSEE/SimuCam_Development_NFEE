@@ -8,20 +8,8 @@
 #ifndef PGEN_H_
 #define PGEN_H_
 
-	#include "system.h"
-	#include "alt_types.h"
-
-	#ifndef bool
-		typedef short int bool;
-		#define false 0
-		#define true 1
-		#define FALSE 0
-		#define TRUE 1
-	#endif
-
-	//typedef int bool;
-	//#define TRUE    1
-	//#define FALSE   0
+	#include "../../simucam_defs_vars_structs_includes.h"
+	#include "pgen_registers.h"
 
 	#define PGEN_BASE PATTERN_GENERATOR_A_BASE
 

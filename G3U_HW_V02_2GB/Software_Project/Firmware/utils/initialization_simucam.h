@@ -8,9 +8,7 @@
 #ifndef INITIALIZATION_SIMUCAM_H_
 #define INITIALIZATION_SIMUCAM_H_
 
-#include "../logic/eth/eth.h"
-#include "../driver/leds/leds.h"
-#include "../driver/seven_seg/seven_seg.h"
+#include "../simucam_defs_vars_structs_includes.h"
 
 void vInitSimucamBasicHW(void);
 

@@ -65,7 +65,7 @@ char cGetNextChar( short int file_handle ) {
 }
 
 unsigned int uiGetEOFPointer( short int file_handle ) {
-	vSetBytePosition(0);
+	vSetBytePosition(file_handle,0);
 	while ( alt_up_sd_card_read(file_handle) > 0 ) {;}
 
 	return uiGetBytePosition(file_handle);
@@ -79,23 +79,12 @@ unsigned int uiGetEOFPointer( short int file_handle ) {
 void vJustAWriteTest( void ) {
 
 	short int sdFile = 0;
-	char buffer[SD_BUFFER_SIZE] = "Nova mensagem que nao envolve o Class\r\n\0";
+	char buffer[SD_BUFFER_SIZE] = "Avenida Tiete 22222 \r\n\0";
 
 	printf(" Verificando sd ");
 	if ( xSdHandle.connected ) {
 		printf(" Acessando/criando o arquivo de teste\r\n");
-		sdFile = alt_up_sd_card_fopen("FI.TXT", false);
-
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-		alt_up_sd_card_read(sdFile);
-
-		printf("Será que é 8? ou 9? => %i",sdFile);
+		sdFile = alt_up_sd_card_fopen("FI2.TXT", false);
 
 		if ( sdFile >= 0 ) {
 			int index = 0;

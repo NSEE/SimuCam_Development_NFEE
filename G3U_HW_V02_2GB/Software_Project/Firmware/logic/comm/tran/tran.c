@@ -6,7 +6,6 @@
  */
 
 	#include "tran.h"
-
 	#include "../../../rtos/rtos_tasks.h"
 	#include "../../dma/dma.h"
 	

@@ -14,9 +14,8 @@
 #define __SEVEN_SEG_H__
 
 /* includes */
-#include "../../utils/meb_includes.h"
+#include "../../simucam_defs_vars_structs_includes.h"
 #include "../../utils/util.h"
-#include "system.h"
 
 /* address */
 #define SSDP_BASE SEVEN_SEGMENT_CONTROLLER_0_BASE

@@ -8,8 +8,8 @@
 #ifndef SDCARD_FILE_MANAGER_H_
 #define SDCARD_FILE_MANAGER_H_
 
-#include <altera_up_sd_card_avalon_interface.h>
-#include "meb_includes.h"
+
+#include "../simucam_defs_vars_structs_includes.h"
 
 
 typedef struct SDHandle{

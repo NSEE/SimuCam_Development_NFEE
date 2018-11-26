@@ -8,20 +8,9 @@
 *                                                                             *
 ******************************************************************************/
 
-#include <alt_types.h>
-#include <ctype.h>
-#include <errno.h>
-#include <stdio.h>
-#include <sys/alt_flash.h>
-#include "includes.h"
-#include "io.h"
-#include "simple_socket_server.h"
 
-#include <alt_iniche_dev.h>
-
-#include "ipport.h"
-#include "tcpport.h"
 #include "network_utilities.h"
+#include "simple_socket_server.h"
 
 /* Modified to read the MAC address from the RTCC [rfranca]*/
 #include "driver/rtcc_spi/rtcc_spi.h"

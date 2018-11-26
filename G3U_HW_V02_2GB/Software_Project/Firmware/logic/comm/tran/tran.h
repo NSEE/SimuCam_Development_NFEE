@@ -8,9 +8,7 @@
 #ifndef TRAN_H_
 #define TRAN_H_
 
-	#include "system.h"
-	#include "alt_types.h"
-	
+	#include "../../../simucam_defs_vars_structs_includes.h"
 	#include "tran_registers.h"
 
 	#define TRAN_A_BASE (COMMUNICATION_MODULE_A_BASE)
@@ -51,18 +49,6 @@
 	#define TRAN_M2_MEMDATA_BASE 0x0000000080000000
 	
 	#define TRAN_DATA_OFFSET 1024
-
-	#ifndef bool
-		typedef short int bool;
-		#define false 0
-		#define true 1
-		#define FALSE 0
-		#define TRUE 1
-	#endif
-
-	//typedef int bool;
-	//#define TRUE    1
-	//#define FALSE   0
 
 	#define TRAN_REG_CLEAR 0
 	#define TRAN_REG_SET   1

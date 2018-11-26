@@ -11,7 +11,7 @@
 #ifndef __NETWORK_UTILITIES_H__
 #define __NETWORK_UTILITIES_H__
 
-#include <errno.h>
+#include "simucam_defs_vars_structs_includes.h"
 
 error_t get_board_mac_addr(unsigned char mac_addr[6]);
 
