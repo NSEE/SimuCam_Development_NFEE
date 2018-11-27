@@ -161,6 +161,20 @@ begin
 		port map(
 			clk_i => clk_i,
 			rst_i => rst_i
+			-- windowing machine [in]
+			-- data packet [out]?
+			-- data buffer [in]?
+		);
+
+	-- data controller instantiation
+	data_controller_ent_inst : entity work.data_controller_ent
+		port map(
+			clk_i => clk_i,
+			rst_i => rst_i
+			-- windowing machine [in]
+			-- data controller [out]
+			-- data packet [in]?
+			-- data buffer [out]?
 		);
 
 	-- windowing buffer instantiation
@@ -168,6 +182,8 @@ begin
 		port map(
 			clk_i => clk_i,
 			rst_i => rst_i
+			-- avalon ports [in]
+			-- windowing buffer [out]
 		);
 
 	-- windowing machine instantiation
@@ -175,6 +191,10 @@ begin
 		port map(
 			clk_i => clk_i,
 			rst_i => rst_i
+			-- sync [in]
+			-- windowing buffer [in]
+			-- windowing machine [out]
+			-- data controller [in] 
 		);
 
 end architecture RTL;
