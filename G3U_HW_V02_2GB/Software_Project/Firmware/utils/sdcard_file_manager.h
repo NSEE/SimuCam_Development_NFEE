@@ -11,12 +11,15 @@
 
 #include "../simucam_defs_vars_structs_includes.h"
 
-extern TSDHandle xSdHandle;
+
 
 typedef struct SDHandle{
 	bool connected;
 	alt_up_sd_card_dev *deviceHandle;
 }TSDHandle;
+
+extern TSDHandle xSdHandle;
+
 
 #define SD_BUFFER_SIZE 512
 
@@ -28,6 +31,7 @@ char cGetCharbyIndex( short int file_handle, unsigned int positionByte );
 short int siOpenFile( char *filename );
 char cGetNextChar( short int file_handle );
 unsigned int uiGetEOFPointer( short int file_handle );
+bool siCloseFile( short int file_handle );
 
 
 

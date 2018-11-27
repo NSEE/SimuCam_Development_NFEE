@@ -13,7 +13,6 @@
 
 /*Struct that holds the values of the eth connection as port and socket pointer*/
 typedef struct ConfCon{
-	unsigned int uiPort;
 	SSSConn* pxConn;
 }TConfCon;
 
@@ -24,12 +23,20 @@ typedef struct ConfEth{
 	unsigned char ucGTW[4];
 	unsigned char ucSubNet[4];
 	unsigned char ucMAC[6];
+	unsigned short int siPortDebug;
+	unsigned short int siPortPUS;
 	TConfCon xSocketPUS;
 	TConfCon xSocketDebug;
 }TConfEth;
 
 
 extern TConfEth xConfEth;
+
+#define min( x , y ) ((x < y) ? x : y)
+
+
+/*Functions*/
+bool vLoadDefaultETHConf( void );
 
 
 #endif /* CONFIGS_SIMUCAM_H_ */

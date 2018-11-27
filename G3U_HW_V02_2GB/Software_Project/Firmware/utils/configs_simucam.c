@@ -13,11 +13,15 @@
 TConfEth xConfEth;
 
 
-bool vLoadDefaultETHConf( ){
+bool vLoadDefaultETHConf( void ){
 	short int siFile;
 	bool bSuccess = FALSE;
+	bool bEOF = FALSE;
+	bool close = FALSE;
+	unsigned char ucParser;
 	char c, *p_inteiro;
 	char inteiro[8];
+
 
 	if ( (xSdHandle.connected == TRUE) && (bSDcardIsPresent()) && (bSDcardFAT16Check()) ){
 
@@ -28,83 +32,144 @@ bool vLoadDefaultETHConf( ){
 			p_inteiro = inteiro;
 
 			do {
-				c = fgetc(arquivo);
+				c = cGetNextChar(siFile);
 				switch (c) {
-					case 39:// aspas simples '
-						c = fgetc(arquivo);
+					case 39:// single quote '
+						c = cGetNextChar(siFile);
 						while ( c != 39 ){
-							c = fgetc(arquivo);
+							c = cGetNextChar(siFile);
 						}
 						break;
-					case 0x20://espaço
-					case 10: //nova linha
+					case -1: 	//EOF
+						bEOF = TRUE;
 						break;
-					case 'E':
-						while ((c = fgetc(arquivo))!=10){
-							if ( isdigit(c) ){
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						}
-						(*p_inteiro) = 10;
-						pthread_mutex_lock(&mutex_sockEntrada);
-							config_con.port_Entrada = atoi( inteiro );
-						pthread_mutex_unlock(&mutex_sockEntrada);
-						p_inteiro = inteiro;
+					case -2: 	//EOF
+						printf("Problem with SDCard");
+						bEOF = TRUE;
+						break;
+					case 0x20: 	//ASCII: 0x20 = space
+					case 10: 	//ASCII: 10 = LN
+						break;
+					case 'M':
+
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xConfEth.ucMAC[min(ucParser,5)] = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'I':
+
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xConfEth.ucIP[min(ucParser,3)] = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'G':
+
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xConfEth.ucGTW[min(ucParser,3)] = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							ucParser++;
+						} while ( (c !=59) );
+
 						break;
 					case 'S':
-						while ((c = fgetc(arquivo))!=10){
-							if ( isdigit(c) ){
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						}
-						(*p_inteiro) = 10;
-						pthread_mutex_lock(&mutex_sockSaida);
-							config_con.port_Saida = atoi( inteiro );
-						pthread_mutex_unlock(&mutex_sockSaida);
-						p_inteiro = inteiro;
-						break;
-					case 'C':
-						while ((c = fgetc(arquivo))!=10){
-							if ( isdigit(c) ){
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						}
-						(*p_inteiro) = 10;
-						pthread_mutex_lock(&mutex_sockConfig);
-							config_con.port_Config = atoi( inteiro );
-						pthread_mutex_unlock(&mutex_sockConfig);
-						p_inteiro = inteiro;
+
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xConfEth.ucSubNet[min(ucParser,3)] = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							ucParser++;
+						} while ( (c !=59) );
+
 						break;
 					case 'D':
-						while ((c = fgetc(arquivo))!=10){
-							if ( isdigit(c) ){
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
 								(*p_inteiro) = c;
 								p_inteiro++;
 							}
-						}
-						(*p_inteiro) = 10;
-						pthread_mutex_lock(&mutex_sockDebug);
-							config_con.port_Debug = atoi( inteiro );
-						pthread_mutex_unlock(&mutex_sockDebug);
-						p_inteiro = inteiro;
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xConfEth.siPortDebug = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+
+						break;
+					case 'P':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xConfEth.siPortPUS = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+
 						break;
 					case 0x3C: //"<"
-						fclose(arquivo);
-						return;
+						close = siCloseFile(siFile);
+						if (close == FALSE)
+							printf("Problema em fechar o arquivo");
+
+						/* End of Parser File */
+						bEOF = TRUE;
+						bSuccess = TRUE; //pensar melhor
 						break;
 					default:
 						puts("Algum erro ocorreu na leitura do arquivo!");
 						break;
 				}
-			}while ( !feof( arquivo ) );
-
-
-
-
-			bSuccess = TRUE; //pensar melhor
+			} while ( bEOF == FALSE );
 		}
 	}
 
@@ -115,8 +180,8 @@ bool vLoadDefaultETHConf( ){
 		printf("Procurando por:'%s'.\n", ETH_FILE_NAME);
 
 
-		xConfEth.xSocketDebug = 17003;
-		xConfEth.xSocketPUS = 17000;
+		xConfEth.siPortDebug = 17003;
+		xConfEth.siPortPUS = 17000;
 		/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
 		 *192.168.0.5*/
 		xConfEth.ucIP[0] = 192;

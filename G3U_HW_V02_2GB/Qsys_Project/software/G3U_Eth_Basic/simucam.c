@@ -21,6 +21,7 @@
 
 /* SDCard Libs */
 #include "utils/sdcard_file_manager.h"
+#include "utils/configs_simucam.h"
 
 
 
@@ -132,7 +133,28 @@ int main (int argc, char* argv[], char* envp[])
 	  //vFailTestCriticasParts();
 	  return -1;
   }
-  vJustAWriteTest();
+
+  bIniSimucamStatus = vLoadDefaultETHConf();
+  if (bIniSimucamStatus == FALSE) {
+	  //Carregou o default;
+	  printf("Carregou o arquivo padrao \n");
+	  return -1;
+  }
+
+  printf("Verificando configurações \n");
+  printf("ETH \n");
+  printf("MAC: %x : %x : %x : %x : %x : %x \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5] );
+  printf("IP: %i . %i . %i . %i \n",xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3] );
+  printf("GTW: %i . %i . %i . %i \n",xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3] );
+  printf("Sub: %i . %i . %i . %i \n",xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3] );
+  printf("Porta Debug: %i\n", xConfEth.siPortDebug );
+  printf("Porta PUS: %i\n", xConfEth.siPortPUS );
+
+
+
+
+  //apenas um teste
+  //vJustAWriteTest();
 
 
   error_code = OSTaskCreateExt(SSSInitialTask,

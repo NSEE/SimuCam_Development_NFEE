@@ -64,6 +64,10 @@ short int siOpenFile( char *filename ) {
 	return alt_up_sd_card_fopen(filename, false);
 }
 
+bool siCloseFile( short int file_handle ) {
+	return alt_up_sd_card_fclose( file_handle );
+}
+
 char cGetNextChar( short int file_handle ) {
 	return (char)alt_up_sd_card_read(file_handle);
 }
