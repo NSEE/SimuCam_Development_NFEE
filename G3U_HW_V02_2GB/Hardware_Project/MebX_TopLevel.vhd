@@ -33,7 +33,7 @@ use ieee.numeric_std.all;
 use work.all;
 
 entity MebX_TopLevel is
-port(
+port (
     -- Global
     OSC_50_BANK2 : in std_logic;
     OSC_50_BANK4 : in std_logic;
@@ -249,8 +249,7 @@ port(
 	-- Sincronization
 	SINC_IN    : in  std_logic;
     SINC_OUT   : out std_logic
-
-  );
+	);
 end entity;
 
 architecture bhv of MebX_TopLevel is
@@ -461,9 +460,17 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             rtcc_sck_export       : out   std_logic;         -- export
             rtcc_sdi_export       : out   std_logic;         -- export
             rtcc_sdo_export       : in    std_logic  := 'X'; -- export
-				
-				sinc_in_export        : in    std_logic  := 'X'; -- export
-            sinc_out_export       : out   std_logic          -- export
+
+           	sync_in_conduit       : in    std_logic  := 'X';
+            sync_out_conduit      : out   std_logic;
+            sync_spwa_conduit     : out   std_logic;
+            sync_spwb_conduit     : out   std_logic;
+            sync_spwc_conduit     : out   std_logic;
+            sync_spwd_conduit     : out   std_logic;
+            sync_spwe_conduit     : out   std_logic;
+            sync_spwf_conduit     : out   std_logic;
+            sync_spwg_conduit     : out   std_logic;
+            sync_spwh_conduit     : out   std_logic
         );
     end component MebX_Qsys_Project;
 
@@ -513,7 +520,6 @@ SOPC_INST : MebX_Qsys_Project
     sd_cmd_export    => sd_cmd,
     sd_clk_export    => sd_clk,
     sd_dat_export    => sd_dat,
-
     
     ETH_rst_export                         => rst_eth,
     tse_led_an                             => open, 
@@ -623,10 +629,17 @@ SOPC_INST : MebX_Qsys_Project
 	rtcc_sck_export       => RTCC_SCK,
 	rtcc_sdi_export       => RTCC_SDI,
 	rtcc_sdo_export       => RTCC_SDO,
-	
-	sinc_in_export        => SINC_IN,
-	sinc_out_export       => SINC_OUT
-	
+
+   	sync_in_conduit       => SINC_IN,
+    sync_out_conduit      => SINC_OUT,
+    sync_spwa_conduit     => open,
+    sync_spwb_conduit     => open,
+    sync_spwc_conduit     => open,
+    sync_spwd_conduit     => open,
+    sync_spwe_conduit     => open,
+    sync_spwf_conduit     => open,
+    sync_spwg_conduit     => open,
+    sync_spwh_conduit     => open
  );
 
 --==========--

@@ -106,10 +106,18 @@ module MebX_Qsys_Project (
 	sd_cmd_export,
 	sd_dat_export,
 	sd_wp_n_export,
-	sinc_in_export,
-	sinc_out_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
+	sync_in_conduit,
+	sync_out_conduit,
+	sync_spwa_conduit,
+	sync_spwb_conduit,
+	sync_spwc_conduit,
+	sync_spwd_conduit,
+	sync_spwe_conduit,
+	sync_spwf_conduit,
+	sync_spwg_conduit,
+	sync_spwh_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -255,10 +263,18 @@ module MebX_Qsys_Project (
 	inout		sd_cmd_export;
 	inout	[3:0]	sd_dat_export;
 	input		sd_wp_n_export;
-	input		sinc_in_export;
-	output		sinc_out_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
+	input		sync_in_conduit;
+	output		sync_out_conduit;
+	output		sync_spwa_conduit;
+	output		sync_spwb_conduit;
+	output		sync_spwc_conduit;
+	output		sync_spwd_conduit;
+	output		sync_spwe_conduit;
+	output		sync_spwf_conduit;
+	output		sync_spwg_conduit;
+	output		sync_spwh_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;

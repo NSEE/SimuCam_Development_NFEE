@@ -106,10 +106,18 @@
 			sd_cmd_export                                        : inout std_logic                     := 'X';             -- export
 			sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			sd_wp_n_export                                       : in    std_logic                     := 'X';             -- export
-			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
-			sinc_out_export                                      : out   std_logic;                                        -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0
 			ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     -- ssdp1
+			sync_in_conduit                                      : in    std_logic                     := 'X';             -- conduit
+			sync_out_conduit                                     : out   std_logic;                                        -- conduit
+			sync_spwa_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwb_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwc_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwd_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwe_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwf_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwg_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwh_conduit                                    : out   std_logic;                                        -- conduit
 			temp_scl_export                                      : out   std_logic;                                        -- export
 			temp_sda_export                                      : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                       : out   std_logic;                                        -- export
