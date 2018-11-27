@@ -9,6 +9,7 @@
 #define CONFIGS_SIMUCAM_H_
 
 #include "../simucam_defs_vars_structs_includes.h"
+#include "sdcard_file_manager.h"
 
 /*Struct that holds the values of the eth connection as port and socket pointer*/
 typedef struct ConfCon{
@@ -16,6 +17,7 @@ typedef struct ConfCon{
 	SSSConn* pxConn;
 }TConfCon;
 
+#define ETH_FILE_NAME "default/ETH"
 
 typedef struct ConfEth{
 	unsigned char ucIP[4];
@@ -25,6 +27,9 @@ typedef struct ConfEth{
 	TConfCon xSocketPUS;
 	TConfCon xSocketDebug;
 }TConfEth;
+
+
+extern TConfEth xConfEth;
 
 
 #endif /* CONFIGS_SIMUCAM_H_ */

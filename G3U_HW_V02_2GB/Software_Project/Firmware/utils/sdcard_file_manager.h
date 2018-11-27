@@ -11,9 +11,10 @@
 
 #include "../simucam_defs_vars_structs_includes.h"
 
+extern TSDHandle xSdHandle;
 
 typedef struct SDHandle{
-	unsigned int connected;
+	bool connected;
 	alt_up_sd_card_dev *deviceHandle;
 }TSDHandle;
 
@@ -21,5 +22,14 @@ typedef struct SDHandle{
 
 bool bInitializeSDCard( void );
 void vJustAWriteTest( void );
+bool bSDcardIsPresent( void );
+bool bSDcardFAT16Check( void );
+char cGetCharbyIndex( short int file_handle, unsigned int positionByte );
+short int siOpenFile( char *filename );
+char cGetNextChar( short int file_handle );
+unsigned int uiGetEOFPointer( short int file_handle );
+
+
+
 
 #endif /* SDCARD_FILE_MANAGER_H_ */

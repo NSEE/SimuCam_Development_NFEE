@@ -60,6 +60,10 @@ char cGetCharbyIndex( short int file_handle, unsigned int positionByte ) {
 	return (char)readCharacter;
 }
 
+short int siOpenFile( char *filename ) {
+	return alt_up_sd_card_fopen(filename, false);
+}
+
 char cGetNextChar( short int file_handle ) {
 	return (char)alt_up_sd_card_read(file_handle);
 }
