@@ -9,7 +9,7 @@ entity data_packet_top is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i                  : in  std_logic; --! Local rmap clock
-		reset_n_i              : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i                : in  std_logic; --! Reset = '1': reset active; Reset = '0': no reset
 
 		data_packet_start_i    : in  std_logic;
 		data_packet_config_i   : in  t_data_packet_configdata;
@@ -43,7 +43,7 @@ begin
 	data_packet_control_ent_inst : entity work.data_packet_control_ent
 		port map(
 			clk_i                       => clk_i,
-			reset_n_i                   => reset_n_i,
+			reset_i                     => reset_i,
 			control_i.send_data_package => data_packet_start_i,
 			configdata_i                => data_packet_config_i,
 			packetflags_i               => s_data_packet_flags,
@@ -56,7 +56,7 @@ begin
 	user_packet_header_ent_inst : entity work.user_packet_header_ent
 		port map(
 			clk_i         => clk_i,
-			reset_n_i     => reset_n_i,
+			reset_i       => reset_i,
 			control_i     => s_data_packet_control.header_unit,
 			headerdata_i  => s_data_packet_headerdata,
 			spw_flag_i    => spw_flag_i.transmitter,
@@ -67,7 +67,7 @@ begin
 	data_packet_houkeeping_ent_inst : entity work.data_packet_houkeeping_ent
 		port map(
 			clk_i         => clk_i,
-			reset_n_i     => reset_n_i,
+			reset_i       => reset_i,
 			control_i     => s_data_packet_control.housekeeping_unit,
 			hkdata_i      => hkdata_i,
 			spw_flag_i    => spw_flag_i.transmitter,
@@ -78,7 +78,7 @@ begin
 	data_packet_image_ent_inst : entity work.data_packet_image_ent
 		port map(
 			clk_i                     => clk_i,
-			reset_n_i                 => reset_n_i,
+			reset_i                   => reset_i,
 			control_i                 => s_data_packet_control.image_unit,
 			headerdata_i.length_field => s_data_packet_headerdata.length_field,
 			imgdata_flag_i            => imgdata_flag_i,

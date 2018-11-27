@@ -8,6 +8,7 @@ entity spw_mux_ent is
 	port(
 		clk_i                  : in  std_logic;
 		rst_i                  : in  std_logic;
+		spw_mux_rx_sel_i       : in  std_logic_vector(2 downto 0);
 		spw_mux_tx_sel_i       : in  std_logic_vector(2 downto 0);
 		spw_codec_rx_status_i  : in  t_spw_codec_data_rx_status;
 		spw_codec_tx_status_i  : in  t_spw_codec_data_tx_status;
@@ -51,9 +52,23 @@ begin
 	p_spw_mux : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
-			s_mux_selection <= 7;
+			s_mux_rx_selection <= 7;
+			s_mux_tx_selection <= 7;
 		elsif rising_edge(clk_i) then
-			s_mux_selection <= 0;
+			-- rx selection
+			if (spw_mux_rx_sel_i(0) = '1') then
+				s_mux_tx_selection <= 0;
+			else
+				s_mux_tx_selection <= 7;
+			end if;
+			-- tx selection
+			if (spw_mux_tx_sel_i(0) = '1') then
+				s_mux_tx_selection <= 0;
+			elsif (spw_mux_tx_sel_i(1) = '1') then
+				s_mux_tx_selection <= 1;
+			else
+				s_mux_tx_selection <= 7;
+			end if;
 		end if;
 	end process p_spw_mux;
 

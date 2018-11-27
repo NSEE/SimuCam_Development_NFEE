@@ -9,7 +9,7 @@ entity data_packet_houkeeping_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i         : in  std_logic;  --! Local data packet clock
-		reset_n_i     : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i       : in  std_logic;  --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i     : in  t_data_packet_housekeeping_control;
 		hkdata_i      : in  t_data_packet_hkdata;
@@ -44,10 +44,10 @@ architecture RTL of data_packet_houkeeping_ent is
 
 begin
 
-	p_data_packet_housekeeping_FSM_state : process(clk_i, reset_n_i)
+	p_data_packet_housekeeping_FSM_state : process(clk_i, reset_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_data_packet_housekeeping_state      <= IDLE;
 			s_data_packet_housekeeping_next_state <= IDLE;
 			s_byte_counter                        <= 0;
@@ -179,10 +179,10 @@ begin
 		end if;
 	end process p_data_packet_housekeeping_FSM_state;
 
-	p_data_packet_housekeeping_FSM_output : process(s_data_packet_housekeeping_state, reset_n_i)
+	p_data_packet_housekeeping_FSM_output : process(s_data_packet_housekeeping_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			flags_o.housekeeping_busy     <= '0';
 			flags_o.housekeeping_finished <= '0';
 			flags_o.housekeeping_error    <= '0';

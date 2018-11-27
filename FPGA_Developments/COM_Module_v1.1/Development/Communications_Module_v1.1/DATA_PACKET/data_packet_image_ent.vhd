@@ -9,7 +9,7 @@ entity data_packet_image_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i             : in  std_logic; --! Local data packet clock
-		reset_n_i         : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i           : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i         : in  t_data_packet_image_control;
 		headerdata_i      : in  t_data_packet_image_headerdata;
@@ -50,10 +50,10 @@ begin
 
 	s_image_length_vector <= headerdata_i.length_field(1) & headerdata_i.length_field(0);
 
-	p_data_packet_image_FSM_state : process(clk_i, reset_n_i)
+	p_data_packet_image_FSM_state : process(clk_i, reset_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_data_packet_image_state      <= IDLE;
 			s_data_packet_image_next_state <= IDLE;
 			s_byte_counter                 <= (others => '0');
@@ -183,10 +183,10 @@ begin
 		end if;
 	end process p_data_packet_image_FSM_state;
 
-	p_data_packet_image_FSM_output : process(s_data_packet_image_state, reset_n_i)
+	p_data_packet_image_FSM_output : process(s_data_packet_image_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			flags_o.image_busy     <= '0';
 			flags_o.image_finished <= '0';
 			flags_o.image_error    <= '0';

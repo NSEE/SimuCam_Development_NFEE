@@ -9,7 +9,7 @@ entity data_packet_control_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i           : in  std_logic; --! Local data packet clock
-		reset_n_i       : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		reset_i         : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i       : in  t_data_packet_control_control;
 		configdata_i    : in  t_data_packet_configdata;
@@ -40,10 +40,10 @@ architecture RTL of data_packet_control_ent is
 
 begin
 
-	p_data_packet_control_FSM_state : process(clk_i, reset_n_i)
+	p_data_packet_control_FSM_state : process(clk_i, reset_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			s_data_packet_control_state <= IDLE;
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -149,10 +149,10 @@ begin
 		end if;
 	end process p_data_packet_control_FSM_state;
 
-	p_data_packet_control_FSM_output : process(s_data_packet_control_state, reset_n_i)
+	p_data_packet_control_FSM_output : process(s_data_packet_control_state, reset_i)
 	begin
 		-- asynchronous reset
-		if (reset_n_i = '0') then
+		if (reset_i = '1') then
 			flags_o.control_busy                                 <= '0';
 			flags_o.control_finished                             <= '0';
 			packetcontrol_o.header_unit.send_header              <= '0';

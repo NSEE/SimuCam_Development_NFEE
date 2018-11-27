@@ -144,8 +144,8 @@ begin
 	-- data packet instantiation
 	data_packet_top_inst : entity work.data_packet_top
 		port map(
-			clk_i                  => clk_i,
-			reset_n_i              => reset_n_i,
+			clk_i                  => clock,
+			reset_i                => reset,
 			data_packet_start_i    => data_packet_start_i,
 			data_packet_config_i   => data_packet_config_i,
 			spw_flag_i             => s_data_packet_spw_flag,
