@@ -8,14 +8,17 @@ entity spw_mux_ent is
 	port(
 		clk_i                  : in  std_logic;
 		rst_i                  : in  std_logic;
+		spw_mux_tx_sel_i       : in  std_logic_vector(2 downto 0);
 		spw_codec_rx_status_i  : in  t_spw_codec_data_rx_status;
 		spw_codec_tx_status_i  : in  t_spw_codec_data_tx_status;
 		spw_mux_rx_0_command_i : in  t_spw_codec_data_rx_command;
 		spw_mux_tx_0_command_i : in  t_spw_codec_data_tx_command;
+		spw_mux_tx_1_command_i : in  t_spw_codec_data_tx_command;
 		spw_codec_rx_command_o : out t_spw_codec_data_rx_command;
 		spw_codec_tx_command_o : out t_spw_codec_data_tx_command;
 		spw_mux_rx_0_status_o  : out t_spw_codec_data_rx_status;
-		spw_mux_tx_0_status_o  : out t_spw_codec_data_tx_status
+		spw_mux_tx_0_status_o  : out t_spw_codec_data_tx_status;
+		spw_mux_tx_1_status_o  : out t_spw_codec_data_tx_status
 	);
 end entity spw_mux_ent;
 
@@ -40,7 +43,8 @@ architecture RTL of spw_mux_ent is
 		txhalff => '0'
 	);
 
-	signal s_mux_selection : natural range 0 to 7 := 0;
+	signal s_mux_rx_selection : natural range 0 to 7 := 0;
+	signal s_mux_tx_selection : natural range 0 to 7 := 0;
 
 begin
 
@@ -54,15 +58,20 @@ begin
 	end process p_spw_mux;
 
 	-- spw codec rx 
-	spw_codec_rx_command_o <= (spw_mux_rx_0_command_i) when (s_mux_selection = 0) else (c_SPW_RESET_RX_COMMAND);
+	spw_codec_rx_command_o <= (spw_mux_rx_0_command_i) when (s_mux_rx_selection = 0) else (c_SPW_RESET_RX_COMMAND);
 
 	-- spw codec tx
-	spw_codec_tx_command_o <= (spw_mux_tx_0_command_i) when (s_mux_selection = 0) else (c_SPW_RESET_TX_COMMAND);
+	spw_codec_tx_command_o <= (spw_mux_tx_0_command_i) when (s_mux_tx_selection = 0)
+		else (spw_mux_tx_1_command_i) when (s_mux_tx_selection = 1)
+		else (c_SPW_RESET_TX_COMMAND);
 
 	-- spw mux port 0 rx
-	spw_mux_rx_0_status_o <= (spw_codec_rx_status_i) when (s_mux_selection = 0) else (c_SPW_RESET_RX_STATUS);
+	spw_mux_rx_0_status_o <= (spw_codec_rx_status_i) when (s_mux_rx_selection = 0) else (c_SPW_RESET_RX_STATUS);
 
 	-- spw mux port 0 tx
-	spw_mux_tx_0_status_o <= (spw_codec_tx_status_i) when (s_mux_selection = 0) else (c_SPW_RESET_TX_STATUS);
+	spw_mux_tx_0_status_o <= (spw_codec_tx_status_i) when (s_mux_tx_selection = 0) else (c_SPW_RESET_TX_STATUS);
+
+	-- spw mux port 1 tx
+	spw_mux_tx_1_status_o <= (spw_codec_tx_status_i) when (s_mux_tx_selection = 1) else (c_SPW_RESET_TX_STATUS);
 
 end architecture RTL;

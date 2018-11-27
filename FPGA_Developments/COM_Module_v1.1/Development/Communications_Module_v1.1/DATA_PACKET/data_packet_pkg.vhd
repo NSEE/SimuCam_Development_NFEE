@@ -109,7 +109,7 @@ package data_packet_pkg is
 		write : std_logic;
 		flag  : std_logic;
 		data  : std_logic_vector(7 downto 0);
-	end record t_rmap_data_packet_tx_control;
+	end record t_data_packet_spw_tx_control;
 
 	type t_data_packet_spw_tx_flag is record
 		ready : std_logic;
@@ -117,7 +117,7 @@ package data_packet_pkg is
 	end record t_data_packet_spw_tx_flag;
 
 	type t_data_packet_spw_control is record
-		transmitter : t_rmap_target_spw_tx_control;
+		transmitter : t_data_packet_spw_tx_control;
 	end record t_data_packet_spw_control;
 
 	type t_data_packet_spw_flag is record

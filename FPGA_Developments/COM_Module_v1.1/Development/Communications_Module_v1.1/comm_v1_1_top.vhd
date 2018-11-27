@@ -41,6 +41,10 @@ architecture RTL of comm_v1_1_top is
 	signal s_spw_codec_data_rx_status  : t_spw_codec_data_rx_status;
 	signal s_spw_codec_data_tx_status  : t_spw_codec_data_tx_status;
 
+	-- spw mux signals
+	signal s_spw_mux_rx_sel : std_logic_vector(2 downto 0);
+	signal s_spw_mux_tx_sel : std_logic_vector(2 downto 0);
+
 	-- rmap codec signals
 	signal s_rmap_spw_flag            : t_rmap_target_spw_flag;
 	signal s_rmap_mem_flag            : t_rmap_target_mem_flag;
@@ -48,6 +52,10 @@ architecture RTL of comm_v1_1_top is
 	signal s_rmap_mem_control         : t_rmap_target_mem_control;
 	signal s_rmap_mem_wr_byte_address : std_logic_vector((c_RMAP_MEMORY_ADDRESS_WIDTH + c_RMAP_MEMORY_ACCESS_WIDTH - 1) downto 0);
 	signal s_rmap_mem_rd_byte_address : std_logic_vector((c_RMAP_MEMORY_ADDRESS_WIDTH + c_RMAP_MEMORY_ACCESS_WIDTH - 1) downto 0);
+
+	-- data packet signals
+	signal s_data_packet_spw_flag    : t_data_packet_spw_flag;
+	signal s_data_packet_spw_control : t_data_packet_spw_control;
 
 begin
 
@@ -74,12 +82,17 @@ begin
 		port map(
 			clk_i                          => clock,
 			rst_i                          => reset,
+			spw_mux_rx_sel_i               => s_spw_mux_rx_sel,
+			spw_mux_tx_sel_i               => s_spw_mux_tx_sel,
 			spw_codec_rx_status_i          => s_spw_codec_data_rx_status,
 			spw_codec_tx_status_i          => s_spw_codec_data_tx_status,
 			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,
 			spw_mux_tx_0_command_i.txwrite => s_rmap_spw_control.transmitter.write,
 			spw_mux_tx_0_command_i.txflag  => s_rmap_spw_control.transmitter.flag,
 			spw_mux_tx_0_command_i.txdata  => s_rmap_spw_control.transmitter.data,
+			spw_mux_tx_1_command_i.txwrite => s_data_packet_spw_control.transmitter.write,
+			spw_mux_tx_1_command_i.txflag  => s_data_packet_spw_control.transmitter.flag,
+			spw_mux_tx_1_command_i.txdata  => s_data_packet_spw_control.transmitter.data,
 			spw_codec_rx_command_o         => s_spw_codec_data_rx_command,
 			spw_codec_tx_command_o         => s_spw_codec_data_tx_command,
 			spw_mux_rx_0_status_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
@@ -87,7 +100,9 @@ begin
 			spw_mux_rx_0_status_o.rxflag   => s_rmap_spw_flag.receiver.flag,
 			spw_mux_rx_0_status_o.rxdata   => s_rmap_spw_flag.receiver.data,
 			spw_mux_tx_0_status_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
-			spw_mux_tx_0_status_o.txhalff  => open
+			spw_mux_tx_0_status_o.txhalff  => open,
+			spw_mux_tx_1_status_o.txrdy    => s_data_packet_spw_flag.transmitter.ready,
+			spw_mux_tx_1_status_o.txhalff  => open
 		);
 
 	-- rmap codec instantiation
@@ -133,11 +148,11 @@ begin
 			reset_n_i              => reset_n_i,
 			data_packet_start_i    => data_packet_start_i,
 			data_packet_config_i   => data_packet_config_i,
-			spw_flag_i             => spw_flag_i,
+			spw_flag_i             => s_data_packet_spw_flag,
 			hkdata_i               => hkdata_i,
 			imgdata_flag_i         => imgdata_flag_i,
 			data_packet_finished_o => data_packet_finished_o,
-			spw_control_o          => spw_control_o,
+			spw_control_o          => s_data_packet_spw_control,
 			imgdata_control_o      => imgdata_control_o
 		);
 
