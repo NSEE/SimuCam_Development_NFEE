@@ -14,7 +14,7 @@ INT8U vFailTestCriticasParts( void )
 	 * Implementação de indicação de falha antes de finalizar a execução
 	 * Indicar falha com LEDs pois é o unico HW inicializada até o momento
 	 */
-
+	return -1;
 }
 
 
@@ -25,5 +25,5 @@ INT8U vFailGetMacRTC( void )
 	 * Implementação de indicação de falha antes de finalizar a execução
 	 * Indicar falha com LEDs pois é o unico HW inicializada até o momento
 	 */
-
+	return -1;
 }

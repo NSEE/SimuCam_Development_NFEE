@@ -12,6 +12,8 @@
 #define __NETWORK_UTILITIES_H__
 
 #include "simucam_defs_vars_structs_includes.h"
+#include "driver/rtcc_spi/rtcc_spi.h"
+#include "utils/configs_simucam.h"
 
 #define IP4_ADDR(ipaddr, a,b,c,d) ipaddr = \
     htonl((((alt_u32)(a & 0xff) << 24) | ((alt_u32)(b & 0xff) << 16) | \

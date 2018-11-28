@@ -8,12 +8,7 @@
 *                                                                             *
 ******************************************************************************/
 
-
 #include "network_utilities.h"
-#include "simple_socket_server.h"
-
-/* Modified to read the MAC address from the RTCC [rfranca]*/
-#include "driver/rtcc_spi/rtcc_spi.h"
 
 /*
 * get_mac_addr
