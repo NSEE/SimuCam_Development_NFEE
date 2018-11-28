@@ -16,7 +16,7 @@ typedef struct ConfCon{
 	SSSConn* pxConn;
 }TConfCon;
 
-#define ETH_FILE_NAME "default/ETH"
+#define ETH_FILE_NAME "DEF/ETH"
 
 typedef struct ConfEth{
 	unsigned char ucIP[4];
@@ -25,6 +25,7 @@ typedef struct ConfEth{
 	unsigned char ucMAC[6];
 	unsigned short int siPortDebug;
 	unsigned short int siPortPUS;
+	bool bDHCP;
 	TConfCon xSocketPUS;
 	TConfCon xSocketDebug;
 }TConfEth;
@@ -32,7 +33,7 @@ typedef struct ConfEth{
 
 extern TConfEth xConfEth;
 
-#define min( x , y ) ((x < y) ? x : y)
+#define min_sim( x , y ) ((x < y) ? x : y)
 
 
 /*Functions*/

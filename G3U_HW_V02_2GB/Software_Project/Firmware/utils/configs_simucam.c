@@ -14,7 +14,7 @@ TConfEth xConfEth;
 
 
 bool vLoadDefaultETHConf( void ){
-	short int siFile;
+	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
 	bool close = FALSE;
@@ -26,13 +26,15 @@ bool vLoadDefaultETHConf( void ){
 	if ( (xSdHandle.connected == TRUE) && (bSDcardIsPresent()) && (bSDcardFAT16Check()) ){
 
 		siFile = siOpenFile( ETH_FILE_NAME );
-		if ( siFile < 0 ){
+
+		if ( siFile >= 0 ){
 
 			memset( &(inteiro) , 10 , sizeof( inteiro ) );
 			p_inteiro = inteiro;
 
 			do {
 				c = cGetNextChar(siFile);
+				//printf("%c \n", c);
 				switch (c) {
 					case 39:// single quote '
 						c = cGetNextChar(siFile);
@@ -49,6 +51,7 @@ bool vLoadDefaultETHConf( void ){
 						break;
 					case 0x20: 	//ASCII: 0x20 = space
 					case 10: 	//ASCII: 10 = LN
+					case 13: 	//ASCII: 13 = CR
 						break;
 					case 'M':
 
@@ -63,8 +66,9 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucMAC[min(ucParser,5)] = atoi( inteiro );
+							xConfEth.ucMAC[ucParser] = atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
 
@@ -82,8 +86,9 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucIP[min(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucIP[min_sim(ucParser,3)] = atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
 
@@ -101,8 +106,9 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucGTW[min(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucGTW[min_sim(ucParser,3)] = atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
 
@@ -120,8 +126,9 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucSubNet[min(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucSubNet[min_sim(ucParser,3)] = atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
 							ucParser++;
 						} while ( (c !=59) );
 
@@ -139,6 +146,7 @@ bool vLoadDefaultETHConf( void ){
 						/*Tiago: Proteger com mutex*/
 						xConfEth.siPortDebug = atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
 
 						break;
 					case 'P':
@@ -154,30 +162,51 @@ bool vLoadDefaultETHConf( void ){
 						/*Tiago: Proteger com mutex*/
 						xConfEth.siPortPUS = atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'H':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						sidhcpTemp = atoi( inteiro );
+						if (sidhcpTemp == 1)
+							xConfEth.bDHCP = TRUE;
+						else
+							xConfEth.bDHCP = FALSE;
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
 
 						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE)
-							printf("Problema em fechar o arquivo");
+							printf("Problema em fechar o arquivo\n");
 
 						/* End of Parser File */
 						bEOF = TRUE;
 						bSuccess = TRUE; //pensar melhor
 						break;
 					default:
-						puts("Algum erro ocorreu na leitura do arquivo!");
+						printf("Algum erro ocorreu na leitura do arquivo! c= %i \n", c);
 						break;
 				}
 			} while ( bEOF == FALSE );
-		}
-	}
+		} else printf("Não achou o arquivo - fopen fail\n");
+	} else printf("Sem SDCard\n");
 
-	/* Will load the default configuration if not successful in read the SDCard */
+	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
 		/*Enviar mensagem que e gravar log que não encontrou o arquivo e começara a utilizar o padrao*/
 		printf("Atenção: Arquivo de conexão não foi encontrado. Carregando conf padrao\n");
-		printf("Procurando por:'%s'.\n", ETH_FILE_NAME);
+		printf("Não encontrou:'%s'.\n", ETH_FILE_NAME);
 
 
 		xConfEth.siPortDebug = 17003;
@@ -196,6 +225,13 @@ bool vLoadDefaultETHConf( void ){
 		xConfEth.ucGTW[2] = 0;
 		xConfEth.ucGTW[3] = 1;
 
+		/*ucSubNet[0].ucSubNet[1].ucSubNet[2].ucSubNet[3]
+		 *192.168.0.5*/
+		xConfEth.ucSubNet[0] = 255;
+		xConfEth.ucSubNet[1] = 255;
+		xConfEth.ucSubNet[2] = 255;
+		xConfEth.ucSubNet[3] = 0;
+
 
 		/*ucMAC[0]:ucMAC[1]:ucMAC[2]:ucMAC[3]:ucMAC[4]:ucMAC[5]
 		 *fc:f7:63:4d:1f:42*/
@@ -205,6 +241,8 @@ bool vLoadDefaultETHConf( void ){
 		xConfEth.ucMAC[3] = 0x4D;
 		xConfEth.ucMAC[4] = 0x1F;
 		xConfEth.ucMAC[5] = 0x42;
+
+		xConfEth.bDHCP = FALSE;
 
 	}
 

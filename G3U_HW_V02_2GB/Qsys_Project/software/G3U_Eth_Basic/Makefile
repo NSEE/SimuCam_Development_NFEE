@@ -169,6 +169,7 @@ C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/log_manager_simucam.c
 C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/configs_simucam.c
+C_SRCS += rtos/initialization_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

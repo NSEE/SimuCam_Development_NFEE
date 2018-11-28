@@ -125,8 +125,6 @@ int main (int argc, char* argv[], char* envp[])
   }
 
 
-
-
   /* Log file Initialization in the SDCard */
   bIniSimucamStatus = bInitializeSDCard();
   if (bIniSimucamStatus == FALSE) {
@@ -137,9 +135,12 @@ int main (int argc, char* argv[], char* envp[])
   bIniSimucamStatus = vLoadDefaultETHConf();
   if (bIniSimucamStatus == FALSE) {
 	  //Carregou o default;
-	  printf("Carregou o arquivo padrao \n");
+	  printf("Carregou o arquivo padrao!!!!!!!!!!!!!!!!!!!!!!!!!!!! \n");
 	  return -1;
   }
+
+
+
 
   printf("Verificando configurações \n");
   printf("ETH \n");
@@ -152,9 +153,6 @@ int main (int argc, char* argv[], char* envp[])
 
 
 
-
-  //apenas um teste
-  //vJustAWriteTest();
 
 
   error_code = OSTaskCreateExt(SSSInitialTask,

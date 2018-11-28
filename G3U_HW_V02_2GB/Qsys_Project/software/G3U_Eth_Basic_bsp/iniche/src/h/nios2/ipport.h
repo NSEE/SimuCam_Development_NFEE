@@ -116,7 +116,7 @@
 /* definitions for the BSD TCP code */
 #define LITTLE_ENDIAN 1234
 #define BIG_ENDIAN    4321
-#define BYTE_ORDER    LITTLE_ENDIAN
+#define BYTE_ORDER    BIG_ENDIAN
  
 #define STK_TOPDOWN     1  /* Stacks grow "top down" */
 #define ALIGN_TYPE   4  /* 32 bit alignment */

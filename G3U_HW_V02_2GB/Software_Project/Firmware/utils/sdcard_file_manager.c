@@ -61,7 +61,7 @@ char cGetCharbyIndex( short int file_handle, unsigned int positionByte ) {
 }
 
 short int siOpenFile( char *filename ) {
-	return alt_up_sd_card_fopen(filename, false);
+	return alt_up_sd_card_fopen( filename, false );
 }
 
 bool siCloseFile( short int file_handle ) {
@@ -69,7 +69,7 @@ bool siCloseFile( short int file_handle ) {
 }
 
 char cGetNextChar( short int file_handle ) {
-	return (char)alt_up_sd_card_read(file_handle);
+	return (char)alt_up_sd_card_read( file_handle );
 }
 
 unsigned int uiGetEOFPointer( short int file_handle ) {
