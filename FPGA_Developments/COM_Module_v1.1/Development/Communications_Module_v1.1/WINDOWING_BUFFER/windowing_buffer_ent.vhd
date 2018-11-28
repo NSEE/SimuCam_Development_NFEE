@@ -1,6 +1,9 @@
+-- TODO: everything, :-(
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+
+use work.windowing_machine_pkg.all;
 
 entity windowing_buffer_ent is
 	port(

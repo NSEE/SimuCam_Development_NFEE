@@ -11,6 +11,9 @@ end entity data_buffer_ent;
 
 architecture RTL of data_buffer_ent is
 	
+	-- iniciar o data fifo
+	-- fazer a gestao
+	
 begin
 
 end architecture RTL;
