@@ -22,6 +22,9 @@ int get_mac_addr(NET net, unsigned char mac_addr[6])
     
     /* Get MAC from RTC module*/
     bSuccess = RTCC_SPI_R_MAC(mac_addr);
+
+    printf("MAC: %x : %x : %x : %x : %x : %x \n", mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5] );
+
     if(bSuccess == FALSE)
     {
         /* Fail in read the MAC ADDRESS, loading the Default from sdcard */
@@ -54,13 +57,11 @@ int get_ip_addr(alt_iniche_dev *p_dev,
                 int* use_dhcp)
 {
 
-    IP4_ADDR(*ipaddr, xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
-    IP4_ADDR(*gw, xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
-    IP4_ADDR(*netmask, xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
-
     if (xConfEth.bDHCP == FALSE) {
         *use_dhcp = 0;
-
+        IP4_ADDR(*ipaddr, xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3]);
+        IP4_ADDR(*gw, xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3]);
+        IP4_ADDR(*netmask, xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3]);
         printf("Static IP Address is %d.%d.%d.%d\n",
             ip4_addr1(*ipaddr),
             ip4_addr2(*ipaddr),
@@ -68,6 +69,9 @@ int get_ip_addr(alt_iniche_dev *p_dev,
             ip4_addr4(*ipaddr));
     } else {
     	*use_dhcp = 1;
+        IP4_ADDR(*ipaddr, 0, 0, 0, 0);
+        IP4_ADDR(*gw, 0, 0, 0, 0);
+        IP4_ADDR(*netmask, 255, 255, 255, 0);
     	printf("Using DHCP \n");
     }
 

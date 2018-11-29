@@ -10,11 +10,16 @@
 
 #include "../simucam_defs_vars_structs_includes.h"
 #include "simcam_tasks_configurations.h"
+#include "../network_utilities.h"
+#include "../utils/configs_simucam.h"
+
 
 
 extern struct inet_taskinfo xNetTaskDebug;
 
-extern TK_OBJECT(to_DebugTask);
-extern TK_ENTRY(vSocketServerDebugTask);
+
+void vSocketHandleAccept(int listen_socket, SSSConn* conn);
+void vHandleReceive(SSSConn* conn);
+void vResetConnection(SSSConn* conn);
 
 #endif /* SOCKET_DEBUG_TASK_H_ */

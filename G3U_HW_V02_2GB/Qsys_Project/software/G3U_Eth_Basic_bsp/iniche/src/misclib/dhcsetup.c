@@ -62,6 +62,8 @@ dhc_setup(void)
 
    e = dhc_init();
 
+   printf("dhcp setup");
+
    if (e)
    {
       printf("Error starting DHCP client code.\n");

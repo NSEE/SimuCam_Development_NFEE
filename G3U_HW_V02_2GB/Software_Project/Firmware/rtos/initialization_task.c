@@ -10,6 +10,18 @@
 
 #include "initialization_task.h"
 
+TK_OBJECT(to_DebugTask);
+TK_ENTRY(vSocketServerDebugTask);
+
+struct inet_taskinfo xNetTaskDebug = {
+      &to_DebugTask,
+      "Debug Socket Server",
+      vSocketServerDebugTask,
+      SOCKET_DEBUG_TASK_PRIO,
+      APP_STACK_SIZE,
+};
+
+
 /*  */
 void vInitialTask(void *task_data)
 {
@@ -46,7 +58,7 @@ void vInitialTask(void *task_data)
   //DataCreateOSQ();
 
   /* TIAGO - Aqui será criado as outras tasks */
-  SSSCreateTasks();
+  //SSSCreateTasks();
 
   /* Application Specific Task Launching Code Block End */
 

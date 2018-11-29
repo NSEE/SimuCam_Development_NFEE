@@ -144,7 +144,6 @@ ELF := G3U_Eth_Basic.elf
 # Paths to C, C++, and assembly source files.
 C_SRCS += alt_error_handler.c
 C_SRCS += led.c
-C_SRCS += network_utilities.c
 C_SRCS += simple_socket_server.c
 C_SRCS += tse_my_system.c
 C_SRCS += driver/i2c/i2c.c
@@ -171,6 +170,7 @@ C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/configs_simucam.c
 C_SRCS += rtos/initialization_task.c
 C_SRCS += rtos/socket_debug_task.c
+C_SRCS += network_utilities.c
 CXX_SRCS :=
 ASM_SRCS :=
 

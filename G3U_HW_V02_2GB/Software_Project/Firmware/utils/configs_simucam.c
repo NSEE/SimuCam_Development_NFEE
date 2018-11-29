@@ -66,7 +66,7 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucMAC[ucParser] = atoi( inteiro );
+							xConfEth.ucMAC[min_sim(ucParser,5)] = atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
