@@ -28,7 +28,8 @@ architecture RTL of data_packet_control_ent is
 	-- ===========================================================
 	type t_data_packet_control_state is (
 		IDLE,
-		SEND_HEADER,
+		SEND_HOUSEKEEPING_HEADER,
+		SEND_IMAGE_HEADER,
 		WAITING_HEADER_FINISH,
 		SEND_HOUSEKEEPING,
 		WAITING_HOUSEKEEPING_FINISH,
@@ -57,7 +58,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a request to send a data packet arrived
-					if (control_i.send_data_package = '1') then
+					if (control_i.send_image_package = '1') then
 						-- request received, go to send header
 						s_data_packet_control_state <= SEND_HEADER;
 					end if;

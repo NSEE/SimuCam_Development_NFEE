@@ -90,7 +90,8 @@ package data_packet_pkg is
 	end record t_data_packet_configdata;
 
 	type t_data_packet_control_control is record
-		send_data_package : std_logic;
+		send_image_package        : std_logic;
+		send_housekeeping_package : std_logic;
 	end record t_data_packet_control_control;
 
 	type t_data_packet_control_flags is record

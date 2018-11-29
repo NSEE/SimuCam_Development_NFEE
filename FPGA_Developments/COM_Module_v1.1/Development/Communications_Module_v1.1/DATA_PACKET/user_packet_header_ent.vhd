@@ -268,7 +268,7 @@ begin
 					flags_o.header_finished <= '0';
 					-- clear spw flag (to indicate a data)
 					spw_control_o.flag      <= '0';
-					-- fill spw data with the data packet protocol identifier (0xF1)
+					-- fill spw data with the data packet protocol identifier (0xF0)
 					spw_control_o.data      <= c_DATA_PACKET_PROTOCOL;
 					-- write the spw data
 					spw_control_o.write     <= '1';
