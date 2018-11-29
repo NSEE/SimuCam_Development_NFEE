@@ -9,9 +9,8 @@
 #include "sync.h"
 
 //! [private function prototypes]
-PRIVATE bool sinc_out_drive(bool on_off);
-PRIVATE bool sinc_in_read(void);
-PRIVATE bool ctrl_io_lvds_drive(bool on_off, alt_u8 mask);
+PRIVATE bool write_reg(alt_u32 offset, alt_u32 data);
+PRIVATE alt_u32 read_reg(alt_u32 offset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
@@ -21,121 +20,378 @@ PRIVATE bool ctrl_io_lvds_drive(bool on_off, alt_u8 mask);
 //! [program memory public global variables]
 
 //! [data memory private global variables]
-PRIVATE alt_u8 io_value = 0x04;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
 //! [program memory private global variables]
 
 //! [public functions]
-PUBLIC bool enable_sinc_out(void)
+// Status reg
+PUBLIC bool sync_status_le_int_extn(void)
 {
-  sinc_out_drive(IO_ON);
-  return  TRUE;
+	alt_u32 aux;
+	bool result;
+
+	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+
+	if (aux & STATUS_INT_EXTN_MASK) {
+		result = TRUE;
+	}
+	else {
+		result = FALSE;
+	}
+	return result;
 }
 
-PUBLIC bool disable_sinc_out(void)
+PUBLIC alt_u8 sync_status_le_state(void)
 {
-  sinc_out_drive(IO_OFF);
-  return  TRUE;
+	alt_u32 aux;
+	alt_u8 result;
+
+	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+	result = (alt_u8) ((aux & STATUS_STATE_MASK) >> 16);
+	return result;
 }
 
-PUBLIC bool read_sinc_in(void)
+PUBLIC alt_u8 sync_status_le_error_code(void)
 {
-  bool result;
-  result = sinc_in_read();
-  return result;
+	alt_u32 aux;
+	alt_u8 result;
+
+	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+	result = (alt_u8) ((aux & STATUS_ERROR_CODE_MASK) >> 8);
+	return result;
+}
+
+PUBLIC alt_u8 sync_status_le_cycle_number(void)
+{
+	alt_u32 aux;
+	alt_u8 result;
+
+	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+	result = (alt_u8) ((aux & STATUS_CYCLE_NUMBER_MASK) >> 0);
+	return result;
+}
+
+// Config regs
+PUBLIC bool sync_config_mbt(alt_u32 value)
+{
+	write_reg(SYNC_CONFIG_MBT_REG_OFFSET, value);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_config_bt(alt_u32 value)
+{
+	write_reg(SYNC_CONFIG_BT_REG_OFFSET, value);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_config_per(alt_u32 value)
+{
+	write_reg(SYNC_CONFIG_PER_REG_OFFSET, value);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_config_ost(alt_u32 value)
+{
+	write_reg(SYNC_CONFIG_OST_REG_OFFSET, value);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_config_polarity(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CONFIG_GENERAL_POLARITY_MASK;
+	}
+	else {
+	aux |= CONFIG_GENERAL_POLARITY_MASK;
+	}
+
+	write_reg(SYNC_CONFIG_GENERAL_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_config_n_cyles(alt_u8 value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+	aux &= ~CONFIG_GENERAL_N_CYCLES_MASK;
+	aux |= (alt_u32) value;
+
+	write_reg(SYNC_CONFIG_GENERAL_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+// Error injection reg
+PUBLIC bool sync_err_inj(alt_u32 value)
+{
+	write_reg(SYNC_ERR_INJ_REG_OFFSET, value);
+ 	return  TRUE;
+}
+
+// Control reg
+PUBLIC bool sync_ctr_int_extn(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_INT_EXTN_MASK;
+	}
+	else {
+	aux |= CTR_INT_EXTN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_start(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	aux |= CTR_START_MASK;
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_reset(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	aux |= CTR_RESET_MASK;
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_one_shot(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	aux |= CTR_ONE_SHOT_MASK;
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_err_inj(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	aux |= CTR_ERR_INJ_MASK;
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_sync_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_SYNC_OUT_EN_MASK;
+	}
+	else {
+	aux |= CTR_SYNC_OUT_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_cha_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHA_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHA_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_chb_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHB_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHB_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_chc_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHC_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHC_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_chd_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHD_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHD_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_che_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHE_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHE_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_chf_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHF_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHF_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_chg_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHG_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHG_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
+}
+
+PUBLIC bool sync_ctr_chh_out_enable(bool value)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+
+	if (value == BIT_OFF) {
+	aux &= ~CTR_CHH_EN_MASK;
+	}
+	else {
+	aux |= CTR_CHH_EN_MASK;
+	}
+
+	write_reg(SYNC_CTR_REG_OFFSET, aux);
+ 	return  TRUE;
 }
 //! [public functions]
 
 //! [private functions]
 /**
- * @name    sinc_out_drive
+ * @name    write_reg
  * @brief
- * @ingroup sinc
+ * @ingroup sync
  *
- * Ativa ('1') ou desativa ('0') o sinc_out
+ * Write 32 bits value in a reg
  *
- * @param [in] on_off -> 0 = off / 1 = on
+ * @param [in] alt_u32 offset
+ * @param [in] alt_u32 value
  *
  * @retval TRUE -> sucesso
  */
-PRIVATE bool sinc_out_drive(bool on_off)
+PRIVATE bool write_reg(alt_u32 offset, alt_u32 value)
 {
-  alt_u8 io_value = 0x00;	
-	
-  if (on_off == IO_OFF) {
-	 io_value = 0x00;
-  }
-  else {
-	 io_value = 0x01;
-  }
-  IOWR_ALTERA_AVALON_PIO_DATA(SINC_OUT_ADDR_BASE, io_value);
-  return TRUE;
+	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
+	*(p_addr + offset) = (alt_u32) value;
+	return  TRUE;
 }
 
 /**
- * @name    sinc_in_read
+ * @name    read_reg
  * @brief
- * @ingroup sinc
+ * @ingroup sync
  *
- * Faz a leitura do i/o sinc_in e retorna valor
+ * Read 32 bits reg
  *
- * @retval valor -> resultado da leitura
+ * @param [in] alt_u32 offset
+  *
+ * @retval alt_u32 value -> reg
  */
-PRIVATE bool sinc_in_read(void)
+PRIVATE alt_u32 read_reg(alt_u32 offset)
 {
-  alt_u8 io_value = 0x00;
-  
-  io_value = IORD_ALTERA_AVALON_PIO_DATA(SINC_IN_ADDR_BASE);
-  io_value &= 0x01;
-  if (io_value) {
-	  return TRUE;
-  }
-  else {
-	  return FALSE;
-  }
-}
+	alt_u32 value;
 
-/**
- * @name    ctrl_io_lvds_drive
- * @brief
- * @ingroup ctrl_io_lvds
- *
- * Ativa ('1') ou desativa ('0') os i/o´s de controle lvds
- *
- * @param [in] on_off -> 0 = io´s off / 1 = i/o´s on
- * @param [in] mask   -> mascara de i/o´s a serem alterados
- *
- * @retval TRUE -> sucesso
- */
-PRIVATE bool ctrl_io_lvds_drive(bool on_off, alt_u32 mask)
-{
-  alt_u32 io_value = 0x00000000;
-
-  io_value = IORD_ALTERA_AVALON_PIO_DATA(SINC_IN_ADDR_BASE);
-
-  if (on_off == IO_OFF) {
-   io_value &= (~mask);
-  }
-  else {
-   io_value |= mask;
-  }
-  
-  IOWR_ALTERA_AVALON_PIO_DATA(CTRL_IO_LVDS_ADDR_BASE, io_value);
-  return TRUE;
+    alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
+ 	value = *(p_addr + (alt_u32)offset);
+	return value;
 }
 //! [private functions]
-
-
-  alt_u32 *pSsdpAddr = SSDP_BASE;
-  *(pSsdpAddr + SSDP_CONTROL_REG_OFFSET) = (alt_u32) SspdConfigControl;
-
-bool SSDP_UPDATE(alt_u8 SsdpData){
-
-  alt_u32 *pSsdpAddr = SSDP_BASE;
-  *(pSsdpAddr + SSDP_DATA_REG_OFFSET) = (alt_u32) SsdpData;
-  
-  return TRUE;
-}
 

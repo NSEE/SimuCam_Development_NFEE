@@ -1,0 +1,1 @@
+tb2 é uma reprodução do tb, só que sem usar um projeto no quartus. Tudo é feito diretamente no modelsim!

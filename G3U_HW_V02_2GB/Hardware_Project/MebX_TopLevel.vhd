@@ -246,9 +246,12 @@ port (
 	RTCC_SDI	: out std_logic;
 	RTCC_SDO   : in  std_logic;
 	
-	-- Sincronization
-	SINC_IN    : in  std_logic;
-    SINC_OUT   : out std_logic
+	-- Synchronization
+	SYNC_IN    		: in  std_logic;
+    SYNC_OUT   		: out std_logic;
+    -- Just test with single ended i/o´s - remove in production version
+	SYNC_IN_TST		: in  std_logic;
+    SYNC_OUT_TST	: out std_logic
 	);
 end entity;
 
@@ -328,6 +331,12 @@ signal spw_h_si : std_logic_vector (0 downto 0);
 signal spw_h_so : std_logic_vector (0 downto 0);
 signal spw_h_di : std_logic_vector (0 downto 0);
 signal spw_h_do : std_logic_vector (0 downto 0);
+
+-----------------------------------------
+-- Sync - test
+-----------------------------------------
+signal s_sync_out	: std_logic := '0';
+signal s_sync_in	: std_logic	:= '0';
 
 -----------------------------------------
 -- Component
@@ -630,8 +639,8 @@ SOPC_INST : MebX_Qsys_Project
 	rtcc_sdi_export       => RTCC_SDI,
 	rtcc_sdo_export       => RTCC_SDO,
 
-   	sync_in_conduit       => SINC_IN,
-    sync_out_conduit      => SINC_OUT,
+   	sync_in_conduit       => s_sync_in,  --SYNC_IN,
+    sync_out_conduit      => s_sync_out, --SYNC_OUT,
     sync_spwa_conduit     => open,
     sync_spwb_conduit     => open,
     sync_spwc_conduit     => open,
@@ -651,6 +660,12 @@ rst <= CPU_RESET_n AND RESET_PAINEL_n;
 --==========--
 -- I/Os
 --==========--    
+
+-- Routing sync i/o´s - test
+SYNC_OUT 		<= s_sync_out;
+SYNC_OUT_TST	<= s_sync_out;
+-- Observe that SYNC_IN is at high level state when there is no excitation input
+s_sync_in		<= SYNC_IN and SYNC_IN_TST;
 
 -- Ativa ventoinha
 FAN_CTRL <= '1';

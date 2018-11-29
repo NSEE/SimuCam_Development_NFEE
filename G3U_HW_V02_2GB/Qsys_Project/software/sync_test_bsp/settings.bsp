@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>27/11/2018 17:54:38</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1543348478409</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\projetos\nsee\simucam_fpga\G3U_HW_V02_2GB\Qsys_Project\software\sync_test_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>29/11/2018 17:32:27</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1543519947188</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>E:\cassio\repo_simucam\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\sync_test_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>

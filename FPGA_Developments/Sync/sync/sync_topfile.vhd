@@ -229,7 +229,7 @@ begin
 
 	-- Signals assignment (concurrent code)
 	s_reset_n <= not a_reset;
-	a_avalon_mm_waitrequest <= (s_avalon_mm_write_waitrequest) or (s_avalon_mm_read_waitrequest);
+	a_avalon_mm_waitrequest <= ((s_avalon_mm_write_waitrequest) and (s_avalon_mm_read_waitrequest)) or (a_reset);
 	
 	-- Sync mux: internal ou external sync
 	-- '1' -> internal sync

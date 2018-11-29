@@ -1,6 +1,6 @@
 Analysis & Elaboration report for tb
-Sat Nov 24 19:28:17 2018
-Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
+Thu Nov 29 13:43:03 2018
+Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
 ---------------------
@@ -25,7 +25,7 @@ Quartus Prime Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2018  Intel Corporation. All rights reserved.
+Copyright (C) 2016  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
 and other software and tools, and its AMPP partner logic 
 functions, and any output files from any of the foregoing 
@@ -33,30 +33,31 @@ functions, and any output files from any of the foregoing
 associated documentation or information are expressly subject 
 to the terms and conditions of the Intel Program License 
 Subscription Agreement, the Intel Quartus Prime License Agreement,
-the Intel FPGA IP License Agreement, or other applicable license
-agreement, including, without limitation, that your use is for
-the sole purpose of programming logic devices manufactured by
-Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+the Intel MegaCore Function License Agreement, or other 
+applicable license agreement, including, without limitation, 
+that your use is for the sole purpose of programming logic 
+devices manufactured by Intel and sold by Intel or its 
+authorized distributors.  Please refer to the applicable 
+agreement for further details.
 
 
 
-+-----------------------------------------------------------------------------+
-; Analysis & Elaboration Summary                                              ;
-+-------------------------------+---------------------------------------------+
-; Analysis & Elaboration Status ; Successful - Sat Nov 24 19:28:17 2018       ;
-; Quartus Prime Version         ; 18.0.0 Build 614 04/24/2018 SJ Lite Edition ;
-; Revision Name                 ; tb                                          ;
-; Top-level Entity Name         ; tb                                          ;
-; Family                        ; Cyclone V                                   ;
-; Logic utilization (in ALMs)   ; N/A until Partition Merge                   ;
-; Total registers               ; N/A until Partition Merge                   ;
-; Total pins                    ; N/A until Partition Merge                   ;
-; Total virtual pins            ; N/A until Partition Merge                   ;
-; Total block memory bits       ; N/A until Partition Merge                   ;
-; Total PLLs                    ; N/A until Partition Merge                   ;
-; Total DLLs                    ; N/A until Partition Merge                   ;
-+-------------------------------+---------------------------------------------+
++---------------------------------------------------------------------------------+
+; Analysis & Elaboration Summary                                                  ;
++-------------------------------+-------------------------------------------------+
+; Analysis & Elaboration Status ; Successful - Thu Nov 29 13:43:03 2018           ;
+; Quartus Prime Version         ; 16.1.0 Build 196 10/24/2016 SJ Standard Edition ;
+; Revision Name                 ; tb                                              ;
+; Top-level Entity Name         ; tb                                              ;
+; Family                        ; Cyclone V                                       ;
+; Logic utilization (in ALMs)   ; N/A until Partition Merge                       ;
+; Total registers               ; N/A until Partition Merge                       ;
+; Total pins                    ; N/A until Partition Merge                       ;
+; Total virtual pins            ; N/A until Partition Merge                       ;
+; Total block memory bits       ; N/A until Partition Merge                       ;
+; Total PLLs                    ; N/A until Partition Merge                       ;
+; Total DLLs                    ; N/A until Partition Merge                       ;
++-------------------------------+-------------------------------------------------+
 
 
 +------------------------------------------+
@@ -64,7 +65,7 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 4           ;
+; Number detected on machine ; 8           ;
 ; Maximum allowed            ; 2           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
@@ -129,13 +130,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; Maximum processors allowed for parallel compilation                             ; 2                  ;                    ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
-; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
+; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation      ; On                 ; On                 ;
 ; Enable compact report table                                                     ; Off                ; Off                ;
 ; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
 ; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
 ; Create Debugging Nodes for IP Cores                                             ; Off                ; Off                ;
 ; Preserve fewer node names                                                       ; On                 ; On                 ;
-; Intel FPGA IP Evaluation Mode                                                   ; Enable             ; Enable             ;
+; OpenCore Plus hardware evaluation                                               ; Enable             ; Enable             ;
 ; Verilog Version                                                                 ; Verilog_2001       ; Verilog_2001       ;
 ; VHDL Version                                                                    ; VHDL_1993          ; VHDL_1993          ;
 ; State Machine Processing                                                        ; Auto               ; Auto               ;
@@ -186,7 +187,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Report Connectivity Checks                                                      ; On                 ; On                 ;
 ; Ignore Maximum Fan-Out Assignments                                              ; Off                ; Off                ;
 ; Synchronization Register Chain Length                                           ; 3                  ; 3                  ;
-; Power Optimization During Synthesis                                             ; Normal compilation ; Normal compilation ;
+; PowerPlay Power Optimization During Synthesis                                   ; Normal compilation ; Normal compilation ;
 ; HDL message level                                                               ; Level2             ; Level2             ;
 ; Suppress Register Optimization Related Messages                                 ; Off                ; Off                ;
 ; Number of Removed Registers Reported in Synthesis Report                        ; 5000               ; 5000               ;
@@ -265,77 +266,77 @@ Note: In order to hide this table in the UI and the text report file, please set
 +---------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Elaboration
-    Info: Version 18.0.0 Build 614 04/24/2018 SJ Lite Edition
-    Info: Processing started: Sat Nov 24 19:27:51 2018
+    Info: Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
+    Info: Processing started: Thu Nov 29 13:42:53 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off tb -c tb --analysis_and_elaboration
 Info (20032): Parallel compilation is enabled and will use up to 2 processors
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/registers/sync_mm_registers_pkg.vhd
-    Info (12022): Found design unit 1: sync_mm_registers_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd Line: 50
-    Info (12022): Found design unit 2: sync_mm_registers_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd Line: 206
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/outen/sync_outen_pkg.vhd
-    Info (12022): Found design unit 1: sync_outen_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd Line: 51
-    Info (12022): Found design unit 2: sync_outen_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd Line: 96
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/outen/sync_outen.vhd
-    Info (12022): Found design unit 1: sync_outen-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/outen/sync_outen.vhd Line: 66
-    Info (12023): Found entity 1: sync_outen File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/outen/sync_outen.vhd Line: 52
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/int/sync_int_pkg.vhd
-    Info (12022): Found design unit 1: sync_int_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd Line: 50
-    Info (12022): Found design unit 2: sync_int_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd Line: 100
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/int/sync_int.vhd
-    Info (12022): Found design unit 1: sync_int-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/int/sync_int.vhd Line: 72
-    Info (12023): Found entity 1: sync_int File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/int/sync_int.vhd Line: 52
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/gen/sync_gen_pkg.vhd
-    Info (12022): Found design unit 1: sync_gen_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd Line: 51
-    Info (12022): Found design unit 2: sync_gen_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd Line: 110
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/gen/sync_gen.vhd
-    Info (12022): Found design unit 1: sync_gen-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/gen/sync_gen.vhd Line: 74
-    Info (12023): Found entity 1: sync_gen File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/gen/sync_gen.vhd Line: 53
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/common/sync_common_pkg.vhd
-    Info (12022): Found design unit 1: sync_common_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd Line: 50
-    Info (12022): Found design unit 2: sync_common_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd Line: 60
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/avalon/sync_avalon_mm_write.vhd
-    Info (12022): Found design unit 1: sync_avalon_mm_write-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd Line: 71
-    Info (12023): Found entity 1: sync_avalon_mm_write File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd Line: 54
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/avalon/sync_avalon_mm_read.vhd
-    Info (12022): Found design unit 1: sync_avalon_mm_read-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd Line: 68
-    Info (12023): Found entity 1: sync_avalon_mm_read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd Line: 53
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/avalon/sync_avalon_mm_pkg.vhd
-    Info (12022): Found design unit 1: sync_avalon_mm_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd Line: 52
-    Info (12022): Found design unit 2: sync_avalon_mm_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd Line: 117
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/sync/sync_topfile.vhd
-    Info (12022): Found design unit 1: sync_ent-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 84
-    Info (12023): Found entity 1: sync_ent File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 56
-Info (12021): Found 2 design units, including 0 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/tb/tb_pkg.vhd
-    Info (12022): Found design unit 1: tb_pkg File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb_pkg.vhd Line: 49
-    Info (12022): Found design unit 2: tb_pkg-body File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb_pkg.vhd Line: 108
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/tb/tb.vhd
-    Info (12022): Found design unit 1: tb-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 9
-    Info (12023): Found entity 1: tb File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 6
-Info (12021): Found 2 design units, including 1 entities, in source file /projetos/nsee/simucam_fpga/fpga_developments/sync/tb/avs_stimuli.vhd
-    Info (12022): Found design unit 1: avs_stimuli-rtl File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/avs_stimuli.vhd Line: 23
-    Info (12023): Found entity 1: avs_stimuli File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/avs_stimuli.vhd Line: 5
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/registers/sync_mm_registers_pkg.vhd
+    Info (12022): Found design unit 1: sync_mm_registers_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd Line: 50
+    Info (12022): Found design unit 2: sync_mm_registers_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd Line: 206
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/outen/sync_outen_pkg.vhd
+    Info (12022): Found design unit 1: sync_outen_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd Line: 51
+    Info (12022): Found design unit 2: sync_outen_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd Line: 96
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/outen/sync_outen.vhd
+    Info (12022): Found design unit 1: sync_outen-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd Line: 66
+    Info (12023): Found entity 1: sync_outen File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd Line: 52
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/int/sync_int_pkg.vhd
+    Info (12022): Found design unit 1: sync_int_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd Line: 50
+    Info (12022): Found design unit 2: sync_int_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd Line: 100
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/int/sync_int.vhd
+    Info (12022): Found design unit 1: sync_int-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd Line: 72
+    Info (12023): Found entity 1: sync_int File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd Line: 52
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/gen/sync_gen_pkg.vhd
+    Info (12022): Found design unit 1: sync_gen_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd Line: 51
+    Info (12022): Found design unit 2: sync_gen_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd Line: 110
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/gen/sync_gen.vhd
+    Info (12022): Found design unit 1: sync_gen-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd Line: 74
+    Info (12023): Found entity 1: sync_gen File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd Line: 53
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/common/sync_common_pkg.vhd
+    Info (12022): Found design unit 1: sync_common_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd Line: 50
+    Info (12022): Found design unit 2: sync_common_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd Line: 60
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/avalon/sync_avalon_mm_write.vhd
+    Info (12022): Found design unit 1: sync_avalon_mm_write-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd Line: 71
+    Info (12023): Found entity 1: sync_avalon_mm_write File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd Line: 54
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/avalon/sync_avalon_mm_read.vhd
+    Info (12022): Found design unit 1: sync_avalon_mm_read-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd Line: 68
+    Info (12023): Found entity 1: sync_avalon_mm_read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd Line: 53
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/avalon/sync_avalon_mm_pkg.vhd
+    Info (12022): Found design unit 1: sync_avalon_mm_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd Line: 52
+    Info (12022): Found design unit 2: sync_avalon_mm_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd Line: 117
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/sync/sync_topfile.vhd
+    Info (12022): Found design unit 1: sync_ent-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 84
+    Info (12023): Found entity 1: sync_ent File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 56
+Info (12021): Found 2 design units, including 0 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/tb/tb_pkg.vhd
+    Info (12022): Found design unit 1: tb_pkg File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd Line: 49
+    Info (12022): Found design unit 2: tb_pkg-body File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd Line: 108
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/tb/tb.vhd
+    Info (12022): Found design unit 1: tb-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 9
+    Info (12023): Found entity 1: tb File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 6
+Info (12021): Found 2 design units, including 1 entities, in source file /cassio/repo_simucam/simucam_development/fpga_developments/sync/tb/avs_stimuli.vhd
+    Info (12022): Found design unit 1: avs_stimuli-rtl File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd Line: 23
+    Info (12023): Found entity 1: avs_stimuli File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd Line: 5
 Info (12127): Elaborating entity "tb" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(19): object "s_dut_sync_signal_spwa" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 19
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(20): object "s_dut_sync_signal_spwb" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 20
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(21): object "s_dut_sync_signal_spwc" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 21
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(22): object "s_dut_sync_signal_spwd" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 22
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(23): object "s_dut_sync_signal_spwe" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 23
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(24): object "s_dut_sync_signal_spwf" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 24
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(25): object "s_dut_sync_signal_spwg" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 25
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(26): object "s_dut_sync_signal_spwh" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 26
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(28): object "s_dut_sync_signal_out" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 28
-Warning (10036): Verilog HDL or VHDL warning at tb.vhd(30): object "s_dut_irq" assigned a value but never read File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 30
-Info (12128): Elaborating entity "avs_stimuli" for hierarchy "avs_stimuli:avs_stimuli_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 49
-Info (12128): Elaborating entity "sync_ent" for hierarchy "sync_ent:sync_ent_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb/tb.vhd Line: 66
-Info (12128): Elaborating entity "sync_avalon_mm_read" for hierarchy "sync_ent:sync_ent_inst|sync_avalon_mm_read:sync_avalon_mm_read_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 113
-Info (12128): Elaborating entity "sync_avalon_mm_write" for hierarchy "sync_ent:sync_ent_inst|sync_avalon_mm_write:sync_avalon_mm_write_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 126
-Info (12128): Elaborating entity "sync_gen" for hierarchy "sync_ent:sync_ent_inst|sync_gen:sync_gen_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 138
-Info (12128): Elaborating entity "sync_outen" for hierarchy "sync_ent:sync_ent_inst|sync_outen:sync_outen_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 169
-Info (12128): Elaborating entity "sync_int" for hierarchy "sync_ent:sync_ent_inst|sync_int:sync_int_inst" File: C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 204
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(19): object "s_dut_sync_signal_spwa" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 19
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(20): object "s_dut_sync_signal_spwb" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 20
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(21): object "s_dut_sync_signal_spwc" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 21
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(22): object "s_dut_sync_signal_spwd" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 22
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(23): object "s_dut_sync_signal_spwe" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 23
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(24): object "s_dut_sync_signal_spwf" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 24
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(25): object "s_dut_sync_signal_spwg" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 25
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(26): object "s_dut_sync_signal_spwh" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 26
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(28): object "s_dut_sync_signal_out" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 28
+Warning (10036): Verilog HDL or VHDL warning at tb.vhd(30): object "s_dut_irq" assigned a value but never read File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 30
+Info (12128): Elaborating entity "avs_stimuli" for hierarchy "avs_stimuli:avs_stimuli_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 49
+Info (12128): Elaborating entity "sync_ent" for hierarchy "sync_ent:sync_ent_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd Line: 66
+Info (12128): Elaborating entity "sync_avalon_mm_read" for hierarchy "sync_ent:sync_ent_inst|sync_avalon_mm_read:sync_avalon_mm_read_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 113
+Info (12128): Elaborating entity "sync_avalon_mm_write" for hierarchy "sync_ent:sync_ent_inst|sync_avalon_mm_write:sync_avalon_mm_write_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 126
+Info (12128): Elaborating entity "sync_gen" for hierarchy "sync_ent:sync_ent_inst|sync_gen:sync_gen_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 138
+Info (12128): Elaborating entity "sync_outen" for hierarchy "sync_ent:sync_ent_inst|sync_outen:sync_outen_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 169
+Info (12128): Elaborating entity "sync_int" for hierarchy "sync_ent:sync_ent_inst|sync_int:sync_int_inst" File: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd Line: 204
 Info: Quartus Prime Analysis & Elaboration was successful. 0 errors, 10 warnings
-    Info: Peak virtual memory: 4878 megabytes
-    Info: Processing ended: Sat Nov 24 19:28:17 2018
-    Info: Elapsed time: 00:00:26
-    Info: Total CPU time (on all processors): 00:00:50
+    Info: Peak virtual memory: 721 megabytes
+    Info: Processing ended: Thu Nov 29 13:43:03 2018
+    Info: Elapsed time: 00:00:10
+    Info: Total CPU time (on all processors): 00:00:21
 
 

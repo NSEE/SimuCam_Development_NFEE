@@ -25,26 +25,108 @@
 #define SYNC_CONFIG_OST_REG_OFFSET 		7
 #define SYNC_CONFIG_GENERAL_REG_OFFSET 	8
 #define SYNC_ERR_INJ_REG_OFFSET 		9
-#define SYNC_CONTROL_REG_OFFSET			10
+#define SYNC_CTR_REG_OFFSET 			10
 
-// io states
-#define IO_ON   TRUE
-#define IO_OFF  FALSE
+// bit states
+#define BIT_ON   						TRUE
+#define BIT_OFF  						FALSE
 
-// io masks
-#define EN_ISO_DRIVERS_MASK 0x08
-#define PWDN_MASK           0x04
-#define PEM1_MASK           0x02
-#define PEM0_MASK           0x01
+// bit masks
+#define STATUS_INT_EXTN_MASK			0x80000000
+#define STATUS_STATE_MASK				0x00FF0000
+#define STATUS_ERROR_CODE_MASK			0x0000FF00
+#define STATUS_CYCLE_NUMBER_MASK		0x000000FF
+
+#define INT_ENABLE_ERROR_MASK			0x00000002
+#define INT_ENABLE_BLANK_MASK			0x00000001
+
+#define INT_FLAG_CLEAR_ERROR_MASK		0x00000002
+#define INT_FLAG_CLEAR_BLANK_MASK		0x00000001
+
+#define INT_FLAG_ERROR_MASK				0x00000002
+#define INT_FLAG_BLANK_MASK				0x00000001
+
+#define CONFIG_GENERAL_POLARITY_MASK	0x00000100
+#define CONFIG_GENERAL_N_CYCLES_MASK	0x000000FF
+
+#define CTR_INT_EXTN_MASK				0x80000000
+#define CTR_START_MASK					0x00080000
+#define CTR_RESET_MASK					0x00040000
+#define CTR_ONE_SHOT_MASK				0x00020000
+#define CTR_ERR_INJ_MASK				0x00010000
+#define CTR_SYNC_OUT_EN_MASK			0x00000100
+#define CTR_CHH_EN_MASK					0x00000080
+#define CTR_CHG_EN_MASK					0x00000040
+#define CTR_CHF_EN_MASK					0x00000020
+#define CTR_CHE_EN_MASK					0x00000010
+#define CTR_CHD_EN_MASK					0x00000008
+#define CTR_CHC_EN_MASK					0x00000004
+#define CTR_CHB_EN_MASK					0x00000002
+#define CTR_CHA_EN_MASK					0x00000001
 //! [constants definition]
 
 //! [public module structs definition]
+typedef struct general_config_t {
+	bool 	polarity;
+	alt_u8	n_cycles;
+} general_config;
+
+typedef struct ctr_reg_t {
+	bool	int_extn;
+	bool	start;
+	bool	reset;
+	bool	one_shot;
+	bool	err_inj;
+	bool	sync_out_en;
+	bool	sync_cha_en;
+	bool	sync_chb_en;
+	bool	sync_chc_en;
+	bool	sync_chd_en;
+	bool	sync_che_en;
+	bool	sync_chf_en;
+	bool	sync_chg_en;
+	bool	sync_chh_en;
+} ctr_reg;
 //! [public module structs definition]
 
 //! [public function prototypes]
-PUBLIC bool enable_sinc_out(void);
-PUBLIC bool disable_sinc_out(void);
-PUBLIC bool read_sinc_in(void);
+PUBLIC bool sync_status_le_int_extn(void);
+PUBLIC alt_u8 sync_status_le_state(void);
+PUBLIC alt_u8 sync_status_le_error_code(void);
+PUBLIC alt_u8 sync_status_le_cycle_number(void);
+
+PUBLIC bool sync_int_enable_error(bool value);
+PUBLIC bool sync_int_enable_blank(bool value);
+
+PUBLIC bool sync_int_flag_clear_error(bool value);
+PUBLIC bool sync_int_flag_clear_blank(bool value);
+
+PUBLIC bool sync_int_le_flag_error(void);
+PUBLIC bool sync_int_le_flag_blank(void);
+
+PUBLIC bool sync_config_mbt(alt_u32 value);
+PUBLIC bool sync_config_bt(alt_u32 value);
+PUBLIC bool sync_config_per(alt_u32 value);
+PUBLIC bool sync_config_ost(alt_u32 value);
+PUBLIC bool sync_config_polarity(bool value);
+PUBLIC bool sync_config_n_cycles(alt_u8 value);
+
+PUBLIC bool sync_err_inj(alt_u32 value);
+
+PUBLIC bool sync_ctr_int_extn(bool value);
+PUBLIC bool sync_ctr_start(void);
+PUBLIC bool sync_ctr_reset(void);
+PUBLIC bool sync_ctr_one_shot(void);
+PUBLIC bool sync_ctr_err_inj(void);
+PUBLIC bool sync_ctr_sync_out_enable(bool value);
+PUBLIC bool sync_ctr_cha_out_enable(bool value);
+PUBLIC bool sync_ctr_chb_out_enable(bool value);
+PUBLIC bool sync_ctr_chc_out_enable(bool value);
+PUBLIC bool sync_ctr_chd_out_enable(bool value);
+PUBLIC bool sync_ctr_che_out_enable(bool value);
+PUBLIC bool sync_ctr_chf_out_enable(bool value);
+PUBLIC bool sync_ctr_chg_out_enable(bool value);
+PUBLIC bool sync_ctr_chh_out_enable(bool value);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

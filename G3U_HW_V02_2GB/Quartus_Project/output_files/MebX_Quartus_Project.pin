@@ -255,7 +255,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AD9       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD10      :        :                   :         : 5C        :                
 VREFB5CN0                    : AD11      : power  :                   :         : 5C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD12      :        :                   :         : 5A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD13      :        :                   :         : 5A        :                
+SYNC_IN_TST                  : AD13      : input  : 3.3-V LVTTL       :         : 5A        : Y              
 VCCPD4A                      : AD14      : power  :                   : 2.5V    : 4A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AD15      :        :                   :         : 4A        :                
 VCCPD4B                      : AD16      : power  :                   : 2.5V    : 4B        :                
@@ -294,7 +294,7 @@ VCCIO5C                      : AE9       : power  :                   : 3.0V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE10      :        :                   :         : 5C        :                
 LED_PAINEL_LED_POWER         : AE11      : output : 3.3-V LVCMOS      :         : 5C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE12      :        :                   :         : 5A        :                
-SINC_IN                      : AE13      : input  : 3.3-V LVTTL       :         : 5A        : Y              
+SYNC_IN                      : AE13      : input  : 3.3-V LVTTL       :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE14      :        :                   :         : 4A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE15      :        :                   :         : 4A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE16      :        :                   :         : 4A        :                
@@ -642,7 +642,7 @@ LED_PAINEL_LED_3G            : AP6       : output : 3.3-V LVCMOS      :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP7       :        :                   :         : 5A        :                
 RTCC_CS_n                    : AP8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP9       :        :                   :         : 5A        :                
-SINC_OUT                     : AP10      : output : 3.3-V LVTTL       :         : 5A        : Y              
+SYNC_OUT                     : AP10      : output : 3.3-V LVTTL       :         : 5A        : Y              
 nCSO                         : AP11      :        :                   :         : 1A        :                
 VCCIO4A                      : AP12      : power  :                   : 1.8V    : 4A        :                
 M1_DDR2_dq[56]               : AP13      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
@@ -758,7 +758,7 @@ NC                           : AU5       :        :                   :         
 LED_PAINEL_LED_1G            : AU6       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 LED_PAINEL_LED_2G            : AU7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 LED_PAINEL_LED_ST4           : AU8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AU9       :        :                   :         : 5A        :                
+SYNC_OUT_TST                 : AU9       : output : 3.3-V LVTTL       :         : 5A        : Y              
 RTCC_SDI                     : AU10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 M1_DDR2_dq[54]               : AU11      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
 M1_DDR2_dq[51]               : AU12      : bidir  : SSTL-18 Class I   :         : 4A        : Y              
