@@ -665,6 +665,7 @@ rst <= CPU_RESET_n AND RESET_PAINEL_n;
 SYNC_OUT 		<= s_sync_out;
 SYNC_OUT_TST	<= s_sync_out;
 -- Observe that SYNC_IN is at high level state when there is no excitation input
+-- For test purposes, don´t use isolator board.
 s_sync_in		<= SYNC_IN and SYNC_IN_TST;
 
 -- Ativa ventoinha

@@ -23,7 +23,7 @@ int main()
 
   printf("Hello from Nios II!\n");
 
-  flag = sync_status_le_int_extn();
+  flag = sync_status_extn_int();
 
   return 0;
 }

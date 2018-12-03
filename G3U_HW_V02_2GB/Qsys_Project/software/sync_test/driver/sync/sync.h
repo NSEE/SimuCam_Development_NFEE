@@ -32,7 +32,7 @@
 #define BIT_OFF  						FALSE
 
 // bit masks
-#define STATUS_INT_EXTN_MASK			0x80000000
+#define STATUS_EXTN_INT_MASK			0x80000000
 #define STATUS_STATE_MASK				0x00FF0000
 #define STATUS_ERROR_CODE_MASK			0x0000FF00
 #define STATUS_CYCLE_NUMBER_MASK		0x000000FF
@@ -49,7 +49,7 @@
 #define CONFIG_GENERAL_POLARITY_MASK	0x00000100
 #define CONFIG_GENERAL_N_CYCLES_MASK	0x000000FF
 
-#define CTR_INT_EXTN_MASK				0x80000000
+#define CTR_EXTN_INT_MASK				0x80000000
 #define CTR_START_MASK					0x00080000
 #define CTR_RESET_MASK					0x00040000
 #define CTR_ONE_SHOT_MASK				0x00020000
@@ -72,7 +72,7 @@ typedef struct general_config_t {
 } general_config;
 
 typedef struct ctr_reg_t {
-	bool	int_extn;
+	bool	extn_int;
 	bool	start;
 	bool	reset;
 	bool	one_shot;
@@ -90,10 +90,10 @@ typedef struct ctr_reg_t {
 //! [public module structs definition]
 
 //! [public function prototypes]
-PUBLIC bool sync_status_le_int_extn(void);
-PUBLIC alt_u8 sync_status_le_state(void);
-PUBLIC alt_u8 sync_status_le_error_code(void);
-PUBLIC alt_u8 sync_status_le_cycle_number(void);
+PUBLIC bool sync_status_extn_int(void);
+PUBLIC alt_u8 sync_status_state(void);
+PUBLIC alt_u8 sync_status_error_code(void);
+PUBLIC alt_u8 sync_status_cycle_number(void);
 
 PUBLIC bool sync_int_enable_error(bool value);
 PUBLIC bool sync_int_enable_blank(bool value);
@@ -101,8 +101,8 @@ PUBLIC bool sync_int_enable_blank(bool value);
 PUBLIC bool sync_int_flag_clear_error(bool value);
 PUBLIC bool sync_int_flag_clear_blank(bool value);
 
-PUBLIC bool sync_int_le_flag_error(void);
-PUBLIC bool sync_int_le_flag_blank(void);
+PUBLIC bool sync_int_flag_error(void);
+PUBLIC bool sync_int_flag_blank(void);
 
 PUBLIC bool sync_config_mbt(alt_u32 value);
 PUBLIC bool sync_config_bt(alt_u32 value);
@@ -113,7 +113,7 @@ PUBLIC bool sync_config_n_cycles(alt_u8 value);
 
 PUBLIC bool sync_err_inj(alt_u32 value);
 
-PUBLIC bool sync_ctr_int_extn(bool value);
+PUBLIC bool sync_ctr_extn_int(bool value);
 PUBLIC bool sync_ctr_start(void);
 PUBLIC bool sync_ctr_reset(void);
 PUBLIC bool sync_ctr_one_shot(void);
