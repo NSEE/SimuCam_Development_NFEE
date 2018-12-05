@@ -430,7 +430,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AH28      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH29      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH30      :        :                   :         : 2A        :                
 VCCIO2C                      : AH31      : power  :                   : 2.5V    : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AH32      :        :                   :         : 2C        :                
+I_RS232_UART_RXD             : AH32      : input  : 2.5 V             :         : 2C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH33      :        :                   :         : 2C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH34      :        :                   :         : 2C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH35      :        :                   :         : 2C        :                
@@ -627,7 +627,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AN30      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN31      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN32      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN33      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AN34      :        :                   :         : 2C        :                
+O_RS232_UART_TXD             : AN34      : output : 2.5 V             :         : 2C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN35      :        :                   :         : 2C        :                
 GND                          : AN36      : gnd    :                   :         :           :                
 GND                          : AN37      : gnd    :                   :         :           :                
@@ -1398,8 +1398,8 @@ VCCPD8B                      : R23       : power  :                   : 2.5V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :         : 8A        :                
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
-FSM_A[0]                     : R27       : output : 2.5 V             :         : 1A        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
+FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 ETH_MDC[0]                   : R30       : output : 2.5 V             :         : 1C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                

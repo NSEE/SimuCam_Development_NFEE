@@ -96,6 +96,8 @@
 			m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                      : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                      : in    std_logic                     := 'X';             -- rup
+			rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
+			rs232_uart_txd                                       : out   std_logic;                                        -- txd
 			rst_reset_n                                          : in    std_logic                     := 'X';             -- reset_n
 			rtcc_alarm_export                                    : in    std_logic                     := 'X';             -- export
 			rtcc_cs_n_export                                     : out   std_logic;                                        -- export

@@ -250,7 +250,11 @@ port(
 	
 	-- Sincronization
 	SINC_IN    : in  std_logic;
-    SINC_OUT   : out std_logic
+   SINC_OUT   : out std_logic;
+	
+	-- RS232 UART	 
+	I_RS232_UART_RXD : in  std_logic;
+   O_RS232_UART_TXD : out std_logic
 
   );
 end entity;
@@ -466,7 +470,10 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             sd_card_ip_b_SD_cmd                                  : inout std_logic                     := 'X';             -- b_SD_cmd
             sd_card_ip_b_SD_dat                                  : inout std_logic                     := 'X';             -- b_SD_dat
             sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
-            sd_card_ip_o_SD_clock                                : out   std_logic                                         -- o_SD_clock
+            sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
+				
+            rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
+            rs232_uart_txd                                       : out   std_logic                                         -- txd
         );
     end component MebX_Qsys_Project;
 
@@ -628,7 +635,10 @@ SOPC_INST : MebX_Qsys_Project
 	sd_card_ip_b_SD_cmd    => B_SD_CARD_CMD,    -- sd_card_ip.b_SD_cmd
 	sd_card_ip_b_SD_dat    => B_SD_CARD_DAT,    --           .b_SD_dat
 	sd_card_ip_b_SD_dat3   => B_SD_CARD_DAT3,   --           .b_SD_dat3
-	sd_card_ip_o_SD_clock  => O_SD_CARD_CLOCK   --           .o_SD_clock
+	sd_card_ip_o_SD_clock  => O_SD_CARD_CLOCK,  --           .o_SD_clock
+	
+	rs232_uart_rxd => I_RS232_UART_RXD, -- rs232_uart.rxd
+	rs232_uart_txd => O_RS232_UART_TXD  --           .txd
 	
  );
 
