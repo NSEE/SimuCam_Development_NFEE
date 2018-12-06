@@ -215,7 +215,7 @@ PUBLIC bool sync_config_polarity(bool value)
 }
 
 /**
- * @name    sync_config_n_cyles
+ * @name    sync_config_n_cycles
  * @brief
  * @ingroup sync
  *
@@ -227,7 +227,7 @@ PUBLIC bool sync_config_polarity(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_n_cyles(alt_u8 value)
+PUBLIC bool sync_config_n_cycles(alt_u8 value)
 {
 	alt_u32 aux;
 
@@ -237,6 +237,101 @@ PUBLIC bool sync_config_n_cyles(alt_u8 value)
 
 	write_reg(SYNC_CONFIG_GENERAL_REG_OFFSET, aux);
  	return  TRUE;
+}
+
+/**
+ * @name    sync_read_config_mbt
+ * @brief
+ * @ingroup sync
+ *
+ * Read mbt config register.
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_config_mbt(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_MBT_REG_OFFSET);
+ 	return  aux;
+}
+
+/**
+ * @name    sync_read_config_bt
+ * @brief
+ * @ingroup sync
+ *
+ * Read bt config register.
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_config_bt(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_BT_REG_OFFSET);
+ 	return  aux;
+}
+
+/**
+ * @name    sync_read_config_per
+ * @brief
+ * @ingroup sync
+ *
+ * Read per config register.
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_config_per(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_PER_REG_OFFSET);
+ 	return  aux;
+}
+
+/**
+ * @name    sync_read_config_ost
+ * @brief
+ * @ingroup sync
+ *
+ * Read ost config register.
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_config_ost(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_OST_REG_OFFSET);
+ 	return  aux;
+}
+
+/**
+ * @name    sync_read_config_general
+ * @brief
+ * @ingroup sync
+ *
+ * Read general config register.
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_config_general(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+ 	return  aux;
 }
 
 // Error injection reg
@@ -802,6 +897,44 @@ PUBLIC bool sync_int_flag_blank(void)
 		result = FALSE;
 	}
 	return result;
+}
+
+/**
+ * @name    sync_read_ctr
+ * @brief
+ * @ingroup sync
+ *
+ * Read control reg
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_ctr(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	return aux;
+}
+
+/**
+ * @name    sync_read_status
+ * @brief
+ * @ingroup sync
+ *
+ * Read status reg
+ *
+ * @param [in] void
+ *
+ * @retval alt_u32 value
+ */
+PUBLIC alt_u32 sync_read_status(void)
+{
+	alt_u32 aux;
+
+	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+	return aux;
 }
 //! [public functions]
 

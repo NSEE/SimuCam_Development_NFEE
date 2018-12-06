@@ -95,6 +95,8 @@ PUBLIC alt_u8 sync_status_state(void);
 PUBLIC alt_u8 sync_status_error_code(void);
 PUBLIC alt_u8 sync_status_cycle_number(void);
 
+PUBLIC alt_u32 sync_read_status(void);
+
 PUBLIC bool sync_int_enable_error(bool value);
 PUBLIC bool sync_int_enable_blank(bool value);
 
@@ -110,6 +112,12 @@ PUBLIC bool sync_config_per(alt_u32 value);
 PUBLIC bool sync_config_ost(alt_u32 value);
 PUBLIC bool sync_config_polarity(bool value);
 PUBLIC bool sync_config_n_cycles(alt_u8 value);
+
+PUBLIC alt_u32 sync_read_config_mbt(void);
+PUBLIC alt_u32 sync_read_config_bt(void);
+PUBLIC alt_u32 sync_read_config_per(void);
+PUBLIC alt_u32 sync_read_config_ost(void);
+PUBLIC alt_u32 sync_read_config_general(void);
 
 PUBLIC bool sync_err_inj(alt_u32 value);
 
@@ -127,6 +135,8 @@ PUBLIC bool sync_ctr_che_out_enable(bool value);
 PUBLIC bool sync_ctr_chf_out_enable(bool value);
 PUBLIC bool sync_ctr_chg_out_enable(bool value);
 PUBLIC bool sync_ctr_chh_out_enable(bool value);
+
+PUBLIC alt_u32 sync_read_ctr(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
