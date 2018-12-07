@@ -3,120 +3,313 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.windowing_machine_pkg.all;
+use work.windowing_fifo_pkg.all;
 
 entity windowing_buffer_ent is
 	port(
-		clk_i : in std_logic;
-		rst_i : in std_logic
+		clk_i                 : in  std_logic;
+		rst_i                 : in  std_logic;
+		window_data_write_i   : in  std_logic;
+		window_mask_write_i   : in  std_logic;
+		window_data_i         : in  std_logic_vector(63 downto 0);
+		window_data_read_i    : in  std_logic;
+		window_mask_read_i    : in  std_logic;
+		window_data_o         : out std_logic_vector(63 downto 0);
+		window_mask_o         : out std_logic_vector(63 downto 0);
+		window_data_ready_o   : out std_logic;
+		window_mask_ready_o   : out std_logic;
+		window_buffer_empty_o : out std_logic
 	);
 end entity windowing_buffer_ent;
 
 architecture RTL of windowing_buffer_ent is
 
-	type t_windowing_data_block is array (0 to 16) of std_logic_vector(63 downto 0);
-	type t_windowing_buffer is array (0 to 15) of t_windowing_data_block;
-	signal s_windowing_buffer : t_windowing_buffer;
+	-- windowing data fifo 0 signals
+	signal s_windowing_data_fifo_0_control : t_windowing_fifo_control;
+	signal s_windowing_data_fifo_0_wr_data : t_windowing_fifo_wr_data;
+	signal s_windowing_data_fifo_0_status  : t_windowing_data_fifo_status;
+	signal s_windowing_data_fifo_0_rd_data : t_windowing_fifo_rd_data;
 
-	signal s_windowing_buffer_full  : std_logic;
-	signal s_windowing_buffer_empty : std_logic;
-	signal s_windowing_buffer_index : std_logic_vector(3 downto 0);
-	signal s_windowing_pixels_index : std_logic_vector(5 downto 0);
-	signal s_pixel
+	-- windowing mask fifo 0 signals
+	signal s_windowing_mask_fifo_0_control : t_windowing_fifo_control;
+	signal s_windowing_mask_fifo_0_wr_data : t_windowing_fifo_wr_data;
+	signal s_windowing_mask_fifo_0_status  : t_windowing_mask_fifo_status;
+	signal s_windowing_mask_fifo_0_rd_data : t_windowing_fifo_rd_data;
 
-	signal s_windowing_machine_started : std_logic;
+	-- windowing data fifo 1 signals
+	signal s_windowing_data_fifo_1_control : t_windowing_fifo_control;
+	signal s_windowing_data_fifo_1_wr_data : t_windowing_fifo_wr_data;
+	signal s_windowing_data_fifo_1_status  : t_windowing_data_fifo_status;
+	signal s_windowing_data_fifo_1_rd_data : t_windowing_fifo_rd_data;
+
+	-- windowing mask fifo 1 signals
+	signal s_windowing_mask_fifo_1_control : t_windowing_fifo_control;
+	signal s_windowing_mask_fifo_1_wr_data : t_windowing_fifo_wr_data;
+	signal s_windowing_mask_fifo_1_status  : t_windowing_mask_fifo_status;
+	signal s_windowing_mask_fifo_1_rd_data : t_windowing_fifo_rd_data;
+
+	-- windowing buffers active signals 
+	signal s_write_data_buffer_0_active : std_logic;
+	signal s_write_mask_buffer_0_active : std_logic;
+	signal s_read_data_buffer_0_active  : std_logic;
+	signal s_read_mask_buffer_0_active  : std_logic;
+
+	-- windowing buffers ready signals
+	signal s_data_buffer_0_ready : std_logic;
+	signal s_data_buffer_1_ready : std_logic;
+	signal s_mask_buffer_0_ready : std_logic;
+	signal s_mask_buffer_1_ready : std_logic;
 
 begin
+
+	-- windowing data fifo 0 instantiation
+	windowing_data_fifo_0_ent_inst : entity work.windowing_data_fifo_ent
+		port map(
+			clk_i          => clk_i,
+			rst_i          => rst_i,
+			fifo_control_i => s_windowing_data_fifo_0_control,
+			fifo_wr_data   => s_windowing_data_fifo_0_wr_data,
+			fifo_status_o  => s_windowing_data_fifo_0_status,
+			fifo_rd_data   => s_windowing_data_fifo_0_rd_data
+		);
+
+	-- windowing mask fifo 0 instantiation
+	windowing_mask_fifo_0_ent_inst : entity work.windowing_mask_fifo_ent
+		port map(
+			clk_i          => clk_i,
+			rst_i          => rst_i,
+			fifo_control_i => s_windowing_mask_fifo_0_control,
+			fifo_wr_data   => s_windowing_mask_fifo_0_wr_data,
+			fifo_status_o  => s_windowing_mask_fifo_0_status,
+			fifo_rd_data   => s_windowing_mask_fifo_0_rd_data
+		);
+
+	-- windowing data fifo 1 instantiation
+	windowing_data_fifo_1_ent_inst : entity work.windowing_data_fifo_ent
+		port map(
+			clk_i          => clk_i,
+			rst_i          => rst_i,
+			fifo_control_i => s_windowing_data_fifo_1_control,
+			fifo_wr_data   => s_windowing_data_fifo_1_wr_data,
+			fifo_status_o  => s_windowing_data_fifo_1_status,
+			fifo_rd_data   => s_windowing_data_fifo_1_rd_data
+		);
+
+	-- windowing mask fifo 1 instantiation
+	windowing_mask_fifo_1_ent_inst : entity work.windowing_mask_fifo_ent
+		port map(
+			clk_i          => clk_i,
+			rst_i          => rst_i,
+			fifo_control_i => s_windowing_mask_fifo_1_control,
+			fifo_wr_data   => s_windowing_mask_fifo_1_wr_data,
+			fifo_status_o  => s_windowing_mask_fifo_1_status,
+			fifo_rd_data   => s_windowing_mask_fifo_1_rd_data
+		);
 
 	p_windowing_buffer : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
-
+			window_data_o                               <= (others => '0');
+			window_mask_o                               <= (others => '0');
+			s_windowing_data_fifo_0_control.read.rdreq  <= '0';
+			s_windowing_data_fifo_0_control.read.sclr   <= '1';
+			s_windowing_data_fifo_0_control.write.wrreq <= '0';
+			s_windowing_data_fifo_0_control.write.sclr  <= '1';
+			s_windowing_data_fifo_0_wr_data.data        <= (others => '0');
+			s_windowing_mask_fifo_0_control.read.rdreq  <= '0';
+			s_windowing_mask_fifo_0_control.read.sclr   <= '1';
+			s_windowing_mask_fifo_0_control.write.wrreq <= '0';
+			s_windowing_mask_fifo_0_control.write.sclr  <= '1';
+			s_windowing_mask_fifo_0_wr_data.data        <= (others => '0');
+			s_windowing_data_fifo_1_control.read.rdreq  <= '0';
+			s_windowing_data_fifo_1_control.read.sclr   <= '1';
+			s_windowing_data_fifo_1_control.write.wrreq <= '0';
+			s_windowing_data_fifo_1_control.write.sclr  <= '1';
+			s_windowing_data_fifo_1_wr_data.data        <= (others => '0');
+			s_windowing_mask_fifo_1_control.read.rdreq  <= '0';
+			s_windowing_mask_fifo_1_control.read.sclr   <= '1';
+			s_windowing_mask_fifo_1_control.write.wrreq <= '0';
+			s_windowing_mask_fifo_1_control.write.sclr  <= '1';
+			s_windowing_mask_fifo_1_wr_data.data        <= (others => '0');
+			s_write_data_buffer_0_active                <= '1';
+			s_write_mask_buffer_0_active                <= '1';
+			s_read_data_buffer_0_active                 <= '1';
+			s_read_mask_buffer_0_active                 <= '1';
+			s_data_buffer_0_ready                       <= '0';
+			s_data_buffer_1_ready                       <= '0';
+			s_mask_buffer_0_ready                       <= '0';
+			s_mask_buffer_1_ready                       <= '0';
 		elsif rising_edge(clk_i) then
 
-			s_windowing_machine_started <= '0';
-			-- check if the windowing buffer is full (ready to process data)
-			if (s_windowing_buffer_full = '1') or (s_windowing_machine_started = '1') then
-				s_windowing_machine_started <= '1';
+			window_data_o                               <= (others => '0');
+			window_mask_o                               <= (others => '0');
+			s_windowing_data_fifo_0_control.read.rdreq  <= '0';
+			s_windowing_data_fifo_0_control.read.sclr   <= '0';
+			s_windowing_data_fifo_0_control.write.wrreq <= '0';
+			s_windowing_data_fifo_0_control.write.sclr  <= '0';
+			s_windowing_data_fifo_0_wr_data.data        <= (others => '0');
+			s_windowing_mask_fifo_0_control.read.rdreq  <= '0';
+			s_windowing_mask_fifo_0_control.read.sclr   <= '0';
+			s_windowing_mask_fifo_0_control.write.wrreq <= '0';
+			s_windowing_mask_fifo_0_control.write.sclr  <= '0';
+			s_windowing_mask_fifo_0_wr_data.data        <= (others => '0');
+			s_windowing_data_fifo_1_control.read.rdreq  <= '0';
+			s_windowing_data_fifo_1_control.read.sclr   <= '0';
+			s_windowing_data_fifo_1_control.write.wrreq <= '0';
+			s_windowing_data_fifo_1_control.write.sclr  <= '0';
+			s_windowing_data_fifo_1_wr_data.data        <= (others => '0');
+			s_windowing_mask_fifo_1_control.read.rdreq  <= '0';
+			s_windowing_mask_fifo_1_control.read.sclr   <= '0';
+			s_windowing_mask_fifo_1_control.write.wrreq <= '0';
+			s_windowing_mask_fifo_1_control.write.sclr  <= '0';
+			s_windowing_mask_fifo_1_wr_data.data        <= (others => '0');
 
-				-- sweep the windowing data block
-				-- check if the pixel is masked
-				if (s_windowing_buffer(to_integer(unsigned(s_windowing_buffer_index)))(16)(to_integer(unsigned(s_windowing_pixels_index))) = '1') then
+			----------------------------------------------------------------------------------------
 
-					s_windowing_buffer(to_integer(unsigned(s_windowing_buffer_index)))(to_integer(unsigned(s_windowing_pixels_index(5 downto 2))))(to_integer(unsigned(s_windowing_pixels_index)))
-					
+			-- Windowing Buffer Write
+			-- check if a window data write was requested 
+			if (window_data_write_i = '1') then
+				-- window data write requested
+				-- check if the buffer 0 is being used
+				if (s_write_data_buffer_0_active = '1') then
+					-- buffer 0 is being used
+					-- check if there is space in the windowing data fifo 0
+					if (s_windowing_data_fifo_0_status.write.full = '1') then
+						s_windowing_data_fifo_0_control.write.wrreq <= '1';
+						s_windowing_data_fifo_0_wr_data.data        <= window_data_i;
+						-- check if this will be the last data for the buffer 0
+						if (s_windowing_data_fifo_0_status.write.usedw = "11111111") then
+							-- next data will be stored in buffer 1
+							s_write_data_buffer_0_active <= '0';
+							-- set the data ready flag
+							s_data_buffer_0_ready        <= '1';
+						end if;
+					end if;
+				else
+					-- buffer 1 is being used
+					-- check if a window data write was requested 
+					if (window_data_write_i = '1') then
+						-- window data write requested
+						-- check if there is space in the windowing data fifo 1
+						if (s_windowing_data_fifo_1_status.write.full = '1') then
+							s_windowing_data_fifo_1_control.write.wrreq <= '1';
+							s_windowing_data_fifo_1_wr_data.data        <= window_data_i;
+							-- check if this will be the last data for the buffer 1
+							if (s_windowing_data_fifo_1_status.write.usedw = "11111111") then
+								-- next data will be stored in buffer 0
+								s_write_data_buffer_0_active <= '1';
+								-- set the data ready flag
+								s_data_buffer_1_ready        <= '1';
+							end if;
+						end if;
+					end if;
 				end if;
+			-- check if a window mask write was requested 
+			elsif (window_mask_write_i = '1') then
+				-- window mask write requested
+				-- check if the buffer 0 is being used
+				if (s_write_mask_buffer_0_active = '1') then
+					-- buffer 0 is being used
+					-- check if there is space in the windowing mask fifo 0
+					if (s_windowing_mask_fifo_0_status.write.full = '1') then
+						s_windowing_mask_fifo_0_control.write.wrreq <= '1';
+						s_windowing_mask_fifo_0_wr_data.data        <= window_data_i;
+						-- check if this will be the last data for the buffer 0
+						if (s_windowing_mask_fifo_0_status.write.usedw = "1111") then
+							-- next data will be stored in buffer 1
+							s_write_mask_buffer_0_active <= '0';
+							-- set the mask ready flag
+							s_mask_buffer_0_ready        <= '1';
+						end if;
+					end if;
+				else
+					-- buffer 1 is being used
+					-- check if a window mask write was requested 	
+					if (window_mask_write_i = '1') then
+						-- window mask write requested
+						-- check if there is space in the windowing mask fifo 1
+						if (s_windowing_mask_fifo_1_status.write.full = '1') then
+							s_windowing_mask_fifo_1_control.write.wrreq <= '1';
+							s_windowing_mask_fifo_1_wr_data.data        <= window_data_i;
+							-- check if this will be the last data for the buffer 1
+							if (s_windowing_mask_fifo_1_status.write.usedw = "1111") then
+								-- next data will be stored in buffer 0
+								s_write_mask_buffer_0_active <= '1';
+								-- set the mask ready flag
+								s_mask_buffer_1_ready        <= '1';
+							end if;
+						end if;
+					end if;
+				end if;
+			end if;
 
+			----------------------------------------------------------------------------------------
+
+			-- Windowing Buffer Read
+			-- check if a buffer data read was requested
+			if (window_data_read_i = '1') then
+				-- check if the buffer 0 is being used
+				if (s_read_data_buffer_0_active = '1') then
+					-- buffer 0 is being used
+					-- read data from the data buffer 0
+					s_windowing_mask_fifo_0_control.read.rdreq <= '1';
+					window_data_o                              <= s_windowing_data_fifo_0_rd_data.q;
+					-- check if this is the last data for the buffer 0
+					if (s_windowing_data_fifo_0_status.read.usedw = "11111111") then
+						-- next data will be read from buffer 1
+						s_read_data_buffer_0_active <= '0';
+						-- clear the data ready flag
+						s_data_buffer_1_ready       <= '0';
+					end if;
+				else
+					-- buffer 1 is being used
+					-- read data from the data buffer 1
+					s_windowing_mask_fifo_1_control.read.rdreq <= '1';
+					window_data_o                              <= s_windowing_data_fifo_1_rd_data.q;
+					-- check if this is the last data for the buffer 1
+					if (s_windowing_data_fifo_1_status.read.usedw = "11111111") then
+						-- next data will be read from buffer 0
+						s_read_data_buffer_0_active <= '1';
+						-- clear the data ready flag
+						s_data_buffer_1_ready       <= '0';
+					end if;
+				end if;
+			-- check if a buffer mask read was requested	
+			elsif (window_mask_read_i = '1') then
+				-- check if the buffer 0 is being used
+				if (s_read_mask_buffer_0_active = '1') then
+					-- buffer 0 is being used
+					-- read data from the mask buffer 0
+					s_windowing_mask_fifo_0_control.read.rdreq <= '1';
+					window_mask_o                              <= s_windowing_mask_fifo_0_rd_data.q;
+					-- check if this is the last mask for the buffer 0
+					if (s_windowing_mask_fifo_0_status.read.usedw = "1111") then
+						-- next data will be read from buffer 1
+						s_read_mask_buffer_0_active <= '0';
+						-- clear the mask ready flag
+						s_mask_buffer_0_ready       <= '0';
+					end if;
+				else
+					-- buffer 1 is being used
+					-- read data from the mask buffer 1
+					s_windowing_mask_fifo_1_control.read.rdreq <= '1';
+					window_mask_o                              <= s_windowing_mask_fifo_1_rd_data.q;
+					-- check if this is the last mask for the buffer 1
+					if (s_windowing_mask_fifo_1_status.read.usedw = "1111") then
+						-- next data will be read from buffer 0
+						s_read_mask_buffer_0_active <= '1';
+						-- clear the mask ready flag
+						s_mask_buffer_1_ready       <= '0';
+					end if;
+				end if;
 			end if;
 
 		end if;
 	end process p_windowing_buffer;
 
-	-- buffer_index = 00; data_line_index = 00; pixel_index = 00
-	-- buffer_index = 00; data_line_index = 00; pixel_index = 01
-	-- buffer_index = 00; data_line_index = 00; pixel_index = 02
-	-- buffer_index = 00; data_line_index = 00; pixel_index = 03
-	-- buffer_index = 00; data_line_index = 01; pixel_index = 04
-	-- buffer_index = 00; data_line_index = 01; pixel_index = 05
-	-- buffer_index = 00; data_line_index = 01; pixel_index = 06
-	-- buffer_index = 00; data_line_index = 01; pixel_index = 07
-	-- buffer_index = 00; data_line_index = 02; pixel_index = 08
-	-- buffer_index = 00; data_line_index = 02; pixel_index = 09
-	-- buffer_index = 00; data_line_index = 02; pixel_index = 10
-	-- buffer_index = 00; data_line_index = 02; pixel_index = 11
-	-- buffer_index = 00; data_line_index = 03; pixel_index = 12
-	-- buffer_index = 00; data_line_index = 03; pixel_index = 13
-	-- buffer_index = 00; data_line_index = 03; pixel_index = 14
-	-- buffer_index = 00; data_line_index = 03; pixel_index = 15
-	-- buffer_index = 00; data_line_index = 04; pixel_index = 16
-	-- buffer_index = 00; data_line_index = 04; pixel_index = 17
-	-- buffer_index = 00; data_line_index = 04; pixel_index = 18
-	-- buffer_index = 00; data_line_index = 04; pixel_index = 19
-	-- buffer_index = 00; data_line_index = 05; pixel_index = 20
-	-- buffer_index = 00; data_line_index = 05; pixel_index = 21
-	-- buffer_index = 00; data_line_index = 05; pixel_index = 22
-	-- buffer_index = 00; data_line_index = 05; pixel_index = 23
-	-- buffer_index = 00; data_line_index = 06; pixel_index = 24
-	-- buffer_index = 00; data_line_index = 06; pixel_index = 25
-	-- buffer_index = 00; data_line_index = 06; pixel_index = 26
-	-- buffer_index = 00; data_line_index = 06; pixel_index = 27
-	-- buffer_index = 00; data_line_index = 07; pixel_index = 28
-	-- buffer_index = 00; data_line_index = 07; pixel_index = 29
-	-- buffer_index = 00; data_line_index = 07; pixel_index = 30
-	-- buffer_index = 00; data_line_index = 07; pixel_index = 31
-	-- buffer_index = 00; data_line_index = 08; pixel_index = 32
-	-- buffer_index = 00; data_line_index = 08; pixel_index = 33
-	-- buffer_index = 00; data_line_index = 08; pixel_index = 34
-	-- buffer_index = 00; data_line_index = 08; pixel_index = 35
-	-- buffer_index = 00; data_line_index = 09; pixel_index = 36
-	-- buffer_index = 00; data_line_index = 09; pixel_index = 37
-	-- buffer_index = 00; data_line_index = 09; pixel_index = 38
-	-- buffer_index = 00; data_line_index = 09; pixel_index = 39
-	-- buffer_index = 00; data_line_index = 10; pixel_index = 40
-	-- buffer_index = 00; data_line_index = 10; pixel_index = 41
-	-- buffer_index = 00; data_line_index = 10; pixel_index = 42
-	-- buffer_index = 00; data_line_index = 10; pixel_index = 43
-	-- buffer_index = 00; data_line_index = 11; pixel_index = 44
-	-- buffer_index = 00; data_line_index = 11; pixel_index = 45
-	-- buffer_index = 00; data_line_index = 11; pixel_index = 46
-	-- buffer_index = 00; data_line_index = 11; pixel_index = 47
-	-- buffer_index = 00; data_line_index = 12; pixel_index = 48
-	-- buffer_index = 00; data_line_index = 12; pixel_index = 49
-	-- buffer_index = 00; data_line_index = 12; pixel_index = 50
-	-- buffer_index = 00; data_line_index = 12; pixel_index = 51
-	-- buffer_index = 00; data_line_index = 13; pixel_index = 52
-	-- buffer_index = 00; data_line_index = 13; pixel_index = 53
-	-- buffer_index = 00; data_line_index = 13; pixel_index = 54
-	-- buffer_index = 00; data_line_index = 13; pixel_index = 55
-	-- buffer_index = 00; data_line_index = 14; pixel_index = 56
-	-- buffer_index = 00; data_line_index = 14; pixel_index = 57
-	-- buffer_index = 00; data_line_index = 14; pixel_index = 58
-	-- buffer_index = 00; data_line_index = 14; pixel_index = 59
-	-- buffer_index = 00; data_line_index = 15; pixel_index = 60
-	-- buffer_index = 00; data_line_index = 15; pixel_index = 61
-	-- buffer_index = 00; data_line_index = 15; pixel_index = 62
-	-- buffer_index = 00; data_line_index = 15; pixel_index = 63
-	-- buffer_index = 01; data_line_index = 00; pixel_index = 00
-	-- ...
+	-- output signals generation:
+	window_buffer_empty_o <= (((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty)) or ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty)));
+	window_data_ready_o   <= ((s_data_buffer_0_ready) or (s_data_buffer_1_ready));
+	window_mask_ready_o   <= ((s_mask_buffer_0_ready) or (s_mask_buffer_1_ready));
 
 end architecture RTL;
