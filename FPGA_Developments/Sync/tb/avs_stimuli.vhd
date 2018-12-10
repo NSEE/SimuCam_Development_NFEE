@@ -198,6 +198,30 @@ begin
 					avalon_mm_write_o   	<= '0';
 					avalon_mm_read_o    	<= '1';
 
+				when 1275 to 1276 =>
+					-- Register read
+					-- Sync status register - address: 0
+					v_address				:= 0;
+					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
+					avalon_mm_write_o   	<= '0';
+					avalon_mm_read_o    	<= '1';
+
+				when 1600 to 1601 =>
+					-- Register read
+					-- Sync status register - address: 0
+					v_address				:= 0;
+					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
+					avalon_mm_write_o   	<= '0';
+					avalon_mm_read_o    	<= '1';
+
+				when 1925 to 1926 =>
+					-- Register read
+					-- Sync status register - address: 0
+					v_address				:= 0;
+					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
+					avalon_mm_write_o   	<= '0';
+					avalon_mm_read_o    	<= '1';
+
 				when 2000 to 2001 =>
 					-- Register write
 					-- Sync control register - address: 10

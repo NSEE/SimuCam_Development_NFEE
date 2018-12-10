@@ -226,6 +226,7 @@ avalon_mm_read_o <= avalon_mm_read_o~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |tb|sync_ent:sync_ent_inst
+reset_sink_reset => a_avalon_mm_waitrequest.IN1
 reset_sink_reset => sync_avalon_mm_read:sync_avalon_mm_read_inst.rst_i
 reset_sink_reset => sync_avalon_mm_write:sync_avalon_mm_write_inst.rst_i
 reset_sink_reset => sync_gen:sync_gen_inst.reset_n_i

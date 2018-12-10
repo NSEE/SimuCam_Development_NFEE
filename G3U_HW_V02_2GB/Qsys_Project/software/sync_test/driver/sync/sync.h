@@ -11,6 +11,7 @@
 #include "../../utils/meb_includes.h"
 #include "system.h"
 #include <altera_avalon_pio_regs.h>
+#include <sys/alt_irq.h>
 
 //! [constants definition]
 // address
@@ -90,6 +91,9 @@ typedef struct ctr_reg_t {
 //! [public module structs definition]
 
 //! [public function prototypes]
+PUBLIC void init_interrupt(void);
+PUBLIC void handle_irq(void* context, alt_u32 id);
+
 PUBLIC bool sync_status_extn_int(void);
 PUBLIC alt_u8 sync_status_state(void);
 PUBLIC alt_u8 sync_status_error_code(void);
@@ -140,6 +144,7 @@ PUBLIC alt_u32 sync_read_ctr(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
+extern PUBLIC int n;
 //! [data memory public global variables - use extern]
 
 //! [flags]

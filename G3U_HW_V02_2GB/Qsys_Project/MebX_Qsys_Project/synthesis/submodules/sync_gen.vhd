@@ -335,7 +335,7 @@ begin
 	-- read: s_sync_gen_state, reset_n_i
 	-- write:
 	-- r/w:
-	p_sync_gen_fsm_output : process(s_sync_gen_state, reset_n_i,s_registered_configs,s_sync_cycle_cnt)
+	p_sync_gen_fsm_output : process(s_sync_gen_state, reset_n_i, s_registered_configs, s_sync_cycle_cnt)
 	begin
 		-- asynchronous reset
 		if (reset_n_i = '0') then
@@ -368,6 +368,7 @@ begin
 					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: running = 1
 					status_o.state	 				<= (0 => '1', others => '0');
+					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 
 				-- state "ONE_SHOT"
 				when ONE_SHOT =>
@@ -387,6 +388,7 @@ begin
 					sync_gen_o						<= not s_registered_configs.signal_polarity;
 					-- state: error injection = 3
 					status_o.state					<= (0|1 => '1', others => '0');
+					status_o.cycle_number			<= std_logic_vector(to_unsigned(s_sync_cycle_cnt, g_SYNC_CYCLE_NUMBER_WIDTH));
 
 				-- not defined states
 				when others =>

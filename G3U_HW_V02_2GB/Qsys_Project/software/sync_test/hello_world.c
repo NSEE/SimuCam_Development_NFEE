@@ -17,11 +17,17 @@
 #include <stdio.h>
 #include "driver/sync/sync.h"
 
+// Master blank time = (MBT * 20 ns) = 400 ms
 #define MBT	20E6
+// Blank time = (BT * 20 ns) = 200 ms
 #define BT	10E6
+// Period = (PER * 20 ns) = 6,25 s
 #define PER	312500E3
+// One shot time = (OST * 20 ns) = 500 ms
 #define OST	25E6
+// Blank level polarity = '0'
 #define POL FALSE
+// Number of cycles = 4
 #define N_CICLOS 4
 
 int main()
@@ -30,6 +36,8 @@ int main()
   alt_u32 aux;
   alt_u8 aux2;
 
+  init_interrupt();
+  n = 0;
   printf("Hello from Nios II!\n");
 
   // Le bit de status - sync ext. ou int. (default = externo)
@@ -127,7 +135,8 @@ int main()
   flag = sync_status_extn_int();
   printf("extn_int = %x \n", flag);
 
-  while(1){}
+  while (1) {
+  }
 
   return 0;
 }
