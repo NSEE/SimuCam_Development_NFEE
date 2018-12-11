@@ -12,6 +12,7 @@ entity avalon_mm_windowing_write_ent is
 		clk_i                 : in  std_logic;
 		rst_i                 : in  std_logic;
 		avalon_mm_windowing_i : in  t_avalon_mm_windowing_write_in;
+		mask_enable_i         : in  std_logic;
 		avalon_mm_windowing_o : out t_avalon_mm_windowing_write_out;
 		window_data_write_o   : out std_logic;
 		window_mask_write_o   : out std_logic;
@@ -60,10 +61,20 @@ begin
 					s_windown_data_ctn  <= s_windown_data_ctn + 1;
 				else
 					-- counter at mask address
-					window_mask_write_o <= '1';
-					window_data_o       <= avalon_mm_windowing_i.writedata;
-					-- reset counter
-					s_windown_data_ctn  <= 0;
+					-- check if masking is enabled
+					if (mask_enable_i = '1') then
+						-- masking enabled
+						window_mask_write_o <= '1';
+						window_data_o       <= avalon_mm_windowing_i.writedata;
+						-- reset counter
+						s_windown_data_ctn  <= 0;
+					else
+						-- masking disabled
+						window_data_write_o <= '1';
+						window_data_o       <= avalon_mm_windowing_i.writedata;
+						-- set counter to first data
+						s_windown_data_ctn  <= 1;
+					end if;
 				end if;
 			end if;
 
