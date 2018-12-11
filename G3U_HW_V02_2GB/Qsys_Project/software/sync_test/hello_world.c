@@ -32,9 +32,9 @@
 
 int main()
 {
-  bool flag;
-  alt_u32 aux;
-  alt_u8 aux2;
+  bool		flag;
+  alt_u32	aux_32;
+  alt_u8	aux_8;
 
   init_interrupt();
   n = 0;
@@ -50,7 +50,7 @@ int main()
   flag = sync_ctr_sync_out_enable(TRUE);
 
   // Altera para sync interno (ainda não configurado)
-   flag = sync_ctr_extn_int(TRUE);
+  flag = sync_ctr_extn_int(TRUE);
 
   // Configura um padrão de sync interno
   // MBT => 400 ms @ 20 ns (50 MHz)
@@ -73,39 +73,39 @@ int main()
 
   // Lê toda a configuração para conferir setup
   // MBT
-  aux = sync_read_config_mbt();
-  printf("MBT = %u \n", aux);
+  aux_32 = sync_read_config_mbt();
+  printf("MBT = %u \n", aux_32);
   // BT
-  aux = sync_read_config_bt();
-  printf("BT = %u \n", aux);
+  aux_32 = sync_read_config_bt();
+  printf("BT = %u \n", aux_32);
   // PER
-  aux = sync_read_config_per();
-  printf("PER = %u \n", aux);
+  aux_32 = sync_read_config_per();
+  printf("PER = %u \n", aux_32);
   // OST
-  aux = sync_read_config_ost();
-  printf("OST = %u \n", aux);
+  aux_32 = sync_read_config_ost();
+  printf("OST = %u \n", aux_32);
   // General
-  aux = sync_read_config_general();
-  printf("General = %x \n", aux);
+  aux_32 = sync_read_config_general();
+  printf("General = %x \n", aux_32);
 
   // Lê control reg
-  aux = sync_read_ctr();
-  printf("Control = %x \n", aux);
+  aux_32 = sync_read_ctr();
+  printf("Control = %x \n", aux_32);
 
   // Start no gerador interno - deve aparecer no sync out
   flag = sync_ctr_start();
 
   // Lê control reg
-  aux = sync_read_ctr();
-  printf("Control = %x \n", aux);
+  aux_32 = sync_read_ctr();
+  printf("Control = %x \n", aux_32);
 
   // Lê estado
-  aux2 = sync_status_state();
-  printf("State = %x \n", aux2);
+  aux_8 = sync_status_state();
+  printf("State = %x \n", aux_8);
 
   // Lê n. do ciclo atual
-  aux2 = sync_status_cycle_number();
-  printf("N. do ciclo = %u \n", aux2);
+  aux_8 = sync_status_cycle_number();
+  printf("N. do ciclo = %u \n", aux_8);
 
   // Retorna ao estado idle
   flag = sync_ctr_reset();
@@ -120,20 +120,23 @@ int main()
   flag = sync_ctr_err_inj();
 
   // Lê estado
-  aux2 = sync_status_state();
-  printf("State = %x \n", aux2);
+  aux_8 = sync_status_state();
+  printf("State = %x \n", aux_8);
 
   // Lê n. do ciclo atual
-  aux2 = sync_status_cycle_number();
-  printf("N. do ciclo = %u \n", aux2);
+  aux_8 = sync_status_cycle_number();
+  printf("N. do ciclo = %u \n", aux_8);
 
   // Lê status reg
-  aux = sync_read_status();
-  printf("Status reg = %x \n", aux);
+  aux_32 = sync_read_status();
+  printf("Status reg = %x \n", aux_32);
 
   // Le bit de status - sync ext. ou int. (default = externo)
   flag = sync_status_extn_int();
   printf("extn_int = %x \n", flag);
+
+  // Habilita int blank pulse
+  aux_32 = sync_int_enable_blank(TRUE);
 
   while (1) {
   }

@@ -9,9 +9,6 @@
 #define SYNC_H_
 
 #include "../../utils/meb_includes.h"
-#include "system.h"
-#include <altera_avalon_pio_regs.h>
-#include <sys/alt_irq.h>
 
 //! [constants definition]
 // address
@@ -92,7 +89,7 @@ typedef struct ctr_reg_t {
 
 //! [public function prototypes]
 PUBLIC void init_interrupt(void);
-PUBLIC void handle_irq(void* context, alt_u32 id);
+PUBLIC void handle_irq(void* context);
 
 PUBLIC bool sync_status_extn_int(void);
 PUBLIC alt_u8 sync_status_state(void);

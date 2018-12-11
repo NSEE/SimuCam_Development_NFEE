@@ -21,8 +21,8 @@ PUBLIC int n;
 //! [program memory public global variables]
 
 //! [data memory private global variables]
-// A variable to hold the value of the button pio edge capture register
-PRIVATE volatile int edge_capture;
+// A variable to hold the context of interrupt
+PRIVATE volatile int hold_context;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -35,29 +35,24 @@ PRIVATE volatile int edge_capture;
  * @brief
  * @ingroup sync
  *
- * Handle interrupts from the buttons
- * This interrupt event is triggered by a button/switch press
- * This handler sets *context to the value read from the button
- * edge capture register.  The button edge capture register
- * is then cleared and normal program execution resumes
+ * Handle interrupt from sync ip
  * The value stored in *context is used to control program flow
  * in the rest of this program's routines
  *
- * @param [in] void* context, alt_u32 id
+ * @param [in] void* context
  *
  * @retval void
  */
-PUBLIC void handle_irq(void* context, alt_u32 id)
+PUBLIC void handle_irq(void* context)
 {
-    /* Cast context to edge_capture's type. It is important that this be 
-     * declared volatile to avoid unwanted compiler optimization.
-     */
-    volatile int* edge_capture_ptr = (volatile int*) context;
-    /* Store the value in the Button's edge capture register in *context. */
-    *edge_capture_ptr = IORD_ALTERA_AVALON_PIO_EDGE_CAP(SYNC_BASE);
+    // Cast context to hold_context's type. It is important that this be 
+    // declared volatile to avoid unwanted compiler optimization.
+    volatile int* hold_context_ptr = (volatile int*) context;
+    // Use context value according to your app logic...
+    //*hold_context_ptr = ...;
+    // if (*hold_context_ptr == '0') {}...
+    // App logic sequence...
     n++;
-    /* Reset the Button's edge capture register. */
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(SYNC_BASE, 0);
 }
 
 /**
@@ -73,16 +68,11 @@ PUBLIC void handle_irq(void* context, alt_u32 id)
  */
 PUBLIC void init_interrupt(void)
 {
-    /* Recast the edge_capture pointer to match the alt_irq_register() function
-     * prototype. */
-    void* edge_capture_ptr = (void*) &edge_capture;
-    /* Enable first four interrupts. */
-    IOWR_ALTERA_AVALON_PIO_IRQ_MASK(SYNC_BASE, 0xf);
-    /* Reset the edge capture register. */
-    IOWR_ALTERA_AVALON_PIO_EDGE_CAP(SYNC_BASE, 0x0);
-    /* Register the interrupt handler. */
-    alt_irq_register(SYNC_IRQ, edge_capture_ptr,
-                      handle_irq);
+    // Recast the hold_context pointer to match the alt_irq_register() function
+    // prototype.
+    void* hold_context_ptr = (void*) &hold_context;
+    // Register the interrupt handler
+    alt_irq_register(SYNC_IRQ, hold_context_ptr, handle_irq);
 }
 
 // Status reg
