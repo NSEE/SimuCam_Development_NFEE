@@ -20,6 +20,7 @@ end entity avalon_mm_windowing_write_ent;
 architecture rtl of avalon_mm_windowing_write_ent is
 
 	signal s_windown_data_ctn : natural range 0 to 16;
+	signal s_waitrequest      : std_logic;
 
 begin
 
@@ -30,6 +31,7 @@ begin
 			window_mask_write_o <= '0';
 			window_data_o       <= (others => '0');
 			s_windown_data_ctn  <= 0;
+			s_waitrequest       <= '0';
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
@@ -42,35 +44,39 @@ begin
 		procedure p_writedata(write_address_i : t_avalon_mm_windowing_address) is
 		begin
 
-			-- check if it is the beggining of a new cicle
-			if (write_address_i = 0) then
-				-- address is zero, new cicle
-				window_data_write_o <= '1';
-				window_data_o       <= avalon_mm_windowing_i.writedata;
-				s_windown_data_ctn  <= 0;
-			else
-				-- address not zero, verify counter
-				if (s_windown_data_ctn < 16) then
-					-- counter at data address
+			-- check if the waitrequested is still active
+			if (s_waitrequest = '1') then
+				-- waitrequest active, execute write operation
+				-- check if it is the beggining of a new cicle
+				if (write_address_i = 0) then
+					-- address is zero, new cicle
 					window_data_write_o <= '1';
 					window_data_o       <= avalon_mm_windowing_i.writedata;
-					-- increment counter
-					s_windown_data_ctn  <= s_windown_data_ctn + 1;
+					s_windown_data_ctn  <= 1;
 				else
-					-- counter at mask address
-					-- check if masking is enabled
-					if (mask_enable_i = '1') then
-						-- masking enabled
-						window_mask_write_o <= '1';
-						window_data_o       <= avalon_mm_windowing_i.writedata;
-						-- reset counter
-						s_windown_data_ctn  <= 0;
-					else
-						-- masking disabled
+					-- address not zero, verify counter
+					if (s_windown_data_ctn < 16) then
+						-- counter at data address
 						window_data_write_o <= '1';
 						window_data_o       <= avalon_mm_windowing_i.writedata;
-						-- set counter to first data
-						s_windown_data_ctn  <= 1;
+						-- increment counter
+						s_windown_data_ctn  <= s_windown_data_ctn + 1;
+					else
+						-- counter at mask address
+						-- check if masking is enabled
+						if (mask_enable_i = '1') then
+							-- masking enabled
+							window_mask_write_o <= '1';
+							window_data_o       <= avalon_mm_windowing_i.writedata;
+							-- reset counter
+							s_windown_data_ctn  <= 0;
+						else
+							-- masking disabled
+							window_data_write_o <= '1';
+							window_data_o       <= avalon_mm_windowing_i.writedata;
+							-- set counter to first data
+							s_windown_data_ctn  <= 1;
+						end if;
 					end if;
 				end if;
 			end if;
@@ -81,13 +87,16 @@ begin
 	begin
 		if (rst_i = '1') then
 			avalon_mm_windowing_o.waitrequest <= '1';
+			s_waitrequest                     <= '1';
 			v_write_address                   := 0;
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
 			avalon_mm_windowing_o.waitrequest <= '1';
+			s_waitrequest                     <= '1';
 			p_control_triggers;
 			if (avalon_mm_windowing_i.write = '1') then
 				avalon_mm_windowing_o.waitrequest <= '0';
+				s_waitrequest                     <= '0';
 				v_write_address                   := to_integer(unsigned(avalon_mm_windowing_i.address));
 				p_writedata(v_write_address);
 			end if;
