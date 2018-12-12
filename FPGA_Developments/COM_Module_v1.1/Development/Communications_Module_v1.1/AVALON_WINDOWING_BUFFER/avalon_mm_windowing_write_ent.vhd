@@ -3,9 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.avalon_mm_windowing_pkg.all;
-use work.comm_mm_registers_pkg.all;
-use work.spwc_mm_registers_pkg.all;
-use work.tran_mm_registers_pkg.all;
 
 entity avalon_mm_windowing_write_ent is
 	port(

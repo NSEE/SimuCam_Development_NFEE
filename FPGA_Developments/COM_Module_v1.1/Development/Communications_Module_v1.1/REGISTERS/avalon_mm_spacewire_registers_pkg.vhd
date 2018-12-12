@@ -1,3 +1,7 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
 package avalon_mm_spacewire_registers_pkg is
 
 	--  Windowing Control Register                     (32 bits):
@@ -103,7 +107,7 @@ package avalon_mm_spacewire_registers_pkg is
 	type t_windowing_buffer_register is record
 		R_buffer_empty : std_logic;
 		L_buffer_empty : std_logic;
-	end record t_interrupt_control_register;
+	end record t_windowing_buffer_register;
 
 	type t_windowing_read_registers is record
 		windowing_status : t_windowing_status_register;

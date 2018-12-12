@@ -96,8 +96,12 @@ architecture rtl of comm_v1_01_top is
 
 	-- spw codec signals
 	signal s_spw_rxvalid : std_logic;
+	signal s_spw_rxhalff : std_logic;
+	signal s_spw_rxflag  : std_logic;
+	signal s_spw_rxdata  : std_logic_vector(7 downto 0);
 	signal s_spw_rxread  : std_logic;
 	signal s_spw_txrdy   : std_logic;
+	signal s_spw_txhalff : std_logic;
 	signal s_spw_txwrite : std_logic;
 	signal s_spw_txflag  : std_logic;
 	signal s_spw_txdata  : std_logic_vector(7 downto 0);
@@ -248,11 +252,11 @@ begin
 			spw_codec_timecode_rx_o.ctrl_out    => s_spacewire_read_registers.timecode_rx.rx_control,
 			spw_codec_timecode_rx_o.time_out    => s_spacewire_read_registers.timecode_rx.rx_time,
 			spw_codec_data_rx_status_o.rxvalid  => s_spw_rxvalid,
-			spw_codec_data_rx_status_o.rxhalff  => open,
-			spw_codec_data_rx_status_o.rxflag   => open,
-			spw_codec_data_rx_status_o.rxdata   => open,
+			spw_codec_data_rx_status_o.rxhalff  => s_spw_rxhalff,
+			spw_codec_data_rx_status_o.rxflag   => s_spw_rxflag,
+			spw_codec_data_rx_status_o.rxdata   => s_spw_rxdata,
 			spw_codec_data_tx_status_o.txrdy    => s_spw_txrdy,
-			spw_codec_data_tx_status_o.txhalff  => open
+			spw_codec_data_tx_status_o.txhalff  => s_spw_txhalff
 		);
 
 	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest)) when (a_reset = '0') else ('1');

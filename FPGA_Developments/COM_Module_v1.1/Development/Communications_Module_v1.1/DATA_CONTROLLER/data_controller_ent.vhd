@@ -170,13 +170,25 @@ begin
 					end if;
 
 				when DATA_FETCH =>
-					s_registered_window_data <= window_data_i;
-					if (mask_enable_i = '1') then
-						s_registered_window_mask <= window_mask_i;
+					-- check if the used buffer is the right side
+					if (s_windowing_buffer_side = '0') then
+						-- right side
+						s_registered_window_data <= window_data_R_i;
+						if (mask_enable_i = '1') then
+							s_registered_window_mask <= window_mask_R_i;
+						else
+							s_registered_window_mask <= (others => '1');
+						end if;
 					else
-						s_registered_window_mask <= (others => '1');
+						-- left side
+						s_registered_window_data <= window_data_L_i;
+						if (mask_enable_i = '1') then
+							s_registered_window_mask <= window_mask_L_i;
+						else
+							s_registered_window_mask <= (others => '1');
+						end if;
 					end if;
-					s_data_controller_state  <= PIXEL_0_BYTE_0;
+					s_data_controller_state <= PIXEL_0_BYTE_0;
 
 				when PIXEL_0_BYTE_0 =>
 					s_data_controller_state <= PIXEL_0_BYTE_0;
@@ -241,7 +253,7 @@ begin
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
 							spw_txflag_o  <= '0';
-							spw_txdata_o  <= s_registered_window_data(7 downto 32);
+							spw_txdata_o  <= s_registered_window_data(39 downto 32);
 						end if;
 						s_packet_size_counter   <= s_packet_size_counter + 1;
 						s_mask_counter          <= s_mask_counter + 1;
