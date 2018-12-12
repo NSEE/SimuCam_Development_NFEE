@@ -32,11 +32,31 @@ package avalon_mm_spacewire_registers_pkg is
 	--     6- 1 : TX TimeCode Counter value              [R/W]
 	--     0- 0 : TX TimeCode control bit                [R/W]
 
+	--  Interrupt Control Register                     (32 bits):
+	--    31- 9 : Reserved                               [-/-]
+	--     8- 8 : Left Buffer Empty interrupt enable     [R/W]
+	--     7- 1 : Reserved                               [-/-]
+	--     0- 0 : Right Buffer Empty interrupt enable    [R/W]
+
+	--  Interrupt Flag Register                        (32 bits):
+	--    31- 1 : Reserved                               [-/-]
+	--     0- 0 : Buffer Empty interrupt flag            [R/-]
+	--     0- 0 : Buffer Empty interrupt flag clear      [-/W]
+
+	--  Windowing Buffer Register                      (32 bits):
+	--    31- 9 : Reserved                               [-/-]
+	--     8- 8 : Left Buffer Empty status bit           [R/-]
+	--     7- 1 : Reserved                               [-/-]
+	--     0- 0 : Right Buffer Empty status bit          [R/-]
+
 	constant c_WINDOWING_AVALON_MM_REG_OFFSET   : natural := 0;
 	constant c_WINDOWING_CONTROL_MM_REG_ADDRESS : natural := 0;
 	constant c_WINDOWING_STATUS_MM_REG_ADDRESS  : natural := 1;
 	constant c_TIMECODE_RX_MM_REG_ADDRESS       : natural := 2;
 	constant c_TIMECODE_TX_MM_REG_ADDRESS       : natural := 3;
+	constant c_INTERRUPT_CONTROL_MM_REG_ADDRESS : natural := 4;
+	constant c_INTERRUPT_FLAG_MM_REG_ADDRESS    : natural := 5;
+	constant c_WINDOWING_BUFFER_MM_REG_ADDRESS  : natural := 6;
 
 	type t_windowing_control_register is record
 		mask_enable : std_logic;
@@ -71,15 +91,33 @@ package avalon_mm_spacewire_registers_pkg is
 		tx_send    : std_logic;
 	end record t_timecode_tx_register;
 
+	type t_interrupt_control_register is record
+		R_buffer_empty_enable : std_logic;
+		L_buffer_empty_enable : std_logic;
+	end record t_interrupt_control_register;
+
+	type t_interrupt_flag_register is record
+		buffer_empty_flag : std_logic;
+	end record t_interrupt_flag_register;
+
+	type t_windowing_buffer_register is record
+		R_buffer_empty : std_logic;
+		L_buffer_empty : std_logic;
+	end record t_interrupt_control_register;
+
 	type t_windowing_read_registers is record
 		windowing_status : t_windowing_status_register;
 		timecode_rx      : t_timecode_rx_register;
+		interrupt_flag   : t_interrupt_flag_register;
+		windowing_buffer : t_windowing_buffer_register;
 	end record t_windowing_read_registers;
 
 	type t_windowing_write_registers is record
-		windowing_control : t_windowing_control_register;
-		timecode_rx_flags : t_timecode_rx_flags_register;
-		timecode_tx       : t_timecode_tx_register;
+		windowing_control    : t_windowing_control_register;
+		timecode_rx_flags    : t_timecode_rx_flags_register;
+		timecode_tx          : t_timecode_tx_register;
+		interrupt_flag_clear : t_interrupt_flag_register;
+		interrupt_control    : t_interrupt_control_register;
 	end record t_windowing_write_registers;
 
 end package avalon_mm_spacewire_registers_pkg;

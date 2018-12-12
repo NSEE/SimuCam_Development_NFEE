@@ -97,6 +97,31 @@ begin
 					--     0- 0 : TX TimeCode control bit                [R/W]
 					avalon_mm_spacewire_o.readdata(0)          <= spacewire_write_registers_i.timecode_tx.tx_send;
 
+				--  Interrupt Control Register                     (32 bits):
+				when (c_INTERRUPT_CONTROL_MM_REG_ADDRESS + c_WINDOWING_AVALON_MM_REG_OFFSET) =>
+					--    31- 9 : Reserved                               [-/-]
+					--     8- 8 : Left Buffer Empty interrupt enable     [R/W]
+					avalon_mm_spacewire_o.readdata(8) <= spacewire_write_registers_i.interrupt_control.L_buffer_empty_enable;
+					--     7- 1 : Reserved                               [-/-]
+					--     0- 0 : Right Buffer Empty interrupt enable    [R/W]
+					avalon_mm_spacewire_o.readdata(0) <= spacewire_write_registers_i.interrupt_control.R_buffer_empty_enable;
+
+				--  Interrupt Flag Register                        (32 bits):
+				when (c_INTERRUPT_FLAG_MM_REG_ADDRESS + c_WINDOWING_AVALON_MM_REG_OFFSET) =>
+					--    31- 1 : Reserved                               [-/-]
+					--     0- 0 : Buffer Empty interrupt flag            [R/-]
+					avalon_mm_spacewire_o.readdata(0) <= spacewire_read_registers_i.interrupt_flag.buffer_empty_flag;
+				--     0- 0 : Buffer Empty interrupt flag clear      [-/W]
+
+				--  Windowing Buffer Register                      (32 bits):
+				when (c_WINDOWING_BUFFER_MM_REG_ADDRESS + c_WINDOWING_AVALON_MM_REG_OFFSET) =>
+					--    31- 9 : Reserved                               [-/-]
+					--     8- 8 : Left Buffer Empty status bit           [R/-]
+					avalon_mm_spacewire_o.readdata(8) <= spacewire_read_registers_i.windowing_buffer.L_buffer_empty;
+					--     7- 1 : Reserved                               [-/-]
+					--     0- 0 : Right Buffer Empty status bit          [R/-]
+					avalon_mm_spacewire_o.readdata(0) <= spacewire_read_registers_i.windowing_buffer.R_buffer_empty;
+
 				when others =>
 					avalon_mm_spacewire_o.readdata <= (others => '0');
 			end case;

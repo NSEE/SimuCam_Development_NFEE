@@ -22,20 +22,24 @@ begin
 	p_avalon_mm_spacewire_write : process(clk_i, rst_i) is
 		procedure p_reset_registers is
 		begin
-			spacewire_write_registers_o.windowing_control.mask_enable       <= '0';
-			spacewire_write_registers_o.windowing_control.autostart         <= '0';
-			spacewire_write_registers_o.windowing_control.linkstart         <= '0';
-			spacewire_write_registers_o.windowing_control.linkdis           <= '0';
-			spacewire_write_registers_o.timecode_rx_flags.rx_received_clear <= '0';
-			spacewire_write_registers_o.timecode_tx.tx_control              <= (others => '0');
-			spacewire_write_registers_o.timecode_tx.tx_time                 <= (others => '0');
-			spacewire_write_registers_o.timecode_tx.tx_send                 <= '0';
+			spacewire_write_registers_o.windowing_control.mask_enable           <= '0';
+			spacewire_write_registers_o.windowing_control.autostart             <= '0';
+			spacewire_write_registers_o.windowing_control.linkstart             <= '0';
+			spacewire_write_registers_o.windowing_control.linkdis               <= '0';
+			spacewire_write_registers_o.timecode_rx_flags.rx_received_clear     <= '0';
+			spacewire_write_registers_o.timecode_tx.tx_control                  <= (others => '0');
+			spacewire_write_registers_o.timecode_tx.tx_time                     <= (others => '0');
+			spacewire_write_registers_o.timecode_tx.tx_send                     <= '0';
+			spacewire_write_registers_o.interrupt_control.L_buffer_empty_enable <= '0';
+			spacewire_write_registers_o.interrupt_control.R_buffer_empty_enable <= '0';
+			spacewire_write_registers_o.interrupt_flag_clear.buffer_empty_flag  <= '0';
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
 		begin
-			spacewire_write_registers_o.timecode_tx.tx_send                 <= '0';
-			spacewire_write_registers_o.timecode_rx_flags.rx_received_clear <= '0';
+			spacewire_write_registers_o.timecode_tx.tx_send                    <= '0';
+			spacewire_write_registers_o.timecode_rx_flags.rx_received_clear    <= '0';
+			spacewire_write_registers_o.interrupt_flag_clear.buffer_empty_flag <= '0';
 		end procedure p_control_triggers;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_spacewire_address) is
@@ -87,6 +91,29 @@ begin
 					spacewire_write_registers_o.timecode_tx.tx_time    <= avalon_mm_spacewire_i.writedata(6 downto 1);
 					--     0- 0 : TX TimeCode control bit                [R/W]
 					spacewire_write_registers_o.timecode_tx.tx_send    <= avalon_mm_spacewire_i.writedata(0);
+
+				--  Interrupt Control Register                     (32 bits):
+				when (c_INTERRUPT_CONTROL_MM_REG_ADDRESS + c_WINDOWING_AVALON_MM_REG_OFFSET) =>
+					--    31- 9 : Reserved                               [-/-]
+					--     8- 8 : Left Buffer Empty interrupt enable     [R/W]
+					spacewire_write_registers_o.interrupt_control.L_buffer_empty_enable <= avalon_mm_spacewire_i.writedata(8);
+					--     7- 1 : Reserved                               [-/-]
+					--     0- 0 : Right Buffer Empty interrupt enable    [R/W]
+					spacewire_write_registers_o.interrupt_control.R_buffer_empty_enable <= avalon_mm_spacewire_i.writedata(0);
+
+				--  Interrupt Flag Register                        (32 bits):
+				when (c_INTERRUPT_FLAG_MM_REG_ADDRESS + c_WINDOWING_AVALON_MM_REG_OFFSET) =>
+					--    31- 1 : Reserved                               [-/-]
+					--     0- 0 : Buffer Empty interrupt flag            [R/-]
+					--     0- 0 : Buffer Empty interrupt flag clear      [-/W]
+					spacewire_write_registers_o.interrupt_flag_clear.buffer_empty_flag <= avalon_mm_spacewire_i.writedata(0);
+
+				--  Windowing Buffer Register                      (32 bits):
+				when (c_WINDOWING_BUFFER_MM_REG_ADDRESS + c_WINDOWING_AVALON_MM_REG_OFFSET) =>
+					--    31- 9 : Reserved                               [-/-]
+					--     8- 8 : Left Buffer Empty status bit           [R/-]
+					--     7- 1 : Reserved                               [-/-]
+					--     0- 0 : Right Buffer Empty status bit          [R/-]
 
 				when others =>
 					null;
