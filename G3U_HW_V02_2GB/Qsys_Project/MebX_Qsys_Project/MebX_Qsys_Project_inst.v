@@ -95,16 +95,19 @@
 		.m2_ddr2_memory_status_local_cal_fail                 (<connected-to-m2_ddr2_memory_status_local_cal_fail>),                 //                                  .local_cal_fail
 		.m2_ddr2_oct_rdn                                      (<connected-to-m2_ddr2_oct_rdn>),                                      //                       m2_ddr2_oct.rdn
 		.m2_ddr2_oct_rup                                      (<connected-to-m2_ddr2_oct_rup>),                                      //                                  .rup
+		.rs232_uart_rxd                                       (<connected-to-rs232_uart_rxd>),                                       //                        rs232_uart.rxd
+		.rs232_uart_txd                                       (<connected-to-rs232_uart_txd>),                                       //                                  .txd
 		.rst_reset_n                                          (<connected-to-rst_reset_n>),                                          //                               rst.reset_n
 		.rtcc_alarm_export                                    (<connected-to-rtcc_alarm_export>),                                    //                        rtcc_alarm.export
 		.rtcc_cs_n_export                                     (<connected-to-rtcc_cs_n_export>),                                     //                         rtcc_cs_n.export
 		.rtcc_sck_export                                      (<connected-to-rtcc_sck_export>),                                      //                          rtcc_sck.export
 		.rtcc_sdi_export                                      (<connected-to-rtcc_sdi_export>),                                      //                          rtcc_sdi.export
 		.rtcc_sdo_export                                      (<connected-to-rtcc_sdo_export>),                                      //                          rtcc_sdo.export
-		.sd_clk_export                                        (<connected-to-sd_clk_export>),                                        //                            sd_clk.export
-		.sd_cmd_export                                        (<connected-to-sd_cmd_export>),                                        //                            sd_cmd.export
-		.sd_dat_export                                        (<connected-to-sd_dat_export>),                                        //                            sd_dat.export
-		.sd_wp_n_export                                       (<connected-to-sd_wp_n_export>),                                       //                           sd_wp_n.export
+		.sd_card_ip_b_SD_cmd                                  (<connected-to-sd_card_ip_b_SD_cmd>),                                  //                        sd_card_ip.b_SD_cmd
+		.sd_card_ip_b_SD_dat                                  (<connected-to-sd_card_ip_b_SD_dat>),                                  //                                  .b_SD_dat
+		.sd_card_ip_b_SD_dat3                                 (<connected-to-sd_card_ip_b_SD_dat3>),                                 //                                  .b_SD_dat3
+		.sd_card_ip_o_SD_clock                                (<connected-to-sd_card_ip_o_SD_clock>),                                //                                  .o_SD_clock
+		.sd_card_wp_n_io_export                               (<connected-to-sd_card_wp_n_io_export>),                               //                   sd_card_wp_n_io.export
 		.sinc_in_export                                       (<connected-to-sinc_in_export>),                                       //                           sinc_in.export
 		.sinc_out_export                                      (<connected-to-sinc_out_export>),                                      //                          sinc_out.export
 		.ssdp_ssdp0                                           (<connected-to-ssdp_ssdp0>),                                           //                              ssdp.ssdp0
@@ -146,7 +149,6 @@
 		.tse_mdio_mdio_out                                    (<connected-to-tse_mdio_mdio_out>),                                    //                                  .mdio_out
 		.tse_mdio_mdio_oen                                    (<connected-to-tse_mdio_mdio_oen>),                                    //                                  .mdio_oen
 		.tse_serial_txp                                       (<connected-to-tse_serial_txp>),                                       //                        tse_serial.txp
-		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>),                                       //                                  .rxp
-		.ctrl_io_lvds_export                                  (<connected-to-ctrl_io_lvds_export>)                                   //                      ctrl_io_lvds.export
+		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>)                                        //                                  .rxp
 	);
 

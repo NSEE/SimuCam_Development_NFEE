@@ -96,16 +96,19 @@
 			m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                      : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                      : in    std_logic                     := 'X';             -- rup
+			rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
+			rs232_uart_txd                                       : out   std_logic;                                        -- txd
 			rst_reset_n                                          : in    std_logic                     := 'X';             -- reset_n
 			rtcc_alarm_export                                    : in    std_logic                     := 'X';             -- export
 			rtcc_cs_n_export                                     : out   std_logic;                                        -- export
 			rtcc_sck_export                                      : out   std_logic;                                        -- export
 			rtcc_sdi_export                                      : out   std_logic;                                        -- export
 			rtcc_sdo_export                                      : in    std_logic                     := 'X';             -- export
-			sd_clk_export                                        : out   std_logic;                                        -- export
-			sd_cmd_export                                        : inout std_logic                     := 'X';             -- export
-			sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- export
-			sd_wp_n_export                                       : in    std_logic                     := 'X';             -- export
+			sd_card_ip_b_SD_cmd                                  : inout std_logic                     := 'X';             -- b_SD_cmd
+			sd_card_ip_b_SD_dat                                  : inout std_logic                     := 'X';             -- b_SD_dat
+			sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
+			sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
+			sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
 			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
 			sinc_out_export                                      : out   std_logic;                                        -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0
@@ -147,8 +150,7 @@
 			tse_mdio_mdio_out                                    : out   std_logic;                                        -- mdio_out
 			tse_mdio_mdio_oen                                    : out   std_logic;                                        -- mdio_oen
 			tse_serial_txp                                       : out   std_logic;                                        -- txp
-			tse_serial_rxp                                       : in    std_logic                     := 'X';             -- rxp
-			ctrl_io_lvds_export                                  : out   std_logic_vector(3 downto 0)                      -- export
+			tse_serial_rxp                                       : in    std_logic                     := 'X'              -- rxp
 		);
 	end component MebX_Qsys_Project;
 
@@ -250,16 +252,19 @@
 			m2_ddr2_memory_status_local_cal_fail                 => CONNECTED_TO_m2_ddr2_memory_status_local_cal_fail,                 --                                  .local_cal_fail
 			m2_ddr2_oct_rdn                                      => CONNECTED_TO_m2_ddr2_oct_rdn,                                      --                       m2_ddr2_oct.rdn
 			m2_ddr2_oct_rup                                      => CONNECTED_TO_m2_ddr2_oct_rup,                                      --                                  .rup
+			rs232_uart_rxd                                       => CONNECTED_TO_rs232_uart_rxd,                                       --                        rs232_uart.rxd
+			rs232_uart_txd                                       => CONNECTED_TO_rs232_uart_txd,                                       --                                  .txd
 			rst_reset_n                                          => CONNECTED_TO_rst_reset_n,                                          --                               rst.reset_n
 			rtcc_alarm_export                                    => CONNECTED_TO_rtcc_alarm_export,                                    --                        rtcc_alarm.export
 			rtcc_cs_n_export                                     => CONNECTED_TO_rtcc_cs_n_export,                                     --                         rtcc_cs_n.export
 			rtcc_sck_export                                      => CONNECTED_TO_rtcc_sck_export,                                      --                          rtcc_sck.export
 			rtcc_sdi_export                                      => CONNECTED_TO_rtcc_sdi_export,                                      --                          rtcc_sdi.export
 			rtcc_sdo_export                                      => CONNECTED_TO_rtcc_sdo_export,                                      --                          rtcc_sdo.export
-			sd_clk_export                                        => CONNECTED_TO_sd_clk_export,                                        --                            sd_clk.export
-			sd_cmd_export                                        => CONNECTED_TO_sd_cmd_export,                                        --                            sd_cmd.export
-			sd_dat_export                                        => CONNECTED_TO_sd_dat_export,                                        --                            sd_dat.export
-			sd_wp_n_export                                       => CONNECTED_TO_sd_wp_n_export,                                       --                           sd_wp_n.export
+			sd_card_ip_b_SD_cmd                                  => CONNECTED_TO_sd_card_ip_b_SD_cmd,                                  --                        sd_card_ip.b_SD_cmd
+			sd_card_ip_b_SD_dat                                  => CONNECTED_TO_sd_card_ip_b_SD_dat,                                  --                                  .b_SD_dat
+			sd_card_ip_b_SD_dat3                                 => CONNECTED_TO_sd_card_ip_b_SD_dat3,                                 --                                  .b_SD_dat3
+			sd_card_ip_o_SD_clock                                => CONNECTED_TO_sd_card_ip_o_SD_clock,                                --                                  .o_SD_clock
+			sd_card_wp_n_io_export                               => CONNECTED_TO_sd_card_wp_n_io_export,                               --                   sd_card_wp_n_io.export
 			sinc_in_export                                       => CONNECTED_TO_sinc_in_export,                                       --                           sinc_in.export
 			sinc_out_export                                      => CONNECTED_TO_sinc_out_export,                                      --                          sinc_out.export
 			ssdp_ssdp0                                           => CONNECTED_TO_ssdp_ssdp0,                                           --                              ssdp.ssdp0
@@ -301,7 +306,6 @@
 			tse_mdio_mdio_out                                    => CONNECTED_TO_tse_mdio_mdio_out,                                    --                                  .mdio_out
 			tse_mdio_mdio_oen                                    => CONNECTED_TO_tse_mdio_mdio_oen,                                    --                                  .mdio_oen
 			tse_serial_txp                                       => CONNECTED_TO_tse_serial_txp,                                       --                        tse_serial.txp
-			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp,                                       --                                  .rxp
-			ctrl_io_lvds_export                                  => CONNECTED_TO_ctrl_io_lvds_export                                   --                      ctrl_io_lvds.export
+			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp                                        --                                  .rxp
 		);
 

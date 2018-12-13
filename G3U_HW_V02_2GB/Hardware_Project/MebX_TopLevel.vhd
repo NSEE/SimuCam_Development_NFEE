@@ -81,11 +81,13 @@ port(
     FAN_CTRL	: out std_logic;
 	 
 	 -- SD CARD
-    SD_WP_n   : in    std_logic;
-    SD_CMD    : inout std_logic;            
-    SD_CLK    : out   std_logic;                                      
-    SD_DAT    : inout std_logic_vector(3 downto 0);
-
+	 
+	 I_SD_CARD_WP_n  : in    std_logic;
+	 B_SD_CARD_CMD   : inout std_logic;
+	 B_SD_CARD_DAT   : inout std_logic;
+	 B_SD_CARD_DAT3  : inout std_logic;
+	 O_SD_CARD_CLOCK : out   std_logic;
+	 
     -- Ethernet
     ETH_MDC   : out std_logic_vector(3 downto 0);
     ETH_INT_n : in  std_logic_vector(3 downto 0);  
@@ -149,13 +151,11 @@ port(
     FLASH_RYBY_n    : in std_logic;
     FLASH_WE_n      : out std_logic_vector(0 downto 0);
 
-	-- Sinais de controle - placa isoladora - habilitacao dos transmissores SpW e Sinc_out
-	EN_ISO_DRIVERS			: out std_logic;
 	-- Sinais externos LVDS HSMC-B
-	-- Sinais de controle - placa drivers_lvds
-	HSMB_BUFFER_PWDN_N		: out std_logic;
-	HSMB_BUFFER_PEM1       	: out std_logic;
-	HSMB_BUFFER_PEM0       	: out std_logic;
+	-- Sinais de controle
+	HSMB_BUFFER_PWDN_N     : out std_logic;
+	HSMB_BUFFER_PEM0       : out std_logic;
+	HSMB_BUFFER_PEM1       : out std_logic;
 	-- SpaceWire A
 	HSMB_LVDS_RX_SPWA_DI_P : in  std_logic_vector(0 downto 0);
 --	HSMB_LVDS_RX_SPWA_DI_N : in  std_logic_vector(0 downto 0);
@@ -250,7 +250,12 @@ port(
 	
 	-- Sincronization
 	SINC_IN    : in  std_logic;
-    SINC_OUT   : out std_logic
+   SINC_OUT   : out std_logic;
+	
+	-- RS232 UART	 
+	I_RS232_UART_RXD : in  std_logic;
+   O_RS232_UART_TXD : out std_logic
+
   );
 end entity;
 
@@ -286,11 +291,6 @@ signal lvds_txp : std_logic;
 -----------------------------------------
 signal leds_b : std_logic_vector(7  downto 0);
 signal leds_p : std_logic_vector(20 downto 0);
-
------------------------------------------
--- Ctrl io lvds
------------------------------------------
-signal ctrl_io_lvds : std_logic_vector(3 downto 0);
 
 -----------------------------------------
 -- RST CPU
@@ -410,12 +410,6 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             led_painel_export                                    : out   std_logic_vector(20 downto 0);
             ssdp_ssdp1                            : out   std_logic_vector(7 downto 0);
             ssdp_ssdp0                            : out   std_logic_vector(7 downto 0);
-            sd_wp_n_export     : in    std_logic;            
-            sd_cmd_export      : inout std_logic;            
-            sd_clk_export      : out   std_logic;                                       
-            sd_dat_export      : inout std_logic_vector(3 downto 0);
-
-			ctrl_io_lvds_export   : out   std_logic_vector(3 downto 0);            
 				
             m1_ddr2_i2c_scl_export  : out   std_logic;                                 
             m1_ddr2_i2c_sda_export  : inout std_logic;      
@@ -469,8 +463,17 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             rtcc_sdi_export       : out   std_logic;         -- export
             rtcc_sdo_export       : in    std_logic  := 'X'; -- export
 				
-				sinc_in_export    : in    std_logic  := 'X'; -- export
-            sinc_out_export       : out   std_logic          -- export
+				sinc_in_export        : in    std_logic  := 'X'; -- export
+            sinc_out_export       : out   std_logic;          -- export
+				
+				sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
+            sd_card_ip_b_SD_cmd                                  : inout std_logic                     := 'X';             -- b_SD_cmd
+            sd_card_ip_b_SD_dat                                  : inout std_logic                     := 'X';             -- b_SD_dat
+            sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
+            sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
+				
+            rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
+            rs232_uart_txd                                       : out   std_logic                                         -- txd
         );
     end component MebX_Qsys_Project;
 
@@ -516,13 +519,6 @@ SOPC_INST : MebX_Qsys_Project
     button_export   => Button,
     ext_export	     => EXT_IO,
 
-    sd_wp_n_export   => sd_wp_n,
-    sd_cmd_export    => sd_cmd,
-    sd_clk_export    => sd_clk,
-    sd_dat_export    => sd_dat,
-
-	ctrl_io_lvds_export	=> ctrl_io_lvds,
-    
     ETH_rst_export                         => rst_eth,
     tse_led_an                             => open, 
 	tse_led_char_err                       => open, 
@@ -633,7 +629,17 @@ SOPC_INST : MebX_Qsys_Project
 	rtcc_sdo_export       => RTCC_SDO,
 	
 	sinc_in_export        => SINC_IN,
-	sinc_out_export       => SINC_OUT
+	sinc_out_export       => SINC_OUT,
+	
+	sd_card_wp_n_io_export => I_SD_CARD_WP_n,   -- sd_card_wp_n_io.export
+	sd_card_ip_b_SD_cmd    => B_SD_CARD_CMD,    -- sd_card_ip.b_SD_cmd
+	sd_card_ip_b_SD_dat    => B_SD_CARD_DAT,    --           .b_SD_dat
+	sd_card_ip_b_SD_dat3   => B_SD_CARD_DAT3,   --           .b_SD_dat3
+	sd_card_ip_o_SD_clock  => O_SD_CARD_CLOCK,  --           .o_SD_clock
+	
+	rs232_uart_rxd => I_RS232_UART_RXD, -- rs232_uart.rxd
+	rs232_uart_txd => O_RS232_UART_TXD  --           .txd
+	
  );
 
 --==========--
@@ -729,16 +735,9 @@ FLASH_ADV_n   <= '0';
 -- LVDS Drivers control
 --==========--
 
--- Comando foi passado para modulo ctrl_io_lvds, via Qsys/Nios
---	HSMB_BUFFER_PWDN_N	<= '1';
---	HSMB_BUFFER_PEM0	<= '0';
---	HSMB_BUFFER_PEM1	<= '0';
---	EN_ISO_DRIVERS		<= '0';
-
-	EN_ISO_DRIVERS		<= ctrl_io_lvds(3);
-	HSMB_BUFFER_PWDN_N	<= ctrl_io_lvds(2);
-	HSMB_BUFFER_PEM1	<= ctrl_io_lvds(1);
-	HSMB_BUFFER_PEM0	<= ctrl_io_lvds(0);
+	HSMB_BUFFER_PWDN_N <= '1';
+	HSMB_BUFFER_PEM0   <= '0';
+	HSMB_BUFFER_PEM1   <= '0';
 
 --==========--
 -- LVDS

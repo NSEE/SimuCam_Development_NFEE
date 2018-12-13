@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Wed Oct 17 12:14:42 BRT 2018
+ * Generated: Wed May 02 11:10:46 BRT 2018
  */
 
 /*
@@ -1034,33 +1034,6 @@
 
 
 /*
- * pio_ctrl_io_lvds configuration
- *
- */
-
-#define ALT_MODULE_CLASS_pio_ctrl_io_lvds altera_avalon_pio
-#define PIO_CTRL_IO_LVDS_BASE 0x80000210
-#define PIO_CTRL_IO_LVDS_BIT_CLEARING_EDGE_REGISTER 0
-#define PIO_CTRL_IO_LVDS_BIT_MODIFYING_OUTPUT_REGISTER 0
-#define PIO_CTRL_IO_LVDS_CAPTURE 0
-#define PIO_CTRL_IO_LVDS_DATA_WIDTH 4
-#define PIO_CTRL_IO_LVDS_DO_TEST_BENCH_WIRING 0
-#define PIO_CTRL_IO_LVDS_DRIVEN_SIM_VALUE 0
-#define PIO_CTRL_IO_LVDS_EDGE_TYPE "NONE"
-#define PIO_CTRL_IO_LVDS_FREQ 50000000
-#define PIO_CTRL_IO_LVDS_HAS_IN 0
-#define PIO_CTRL_IO_LVDS_HAS_OUT 1
-#define PIO_CTRL_IO_LVDS_HAS_TRI 0
-#define PIO_CTRL_IO_LVDS_IRQ -1
-#define PIO_CTRL_IO_LVDS_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define PIO_CTRL_IO_LVDS_IRQ_TYPE "NONE"
-#define PIO_CTRL_IO_LVDS_NAME "/dev/pio_ctrl_io_lvds"
-#define PIO_CTRL_IO_LVDS_RESET_VALUE 4
-#define PIO_CTRL_IO_LVDS_SPAN 16
-#define PIO_CTRL_IO_LVDS_TYPE "altera_avalon_pio"
-
-
-/*
  * rtcc_alarm configuration
  *
  */
@@ -1449,7 +1422,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1538078872
+#define SYSID_QSYS_TIMESTAMP 1525198004
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

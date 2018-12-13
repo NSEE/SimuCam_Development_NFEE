@@ -55,7 +55,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		input  wire         sgdma_tx_m_read_read,                                          //                                                        .read
 		output wire [31:0]  sgdma_tx_m_read_readdata,                                      //                                                        .readdata
 		output wire         sgdma_tx_m_read_readdatavalid,                                 //                                                        .readdatavalid
-		output wire [9:0]   clock_bridge_afi_50_s0_address,                                //                                  clock_bridge_afi_50_s0.address
+		output wire [10:0]  clock_bridge_afi_50_s0_address,                                //                                  clock_bridge_afi_50_s0.address
 		output wire         clock_bridge_afi_50_s0_write,                                  //                                                        .write
 		output wire         clock_bridge_afi_50_s0_read,                                   //                                                        .read
 		input  wire [31:0]  clock_bridge_afi_50_s0_readdata,                               //                                                        .readdata
@@ -3572,7 +3572,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (10),
+		.AV_ADDRESS_W                   (11),
 		.AV_DATA_W                      (32),
 		.UAV_DATA_W                     (32),
 		.AV_BURSTCOUNT_W                (1),
