@@ -44,43 +44,51 @@ begin
 		procedure p_writedata(write_address_i : t_avalon_mm_windowing_address) is
 		begin
 
-			-- check if the waitrequested is still active
-			if (s_waitrequest = '1') then
-				-- waitrequest active, execute write operation
-				-- check if it is the beggining of a new cicle
-				if (write_address_i = 0) then
-					-- address is zero, new cicle
-					window_data_write_o <= '1';
-					window_data_o       <= avalon_mm_windowing_i.writedata;
-					s_windown_data_ctn  <= 1;
-				else
-					-- address not zero, verify counter
-					if (s_windown_data_ctn < 16) then
-						-- counter at data address
-						window_data_write_o <= '1';
-						window_data_o       <= avalon_mm_windowing_i.writedata;
-						-- increment counter
-						s_windown_data_ctn  <= s_windown_data_ctn + 1;
-					else
-						-- counter at mask address
-						-- check if masking is enabled
-						if (mask_enable_i = '1') then
-							-- masking enabled
-							window_mask_write_o <= '1';
-							window_data_o       <= avalon_mm_windowing_i.writedata;
-							-- reset counter
-							s_windown_data_ctn  <= 0;
-						else
-							-- masking disabled
+			-- Registers Write Data
+			case (write_address_i) is
+				-- Case for access to all registers address
+
+				when 0 to 271 =>
+					-- check if the waitrequested is still active
+					if (s_waitrequest = '1') then
+						-- waitrequest active, execute write operation
+						-- check if it is the beggining of a new cicle
+						if (write_address_i = 0) then
+							-- address is zero, new cicle
 							window_data_write_o <= '1';
 							window_data_o       <= avalon_mm_windowing_i.writedata;
-							-- set counter to first data
 							s_windown_data_ctn  <= 1;
+						else
+							-- address not zero, verify counter
+							if (s_windown_data_ctn < 16) then
+								-- counter at data address
+								window_data_write_o <= '1';
+								window_data_o       <= avalon_mm_windowing_i.writedata;
+								-- increment counter
+								s_windown_data_ctn  <= s_windown_data_ctn + 1;
+							else
+								-- counter at mask address
+								-- check if masking is enabled
+								if (mask_enable_i = '1') then
+									-- masking enabled
+									window_mask_write_o <= '1';
+									window_data_o       <= avalon_mm_windowing_i.writedata;
+									-- reset counter
+									s_windown_data_ctn  <= 0;
+								else
+									-- masking disabled
+									window_data_write_o <= '1';
+									window_data_o       <= avalon_mm_windowing_i.writedata;
+									-- set counter to first data
+									s_windown_data_ctn  <= 1;
+								end if;
+							end if;
 						end if;
 					end if;
-				end if;
-			end if;
 
+				when others =>
+					null;
+			end case;
 		end procedure p_writedata;
 
 		variable v_write_address : t_avalon_mm_windowing_address := 0;

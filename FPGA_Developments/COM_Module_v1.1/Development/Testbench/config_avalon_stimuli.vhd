@@ -92,7 +92,8 @@ begin
 					a_wr_timecode_tx_register_tx_send    <= '0';
 					avalon_mm_read_o                     <= '0';
 
-				when 650 to 651 =>
+				--when 650 to 651 =>
+				when 7000 to 7001 =>
 					-- register write
 					avalon_mm_address_o                         <= std_logic_vector(to_unsigned(c_INTERRUPT_FLAG_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                           <= '1';
@@ -107,8 +108,8 @@ begin
 					avalon_mm_write_o                            <= '1';
 					-- avalon_mm_writedata_o <= (others => '0');
 					-- Ex:
-					a_wr_interrupt_control_L_buffer_empty_enable <= '0';
-					a_wr_interrupt_control_R_buffer_empty_enable <= '0';
+					a_wr_interrupt_control_L_buffer_empty_enable <= '1';
+					a_wr_interrupt_control_R_buffer_empty_enable <= '1';
 					avalon_mm_read_o                             <= '0';
 
 				when others =>
