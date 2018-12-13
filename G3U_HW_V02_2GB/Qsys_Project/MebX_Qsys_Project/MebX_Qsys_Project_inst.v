@@ -1,38 +1,6 @@
 	MebX_Qsys_Project u0 (
 		.button_export                                        (<connected-to-button_export>),                                        //                     button.export
 		.clk50_clk                                            (<connected-to-clk50_clk>),                                            //                      clk50.clk
-		.comm_a_conduit_end_spw_si_signal                     (<connected-to-comm_a_conduit_end_spw_si_signal>),                     //         comm_a_conduit_end.spw_si_signal
-		.comm_a_conduit_end_spw_di_signal                     (<connected-to-comm_a_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_a_conduit_end_spw_do_signal                     (<connected-to-comm_a_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_a_conduit_end_spw_so_signal                     (<connected-to-comm_a_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_b_conduit_end_spw_si_signal                     (<connected-to-comm_b_conduit_end_spw_si_signal>),                     //         comm_b_conduit_end.spw_si_signal
-		.comm_b_conduit_end_spw_di_signal                     (<connected-to-comm_b_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_b_conduit_end_spw_do_signal                     (<connected-to-comm_b_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_b_conduit_end_spw_so_signal                     (<connected-to-comm_b_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_c_conduit_end_spw_si_signal                     (<connected-to-comm_c_conduit_end_spw_si_signal>),                     //         comm_c_conduit_end.spw_si_signal
-		.comm_c_conduit_end_spw_di_signal                     (<connected-to-comm_c_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_c_conduit_end_spw_do_signal                     (<connected-to-comm_c_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_c_conduit_end_spw_so_signal                     (<connected-to-comm_c_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_d_conduit_end_spw_si_signal                     (<connected-to-comm_d_conduit_end_spw_si_signal>),                     //         comm_d_conduit_end.spw_si_signal
-		.comm_d_conduit_end_spw_di_signal                     (<connected-to-comm_d_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_d_conduit_end_spw_do_signal                     (<connected-to-comm_d_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_d_conduit_end_spw_so_signal                     (<connected-to-comm_d_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_e_conduit_end_spw_si_signal                     (<connected-to-comm_e_conduit_end_spw_si_signal>),                     //         comm_e_conduit_end.spw_si_signal
-		.comm_e_conduit_end_spw_di_signal                     (<connected-to-comm_e_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_e_conduit_end_spw_do_signal                     (<connected-to-comm_e_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_e_conduit_end_spw_so_signal                     (<connected-to-comm_e_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_f_conduit_end_spw_si_signal                     (<connected-to-comm_f_conduit_end_spw_si_signal>),                     //         comm_f_conduit_end.spw_si_signal
-		.comm_f_conduit_end_spw_di_signal                     (<connected-to-comm_f_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_f_conduit_end_spw_do_signal                     (<connected-to-comm_f_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_f_conduit_end_spw_so_signal                     (<connected-to-comm_f_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_g_conduit_end_spw_si_signal                     (<connected-to-comm_g_conduit_end_spw_si_signal>),                     //         comm_g_conduit_end.spw_si_signal
-		.comm_g_conduit_end_spw_di_signal                     (<connected-to-comm_g_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_g_conduit_end_spw_do_signal                     (<connected-to-comm_g_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_g_conduit_end_spw_so_signal                     (<connected-to-comm_g_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
-		.comm_h_conduit_end_spw_si_signal                     (<connected-to-comm_h_conduit_end_spw_si_signal>),                     //         comm_h_conduit_end.spw_si_signal
-		.comm_h_conduit_end_spw_di_signal                     (<connected-to-comm_h_conduit_end_spw_di_signal>),                     //                           .spw_di_signal
-		.comm_h_conduit_end_spw_do_signal                     (<connected-to-comm_h_conduit_end_spw_do_signal>),                     //                           .spw_do_signal
-		.comm_h_conduit_end_spw_so_signal                     (<connected-to-comm_h_conduit_end_spw_so_signal>),                     //                           .spw_so_signal
 		.csense_adc_fo_export                                 (<connected-to-csense_adc_fo_export>),                                 //              csense_adc_fo.export
 		.csense_cs_n_export                                   (<connected-to-csense_cs_n_export>),                                   //                csense_cs_n.export
 		.csense_sck_export                                    (<connected-to-csense_sck_export>),                                    //                 csense_sck.export
@@ -110,6 +78,16 @@
 		.sd_card_wp_n_io_export                               (<connected-to-sd_card_wp_n_io_export>),                               //            sd_card_wp_n_io.export
 		.ssdp_ssdp0                                           (<connected-to-ssdp_ssdp0>),                                           //                       ssdp.ssdp0
 		.ssdp_ssdp1                                           (<connected-to-ssdp_ssdp1>),                                           //                           .ssdp1
+		.sync_in_conduit                                      (<connected-to-sync_in_conduit>),                                      //                    sync_in.conduit
+		.sync_out_conduit                                     (<connected-to-sync_out_conduit>),                                     //                   sync_out.conduit
+		.sync_spwa_conduit                                    (<connected-to-sync_spwa_conduit>),                                    //                  sync_spwa.conduit
+		.sync_spwb_conduit                                    (<connected-to-sync_spwb_conduit>),                                    //                  sync_spwb.conduit
+		.sync_spwc_conduit                                    (<connected-to-sync_spwc_conduit>),                                    //                  sync_spwc.conduit
+		.sync_spwd_conduit                                    (<connected-to-sync_spwd_conduit>),                                    //                  sync_spwd.conduit
+		.sync_spwe_conduit                                    (<connected-to-sync_spwe_conduit>),                                    //                  sync_spwe.conduit
+		.sync_spwf_conduit                                    (<connected-to-sync_spwf_conduit>),                                    //                  sync_spwf.conduit
+		.sync_spwg_conduit                                    (<connected-to-sync_spwg_conduit>),                                    //                  sync_spwg.conduit
+		.sync_spwh_conduit                                    (<connected-to-sync_spwh_conduit>),                                    //                  sync_spwh.conduit
 		.temp_scl_export                                      (<connected-to-temp_scl_export>),                                      //                   temp_scl.export
 		.temp_sda_export                                      (<connected-to-temp_sda_export>),                                      //                   temp_sda.export
 		.timer_1ms_external_port_export                       (<connected-to-timer_1ms_external_port_export>),                       //    timer_1ms_external_port.export
@@ -119,15 +97,37 @@
 		.tristate_conduit_tcm_write_n_out                     (<connected-to-tristate_conduit_tcm_write_n_out>),                     //                           .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                        (<connected-to-tristate_conduit_tcm_data_out>),                        //                           .tcm_data_out
 		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                //                           .tcm_chipselect_n_out
-		.sync_in_conduit                                      (<connected-to-sync_in_conduit>),                                      //                    sync_in.conduit
-		.sync_spwa_conduit                                    (<connected-to-sync_spwa_conduit>),                                    //                  sync_spwa.conduit
-		.sync_spwb_conduit                                    (<connected-to-sync_spwb_conduit>),                                    //                  sync_spwb.conduit
-		.sync_spwc_conduit                                    (<connected-to-sync_spwc_conduit>),                                    //                  sync_spwc.conduit
-		.sync_spwd_conduit                                    (<connected-to-sync_spwd_conduit>),                                    //                  sync_spwd.conduit
-		.sync_spwe_conduit                                    (<connected-to-sync_spwe_conduit>),                                    //                  sync_spwe.conduit
-		.sync_spwf_conduit                                    (<connected-to-sync_spwf_conduit>),                                    //                  sync_spwf.conduit
-		.sync_spwg_conduit                                    (<connected-to-sync_spwg_conduit>),                                    //                  sync_spwg.conduit
-		.sync_spwh_conduit                                    (<connected-to-sync_spwh_conduit>),                                    //                  sync_spwh.conduit
-		.sync_out_conduit                                     (<connected-to-sync_out_conduit>)                                      //                   sync_out.conduit
+		.comm_a_conduit_end_data_in_signal                    (<connected-to-comm_a_conduit_end_data_in_signal>),                    //         comm_a_conduit_end.data_in_signal
+		.comm_a_conduit_end_data_out_signal                   (<connected-to-comm_a_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_a_conduit_end_strobe_in_signal                  (<connected-to-comm_a_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_a_conduit_end_strobe_out_signal                 (<connected-to-comm_a_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_b_conduit_end_data_in_signal                    (<connected-to-comm_b_conduit_end_data_in_signal>),                    //         comm_b_conduit_end.data_in_signal
+		.comm_b_conduit_end_data_out_signal                   (<connected-to-comm_b_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_b_conduit_end_strobe_in_signal                  (<connected-to-comm_b_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_b_conduit_end_strobe_out_signal                 (<connected-to-comm_b_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_c_conduit_end_data_in_signal                    (<connected-to-comm_c_conduit_end_data_in_signal>),                    //         comm_c_conduit_end.data_in_signal
+		.comm_c_conduit_end_data_out_signal                   (<connected-to-comm_c_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_c_conduit_end_strobe_in_signal                  (<connected-to-comm_c_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_c_conduit_end_strobe_out_signal                 (<connected-to-comm_c_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_d_conduit_end_data_in_signal                    (<connected-to-comm_d_conduit_end_data_in_signal>),                    //         comm_d_conduit_end.data_in_signal
+		.comm_d_conduit_end_data_out_signal                   (<connected-to-comm_d_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_d_conduit_end_strobe_in_signal                  (<connected-to-comm_d_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_d_conduit_end_strobe_out_signal                 (<connected-to-comm_d_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_e_conduit_end_data_in_signal                    (<connected-to-comm_e_conduit_end_data_in_signal>),                    //         comm_e_conduit_end.data_in_signal
+		.comm_e_conduit_end_data_out_signal                   (<connected-to-comm_e_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_e_conduit_end_strobe_in_signal                  (<connected-to-comm_e_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_e_conduit_end_strobe_out_signal                 (<connected-to-comm_e_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_f_conduit_end_data_in_signal                    (<connected-to-comm_f_conduit_end_data_in_signal>),                    //         comm_f_conduit_end.data_in_signal
+		.comm_f_conduit_end_data_out_signal                   (<connected-to-comm_f_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_f_conduit_end_strobe_in_signal                  (<connected-to-comm_f_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_f_conduit_end_strobe_out_signal                 (<connected-to-comm_f_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_g_conduit_end_data_in_signal                    (<connected-to-comm_g_conduit_end_data_in_signal>),                    //         comm_g_conduit_end.data_in_signal
+		.comm_g_conduit_end_data_out_signal                   (<connected-to-comm_g_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_g_conduit_end_strobe_in_signal                  (<connected-to-comm_g_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_g_conduit_end_strobe_out_signal                 (<connected-to-comm_g_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
+		.comm_h_conduit_end_data_in_signal                    (<connected-to-comm_h_conduit_end_data_in_signal>),                    //         comm_h_conduit_end.data_in_signal
+		.comm_h_conduit_end_data_out_signal                   (<connected-to-comm_h_conduit_end_data_out_signal>),                   //                           .data_out_signal
+		.comm_h_conduit_end_strobe_in_signal                  (<connected-to-comm_h_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
+		.comm_h_conduit_end_strobe_out_signal                 (<connected-to-comm_h_conduit_end_strobe_out_signal>)                  //                           .strobe_out_signal
 	);
 

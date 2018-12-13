@@ -2,38 +2,6 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
-	comm_a_conduit_end_spw_si_signal,
-	comm_a_conduit_end_spw_di_signal,
-	comm_a_conduit_end_spw_do_signal,
-	comm_a_conduit_end_spw_so_signal,
-	comm_b_conduit_end_spw_si_signal,
-	comm_b_conduit_end_spw_di_signal,
-	comm_b_conduit_end_spw_do_signal,
-	comm_b_conduit_end_spw_so_signal,
-	comm_c_conduit_end_spw_si_signal,
-	comm_c_conduit_end_spw_di_signal,
-	comm_c_conduit_end_spw_do_signal,
-	comm_c_conduit_end_spw_so_signal,
-	comm_d_conduit_end_spw_si_signal,
-	comm_d_conduit_end_spw_di_signal,
-	comm_d_conduit_end_spw_do_signal,
-	comm_d_conduit_end_spw_so_signal,
-	comm_e_conduit_end_spw_si_signal,
-	comm_e_conduit_end_spw_di_signal,
-	comm_e_conduit_end_spw_do_signal,
-	comm_e_conduit_end_spw_so_signal,
-	comm_f_conduit_end_spw_si_signal,
-	comm_f_conduit_end_spw_di_signal,
-	comm_f_conduit_end_spw_do_signal,
-	comm_f_conduit_end_spw_so_signal,
-	comm_g_conduit_end_spw_si_signal,
-	comm_g_conduit_end_spw_di_signal,
-	comm_g_conduit_end_spw_do_signal,
-	comm_g_conduit_end_spw_so_signal,
-	comm_h_conduit_end_spw_si_signal,
-	comm_h_conduit_end_spw_di_signal,
-	comm_h_conduit_end_spw_do_signal,
-	comm_h_conduit_end_spw_so_signal,
 	csense_adc_fo_export,
 	csense_cs_n_export,
 	csense_sck_export,
@@ -111,6 +79,16 @@ module MebX_Qsys_Project (
 	sd_card_wp_n_io_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
+	sync_in_conduit,
+	sync_out_conduit,
+	sync_spwa_conduit,
+	sync_spwb_conduit,
+	sync_spwc_conduit,
+	sync_spwd_conduit,
+	sync_spwe_conduit,
+	sync_spwf_conduit,
+	sync_spwg_conduit,
+	sync_spwh_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -120,51 +98,41 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
 	tristate_conduit_tcm_chipselect_n_out,
-	sync_in_conduit,
-	sync_spwa_conduit,
-	sync_spwb_conduit,
-	sync_spwc_conduit,
-	sync_spwd_conduit,
-	sync_spwe_conduit,
-	sync_spwf_conduit,
-	sync_spwg_conduit,
-	sync_spwh_conduit,
-	sync_out_conduit);	
+	comm_a_conduit_end_data_in_signal,
+	comm_a_conduit_end_data_out_signal,
+	comm_a_conduit_end_strobe_in_signal,
+	comm_a_conduit_end_strobe_out_signal,
+	comm_b_conduit_end_data_in_signal,
+	comm_b_conduit_end_data_out_signal,
+	comm_b_conduit_end_strobe_in_signal,
+	comm_b_conduit_end_strobe_out_signal,
+	comm_c_conduit_end_data_in_signal,
+	comm_c_conduit_end_data_out_signal,
+	comm_c_conduit_end_strobe_in_signal,
+	comm_c_conduit_end_strobe_out_signal,
+	comm_d_conduit_end_data_in_signal,
+	comm_d_conduit_end_data_out_signal,
+	comm_d_conduit_end_strobe_in_signal,
+	comm_d_conduit_end_strobe_out_signal,
+	comm_e_conduit_end_data_in_signal,
+	comm_e_conduit_end_data_out_signal,
+	comm_e_conduit_end_strobe_in_signal,
+	comm_e_conduit_end_strobe_out_signal,
+	comm_f_conduit_end_data_in_signal,
+	comm_f_conduit_end_data_out_signal,
+	comm_f_conduit_end_strobe_in_signal,
+	comm_f_conduit_end_strobe_out_signal,
+	comm_g_conduit_end_data_in_signal,
+	comm_g_conduit_end_data_out_signal,
+	comm_g_conduit_end_strobe_in_signal,
+	comm_g_conduit_end_strobe_out_signal,
+	comm_h_conduit_end_data_in_signal,
+	comm_h_conduit_end_data_out_signal,
+	comm_h_conduit_end_strobe_in_signal,
+	comm_h_conduit_end_strobe_out_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
-	input		comm_a_conduit_end_spw_si_signal;
-	input		comm_a_conduit_end_spw_di_signal;
-	output		comm_a_conduit_end_spw_do_signal;
-	output		comm_a_conduit_end_spw_so_signal;
-	input		comm_b_conduit_end_spw_si_signal;
-	input		comm_b_conduit_end_spw_di_signal;
-	output		comm_b_conduit_end_spw_do_signal;
-	output		comm_b_conduit_end_spw_so_signal;
-	input		comm_c_conduit_end_spw_si_signal;
-	input		comm_c_conduit_end_spw_di_signal;
-	output		comm_c_conduit_end_spw_do_signal;
-	output		comm_c_conduit_end_spw_so_signal;
-	input		comm_d_conduit_end_spw_si_signal;
-	input		comm_d_conduit_end_spw_di_signal;
-	output		comm_d_conduit_end_spw_do_signal;
-	output		comm_d_conduit_end_spw_so_signal;
-	input		comm_e_conduit_end_spw_si_signal;
-	input		comm_e_conduit_end_spw_di_signal;
-	output		comm_e_conduit_end_spw_do_signal;
-	output		comm_e_conduit_end_spw_so_signal;
-	input		comm_f_conduit_end_spw_si_signal;
-	input		comm_f_conduit_end_spw_di_signal;
-	output		comm_f_conduit_end_spw_do_signal;
-	output		comm_f_conduit_end_spw_so_signal;
-	input		comm_g_conduit_end_spw_si_signal;
-	input		comm_g_conduit_end_spw_di_signal;
-	output		comm_g_conduit_end_spw_do_signal;
-	output		comm_g_conduit_end_spw_so_signal;
-	input		comm_h_conduit_end_spw_si_signal;
-	input		comm_h_conduit_end_spw_di_signal;
-	output		comm_h_conduit_end_spw_do_signal;
-	output		comm_h_conduit_end_spw_so_signal;
 	output		csense_adc_fo_export;
 	output	[1:0]	csense_cs_n_export;
 	output		csense_sck_export;
@@ -242,6 +210,16 @@ module MebX_Qsys_Project (
 	input		sd_card_wp_n_io_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
+	input		sync_in_conduit;
+	output		sync_out_conduit;
+	output		sync_spwa_conduit;
+	output		sync_spwb_conduit;
+	output		sync_spwc_conduit;
+	output		sync_spwd_conduit;
+	output		sync_spwe_conduit;
+	output		sync_spwf_conduit;
+	output		sync_spwg_conduit;
+	output		sync_spwh_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;
@@ -251,14 +229,36 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	input		sync_in_conduit;
-	output		sync_spwa_conduit;
-	output		sync_spwb_conduit;
-	output		sync_spwc_conduit;
-	output		sync_spwd_conduit;
-	output		sync_spwe_conduit;
-	output		sync_spwf_conduit;
-	output		sync_spwg_conduit;
-	output		sync_spwh_conduit;
-	output		sync_out_conduit;
+	input		comm_a_conduit_end_data_in_signal;
+	output		comm_a_conduit_end_data_out_signal;
+	input		comm_a_conduit_end_strobe_in_signal;
+	output		comm_a_conduit_end_strobe_out_signal;
+	input		comm_b_conduit_end_data_in_signal;
+	output		comm_b_conduit_end_data_out_signal;
+	input		comm_b_conduit_end_strobe_in_signal;
+	output		comm_b_conduit_end_strobe_out_signal;
+	input		comm_c_conduit_end_data_in_signal;
+	output		comm_c_conduit_end_data_out_signal;
+	input		comm_c_conduit_end_strobe_in_signal;
+	output		comm_c_conduit_end_strobe_out_signal;
+	input		comm_d_conduit_end_data_in_signal;
+	output		comm_d_conduit_end_data_out_signal;
+	input		comm_d_conduit_end_strobe_in_signal;
+	output		comm_d_conduit_end_strobe_out_signal;
+	input		comm_e_conduit_end_data_in_signal;
+	output		comm_e_conduit_end_data_out_signal;
+	input		comm_e_conduit_end_strobe_in_signal;
+	output		comm_e_conduit_end_strobe_out_signal;
+	input		comm_f_conduit_end_data_in_signal;
+	output		comm_f_conduit_end_data_out_signal;
+	input		comm_f_conduit_end_strobe_in_signal;
+	output		comm_f_conduit_end_strobe_out_signal;
+	input		comm_g_conduit_end_data_in_signal;
+	output		comm_g_conduit_end_data_out_signal;
+	input		comm_g_conduit_end_strobe_in_signal;
+	output		comm_g_conduit_end_strobe_out_signal;
+	input		comm_h_conduit_end_data_in_signal;
+	output		comm_h_conduit_end_data_out_signal;
+	input		comm_h_conduit_end_strobe_in_signal;
+	output		comm_h_conduit_end_strobe_out_signal;
 endmodule
