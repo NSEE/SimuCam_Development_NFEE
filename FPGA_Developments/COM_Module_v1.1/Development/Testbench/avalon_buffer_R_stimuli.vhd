@@ -53,8 +53,9 @@ begin
 				when 1502 =>
 					s_counter     <= 1500;
 					s_address_cnt <= s_address_cnt + 1;
-					if (s_address_cnt = 127) then
-						s_counter <= 2000;
+					if (s_address_cnt = (2**g_ADDRESS_WIDTH - 2)) then
+						s_counter     <= 1000;
+						s_address_cnt <= 0;
 					end if;
 
 				when others =>

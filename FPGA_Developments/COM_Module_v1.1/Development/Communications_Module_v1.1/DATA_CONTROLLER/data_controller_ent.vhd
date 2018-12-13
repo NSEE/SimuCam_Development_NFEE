@@ -30,6 +30,7 @@ architecture RTL of data_controller_ent is
 
 	type t_data_controller_fsm is (
 		IDLE,
+		MASK_FETCH,
 		DATA_FETCH,
 		PIXEL_0_BYTE_0,
 		PIXEL_0_BYTE_1,
@@ -53,6 +54,8 @@ architecture RTL of data_controller_ent is
 	signal s_windowing_buffer_side      : std_logic; -- '0' = Right, '1' = Left
 	signal s_next_windowing_buffer_side : std_logic; -- '0' = Right, '1' = Left
 
+	signal s_delay : std_logic;
+
 begin
 
 	p_data_controller : process(clk_i, rst_i) is
@@ -72,6 +75,7 @@ begin
 			s_mask_counter               <= 0;
 			s_windowing_buffer_side      <= '0';
 			s_next_windowing_buffer_side <= '0';
+			s_delay                      <= '0';
 		elsif rising_edge(clk_i) then
 
 			window_data_R_read_o <= '0';
@@ -81,6 +85,7 @@ begin
 			spw_txwrite_o        <= '0';
 			spw_txflag_o         <= '0';
 			spw_txdata_o         <= (others => '0');
+			s_delay              <= '0';
 
 			case (s_data_controller_state) is
 
@@ -96,37 +101,33 @@ begin
 							-- check if the rigth windowing buffer is ready
 							if ((window_data_R_ready_i = '1') and (window_mask_R_ready_i = '1')) then
 								-- fetch mask and data
-								window_data_R_read_o         <= '1';
 								window_mask_R_read_o         <= '1';
 								s_windowing_buffer_side      <= '0';
 								s_next_windowing_buffer_side <= '0';
-								s_data_controller_state      <= DATA_FETCH;
+								s_data_controller_state      <= MASK_FETCH;
 							-- check if the left windowing buffer is ready
 							elsif ((window_data_L_ready_i = '1') and (window_mask_L_ready_i = '1')) then
 								-- fetch mask and data
-								window_data_L_read_o         <= '1';
 								window_mask_L_read_o         <= '1';
 								s_windowing_buffer_side      <= '1';
 								s_next_windowing_buffer_side <= '1';
-								s_data_controller_state      <= DATA_FETCH;
+								s_data_controller_state      <= MASK_FETCH;
 							end if;
 						else
 							-- check if the left windowing buffer is ready
 							if ((window_data_L_ready_i = '1') and (window_mask_L_ready_i = '1')) then
 								-- fetch mask and data
-								window_data_L_read_o         <= '1';
 								window_mask_L_read_o         <= '1';
 								s_windowing_buffer_side      <= '1';
 								s_next_windowing_buffer_side <= '1';
-								s_data_controller_state      <= DATA_FETCH;
+								s_data_controller_state      <= MASK_FETCH;
 							-- check if the rigth windowing buffer is ready
 							elsif ((window_data_R_ready_i = '1') and (window_mask_R_ready_i = '1')) then
 								-- fetch mask and data
-								window_data_R_read_o         <= '1';
 								window_mask_R_read_o         <= '1';
 								s_windowing_buffer_side      <= '0';
 								s_next_windowing_buffer_side <= '0';
-								s_data_controller_state      <= DATA_FETCH;
+								s_data_controller_state      <= MASK_FETCH;
 							end if;
 						end if;
 					else
@@ -169,26 +170,55 @@ begin
 						end if;
 					end if;
 
-				when DATA_FETCH =>
-					-- check if the used buffer is the right side
-					if (s_windowing_buffer_side = '0') then
-						-- right side
-						s_registered_window_data <= window_data_R_i;
-						if (mask_enable_i = '1') then
-							s_registered_window_mask <= window_mask_R_i;
+				when MASK_FETCH =>
+					-- check if the delay for the data fetch already happened
+					if (s_delay = '1') then
+						-- delay happened
+						s_delay                 <= '0';
+						-- check if the used buffer is the right side
+						if (s_windowing_buffer_side = '0') then
+							-- right side
+							if (mask_enable_i = '1') then
+								s_registered_window_mask <= window_mask_R_i;
+							else
+								s_registered_window_mask <= (others => '1');
+							end if;
+							window_data_R_read_o <= '1';
 						else
-							s_registered_window_mask <= (others => '1');
+							-- left side
+							if (mask_enable_i = '1') then
+								s_registered_window_mask <= window_mask_L_i;
+							else
+								s_registered_window_mask <= (others => '1');
+							end if;
+							window_data_L_read_o <= '1';
 						end if;
+						s_data_controller_state <= DATA_FETCH;
 					else
-						-- left side
-						s_registered_window_data <= window_data_L_i;
-						if (mask_enable_i = '1') then
-							s_registered_window_mask <= window_mask_L_i;
-						else
-							s_registered_window_mask <= (others => '1');
-						end if;
+						-- delay not happened yet
+						s_delay                 <= '1';
+						s_data_controller_state <= MASK_FETCH;
 					end if;
-					s_data_controller_state <= PIXEL_0_BYTE_0;
+
+				when DATA_FETCH =>
+					-- check if the delay for the data fetch already happened
+					if (s_delay = '1') then
+						-- delay happened
+						s_delay                 <= '0';
+						-- check if the used buffer is the right side
+						if (s_windowing_buffer_side = '0') then
+							-- right side
+							s_registered_window_data <= window_data_R_i;
+						else
+							-- left side
+							s_registered_window_data <= window_data_L_i;
+						end if;
+						s_data_controller_state <= PIXEL_0_BYTE_0;
+					else
+						-- delay not happened yet
+						s_delay                 <= '1';
+						s_data_controller_state <= DATA_FETCH;
+					end if;
 
 				when PIXEL_0_BYTE_0 =>
 					s_data_controller_state <= PIXEL_0_BYTE_0;
@@ -200,7 +230,6 @@ begin
 							spw_txdata_o  <= s_registered_window_data(7 downto 0);
 						end if;
 						s_packet_size_counter   <= s_packet_size_counter + 1;
-						s_mask_counter          <= s_mask_counter + 1;
 						s_data_controller_state <= PIXEL_0_BYTE_1;
 					end if;
 
@@ -228,7 +257,6 @@ begin
 							spw_txdata_o  <= s_registered_window_data(23 downto 16);
 						end if;
 						s_packet_size_counter   <= s_packet_size_counter + 1;
-						s_mask_counter          <= s_mask_counter + 1;
 						s_data_controller_state <= PIXEL_1_BYTE_1;
 					end if;
 
@@ -256,7 +284,6 @@ begin
 							spw_txdata_o  <= s_registered_window_data(39 downto 32);
 						end if;
 						s_packet_size_counter   <= s_packet_size_counter + 1;
-						s_mask_counter          <= s_mask_counter + 1;
 						s_data_controller_state <= PIXEL_2_BYTE_1;
 					end if;
 
@@ -284,7 +311,6 @@ begin
 							spw_txdata_o  <= s_registered_window_data(55 downto 48);
 						end if;
 						s_packet_size_counter   <= s_packet_size_counter + 1;
-						s_mask_counter          <= s_mask_counter + 1;
 						s_data_controller_state <= PIXEL_3_BYTE_1;
 					end if;
 
@@ -297,7 +323,7 @@ begin
 							spw_txflag_o  <= '0';
 							spw_txdata_o  <= s_registered_window_data(63 downto 56);
 						end if;
-						if (s_mask_counter <= 63) then
+						if (s_mask_counter < 63) then
 							s_mask_counter <= s_mask_counter + 1;
 						else
 							s_mask_counter <= 0;
@@ -316,9 +342,16 @@ begin
 									-- check if the windowing buffer is ready
 									if ((window_data_R_ready_i = '1') and (window_mask_R_ready_i = '1')) then
 										-- fetch mask and data
-										window_data_R_read_o    <= '1';
-										window_mask_R_read_o    <= '1';
-										s_data_controller_state <= DATA_FETCH;
+										-- check if the current mask ended, fetch new mask
+										if (s_mask_counter = 63) then
+											-- current mask ended
+											window_mask_R_read_o    <= '1';
+											s_data_controller_state <= MASK_FETCH;
+										else
+											-- current mask have not ended yet, fetch more data
+											window_data_R_read_o    <= '1';
+											s_data_controller_state <= DATA_FETCH;
+										end if;
 									else
 										s_data_controller_state <= IDLE;
 									end if;
@@ -327,9 +360,16 @@ begin
 									-- check if the windowing buffer is ready
 									if ((window_data_L_ready_i = '1') and (window_mask_L_ready_i = '1')) then
 										-- fetch mask and data
-										window_data_L_read_o    <= '1';
-										window_mask_L_read_o    <= '1';
-										s_data_controller_state <= DATA_FETCH;
+										-- check if the current mask ended, fetch new mask
+										if (s_mask_counter = 63) then
+											-- current mask ended
+											window_mask_L_read_o    <= '1';
+											s_data_controller_state <= MASK_FETCH;
+										else
+											-- current mask have not ended yet, fetch more data
+											window_data_L_read_o    <= '1';
+											s_data_controller_state <= DATA_FETCH;
+										end if;
 									else
 										s_data_controller_state <= IDLE;
 									end if;

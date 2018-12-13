@@ -32,7 +32,8 @@ begin
 			avalon_mm_address_o   <= (others => '0');
 			avalon_mm_write_o     <= '0';
 			avalon_mm_writedata_o <= (others => '0');
-			s_counter             <= 0;
+			--s_counter             <= 0;
+			s_counter             <= 5000;
 			s_address_cnt         <= 0;
 
 		elsif rising_edge(clk_i) then
@@ -49,12 +50,13 @@ begin
 					avalon_mm_address_o   <= std_logic_vector(to_unsigned(s_address_cnt, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= x"FEDCBA9876543210";
-					
+
 				when 2502 =>
 					s_counter     <= 2500;
 					s_address_cnt <= s_address_cnt + 1;
-					if (s_address_cnt = 127) then
-						s_counter <= 3000;
+					if (s_address_cnt = (2**g_ADDRESS_WIDTH - 2)) then
+						s_counter     <= 2000;
+						s_address_cnt <= 0;
 					end if;
 
 				when others =>

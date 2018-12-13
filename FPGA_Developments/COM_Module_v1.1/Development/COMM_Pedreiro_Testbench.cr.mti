@@ -72,6 +72,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity windowing_mask_sc_fifo
 -- Compiling architecture SYN of windowing_mask_sc_fifo
 
+} {} {}} C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1.1/Development/Testbench/config_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1.1/Development/Testbench/config_avalon_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package avalon_mm_spacewire_registers_pkg
+-- Compiling entity config_avalon_stimuli
+-- Compiling architecture RTL of config_avalon_stimuli
+
 } {} {}} Communications_Module_v1.1/REGISTERS/avalon_mm_spacewire_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1.1/Development/Communications_Module_v1.1/REGISTERS/avalon_mm_spacewire_registers_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD

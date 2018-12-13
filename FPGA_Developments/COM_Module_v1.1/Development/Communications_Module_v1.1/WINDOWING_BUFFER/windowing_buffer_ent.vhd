@@ -60,6 +60,12 @@ architecture RTL of windowing_buffer_ent is
 	signal s_mask_buffer_0_ready : std_logic;
 	signal s_mask_buffer_1_ready : std_logic;
 
+	-- windowing buffers lock signals
+	signal s_data_buffer_0_lock : std_logic;
+	signal s_data_buffer_1_lock : std_logic;
+	signal s_mask_buffer_0_lock : std_logic;
+	signal s_mask_buffer_1_lock : std_logic;
+
 begin
 
 	-- windowing data fifo 0 instantiation
@@ -139,6 +145,10 @@ begin
 			s_data_buffer_1_ready                       <= '0';
 			s_mask_buffer_0_ready                       <= '0';
 			s_mask_buffer_1_ready                       <= '0';
+			s_data_buffer_0_lock                        <= '0';
+			s_data_buffer_1_lock                        <= '0';
+			s_mask_buffer_0_lock                        <= '0';
+			s_mask_buffer_1_lock                        <= '0';
 		elsif rising_edge(clk_i) then
 
 			window_data_o                               <= (others => '0');
@@ -173,16 +183,22 @@ begin
 				-- check if the buffer 0 is being used
 				if (s_write_data_buffer_0_active = '1') then
 					-- buffer 0 is being used
-					-- check if there is space in the windowing data fifo 0
-					if (s_windowing_data_fifo_0_status.write.full = '1') then
-						s_windowing_data_fifo_0_control.write.wrreq <= '1';
-						s_windowing_data_fifo_0_wr_data.data        <= window_data_i;
-						-- check if this will be the last data for the buffer 0
-						if (s_windowing_data_fifo_0_status.write.usedw = "11111111") then
-							-- next data will be stored in buffer 1
-							s_write_data_buffer_0_active <= '0';
-							-- set the data ready flag
-							s_data_buffer_0_ready        <= '1';
+					-- check if the data buffer 0 is unlocked
+					if (s_data_buffer_0_lock = '0') then
+						-- data buffer 0 is unlocked
+						-- check if there is space in the windowing data fifo 0
+						if (s_windowing_data_fifo_0_status.write.full = '0') then
+							s_windowing_data_fifo_0_control.write.wrreq <= '1';
+							s_windowing_data_fifo_0_wr_data.data        <= window_data_i;
+							-- check if this will be the last data for the buffer 0
+							if (s_windowing_data_fifo_0_status.write.usedw = "11111111") then
+								-- next data will be stored in buffer 1
+								s_write_data_buffer_0_active <= '0';
+								-- set the data ready flag
+								s_data_buffer_0_ready        <= '1';
+								-- lock the data buffer 0
+								s_data_buffer_0_lock         <= '1';
+							end if;
 						end if;
 					end if;
 				else
@@ -190,16 +206,22 @@ begin
 					-- check if a window data write was requested 
 					if (window_data_write_i = '1') then
 						-- window data write requested
-						-- check if there is space in the windowing data fifo 1
-						if (s_windowing_data_fifo_1_status.write.full = '1') then
-							s_windowing_data_fifo_1_control.write.wrreq <= '1';
-							s_windowing_data_fifo_1_wr_data.data        <= window_data_i;
-							-- check if this will be the last data for the buffer 1
-							if (s_windowing_data_fifo_1_status.write.usedw = "11111111") then
-								-- next data will be stored in buffer 0
-								s_write_data_buffer_0_active <= '1';
-								-- set the data ready flag
-								s_data_buffer_1_ready        <= '1';
+						-- check if the data buffer 1 is unlocked
+						if (s_data_buffer_1_lock = '0') then
+							-- data buffer 1 is unlocked
+							-- check if there is space in the windowing data fifo 1
+							if (s_windowing_data_fifo_1_status.write.full = '0') then
+								s_windowing_data_fifo_1_control.write.wrreq <= '1';
+								s_windowing_data_fifo_1_wr_data.data        <= window_data_i;
+								-- check if this will be the last data for the buffer 1
+								if (s_windowing_data_fifo_1_status.write.usedw = "11111111") then
+									-- next data will be stored in buffer 0
+									s_write_data_buffer_0_active <= '1';
+									-- set the data ready flag
+									s_data_buffer_1_ready        <= '1';
+									-- lock the data buffer 1
+									s_data_buffer_1_lock         <= '1';
+								end if;
 							end if;
 						end if;
 					end if;
@@ -210,16 +232,22 @@ begin
 				-- check if the buffer 0 is being used
 				if (s_write_mask_buffer_0_active = '1') then
 					-- buffer 0 is being used
-					-- check if there is space in the windowing mask fifo 0
-					if (s_windowing_mask_fifo_0_status.write.full = '1') then
-						s_windowing_mask_fifo_0_control.write.wrreq <= '1';
-						s_windowing_mask_fifo_0_wr_data.data        <= window_data_i;
-						-- check if this will be the last data for the buffer 0
-						if (s_windowing_mask_fifo_0_status.write.usedw = "1111") then
-							-- next data will be stored in buffer 1
-							s_write_mask_buffer_0_active <= '0';
-							-- set the mask ready flag
-							s_mask_buffer_0_ready        <= '1';
+					-- check if the mask buffer 0 is unlocked
+					if (s_mask_buffer_0_lock = '0') then
+						-- mask buffer 0 is unlocked
+						-- check if there is space in the windowing mask fifo 0
+						if (s_windowing_mask_fifo_0_status.write.full = '0') then
+							s_windowing_mask_fifo_0_control.write.wrreq <= '1';
+							s_windowing_mask_fifo_0_wr_data.data        <= window_data_i;
+							-- check if this will be the last data for the buffer 0
+							if (s_windowing_mask_fifo_0_status.write.usedw = "1111") then
+								-- next data will be stored in buffer 1
+								s_write_mask_buffer_0_active <= '0';
+								-- set the mask ready flag
+								s_mask_buffer_0_ready        <= '1';
+								-- lock the data buffer 0
+								s_mask_buffer_0_lock         <= '1';
+							end if;
 						end if;
 					end if;
 				else
@@ -227,16 +255,22 @@ begin
 					-- check if a window mask write was requested 	
 					if (window_mask_write_i = '1') then
 						-- window mask write requested
-						-- check if there is space in the windowing mask fifo 1
-						if (s_windowing_mask_fifo_1_status.write.full = '1') then
-							s_windowing_mask_fifo_1_control.write.wrreq <= '1';
-							s_windowing_mask_fifo_1_wr_data.data        <= window_data_i;
-							-- check if this will be the last data for the buffer 1
-							if (s_windowing_mask_fifo_1_status.write.usedw = "1111") then
-								-- next data will be stored in buffer 0
-								s_write_mask_buffer_0_active <= '1';
-								-- set the mask ready flag
-								s_mask_buffer_1_ready        <= '1';
+						-- check if the mask buffer 1 is unlocked
+						if (s_mask_buffer_1_lock = '0') then
+							-- mask buffer 1 is unlocked
+							-- check if there is space in the windowing mask fifo 1
+							if (s_windowing_mask_fifo_1_status.write.full = '0') then
+								s_windowing_mask_fifo_1_control.write.wrreq <= '1';
+								s_windowing_mask_fifo_1_wr_data.data        <= window_data_i;
+								-- check if this will be the last data for the buffer 1
+								if (s_windowing_mask_fifo_1_status.write.usedw = "1111") then
+									-- next data will be stored in buffer 0
+									s_write_mask_buffer_0_active <= '1';
+									-- set the mask ready flag
+									s_mask_buffer_1_ready        <= '1';
+									-- lock the data buffer 1
+									s_mask_buffer_1_lock         <= '1';
+								end if;
 							end if;
 						end if;
 					end if;
@@ -252,10 +286,10 @@ begin
 				if (s_read_data_buffer_0_active = '1') then
 					-- buffer 0 is being used
 					-- read data from the data buffer 0
-					s_windowing_mask_fifo_0_control.read.rdreq <= '1';
+					s_windowing_data_fifo_0_control.read.rdreq <= '1';
 					window_data_o                              <= s_windowing_data_fifo_0_rd_data.q;
 					-- check if this is the last data for the buffer 0
-					if (s_windowing_data_fifo_0_status.read.usedw = "11111111") then
+					if (s_windowing_data_fifo_0_status.read.usedw = "00000001") then
 						-- next data will be read from buffer 1
 						s_read_data_buffer_0_active <= '0';
 						-- clear the data ready flag
@@ -264,10 +298,10 @@ begin
 				else
 					-- buffer 1 is being used
 					-- read data from the data buffer 1
-					s_windowing_mask_fifo_1_control.read.rdreq <= '1';
+					s_windowing_data_fifo_1_control.read.rdreq <= '1';
 					window_data_o                              <= s_windowing_data_fifo_1_rd_data.q;
 					-- check if this is the last data for the buffer 1
-					if (s_windowing_data_fifo_1_status.read.usedw = "11111111") then
+					if (s_windowing_data_fifo_1_status.read.usedw = "00000001") then
 						-- next data will be read from buffer 0
 						s_read_data_buffer_0_active <= '1';
 						-- clear the data ready flag
@@ -283,7 +317,7 @@ begin
 					s_windowing_mask_fifo_0_control.read.rdreq <= '1';
 					window_mask_o                              <= s_windowing_mask_fifo_0_rd_data.q;
 					-- check if this is the last mask for the buffer 0
-					if (s_windowing_mask_fifo_0_status.read.usedw = "1111") then
+					if (s_windowing_mask_fifo_0_status.read.usedw = "0001") then
 						-- next data will be read from buffer 1
 						s_read_mask_buffer_0_active <= '0';
 						-- clear the mask ready flag
@@ -295,13 +329,37 @@ begin
 					s_windowing_mask_fifo_1_control.read.rdreq <= '1';
 					window_mask_o                              <= s_windowing_mask_fifo_1_rd_data.q;
 					-- check if this is the last mask for the buffer 1
-					if (s_windowing_mask_fifo_1_status.read.usedw = "1111") then
+					if (s_windowing_mask_fifo_1_status.read.usedw = "0001") then
 						-- next data will be read from buffer 0
 						s_read_mask_buffer_0_active <= '1';
 						-- clear the mask ready flag
 						s_mask_buffer_1_ready       <= '0';
 					end if;
 				end if;
+			end if;
+
+			----------------------------------------------------------------------------------------
+
+			-- Windowing Buffer Unlock
+			-- check if the data buffer 0 is empty
+			if (s_windowing_data_fifo_0_status.read.empty = '1') then
+				-- data buffer 0 is empty, unlock the data buffer 0
+				s_data_buffer_0_lock <= '0';
+			end if;
+			-- check if the data buffer 1 is empty
+			if (s_windowing_data_fifo_1_status.read.empty = '1') then
+				-- data buffer 1 is empty, unlock the data buffer 1
+				s_data_buffer_1_lock <= '0';
+			end if;
+			-- check if the mask buffer 0 is empty
+			if (s_windowing_mask_fifo_0_status.read.empty = '1') then
+				-- mask buffer 0 is empty, unlock the mask buffer 0
+				s_mask_buffer_0_lock <= '0';
+			end if;
+			-- check if the mask buffer 1 is empty
+			if (s_windowing_mask_fifo_1_status.read.empty = '1') then
+				-- mask buffer 1 is empty, unlock the mask buffer 1
+				s_mask_buffer_1_lock <= '0';
 			end if;
 
 		end if;
