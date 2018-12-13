@@ -1,0 +1,3 @@
+tb2 é uma reprodução do tb, só que sem usar um projeto no quartus. Tudo é feito diretamente no modelsim!
+
+Use projeto dentro do modelsim. O arquivo de projeto é o de extensão .mpf.
