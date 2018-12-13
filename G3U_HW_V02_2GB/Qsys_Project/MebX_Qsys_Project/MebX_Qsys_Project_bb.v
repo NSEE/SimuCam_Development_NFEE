@@ -41,7 +41,6 @@ module MebX_Qsys_Project (
 	csense_sdo_export,
 	ctrl_io_lvds_export,
 	dip_export,
-	eth_rst_export,
 	ext_export,
 	led_de4_export,
 	led_painel_export,
@@ -121,35 +120,6 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
 	tristate_conduit_tcm_chipselect_n_out,
-	tse_clk_clk,
-	tse_led_crs,
-	tse_led_link,
-	tse_led_panel_link,
-	tse_led_col,
-	tse_led_an,
-	tse_led_char_err,
-	tse_led_disp_err,
-	tse_mac_mac_misc_connection_xon_gen,
-	tse_mac_mac_misc_connection_xoff_gen,
-	tse_mac_mac_misc_connection_magic_wakeup,
-	tse_mac_mac_misc_connection_magic_sleep_n,
-	tse_mac_mac_misc_connection_ff_tx_crc_fwd,
-	tse_mac_mac_misc_connection_ff_tx_septy,
-	tse_mac_mac_misc_connection_tx_ff_uflow,
-	tse_mac_mac_misc_connection_ff_tx_a_full,
-	tse_mac_mac_misc_connection_ff_tx_a_empty,
-	tse_mac_mac_misc_connection_rx_err_stat,
-	tse_mac_mac_misc_connection_rx_frm_type,
-	tse_mac_mac_misc_connection_ff_rx_dsav,
-	tse_mac_mac_misc_connection_ff_rx_a_full,
-	tse_mac_mac_misc_connection_ff_rx_a_empty,
-	tse_mac_serdes_control_connection_export,
-	tse_mdio_mdc,
-	tse_mdio_mdio_in,
-	tse_mdio_mdio_out,
-	tse_mdio_mdio_oen,
-	tse_serial_txp,
-	tse_serial_rxp,
 	sync_in_conduit,
 	sync_spwa_conduit,
 	sync_spwb_conduit,
@@ -202,7 +172,6 @@ module MebX_Qsys_Project (
 	input		csense_sdo_export;
 	output	[3:0]	ctrl_io_lvds_export;
 	input	[7:0]	dip_export;
-	output		eth_rst_export;
 	input		ext_export;
 	output	[7:0]	led_de4_export;
 	output	[20:0]	led_painel_export;
@@ -282,35 +251,6 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	input		tse_clk_clk;
-	output		tse_led_crs;
-	output		tse_led_link;
-	output		tse_led_panel_link;
-	output		tse_led_col;
-	output		tse_led_an;
-	output		tse_led_char_err;
-	output		tse_led_disp_err;
-	input		tse_mac_mac_misc_connection_xon_gen;
-	input		tse_mac_mac_misc_connection_xoff_gen;
-	output		tse_mac_mac_misc_connection_magic_wakeup;
-	input		tse_mac_mac_misc_connection_magic_sleep_n;
-	input		tse_mac_mac_misc_connection_ff_tx_crc_fwd;
-	output		tse_mac_mac_misc_connection_ff_tx_septy;
-	output		tse_mac_mac_misc_connection_tx_ff_uflow;
-	output		tse_mac_mac_misc_connection_ff_tx_a_full;
-	output		tse_mac_mac_misc_connection_ff_tx_a_empty;
-	output	[17:0]	tse_mac_mac_misc_connection_rx_err_stat;
-	output	[3:0]	tse_mac_mac_misc_connection_rx_frm_type;
-	output		tse_mac_mac_misc_connection_ff_rx_dsav;
-	output		tse_mac_mac_misc_connection_ff_rx_a_full;
-	output		tse_mac_mac_misc_connection_ff_rx_a_empty;
-	output		tse_mac_serdes_control_connection_export;
-	output		tse_mdio_mdc;
-	input		tse_mdio_mdio_in;
-	output		tse_mdio_mdio_out;
-	output		tse_mdio_mdio_oen;
-	output		tse_serial_txp;
-	input		tse_serial_rxp;
 	input		sync_in_conduit;
 	output		sync_spwa_conduit;
 	output		sync_spwb_conduit;
