@@ -96,28 +96,23 @@ module MebX_Qsys_Project (
 	m2_ddr2_memory_status_local_cal_fail,
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
+	rs232_uart_rxd,
+	rs232_uart_txd,
 	rst_reset_n,
 	rtcc_alarm_export,
 	rtcc_cs_n_export,
 	rtcc_sck_export,
 	rtcc_sdi_export,
 	rtcc_sdo_export,
-	sd_clk_export,
-	sd_cmd_export,
-	sd_dat_export,
-	sd_wp_n_export,
+	sd_card_ip_b_SD_cmd,
+	sd_card_ip_b_SD_dat,
+	sd_card_ip_b_SD_dat3,
+	sd_card_ip_o_SD_clock,
+	sd_card_wp_n_io_export,
+	sinc_in_export,
+	sinc_out_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
-	sync_in_conduit,
-	sync_out_conduit,
-	sync_spwa_conduit,
-	sync_spwb_conduit,
-	sync_spwc_conduit,
-	sync_spwd_conduit,
-	sync_spwe_conduit,
-	sync_spwf_conduit,
-	sync_spwg_conduit,
-	sync_spwh_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -253,28 +248,23 @@ module MebX_Qsys_Project (
 	output		m2_ddr2_memory_status_local_cal_fail;
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
+	input		rs232_uart_rxd;
+	output		rs232_uart_txd;
 	input		rst_reset_n;
 	input		rtcc_alarm_export;
 	output		rtcc_cs_n_export;
 	output		rtcc_sck_export;
 	output		rtcc_sdi_export;
 	input		rtcc_sdo_export;
-	output		sd_clk_export;
-	inout		sd_cmd_export;
-	inout	[3:0]	sd_dat_export;
-	input		sd_wp_n_export;
+	inout		sd_card_ip_b_SD_cmd;
+	inout		sd_card_ip_b_SD_dat;
+	inout		sd_card_ip_b_SD_dat3;
+	output		sd_card_ip_o_SD_clock;
+	input		sd_card_wp_n_io_export;
+	input		sinc_in_export;
+	output		sinc_out_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
-	input		sync_in_conduit;
-	output		sync_out_conduit;
-	output		sync_spwa_conduit;
-	output		sync_spwb_conduit;
-	output		sync_spwc_conduit;
-	output		sync_spwd_conduit;
-	output		sync_spwe_conduit;
-	output		sync_spwf_conduit;
-	output		sync_spwg_conduit;
-	output		sync_spwh_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;

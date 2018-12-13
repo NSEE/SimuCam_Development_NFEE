@@ -96,28 +96,23 @@
 			m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        -- local_cal_fail
 			m2_ddr2_oct_rdn                                      : in    std_logic                     := 'X';             -- rdn
 			m2_ddr2_oct_rup                                      : in    std_logic                     := 'X';             -- rup
+			rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
+			rs232_uart_txd                                       : out   std_logic;                                        -- txd
 			rst_reset_n                                          : in    std_logic                     := 'X';             -- reset_n
 			rtcc_alarm_export                                    : in    std_logic                     := 'X';             -- export
 			rtcc_cs_n_export                                     : out   std_logic;                                        -- export
 			rtcc_sck_export                                      : out   std_logic;                                        -- export
 			rtcc_sdi_export                                      : out   std_logic;                                        -- export
 			rtcc_sdo_export                                      : in    std_logic                     := 'X';             -- export
-			sd_clk_export                                        : out   std_logic;                                        -- export
-			sd_cmd_export                                        : inout std_logic                     := 'X';             -- export
-			sd_dat_export                                        : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- export
-			sd_wp_n_export                                       : in    std_logic                     := 'X';             -- export
+			sd_card_ip_b_SD_cmd                                  : inout std_logic                     := 'X';             -- b_SD_cmd
+			sd_card_ip_b_SD_dat                                  : inout std_logic                     := 'X';             -- b_SD_dat
+			sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
+			sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
+			sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
+			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
+			sinc_out_export                                      : out   std_logic;                                        -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0
 			ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     -- ssdp1
-			sync_in_conduit                                      : in    std_logic                     := 'X';             -- conduit
-			sync_out_conduit                                     : out   std_logic;                                        -- conduit
-			sync_spwa_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwb_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwc_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwd_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwe_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwf_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwg_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwh_conduit                                    : out   std_logic;                                        -- conduit
 			temp_scl_export                                      : out   std_logic;                                        -- export
 			temp_sda_export                                      : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                       : out   std_logic;                                        -- export
@@ -257,28 +252,23 @@
 			m2_ddr2_memory_status_local_cal_fail                 => CONNECTED_TO_m2_ddr2_memory_status_local_cal_fail,                 --                                  .local_cal_fail
 			m2_ddr2_oct_rdn                                      => CONNECTED_TO_m2_ddr2_oct_rdn,                                      --                       m2_ddr2_oct.rdn
 			m2_ddr2_oct_rup                                      => CONNECTED_TO_m2_ddr2_oct_rup,                                      --                                  .rup
+			rs232_uart_rxd                                       => CONNECTED_TO_rs232_uart_rxd,                                       --                        rs232_uart.rxd
+			rs232_uart_txd                                       => CONNECTED_TO_rs232_uart_txd,                                       --                                  .txd
 			rst_reset_n                                          => CONNECTED_TO_rst_reset_n,                                          --                               rst.reset_n
 			rtcc_alarm_export                                    => CONNECTED_TO_rtcc_alarm_export,                                    --                        rtcc_alarm.export
 			rtcc_cs_n_export                                     => CONNECTED_TO_rtcc_cs_n_export,                                     --                         rtcc_cs_n.export
 			rtcc_sck_export                                      => CONNECTED_TO_rtcc_sck_export,                                      --                          rtcc_sck.export
 			rtcc_sdi_export                                      => CONNECTED_TO_rtcc_sdi_export,                                      --                          rtcc_sdi.export
 			rtcc_sdo_export                                      => CONNECTED_TO_rtcc_sdo_export,                                      --                          rtcc_sdo.export
-			sd_clk_export                                        => CONNECTED_TO_sd_clk_export,                                        --                            sd_clk.export
-			sd_cmd_export                                        => CONNECTED_TO_sd_cmd_export,                                        --                            sd_cmd.export
-			sd_dat_export                                        => CONNECTED_TO_sd_dat_export,                                        --                            sd_dat.export
-			sd_wp_n_export                                       => CONNECTED_TO_sd_wp_n_export,                                       --                           sd_wp_n.export
+			sd_card_ip_b_SD_cmd                                  => CONNECTED_TO_sd_card_ip_b_SD_cmd,                                  --                        sd_card_ip.b_SD_cmd
+			sd_card_ip_b_SD_dat                                  => CONNECTED_TO_sd_card_ip_b_SD_dat,                                  --                                  .b_SD_dat
+			sd_card_ip_b_SD_dat3                                 => CONNECTED_TO_sd_card_ip_b_SD_dat3,                                 --                                  .b_SD_dat3
+			sd_card_ip_o_SD_clock                                => CONNECTED_TO_sd_card_ip_o_SD_clock,                                --                                  .o_SD_clock
+			sd_card_wp_n_io_export                               => CONNECTED_TO_sd_card_wp_n_io_export,                               --                   sd_card_wp_n_io.export
+			sinc_in_export                                       => CONNECTED_TO_sinc_in_export,                                       --                           sinc_in.export
+			sinc_out_export                                      => CONNECTED_TO_sinc_out_export,                                      --                          sinc_out.export
 			ssdp_ssdp0                                           => CONNECTED_TO_ssdp_ssdp0,                                           --                              ssdp.ssdp0
 			ssdp_ssdp1                                           => CONNECTED_TO_ssdp_ssdp1,                                           --                                  .ssdp1
-			sync_in_conduit                                      => CONNECTED_TO_sync_in_conduit,                                      --                           sync_in.conduit
-			sync_out_conduit                                     => CONNECTED_TO_sync_out_conduit,                                     --                          sync_out.conduit
-			sync_spwa_conduit                                    => CONNECTED_TO_sync_spwa_conduit,                                    --                         sync_spwa.conduit
-			sync_spwb_conduit                                    => CONNECTED_TO_sync_spwb_conduit,                                    --                         sync_spwb.conduit
-			sync_spwc_conduit                                    => CONNECTED_TO_sync_spwc_conduit,                                    --                         sync_spwc.conduit
-			sync_spwd_conduit                                    => CONNECTED_TO_sync_spwd_conduit,                                    --                         sync_spwd.conduit
-			sync_spwe_conduit                                    => CONNECTED_TO_sync_spwe_conduit,                                    --                         sync_spwe.conduit
-			sync_spwf_conduit                                    => CONNECTED_TO_sync_spwf_conduit,                                    --                         sync_spwf.conduit
-			sync_spwg_conduit                                    => CONNECTED_TO_sync_spwg_conduit,                                    --                         sync_spwg.conduit
-			sync_spwh_conduit                                    => CONNECTED_TO_sync_spwh_conduit,                                    --                         sync_spwh.conduit
 			temp_scl_export                                      => CONNECTED_TO_temp_scl_export,                                      --                          temp_scl.export
 			temp_sda_export                                      => CONNECTED_TO_temp_sda_export,                                      --                          temp_sda.export
 			timer_1ms_external_port_export                       => CONNECTED_TO_timer_1ms_external_port_export,                       --           timer_1ms_external_port.export

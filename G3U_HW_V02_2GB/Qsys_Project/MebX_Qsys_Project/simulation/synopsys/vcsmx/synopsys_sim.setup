@@ -82,7 +82,6 @@ tristate_conduit_bridge_0:                         ./libraries/tristate_conduit_
 timer_1us:                                         ./libraries/timer_1us/                                        
 timer_1ms:                                         ./libraries/timer_1ms/                                        
 sysid_qsys:                                        ./libraries/sysid_qsys/                                       
-sync:                                              ./libraries/sync/                                             
 sgdma_tx:                                          ./libraries/sgdma_tx/                                         
 sgdma_rx:                                          ./libraries/sgdma_rx/                                         
 sd_dat:                                            ./libraries/sd_dat/                                           

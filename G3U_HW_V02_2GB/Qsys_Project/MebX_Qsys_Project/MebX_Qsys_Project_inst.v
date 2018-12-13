@@ -95,28 +95,23 @@
 		.m2_ddr2_memory_status_local_cal_fail                 (<connected-to-m2_ddr2_memory_status_local_cal_fail>),                 //                                  .local_cal_fail
 		.m2_ddr2_oct_rdn                                      (<connected-to-m2_ddr2_oct_rdn>),                                      //                       m2_ddr2_oct.rdn
 		.m2_ddr2_oct_rup                                      (<connected-to-m2_ddr2_oct_rup>),                                      //                                  .rup
+		.rs232_uart_rxd                                       (<connected-to-rs232_uart_rxd>),                                       //                        rs232_uart.rxd
+		.rs232_uart_txd                                       (<connected-to-rs232_uart_txd>),                                       //                                  .txd
 		.rst_reset_n                                          (<connected-to-rst_reset_n>),                                          //                               rst.reset_n
 		.rtcc_alarm_export                                    (<connected-to-rtcc_alarm_export>),                                    //                        rtcc_alarm.export
 		.rtcc_cs_n_export                                     (<connected-to-rtcc_cs_n_export>),                                     //                         rtcc_cs_n.export
 		.rtcc_sck_export                                      (<connected-to-rtcc_sck_export>),                                      //                          rtcc_sck.export
 		.rtcc_sdi_export                                      (<connected-to-rtcc_sdi_export>),                                      //                          rtcc_sdi.export
 		.rtcc_sdo_export                                      (<connected-to-rtcc_sdo_export>),                                      //                          rtcc_sdo.export
-		.sd_clk_export                                        (<connected-to-sd_clk_export>),                                        //                            sd_clk.export
-		.sd_cmd_export                                        (<connected-to-sd_cmd_export>),                                        //                            sd_cmd.export
-		.sd_dat_export                                        (<connected-to-sd_dat_export>),                                        //                            sd_dat.export
-		.sd_wp_n_export                                       (<connected-to-sd_wp_n_export>),                                       //                           sd_wp_n.export
+		.sd_card_ip_b_SD_cmd                                  (<connected-to-sd_card_ip_b_SD_cmd>),                                  //                        sd_card_ip.b_SD_cmd
+		.sd_card_ip_b_SD_dat                                  (<connected-to-sd_card_ip_b_SD_dat>),                                  //                                  .b_SD_dat
+		.sd_card_ip_b_SD_dat3                                 (<connected-to-sd_card_ip_b_SD_dat3>),                                 //                                  .b_SD_dat3
+		.sd_card_ip_o_SD_clock                                (<connected-to-sd_card_ip_o_SD_clock>),                                //                                  .o_SD_clock
+		.sd_card_wp_n_io_export                               (<connected-to-sd_card_wp_n_io_export>),                               //                   sd_card_wp_n_io.export
+		.sinc_in_export                                       (<connected-to-sinc_in_export>),                                       //                           sinc_in.export
+		.sinc_out_export                                      (<connected-to-sinc_out_export>),                                      //                          sinc_out.export
 		.ssdp_ssdp0                                           (<connected-to-ssdp_ssdp0>),                                           //                              ssdp.ssdp0
 		.ssdp_ssdp1                                           (<connected-to-ssdp_ssdp1>),                                           //                                  .ssdp1
-		.sync_in_conduit                                      (<connected-to-sync_in_conduit>),                                      //                           sync_in.conduit
-		.sync_out_conduit                                     (<connected-to-sync_out_conduit>),                                     //                          sync_out.conduit
-		.sync_spwa_conduit                                    (<connected-to-sync_spwa_conduit>),                                    //                         sync_spwa.conduit
-		.sync_spwb_conduit                                    (<connected-to-sync_spwb_conduit>),                                    //                         sync_spwb.conduit
-		.sync_spwc_conduit                                    (<connected-to-sync_spwc_conduit>),                                    //                         sync_spwc.conduit
-		.sync_spwd_conduit                                    (<connected-to-sync_spwd_conduit>),                                    //                         sync_spwd.conduit
-		.sync_spwe_conduit                                    (<connected-to-sync_spwe_conduit>),                                    //                         sync_spwe.conduit
-		.sync_spwf_conduit                                    (<connected-to-sync_spwf_conduit>),                                    //                         sync_spwf.conduit
-		.sync_spwg_conduit                                    (<connected-to-sync_spwg_conduit>),                                    //                         sync_spwg.conduit
-		.sync_spwh_conduit                                    (<connected-to-sync_spwh_conduit>),                                    //                         sync_spwh.conduit
 		.temp_scl_export                                      (<connected-to-temp_scl_export>),                                      //                          temp_scl.export
 		.temp_sda_export                                      (<connected-to-temp_sda_export>),                                      //                          temp_sda.export
 		.timer_1ms_external_port_export                       (<connected-to-timer_1ms_external_port_export>),                       //           timer_1ms_external_port.export

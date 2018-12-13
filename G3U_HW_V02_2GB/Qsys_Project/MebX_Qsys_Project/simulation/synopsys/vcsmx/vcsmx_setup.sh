@@ -12,7 +12,7 @@
 # or its authorized distributors. Please refer to the applicable 
 # agreement for further details.
 
-# ACDS 16.1 196 win32 2018.11.29.11:14:43
+# ACDS 16.1 196 win32 2018.05.01.15:06:29
 
 # ----------------------------------------
 # vcsmx - auto-generated simulation script
@@ -101,7 +101,7 @@
 # within the Quartus project, and generate a unified
 # script which supports all the Altera IP within the design.
 # ----------------------------------------
-# ACDS 16.1 196 win32 2018.11.29.11:14:43
+# ACDS 16.1 196 win32 2018.05.01.15:06:29
 # ----------------------------------------
 # initialize variables
 TOP_LEVEL_NAME="MebX_Qsys_Project"
@@ -221,7 +221,6 @@ mkdir -p ./libraries/tristate_conduit_bridge_0/
 mkdir -p ./libraries/timer_1us/
 mkdir -p ./libraries/timer_1ms/
 mkdir -p ./libraries/sysid_qsys/
-mkdir -p ./libraries/sync/
 mkdir -p ./libraries/sgdma_tx/
 mkdir -p ./libraries/sgdma_rx/
 mkdir -p ./libraries/sd_dat/
@@ -689,18 +688,6 @@ if [ $SKIP_COM -eq 0 ]; then
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_timer_1us.v"                                                              -work timer_1us                                        
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_timer_1ms.v"                                                              -work timer_1ms                                        
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sysid_qsys.v"                                                             -work sysid_qsys                                       
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_topfile.vhd"                                                                           -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_mm_registers_pkg.vhd"                                                                  -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_outen.vhd"                                                                             -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_outen_pkg.vhd"                                                                         -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_int.vhd"                                                                               -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_int_pkg.vhd"                                                                           -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_gen.vhd"                                                                               -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_gen_pkg.vhd"                                                                           -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_common_pkg.vhd"                                                                        -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_avalon_mm_pkg.vhd"                                                                     -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_avalon_mm_read.vhd"                                                                    -work sync                                             
-  vhdlan -xlrm $USER_DEFINED_COMPILE_OPTIONS                                               "$QSYS_SIMDIR/submodules/sync_avalon_mm_write.vhd"                                                                   -work sync                                             
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sgdma_tx.v"                                                               -work sgdma_tx                                         
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sgdma_rx.v"                                                               -work sgdma_rx                                         
   vlogan +v2k $USER_DEFINED_COMPILE_OPTIONS                                                "$QSYS_SIMDIR/submodules/MebX_Qsys_Project_sd_dat.v"                                                                 -work sd_dat                                           
