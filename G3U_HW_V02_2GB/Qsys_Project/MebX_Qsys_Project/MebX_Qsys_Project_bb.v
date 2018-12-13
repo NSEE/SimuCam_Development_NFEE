@@ -39,6 +39,7 @@ module MebX_Qsys_Project (
 	csense_sck_export,
 	csense_sdi_export,
 	csense_sdo_export,
+	ctrl_io_lvds_export,
 	dip_export,
 	eth_rst_export,
 	ext_export,
@@ -109,8 +110,6 @@ module MebX_Qsys_Project (
 	sd_card_ip_b_SD_dat3,
 	sd_card_ip_o_SD_clock,
 	sd_card_wp_n_io_export,
-	sinc_in_export,
-	sinc_out_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
 	temp_scl_export,
@@ -150,7 +149,17 @@ module MebX_Qsys_Project (
 	tse_mdio_mdio_out,
 	tse_mdio_mdio_oen,
 	tse_serial_txp,
-	tse_serial_rxp);	
+	tse_serial_rxp,
+	sync_in_conduit,
+	sync_spwa_conduit,
+	sync_spwb_conduit,
+	sync_spwc_conduit,
+	sync_spwd_conduit,
+	sync_spwe_conduit,
+	sync_spwf_conduit,
+	sync_spwg_conduit,
+	sync_spwh_conduit,
+	sync_out_conduit);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -191,6 +200,7 @@ module MebX_Qsys_Project (
 	output		csense_sck_export;
 	output		csense_sdi_export;
 	input		csense_sdo_export;
+	output	[3:0]	ctrl_io_lvds_export;
 	input	[7:0]	dip_export;
 	output		eth_rst_export;
 	input		ext_export;
@@ -261,8 +271,6 @@ module MebX_Qsys_Project (
 	inout		sd_card_ip_b_SD_dat3;
 	output		sd_card_ip_o_SD_clock;
 	input		sd_card_wp_n_io_export;
-	input		sinc_in_export;
-	output		sinc_out_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
 	output		temp_scl_export;
@@ -303,4 +311,14 @@ module MebX_Qsys_Project (
 	output		tse_mdio_mdio_oen;
 	output		tse_serial_txp;
 	input		tse_serial_rxp;
+	input		sync_in_conduit;
+	output		sync_spwa_conduit;
+	output		sync_spwb_conduit;
+	output		sync_spwc_conduit;
+	output		sync_spwd_conduit;
+	output		sync_spwe_conduit;
+	output		sync_spwf_conduit;
+	output		sync_spwg_conduit;
+	output		sync_spwh_conduit;
+	output		sync_out_conduit;
 endmodule

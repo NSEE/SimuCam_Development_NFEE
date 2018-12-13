@@ -39,6 +39,7 @@
 			csense_sck_export                                    : out   std_logic;                                        -- export
 			csense_sdi_export                                    : out   std_logic;                                        -- export
 			csense_sdo_export                                    : in    std_logic                     := 'X';             -- export
+			ctrl_io_lvds_export                                  : out   std_logic_vector(3 downto 0);                     -- export
 			dip_export                                           : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- export
 			eth_rst_export                                       : out   std_logic;                                        -- export
 			ext_export                                           : in    std_logic                     := 'X';             -- export
@@ -109,8 +110,6 @@
 			sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
 			sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
 			sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
-			sinc_in_export                                       : in    std_logic                     := 'X';             -- export
-			sinc_out_export                                      : out   std_logic;                                        -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0
 			ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			temp_scl_export                                      : out   std_logic;                                        -- export
@@ -150,7 +149,17 @@
 			tse_mdio_mdio_out                                    : out   std_logic;                                        -- mdio_out
 			tse_mdio_mdio_oen                                    : out   std_logic;                                        -- mdio_oen
 			tse_serial_txp                                       : out   std_logic;                                        -- txp
-			tse_serial_rxp                                       : in    std_logic                     := 'X'              -- rxp
+			tse_serial_rxp                                       : in    std_logic                     := 'X';             -- rxp
+			sync_in_conduit                                      : in    std_logic                     := 'X';             -- conduit
+			sync_spwa_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwb_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwc_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwd_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwe_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwf_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwg_conduit                                    : out   std_logic;                                        -- conduit
+			sync_spwh_conduit                                    : out   std_logic;                                        -- conduit
+			sync_out_conduit                                     : out   std_logic                                         -- conduit
 		);
 	end component MebX_Qsys_Project;
 
@@ -195,6 +204,7 @@
 			csense_sck_export                                    => CONNECTED_TO_csense_sck_export,                                    --                        csense_sck.export
 			csense_sdi_export                                    => CONNECTED_TO_csense_sdi_export,                                    --                        csense_sdi.export
 			csense_sdo_export                                    => CONNECTED_TO_csense_sdo_export,                                    --                        csense_sdo.export
+			ctrl_io_lvds_export                                  => CONNECTED_TO_ctrl_io_lvds_export,                                  --                      ctrl_io_lvds.export
 			dip_export                                           => CONNECTED_TO_dip_export,                                           --                               dip.export
 			eth_rst_export                                       => CONNECTED_TO_eth_rst_export,                                       --                           eth_rst.export
 			ext_export                                           => CONNECTED_TO_ext_export,                                           --                               ext.export
@@ -265,8 +275,6 @@
 			sd_card_ip_b_SD_dat3                                 => CONNECTED_TO_sd_card_ip_b_SD_dat3,                                 --                                  .b_SD_dat3
 			sd_card_ip_o_SD_clock                                => CONNECTED_TO_sd_card_ip_o_SD_clock,                                --                                  .o_SD_clock
 			sd_card_wp_n_io_export                               => CONNECTED_TO_sd_card_wp_n_io_export,                               --                   sd_card_wp_n_io.export
-			sinc_in_export                                       => CONNECTED_TO_sinc_in_export,                                       --                           sinc_in.export
-			sinc_out_export                                      => CONNECTED_TO_sinc_out_export,                                      --                          sinc_out.export
 			ssdp_ssdp0                                           => CONNECTED_TO_ssdp_ssdp0,                                           --                              ssdp.ssdp0
 			ssdp_ssdp1                                           => CONNECTED_TO_ssdp_ssdp1,                                           --                                  .ssdp1
 			temp_scl_export                                      => CONNECTED_TO_temp_scl_export,                                      --                          temp_scl.export
@@ -306,6 +314,16 @@
 			tse_mdio_mdio_out                                    => CONNECTED_TO_tse_mdio_mdio_out,                                    --                                  .mdio_out
 			tse_mdio_mdio_oen                                    => CONNECTED_TO_tse_mdio_mdio_oen,                                    --                                  .mdio_oen
 			tse_serial_txp                                       => CONNECTED_TO_tse_serial_txp,                                       --                        tse_serial.txp
-			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp                                        --                                  .rxp
+			tse_serial_rxp                                       => CONNECTED_TO_tse_serial_rxp,                                       --                                  .rxp
+			sync_in_conduit                                      => CONNECTED_TO_sync_in_conduit,                                      --                           sync_in.conduit
+			sync_spwa_conduit                                    => CONNECTED_TO_sync_spwa_conduit,                                    --                         sync_spwa.conduit
+			sync_spwb_conduit                                    => CONNECTED_TO_sync_spwb_conduit,                                    --                         sync_spwb.conduit
+			sync_spwc_conduit                                    => CONNECTED_TO_sync_spwc_conduit,                                    --                         sync_spwc.conduit
+			sync_spwd_conduit                                    => CONNECTED_TO_sync_spwd_conduit,                                    --                         sync_spwd.conduit
+			sync_spwe_conduit                                    => CONNECTED_TO_sync_spwe_conduit,                                    --                         sync_spwe.conduit
+			sync_spwf_conduit                                    => CONNECTED_TO_sync_spwf_conduit,                                    --                         sync_spwf.conduit
+			sync_spwg_conduit                                    => CONNECTED_TO_sync_spwg_conduit,                                    --                         sync_spwg.conduit
+			sync_spwh_conduit                                    => CONNECTED_TO_sync_spwh_conduit,                                    --                         sync_spwh.conduit
+			sync_out_conduit                                     => CONNECTED_TO_sync_out_conduit                                      --                          sync_out.conduit
 		);
 

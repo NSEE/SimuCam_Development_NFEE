@@ -38,6 +38,7 @@
 		.csense_sck_export                                    (<connected-to-csense_sck_export>),                                    //                        csense_sck.export
 		.csense_sdi_export                                    (<connected-to-csense_sdi_export>),                                    //                        csense_sdi.export
 		.csense_sdo_export                                    (<connected-to-csense_sdo_export>),                                    //                        csense_sdo.export
+		.ctrl_io_lvds_export                                  (<connected-to-ctrl_io_lvds_export>),                                  //                      ctrl_io_lvds.export
 		.dip_export                                           (<connected-to-dip_export>),                                           //                               dip.export
 		.eth_rst_export                                       (<connected-to-eth_rst_export>),                                       //                           eth_rst.export
 		.ext_export                                           (<connected-to-ext_export>),                                           //                               ext.export
@@ -108,8 +109,6 @@
 		.sd_card_ip_b_SD_dat3                                 (<connected-to-sd_card_ip_b_SD_dat3>),                                 //                                  .b_SD_dat3
 		.sd_card_ip_o_SD_clock                                (<connected-to-sd_card_ip_o_SD_clock>),                                //                                  .o_SD_clock
 		.sd_card_wp_n_io_export                               (<connected-to-sd_card_wp_n_io_export>),                               //                   sd_card_wp_n_io.export
-		.sinc_in_export                                       (<connected-to-sinc_in_export>),                                       //                           sinc_in.export
-		.sinc_out_export                                      (<connected-to-sinc_out_export>),                                      //                          sinc_out.export
 		.ssdp_ssdp0                                           (<connected-to-ssdp_ssdp0>),                                           //                              ssdp.ssdp0
 		.ssdp_ssdp1                                           (<connected-to-ssdp_ssdp1>),                                           //                                  .ssdp1
 		.temp_scl_export                                      (<connected-to-temp_scl_export>),                                      //                          temp_scl.export
@@ -149,6 +148,16 @@
 		.tse_mdio_mdio_out                                    (<connected-to-tse_mdio_mdio_out>),                                    //                                  .mdio_out
 		.tse_mdio_mdio_oen                                    (<connected-to-tse_mdio_mdio_oen>),                                    //                                  .mdio_oen
 		.tse_serial_txp                                       (<connected-to-tse_serial_txp>),                                       //                        tse_serial.txp
-		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>)                                        //                                  .rxp
+		.tse_serial_rxp                                       (<connected-to-tse_serial_rxp>),                                       //                                  .rxp
+		.sync_in_conduit                                      (<connected-to-sync_in_conduit>),                                      //                           sync_in.conduit
+		.sync_spwa_conduit                                    (<connected-to-sync_spwa_conduit>),                                    //                         sync_spwa.conduit
+		.sync_spwb_conduit                                    (<connected-to-sync_spwb_conduit>),                                    //                         sync_spwb.conduit
+		.sync_spwc_conduit                                    (<connected-to-sync_spwc_conduit>),                                    //                         sync_spwc.conduit
+		.sync_spwd_conduit                                    (<connected-to-sync_spwd_conduit>),                                    //                         sync_spwd.conduit
+		.sync_spwe_conduit                                    (<connected-to-sync_spwe_conduit>),                                    //                         sync_spwe.conduit
+		.sync_spwf_conduit                                    (<connected-to-sync_spwf_conduit>),                                    //                         sync_spwf.conduit
+		.sync_spwg_conduit                                    (<connected-to-sync_spwg_conduit>),                                    //                         sync_spwg.conduit
+		.sync_spwh_conduit                                    (<connected-to-sync_spwh_conduit>),                                    //                         sync_spwh.conduit
+		.sync_out_conduit                                     (<connected-to-sync_out_conduit>)                                      //                          sync_out.conduit
 	);
 
