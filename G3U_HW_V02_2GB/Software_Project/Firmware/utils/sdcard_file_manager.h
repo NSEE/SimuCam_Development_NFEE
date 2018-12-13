@@ -9,7 +9,7 @@
 #define SDCARD_FILE_MANAGER_H_
 
 
-#include "../simucam_defs_vars_structs_includes.h"
+#include "simucam_definitions.h"
 
 
 
@@ -24,7 +24,6 @@ extern TSDHandle xSdHandle;
 #define SD_BUFFER_SIZE 512
 
 bool bInitializeSDCard( void );
-void vJustAWriteTest( void );
 bool bSDcardIsPresent( void );
 bool bSDcardFAT16Check( void );
 char cGetCharbyIndex( short int file_handle, unsigned int positionByte );

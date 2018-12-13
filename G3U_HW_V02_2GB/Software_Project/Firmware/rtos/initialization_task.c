@@ -10,61 +10,102 @@
 
 #include "initialization_task.h"
 
-TK_OBJECT(to_DebugTask);
-TK_ENTRY(vSocketServerDebugTask);
-
-struct inet_taskinfo xNetTaskDebug = {
-      &to_DebugTask,
-      "Debug Socket Server",
-      vSocketServerDebugTask,
-      SOCKET_DEBUG_TASK_PRIO,
-      APP_STACK_SIZE,
-};
 
 
-/*  */
 void vInitialTask(void *task_data)
 {
-  INT8U error_code;
+  INT8U error_code = OS_ERR_NONE;
 
-  /*
-   * Initialize Altera NicheStack TCP/IP Stack - Nios II Edition specific code.
-   * NicheStack is initialized from a task, so that RTOS will have started, and
-   * I/O drivers are available.  Two tasks are created:
-   *    "Inet main"  task with priority 2
-   *    "clock tick" task with priority 3
-   */
-  alt_iniche_init();
-  netmain();
+	/* READ: Create the task that is responsible to READ UART buffer */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vReceiverComTask,
+									NULL,
+									(void *)&receiverTask_stk[RECEIVER_TASK_SIZE-1],
+									RECEIVER_TASK_PRIO,
+									RECEIVER_TASK_PRIO,
+									receiverTask_stk,
+									RECEIVER_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
 
-  /* Wait for the network stack to be ready before proceeding.
-   * iniche_net_ready indicates that TCP/IP stack is ready, and IP address is obtained.
-   */
-  while (!iniche_net_ready)
-    TK_SLEEP(1);
 
-  /* Now that the stack is running, perform the application initialization steps */
+	#else
+		error_code = OSTaskCreateExt(vReceiverComTask,
+									NULL,
+									(void *)&receiverTask_stk[RECEIVER_TASK_SIZE-1],
+									RECEIVER_TASK_PRIO,
+									RECEIVER_TASK_PRIO,
+									receiverTask_stk,
+									RECEIVER_TASK_SIZE,
+									NULL,
+									0);
 
-  /* Application Specific Task Launching Code Block Begin */
+	#endif
 
-  printf("\n Server starting up\n");
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );		
+		#endif
+		vFailReceiverCreate();
+	}
+          
 
-  /* Create the debug socket socket server task. */
-  TK_NEWTASK(&xNetTaskDebug);
+	/* SEND: Create the task that is responsible to SEND UART packets */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vReceiverComTask,
+									NULL,
+									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
+									SENDER_TASK_PRIO,
+									SENDER_TASK_PRIO,
+									senderTask_stk,
+									SENDER_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
 
-  /*create os data structures [yb] */
-  //SSSCreateOSDataStructs();
-  //SimucamCreateOSQ();
-  //DataCreateOSQ();
 
-  /* TIAGO - Aqui será criado as outras tasks */
-  //SSSCreateTasks();
+	#else
+		error_code = OSTaskCreateExt(vReceiverComTask,
+									NULL,
+									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
+									SENDER_TASK_PRIO,
+									SENDER_TASK_PRIO,
+									senderTask_stk,
+									SENDER_TASK_SIZE,
+									NULL,
+									0);
 
-  /* Application Specific Task Launching Code Block End */
+	#endif
 
-  /*This task is deleted because there is no need for it to run again */
-  error_code = OSTaskDel(OS_PRIO_SELF); // OS_PRIO_SELF = Means task self priority
-  alt_uCOSIIErrorHandler(error_code, 0);
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for sender comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );		
+		#endif
+		vFailSenderCreate();
+	}
 
-  for(;;); /* Correct Program Flow should never get here */
+
+
+
+
+	/* Delete the Initialization Task  */
+	error_code = OSTaskDel(OS_PRIO_SELF); /* OS_PRIO_SELF = Means task self priority */
+	if ( error_code != OS_ERR_NONE) {
+		/*	Can't delete the initialization task, the problem is that the priority of this
+			is that the PRIO is so high that will cause starvation if not deleted */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );		
+		#endif
+		vFailDeleteInitialization();
+		/*	To not exit the intire application, the PRIO of this task will be lowered*/
+		OSTaskChangePrio( INITIALIZATION_TASK_PRIO , INITIALIZATION_TASK_PRIO_FAIL );
+	}
+
+	for(;;) { /* Correct Program Flow should never get here */
+		OSTaskDel(OS_PRIO_SELF); /* Try to delete it self */
+		OSTimeDlyHMSM(0,0,1,0); /* 1 sec */
+	}
+		
+	 
 }

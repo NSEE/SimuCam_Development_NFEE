@@ -11,7 +11,9 @@
 bool bTestSimucamCriticalHW( void )
 {
 	/*
-	 * Verificar com França quais testes podemos realizar aqui
+	 * Verificar com Franï¿½a quais testes podemos realizar aqui
 	 * SDcard para criar logs e pegar defaults
 	 */
+
+	return TRUE;
 }

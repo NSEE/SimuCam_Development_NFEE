@@ -135,20 +135,24 @@ bool vLoadDefaultETHConf( void ){
 						break;
 					case 'D':
 
+						ucParser = 0;
 						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-						/*Tiago: Proteger com mutex*/
-						xConfEth.siPortDebug = atoi( inteiro );
-						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xConfEth.ucDNS[min_sim(ucParser,3)] = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
 
-						break;
+						break;						
 					case 'P':
 
 						do {
@@ -199,14 +203,14 @@ bool vLoadDefaultETHConf( void ){
 						break;
 				}
 			} while ( bEOF == FALSE );
-		} else printf("Não achou o arquivo - fopen fail\n");
+		} else printf("Nï¿½o achou o arquivo - fopen fail\n");
 	} else printf("Sem SDCard\n");
 
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
-		/*Enviar mensagem que e gravar log que não encontrou o arquivo e começara a utilizar o padrao*/
-		printf("Atenção: Arquivo de conexão não foi encontrado. Carregando conf padrao\n");
-		printf("Não encontrou:'%s'.\n", ETH_FILE_NAME);
+		/*Enviar mensagem que e gravar log que nï¿½o encontrou o arquivo e comeï¿½ara a utilizar o padrao*/
+		printf("Atenï¿½ï¿½o: Arquivo de conexï¿½o nï¿½o foi encontrado. Carregando conf padrao\n");
+		printf("Nï¿½o encontrou:'%s'.\n", ETH_FILE_NAME);
 
 
 		xConfEth.siPortDebug = 17003;
@@ -248,3 +252,36 @@ bool vLoadDefaultETHConf( void ){
 
 	return bSuccess;
 }
+
+#ifdef DEBUG_ON
+	void vShowEthConfig( void ) {
+		char buffer[40];
+
+		debug(fp, "Ethernet loaded configuration.\n");
+
+		memset(buffer,0,40);
+		sprintf(buffer, "MAC: %x : %x : %x : %x : %x : %x \n", xConfEth.ucMAC[0], xConfEth.ucMAC[1], xConfEth.ucMAC[2], xConfEth.ucMAC[3], xConfEth.ucMAC[4], xConfEth.ucMAC[5]);
+		debug(fp, buffer );
+
+		memset(buffer,0,40);
+		sprintf(buffer, "IP: %i . %i . %i . %i \n",xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3] );
+		debug(fp, buffer );
+
+		memset(buffer,0,40);
+		sprintf(buffer, "GTW: %i . %i . %i . %i \n",xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3] );
+		debug(fp, buffer );
+
+		memset(buffer,0,40);
+		sprintf(buffer, "Sub: %i . %i . %i . %i \n",xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3] );
+		debug(fp, buffer );
+
+		memset(buffer,0,40);
+		sprintf(buffer, "DNS: %i . %i . %i . %i \n",xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3] );
+		debug(fp, buffer );
+
+		memset(buffer,0,40);
+		sprintf(buffer, "Porta PUS: %i\n", xConfEth.siPortPUS );
+		debug(fp, buffer );
+
+	}
+#endif

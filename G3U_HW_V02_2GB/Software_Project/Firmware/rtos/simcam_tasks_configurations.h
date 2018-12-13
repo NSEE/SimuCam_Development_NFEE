@@ -8,24 +8,40 @@
 #ifndef SIMCAM_TASKS_PRIORITIES_H_
 #define SIMCAM_TASKS_PRIORITIES_H_
 
-/*
-   * Initialize Altera NicheStack TCP/IP Stack - Nios II Edition specific code.
-   * NicheStack is initialized from a task, so that RTOS will have started, and
-   * I/O drivers are available.  Two tasks are created:
-   *    "Inet main"  task with priority 2
-   *    "clock tick" task with priority 3
-*/
+#include "../simucam_definitions.h"
 
+
+/* Definition of Task Priorities */
 /* 0 -> MAX PRIORITY
  * 55 -> MIN PRIORITY  */
-#define INITIALIZATION_TASK_PRIO 6
-#define SOCKET_DEBUG_TASK_PRIO 5
-#define SOCKET_PUS_TASK_PRIO 4
+#define INITIALIZATION_TASK_PRIO        1
+#define INITIALIZATION_TASK_PRIO_FAIL   20
+#define RECEIVER_TASK_PRIO              16
+#define SENDER_TASK_PRIO                15
 
 
 
-/* Definition of Task Stack size for tasks not using Nichestack */
-#define   TASK_STACKSIZE       2048
+/* Definition of Task Stack size */
+#if defined(STACK_MONITOR)
+    #define   TASK_STACKSIZE       2048
+#else
+    #define   TASK_STACKSIZE       2048*4
+#endif
 
+#define INITIALIZATION_TASK_SIZE TASK_STACKSIZE
+#define RECEIVER_TASK_SIZE TASK_STACKSIZE
+#define SENDER_TASK_SIZE TASK_STACKSIZE
+
+
+
+/* -------------- Definition of Stacks------------------ */
+OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
+OS_STK    task2_stk[TASK_STACKSIZE];
+
+/* Communication tasks */
+OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
+OS_STK    senderTask_stk[SENDER_TASK_SIZE];
+
+/* -------------- Definition of Stacks------------------ */
 
 #endif /* SIMCAM_TASKS_PRIORITIES_H_ */

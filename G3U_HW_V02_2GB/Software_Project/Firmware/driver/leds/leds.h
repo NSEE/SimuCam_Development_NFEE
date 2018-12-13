@@ -14,7 +14,7 @@
 #define LEDS_H_
 
 /* includes */
-#include "../../simucam_defs_vars_structs_includes.h"
+#include "../../simucam_definitions.h"
 #include "../../utils/util.h"
 
 

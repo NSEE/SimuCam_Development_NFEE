@@ -7,12 +7,25 @@
 
 #include "error_handler_simucam.h"
 
+
+#ifdef DEBUG_ON
+    void printErrorTask( INT8U error_code ) {
+		char buffer[9] = "";
+		
+		sprintf(buffer, "Err: %d\n", error_code);
+		debug(fp, buffer);
+	}
+#endif
+
+
 INT8U vFailTestCriticasParts( void )
 {
-	printf("vFailTestCriticasParts");
+	#ifdef DEBUG_ON
+		debug(fp,"vFailTestCriticasParts");
+	#endif
 	/*
-	 * Implementação de indicação de falha antes de finalizar a execução
-	 * Indicar falha com LEDs pois é o unico HW inicializada até o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 	return -1;
 }
@@ -20,10 +33,64 @@ INT8U vFailTestCriticasParts( void )
 
 INT8U vFailGetMacRTC( void )
 {
-	printf("vFailGetMacRTC");
+	#ifdef DEBUG_ON
+		debug(fp,"vFailGetMacRTC");
+	#endif
 	/*
-	 * Implementação de indicação de falha antes de finalizar a execução
-	 * Indicar falha com LEDs pois é o unico HW inicializada até o momento
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+	return -1;
+}
+
+
+INT8U vFailInitialization( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailInitialization");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+	return -1;
+}
+
+
+INT8U vFailReceiverCreate( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailReceiverCreate");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+	return -1;
+}
+
+
+INT8U vFailSenderCreate( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSenderCreate");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+	return -1;
+}
+
+
+INT8U vFailDeleteInitialization( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailDeleteInitialization");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 	return -1;
 }

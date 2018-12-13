@@ -8,10 +8,10 @@
 #ifndef INITIALIZATION_TASK_H_
 #define INITIALIZATION_TASK_H_
 
-
-#include "../simucam_defs_vars_structs_includes.h"
 #include "simcam_tasks_configurations.h"
-#include "socket_debug_task.h"
+#include "rtos/sender_com_task.h"
+#include "rtos/receiver_com_task.h"
+#include "error_handler_simucam.h"
 
 void vInitialTask(void *task_data);
 
