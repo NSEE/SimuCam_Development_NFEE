@@ -1,0 +1,9 @@
+set_global_assignment -name IP_TOOL_NAME "ALTLVDS_TX"
+set_global_assignment -name IP_TOOL_VERSION "15.1"
+set_global_assignment -name IP_GENERATED_DEVICE_FAMILY "{Stratix IV}"
+set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "TX_LVDS.vhd"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "TX_LVDS.bsf"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "TX_LVDS_inst.vhd"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "TX_LVDS.inc"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "TX_LVDS.cmp"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "TX_LVDS.ppf"]
