@@ -7,7 +7,7 @@
 
 	#include "tran.h"
 	#include "../../../rtos/rtos_tasks.h"
-	#include "../../dma/dma.h"
+	#include "../../../api_driver/dma/dma.h"
 	
 	alt_u32 ul_tran_a_interface_control_status_register_value = 0x00000000;
 	alt_u32 ul_tran_b_interface_control_status_register_value = 0x00000000;

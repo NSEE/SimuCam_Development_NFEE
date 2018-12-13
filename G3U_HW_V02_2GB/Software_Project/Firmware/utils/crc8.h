@@ -8,7 +8,7 @@
 #ifndef CRC8_H_
 #define CRC8_H_
 
-
+#include <stddef.h>
 
 unsigned char ucCrc8(unsigned crc, unsigned char const *data, size_t len);
 unsigned char ucCrc8wInit(unsigned char const *data, size_t len);

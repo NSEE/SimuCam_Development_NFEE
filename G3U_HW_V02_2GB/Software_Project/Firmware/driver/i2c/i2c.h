@@ -33,7 +33,7 @@
 #ifndef __I2C_H__
 #define __I2C_H__
 
-#include "../../simucam_defs_vars_structs_includes.h"
+#include "../../simucam_definitions.h"
 #include "../../utils/util.h"
 
 bool I2C_TestAdress(alt_u32 clk_base, alt_u32 data_base, alt_8 DeviceAddr);

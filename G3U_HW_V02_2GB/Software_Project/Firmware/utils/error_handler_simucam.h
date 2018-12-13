@@ -8,7 +8,7 @@
 #ifndef ERROR_HANDLER_SIMUCAM_H_
 #define ERROR_HANDLER_SIMUCAM_H_
 
-#include "simucam_definitions.h"
+#include "../simucam_definitions.h"
 
 #ifdef DEBUG_ON
     void printErrorTask( INT8U error_code );

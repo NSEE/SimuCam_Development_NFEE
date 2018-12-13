@@ -21,13 +21,4 @@
 
 #define DEBUG_DUMP  /*printf */ 
 
-#ifndef bool
-	typedef short int bool;
-	#define false 0
-	#define true 1
-	#define FALSE 0
-	#define TRUE 1
-#endif
-
-
 #endif /*MEB_INCLUDES_H_*/

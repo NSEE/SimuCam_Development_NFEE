@@ -1,56 +1,51 @@
 #include <stdio.h>
-#include "string.h"
 #include "simucam_definitions.h"
-#include "error_handler_simucam.h"
+#include "utils/error_handler_simucam.h"
 #include "rtos/simcam_tasks_configurations.h"
+#include "rtos/configuration_comm.h"
+#include "rtos/initialization_task.h"
 #include "includes.h"
 
 #ifdef DEBUG_ON
     FILE* fp;
 #endif
 
-/* Prints "Hello World" and sleeps for three seconds */
-void task1(void* pdata)
+
+/*== Definition of some resources of RTOS - Semaphores - Stacks - Queues - Flags etc ==============*/
+
+/* --------------- Definition of Semaphores ------------ */
+/* Communication tasks (Receiver and Sender) */
+OS_EVENT *xSemCommInit;
+/* -------------- Definition of Semaphores -------------- */
+
+
+/* -------------- Definition of Stacks------------------ */
+OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
+OS_STK    task2_stk[TASK_STACKSIZE];
+
+/* Communication tasks */
+OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
+OS_STK    senderTask_stk[SENDER_TASK_SIZE];
+/* -------------- Definition of Stacks------------------ */
+
+/*==================================================================================================*/
+
+
+
+
+
+/* Instanceatin and Initialization of the resources for the RTOS */
+void vResourcesInitRTOS( void )
 {
-	char p[20];
-	char entrada[100];
-	int size1, size2;
-
-	while (1)
-	{
-		//fwrite( "tarefa 1 \r\n", strlen("tarefa 1 \r\n"),1 , fp  );
-		//fseek( fp, 0, SEEK_SET );
-		//fread(entrada,  5, 1  , fp);
-
-		scanf("%c%c",&entrada[0],&entrada[1]);
-
-		//p[0] = getc(fp);
-
-		//fwrite( "chegou: \r\n", strlen("chegou: \r\n"),1 , fp  );
-		//fwrite( p, 2,1 , fp  );
-		//printf("%s",entrada);
-		//gets(p);
-
-
-		printf("Hello from task1 p= %c%c \n", entrada[0],entrada[1]);
-		fwrite( "Hello from task1\n", strlen("Hello from task1\n"),1 , fp  );
-		OSTimeDlyHMSM(0, 0, 3, 0);
-	}
+	/* This semaphore in the sincronization of the task receiver_com_task with sender_com_task*/
+	xSemCommInit = OSSemCreate(0);
 }
-/* Prints "Hello World" and sleeps for three seconds */
-void task2(void* pdata)
-{
-  while (1)
-  { 
-	  //fseek( fp, 0, SEEK_SET );
-	  //fwrite( "tarefa 2 \r\n", strlen("tarefa 2 \r\n"),1 , fp  );
-	  //fprintf(fp , "tarefa 2 \r\n" );
-	  printf("Hello from task2\n");
-	  fwrite( "Hello from task2\n", strlen("Hello from task2\n"),1 , fp  );
-	  OSTimeDlyHMSM(0, 0, 3, 0);
-  }
-}
-/* The main function creates two task and starts multi-tasking */
+
+
+
+
+
+/* Entry point */
 int main(void)
 {
 	INT8U error_code;
@@ -94,6 +89,10 @@ int main(void)
 	#ifdef DEBUG_ON
 		vShowEthConfig();
 	#endif
+
+
+	/* This function creates all resources needed by the RTOS*/
+	vResourcesInitRTOS();
 
 
 	/* Creating the initialization task*/

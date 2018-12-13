@@ -8,7 +8,7 @@
 #ifndef INITIALIZATION_SIMUCAM_H_
 #define INITIALIZATION_SIMUCAM_H_
 
-#include "../simucam_defs_vars_structs_includes.h"
+#include "../simucam_definitions.h"
 
 void vInitSimucamBasicHW(void);
 

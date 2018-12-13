@@ -8,7 +8,7 @@
 #ifndef PGEN_H_
 #define PGEN_H_
 
-	#include "../../simucam_defs_vars_structs_includes.h"
+	#include "../../simucam_definitions.h"
 	#include "pgen_registers.h"
 
 	#define PGEN_BASE PATTERN_GENERATOR_A_BASE

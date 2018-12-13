@@ -29,7 +29,7 @@ static unsigned char const crc8_table[] = {
     0xd0, 0xee, 0xac, 0x92, 0x28, 0x16, 0x54, 0x6a, 0x45, 0x7b, 0x39, 0x07,
     0xbd, 0x83, 0xc1, 0xff};
 
-#include <stddef.h>
+#include "crc8.h"
 
 
 unsigned char ucCrc8(unsigned crc, unsigned char const *data, size_t len)
@@ -46,8 +46,8 @@ unsigned char ucCrc8(unsigned crc, unsigned char const *data, size_t len)
 unsigned char ucCrc8wInit(unsigned char const *data, size_t len)
 {
 	unsigned char crc;
-	crc = crc8(0, NULL, 0);
-	return crc8(crc, data, len);
+	crc = ucCrc8(0, NULL, 0);
+	return ucCrc8(crc, data, len);
 }
 
 

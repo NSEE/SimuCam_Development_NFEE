@@ -2,22 +2,22 @@
 #include "receiver_com_task.h"
 
 
-tReceiverStates eReceiverMode;
-
 /*  This function implements the task that will receive packet via UART
     also need to parse the command in order to send to the MEB task */
 void vReceiverComTask(void *task_data)
 {
     bool bSucess = FALSE;
-    eReceiverMode = sConfiguring;
+    INT8U error_code;
+    tReceiverStates eReceiverMode;
     char cReceiveBuffer[SIZE_RCV_BUFFER];
     char cTempBuffer[SIZE_RCV_BUFFER];
     short int siStrLen;
     short int siStrLenTemp;
-    tPreParsed xPerParcedBuffer;
+    tPreParsed xPreParsedBuffer;
     
-    for(;;)
-    {
+    eReceiverMode = sConfiguring;
+
+    for(;;) {
         memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
         switch (eReceiverMode)
         {
@@ -51,19 +51,20 @@ void vReceiverComTask(void *task_data)
                 memset(cReceiveBuffer,0,SIZE_RCV_BUFFER);
                 do
                 {
-                    siStrLen = strnlen(cReceiveBuffer);
+                    siStrLen = strnlen(cReceiveBuffer, SIZE_RCV_BUFFER);
                     memset(cTempBuffer,0,SIZE_RCV_BUFFER);
                     gets(cTempBuffer);
-                    siStrLenTemp = strnlen(cTempBuffer);
+                    siStrLenTemp = strnlen(cTempBuffer, SIZE_RCV_BUFFER);
                     memcpy(&cReceiveBuffer[siStrLen], cTempBuffer, siStrLenTemp+1);
 
-                    bSucess = bPreParser( cReceiveBuffer , &xPerParcedBuffer );
+                    bSucess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
                 } while ( bSucess == FALSE );
                 /* Will not pre parser until the command is completed with ';' */
-                if ( xPerParcedBuffer->cCommand == 's' ) {
+                if ( xPreParsedBuffer.cCommand == 's' ) {
                     eReceiverMode = sReceiving;
 
-                    /*Enviar mensagem para a tarefa sender para sair do estado de inicialização*/
+                    /* Post Semaphore to tell to vSenderComTask to stop sending status packet*/
+                    error_code = OSSemPost(xSemCommInit);
 
                 } else {
                     eReceiverMode = sWaitingConn;
@@ -76,13 +77,13 @@ void vReceiverComTask(void *task_data)
                 memset(cReceiveBuffer,0,SIZE_RCV_BUFFER);
                 do
                 {
-                    siStrLen = strnlen(cReceiveBuffer);
+                    siStrLen = strnlen(cReceiveBuffer, SIZE_RCV_BUFFER);
                     memset(cTempBuffer,0,SIZE_RCV_BUFFER);
                     gets(cTempBuffer);
-                    siStrLenTemp = strnlen(cTempBuffer);
+                    siStrLenTemp = strnlen(cTempBuffer, SIZE_RCV_BUFFER);
                     memcpy(&cReceiveBuffer[siStrLen], cTempBuffer, siStrLenTemp+1);
 
-                    bSucess = bPreParser( cReceiveBuffer , &xPerParcedBuffer );
+                    bSucess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
                 } while ( bSucess == FALSE );
                 /* Will not pre parser until the command is completed with ';' */
 
@@ -91,6 +92,32 @@ void vReceiverComTask(void *task_data)
                 break;
             case sParsing:
                 /* At this point we have a preparsed command in the variable xPerPaecedBufer */
+
+                /* Check CRC8 */
+                if ( xPreParsedBuffer.ucCalculatedCRC8 == xPreParsedBuffer.ucMessageCRC8 ) {
+                    if ( xPreParsedBuffer.cCommand == 'P') {
+                        /* This is a PUS command, should handle properly */
+
+                    } else {
+                        /* Otherwise this is a internal control command */
+
+                        switch (xPreParsedBuffer.cCommand)
+                        {
+                            case 'U':
+                                if ( xPreParsedBuffer.usiValues[0] == "&$=" ) {
+                                    /* Change to Piping mode */
+                                    eReceiverMode = sPiping;
+                                } else {
+                                    eReceiverMode = sReceiving;
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                } else {
+                	eReceiverMode = sHandlingError;
+                }
 
                 break;
             case sSendingMEB:
@@ -156,13 +183,13 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
                 if (c == FINAL_CHAR) {
                     xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
                 } else {
-                    xPerParcedBuffer->ucBytes[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
+                    xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
                     xPerParcedBuffer->ucNofBytes++;
                 }
                     
                 p_inteiro = inteiro;
                 
-            } while ( c != FINAL_CHAR );            
+            } while ( c != FINAL_CHAR );
             bSuccess = TRUE;
         } else {
         /* Malformed command, maybe there is a beggining of the command in this malformad packet (return false and wait for more characters)*/

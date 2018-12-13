@@ -50,6 +50,7 @@ bool bInitializeSDCard( void ){
 }
 
 /*Function with low performance, avoid to use as much as possible*/
+/*
 char cGetCharbyIndex( short int file_handle, unsigned int positionByte ) {
 	short int readCharacter;
 	vSetBytePosition(file_handle, positionByte);
@@ -59,6 +60,7 @@ char cGetCharbyIndex( short int file_handle, unsigned int positionByte ) {
 	}
 	return (char)readCharacter;
 }
+*/
 
 short int siOpenFile( char *filename ) {
 	return alt_up_sd_card_fopen( filename, FALSE );
@@ -72,12 +74,12 @@ char cGetNextChar( short int file_handle ) {
 	return (char)alt_up_sd_card_read( file_handle );
 }
 
-unsigned int uiGetEOFPointer( short int file_handle ) {
+/*unsigned int uiGetEOFPointer( short int file_handle ) {
 	vSetBytePosition(file_handle,0);
 	while ( alt_up_sd_card_read(file_handle) > 0 ) {;}
 
 	return uiGetBytePosition(file_handle);
-}
+}*/
 
 //ReadLine?
 

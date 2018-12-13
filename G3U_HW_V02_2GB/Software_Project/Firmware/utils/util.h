@@ -11,7 +11,7 @@
 #define __UTIL_H__
 
 
-#include "../simucam_defs_vars_structs_includes.h"
+#include "../simucam_definitions.h"
 
 
 #define DEBUG_HIGH
@@ -20,7 +20,6 @@
 /* Defines */
 #define CPU_FREQ_MH 50000000
 
-/* TRUE/FALSE */
 
 /* share memory */
 alt_u32 pnt_memory;

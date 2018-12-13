@@ -8,7 +8,7 @@
 #ifndef SPWC_H_
 #define SPWC_H_
 
-	#include "../../../simucam_defs_vars_structs_includes.h"
+	#include "../../../simucam_definitions.h"
 	#include "spwc_registers.h"
 	
 

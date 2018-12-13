@@ -8,7 +8,7 @@
 #ifndef TRAN_H_
 #define TRAN_H_
 
-	#include "../../../simucam_defs_vars_structs_includes.h"
+	#include "../../../simucam_definitions.h"
 	#include "tran_registers.h"
 
 	#define TRAN_A_BASE (COMMUNICATION_MODULE_A_BASE)

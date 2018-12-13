@@ -14,9 +14,10 @@
 #define DDR2_H_
 
 /* includes */
-#include "../../simucam_defs_vars_structs_includes.h"
+
 #include "../../utils/util.h"
 #include "../../driver/i2c/i2c.h"
+#include "../../simucam_definitions.h"
 
 /* address */
 #define DDR2_EXTENDED_ADDRESS_WINDOWED_BASE DDR2_ADDRESS_SPAN_EXTENDER_WINDOWED_SLAVE_BASE

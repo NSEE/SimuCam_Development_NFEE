@@ -33,7 +33,7 @@
 #ifndef __POWER_SPI_H__
 #define __POWER_SPI_H__
 
-#include "../../simucam_defs_vars_structs_includes.h"
+#include "../../simucam_definitions.h"
 #include "../../utils/util.h"
 
 #define POWER_DEVICE0_PORT_NUM  8

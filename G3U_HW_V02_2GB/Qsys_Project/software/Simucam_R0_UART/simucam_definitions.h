@@ -22,13 +22,28 @@
 
 
 #ifndef bool
-	typedef short int bool;
-	#define false   0
-	#define true    1
+	//typedef short int bool;
+	//typedef enum e_bool { false = 0, true = 1 } bool;
+	//#define false   0
+	//#define true    1
 	#define FALSE   0
 	#define TRUE    1
 #endif
 
+
+#include <altera_up_sd_card_avalon_interface.h>
+#include <altera_msgdma.h>
+#include <altera_avalon_pio_regs.h>
+#include <errno.h>
+#include "os_cpu.h"
+#include "system.h"
+#include <stdio.h>
+
+/*---- initialization_simucam -----*/
+	#include "driver/eth/eth.h"
+	#include "driver/leds/leds.h"
+	#include "driver/seven_seg/seven_seg.h"
+/*---------------------------------*/
 
 
 /* Variable that will carry the debug JTAG device file descriptor*/

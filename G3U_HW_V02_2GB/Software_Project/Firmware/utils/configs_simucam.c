@@ -213,7 +213,6 @@ bool vLoadDefaultETHConf( void ){
 		printf("N�o encontrou:'%s'.\n", ETH_FILE_NAME);
 
 
-		xConfEth.siPortDebug = 17003;
 		xConfEth.siPortPUS = 17000;
 		/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
 		 *192.168.0.5*/

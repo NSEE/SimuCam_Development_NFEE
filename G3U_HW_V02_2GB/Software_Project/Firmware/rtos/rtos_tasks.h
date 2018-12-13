@@ -8,7 +8,7 @@
 #ifndef RTOS_TASKS_H_
 #define RTOS_TASKS_H_
 
-	#include "../simucam_defs_vars_structs_includes.h"
+	#include "../simucam_definitions.h"
 
 	#define SIMUCAM_TASK_STACKSIZE 2048
 

@@ -8,7 +8,7 @@
 #ifndef ETH_H_
 #define ETH_H_
 
-#include "../../simucam_defs_vars_structs_includes.h"
+#include "../../simucam_definitions.h"
 
 #define ETH_RST_BASE PIO_RST_ETH_BASE
 

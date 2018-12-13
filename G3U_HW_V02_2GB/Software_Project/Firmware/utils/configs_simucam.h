@@ -12,10 +12,6 @@
 #include "sdcard_file_manager.h"
 #include <stdio.h>
 
-/*Struct that holds the values of the eth connection as port and socket pointer*/
-typedef struct ConfCon{
-	SSSConn* pxConn;
-}TConfCon;
 
 #define ETH_FILE_NAME "DEF/ETH"
 
@@ -27,8 +23,6 @@ typedef struct ConfEth{
 	unsigned char ucMAC[6];
 	unsigned short int siPortPUS;
 	bool bDHCP;
-	TConfCon xSocketPUS;
-	TConfCon xSocketDebug;
 }TConfEth;
 
 

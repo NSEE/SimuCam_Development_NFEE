@@ -35,12 +35,12 @@
 
 
 /* -------------- Definition of Stacks------------------ */
-OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
-OS_STK    task2_stk[TASK_STACKSIZE];
+extern OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
+extern OS_STK    task2_stk[TASK_STACKSIZE];
 
 /* Communication tasks */
-OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
-OS_STK    senderTask_stk[SENDER_TASK_SIZE];
+extern OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
+extern OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 
 /* -------------- Definition of Stacks------------------ */
 
