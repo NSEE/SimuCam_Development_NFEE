@@ -141,7 +141,7 @@ PUBLIC alt_u32 sync_read_ctr(void);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
-extern PUBLIC int n;
+extern PUBLIC volatile alt_u8 n;
 //! [data memory public global variables - use extern]
 
 //! [flags]

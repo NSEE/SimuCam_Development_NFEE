@@ -16,6 +16,7 @@
 
 #include <stdio.h>
 #include "driver/sync/sync.h"
+#include <unistd.h>
 
 // Master blank time = (MBT * 20 ns) = 400 ms
 #define MBT	20E6
@@ -39,6 +40,9 @@ int main()
   init_interrupt();
   n = 0;
   printf("Hello from Nios II!\n");
+
+  // Retorna ao estado idle
+  flag = sync_ctr_reset();
 
   // Le bit de status - sync ext. ou int. (default = externo)
   flag = sync_status_extn_int();
@@ -138,7 +142,33 @@ int main()
   // Habilita int blank pulse
   aux_32 = sync_int_enable_blank(TRUE);
 
+  // Retorna ao estado idle
+  flag = sync_ctr_reset();
+
+  // Desabilita int blank pulse
+  aux_32 = sync_int_enable_blank(FALSE);
+
+  // Polaridade
+  flag = sync_config_polarity(!POL);
+
+  // Start
+  flag = sync_ctr_start();
+
+  // Retorna ao estado idle
+  flag = sync_ctr_reset();
+
+  // Polaridade
+  flag = sync_config_polarity(POL);
+
+  // Habilita int blank pulse
+  aux_32 = sync_int_enable_blank(TRUE);
+
+  // Start
+  flag = sync_ctr_start();
+
   while (1) {
+	  usleep(1000000);
+	  printf("Ocorreu int. blank n. = %u \n", n);
   }
 
   return 0;

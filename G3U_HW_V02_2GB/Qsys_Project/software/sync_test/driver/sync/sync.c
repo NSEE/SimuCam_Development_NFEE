@@ -14,7 +14,7 @@ PRIVATE alt_u32 read_reg(alt_u32 offset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
-PUBLIC int n;
+PUBLIC volatile alt_u8 n;
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -52,7 +52,7 @@ PUBLIC void handle_irq(void* context)
     //*hold_context_ptr = ...;
     // if (*hold_context_ptr == '0') {}...
     // App logic sequence...
-    n++;
+    n += 1;
 }
 
 /**
