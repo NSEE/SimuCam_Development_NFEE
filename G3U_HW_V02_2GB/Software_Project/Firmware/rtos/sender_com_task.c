@@ -12,9 +12,12 @@ void vSenderComTask(void *task_data)
 {
     bool bSucess = FALSE;
     tSenderStates eSenderMode;
+    int desligarEm = 0;
 
     eSenderMode = sConfiguringSender;
-
+#ifdef DEBUG_ON
+	debug(fp,"vSenderComTask\n");
+#endif
     for (;;){
         
         switch (eSenderMode)
@@ -22,6 +25,9 @@ void vSenderComTask(void *task_data)
             case sConfiguringSender:
                 /* code */
                 eSenderMode = sStartingConnSender;
+#ifdef DEBUG_ON
+	debug(fp,"sConfiguringSender\n");
+#endif
                 break;
             case sStartingConnSender:
                 /* code */
@@ -34,15 +40,29 @@ void vSenderComTask(void *task_data)
                 } else {
                     /* Asking for NUC the status */
                     puts(START_STATUS_SEQUENCE);
-                    OSTimeDlyHMSM(0, 0, 3, 0); /*Sleeps for 3 second*/
+                    OSTimeDlyHMSM(0, 0, 20, 0); /*Sleeps for 3 second*/
                 }
-
+#ifdef DEBUG_ON
+	debug(fp,"sStartingConnSender\n");
+#endif
                 break;
             case sDummySender:
                 /* code */
                 eSenderMode = sDummySender;
+
+                if (desligarEm <= 3) {
+                    puts(TURNOFF_SEQUENCE);
+                }
+                desligarEm++;
+#ifdef DEBUG_ON
+	debug(fp,"sDummySender\n");
+#endif
+				OSTimeDlyHMSM(0, 0, 10, 0); /*Sleeps for 3 second*/
                 break;
             default:
+#ifdef DEBUG_ON
+	debug(fp,"sender default\n");
+#endif
                 break;
         }
 

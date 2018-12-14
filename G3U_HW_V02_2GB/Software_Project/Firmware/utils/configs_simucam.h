@@ -10,7 +10,7 @@
 
 #include "../simucam_definitions.h"
 #include "sdcard_file_manager.h"
-#include <stdio.h>
+#include <sys/alt_stdio.h>
 
 
 #define ETH_FILE_NAME "DEF/ETH"

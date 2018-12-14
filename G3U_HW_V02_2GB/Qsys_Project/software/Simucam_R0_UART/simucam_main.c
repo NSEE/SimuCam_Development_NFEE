@@ -1,5 +1,6 @@
-#include <stdio.h>
+#include <sys/alt_stdio.h>
 #include "simucam_definitions.h"
+#include "utils/initialization_simucam.h"
 #include "utils/error_handler_simucam.h"
 #include "rtos/simcam_tasks_configurations.h"
 #include "rtos/configuration_comm.h"
@@ -50,6 +51,7 @@ int main(void)
 {
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
+	char buffer_temp[100] = "";
 	
 	/* Clear the RTOS timer */
 	OSTimeSet(0);
@@ -59,6 +61,7 @@ int main(void)
 		fp = fopen(JTAG_UART_0_NAME, "r+");
 	#endif	
 	
+
 
 	/* Initialization of basic HW */
 	vInitSimucamBasicHW();
@@ -124,9 +127,6 @@ int main(void)
 		OSStart();
 	} else {
 		/* Some error ocours in the creation of the Initialization Task */
-		#ifdef DEBUG_ON
-			printErrorTask( error_code );		
-		#endif
 		vFailInitialization();
 	}
   

@@ -11,7 +11,7 @@
 /*--Activate only during development fase--*/
 #define STACK_MONITOR   1
 #define QUERY_STACK     1
-#define BY_PASS 		1
+#define BY_PASS 		0
 /**-----------------------------------------*/
 #define DEBUG_ON    	1
 #if defined(STACK_MONITOR) || defined(QUERY_STACK) || defined(BY_PASS)
@@ -38,11 +38,12 @@
 #include "os_cpu.h"
 #include "system.h"
 #include <stdio.h>
+#include <sys/alt_stdio.h>
 
 /*---- initialization_simucam -----*/
-	#include "driver/eth/eth.h"
-	#include "driver/leds/leds.h"
-	#include "driver/seven_seg/seven_seg.h"
+#include "driver/eth/eth.h"
+#include "driver/leds/leds.h"
+#include "driver/seven_seg/seven_seg.h"
 /*---------------------------------*/
 
 

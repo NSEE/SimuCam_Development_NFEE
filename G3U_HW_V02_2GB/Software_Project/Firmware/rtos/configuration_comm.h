@@ -10,16 +10,17 @@
 
 #include <ucos_ii.h>
 
-
 #define SIZE_RCV_BUFFER         64
-#define START_STATUS_SEQUENCE   "?C;"
+#define TURNOFF_SEQUENCE        "?D|252;"
+#define START_STATUS_SEQUENCE   "?S|9;"
 #define CHANGE_MODE_SEQUENCE    "!U:&$=|&;"
-#define SEPARATOR_CHAR          ":"
-#define START_REQUEST_CHAR      "?"
-#define START_REPLY_CHAR        "!"
+#define SEPARATOR_CHAR          ':'
+#define START_REQUEST_CHAR      '?'
+#define START_REPLY_CHAR        '!'
 #define FINAL_CHAR              ';'
-#define SEPARATOR_CRC           "|"
-#define SIZE_UCVALUES            32
+#define SEPARATOR_CRC           '|'
+#define SIZE_UCVALUES           32
+
 
 typedef struct {
     unsigned char ucType; /* ?(request):0 or !(reply):1*/

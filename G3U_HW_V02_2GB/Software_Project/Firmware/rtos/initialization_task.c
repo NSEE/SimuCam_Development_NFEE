@@ -4,12 +4,9 @@
  *  Created on: 27/11/2018
  *      Author: Tiago-Low
  *
- * This file contains the implementation of the initial task of the SIMUCAM. The NicheStack and the net_main should
- * be started from a task because it has to run after OS_Start.
  */
 
 #include "initialization_task.h"
-
 
 
 void vInitialTask(void *task_data)
@@ -49,11 +46,10 @@ void vInitialTask(void *task_data)
 		#endif
 		vFailReceiverCreate();
 	}
-          
 
 	/* SEND: Create the task that is responsible to SEND UART packets */
 	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vReceiverComTask,
+		error_code = OSTaskCreateExt(vSenderComTask,
 									NULL,
 									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
 									SENDER_TASK_PRIO,
@@ -65,7 +61,7 @@ void vInitialTask(void *task_data)
 
 
 	#else
-		error_code = OSTaskCreateExt(vReceiverComTask,
+		error_code = OSTaskCreateExt(vSenderComTask,
 									NULL,
 									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
 									SENDER_TASK_PRIO,
@@ -86,9 +82,6 @@ void vInitialTask(void *task_data)
 	}
 
 
-
-
-
 	/* Delete the Initialization Task  */
 	error_code = OSTaskDel(OS_PRIO_SELF); /* OS_PRIO_SELF = Means task self priority */
 	if ( error_code != OS_ERR_NONE) {
@@ -104,7 +97,7 @@ void vInitialTask(void *task_data)
 
 	for(;;) { /* Correct Program Flow should never get here */
 		OSTaskDel(OS_PRIO_SELF); /* Try to delete it self */
-		OSTimeDlyHMSM(0,0,1,0); /* 1 sec */
+		OSTimeDlyHMSM(0,0,10,0); /* 1 sec */
 	}
 		
 	 
