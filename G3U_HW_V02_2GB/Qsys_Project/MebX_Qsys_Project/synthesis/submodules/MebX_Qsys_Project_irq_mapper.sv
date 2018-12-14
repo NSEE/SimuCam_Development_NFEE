@@ -22,7 +22,7 @@
 // Parameters
 //   NUM_RCVRS        : 16
 //   SENDER_IRW_WIDTH : 32
-//   IRQ_MAP          : 0:0,1:1,2:7,3:8,4:9,5:10,6:11,7:12,8:13,9:14,10:15,11:2,12:3,13:4,14:5,15:6
+//   IRQ_MAP          : 0:14,1:15,2:16,3:0,4:1,5:8,6:9,7:10,8:11,9:12,10:13,11:2,12:3,13:4,14:5,15:6
 //
 // -------------------------------------------------------
 
@@ -66,17 +66,17 @@ module MebX_Qsys_Project_irq_mapper
     always @* begin
 	sender_irq = 0;
 
-        sender_irq[0] = receiver0_irq;
-        sender_irq[1] = receiver1_irq;
-        sender_irq[7] = receiver2_irq;
-        sender_irq[8] = receiver3_irq;
-        sender_irq[9] = receiver4_irq;
-        sender_irq[10] = receiver5_irq;
-        sender_irq[11] = receiver6_irq;
-        sender_irq[12] = receiver7_irq;
-        sender_irq[13] = receiver8_irq;
-        sender_irq[14] = receiver9_irq;
-        sender_irq[15] = receiver10_irq;
+        sender_irq[14] = receiver0_irq;
+        sender_irq[15] = receiver1_irq;
+        sender_irq[16] = receiver2_irq;
+        sender_irq[0] = receiver3_irq;
+        sender_irq[1] = receiver4_irq;
+        sender_irq[8] = receiver5_irq;
+        sender_irq[9] = receiver6_irq;
+        sender_irq[10] = receiver7_irq;
+        sender_irq[11] = receiver8_irq;
+        sender_irq[12] = receiver9_irq;
+        sender_irq[13] = receiver10_irq;
         sender_irq[2] = receiver11_irq;
         sender_irq[3] = receiver12_irq;
         sender_irq[4] = receiver13_irq;

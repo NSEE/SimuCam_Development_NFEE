@@ -3,15 +3,14 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="495" />
+   <connections preferredWidth="479" />
    <irq preferredWidth="207" />
    <name preferredWidth="437" />
-   <export preferredWidth="263" />
+   <export preferredWidth="172" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Project,Library,Library/Basic Functions/Clocks; PLLs and Resets,Library/Basic Functions,Library/Basic Functions/Simulation; Debug and Verification/Simulation,Library/Basic Functions/Simulation; Debug and Verification" />
- <window width="1920" height="1040" x="1912" y="-8" />
+ <library expandedCategories="Library,Project" />
+ <window width="1920" height="1040" x="-1928" y="-8" />
  <generation synthesis="VHDL" simulation="NONE" testbench_simulation="VHDL" />
  <hdlexample language="VHDL" />
 </preferences>
