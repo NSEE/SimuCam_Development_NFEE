@@ -9,11 +9,12 @@
 #define CONFIGURATION_COMM_H_
 
 #include <ucos_ii.h>
+#include <stdlib.h>
 
 #define SIZE_RCV_BUFFER         64
 #define TURNOFF_SEQUENCE        "?D|252;"
 #define START_STATUS_SEQUENCE   "?S|9;"
-#define CHANGE_MODE_SEQUENCE    "!U:&$=|&;"
+#define CHANGE_MODE_SEQUENCE    65000
 #define SEPARATOR_CHAR          ':'
 #define START_REQUEST_CHAR      '?'
 #define START_REPLY_CHAR        '!'
@@ -21,8 +22,10 @@
 #define SEPARATOR_CRC           '|'
 #define SIZE_UCVALUES           32
 
+typedef enum { eNoError = 0, eBadFormatInit, eCRCErrorInit, eSemErrorInit, eBadFormat, eCRCError } tErrorReceiver;
 
 typedef struct {
+    tErrorReceiver ucErrorFlag;
     unsigned char ucType; /* ?(request):0 or !(reply):1*/
     char cCommand;
     unsigned char ucNofBytes;

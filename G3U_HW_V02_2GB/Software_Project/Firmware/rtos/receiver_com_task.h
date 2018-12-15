@@ -13,10 +13,12 @@
 #include "../utils/crc8.h"
 #include <string.h>
 
-typedef enum { sConfiguring = 0, sPiping, sWaitingConn, sReceiving, sParsing, sSendingMEB , sHandlingError } tReceiverStates;
+typedef enum { sConfiguring = 0, sPiping, sWaitingConn, sReceiving, sInitParsing, sParsing, sSendingMEB , sHandlingError } tReceiverStates;
 
 void vReceiverComTask(void *task_data);
 bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer );
+short int siPosStr( char *buffer, char cValue);
+tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer );
 
 
 

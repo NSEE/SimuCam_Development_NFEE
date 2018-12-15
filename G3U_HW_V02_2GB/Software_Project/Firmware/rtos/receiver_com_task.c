@@ -6,13 +6,10 @@
     also need to parse the command in order to send to the MEB task */
 void vReceiverComTask(void *task_data)
 {
-    bool bSucess = FALSE;
+    bool bSuccess = FALSE;
     INT8U error_code;
     tReceiverStates eReceiverMode;
     char cReceiveBuffer[SIZE_RCV_BUFFER];
-    char cTempBuffer[SIZE_RCV_BUFFER];
-    short int siStrLen;
-    short int siStrLenTemp;
     tPreParsed xPreParsedBuffer;
     
     eReceiverMode = sConfiguring;
@@ -52,44 +49,58 @@ void vReceiverComTask(void *task_data)
             case sWaitingConn:
                 /*  This mode waits for the NUC send the status, this is how Simucam
                     knows that NUC is up */
-                bSucess = FALSE;
-                do
-                {
-                    siStrLen = strnlen(cReceiveBuffer, SIZE_RCV_BUFFER);
-                    memset(cTempBuffer,0,SIZE_RCV_BUFFER);
-                    scanf("%s", cTempBuffer);
-                    siStrLenTemp = strnlen(cTempBuffer, SIZE_RCV_BUFFER);
-                    memcpy(&cReceiveBuffer[siStrLen], cTempBuffer, siStrLenTemp+1);
+            	bSuccess = FALSE;
 
-                    bSucess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
-                } while ( bSucess == FALSE );
+                memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
+                scanf("%s", cReceiveBuffer);
+                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
 
-                /* Will not pre parser until the command is completed with ';' */
-                if ( xPreParsedBuffer.cCommand == 'S' ) {
-                    eReceiverMode = sReceiving;
-                    /* Post Semaphore to tell to vSenderComTask to stop sending status packet*/
-                    error_code = OSSemPost(xSemCommInit);
+                if ( bSuccess ) {
+                    eReceiverMode = sInitParsing;
                 } else {
-                    eReceiverMode = sWaitingConn;
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eBadFormatInit;
                 }
 
                 break;
+            case sInitParsing:
+                /* Check CRC8 */
+                if ( xPreParsedBuffer.ucCalculatedCRC8 == xPreParsedBuffer.ucMessageCRC8 ) {
+                    eReceiverMode = sReceiving;
+                    /* Post Semaphore to tell to vSenderComTask to stop sending status packet*/
+                    error_code = OSSemPost(xSemCommInit);
+
+                    if ( error_code != OS_ERR_NONE ) {
+                        eReceiverMode = sHandlingError;
+                        xPreParsedBuffer.ucErrorFlag = eSemErrorInit;
+                        #ifdef DEBUG_ON
+                            debug(fp,"Can't post semaphore to SenderTask.\n");
+                        #endif
+                    }
+                    
+                } else {
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eCRCErrorInit;
+                    #ifdef DEBUG_ON
+                        debug(fp,"CRC Fail. sInitParsing.\n");
+                    #endif
+                }
+
+                break;                
             case sReceiving:
 
-                bSucess = FALSE;
-                do
-                {
-                    siStrLen = strnlen(cReceiveBuffer, SIZE_RCV_BUFFER);
-                    memset(cTempBuffer,0,SIZE_RCV_BUFFER);
-                    scanf("%s", cTempBuffer);
-                    siStrLenTemp = strnlen(cTempBuffer, SIZE_RCV_BUFFER);
-                    memcpy(&cReceiveBuffer[siStrLen], cTempBuffer, siStrLenTemp+1);
+            	bSuccess = FALSE;
 
-                    bSucess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
-                } while ( bSucess == FALSE );
-                /* Will not pre parser until the command is completed with ';' */
+                memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
+                scanf("%s", cReceiveBuffer);
+                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
 
-                eReceiverMode = sParsing;
+                if ( bSuccess ) {
+                    eReceiverMode = sParsing;
+                } else {
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eBadFormat;
+                } 
 
                 break;
             case sParsing:
@@ -105,12 +116,15 @@ void vReceiverComTask(void *task_data)
                         switch (xPreParsedBuffer.cCommand)
                         {
                             case 'U':
-                                if ( xPreParsedBuffer.usiValues[0] == "&$=" ) {
+                                if ( xPreParsedBuffer.usiValues[0] == CHANGE_MODE_SEQUENCE ) {
                                     /* Change to Piping mode */
                                     eReceiverMode = sPiping;
                                 } else {
                                     eReceiverMode = sReceiving;
                                 }
+                                break;
+                            case 'C':
+                                /* Send the ethernet configuration */
                                 break;
                             default:
                                 break;
@@ -118,6 +132,7 @@ void vReceiverComTask(void *task_data)
                     }
                 } else {
                 	eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eCRCError;
                 }
 
                 break;
@@ -125,7 +140,9 @@ void vReceiverComTask(void *task_data)
                 /* code */
                 break;
             case sHandlingError:
-                /* code */
+                
+                eReceiverMode = tErrorHandlerFunc (&xPreParsedBuffer);
+
                 break;
             default:
                 break;
@@ -140,90 +157,107 @@ void vReceiverComTask(void *task_data)
 bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
 {
     bool bSuccess = FALSE;
-    char cTempChar[2] = "";
     short int siStrLen, siTeminador, siIniReq, siIniResp, siCRC;
 	char c, i, *p_inteiro;
 	char inteiro[6]; /* Max size of parsed value is 6 digits, for now*/
 
     siStrLen = strlen(buffer);
-    cTempChar[0] = FINAL_CHAR; /* This step was add for performance. The command strcspn needs "" (const char *) */
-    siTeminador = strcspn(buffer,cTempChar);
-    /* Check if FINAL_CHAR is inide the buffer limits */
-    if ( siTeminador < siStrLen ) {
+    siTeminador = siPosStr(buffer, FINAL_CHAR);
+    siIniReq = siPosStr(buffer, START_REQUEST_CHAR);
+    siIniResp = siPosStr(buffer, START_REPLY_CHAR);
+    siIniReq = min_sim(siIniReq, siIniResp);
+    siCRC = strcspn(buffer, SEPARATOR_CRC);
 
-        /* Check if in the buffer has Initiator Char and verify if is before the FINAL_CHAR */
-    	cTempChar[0] = START_REQUEST_CHAR; /* This step was add for performance. The command strcspn needs "" (const char *) */
-        siIniReq = strcspn(buffer, cTempChar);
-        cTempChar[0] = START_REPLY_CHAR; /* This step was add for performance. The command strcspn needs "" (const char *) */
-        siIniResp = strcspn(buffer, cTempChar);
-        /* Get only the first ocurrance of command*/
-        siIniReq = min_sim(siIniReq, siIniResp);
+    /* Check if there is [!|?] , |, ; in the packet*/
+    if ( (siTeminador == (siStrLen-1)) && (siCRC < siTeminador) && (siIniReq < siCRC) ) {
 
-        /* Found a full command inside the buffer*/
-        if ( siIniReq < siTeminador ) {
+        xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(&buffer[siIniReq] , (siCRC - siIniReq) );
+        xPerParcedBuffer->ucType = buffer[siIniReq];
+        xPerParcedBuffer->cCommand = buffer[siIniReq+1];
+        xPerParcedBuffer->ucNofBytes = 0;
+        memset( xPerParcedBuffer->usiValues , 0 , SIZE_UCVALUES);
 
-        	memset( &(inteiro) , 0 , sizeof( inteiro ) );
-        	p_inteiro = inteiro;
-
-            /*Check if the packet has crc*/
-        	cTempChar[0] = SEPARATOR_CRC; /* This step was add for performance. The command strcspn needs "" (const char *) */
-            siCRC = strcspn(buffer, cTempChar);
-            if ( ( siCRC >  siIniReq ) && (siCRC < siTeminador) ) {
-
-                xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(buffer[siIniReq] , (siCRC - siIniReq) );
-                xPerParcedBuffer->ucType = buffer[siIniReq];
-                xPerParcedBuffer->cCommand = buffer[siIniReq+1];
-                xPerParcedBuffer->ucNofBytes = 0;
-                memset( xPerParcedBuffer->usiValues , 0 , SIZE_UCVALUES);
-                i = siIniReq + 3; /* "?C:i..." */
-                do {
-                    memset( &(inteiro) , 0 , sizeof( inteiro ) );
-                    do {
-                        c = buffer[i];
-                        if ( isdigit( c ) ) {
-                            (*p_inteiro) = c;
-                            p_inteiro++;
-                        }
-                        i++;
-                    } while ( (siStrLen>i) && ( ( c != SEPARATOR_CHAR ) && ( c != FINAL_CHAR ) && ( c != SEPARATOR_CRC )) ); //ASCII: 58 = ':' 59 = ';' and '|'
-                    (*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-                    /* The last block in the message is the CRC*/
-                    if (c == FINAL_CHAR) {
-                        xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
-                    } else if ( siStrLen > i ){
-                        xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
-                        xPerParcedBuffer->ucNofBytes++;
-                    } else {
-                    	 memset(buffer,0,strlen(buffer));
-                    	 bSuccess = FALSE;
-                    }
-                        
-                    p_inteiro = inteiro;
-                    
-                } while ( (c != FINAL_CHAR) && (siStrLen>i) );
-
-                if ( c != FINAL_CHAR) {
-                    memset(buffer,0,strlen(buffer));
-                    bSuccess = FALSE;
-                } else {
-                    bSuccess = TRUE;
+        i = siIniReq + 3; /* "?C:i..." */
+        do {
+            p_inteiro = inteiro;
+            memset( &(inteiro) , 0 , sizeof( inteiro ) );
+            do {
+                c = buffer[i];
+                if ( isdigit( c ) ) {
+                    (*p_inteiro) = c;
+                    p_inteiro++;
                 }
+                i++;
+            } while ( (siStrLen>i) && ( ( c != SEPARATOR_CHAR ) && ( c != FINAL_CHAR ) && ( c != SEPARATOR_CRC )) ); //ASCII: 58 = ':' 59 = ';' and '|'
+            (*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 
-                
-            } else {
-                memset(buffer,0,strlen(buffer));
-                bSuccess = FALSE;
+            if ( ( c == SEPARATOR_CHAR ) || ( c == SEPARATOR_CRC ) ) {
+                xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
+                xPerParcedBuffer->ucNofBytes++;
+            } 
+            else if ( c == FINAL_CHAR )
+            {
+                xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
             }
+            
+        } while ( (c != FINAL_CHAR) && (siStrLen>i) );
 
+        if ( c == FINAL_CHAR)
+            bSuccess = TRUE;
+        else
+            bSuccess = FALSE; /*Index overflow in the buffer*/
 
-           
-        } else {
-        	/* Malformed command, maybe there is a beggining of the command in this malformad packet (return false and wait for more characters)*/
-            bSuccess = FALSE;
-            memcpy(&buffer[0], buffer[siTeminador], (siStrLen-siTeminador)+1);
-        }
+    } else {
+        /*Malformed Packet*/
+        bSuccess = FALSE;
     }
+    memset(buffer,0,strlen(buffer));
 
     return bSuccess;
+}
+
+inline short int siPosStr( char *buffer, char cValue) {
+    char cTempChar[2] = "";
+    cTempChar[0] = cValue; /* This step was add for performance. The command strcspn needs "" (const char *) */
+    return strcspn(buffer, cTempChar);
+}
+
+inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
+    tReceiverStates xReturnState;
+    
+    switch (xPerParcedBuffer->ucErrorFlag)
+    {
+        case eBadFormatInit:
+            /* Enviar error Não entendimento */
+            xReturnState = sWaitingConn;
+            break;
+        case eCRCErrorInit:
+            /* Enviar erro de CRC */
+            xReturnState = sWaitingConn;
+            break;
+        case eSemErrorInit:
+            /* Não enviar error, tentar resolver internamente, senao erro critico */
+            break;
+        case eBadFormat:
+            /* Enviar error Não entendimento */
+            xReturnState = sReceiving;
+            break;
+        case eCRCError:
+            /* Enviar erro de CRC */
+            xReturnState = sReceiving;
+            break;
+        case eNoError:
+            xReturnState = sReceiving;
+            #ifdef DEBUG_ON
+                debug(fp,"No error. Why Handling Error?. (tErrorHandlerFunc)\n");
+            #endif 
+            break;
+        default:
+            break;
+    }
+    #ifdef DEBUG_ON
+        debug(fp,"(tErrorHandlerFunc)\n");
+    #endif     
+
+    return xReturnState;
 }
