@@ -130,7 +130,7 @@ GXB_GND*                     : AA1       :        :                   :         
 GXB_GND*                     : AA2       :        :                   :         : QR1       :                
 GND                          : AA3       : gnd    :                   :         :           :                
 GND                          : AA4       : gnd    :                   :         :           :                
-GND+                         : AA5       :        :                   :         : 6C        :                
+i_hsmb_lvds_rx_spwa_si_p[0]  : AA5       : input  : 2.5 V             :         : 6C        : N              
 VCCH_GXBR1                   : AA6       : power  :                   : 1.4V    : QR1       :                
 VCCL_GXBR1                   : AA7       : power  :                   : 1.1V    : QR1       :                
 VCC                          : AA8       : power  :                   : 0.9V    :           :                
@@ -316,7 +316,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AE31      :        :                   :      
 VCC                          : AE32      : power  :                   : 0.9V    :           :                
 VCCL_GXBL0                   : AE33      : power  :                   : 1.1V    : QL0       :                
 VCCH_GXBL0                   : AE34      : power  :                   : 1.4V    : QL0       :                
-i_hsmb_lvds_rx_spwa_si_p[0]  : AE35      : input  : 2.5 V             :         : 2C        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AE35      :        :                   :         : 2C        :                
 GND                          : AE36      : gnd    :                   :         :           :                
 GND                          : AE37      : gnd    :                   :         :           :                
 GXB_GND*                     : AE38      :        :                   :         : QL1       :                

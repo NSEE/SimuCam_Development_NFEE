@@ -23,7 +23,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		input  wire        nios2_gen2_0_instruction_master_read,           //                                         .read
 		output wire [31:0] nios2_gen2_0_instruction_master_readdata,       //                                         .readdata
 		output wire        nios2_gen2_0_instruction_master_readdatavalid,  //                                         .readdatavalid
-		output wire [29:0] clock_bridge_200_s0_address,                    //                      clock_bridge_200_s0.address
+		output wire [28:0] clock_bridge_200_s0_address,                    //                      clock_bridge_200_s0.address
 		output wire        clock_bridge_200_s0_write,                      //                                         .write
 		output wire        clock_bridge_200_s0_read,                       //                                         .read
 		input  wire [31:0] clock_bridge_200_s0_readdata,                   //                                         .readdata
@@ -994,7 +994,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (30),
+		.AV_ADDRESS_W                   (29),
 		.AV_DATA_W                      (32),
 		.UAV_DATA_W                     (32),
 		.AV_BURSTCOUNT_W                (1),

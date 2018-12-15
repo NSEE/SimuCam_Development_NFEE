@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.12.14.16:32:33 -->
+ <!-- 2018.12.14.21:14:33 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1544812352</value>
+  <value>1544829272</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -12384,6 +12384,78 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>ddr2_address_span_extender</moduleName>
+    <slaveName>clock</slaveName>
+    <name>ddr2_address_span_extender.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M0</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M0.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M1</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M1.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chA.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chB.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chC.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chD.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chE.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chF.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chG.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_H.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>clock_bridge_200</moduleName>
+    <slaveName>m0_clk</slaveName>
+    <name>clock_bridge_200.m0_clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>clock_bridge_afi_50</moduleName>
     <slaveName>s0_clk</slaveName>
     <name>clock_bridge_afi_50.s0_clk</name>
@@ -12393,6 +12465,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>clock_bridge_200</moduleName>
     <slaveName>s0_clk</slaveName>
     <name>clock_bridge_200.s0_clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>m1_clock_bridge</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>m1_clock_bridge.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
@@ -12692,84 +12770,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M0</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M0.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M1</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M1.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ddr2_address_span_extender</moduleName>
-    <slaveName>clock</slaveName>
-    <name>ddr2_address_span_extender.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chB.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chC.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chD.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chE.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chF.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chG.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_H.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>clock_bridge_200</moduleName>
-    <slaveName>m0_clk</slaveName>
-    <name>clock_bridge_200.m0_clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>m1_clock_bridge</moduleName>
-    <slaveName>s0_clk</slaveName>
-    <name>m1_clock_bridge.s0_clk</name>
-   </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -13350,7 +13350,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SYSINFO_ADDR_WIDTH">
    <type>int</type>
-   <value>30</value>
+   <value>29</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -13368,7 +13368,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_ADDRESS_WIDTH">
    <type>int</type>
-   <value>30</value>
+   <value>29</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -13376,7 +13376,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="HDL_ADDR_WIDTH">
    <type>int</type>
-   <value>30</value>
+   <value>29</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -13668,7 +13668,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>1073741824</value>
+    <value>536870912</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -13997,7 +13997,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_address</name>
     <direction>Input</direction>
-    <width>30</width>
+    <width>29</width>
     <role>address</role>
    </port>
    <port>
@@ -14320,7 +14320,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_address</name>
     <direction>Output</direction>
-    <width>30</width>
+    <width>29</width>
     <role>address</role>
    </port>
    <port>
@@ -14349,18 +14349,10 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>avalon_slave_windowing</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_windowing</name>
-    <baseAddress>536878080</baseAddress>
-    <span>1024</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chB.avalon_slave_windowing</name>
-    <baseAddress>536877056</baseAddress>
+    <baseAddress>268442624</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14368,7 +14360,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chC.avalon_slave_windowing</name>
-    <baseAddress>536876032</baseAddress>
+    <baseAddress>268441600</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14376,7 +14368,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chD.avalon_slave_windowing</name>
-    <baseAddress>536875008</baseAddress>
+    <baseAddress>268440576</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14384,7 +14376,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chE.avalon_slave_windowing</name>
-    <baseAddress>536873984</baseAddress>
+    <baseAddress>268439552</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14392,7 +14384,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chF.avalon_slave_windowing</name>
-    <baseAddress>536872960</baseAddress>
+    <baseAddress>268438528</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14400,7 +14392,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chG.avalon_slave_windowing</name>
-    <baseAddress>536871936</baseAddress>
+    <baseAddress>268437504</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14408,7 +14400,15 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_H.avalon_slave_windowing</name>
-    <baseAddress>536870912</baseAddress>
+    <baseAddress>268436480</baseAddress>
+    <span>1024</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
+    <slaveName>avalon_slave_windowing</slaveName>
+    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_windowing</name>
+    <baseAddress>268435456</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -14416,7 +14416,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>ddr2_address_span_extender</moduleName>
     <slaveName>cntl</slaveName>
     <name>ddr2_address_span_extender.cntl</name>
-    <baseAddress>536879232</baseAddress>
+    <baseAddress>268443776</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -14424,7 +14424,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M0</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M0.csr</name>
-    <baseAddress>536879200</baseAddress>
+    <baseAddress>268443744</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -14432,7 +14432,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M1.csr</name>
-    <baseAddress>536879168</baseAddress>
+    <baseAddress>268443712</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -14440,7 +14440,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M0</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M0.descriptor_slave</name>
-    <baseAddress>536879136</baseAddress>
+    <baseAddress>268443680</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -14448,7 +14448,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M1.descriptor_slave</name>
-    <baseAddress>536879104</baseAddress>
+    <baseAddress>268443648</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -14457,7 +14457,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>windowed_slave</slaveName>
     <name>ddr2_address_span_extender.windowed_slave</name>
     <baseAddress>0</baseAddress>
-    <span>536870912</span>
+    <span>268435456</span>
    </memoryBlock>
   </interface>
  </module>
@@ -19622,7 +19622,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MASTER_ADDRESS_WIDTH</name>
-   <value>32</value>
+   <value>33</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BURST_BYTES</name>
@@ -19638,7 +19638,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.SLAVE_ADDRESS_WIDTH</name>
-   <value>27</value>
+   <value>26</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.SUB_WINDOW_COUNT</name>
@@ -19670,7 +19670,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MASTER_ADDRESS_WIDTH">
    <type>int</type>
-   <value>32</value>
+   <value>33</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19678,7 +19678,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MASTER_ADDRESS_SPAN">
    <type>java.lang.String</type>
-   <value>4 gigabytes</value>
+   <value>8 gigabytes</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19686,7 +19686,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SLAVE_ADDRESS_WIDTH">
    <type>int</type>
-   <value>27</value>
+   <value>26</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19694,7 +19694,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SLAVE_ADDRESS_SPAN">
    <type>java.lang.String</type>
-   <value>512 megabytes</value>
+   <value>256 megabytes</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19766,7 +19766,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="SUB_WINDOW_SPAN">
    <type>java.lang.String</type>
-   <value>512 megabytes</value>
+   <value>256 megabytes</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -19924,7 +19924,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>536870912</value>
+    <value>268435456</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -20223,7 +20223,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avs_s0_address</name>
     <direction>Input</direction>
-    <width>27</width>
+    <width>26</width>
     <role>address</role>
    </port>
    <port>
@@ -20540,7 +20540,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avm_m0_address</name>
     <direction>Output</direction>
-    <width>32</width>
+    <width>33</width>
     <role>address</role>
    </port>
    <port>
@@ -20591,6 +20591,22 @@ parameters are a RESULT of the module parameters. -->
     <width>8</width>
     <role>burstcount</role>
    </port>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
+    <slaveName>avalon_slave_L_buffer</slaveName>
+    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer</name>
+    <baseAddress>4294975488</baseAddress>
+    <span>8192</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
+    <slaveName>avalon_slave_R_buffer</slaveName>
+    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer</name>
+    <baseAddress>4294967296</baseAddress>
+    <span>8192</span>
+   </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>m2_ddr2_memory</moduleName>
@@ -21390,7 +21406,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_R_buffer' start='0x10000C000' end='0x10000E000' /><slave name='COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer' start='0x10000E000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer' start='0x10001C000' end='0x10001E000' /><slave name='COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer' start='0x10001E000' end='0x100020000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_R_buffer' start='0x10000C000' end='0x10000E000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer' start='0x10000E000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -22082,18 +22098,10 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>avalon_slave_L_buffer</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer</name>
-    <baseAddress>4295090176</baseAddress>
-    <span>8192</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer</name>
-    <baseAddress>4295081984</baseAddress>
+    <baseAddress>4295073792</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -22101,7 +22109,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chC.avalon_slave_L_buffer</name>
-    <baseAddress>4295073792</baseAddress>
+    <baseAddress>4295065600</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -22109,7 +22117,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chD.avalon_slave_L_buffer</name>
-    <baseAddress>4295065600</baseAddress>
+    <baseAddress>4295057408</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -22117,7 +22125,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chE.avalon_slave_L_buffer</name>
-    <baseAddress>4295057408</baseAddress>
+    <baseAddress>4295049216</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -22125,7 +22133,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chF.avalon_slave_L_buffer</name>
-    <baseAddress>4295049216</baseAddress>
+    <baseAddress>4295041024</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -22133,7 +22141,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chG.avalon_slave_L_buffer</name>
-    <baseAddress>4295041024</baseAddress>
+    <baseAddress>4295032832</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -22141,14 +22149,6 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer</name>
-    <baseAddress>4295032832</baseAddress>
-    <span>8192</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>avalon_slave_R_buffer</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer</name>
     <baseAddress>4295024640</baseAddress>
     <span>8192</span>
    </memoryBlock>
@@ -23539,7 +23539,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_R_buffer' start='0x10000C000' end='0x10000E000' /><slave name='COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer' start='0x10000E000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer' start='0x10001C000' end='0x10001E000' /><slave name='COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer' start='0x10001E000' end='0x100020000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_R_buffer' start='0x10000C000' end='0x10000E000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer' start='0x10000E000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -24231,18 +24231,10 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>avalon_slave_L_buffer</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer</name>
-    <baseAddress>4295090176</baseAddress>
-    <span>8192</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer</name>
-    <baseAddress>4295081984</baseAddress>
+    <baseAddress>4295073792</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -24250,7 +24242,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chC.avalon_slave_L_buffer</name>
-    <baseAddress>4295073792</baseAddress>
+    <baseAddress>4295065600</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -24258,7 +24250,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chD.avalon_slave_L_buffer</name>
-    <baseAddress>4295065600</baseAddress>
+    <baseAddress>4295057408</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -24266,7 +24258,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chE.avalon_slave_L_buffer</name>
-    <baseAddress>4295057408</baseAddress>
+    <baseAddress>4295049216</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -24274,7 +24266,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chF.avalon_slave_L_buffer</name>
-    <baseAddress>4295049216</baseAddress>
+    <baseAddress>4295041024</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -24282,7 +24274,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_chG.avalon_slave_L_buffer</name>
-    <baseAddress>4295041024</baseAddress>
+    <baseAddress>4295032832</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -24290,14 +24282,6 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer</name>
-    <baseAddress>4295032832</baseAddress>
-    <span>8192</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>avalon_slave_R_buffer</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer</name>
     <baseAddress>4295024640</baseAddress>
     <span>8192</span>
    </memoryBlock>
@@ -42474,12 +42458,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>m1_clock_bridge</moduleName>
-    <slaveName>m0_clk</slaveName>
-    <name>m1_clock_bridge.m0_clk</name>
-   </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -42549,6 +42527,12 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>m1_clock_bridge</moduleName>
+    <slaveName>m0_clk</slaveName>
+    <name>m1_clock_bridge.m0_clk</name>
+   </clockDomainMember>
   </interface>
   <interface name="afi_reset" kind="reset_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -57502,84 +57486,6 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>clk_in</slaveName>
     <name>clk_200.clk_in</name>
    </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M0</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M0.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M1</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M1.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ddr2_address_span_extender</moduleName>
-    <slaveName>clock</slaveName>
-    <name>ddr2_address_span_extender.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chB.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chC.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chD.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chE.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chF.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_chG.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
-    <slaveName>clock_sink_200</slaveName>
-    <name>COMM_Pedreiro_v1_01_H.clock_sink_200</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>clock_bridge_200</moduleName>
-    <slaveName>m0_clk</slaveName>
-    <name>clock_bridge_200.m0_clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>m1_clock_bridge</moduleName>
-    <slaveName>s0_clk</slaveName>
-    <name>m1_clock_bridge.s0_clk</name>
-   </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -57693,6 +57599,78 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>ddr2_address_span_extender</moduleName>
+    <slaveName>clock</slaveName>
+    <name>ddr2_address_span_extender.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M0</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M0.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M1</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M1.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chA.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chB.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chC.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chD.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chE.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chF.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_chG.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
+    <slaveName>clock_sink_200</slaveName>
+    <name>COMM_Pedreiro_v1_01_H.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>clock_bridge_200</moduleName>
+    <slaveName>m0_clk</slaveName>
+    <name>clock_bridge_200.m0_clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>clock_bridge_afi_50</moduleName>
     <slaveName>s0_clk</slaveName>
     <name>clock_bridge_afi_50.s0_clk</name>
@@ -57702,6 +57680,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>clock_bridge_200</moduleName>
     <slaveName>s0_clk</slaveName>
     <name>clock_bridge_200.s0_clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>m1_clock_bridge</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>m1_clock_bridge.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="afi_reset" kind="reset_source" version="16.1">
@@ -58610,7 +58594,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BREAK_ADDR</name>
-   <value>0x81200820</value>
+   <value>0x41200820</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CPU_ARCH_NIOS2_R1</name>
@@ -58650,7 +58634,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.EXCEPTION_ADDR</name>
-   <value>0x81100020</value>
+   <value>0x41100020</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.FLASH_ACCELERATOR_LINES</name>
@@ -58778,7 +58762,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,exception-addr</name>
-   <value>0x81100020</value>
+   <value>0x41100020</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.altr,has-div</name>
@@ -59962,7 +59946,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="exceptionAbsoluteAddr">
    <type>int</type>
-   <value>-2129657824</value>
+   <value>1091567648</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -59970,7 +59954,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="breakAbsoluteAddr">
    <type>int</type>
-   <value>-2128607200</value>
+   <value>1092618272</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -60212,7 +60196,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="instSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x81100000' end='0x811FA000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x41100000' end='0x411FA000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x41200800' end='0x41201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -60232,7 +60216,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x20000000' type='altera_address_span_extender.windowed_slave' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_windowing' start='0x20000000' end='0x20000400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_windowing' start='0x20000400' end='0x20000800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_windowing' start='0x20000800' end='0x20000C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_windowing' start='0x20000C00' end='0x20001000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_windowing' start='0x20001000' end='0x20001400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_windowing' start='0x20001400' end='0x20001800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_windowing' start='0x20001800' end='0x20001C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chA.avalon_slave_windowing' start='0x20001C00' end='0x20002000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M1.descriptor_slave' start='0x20002000' end='0x20002020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M0.descriptor_slave' start='0x20002020' end='0x20002040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.csr' start='0x20002040' end='0x20002060' type='altera_msgdma.csr' /><slave name='dma_DDR_M0.csr' start='0x20002060' end='0x20002080' type='altera_msgdma.csr' /><slave name='ddr2_address_span_extender.cntl' start='0x20002080' end='0x20002088' type='altera_address_span_extender.cntl' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rs232_uart.s1' start='0x80000800' end='0x80000820' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000820' end='0x80000840' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000840' end='0x80000860' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x80000860' end='0x80000870' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x80000870' end='0x80000880' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x80000880' end='0x80000890' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x80000890' end='0x800008A0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x800009D0' end='0x800009D8' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='onchip_memory.s1' start='0x81100000' end='0x811FA000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sysid_qsys.control_slave' start='0x81201000' end='0x81201008' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x81201008' end='0x81201010' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x10000000' type='altera_address_span_extender.windowed_slave' /><slave name='COMM_Pedreiro_v1_01_chA.avalon_slave_windowing' start='0x10000000' end='0x10000400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_windowing' start='0x10000400' end='0x10000800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chG.avalon_slave_windowing' start='0x10000800' end='0x10000C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chF.avalon_slave_windowing' start='0x10000C00' end='0x10001000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chE.avalon_slave_windowing' start='0x10001000' end='0x10001400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chD.avalon_slave_windowing' start='0x10001400' end='0x10001800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chC.avalon_slave_windowing' start='0x10001800' end='0x10001C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_chB.avalon_slave_windowing' start='0x10001C00' end='0x10002000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M1.descriptor_slave' start='0x10002000' end='0x10002020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M0.descriptor_slave' start='0x10002020' end='0x10002040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.csr' start='0x10002040' end='0x10002060' type='altera_msgdma.csr' /><slave name='dma_DDR_M0.csr' start='0x10002060' end='0x10002080' type='altera_msgdma.csr' /><slave name='ddr2_address_span_extender.cntl' start='0x10002080' end='0x10002088' type='altera_address_span_extender.cntl' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rs232_uart.s1' start='0x40000800' end='0x40000820' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000820' end='0x40000840' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000840' end='0x40000860' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x40000860' end='0x40000870' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x40000870' end='0x40000880' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x40000880' end='0x40000890' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x40000890' end='0x400008A0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x400009D0' end='0x400009D8' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='onchip_memory.s1' start='0x41100000' end='0x411FA000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x41200800' end='0x41201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='sysid_qsys.control_slave' start='0x41201000' end='0x41201008' type='altera_avalon_sysid_qsys.control_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x41201008' end='0x41201010' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -60903,7 +60887,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>avalon_jtag_slave</slaveName>
     <name>jtag_uart_0.avalon_jtag_slave</name>
-    <baseAddress>2166362120</baseAddress>
+    <baseAddress>1092620296</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -60911,7 +60895,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sysid_qsys</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys.control_slave</name>
-    <baseAddress>2166362112</baseAddress>
+    <baseAddress>1092620288</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -60919,7 +60903,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>nios2_gen2_0</moduleName>
     <slaveName>debug_mem_slave</slaveName>
     <name>nios2_gen2_0.debug_mem_slave</name>
-    <baseAddress>2166360064</baseAddress>
+    <baseAddress>1092618240</baseAddress>
     <span>2048</span>
    </memoryBlock>
    <memoryBlock>
@@ -60927,7 +60911,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>clock_bridge_afi_50</moduleName>
     <slaveName>s0</slaveName>
     <name>clock_bridge_afi_50.s0</name>
-    <baseAddress>2147483648</baseAddress>
+    <baseAddress>1073741824</baseAddress>
     <span>4096</span>
    </memoryBlock>
    <memoryBlock>
@@ -60935,7 +60919,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>SEVEN_SEGMENT_CONTROLLER_0</moduleName>
     <slaveName>SSDP_avalon_slave</slaveName>
     <name>SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave</name>
-    <baseAddress>2147486160</baseAddress>
+    <baseAddress>1073744336</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -60943,7 +60927,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sync</moduleName>
     <slaveName>avalon_mm_slave</slaveName>
     <name>sync.avalon_mm_slave</name>
-    <baseAddress>2147484672</baseAddress>
+    <baseAddress>1073742848</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -60951,7 +60935,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>Altera_UP_SD_Card_Avalon_Interface_0</moduleName>
     <slaveName>avalon_sdcard_slave</slaveName>
     <name>Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave</name>
-    <baseAddress>2147483648</baseAddress>
+    <baseAddress>1073741824</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -60959,7 +60943,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>m1_ddr2_i2c_sda</moduleName>
     <slaveName>s1</slaveName>
     <name>m1_ddr2_i2c_sda.s1</name>
-    <baseAddress>2147486144</baseAddress>
+    <baseAddress>1073744320</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -60967,7 +60951,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>m1_ddr2_i2c_scl</moduleName>
     <slaveName>s1</slaveName>
     <name>m1_ddr2_i2c_scl.s1</name>
-    <baseAddress>2147486128</baseAddress>
+    <baseAddress>1073744304</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -60975,7 +60959,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>pio_BUTTON</moduleName>
     <slaveName>s1</slaveName>
     <name>pio_BUTTON.s1</name>
-    <baseAddress>2147486112</baseAddress>
+    <baseAddress>1073744288</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -60983,7 +60967,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>pio_LED</moduleName>
     <slaveName>s1</slaveName>
     <name>pio_LED.s1</name>
-    <baseAddress>2147486096</baseAddress>
+    <baseAddress>1073744272</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -60991,7 +60975,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>timer_1ms</moduleName>
     <slaveName>s1</slaveName>
     <name>timer_1ms.s1</name>
-    <baseAddress>2147485760</baseAddress>
+    <baseAddress>1073743936</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -60999,7 +60983,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>pio_DIP</moduleName>
     <slaveName>s1</slaveName>
     <name>pio_DIP.s1</name>
-    <baseAddress>2147486080</baseAddress>
+    <baseAddress>1073744256</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61007,7 +60991,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>timer_1us</moduleName>
     <slaveName>s1</slaveName>
     <name>timer_1us.s1</name>
-    <baseAddress>2147485728</baseAddress>
+    <baseAddress>1073743904</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -61015,7 +60999,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>pio_EXT</moduleName>
     <slaveName>s1</slaveName>
     <name>pio_EXT.s1</name>
-    <baseAddress>2147486064</baseAddress>
+    <baseAddress>1073744240</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61023,7 +61007,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sd_card_wp_n</moduleName>
     <slaveName>s1</slaveName>
     <name>sd_card_wp_n.s1</name>
-    <baseAddress>2147486048</baseAddress>
+    <baseAddress>1073744224</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61031,7 +61015,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>temp_scl</moduleName>
     <slaveName>s1</slaveName>
     <name>temp_scl.s1</name>
-    <baseAddress>2147486032</baseAddress>
+    <baseAddress>1073744208</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61039,7 +61023,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>temp_sda</moduleName>
     <slaveName>s1</slaveName>
     <name>temp_sda.s1</name>
-    <baseAddress>2147486016</baseAddress>
+    <baseAddress>1073744192</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61047,7 +61031,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>m2_ddr2_i2c_sda</moduleName>
     <slaveName>s1</slaveName>
     <name>m2_ddr2_i2c_sda.s1</name>
-    <baseAddress>2147486000</baseAddress>
+    <baseAddress>1073744176</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61055,7 +61039,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>m2_ddr2_i2c_scl</moduleName>
     <slaveName>s1</slaveName>
     <name>m2_ddr2_i2c_scl.s1</name>
-    <baseAddress>2147485984</baseAddress>
+    <baseAddress>1073744160</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61063,7 +61047,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>csense_sdo</moduleName>
     <slaveName>s1</slaveName>
     <name>csense_sdo.s1</name>
-    <baseAddress>2147485968</baseAddress>
+    <baseAddress>1073744144</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61071,7 +61055,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>csense_sdi</moduleName>
     <slaveName>s1</slaveName>
     <name>csense_sdi.s1</name>
-    <baseAddress>2147485952</baseAddress>
+    <baseAddress>1073744128</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61079,7 +61063,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>csense_sck</moduleName>
     <slaveName>s1</slaveName>
     <name>csense_sck.s1</name>
-    <baseAddress>2147485936</baseAddress>
+    <baseAddress>1073744112</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61087,7 +61071,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>csense_cs_n</moduleName>
     <slaveName>s1</slaveName>
     <name>csense_cs_n.s1</name>
-    <baseAddress>2147485920</baseAddress>
+    <baseAddress>1073744096</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61095,7 +61079,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>csense_adc_fo</moduleName>
     <slaveName>s1</slaveName>
     <name>csense_adc_fo.s1</name>
-    <baseAddress>2147485904</baseAddress>
+    <baseAddress>1073744080</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61103,7 +61087,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>pio_LED_painel</moduleName>
     <slaveName>s1</slaveName>
     <name>pio_LED_painel.s1</name>
-    <baseAddress>2147485888</baseAddress>
+    <baseAddress>1073744064</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61111,7 +61095,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rtcc_alarm</moduleName>
     <slaveName>s1</slaveName>
     <name>rtcc_alarm.s1</name>
-    <baseAddress>2147485872</baseAddress>
+    <baseAddress>1073744048</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61119,7 +61103,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rtcc_sdo</moduleName>
     <slaveName>s1</slaveName>
     <name>rtcc_sdo.s1</name>
-    <baseAddress>2147485856</baseAddress>
+    <baseAddress>1073744032</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61127,7 +61111,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rtcc_sdi</moduleName>
     <slaveName>s1</slaveName>
     <name>rtcc_sdi.s1</name>
-    <baseAddress>2147485840</baseAddress>
+    <baseAddress>1073744016</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61135,7 +61119,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rtcc_sck</moduleName>
     <slaveName>s1</slaveName>
     <name>rtcc_sck.s1</name>
-    <baseAddress>2147485824</baseAddress>
+    <baseAddress>1073744000</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61143,7 +61127,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rtcc_cs_n</moduleName>
     <slaveName>s1</slaveName>
     <name>rtcc_cs_n.s1</name>
-    <baseAddress>2147485808</baseAddress>
+    <baseAddress>1073743984</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61151,7 +61135,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rs232_uart</moduleName>
     <slaveName>s1</slaveName>
     <name>rs232_uart.s1</name>
-    <baseAddress>2147485696</baseAddress>
+    <baseAddress>1073743872</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -61159,7 +61143,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>pio_ctrl_io_lvds</moduleName>
     <slaveName>s1</slaveName>
     <name>pio_ctrl_io_lvds.s1</name>
-    <baseAddress>2147485792</baseAddress>
+    <baseAddress>1073743968</baseAddress>
     <span>16</span>
    </memoryBlock>
    <memoryBlock>
@@ -61168,22 +61152,14 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>s0</slaveName>
     <name>clock_bridge_200.s0</name>
     <baseAddress>0</baseAddress>
-    <span>1073741824</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
-    <slaveName>avalon_slave_windowing</slaveName>
-    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_windowing</name>
-    <baseAddress>536878080</baseAddress>
-    <span>1024</span>
+    <span>536870912</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_chB</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chB.avalon_slave_windowing</name>
-    <baseAddress>536877056</baseAddress>
+    <baseAddress>268442624</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61191,7 +61167,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chC</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chC.avalon_slave_windowing</name>
-    <baseAddress>536876032</baseAddress>
+    <baseAddress>268441600</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61199,7 +61175,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chD</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chD.avalon_slave_windowing</name>
-    <baseAddress>536875008</baseAddress>
+    <baseAddress>268440576</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61207,7 +61183,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chE</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chE.avalon_slave_windowing</name>
-    <baseAddress>536873984</baseAddress>
+    <baseAddress>268439552</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61215,7 +61191,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chF</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chF.avalon_slave_windowing</name>
-    <baseAddress>536872960</baseAddress>
+    <baseAddress>268438528</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61223,7 +61199,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_chG</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_chG.avalon_slave_windowing</name>
-    <baseAddress>536871936</baseAddress>
+    <baseAddress>268437504</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61231,7 +61207,15 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_H.avalon_slave_windowing</name>
-    <baseAddress>536870912</baseAddress>
+    <baseAddress>268436480</baseAddress>
+    <span>1024</span>
+   </memoryBlock>
+   <memoryBlock>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_chA</moduleName>
+    <slaveName>avalon_slave_windowing</slaveName>
+    <name>COMM_Pedreiro_v1_01_chA.avalon_slave_windowing</name>
+    <baseAddress>268435456</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -61239,7 +61223,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>ddr2_address_span_extender</moduleName>
     <slaveName>cntl</slaveName>
     <name>ddr2_address_span_extender.cntl</name>
-    <baseAddress>536879232</baseAddress>
+    <baseAddress>268443776</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -61247,7 +61231,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M0</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M0.csr</name>
-    <baseAddress>536879200</baseAddress>
+    <baseAddress>268443744</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -61255,7 +61239,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M1.csr</name>
-    <baseAddress>536879168</baseAddress>
+    <baseAddress>268443712</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -61263,7 +61247,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M0</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M0.descriptor_slave</name>
-    <baseAddress>536879136</baseAddress>
+    <baseAddress>268443680</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -61271,7 +61255,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M1.descriptor_slave</name>
-    <baseAddress>536879104</baseAddress>
+    <baseAddress>268443648</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -61280,14 +61264,14 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>windowed_slave</slaveName>
     <name>ddr2_address_span_extender.windowed_slave</name>
     <baseAddress>0</baseAddress>
-    <span>536870912</span>
+    <span>268435456</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>onchip_memory</moduleName>
     <slaveName>s1</slaveName>
     <name>onchip_memory.s1</name>
-    <baseAddress>2165309440</baseAddress>
+    <baseAddress>1091567616</baseAddress>
     <span>1024000</span>
    </memoryBlock>
    <memoryBlock>
@@ -61602,7 +61586,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>nios2_gen2_0</moduleName>
     <slaveName>debug_mem_slave</slaveName>
     <name>nios2_gen2_0.debug_mem_slave</name>
-    <baseAddress>2166360064</baseAddress>
+    <baseAddress>1092618240</baseAddress>
     <span>2048</span>
    </memoryBlock>
    <memoryBlock>
@@ -61610,7 +61594,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>onchip_memory</moduleName>
     <slaveName>s1</slaveName>
     <name>onchip_memory.s1</name>
-    <baseAddress>2165309440</baseAddress>
+    <baseAddress>1091567616</baseAddress>
     <span>1024000</span>
    </memoryBlock>
    <memoryBlock>
@@ -74393,7 +74377,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1544812352</value>
+   <value>1544829272</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -74413,7 +74397,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1544812352</value>
+   <value>1544829272</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -74429,7 +74413,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1544812352</value>
+   <value>1544829272</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -78382,7 +78366,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81201008</value>
+   <value>0x41201008</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78433,7 +78417,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81201000</value>
+   <value>0x41201000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78484,7 +78468,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81200800</value>
+   <value>0x41200800</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78535,7 +78519,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x80000000</value>
+   <value>0x40000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78637,7 +78621,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81100000</value>
+   <value>0x41100000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78722,6 +78706,108 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>ext_flash</endModule>
   <endConnectionPoint>uas</endConnectionPoint>
+ </connection>
+ <connection
+   name="ddr2_address_span_extender.expanded_master/COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer"
+   kind="avalon"
+   version="16.1"
+   start="ddr2_address_span_extender.expanded_master"
+   end="COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0000000100002000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>ddr2_address_span_extender</startModule>
+  <startConnectionPoint>expanded_master</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
+  <endConnectionPoint>avalon_slave_L_buffer</endConnectionPoint>
+ </connection>
+ <connection
+   name="ddr2_address_span_extender.expanded_master/COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer"
+   kind="avalon"
+   version="16.1"
+   start="ddr2_address_span_extender.expanded_master"
+   end="COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x0000000100000000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>ddr2_address_span_extender</startModule>
+  <startConnectionPoint>expanded_master</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
+  <endConnectionPoint>avalon_slave_R_buffer</endConnectionPoint>
  </connection>
  <connection
    name="ddr2_address_span_extender.expanded_master/m2_ddr2_memory.avl"
@@ -78841,7 +78927,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81200800</value>
+   <value>0x41200800</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78892,7 +78978,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81100000</value>
+   <value>0x41100000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79132,57 +79218,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avalon_sdcard_slave</endConnectionPoint>
  </connection>
  <connection
-   name="clock_bridge_200.m0/COMM_Pedreiro_v1_01_chA.avalon_slave_windowing"
-   kind="avalon"
-   version="16.1"
-   start="clock_bridge_200.m0"
-   end="COMM_Pedreiro_v1_01_chA.avalon_slave_windowing">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x20001c00</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clock_bridge_200</startModule>
-  <startConnectionPoint>m0</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
-  <endConnectionPoint>avalon_slave_windowing</endConnectionPoint>
- </connection>
- <connection
    name="clock_bridge_200.m0/COMM_Pedreiro_v1_01_chB.avalon_slave_windowing"
    kind="avalon"
    version="16.1"
@@ -79198,7 +79233,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20001800</value>
+   <value>0x10001c00</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79249,7 +79284,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20001400</value>
+   <value>0x10001800</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79300,7 +79335,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20001000</value>
+   <value>0x10001400</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79351,7 +79386,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20000c00</value>
+   <value>0x10001000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79402,7 +79437,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20000800</value>
+   <value>0x10000c00</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79453,7 +79488,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20000400</value>
+   <value>0x10000800</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79504,7 +79539,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20000000</value>
+   <value>0x10000400</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79537,6 +79572,57 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clock_bridge_200</startModule>
   <startConnectionPoint>m0</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_H</endModule>
+  <endConnectionPoint>avalon_slave_windowing</endConnectionPoint>
+ </connection>
+ <connection
+   name="clock_bridge_200.m0/COMM_Pedreiro_v1_01_chA.avalon_slave_windowing"
+   kind="avalon"
+   version="16.1"
+   start="clock_bridge_200.m0"
+   end="COMM_Pedreiro_v1_01_chA.avalon_slave_windowing">
+  <parameter name="arbitrationPriority">
+   <type>int</type>
+   <value>1</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="baseAddress">
+   <type>java.math.BigInteger</type>
+   <value>0x10000000</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="defaultConnection">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clock_bridge_200</startModule>
+  <startConnectionPoint>m0</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
   <endConnectionPoint>avalon_slave_windowing</endConnectionPoint>
  </connection>
  <connection
@@ -79606,7 +79692,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20002080</value>
+   <value>0x10002080</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79657,7 +79743,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20002060</value>
+   <value>0x10002060</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79708,7 +79794,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20002040</value>
+   <value>0x10002040</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79759,7 +79845,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20002020</value>
+   <value>0x10002020</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79810,7 +79896,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x20002000</value>
+   <value>0x10002000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81427,57 +81513,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="dma_DDR_M1.mm_write/COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer"
-   kind="avalon"
-   version="16.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x000000010001e000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>dma_DDR_M1</startModule>
-  <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
-  <endConnectionPoint>avalon_slave_L_buffer</endConnectionPoint>
- </connection>
- <connection
    name="dma_DDR_M1.mm_write/COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer"
    kind="avalon"
    version="16.1"
@@ -81493,7 +81528,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010001c000</value>
+   <value>0x000000010001a000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81544,7 +81579,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010001a000</value>
+   <value>0x0000000100018000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81595,7 +81630,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100018000</value>
+   <value>0x0000000100016000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81646,7 +81681,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100016000</value>
+   <value>0x0000000100014000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81697,7 +81732,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100014000</value>
+   <value>0x0000000100012000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81748,7 +81783,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100012000</value>
+   <value>0x0000000100010000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81799,7 +81834,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100010000</value>
+   <value>0x000000010000e000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81835,57 +81870,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avalon_slave_L_buffer</endConnectionPoint>
  </connection>
  <connection
-   name="dma_DDR_M0.mm_write/COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer"
-   kind="avalon"
-   version="16.1"
-   start="dma_DDR_M0.mm_write"
-   end="COMM_Pedreiro_v1_01_chA.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x000000010001e000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>dma_DDR_M0</startModule>
-  <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
-  <endConnectionPoint>avalon_slave_L_buffer</endConnectionPoint>
- </connection>
- <connection
    name="dma_DDR_M0.mm_write/COMM_Pedreiro_v1_01_chB.avalon_slave_L_buffer"
    kind="avalon"
    version="16.1"
@@ -81901,7 +81885,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010001c000</value>
+   <value>0x000000010001a000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -81952,7 +81936,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010001a000</value>
+   <value>0x0000000100018000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -82003,7 +81987,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100018000</value>
+   <value>0x0000000100016000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -82054,7 +82038,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100016000</value>
+   <value>0x0000000100014000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -82105,7 +82089,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100014000</value>
+   <value>0x0000000100012000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -82156,7 +82140,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100012000</value>
+   <value>0x0000000100010000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -82207,7 +82191,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100010000</value>
+   <value>0x000000010000e000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -82241,57 +82225,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>mm_write</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_H</endModule>
   <endConnectionPoint>avalon_slave_L_buffer</endConnectionPoint>
- </connection>
- <connection
-   name="dma_DDR_M1.mm_write/COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer"
-   kind="avalon"
-   version="16.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x000000010000e000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>dma_DDR_M1</startModule>
-  <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
-  <endConnectionPoint>avalon_slave_R_buffer</endConnectionPoint>
  </connection>
  <connection
    name="dma_DDR_M1.mm_write/COMM_Pedreiro_v1_01_chB.avalon_slave_R_buffer"
@@ -82648,57 +82581,6 @@ parameters are a RESULT of the module parameters. -->
   <startModule>dma_DDR_M1</startModule>
   <startConnectionPoint>mm_write</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_H</endModule>
-  <endConnectionPoint>avalon_slave_R_buffer</endConnectionPoint>
- </connection>
- <connection
-   name="dma_DDR_M0.mm_write/COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer"
-   kind="avalon"
-   version="16.1"
-   start="dma_DDR_M0.mm_write"
-   end="COMM_Pedreiro_v1_01_chA.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x000000010000e000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>dma_DDR_M0</startModule>
-  <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_chA</endModule>
   <endConnectionPoint>avalon_slave_R_buffer</endConnectionPoint>
  </connection>
  <connection
@@ -83290,33 +83172,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk_in</endConnectionPoint>
  </connection>
  <connection
-   name="m1_ddr2_memory.afi_clk/m1_clock_bridge.m0_clk"
-   kind="clock"
-   version="16.1"
-   start="m1_ddr2_memory.afi_clk"
-   end="m1_clock_bridge.m0_clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>m1_ddr2_memory</startModule>
-  <startConnectionPoint>afi_clk</startConnectionPoint>
-  <endModule>m1_clock_bridge</endModule>
-  <endConnectionPoint>m0_clk</endConnectionPoint>
- </connection>
- <connection
    name="m2_ddr2_memory.afi_half_clk/clk_100.clk_in"
    kind="clock"
    version="16.1"
@@ -83342,6 +83197,33 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>afi_half_clk</startConnectionPoint>
   <endModule>clk_100</endModule>
   <endConnectionPoint>clk_in</endConnectionPoint>
+ </connection>
+ <connection
+   name="m1_ddr2_memory.afi_half_clk/m1_clock_bridge.m0_clk"
+   kind="clock"
+   version="16.1"
+   start="m1_ddr2_memory.afi_half_clk"
+   end="m1_clock_bridge.m0_clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>m1_ddr2_memory</startModule>
+  <startConnectionPoint>afi_half_clk</startConnectionPoint>
+  <endModule>m1_clock_bridge</endModule>
+  <endConnectionPoint>m0_clk</endConnectionPoint>
  </connection>
  <connection
    name="clk_50.clk/SEVEN_SEGMENT_CONTROLLER_0.SSDP_CLK"
@@ -84289,64 +84171,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/dma_DDR_M0.clock"
+   name="clk_100.clk/ddr2_address_span_extender.clock"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
-   end="dma_DDR_M0.clock">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_200</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>dma_DDR_M0</endModule>
-  <endConnectionPoint>clock</endConnectionPoint>
- </connection>
- <connection
-   name="clk_200.clk/dma_DDR_M1.clock"
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
-   end="dma_DDR_M1.clock">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_200</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>dma_DDR_M1</endModule>
-  <endConnectionPoint>clock</endConnectionPoint>
- </connection>
- <connection
-   name="clk_200.clk/ddr2_address_span_extender.clock"
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="ddr2_address_span_extender.clock">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84364,16 +84192,70 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>ddr2_address_span_extender</endModule>
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chA.clock_sink_200"
+   name="clk_100.clk/dma_DDR_M0.clock"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
+   end="dma_DDR_M0.clock">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_100</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>dma_DDR_M0</endModule>
+  <endConnectionPoint>clock</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_100.clk/dma_DDR_M1.clock"
+   kind="clock"
+   version="16.1"
+   start="clk_100.clk"
+   end="dma_DDR_M1.clock">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_100</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>dma_DDR_M1</endModule>
+  <endConnectionPoint>clock</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chA.clock_sink_200"
+   kind="clock"
+   version="16.1"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chA.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84391,16 +84273,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chA</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chB.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chB.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chB.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84418,16 +84300,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chB</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chC.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chC.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chC.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84445,16 +84327,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chC</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chD.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chD.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chD.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84472,16 +84354,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chD</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chE.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chE.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chE.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84499,16 +84381,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chE</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chF.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chF.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chF.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84526,16 +84408,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chF</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_chG.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_chG.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_chG.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84553,16 +84435,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_chG</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/COMM_Pedreiro_v1_01_H.clock_sink_200"
+   name="clk_100.clk/COMM_Pedreiro_v1_01_H.clock_sink_200"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_H.clock_sink_200">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84580,7 +84462,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_H</endModule>
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
@@ -84613,10 +84495,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>m0_clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_200.clk/clock_bridge_200.m0_clk"
+   name="clk_100.clk/clock_bridge_200.m0_clk"
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="clock_bridge_200.m0_clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -84634,7 +84516,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_200</startModule>
+  <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>clock_bridge_200</endModule>
   <endConnectionPoint>m0_clk</endConnectionPoint>
@@ -84665,33 +84547,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>m2_ddr2_memory</endModule>
   <endConnectionPoint>pll_ref_clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_200.clk/m1_clock_bridge.s0_clk"
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
-   end="m1_clock_bridge.s0_clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_200</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>m1_clock_bridge</endModule>
-  <endConnectionPoint>s0_clk</endConnectionPoint>
  </connection>
  <connection
    name="clk_100.clk/clock_bridge_afi_50.s0_clk"
@@ -84745,6 +84600,33 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>clock_bridge_200</endModule>
+  <endConnectionPoint>s0_clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_100.clk/m1_clock_bridge.s0_clk"
+   kind="clock"
+   version="16.1"
+   start="clk_100.clk"
+   end="m1_clock_bridge.s0_clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_100</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>m1_clock_bridge</endModule>
   <endConnectionPoint>s0_clk</endConnectionPoint>
  </connection>
  <connection
@@ -87173,7 +87055,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>96</instanceCount>
+  <instanceCount>94</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

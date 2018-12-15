@@ -39,8 +39,8 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
-//   NUM_INPUTS:          18
-//   ARBITRATION_SHARES:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+//   NUM_INPUTS:          16
+//   ARBITRATION_SHARES:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 //   ARBITRATION_SCHEME   "no-arb"
 //   PIPELINE_ARB:        0
 //   PKT_TRANS_LOCK:      109 (arbitration locking enabled)
@@ -165,20 +165,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     input                       sink15_endofpacket,
     output                      sink15_ready,
 
-    input                       sink16_valid,
-    input [157-1   : 0]  sink16_data,
-    input [18-1: 0]  sink16_channel,
-    input                       sink16_startofpacket,
-    input                       sink16_endofpacket,
-    output                      sink16_ready,
-
-    input                       sink17_valid,
-    input [157-1   : 0]  sink17_data,
-    input [18-1: 0]  sink17_channel,
-    input                       sink17_startofpacket,
-    input                       sink17_endofpacket,
-    output                      sink17_ready,
-
 
     // ----------------------
     // Source
@@ -197,7 +183,7 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     input reset
 );
     localparam PAYLOAD_W        = 157 + 18 + 2;
-    localparam NUM_INPUTS       = 18;
+    localparam NUM_INPUTS       = 16;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 0;
     localparam ST_DATA_W        = 157;
@@ -233,8 +219,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     wire [PAYLOAD_W - 1 : 0] sink13_payload;
     wire [PAYLOAD_W - 1 : 0] sink14_payload;
     wire [PAYLOAD_W - 1 : 0] sink15_payload;
-    wire [PAYLOAD_W - 1 : 0] sink16_payload;
-    wire [PAYLOAD_W - 1 : 0] sink17_payload;
 
     assign valid[0] = sink0_valid;
     assign valid[1] = sink1_valid;
@@ -252,8 +236,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     assign valid[13] = sink13_valid;
     assign valid[14] = sink14_valid;
     assign valid[15] = sink15_valid;
-    assign valid[16] = sink16_valid;
-    assign valid[17] = sink17_valid;
 
 
     // ------------------------------------------
@@ -279,8 +261,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
       lock[13] = sink13_data[109];
       lock[14] = sink14_data[109];
       lock[15] = sink15_data[109];
-      lock[16] = sink16_data[109];
-      lock[17] = sink17_data[109];
     end
 
     assign last_cycle = src_valid & src_ready & src_endofpacket & ~(|(lock & grant));
@@ -327,8 +307,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     // 13      |      1       |  0
     // 14      |      1       |  0
     // 15      |      1       |  0
-    // 16      |      1       |  0
-    // 17      |      1       |  0
      wire [SHARE_COUNTER_W - 1 : 0] share_0 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_1 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_2 = 1'd0;
@@ -345,8 +323,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
      wire [SHARE_COUNTER_W - 1 : 0] share_13 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_14 = 1'd0;
      wire [SHARE_COUNTER_W - 1 : 0] share_15 = 1'd0;
-     wire [SHARE_COUNTER_W - 1 : 0] share_16 = 1'd0;
-     wire [SHARE_COUNTER_W - 1 : 0] share_17 = 1'd0;
 
     // ------------------------------------------
     // Choose the share value corresponding to the grant.
@@ -369,9 +345,7 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     share_12 & { SHARE_COUNTER_W {next_grant[12]} } |
     share_13 & { SHARE_COUNTER_W {next_grant[13]} } |
     share_14 & { SHARE_COUNTER_W {next_grant[14]} } |
-    share_15 & { SHARE_COUNTER_W {next_grant[15]} } |
-    share_16 & { SHARE_COUNTER_W {next_grant[16]} } |
-    share_17 & { SHARE_COUNTER_W {next_grant[17]} };
+    share_15 & { SHARE_COUNTER_W {next_grant[15]} };
     end
 
     // ------------------------------------------
@@ -465,17 +439,11 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
 
     wire final_packet_15 = 1'b1;
 
-    wire final_packet_16 = 1'b1;
-
-    wire final_packet_17 = 1'b1;
-
 
     // ------------------------------------------
     // Concatenate all final_packet signals (wire or reg) into a handy vector.
     // ------------------------------------------
     wire [NUM_INPUTS - 1 : 0] final_packet = {
-    final_packet_17,
-    final_packet_16,
     final_packet_15,
     final_packet_14,
     final_packet_13,
@@ -591,8 +559,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     assign sink13_ready = src_ready && grant[13];
     assign sink14_ready = src_ready && grant[14];
     assign sink15_ready = src_ready && grant[15];
-    assign sink16_ready = src_ready && grant[16];
-    assign sink17_ready = src_ready && grant[17];
 
     assign src_valid = |(grant & valid);
 
@@ -613,9 +579,7 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
       sink12_payload & {PAYLOAD_W {grant[12]} } |
       sink13_payload & {PAYLOAD_W {grant[13]} } |
       sink14_payload & {PAYLOAD_W {grant[14]} } |
-      sink15_payload & {PAYLOAD_W {grant[15]} } |
-      sink16_payload & {PAYLOAD_W {grant[16]} } |
-      sink17_payload & {PAYLOAD_W {grant[17]} };
+      sink15_payload & {PAYLOAD_W {grant[15]} };
     end
 
     // ------------------------------------------
@@ -654,10 +618,6 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_mux_003
     sink14_startofpacket,sink14_endofpacket};
     assign sink15_payload = {sink15_channel,sink15_data,
     sink15_startofpacket,sink15_endofpacket};
-    assign sink16_payload = {sink16_channel,sink16_data,
-    sink16_startofpacket,sink16_endofpacket};
-    assign sink17_payload = {sink17_channel,sink17_data,
-    sink17_startofpacket,sink17_endofpacket};
 
     assign {src_channel,src_data,src_startofpacket,src_endofpacket} = src_payload;
 endmodule
