@@ -192,23 +192,15 @@ module MebX_Qsys_Project_mm_interconnect_1_router_006
 
 
         if (destid == 0 ) begin
-            src_channel = 18'b00001;
-        end
-
-        if (destid == 1  && read_transaction) begin
-            src_channel = 18'b00010;
-        end
-
-        if (destid == 3  && read_transaction) begin
-            src_channel = 18'b00100;
+            src_channel = 18'b001;
         end
 
         if (destid == 2  && write_transaction) begin
-            src_channel = 18'b01000;
+            src_channel = 18'b010;
         end
 
-        if (destid == 4  && write_transaction) begin
-            src_channel = 18'b10000;
+        if (destid == 1  && read_transaction) begin
+            src_channel = 18'b100;
         end
 
 

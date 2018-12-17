@@ -53,6 +53,7 @@ int main(void) {
 	printf("Windowing Buffer Reg: %08x \n", COMM_READ_REG32(6));
 
 	COMM_WRITE_REG32(0, 0x00000102);
+	//COMM_WRITE_REG32(0, 0x00000002);
 
 	printf("Windowing Control Reg: %08x \n", COMM_READ_REG32(0));
 //	switch (getchar()) {
@@ -70,39 +71,126 @@ int main(void) {
 //		break;
 //	}
 
-	alt_u32 *pDdr2MemAddr = DDR2_ADDRESS_SPAN_EXTENDER_CNTL_BASE;
-	*(pDdr2MemAddr) = (alt_u64) 0x0000000100000000;
+	printf("esperando \n");
+	getchar();
+	printf("foi \n");
 
-	alt_u32 Ddr2Base;
-	Ddr2Base = DDR2_ADDRESS_SPAN_EXTENDER_WINDOWED_SLAVE_BASE;
+	DDR2_SWITCH_MEMORY(DDR2_M1_ID);
+	alt_u32 Ddr2Base = DDR2_EXTENDED_ADDRESS_WINDOWED_BASE;
 
-	alt_u64 *pDes, *pSrc;
-	pDes = (alt_u32 *) Ddr2Base;
-	//pSrc = (alt_u32 *) Ddr2Base;
+	alt_u32 *pDDR;
+	pDDR = (alt_u32 *) Ddr2Base;
 
+//	*pDDR = 5;
+//	pDDR++;
+//	*pDDR = 3;
+//	pDDR++;
+//	*pDDR = 1;
+//	pDDR++;
+//	*pDDR = 43;
+//
+//	pDDR = (alt_u32 *)Ddr2Base;
+//	printf("add : %u \n", *pDDR);
+//	pDDR++;
+//	printf("add : %u \n", *pDDR);
+//	pDDR++;
+//	printf("add : %u \n", *pDDR);
+//	pDDR++;
+//	printf("add : %u \n", *pDDR);
+
+// buffer: 2176 B -> 544 dwords
+
+	int data_counter = 0;
+
+	unsigned long data = 1;
+
+	pDDR = (alt_u32 *) Ddr2Base;
+	for (data_counter = 0; data_counter < 544; data_counter++) {
+		if (data_counter >= (512 + 1)) {
+			*pDDR = 0xFFFFFFFF;
+			pDDR++;
+		} else {
+			*pDDR = 0x55FE23D9;
+			data++;
+			pDDR++;
+		}
+	}
+
+	// Configure DMA
+	alt_msgdma_dev *DMADev = NULL;
+
+	if (DMA_OPEN_DEVICE(&DMADev, (char *) DMA_DDR_M1_CSR_NAME) == FALSE) {
+		printf("Error Opening DMA Device");
+		return FALSE;
+	}
+
+	if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
+		printf("Error Reseting Dispatcher");
+		return FALSE;
+	}
+
+	alt_u32 control_bits = 0x00000000;
+
+	int TimeStart, TimeElapsed = 0;
+
+	TimeStart = alt_nticks();
+
+	int n = 0;
+
+//	while (1) {
+
+		switch (getchar()) {
+		case 'l':
+			printf("liga \n");
+			COMM_WRITE_REG32(0, 0x00000102);
+			break;
+
+		case 's':
+			printf("send \n");
+
+			for (n = 0; n < 16; n++) {
+				if (DMA_EXTENDED_SINGLE_TRANSFER(DMADev, (alt_u32) 0x00000000,
+						(alt_u32) 0x00000000, (alt_u32) 0x00000001,
+						(alt_u32) 0x0001C000, 2176, control_bits, DMA_WAIT,
+						DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
+					printf("Error During DMA Transfer");
+				}
+			}
+			break;
+
+		default:
+			printf("errou \n");
+			break;
+		}
+
+	//}
+
+	printf("Windowing Buffer Reg: %08x \n", COMM_READ_REG32(6));
 	//getchar();
 	printf("passou 1 \n");
 
-	while (COMM_READ_REG32(6) || 0x00000001){
-	*pDes = (alt_u64) 0xFFFFFFFFFFFFFFFF;
-	}
-	//printf("pDes: %08x \n", *pDes);
+	TimeElapsed = alt_nticks() - TimeStart;
+	printf("%.3f sec\n", (float) TimeElapsed / (float) alt_ticks_per_second());
 
-	printf("Windowing Buffer Reg: %08x \n", COMM_READ_REG32(6));
+//	while (COMM_READ_REG32(6) || 0x00000001){
+//	*pDes = (alt_u64) 0xFFFFFFFFFFFFFFFF;
+//	}
+//	//printf("pDes: %08x \n", *pDes);
+//
+//	printf("Windowing Buffer Reg: %08x \n", COMM_READ_REG32(6));
+//
+//	printf("passou 2 \n");
+//
+//	//getchar();
+//	printf("passou 3 \n");
+//	//alt_u32 data = *pDes;
+//
+//	//getchar();
+//	printf("passou 4 \n");
 
-	printf("passou 2 \n");
+//printf("%d \n", data);
 
-	//getchar();
-	printf("passou 3 \n");
-	//alt_u32 data = *pDes;
-
-	//getchar();
-	printf("passou 4 \n");
-
-	//printf("%d \n", data);
-
-
-	//if (*pSrc++ != *pDes++){
+//if (*pSrc++ != *pDes++){
 
 	//Realiza teste dos LEDS, entra em um loop infinito.
 	TestLeds();
@@ -160,13 +248,13 @@ int main(void) {
 }
 
 void COMM_WRITE_REG32(alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue) {
-	alt_u32 *pPgenAddr = COMM_PEDREIRO_V1_01_CHA_BASE;
+	alt_u32 *pPgenAddr = COMM_PEDREIRO_V1_01_A_BASE;
 	*(pPgenAddr + (alt_u32) uc_RegisterAddress) = (alt_u32) ul_RegisterValue;
 }
 
 alt_u32 COMM_READ_REG32(alt_u8 uc_RegisterAddress) {
 	alt_u32 RegisterValue = 0;
-	alt_u32 *pPgenAddr = COMM_PEDREIRO_V1_01_CHA_BASE;
+	alt_u32 *pPgenAddr = COMM_PEDREIRO_V1_01_A_BASE;
 	RegisterValue = *(pPgenAddr + (alt_u32) uc_RegisterAddress);
 	return RegisterValue;
 }
@@ -352,7 +440,7 @@ bool TestDMA_M1_M2(void) {
 
 	alt_msgdma_dev *DMADev = NULL;
 
-	if (DMA_OPEN_DEVICE(&DMADev, (char *) DMA_DDR_M0_CSR_NAME) == FALSE) {
+	if (DMA_OPEN_DEVICE(&DMADev, (char *) DMA_DDR_M1_CSR_BASE) == FALSE) {
 		printf("Error Opening DMA Device");
 		return FALSE;
 	}

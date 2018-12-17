@@ -142,13 +142,11 @@ ACDS_VERSION := 16.1
 ELF := COMM_Pedreiro_Test.elf
 
 # Paths to C, C++, and assembly source files.
-C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
 C_SRCS += driver/i2c/i2c.c
 C_SRCS += driver/leds/leds.c
 C_SRCS += driver/power_spi/power_spi.c
 C_SRCS += driver/rtcc_spi/rtcc_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
-C_SRCS += driver/sync/sync.c
 C_SRCS += logic/comm/spwc/spwc.c
 C_SRCS += logic/comm/tran/tran.c
 C_SRCS += logic/ddr2/ddr2.c

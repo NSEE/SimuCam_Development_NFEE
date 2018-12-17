@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Fri Dec 14 19:02:02 BRST 2018
+ * Generated: Mon Dec 17 12:03:47 BRST 2018
  */
 
 /*
@@ -61,9 +61,11 @@
 #include "altera_nios2_gen2_irq.h"
 #include "Altera_UP_SD_Card_Avalon_Interface.h"
 #include "altera_avalon_jtag_uart.h"
+#include "altera_avalon_sgdma.h"
 #include "altera_avalon_sysid_qsys.h"
 #include "altera_avalon_timer.h"
 #include "altera_avalon_uart.h"
+#include "altera_eth_tse.h"
 #include "altera_msgdma.h"
 
 /*
@@ -72,12 +74,15 @@
 
 ALTERA_NIOS2_GEN2_IRQ_INSTANCE ( NIOS2_GEN2_0, nios2_gen2_0);
 ALTERA_AVALON_JTAG_UART_INSTANCE ( JTAG_UART_0, jtag_uart_0);
+ALTERA_AVALON_SGDMA_INSTANCE ( SGDMA_RX, sgdma_rx);
+ALTERA_AVALON_SGDMA_INSTANCE ( SGDMA_TX, sgdma_tx);
 ALTERA_AVALON_SYSID_QSYS_INSTANCE ( SYSID_QSYS, sysid_qsys);
 ALTERA_AVALON_TIMER_INSTANCE ( TIMER_1MS, timer_1ms);
 ALTERA_AVALON_TIMER_INSTANCE ( TIMER_1US, timer_1us);
 ALTERA_AVALON_UART_INSTANCE ( RS232_UART, rs232_uart);
-ALTERA_MSGDMA_CSR_DESCRIPTOR_SLAVE_INSTANCE ( DMA_DDR_M0, DMA_DDR_M0_CSR, DMA_DDR_M0_DESCRIPTOR_SLAVE, dma_DDR_M0);
+ALTERA_ETH_TSE_INSTANCE ( TSE_MAC, tse_mac);
 ALTERA_MSGDMA_CSR_DESCRIPTOR_SLAVE_INSTANCE ( DMA_DDR_M1, DMA_DDR_M1_CSR, DMA_DDR_M1_DESCRIPTOR_SLAVE, dma_DDR_M1);
+ALTERA_MSGDMA_CSR_DESCRIPTOR_SLAVE_INSTANCE ( DMA_DDR_M2, DMA_DDR_M2_CSR, DMA_DDR_M2_DESCRIPTOR_SLAVE, dma_DDR_M2);
 ALTERA_UP_SD_CARD_AVALON_INTERFACE_INSTANCE ( ALTERA_UP_SD_CARD_AVALON_INTERFACE_0, Altera_UP_SD_Card_Avalon_Interface_0);
 
 /*
@@ -104,9 +109,12 @@ void alt_sys_init( void )
     ALTERA_AVALON_TIMER_INIT ( TIMER_1MS, timer_1ms);
     ALTERA_AVALON_TIMER_INIT ( TIMER_1US, timer_1us);
     ALTERA_AVALON_JTAG_UART_INIT ( JTAG_UART_0, jtag_uart_0);
+    ALTERA_AVALON_SGDMA_INIT ( SGDMA_RX, sgdma_rx);
+    ALTERA_AVALON_SGDMA_INIT ( SGDMA_TX, sgdma_tx);
     ALTERA_AVALON_SYSID_QSYS_INIT ( SYSID_QSYS, sysid_qsys);
     ALTERA_AVALON_UART_INIT ( RS232_UART, rs232_uart);
-    ALTERA_MSGDMA_INIT ( DMA_DDR_M0, dma_DDR_M0);
+    ALTERA_ETH_TSE_INIT ( TSE_MAC, tse_mac);
     ALTERA_MSGDMA_INIT ( DMA_DDR_M1, dma_DDR_M1);
+    ALTERA_MSGDMA_INIT ( DMA_DDR_M2, dma_DDR_M2);
     ALTERA_UP_SD_CARD_AVALON_INTERFACE_INIT ( ALTERA_UP_SD_CARD_AVALON_INTERFACE_0, Altera_UP_SD_Card_Avalon_Interface_0);
 }

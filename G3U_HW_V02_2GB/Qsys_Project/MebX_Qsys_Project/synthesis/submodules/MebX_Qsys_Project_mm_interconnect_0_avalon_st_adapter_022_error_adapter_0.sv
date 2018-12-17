@@ -38,7 +38,7 @@
 
 // ------------------------------------------
 // Generation parameters:
-//   output_name:        MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_006_error_adapter_0
+//   output_name:        MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_022_error_adapter_0
 //   use_ready:          true
 //   use_packets:        false
 //   use_empty:          0
@@ -63,7 +63,7 @@
 
 
 
-module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_006_error_adapter_0
+module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_022_error_adapter_0
 (
  // Interface: in
  output reg         in_ready,

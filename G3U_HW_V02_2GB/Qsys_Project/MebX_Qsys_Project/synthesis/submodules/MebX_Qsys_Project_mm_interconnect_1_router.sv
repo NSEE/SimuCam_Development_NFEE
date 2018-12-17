@@ -44,7 +44,7 @@
 
 module MebX_Qsys_Project_mm_interconnect_1_router_default_decode
   #(
-     parameter DEFAULT_CHANNEL = 3,
+     parameter DEFAULT_CHANNEL = 1,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 16 
@@ -136,14 +136,12 @@ module MebX_Qsys_Project_mm_interconnect_1_router
     // -------------------------------------------------------
     localparam PAD0 = log2ceil(64'h80000000 - 64'h0); 
     localparam PAD1 = log2ceil(64'h100000000 - 64'h80000000); 
-    localparam PAD2 = log2ceil(64'h100002000 - 64'h100000000); 
-    localparam PAD3 = log2ceil(64'h100004000 - 64'h100002000); 
     // -------------------------------------------------------
     // Work out which address bits are significant based on the
     // address range of the slaves. If the required width is too
     // large or too small, we use the address field width instead.
     // -------------------------------------------------------
-    localparam ADDR_RANGE = 64'h100004000;
+    localparam ADDR_RANGE = 64'h100000000;
     localparam RANGE_ADDR_WIDTH = log2ceil(ADDR_RANGE);
     localparam OPTIMIZED_ADDR_H = (RANGE_ADDR_WIDTH > PKT_ADDR_W) ||
                                   (RANGE_ADDR_WIDTH == 0) ?
@@ -172,11 +170,6 @@ module MebX_Qsys_Project_mm_interconnect_1_router
 
 
 
-    // -------------------------------------------------------
-    // Write and read transaction signals
-    // -------------------------------------------------------
-    wire write_transaction;
-    assign write_transaction = sink_data[PKT_TRANS_WRITE];
 
 
     MebX_Qsys_Project_mm_interconnect_1_router_default_decode the_default_decode(
@@ -197,27 +190,15 @@ module MebX_Qsys_Project_mm_interconnect_1_router
         // --------------------------------------------------
 
     // ( 0x0 .. 0x80000000 )
-    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 33'h0   ) begin
-            src_channel = 18'b1000;
+    if ( {address[RG:PAD0],{PAD0{1'b0}}} == 32'h0   ) begin
+            src_channel = 18'b10;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 16;
     end
 
     // ( 0x80000000 .. 0x100000000 )
-    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 33'h80000000   ) begin
-            src_channel = 18'b0100;
+    if ( {address[RG:PAD1],{PAD1{1'b0}}} == 32'h80000000   ) begin
+            src_channel = 18'b01;
             src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 17;
-    end
-
-    // ( 0x100000000 .. 0x100002000 )
-    if ( {address[RG:PAD2],{PAD2{1'b0}}} == 33'h100000000  && write_transaction  ) begin
-            src_channel = 18'b0010;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 3;
-    end
-
-    // ( 0x100002000 .. 0x100004000 )
-    if ( {address[RG:PAD3],{PAD3{1'b0}}} == 33'h100002000  && write_transaction  ) begin
-            src_channel = 18'b0001;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 2;
     end
 
 end
