@@ -18,6 +18,7 @@
 #define INITIALIZATION_TASK_PRIO_FAIL   20
 #define RECEIVER_TASK_PRIO              16
 #define SENDER_TASK_PRIO                15
+#define PCP_MUTEX_TEMP_PRIO             14
 
 
 
@@ -43,5 +44,17 @@ extern OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
 extern OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 
 /* -------------- Definition of Stacks------------------ */
+
+/* -------------- Definition of Queues--------------------*/
+#define SENDER_QUEUE_SIZE  20  /* Message capacity of xQSenderTask */
+extern OS_EVENT *xQSenderTask;
+extern void *xQSenderTaskTbl[SENDER_QUEUE_SIZE]; /*Storage for xQSenderTask*/
+/* -------------- Definition of Queues--------------------*/
+
+
+/*---------------Semaphore and Mutex ---------------------*/
+extern OS_EVENT *xTxUARTMutex;
+/*---------------Semaphore and Mutex ---------------------*/
+
 
 #endif /* SIMCAM_TASKS_PRIORITIES_H_ */

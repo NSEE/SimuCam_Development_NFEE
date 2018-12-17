@@ -10,18 +10,30 @@
 
 #ifdef DEBUG_ON
     void printErrorTask( INT8U error_code ) {
-		char buffer[9] = "";
+		char buffer[16] = "";
 		
 		sprintf(buffer, "Err: %d\n", error_code);
 		debug(fp, buffer);
 	}
 #endif
 
+INT8U vFailCreateRTOSResources( INT8U error_code )
+{
+	#ifdef DEBUG_ON
+		printErrorTask(error_code);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+	return -1;
+}
+
 
 INT8U vFailTestCriticasParts( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailTestCriticasParts");
+		debug(fp,"vFailTestCriticasParts. (exit)");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o

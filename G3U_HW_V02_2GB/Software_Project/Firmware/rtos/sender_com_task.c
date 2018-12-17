@@ -13,24 +13,23 @@ void vSenderComTask(void *task_data)
     bool bSucess = FALSE;
     tSenderStates eSenderMode;
     int desligarEm = 0;
+    void *pPointer = 0;
 
     eSenderMode = sConfiguringSender;
-#ifdef DEBUG_ON
-	debug(fp,"vSenderComTask\n");
-#endif
+
+    #ifdef DEBUG_ON
+        debug(fp,"vSenderComTask, enter task.\n");
+    #endif
+
     for (;;){
         
         switch (eSenderMode)
         {
             case sConfiguringSender:
-                /* code */
+                /* For future implementations. */
                 eSenderMode = sStartingConnSender;
-#ifdef DEBUG_ON
-	debug(fp,"sConfiguringSender\n");
-#endif
                 break;
             case sStartingConnSender:
-                /* code */
 
                 /*  This semaphore will return a non-zero value if the NUC communicate with the MEB 
                     vReceiverComTask is responsible to send this semaphore.
@@ -40,11 +39,18 @@ void vSenderComTask(void *task_data)
                 } else {
                     /* Asking for NUC the status */
                     puts(START_STATUS_SEQUENCE);
-                    OSTimeDlyHMSM(0, 0, 20, 0); /*Sleeps for 3 second*/
+                    OSTimeDlyHMSM(0, 0, 5, 0); /*Sleeps for 5 second*/
                 }
-#ifdef DEBUG_ON
-	debug(fp,"sStartingConnSender\n");
-#endif
+
+                break;
+
+
+            case sReadingQueue:
+
+                pPointer = OSQPend(xQSenderTask, 0, &error_code);
+
+                
+
                 break;
             case sDummySender:
                 /* code */

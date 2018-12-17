@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "Simucam_R0_UART"
+		},
+		{
+			"path": "Simucam_R0_UART_bsp"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdio.h": "c"
+		}
+	}
+}

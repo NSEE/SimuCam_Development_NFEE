@@ -9,9 +9,11 @@
 #define RECEIVER_COM_H_
 
 #include "../simucam_definitions.h"
+#include "../utils/configs_simucam.h"
 #include "configuration_comm.h"
 #include "../utils/crc8.h"
 #include <string.h>
+#include <ctype.h>
 
 typedef enum { sConfiguring = 0, sPiping, sWaitingConn, sReceiving, sInitParsing, sParsing, sSendingMEB , sHandlingError } tReceiverStates;
 

@@ -12,7 +12,7 @@
 #include "configuration_comm.h"
 
 
-typedef enum { sConfiguringSender = 0, sStartingConnSender, sDummySender , sHandlingErrorSender } tSenderStates;
+typedef enum { sConfiguringSender = 0, sStartingConnSender, sReadingQueue, sProcessingCommand, sSendingBuffer,  sDummySender , sHandlingErrorSender } tSenderStates;
 
 
 void vSenderComTask(void *task_data);

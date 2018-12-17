@@ -157,15 +157,19 @@ void vReceiverComTask(void *task_data)
 bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
 {
     bool bSuccess = FALSE;
-    short int siStrLen, siTeminador, siIniReq, siIniResp, siCRC;
+    short int siStrLen, siTeminador, siIniReq, siIniResp, siIniACK, siIniNACK, siCRC;
 	char c, i, *p_inteiro;
-	char inteiro[6]; /* Max size of parsed value is 6 digits, for now*/
+	char inteiro[6]; /* Max size of parsed value is 6 digits, for now */
 
     siStrLen = strlen(buffer);
     siTeminador = siPosStr(buffer, FINAL_CHAR);
+    siIniACK = siPosStr(buffer, ACK_CHAR);
+    siIniNACK = siPosStr(buffer, NACK_CHAR);
+    siIniACK = min_sim(siIniACK, siIniNACK);
     siIniReq = siPosStr(buffer, START_REQUEST_CHAR);
     siIniResp = siPosStr(buffer, START_REPLY_CHAR);
     siIniReq = min_sim(siIniReq, siIniResp);
+    siIniReq = min_sim(siIniReq, siIniACK);
     siCRC = strcspn(buffer, SEPARATOR_CRC);
 
     /* Check if there is [!|?] , |, ; in the packet*/
@@ -173,40 +177,46 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
 
         xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(&buffer[siIniReq] , (siCRC - siIniReq) );
         xPerParcedBuffer->ucType = buffer[siIniReq];
-        xPerParcedBuffer->cCommand = buffer[siIniReq+1];
-        xPerParcedBuffer->ucNofBytes = 0;
-        memset( xPerParcedBuffer->usiValues , 0 , SIZE_UCVALUES);
 
-        i = siIniReq + 3; /* "?C:i..." */
-        do {
-            p_inteiro = inteiro;
-            memset( &(inteiro) , 0 , sizeof( inteiro ) );
-            do {
-                c = buffer[i];
-                if ( isdigit( c ) ) {
-                    (*p_inteiro) = c;
-                    p_inteiro++;
-                }
-                i++;
-            } while ( (siStrLen>i) && ( ( c != SEPARATOR_CHAR ) && ( c != FINAL_CHAR ) && ( c != SEPARATOR_CRC )) ); //ASCII: 58 = ':' 59 = ';' and '|'
-            (*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-            if ( ( c == SEPARATOR_CHAR ) || ( c == SEPARATOR_CRC ) ) {
-                xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
-                xPerParcedBuffer->ucNofBytes++;
-            } 
-            else if ( c == FINAL_CHAR )
-            {
-                xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
-            }
-            
-        } while ( (c != FINAL_CHAR) && (siStrLen>i) );
-
-        if ( c == FINAL_CHAR)
+        if (xPerParcedBuffer->ucType == NACK_CHAR ) {
+            xPerParcedBuffer->ucMessageCRC8 = 54; /*CRC8("#")=54*/
+            xPerParcedBuffer->ucCalculatedCRC8 = 54; /*Even if calculated crc is wrong we should re-send the commands*/
             bSuccess = TRUE;
-        else
-            bSuccess = FALSE; /*Index overflow in the buffer*/
+        } else {
+            xPerParcedBuffer->cCommand = buffer[siIniReq+1];
+            xPerParcedBuffer->ucNofBytes = 0;
+            memset( xPerParcedBuffer->usiValues , 0 , SIZE_UCVALUES);
 
+            i = siIniReq + 3; /* "?C:i..." */
+            do {
+                p_inteiro = inteiro;
+                memset( &(inteiro) , 0 , sizeof( inteiro ) );
+                do {
+                    c = buffer[i];
+                    if ( isdigit( c ) ) {
+                        (*p_inteiro) = c;
+                        p_inteiro++;
+                    }
+                    i++;
+                } while ( (siStrLen>i) && ( ( c != SEPARATOR_CHAR ) && ( c != FINAL_CHAR ) && ( c != SEPARATOR_CRC )) ); //ASCII: 58 = ':' 59 = ';' and '|'
+                (*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+
+                if ( ( c == SEPARATOR_CHAR ) || ( c == SEPARATOR_CRC ) ) {
+                    xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
+                    xPerParcedBuffer->ucNofBytes++;
+                } 
+                else if ( c == FINAL_CHAR )
+                {
+                    xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
+                }
+                
+            } while ( (c != FINAL_CHAR) && (siStrLen>i) );
+
+            if ( c == FINAL_CHAR)
+                bSuccess = TRUE;
+            else
+                bSuccess = FALSE; /*Index overflow in the buffer*/
+            }
     } else {
         /*Malformed Packet*/
         bSuccess = FALSE;
@@ -260,4 +270,12 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
     #endif     
 
     return xReturnState;
+}
+
+void vSendEthConf (void) {
+
+
+
+
+
 }
