@@ -31,6 +31,11 @@
  * Global
  **************************************************/
 
+typedef struct pixel_data_block_t {
+	alt_u16 pixel[16];
+	alt_u64 mask;
+};
+
 void TestLeds(void);
 bool TestDMA_M1_M2(void);
 bool TestDMA_M2_M1(void);

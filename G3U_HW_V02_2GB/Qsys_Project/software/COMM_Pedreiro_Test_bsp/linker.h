@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Mon Dec 17 12:03:48 BRST 2018
+ * Generated: Tue Dec 18 20:07:21 BRST 2018
  */
 
 /*
@@ -65,8 +65,6 @@
  *
  */
 
-#define DESCRIPTOR_MEMORY_REGION_BASE 0x81200800
-#define DESCRIPTOR_MEMORY_REGION_SPAN 2048
 #define EXT_FLASH_BEFORE_RESET_REGION_BASE 0x84000000
 #define EXT_FLASH_BEFORE_RESET_REGION_SPAN 33685504
 #define EXT_FLASH_REGION_BASE 0x86020020

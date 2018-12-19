@@ -4469,98 +4469,98 @@
    version="16.1"
    start="nios2_gen2_0.irq"
    end="dma_DDR_M.csr_irq">
-  <parameter name="irqNumber" value="7" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_A.interrupt_sender">
-  <parameter name="irqNumber" value="8" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_B.interrupt_sender">
-  <parameter name="irqNumber" value="9" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_C.interrupt_sender">
-  <parameter name="irqNumber" value="10" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_D.interrupt_sender">
-  <parameter name="irqNumber" value="11" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_E.interrupt_sender">
-  <parameter name="irqNumber" value="12" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_F.interrupt_sender">
-  <parameter name="irqNumber" value="13" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_G.interrupt_sender">
-  <parameter name="irqNumber" value="14" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="Communication_Module_H.interrupt_sender">
-  <parameter name="irqNumber" value="15" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="sync.interrupt_sender">
-  <parameter name="irqNumber" value="6" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="timer_1ms.irq">
+   end="Communication_Module_A.interrupt_sender">
   <parameter name="irqNumber" value="3" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="timer_1us.irq">
+   end="Communication_Module_B.interrupt_sender">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="pio_EXT.irq">
+   end="Communication_Module_C.interrupt_sender">
   <parameter name="irqNumber" value="5" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="Communication_Module_D.interrupt_sender">
+  <parameter name="irqNumber" value="6" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="Communication_Module_E.interrupt_sender">
+  <parameter name="irqNumber" value="7" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="Communication_Module_G.interrupt_sender">
+  <parameter name="irqNumber" value="8" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="Communication_Module_H.interrupt_sender">
+  <parameter name="irqNumber" value="9" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="sync.interrupt_sender">
+  <parameter name="irqNumber" value="10" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="Communication_Module_F.interrupt_sender">
+  <parameter name="irqNumber" value="15" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="jtag_uart_0.irq">
+  <parameter name="irqNumber" value="11" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="timer_1ms.irq">
+  <parameter name="irqNumber" value="12" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="timer_1us.irq">
+  <parameter name="irqNumber" value="13" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="pio_EXT.irq">
+  <parameter name="irqNumber" value="14" />
  </connection>
  <connection
    kind="reset"

@@ -66,12 +66,10 @@ static int alt_msgdma_construct_standard_descriptor(
 static int alt_msgdma_construct_extended_descriptor(
     	alt_msgdma_dev *dev,
 	alt_msgdma_extended_descriptor *descriptor,
-	alt_u32 *read_address_low,
-	alt_u32 *write_address_low,
+	alt_u32 *read_address, 
+	alt_u32 *write_address, 
 	alt_u32 length, 
 	alt_u32 control,
-	alt_u32 *read_address_high,
-	alt_u32 *write_address_high,
 	alt_u16 sequence_number, 
 	alt_u8 read_burst_count, 
 	alt_u8 write_burst_count,
@@ -164,8 +162,8 @@ static int alt_msgdma_write_extended_descriptor (
     IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_STRIDE(
 		descriptor_base, 
     	descriptor->write_stride);
-    IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_ADDRESS_HIGH(descriptor_base, descriptor->read_address_high);
-    IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS_HIGH(descriptor_base, descriptor->write_address_high);
+    IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_ADDRESS_HIGH(descriptor_base, 0);
+    IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS_HIGH(descriptor_base, 0);
     IOWR_ALTERA_MSGDMA_DESCRIPTOR_CONTROL_ENHANCED(
 		descriptor_base, 
     	descriptor->control);
@@ -285,12 +283,10 @@ static int alt_msgdma_construct_standard_descriptor(
 static int alt_msgdma_construct_extended_descriptor(
     	alt_msgdma_dev *dev,
 	alt_msgdma_extended_descriptor *descriptor,
-	alt_u32 *read_address_low,
-	alt_u32 *write_address_low,
+	alt_u32 *read_address, 
+	alt_u32 *write_address, 
 	alt_u32 length, 
 	alt_u32 control,
-	alt_u32 *read_address_high,
-	alt_u32 *write_address_high,
 	alt_u16 sequence_number, 
 	alt_u8 read_burst_count, 
 	alt_u8 write_burst_count,
@@ -306,16 +302,16 @@ static int alt_msgdma_construct_extended_descriptor(
         return -EINVAL;
     }
     
-    descriptor->read_address_low = read_address_low;
-    descriptor->write_address_low = write_address_low;
+    descriptor->read_address_low = read_address;
+    descriptor->write_address_low = write_address;
     descriptor->transfer_length = length;
     descriptor->sequence_number = sequence_number;
     descriptor->read_burst_count = read_burst_count;
     descriptor->write_burst_count = write_burst_count;
     descriptor->read_stride = read_stride;
     descriptor->write_stride = write_stride;
-    descriptor->read_address_high = read_address_high;
-    descriptor->write_address_high = write_address_high;
+    descriptor->read_address_high = NULL;
+    descriptor->write_address_high = NULL;
     descriptor->control = control | ALTERA_MSGDMA_DESCRIPTOR_CONTROL_GO_MASK;
 
   return 0 ;
@@ -798,7 +794,7 @@ int alt_msgdma_construct_extended_st_to_mm_descriptor (
 	alt_u16 write_stride)
 {
     return alt_msgdma_construct_extended_descriptor(dev, descriptor, 
-            NULL, write_address, length, control, NULL, NULL, sequence_number, 0,
+            NULL, write_address, length, control, sequence_number, 0, 
             write_burst_count, 0, write_stride);
 }
 
@@ -813,7 +809,7 @@ int alt_msgdma_construct_extended_mm_to_st_descriptor (
 	alt_u16 read_stride)
 {
     return alt_msgdma_construct_extended_descriptor(dev, descriptor, read_address, 
-            NULL, length, control, NULL, NULL, sequence_number, read_burst_count, 0,
+            NULL, length, control, sequence_number, read_burst_count, 0, 
             read_stride, 0);
 
 }
@@ -821,12 +817,10 @@ int alt_msgdma_construct_extended_mm_to_st_descriptor (
 int alt_msgdma_construct_extended_mm_to_mm_descriptor (
     alt_msgdma_dev *dev,
     alt_msgdma_extended_descriptor *descriptor,
-    alt_u32 *read_address_low,
-    alt_u32 *write_address_low,
+    alt_u32 *read_address, 
+    alt_u32 *write_address, 
     alt_u32 length, 
     alt_u32 control,
-	alt_u32 *read_address_high,
-	alt_u32 *write_address_high,
     alt_u16 sequence_number, 
     alt_u8 read_burst_count, 
     alt_u8 write_burst_count,
@@ -834,7 +828,7 @@ int alt_msgdma_construct_extended_mm_to_mm_descriptor (
     alt_u16 write_stride)
 {
     return alt_msgdma_construct_extended_descriptor(dev, descriptor, 
-    		read_address_low, write_address_low, length, control, read_address_high, write_address_high, sequence_number,
+            read_address, write_address, length, control, sequence_number, 
             read_burst_count, write_burst_count, read_stride, write_stride);
 
 }

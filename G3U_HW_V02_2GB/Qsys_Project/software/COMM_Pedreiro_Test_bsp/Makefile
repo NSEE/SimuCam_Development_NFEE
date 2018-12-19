@@ -230,13 +230,6 @@ altera_avalon_jtag_uart_driver_C_LIB_SRCS := \
 altera_avalon_pio_driver_SRCS_ROOT := drivers
 
 # altera_avalon_pio_driver sources 
-# altera_avalon_sgdma_driver sources root 
-altera_avalon_sgdma_driver_SRCS_ROOT := drivers
-
-# altera_avalon_sgdma_driver sources 
-altera_avalon_sgdma_driver_C_LIB_SRCS := \
-	$(altera_avalon_sgdma_driver_SRCS_ROOT)/src/altera_avalon_sgdma.c
-
 # altera_avalon_sysid_qsys_driver sources root 
 altera_avalon_sysid_qsys_driver_SRCS_ROOT := drivers
 
@@ -263,14 +256,6 @@ altera_avalon_uart_driver_C_LIB_SRCS := \
 	$(altera_avalon_uart_driver_SRCS_ROOT)/src/altera_avalon_uart_ioctl.c \
 	$(altera_avalon_uart_driver_SRCS_ROOT)/src/altera_avalon_uart_read.c \
 	$(altera_avalon_uart_driver_SRCS_ROOT)/src/altera_avalon_uart_write.c
-
-# altera_eth_tse_driver_hal sources root 
-altera_eth_tse_driver_hal_SRCS_ROOT := drivers
-
-# altera_eth_tse_driver_hal sources 
-altera_eth_tse_driver_hal_C_LIB_SRCS := \
-	$(altera_eth_tse_driver_hal_SRCS_ROOT)/src/altera_avalon_tse_system_info.c \
-	$(altera_eth_tse_driver_hal_SRCS_ROOT)/src/altera_avalon_tse.c
 
 # altera_msgdma_driver sources root 
 altera_msgdma_driver_SRCS_ROOT := drivers
@@ -380,11 +365,9 @@ hal_C_LIB_SRCS := \
 COMPONENT_C_LIB_SRCS += \
 	$(Altera_UP_SD_Card_Avalon_Interface_driver_C_LIB_SRCS) \
 	$(altera_avalon_jtag_uart_driver_C_LIB_SRCS) \
-	$(altera_avalon_sgdma_driver_C_LIB_SRCS) \
 	$(altera_avalon_sysid_qsys_driver_C_LIB_SRCS) \
 	$(altera_avalon_timer_driver_C_LIB_SRCS) \
 	$(altera_avalon_uart_driver_C_LIB_SRCS) \
-	$(altera_eth_tse_driver_hal_C_LIB_SRCS) \
 	$(altera_msgdma_driver_C_LIB_SRCS) \
 	$(altera_nios2_gen2_hal_driver_C_LIB_SRCS) \
 	$(hal_C_LIB_SRCS)

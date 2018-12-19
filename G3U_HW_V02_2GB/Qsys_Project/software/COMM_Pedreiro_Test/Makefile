@@ -156,6 +156,8 @@ C_SRCS += logic/pgen/pgen.c
 C_SRCS += logic/sense/sense.c
 C_SRCS += utils/util.c
 C_SRCS += mebxhwt01.c
+C_SRCS += driver/comm/comm.c
+C_SRCS += driver/msgdma/msgdma.c
 CXX_SRCS :=
 ASM_SRCS :=
 

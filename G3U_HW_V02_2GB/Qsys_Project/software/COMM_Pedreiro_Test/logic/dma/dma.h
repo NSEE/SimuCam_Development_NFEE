@@ -16,6 +16,7 @@
 /* includes */
 #include "../../utils/meb_includes.h"
 #include "../../utils/util.h"
+#include "../../driver/msgdma/msgdma.h"
 #include "system.h"
 #include <altera_msgdma.h>
 

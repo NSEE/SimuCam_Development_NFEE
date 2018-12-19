@@ -2262,14 +2262,14 @@ architecture rtl of MebX_Qsys_Project is
 	signal irq_mapper_receiver5_irq                                                       : std_logic;                      -- Communication_Module_C:interrupt_sender_irq -> irq_mapper:receiver5_irq
 	signal irq_mapper_receiver6_irq                                                       : std_logic;                      -- Communication_Module_D:interrupt_sender_irq -> irq_mapper:receiver6_irq
 	signal irq_mapper_receiver7_irq                                                       : std_logic;                      -- Communication_Module_E:interrupt_sender_irq -> irq_mapper:receiver7_irq
-	signal irq_mapper_receiver8_irq                                                       : std_logic;                      -- Communication_Module_F:interrupt_sender_irq -> irq_mapper:receiver8_irq
-	signal irq_mapper_receiver9_irq                                                       : std_logic;                      -- Communication_Module_G:interrupt_sender_irq -> irq_mapper:receiver9_irq
-	signal irq_mapper_receiver10_irq                                                      : std_logic;                      -- Communication_Module_H:interrupt_sender_irq -> irq_mapper:receiver10_irq
+	signal irq_mapper_receiver8_irq                                                       : std_logic;                      -- Communication_Module_G:interrupt_sender_irq -> irq_mapper:receiver8_irq
+	signal irq_mapper_receiver9_irq                                                       : std_logic;                      -- Communication_Module_H:interrupt_sender_irq -> irq_mapper:receiver9_irq
+	signal irq_mapper_receiver11_irq                                                      : std_logic;                      -- Communication_Module_F:interrupt_sender_irq -> irq_mapper:receiver11_irq
 	signal irq_mapper_receiver12_irq                                                      : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver12_irq
 	signal nios2_gen2_0_irq_irq                                                           : std_logic_vector(31 downto 0);  -- irq_mapper:sender_irq -> nios2_gen2_0:irq
 	signal irq_mapper_receiver4_irq                                                       : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver4_irq
 	signal irq_synchronizer_receiver_irq                                                  : std_logic_vector(0 downto 0);   -- Communication_Module_B:interrupt_sender_irq -> irq_synchronizer:receiver_irq
-	signal irq_mapper_receiver11_irq                                                      : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver11_irq
+	signal irq_mapper_receiver10_irq                                                      : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver10_irq
 	signal irq_synchronizer_001_receiver_irq                                              : std_logic_vector(0 downto 0);   -- sync:interrupt_sender_irq -> irq_synchronizer_001:receiver_irq
 	signal irq_mapper_receiver13_irq                                                      : std_logic;                      -- irq_synchronizer_002:sender_irq -> irq_mapper:receiver13_irq
 	signal irq_synchronizer_002_receiver_irq                                              : std_logic_vector(0 downto 0);   -- timer_1ms:irq -> irq_synchronizer_002:receiver_irq
@@ -2489,7 +2489,7 @@ begin
 			conduit_end_spw_do                    => comm_f_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
 			conduit_end_spw_so                    => comm_f_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
-			interrupt_sender_irq                  => irq_mapper_receiver8_irq,                                                       --          interrupt_sender.irq
+			interrupt_sender_irq                  => irq_mapper_receiver11_irq,                                                      --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_f_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
 			avalon_mm_data_slave_read             => mm_interconnect_1_communication_module_f_avalon_mm_data_slave_read,             --                          .read
 			avalon_mm_data_slave_readdata         => mm_interconnect_1_communication_module_f_avalon_mm_data_slave_readdata,         --                          .readdata
@@ -2516,7 +2516,7 @@ begin
 			conduit_end_spw_do                    => comm_g_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
 			conduit_end_spw_so                    => comm_g_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
-			interrupt_sender_irq                  => irq_mapper_receiver9_irq,                                                       --          interrupt_sender.irq
+			interrupt_sender_irq                  => irq_mapper_receiver8_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_g_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
 			avalon_mm_data_slave_read             => mm_interconnect_1_communication_module_g_avalon_mm_data_slave_read,             --                          .read
 			avalon_mm_data_slave_readdata         => mm_interconnect_1_communication_module_g_avalon_mm_data_slave_readdata,         --                          .readdata
@@ -2543,7 +2543,7 @@ begin
 			conduit_end_spw_do                    => comm_h_conduit_end_spw_do_signal,                                               --                          .spw_do_signal
 			conduit_end_spw_so                    => comm_h_conduit_end_spw_so_signal,                                               --                          .spw_so_signal
 			reset_sink_reset                      => rst_controller_reset_out_reset,                                                 --                reset_sink.reset
-			interrupt_sender_irq                  => irq_mapper_receiver10_irq,                                                      --          interrupt_sender.irq
+			interrupt_sender_irq                  => irq_mapper_receiver9_irq,                                                       --          interrupt_sender.irq
 			avalon_mm_data_slave_address          => mm_interconnect_1_communication_module_h_avalon_mm_data_slave_address,          --      avalon_mm_data_slave.address
 			avalon_mm_data_slave_read             => mm_interconnect_1_communication_module_h_avalon_mm_data_slave_read,             --                          .read
 			avalon_mm_data_slave_readdata         => mm_interconnect_1_communication_module_h_avalon_mm_data_slave_readdata,         --                          .readdata
@@ -4019,7 +4019,7 @@ begin
 			receiver_reset => rst_controller_002_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_005_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_001_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver11_irq           --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver10_irq           --             sender.irq
 		);
 
 	irq_synchronizer_002 : component altera_irq_clock_crosser
