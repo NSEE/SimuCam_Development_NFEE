@@ -14,12 +14,14 @@
     void printErrorTask( INT8U error_code );
 #endif
 
-INT8U vFailTestCriticasParts( void );
-INT8U vFailGetMacRTC( void );
-INT8U vFailInitialization( void );
-INT8U vFailReceiverCreate( void );
-INT8U vFailSenderCreate( void );
-INT8U vFailDeleteInitialization( void );
+void vFailTestCriticasParts( void );
+void vFailGetMacRTC( void );
+void vFailInitialization( void );
+void vFailReceiverCreate( void );
+void vFailSenderCreate( void );
+void vFailDeleteInitialization( void );
+void vFailCreateRTOSResources( INT8U error_code );
+void vFailSendxSemCommInit( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

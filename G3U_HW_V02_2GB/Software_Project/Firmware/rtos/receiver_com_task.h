@@ -15,13 +15,13 @@
 #include <string.h>
 #include <ctype.h>
 
-typedef enum { sConfiguring = 0, sPiping, sWaitingConn, sReceiving, sInitParsing, sParsing, sSendingMEB , sHandlingError } tReceiverStates;
+typedef enum { sConfiguring = 0, sPiping, sWaitingConn, sReceiving, sInitPreParsing, sPreParsing, sRequestParsing, sReplyParsing, sSendingMEB , sHandlingError } tReceiverStates;
 
 void vReceiverComTask(void *task_data);
 bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer );
 short int siPosStr( char *buffer, char cValue);
 tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer );
-
+bool bSendNack ( void );
 
 
 #endif /* RECEIVER_COM_H_ */

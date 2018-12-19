@@ -30,6 +30,200 @@ void vReceiverComTask(void *task_data)
                 else
                     eReceiverMode = sWaitingConn;
                 break;
+
+            case sWaitingConn:
+                /*  This mode waits for the NUC send the status, this is how Simucam
+                    knows that NUC is up */
+            	bSuccess = FALSE;
+
+                memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
+                scanf("%s", cReceiveBuffer);
+                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
+
+                if ( bSuccess ) {
+                    eReceiverMode = sInitPreParsing;
+                } else {
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eBadFormatInit;
+                }
+
+                break;
+            case sInitPreParsing:
+                /* Ack or Nack packets can be sent by this task in this state */
+                /* Check CRC8 */
+                if ( xPreParsedBuffer.ucCalculatedCRC8 == xPreParsedBuffer.ucMessageCRC8 ) {
+
+                    /* Check the type of command */
+                    switch (xPreParsedBuffer.cType)
+                    {
+                        case START_REQUEST_CHAR:
+                        case START_REPLY_CHAR:
+                            if ( bSendAck() == TRUE ) {
+                                /* Post Semaphore to tell to vSenderComTask stop send status packet*/
+                                error_code = OSSemPost(xSemCommInit);
+
+                                if ( error_code == OS_ERR_NONE ) {
+
+                                    if ( xPreParsedBuffer.cType == START_REPLY_CHAR )
+                                        eReceiverMode = sReplyParsing;
+                                    else
+                                        eReceiverMode = sRequestParsing;
+                                    
+                                } else {
+                                    eReceiverMode = sHandlingError;
+                                    xPreParsedBuffer.ucErrorFlag = eSemErrorInit;
+                                }
+                            } else {
+                                /*  Try to send the ack N times, if it was not possible to send ack
+                                    was decided that will not perform the action, because NUC will send this
+                                    command again due to lack of ACK, so MEB will perform the action twice.
+                                    For simplification and to not wast processing we go back to sReceiving state */
+                                eReceiverMode = sWaitingConn;
+                            }
+                            break;
+                        case ACK_CHAR: /*The packet is a received ACK from NUC*/
+                            eReceiverMode = sReceiving;
+            /*  Reservar mutex da tabela de pendencias
+                Procurar pelo identificar do comando
+                Limpar pendecia
+                envia semaforo
+                    */
+                            break;
+                        case NACK_CHAR: /*The packet is a received NACK from NUC*/
+                            /*  Will not threat NACK in the initialization, the SernderTask will keep to send 
+                                the initialization message until receive the semaphore, so back to sWaitingConn state*/
+                            eReceiverMode = sWaitingConn;
+                            break;
+                        default:
+                            eReceiverMode = sHandlingError;
+                            xPreParsedBuffer.ucErrorFlag = eBadFormatInit;
+                            break;
+                    }
+                } else {
+                    /* Wrong CRC */
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eCRCErrorInit;
+                }
+
+                break;                
+            case sReceiving:
+
+            	bSuccess = FALSE;
+
+                memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
+                scanf("%s", cReceiveBuffer);
+                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
+
+                if ( bSuccess ) {
+                    eReceiverMode = sPreParsing;
+                } else {
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eBadFormat;
+                } 
+
+                break;
+            case sPreParsing:
+                /* At this point we have a preparsed command in the variable xPerPaecedBufer */
+                /* Check CRC8 */
+               /* Ack or Nack packets can be sent by this task in this state */
+                /* Check CRC8 */
+                if ( xPreParsedBuffer.ucCalculatedCRC8 == xPreParsedBuffer.ucMessageCRC8 ) {
+
+                    /* Check the type of command */
+                    switch (xPreParsedBuffer.cType)
+                    {
+                        case START_REQUEST_CHAR:
+                        case START_REPLY_CHAR:
+                            if ( bSendAck() == TRUE ) {
+                                /* Post Semaphore to tell to vSenderComTask stop send status packet*/
+                                error_code = OSSemPost(xSemCommInit);
+
+                                if ( error_code == OS_ERR_NONE ) {
+
+                                    if ( xPreParsedBuffer.cType == START_REPLY_CHAR )
+                                        eReceiverMode = sReplyParsing;
+                                    else
+                                        eReceiverMode = sRequestParsing;
+                                    
+                                } else {
+                                    eReceiverMode = sHandlingError;
+                                    xPreParsedBuffer.ucErrorFlag = eSemErrorInit;
+                                }
+                            } else {
+                                /*  Try to send the ack N times, if it was not possible to send ack
+                                    was decided that will not perform the action, because NUC will send this
+                                    command again due to lack of ACK, so MEB will perform the action twice.
+                                    For simplification and to not wast processing we go back to sReceiving state */
+                                eReceiverMode = sReceiving;
+                            }
+                            break;
+                        case ACK_CHAR: /*The packet is a received ACK from NUC*/
+                            eReceiverMode = sReceiving;
+    /*  Reservar mutex da tabela de pendencias
+        Procurar pelo identificar do comando
+        Limpar pendecia
+        envia semaforo
+            */
+                            break;
+                        case NACK_CHAR: /*The packet is a received NACK from NUC*/
+                            /*  Will not threat NACK in the initialization, the SernderTask will keep to send 
+                                the initialization message until receive the semaphore, so back to sWaitingConn state*/
+                            eReceiverMode = sReceiving;
+                            break;
+                        default:
+                            eReceiverMode = sHandlingError;
+                            xPreParsedBuffer.ucErrorFlag = eBadFormatInit;
+                            break;
+                    }
+                } else {
+                    /* Wrong CRC */
+                    eReceiverMode = sHandlingError;
+                    xPreParsedBuffer.ucErrorFlag = eCRCErrorInit;
+                }
+
+                break;
+            case sRequestParsing:
+                /* Verificar se é C ou sei la oq
+                 */          
+                switch (xPreParsedBuffer.cType)
+                {
+                    case ETH_CMD: /*NUC requested the ETH Configuration*/
+
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case sReplyParsing:
+                /*  
+                    verificar se é S,D,P,H
+                    */
+                switch (xPreParsedBuffer.cType)
+                {
+                    case NUC_STATUS_CMD: /*Status from NUC*/
+
+                        break;
+                    case POWER_OFF_CMD: /*Shut down command from SGSE*/
+
+                        break;
+                    case PUS_CMD: /*PUS command to MEB*/
+
+                        break;
+                    case HEART_BEAT_CMD: /*Heart beating (NUC are you there?)*/
+
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case sSendingMEB:
+                /* code */
+                break;
+            case sHandlingError:
+                
+                eReceiverMode = tErrorHandlerFunc (&xPreParsedBuffer);
+
+                break;
             case sPiping:
                 /*  This mode is used to send everuthing that is received in UART
                     to the std console of NIOS II output */
@@ -45,105 +239,7 @@ void vReceiverComTask(void *task_data)
                     eReceiverMode = sReceiving;
                 #endif
 
-                break;
-            case sWaitingConn:
-                /*  This mode waits for the NUC send the status, this is how Simucam
-                    knows that NUC is up */
-            	bSuccess = FALSE;
-
-                memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
-                scanf("%s", cReceiveBuffer);
-                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
-
-                if ( bSuccess ) {
-                    eReceiverMode = sInitParsing;
-                } else {
-                    eReceiverMode = sHandlingError;
-                    xPreParsedBuffer.ucErrorFlag = eBadFormatInit;
-                }
-
-                break;
-            case sInitParsing:
-                /* Check CRC8 */
-                if ( xPreParsedBuffer.ucCalculatedCRC8 == xPreParsedBuffer.ucMessageCRC8 ) {
-                    eReceiverMode = sReceiving;
-                    /* Post Semaphore to tell to vSenderComTask to stop sending status packet*/
-                    error_code = OSSemPost(xSemCommInit);
-
-                    if ( error_code != OS_ERR_NONE ) {
-                        eReceiverMode = sHandlingError;
-                        xPreParsedBuffer.ucErrorFlag = eSemErrorInit;
-                        #ifdef DEBUG_ON
-                            debug(fp,"Can't post semaphore to SenderTask.\n");
-                        #endif
-                    }
-                    
-                } else {
-                    eReceiverMode = sHandlingError;
-                    xPreParsedBuffer.ucErrorFlag = eCRCErrorInit;
-                    #ifdef DEBUG_ON
-                        debug(fp,"CRC Fail. sInitParsing.\n");
-                    #endif
-                }
-
                 break;                
-            case sReceiving:
-
-            	bSuccess = FALSE;
-
-                memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
-                scanf("%s", cReceiveBuffer);
-                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedBuffer );
-
-                if ( bSuccess ) {
-                    eReceiverMode = sParsing;
-                } else {
-                    eReceiverMode = sHandlingError;
-                    xPreParsedBuffer.ucErrorFlag = eBadFormat;
-                } 
-
-                break;
-            case sParsing:
-                /* At this point we have a preparsed command in the variable xPerPaecedBufer */
-                /* Check CRC8 */
-                if ( xPreParsedBuffer.ucCalculatedCRC8 == xPreParsedBuffer.ucMessageCRC8 ) {
-                    if ( xPreParsedBuffer.cCommand == 'P') {
-                        /* This is a PUS command, should handle properly */
-
-                    } else {
-                        /* Otherwise this is a internal control command */
-
-                        switch (xPreParsedBuffer.cCommand)
-                        {
-                            case 'U':
-                                if ( xPreParsedBuffer.usiValues[0] == CHANGE_MODE_SEQUENCE ) {
-                                    /* Change to Piping mode */
-                                    eReceiverMode = sPiping;
-                                } else {
-                                    eReceiverMode = sReceiving;
-                                }
-                                break;
-                            case 'C':
-                                /* Send the ethernet configuration */
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                } else {
-                	eReceiverMode = sHandlingError;
-                    xPreParsedBuffer.ucErrorFlag = eCRCError;
-                }
-
-                break;
-            case sSendingMEB:
-                /* code */
-                break;
-            case sHandlingError:
-                
-                eReceiverMode = tErrorHandlerFunc (&xPreParsedBuffer);
-
-                break;
             default:
                 break;
         }
@@ -176,9 +272,9 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
     if ( (siTeminador == (siStrLen-1)) && (siCRC < siTeminador) && (siIniReq < siCRC) ) {
 
         xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(&buffer[siIniReq] , (siCRC - siIniReq) );
-        xPerParcedBuffer->ucType = buffer[siIniReq];
+        xPerParcedBuffer->cType = buffer[siIniReq];
 
-        if (xPerParcedBuffer->ucType == NACK_CHAR ) {
+        if (xPerParcedBuffer->cType == NACK_CHAR ) {
             xPerParcedBuffer->ucMessageCRC8 = 54; /*CRC8("#")=54*/
             xPerParcedBuffer->ucCalculatedCRC8 = 54; /*Even if calculated crc is wrong we should re-send the commands*/
             bSuccess = TRUE;
@@ -234,26 +330,53 @@ inline short int siPosStr( char *buffer, char cValue) {
 
 inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
     tReceiverStates xReturnState;
+    unsigned char ucCountRetries = 0;
+    INT8U error_code;
+    
     
     switch (xPerParcedBuffer->ucErrorFlag)
     {
         case eBadFormatInit:
-            /* Enviar error Não entendimento */
-            xReturnState = sWaitingConn;
-            break;
         case eCRCErrorInit:
-            /* Enviar erro de CRC */
+            #ifdef DEBUG_ON
+                debug(fp,"CRC Fail or BadFormat. In the Initialization.\n");
+            #endif
+
+            /* Send Nack */
+            if ( bSendNack() == FALSE ) {
+                /*  If all tries of send NACK fails, for now... do nothing
+                    Maybe this will be used in future implementation*/
+            }
             xReturnState = sWaitingConn;
             break;
         case eSemErrorInit:
-            /* Não enviar error, tentar resolver internamente, senao erro critico */
+            
+            #ifdef DEBUG_ON
+                debug(fp,"Can't post semaphore to SenderTask.\n");
+            #endif
+
+            ucCountRetries = 0;
+            do
+            {
+                ucCountRetries++;
+                OSTimeDly(100); /* 100 tick -> 100 ms -> context switch */
+                error_code = OSSemPost(xSemCommInit);
+            } while ((error_code != OS_ERR_NONE) && (ucCountRetries < 11));
+            
+            vFailSendxSemCommInit();
+
             break;
+
         case eBadFormat:
-            /* Enviar error Não entendimento */
-            xReturnState = sReceiving;
-            break;
         case eCRCError:
-            /* Enviar erro de CRC */
+             #ifdef DEBUG_ON
+                debug(fp,"eBadFormat or eCRCError.\n");
+            #endif
+
+            if ( bSendNack() == FALSE ) {
+                /*  If all tries of send NACK fails, for now... do nothing
+                    Maybe this will be used in future implementation*/
+            }
             xReturnState = sReceiving;
             break;
         case eNoError:
@@ -272,10 +395,57 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
     return xReturnState;
 }
 
+bool bSendAck( char cType, unsigned short int usiIdCommand ) {
+    bool bSuccees = FALSE;
+    char cBufferAck[16] = "";
+    INT8U error_code;
+    unsigned char ucCountRetries = 0;
+    unsigned char crc = 0;
+
+    sprintf(cBufferAck, "@%c:%hu;",cType, usiIdCommand);
+    crc = ucCrc8wInit( cBufferAck , strlen(cBufferAck));
+    sprintf(cBufferAck, "@%c:%hu|%hhu;",cType, usiIdCommand, crc );
+
+    while ( ( bSuccees == FALSE ) && ( ucCountRetries < 6 ) ) {
+
+        OSMutexPend(xTxUARTMutex, 50, &error_code); /* Wait 50 ticks = 50 ms */
+
+        if ( error_code == OS_NO_ERR ) {
+            puts(cBufferAck);
+            OSMutexPost(xTxUARTMutex);  
+            bSuccess = TRUE;
+        } else {
+            ucCountRetries++;
+        }
+        
+    }  
+    return bSuccess;
+}
+
+/* This function will try to send a NACK packet */
+bool bSendNack ( void ) {
+    INT8U error_code;
+    bool bSuccees = FALSE;
+    unsigned char ucCountRetries = 0;
+
+
+    while ( ( bSuccees == FALSE ) && ( ucCountRetries < 3 ) ) {
+        
+        OSMutexPend(xTxUARTMutex, 100, &error_code); /* Wait 100 ticks = 100 ms */
+
+        if ( error_code == OS_NO_ERR ) {
+            puts(NACK_SEQUENCE);
+            OSMutexPost(xTxUARTMutex);  
+            bSuccess = TRUE;
+        } else {
+            ucCountRetries++;
+        }
+    }
+
+    return bSuccess;
+}
+
 void vSendEthConf (void) {
-
-
-
 
 
 }

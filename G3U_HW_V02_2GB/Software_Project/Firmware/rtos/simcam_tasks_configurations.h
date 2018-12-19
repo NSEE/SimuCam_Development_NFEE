@@ -18,7 +18,7 @@
 #define INITIALIZATION_TASK_PRIO_FAIL   20
 #define RECEIVER_TASK_PRIO              16
 #define SENDER_TASK_PRIO                15
-#define PCP_MUTEX_TEMP_PRIO             14
+#define PCP_MUTEX_TEMP_PRIO             5   /* Above tasks priority*/
 
 
 

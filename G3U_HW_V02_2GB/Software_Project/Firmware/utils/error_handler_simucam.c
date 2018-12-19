@@ -17,7 +17,7 @@
 	}
 #endif
 
-INT8U vFailCreateRTOSResources( INT8U error_code )
+void vFailCreateRTOSResources( INT8U error_code )
 {
 	#ifdef DEBUG_ON
 		printErrorTask(error_code);
@@ -26,11 +26,10 @@ INT8U vFailCreateRTOSResources( INT8U error_code )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
 
 
-INT8U vFailTestCriticasParts( void )
+void vFailTestCriticasParts( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"vFailTestCriticasParts. (exit)");
@@ -39,11 +38,22 @@ INT8U vFailTestCriticasParts( void )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
 
 
-INT8U vFailGetMacRTC( void )
+void vFailSendxSemCommInit( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendxSemCommInit. (exit)");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailGetMacRTC( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"vFailGetMacRTC");
@@ -52,11 +62,10 @@ INT8U vFailGetMacRTC( void )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
 
 
-INT8U vFailInitialization( void )
+void vFailInitialization( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"vFailInitialization");
@@ -65,11 +74,10 @@ INT8U vFailInitialization( void )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
 
 
-INT8U vFailReceiverCreate( void )
+void vFailReceiverCreate( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"vFailReceiverCreate");
@@ -78,11 +86,10 @@ INT8U vFailReceiverCreate( void )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
 
 
-INT8U vFailSenderCreate( void )
+void vFailSenderCreate( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"vFailSenderCreate");
@@ -91,11 +98,10 @@ INT8U vFailSenderCreate( void )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
 
 
-INT8U vFailDeleteInitialization( void )
+void vFailDeleteInitialization( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"vFailDeleteInitialization");
@@ -104,5 +110,4 @@ INT8U vFailDeleteInitialization( void )
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
-	return -1;
 }
