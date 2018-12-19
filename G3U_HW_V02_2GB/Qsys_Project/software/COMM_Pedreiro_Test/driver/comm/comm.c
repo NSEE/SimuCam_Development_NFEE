@@ -478,7 +478,7 @@ bool comm_update_timecode_rx(comm_channel_t *channel) {
 	return status;
 }
 
-bool coom_clear_timecode_rx_received(comm_channel_t *channel) {
+bool comm_clear_timecode_rx_received(comm_channel_t *channel) {
 	bool status = FALSE;
 	alt_u32 reg = 0;
 

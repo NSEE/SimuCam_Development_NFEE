@@ -78,7 +78,7 @@
 #define FEE_DMA_M1_NAME DMA_DDR_M1_CSR_NAME
 #define FEE_DMA_M2_NAME DMA_DDR_M2_CSR_NAME
 //
-#define FEE_PIXEL_BLOCK_SIZE_BYTES 2176
+#define FEE_PIXEL_BLOCK_SIZE_BYTES 136
 
 typedef struct fee_pixel_data_block_t {
 	alt_u16 pixel[64];

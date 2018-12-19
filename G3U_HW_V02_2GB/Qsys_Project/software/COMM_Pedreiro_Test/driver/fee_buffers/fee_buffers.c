@@ -80,6 +80,9 @@ bool fee_dma_m1_transfer(alt_u32 *ddr_initial_address, alt_u16 size_in_blocks,
 	alt_u32 dest_addr_low = 0;
 	alt_u32 dest_addr_high = 0;
 
+	alt_u32 src_addr_low = 0;
+	alt_u32 src_addr_high = 0;
+
 	alt_u32 control_bits = 0x00000000;
 
 	switch (channel_buffer_id) {
@@ -216,27 +219,31 @@ bool fee_dma_m1_transfer(alt_u32 *ddr_initial_address, alt_u16 size_in_blocks,
 		break;
 	}
 
+	src_addr_low = (alt_u32) FEE_M1_BASE_ADDR_LOW
+			+ (alt_u32) ddr_initial_address;
+	src_addr_high = (alt_u32) FEE_M1_BASE_ADDR_HIGH;
+
 	if (status) {
 		if (dma_m1_dev == NULL) {
 			status = FALSE;
 		} else {
 			for (cnt = 0; cnt < size_in_blocks; cnt++) {
-				if (!msgdma_construct_extended_mm_to_mm_descriptor(dma_m1_dev,
-						&dma_extended_descriptor,
-						(alt_u32 *) (FEE_M1_BASE_ADDR_LOW
-								+ (alt_u32) ddr_initial_address),
+				if (msgdma_construct_extended_mm_to_mm_descriptor(dma_m1_dev,
+						&dma_extended_descriptor, (alt_u32 *) src_addr_low,
 						(alt_u32 *) dest_addr_low,
 						FEE_PIXEL_BLOCK_SIZE_BYTES, control_bits,
-						(alt_u32 *) FEE_M1_BASE_ADDR_HIGH,
-						(alt_u32 *) dest_addr_high, 1, 1, 1, 1, 1)) {
+						(alt_u32 *) src_addr_high, (alt_u32 *) dest_addr_high,
+						1, 1, 1, 1, 1)) {
 					status = FALSE;
 					break;
 				} else {
-					if (!msgdma_extended_descriptor_sync_transfer(dma_m1_dev,
+					if (msgdma_extended_descriptor_sync_transfer(dma_m1_dev,
 							&dma_extended_descriptor)) {
 						status = FALSE;
 						break;
 					}
+					src_addr_low += (alt_u32) FEE_PIXEL_BLOCK_SIZE_BYTES;
+					src_addr_high = (alt_u32) FEE_M1_BASE_ADDR_HIGH;
 				}
 			}
 		}
@@ -254,6 +261,9 @@ bool fee_dma_m2_transfer(alt_u32 *ddr_initial_address, alt_u16 size_in_blocks,
 	alt_u32 dest_addr_low = 0;
 	alt_u32 dest_addr_high = 0;
 
+	alt_u32 src_addr_low = 0;
+	alt_u32 src_addr_high = 0;
+
 	alt_u32 control_bits = 0x00000000;
 
 	switch (channel_buffer_id) {
@@ -390,30 +400,35 @@ bool fee_dma_m2_transfer(alt_u32 *ddr_initial_address, alt_u16 size_in_blocks,
 		break;
 	}
 
+	src_addr_low = (alt_u32) FEE_M2_BASE_ADDR_LOW
+			+ (alt_u32) ddr_initial_address;
+	src_addr_high = (alt_u32) FEE_M2_BASE_ADDR_HIGH;
+
 	if (status) {
 		if (dma_m2_dev == NULL) {
 			status = FALSE;
 		} else {
 			for (cnt = 0; cnt < size_in_blocks; cnt++) {
-				if (!msgdma_construct_extended_mm_to_mm_descriptor(dma_m2_dev,
-						&dma_extended_descriptor,
-						(alt_u32 *) (FEE_M2_BASE_ADDR_LOW
-								+ (alt_u32) ddr_initial_address),
+				if (msgdma_construct_extended_mm_to_mm_descriptor(dma_m2_dev,
+						&dma_extended_descriptor, (alt_u32 *) src_addr_low,
 						(alt_u32 *) dest_addr_low,
 						FEE_PIXEL_BLOCK_SIZE_BYTES, control_bits,
-						(alt_u32 *) FEE_M2_BASE_ADDR_HIGH,
-						(alt_u32 *) dest_addr_high, 1, 1, 1, 1, 1)) {
+						(alt_u32 *) src_addr_high, (alt_u32 *) dest_addr_high,
+						1, 1, 1, 1, 1)) {
 					status = FALSE;
 					break;
 				} else {
-					if (!msgdma_extended_descriptor_sync_transfer(dma_m2_dev,
+					if (msgdma_extended_descriptor_sync_transfer(dma_m2_dev,
 							&dma_extended_descriptor)) {
 						status = FALSE;
 						break;
 					}
+					src_addr_low += (alt_u32) FEE_PIXEL_BLOCK_SIZE_BYTES;
+					src_addr_high = (alt_u32) FEE_M2_BASE_ADDR_HIGH;
 				}
 			}
 		}
 	}
+	return status;
 	return status;
 }

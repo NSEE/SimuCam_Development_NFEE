@@ -160,7 +160,7 @@ bool comm_update_link(comm_channel_t *channel);
 bool comm_update_link_error(comm_channel_t *channel);
 bool comm_update_link_status(comm_channel_t *channel);
 bool comm_update_timecode_rx(comm_channel_t *channel);
-bool coom_clear_timecode_rx_received(comm_channel_t *channel);
+bool comm_clear_timecode_rx_received(comm_channel_t *channel);
 bool comm_send_timecode_tx(comm_channel_t *channel);
 bool comm_update_timecode_tx(comm_channel_t *channel);
 bool comm_update_buffers_status(comm_channel_t *channel);

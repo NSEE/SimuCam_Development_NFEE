@@ -117,54 +117,204 @@ int main(void) {
 
 	int data_counter = 0;
 
-	unsigned long data = 1;
+	fee_pixel_data_block_t *pixel_block = (fee_pixel_data_block_t *) Ddr2Base;
 
-	pDDR = (alt_u32 *) Ddr2Base;
-	for (data_counter = 0; data_counter < 544; data_counter++) {
-		if (data_counter >= (512 + 1)) {
-			*pDDR = 0xFFFFFFFF;
-			pDDR++;
-		} else {
-			*pDDR = 0x55FE23D9;
-			data++;
-			pDDR++;
-		}
-	}
+	pixel_block->pixel[0] = 0x0100;
+	pixel_block->pixel[1] = 0x0302;
+	pixel_block->pixel[2] = 0x0504;
+	pixel_block->pixel[3] = 0x0706;
+	pixel_block->pixel[4] = 0x0908;
+	pixel_block->pixel[5] = 0x0B0A;
+	pixel_block->pixel[6] = 0x0D0C;
+	pixel_block->pixel[7] = 0x0F0E;
+	pixel_block->pixel[8] = 0x1110;
+	pixel_block->pixel[9] = 0x1312;
+	pixel_block->pixel[10] = 0x1514;
+	pixel_block->pixel[11] = 0x1716;
+	pixel_block->pixel[12] = 0x1918;
+	pixel_block->pixel[13] = 0x1B1A;
+	pixel_block->pixel[14] = 0x1D1C;
+	pixel_block->pixel[15] = 0x1F1E;
+	pixel_block->pixel[16] = 0x2120;
+	pixel_block->pixel[17] = 0x2322;
+	pixel_block->pixel[18] = 0x2524;
+	pixel_block->pixel[19] = 0x2726;
+	pixel_block->pixel[20] = 0x2928;
+	pixel_block->pixel[21] = 0x2B2A;
+	pixel_block->pixel[22] = 0x2D2C;
+	pixel_block->pixel[23] = 0x2F2E;
+	pixel_block->pixel[24] = 0x3130;
+	pixel_block->pixel[25] = 0x3332;
+	pixel_block->pixel[26] = 0x3534;
+	pixel_block->pixel[27] = 0x3736;
+	pixel_block->pixel[28] = 0x3938;
+	pixel_block->pixel[29] = 0x3B3A;
+	pixel_block->pixel[30] = 0x3D3C;
+	pixel_block->pixel[31] = 0x3F3E;
+	pixel_block->pixel[32] = 0x4140;
+	pixel_block->pixel[33] = 0x4342;
+	pixel_block->pixel[34] = 0x4544;
+	pixel_block->pixel[35] = 0x4746;
+	pixel_block->pixel[36] = 0x4948;
+	pixel_block->pixel[37] = 0x4B4A;
+	pixel_block->pixel[38] = 0x4D4C;
+	pixel_block->pixel[39] = 0x4F4E;
+	pixel_block->pixel[40] = 0x5150;
+	pixel_block->pixel[41] = 0x5352;
+	pixel_block->pixel[42] = 0x5554;
+	pixel_block->pixel[43] = 0x5756;
+	pixel_block->pixel[44] = 0x5958;
+	pixel_block->pixel[45] = 0x5B5A;
+	pixel_block->pixel[46] = 0x5D5C;
+	pixel_block->pixel[47] = 0x5F5E;
+	pixel_block->pixel[48] = 0x6160;
+	pixel_block->pixel[49] = 0x6362;
+	pixel_block->pixel[50] = 0x6564;
+	pixel_block->pixel[51] = 0x6766;
+	pixel_block->pixel[52] = 0x6968;
+	pixel_block->pixel[53] = 0x6B6A;
+	pixel_block->pixel[54] = 0x6D6C;
+	pixel_block->pixel[55] = 0x6F6E;
+	pixel_block->pixel[56] = 0x7170;
+	pixel_block->pixel[57] = 0x7372;
+	pixel_block->pixel[58] = 0x7574;
+	pixel_block->pixel[59] = 0x7776;
+	pixel_block->pixel[60] = 0x7978;
+	pixel_block->pixel[61] = 0x7B7A;
+	pixel_block->pixel[62] = 0x7D7C;
+	pixel_block->pixel[63] = 0x7F7E;
+	pixel_block->mask = 0xFFFFFFFFFFFFFFFF;
 
-	// init DMA
+//	pixel_block->pixel[0    ] =  0x8180 ;
+//	pixel_block->pixel[1    ] =  0x8382 ;
+//	pixel_block->pixel[2    ] =  0x8584 ;
+//	pixel_block->pixel[3    ] =  0x8786 ;
+//	pixel_block->pixel[4    ] =  0x8988 ;
+//	pixel_block->pixel[5    ] =  0x8B8A ;
+//	pixel_block->pixel[6    ] =  0x8D8C ;
+//	pixel_block->pixel[7    ] =  0x8F8E ;
+//	pixel_block->pixel[8    ] =  0x9190 ;
+//	pixel_block->pixel[9    ] =  0x9392 ;
+//	pixel_block->pixel[10   ] =  0x9594 ;
+//	pixel_block->pixel[11   ] =  0x9796 ;
+//	pixel_block->pixel[12   ] =  0x9998 ;
+//	pixel_block->pixel[13   ] =  0x9B9A ;
+//	pixel_block->pixel[14   ] =  0x9D9C ;
+//	pixel_block->pixel[15   ] =  0x9F9E ;
+//	pixel_block->pixel[16   ] =  0xA1A0 ;
+//	pixel_block->pixel[17   ] =  0xA3A2 ;
+//	pixel_block->pixel[18   ] =  0xA5A4 ;
+//	pixel_block->pixel[19   ] =  0xA7A6 ;
+//	pixel_block->pixel[20   ] =  0xA9A8 ;
+//	pixel_block->pixel[21   ] =  0xABAA ;
+//	pixel_block->pixel[22   ] =  0xADAC ;
+//	pixel_block->pixel[23   ] =  0xAFAE ;
+//	pixel_block->pixel[24   ] =  0xB1B0 ;
+//	pixel_block->pixel[25   ] =  0xB3B2 ;
+//	pixel_block->pixel[26   ] =  0xB5B4 ;
+//	pixel_block->pixel[27   ] =  0xB7B6 ;
+//	pixel_block->pixel[28   ] =  0xB9B8 ;
+//	pixel_block->pixel[29   ] =  0xBBBA ;
+//	pixel_block->pixel[30   ] =  0xBDBC ;
+//	pixel_block->pixel[31   ] =  0xBFBE ;
+//	pixel_block->pixel[32   ] =  0xC1C0 ;
+//	pixel_block->pixel[33   ] =  0xC3C2 ;
+//	pixel_block->pixel[34   ] =  0xC5C4 ;
+//	pixel_block->pixel[35   ] =  0xC7C6 ;
+//	pixel_block->pixel[36   ] =   0xC9C8;
+//	pixel_block->pixel[37   ] =   0xCBCA;
+//	pixel_block->pixel[38   ] =   0xCDCC;
+//	pixel_block->pixel[39   ] =   0xCFCE;
+//	pixel_block->pixel[40   ] =   0xD1D0;
+//	pixel_block->pixel[41   ] =   0xD3D2;
+//	pixel_block->pixel[42   ] =   0xD5D4;
+//	pixel_block->pixel[43   ] =   0xD7D6;
+//	pixel_block->pixel[44   ] =   0xD9D8;
+//	pixel_block->pixel[45   ] =   0xDBDA;
+//	pixel_block->pixel[46   ] =   0xDDDC;
+//	pixel_block->pixel[47   ] =   0xDFDE;
+//	pixel_block->pixel[48   ] =   0xE1E0;
+//	pixel_block->pixel[49   ] =   0xE3E2;
+//	pixel_block->pixel[50   ] =   0xE5E4;
+//	pixel_block->pixel[51   ] =   0xE7E6;
+//	pixel_block->pixel[52   ] =   0xE9E8;
+//	pixel_block->pixel[53   ] =   0xEBEA;
+//	pixel_block->pixel[54   ] =   0xEDEC;
+//	pixel_block->pixel[55   ] =   0xEFEE;
+//	pixel_block->pixel[56   ] =   0xF1F0;
+//	pixel_block->pixel[57   ] =   0xF3F2;
+//	pixel_block->pixel[58   ] =   0xF5F4;
+//	pixel_block->pixel[59   ] =   0xF7F6;
+//	pixel_block->pixel[60   ] =   0xF9F8;
+//	pixel_block->pixel[61   ] =   0xFBFA;
+//	pixel_block->pixel[62   ] =   0xFDFC;
+//	pixel_block->pixel[63   ] =   0xFFFE;
+
+//	unsigned long data = 1;
+//
+//	pDDR = (alt_u32 *) Ddr2Base;
+//	for (data_counter = 0; data_counter < 544; data_counter++) {
+//		if (data_counter >= (512 + 1)) {
+//			*pDDR = 0xFFFFFFFF;
+//			pDDR++;
+//		} else {
+//			*pDDR = 0x55FE23D9;
+//			data++;
+//			pDDR++;
+//		}
+//	}
+
+//	pDDR = (alt_u32 *) Ddr2Base;
+//	for (data_counter = 0; data_counter < (136/4); data_counter++) {
+//		printf("mem[%03u]: %08X \n", data_counter, *pDDR);
+//		pDDR++;
+//	}
+
+// init DMA
 
 	if (fee_init_m1_dma()) {
 		printf("dma_m1 iniciado corretamente \n");
 	}
 
 	if (fee_init_m2_dma()) {
-		printf("dma_m1 iniciado corretamente \n");
+		printf("dma_m2 iniciado corretamente \n");
 	}
 
-	printf("selecione memoria \n");
-	switch (getchar()) {
-	case '1':
-		printf("m1 \n");
-		if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
-			printf("dma_m1 transferido corretamente \n");
-		}
-		break;
+	while (1) {
+		printf("selecione memoria \n");
+		switch (getchar()) {
+		case '1':
+			printf("m1 \n");
+			if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
+				printf("dma_m1 transferido corretamente \n");
+			}
+			break;
 
-	case '2':
-		printf("m2 \n");
-		if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
-			printf("dma_m2 transferido corretamente \n");
-		}
-		break;
+		case '2':
+			printf("m2 \n");
+			if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+				printf("dma_m2 transferido corretamente \n");
+			}
+			break;
 
-	default:
-		printf("errou \n");
-		break;
+		case 'a':
+			printf("a \n");
+			if (fee_dma_m1_transfer(0, 256, right_buffer, channel_a_buffer)) {
+				printf("dma_m1 transferido corretamente \n");
+			}
+			usleep(500);
+			comm_update_buffers_status(&spw_a);
+			printf("empty: %u \n", spw_a.buffer_status.right_buffer_empty);
+			break;
+
+		default:
+			printf("errou \n");
+			break;
+		}
 	}
+//}
 
-	//}
-
-	//getchar();
+//getchar();
 	printf("passou 1 \n");
 
 //	while (COMM_READ_REG32(6) || 0x00000001){
@@ -240,18 +390,6 @@ int main(void) {
 	}
 
 	return 0;
-}
-
-void COMM_WRITE_REG32(alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue) {
-	alt_u32 *pPgenAddr = COMM_PEDREIRO_V1_01_A_BASE;
-	*(pPgenAddr + (alt_u32) uc_RegisterAddress) = (alt_u32) ul_RegisterValue;
-}
-
-alt_u32 COMM_READ_REG32(alt_u8 uc_RegisterAddress) {
-	alt_u32 RegisterValue = 0;
-	alt_u32 *pPgenAddr = COMM_PEDREIRO_V1_01_A_BASE;
-	RegisterValue = *(pPgenAddr + (alt_u32) uc_RegisterAddress);
-	return RegisterValue;
 }
 
 /*
