@@ -60,15 +60,15 @@
 //! [constants definition]
 
 //! [public module structs definition]
-typedef enum comm_spw_channel_t {
-	spacewire_channel_a,
-	spacewire_channel_b,
-	spacewire_channel_c,
-	spacewire_channel_d,
-	spacewire_channel_e,
-	spacewire_channel_f,
-	spacewire_channel_g,
-	spacewire_channel_h
+enum comm_spw_channel_t {
+	spacewire_channel_a = 1,
+	spacewire_channel_b = 2,
+	spacewire_channel_c = 3,
+	spacewire_channel_d = 4,
+	spacewire_channel_e = 5,
+	spacewire_channel_f = 6,
+	spacewire_channel_g = 7,
+	spacewire_channel_h = 8
 } comm_spw_channel_t;
 
 typedef struct comm_windowing_config_t {
@@ -144,7 +144,7 @@ void comm_channel_f_handle_irq(void* context);
 void comm_channel_g_handle_irq(void* context);
 void comm_channel_h_handle_irq(void* context);
 
-void comm_init_interrupt(comm_spw_channel_t spw_channel);
+void comm_init_interrupt(alt_u8 spw_channel);
 
 bool comm_config_int_control(comm_channel_t *channel);
 bool comm_update_int_control(comm_channel_t *channel);
@@ -164,7 +164,7 @@ bool coom_clear_timecode_rx_received(comm_channel_t *channel);
 bool comm_send_timecode_tx(comm_channel_t *channel);
 bool comm_update_timecode_tx(comm_channel_t *channel);
 bool comm_update_buffers_status(comm_channel_t *channel);
-bool comm_init_channel(comm_channel_t *channel, comm_spw_channel_t spw_channel);
+bool comm_init_channel(comm_channel_t *channel, alt_u8 spw_channel);
 
 //! [public function prototypes]
 

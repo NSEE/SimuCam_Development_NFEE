@@ -27,21 +27,25 @@
 #include "logic/sense/sense.h"
 #include "logic/ddr2/ddr2.h"
 
+#include "driver/comm/comm.h"
+#include "driver/fee_buffers/fee_buffers.h"
+
 /**************************************************
  * Global
  **************************************************/
 
-typedef struct pixel_data_block_t {
-	alt_u16 pixel[16];
-	alt_u64 mask;
-};
+comm_channel_t spw_a;
+comm_channel_t spw_b;
+comm_channel_t spw_c;
+comm_channel_t spw_d;
+comm_channel_t spw_e;
+comm_channel_t spw_f;
+comm_channel_t spw_g;
+comm_channel_t spw_h;
 
 void TestLeds(void);
 bool TestDMA_M1_M2(void);
 bool TestDMA_M2_M1(void);
-
-void COMM_WRITE_REG32(alt_u8 uc_RegisterAddress, alt_u32 ul_RegisterValue);
-alt_u32 COMM_READ_REG32(alt_u8 uc_RegisterAddress);
 
 int main(void) {
 
@@ -53,14 +57,20 @@ int main(void) {
 	//Configura Display de 7 segmentos
 	SSDP_CONFIG(SSDP_NORMAL_MODE);
 
-	printf("Windowing Control Reg: %08x \n", COMM_READ_REG32(0));
-	printf("Windowing Status Reg: %08x \n", COMM_READ_REG32(1));
-	printf("Windowing Buffer Reg: %08x \n", COMM_READ_REG32(6));
+	comm_init_channel(&spw_a, spacewire_channel_a);
+	comm_init_channel(&spw_b, spacewire_channel_b);
+	comm_init_channel(&spw_c, spacewire_channel_c);
+	comm_init_channel(&spw_d, spacewire_channel_d);
+	comm_init_channel(&spw_e, spacewire_channel_e);
+	comm_init_channel(&spw_f, spacewire_channel_f);
+	comm_init_channel(&spw_g, spacewire_channel_g);
+	comm_init_channel(&spw_h, spacewire_channel_h);
 
-	COMM_WRITE_REG32(0, 0x00000102);
-	//COMM_WRITE_REG32(0, 0x00000002);
+	spw_a.windowing_config.masking = TRUE;
+	spw_a.link_config.autostart = TRUE;
+	comm_config_windowing(&spw_a);
+	comm_config_link(&spw_a);
 
-	printf("Windowing Control Reg: %08x \n", COMM_READ_REG32(0));
 //	switch (getchar()) {
 //	case 'a':
 //		printf("Windowing Control Reg: %08x \n", COMM_READ_REG32(0));
@@ -121,61 +131,41 @@ int main(void) {
 		}
 	}
 
-	// Configure DMA
-	alt_msgdma_dev *DMADev = NULL;
+	// init DMA
 
-	if (DMA_OPEN_DEVICE(&DMADev, (char *) DMA_DDR_M1_CSR_NAME) == FALSE) {
-		printf("Error Opening DMA Device");
-		return FALSE;
+	if (fee_init_m1_dma()) {
+		printf("dma_m1 iniciado corretamente \n");
 	}
 
-	if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
-		printf("Error Reseting Dispatcher");
-		return FALSE;
+	if (fee_init_m2_dma()) {
+		printf("dma_m1 iniciado corretamente \n");
 	}
 
-	alt_u32 control_bits = 0x00000000;
-
-	int TimeStart, TimeElapsed = 0;
-
-	TimeStart = alt_nticks();
-
-	int n = 0;
-
-//	while (1) {
-
-		switch (getchar()) {
-		case 'l':
-			printf("liga \n");
-			COMM_WRITE_REG32(0, 0x00000102);
-			break;
-
-		case 's':
-			printf("send \n");
-
-			for (n = 0; n < 16; n++) {
-				if (DMA_EXTENDED_SINGLE_TRANSFER(DMADev, (alt_u32) 0x00000000,
-						(alt_u32) 0x00000000, (alt_u32) 0x00000001,
-						(alt_u32) 0x0001C000, 2176, control_bits, DMA_WAIT,
-						DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
-					printf("Error During DMA Transfer");
-				}
-			}
-			break;
-
-		default:
-			printf("errou \n");
-			break;
+	printf("selecione memoria \n");
+	switch (getchar()) {
+	case '1':
+		printf("m1 \n");
+		if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
+			printf("dma_m1 transferido corretamente \n");
 		}
+		break;
+
+	case '2':
+		printf("m2 \n");
+		if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+			printf("dma_m2 transferido corretamente \n");
+		}
+		break;
+
+	default:
+		printf("errou \n");
+		break;
+	}
 
 	//}
 
-	printf("Windowing Buffer Reg: %08x \n", COMM_READ_REG32(6));
 	//getchar();
 	printf("passou 1 \n");
-
-	TimeElapsed = alt_nticks() - TimeStart;
-	printf("%.3f sec\n", (float) TimeElapsed / (float) alt_ticks_per_second());
 
 //	while (COMM_READ_REG32(6) || 0x00000001){
 //	*pDes = (alt_u64) 0xFFFFFFFFFFFFFFFF;
@@ -197,7 +187,7 @@ int main(void) {
 
 //if (*pSrc++ != *pDes++){
 
-	//Realiza teste dos LEDS, entra em um loop infinito.
+//Realiza teste dos LEDS, entra em um loop infinito.
 	TestLeds();
 
 	//Teste das DDR2 EEPROMs

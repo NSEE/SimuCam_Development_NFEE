@@ -108,7 +108,7 @@ void comm_channel_h_handle_irq(void* context) {
 	// App logic sequence...
 }
 
-void comm_init_interrupt(comm_spw_channel_t spw_channel) {
+void comm_init_interrupt(alt_u8 spw_channel) {
 	void* hold_context_ptr;
 	switch (spw_channel) {
 	case spacewire_channel_a:
@@ -561,7 +561,7 @@ bool comm_update_buffers_status(comm_channel_t *channel) {
 	return status;
 }
 
-bool comm_init_channel(comm_channel_t *channel, comm_spw_channel_t spw_channel) {
+bool comm_init_channel(comm_channel_t *channel, alt_u8 spw_channel) {
 	bool status = FALSE;
 
 	if (channel != NULL) {

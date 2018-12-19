@@ -36,6 +36,7 @@
 
 #include "sys/alt_dev.h"
 #include "alt_types.h"
+#include "altera_msgdma.h"
 #include "altera_msgdma_csr_regs.h"
 #include "altera_msgdma_descriptor_regs.h"
 #include "altera_msgdma_response_regs.h"
