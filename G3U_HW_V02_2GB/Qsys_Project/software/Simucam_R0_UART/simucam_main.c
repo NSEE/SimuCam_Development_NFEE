@@ -12,6 +12,13 @@
     FILE* fp;
 #endif
 
+/*===== Global system variables ===========*/
+unsigned short int usiIdCMD; /* Used in the comunication with NUC*/
+
+txBuffer128 xBuffer128[N_128];
+txBuffer64 xBuffer64[N_64];
+txBuffer32 xBuffer32[N_32];
+/*===== Global system variables ===========*/
 
 /*== Definition of some resources of RTOS - Semaphores - Stacks - Queues - Flags etc ==============*/
 
@@ -19,6 +26,12 @@
 /* Communication tasks (Receiver and Sender) */
 OS_EVENT *xSemCommInit;
 OS_EVENT *xTxUARTMutex; /*Mutex tx UART*/
+OS_EVENT *xSemCountBuffer128;
+OS_EVENT *xMutexBuffer128;
+OS_EVENT *xSemCountBuffer64;
+OS_EVENT *xMutexBuffer64;
+OS_EVENT *xSemCountBuffer32;
+OS_EVENT *xMutexBuffer32;
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -28,7 +41,6 @@ OS_EVENT *xQSenderTask;
 void *xQSenderTaskTbl[SENDER_QUEUE_SIZE]; /*Storage for xQSenderTask*/
 
 /* -------------- Definition of Queues -------------- */
-
 
 
 /* -------------- Definition of Stacks------------------ */
@@ -66,6 +78,48 @@ bool bResourcesInitRTOS( void )
 		bSuccess = FALSE;
 	}
 
+	/* This mutex will protect the access of the (re)transmission "big" buffer of 128 characters*/
+	xMutexBuffer128 = OSMutexCreate(PCP_MUTEX_B128_PRIO, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateRTOSResources(err);
+		bSuccess = FALSE;
+	}
+
+	/* This mutex will protect the access of the (re)transmission "medium" buffer of 64 characters*/
+	xMutexBuffer64 = OSMutexCreate(PCP_MUTEX_B64_PRIO, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateRTOSResources(err);
+		bSuccess = FALSE;
+	}
+
+	/* This mutex will protect the access of the (re)transmission "small" buffer of 32 characters*/
+	xMutexBuffer32 = OSMutexCreate(PCP_MUTEX_B32_PRIO, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateRTOSResources(err);
+		bSuccess = FALSE;
+	}
+
+	/* This semaphore will count the number of positions available in the "big" buffer of 128 characters*/
+	xSemCountBuffer128 = OSSemCreate(N_128);
+	if (!xSemCountBuffer128) {
+		vFailCreateRTOSResources(xSemCountBuffer128);
+		bSuccess = FALSE;
+	}
+
+	/* This semaphore will count the number of positions available in the "medium" buffer of 64 characters*/
+	xMutexBuffer64 = OSSemCreate(N_64);
+	if (!xMutexBuffer64) {
+		vFailCreateRTOSResources(xMutexBuffer64);
+		bSuccess = FALSE;
+	}
+
+	/* This semaphore will count the number of positions available in the "small" buffer of 32 characters*/
+	xSemCountBuffer32 = OSSemCreate(N_32);
+	if (!xSemCountBuffer32) {
+		vFailCreateRTOSResources(xSemCountBuffer32);
+		bSuccess = FALSE;
+	}
+
 	xQSenderTask = OSQCreate(&xQSenderTaskTbl[0], SENDER_QUEUE_SIZE);
 	if (!xQSenderTask) {
 		vFailCreateRTOSResources(xQSenderTask);
@@ -75,7 +129,9 @@ bool bResourcesInitRTOS( void )
 	return bSuccess;
 }
 
-
+void vVariablesInitialization ( void ) {
+	usiIdCMD = 0;
+}
 
 
 

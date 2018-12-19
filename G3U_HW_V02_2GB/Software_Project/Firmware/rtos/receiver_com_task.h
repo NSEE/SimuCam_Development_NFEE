@@ -12,6 +12,7 @@
 #include "../utils/configs_simucam.h"
 #include "configuration_comm.h"
 #include "../utils/crc8.h"
+#include "../utils/configs_simucam.h"
 #include <string.h>
 #include <ctype.h>
 
@@ -22,6 +23,7 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer );
 short int siPosStr( char *buffer, char cValue);
 tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer );
 bool bSendNack ( void );
+unsigned short int usiGetIdCMD ( void );
 
 
 #endif /* RECEIVER_COM_H_ */

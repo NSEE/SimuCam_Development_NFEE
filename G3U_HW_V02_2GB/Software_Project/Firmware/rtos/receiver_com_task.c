@@ -183,11 +183,13 @@ void vReceiverComTask(void *task_data)
 
                 break;
             case sRequestParsing:
-                /* Verificar se é C ou sei la oq
-                 */          
+                /* In this state que ack packet was already sent to NUC */          
                 switch (xPreParsedBuffer.cType)
                 {
                     case ETH_CMD: /*NUC requested the ETH Configuration*/
+
+
+
 
                         break;
                     default:
@@ -195,6 +197,7 @@ void vReceiverComTask(void *task_data)
                 }
                 break;
             case sReplyParsing:
+                /* In this state que ack packet was already sent to NUC */          
                 /*  
                     verificar se é S,D,P,H
                     */
@@ -402,13 +405,13 @@ bool bSendAck( char cType, unsigned short int usiIdCommand ) {
     unsigned char ucCountRetries = 0;
     unsigned char crc = 0;
 
-    sprintf(cBufferAck, "@%c:%hu;",cType, usiIdCommand);
+    sprintf(cBufferAck, ACK_SPRINTF, cType, usiIdCommand);
     crc = ucCrc8wInit( cBufferAck , strlen(cBufferAck));
-    sprintf(cBufferAck, "@%c:%hu|%hhu;",cType, usiIdCommand, crc );
+    sprintf(cBufferAck, "%s|%hhu;", cBufferAck, crc);
 
     while ( ( bSuccees == FALSE ) && ( ucCountRetries < 6 ) ) {
 
-        OSMutexPend(xTxUARTMutex, 50, &error_code); /* Wait 50 ticks = 50 ms */
+        OSMutexPend(xTxUARTMutex, 5, &error_code); /* Wait 5 ticks = 5 ms */
 
         if ( error_code == OS_NO_ERR ) {
             puts(cBufferAck);
@@ -431,7 +434,7 @@ bool bSendNack ( void ) {
 
     while ( ( bSuccees == FALSE ) && ( ucCountRetries < 3 ) ) {
         
-        OSMutexPend(xTxUARTMutex, 100, &error_code); /* Wait 100 ticks = 100 ms */
+        OSMutexPend(xTxUARTMutex, 20, &error_code); /* Wait 20 ticks = 20 ms */
 
         if ( error_code == OS_NO_ERR ) {
             puts(NACK_SEQUENCE);
@@ -446,6 +449,66 @@ bool bSendNack ( void ) {
 }
 
 void vSendEthConf (void) {
+    bool bSuccees = FALSE;
+    char cBufferETH[128] = "";
+    INT8U error_code;
+    unsigned char ucCountRetries = 0;
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+
+    usiIdCMDLocal = usiGetIdCMD();
+
+    /* This semaphore tells if there's space available in the "big" buffer */
+    OSSemPend(xSemCountBuffer128, TICKS_WAITING_FOR_SPACE, &error_code);
+    if ( error_code == OS_NO_ERR ) {
 
 
+
+    }
+
+
+    if ( OSSemAccept(xSemCommInit) ) {
+        eSenderMode = sDummySender;
+    } else {
+        /* Asking for NUC the status */
+        puts(START_STATUS_SEQUENCE);
+        OSTimeDlyHMSM(0, 0, 5, 0); /*Sleeps for 5 second*/
+    }
+
+
+    OSMutexPend(xTxUARTMutex, 200, &error_code); /* Wait 200 ticks = 200 ms */
+
+    if ( error_code == OS_NO_ERR ) {
+            puts(NACK_SEQUENCE);
+            OSMutexPost(xTxUARTMutex);  
+            bSuccess = TRUE;
+        } else {
+            ucCountRetries++;
+        }
+
+
+    sprintf(cBufferETH, ETH_SPRINTF, ETH_CMD, usiIdCMDLocal, xConfEth.bDHCP,
+                        xConfEth.ucIP[0], xConfEth.ucIP[1], xConfEth.ucIP[2], xConfEth.ucIP[3],
+                        xConfEth.ucSubNet[0], xConfEth.ucSubNet[1], xConfEth.ucSubNet[2], xConfEth.ucSubNet[3],
+                        xConfEth.ucGTW[0], xConfEth.ucGTW[1], xConfEth.ucGTW[2], xConfEth.ucGTW[3],
+                        xConfEth.ucDNS[0], xConfEth.ucDNS[1], xConfEth.ucDNS[2], xConfEth.ucDNS[3],
+                        xConfEth.siPortPUS);
+    crc = ucCrc8wInit( cBufferETH , strlen(cBufferETH));
+    sprintf(cBufferETH, "%s|%hhu;", cBufferETH, crc );
+
+
+
+    
+
+
+}
+
+unsigned short int usiGetIdCMD ( void ) {
+
+    if ( usiIdCMD > 65534 )
+        usiIdCMD = 1;
+    else
+        usiIdCMD++;
+
+    return usiIdCMD;
 }

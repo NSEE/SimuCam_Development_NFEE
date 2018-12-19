@@ -16,9 +16,13 @@
  * 55 -> MIN PRIORITY  */
 #define INITIALIZATION_TASK_PRIO        1
 #define INITIALIZATION_TASK_PRIO_FAIL   20
-#define RECEIVER_TASK_PRIO              16
-#define SENDER_TASK_PRIO                15
-#define PCP_MUTEX_TEMP_PRIO             5   /* Above tasks priority*/
+#define RECEIVER_TASK_PRIO              18
+#define SENDER_TASK_PRIO                17
+#define PCP_MUTEX_B32_PRIO              8   /* MUTEX Buffer TX char[32]*/
+#define PCP_MUTEX_B64_PRIO              7   /* MUTEX Buffer TX char[64]*/
+#define PCP_MUTEX_B128_PRIO             6   /* MUTEX Buffer TX char[128]*/
+#define PCP_MUTEX_TEMP_PRIO             5   /* MUTEX TX UART*/
+
 
 
 
@@ -54,7 +58,20 @@ extern void *xQSenderTaskTbl[SENDER_QUEUE_SIZE]; /*Storage for xQSenderTask*/
 
 /*---------------Semaphore and Mutex ---------------------*/
 extern OS_EVENT *xTxUARTMutex;
+
+
+/*  Before access the any buffer for transmission the task should check in the Count Semaphore if has resource available
+    if there is buffer free, the task should try to get the mutex in order to protect the integrity of the buffer */
+extern OS_EVENT *xMutexBuffer128;
+extern OS_EVENT *xMutexBuffer64;
+extern OS_EVENT *xMutexBuffer32;
+
+extern OS_EVENT *xSemCountBuffer128;
+extern OS_EVENT *xSemCountBuffer64;
+extern OS_EVENT *xSemCountBuffer32;
 /*---------------Semaphore and Mutex ---------------------*/
 
+
+extern unsigned short int usiGetIdCMD ( void );
 
 #endif /* SIMCAM_TASKS_PRIORITIES_H_ */
