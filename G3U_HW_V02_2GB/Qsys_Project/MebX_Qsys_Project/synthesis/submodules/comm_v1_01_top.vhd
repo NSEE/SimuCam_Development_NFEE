@@ -266,6 +266,7 @@ begin
 		if (a_reset = '1') then
 			s_spw_rxread <= '0';
 		elsif rising_edge(a_clock) then
+			s_spw_rxread <= '0';
 			if (s_spw_rxvalid = '1') then
 				s_spw_rxread <= '1';
 			end if;

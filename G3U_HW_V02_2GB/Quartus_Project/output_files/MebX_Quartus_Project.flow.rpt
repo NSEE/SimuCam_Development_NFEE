@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project
-Wed Dec 19 10:45:49 2018
+Thu Dec 20 14:29:29 2018
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
@@ -41,7 +41,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Wed Dec 19 10:45:49 2018           ;
+; Flow Status                       ; Successful - Thu Dec 20 14:29:29 2018           ;
 ; Quartus Prime Version             ; 16.1.0 Build 196 10/24/2016 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project                            ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
@@ -49,10 +49,10 @@ agreement for further details.
 ; Device                            ; EP4SGX230KF40C2                                 ;
 ; Timing Models                     ; Final                                           ;
 ; Logic utilization                 ; 34 %                                            ;
-;     Combinational ALUTs           ; 48,693 / 182,400 ( 27 % )                       ;
+;     Combinational ALUTs           ; 48,688 / 182,400 ( 27 % )                       ;
 ;     Memory ALUTs                  ; 1,305 / 91,200 ( 1 % )                          ;
-;     Dedicated logic registers     ; 44,287 / 182,400 ( 24 % )                       ;
-; Total registers                   ; 45575                                           ;
+;     Dedicated logic registers     ; 44,286 / 182,400 ( 24 % )                       ;
+; Total registers                   ; 45574                                           ;
 ; Total pins                        ; 452 / 888 ( 51 % )                              ;
 ; Total virtual pins                ; 0                                               ;
 ; Total block memory bits           ; 9,718,092 / 14,625,792 ( 66 % )                 ;
@@ -71,7 +71,7 @@ agreement for further details.
 +-------------------+----------------------+
 ; Option            ; Setting              ;
 +-------------------+----------------------+
-; Start date & time ; 12/19/2018 10:08:30  ;
+; Start date & time ; 12/20/2018 13:53:56  ;
 ; Main task         ; Compilation          ;
 ; Revision Name     ; MebX_Quartus_Project ;
 +-------------------+----------------------+
@@ -83,7 +83,7 @@ agreement for further details.
 ; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name       ; Section Id     ;
 +---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                             ; 66485671440360.154522130411396                                                ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 66485671440360.154532123021436                                                ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -153,12 +153,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:10:24     ; 1.0                     ; 3066 MB             ; 00:10:28                           ;
-; Fitter                    ; 00:22:02     ; 1.2                     ; 3780 MB             ; 00:41:51                           ;
-; Assembler                 ; 00:00:34     ; 1.0                     ; 1199 MB             ; 00:00:33                           ;
-; TimeQuest Timing Analyzer ; 00:02:02     ; 1.2                     ; 1973 MB             ; 00:02:18                           ;
-; EDA Netlist Writer        ; 00:01:25     ; 1.0                     ; 1474 MB             ; 00:01:23                           ;
-; Total                     ; 00:36:27     ; --                      ; --                  ; 00:56:33                           ;
+; Analysis & Synthesis      ; 00:10:13     ; 1.0                     ; 3068 MB             ; 00:10:22                           ;
+; Fitter                    ; 00:20:31     ; 1.2                     ; 3778 MB             ; 00:37:24                           ;
+; Assembler                 ; 00:00:33     ; 1.0                     ; 1196 MB             ; 00:00:31                           ;
+; TimeQuest Timing Analyzer ; 00:01:57     ; 1.2                     ; 1976 MB             ; 00:02:13                           ;
+; EDA Netlist Writer        ; 00:01:25     ; 1.0                     ; 1502 MB             ; 00:01:20                           ;
+; Total                     ; 00:34:39     ; --                      ; --                  ; 00:51:50                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
