@@ -66,11 +66,15 @@ int main(void) {
 	comm_init_channel(&spw_g, spacewire_channel_g);
 	comm_init_channel(&spw_h, spacewire_channel_h);
 
-	spw_a.windowing_config.masking = TRUE;
+	//spw_a.windowing_config.masking = TRUE;
+	spw_a.windowing_config.masking = FALSE;
 	spw_a.link_config.autostart = TRUE;
 	spw_a.link_config.start = TRUE;
 	comm_config_windowing(&spw_a);
 	comm_config_link(&spw_a);
+
+//	spw_a.windowing_config.masking = TRUE;
+//	comm_config_windowing(&spw_a);
 
 	spw_h.link_config.autostart = TRUE;
 	comm_config_link(&spw_h);
@@ -354,6 +358,9 @@ int main(void) {
 			if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
 				printf("dma_m1 transferido corretamente \n");
 			}
+//			if (fee_dma_m1_transfer(0, 16, left_buffer, channel_a_buffer)) {
+//				printf("dma_m1 transferido corretamente \n");
+//			}
 			usleep(500);
 			comm_update_buffers_status(&spw_a);
 			printf("empty: %u \n", spw_a.buffer_status.right_buffer_empty);
@@ -372,6 +379,9 @@ int main(void) {
 
 	comm_config_link(&spw_a);
 	comm_config_link(&spw_h);
+
+	//*spw_a.channel_address = 0x102;
+	printf("%08X", *(spw_a.channel_address));
 
 	usleep(10000);
 
@@ -394,7 +404,8 @@ int main(void) {
 			usleep(1000);
 		}
 		comm_update_buffers_status(&spw_a);
-		printf("empty: %u \n", spw_a.buffer_status.right_buffer_empty);
+		printf("empty r: %u \n", spw_a.buffer_status.right_buffer_empty);
+		printf("empty l: %u \n", spw_a.buffer_status.left_buffer_empty);
 	}
 
 //}
