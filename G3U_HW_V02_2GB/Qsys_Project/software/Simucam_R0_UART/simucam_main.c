@@ -18,6 +18,11 @@ unsigned short int usiIdCMD; /* Used in the comunication with NUC*/
 txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
+
+tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
+txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
+
+txSenderACKs xSenderACK[N_ACKS_SENDER];
 /*===== Global system variables ===========*/
 
 /*== Definition of some resources of RTOS - Semaphores - Stacks - Queues - Flags etc ==============*/
@@ -26,12 +31,21 @@ txBuffer32 xBuffer32[N_32];
 /* Communication tasks (Receiver and Sender) */
 OS_EVENT *xSemCommInit;
 OS_EVENT *xTxUARTMutex; /*Mutex tx UART*/
+
 OS_EVENT *xSemCountBuffer128;
 OS_EVENT *xMutexBuffer128;
 OS_EVENT *xSemCountBuffer64;
 OS_EVENT *xMutexBuffer64;
 OS_EVENT *xSemCountBuffer32;
 OS_EVENT *xMutexBuffer32;
+
+OS_EVENT *xSemCountReceivedACK;
+OS_EVENT *xSemCountPreParsed;
+OS_EVENT *xMutexReceivedACK;
+OS_EVENT *xMutexPreParsed;
+
+OS_EVENT *xSemCountSenderACK;
+OS_EVENT *xMutexSenderACK;
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -107,9 +121,9 @@ bool bResourcesInitRTOS( void )
 	}
 
 	/* This semaphore will count the number of positions available in the "medium" buffer of 64 characters*/
-	xMutexBuffer64 = OSSemCreate(N_64);
-	if (!xMutexBuffer64) {
-		vFailCreateRTOSResources(xMutexBuffer64);
+	xSemCountBuffer64 = OSSemCreate(N_64);
+	if (!xSemCountBuffer64) {
+		vFailCreateRTOSResources(xSemCountBuffer64);
 		bSuccess = FALSE;
 	}
 
@@ -119,6 +133,48 @@ bool bResourcesInitRTOS( void )
 		vFailCreateRTOSResources(xSemCountBuffer32);
 		bSuccess = FALSE;
 	}
+
+
+	/* Mutex and Semaphores to control the comunication of FastReaderTask */
+	xMutexReceivedACK = OSMutexCreate(PCP_MUTEX_RECEIVER_ACK, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateRTOSResources(err);
+		bSuccess = FALSE;
+	}
+
+	/* Mutex for Reader -> Parser*/
+	xMutexPreParsed = OSMutexCreate(PCP_MUTEX_PrePareseds, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateRTOSResources(err);
+		bSuccess = FALSE;
+	}
+
+	xSemCountReceivedACK = OSSemCreate(0);
+	if (!xSemCountReceivedACK) {
+		vFailCreateRTOSResources(xSemCountReceivedACK);
+		bSuccess = FALSE;
+	}
+
+	xSemCountPreParsed = OSSemCreate(0);
+	if (!xSemCountPreParsed) {
+		vFailCreateRTOSResources(xSemCountPreParsed);
+		bSuccess = FALSE;
+	}
+
+	/* Mutex and Semaphore to AckSenderTask*/
+
+	xSemCountSenderACK = OSSemCreate(0);
+	if (!xSemCountSenderACK) {
+		vFailCreateRTOSResources(xSemCountSenderACK);
+		bSuccess = FALSE;
+	}
+
+	xMutexSenderACK = OSMutexCreate(PCP_MUTEX_SENDER_ACK, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateRTOSResources(err);
+		bSuccess = FALSE;
+	}
+
 
 	xQSenderTask = OSQCreate(&xQSenderTaskTbl[0], SENDER_QUEUE_SIZE);
 	if (!xQSenderTask) {

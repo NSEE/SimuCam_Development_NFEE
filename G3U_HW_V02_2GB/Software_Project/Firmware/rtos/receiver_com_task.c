@@ -135,8 +135,6 @@ void vReceiverComTask(void *task_data)
                         case START_REQUEST_CHAR:
                         case START_REPLY_CHAR:
                             if ( bSendAck() == TRUE ) {
-                                /* Post Semaphore to tell to vSenderComTask stop send status packet*/
-                                error_code = OSSemPost(xSemCommInit);
 
                                 if ( error_code == OS_ERR_NONE ) {
 
@@ -495,11 +493,6 @@ void vSendEthConf (void) {
                         xConfEth.siPortPUS);
     crc = ucCrc8wInit( cBufferETH , strlen(cBufferETH));
     sprintf(cBufferETH, "%s|%hhu;", cBufferETH, crc );
-
-
-
-    
-
 
 }
 

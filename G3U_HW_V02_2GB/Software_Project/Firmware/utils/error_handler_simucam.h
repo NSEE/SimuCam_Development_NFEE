@@ -22,6 +22,9 @@ void vFailSenderCreate( void );
 void vFailDeleteInitialization( void );
 void vFailCreateRTOSResources( INT8U error_code );
 void vFailSendxSemCommInit( void );
+void vFailSendPreParsedSemaphore( void );
+void vFailSendPreAckSenderSemaphore( void );
+void vFailSendPreAckReceiverSemaphore( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

@@ -15,7 +15,7 @@ void vInitialTask(void *task_data)
 
 	/* READ: Create the task that is responsible to READ UART buffer */
 	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vReceiverComTask,
+		error_code = OSTaskCreateExt(vFastReaderRX,
 									NULL,
 									(void *)&receiverTask_stk[RECEIVER_TASK_SIZE-1],
 									RECEIVER_TASK_PRIO,
@@ -27,7 +27,7 @@ void vInitialTask(void *task_data)
 
 
 	#else
-		error_code = OSTaskCreateExt(vReceiverComTask,
+		error_code = OSTaskCreateExt(vFastReaderRX,
 									NULL,
 									(void *)&receiverTask_stk[RECEIVER_TASK_SIZE-1],
 									RECEIVER_TASK_PRIO,

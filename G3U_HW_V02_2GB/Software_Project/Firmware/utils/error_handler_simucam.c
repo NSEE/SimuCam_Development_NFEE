@@ -52,6 +52,39 @@ void vFailSendxSemCommInit( void )
 	 */
 }
 
+void vFailSendPreParsedSemaphore( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendPreParsedSemaphore. (exit)");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendPreAckReceiverSemaphore( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendPreAckReceiverSemaphore. (exit)");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailSendPreAckSenderSemaphore( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendPreAckSenderSemaphore. (exit)");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
 
 void vFailGetMacRTC( void )
 {

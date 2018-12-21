@@ -44,16 +44,6 @@
 
 typedef enum { eNoError = 0, eBadFormatInit, eCRCErrorInit, eSemErrorInit, eBadFormat, eCRCError } tErrorReceiver;
 
-/*Struct used to parse the received command through UART*/
-typedef struct {
-    tErrorReceiver ucErrorFlag;
-    char cType; /* ?(request):0 or !(reply):1*/
-    char cCommand;
-    unsigned char ucNofBytes;
-    unsigned short int usiValues[SIZE_UCVALUES]; /*The first is always, ALWAYS the id of the command. Max size of parsed value is 6 digits, for now*/
-    unsigned char ucCalculatedCRC8;
-    unsigned char ucMessageCRC8;
-} tPreParsed;
 
 /*Semaphore that Receiver inform Sender that receive the initialization packet*/
 extern OS_EVENT *xSemCommInit;
@@ -76,6 +66,51 @@ tCommandSender *xQSenderTaskTbl[SENDER_QUEUE_SIZE]; /*Can hold upto N command to
 
 extern unsigned short int usiIdCMD;
 
+
+/*================================== Reader UART ================================*/
+
+/*Struct used to parse the received command through UART*/
+#define N_PREPARSED_ENTRIES     4
+typedef struct {
+    tErrorReceiver ucErrorFlag;
+    char cType; /* ?(request):0 or !(reply):1*/
+    char cCommand;
+    unsigned char ucNofBytes;
+    unsigned short int usiValues[SIZE_UCVALUES]; /*The first is always, ALWAYS the id of the command. Max size of parsed value is 6 digits, for now*/
+    unsigned char ucCalculatedCRC8;
+    unsigned char ucMessageCRC8;
+} tPreParsed;
+
+extern OS_EVENT *xSemCountPreParsed;
+extern OS_EVENT *xMutexPreParsed;
+extern tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
+extern tPreParsed xPreParsedReader;
+
+#define N_ACKS_RECEIVED        4
+typedef struct {
+    char cType;
+    char cCommand;
+    unsigned short int usiId;
+} txReceivedACK;
+
+extern OS_EVENT *xSemCountReceivedACK;
+extern OS_EVENT *xMutexReceivedACK;
+extern txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
+
+
+#define N_ACKS_SENDER        N_PREPARSED_ENTRIES
+typedef struct {
+    char cType;
+    char cCommand;
+    unsigned short int usiId;
+} txSenderACKs;
+
+extern OS_EVENT *xSemCountSenderACK;
+extern OS_EVENT *xMutexSenderACK;
+extern txSenderACKs xSenderACK[N_ACKS_SENDER];
+
+
+/*================================== Reader UART ================================*/
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 #define N_RETRIES_COMM          3
@@ -123,7 +158,6 @@ extern txBuffer64 xBuffer64[N_64];
 extern OS_EVENT *xSemCountBuffer32;
 extern OS_EVENT *xMutexBuffer32;
 extern txBuffer32 xBuffer32[N_32];
-
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 
