@@ -316,6 +316,22 @@
          type = "String";
       }
    }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
    element SEVEN_SEGMENT_CONTROLLER_0
    {
       datum _sortIndex
@@ -1699,42 +1715,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
@@ -1884,7 +1900,7 @@
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 31" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer' start='0x10000C000' end='0x10000E000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer' start='0x10000E000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /><slave name='COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer' start='0x10001C000' end='0x10001E000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer' start='0x10001E000' end='0x100020000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="1" />
+  <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
@@ -1908,7 +1924,7 @@
   <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE" value="Aligned Accesses" />
+  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module name="dma_DDR_M2" kind="altera_msgdma" version="16.1" enabled="1">
@@ -1927,7 +1943,7 @@
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer' start='0x10000C000' end='0x10000E000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer' start='0x10000E000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /><slave name='COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer' start='0x10001C000' end='0x10001E000' /><slave name='COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer' start='0x10001E000' end='0x100020000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="1" />
+  <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
@@ -1951,7 +1967,7 @@
   <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE" value="Aligned Accesses" />
+  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module

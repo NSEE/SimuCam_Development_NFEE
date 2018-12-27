@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.12.18.23:08:24 -->
+ <!-- 2018.12.27.15:18:08 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1545181704</value>
+  <value>1545931088</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -724,7 +724,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -858,7 +858,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_A.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -2083,7 +2083,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2217,7 +2217,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_B.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -3442,7 +3442,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3576,7 +3576,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_C.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4801,7 +4801,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -4935,7 +4935,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_D.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6160,7 +6160,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -6294,7 +6294,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_E.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7519,7 +7519,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7653,7 +7653,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_F.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -8878,7 +8878,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_G">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -9012,7 +9012,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_G.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -10237,7 +10237,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="1.0"
+   version="1.1"
    path="COMM_Pedreiro_v1_01_H">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -10371,7 +10371,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
+    <value>COMM_Pedreiro_v1_01_H.avalon_slave_windowing</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -19829,7 +19829,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.BURST_ENABLE</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BURST_WRAPPING_SUPPORT</name>
@@ -19921,7 +19921,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TRANSFER_TYPE</name>
-   <value>Aligned Accesses</value>
+   <value>Full Word Accesses Only</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -20013,7 +20013,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TRANSFER_TYPE">
    <type>java.lang.String</type>
-   <value>Aligned Accesses</value>
+   <value>Full Word Accesses Only</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -20021,7 +20021,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURST_ENABLE">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -20031,7 +20031,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>16</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -20039,7 +20039,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -20071,7 +20071,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -20601,12 +20601,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>readdatavalid</role>
    </port>
-   <port>
-    <name>mm_read_burstcount</name>
-    <direction>Output</direction>
-    <width>5</width>
-    <role>burstcount</role>
-   </port>
    <memoryBlock>
     <isBridge>true</isBridge>
     <moduleName>m1_clock_bridge</moduleName>
@@ -20915,12 +20909,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>waitrequest</role>
-   </port>
-   <port>
-    <name>mm_write_burstcount</name>
-    <direction>Output</direction>
-    <width>5</width>
-    <role>burstcount</role>
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -21974,7 +21962,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.BURST_ENABLE</name>
-   <value>1</value>
+   <value>0</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BURST_WRAPPING_SUPPORT</name>
@@ -22066,7 +22054,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TRANSFER_TYPE</name>
-   <value>Aligned Accesses</value>
+   <value>Full Word Accesses Only</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -22158,7 +22146,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TRANSFER_TYPE">
    <type>java.lang.String</type>
-   <value>Aligned Accesses</value>
+   <value>Full Word Accesses Only</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -22166,7 +22154,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURST_ENABLE">
    <type>int</type>
-   <value>1</value>
+   <value>0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -22176,7 +22164,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>16</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -22184,7 +22172,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -22216,7 +22204,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>true</enabled>
+   <enabled>false</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -22746,12 +22734,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>readdatavalid</role>
    </port>
-   <port>
-    <name>mm_read_burstcount</name>
-    <direction>Output</direction>
-    <width>5</width>
-    <role>burstcount</role>
-   </port>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>m2_ddr2_memory</moduleName>
@@ -23052,12 +23034,6 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>waitrequest</role>
-   </port>
-   <port>
-    <name>mm_write_burstcount</name>
-    <direction>Output</direction>
-    <width>5</width>
-    <role>burstcount</role>
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -73187,7 +73163,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1545181704</value>
+   <value>1545931088</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -73207,7 +73183,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1545181704</value>
+   <value>1545931088</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -73223,7 +73199,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1545181704</value>
+   <value>1545931088</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -85431,7 +85407,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>COMM_Pedreiro_v1_01</displayName>
-  <version>1.0</version>
+  <version>1.1</version>
  </plugin>
  <plugin>
   <instanceCount>16</instanceCount>

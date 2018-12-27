@@ -66,10 +66,16 @@ int main(void) {
 	comm_init_channel(&spw_g, spacewire_channel_g);
 	comm_init_channel(&spw_h, spacewire_channel_h);
 
-	//spw_a.windowing_config.masking = TRUE;
+	spw_a.link_config.autostart = FALSE;
+	spw_a.link_config.start = FALSE;
+	spw_a.link_config.disconnect = TRUE;
+	comm_config_link(&spw_a);
+	usleep(5000);
+//	spw_a.windowing_config.masking = TRUE;
 	spw_a.windowing_config.masking = FALSE;
 	spw_a.link_config.autostart = TRUE;
 	spw_a.link_config.start = TRUE;
+	spw_a.link_config.disconnect = FALSE;
 	comm_config_windowing(&spw_a);
 	comm_config_link(&spw_a);
 
@@ -319,7 +325,7 @@ int main(void) {
 //	}
 
 //	pDDR = (alt_u32 *) Ddr2Base;
-//	for (data_counter = 0; data_counter < (136/4); data_counter++) {
+//	for (data_counter = 0; data_counter < (136/4 * 16); data_counter++) {
 //		printf("mem[%03u]: %08X \n", data_counter, *pDDR);
 //		pDDR++;
 //	}
@@ -335,6 +341,24 @@ int main(void) {
 	}
 
 	bool loop = TRUE;
+
+	comm_update_link_status(&spw_a);
+	if (spw_a.link_status.running) {
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+	} else {
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
+	}
+
+	comm_update_link_status(&spw_h);
+	if (spw_h.link_status.running) {
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+	} else {
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+	}
 
 	while (loop) {
 		printf("selecione memoria \n");
@@ -389,12 +413,18 @@ int main(void) {
 	if (spw_a.link_status.running) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+	} else {
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 	}
 
 	comm_update_link_status(&spw_h);
 	if (spw_h.link_status.running) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+	} else {
+		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
+		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
 	}
 
 	int i = 0;
