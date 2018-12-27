@@ -166,6 +166,8 @@ bool comm_update_timecode_tx(comm_channel_t *channel);
 bool comm_update_buffers_status(comm_channel_t *channel);
 bool comm_init_channel(comm_channel_t *channel, alt_u8 spw_channel);
 
+extern volatile alt_u8 int_cnt;
+
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

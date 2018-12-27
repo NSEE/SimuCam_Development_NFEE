@@ -293,7 +293,7 @@ begin
 						-- next data will be read from buffer 1
 						s_read_data_buffer_0_active <= '0';
 						-- clear the data ready flag
-						s_data_buffer_1_ready       <= '0';
+						s_data_buffer_0_ready       <= '0';
 					end if;
 				else
 					-- buffer 1 is being used

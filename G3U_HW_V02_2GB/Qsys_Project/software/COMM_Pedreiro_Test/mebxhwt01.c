@@ -57,6 +57,9 @@ int main(void) {
 	//Configura Display de 7 segmentos
 	SSDP_CONFIG(SSDP_NORMAL_MODE);
 
+	alt_u32 *spw_h_rst_base = (alt_u32 *) (RST_CONTROLLER_SPWH_BASE);
+	*spw_h_rst_base = 0x00000000;
+
 	comm_init_channel(&spw_a, spacewire_channel_a);
 	comm_init_channel(&spw_b, spacewire_channel_b);
 	comm_init_channel(&spw_c, spacewire_channel_c);
@@ -66,13 +69,20 @@ int main(void) {
 	comm_init_channel(&spw_g, spacewire_channel_g);
 	comm_init_channel(&spw_h, spacewire_channel_h);
 
+	comm_init_interrupt(spacewire_channel_a);
+	int_cnt = 0;
+	printf("int_cnt: %u \n", int_cnt);
+
+	spw_a.int_control.right_buffer_empty_en = FALSE;
+	comm_config_int_control(&spw_a);
+
 	spw_a.link_config.autostart = FALSE;
 	spw_a.link_config.start = FALSE;
 	spw_a.link_config.disconnect = TRUE;
 	comm_config_link(&spw_a);
 	usleep(5000);
-//	spw_a.windowing_config.masking = TRUE;
-	spw_a.windowing_config.masking = FALSE;
+	spw_a.windowing_config.masking = TRUE;
+//	spw_a.windowing_config.masking = FALSE;
 	spw_a.link_config.autostart = TRUE;
 	spw_a.link_config.start = TRUE;
 	spw_a.link_config.disconnect = FALSE;
@@ -84,6 +94,22 @@ int main(void) {
 
 	spw_h.link_config.autostart = TRUE;
 	comm_config_link(&spw_h);
+
+	comm_update_link(&spw_h);
+	printf("empty r: %u \n", spw_h.link_config.autostart);
+
+	*spw_h_rst_base = 0x00000001;
+	usleep(5000);
+	*spw_h_rst_base = 0x00000000;
+
+	comm_update_link(&spw_h);
+	printf("empty r: %u \n", spw_h.link_config.autostart);
+
+	spw_h.link_config.autostart = TRUE;
+	comm_config_link(&spw_h);
+
+	comm_update_link(&spw_h);
+	printf("empty r: %u \n", spw_h.link_config.autostart);
 
 	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
 
@@ -134,7 +160,7 @@ int main(void) {
 	getchar();
 	printf("foi \n");
 
-	DDR2_SWITCH_MEMORY(DDR2_M1_ID);
+	DDR2_SWITCH_MEMORY(DDR2_M2_ID);
 	alt_u32 Ddr2Base = DDR2_EXTENDED_ADDRESS_WINDOWED_BASE;
 
 	alt_u32 *pDDR;
@@ -364,23 +390,23 @@ int main(void) {
 		printf("selecione memoria \n");
 		switch (getchar()) {
 		case '1':
-			printf("m1 \n");
-			if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
-				printf("dma_m1 transferido corretamente \n");
+			printf("m2 R \n");
+			if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+				printf("dma_m2 transferido corretamente \n");
 			}
 			break;
 
 		case '2':
-			printf("m2 \n");
-			if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+			printf("m2 L \n");
+			if (fee_dma_m2_transfer(0, 16, left_buffer, channel_a_buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
 			break;
 
 		case 'a':
 			printf("a \n");
-			if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
-				printf("dma_m1 transferido corretamente \n");
+			if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+				printf("dma_m2 transferido corretamente \n");
 			}
 //			if (fee_dma_m1_transfer(0, 16, left_buffer, channel_a_buffer)) {
 //				printf("dma_m1 transferido corretamente \n");
@@ -436,6 +462,7 @@ int main(void) {
 		comm_update_buffers_status(&spw_a);
 		printf("empty r: %u \n", spw_a.buffer_status.right_buffer_empty);
 		printf("empty l: %u \n", spw_a.buffer_status.left_buffer_empty);
+		printf("int_cnt: %u \n", int_cnt);
 	}
 
 //}

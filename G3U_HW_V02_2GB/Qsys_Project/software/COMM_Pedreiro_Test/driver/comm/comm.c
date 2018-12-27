@@ -1,5 +1,7 @@
 #include "comm.h"
 
+extern volatile alt_u8 int_cnt = 0;
+
 //! [private function prototypes]
 static bool write_reg(alt_u32 *address, alt_u32 offset, alt_u32 data);
 static alt_u32 read_reg(alt_u32 *address, alt_u32 offset);
@@ -36,6 +38,9 @@ void comm_channel_a_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	int_cnt++;
+	write_reg((alt_u32 *)COMM_CHANNEL_A_BASE_ADDR, COMM_INTERRUPT_FLAG_REG_OFFSET,
+			COMM_INT_BUFFER_EMPTY_FLAG_MASK);
 }
 
 void comm_channel_b_handle_irq(void* context) {

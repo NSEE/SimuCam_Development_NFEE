@@ -184,9 +184,11 @@ begin
 							-- right side
 							s_registered_window_mask <= window_mask_R_i;
 							window_data_R_read_o     <= '1';
+							window_data_L_read_o <= '0';
 						else
 							-- left side
 							s_registered_window_mask <= window_mask_L_i;
+							window_data_R_read_o <= '0';
 							window_data_L_read_o     <= '1';
 						end if;
 						s_data_controller_state <= DATA_FETCH;
