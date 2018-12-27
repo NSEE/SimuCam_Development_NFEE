@@ -169,6 +169,10 @@ C_SRCS += rtos/sender_com_task.c
 C_SRCS += utils/crc8.c
 C_SRCS += rtos/fast_rx_reader_task.c
 C_SRCS += rtos/parser_rx_task.c
+C_SRCS += rtos/sender_ack_task.c
+C_SRCS += rtos/receiver_ack_task.c
+C_SRCS += utils/communication_utils.c
+C_SRCS += rtos/parser_comm_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

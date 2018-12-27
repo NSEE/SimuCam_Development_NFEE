@@ -8,7 +8,7 @@
 
 #include "fast_rx_reader_task.h"
 
-void vFastReaderRX(void *task_data){
+void vFastReaderRX(void *task_data) {
     bool bSuccess = FALSE;
     char cReceiveBuffer[SIZE_RCV_BUFFER];
     tReaderStates eReaderRXMode;
@@ -242,9 +242,9 @@ bool setPreAckSenderFreePos( tPreParsed *xPrePReader ) {
                 if ( xSenderACK[i].cType == 0 ) {
                     /* Locate a free place*/
                     /* Need to check if the performance is the same as memcpy*/
-                    xSenderACK.cType = xPrePReader->ucType;
-                    xSenderACK.cCommand = xPrePReader->cCommand;
-                    xSenderACK.usiId = xPrePReader->usiValues[0]; /*The first value is always the command id*/
+                    xSenderACK[i].cType = xPrePReader->cType;
+                    xSenderACK[i].cCommand = xPrePReader->cCommand;
+                    xSenderACK[i].usiId = xPrePReader->usiValues[0]; /*The first value is always the command id*/
                     
                     error_code = OSSemPost(xSemCountSenderACK);
                     if ( error_code == OS_ERR_NONE ) {
@@ -279,19 +279,19 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
            
             for(unsigned char i = 0; i < N_ACKS_RECEIVED; i++)
             {
-                if ( xSenderACK[i].cType == 0 ) {
+                if ( xReceivedACK[i].cType == 0 ) {
                     /* Locate a free place*/
                     /* Need to check if the performance is the same as memcpy*/
-                    xReceivedACK.cType = xPrePReader->ucType;
-                    xReceivedACK.cCommand = xPrePReader->cCommand;
-                    xReceivedACK.usiId = xPrePReader->usiValues[0];
+                    xReceivedACK[i].cType = xPrePReader->cType;
+                    xReceivedACK[i].cCommand = xPrePReader->cCommand;
+                    xReceivedACK[i].usiId = xPrePReader->usiValues[0];
 
                     error_code = OSSemPost(xSemCountReceivedACK);
                     if ( error_code == OS_ERR_NONE ) {
                         bSuccess = TRUE;
                     } else {
                         vFailSendPreAckReceiverSemaphore();
-                        xSenderACK[i].cType = 0;
+                        xReceivedACK[i].cType = 0;
                         bSuccess = FALSE;
                     }
                     break;
@@ -303,4 +303,10 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
         }
     }
     return bSuccess;
+}
+
+inline short int siPosStr( char *buffer, char cValue) {
+    char cTempChar[2] = "";
+    cTempChar[0] = cValue; /* This step was add for performance. The command strcspn needs "" (const char *) */
+    return strcspn(buffer, cTempChar);
 }

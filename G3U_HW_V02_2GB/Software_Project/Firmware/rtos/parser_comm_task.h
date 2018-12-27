@@ -1,12 +1,12 @@
 /*
- * parser_rx_task.h
+ * parser_comm_task.h
  *
- *  Created on: 19/12/2018
+ *  Created on: 27/12/2018
  *      Author: Tiago-Low
  */
 
-#ifndef PARSER_RX_TASK_H_
-#define PARSER_RX_TASK_H_
+#ifndef PARSER_COMM_TASK_H_
+#define PARSER_COMM_TASK_H_
 
 #include "../utils/communication_configs.h"
 
@@ -16,6 +16,6 @@ typedef enum { sConfiguring = 0, sWaitingConn, sWaitingMessage, sRequestParsing,
 void vParserRXTask(void *task_data);
 bool getPreParsedPacket( tPreParsed *xPreParsedParser );
 unsigned short int usiGetIdCMD ( void );
-boolean bTrySendSemaphoreCommInit( void );
+bool bTrySendSemaphoreCommInit( void );
 
-#endif /* PARSER_RX_TASK_H_ */
+#endif /* PARSER_COMM_TASK_H_ */

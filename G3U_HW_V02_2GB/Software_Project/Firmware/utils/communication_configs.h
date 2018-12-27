@@ -1,15 +1,19 @@
 /*
- * configuration_comm.h
+ * communication_configs.h
  *
- *  Created on: 13/12/2018
+ *  Created on: 27/12/2018
  *      Author: Tiago-Low
  */
 
-#ifndef CONFIGURATION_COMM_H_
-#define CONFIGURATION_COMM_H_
+#ifndef COMMUNICATION_CONFIGS_H_
+#define COMMUNICATION_CONFIGS_H_
 
 #include <ucos_ii.h>
 #include <stdlib.h>
+#include <string.h>
+#include "../simucam_definitions.h"
+#include "crc8.h"
+
 
 /*======= Delimiters - UART==========*/
 #define SEPARATOR_CHAR          ':'
@@ -146,4 +150,5 @@ extern txBuffer32 xBuffer32[N_32];
 
 
 
-#endif /* CONFIGURATION_COMM_H_ */
+
+#endif /* COMMUNICATION_CONFIGS_H_ */

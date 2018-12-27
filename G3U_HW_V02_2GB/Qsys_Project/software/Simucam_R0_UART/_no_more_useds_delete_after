@@ -1,9 +1,73 @@
 
-#include "receiver_com_task.h"
 
 
-/*  This function implements the task that will receive packet via UART
-    also need to parse the command in order to send to the MEB task */
+inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParssedBuffer ) {
+    tReceiverStates xReturnState;
+    unsigned char ucCountRetries = 0;
+    INT8U error_code;
+    
+    switch (xPerParssedBuffer->ucErrorFlag)
+    {
+        case eBadFormatInit:
+        case eCRCErrorInit:
+            #ifdef DEBUG_ON
+                debug(fp,"CRC Fail or BadFormat. In the Initialization.\n");
+            #endif
+
+            /* Send Nack */
+            if ( bSendNack() == FALSE ) {
+                /*  If all tries of send NACK fails, for now... do nothing
+                    Maybe this will be used in future implementation*/
+            }
+            xReturnState = sWaitingConn;
+            break;
+        case eSemErrorInit:
+            
+            #ifdef DEBUG_ON
+                debug(fp,"Can't post semaphore to SenderTask.\n");
+            #endif
+
+            ucCountRetries = 0;
+            do
+            {
+                ucCountRetries++;
+                OSTimeDly(100); /* 100 tick -> 100 ms -> context switch */
+                error_code = OSSemPost(xSemCommInit);
+            } while ((error_code != OS_ERR_NONE) && (ucCountRetries < 11));
+            
+            
+
+            break;
+
+        case eBadFormat:
+        case eCRCError:
+             #ifdef DEBUG_ON
+                debug(fp,"eBadFormat or eCRCError.\n");
+            #endif
+
+            if ( bSendNack() == FALSE ) {
+                /*  If all tries of send NACK fails, for now... do nothing
+                    Maybe this will be used in future implementation*/
+            }
+            xReturnState = sReceiving;
+            break;
+        case eNoError:
+            xReturnState = sReceiving;
+            #ifdef DEBUG_ON
+                debug(fp,"No error. Why Handling Error?. (tErrorHandlerFunc)\n");
+            #endif 
+            break;
+        default:
+            break;
+    }
+    #ifdef DEBUG_ON
+        debug(fp,"(tErrorHandlerFunc)\n");
+    #endif     
+
+    return xReturnState;
+}
+
+
 void vReceiverComTask(void *task_data)
 {
     bool bSuccess = FALSE;
@@ -450,3 +514,9 @@ unsigned short int usiGetIdCMD ( void ) {
 
     return usiIdCMD;
 }
+
+
+
+
+
+

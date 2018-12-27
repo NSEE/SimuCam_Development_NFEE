@@ -11,7 +11,6 @@
 #include "../simucam_definitions.h"
 #include "../utils/configs_simucam.h"
 #include "configuration_comm.h"
-#include "../utils/crc8.h"
 #include "../utils/configs_simucam.h"
 #include <string.h>
 #include <ctype.h>
@@ -25,6 +24,7 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer );
 bool setPreParsedFreePos( tPreParsed *xPrePReader );
 bool setPreAckSenderFreePos( tPreParsed *xPrePReader );
 bool setPreAckReceiverFreePos( tPreParsed *xPrePReader );
+inline short int siPosStr( char *buffer, char cValue)
 
 
 #endif /* FAST_RX_READER_TASK_H_ */

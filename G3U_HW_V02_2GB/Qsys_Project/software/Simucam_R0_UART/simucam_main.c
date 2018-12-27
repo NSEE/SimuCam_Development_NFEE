@@ -50,9 +50,7 @@ OS_EVENT *xMutexSenderACK;
 
 
 /* --------------- Definition of Queues ------------ */
-/* Queue that Sender task consume in order to create the packet to send to NUC (Receiver and Sender) */
-OS_EVENT *xQSenderTask;
-void *xQSenderTaskTbl[SENDER_QUEUE_SIZE]; /*Storage for xQSenderTask*/
+
 
 /* -------------- Definition of Queues -------------- */
 
@@ -86,7 +84,7 @@ bool bResourcesInitRTOS( void )
 	}
 
 	/* This mutex will protect the access of tx buffer, between SenderTask and Acks from ReceiverTask*/
-	xTxUARTMutex = OSMutexCreate(PCP_MUTEX_TEMP_PRIO, &err);
+	xTxUARTMutex = OSMutexCreate(PCP_MUTEX_TX_UART_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateRTOSResources(err);
 		bSuccess = FALSE;

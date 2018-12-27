@@ -9,10 +9,8 @@
 #define RECEIVER_COM_H_
 
 #include "../simucam_definitions.h"
-#include "../utils/configs_simucam.h"
 #include "configuration_comm.h"
 #include "../utils/crc8.h"
-#include "../utils/configs_simucam.h"
 #include <string.h>
 #include <ctype.h>
 

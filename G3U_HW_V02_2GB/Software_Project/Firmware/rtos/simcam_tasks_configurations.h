@@ -24,7 +24,7 @@
 #define PCP_MUTEX_B128_PRIO             6   /* MUTEX Buffer TX char[128]*/
 #define PCP_MUTEX_RECEIVER_ACK          5   /* MUTEX Reader -> Ack receiver control*/
 #define PCP_MUTEX_SENDER_ACK            4   /* MUTEX Reader -> Ack receiver control*/
-#define PCP_MUTEX_TEMP_PRIO             3   /* MUTEX TX UART*/
+#define PCP_MUTEX_TX_UART_PRIO          3   /* MUTEX TX UART*/
 
 
 
@@ -52,11 +52,15 @@ extern OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 
 /* -------------- Definition of Stacks------------------ */
 
+
+
+
 /* -------------- Definition of Queues--------------------*/
-#define SENDER_QUEUE_SIZE  20  /* Message capacity of xQSenderTask */
-extern OS_EVENT *xQSenderTask;
-extern void *xQSenderTaskTbl[SENDER_QUEUE_SIZE]; /*Storage for xQSenderTask*/
+
+
 /* -------------- Definition of Queues--------------------*/
+
+
 
 
 /*---------------Semaphore and Mutex ---------------------*/
@@ -83,7 +87,6 @@ extern OS_EVENT *xMutexPreParsed;
 
 extern OS_EVENT *xSemCountSenderACK;
 extern OS_EVENT *xMutexSenderACK;
-
 /*---------------Semaphore and Mutex ---------------------*/
 
 
