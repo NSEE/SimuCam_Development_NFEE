@@ -13,17 +13,18 @@
 
 /*Critical function: In the worst case it makes the task sleep for 425 miliseconds due to retries */
 bool bSendUART128 ( char *cBuffer, short int siIdMessage ) {
-	bool bSuccess = FALSE;
-	char cLocalBuffer128[128];
     INT8U ucErrorCodeSem;
 	INT8U ucErrorCodeMutexRetrans;
 	INT8U ucErrorCodeMutexTxUART;
+	INT8U error_code;
+	INT8U ucReturnMutexRetrans;
     unsigned char ucCountRetriesSem = 0;
 	unsigned char ucCountRetriesMutexRetrans = 0;
 	unsigned char ucCountRetriesMutexTxUART = 0;
-	INT8U ucReturnMutexRetrans;
-    unsigned char crc = 0;
 	unsigned char i = 0;
+	bool bSuccess = FALSE;
+	char cLocalBuffer128[128];
+
 
 	/* Copy cBuffer to avoid problems of reentrancy*/
 	memcpy(cLocalBuffer128, cBuffer, 128);
@@ -123,7 +124,6 @@ bool bSendUART128 ( char *cBuffer, short int siIdMessage ) {
 
 void vSendEthConf ( void ) {
     char cBufferETH[128] = "";
-	INT8U ucReturnMutexRetrans;
     unsigned char crc = 0;
     unsigned short int  usiIdCMDLocal;
 	bool bSuccees = FALSE;
@@ -151,11 +151,15 @@ void vSendEthConf ( void ) {
 
 
 unsigned short int usiGetIdCMD ( void ) {
-
     if ( usiIdCMD > 65534 )
         usiIdCMD = 1;
     else
         usiIdCMD++;
-
     return usiIdCMD;
+}
+
+inline short int siPosStr( char *buffer, char cValue) {
+    char cTempChar[2] = "";
+    cTempChar[0] = cValue; /* This step was add for performance. The command strcspn needs "" (const char *) */
+    return strcspn(buffer, cTempChar);
 }

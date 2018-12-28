@@ -16,8 +16,11 @@
  * 55 -> MIN PRIORITY  */
 #define INITIALIZATION_TASK_PRIO        1
 #define INITIALIZATION_TASK_PRIO_FAIL   20
-#define RECEIVER_TASK_PRIO              18
-#define SENDER_TASK_PRIO                17
+#define RECEIVER_TASK_PRIO              18 	/* Never sleep - starving task (do not up the priority of this task)*/
+#define PARSER_TASK_PRIO				17
+#define OUT_ACK_TASK_PRIO				16
+#define SENDER_TASK_PRIO                15
+#define IN_ACK_TASK_PRIO				14
 #define PCP_MUTEX_PrePareseds           9   /* MUTEX Reader -> PARSER task*/
 #define PCP_MUTEX_B32_PRIO              8   /* MUTEX Buffer TX char[32]*/
 #define PCP_MUTEX_B64_PRIO              7   /* MUTEX Buffer TX char[64]*/
@@ -38,16 +41,22 @@
 
 #define INITIALIZATION_TASK_SIZE TASK_STACKSIZE
 #define RECEIVER_TASK_SIZE TASK_STACKSIZE
+#define PARSER_TASK_SIZE TASK_STACKSIZE
+#define IN_ACK_TASK_SIZE TASK_STACKSIZE
+#define OUT_ACK_TASK_SIZE TASK_STACKSIZE
 #define SENDER_TASK_SIZE TASK_STACKSIZE
 
 
 
 /* -------------- Definition of Stacks------------------ */
 extern OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
-extern OS_STK    task2_stk[TASK_STACKSIZE];
+
 
 /* Communication tasks */
-extern OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
+extern OS_STK    vReceiverUartTask_stk[RECEIVER_TASK_SIZE];
+extern OS_STK    vParserCommTask_stk[PARSER_TASK_SIZE];
+extern OS_STK    vInAckHandlerTask_stk[IN_ACK_TASK_SIZE];
+extern OS_STK    vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE];
 extern OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 
 /* -------------- Definition of Stacks------------------ */

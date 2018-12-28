@@ -17,11 +17,26 @@
 	}
 #endif
 
-void vFailCreateRTOSResources( INT8U error_code )
+void vFailCreateMutexSResources( INT8U error_code )
 {
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateMutexSResources. (exit)");
+	#endif
 	#ifdef DEBUG_ON
 		printErrorTask(error_code);
 	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailCreateSemaphoreResources( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateSemaphoreResources. (exit)");
+	#endif
+
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
@@ -196,7 +211,7 @@ void vFailInitialization( void )
 void vFailReceiverCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailReceiverCreate");
+		debug(fp,"vReceiverUartTask");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -350,5 +365,100 @@ void vCouldNotSendEthConfUART( void )
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendNack( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendNack. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Send Nack using the PreAckSender buffer. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSetPreAckSenderBuffer( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSetPreAckSenderBuffer. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send the message to the task out_ack_handler using the PreAckSender buffer.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSetPreParsedBuffer( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSetPreParsedBuffer. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send the message to the task parser_comm using the PreParsed buffer.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailSetPreAckReceiverBuffer( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSetPreAckReceiverBuffer. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send the message to the task in_out_handler using the PreAckReceiver buffer.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailParserCommTaskCreate( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailParserCommTaskCreate");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vFailInAckHandlerTaskCreate( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailInAckHandlerTaskCreate");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vFailOutAckHandlerTaskCreate( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailInAckHandlerTaskCreate");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }

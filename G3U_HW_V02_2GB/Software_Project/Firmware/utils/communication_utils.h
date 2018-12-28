@@ -10,12 +10,14 @@
 
 
 #include "communication_configs.h"
+#include "configs_simucam.h"
 
 
 
 bool bSendUART128 ( char *cBuffer, short int siIdMessage );
 void vSendEthConf ( void );
 unsigned short int usiGetIdCMD ( void );
+short int siPosStr( char *buffer, char cValue);
 
 
 #endif /* COMMUNICATION_UTILS_H_ */

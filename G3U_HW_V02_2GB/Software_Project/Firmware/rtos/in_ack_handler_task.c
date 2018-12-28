@@ -1,14 +1,15 @@
 /*
- * receiver_ack_task.c
+ * in_ack_handler_task.c
  *
- *  Created on: 26/12/2018
+ *  Created on: 27/12/2018
  *      Author: Tiago-Low
  */
 
 
-#include "receiver_ack_task.h"
+#include "in_ack_handler_task.h"
 
-void vReceiverAckTask(void *task_data) {
+
+void vInAckHandlerTask(void *task_data) {
 
 	bool bFound = FALSE;
     bool bFinished32 = FALSE;
@@ -18,10 +19,8 @@ void vReceiverAckTask(void *task_data) {
     INT8U ucReturnMutex;
 	tReceiverACKState eReceiverAckState;
 	static txReceivedACK xRAckLocal;
-    char cBufferAck[16] = "";
     unsigned char ucCountRetries = 0;
-    unsigned char crc = 0; 
-    unsigned char i = 0;   
+    unsigned char i = 0;
 
 	#ifdef DEBUG_ON
 		debug(fp,"vReceiverAckTask, enter task.\n");
@@ -53,14 +52,14 @@ void vReceiverAckTask(void *task_data) {
                                 xReceivedACK[i].cType = 0; /* indicates that this position now can be used by other message*/
                                 break;
                             }
-                        }                        
+                        }
                         OSMutexPost(xMutexReceivedACK);
                     } else {
                         /*  Should never get here, will wait without timeout for the semaphore.
                             But if some error accours we will do nothing but print in the console */
                         vFailGetMutexReceiverTask();
-                    }                    
-                    
+                    }
+
                 } else {
                     /*  Should never get here, will wait without timeout for the semaphore.
                         But if some error accours we will do nothing but print in the console */
@@ -91,7 +90,7 @@ void vReceiverAckTask(void *task_data) {
                                     xBuffer32[i].usiId = 0;
                                     memset(xBuffer32[i].buffer, 0, 32);
                                     OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
-                                    
+
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer32);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -118,7 +117,7 @@ void vReceiverAckTask(void *task_data) {
                                     xBuffer64[i].usiId = 0;
                                     memset(xBuffer64[i].buffer, 0, 64);
                                     OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer64*/
-                                    
+
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer64);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -144,7 +143,7 @@ void vReceiverAckTask(void *task_data) {
                                     xBuffer128[i].usiId = 0;
                                     memset(xBuffer128[i].buffer, 0, 128);
                                     OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
-                                    
+
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer128);
                                     if ( error_code != OS_ERR_NONE ) {

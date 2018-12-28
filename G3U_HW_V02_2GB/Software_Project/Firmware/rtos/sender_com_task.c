@@ -10,10 +10,8 @@
 
 void vSenderComTask(void *task_data)
 {
-    bool bSucess = FALSE;
     tSenderStates eSenderMode;
     int desligarEm = 0;
-    void *pPointer = 0;
 
     eSenderMode = sConfiguringSender;
 
@@ -47,7 +45,7 @@ void vSenderComTask(void *task_data)
 
             case sReadingQueue:
 
-                pPointer = OSQPend(xQSenderTask, 0, &error_code);
+                //pPointer = OSQPend(xQSenderTask, 0, &error_code);
 
                 
 

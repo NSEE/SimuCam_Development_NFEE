@@ -1,14 +1,15 @@
 /*
- * fast_rx_reader_task.c
+ * receiver_uart_task.c
  *
- *  Created on: 19/12/2018
+ *  Created on: 27/12/2018
  *      Author: Tiago-Low
  */
 
 
-#include "fast_rx_reader_task.h"
+#include "receiver_uart_task.h"
 
-void vFastReaderRX(void *task_data) {
+
+void vReceiverUartTask(void *task_data) {
     bool bSuccess = FALSE;
     char cReceiveBuffer[SIZE_RCV_BUFFER];
     tReaderStates eReaderRXMode;
@@ -21,43 +22,41 @@ void vFastReaderRX(void *task_data) {
     eReaderRXMode = sRConfiguring;
 
     for(;;) {
-        
+
         switch (eReaderRXMode)
         {
             case sRConfiguring:
                 /* For future implementations */
-                eReaderRXMode = sRReceiving;
+                eReaderRXMode = sGetRxUart;
                 break;
-            case sRReceiving:
-                
+            case sGetRxUart:
+
                 memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
                 scanf("%s", cReceiveBuffer);
                 bSuccess = bPreParser( cReceiveBuffer , &xPreParsedReader );
 
                 if ( bSuccess == TRUE ) {
-                    
-                    if ( (xPreParsedReader.ucType == START_REQUEST_CHAR) || (xPreParsedReader.ucType == START_REPLY_CHAR) ) {
+
+                    if ( (xPreParsedReader.cType == START_REQUEST_CHAR) || (xPreParsedReader.cType == START_REPLY_CHAR) ) {
                         /* The packet is a request or reply sent by the NUC*/
                         eReaderRXMode = sSendToParser;
                     } else {
                         /* The packet is an ACK or NACK sent by the NUC*/
                         eReaderRXMode = sSendToACKReceiver;
                     }
-    
+
                 } else {
-                    /*Should Send NACK - Mocking value the only parte that metters is the "ucType = '#'" part */
-                    xPreParsedReader.ucType = '#';
-                    xPreParsedReader.cCommand = 'Ç';
-                    xSenderACK.usiValues[0] = 1;
+                    /*Should Send NACK - Mocking value the only parte that metters is the "cType = '#'" part */
+                    xPreParsedReader.cType = '#';
+                    xPreParsedReader.cCommand = ')';
+                    xPreParsedReader.usiValues[0] = 1;
 
                     /*Try to send ack to the Ack Sender Task*/
                     bSuccess = setPreAckSenderFreePos( &xPreParsedReader );
                     if ( bSuccess == FALSE ) {
-                        #ifdef DEBUG_ON
-                            debug(fp,"Can't send Nack to the Ack Sender Task.\n");
-                        #endif
+                        vFailSendNack();
                     }
-                    eReaderRXMode = sRReceiving;
+                    eReaderRXMode = sGetRxUart;
                 }
 
                 break;
@@ -72,30 +71,26 @@ void vFastReaderRX(void *task_data) {
                         //TODO
                         /* At this point ack was sent but the command was not sent to the Parser task
                            should sent an error message for the NUC and maye to the SGSE*/
-                        #ifdef DEBUG_ON
-                            debug(fp,"Ack sent, but can't perform the command, Should send error message.\n");
-                        #endif   
+                        vFailSetPreParsedBuffer();
                     }
+                } else {
+                    vFailSetPreAckSenderBuffer();
                 }
-                /* If is not possible to send the ACK for this command then we don't process the command, 
+                /* If is not possible to send the ACK for this command then we don't process the command,
                    because it will be sent again by the NUC and we won't wast processing performing the command twice.*/
-                eReaderRXMode = sRReceiving;
+                eReaderRXMode = sGetRxUart;
                 break;
             case sSendToACKReceiver:
 
                 bSuccess = setPreAckReceiverFreePos( &xPreParsedReader );
                 if ( bSuccess == FALSE ) {
                     /*If was not possible to receive the ack do nothing.*/
-                    #ifdef DEBUG_ON
-                        debug(fp,"Can't send Nack to the Ack Receiver Task.\n");
-                    #endif    
+                    vFailSetPreAckReceiverBuffer();
                 }
-                eReaderRXMode = sRReceiving;
-                break;                
-            case sHandlingError:
-                /* For future implementations */
-                break;                                               
+                eReaderRXMode = sGetRxUart;
+                break;
             default:
+                eReaderRXMode = sGetRxUart;
                 break;
         }
 
@@ -110,7 +105,8 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
 {
     bool bSuccess = FALSE;
     short int siStrLen, siTeminador, siIniReq, siIniResp, siIniACK, siIniNACK, siCRC;
-	char c, i, *p_inteiro;
+    unsigned char i;
+	char c, *p_inteiro;
 	char inteiro[6]; /* Max size of parsed value is 6 digits, for now */
 
     siStrLen = strlen(buffer);
@@ -122,7 +118,7 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
     siIniResp = siPosStr(buffer, START_REPLY_CHAR);
     siIniReq = min_sim(siIniReq, siIniResp);
     siIniReq = min_sim(siIniReq, siIniACK);
-    siCRC = strcspn(buffer, SEPARATOR_CRC);
+    siCRC = siPosStr(buffer, SEPARATOR_CRC);
 
     /* Check if there is [!|?] , |, ; in the packet*/
     if ( (siTeminador == (siStrLen-1)) && (siCRC < siTeminador) && (siIniReq < siCRC) ) {
@@ -156,12 +152,12 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
                 if ( ( c == SEPARATOR_CHAR ) || ( c == SEPARATOR_CRC ) ) {
                     xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
                     xPerParcedBuffer->ucNofBytes++;
-                } 
+                }
                 else if ( c == FINAL_CHAR )
                 {
                     xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
                 }
-                
+
             } while ( (c != FINAL_CHAR) && (siStrLen>i) );
 
             if ( c == FINAL_CHAR )
@@ -171,10 +167,10 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
                     /* Wrong CRC */
                     #ifdef DEBUG_ON
                         debug(fp,"Wrong CRC. Pre Parsed.\n");
-                    #endif                    
+                    #endif
                     bSuccess = FALSE;
                 }
-                
+
             else
                 bSuccess = FALSE; /*Index overflow in the buffer*/
             }
@@ -192,13 +188,13 @@ bool setPreParsedFreePos( tPreParsed *xPrePReader ) {
     bool bSuccess = FALSE;
     INT8U error_code;
     unsigned char ucCountRetries = 0;
-    
+
     while ( ( bSuccess == FALSE ) && ( ucCountRetries < 2 ) ) {
 
         OSMutexPend(xMutexPreParsed, 2, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 2 ticks = 2 ms */
         if ( error_code == OS_NO_ERR ) {
             /* Have free access to the buffer, check if there's any no threated command using the cType  */
-           
+
             for(unsigned char i = 0; i < N_PREPARSED_ENTRIES; i++)
             {
                 if ( xPreParsed[i].cType == 0 ) {
@@ -216,7 +212,7 @@ bool setPreParsedFreePos( tPreParsed *xPrePReader ) {
                     break;
                 }
             }
-            OSMutexPost(xMutexPreParsed);  
+            OSMutexPost(xMutexPreParsed);
         } else {
             ucCountRetries++;
         }
@@ -229,14 +225,14 @@ bool setPreAckSenderFreePos( tPreParsed *xPrePReader ) {
     bool bSuccess = FALSE;
     INT8U error_code;
     unsigned char ucCountRetries = 0;
-    
+
     /* Try to send the ACK/NACK packet to the Sender Ack Task only 2 times, to not block the fast receiver */
     while ( ( bSuccess == FALSE ) && ( ucCountRetries < 2 ) ) {
 
         OSMutexPend(xMutexSenderACK, 4, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 4 ticks = 4 ms */
         if ( error_code == OS_NO_ERR ) {
             /* Have free access to the buffer, check if there's any no threated command using the cType  */
-           
+
             for(unsigned char i = 0; i < N_ACKS_SENDER; i++)
             {
                 if ( xSenderACK[i].cType == 0 ) {
@@ -245,7 +241,7 @@ bool setPreAckSenderFreePos( tPreParsed *xPrePReader ) {
                     xSenderACK[i].cType = xPrePReader->cType;
                     xSenderACK[i].cCommand = xPrePReader->cCommand;
                     xSenderACK[i].usiId = xPrePReader->usiValues[0]; /*The first value is always the command id*/
-                    
+
                     error_code = OSSemPost(xSemCountSenderACK);
                     if ( error_code == OS_ERR_NONE ) {
                         bSuccess = TRUE;
@@ -257,7 +253,7 @@ bool setPreAckSenderFreePos( tPreParsed *xPrePReader ) {
                     break;
                 }
             }
-            OSMutexPost(xMutexSenderACK);  
+            OSMutexPost(xMutexSenderACK);
         } else {
             ucCountRetries++;
         }
@@ -270,13 +266,13 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
     bool bSuccess = FALSE;
     INT8U error_code;
     unsigned char ucCountRetries = 0;
-    
+
     while ( ( bSuccess == FALSE ) && ( ucCountRetries < 2 ) ) {
 
         OSMutexPend(xMutexReceivedACK, 2, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 2 ticks = 2 ms */
         if ( error_code == OS_NO_ERR ) {
             /* Have free access to the buffer, check if there's any no threated command using the cType  */
-           
+
             for(unsigned char i = 0; i < N_ACKS_RECEIVED; i++)
             {
                 if ( xReceivedACK[i].cType == 0 ) {
@@ -297,16 +293,10 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
                     break;
                 }
             }
-            OSMutexPost(xMutexReceivedACK);  
+            OSMutexPost(xMutexReceivedACK);
         } else {
             ucCountRetries++;
         }
     }
     return bSuccess;
-}
-
-inline short int siPosStr( char *buffer, char cValue) {
-    char cTempChar[2] = "";
-    cTempChar[0] = cValue; /* This step was add for performance. The command strcspn needs "" (const char *) */
-    return strcspn(buffer, cTempChar);
 }

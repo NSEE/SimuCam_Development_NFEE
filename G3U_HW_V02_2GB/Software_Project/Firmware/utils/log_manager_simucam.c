@@ -11,9 +11,11 @@
 bool bLogWriteSDCard ( const char * cDataIn, const char * cFilename )
 {
 
+	return TRUE;
 }
 
 bool bLogWriteETH ( const char * cDataIn )
 {
 
+	return TRUE;
 }

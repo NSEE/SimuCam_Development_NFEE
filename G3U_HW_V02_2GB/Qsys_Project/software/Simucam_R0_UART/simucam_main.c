@@ -2,10 +2,13 @@
 #include "simucam_definitions.h"
 #include "utils/initialization_simucam.h"
 #include "utils/error_handler_simucam.h"
-#include "rtos/simcam_tasks_configurations.h"
-#include "rtos/configuration_comm.h"
-#include "configs_simucam.h"
+#include "utils/communication_configs.h"
+#include "utils/configs_simucam.h"
+#include "utils/test_module_simucam.h"
+#include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
+
+
 #include "includes.h"
 
 #ifdef DEBUG_ON
@@ -13,7 +16,7 @@
 #endif
 
 /*===== Global system variables ===========*/
-unsigned short int usiIdCMD; /* Used in the comunication with NUC*/
+unsigned short int usiIdCMD; /* Used in the communication with NUC*/
 
 txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
@@ -57,10 +60,13 @@ OS_EVENT *xMutexSenderACK;
 
 /* -------------- Definition of Stacks------------------ */
 OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
-OS_STK    task2_stk[TASK_STACKSIZE];
+
 
 /* Communication tasks */
-OS_STK    receiverTask_stk[RECEIVER_TASK_SIZE];
+OS_STK    vReceiverUartTask_stk[RECEIVER_TASK_SIZE];
+OS_STK    vParserCommTask_stk[PARSER_TASK_SIZE];
+OS_STK    vInAckHandlerTask_stk[IN_ACK_TASK_SIZE];
+OS_STK    vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 /* -------------- Definition of Stacks------------------ */
 
@@ -79,83 +85,83 @@ bool bResourcesInitRTOS( void )
 	/* This semaphore in the sincronization of the task receiver_com_task with sender_com_task*/
 	xSemCommInit = OSSemCreate(0);
 	if (!xSemCommInit) {
-		vFailCreateRTOSResources(xSemCommInit);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	/* This mutex will protect the access of tx buffer, between SenderTask and Acks from ReceiverTask*/
 	xTxUARTMutex = OSMutexCreate(PCP_MUTEX_TX_UART_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
 	/* This mutex will protect the access of the (re)transmission "big" buffer of 128 characters*/
 	xMutexBuffer128 = OSMutexCreate(PCP_MUTEX_B128_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
 	/* This mutex will protect the access of the (re)transmission "medium" buffer of 64 characters*/
 	xMutexBuffer64 = OSMutexCreate(PCP_MUTEX_B64_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
 	/* This mutex will protect the access of the (re)transmission "small" buffer of 32 characters*/
 	xMutexBuffer32 = OSMutexCreate(PCP_MUTEX_B32_PRIO, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
 	/* This semaphore will count the number of positions available in the "big" buffer of 128 characters*/
 	xSemCountBuffer128 = OSSemCreate(N_128);
 	if (!xSemCountBuffer128) {
-		vFailCreateRTOSResources(xSemCountBuffer128);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	/* This semaphore will count the number of positions available in the "medium" buffer of 64 characters*/
 	xSemCountBuffer64 = OSSemCreate(N_64);
 	if (!xSemCountBuffer64) {
-		vFailCreateRTOSResources(xSemCountBuffer64);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	/* This semaphore will count the number of positions available in the "small" buffer of 32 characters*/
 	xSemCountBuffer32 = OSSemCreate(N_32);
 	if (!xSemCountBuffer32) {
-		vFailCreateRTOSResources(xSemCountBuffer32);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 
-	/* Mutex and Semaphores to control the comunication of FastReaderTask */
+	/* Mutex and Semaphores to control the communication of FastReaderTask */
 	xMutexReceivedACK = OSMutexCreate(PCP_MUTEX_RECEIVER_ACK, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
 	/* Mutex for Reader -> Parser*/
 	xMutexPreParsed = OSMutexCreate(PCP_MUTEX_PrePareseds, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
 	xSemCountReceivedACK = OSSemCreate(0);
 	if (!xSemCountReceivedACK) {
-		vFailCreateRTOSResources(xSemCountReceivedACK);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	xSemCountPreParsed = OSSemCreate(0);
 	if (!xSemCountPreParsed) {
-		vFailCreateRTOSResources(xSemCountPreParsed);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
@@ -163,20 +169,13 @@ bool bResourcesInitRTOS( void )
 
 	xSemCountSenderACK = OSSemCreate(0);
 	if (!xSemCountSenderACK) {
-		vFailCreateRTOSResources(xSemCountSenderACK);
+		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	xMutexSenderACK = OSMutexCreate(PCP_MUTEX_SENDER_ACK, &err);
 	if ( err != OS_ERR_NONE ) {
-		vFailCreateRTOSResources(err);
-		bSuccess = FALSE;
-	}
-
-
-	xQSenderTask = OSQCreate(&xQSenderTaskTbl[0], SENDER_QUEUE_SIZE);
-	if (!xQSenderTask) {
-		vFailCreateRTOSResources(xQSenderTask);
+		vFailCreateMutexSResources(err);
 		bSuccess = FALSE;
 	}
 
@@ -194,7 +193,6 @@ int main(void)
 {
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
-	char buffer_temp[100] = "";
 	
 	/* Clear the RTOS timer */
 	OSTimeSet(0);
@@ -272,7 +270,7 @@ int main(void)
 		/* Start the scheduler (start the Real Time Application) */
 		OSStart();
 	} else {
-		/* Some error ocours in the creation of the Initialization Task */
+		/* Some error occurs in the creation of the Initialization Task */
 		vFailInitialization();
 	}
   

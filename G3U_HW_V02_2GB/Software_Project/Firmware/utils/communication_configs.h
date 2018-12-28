@@ -8,11 +8,15 @@
 #ifndef COMMUNICATION_CONFIGS_H_
 #define COMMUNICATION_CONFIGS_H_
 
+#include "../simucam_definitions.h"
+#include "error_handler_simucam.h"
+#include "../rtos/tasks_configurations.h"
+#include "crc8.h"
 #include <ucos_ii.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../simucam_definitions.h"
-#include "crc8.h"
+#include <ctype.h>
+
 
 
 /*======= Delimiters - UART==========*/

@@ -9,7 +9,7 @@
 #define SENDER_COM_H_
 
 #include "../simucam_definitions.h"
-#include "configuration_comm.h"
+#include "../utils/communication_configs.h"
 
 
 typedef enum { sConfiguringSender = 0, sStartingConnSender, sReadingQueue, sProcessingCommand, sSendingBuffer,  sDummySender , sHandlingErrorSender } tSenderStates;

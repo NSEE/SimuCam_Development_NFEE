@@ -20,7 +20,8 @@ void vFailInitialization( void );
 void vFailReceiverCreate( void );
 void vFailSenderCreate( void );
 void vFailDeleteInitialization( void );
-void vFailCreateRTOSResources( INT8U error_code );
+void vFailCreateMutexSResources( INT8U error_code );
+void vFailCreateSemaphoreResources( void );
 void vFailSendxSemCommInit( void );
 void vFailSendPreParsedSemaphore( void );
 void vFailSendPreAckSenderSemaphore( void );
@@ -38,5 +39,12 @@ void vFailGetCountSemaphorePreParsedBuffer( void );
 void vFailGetxMutexPreParsedParserRxTask( void );
 void vNoContentInPreParsedBuffer( void );
 void vCouldNotSendEthConfUART( void );
+void vFailSendNack( void );
+void vFailSetPreAckSenderBuffer( void );
+void vFailSetPreParsedBuffer( void );
+void vFailSetPreAckReceiverBuffer( void );
+void vFailParserCommTaskCreate( void );
+void vFailInAckHandlerTaskCreate( void );
+void vFailOutAckHandlerTaskCreate( void );
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

@@ -15,24 +15,24 @@ void vInitialTask(void *task_data)
 
 	/* READ: Create the task that is responsible to READ UART buffer */
 	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vFastReaderRX,
+		error_code = OSTaskCreateExt(vReceiverUartTask,
 									NULL,
-									(void *)&receiverTask_stk[RECEIVER_TASK_SIZE-1],
+									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
 									RECEIVER_TASK_PRIO,
 									RECEIVER_TASK_PRIO,
-									receiverTask_stk,
+									vReceiverUartTask_stk,
 									RECEIVER_TASK_SIZE,
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
 
 
 	#else
-		error_code = OSTaskCreateExt(vFastReaderRX,
+		error_code = OSTaskCreateExt(vReceiverUartTask,
 									NULL,
-									(void *)&receiverTask_stk[RECEIVER_TASK_SIZE-1],
+									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
 									RECEIVER_TASK_PRIO,
 									RECEIVER_TASK_PRIO,
-									receiverTask_stk,
+									vReceiverUartTask_stk,
 									RECEIVER_TASK_SIZE,
 									NULL,
 									0);
@@ -46,6 +46,115 @@ void vInitialTask(void *task_data)
 		#endif
 		vFailReceiverCreate();
 	}
+
+
+	/* Create the task that is responsible to parse all received messages */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vParserCommTask,
+									NULL,
+									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
+									PARSER_TASK_PRIO,
+									PARSER_TASK_PRIO,
+									vParserCommTask_stk,
+									PARSER_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+
+
+	#else
+		error_code = OSTaskCreateExt(vParserCommTask,
+									NULL,
+									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
+									PARSER_TASK_PRIO,
+									PARSER_TASK_PRIO,
+									vParserCommTask_stk,
+									PARSER_TASK_SIZE,
+									NULL,
+									0);
+
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );
+		#endif
+		vFailParserCommTaskCreate();
+	}
+
+
+	/* Create the task that is responsible to handle incomming ack packet */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vInAckHandlerTask,
+									NULL,
+									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
+									IN_ACK_TASK_PRIO,
+									IN_ACK_TASK_PRIO,
+									vInAckHandlerTask_stk,
+									IN_ACK_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+
+
+	#else
+		error_code = OSTaskCreateExt(vInAckHandlerTask,
+									NULL,
+									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
+									IN_ACK_TASK_PRIO,
+									IN_ACK_TASK_PRIO,
+									vInAckHandlerTask_stk,
+									IN_ACK_TASK_SIZE,
+									NULL,
+									0);
+
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );
+		#endif
+		vFailInAckHandlerTaskCreate();
+	}
+
+
+
+	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vOutAckHandlerTask,
+									NULL,
+									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
+									OUT_ACK_TASK_PRIO,
+									OUT_ACK_TASK_PRIO,
+									vOutAckHandlerTask_stk,
+									OUT_ACK_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+
+
+	#else
+		error_code = OSTaskCreateExt(vOutAckHandlerTask,
+									NULL,
+									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
+									OUT_ACK_TASK_PRIO,
+									OUT_ACK_TASK_PRIO,
+									vOutAckHandlerTask_stk,
+									OUT_ACK_TASK_SIZE,
+									NULL,
+									0);
+
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );
+		#endif
+		vFailOutAckHandlerTaskCreate();
+	}
+
+
+
 
 	/* SEND: Create the task that is responsible to SEND UART packets */
 	#if STACK_MONITOR
