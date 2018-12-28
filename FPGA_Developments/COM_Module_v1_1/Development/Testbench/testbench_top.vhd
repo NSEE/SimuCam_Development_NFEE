@@ -115,5 +115,8 @@ begin
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
 			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
 		);
-
+		
+		s_di <= s_do;
+		s_si <= s_so;
+		
 end architecture RTL;

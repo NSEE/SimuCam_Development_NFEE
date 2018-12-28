@@ -16,6 +16,7 @@ entity data_controller_ent is
 		window_data_L_ready_i : in  std_logic;
 		window_mask_L_ready_i : in  std_logic;
 		spw_txrdy_i           : in  std_logic;
+		spw_txhalff_i         : in  std_logic;
 		window_data_R_read_o  : out std_logic;
 		window_mask_R_read_o  : out std_logic;
 		window_data_L_read_o  : out std_logic;
@@ -220,7 +221,7 @@ begin
 
 				when PIXEL_0_BYTE_0 =>
 					s_data_controller_state <= PIXEL_0_BYTE_0;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -233,7 +234,7 @@ begin
 
 				when PIXEL_0_BYTE_1 =>
 					s_data_controller_state <= PIXEL_0_BYTE_1;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -247,7 +248,7 @@ begin
 
 				when PIXEL_1_BYTE_0 =>
 					s_data_controller_state <= PIXEL_1_BYTE_0;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -260,7 +261,7 @@ begin
 
 				when PIXEL_1_BYTE_1 =>
 					s_data_controller_state <= PIXEL_1_BYTE_1;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -274,7 +275,7 @@ begin
 
 				when PIXEL_2_BYTE_0 =>
 					s_data_controller_state <= PIXEL_2_BYTE_0;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -287,7 +288,7 @@ begin
 
 				when PIXEL_2_BYTE_1 =>
 					s_data_controller_state <= PIXEL_2_BYTE_1;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -301,7 +302,7 @@ begin
 
 				when PIXEL_3_BYTE_0 =>
 					s_data_controller_state <= PIXEL_3_BYTE_0;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -314,7 +315,7 @@ begin
 
 				when PIXEL_3_BYTE_1 =>
 					s_data_controller_state <= PIXEL_3_BYTE_1;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						-- check if the bit is masked
 						if (s_registered_window_mask(s_mask_counter) = '1') then
 							spw_txwrite_o <= '1';
@@ -414,7 +415,7 @@ begin
 
 				when END_OF_PACKAGE =>
 					s_data_controller_state <= END_OF_PACKAGE;
-					if (spw_txrdy_i = '1') then
+					if ((spw_txrdy_i = '1') and (spw_txhalff_i = '0')) then
 						spw_txwrite_o                <= '1';
 						spw_txflag_o                 <= '1';
 						spw_txdata_o                 <= (others => '0');

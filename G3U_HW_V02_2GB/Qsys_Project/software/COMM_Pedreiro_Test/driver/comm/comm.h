@@ -144,14 +144,29 @@ void comm_channel_f_handle_irq(void* context);
 void comm_channel_g_handle_irq(void* context);
 void comm_channel_h_handle_irq(void* context);
 
+void comm_channel_a_int_flag_clear_buffer_empty(void);
+void comm_channel_b_int_flag_clear_buffer_empty(void);
+void comm_channel_c_int_flag_clear_buffer_empty(void);
+void comm_channel_d_int_flag_clear_buffer_empty(void);
+void comm_channel_e_int_flag_clear_buffer_empty(void);
+void comm_channel_f_int_flag_clear_buffer_empty(void);
+void comm_channel_g_int_flag_clear_buffer_empty(void);
+void comm_channel_h_int_flag_clear_buffer_empty(void);
+
+bool comm_channel_a_int_flag_buffer_empty(void);
+bool comm_channel_b_int_flag_buffer_empty(void);
+bool comm_channel_c_int_flag_buffer_empty(void);
+bool comm_channel_d_int_flag_buffer_empty(void);
+bool comm_channel_e_int_flag_buffer_empty(void);
+bool comm_channel_f_int_flag_buffer_empty(void);
+bool comm_channel_g_int_flag_buffer_empty(void);
+bool comm_channel_h_int_flag_buffer_empty(void);
+
 void comm_init_interrupt(alt_u8 spw_channel);
 
 bool comm_config_int_control(comm_channel_t *channel);
 bool comm_update_int_control(comm_channel_t *channel);
 bool comm_update_int_flags(comm_channel_t *channel);
-
-bool comm_int_flag_clear_buffer_empty(comm_channel_t *channel);
-bool comm_int_flag_buffer_empty(comm_channel_t *channel, bool *flag);
 
 bool comm_config_windowing(comm_channel_t *channel);
 bool comm_update_windowing(comm_channel_t *channel);

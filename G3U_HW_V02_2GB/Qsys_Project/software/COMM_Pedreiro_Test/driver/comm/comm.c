@@ -3,7 +3,7 @@
 extern volatile alt_u8 int_cnt = 0;
 
 //! [private function prototypes]
-static bool write_reg(alt_u32 *address, alt_u32 offset, alt_u32 data);
+static void write_reg(alt_u32 *address, alt_u32 offset, alt_u32 data);
 static alt_u32 read_reg(alt_u32 *address, alt_u32 offset);
 //! [private function prototypes]
 
@@ -39,8 +39,7 @@ void comm_channel_a_handle_irq(void* context) {
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
 	int_cnt++;
-	write_reg((alt_u32 *)COMM_CHANNEL_A_BASE_ADDR, COMM_INTERRUPT_FLAG_REG_OFFSET,
-			COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+	comm_channel_a_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_b_handle_irq(void* context) {
@@ -51,6 +50,7 @@ void comm_channel_b_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_b_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_c_handle_irq(void* context) {
@@ -61,6 +61,7 @@ void comm_channel_c_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_c_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_d_handle_irq(void* context) {
@@ -71,6 +72,7 @@ void comm_channel_d_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_d_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_e_handle_irq(void* context) {
@@ -81,6 +83,7 @@ void comm_channel_e_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_e_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_f_handle_irq(void* context) {
@@ -91,6 +94,7 @@ void comm_channel_f_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_f_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_g_handle_irq(void* context) {
@@ -101,6 +105,7 @@ void comm_channel_g_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_g_int_flag_clear_buffer_empty();
 }
 
 void comm_channel_h_handle_irq(void* context) {
@@ -111,6 +116,151 @@ void comm_channel_h_handle_irq(void* context) {
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
+	comm_channel_h_int_flag_clear_buffer_empty();
+}
+
+void comm_channel_a_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_A_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_b_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_B_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_c_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_C_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_d_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_D_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_e_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_E_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_f_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_F_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_g_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_G_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+void comm_channel_h_int_flag_clear_buffer_empty(void) {
+	write_reg((alt_u32*) COMM_CHANNEL_H_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+}
+
+bool comm_channel_a_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_A_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_b_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_B_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_c_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_C_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_d_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_D_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_e_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_E_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_f_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_F_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_g_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_G_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
+}
+
+bool comm_channel_h_int_flag_buffer_empty(void) {
+	bool flag;
+
+	if (read_reg((alt_u32*) COMM_CHANNEL_H_BASE_ADDR,
+	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
+		flag = TRUE;
+	} else {
+		flag = FALSE;
+	}
+
+	return flag;
 }
 
 void comm_init_interrupt(alt_u8 spw_channel) {
@@ -247,41 +397,6 @@ bool comm_update_int_flags(comm_channel_t *channel) {
 			channel->int_flag.buffer_empty_flag = TRUE;
 		} else {
 			channel->int_flag.buffer_empty_flag = FALSE;
-		}
-
-		status = TRUE;
-	}
-
-	return status;
-}
-
-bool comm_int_flag_clear_buffer_empty(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
-
-	if (channel != NULL) {
-		reg |= COMM_INT_BUFFER_EMPTY_FLAG_MASK;
-
-		write_reg(channel->channel_address, COMM_INTERRUPT_FLAG_REG_OFFSET,
-				reg);
-		status = TRUE;
-	}
-
-	return status;
-}
-
-bool comm_int_flag_buffer_empty(comm_channel_t *channel, bool *flag) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
-
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_INTERRUPT_FLAG_REG_OFFSET);
-
-		if (reg & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-			*flag = TRUE;
-		} else {
-			*flag = FALSE;
 		}
 
 		status = TRUE;
@@ -637,9 +752,8 @@ bool comm_init_channel(comm_channel_t *channel, alt_u8 spw_channel) {
 //! [public functions]
 
 //! [private functions]
-static bool write_reg(alt_u32 *address, alt_u32 offset, alt_u32 value) {
+static void write_reg(alt_u32 *address, alt_u32 offset, alt_u32 value) {
 	*(address + offset) = value;
-	return TRUE;
 }
 
 static alt_u32 read_reg(alt_u32 *address, alt_u32 offset) {

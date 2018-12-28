@@ -67,7 +67,7 @@ begin
 					-- avalon_mm_writedata_o <= (others => '0');
 					-- Ex:
 					a_wr_windowing_control_mask_enable <= '1';
-					a_wr_windowing_control_autostart   <= '1';
+					a_wr_windowing_control_autostart   <= '0';
 					a_wr_windowing_control_linkstart   <= '0';
 					a_wr_windowing_control_linkdis     <= '0';
 					avalon_mm_read_o                   <= '0';
@@ -111,6 +111,18 @@ begin
 					a_wr_interrupt_control_L_buffer_empty_enable <= '1';
 					a_wr_interrupt_control_R_buffer_empty_enable <= '1';
 					avalon_mm_read_o                             <= '0';
+					
+				when 7500 to 7501 =>
+					-- register write
+					avalon_mm_address_o                <= std_logic_vector(to_unsigned(c_WINDOWING_CONTROL_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                  <= '1';
+					-- avalon_mm_writedata_o <= (others => '0');
+					-- Ex:
+					a_wr_windowing_control_mask_enable <= '1';
+					a_wr_windowing_control_autostart   <= '1';
+					a_wr_windowing_control_linkstart   <= '1';
+					a_wr_windowing_control_linkdis     <= '0';
+					avalon_mm_read_o                   <= '0';
 
 				when others =>
 					null;

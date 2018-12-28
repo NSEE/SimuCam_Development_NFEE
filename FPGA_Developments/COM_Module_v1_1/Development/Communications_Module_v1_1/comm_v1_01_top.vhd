@@ -212,6 +212,7 @@ begin
 			window_data_L_ready_i => s_L_window_data_ready,
 			window_mask_L_ready_i => s_L_window_mask_ready,
 			spw_txrdy_i           => s_spw_txrdy,
+			spw_txhalff_i         => s_spw_txhalff,
 			window_data_R_read_o  => s_R_window_data_read,
 			window_mask_R_read_o  => s_R_window_mask_read,
 			window_data_L_read_o  => s_L_window_data_read,
