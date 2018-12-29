@@ -36,12 +36,41 @@ begin
 			case (read_address_i) is
 				-- Case for access to all registers address
 
-				--  Reset Controller Register                      (32 bits):
-				when (c_RST_CONTROLLER_MM_REG_ADDRESS + c_RST_CONTROLLER_AVALON_MM_REG_OFFSET) =>
-					--    31- 1 : Reserved                               [-/-]
-					avalon_mm_spacewire_o.readdata(31 downto 0) <= (others => '0');
-					--     0- 0 : Reset control bit                      [R/W]
-					avalon_mm_spacewire_o.readdata(0)           <= rst_controller_write_registers_i.reset_controller.reset;
+				--  SimuCam Reser Control Register                  (32 bits):
+				when (c_RSTC_SIMUCAM_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
+					--    31-17 : Reserved                               [-/-]
+					avalon_mm_spacewire_o.readdata(31 downto 17) <= (others => '0');
+					--    16-16 : SimuCam Reset control bit              [R/W]
+					avalon_mm_spacewire_o.readdata(16)           <= rst_controller_write_registers_i.simucam_reset.simucam_reset;
+					--    15- 0 : SimuCam Reset Timer value              [R/W]
+					avalon_mm_spacewire_o.readdata(15 downto 0)  <= rst_controller_write_registers_i.simucam_reset.simucam_timer;
+
+				--  Device Reset Control Register                  (32 bits):
+				when (c_RSTC_DEVICE_RESET_MM_REG_ADDRESS + c_RSTC_AVALON_MM_REG_OFFSET) =>
+					--    31-11 : Reserved                               [-/-]
+					avalon_mm_spacewire_o.readdata(31 downto 11) <= (others => '0');
+					--    10-10 : Sync Module Reset control bit          [R/W]
+					avalon_mm_spacewire_o.readdata(10)           <= rst_controller_write_registers_i.device_reset.sync_reset;
+					--     9- 9 : RS232 Module Reset control bit         [R/W]
+					avalon_mm_spacewire_o.readdata(9)            <= rst_controller_write_registers_i.device_reset.rs232_reset;
+					--     8- 8 : SD Card Module Reset control bit       [R/W]
+					avalon_mm_spacewire_o.readdata(8)            <= rst_controller_write_registers_i.device_reset.sd_card_reset;
+					--     7- 7 : Comm Module CH8 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(7)            <= rst_controller_write_registers_i.device_reset.comm_ch8_reset;
+					--     6- 6 : Comm Module CH7 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(6)            <= rst_controller_write_registers_i.device_reset.comm_ch7_reset;
+					--     5- 5 : Comm Module CH6 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(5)            <= rst_controller_write_registers_i.device_reset.comm_ch6_reset;
+					--     4- 4 : Comm Module CH5 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(4)            <= rst_controller_write_registers_i.device_reset.comm_ch5_reset;
+					--     3- 3 : Comm Module CH4 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(3)            <= rst_controller_write_registers_i.device_reset.comm_ch4_reset;
+					--     2- 2 : Comm Module CH3 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(2)            <= rst_controller_write_registers_i.device_reset.comm_ch3_reset;
+					--     1- 1 : Comm Module CH2 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(1)            <= rst_controller_write_registers_i.device_reset.comm_ch2_reset;
+					--     0- 0 : Comm Module CH1 Reset control bit      [R/W]
+					avalon_mm_spacewire_o.readdata(0)            <= rst_controller_write_registers_i.device_reset.comm_ch1_reset;
 
 				when others =>
 					avalon_mm_spacewire_o.readdata <= (others => '0');

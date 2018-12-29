@@ -8,8 +8,9 @@ end entity testbench_top;
 architecture RTL of testbench_top is
 
 	-- clk and rst signals
-	signal clk : std_logic := '0';
-	signal rst : std_logic := '1';
+	signal clk200 : std_logic := '0';
+	signal clk100 : std_logic := '0';
+	signal rst    : std_logic := '1';
 
 	-- dut signals
 
@@ -18,6 +19,9 @@ architecture RTL of testbench_top is
 	signal s_do : std_logic;
 	signal s_si : std_logic;
 	signal s_so : std_logic;
+	
+	-- spacewire clock signal
+	signal s_spw_clock : std_logic;
 
 	-- irq signal
 	signal s_irq : std_logic;
@@ -44,7 +48,8 @@ architecture RTL of testbench_top is
 
 begin
 
-	clk <= not clk after 2.5 ns;        -- 200 MHz
+	clk200 <= not clk200 after 2.5 ns;        -- 200 MHz
+	clk100 <= not clk100 after 5 ns;        -- 100 MHz
 	rst <= '0' after 100 ns;
 
 	config_avalon_stimuli_inst : entity work.config_avalon_stimuli
@@ -53,7 +58,7 @@ begin
 			g_DATA_WIDTH    => 32
 		)
 		port map(
-			clk_i                   => clk,
+			clk_i                   => clk100,
 			rst_i                   => rst,
 			avalon_mm_readdata_i    => s_config_avalon_stimuli_mm_readdata,
 			avalon_mm_waitrequest_i => s_config_avalon_stimuli_mm_waitrequest,
@@ -69,7 +74,7 @@ begin
 			g_DATA_WIDTH    => 64
 		)
 		port map(
-			clk_i                   => clk,
+			clk_i                   => clk100,
 			rst_i                   => rst,
 			avalon_mm_waitrequest_i => s_avalon_buffer_R_stimuli_mm_waitrequest,
 			avalon_mm_address_o     => s_avalon_buffer_R_stimuli_mm_address,
@@ -83,7 +88,7 @@ begin
 			g_DATA_WIDTH    => 64
 		)
 		port map(
-			clk_i                   => clk,
+			clk_i                   => clk100,
 			rst_i                   => rst,
 			avalon_mm_waitrequest_i => s_avalon_buffer_L_stimuli_mm_waitrequest,
 			avalon_mm_address_o     => s_avalon_buffer_L_stimuli_mm_address,
@@ -99,7 +104,8 @@ begin
 			strobe_in                          => s_si,
 			strobe_out                         => s_so,
 			interrupt_sender_irq               => s_irq,
-			clock_sink_200_clk                 => clk,
+			clock_sink_200_clk                 => clk200,
+			clock_sink_100_clk                 => clk100,
 			avalon_slave_windowing_address     => s_config_avalon_stimuli_mm_address,
 			avalon_slave_windowing_write       => s_config_avalon_stimuli_mm_write,
 			avalon_slave_windowing_read        => s_config_avalon_stimuli_mm_read,
@@ -118,5 +124,7 @@ begin
 		
 		s_di <= s_do;
 		s_si <= s_so;
+		
+		s_spw_clock <= (s_so) xor (s_do);
 		
 end architecture RTL;

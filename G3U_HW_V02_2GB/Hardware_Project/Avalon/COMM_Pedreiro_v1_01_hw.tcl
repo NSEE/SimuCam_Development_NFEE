@@ -66,6 +66,9 @@ add_fileset_file spwlink.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spac
 add_fileset_file spwxmit_fast.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
 add_fileset_file spw_codec_pkg.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spw_codec_pkg.vhd
 add_fileset_file spw_codec.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spw_codec.vhd
+add_fileset_file spw_data_dc_fifo.vhd VHDL PATH Communications_Module_v1_1/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
+add_fileset_file spw_timecode_dc_fifo.vhd VHDL PATH Communications_Module_v1_1/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
+add_fileset_file spw_clk_synchronization_ent.vhd VHDL PATH Communications_Module_v1_1/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
 add_fileset_file comm_v1_01_top.vhd VHDL PATH Communications_Module_v1_1/comm_v1_01_top.vhd TOP_LEVEL_FILE
 
 add_fileset SIM_VHDL SIM_VHDL "" ""
@@ -99,6 +102,9 @@ add_fileset_file spwlink.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spac
 add_fileset_file spwxmit_fast.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
 add_fileset_file spw_codec_pkg.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spw_codec_pkg.vhd
 add_fileset_file spw_codec.vhd VHDL PATH Communications_Module_v1_1/SPW_CODEC/spw_codec.vhd
+add_fileset_file spw_data_dc_fifo.vhd VHDL PATH Communications_Module_v1_1/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
+add_fileset_file spw_timecode_dc_fifo.vhd VHDL PATH Communications_Module_v1_1/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
+add_fileset_file spw_clk_synchronization_ent.vhd VHDL PATH Communications_Module_v1_1/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
 add_fileset_file comm_v1_01_top.vhd VHDL PATH Communications_Module_v1_1/comm_v1_01_top.vhd
 
 
@@ -161,6 +167,20 @@ set_interface_property interrupt_sender CMSIS_SVD_VARIABLES ""
 set_interface_property interrupt_sender SVD_ADDRESS_GROUP ""
 
 add_interface_port interrupt_sender interrupt_sender_irq irq Output 1
+
+
+# 
+# connection point clock_sink_100
+# 
+add_interface clock_sink_100 clock end
+set_interface_property clock_sink_100 clockRate 100000000
+set_interface_property clock_sink_100 ENABLED true
+set_interface_property clock_sink_100 EXPORT_OF ""
+set_interface_property clock_sink_100 PORT_NAME_MAP ""
+set_interface_property clock_sink_100 CMSIS_SVD_VARIABLES ""
+set_interface_property clock_sink_100 SVD_ADDRESS_GROUP ""
+
+add_interface_port clock_sink_100 clock_sink_100_clk clk Input 1
 
 
 # 

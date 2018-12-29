@@ -1,5 +1,6 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
+add wave -noupdate /testbench_top/s_spw_clock
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/reset_sink_reset
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/data_in
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/data_out
@@ -7,6 +8,7 @@ add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/stro
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/strobe_out
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/interrupt_sender_irq
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/clock_sink_200_clk
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/clock_sink_100_clk
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/avalon_slave_windowing_address
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/avalon_slave_windowing_write
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/avalon_slave_windowing_read
@@ -25,7 +27,7 @@ add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_R_
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_L_buffer_empty_delayed
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_avalon_mm_windwoing_read_waitrequest
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_avalon_mm_windwoing_write_waitrequest
-add wave -noupdate -group comm_v1_01_top -expand -subitemconfig {/testbench_top/comm_v1_01_top_inst/s_spacewire_write_registers.interrupt_flag_clear -expand /testbench_top/comm_v1_01_top_inst/s_spacewire_write_registers.interrupt_control -expand} /testbench_top/comm_v1_01_top_inst/s_spacewire_write_registers
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spacewire_write_registers
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spacewire_read_registers
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_R_window_data
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_R_window_data_write
@@ -48,15 +50,25 @@ add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_L_
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_rxvalid
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_rxhalff
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_rxflag
-add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_rxdata
+add wave -noupdate -group comm_v1_01_top -radix unsigned /testbench_top/comm_v1_01_top_inst/s_spw_rxdata
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_rxread
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_txrdy
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_txhalff
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_txwrite
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_txflag
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_txdata
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_link_command_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_link_status_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_link_error_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_timecode_rx_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_data_rx_status_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_data_tx_status_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_timecode_tx_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_data_rx_command_clk200
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/s_spw_codec_data_tx_command_clk200
 add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/a_reset
-add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/a_clock
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/a_avs_clock
+add wave -noupdate -group comm_v1_01_top /testbench_top/comm_v1_01_top_inst/a_spw_clock
 add wave -noupdate -group config_write /testbench_top/comm_v1_01_top_inst/avalon_mm_spacewire_write_ent_inst/clk_i
 add wave -noupdate -group config_write /testbench_top/comm_v1_01_top_inst/avalon_mm_spacewire_write_ent_inst/rst_i
 add wave -noupdate -group config_write -expand /testbench_top/comm_v1_01_top_inst/avalon_mm_spacewire_write_ent_inst/avalon_mm_spacewire_i
@@ -188,21 +200,84 @@ add wave -noupdate -group data_controller /testbench_top/comm_v1_01_top_inst/dat
 add wave -noupdate -group data_controller /testbench_top/comm_v1_01_top_inst/data_controller_ent_inst/s_mask_counter
 add wave -noupdate -group data_controller /testbench_top/comm_v1_01_top_inst/data_controller_ent_inst/s_windowing_buffer_side
 add wave -noupdate -group data_controller /testbench_top/comm_v1_01_top_inst/data_controller_ent_inst/s_next_windowing_buffer_side
-add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/clk_200
-add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/rst
-add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_link_command_i
+add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/clk_200_i
+add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/rst_i
+add wave -noupdate -group spw_codec -expand /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_link_command_i
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_ds_encoding_rx_i
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_timecode_tx_i
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_rx_command_i
-add wave -noupdate -group spw_codec -childformat {{/testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_tx_command_i.txdata -radix hexadecimal}} -expand -subitemconfig {/testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_tx_command_i.txdata {-height 15 -radix hexadecimal}} /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_tx_command_i
+add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_tx_command_i
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_link_status_o
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_ds_encoding_tx_o
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_link_error_o
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_timecode_rx_o
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_rx_status_o
 add wave -noupdate -group spw_codec /testbench_top/comm_v1_01_top_inst/spw_codec_ent_inst/spw_codec_data_tx_status_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk_100_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/clk_200_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/rst_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_link_command_clk100_i
+add wave -noupdate -group spw_synchronization -expand /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_timecode_tx_clk100_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_rx_command_clk100_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_tx_command_clk100_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_link_status_clk200_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_link_error_clk200_i
+add wave -noupdate -group spw_synchronization -expand /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_timecode_rx_clk200_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_rx_status_clk200_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_tx_status_clk200_i
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_link_status_clk100_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_link_error_clk100_o
+add wave -noupdate -group spw_synchronization -expand /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_timecode_rx_clk100_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_rx_status_clk100_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_tx_status_clk100_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_link_command_clk200_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_timecode_tx_clk200_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_rx_command_clk200_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/spw_codec_data_tx_command_clk200_o
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_link_command_stage_1
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_link_command_stage_2
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_data_txflag
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_data_txdata
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_data_rdreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_data_wrreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_data_txflag
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_data_txdata
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_data_rdempty
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_data_wrfull
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_data_available
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_timecode_ctrl_in
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_timecode_time_in
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_timecode_rdreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_timecode_wrreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_timecode_ctrl_in
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_timecode_time_in
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_timecode_rdempty
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_tx_timecode_wrfull
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_tx_timecode_available
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_stretching_over
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_link_status
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_link_error
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_data_rxflag
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_data_rxdata
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_data_rdreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_data_wrreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_data_rxflag
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_data_rxdata
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_data_rdempty
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_data_wrfull
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_data_available
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_data_valid
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_timecode_ctrl_out
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_timecode_time_out
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_timecode_rdreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_timecode_wrreq
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_timecode_ctrl_out
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_timecode_time_out
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_timecode_rdempty
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk200_rx_timecode_wrfull
+add wave -noupdate -group spw_synchronization /testbench_top/comm_v1_01_top_inst/spw_clk_synchronization_ent_inst/s_clk100_rx_timecode_available
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {221552500 ps} 0}
+WaveRestoreCursors {{Cursor 1} {174422500 ps} 0} {{Cursor 5} {495885000 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 355
 configure wave -valuecolwidth 230
@@ -218,4 +293,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ps
 update
-WaveRestoreZoom {0 ps} {525 us}
+WaveRestoreZoom {0 ps} {577500 ns}

@@ -7,8 +7,8 @@ use work.spw_codec_pkg.all;
 
 entity spw_codec_ent is
 	port(
-		clk_200                     : in  std_logic;
-		rst                         : in  std_logic;
+		clk_200_i                   : in  std_logic;
+		rst_i                       : in  std_logic;
 		spw_codec_link_command_i    : in  t_spw_codec_link_command;
 		spw_codec_ds_encoding_rx_i  : in  t_spw_codec_ds_encoding_rx;
 		spw_codec_timecode_tx_i     : in  t_spw_codec_timecode_tx;
@@ -39,15 +39,15 @@ begin
 			txfifosize_bits => c_SPWC_TXFIFOSIZE_BITS
 		)
 		port map(
-			clk        => clk_200,
-			rxclk      => clk_200,
-			txclk      => clk_200,
-			rst        => rst,
+			clk        => clk_200_i,
+			rxclk      => clk_200_i,
+			txclk      => clk_200_i,
+			rst        => rst_i,
 			autostart  => spw_codec_link_command_i.autostart,
 			linkstart  => spw_codec_link_command_i.linkstart,
 			linkdis    => spw_codec_link_command_i.linkdis,
-			txdivcnt   => c_SPWC_TXDIVCNT,
-			--txdivcnt   => spw_codec_link_command_i.txdivcnt,
+			--			txdivcnt   => c_SPWC_TXDIVCNT,
+			txdivcnt   => spw_codec_link_command_i.txdivcnt,
 			tick_in    => spw_codec_timecode_tx_i.tick_in,
 			ctrl_in    => spw_codec_timecode_tx_i.ctrl_in,
 			time_in    => spw_codec_timecode_tx_i.time_in,

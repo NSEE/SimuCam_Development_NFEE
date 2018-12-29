@@ -29,6 +29,7 @@
 
 #include "driver/comm/comm.h"
 #include "driver/fee_buffers/fee_buffers.h"
+#include "driver/reset/reset.h"
 
 /**************************************************
  * Global
@@ -49,6 +50,8 @@ bool TestDMA_M2_M1(void);
 
 int main(void) {
 
+	rstc_release_device_reset(RSTC_DEVICE_ALL_MASK);
+
 	alt_8 tempFPGA = 0;
 	alt_8 tempBoard = 0;
 
@@ -56,9 +59,6 @@ int main(void) {
 
 	//Configura Display de 7 segmentos
 	SSDP_CONFIG(SSDP_NORMAL_MODE);
-
-	alt_u32 *spw_h_rst_base = (alt_u32 *) (RST_CONTROLLER_SPWH_BASE);
-	*spw_h_rst_base = 0x00000000;
 
 	comm_init_channel(&spw_a, spacewire_channel_a);
 	comm_init_channel(&spw_b, spacewire_channel_b);
@@ -92,16 +92,15 @@ int main(void) {
 //	spw_a.windowing_config.masking = TRUE;
 //	comm_config_windowing(&spw_a);
 
+
 	spw_h.link_config.autostart = TRUE;
 	comm_config_link(&spw_h);
 
 	comm_update_link(&spw_h);
 	printf("empty r: %u \n", spw_h.link_config.autostart);
-
-	*spw_h_rst_base = 0x00000001;
+	rstc_hold_device_reset(RSTC_DEVICE_COMM_CH8_RST_CONTROL_MASK);
 	usleep(5000);
-	*spw_h_rst_base = 0x00000000;
-
+	rstc_release_device_reset(RSTC_DEVICE_COMM_CH8_RST_CONTROL_MASK);
 	comm_update_link(&spw_h);
 	printf("empty r: %u \n", spw_h.link_config.autostart);
 

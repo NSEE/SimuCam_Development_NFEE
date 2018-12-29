@@ -81,15 +81,74 @@ begin
 					a_wr_timecode_rx_flags_rx_received_clear <= '0';
 					avalon_mm_read_o                         <= '0';
 
-				when 600 to 601 =>
+				when 8600 to 8601 =>
 					-- register write
 					avalon_mm_address_o                  <= std_logic_vector(to_unsigned(c_TIMECODE_TX_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                    <= '1';
 					-- avalon_mm_writedata_o <= (others => '0');
 					-- Ex:
+--					a_wr_timecode_tx_register_tx_control <= (others => '0');
+--					a_wr_timecode_tx_register_tx_time    <= (others => '0');
+--					a_wr_timecode_tx_register_tx_send    <= '0';
 					a_wr_timecode_tx_register_tx_control <= (others => '0');
-					a_wr_timecode_tx_register_tx_time    <= (others => '0');
-					a_wr_timecode_tx_register_tx_send    <= '0';
+					a_wr_timecode_tx_register_tx_time    <= "111111";
+					a_wr_timecode_tx_register_tx_send    <= '1';
+					avalon_mm_read_o                     <= '0';
+					
+				when 8620 to 8621 =>
+					-- register write
+					avalon_mm_address_o                  <= std_logic_vector(to_unsigned(c_TIMECODE_TX_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                    <= '1';
+					-- avalon_mm_writedata_o <= (others => '0');
+					-- Ex:
+--					a_wr_timecode_tx_register_tx_control <= (others => '0');
+--					a_wr_timecode_tx_register_tx_time    <= (others => '0');
+--					a_wr_timecode_tx_register_tx_send    <= '0';
+					a_wr_timecode_tx_register_tx_control <= (others => '0');
+					a_wr_timecode_tx_register_tx_time    <= "100001";
+					a_wr_timecode_tx_register_tx_send    <= '1';
+					avalon_mm_read_o                     <= '0';
+					
+				when 8640 to 8641 =>
+					-- register write
+					avalon_mm_address_o                  <= std_logic_vector(to_unsigned(c_TIMECODE_TX_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                    <= '1';
+					-- avalon_mm_writedata_o <= (others => '0');
+					-- Ex:
+--					a_wr_timecode_tx_register_tx_control <= (others => '0');
+--					a_wr_timecode_tx_register_tx_time    <= (others => '0');
+--					a_wr_timecode_tx_register_tx_send    <= '0';
+					a_wr_timecode_tx_register_tx_control <= (others => '0');
+					a_wr_timecode_tx_register_tx_time    <= "110011";
+					a_wr_timecode_tx_register_tx_send    <= '1';
+					avalon_mm_read_o                     <= '0';
+					
+				when 8660 to 8661 =>
+					-- register write
+					avalon_mm_address_o                  <= std_logic_vector(to_unsigned(c_TIMECODE_TX_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                    <= '1';
+					-- avalon_mm_writedata_o <= (others => '0');
+					-- Ex:
+--					a_wr_timecode_tx_register_tx_control <= (others => '0');
+--					a_wr_timecode_tx_register_tx_time    <= (others => '0');
+--					a_wr_timecode_tx_register_tx_send    <= '0';
+					a_wr_timecode_tx_register_tx_control <= (others => '0');
+					a_wr_timecode_tx_register_tx_time    <= "100101";
+					a_wr_timecode_tx_register_tx_send    <= '1';
+					avalon_mm_read_o                     <= '0';
+					
+				when 8680 to 8681 =>
+					-- register write
+					avalon_mm_address_o                  <= std_logic_vector(to_unsigned(c_TIMECODE_TX_MM_REG_ADDRESS, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                    <= '1';
+					-- avalon_mm_writedata_o <= (others => '0');
+					-- Ex:
+--					a_wr_timecode_tx_register_tx_control <= (others => '0');
+--					a_wr_timecode_tx_register_tx_time    <= (others => '0');
+--					a_wr_timecode_tx_register_tx_send    <= '0';
+					a_wr_timecode_tx_register_tx_control <= (others => '0');
+					a_wr_timecode_tx_register_tx_time    <= "010010";
+					a_wr_timecode_tx_register_tx_send    <= '1';
 					avalon_mm_read_o                     <= '0';
 
 				--when 650 to 651 =>

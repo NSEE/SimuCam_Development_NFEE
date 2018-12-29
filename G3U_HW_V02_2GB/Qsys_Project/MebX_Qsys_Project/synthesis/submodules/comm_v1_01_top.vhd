@@ -26,6 +26,7 @@ entity comm_v1_01_top is
 		strobe_out                         : out std_logic; --                                     --                       .strobe_out_signal
 		interrupt_sender_irq               : out std_logic; --                                     --       interrupt_sender.irq
 		clock_sink_200_clk                 : in  std_logic                     := '0'; --          --         clock_sink_200.clk
+		clock_sink_100_clk                 : in  std_logic                     := '0'; --          --         clock_sink_100.clk
 		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)  := (others => '0'); -- avalon_slave_windowing.address
 		avalon_slave_windowing_write       : in  std_logic                     := '0'; --          --                       .write
 		avalon_slave_windowing_read        : in  std_logic                     := '0'; --          --                       .read
@@ -45,7 +46,8 @@ end entity comm_v1_01_top;
 
 architecture rtl of comm_v1_01_top is
 
-	alias a_clock is clock_sink_200_clk;
+	alias a_spw_clock is clock_sink_200_clk;
+	alias a_avs_clock is clock_sink_100_clk;
 	alias a_reset is reset_sink_reset;
 
 	-- constants
@@ -106,12 +108,23 @@ architecture rtl of comm_v1_01_top is
 	signal s_spw_txflag  : std_logic;
 	signal s_spw_txdata  : std_logic_vector(7 downto 0);
 
+	-- spw codec clock synchronization signals
+	signal s_spw_codec_link_command_clk200    : t_spw_codec_link_command;
+	signal s_spw_codec_link_status_clk200     : t_spw_codec_link_status;
+	signal s_spw_codec_link_error_clk200      : t_spw_codec_link_error;
+	signal s_spw_codec_timecode_rx_clk200     : t_spw_codec_timecode_rx;
+	signal s_spw_codec_data_rx_status_clk200  : t_spw_codec_data_rx_status;
+	signal s_spw_codec_data_tx_status_clk200  : t_spw_codec_data_tx_status;
+	signal s_spw_codec_timecode_tx_clk200     : t_spw_codec_timecode_tx;
+	signal s_spw_codec_data_rx_command_clk200 : t_spw_codec_data_rx_command;
+	signal s_spw_codec_data_tx_command_clk200 : t_spw_codec_data_tx_command;
+
 begin
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
 		port map(
-			clk_i                             => a_clock,
+			clk_i                             => a_avs_clock,
 			rst_i                             => a_reset,
 			avalon_mm_spacewire_i.address     => avalon_slave_windowing_address,
 			avalon_mm_spacewire_i.read        => avalon_slave_windowing_read,
@@ -124,7 +137,7 @@ begin
 	-- windowing avalon mm write instantiation
 	avalon_mm_spacewire_write_ent_inst : entity work.avalon_mm_spacewire_write_ent
 		port map(
-			clk_i                             => a_clock,
+			clk_i                             => a_avs_clock,
 			rst_i                             => a_reset,
 			avalon_mm_spacewire_i.address     => avalon_slave_windowing_address,
 			avalon_mm_spacewire_i.write       => avalon_slave_windowing_write,
@@ -136,7 +149,7 @@ begin
 	-- rigth avalon mm windowing write instantiation
 	rigth_avalon_mm_windowing_write_ent_inst : entity work.avalon_mm_windowing_write_ent
 		port map(
-			clk_i                             => a_clock,
+			clk_i                             => a_avs_clock,
 			rst_i                             => a_reset,
 			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
@@ -151,7 +164,7 @@ begin
 	-- rigth windowing buffer instantiation
 	rigth_windowing_buffer_ent_inst : entity work.windowing_buffer_ent
 		port map(
-			clk_i                 => a_clock,
+			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
 			window_data_write_i   => s_R_window_data_write,
 			window_mask_write_i   => s_R_window_mask_write,
@@ -168,7 +181,7 @@ begin
 	-- left avalon mm windowing write instantiation
 	left_avalon_mm_windowing_write_ent_inst : entity work.avalon_mm_windowing_write_ent
 		port map(
-			clk_i                             => a_clock,
+			clk_i                             => a_avs_clock,
 			rst_i                             => a_reset,
 			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
@@ -183,7 +196,7 @@ begin
 	-- left windowing buffer instantiation
 	left_windowing_buffer_ent_inst : entity work.windowing_buffer_ent
 		port map(
-			clk_i                 => a_clock,
+			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
 			window_data_write_i   => s_L_window_data_write,
 			window_mask_write_i   => s_L_window_mask_write,
@@ -200,7 +213,7 @@ begin
 	-- data controller instantiation
 	data_controller_ent_inst : entity work.data_controller_ent
 		port map(
-			clk_i                 => a_clock,
+			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
 			mask_enable_i         => s_spacewire_write_registers.windowing_control.mask_enable,
 			window_data_R_i       => s_R_window_data_out,
@@ -212,6 +225,7 @@ begin
 			window_data_L_ready_i => s_L_window_data_ready,
 			window_mask_L_ready_i => s_L_window_mask_ready,
 			spw_txrdy_i           => s_spw_txrdy,
+			spw_txhalff_i         => s_spw_txhalff,
 			window_data_R_read_o  => s_R_window_data_read,
 			window_mask_R_read_o  => s_R_window_mask_read,
 			window_data_L_read_o  => s_L_window_data_read,
@@ -221,51 +235,77 @@ begin
 			spw_txdata_o          => s_spw_txdata
 		);
 
+	-- spw codec clock domain synchronization
+	spw_clk_synchronization_ent_inst : entity work.spw_clk_synchronization_ent
+		port map(
+			clk_100_i                                  => a_avs_clock,
+			clk_200_i                                  => a_spw_clock,
+			rst_i                                      => a_reset,
+			spw_codec_link_command_clk100_i.autostart  => s_spacewire_write_registers.windowing_control.autostart,
+			spw_codec_link_command_clk100_i.linkstart  => s_spacewire_write_registers.windowing_control.linkstart,
+			spw_codec_link_command_clk100_i.linkdis    => s_spacewire_write_registers.windowing_control.linkdis,
+			spw_codec_link_command_clk100_i.txdivcnt   => x"01",
+			spw_codec_timecode_tx_clk100_i.tick_in     => s_spacewire_write_registers.timecode_tx.tx_send,
+			spw_codec_timecode_tx_clk100_i.ctrl_in     => s_spacewire_write_registers.timecode_tx.tx_control,
+			spw_codec_timecode_tx_clk100_i.time_in     => s_spacewire_write_registers.timecode_tx.tx_time,
+			spw_codec_data_rx_command_clk100_i.rxread  => s_spw_rxread,
+			spw_codec_data_tx_command_clk100_i.txwrite => s_spw_txwrite,
+			spw_codec_data_tx_command_clk100_i.txflag  => s_spw_txflag,
+			spw_codec_data_tx_command_clk100_i.txdata  => s_spw_txdata,
+			spw_codec_link_status_clk200_i             => s_spw_codec_link_status_clk200,
+			spw_codec_link_error_clk200_i              => s_spw_codec_link_error_clk200,
+			spw_codec_timecode_rx_clk200_i             => s_spw_codec_timecode_rx_clk200,
+			spw_codec_data_rx_status_clk200_i          => s_spw_codec_data_rx_status_clk200,
+			spw_codec_data_tx_status_clk200_i          => s_spw_codec_data_tx_status_clk200,
+			spw_codec_link_status_clk100_o.started     => s_spacewire_read_registers.windowing_status.started,
+			spw_codec_link_status_clk100_o.connecting  => s_spacewire_read_registers.windowing_status.connecting,
+			spw_codec_link_status_clk100_o.running     => s_spacewire_read_registers.windowing_status.running,
+			spw_codec_link_error_clk100_o.errdisc      => s_spacewire_read_registers.windowing_status.errdis,
+			spw_codec_link_error_clk100_o.errpar       => s_spacewire_read_registers.windowing_status.errpar,
+			spw_codec_link_error_clk100_o.erresc       => s_spacewire_read_registers.windowing_status.erresc,
+			spw_codec_link_error_clk100_o.errcred      => s_spacewire_read_registers.windowing_status.errcred,
+			spw_codec_timecode_rx_clk100_o.tick_out    => s_spacewire_read_registers.timecode_rx.rx_received,
+			spw_codec_timecode_rx_clk100_o.ctrl_out    => s_spacewire_read_registers.timecode_rx.rx_control,
+			spw_codec_timecode_rx_clk100_o.time_out    => s_spacewire_read_registers.timecode_rx.rx_time,
+			spw_codec_data_rx_status_clk100_o.rxvalid  => s_spw_rxvalid,
+			spw_codec_data_rx_status_clk100_o.rxhalff  => s_spw_rxhalff,
+			spw_codec_data_rx_status_clk100_o.rxflag   => s_spw_rxflag,
+			spw_codec_data_rx_status_clk100_o.rxdata   => s_spw_rxdata,
+			spw_codec_data_tx_status_clk100_o.txrdy    => s_spw_txrdy,
+			spw_codec_data_tx_status_clk100_o.txhalff  => s_spw_txhalff,
+			spw_codec_link_command_clk200_o            => s_spw_codec_link_command_clk200,
+			spw_codec_timecode_tx_clk200_o             => s_spw_codec_timecode_tx_clk200,
+			spw_codec_data_rx_command_clk200_o         => s_spw_codec_data_rx_command_clk200,
+			spw_codec_data_tx_command_clk200_o         => s_spw_codec_data_tx_command_clk200
+		);
+
 	-- spw codec instantiation 
 	spw_codec_ent_inst : entity work.spw_codec_ent
 		port map(
-			clk_200                             => a_clock,
-			rst                                 => a_reset,
-			spw_codec_link_command_i.autostart  => s_spacewire_write_registers.windowing_control.autostart,
-			spw_codec_link_command_i.linkstart  => s_spacewire_write_registers.windowing_control.linkstart,
-			spw_codec_link_command_i.linkdis    => s_spacewire_write_registers.windowing_control.linkdis,
-			spw_codec_link_command_i.txdivcnt   => x"01",
-			spw_codec_ds_encoding_rx_i.spw_di   => data_in,
-			spw_codec_ds_encoding_rx_i.spw_si   => strobe_in,
-			spw_codec_timecode_tx_i.tick_in     => s_spacewire_write_registers.timecode_tx.tx_send,
-			spw_codec_timecode_tx_i.ctrl_in     => s_spacewire_write_registers.timecode_tx.tx_control,
-			spw_codec_timecode_tx_i.time_in     => s_spacewire_write_registers.timecode_tx.tx_time,
-			spw_codec_data_rx_command_i.rxread  => s_spw_rxread,
-			spw_codec_data_tx_command_i.txwrite => s_spw_txwrite,
-			spw_codec_data_tx_command_i.txflag  => s_spw_txflag,
-			spw_codec_data_tx_command_i.txdata  => s_spw_txdata,
-			spw_codec_link_status_o.started     => s_spacewire_read_registers.windowing_status.started,
-			spw_codec_link_status_o.connecting  => s_spacewire_read_registers.windowing_status.connecting,
-			spw_codec_link_status_o.running     => s_spacewire_read_registers.windowing_status.running,
-			spw_codec_ds_encoding_tx_o.spw_do   => data_out,
-			spw_codec_ds_encoding_tx_o.spw_so   => strobe_out,
-			spw_codec_link_error_o.errdisc      => s_spacewire_read_registers.windowing_status.errdis,
-			spw_codec_link_error_o.errpar       => s_spacewire_read_registers.windowing_status.errpar,
-			spw_codec_link_error_o.erresc       => s_spacewire_read_registers.windowing_status.erresc,
-			spw_codec_link_error_o.errcred      => s_spacewire_read_registers.windowing_status.errcred,
-			spw_codec_timecode_rx_o.tick_out    => s_spacewire_read_registers.timecode_rx.rx_received,
-			spw_codec_timecode_rx_o.ctrl_out    => s_spacewire_read_registers.timecode_rx.rx_control,
-			spw_codec_timecode_rx_o.time_out    => s_spacewire_read_registers.timecode_rx.rx_time,
-			spw_codec_data_rx_status_o.rxvalid  => s_spw_rxvalid,
-			spw_codec_data_rx_status_o.rxhalff  => s_spw_rxhalff,
-			spw_codec_data_rx_status_o.rxflag   => s_spw_rxflag,
-			spw_codec_data_rx_status_o.rxdata   => s_spw_rxdata,
-			spw_codec_data_tx_status_o.txrdy    => s_spw_txrdy,
-			spw_codec_data_tx_status_o.txhalff  => s_spw_txhalff
+			clk_200_i                         => a_spw_clock,
+			rst_i                             => a_reset,
+			spw_codec_link_command_i          => s_spw_codec_link_command_clk200,
+			spw_codec_ds_encoding_rx_i.spw_di => data_in,
+			spw_codec_ds_encoding_rx_i.spw_si => strobe_in,
+			spw_codec_timecode_tx_i           => s_spw_codec_timecode_tx_clk200,
+			spw_codec_data_rx_command_i       => s_spw_codec_data_rx_command_clk200,
+			spw_codec_data_tx_command_i       => s_spw_codec_data_tx_command_clk200,
+			spw_codec_link_status_o           => s_spw_codec_link_status_clk200,
+			spw_codec_ds_encoding_tx_o.spw_do => data_out,
+			spw_codec_ds_encoding_tx_o.spw_so => strobe_out,
+			spw_codec_link_error_o            => s_spw_codec_link_error_clk200,
+			spw_codec_timecode_rx_o           => s_spw_codec_timecode_rx_clk200,
+			spw_codec_data_rx_status_o        => s_spw_codec_data_rx_status_clk200,
+			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
 		);
 
 	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest)) when (a_reset = '0') else ('1');
 
-	p_codec_dummy_read : process(a_clock, a_reset) is
+	p_codec_dummy_read : process(a_avs_clock, a_reset) is
 	begin
 		if (a_reset = '1') then
 			s_spw_rxread <= '0';
-		elsif rising_edge(a_clock) then
+		elsif rising_edge(a_avs_clock) then
 			s_spw_rxread <= '0';
 			if (s_spw_rxvalid = '1') then
 				s_spw_rxread <= '1';
@@ -273,13 +313,13 @@ begin
 		end if;
 	end process p_codec_dummy_read;
 
-	p_interrupt_manager : process(a_clock, a_reset) is
+	p_interrupt_manager : process(a_avs_clock, a_reset) is
 	begin
 		if (a_reset) = '1' then
 			s_spacewire_read_registers.interrupt_flag.buffer_empty_flag <= '0';
 			s_R_buffer_empty_delayed                                    <= '0';
 			s_L_buffer_empty_delayed                                    <= '0';
-		elsif rising_edge(a_clock) then
+		elsif rising_edge(a_avs_clock) then
 			-- flag clear
 			if (s_spacewire_write_registers.interrupt_flag_clear.buffer_empty_flag = '1') then
 				s_spacewire_read_registers.interrupt_flag.buffer_empty_flag <= '0';

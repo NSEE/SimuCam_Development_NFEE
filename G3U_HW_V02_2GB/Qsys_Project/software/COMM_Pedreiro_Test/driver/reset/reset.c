@@ -25,20 +25,33 @@ static alt_u32 read_reg(alt_u32 *address, alt_u32 offset);
 //! [program memory private global variables]
 
 //! [public functions]
-void rst_simucam_reset(alt_u16 rst_cnt){
+void rstc_simucam_reset(alt_u16 rst_cnt) {
+	alt_u32 reg = 0;
 
+	reg |= (alt_u32) (rst_cnt & RSTC_SIMUCAM_RST_TIMER_MASK);
+	reg |= (alt_u32) RSTC_SIMUCAM_RST_CONTROL_MASK;
+	write_reg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR,
+			RSTC_SIMUCAM_RESET_REG_OFFSET, reg);
 }
 
-void rst_nios_ii_reset(alt_u16 rst_cnt){
+void rstc_release_device_reset(alt_u32 rst_mask) {
+	alt_u32 reg = 0;
 
+	reg = read_reg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR,
+			RSTC_DEVICE_RESET_REG_OFFSET);
+	reg &= ~((alt_u32) rst_mask);
+	write_reg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR,
+			RSTC_DEVICE_RESET_REG_OFFSET, reg);
 }
 
-void rst_release_device_reset(alt_u32 rst_mask){
+void rstc_hold_device_reset(alt_u32 rst_mask) {
+	alt_u32 reg = 0;
 
-}
-
-void rst_hold_device_reset(alt_u32 rst_mask){
-
+	reg = read_reg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR,
+			RSTC_DEVICE_RESET_REG_OFFSET);
+	reg |= (alt_u32) rst_mask;
+	write_reg((alt_u32*) RSTC_CONTROLLER_BASE_ADDR,
+			RSTC_DEVICE_RESET_REG_OFFSET, reg);
 }
 //! [public functions]
 

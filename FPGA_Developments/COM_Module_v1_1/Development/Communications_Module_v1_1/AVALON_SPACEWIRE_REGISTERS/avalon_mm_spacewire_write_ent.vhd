@@ -17,6 +17,8 @@ end entity avalon_mm_spacewire_write_ent;
 
 architecture rtl of avalon_mm_spacewire_write_ent is
 
+	signal s_data_acquired : std_logic;
+
 begin
 
 	p_avalon_mm_spacewire_write : process(clk_i, rst_i) is
@@ -124,6 +126,7 @@ begin
 	begin
 		if (rst_i = '1') then
 			avalon_mm_spacewire_o.waitrequest <= '1';
+			s_data_acquired                   <= '0';
 			v_write_address                   := 0;
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
@@ -132,7 +135,11 @@ begin
 			if (avalon_mm_spacewire_i.write = '1') then
 				avalon_mm_spacewire_o.waitrequest <= '0';
 				v_write_address                   := to_integer(unsigned(avalon_mm_spacewire_i.address));
-				p_writedata(v_write_address);
+				s_data_acquired                   <= '1';
+				if (s_data_acquired = '1') then
+					p_writedata(v_write_address);
+					s_data_acquired <= '0';
+				end if;
 			end if;
 		end if;
 	end process p_avalon_mm_spacewire_write;
