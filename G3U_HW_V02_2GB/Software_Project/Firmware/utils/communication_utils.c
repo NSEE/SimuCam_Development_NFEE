@@ -163,3 +163,15 @@ inline short int siPosStr( char *buffer, char cValue) {
     cTempChar[0] = cValue; /* This step was add for performance. The command strcspn needs "" (const char *) */
     return strcspn(buffer, cTempChar);
 }
+
+
+void vTimeoutCheck (void *p_arg)
+{
+	INT8U error_code;
+
+	/* Time to check the (re)transmission buffers, posting a semaphore to sync the task that will threat timeout logic (vTimeoutCheckerTask) */
+	error_code = OSSemPost(xSemTimeoutChecker);
+	if ( error_code != OS_ERR_NONE ) {
+		vFailPostBlockingSemTimeoutTask();
+	}
+}

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Wed Dec 05 22:55:22 BRST 2018
+ * Generated: Fri Dec 28 14:40:21 BRST 2018
  */
 
 /*
@@ -1526,12 +1526,12 @@
 #define OS_FLAG_NAME_SIZE 32
 #define OS_FLAG_QUERY_EN 1
 #define OS_FLAG_WAIT_CLR_EN 1
-#define OS_LOWEST_PRIO 30
+#define OS_LOWEST_PRIO 40
 #define OS_MAX_EVENTS 60
 #define OS_MAX_FLAGS 20
 #define OS_MAX_MEM_PART 60
 #define OS_MAX_QS 20
-#define OS_MAX_TASKS 25
+#define OS_MAX_TASKS 32
 #define OS_MBOX_ACCEPT_EN 1
 #define OS_MBOX_DEL_EN 1
 #define OS_MBOX_EN 1
@@ -1572,7 +1572,7 @@
 #define OS_TASK_STAT_STK_SIZE 512
 #define OS_TASK_SUSPEND_EN 1
 #define OS_TASK_SW_HOOK_EN 1
-#define OS_TASK_TMR_PRIO 0
+#define OS_TASK_TMR_PRIO 18
 #define OS_TASK_TMR_STK_SIZE 512
 #define OS_THREAD_SAFE_NEWLIB 1
 #define OS_TICKS_PER_SEC TIMER_1MS_TICKS_PER_SEC
@@ -1583,8 +1583,8 @@
 #define OS_TIME_TICK_HOOK_EN 1
 #define OS_TMR_CFG_MAX 8
 #define OS_TMR_CFG_NAME_SIZE 16
-#define OS_TMR_CFG_TICKS_PER_SEC 10
+#define OS_TMR_CFG_TICKS_PER_SEC 5
 #define OS_TMR_CFG_WHEEL_SIZE 2
-#define OS_TMR_EN 0
+#define OS_TMR_EN 1
 
 #endif /* __SYSTEM_H_ */

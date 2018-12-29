@@ -11,6 +11,6 @@
 #include <stddef.h>
 
 unsigned char ucCrc8(unsigned crc, unsigned char const *data, size_t len);
-unsigned char ucCrc8wInit(char const *data, size_t len);
+unsigned char ucCrc8wInit(unsigned char const *data, size_t len);
 
 #endif /* CRC8_H_ */

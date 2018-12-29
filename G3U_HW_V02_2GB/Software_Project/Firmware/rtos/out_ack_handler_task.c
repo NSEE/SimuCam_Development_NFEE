@@ -73,7 +73,6 @@ void vOutAckHandlerTask(void *task_data) {
                 while ( ( bSuccess == FALSE ) && ( ucCountRetries < 6 ) ) {
 
                     OSMutexPend(xTxUARTMutex, 5, &error_code); /* Wait 5 ticks = 5 ms */
-
                     if ( error_code == OS_NO_ERR ) {
                         puts(cBufferAck);
                         OSMutexPost(xTxUARTMutex);

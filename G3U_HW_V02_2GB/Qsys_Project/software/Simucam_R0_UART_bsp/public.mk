@@ -238,7 +238,9 @@ ALT_CPPFLAGS += -DALT_NO_INSTRUCTION_EMULATION
 # exception if a stack collision occurs with the heap or statically allocated 
 # data. If true, adds -DALT_STACK_CHECK and -fstack-limit-register=et to 
 # ALT_CPPFLAGS in public.mk. none 
-# setting hal.enable_runtime_stack_checking is false
+# setting hal.enable_runtime_stack_checking is true
+ALT_LDFLAGS += -fstack-limit-register=et
+ALT_CPPFLAGS += -DALT_STACK_CHECK -fstack-limit-register=et
 
 # The BSP is compiled with optimizations to speedup HDL simulation such as 
 # initializing the cache, clearing the .bss section, and skipping long delay 

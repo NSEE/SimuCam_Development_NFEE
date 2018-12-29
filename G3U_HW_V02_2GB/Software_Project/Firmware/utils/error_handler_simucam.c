@@ -462,3 +462,147 @@ void vFailOutAckHandlerTaskCreate( void )
 	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
+
+
+void vFailCreateTimerRetransmisison( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateTimerRetransmisison");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+
+void vCouldNotCheckBufferTimeOutFunction( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotCheckBufferTimeOutFunction");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+void vFailTimeoutCheckerTaskCreate( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailTimeoutCheckerTaskCreate");
+	#endif
+	/*
+	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
+	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
+	 */
+}
+
+
+void vFailGetBlockingSemTimeoutTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailGetBlockingSemTimeoutTask. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Retrun from a blocking (0) OSSemPend with a error.");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailPostBlockingSemTimeoutTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailPostBlockingSemTimeoutTask. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not Post the semaphore for the TimeoutTask.");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailCouldNotRetransmitTimeoutTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCouldNotRetransmitTimeoutTask. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"After sleep for 50 ticks, could not get access to the tx uart. No retransmission occurs.");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCouldNotRetransmitB32TimeoutTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotRetransmitB32TimeoutTask. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (32).");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotRetransmitB64TimeoutTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotRetransmitB64TimeoutTask. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (64).");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotRetransmitB128TimeoutTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotRetransmitB128TimeoutTask. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (128).");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailStartTimerRetransmission( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailStartTimerRetransmission. (exit)");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Fail trying to start the timer xTimerRetransmission.");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}

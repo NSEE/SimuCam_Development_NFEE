@@ -42,16 +42,30 @@ void vInAckHandlerTask(void *task_data) {
 
                     OSMutexPend(xMutexReceivedACK, 0, &error_code);
                     if ( error_code == OS_ERR_NONE ) {
+
                         /*Search for the ack*/
                         for(i = 0; i < N_ACKS_RECEIVED; i++)
                         {
+                            
                             if ( xReceivedACK[i].cType != 0 ) {
-                                /* Locate the message, copy for the local variable in order to free the mutex. */
-                                xRAckLocal = xReceivedACK[i];
-                                eReceiverAckState = sRACleanningBuffer;
+
+                                /*  Is it a NACK? */
+                                if ( xReceivedACK[i].cType != NACK_CHAR ) {
+                                    /* Locate the message, copy for the local variable in order to free the mutex. */
+                                    xRAckLocal = xReceivedACK[i];
+                                    eReceiverAckState = sRACleanningBuffer;
+                                    break;
+                                } else {
+                                    /*  Yes is a NACK, do nothing. The packet will be retransmited after timeout, since we can't know which message
+                                        was not transmited, is too much expensive retransmit all "waiting ack" packets. So, do nothing, excet clear the pipe buffer*/
+                                    #ifdef DEBUG_ON
+                                        debug(fp,"NACK received.");
+                                    #endif
+                                    eReceiverAckState = sRAGettingACK;
+                                }
                                 xReceivedACK[i].cType = 0; /* indicates that this position now can be used by other message*/
-                                break;
                             }
+
                         }
                         OSMutexPost(xMutexReceivedACK);
                     } else {
@@ -74,6 +88,7 @@ void vInAckHandlerTask(void *task_data) {
                 bFinished32=FALSE;
                 bFinished64=FALSE;
                 bFinished128=FALSE;
+                ucCountRetries = 0;
                 /* The mutex will not be blocking, so it will try for five times search in the three (re)transmission buffer */
                 while ( ( bFound == FALSE ) && ( ucCountRetries < 6 ) && ( (bFinished32==FALSE) || (bFinished64==FALSE) ||(bFinished128==FALSE) ) ) {
 
@@ -88,9 +103,7 @@ void vInAckHandlerTask(void *task_data) {
                                     /* Free the buffer and indicate by setting usiId to Zero. Post in the count semaphore to indicate
                                     that is an free position in the (re)trasmission buffer. */
                                     xBuffer32[i].usiId = 0;
-                                    memset(xBuffer32[i].buffer, 0, 32);
                                     OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
-
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer32);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -115,9 +128,7 @@ void vInAckHandlerTask(void *task_data) {
                                     /* Free the buffer and indicate by setting usiId to Zero. Post in the count semaphore to indicate
                                     that is an free position in the (re)trasmission buffer. */
                                     xBuffer64[i].usiId = 0;
-                                    memset(xBuffer64[i].buffer, 0, 64);
                                     OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer64*/
-
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer64);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -141,9 +152,7 @@ void vInAckHandlerTask(void *task_data) {
                                     /* Free the buffer and indicate by setting usiId to Zero. Post in the count semaphore to indicate
                                     that is an free position in the (re)trasmission buffer. */
                                     xBuffer128[i].usiId = 0;
-                                    memset(xBuffer128[i].buffer, 0, 128);
                                     OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
-
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer128);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -155,9 +164,13 @@ void vInAckHandlerTask(void *task_data) {
                             bFinished128 = TRUE;
                         }
                     }
-                    ucCountRetries++;
+                    /* Check if finish the search, if not probably some mutex is in use, so put the task to sleep for some time*/
+                    if ( ( bFound == FALSE ) && ( (bFinished32==FALSE) || (bFinished64==FALSE) ||(bFinished128==FALSE) )) {
+                        OSTimeDly(5); /* Make this task sleep for 5 ticks*/
+                        ucCountRetries++;
+                    }
                 }
-
+                
                 if (bFound == FALSE) {
                     /* Could not found the buffer with the id received in the ack packet*/
                     vFailFoundBufferRetransmission();

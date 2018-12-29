@@ -171,6 +171,7 @@ C_SRCS += rtos/parser_comm_task.c
 C_SRCS += rtos/receiver_uart_task.c
 C_SRCS += rtos/in_ack_handler_task.c
 C_SRCS += rtos/out_ack_handler_task.c
+C_SRCS += rtos/timeout_checker_ack_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

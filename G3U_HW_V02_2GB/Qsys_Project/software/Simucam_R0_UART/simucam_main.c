@@ -1,4 +1,5 @@
 #include <sys/alt_stdio.h>
+#include <ucos_ii.h>
 #include "simucam_definitions.h"
 #include "utils/initialization_simucam.h"
 #include "utils/error_handler_simucam.h"
@@ -47,6 +48,8 @@ OS_EVENT *xSemCountPreParsed;
 OS_EVENT *xMutexReceivedACK;
 OS_EVENT *xMutexPreParsed;
 
+OS_EVENT *xSemTimeoutChecker;
+
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
 /* -------------- Definition of Semaphores -------------- */
@@ -67,8 +70,14 @@ OS_STK    vReceiverUartTask_stk[RECEIVER_TASK_SIZE];
 OS_STK    vParserCommTask_stk[PARSER_TASK_SIZE];
 OS_STK    vInAckHandlerTask_stk[IN_ACK_TASK_SIZE];
 OS_STK    vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE];
+OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 /* -------------- Definition of Stacks------------------ */
+
+
+/* --------------- Timers ------------------ */
+OS_TMR  *xTimerRetransmission;
+/* --------------- Timers ------------------ */
 
 /*==================================================================================================*/
 
@@ -166,7 +175,6 @@ bool bResourcesInitRTOS( void )
 	}
 
 	/* Mutex and Semaphore to AckSenderTask*/
-
 	xSemCountSenderACK = OSSemCreate(0);
 	if (!xSemCountSenderACK) {
 		vFailCreateSemaphoreResources();
@@ -176,6 +184,26 @@ bool bResourcesInitRTOS( void )
 	xMutexSenderACK = OSMutexCreate(PCP_MUTEX_SENDER_ACK, &err);
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
+	xSemTimeoutChecker = OSSemCreate(0);
+	if (!xSemTimeoutChecker) {
+		vFailCreateSemaphoreResources();
+		bSuccess = FALSE;
+	}
+
+
+	/* Create the timer that will be used to count the timeout for the retransmission*/
+	xTimerRetransmission = OSTmrCreate(	(INT32U         )DLY_TIMER,  /* 200 ticks = 200 millisec */
+										(INT32U         )PERIOD_TIMER,
+										(INT8U          )OS_TMR_OPT_PERIODIC,
+										(OS_TMR_CALLBACK)vTimeoutCheck,
+										(void          *)0,
+										(INT8U         *)"timer timeout",
+										(INT8U         *)&err);	
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateTimerRetransmisison();
 		bSuccess = FALSE;
 	}
 

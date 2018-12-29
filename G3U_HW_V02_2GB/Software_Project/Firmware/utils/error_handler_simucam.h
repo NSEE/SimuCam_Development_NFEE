@@ -46,5 +46,16 @@ void vFailSetPreAckReceiverBuffer( void );
 void vFailParserCommTaskCreate( void );
 void vFailInAckHandlerTaskCreate( void );
 void vFailOutAckHandlerTaskCreate( void );
+void vFailCreateTimerRetransmisison( void );
+void vCouldNotCheckBufferTimeOutFunction( void );
+void vFailTimeoutCheckerTaskCreate( void );
+void vFailGetBlockingSemTimeoutTask( void );
+void vFailPostBlockingSemTimeoutTask( void );
+void vCouldNotRetransmitB32TimeoutTask( void );
+void vCouldNotRetransmitB64TimeoutTask( void );
+void vCouldNotRetransmitB128TimeoutTask( void );
+void vFailStartTimerRetransmission( void );
+void vFailCouldNotRetransmitTimeoutTask( void );
+
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

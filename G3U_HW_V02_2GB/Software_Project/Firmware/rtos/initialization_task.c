@@ -154,6 +154,40 @@ void vInitialTask(void *task_data)
 	}
 
 
+	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vTimeoutCheckerTask,
+									NULL,
+									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
+									TIMEOUT_CHECKER_PRIO,
+									TIMEOUT_CHECKER_PRIO,
+									vTimeoutCheckerTask_stk,
+									TIMEOUT_CHECKER_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+
+
+	#else
+		error_code = OSTaskCreateExt(vTimeoutCheckerTask,
+									NULL,
+									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
+									TIMEOUT_CHECKER_PRIO,
+									TIMEOUT_CHECKER_PRIO,
+									vTimeoutCheckerTask_stk,
+									TIMEOUT_CHECKER_SIZE,
+									NULL,
+									0);
+
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );
+		#endif
+		vFailTimeoutCheckerTaskCreate();
+	}
+
 
 
 	/* SEND: Create the task that is responsible to SEND UART packets */
@@ -190,6 +224,16 @@ void vInitialTask(void *task_data)
 		vFailSenderCreate();
 	}
 
+	/*	This is the timer that's trigger the task that implements the timeout/retransmission logic*/
+	OSTmrStart ((OS_TMR *)xTimerRetransmission, (INT8U  *)&error_code);
+	if ( error_code != OS_ERR_NONE) {
+		/*	Could not create the timer that syncs the task that is responsible to retransmit the packets*/
+		vFailStartTimerRetransmission();
+	}
+
+
+
+
 
 	/* Delete the Initialization Task  */
 	error_code = OSTaskDel(OS_PRIO_SELF); /* OS_PRIO_SELF = Means task self priority */
@@ -202,12 +246,11 @@ void vInitialTask(void *task_data)
 		vFailDeleteInitialization();
 		/*	To not exit the intire application, the PRIO of this task will be lowered*/
 		OSTaskChangePrio( INITIALIZATION_TASK_PRIO , INITIALIZATION_TASK_PRIO_FAIL );
+
+		for(;;) { /* Correct Program Flow should never get here */
+			OSTaskDel(OS_PRIO_SELF); /* Try to delete it self */
+			OSTimeDlyHMSM(0,0,10,0); /* 1 sec */
+		}
 	}
 
-	for(;;) { /* Correct Program Flow should never get here */
-		OSTaskDel(OS_PRIO_SELF); /* Try to delete it self */
-		OSTimeDlyHMSM(0,0,10,0); /* 1 sec */
-	}
-		
-	 
 }

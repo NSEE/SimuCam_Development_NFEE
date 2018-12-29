@@ -106,7 +106,7 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 #define N_RETRIES_COMM          3
 #define INTERVAL_RETRIES        1000    /* Milliseconds */
-#define TIMEOUT_COMM            3000    /* Milliseconds */
+#define TIMEOUT_COMM            4000    /* Milliseconds */
 #define TIMEOUT_COUNT           ( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
 #define TICKS_WAITING_FOR_SPACE 100     /* Ticks */
@@ -115,7 +115,7 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 typedef struct {
     char buffer[128];
     unsigned short int usiId; /* If Zero is empty and available*/
-    unsigned short int usiTimeOut; /*seconds*/
+    short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
 } txBuffer128;
 
@@ -123,7 +123,7 @@ typedef struct {
 typedef struct {
     char buffer[64];
     unsigned short int usiId; /* If Zero is empty and available*/
-    unsigned short int usiTimeOut; /*seconds*/
+    short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
 } txBuffer64;
 
@@ -131,7 +131,7 @@ typedef struct {
 typedef struct {
     char buffer[32];
     unsigned short int usiId; /* If Zero is empty and available*/
-    unsigned short int usiTimeOut; /*seconds*/
+    short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
 } txBuffer32;
 
