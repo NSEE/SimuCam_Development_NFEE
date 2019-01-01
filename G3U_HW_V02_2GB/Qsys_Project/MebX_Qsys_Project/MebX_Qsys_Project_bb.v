@@ -2,45 +2,45 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
-	comm_a_conduit_end_spw_si_signal,
-	comm_a_conduit_end_spw_di_signal,
-	comm_a_conduit_end_spw_do_signal,
-	comm_a_conduit_end_spw_so_signal,
-	comm_b_conduit_end_spw_si_signal,
-	comm_b_conduit_end_spw_di_signal,
-	comm_b_conduit_end_spw_do_signal,
-	comm_b_conduit_end_spw_so_signal,
-	comm_c_conduit_end_spw_si_signal,
-	comm_c_conduit_end_spw_di_signal,
-	comm_c_conduit_end_spw_do_signal,
-	comm_c_conduit_end_spw_so_signal,
-	comm_d_conduit_end_spw_si_signal,
-	comm_d_conduit_end_spw_di_signal,
-	comm_d_conduit_end_spw_do_signal,
-	comm_d_conduit_end_spw_so_signal,
-	comm_e_conduit_end_spw_si_signal,
-	comm_e_conduit_end_spw_di_signal,
-	comm_e_conduit_end_spw_do_signal,
-	comm_e_conduit_end_spw_so_signal,
-	comm_f_conduit_end_spw_si_signal,
-	comm_f_conduit_end_spw_di_signal,
-	comm_f_conduit_end_spw_do_signal,
-	comm_f_conduit_end_spw_so_signal,
-	comm_g_conduit_end_spw_si_signal,
-	comm_g_conduit_end_spw_di_signal,
-	comm_g_conduit_end_spw_do_signal,
-	comm_g_conduit_end_spw_so_signal,
-	comm_h_conduit_end_spw_si_signal,
-	comm_h_conduit_end_spw_di_signal,
-	comm_h_conduit_end_spw_do_signal,
-	comm_h_conduit_end_spw_so_signal,
+	comm_a_conduit_end_data_in_signal,
+	comm_a_conduit_end_data_out_signal,
+	comm_a_conduit_end_strobe_in_signal,
+	comm_a_conduit_end_strobe_out_signal,
+	comm_b_conduit_end_data_in_signal,
+	comm_b_conduit_end_data_out_signal,
+	comm_b_conduit_end_strobe_in_signal,
+	comm_b_conduit_end_strobe_out_signal,
+	comm_c_conduit_end_data_in_signal,
+	comm_c_conduit_end_data_out_signal,
+	comm_c_conduit_end_strobe_in_signal,
+	comm_c_conduit_end_strobe_out_signal,
+	comm_d_conduit_end_data_in_signal,
+	comm_d_conduit_end_data_out_signal,
+	comm_d_conduit_end_strobe_in_signal,
+	comm_d_conduit_end_strobe_out_signal,
+	comm_e_conduit_end_data_in_signal,
+	comm_e_conduit_end_data_out_signal,
+	comm_e_conduit_end_strobe_in_signal,
+	comm_e_conduit_end_strobe_out_signal,
+	comm_f_conduit_end_data_in_signal,
+	comm_f_conduit_end_data_out_signal,
+	comm_f_conduit_end_strobe_in_signal,
+	comm_f_conduit_end_strobe_out_signal,
+	comm_g_conduit_end_data_in_signal,
+	comm_g_conduit_end_data_out_signal,
+	comm_g_conduit_end_strobe_in_signal,
+	comm_g_conduit_end_strobe_out_signal,
+	comm_h_conduit_end_data_in_signal,
+	comm_h_conduit_end_data_out_signal,
+	comm_h_conduit_end_strobe_in_signal,
+	comm_h_conduit_end_strobe_out_signal,
 	csense_adc_fo_export,
 	csense_cs_n_export,
 	csense_sck_export,
 	csense_sdi_export,
 	csense_sdo_export,
+	ctrl_io_lvds_export,
 	dip_export,
-	eth_rst_export,
 	ext_export,
 	led_de4_export,
 	led_painel_export,
@@ -96,20 +96,31 @@ module MebX_Qsys_Project (
 	m2_ddr2_memory_status_local_cal_fail,
 	m2_ddr2_oct_rdn,
 	m2_ddr2_oct_rup,
+	rs232_uart_rxd,
+	rs232_uart_txd,
 	rst_reset_n,
 	rtcc_alarm_export,
 	rtcc_cs_n_export,
 	rtcc_sck_export,
 	rtcc_sdi_export,
 	rtcc_sdo_export,
-	sd_clk_export,
-	sd_cmd_export,
-	sd_dat_export,
-	sd_wp_n_export,
-	sinc_in_export,
-	sinc_out_export,
+	sd_card_ip_b_SD_cmd,
+	sd_card_ip_b_SD_dat,
+	sd_card_ip_b_SD_dat3,
+	sd_card_ip_o_SD_clock,
+	sd_card_wp_n_io_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
+	sync_in_conduit,
+	sync_out_conduit,
+	sync_spwa_conduit,
+	sync_spwb_conduit,
+	sync_spwc_conduit,
+	sync_spwd_conduit,
+	sync_spwe_conduit,
+	sync_spwf_conduit,
+	sync_spwg_conduit,
+	sync_spwh_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -118,78 +129,49 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_read_n_out,
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out,
-	tse_clk_clk,
-	tse_led_crs,
-	tse_led_link,
-	tse_led_panel_link,
-	tse_led_col,
-	tse_led_an,
-	tse_led_char_err,
-	tse_led_disp_err,
-	tse_mac_mac_misc_connection_xon_gen,
-	tse_mac_mac_misc_connection_xoff_gen,
-	tse_mac_mac_misc_connection_magic_wakeup,
-	tse_mac_mac_misc_connection_magic_sleep_n,
-	tse_mac_mac_misc_connection_ff_tx_crc_fwd,
-	tse_mac_mac_misc_connection_ff_tx_septy,
-	tse_mac_mac_misc_connection_tx_ff_uflow,
-	tse_mac_mac_misc_connection_ff_tx_a_full,
-	tse_mac_mac_misc_connection_ff_tx_a_empty,
-	tse_mac_mac_misc_connection_rx_err_stat,
-	tse_mac_mac_misc_connection_rx_frm_type,
-	tse_mac_mac_misc_connection_ff_rx_dsav,
-	tse_mac_mac_misc_connection_ff_rx_a_full,
-	tse_mac_mac_misc_connection_ff_rx_a_empty,
-	tse_mac_serdes_control_connection_export,
-	tse_mdio_mdc,
-	tse_mdio_mdio_in,
-	tse_mdio_mdio_out,
-	tse_mdio_mdio_oen,
-	tse_serial_txp,
-	tse_serial_rxp);	
+	tristate_conduit_tcm_chipselect_n_out);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
-	input		comm_a_conduit_end_spw_si_signal;
-	input		comm_a_conduit_end_spw_di_signal;
-	output		comm_a_conduit_end_spw_do_signal;
-	output		comm_a_conduit_end_spw_so_signal;
-	input		comm_b_conduit_end_spw_si_signal;
-	input		comm_b_conduit_end_spw_di_signal;
-	output		comm_b_conduit_end_spw_do_signal;
-	output		comm_b_conduit_end_spw_so_signal;
-	input		comm_c_conduit_end_spw_si_signal;
-	input		comm_c_conduit_end_spw_di_signal;
-	output		comm_c_conduit_end_spw_do_signal;
-	output		comm_c_conduit_end_spw_so_signal;
-	input		comm_d_conduit_end_spw_si_signal;
-	input		comm_d_conduit_end_spw_di_signal;
-	output		comm_d_conduit_end_spw_do_signal;
-	output		comm_d_conduit_end_spw_so_signal;
-	input		comm_e_conduit_end_spw_si_signal;
-	input		comm_e_conduit_end_spw_di_signal;
-	output		comm_e_conduit_end_spw_do_signal;
-	output		comm_e_conduit_end_spw_so_signal;
-	input		comm_f_conduit_end_spw_si_signal;
-	input		comm_f_conduit_end_spw_di_signal;
-	output		comm_f_conduit_end_spw_do_signal;
-	output		comm_f_conduit_end_spw_so_signal;
-	input		comm_g_conduit_end_spw_si_signal;
-	input		comm_g_conduit_end_spw_di_signal;
-	output		comm_g_conduit_end_spw_do_signal;
-	output		comm_g_conduit_end_spw_so_signal;
-	input		comm_h_conduit_end_spw_si_signal;
-	input		comm_h_conduit_end_spw_di_signal;
-	output		comm_h_conduit_end_spw_do_signal;
-	output		comm_h_conduit_end_spw_so_signal;
+	input		comm_a_conduit_end_data_in_signal;
+	output		comm_a_conduit_end_data_out_signal;
+	input		comm_a_conduit_end_strobe_in_signal;
+	output		comm_a_conduit_end_strobe_out_signal;
+	input		comm_b_conduit_end_data_in_signal;
+	output		comm_b_conduit_end_data_out_signal;
+	input		comm_b_conduit_end_strobe_in_signal;
+	output		comm_b_conduit_end_strobe_out_signal;
+	input		comm_c_conduit_end_data_in_signal;
+	output		comm_c_conduit_end_data_out_signal;
+	input		comm_c_conduit_end_strobe_in_signal;
+	output		comm_c_conduit_end_strobe_out_signal;
+	input		comm_d_conduit_end_data_in_signal;
+	output		comm_d_conduit_end_data_out_signal;
+	input		comm_d_conduit_end_strobe_in_signal;
+	output		comm_d_conduit_end_strobe_out_signal;
+	input		comm_e_conduit_end_data_in_signal;
+	output		comm_e_conduit_end_data_out_signal;
+	input		comm_e_conduit_end_strobe_in_signal;
+	output		comm_e_conduit_end_strobe_out_signal;
+	input		comm_f_conduit_end_data_in_signal;
+	output		comm_f_conduit_end_data_out_signal;
+	input		comm_f_conduit_end_strobe_in_signal;
+	output		comm_f_conduit_end_strobe_out_signal;
+	input		comm_g_conduit_end_data_in_signal;
+	output		comm_g_conduit_end_data_out_signal;
+	input		comm_g_conduit_end_strobe_in_signal;
+	output		comm_g_conduit_end_strobe_out_signal;
+	input		comm_h_conduit_end_data_in_signal;
+	output		comm_h_conduit_end_data_out_signal;
+	input		comm_h_conduit_end_strobe_in_signal;
+	output		comm_h_conduit_end_strobe_out_signal;
 	output		csense_adc_fo_export;
 	output	[1:0]	csense_cs_n_export;
 	output		csense_sck_export;
 	output		csense_sdi_export;
 	input		csense_sdo_export;
+	output	[3:0]	ctrl_io_lvds_export;
 	input	[7:0]	dip_export;
-	output		eth_rst_export;
 	input		ext_export;
 	output	[7:0]	led_de4_export;
 	output	[20:0]	led_painel_export;
@@ -245,20 +227,31 @@ module MebX_Qsys_Project (
 	output		m2_ddr2_memory_status_local_cal_fail;
 	input		m2_ddr2_oct_rdn;
 	input		m2_ddr2_oct_rup;
+	input		rs232_uart_rxd;
+	output		rs232_uart_txd;
 	input		rst_reset_n;
 	input		rtcc_alarm_export;
 	output		rtcc_cs_n_export;
 	output		rtcc_sck_export;
 	output		rtcc_sdi_export;
 	input		rtcc_sdo_export;
-	output		sd_clk_export;
-	inout		sd_cmd_export;
-	inout	[3:0]	sd_dat_export;
-	input		sd_wp_n_export;
-	input		sinc_in_export;
-	output		sinc_out_export;
+	inout		sd_card_ip_b_SD_cmd;
+	inout		sd_card_ip_b_SD_dat;
+	inout		sd_card_ip_b_SD_dat3;
+	output		sd_card_ip_o_SD_clock;
+	input		sd_card_wp_n_io_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
+	input		sync_in_conduit;
+	output		sync_out_conduit;
+	output		sync_spwa_conduit;
+	output		sync_spwb_conduit;
+	output		sync_spwc_conduit;
+	output		sync_spwd_conduit;
+	output		sync_spwe_conduit;
+	output		sync_spwf_conduit;
+	output		sync_spwg_conduit;
+	output		sync_spwh_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;
@@ -268,33 +261,4 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	input		tse_clk_clk;
-	output		tse_led_crs;
-	output		tse_led_link;
-	output		tse_led_panel_link;
-	output		tse_led_col;
-	output		tse_led_an;
-	output		tse_led_char_err;
-	output		tse_led_disp_err;
-	input		tse_mac_mac_misc_connection_xon_gen;
-	input		tse_mac_mac_misc_connection_xoff_gen;
-	output		tse_mac_mac_misc_connection_magic_wakeup;
-	input		tse_mac_mac_misc_connection_magic_sleep_n;
-	input		tse_mac_mac_misc_connection_ff_tx_crc_fwd;
-	output		tse_mac_mac_misc_connection_ff_tx_septy;
-	output		tse_mac_mac_misc_connection_tx_ff_uflow;
-	output		tse_mac_mac_misc_connection_ff_tx_a_full;
-	output		tse_mac_mac_misc_connection_ff_tx_a_empty;
-	output	[17:0]	tse_mac_mac_misc_connection_rx_err_stat;
-	output	[3:0]	tse_mac_mac_misc_connection_rx_frm_type;
-	output		tse_mac_mac_misc_connection_ff_rx_dsav;
-	output		tse_mac_mac_misc_connection_ff_rx_a_full;
-	output		tse_mac_mac_misc_connection_ff_rx_a_empty;
-	output		tse_mac_serdes_control_connection_export;
-	output		tse_mdio_mdc;
-	input		tse_mdio_mdio_in;
-	output		tse_mdio_mdio_out;
-	output		tse_mdio_mdio_oen;
-	output		tse_serial_txp;
-	input		tse_serial_rxp;
 endmodule

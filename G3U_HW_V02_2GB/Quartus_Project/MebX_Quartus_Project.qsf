@@ -298,13 +298,6 @@ set_location_assignment PIN_A19 -to OSC_50_Bank7
 set_global_assignment -name UNIPHY_SEQUENCER_DQS_CONFIG_ENABLE ON
 set_global_assignment -name UNIPHY_TEMP_VER_CODE 1837840291
 set_global_assignment -name ECO_REGENERATE_REPORT ON
-set_location_assignment PIN_AV20 -to SD_CMD
-set_location_assignment PIN_AT19 -to SD_CLK
-set_location_assignment PIN_AH18 -to SD_WP_n
-set_location_assignment PIN_AR20 -to SD_DAT[0]
-set_location_assignment PIN_AT20 -to SD_DAT[1]
-set_location_assignment PIN_AU19 -to SD_DAT[2]
-set_location_assignment PIN_AU20 -to SD_DAT[3]
 set_location_assignment PIN_AC11 -to EXT_IO
 
 set_location_assignment PIN_AN18 -to TEMP_SMCLK
@@ -1261,13 +1254,6 @@ set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|ddr2_memory_2|p0|u
 set_instance_assignment -name GLOBAL_SIGNAL OFF -from SOPC_INST|ddr2_memory_2|pll0|upll_memphy|auto_generated|clk[2] -to SOPC_INST|ddr2_memory_2|dll0|dll_wys_m -tag __nios_implementacao_8links_ethernet_ddr2_ddr2_memory_2_p0
 set_instance_assignment -name ENABLE_BENEFICIAL_SKEW_OPTIMIZATION_FOR_NON_GLOBAL_CLOCKS ON -to SOPC_INST|ddr2_memory_2 -tag __nios_implementacao_8links_ethernet_ddr2_ddr2_memory_2_p0
 set_instance_assignment -name PLL_ENFORCE_USER_PHASE_SHIFT ON -to SOPC_INST|ddr2_memory_2|pll0|upll_memphy|auto_generated|pll1 -tag __nios_implementacao_8links_ethernet_ddr2_ddr2_memory_2_p0
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_CMD
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_CLK
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_WP_n
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_DAT[0]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_DAT[1]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_DAT[2]
-set_instance_assignment -name IO_STANDARD "1.8 V" -to SD_DAT[3]
 set_instance_assignment -name IO_STANDARD "2.5 V" -to EXT_IO
 set_instance_assignment -name IO_STANDARD "1.8 V" -to TEMP_SMCLK
 set_instance_assignment -name IO_STANDARD "1.8 V" -to TEMP_SMDAT
@@ -2012,10 +1998,6 @@ set_location_assignment PIN_AU10 -to RTCC_SDI
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_SDI
 set_location_assignment PIN_AV8 -to RTCC_SDO
 set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to RTCC_SDO
-set_location_assignment PIN_AE13 -to SINC_IN
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SINC_IN
-set_location_assignment PIN_AP10 -to SINC_OUT
-set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SINC_OUT
 set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|p0|umemphy|ureset|phy_reset_mem_stable_n -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|p0|umemphy|ureset|phy_reset_n -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
 set_instance_assignment -name GLOBAL_SIGNAL OFF -to SOPC_INST|m2_ddr2_memory|s0|sequencer_rw_mgr_inst|rw_mgr_inst|rw_mgr_core_inst|rw_soft_reset_n -tag __MebX_Qsys_Project_m2_ddr2_memory_p0
@@ -2162,4 +2144,24 @@ set_global_assignment -name SOURCE_FILE ../Hardware_Project/IPCore/LVDS/RX_LVDS.
 set_global_assignment -name VHDL_FILE ../Hardware_Project/MebX_TopLevel.vhd
 set_global_assignment -name SDC_FILE DE4_DDR2.sdc
 set_global_assignment -name QIP_FILE ../Hardware_Project/IPCore/PLL.qip
+set_location_assignment PIN_AV20 -to B_SD_CARD_CMD
+set_location_assignment PIN_AT19 -to O_SD_CARD_CLOCK
+set_location_assignment PIN_AH18 -to I_SD_CARD_WP_n
+set_location_assignment PIN_AR20 -to B_SD_CARD_DAT
+set_location_assignment PIN_AU20 -to B_SD_CARD_DAT3
+set_instance_assignment -name IO_STANDARD "1.8 V" -to B_SD_CARD_CMD
+set_instance_assignment -name IO_STANDARD "1.8 V" -to O_SD_CARD_CLOCK
+set_instance_assignment -name IO_STANDARD "1.8 V" -to I_SD_CARD_WP_n
+set_instance_assignment -name IO_STANDARD "1.8 V" -to B_SD_CARD_DAT
+set_instance_assignment -name IO_STANDARD "1.8 V" -to B_SD_CARD_DAT3
+set_instance_assignment -name IO_STANDARD "2.5 V" -to I_RS232_UART_RXD
+set_location_assignment PIN_AH32 -to I_RS232_UART_RXD
+set_instance_assignment -name IO_STANDARD "2.5 V" -to O_RS232_UART_TXD
+set_location_assignment PIN_AN34 -to O_RS232_UART_TXD
+set_location_assignment PIN_AV5 -to EN_ISO_DRIVERS
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to EN_ISO_DRIVERS
+set_location_assignment PIN_AE13 -to SYNC_IN
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SYNC_IN
+set_location_assignment PIN_AP10 -to SYNC_OUT
+set_instance_assignment -name IO_STANDARD "3.3-V LVTTL" -to SYNC_OUT
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

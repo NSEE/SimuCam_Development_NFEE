@@ -10,7 +10,7 @@ entity mebx_qsys_project_clock_bridge_afi_50 is
 	generic (
 		DATA_WIDTH          : integer := 32;
 		SYMBOL_WIDTH        : integer := 8;
-		HDL_ADDR_WIDTH      : integer := 10;
+		HDL_ADDR_WIDTH      : integer := 12;
 		BURSTCOUNT_WIDTH    : integer := 1;
 		COMMAND_FIFO_DEPTH  : integer := 4;
 		RESPONSE_FIFO_DEPTH : integer := 4;
@@ -27,7 +27,7 @@ entity mebx_qsys_project_clock_bridge_afi_50 is
 		s0_readdatavalid : out std_logic;                                        --         .readdatavalid
 		s0_burstcount    : in  std_logic_vector(0 downto 0)  := (others => '0'); --         .burstcount
 		s0_writedata     : in  std_logic_vector(31 downto 0) := (others => '0'); --         .writedata
-		s0_address       : in  std_logic_vector(9 downto 0)  := (others => '0'); --         .address
+		s0_address       : in  std_logic_vector(11 downto 0) := (others => '0'); --         .address
 		s0_write         : in  std_logic                     := '0';             --         .write
 		s0_read          : in  std_logic                     := '0';             --         .read
 		s0_byteenable    : in  std_logic_vector(3 downto 0)  := (others => '0'); --         .byteenable
@@ -37,7 +37,7 @@ entity mebx_qsys_project_clock_bridge_afi_50 is
 		m0_readdatavalid : in  std_logic                     := '0';             --         .readdatavalid
 		m0_burstcount    : out std_logic_vector(0 downto 0);                     --         .burstcount
 		m0_writedata     : out std_logic_vector(31 downto 0);                    --         .writedata
-		m0_address       : out std_logic_vector(9 downto 0);                     --         .address
+		m0_address       : out std_logic_vector(11 downto 0);                    --         .address
 		m0_write         : out std_logic;                                        --         .write
 		m0_read          : out std_logic;                                        --         .read
 		m0_byteenable    : out std_logic_vector(3 downto 0);                     --         .byteenable
@@ -67,7 +67,7 @@ architecture rtl of mebx_qsys_project_clock_bridge_afi_50 is
 			s0_readdatavalid : out std_logic;                                        -- readdatavalid
 			s0_burstcount    : in  std_logic_vector(0 downto 0)  := (others => 'X'); -- burstcount
 			s0_writedata     : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			s0_address       : in  std_logic_vector(9 downto 0)  := (others => 'X'); -- address
+			s0_address       : in  std_logic_vector(11 downto 0) := (others => 'X'); -- address
 			s0_write         : in  std_logic                     := 'X';             -- write
 			s0_read          : in  std_logic                     := 'X';             -- read
 			s0_byteenable    : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
@@ -77,7 +77,7 @@ architecture rtl of mebx_qsys_project_clock_bridge_afi_50 is
 			m0_readdatavalid : in  std_logic                     := 'X';             -- readdatavalid
 			m0_burstcount    : out std_logic_vector(0 downto 0);                     -- burstcount
 			m0_writedata     : out std_logic_vector(31 downto 0);                    -- writedata
-			m0_address       : out std_logic_vector(9 downto 0);                     -- address
+			m0_address       : out std_logic_vector(11 downto 0);                    -- address
 			m0_write         : out std_logic;                                        -- write
 			m0_read          : out std_logic;                                        -- read
 			m0_byteenable    : out std_logic_vector(3 downto 0);                     -- byteenable
