@@ -160,6 +160,7 @@ C_SRCS += driver/comm/comm.c
 C_SRCS += driver/msgdma/msgdma.c
 C_SRCS += driver/fee_buffers/fee_buffers.c
 C_SRCS += driver/reset/reset.c
+C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
 CXX_SRCS :=
 ASM_SRCS :=
 
