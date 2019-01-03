@@ -55,7 +55,7 @@ int main(void) {
 //	usleep(5000);
 	rstc_release_device_reset(RSTC_DEVICE_ALL_MASK);
 	usleep(5000);
-	usleep(5000000);
+	usleep(1000000);
 
 	disable_iso_drivers();
 	disable_lvds_board();
@@ -123,11 +123,11 @@ int main(void) {
 	comm_config_link(&spw_h);
 
 	usleep(50000);
-	usleep(5000000);
+	usleep(1000000);
 
 	spw_a.windowing_config.masking = TRUE;
 	spw_a.link_config.autostart = TRUE;
-//	spw_a.link_config.start = TRUE;
+	spw_a.link_config.start = TRUE;
 	spw_a.link_config.disconnect = FALSE;
 	spw_b.windowing_config.masking = TRUE;
 	spw_b.link_config.autostart = TRUE;

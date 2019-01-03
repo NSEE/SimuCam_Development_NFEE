@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>28/12/2018 21:52:57</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1546041177670</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>03/01/2019 18:09:15</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1546546155426</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\COMM_Pedreiro_Test_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>

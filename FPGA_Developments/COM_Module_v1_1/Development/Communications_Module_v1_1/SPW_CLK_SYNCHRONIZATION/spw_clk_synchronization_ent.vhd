@@ -45,6 +45,7 @@ architecture RTL of spw_clk_synchronization_ent is
 	signal s_clk200_tx_data_txdata    : std_logic_vector(7 downto 0);
 	signal s_clk200_tx_data_rdempty   : std_logic;
 	signal s_clk100_tx_data_wrfull    : std_logic;
+	signal s_clk100_tx_data_wrusedw   : std_logic_vector(3 downto 0);
 	signal s_clk200_tx_data_available : std_logic;
 
 	-- clk100 tx_timecode to clk200 signals
@@ -127,7 +128,7 @@ begin
 			rdempty          => s_clk200_tx_data_rdempty,
 			rdusedw          => open,
 			wrfull           => s_clk100_tx_data_wrfull,
-			wrusedw          => open
+			wrusedw          => s_clk100_tx_data_wrusedw
 		);
 	p_clk200_clk100_tx_data_to_clk200 : process(clk_200_i, rst_i) is
 	begin
@@ -174,7 +175,7 @@ begin
 		end if;
 	end process p_clk100_clk100_tx_data_to_clk200;
 	spw_codec_data_tx_status_clk100_o.txhalff <= '0';
-	spw_codec_data_tx_status_clk100_o.txrdy   <= ('1') when ((s_clk100_tx_data_wrfull = '0') and (spw_codec_data_tx_status_clk200_i.txhalff = '0')) else ('0');
+	spw_codec_data_tx_status_clk100_o.txrdy   <= ('1') when ((s_clk100_tx_data_wrusedw < "1111") and (spw_codec_data_tx_status_clk200_i.txhalff = '0')) else ('0');
 
 	-- clk100 tx_timecode to clk200 --
 	-- dc fifo
