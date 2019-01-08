@@ -83,7 +83,7 @@ PUBLIC bool set_pre_emphasys(alt_u8 pem_level)
  * Ativa ('1') ou desativa ('0') os i/o´s de controle lvds
  *
  * @param [in] on_off -> 0 = io´s off / 1 = i/o´s on
- * @param [in] mask   -> mascara de i/o´s a serem alterados
+ * @param [in] ulliMask   -> mascara de i/o´s a serem alterados
  *
  * @retval TRUE -> sucesso
  */

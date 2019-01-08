@@ -12,176 +12,177 @@
 
 //! [constants definition]
 // address
-#define COMM_CHANNEL_A_BASE_ADDR          COMM_PEDREIRO_V1_01_A_BASE
-#define COMM_CHANNEL_B_BASE_ADDR          COMM_PEDREIRO_V1_01_B_BASE
-#define COMM_CHANNEL_C_BASE_ADDR          COMM_PEDREIRO_V1_01_C_BASE
-#define COMM_CHANNEL_D_BASE_ADDR          COMM_PEDREIRO_V1_01_D_BASE
-#define COMM_CHANNEL_E_BASE_ADDR          COMM_PEDREIRO_V1_01_E_BASE
-#define COMM_CHANNEL_F_BASE_ADDR          COMM_PEDREIRO_V1_01_F_BASE
-#define COMM_CHANNEL_G_BASE_ADDR          COMM_PEDREIRO_V1_01_G_BASE
-#define COMM_CHANNEL_H_BASE_ADDR          COMM_PEDREIRO_V1_01_H_BASE
-#define COMM_WINDOWING_CONTROL_REG_OFFSET 0
-#define COMM_WINDOWING_STATUS_REG_OFFSET  1
-#define COMM_TIMECODE_RX_REG_OFFSET       2
-#define COMM_TIMECODE_TX_REG_OFFSET       3
-#define COMM_INTERRUPT_CONTROL_REG_OFFSET 4
-#define COMM_INTERRUPT_FLAG_REG_OFFSET    5
-#define COMM_WINDOWING_BUFFER_REG_OFFSET  6
+#define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_C_BASE
+#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_D_BASE
+#define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_E_BASE
+#define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_F_BASE
+#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_G_BASE
+#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_H_BASE
+#define COMM_WINDOW_CTRL_REG_OFFSET     0
+#define COMM_WINDOW_STAT_REG_OFFSET     1
+#define COMM_TIMECODE_RX_REG_OFFSET     2
+#define COMM_TIMECODE_TX_REG_OFFSET     3
+#define COMM_IRQ_CTRL_REG_OFFSET        4
+#define COMM_IRQ_FLAG_REG_OFFSET        5
+#define COMM_WINDOW_BUFFER_REG_OFFSET   6
 
 // bit masks
-#define COMM_CONTROL_MASKING_EN_MASK               (1 << 8)
-#define COMM_CONTROL_LINK_AUTOSTART_MASK           (1 << 2)
-#define COMM_CONTROL_LINK_START_MASK               (1 << 1)
-#define COMM_CONTROL_LINK_DISCONNECT_MASK          (1 << 0)
+#define COMM_CTRL_MASKING_EN_MSK        (1 << 8)
+#define COMM_CTRL_LINK_AUTOSTART_MSK    (1 << 2)
+#define COMM_CTRL_LINK_START_MSK        (1 << 1)
+#define COMM_CTRL_LINK_DISCONNECT_MSK   (1 << 0)
 
-#define COMM_STATUS_LINK_DISC_ERR_MASK             (1 << 11)
-#define COMM_STATUS_LINK_PAR_ERR_MASK              (1 << 10)
-#define COMM_STATUS_LINK_ESC_ERR_MASK              (1 << 9)
-#define COMM_STATUS_LINK_CRED_ERR_MASK             (1 << 8)
-#define COMM_STATUS_LINK_STARTED_MASK              (1 << 2)
-#define COMM_STATUS_LINK_CONNECTING_MASK           (1 << 1)
-#define COMM_STATUS_LINK_RUNNING_MASK              (1 << 0)
+#define COMM_STAT_LINK_DISC_ERR_MSK     (1 << 11)
+#define COMM_STAT_LINK_PAR_ERR_MSK      (1 << 10)
+#define COMM_STAT_LINK_ESC_ERR_MSK      (1 << 9)
+#define COMM_STAT_LINK_CRED_ERR_MSK     (1 << 8)
+#define COMM_STAT_LINK_STARTED_MSK      (1 << 2)
+#define COMM_STAT_LINK_CONNECTING_MSK   (1 << 1)
+#define COMM_STAT_LINK_RUNNING_MSK      (1 << 0)
 
-#define COMM_TIMECODE_RX_CONTROL_MASK              (0b11     << 7)
-#define COMM_TIMECODE_RX_COUNTER_MASK              (0b111111 << 1)
-#define COMM_TIMECODE_RX_RECEIVED_MASK             (1        << 0)
+#define COMM_TIMECODE_RX_CONTROL_MSK    (0b11     << 7)
+#define COMM_TIMECODE_RX_COUNTER_MSK    (0b111111 << 1)
+#define COMM_TIMECODE_RX_RECEIVED_MSK   (1        << 0)
 
-#define COMM_TIMECODE_TX_CONTROL_MASK              (0b11     << 7)
-#define COMM_TIMECODE_TX_COUNTER_MASK              (0b111111 << 1)
-#define COMM_TIMECODE_TX_SEND_MASK                 (1        << 0)
+#define COMM_TIMECODE_TX_CONTROL_MSK    (0b11     << 7)
+#define COMM_TIMECODE_TX_COUNTER_MSK    (0b111111 << 1)
+#define COMM_TIMECODE_TX_SEND_MSK       (1        << 0)
 
-#define COMM_INT_LEFT_BUFFER_EMPTY_EN_MASK         (1 << 8)
-#define COMM_INT_RIGHT_BUFFER_EMPTY_EN_MASK        (1 << 0)
+#define COMM_IRQ_L_BUFFER_EMPTY_EN_MSK  (1 << 8)
+#define COMM_IRQ_R_BUFFER_EMPTY_EN_MSK  (1 << 0)
 
-#define COMM_INT_BUFFER_EMPTY_FLAG_MASK            (1 << 0)
+#define COMM_IRQ_BUFFER_EMPTY_FLAG_MSK  (1 << 0)
 
-#define COMM_BUFFER_STATUS_LEFT_BUFFER_EMPTY_MASK  (1 << 8)
-#define COMM_BUFFER_STATUS_RIGHT_BUFFER_EMPTY_MASK (1 << 0)
+#define COMM_BUFF_STAT_L_BUFF_EPY_MSK   (1 << 8)
+#define COMM_BUFF_STAT_R_BUFF_EPY_MSK   (1 << 0)
 //! [constants definition]
 
 //! [public module structs definition]
-enum comm_spw_channel_t {
-	spacewire_channel_a = 1,
-	spacewire_channel_b = 2,
-	spacewire_channel_c = 3,
-	spacewire_channel_d = 4,
-	spacewire_channel_e = 5,
-	spacewire_channel_f = 6,
-	spacewire_channel_g = 7,
-	spacewire_channel_h = 8
-} comm_spw_channel_t;
+enum CommSpwCh {
+	eCommSpwCh1 = 1,
+	eCommSpwCh2 = 2,
+	eCommSpwCh3 = 3,
+	eCommSpwCh4 = 4,
+	eCommSpwCh5 = 5,
+	eCommSpwCh6 = 6,
+	eCommSpwCh7 = 7,
+	eCommSpwCh8 = 8
+} ECommSpwCh;
 
-typedef struct comm_windowing_config_t {
-	bool masking;
-} comm_windowing_config_t;
+typedef struct CommWindowingConfig {
+	bool bMasking;
+} TCommWindowingConfig;
 
-typedef struct comm_link_config_t {
-	bool autostart;
-	bool start;
-	bool disconnect;
-} comm_link_config_t;
+typedef struct CommLinkConfig {
+	bool bAutostart;
+	bool bStart;
+	bool bDisconnect;
+} TCommLinkConfig;
 
-typedef struct comm_link_error_t {
-	bool disconnect;
-	bool parity;
-	bool escape;
-	bool credit;
-} comm_link_error_t;
+typedef struct CommLinkError {
+	bool bDisconnect;
+	bool bParity;
+	bool bEscape;
+	bool bCredit;
+} TCommLinkError;
 
-typedef struct comm_link_status_t {
-	bool started;
-	bool connecting;
-	bool running;
-} comm_link_status_t;
+typedef struct CommLinkStatus {
+	bool bStarted;
+	bool bConnecting;
+	bool bRunning;
+} TCommLinkStatus;
 
-typedef struct comm_timecode_rx_t {
-	alt_u8 control;
-	alt_u8 counter;
-	bool received;
-} comm_timecode_rx_t;
+typedef struct CommTimecodeRx {
+	alt_u8 ucControl;
+	alt_u8 ucCounter;
+	bool bReceived;
+} TCommTimecodeRx;
 
-typedef struct comm_timecode_tx_t {
-	alt_u8 control;
-	alt_u8 counter;
-	bool send;
-} comm_timecode_tx_t;
+typedef struct CommTimecodeTx {
+	alt_u8 ucControl;
+	alt_u8 ucCounter;
+	bool bSend;
+} TCommTimecodeTx;
 
-typedef struct comm_int_control_t {
-	bool left_buffer_empty_en;
-	bool right_buffer_empty_en;
-} comm_int_control_t;
+typedef struct CommIrqControl {
+	bool bLeftBufferEmptyEn;
+	bool bRightBufferEmptyEn;
+} TCommIrqControl;
 
-typedef struct comm_int_flag_t {
-	bool buffer_empty_flag;
-} comm_int_flag_t;
+typedef struct CommIrqFlag {
+	bool bBufferEmptyFlag;
+} TCommIrqFlag;
 
-typedef struct comm_buffer_status_t {
-	bool left_buffer_empty;
-	bool right_buffer_empty;
-} comm_buffer_status_t;
+typedef struct CommBufferStatus {
+	bool bLeftBufferEmpty;
+	bool bRightBufferEmpty;
+} TCommBufferStatus;
 
-typedef struct comm_channel_t {
-	alt_u32 *channel_address;
-	comm_windowing_config_t windowing_config;
-	comm_link_config_t link_config;
-	comm_link_error_t link_error;
-	comm_link_status_t link_status;
-	comm_timecode_rx_t timecode_rx;
-	comm_timecode_tx_t timecode_tx;
-	comm_int_control_t int_control;
-	comm_int_flag_t int_flag;
-	comm_buffer_status_t buffer_status;
-} comm_channel_t;
+typedef struct CommChannel {
+	alt_u32 *puliChAddr;
+	TCommWindowingConfig xWindowingConfig;
+	TCommLinkConfig xLinkConfig;
+	TCommLinkError xLinkError;
+	TCommLinkStatus xLinkStatus;
+	TCommTimecodeRx xTimecodeRx;
+	TCommTimecodeTx xTimecodeTx;
+	TCommIrqControl xIrqControl;
+	TCommIrqFlag xIrqFlag;
+	TCommBufferStatus xBufferStatus;
+} TCommChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]
-void comm_channel_a_handle_irq(void* context);
-void comm_channel_b_handle_irq(void* context);
-void comm_channel_c_handle_irq(void* context);
-void comm_channel_d_handle_irq(void* context);
-void comm_channel_e_handle_irq(void* context);
-void comm_channel_f_handle_irq(void* context);
-void comm_channel_g_handle_irq(void* context);
-void comm_channel_h_handle_irq(void* context);
+void vCommCh1HandleIrq(void* pvContext);
+void vCommCh2HandleIrq(void* pvContext);
+void vCommCh3HandleIrq(void* pvContext);
+void vCommCh4HandleIrq(void* pvContext);
+void vCommCh5HandleIrq(void* pvContext);
+void vCommCh6HandleIrq(void* pvContext);
+void vCommCh7HandleIrq(void* pvContext);
+void vCommCh8HandleIrq(void* pvContext);
 
-void comm_channel_a_int_flag_clear_buffer_empty(void);
-void comm_channel_b_int_flag_clear_buffer_empty(void);
-void comm_channel_c_int_flag_clear_buffer_empty(void);
-void comm_channel_d_int_flag_clear_buffer_empty(void);
-void comm_channel_e_int_flag_clear_buffer_empty(void);
-void comm_channel_f_int_flag_clear_buffer_empty(void);
-void comm_channel_g_int_flag_clear_buffer_empty(void);
-void comm_channel_h_int_flag_clear_buffer_empty(void);
+void vCommCh1IrqFlagClrBufferEmpty(void);
+void vCommCh2IrqFlagClrBufferEmpty(void);
+void vCommCh3IrqFlagClrBufferEmpty(void);
+void vCommCh4IrqFlagClrBufferEmpty(void);
+void vCommCh5IrqFlagClrBufferEmpty(void);
+void vCommCh6IrqFlagClrBufferEmpty(void);
+void vCommCh7IrqFlagClrBufferEmpty(void);
+void vCommCh8IrqFlagClrBufferEmpty(void);
 
-bool comm_channel_a_int_flag_buffer_empty(void);
-bool comm_channel_b_int_flag_buffer_empty(void);
-bool comm_channel_c_int_flag_buffer_empty(void);
-bool comm_channel_d_int_flag_buffer_empty(void);
-bool comm_channel_e_int_flag_buffer_empty(void);
-bool comm_channel_f_int_flag_buffer_empty(void);
-bool comm_channel_g_int_flag_buffer_empty(void);
-bool comm_channel_h_int_flag_buffer_empty(void);
+bool bCommCh1IrqFlagBufferEmpty(void);
+bool bCommCh2IrqFlagBufferEmpty(void);
+bool bCommCh3IrqFlagBufferEmpty(void);
+bool bCommCh4IrqFlagBufferEmpty(void);
+bool bCommCh5IrqFlagBufferEmpty(void);
+bool bCommCh6IrqFlagBufferEmpty(void);
+bool bCommCh7IrqFlagBufferEmpty(void);
+bool bCommCh8IrqFlagBufferEmpty(void);
 
-void comm_init_interrupt(alt_u8 spw_channel);
+void vCommInitIrq(alt_u8 ucSpwCh);
 
-bool comm_config_int_control(comm_channel_t *channel);
-bool comm_update_int_control(comm_channel_t *channel);
-bool comm_update_int_flags(comm_channel_t *channel);
+// Get functions -> get data from hardware to channel variable
+// Set functions -> set data from channel variable to hardware
 
-bool comm_config_windowing(comm_channel_t *channel);
-bool comm_update_windowing(comm_channel_t *channel);
-bool comm_config_link(comm_channel_t *channel);
-bool comm_update_link(comm_channel_t *channel);
-bool comm_update_link_error(comm_channel_t *channel);
-bool comm_update_link_status(comm_channel_t *channel);
-bool comm_update_timecode_rx(comm_channel_t *channel);
-bool comm_clear_timecode_rx_received(comm_channel_t *channel);
-bool comm_send_timecode_tx(comm_channel_t *channel);
-bool comm_update_timecode_tx(comm_channel_t *channel);
-bool comm_update_buffers_status(comm_channel_t *channel);
-bool comm_init_channel(comm_channel_t *channel, alt_u8 spw_channel);
+bool bCommSetIrqControl(TCommChannel *pxCh);
+bool bCommGetIrqControl(TCommChannel *pxCh);
+bool bCommGetIrqFlags(TCommChannel *pxCh);
 
-extern volatile alt_u8 int_cnt;
+bool bCommSetWindowing(TCommChannel *pxCh);
+bool bCommGetWindowing(TCommChannel *pxCh);
+bool bCommSetLink(TCommChannel *pxCh);
+bool bCommGetLink(TCommChannel *pxCh);
+bool bCommGetLinkError(TCommChannel *pxCh);
+bool bCommGetLinkStatus(TCommChannel *pxCh);
+bool bCommGetTimecodeRx(TCommChannel *pxCh);
+bool bCommClearTimecodeRxReceived(TCommChannel *pxCh);
+bool bCommSendTimecodeTx(TCommChannel *pxCh);
+bool bCommGetTimecodeTx(TCommChannel *pxCh);
+bool bCommGetBuffersStatus(TCommChannel *pxCh);
+bool bCommInitCh(TCommChannel *pxCh, alt_u8 ucSpwCh);
 
 //! [public function prototypes]
 

@@ -1,10 +1,9 @@
 #include "comm.h"
 
-extern volatile alt_u8 int_cnt = 0;
-
 //! [private function prototypes]
-static void write_reg(alt_u32 *address, alt_u32 offset, alt_u32 data);
-static alt_u32 read_reg(alt_u32 *address, alt_u32 offset);
+static void vCommWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
+		alt_u32 uliValue);
+static alt_u32 uliCommReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
@@ -15,14 +14,14 @@ static alt_u32 read_reg(alt_u32 *address, alt_u32 offset);
 
 //! [data memory private global variables]
 // A variable to hold the context of interrupt
-static volatile int channel_a_hold_context;
-static volatile int channel_b_hold_context;
-static volatile int channel_c_hold_context;
-static volatile int channel_d_hold_context;
-static volatile int channel_e_hold_context;
-static volatile int channel_f_hold_context;
-static volatile int channel_g_hold_context;
-static volatile int channel_h_hold_context;
+static volatile int viCh1HoldContext;
+static volatile int viCh2HoldContext;
+static volatile int viCh3HoldContext;
+static volatile int viCh4HoldContext;
+static volatile int viCh5HoldContext;
+static volatile int viCh6HoldContext;
+static volatile int viCh7HoldContext;
+static volatile int viCh8HoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -30,737 +29,737 @@ static volatile int channel_h_hold_context;
 
 //! [public functions]
 
-void comm_channel_a_handle_irq(void* context) {
+void vCommCh1HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
+	volatile int* pviHoldContext = (volatile int*) pvContext;
+	// Use context value according to your app logic...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
+	// App logic sequence...
+	vCommCh1IrqFlagClrBufferEmpty();
+}
+
+void vCommCh2HandleIrq(void* pvContext) {
+	// Cast context to hold_context's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	volatile int* pviHoldContext = (volatile int*) pvContext;
+	// Use context value according to your app logic...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
+	// App logic sequence...
+	vCommCh2IrqFlagClrBufferEmpty();
+}
+
+void vCommCh3HandleIrq(void* pvContext) {
+	// Cast context to hold_context's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	volatile int* pviHoldContext = (volatile int*) pvContext;
+	// Use context value according to your app logic...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
+	// App logic sequence...
+	vCommCh3IrqFlagClrBufferEmpty();
+}
+
+void vCommCh4HandleIrq(void* pvContext) {
+	// Cast context to hold_context's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	volatile int* pviHoldContext = (volatile int*) pvContext;
+	// Use context value according to your app logic...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
+	// App logic sequence...
+	vCommCh4IrqFlagClrBufferEmpty();
+}
+
+void vCommCh5HandleIrq(void* pvContext) {
+	// Cast context to hold_context's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	volatile int* pviHoldContext = (volatile int*) pvContext;
+	// Use context value according to your app logic...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
+	// App logic sequence...
+	vCommCh5IrqFlagClrBufferEmpty();
+}
+
+void vCommCh6HandleIrq(void* pvContext) {
+	// Cast context to hold_context's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	volatile int* hold_context_ptr = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
 	// App logic sequence...
-	int_cnt++;
-	comm_channel_a_int_flag_clear_buffer_empty();
+	vCommCh6IrqFlagClrBufferEmpty();
 }
 
-void comm_channel_b_handle_irq(void* context) {
+void vCommCh7HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
+	volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
 	// App logic sequence...
-	comm_channel_b_int_flag_clear_buffer_empty();
+	vCommCh7IrqFlagClrBufferEmpty();
 }
 
-void comm_channel_c_handle_irq(void* context) {
+void vCommCh8HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
+	volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
 	// App logic sequence...
-	comm_channel_c_int_flag_clear_buffer_empty();
+	vCommCh8IrqFlagClrBufferEmpty();
 }
 
-void comm_channel_d_handle_irq(void* context) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
-	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
-	// App logic sequence...
-	comm_channel_d_int_flag_clear_buffer_empty();
+void vCommCh1IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_e_handle_irq(void* context) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
-	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
-	// App logic sequence...
-	comm_channel_e_int_flag_clear_buffer_empty();
+void vCommCh2IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_f_handle_irq(void* context) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
-	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
-	// App logic sequence...
-	comm_channel_f_int_flag_clear_buffer_empty();
+void vCommCh3IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_g_handle_irq(void* context) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
-	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
-	// App logic sequence...
-	comm_channel_g_int_flag_clear_buffer_empty();
+void vCommCh4IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_h_handle_irq(void* context) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* hold_context_ptr = (volatile int*) context;
-	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
-	// App logic sequence...
-	comm_channel_h_int_flag_clear_buffer_empty();
+void vCommCh5IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_a_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_A_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+void vCommCh6IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_b_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_B_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+void vCommCh7IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_c_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_C_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
+void vCommCh8IrqFlagClrBufferEmpty(void) {
+	vCommWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET, (alt_u32) COMM_IRQ_BUFFER_EMPTY_FLAG_MSK);
 }
 
-void comm_channel_d_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_D_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
-}
+bool bCommCh1IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-void comm_channel_e_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_E_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
-}
-
-void comm_channel_f_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_F_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
-}
-
-void comm_channel_g_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_G_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
-}
-
-void comm_channel_h_int_flag_clear_buffer_empty(void) {
-	write_reg((alt_u32*) COMM_CHANNEL_H_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET, (alt_u32) COMM_INT_BUFFER_EMPTY_FLAG_MASK);
-}
-
-bool comm_channel_a_int_flag_buffer_empty(void) {
-	bool flag;
-
-	if (read_reg((alt_u32*) COMM_CHANNEL_A_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_b_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh2IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_B_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_c_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh3IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_C_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_d_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh4IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_D_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_e_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh5IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_E_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_f_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh6IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_F_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_g_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh7IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_G_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-bool comm_channel_h_int_flag_buffer_empty(void) {
-	bool flag;
+bool bCommCh8IrqFlagBufferEmpty(void) {
+	bool bFlag;
 
-	if (read_reg((alt_u32*) COMM_CHANNEL_H_BASE_ADDR,
-	COMM_INTERRUPT_FLAG_REG_OFFSET) & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-		flag = TRUE;
+	if (uliCommReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
+	COMM_IRQ_FLAG_REG_OFFSET) & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+		bFlag = TRUE;
 	} else {
-		flag = FALSE;
+		bFlag = FALSE;
 	}
 
-	return flag;
+	return bFlag;
 }
 
-void comm_init_interrupt(alt_u8 spw_channel) {
-	void* hold_context_ptr;
-	switch (spw_channel) {
-	case spacewire_channel_a:
+void vCommInitIrq(alt_u8 ucSpwCh) {
+	void* pvHoldContext;
+	switch (ucSpwCh) {
+	case eCommSpwCh1:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_a_hold_context;
+		pvHoldContext = (void*) &viCh1HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_A_IRQ, hold_context_ptr,
-				comm_channel_a_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_A_IRQ, pvHoldContext,
+				vCommCh1HandleIrq);
 		break;
-	case spacewire_channel_b:
+	case eCommSpwCh2:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_b_hold_context;
+		pvHoldContext = (void*) &viCh2HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_B_IRQ, hold_context_ptr,
-				comm_channel_b_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_B_IRQ, pvHoldContext,
+				vCommCh2HandleIrq);
 		break;
-	case spacewire_channel_c:
+	case eCommSpwCh3:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_c_hold_context;
+		pvHoldContext = (void*) &viCh3HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_C_IRQ, hold_context_ptr,
-				comm_channel_c_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_C_IRQ, pvHoldContext,
+				vCommCh3HandleIrq);
 		break;
-	case spacewire_channel_d:
+	case eCommSpwCh4:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_d_hold_context;
+		pvHoldContext = (void*) &viCh4HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_D_IRQ, hold_context_ptr,
-				comm_channel_d_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_D_IRQ, pvHoldContext,
+				vCommCh4HandleIrq);
 		break;
-	case spacewire_channel_e:
+	case eCommSpwCh5:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_e_hold_context;
+		pvHoldContext = (void*) &viCh5HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_E_IRQ, hold_context_ptr,
-				comm_channel_e_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_E_IRQ, pvHoldContext,
+				vCommCh5HandleIrq);
 		break;
-	case spacewire_channel_f:
+	case eCommSpwCh6:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_f_hold_context;
+		pvHoldContext = (void*) &viCh6HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_F_IRQ, hold_context_ptr,
-				comm_channel_f_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_F_IRQ, pvHoldContext,
+				vCommCh6HandleIrq);
 		break;
-	case spacewire_channel_g:
+	case eCommSpwCh7:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_g_hold_context;
+		pvHoldContext = (void*) &viCh7HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_G_IRQ, hold_context_ptr,
-				comm_channel_g_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_G_IRQ, pvHoldContext,
+				vCommCh7HandleIrq);
 		break;
-	case spacewire_channel_h:
+	case eCommSpwCh8:
 		// Recast the hold_context pointer to match the alt_irq_register() function
 		// prototype.
-		hold_context_ptr = (void*) &channel_h_hold_context;
+		pvHoldContext = (void*) &viCh8HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_H_IRQ, hold_context_ptr,
-				comm_channel_h_handle_irq);
+		alt_irq_register(COMM_PEDREIRO_V1_01_H_IRQ, pvHoldContext,
+				vCommCh8HandleIrq);
 		break;
 	}
 }
 
-bool comm_config_int_control(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommSetIrqControl(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_INTERRUPT_CONTROL_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_IRQ_CTRL_REG_OFFSET);
 
-		if (channel->int_control.left_buffer_empty_en) {
-			reg |= COMM_INT_LEFT_BUFFER_EMPTY_EN_MASK;
+		if (pxCh->xIrqControl.bLeftBufferEmptyEn) {
+			uliReg |= COMM_IRQ_L_BUFFER_EMPTY_EN_MSK;
 		} else {
-			reg &= (~COMM_INT_LEFT_BUFFER_EMPTY_EN_MASK);
+			uliReg &= (~COMM_IRQ_L_BUFFER_EMPTY_EN_MSK);
 		}
-		if (channel->int_control.right_buffer_empty_en) {
-			reg |= COMM_INT_RIGHT_BUFFER_EMPTY_EN_MASK;
+		if (pxCh->xIrqControl.bRightBufferEmptyEn) {
+			uliReg |= COMM_IRQ_R_BUFFER_EMPTY_EN_MSK;
 		} else {
-			reg &= (~COMM_INT_RIGHT_BUFFER_EMPTY_EN_MASK);
+			uliReg &= (~COMM_IRQ_R_BUFFER_EMPTY_EN_MSK);
 		}
 
-		write_reg(channel->channel_address, COMM_INTERRUPT_CONTROL_REG_OFFSET,
-				reg);
-		status = TRUE;
+		vCommWriteReg(pxCh->puliChAddr, COMM_IRQ_CTRL_REG_OFFSET,
+				uliReg);
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_int_control(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetIrqControl(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_INTERRUPT_CONTROL_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_IRQ_CTRL_REG_OFFSET);
 
-		if (reg & COMM_INT_LEFT_BUFFER_EMPTY_EN_MASK) {
-			channel->int_control.left_buffer_empty_en = TRUE;
+		if (uliReg & COMM_IRQ_L_BUFFER_EMPTY_EN_MSK) {
+			pxCh->xIrqControl.bLeftBufferEmptyEn = TRUE;
 		} else {
-			channel->int_control.left_buffer_empty_en = FALSE;
+			pxCh->xIrqControl.bLeftBufferEmptyEn = FALSE;
 		}
-		if (reg & COMM_INT_RIGHT_BUFFER_EMPTY_EN_MASK) {
-			channel->int_control.right_buffer_empty_en = TRUE;
+		if (uliReg & COMM_IRQ_R_BUFFER_EMPTY_EN_MSK) {
+			pxCh->xIrqControl.bRightBufferEmptyEn = TRUE;
 		} else {
-			channel->int_control.right_buffer_empty_en = FALSE;
+			pxCh->xIrqControl.bRightBufferEmptyEn = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_int_flags(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetIrqFlags(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_INTERRUPT_FLAG_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_IRQ_FLAG_REG_OFFSET);
 
-		if (reg & COMM_INT_BUFFER_EMPTY_FLAG_MASK) {
-			channel->int_flag.buffer_empty_flag = TRUE;
+		if (uliReg & COMM_IRQ_BUFFER_EMPTY_FLAG_MSK) {
+			pxCh->xIrqFlag.bBufferEmptyFlag = TRUE;
 		} else {
-			channel->int_flag.buffer_empty_flag = FALSE;
+			pxCh->xIrqFlag.bBufferEmptyFlag = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_config_windowing(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommSetWindowing(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_CONTROL_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_CTRL_REG_OFFSET);
 
-		if (channel->windowing_config.masking) {
-			reg |= COMM_CONTROL_MASKING_EN_MASK;
+		if (pxCh->xWindowingConfig.bMasking) {
+			uliReg |= COMM_CTRL_MASKING_EN_MSK;
 		} else {
-			reg &= (~COMM_CONTROL_MASKING_EN_MASK);
+			uliReg &= (~COMM_CTRL_MASKING_EN_MSK);
 		}
 
-		write_reg(channel->channel_address, COMM_WINDOWING_CONTROL_REG_OFFSET,
-				reg);
-		status = TRUE;
+		vCommWriteReg(pxCh->puliChAddr, COMM_WINDOW_CTRL_REG_OFFSET,
+				uliReg);
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_windowing(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetWindowing(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_CONTROL_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_CTRL_REG_OFFSET);
 
-		if (reg & COMM_CONTROL_MASKING_EN_MASK) {
-			channel->windowing_config.masking = TRUE;
+		if (uliReg & COMM_CTRL_MASKING_EN_MSK) {
+			pxCh->xWindowingConfig.bMasking = TRUE;
 		} else {
-			channel->windowing_config.masking = FALSE;
+			pxCh->xWindowingConfig.bMasking = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_config_link(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommSetLink(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_CONTROL_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_CTRL_REG_OFFSET);
 
-		if (channel->link_config.autostart) {
-			reg |= COMM_CONTROL_LINK_AUTOSTART_MASK;
+		if (pxCh->xLinkConfig.bAutostart) {
+			uliReg |= COMM_CTRL_LINK_AUTOSTART_MSK;
 		} else {
-			reg &= (~COMM_CONTROL_LINK_AUTOSTART_MASK);
+			uliReg &= (~COMM_CTRL_LINK_AUTOSTART_MSK);
 		}
-		if (channel->link_config.start) {
-			reg |= COMM_CONTROL_LINK_START_MASK;
+		if (pxCh->xLinkConfig.bStart) {
+			uliReg |= COMM_CTRL_LINK_START_MSK;
 		} else {
-			reg &= (~COMM_CONTROL_LINK_START_MASK);
+			uliReg &= (~COMM_CTRL_LINK_START_MSK);
 		}
-		if (channel->link_config.disconnect) {
-			reg |= COMM_CONTROL_LINK_DISCONNECT_MASK;
+		if (pxCh->xLinkConfig.bDisconnect) {
+			uliReg |= COMM_CTRL_LINK_DISCONNECT_MSK;
 		} else {
-			reg &= (~COMM_CONTROL_LINK_DISCONNECT_MASK);
+			uliReg &= (~COMM_CTRL_LINK_DISCONNECT_MSK);
 		}
 
-		write_reg(channel->channel_address, COMM_WINDOWING_CONTROL_REG_OFFSET,
-				reg);
-		status = TRUE;
+		vCommWriteReg(pxCh->puliChAddr, COMM_WINDOW_CTRL_REG_OFFSET,
+				uliReg);
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_link(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetLink(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_CONTROL_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_CTRL_REG_OFFSET);
 
-		if (reg & COMM_CONTROL_LINK_AUTOSTART_MASK) {
-			channel->link_config.autostart = TRUE;
+		if (uliReg & COMM_CTRL_LINK_AUTOSTART_MSK) {
+			pxCh->xLinkConfig.bAutostart = TRUE;
 		} else {
-			channel->link_config.autostart = FALSE;
+			pxCh->xLinkConfig.bAutostart = FALSE;
 		}
-		if (reg & COMM_CONTROL_LINK_START_MASK) {
-			channel->link_config.start = TRUE;
+		if (uliReg & COMM_CTRL_LINK_START_MSK) {
+			pxCh->xLinkConfig.bStart = TRUE;
 		} else {
-			channel->link_config.start = FALSE;
+			pxCh->xLinkConfig.bStart = FALSE;
 		}
-		if (reg & COMM_CONTROL_LINK_DISCONNECT_MASK) {
-			channel->link_config.disconnect = TRUE;
+		if (uliReg & COMM_CTRL_LINK_DISCONNECT_MSK) {
+			pxCh->xLinkConfig.bDisconnect = TRUE;
 		} else {
-			channel->link_config.disconnect = FALSE;
+			pxCh->xLinkConfig.bDisconnect = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_link_error(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetLinkError(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_STATUS_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_STAT_REG_OFFSET);
 
-		if (reg & COMM_STATUS_LINK_DISC_ERR_MASK) {
-			channel->link_error.disconnect = TRUE;
+		if (uliReg & COMM_STAT_LINK_DISC_ERR_MSK) {
+			pxCh->xLinkError.bDisconnect = TRUE;
 		} else {
-			channel->link_error.disconnect = FALSE;
+			pxCh->xLinkError.bDisconnect = FALSE;
 		}
-		if (reg & COMM_STATUS_LINK_PAR_ERR_MASK) {
-			channel->link_error.parity = TRUE;
+		if (uliReg & COMM_STAT_LINK_PAR_ERR_MSK) {
+			pxCh->xLinkError.bParity = TRUE;
 		} else {
-			channel->link_error.parity = FALSE;
+			pxCh->xLinkError.bParity = FALSE;
 		}
-		if (reg & COMM_STATUS_LINK_ESC_ERR_MASK) {
-			channel->link_error.escape = TRUE;
+		if (uliReg & COMM_STAT_LINK_ESC_ERR_MSK) {
+			pxCh->xLinkError.bEscape = TRUE;
 		} else {
-			channel->link_error.escape = FALSE;
+			pxCh->xLinkError.bEscape = FALSE;
 		}
-		if (reg & COMM_STATUS_LINK_CRED_ERR_MASK) {
-			channel->link_error.credit = TRUE;
+		if (uliReg & COMM_STAT_LINK_CRED_ERR_MSK) {
+			pxCh->xLinkError.bCredit = TRUE;
 		} else {
-			channel->link_error.credit = FALSE;
+			pxCh->xLinkError.bCredit = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_link_status(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetLinkStatus(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_STATUS_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_STAT_REG_OFFSET);
 
-		if (reg & COMM_STATUS_LINK_STARTED_MASK) {
-			channel->link_status.started = TRUE;
+		if (uliReg & COMM_STAT_LINK_STARTED_MSK) {
+			pxCh->xLinkStatus.bStarted = TRUE;
 		} else {
-			channel->link_status.started = FALSE;
+			pxCh->xLinkStatus.bStarted = FALSE;
 		}
-		if (reg & COMM_STATUS_LINK_CONNECTING_MASK) {
-			channel->link_status.connecting = TRUE;
+		if (uliReg & COMM_STAT_LINK_CONNECTING_MSK) {
+			pxCh->xLinkStatus.bConnecting = TRUE;
 		} else {
-			channel->link_status.connecting = FALSE;
+			pxCh->xLinkStatus.bConnecting = FALSE;
 		}
-		if (reg & COMM_STATUS_LINK_RUNNING_MASK) {
-			channel->link_status.running = TRUE;
+		if (uliReg & COMM_STAT_LINK_RUNNING_MSK) {
+			pxCh->xLinkStatus.bRunning = TRUE;
 		} else {
-			channel->link_status.running = FALSE;
+			pxCh->xLinkStatus.bRunning = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_timecode_rx(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetTimecodeRx(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
 		COMM_TIMECODE_RX_REG_OFFSET);
 
-		channel->timecode_rx.control = (alt_u8) ((reg
-				& COMM_TIMECODE_RX_CONTROL_MASK) >> 7);
-		channel->timecode_rx.counter = (alt_u8) ((reg
-				& COMM_TIMECODE_RX_COUNTER_MASK) >> 1);
-		if (reg & COMM_TIMECODE_RX_RECEIVED_MASK) {
-			channel->timecode_rx.received = TRUE;
+		pxCh->xTimecodeRx.ucControl = (alt_u8) ((uliReg
+				& COMM_TIMECODE_RX_CONTROL_MSK) >> 7);
+		pxCh->xTimecodeRx.ucCounter = (alt_u8) ((uliReg
+				& COMM_TIMECODE_RX_COUNTER_MSK) >> 1);
+		if (uliReg & COMM_TIMECODE_RX_RECEIVED_MSK) {
+			pxCh->xTimecodeRx.bReceived = TRUE;
 		} else {
-			channel->timecode_rx.received = FALSE;
+			pxCh->xTimecodeRx.bReceived = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_clear_timecode_rx_received(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommClearTimecodeRxReceived(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = COMM_TIMECODE_RX_RECEIVED_MASK;
+	if (pxCh != NULL) {
+		uliReg = COMM_TIMECODE_RX_RECEIVED_MSK;
 
-		write_reg(channel->channel_address, COMM_TIMECODE_RX_REG_OFFSET, reg);
-		status = TRUE;
+		vCommWriteReg(pxCh->puliChAddr, COMM_TIMECODE_RX_REG_OFFSET, uliReg);
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_send_timecode_tx(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommSendTimecodeTx(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg |= (alt_u32) (channel->timecode_tx.control << 7);
-		reg |= (alt_u32) (channel->timecode_tx.counter << 1);
-		if (channel->timecode_tx.send) {
-			reg |= COMM_TIMECODE_TX_SEND_MASK;
+	if (pxCh != NULL) {
+		uliReg |= (alt_u32) (pxCh->xTimecodeTx.ucControl << 7);
+		uliReg |= (alt_u32) (pxCh->xTimecodeTx.ucCounter << 1);
+		if (pxCh->xTimecodeTx.bSend) {
+			uliReg |= COMM_TIMECODE_TX_SEND_MSK;
 		} else {
-			reg &= (~COMM_TIMECODE_TX_SEND_MASK);
+			uliReg &= (~COMM_TIMECODE_TX_SEND_MSK);
 		}
 
-		write_reg(channel->channel_address, COMM_TIMECODE_TX_REG_OFFSET, reg);
-		status = TRUE;
+		vCommWriteReg(pxCh->puliChAddr, COMM_TIMECODE_TX_REG_OFFSET, uliReg);
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_timecode_tx(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetTimecodeTx(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
 		COMM_TIMECODE_TX_REG_OFFSET);
 
-		channel->timecode_tx.control = (alt_u8) ((reg
-				& COMM_TIMECODE_TX_CONTROL_MASK) >> 7);
-		channel->timecode_tx.counter = (alt_u8) ((reg
-				& COMM_TIMECODE_TX_COUNTER_MASK) >> 1);
-		if (reg & COMM_TIMECODE_TX_SEND_MASK) {
-			channel->timecode_tx.send = TRUE;
+		pxCh->xTimecodeTx.ucControl = (alt_u8) ((uliReg
+				& COMM_TIMECODE_TX_CONTROL_MSK) >> 7);
+		pxCh->xTimecodeTx.ucCounter = (alt_u8) ((uliReg
+				& COMM_TIMECODE_TX_COUNTER_MSK) >> 1);
+		if (uliReg & COMM_TIMECODE_TX_SEND_MSK) {
+			pxCh->xTimecodeTx.bSend = TRUE;
 		} else {
-			channel->timecode_tx.send = FALSE;
+			pxCh->xTimecodeTx.bSend = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_update_buffers_status(comm_channel_t *channel) {
-	bool status = FALSE;
-	alt_u32 reg = 0;
+bool bCommGetBuffersStatus(TCommChannel *pxCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
 
-	if (channel != NULL) {
-		reg = read_reg(channel->channel_address,
-		COMM_WINDOWING_BUFFER_REG_OFFSET);
+	if (pxCh != NULL) {
+		uliReg = uliCommReadReg(pxCh->puliChAddr,
+		COMM_WINDOW_BUFFER_REG_OFFSET);
 
-		if (reg & COMM_BUFFER_STATUS_LEFT_BUFFER_EMPTY_MASK) {
-			channel->buffer_status.left_buffer_empty = TRUE;
+		if (uliReg & COMM_BUFF_STAT_L_BUFF_EPY_MSK) {
+			pxCh->xBufferStatus.bLeftBufferEmpty = TRUE;
 		} else {
-			channel->buffer_status.left_buffer_empty = FALSE;
+			pxCh->xBufferStatus.bLeftBufferEmpty = FALSE;
 		}
-		if (reg & COMM_BUFFER_STATUS_RIGHT_BUFFER_EMPTY_MASK) {
-			channel->buffer_status.right_buffer_empty = TRUE;
+		if (uliReg & COMM_BUFF_STAT_R_BUFF_EPY_MSK) {
+			pxCh->xBufferStatus.bRightBufferEmpty = TRUE;
 		} else {
-			channel->buffer_status.right_buffer_empty = FALSE;
+			pxCh->xBufferStatus.bRightBufferEmpty = FALSE;
 		}
 
-		status = TRUE;
+		bStatus = TRUE;
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool comm_init_channel(comm_channel_t *channel, alt_u8 spw_channel) {
-	bool status = FALSE;
+bool bCommInitCh(TCommChannel *pxCh, alt_u8 ucSpwCh) {
+	bool bStatus = FALSE;
 
-	if (channel != NULL) {
-		status = TRUE;
+	if (pxCh != NULL) {
+		bStatus = TRUE;
 
-		switch (spw_channel) {
-		case spacewire_channel_a:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_A_BASE_ADDR;
+		switch (ucSpwCh) {
+		case eCommSpwCh1:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
 			break;
-		case spacewire_channel_b:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_B_BASE_ADDR;
+		case eCommSpwCh2:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
 			break;
-		case spacewire_channel_c:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_C_BASE_ADDR;
+		case eCommSpwCh3:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
 			break;
-		case spacewire_channel_d:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_D_BASE_ADDR;
+		case eCommSpwCh4:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
 			break;
-		case spacewire_channel_e:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_E_BASE_ADDR;
+		case eCommSpwCh5:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
 			break;
-		case spacewire_channel_f:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_F_BASE_ADDR;
+		case eCommSpwCh6:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
 			break;
-		case spacewire_channel_g:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_G_BASE_ADDR;
+		case eCommSpwCh7:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
 			break;
-		case spacewire_channel_h:
-			channel->channel_address = (alt_u32 *) COMM_CHANNEL_H_BASE_ADDR;
+		case eCommSpwCh8:
+			pxCh->puliChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 
-		if (status) {
-			if (!comm_update_windowing(channel)) {
-				status = FALSE;
+		if (bStatus) {
+			if (!bCommGetWindowing(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_link(channel)) {
-				status = FALSE;
+			if (!bCommGetLink(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_link_error(channel)) {
-				status = FALSE;
+			if (!bCommGetLinkError(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_link_status(channel)) {
-				status = FALSE;
+			if (!bCommGetLinkStatus(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_timecode_rx(channel)) {
-				status = FALSE;
+			if (!bCommGetTimecodeRx(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_timecode_tx(channel)) {
-				status = FALSE;
+			if (!bCommGetTimecodeTx(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_int_control(channel)) {
-				status = FALSE;
+			if (!bCommGetIrqControl(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_int_flags(channel)) {
-				status = FALSE;
+			if (!bCommGetIrqFlags(pxCh)) {
+				bStatus = FALSE;
 			}
-			if (!comm_update_buffers_status(channel)) {
-				status = FALSE;
+			if (!bCommGetBuffersStatus(pxCh)) {
+				bStatus = FALSE;
 			}
 		}
 	}
-	return status;
+	return bStatus;
 }
 //! [public functions]
 
 //! [private functions]
-static void write_reg(alt_u32 *address, alt_u32 offset, alt_u32 value) {
-	*(address + offset) = value;
+static void vCommWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
+		alt_u32 uliValue) {
+	*(puliAddr + uliOffset) = uliValue;
 }
 
-static alt_u32 read_reg(alt_u32 *address, alt_u32 offset) {
-	alt_u32 value;
+static alt_u32 uliCommReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
+	alt_u32 uliValue;
 
-	value = *(address + offset);
-	return value;
+	uliValue = *(puliAddr + uliOffset);
+	return uliValue;
 }
 //! [private functions]
 

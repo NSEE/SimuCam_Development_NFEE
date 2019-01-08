@@ -36,24 +36,22 @@
  * Global
  **************************************************/
 
-comm_channel_t spw_a;
-comm_channel_t spw_b;
-comm_channel_t spw_c;
-comm_channel_t spw_d;
-comm_channel_t spw_e;
-comm_channel_t spw_f;
-comm_channel_t spw_g;
-comm_channel_t spw_h;
+void vTestLeds(void);
 
-void TestLeds(void);
-bool TestDMA_M1_M2(void);
-bool TestDMA_M2_M1(void);
+TCommChannel xSpw1;
+TCommChannel xSpw2;
+TCommChannel xSpw3;
+TCommChannel xSpw4;
+TCommChannel xSpw5;
+TCommChannel xSpw6;
+TCommChannel xSpw7;
+TCommChannel xSpw8;
 
 int main(void) {
 
-//	rstc_hold_device_reset(RSTC_DEVICE_ALL_MASK);
+//	vRstcHoldDeviceReset(RSTC_DEV_ALL_MSK);
 //	usleep(5000);
-	rstc_release_device_reset(RSTC_DEVICE_ALL_MASK);
+	vRstcReleaseDeviceReset(RSTC_DEV_ALL_MSK);
 	usleep(5000);
 	usleep(1000000);
 
@@ -65,134 +63,134 @@ int main(void) {
 	enable_iso_drivers();
 	enable_lvds_board();
 
-	alt_8 tempFPGA = 0;
-	alt_8 tempBoard = 0;
+	alt_8 ucTempFpga = 0;
+	alt_8 ucTempBoard = 0;
 
 	printf(" \n Nucleo de Sistemas Eletronicos Embarcados - MebX\n\n");
 
 	//Configura Display de 7 segmentos
 	SSDP_CONFIG(SSDP_NORMAL_MODE);
 
-	comm_init_channel(&spw_a, spacewire_channel_a);
-	comm_init_channel(&spw_b, spacewire_channel_b);
-	comm_init_channel(&spw_c, spacewire_channel_c);
-	comm_init_channel(&spw_d, spacewire_channel_d);
-	comm_init_channel(&spw_e, spacewire_channel_e);
-	comm_init_channel(&spw_f, spacewire_channel_f);
-	comm_init_channel(&spw_g, spacewire_channel_g);
-	comm_init_channel(&spw_h, spacewire_channel_h);
+	bCommInitCh(&xSpw1, eCommSpwCh1);
+	bCommInitCh(&xSpw2, eCommSpwCh2);
+	bCommInitCh(&xSpw3, eCommSpwCh3);
+	bCommInitCh(&xSpw4, eCommSpwCh4);
+	bCommInitCh(&xSpw5, eCommSpwCh5);
+	bCommInitCh(&xSpw6, eCommSpwCh6);
+	bCommInitCh(&xSpw7, eCommSpwCh7);
+	bCommInitCh(&xSpw8, eCommSpwCh8);
 
-//	comm_init_interrupt(spacewire_channel_a);
+//	vCommInitIrq(eCommSpwCh1);
 //	int_cnt = 0;
 //	printf("int_cnt: %u \n", int_cnt);
 //
-//	spw_a.int_control.right_buffer_empty_en = FALSE;
-//	comm_config_int_control(&spw_a);
+//	xSpw1.xIrqControl.bRightBufferEmptyEn = FALSE;
+//	bCommSetIrqControl(&xSpw1);
 
-	spw_a.link_config.autostart = FALSE;
-	spw_a.link_config.start = FALSE;
-	spw_a.link_config.disconnect = TRUE;
-	spw_b.link_config.autostart = FALSE;
-	spw_b.link_config.start = FALSE;
-	spw_b.link_config.disconnect = TRUE;
-	spw_c.link_config.autostart = FALSE;
-	spw_c.link_config.start = FALSE;
-	spw_c.link_config.disconnect = TRUE;
-	spw_d.link_config.autostart = FALSE;
-	spw_d.link_config.start = FALSE;
-	spw_d.link_config.disconnect = TRUE;
-	spw_e.link_config.autostart = FALSE;
-	spw_e.link_config.start = FALSE;
-	spw_e.link_config.disconnect = TRUE;
-	spw_f.link_config.autostart = FALSE;
-	spw_f.link_config.start = FALSE;
-	spw_f.link_config.disconnect = TRUE;
-	spw_g.link_config.autostart = FALSE;
-	spw_g.link_config.start = FALSE;
-	spw_g.link_config.disconnect = TRUE;
-	spw_h.link_config.autostart = FALSE;
-	spw_h.link_config.start = FALSE;
-	spw_h.link_config.disconnect = TRUE;
-	comm_config_link(&spw_a);
-	comm_config_link(&spw_b);
-	comm_config_link(&spw_c);
-	comm_config_link(&spw_d);
-	comm_config_link(&spw_e);
-	comm_config_link(&spw_f);
-	comm_config_link(&spw_g);
-	comm_config_link(&spw_h);
+	xSpw1.xLinkConfig.bAutostart = FALSE;
+	xSpw1.xLinkConfig.bStart = FALSE;
+	xSpw1.xLinkConfig.bDisconnect = TRUE;
+	xSpw2.xLinkConfig.bAutostart = FALSE;
+	xSpw2.xLinkConfig.bStart = FALSE;
+	xSpw2.xLinkConfig.bDisconnect = TRUE;
+	xSpw3.xLinkConfig.bAutostart = FALSE;
+	xSpw3.xLinkConfig.bStart = FALSE;
+	xSpw3.xLinkConfig.bDisconnect = TRUE;
+	xSpw4.xLinkConfig.bAutostart = FALSE;
+	xSpw4.xLinkConfig.bStart = FALSE;
+	xSpw4.xLinkConfig.bDisconnect = TRUE;
+	xSpw5.xLinkConfig.bAutostart = FALSE;
+	xSpw5.xLinkConfig.bStart = FALSE;
+	xSpw5.xLinkConfig.bDisconnect = TRUE;
+	xSpw6.xLinkConfig.bAutostart = FALSE;
+	xSpw6.xLinkConfig.bStart = FALSE;
+	xSpw6.xLinkConfig.bDisconnect = TRUE;
+	xSpw7.xLinkConfig.bAutostart = FALSE;
+	xSpw7.xLinkConfig.bStart = FALSE;
+	xSpw7.xLinkConfig.bDisconnect = TRUE;
+	xSpw8.xLinkConfig.bAutostart = FALSE;
+	xSpw8.xLinkConfig.bStart = FALSE;
+	xSpw8.xLinkConfig.bDisconnect = TRUE;
+	bCommSetLink(&xSpw1);
+	bCommSetLink(&xSpw2);
+	bCommSetLink(&xSpw3);
+	bCommSetLink(&xSpw4);
+	bCommSetLink(&xSpw5);
+	bCommSetLink(&xSpw6);
+	bCommSetLink(&xSpw7);
+	bCommSetLink(&xSpw8);
 
 	usleep(50000);
 	usleep(1000000);
 
-	spw_a.windowing_config.masking = TRUE;
-	spw_a.link_config.autostart = TRUE;
-	spw_a.link_config.start = TRUE;
-	spw_a.link_config.disconnect = FALSE;
-	spw_b.windowing_config.masking = TRUE;
-	spw_b.link_config.autostart = TRUE;
-//	spw_b.link_config.start = TRUE;
-	spw_b.link_config.disconnect = FALSE;
-	spw_c.windowing_config.masking = TRUE;
-	spw_c.link_config.autostart = TRUE;
-//	spw_c.link_config.start = TRUE;
-	spw_c.link_config.disconnect = FALSE;
-	spw_d.windowing_config.masking = TRUE;
-	spw_d.link_config.autostart = TRUE;
-//	spw_d.link_config.start = TRUE;
-	spw_d.link_config.disconnect = FALSE;
-	spw_e.windowing_config.masking = TRUE;
-	spw_e.link_config.autostart = TRUE;
-//	spw_e.link_config.start = TRUE;
-	spw_e.link_config.disconnect = FALSE;
-	spw_f.windowing_config.masking = TRUE;
-	spw_f.link_config.autostart = TRUE;
-//	spw_f.link_config.start = TRUE;
-	spw_f.link_config.disconnect = FALSE;
-	spw_g.windowing_config.masking = TRUE;
-	spw_g.link_config.autostart = TRUE;
-//	spw_g.link_config.start = TRUE;
-	spw_g.link_config.disconnect = FALSE;
-	spw_h.windowing_config.masking = TRUE;
-	spw_h.link_config.autostart = TRUE;
-//	spw_h.link_config.start = TRUE;
-	spw_h.link_config.disconnect = FALSE;
-	comm_config_windowing(&spw_a);
-	comm_config_windowing(&spw_b);
-	comm_config_windowing(&spw_c);
-	comm_config_windowing(&spw_d);
-	comm_config_windowing(&spw_e);
-	comm_config_windowing(&spw_f);
-	comm_config_windowing(&spw_g);
-	comm_config_windowing(&spw_h);
-	comm_config_link(&spw_a);
-	comm_config_link(&spw_b);
-	comm_config_link(&spw_c);
-	comm_config_link(&spw_d);
-	comm_config_link(&spw_e);
-	comm_config_link(&spw_f);
-	comm_config_link(&spw_g);
-	comm_config_link(&spw_h);
+	xSpw1.xWindowingConfig.bMasking = TRUE;
+	xSpw1.xLinkConfig.bAutostart = TRUE;
+	xSpw1.xLinkConfig.bStart = TRUE;
+	xSpw1.xLinkConfig.bDisconnect = FALSE;
+	xSpw2.xWindowingConfig.bMasking = TRUE;
+	xSpw2.xLinkConfig.bAutostart = TRUE;
+//	xSpw2.xLinkConfig.bStart = TRUE;
+	xSpw2.xLinkConfig.bDisconnect = FALSE;
+	xSpw3.xWindowingConfig.bMasking = TRUE;
+	xSpw3.xLinkConfig.bAutostart = TRUE;
+//	xSpw3.xLinkConfig.bStart = TRUE;
+	xSpw3.xLinkConfig.bDisconnect = FALSE;
+	xSpw4.xWindowingConfig.bMasking = TRUE;
+	xSpw4.xLinkConfig.bAutostart = TRUE;
+//	xSpw4.xLinkConfig.bStart = TRUE;
+	xSpw4.xLinkConfig.bDisconnect = FALSE;
+	xSpw5.xWindowingConfig.bMasking = TRUE;
+	xSpw5.xLinkConfig.bAutostart = TRUE;
+//	xSpw5.xLinkConfig.bStart = TRUE;
+	xSpw5.xLinkConfig.bDisconnect = FALSE;
+	xSpw6.xWindowingConfig.bMasking = TRUE;
+	xSpw6.xLinkConfig.bAutostart = TRUE;
+//	xSpw6.xLinkConfig.bStart = TRUE;
+	xSpw6.xLinkConfig.bDisconnect = FALSE;
+	xSpw7.xWindowingConfig.bMasking = TRUE;
+	xSpw7.xLinkConfig.bAutostart = TRUE;
+//	xSpw7.xLinkConfig.bStart = TRUE;
+	xSpw7.xLinkConfig.bDisconnect = FALSE;
+	xSpw8.xWindowingConfig.bMasking = TRUE;
+	xSpw8.xLinkConfig.bAutostart = TRUE;
+//	xSpw8.xLinkConfig.bStart = TRUE;
+	xSpw8.xLinkConfig.bDisconnect = FALSE;
+	bCommSetWindowing(&xSpw1);
+	bCommSetWindowing(&xSpw2);
+	bCommSetWindowing(&xSpw3);
+	bCommSetWindowing(&xSpw4);
+	bCommSetWindowing(&xSpw5);
+	bCommSetWindowing(&xSpw6);
+	bCommSetWindowing(&xSpw7);
+	bCommSetWindowing(&xSpw8);
+	bCommSetLink(&xSpw1);
+	bCommSetLink(&xSpw2);
+	bCommSetLink(&xSpw3);
+	bCommSetLink(&xSpw4);
+	bCommSetLink(&xSpw5);
+	bCommSetLink(&xSpw6);
+	bCommSetLink(&xSpw7);
+	bCommSetLink(&xSpw8);
 
-//	spw_a.windowing_config.masking = TRUE;
-//	comm_config_windowing(&spw_a);
+//	xSpw1.xWindowingConfig.bMasking = TRUE;
+//	bCommSetWindowing(&xSpw1);
 
-//	spw_h.link_config.autostart = TRUE;
-//	comm_config_link(&spw_h);
+//	xSpw8.xLinkConfig.bAutostart = TRUE;
+//	bCommSetLink(&xSpw8);
 //
-//	comm_update_link(&spw_h);
-//	printf("empty r: %u \n", spw_h.link_config.autostart);
-//	rstc_hold_device_reset(RSTC_DEVICE_COMM_CH8_RST_CONTROL_MASK);
+//	bCommGetLink(&xSpw8);
+//	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
+//	vRstcHoldDeviceReset(RSTC_DEV_COMM_CH8_RST_CTRL_MSK);
 //	usleep(5000);
-//	rstc_release_device_reset(RSTC_DEVICE_COMM_CH8_RST_CONTROL_MASK);
-//	comm_update_link(&spw_h);
-//	printf("empty r: %u \n", spw_h.link_config.autostart);
+//	vRstcReleaseDeviceReset(RSTC_DEV_COMM_CH8_RST_CTRL_MSK);
+//	bCommGetLink(&xSpw8);
+//	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
 //
-//	spw_h.link_config.autostart = TRUE;
-//	comm_config_link(&spw_h);
+//	xSpw8.xLinkConfig.bAutostart = TRUE;
+//	bCommSetLink(&xSpw8);
 //
-//	comm_update_link(&spw_h);
-//	printf("empty r: %u \n", spw_h.link_config.autostart);
+//	bCommGetLink(&xSpw8);
+//	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
 
 	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
 
@@ -233,12 +231,12 @@ int main(void) {
 //	}
 
 //	usleep(5000);
-//	if (spw_a.link_status.running) {
+//	if (xSpw1.xLinkStatus.bRunning) {
 //		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 //		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
 //	}
 //
-//	if (spw_h.link_status.running) {
+//	if (xSpw8.xLinkStatus.bRunning) {
 //		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 //		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
 //	}
@@ -274,155 +272,155 @@ int main(void) {
 
 	int data_counter = 0;
 
-	fee_buffer_data_block_t *buffer_data_m1 =
-			(fee_buffer_data_block_t *) Ddr2Base;
+	TFeebBufferDataBlock *buffer_data_m1 =
+			(TFeebBufferDataBlock *) Ddr2Base;
 
-	buffer_data_m1->pixel_data_block[0].pixel[0] = 0x0100;
-	buffer_data_m1->pixel_data_block[0].pixel[1] = 0x0302;
-	buffer_data_m1->pixel_data_block[0].pixel[2] = 0x0504;
-	buffer_data_m1->pixel_data_block[0].pixel[3] = 0x0706;
-	buffer_data_m1->pixel_data_block[0].pixel[4] = 0x0908;
-	buffer_data_m1->pixel_data_block[0].pixel[5] = 0x0B0A;
-	buffer_data_m1->pixel_data_block[0].pixel[6] = 0x0D0C;
-	buffer_data_m1->pixel_data_block[0].pixel[7] = 0x0F0E;
-	buffer_data_m1->pixel_data_block[0].pixel[8] = 0x1110;
-	buffer_data_m1->pixel_data_block[0].pixel[9] = 0x1312;
-	buffer_data_m1->pixel_data_block[0].pixel[10] = 0x1514;
-	buffer_data_m1->pixel_data_block[0].pixel[11] = 0x1716;
-	buffer_data_m1->pixel_data_block[0].pixel[12] = 0x1918;
-	buffer_data_m1->pixel_data_block[0].pixel[13] = 0x1B1A;
-	buffer_data_m1->pixel_data_block[0].pixel[14] = 0x1D1C;
-	buffer_data_m1->pixel_data_block[0].pixel[15] = 0x1F1E;
-	buffer_data_m1->pixel_data_block[0].pixel[16] = 0x2120;
-	buffer_data_m1->pixel_data_block[0].pixel[17] = 0x2322;
-	buffer_data_m1->pixel_data_block[0].pixel[18] = 0x2524;
-	buffer_data_m1->pixel_data_block[0].pixel[19] = 0x2726;
-	buffer_data_m1->pixel_data_block[0].pixel[20] = 0x2928;
-	buffer_data_m1->pixel_data_block[0].pixel[21] = 0x2B2A;
-	buffer_data_m1->pixel_data_block[0].pixel[22] = 0x2D2C;
-	buffer_data_m1->pixel_data_block[0].pixel[23] = 0x2F2E;
-	buffer_data_m1->pixel_data_block[0].pixel[24] = 0x3130;
-	buffer_data_m1->pixel_data_block[0].pixel[25] = 0x3332;
-	buffer_data_m1->pixel_data_block[0].pixel[26] = 0x3534;
-	buffer_data_m1->pixel_data_block[0].pixel[27] = 0x3736;
-	buffer_data_m1->pixel_data_block[0].pixel[28] = 0x3938;
-	buffer_data_m1->pixel_data_block[0].pixel[29] = 0x3B3A;
-	buffer_data_m1->pixel_data_block[0].pixel[30] = 0x3D3C;
-	buffer_data_m1->pixel_data_block[0].pixel[31] = 0x3F3E;
-	buffer_data_m1->pixel_data_block[0].pixel[32] = 0x4140;
-	buffer_data_m1->pixel_data_block[0].pixel[33] = 0x4342;
-	buffer_data_m1->pixel_data_block[0].pixel[34] = 0x4544;
-	buffer_data_m1->pixel_data_block[0].pixel[35] = 0x4746;
-	buffer_data_m1->pixel_data_block[0].pixel[36] = 0x4948;
-	buffer_data_m1->pixel_data_block[0].pixel[37] = 0x4B4A;
-	buffer_data_m1->pixel_data_block[0].pixel[38] = 0x4D4C;
-	buffer_data_m1->pixel_data_block[0].pixel[39] = 0x4F4E;
-	buffer_data_m1->pixel_data_block[0].pixel[40] = 0x5150;
-	buffer_data_m1->pixel_data_block[0].pixel[41] = 0x5352;
-	buffer_data_m1->pixel_data_block[0].pixel[42] = 0x5554;
-	buffer_data_m1->pixel_data_block[0].pixel[43] = 0x5756;
-	buffer_data_m1->pixel_data_block[0].pixel[44] = 0x5958;
-	buffer_data_m1->pixel_data_block[0].pixel[45] = 0x5B5A;
-	buffer_data_m1->pixel_data_block[0].pixel[46] = 0x5D5C;
-	buffer_data_m1->pixel_data_block[0].pixel[47] = 0x5F5E;
-	buffer_data_m1->pixel_data_block[0].pixel[48] = 0x6160;
-	buffer_data_m1->pixel_data_block[0].pixel[49] = 0x6362;
-	buffer_data_m1->pixel_data_block[0].pixel[50] = 0x6564;
-	buffer_data_m1->pixel_data_block[0].pixel[51] = 0x6766;
-	buffer_data_m1->pixel_data_block[0].pixel[52] = 0x6968;
-	buffer_data_m1->pixel_data_block[0].pixel[53] = 0x6B6A;
-	buffer_data_m1->pixel_data_block[0].pixel[54] = 0x6D6C;
-	buffer_data_m1->pixel_data_block[0].pixel[55] = 0x6F6E;
-	buffer_data_m1->pixel_data_block[0].pixel[56] = 0x7170;
-	buffer_data_m1->pixel_data_block[0].pixel[57] = 0x7372;
-	buffer_data_m1->pixel_data_block[0].pixel[58] = 0x7574;
-	buffer_data_m1->pixel_data_block[0].pixel[59] = 0x7776;
-	buffer_data_m1->pixel_data_block[0].pixel[60] = 0x7978;
-	buffer_data_m1->pixel_data_block[0].pixel[61] = 0x7B7A;
-	buffer_data_m1->pixel_data_block[0].pixel[62] = 0x7D7C;
-	buffer_data_m1->pixel_data_block[0].pixel[63] = 0x7F7E;
-	buffer_data_m1->pixel_data_block[0].mask = 0xFFFFFFFFFFFFFFFF;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[0] = 0x0100;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[1] = 0x0302;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[2] = 0x0504;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[3] = 0x0706;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[4] = 0x0908;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[5] = 0x0B0A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[6] = 0x0D0C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[7] = 0x0F0E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[8] = 0x1110;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[9] = 0x1312;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[10] = 0x1514;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[11] = 0x1716;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[12] = 0x1918;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[13] = 0x1B1A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[14] = 0x1D1C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[15] = 0x1F1E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[16] = 0x2120;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[17] = 0x2322;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[18] = 0x2524;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[19] = 0x2726;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[20] = 0x2928;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[21] = 0x2B2A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[22] = 0x2D2C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[23] = 0x2F2E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[24] = 0x3130;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[25] = 0x3332;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[26] = 0x3534;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[27] = 0x3736;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[28] = 0x3938;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[29] = 0x3B3A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[30] = 0x3D3C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[31] = 0x3F3E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[32] = 0x4140;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[33] = 0x4342;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[34] = 0x4544;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[35] = 0x4746;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[36] = 0x4948;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[37] = 0x4B4A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[38] = 0x4D4C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[39] = 0x4F4E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[40] = 0x5150;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[41] = 0x5352;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[42] = 0x5554;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[43] = 0x5756;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[44] = 0x5958;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[45] = 0x5B5A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[46] = 0x5D5C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[47] = 0x5F5E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[48] = 0x6160;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[49] = 0x6362;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[50] = 0x6564;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[51] = 0x6766;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[52] = 0x6968;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[53] = 0x6B6A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[54] = 0x6D6C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[55] = 0x6F6E;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[56] = 0x7170;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[57] = 0x7372;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[58] = 0x7574;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[59] = 0x7776;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[60] = 0x7978;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[61] = 0x7B7A;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[62] = 0x7D7C;
+	buffer_data_m1->xPixelDataBlock[0].usiPixel[63] = 0x7F7E;
+	buffer_data_m1->xPixelDataBlock[0].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m1->pixel_data_block[1].pixel[0] = 0x8180;
-	buffer_data_m1->pixel_data_block[1].pixel[1] = 0x8382;
-	buffer_data_m1->pixel_data_block[1].pixel[2] = 0x8584;
-	buffer_data_m1->pixel_data_block[1].pixel[3] = 0x8786;
-	buffer_data_m1->pixel_data_block[1].pixel[4] = 0x8988;
-	buffer_data_m1->pixel_data_block[1].pixel[5] = 0x8B8A;
-	buffer_data_m1->pixel_data_block[1].pixel[6] = 0x8D8C;
-	buffer_data_m1->pixel_data_block[1].pixel[7] = 0x8F8E;
-	buffer_data_m1->pixel_data_block[1].pixel[8] = 0x9190;
-	buffer_data_m1->pixel_data_block[1].pixel[9] = 0x9392;
-	buffer_data_m1->pixel_data_block[1].pixel[10] = 0x9594;
-	buffer_data_m1->pixel_data_block[1].pixel[11] = 0x9796;
-	buffer_data_m1->pixel_data_block[1].pixel[12] = 0x9998;
-	buffer_data_m1->pixel_data_block[1].pixel[13] = 0x9B9A;
-	buffer_data_m1->pixel_data_block[1].pixel[14] = 0x9D9C;
-	buffer_data_m1->pixel_data_block[1].pixel[15] = 0x9F9E;
-	buffer_data_m1->pixel_data_block[1].pixel[16] = 0xA1A0;
-	buffer_data_m1->pixel_data_block[1].pixel[17] = 0xA3A2;
-	buffer_data_m1->pixel_data_block[1].pixel[18] = 0xA5A4;
-	buffer_data_m1->pixel_data_block[1].pixel[19] = 0xA7A6;
-	buffer_data_m1->pixel_data_block[1].pixel[20] = 0xA9A8;
-	buffer_data_m1->pixel_data_block[1].pixel[21] = 0xABAA;
-	buffer_data_m1->pixel_data_block[1].pixel[22] = 0xADAC;
-	buffer_data_m1->pixel_data_block[1].pixel[23] = 0xAFAE;
-	buffer_data_m1->pixel_data_block[1].pixel[24] = 0xB1B0;
-	buffer_data_m1->pixel_data_block[1].pixel[25] = 0xB3B2;
-	buffer_data_m1->pixel_data_block[1].pixel[26] = 0xB5B4;
-	buffer_data_m1->pixel_data_block[1].pixel[27] = 0xB7B6;
-	buffer_data_m1->pixel_data_block[1].pixel[28] = 0xB9B8;
-	buffer_data_m1->pixel_data_block[1].pixel[29] = 0xBBBA;
-	buffer_data_m1->pixel_data_block[1].pixel[30] = 0xBDBC;
-	buffer_data_m1->pixel_data_block[1].pixel[31] = 0xBFBE;
-	buffer_data_m1->pixel_data_block[1].pixel[32] = 0xC1C0;
-	buffer_data_m1->pixel_data_block[1].pixel[33] = 0xC3C2;
-	buffer_data_m1->pixel_data_block[1].pixel[34] = 0xC5C4;
-	buffer_data_m1->pixel_data_block[1].pixel[35] = 0xC7C6;
-	buffer_data_m1->pixel_data_block[1].pixel[36] = 0xC9C8;
-	buffer_data_m1->pixel_data_block[1].pixel[37] = 0xCBCA;
-	buffer_data_m1->pixel_data_block[1].pixel[38] = 0xCDCC;
-	buffer_data_m1->pixel_data_block[1].pixel[39] = 0xCFCE;
-	buffer_data_m1->pixel_data_block[1].pixel[40] = 0xD1D0;
-	buffer_data_m1->pixel_data_block[1].pixel[41] = 0xD3D2;
-	buffer_data_m1->pixel_data_block[1].pixel[42] = 0xD5D4;
-	buffer_data_m1->pixel_data_block[1].pixel[43] = 0xD7D6;
-	buffer_data_m1->pixel_data_block[1].pixel[44] = 0xD9D8;
-	buffer_data_m1->pixel_data_block[1].pixel[45] = 0xDBDA;
-	buffer_data_m1->pixel_data_block[1].pixel[46] = 0xDDDC;
-	buffer_data_m1->pixel_data_block[1].pixel[47] = 0xDFDE;
-	buffer_data_m1->pixel_data_block[1].pixel[48] = 0xE1E0;
-	buffer_data_m1->pixel_data_block[1].pixel[49] = 0xE3E2;
-	buffer_data_m1->pixel_data_block[1].pixel[50] = 0xE5E4;
-	buffer_data_m1->pixel_data_block[1].pixel[51] = 0xE7E6;
-	buffer_data_m1->pixel_data_block[1].pixel[52] = 0xE9E8;
-	buffer_data_m1->pixel_data_block[1].pixel[53] = 0xEBEA;
-	buffer_data_m1->pixel_data_block[1].pixel[54] = 0xEDEC;
-	buffer_data_m1->pixel_data_block[1].pixel[55] = 0xEFEE;
-	buffer_data_m1->pixel_data_block[1].pixel[56] = 0xF1F0;
-	buffer_data_m1->pixel_data_block[1].pixel[57] = 0xF3F2;
-	buffer_data_m1->pixel_data_block[1].pixel[58] = 0xF5F4;
-	buffer_data_m1->pixel_data_block[1].pixel[59] = 0xF7F6;
-	buffer_data_m1->pixel_data_block[1].pixel[60] = 0xF9F8;
-	buffer_data_m1->pixel_data_block[1].pixel[61] = 0xFBFA;
-	buffer_data_m1->pixel_data_block[1].pixel[62] = 0xFDFC;
-	buffer_data_m1->pixel_data_block[1].pixel[63] = 0xFFFE;
-	buffer_data_m1->pixel_data_block[1].mask = 0xFFFFFFFFFFFFFFFF;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[0] = 0x8180;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[1] = 0x8382;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[2] = 0x8584;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[3] = 0x8786;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[4] = 0x8988;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[5] = 0x8B8A;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[6] = 0x8D8C;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[7] = 0x8F8E;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[8] = 0x9190;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[9] = 0x9392;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[10] = 0x9594;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[11] = 0x9796;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[12] = 0x9998;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[13] = 0x9B9A;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[14] = 0x9D9C;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[15] = 0x9F9E;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[16] = 0xA1A0;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[17] = 0xA3A2;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[18] = 0xA5A4;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[19] = 0xA7A6;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[20] = 0xA9A8;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[21] = 0xABAA;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[22] = 0xADAC;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[23] = 0xAFAE;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[24] = 0xB1B0;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[25] = 0xB3B2;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[26] = 0xB5B4;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[27] = 0xB7B6;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[28] = 0xB9B8;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[29] = 0xBBBA;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[30] = 0xBDBC;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[31] = 0xBFBE;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[32] = 0xC1C0;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[33] = 0xC3C2;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[34] = 0xC5C4;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[35] = 0xC7C6;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[36] = 0xC9C8;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[37] = 0xCBCA;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[38] = 0xCDCC;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[39] = 0xCFCE;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[40] = 0xD1D0;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[41] = 0xD3D2;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[42] = 0xD5D4;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[43] = 0xD7D6;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[44] = 0xD9D8;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[45] = 0xDBDA;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[46] = 0xDDDC;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[47] = 0xDFDE;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[48] = 0xE1E0;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[49] = 0xE3E2;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[50] = 0xE5E4;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[51] = 0xE7E6;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[52] = 0xE9E8;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[53] = 0xEBEA;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[54] = 0xEDEC;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[55] = 0xEFEE;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[56] = 0xF1F0;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[57] = 0xF3F2;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[58] = 0xF5F4;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[59] = 0xF7F6;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[60] = 0xF9F8;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[61] = 0xFBFA;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[62] = 0xFDFC;
+	buffer_data_m1->xPixelDataBlock[1].usiPixel[63] = 0xFFFE;
+	buffer_data_m1->xPixelDataBlock[1].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m1->pixel_data_block[2] = buffer_data_m1->pixel_data_block[0];
-	buffer_data_m1->pixel_data_block[3] = buffer_data_m1->pixel_data_block[1];
-	buffer_data_m1->pixel_data_block[4] = buffer_data_m1->pixel_data_block[2];
-	buffer_data_m1->pixel_data_block[5] = buffer_data_m1->pixel_data_block[3];
-	buffer_data_m1->pixel_data_block[6] = buffer_data_m1->pixel_data_block[4];
-	buffer_data_m1->pixel_data_block[7] = buffer_data_m1->pixel_data_block[5];
-	buffer_data_m1->pixel_data_block[8] = buffer_data_m1->pixel_data_block[6];
-	buffer_data_m1->pixel_data_block[9] = buffer_data_m1->pixel_data_block[7];
-	buffer_data_m1->pixel_data_block[10] = buffer_data_m1->pixel_data_block[8];
-	buffer_data_m1->pixel_data_block[11] = buffer_data_m1->pixel_data_block[9];
-	buffer_data_m1->pixel_data_block[12] = buffer_data_m1->pixel_data_block[10];
-	buffer_data_m1->pixel_data_block[13] = buffer_data_m1->pixel_data_block[11];
-	buffer_data_m1->pixel_data_block[14] = buffer_data_m1->pixel_data_block[12];
-	buffer_data_m1->pixel_data_block[15] = buffer_data_m1->pixel_data_block[13];
+	buffer_data_m1->xPixelDataBlock[2] = buffer_data_m1->xPixelDataBlock[0];
+	buffer_data_m1->xPixelDataBlock[3] = buffer_data_m1->xPixelDataBlock[1];
+	buffer_data_m1->xPixelDataBlock[4] = buffer_data_m1->xPixelDataBlock[2];
+	buffer_data_m1->xPixelDataBlock[5] = buffer_data_m1->xPixelDataBlock[3];
+	buffer_data_m1->xPixelDataBlock[6] = buffer_data_m1->xPixelDataBlock[4];
+	buffer_data_m1->xPixelDataBlock[7] = buffer_data_m1->xPixelDataBlock[5];
+	buffer_data_m1->xPixelDataBlock[8] = buffer_data_m1->xPixelDataBlock[6];
+	buffer_data_m1->xPixelDataBlock[9] = buffer_data_m1->xPixelDataBlock[7];
+	buffer_data_m1->xPixelDataBlock[10] = buffer_data_m1->xPixelDataBlock[8];
+	buffer_data_m1->xPixelDataBlock[11] = buffer_data_m1->xPixelDataBlock[9];
+	buffer_data_m1->xPixelDataBlock[12] = buffer_data_m1->xPixelDataBlock[10];
+	buffer_data_m1->xPixelDataBlock[13] = buffer_data_m1->xPixelDataBlock[11];
+	buffer_data_m1->xPixelDataBlock[14] = buffer_data_m1->xPixelDataBlock[12];
+	buffer_data_m1->xPixelDataBlock[15] = buffer_data_m1->xPixelDataBlock[13];
 
 	DDR2_SWITCH_MEMORY(DDR2_M2_ID);
 
@@ -445,155 +443,155 @@ int main(void) {
 
 // buffer: 2176 B -> 544 dwords
 
-	fee_buffer_data_block_t *buffer_data_m2 =
-			(fee_buffer_data_block_t *) Ddr2Base;
+	TFeebBufferDataBlock *buffer_data_m2 =
+			(TFeebBufferDataBlock *) Ddr2Base;
 
-	buffer_data_m2->pixel_data_block[0].pixel[0] = 0x0100;
-	buffer_data_m2->pixel_data_block[0].pixel[1] = 0x0302;
-	buffer_data_m2->pixel_data_block[0].pixel[2] = 0x0504;
-	buffer_data_m2->pixel_data_block[0].pixel[3] = 0x0706;
-	buffer_data_m2->pixel_data_block[0].pixel[4] = 0x0908;
-	buffer_data_m2->pixel_data_block[0].pixel[5] = 0x0B0A;
-	buffer_data_m2->pixel_data_block[0].pixel[6] = 0x0D0C;
-	buffer_data_m2->pixel_data_block[0].pixel[7] = 0x0F0E;
-	buffer_data_m2->pixel_data_block[0].pixel[8] = 0x1110;
-	buffer_data_m2->pixel_data_block[0].pixel[9] = 0x1312;
-	buffer_data_m2->pixel_data_block[0].pixel[10] = 0x1514;
-	buffer_data_m2->pixel_data_block[0].pixel[11] = 0x1716;
-	buffer_data_m2->pixel_data_block[0].pixel[12] = 0x1918;
-	buffer_data_m2->pixel_data_block[0].pixel[13] = 0x1B1A;
-	buffer_data_m2->pixel_data_block[0].pixel[14] = 0x1D1C;
-	buffer_data_m2->pixel_data_block[0].pixel[15] = 0x1F1E;
-	buffer_data_m2->pixel_data_block[0].pixel[16] = 0x2120;
-	buffer_data_m2->pixel_data_block[0].pixel[17] = 0x2322;
-	buffer_data_m2->pixel_data_block[0].pixel[18] = 0x2524;
-	buffer_data_m2->pixel_data_block[0].pixel[19] = 0x2726;
-	buffer_data_m2->pixel_data_block[0].pixel[20] = 0x2928;
-	buffer_data_m2->pixel_data_block[0].pixel[21] = 0x2B2A;
-	buffer_data_m2->pixel_data_block[0].pixel[22] = 0x2D2C;
-	buffer_data_m2->pixel_data_block[0].pixel[23] = 0x2F2E;
-	buffer_data_m2->pixel_data_block[0].pixel[24] = 0x3130;
-	buffer_data_m2->pixel_data_block[0].pixel[25] = 0x3332;
-	buffer_data_m2->pixel_data_block[0].pixel[26] = 0x3534;
-	buffer_data_m2->pixel_data_block[0].pixel[27] = 0x3736;
-	buffer_data_m2->pixel_data_block[0].pixel[28] = 0x3938;
-	buffer_data_m2->pixel_data_block[0].pixel[29] = 0x3B3A;
-	buffer_data_m2->pixel_data_block[0].pixel[30] = 0x3D3C;
-	buffer_data_m2->pixel_data_block[0].pixel[31] = 0x3F3E;
-	buffer_data_m2->pixel_data_block[0].pixel[32] = 0x4140;
-	buffer_data_m2->pixel_data_block[0].pixel[33] = 0x4342;
-	buffer_data_m2->pixel_data_block[0].pixel[34] = 0x4544;
-	buffer_data_m2->pixel_data_block[0].pixel[35] = 0x4746;
-	buffer_data_m2->pixel_data_block[0].pixel[36] = 0x4948;
-	buffer_data_m2->pixel_data_block[0].pixel[37] = 0x4B4A;
-	buffer_data_m2->pixel_data_block[0].pixel[38] = 0x4D4C;
-	buffer_data_m2->pixel_data_block[0].pixel[39] = 0x4F4E;
-	buffer_data_m2->pixel_data_block[0].pixel[40] = 0x5150;
-	buffer_data_m2->pixel_data_block[0].pixel[41] = 0x5352;
-	buffer_data_m2->pixel_data_block[0].pixel[42] = 0x5554;
-	buffer_data_m2->pixel_data_block[0].pixel[43] = 0x5756;
-	buffer_data_m2->pixel_data_block[0].pixel[44] = 0x5958;
-	buffer_data_m2->pixel_data_block[0].pixel[45] = 0x5B5A;
-	buffer_data_m2->pixel_data_block[0].pixel[46] = 0x5D5C;
-	buffer_data_m2->pixel_data_block[0].pixel[47] = 0x5F5E;
-	buffer_data_m2->pixel_data_block[0].pixel[48] = 0x6160;
-	buffer_data_m2->pixel_data_block[0].pixel[49] = 0x6362;
-	buffer_data_m2->pixel_data_block[0].pixel[50] = 0x6564;
-	buffer_data_m2->pixel_data_block[0].pixel[51] = 0x6766;
-	buffer_data_m2->pixel_data_block[0].pixel[52] = 0x6968;
-	buffer_data_m2->pixel_data_block[0].pixel[53] = 0x6B6A;
-	buffer_data_m2->pixel_data_block[0].pixel[54] = 0x6D6C;
-	buffer_data_m2->pixel_data_block[0].pixel[55] = 0x6F6E;
-	buffer_data_m2->pixel_data_block[0].pixel[56] = 0x7170;
-	buffer_data_m2->pixel_data_block[0].pixel[57] = 0x7372;
-	buffer_data_m2->pixel_data_block[0].pixel[58] = 0x7574;
-	buffer_data_m2->pixel_data_block[0].pixel[59] = 0x7776;
-	buffer_data_m2->pixel_data_block[0].pixel[60] = 0x7978;
-	buffer_data_m2->pixel_data_block[0].pixel[61] = 0x7B7A;
-	buffer_data_m2->pixel_data_block[0].pixel[62] = 0x7D7C;
-	buffer_data_m2->pixel_data_block[0].pixel[63] = 0x7F7E;
-	buffer_data_m2->pixel_data_block[0].mask = 0xFFFFFFFFFFFFFFFF;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[0] = 0x0100;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[1] = 0x0302;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[2] = 0x0504;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[3] = 0x0706;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[4] = 0x0908;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[5] = 0x0B0A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[6] = 0x0D0C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[7] = 0x0F0E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[8] = 0x1110;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[9] = 0x1312;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[10] = 0x1514;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[11] = 0x1716;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[12] = 0x1918;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[13] = 0x1B1A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[14] = 0x1D1C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[15] = 0x1F1E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[16] = 0x2120;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[17] = 0x2322;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[18] = 0x2524;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[19] = 0x2726;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[20] = 0x2928;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[21] = 0x2B2A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[22] = 0x2D2C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[23] = 0x2F2E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[24] = 0x3130;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[25] = 0x3332;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[26] = 0x3534;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[27] = 0x3736;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[28] = 0x3938;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[29] = 0x3B3A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[30] = 0x3D3C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[31] = 0x3F3E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[32] = 0x4140;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[33] = 0x4342;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[34] = 0x4544;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[35] = 0x4746;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[36] = 0x4948;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[37] = 0x4B4A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[38] = 0x4D4C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[39] = 0x4F4E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[40] = 0x5150;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[41] = 0x5352;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[42] = 0x5554;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[43] = 0x5756;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[44] = 0x5958;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[45] = 0x5B5A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[46] = 0x5D5C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[47] = 0x5F5E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[48] = 0x6160;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[49] = 0x6362;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[50] = 0x6564;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[51] = 0x6766;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[52] = 0x6968;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[53] = 0x6B6A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[54] = 0x6D6C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[55] = 0x6F6E;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[56] = 0x7170;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[57] = 0x7372;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[58] = 0x7574;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[59] = 0x7776;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[60] = 0x7978;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[61] = 0x7B7A;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[62] = 0x7D7C;
+	buffer_data_m2->xPixelDataBlock[0].usiPixel[63] = 0x7F7E;
+	buffer_data_m2->xPixelDataBlock[0].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m2->pixel_data_block[1].pixel[0] = 0x8180;
-	buffer_data_m2->pixel_data_block[1].pixel[1] = 0x8382;
-	buffer_data_m2->pixel_data_block[1].pixel[2] = 0x8584;
-	buffer_data_m2->pixel_data_block[1].pixel[3] = 0x8786;
-	buffer_data_m2->pixel_data_block[1].pixel[4] = 0x8988;
-	buffer_data_m2->pixel_data_block[1].pixel[5] = 0x8B8A;
-	buffer_data_m2->pixel_data_block[1].pixel[6] = 0x8D8C;
-	buffer_data_m2->pixel_data_block[1].pixel[7] = 0x8F8E;
-	buffer_data_m2->pixel_data_block[1].pixel[8] = 0x9190;
-	buffer_data_m2->pixel_data_block[1].pixel[9] = 0x9392;
-	buffer_data_m2->pixel_data_block[1].pixel[10] = 0x9594;
-	buffer_data_m2->pixel_data_block[1].pixel[11] = 0x9796;
-	buffer_data_m2->pixel_data_block[1].pixel[12] = 0x9998;
-	buffer_data_m2->pixel_data_block[1].pixel[13] = 0x9B9A;
-	buffer_data_m2->pixel_data_block[1].pixel[14] = 0x9D9C;
-	buffer_data_m2->pixel_data_block[1].pixel[15] = 0x9F9E;
-	buffer_data_m2->pixel_data_block[1].pixel[16] = 0xA1A0;
-	buffer_data_m2->pixel_data_block[1].pixel[17] = 0xA3A2;
-	buffer_data_m2->pixel_data_block[1].pixel[18] = 0xA5A4;
-	buffer_data_m2->pixel_data_block[1].pixel[19] = 0xA7A6;
-	buffer_data_m2->pixel_data_block[1].pixel[20] = 0xA9A8;
-	buffer_data_m2->pixel_data_block[1].pixel[21] = 0xABAA;
-	buffer_data_m2->pixel_data_block[1].pixel[22] = 0xADAC;
-	buffer_data_m2->pixel_data_block[1].pixel[23] = 0xAFAE;
-	buffer_data_m2->pixel_data_block[1].pixel[24] = 0xB1B0;
-	buffer_data_m2->pixel_data_block[1].pixel[25] = 0xB3B2;
-	buffer_data_m2->pixel_data_block[1].pixel[26] = 0xB5B4;
-	buffer_data_m2->pixel_data_block[1].pixel[27] = 0xB7B6;
-	buffer_data_m2->pixel_data_block[1].pixel[28] = 0xB9B8;
-	buffer_data_m2->pixel_data_block[1].pixel[29] = 0xBBBA;
-	buffer_data_m2->pixel_data_block[1].pixel[30] = 0xBDBC;
-	buffer_data_m2->pixel_data_block[1].pixel[31] = 0xBFBE;
-	buffer_data_m2->pixel_data_block[1].pixel[32] = 0xC1C0;
-	buffer_data_m2->pixel_data_block[1].pixel[33] = 0xC3C2;
-	buffer_data_m2->pixel_data_block[1].pixel[34] = 0xC5C4;
-	buffer_data_m2->pixel_data_block[1].pixel[35] = 0xC7C6;
-	buffer_data_m2->pixel_data_block[1].pixel[36] = 0xC9C8;
-	buffer_data_m2->pixel_data_block[1].pixel[37] = 0xCBCA;
-	buffer_data_m2->pixel_data_block[1].pixel[38] = 0xCDCC;
-	buffer_data_m2->pixel_data_block[1].pixel[39] = 0xCFCE;
-	buffer_data_m2->pixel_data_block[1].pixel[40] = 0xD1D0;
-	buffer_data_m2->pixel_data_block[1].pixel[41] = 0xD3D2;
-	buffer_data_m2->pixel_data_block[1].pixel[42] = 0xD5D4;
-	buffer_data_m2->pixel_data_block[1].pixel[43] = 0xD7D6;
-	buffer_data_m2->pixel_data_block[1].pixel[44] = 0xD9D8;
-	buffer_data_m2->pixel_data_block[1].pixel[45] = 0xDBDA;
-	buffer_data_m2->pixel_data_block[1].pixel[46] = 0xDDDC;
-	buffer_data_m2->pixel_data_block[1].pixel[47] = 0xDFDE;
-	buffer_data_m2->pixel_data_block[1].pixel[48] = 0xE1E0;
-	buffer_data_m2->pixel_data_block[1].pixel[49] = 0xE3E2;
-	buffer_data_m2->pixel_data_block[1].pixel[50] = 0xE5E4;
-	buffer_data_m2->pixel_data_block[1].pixel[51] = 0xE7E6;
-	buffer_data_m2->pixel_data_block[1].pixel[52] = 0xE9E8;
-	buffer_data_m2->pixel_data_block[1].pixel[53] = 0xEBEA;
-	buffer_data_m2->pixel_data_block[1].pixel[54] = 0xEDEC;
-	buffer_data_m2->pixel_data_block[1].pixel[55] = 0xEFEE;
-	buffer_data_m2->pixel_data_block[1].pixel[56] = 0xF1F0;
-	buffer_data_m2->pixel_data_block[1].pixel[57] = 0xF3F2;
-	buffer_data_m2->pixel_data_block[1].pixel[58] = 0xF5F4;
-	buffer_data_m2->pixel_data_block[1].pixel[59] = 0xF7F6;
-	buffer_data_m2->pixel_data_block[1].pixel[60] = 0xF9F8;
-	buffer_data_m2->pixel_data_block[1].pixel[61] = 0xFBFA;
-	buffer_data_m2->pixel_data_block[1].pixel[62] = 0xFDFC;
-	buffer_data_m2->pixel_data_block[1].pixel[63] = 0xFFFE;
-	buffer_data_m2->pixel_data_block[1].mask = 0xFFFFFFFFFFFFFFFF;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[0] = 0x8180;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[1] = 0x8382;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[2] = 0x8584;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[3] = 0x8786;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[4] = 0x8988;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[5] = 0x8B8A;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[6] = 0x8D8C;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[7] = 0x8F8E;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[8] = 0x9190;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[9] = 0x9392;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[10] = 0x9594;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[11] = 0x9796;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[12] = 0x9998;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[13] = 0x9B9A;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[14] = 0x9D9C;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[15] = 0x9F9E;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[16] = 0xA1A0;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[17] = 0xA3A2;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[18] = 0xA5A4;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[19] = 0xA7A6;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[20] = 0xA9A8;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[21] = 0xABAA;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[22] = 0xADAC;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[23] = 0xAFAE;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[24] = 0xB1B0;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[25] = 0xB3B2;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[26] = 0xB5B4;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[27] = 0xB7B6;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[28] = 0xB9B8;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[29] = 0xBBBA;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[30] = 0xBDBC;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[31] = 0xBFBE;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[32] = 0xC1C0;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[33] = 0xC3C2;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[34] = 0xC5C4;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[35] = 0xC7C6;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[36] = 0xC9C8;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[37] = 0xCBCA;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[38] = 0xCDCC;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[39] = 0xCFCE;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[40] = 0xD1D0;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[41] = 0xD3D2;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[42] = 0xD5D4;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[43] = 0xD7D6;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[44] = 0xD9D8;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[45] = 0xDBDA;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[46] = 0xDDDC;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[47] = 0xDFDE;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[48] = 0xE1E0;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[49] = 0xE3E2;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[50] = 0xE5E4;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[51] = 0xE7E6;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[52] = 0xE9E8;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[53] = 0xEBEA;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[54] = 0xEDEC;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[55] = 0xEFEE;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[56] = 0xF1F0;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[57] = 0xF3F2;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[58] = 0xF5F4;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[59] = 0xF7F6;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[60] = 0xF9F8;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[61] = 0xFBFA;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[62] = 0xFDFC;
+	buffer_data_m2->xPixelDataBlock[1].usiPixel[63] = 0xFFFE;
+	buffer_data_m2->xPixelDataBlock[1].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m2->pixel_data_block[2] = buffer_data_m2->pixel_data_block[0];
-	buffer_data_m2->pixel_data_block[3] = buffer_data_m2->pixel_data_block[1];
-	buffer_data_m2->pixel_data_block[4] = buffer_data_m2->pixel_data_block[2];
-	buffer_data_m2->pixel_data_block[5] = buffer_data_m2->pixel_data_block[3];
-	buffer_data_m2->pixel_data_block[6] = buffer_data_m2->pixel_data_block[4];
-	buffer_data_m2->pixel_data_block[7] = buffer_data_m2->pixel_data_block[5];
-	buffer_data_m2->pixel_data_block[8] = buffer_data_m2->pixel_data_block[6];
-	buffer_data_m2->pixel_data_block[9] = buffer_data_m2->pixel_data_block[7];
-	buffer_data_m2->pixel_data_block[10] = buffer_data_m2->pixel_data_block[8];
-	buffer_data_m2->pixel_data_block[11] = buffer_data_m2->pixel_data_block[9];
-	buffer_data_m2->pixel_data_block[12] = buffer_data_m2->pixel_data_block[10];
-	buffer_data_m2->pixel_data_block[13] = buffer_data_m2->pixel_data_block[11];
-	buffer_data_m2->pixel_data_block[14] = buffer_data_m2->pixel_data_block[12];
-	buffer_data_m2->pixel_data_block[15] = buffer_data_m2->pixel_data_block[13];
+	buffer_data_m2->xPixelDataBlock[2] = buffer_data_m2->xPixelDataBlock[0];
+	buffer_data_m2->xPixelDataBlock[3] = buffer_data_m2->xPixelDataBlock[1];
+	buffer_data_m2->xPixelDataBlock[4] = buffer_data_m2->xPixelDataBlock[2];
+	buffer_data_m2->xPixelDataBlock[5] = buffer_data_m2->xPixelDataBlock[3];
+	buffer_data_m2->xPixelDataBlock[6] = buffer_data_m2->xPixelDataBlock[4];
+	buffer_data_m2->xPixelDataBlock[7] = buffer_data_m2->xPixelDataBlock[5];
+	buffer_data_m2->xPixelDataBlock[8] = buffer_data_m2->xPixelDataBlock[6];
+	buffer_data_m2->xPixelDataBlock[9] = buffer_data_m2->xPixelDataBlock[7];
+	buffer_data_m2->xPixelDataBlock[10] = buffer_data_m2->xPixelDataBlock[8];
+	buffer_data_m2->xPixelDataBlock[11] = buffer_data_m2->xPixelDataBlock[9];
+	buffer_data_m2->xPixelDataBlock[12] = buffer_data_m2->xPixelDataBlock[10];
+	buffer_data_m2->xPixelDataBlock[13] = buffer_data_m2->xPixelDataBlock[11];
+	buffer_data_m2->xPixelDataBlock[14] = buffer_data_m2->xPixelDataBlock[12];
+	buffer_data_m2->xPixelDataBlock[15] = buffer_data_m2->xPixelDataBlock[13];
 
 //	unsigned long data = 1;
 //
@@ -617,58 +615,58 @@ int main(void) {
 
 // init DMA
 
-	if (fee_init_m1_dma()) {
+	if (bFeebInitM1Dma()) {
 		printf("dma_m1 iniciado corretamente \n");
 	}
 
-	if (fee_init_m2_dma()) {
+	if (bFeebInitM2Dma()) {
 		printf("dma_m2 iniciado corretamente \n");
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_a_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_a_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh1Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh1Buffer)) {
 			printf("channel a transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_b_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_b_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh2Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh2Buffer)) {
 			printf("channel b transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_c_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_c_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh3Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh3Buffer)) {
 			printf("channel c transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_d_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_d_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh4Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh4Buffer)) {
 			printf("channel d transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_e_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_e_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh5Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh5Buffer)) {
 			printf("channel e transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_f_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_f_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh6Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh6Buffer)) {
 			printf("channel f transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_g_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_g_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh7Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh7Buffer)) {
 			printf("channel g transferido corretamente \n");
 		}
 	}
 
-	if (fee_dma_m1_transfer(0, 16, right_buffer, channel_h_buffer)) {
-		if (fee_dma_m2_transfer(0, 16, left_buffer, channel_h_buffer)) {
+	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh8Buffer)) {
+		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh8Buffer)) {
 			printf("channel h transferido corretamente \n");
 		}
 	}
@@ -678,8 +676,8 @@ int main(void) {
 	while (loop) {
 		usleep(5000);
 
-		comm_update_link_status(&spw_a);
-		if (spw_a.link_status.running) {
+		bCommGetLinkStatus(&xSpw1);
+		if (xSpw1.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
 		} else {
@@ -687,8 +685,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 		}
 
-		comm_update_link_status(&spw_b);
-		if (spw_b.link_status.running) {
+		bCommGetLinkStatus(&xSpw2);
+		if (xSpw2.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
 		} else {
@@ -696,8 +694,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
 		}
 
-		comm_update_link_status(&spw_c);
-		if (spw_c.link_status.running) {
+		bCommGetLinkStatus(&xSpw3);
+		if (xSpw3.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
 		} else {
@@ -705,8 +703,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
 		}
 
-		comm_update_link_status(&spw_d);
-		if (spw_d.link_status.running) {
+		bCommGetLinkStatus(&xSpw4);
+		if (xSpw4.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
 		} else {
@@ -714,8 +712,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
 		}
 
-		comm_update_link_status(&spw_e);
-		if (spw_e.link_status.running) {
+		bCommGetLinkStatus(&xSpw5);
+		if (xSpw5.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
 		} else {
@@ -723,8 +721,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
 		}
 
-		comm_update_link_status(&spw_f);
-		if (spw_f.link_status.running) {
+		bCommGetLinkStatus(&xSpw6);
+		if (xSpw6.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
 		} else {
@@ -732,8 +730,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
 		}
 
-		comm_update_link_status(&spw_g);
-		if (spw_g.link_status.running) {
+		bCommGetLinkStatus(&xSpw7);
+		if (xSpw7.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
 		} else {
@@ -741,8 +739,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
 		}
 
-		comm_update_link_status(&spw_h);
-		if (spw_h.link_status.running) {
+		bCommGetLinkStatus(&xSpw8);
+		if (xSpw8.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
 		} else {
@@ -756,29 +754,29 @@ int main(void) {
 		switch (getchar()) {
 		case '1':
 			printf("m2 R \n");
-			if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+			if (bFeebDmaM2Transfer(0, 16, eFeebRightBuffer, eFeebCh1Buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
 			break;
 
 		case '2':
 			printf("m2 L \n");
-			if (fee_dma_m2_transfer(0, 16, left_buffer, channel_a_buffer)) {
+			if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh1Buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
 			break;
 
 		case 'a':
 			printf("a \n");
-			if (fee_dma_m2_transfer(0, 16, right_buffer, channel_a_buffer)) {
+			if (bFeebDmaM2Transfer(0, 16, eFeebRightBuffer, eFeebCh1Buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
-//			if (fee_dma_m1_transfer(0, 16, left_buffer, channel_a_buffer)) {
+//			if (bFeebDmaM1Transfer(0, 16, eFeebLeftBuffer, eFeebCh1Buffer)) {
 //				printf("dma_m1 transferido corretamente \n");
 //			}
 			usleep(500);
-			comm_update_buffers_status(&spw_a);
-			printf("empty: %u \n", spw_a.buffer_status.right_buffer_empty);
+			bCommGetBuffersStatus(&xSpw1);
+			printf("empty: %u \n", xSpw1.xBufferStatus.bRightBufferEmpty);
 			break;
 
 		case 'r':
@@ -792,16 +790,16 @@ int main(void) {
 		}
 	}
 
-	comm_config_link(&spw_a);
-	comm_config_link(&spw_h);
+	bCommSetLink(&xSpw1);
+	bCommSetLink(&xSpw8);
 
-	//*spw_a.channel_address = 0x102;
-	printf("%08X", *(spw_a.channel_address));
+	//*xSpw1.puliChAddr = 0x102;
+	printf("%08X", *(xSpw1.puliChAddr));
 
 	usleep(10000);
 
-	comm_update_link_status(&spw_a);
-	if (spw_a.link_status.running) {
+	bCommGetLinkStatus(&xSpw1);
+	if (xSpw1.xLinkStatus.bRunning) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
 	} else {
@@ -809,8 +807,8 @@ int main(void) {
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 	}
 
-	comm_update_link_status(&spw_h);
-	if (spw_h.link_status.running) {
+	bCommGetLinkStatus(&xSpw8);
+	if (xSpw8.xLinkStatus.bRunning) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
 	} else {
@@ -824,10 +822,9 @@ int main(void) {
 		for (i = 0; i < 1000; i++) {
 			usleep(1000);
 		}
-		comm_update_buffers_status(&spw_a);
-		printf("empty r: %u \n", spw_a.buffer_status.right_buffer_empty);
-		printf("empty l: %u \n", spw_a.buffer_status.left_buffer_empty);
-		printf("int_cnt: %u \n", int_cnt);
+		bCommGetBuffersStatus(&xSpw1);
+		printf("empty r: %u \n", xSpw1.xBufferStatus.bRightBufferEmpty);
+		printf("empty l: %u \n", xSpw1.xBufferStatus.bLeftBufferEmpty);
 	}
 
 //}
@@ -856,7 +853,7 @@ int main(void) {
 //if (*pSrc++ != *pDes++){
 
 //Realiza teste dos LEDS, entra em um loop infinito.
-	TestLeds();
+	vTestLeds();
 
 	//Teste das DDR2 EEPROMs
 	//DDR2_EEPROM_TEST(DDR2_M1_ID);
@@ -892,8 +889,8 @@ int main(void) {
 	//FTDI_WRITE_REG(FTDI_DATA_BURST_REG_OFFSET, 0xF0A0B0C0);
 
 	while (1) {
-		TEMP_Read(&tempFPGA, &tempBoard);
-		SSDP_UPDATE(tempFPGA);
+		TEMP_Read(&ucTempFpga, &ucTempBoard);
+		SSDP_UPDATE(ucTempFpga);
 		usleep(1000 * 1000);
 
 		// TESTE EPC - Read
@@ -972,7 +969,7 @@ int main(void) {
  }
  */
 
-void TestLeds(void) {
+void vTestLeds(void) {
 	alt_8 led = 1;
 	//SSDP_CONFIG(SSDP_TEST_MODE);
 
@@ -1085,159 +1082,5 @@ void TestLeds(void) {
 		SSDP_UPDATE(tempFPGA);
 
 	}
-}
-
-bool TestDMA_M1_M2(void) {
-
-	alt_msgdma_dev *DMADev = NULL;
-
-	if (DMA_OPEN_DEVICE(&DMADev, (char *) DMA_DDR_M1_CSR_BASE) == FALSE) {
-		printf("Error Opening DMA Device");
-		return FALSE;
-	}
-
-	if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
-		printf("Error Reseting Dispatcher");
-		return FALSE;
-	}
-
-	alt_u32 control_bits = 0x00000000;
-
-	const alt_u32 step = DDR2_M1_MEMORY_SIZE / 16;
-	alt_u32 read_addr_arr[16];
-	read_addr_arr[0] = DDR2_M1_MEMORY_BASE;
-	read_addr_arr[1] = read_addr_arr[0] + step;
-	read_addr_arr[2] = read_addr_arr[1] + step;
-	read_addr_arr[3] = read_addr_arr[2] + step;
-	read_addr_arr[4] = read_addr_arr[3] + step;
-	read_addr_arr[5] = read_addr_arr[4] + step;
-	read_addr_arr[6] = read_addr_arr[5] + step;
-	read_addr_arr[7] = read_addr_arr[6] + step;
-	read_addr_arr[8] = read_addr_arr[7] + step;
-	read_addr_arr[9] = read_addr_arr[8] + step;
-	read_addr_arr[10] = read_addr_arr[9] + step;
-	read_addr_arr[11] = read_addr_arr[10] + step;
-	read_addr_arr[12] = read_addr_arr[11] + step;
-	read_addr_arr[13] = read_addr_arr[12] + step;
-	read_addr_arr[14] = read_addr_arr[13] + step;
-	read_addr_arr[15] = read_addr_arr[14] + step;
-
-	alt_u32 write_addr_arr[16];
-	write_addr_arr[0] = DDR2_M2_MEMORY_BASE;
-	write_addr_arr[1] = write_addr_arr[0] + step;
-	write_addr_arr[2] = write_addr_arr[1] + step;
-	write_addr_arr[3] = write_addr_arr[2] + step;
-	write_addr_arr[4] = write_addr_arr[3] + step;
-	write_addr_arr[5] = write_addr_arr[4] + step;
-	write_addr_arr[6] = write_addr_arr[5] + step;
-	write_addr_arr[7] = write_addr_arr[6] + step;
-	write_addr_arr[8] = write_addr_arr[7] + step;
-	write_addr_arr[9] = write_addr_arr[8] + step;
-	write_addr_arr[10] = write_addr_arr[9] + step;
-	write_addr_arr[11] = write_addr_arr[10] + step;
-	write_addr_arr[12] = write_addr_arr[11] + step;
-	write_addr_arr[13] = write_addr_arr[12] + step;
-	write_addr_arr[14] = write_addr_arr[13] + step;
-	write_addr_arr[15] = write_addr_arr[14] + step;
-
-	DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
-
-	int TimeStart, TimeElapsed = 0;
-
-	TimeStart = alt_nticks();
-	if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, 16, step,
-			control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
-		printf("Error During DMA Transfer");
-		return FALSE;
-	}
-	TimeElapsed = alt_nticks() - TimeStart;
-	printf("%.3f sec\n", (float) TimeElapsed / (float) alt_ticks_per_second());
-
-	if (DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE,
-	DDR2_TIME) == TRUE) {
-		printf("Transfer executed correctly\n");
-	} else {
-		printf("Transfer failed\n");
-		return FALSE;
-	}
-
-	return TRUE;
-}
-
-bool TestDMA_M2_M1(void) {
-
-	alt_msgdma_dev *DMADev = NULL;
-
-	if (DMA_OPEN_DEVICE(&DMADev, (char *) DMA_DDR_M1_CSR_NAME) == FALSE) {
-		printf("Error Opening DMA Device");
-		return FALSE;
-	}
-
-	if (DMA_DISPATCHER_RESET(DMADev, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
-		printf("Error Reseting Dispatcher");
-		return FALSE;
-	}
-
-	alt_u32 control_bits = 0x00000000;
-
-	const alt_u32 step = DDR2_M2_MEMORY_SIZE / 16;
-	alt_u32 read_addr_arr[16];
-	read_addr_arr[0] = DDR2_M2_MEMORY_BASE;
-	read_addr_arr[1] = read_addr_arr[0] + step;
-	read_addr_arr[2] = read_addr_arr[1] + step;
-	read_addr_arr[3] = read_addr_arr[2] + step;
-	read_addr_arr[4] = read_addr_arr[3] + step;
-	read_addr_arr[5] = read_addr_arr[4] + step;
-	read_addr_arr[6] = read_addr_arr[5] + step;
-	read_addr_arr[7] = read_addr_arr[6] + step;
-	read_addr_arr[8] = read_addr_arr[7] + step;
-	read_addr_arr[9] = read_addr_arr[8] + step;
-	read_addr_arr[10] = read_addr_arr[9] + step;
-	read_addr_arr[11] = read_addr_arr[10] + step;
-	read_addr_arr[12] = read_addr_arr[11] + step;
-	read_addr_arr[13] = read_addr_arr[12] + step;
-	read_addr_arr[14] = read_addr_arr[13] + step;
-	read_addr_arr[15] = read_addr_arr[14] + step;
-
-	alt_u32 write_addr_arr[16];
-	write_addr_arr[0] = DDR2_M1_MEMORY_BASE;
-	write_addr_arr[1] = write_addr_arr[0] + step;
-	write_addr_arr[2] = write_addr_arr[1] + step;
-	write_addr_arr[3] = write_addr_arr[2] + step;
-	write_addr_arr[4] = write_addr_arr[3] + step;
-	write_addr_arr[5] = write_addr_arr[4] + step;
-	write_addr_arr[6] = write_addr_arr[5] + step;
-	write_addr_arr[7] = write_addr_arr[6] + step;
-	write_addr_arr[8] = write_addr_arr[7] + step;
-	write_addr_arr[9] = write_addr_arr[8] + step;
-	write_addr_arr[10] = write_addr_arr[9] + step;
-	write_addr_arr[11] = write_addr_arr[10] + step;
-	write_addr_arr[12] = write_addr_arr[11] + step;
-	write_addr_arr[13] = write_addr_arr[12] + step;
-	write_addr_arr[14] = write_addr_arr[13] + step;
-	write_addr_arr[15] = write_addr_arr[14] + step;
-
-	DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
-
-	int TimeStart, TimeElapsed = 0;
-
-	TimeStart = alt_nticks();
-	if (DMA_MULTIPLE_TRANSFER(DMADev, read_addr_arr, write_addr_arr, 16, step,
-			control_bits, DMA_WAIT, DMA_DEFAULT_WAIT_PERIOD) == FALSE) {
-		printf("Error During DMA Transfer");
-		return FALSE;
-	}
-	TimeElapsed = alt_nticks() - TimeStart;
-	printf("%.3f sec\n", (float) TimeElapsed / (float) alt_ticks_per_second());
-
-	if (DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M1_ID, DDR2_VERBOSE,
-	DDR2_TIME) == TRUE) {
-		printf("Transfer executed correctly\n");
-	} else {
-		printf("Transfer failed\n");
-		return FALSE;
-	}
-
-	return TRUE;
 }
 

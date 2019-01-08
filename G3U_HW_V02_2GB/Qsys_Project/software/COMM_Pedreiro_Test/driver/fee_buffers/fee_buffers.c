@@ -7,428 +7,411 @@
 
 #include "fee_buffers.h"
 
-alt_msgdma_dev *dma_m1_dev = NULL;
-alt_msgdma_dev *dma_m2_dev = NULL;
+alt_msgdma_dev *pxDmaM1Dev = NULL;
+alt_msgdma_dev *pxDmaM2Dev = NULL;
 
-bool fee_init_m1_dma(void) {
-	bool status = TRUE;
-	alt_u16 counter = 0;
+bool bFeebInitM1Dma(void) {
+	bool bStatus = TRUE;
+	alt_u16 usiCounter = 0;
 
 	// open dma device
-	dma_m1_dev = alt_msgdma_open((char *) FEE_DMA_M1_NAME);
+	pxDmaM1Dev = alt_msgdma_open((char *) FEEB_DMA_M1_NAME);
 
 	// check if the device was opened
-	if (dma_m1_dev == NULL) {
+	if (pxDmaM1Dev == NULL) {
 		// device not opened
-		status = FALSE;
+		bStatus = FALSE;
 	} else {
 		// device opened
 		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(dma_m1_dev->csr_base,
+		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaM1Dev->csr_base,
 				ALTERA_MSGDMA_CSR_RESET_MASK);
-		while (IORD_ALTERA_MSGDMA_CSR_STATUS(dma_m1_dev->csr_base)
+		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1Dev->csr_base)
 				& ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
 			usleep(1);
-			counter++;
-			if (counter >= 5000) { //wait at most 5ms for the device to be reseted
-				status = FALSE;
+			usiCounter++;
+			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+				bStatus = FALSE;
 				break;
 			}
 		}
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool fee_init_m2_dma(void) {
-	bool status = TRUE;
-	alt_u16 counter = 0;
+bool bFeebInitM2Dma(void) {
+	bool bStatus = TRUE;
+	alt_u16 usiCounter = 0;
 
 	// open dma device
-	dma_m2_dev = alt_msgdma_open((char *) FEE_DMA_M2_NAME);
+	pxDmaM2Dev = alt_msgdma_open((char *) FEEB_DMA_M2_NAME);
 
 	// check if the device was opened
-	if (dma_m2_dev == NULL) {
+	if (pxDmaM2Dev == NULL) {
 		// device not opened
-		status = FALSE;
+		bStatus = FALSE;
 	} else {
 		// device opened
 		// reset the dispatcher
-		IOWR_ALTERA_MSGDMA_CSR_CONTROL(dma_m2_dev->csr_base,
+		IOWR_ALTERA_MSGDMA_CSR_CONTROL(pxDmaM2Dev->csr_base,
 				ALTERA_MSGDMA_CSR_RESET_MASK);
-		while (IORD_ALTERA_MSGDMA_CSR_STATUS(dma_m2_dev->csr_base)
+		while (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base)
 				& ALTERA_MSGDMA_CSR_RESET_STATE_MASK) {
 			usleep(1);
-			counter++;
-			if (counter >= 5000) { //wait at most 5ms for the device to be reseted
-				status = FALSE;
+			usiCounter++;
+			if (5000 <= usiCounter) { //wait at most 5ms for the device to be reseted
+				bStatus = FALSE;
 				break;
 			}
 		}
 	}
 
-	return status;
+	return bStatus;
 }
 
-bool fee_dma_m1_transfer(alt_u32 *ddr_initial_address, alt_u16 size_in_blocks,
-		alt_u8 buffer_side, alt_u8 channel_buffer_id) {
-	bool status = TRUE;
-	alt_u16 cnt = 0;
+bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
+		alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
+	bool bStatus = TRUE;
+	alt_u16 usiCnt = 0;
 
-	alt_msgdma_extended_descriptor dma_extended_descriptor;
+	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
 
-	alt_u32 dest_addr_low = 0;
-	alt_u32 dest_addr_high = 0;
+	alt_u32 uliDestAddrLow = 0;
+	alt_u32 uliDestAddrHigh = 0;
 
-	alt_u32 src_addr_low = 0;
-	alt_u32 src_addr_high = 0;
+	alt_u32 uliSrcAddrLow = 0;
+	alt_u32 uliSrcAddrHigh = 0;
 
-	alt_u32 control_bits = 0x00000000;
+	alt_u32 uliControlBits = 0x00000000;
 
-	switch (channel_buffer_id) {
-	case channel_a_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_A_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_A_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	switch (ucChBufferId) {
+	case eFeebCh1Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_1_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_1_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_A_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_A_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_1_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_1_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_b_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_B_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_B_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh2Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_2_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_2_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_B_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_B_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_2_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_2_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_c_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_C_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_C_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh3Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_3_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_3_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_C_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_C_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_3_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_3_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_d_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_D_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_D_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh4Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_4_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_4_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_D_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_D_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_4_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_4_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_e_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_E_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_E_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh5Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_5_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_5_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_E_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_E_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_5_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_5_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_f_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_F_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_F_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh6Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_6_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_6_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_F_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_F_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_6_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_6_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_g_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_G_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_G_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh7Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_7_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_7_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_G_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_G_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_7_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_7_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_h_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_H_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_H_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh8Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_8_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_8_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_H_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_H_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_8_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_8_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
 	default:
-		status = FALSE;
+		bStatus = FALSE;
 		break;
 	}
 
-	src_addr_low = (alt_u32) FEE_M1_BASE_ADDR_LOW
-			+ (alt_u32) ddr_initial_address;
-	src_addr_high = (alt_u32) FEE_M1_BASE_ADDR_HIGH;
+	uliSrcAddrLow = (alt_u32) FEEB_M1_BASE_ADDR_LOW
+			+ (alt_u32) uliDdrInitialAddr;
+	uliSrcAddrHigh = (alt_u32) FEEB_M1_BASE_ADDR_HIGH;
 
-	if (status) {
-		if (dma_m1_dev == NULL) {
-			status = FALSE;
+	if (bStatus) {
+		if (pxDmaM1Dev == NULL) {
+			bStatus = FALSE;
 		} else {
-			for (cnt = 0; cnt < size_in_blocks; cnt++) {
-				if (msgdma_construct_extended_mm_to_mm_descriptor(dma_m1_dev,
-						&dma_extended_descriptor, (alt_u32 *) src_addr_low,
-						(alt_u32 *) dest_addr_low,
-						FEE_PIXEL_BLOCK_SIZE_BYTES, control_bits,
-						(alt_u32 *) src_addr_high, (alt_u32 *) dest_addr_high,
+			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
+				if (msgdma_construct_extended_mm_to_mm_descriptor(pxDmaM1Dev,
+						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+						(alt_u32 *) uliDestAddrLow,
+						FEEB_PIXEL_BLOCK_SIZE_BYTES, uliControlBits,
+						(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 						1, 1, 1, 1, 1)) {
-					status = FALSE;
+					bStatus = FALSE;
 					break;
 				} else {
-					if (msgdma_extended_descriptor_sync_transfer(dma_m1_dev,
-							&dma_extended_descriptor)) {
-						status = FALSE;
+					if (msgdma_extended_descriptor_sync_transfer(pxDmaM1Dev,
+							&xDmaExtendedDescriptor)) {
+						bStatus = FALSE;
 						break;
 					}
-					src_addr_low += (alt_u32) FEE_PIXEL_BLOCK_SIZE_BYTES;
-					src_addr_high = (alt_u32) FEE_M1_BASE_ADDR_HIGH;
+					uliSrcAddrLow += (alt_u32) FEEB_PIXEL_BLOCK_SIZE_BYTES;
+					uliSrcAddrHigh = (alt_u32) FEEB_M1_BASE_ADDR_HIGH;
 				}
 			}
 		}
 	}
-	return status;
+	return bStatus;
 }
 
-bool fee_dma_m2_transfer(alt_u32 *ddr_initial_address, alt_u16 size_in_blocks,
-		alt_u8 buffer_side, alt_u8 channel_buffer_id) {
-	bool status = TRUE;
-	alt_u16 cnt = 0;
+bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
+		alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
+	bool bStatus = TRUE;
+	alt_u16 usiCnt = 0;
 
-	alt_msgdma_extended_descriptor dma_extended_descriptor;
+	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
 
-	alt_u32 dest_addr_low = 0;
-	alt_u32 dest_addr_high = 0;
+	alt_u32 uliDestAddrLow = 0;
+	alt_u32 uliDestAddrHigh = 0;
 
-	alt_u32 src_addr_low = 0;
-	alt_u32 src_addr_high = 0;
+	alt_u32 uliSrcAddrLow = 0;
+	alt_u32 uliSrcAddrHigh = 0;
 
-	alt_u32 control_bits = 0x00000000;
+	alt_u32 uliControlBits = 0x00000000;
 
-	switch (channel_buffer_id) {
-	case channel_a_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_A_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_A_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	switch (ucChBufferId) {
+	case eFeebCh1Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_1_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_1_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_A_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_A_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_1_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_1_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_b_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_B_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_B_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh2Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_2_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_2_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_B_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_B_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_2_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_2_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_c_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_C_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_C_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh3Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_3_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_3_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_C_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_C_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_3_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_3_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_d_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_D_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_D_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh4Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_4_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_4_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_D_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_D_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_4_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_4_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_e_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_E_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_E_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh5Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_5_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_5_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_E_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_E_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_5_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_5_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_f_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_F_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_F_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh6Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_6_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_6_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_F_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_F_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_6_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_6_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_g_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_G_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_G_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh7Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_7_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_7_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_G_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_G_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_7_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_7_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
-	case channel_h_buffer:
-		switch (buffer_side) {
-		case right_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_H_RIGHT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high =
-					(alt_u32) FEE_CHANNEL_H_RIGHT_BUFFER_BASE_ADDR_HIGH;
+	case eFeebCh8Buffer:
+		switch (ucBufferSide) {
+		case eFeebRightBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_8_R_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_8_R_BUFF_BASE_ADDR_HIGH;
 			break;
-		case left_buffer:
-			dest_addr_low = (alt_u32) FEE_CHANNEL_H_LEFT_BUFFER_BASE_ADDR_LOW;
-			dest_addr_high = (alt_u32) FEE_CHANNEL_H_LEFT_BUFFER_BASE_ADDR_HIGH;
+		case eFeebLeftBuffer:
+			uliDestAddrLow = (alt_u32) FEEB_CH_8_L_BUFF_BASE_ADDR_LOW;
+			uliDestAddrHigh = (alt_u32) FEEB_CH_8_L_BUFF_BASE_ADDR_HIGH;
 			break;
 		default:
-			status = FALSE;
+			bStatus = FALSE;
 			break;
 		}
 		break;
 	default:
-		status = FALSE;
+		bStatus = FALSE;
 		break;
 	}
 
-	src_addr_low = (alt_u32) FEE_M2_BASE_ADDR_LOW
-			+ (alt_u32) ddr_initial_address;
-	src_addr_high = (alt_u32) FEE_M2_BASE_ADDR_HIGH;
+	uliSrcAddrLow = (alt_u32) FEEB_M2_BASE_ADDR_LOW
+			+ (alt_u32) uliDdrInitialAddr;
+	uliSrcAddrHigh = (alt_u32) FEEB_M2_BASE_ADDR_HIGH;
 
-	if (status) {
-		if (dma_m2_dev == NULL) {
-			status = FALSE;
+	if (bStatus) {
+		if (pxDmaM2Dev == NULL) {
+			bStatus = FALSE;
 		} else {
-			for (cnt = 0; cnt < size_in_blocks; cnt++) {
-				if (msgdma_construct_extended_mm_to_mm_descriptor(dma_m2_dev,
-						&dma_extended_descriptor, (alt_u32 *) src_addr_low,
-						(alt_u32 *) dest_addr_low,
-						FEE_PIXEL_BLOCK_SIZE_BYTES, control_bits,
-						(alt_u32 *) src_addr_high, (alt_u32 *) dest_addr_high,
+			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
+				if (msgdma_construct_extended_mm_to_mm_descriptor(pxDmaM2Dev,
+						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+						(alt_u32 *) uliDestAddrLow,
+						FEEB_PIXEL_BLOCK_SIZE_BYTES, uliControlBits,
+						(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 						1, 1, 1, 1, 1)) {
-					status = FALSE;
+					bStatus = FALSE;
 					break;
 				} else {
-					if (msgdma_extended_descriptor_sync_transfer(dma_m2_dev,
-							&dma_extended_descriptor)) {
-						status = FALSE;
+					if (msgdma_extended_descriptor_sync_transfer(pxDmaM2Dev,
+							&xDmaExtendedDescriptor)) {
+						bStatus = FALSE;
 						break;
 					}
-					src_addr_low += (alt_u32) FEE_PIXEL_BLOCK_SIZE_BYTES;
-					src_addr_high = (alt_u32) FEE_M2_BASE_ADDR_HIGH;
+					uliSrcAddrLow += (alt_u32) FEEB_PIXEL_BLOCK_SIZE_BYTES;
+					uliSrcAddrHigh = (alt_u32) FEEB_M2_BASE_ADDR_HIGH;
 				}
 			}
 		}
 	}
-	return status;
-	return status;
+	return bStatus;
 }
