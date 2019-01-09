@@ -70,7 +70,7 @@ entity rmap_target_mem_wr_ent is
 
 		mem_flag_o         : out t_rmap_target_mem_wr_flag;
 		memory_address_o   : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
-		memory_data_o      : out std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0)
+		memory_data_o      : out std_logic_vector(((8 * (2 ** g_MEMORY_ACCESS_WIDTH)) - 1) downto 0)
 		-- data bus(es)
 	);
 end entity rmap_target_mem_wr_ent;

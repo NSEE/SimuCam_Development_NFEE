@@ -171,7 +171,8 @@ begin
 	rmap_target_read_ent_inst : entity work.rmap_target_read_ent
 		generic map(
 			g_MEMORY_ADDRESS_WIDTH => g_MEMORY_ADDRESS_WIDTH,
-			g_DATA_LENGTH_WIDTH    => g_DATA_LENGTH_WIDTH
+			g_DATA_LENGTH_WIDTH    => g_DATA_LENGTH_WIDTH,
+			g_MEMORY_ACCESS_WIDTH  => g_MEMORY_ACCESS_WIDTH
 		)
 		port map(
 			clk_i                                      => clk_i,

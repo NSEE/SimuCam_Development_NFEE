@@ -65,7 +65,7 @@ entity rmap_target_mem_rd_ent is
 		reset_n_i        : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		mem_control_i    : in  t_rmap_target_mem_rd_control;
-		memory_data_i    : in  std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0);
+		memory_data_i    : in  std_logic_vector(((8 * (2 ** g_MEMORY_ACCESS_WIDTH)) - 1) downto 0);
 		mem_byte_address_i : in  std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
 		-- global output signals
 
