@@ -1,9 +1,0 @@
-set_global_assignment -name IP_TOOL_NAME "ALTDDIO_IN"
-set_global_assignment -name IP_TOOL_VERSION "14.0"
-set_global_assignment -name IP_GENERATED_DEVICE_FAMILY "{Stratix IV}"
-set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "ALTDDIO.vhd"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ALTDDIO.bsf"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ALTDDIO_inst.vhd"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ALTDDIO.inc"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ALTDDIO.cmp"]
-set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ALTDDIO.ppf"]
