@@ -8,8 +8,8 @@
 #ifndef FEE_BUFFERS_H_
 #define FEE_BUFFERS_H_
 
-#include "../../utils/meb_includes.h"
-#include "../../logic/dma/dma.h"
+#include "../comm.h"
+#include "../../../logic/dma/dma.h"
 
 // spw channel 1 [a]
 #define FEEB_CH_1_R_BUFF_BASE_ADDR_LOW  0x00000000
@@ -107,9 +107,96 @@ enum FeeChBufferId {
 
 bool bFeebInitM1Dma(void);
 bool bFeebInitM2Dma(void);
-bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
+bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
 		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
-bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
+bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
 		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bFeebSetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+
+//! [constants definition]
+// address
+// bit masks
+//! [constants definition]
+
+//! [public module structs definition]
+typedef struct FeebWindowingConfig {
+	bool bMasking;
+} TFeebWindowingConfig;
+
+typedef struct FeebIrqControl {
+	bool bLeftBufferEmptyEn;
+	bool bRightBufferEmptyEn;
+} TFeebIrqControl;
+
+typedef struct FeebIrqFlag {
+	bool bBufferEmptyFlag;
+} TFeebIrqFlag;
+
+typedef struct FeebBufferStatus {
+	bool bLeftBufferEmpty;
+	bool bRightBufferEmpty;
+} TFeebBufferStatus;
+
+TFeebWindowingConfig xWindowingConfig;
+TFeebIrqControl xIrqControl;
+TFeebIrqFlag xIrqFlag;
+TFeebBufferStatus xBufferStatus;
+
+//! [public module structs definition]
+
+//! [public function prototypes]
+void vFeebCh1HandleIrq(void* pvContext);
+void vFeebCh2HandleIrq(void* pvContext);
+void vFeebCh3HandleIrq(void* pvContext);
+void vFeebCh4HandleIrq(void* pvContext);
+void vFeebCh5HandleIrq(void* pvContext);
+void vFeebCh6HandleIrq(void* pvContext);
+void vFeebCh7HandleIrq(void* pvContext);
+void vFeebCh8HandleIrq(void* pvContext);
+
+void vFeebCh1IrqFlagClrBufferEmpty(void);
+void vFeebCh2IrqFlagClrBufferEmpty(void);
+void vFeebCh3IrqFlagClrBufferEmpty(void);
+void vFeebCh4IrqFlagClrBufferEmpty(void);
+void vFeebCh5IrqFlagClrBufferEmpty(void);
+void vFeebCh6IrqFlagClrBufferEmpty(void);
+void vFeebCh7IrqFlagClrBufferEmpty(void);
+void vFeebCh8IrqFlagClrBufferEmpty(void);
+
+bool bFeebCh1IrqFlagBufferEmpty(void);
+bool bFeebCh2IrqFlagBufferEmpty(void);
+bool bFeebCh3IrqFlagBufferEmpty(void);
+bool bFeebCh4IrqFlagBufferEmpty(void);
+bool bFeebCh5IrqFlagBufferEmpty(void);
+bool bFeebCh6IrqFlagBufferEmpty(void);
+bool bFeebCh7IrqFlagBufferEmpty(void);
+bool bFeebCh8IrqFlagBufferEmpty(void);
+
+void vFeebInitIrq(alt_u8 ucSpwCh);
+
+// Get functions -> get data from hardware to channel variable
+// Set functions -> set data from channel variable to hardware
+
+bool bFeebSetIrqControl(TSpwcChannel *pxCh);
+bool bFeebGetIrqControl(TSpwcChannel *pxCh);
+bool bFeebGetIrqFlags(TSpwcChannel *pxCh);
+
+bool bFeebGetBuffersStatus(TSpwcChannel *pxCh);
+
+bool bFeebSetWindowing(TSpwcChannel *pxCh);
+bool bFeebGetWindowing(TSpwcChannel *pxCh);
+//! [public function prototypes]
+
+//! [data memory public global variables - use extern]
+//! [data memory public global variables - use extern]
+
+//! [flags]
+//! [flags]
+
+//! [program memory public global variables - use extern]
+//! [program memory public global variables - use extern]
+
+//! [macros]
+//! [macros]
 
 #endif /* FEE_BUFFERS_H_ */

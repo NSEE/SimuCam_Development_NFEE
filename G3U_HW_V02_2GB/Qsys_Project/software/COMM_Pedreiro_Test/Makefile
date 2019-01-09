@@ -158,10 +158,13 @@ C_SRCS += utils/util.c
 C_SRCS += mebxhwt01.c
 C_SRCS += driver/comm/comm.c
 C_SRCS += driver/msgdma/msgdma.c
-C_SRCS += driver/fee_buffers/fee_buffers.c
 C_SRCS += driver/reset/reset.c
 C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
 C_SRCS += driver/sync/sync.c
+C_SRCS += driver/comm/data_packet/data_packet.c
+C_SRCS += driver/comm/fee_buffers/fee_buffers.c
+C_SRCS += driver/comm/rmap/rmap.c
+C_SRCS += driver/comm/spw_controller/spw_controller.c
 CXX_SRCS :=
 ASM_SRCS :=
 

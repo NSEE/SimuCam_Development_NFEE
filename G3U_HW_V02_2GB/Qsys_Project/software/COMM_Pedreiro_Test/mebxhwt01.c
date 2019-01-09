@@ -38,14 +38,14 @@
 
 void vTestLeds(void);
 
-TCommChannel xSpw1;
-TCommChannel xSpw2;
-TCommChannel xSpw3;
-TCommChannel xSpw4;
-TCommChannel xSpw5;
-TCommChannel xSpw6;
-TCommChannel xSpw7;
-TCommChannel xSpw8;
+TSpwcChannel xSpw1;
+TSpwcChannel xSpw2;
+TSpwcChannel xSpw3;
+TSpwcChannel xSpw4;
+TSpwcChannel xSpw5;
+TSpwcChannel xSpw6;
+TSpwcChannel xSpw7;
+TSpwcChannel xSpw8;
 
 int main(void) {
 
@@ -71,21 +71,21 @@ int main(void) {
 	//Configura Display de 7 segmentos
 	SSDP_CONFIG(SSDP_NORMAL_MODE);
 
-	bCommInitCh(&xSpw1, eCommSpwCh1);
-	bCommInitCh(&xSpw2, eCommSpwCh2);
-	bCommInitCh(&xSpw3, eCommSpwCh3);
-	bCommInitCh(&xSpw4, eCommSpwCh4);
-	bCommInitCh(&xSpw5, eCommSpwCh5);
-	bCommInitCh(&xSpw6, eCommSpwCh6);
-	bCommInitCh(&xSpw7, eCommSpwCh7);
-	bCommInitCh(&xSpw8, eCommSpwCh8);
+	bSpwcInitCh(&xSpw1, eCommSpwCh1);
+	bSpwcInitCh(&xSpw2, eCommSpwCh2);
+	bSpwcInitCh(&xSpw3, eCommSpwCh3);
+	bSpwcInitCh(&xSpw4, eCommSpwCh4);
+	bSpwcInitCh(&xSpw5, eCommSpwCh5);
+	bSpwcInitCh(&xSpw6, eCommSpwCh6);
+	bSpwcInitCh(&xSpw7, eCommSpwCh7);
+	bSpwcInitCh(&xSpw8, eCommSpwCh8);
 
-//	vCommInitIrq(eCommSpwCh1);
+//	vFeebInitIrq(eCommSpwCh1);
 //	int_cnt = 0;
 //	printf("int_cnt: %u \n", int_cnt);
 //
 //	xSpw1.xIrqControl.bRightBufferEmptyEn = FALSE;
-//	bCommSetIrqControl(&xSpw1);
+//	bFeebSetIrqControl(&xSpw1);
 
 	xSpw1.xLinkConfig.bAutostart = FALSE;
 	xSpw1.xLinkConfig.bStart = FALSE;
@@ -111,14 +111,14 @@ int main(void) {
 	xSpw8.xLinkConfig.bAutostart = FALSE;
 	xSpw8.xLinkConfig.bStart = FALSE;
 	xSpw8.xLinkConfig.bDisconnect = TRUE;
-	bCommSetLink(&xSpw1);
-	bCommSetLink(&xSpw2);
-	bCommSetLink(&xSpw3);
-	bCommSetLink(&xSpw4);
-	bCommSetLink(&xSpw5);
-	bCommSetLink(&xSpw6);
-	bCommSetLink(&xSpw7);
-	bCommSetLink(&xSpw8);
+	bSpwcSetLink(&xSpw1);
+	bSpwcSetLink(&xSpw2);
+	bSpwcSetLink(&xSpw3);
+	bSpwcSetLink(&xSpw4);
+	bSpwcSetLink(&xSpw5);
+	bSpwcSetLink(&xSpw6);
+	bSpwcSetLink(&xSpw7);
+	bSpwcSetLink(&xSpw8);
 
 	usleep(50000);
 	usleep(1000000);
@@ -155,41 +155,41 @@ int main(void) {
 	xSpw8.xLinkConfig.bAutostart = TRUE;
 //	xSpw8.xLinkConfig.bStart = TRUE;
 	xSpw8.xLinkConfig.bDisconnect = FALSE;
-	bCommSetWindowing(&xSpw1);
-	bCommSetWindowing(&xSpw2);
-	bCommSetWindowing(&xSpw3);
-	bCommSetWindowing(&xSpw4);
-	bCommSetWindowing(&xSpw5);
-	bCommSetWindowing(&xSpw6);
-	bCommSetWindowing(&xSpw7);
-	bCommSetWindowing(&xSpw8);
-	bCommSetLink(&xSpw1);
-	bCommSetLink(&xSpw2);
-	bCommSetLink(&xSpw3);
-	bCommSetLink(&xSpw4);
-	bCommSetLink(&xSpw5);
-	bCommSetLink(&xSpw6);
-	bCommSetLink(&xSpw7);
-	bCommSetLink(&xSpw8);
+	bFeebSetWindowing(&xSpw1);
+	bFeebSetWindowing(&xSpw2);
+	bFeebSetWindowing(&xSpw3);
+	bFeebSetWindowing(&xSpw4);
+	bFeebSetWindowing(&xSpw5);
+	bFeebSetWindowing(&xSpw6);
+	bFeebSetWindowing(&xSpw7);
+	bFeebSetWindowing(&xSpw8);
+	bSpwcSetLink(&xSpw1);
+	bSpwcSetLink(&xSpw2);
+	bSpwcSetLink(&xSpw3);
+	bSpwcSetLink(&xSpw4);
+	bSpwcSetLink(&xSpw5);
+	bSpwcSetLink(&xSpw6);
+	bSpwcSetLink(&xSpw7);
+	bSpwcSetLink(&xSpw8);
 
 //	xSpw1.xWindowingConfig.bMasking = TRUE;
-//	bCommSetWindowing(&xSpw1);
+//	bFeebSetWindowing(&xSpw1);
 
 //	xSpw8.xLinkConfig.bAutostart = TRUE;
-//	bCommSetLink(&xSpw8);
+//	bSpwcSetLink(&xSpw8);
 //
-//	bCommGetLink(&xSpw8);
+//	bSpwcGetLink(&xSpw8);
 //	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
 //	vRstcHoldDeviceReset(RSTC_DEV_COMM_CH8_RST_CTRL_MSK);
 //	usleep(5000);
 //	vRstcReleaseDeviceReset(RSTC_DEV_COMM_CH8_RST_CTRL_MSK);
-//	bCommGetLink(&xSpw8);
+//	bSpwcGetLink(&xSpw8);
 //	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
 //
 //	xSpw8.xLinkConfig.bAutostart = TRUE;
-//	bCommSetLink(&xSpw8);
+//	bSpwcSetLink(&xSpw8);
 //
-//	bCommGetLink(&xSpw8);
+//	bSpwcGetLink(&xSpw8);
 //	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
 
 	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
@@ -676,7 +676,7 @@ int main(void) {
 	while (bLoop) {
 		usleep(5000);
 
-		bCommGetLinkStatus(&xSpw1);
+		bSpwcGetLinkStatus(&xSpw1);
 		if (xSpw1.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
@@ -685,7 +685,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw2);
+		bSpwcGetLinkStatus(&xSpw2);
 		if (xSpw2.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
@@ -694,7 +694,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw3);
+		bSpwcGetLinkStatus(&xSpw3);
 		if (xSpw3.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
@@ -703,7 +703,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw4);
+		bSpwcGetLinkStatus(&xSpw4);
 		if (xSpw4.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
@@ -712,7 +712,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw5);
+		bSpwcGetLinkStatus(&xSpw5);
 		if (xSpw5.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
@@ -721,7 +721,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw6);
+		bSpwcGetLinkStatus(&xSpw6);
 		if (xSpw6.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
@@ -730,7 +730,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw7);
+		bSpwcGetLinkStatus(&xSpw7);
 		if (xSpw7.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
@@ -739,7 +739,7 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
 		}
 
-		bCommGetLinkStatus(&xSpw8);
+		bSpwcGetLinkStatus(&xSpw8);
 		if (xSpw8.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
@@ -775,7 +775,7 @@ int main(void) {
 //				printf("dma_m1 transferido corretamente \n");
 //			}
 			usleep(500);
-			bCommGetBuffersStatus(&xSpw1);
+			bFeebGetBuffersStatus(&xSpw1);
 			printf("empty: %u \n", xSpw1.xBufferStatus.bRightBufferEmpty);
 			break;
 
@@ -790,15 +790,15 @@ int main(void) {
 		}
 	}
 
-	bCommSetLink(&xSpw1);
-	bCommSetLink(&xSpw8);
+	bSpwcSetLink(&xSpw1);
+	bSpwcSetLink(&xSpw8);
 
-	//*xSpw1.puliChAddr = 0x102;
-	printf("%08lX", *(xSpw1.puliChAddr));
+	//*xSpw1.puliSpwcChAddr = 0x102;
+	printf("%08lX", *(xSpw1.puliSpwcChAddr));
 
 	usleep(10000);
 
-	bCommGetLinkStatus(&xSpw1);
+	bSpwcGetLinkStatus(&xSpw1);
 	if (xSpw1.xLinkStatus.bRunning) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
@@ -807,7 +807,7 @@ int main(void) {
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 	}
 
-	bCommGetLinkStatus(&xSpw8);
+	bSpwcGetLinkStatus(&xSpw8);
 	if (xSpw8.xLinkStatus.bRunning) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
@@ -822,7 +822,7 @@ int main(void) {
 		for (i = 0; i < 1000; i++) {
 			usleep(1000);
 		}
-		bCommGetBuffersStatus(&xSpw1);
+		bFeebGetBuffersStatus(&xSpw1);
 		printf("empty r: %u \n", xSpw1.xBufferStatus.bRightBufferEmpty);
 		printf("empty l: %u \n", xSpw1.xBufferStatus.bLeftBufferEmpty);
 	}

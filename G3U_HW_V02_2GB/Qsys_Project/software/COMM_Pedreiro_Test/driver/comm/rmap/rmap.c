@@ -1,4 +1,11 @@
-#include "comm.h"
+/*
+ * rmap.c
+ *
+ *  Created on: 09/01/2019
+ *      Author: rfranca
+ */
+
+#include "rmap.h"
 
 //! [private function prototypes]
 //! [private function prototypes]
@@ -20,4 +27,3 @@
 
 //! [private functions]
 //! [private functions]
-

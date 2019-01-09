@@ -31,49 +31,49 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS
   8 .comment      00000023  00000000  00000000  00024000  2**0
                   CONTENTS, READONLY
-  9 .debug_aranges 00001378  00000000  00000000  00024028  2**3
+  9 .debug_aranges 000013a8  00000000  00000000  00024028  2**3
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_info   0003143d  00000000  00000000  000253a0  2**0
+ 10 .debug_info   0003163f  00000000  00000000  000253d0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 0000c48d  00000000  00000000  000567dd  2**0
+ 11 .debug_abbrev 0000c571  00000000  00000000  00056a0f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00010375  00000000  00000000  00062c6a  2**0
+ 12 .debug_line   00010555  00000000  00000000  00062f80  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_frame  00004cc4  00000000  00000000  00072fe0  2**2
+ 13 .debug_frame  00004cc4  00000000  00000000  000734d8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    000071e1  00000000  00000000  00077ca4  2**0
+ 14 .debug_str    0000721d  00000000  00000000  0007819c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_loc    000196a9  00000000  00000000  0007ee85  2**0
+ 15 .debug_loc    000196a9  00000000  00000000  0007f3b9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_alt_sim_info 00000040  00000000  00000000  00098530  2**2
+ 16 .debug_alt_sim_info 00000040  00000000  00000000  00098a64  2**2
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_ranges 00001b58  00000000  00000000  00098570  2**3
+ 17 .debug_ranges 00001b58  00000000  00000000  00098aa8  2**3
                   CONTENTS, READONLY, DEBUGGING
- 18 .thread_model 00000003  00000000  00000000  000a0999  2**0
+ 18 .thread_model 00000003  00000000  00000000  000a0f05  2**0
                   CONTENTS, READONLY
- 19 .cpu          0000000c  00000000  00000000  000a099c  2**0
+ 19 .cpu          0000000c  00000000  00000000  000a0f08  2**0
                   CONTENTS, READONLY
- 20 .qsys         00000001  00000000  00000000  000a09a8  2**0
+ 20 .qsys         00000001  00000000  00000000  000a0f14  2**0
                   CONTENTS, READONLY
- 21 .simulation_enabled 00000001  00000000  00000000  000a09a9  2**0
+ 21 .simulation_enabled 00000001  00000000  00000000  000a0f15  2**0
                   CONTENTS, READONLY
- 22 .sysid_hash   00000004  00000000  00000000  000a09aa  2**0
+ 22 .sysid_hash   00000004  00000000  00000000  000a0f16  2**0
                   CONTENTS, READONLY
- 23 .sysid_base   00000004  00000000  00000000  000a09ae  2**0
+ 23 .sysid_base   00000004  00000000  00000000  000a0f1a  2**0
                   CONTENTS, READONLY
- 24 .sysid_time   00000004  00000000  00000000  000a09b2  2**0
+ 24 .sysid_time   00000004  00000000  00000000  000a0f1e  2**0
                   CONTENTS, READONLY
- 25 .stderr_dev   0000000b  00000000  00000000  000a09b6  2**0
+ 25 .stderr_dev   0000000b  00000000  00000000  000a0f22  2**0
                   CONTENTS, READONLY
- 26 .stdin_dev    0000000b  00000000  00000000  000a09c1  2**0
+ 26 .stdin_dev    0000000b  00000000  00000000  000a0f2d  2**0
                   CONTENTS, READONLY
- 27 .stdout_dev   0000000b  00000000  00000000  000a09cc  2**0
+ 27 .stdout_dev   0000000b  00000000  00000000  000a0f38  2**0
                   CONTENTS, READONLY
- 28 .sopc_system_name 00000011  00000000  00000000  000a09d7  2**0
+ 28 .sopc_system_name 00000011  00000000  00000000  000a0f43  2**0
                   CONTENTS, READONLY
- 29 .quartus_project_dir 00000053  00000000  00000000  000a09e8  2**0
+ 29 .quartus_project_dir 00000053  00000000  00000000  000a0f54  2**0
                   CONTENTS, READONLY
- 30 .sopcinfo     00262647  00000000  00000000  000a0a3b  2**0
+ 30 .sopcinfo     00262647  00000000  00000000  000a0fa7  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 86020000 l    d  .entry	00000000 .entry
@@ -112,6 +112,7 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 ctrl_io_lvds.c
 8112224c l     O .rwdata	00000001 ucIoValue
 811017b4 l     F .text	00000074 bCtrlIoLvdsDrive
+00000000 l    df *ABS*	00000000 data_packet.c
 00000000 l    df *ABS*	00000000 fee_buffers.c
 00000000 l    df *ABS*	00000000 i2c.c
 00000000 l    df *ABS*	00000000 leds.c
@@ -124,6 +125,7 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 reset.c
 81103948 l     F .text	0000004c vRstcWriteReg
 81103994 l     F .text	00000048 uliRstReadReg
+00000000 l    df *ABS*	00000000 rmap.c
 00000000 l    df *ABS*	00000000 rtcc_spi.c
 00000000 l    df *ABS*	00000000 seven_seg.c
 00000000 l    df *ABS*	00000000 sync.c
@@ -3835,7 +3837,7 @@ bool bFeebInitM2Dma(void) {
 
 81101978 <bFeebDmaM1Transfer>:
 
-bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
+bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
 		alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
 81101978:	deffe904 	addi	sp,sp,-92
 8110197c:	dfc01615 	stw	ra,88(sp)
@@ -4188,7 +4190,7 @@ bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 81101ca0:	e03ff415 	stw	zero,-48(fp)
 81101ca4:	00003006 	br	81101d68 <bFeebDmaM1Transfer+0x3f0>
 		} else {
-			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
+			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
 81101ca8:	e03ff50d 	sth	zero,-44(fp)
 81101cac:	00002b06 	br	81101d5c <bFeebDmaM1Transfer+0x3e4>
 				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
@@ -4252,7 +4254,7 @@ bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 		if (pxDmaM1Dev == NULL) {
 			bStatus = FALSE;
 		} else {
-			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
+			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
 81101d50:	e0bff50b 	ldhu	r2,-44(fp)
 81101d54:	10800044 	addi	r2,r2,1
 81101d58:	e0bff50d 	sth	r2,-44(fp)
@@ -4276,7 +4278,7 @@ bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 
 81101d84 <bFeebDmaM2Transfer>:
 
-bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
+bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
 		alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
 81101d84:	deffe904 	addi	sp,sp,-92
 81101d88:	dfc01615 	stw	ra,88(sp)
@@ -4638,7 +4640,7 @@ bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 811020b4:	e03ff415 	stw	zero,-48(fp)
 811020b8:	00003006 	br	8110217c <bFeebDmaM2Transfer+0x3f8>
 		} else {
-			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
+			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
 811020bc:	e03ff50d 	sth	zero,-44(fp)
 811020c0:	00002b06 	br	81102170 <bFeebDmaM2Transfer+0x3ec>
 				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2Dev,
@@ -4702,7 +4704,7 @@ bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 		if (pxDmaM2Dev == NULL) {
 			bStatus = FALSE;
 		} else {
-			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
+			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
 81102164:	e0bff50b 	ldhu	r2,-44(fp)
 81102168:	10800044 	addi	r2,r2,1
 8110216c:	e0bff50d 	sth	r2,-44(fp)
