@@ -220,7 +220,7 @@ bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 			bStatus = FALSE;
 		} else {
 			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
-				if (msgdma_construct_extended_mm_to_mm_descriptor(pxDmaM1Dev,
+				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
 						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 						(alt_u32 *) uliDestAddrLow,
 						FEEB_PIXEL_BLOCK_SIZE_BYTES, uliControlBits,
@@ -229,7 +229,7 @@ bool bFeebDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 					bStatus = FALSE;
 					break;
 				} else {
-					if (msgdma_extended_descriptor_sync_transfer(pxDmaM1Dev,
+					if (iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM1Dev,
 							&xDmaExtendedDescriptor)) {
 						bStatus = FALSE;
 						break;
@@ -393,7 +393,7 @@ bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 			bStatus = FALSE;
 		} else {
 			for (usiCnt = 0; usiCnt < usiSizeInBlocks; usiCnt++) {
-				if (msgdma_construct_extended_mm_to_mm_descriptor(pxDmaM2Dev,
+				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2Dev,
 						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 						(alt_u32 *) uliDestAddrLow,
 						FEEB_PIXEL_BLOCK_SIZE_BYTES, uliControlBits,
@@ -402,7 +402,7 @@ bool bFeebDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiSizeInBlocks,
 					bStatus = FALSE;
 					break;
 				} else {
-					if (msgdma_extended_descriptor_sync_transfer(pxDmaM2Dev,
+					if (iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM2Dev,
 							&xDmaExtendedDescriptor)) {
 						bStatus = FALSE;
 						break;

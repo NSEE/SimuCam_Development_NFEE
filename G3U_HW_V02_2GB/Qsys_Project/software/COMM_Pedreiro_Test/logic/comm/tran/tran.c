@@ -380,7 +380,7 @@
 	bool b_Transparent_Interface_Switch_Channel(char c_SpwID){
 
 		bool bSuccess;
-		alt_u32 *pTranAddr = DDR2_ADDRESS_SPAN_EXTENDER_CNTL_BASE;
+		alt_u32 *pTranAddr = (alt_u32 *)DDR2_ADDRESS_SPAN_EXTENDER_CNTL_BASE;
 
 		  bSuccess = TRUE;
 		  switch (c_SpwID) {
@@ -429,13 +429,13 @@
 		
 		bool bSuccess = FALSE;
 		
-		alt_u32 *memory_location = DDR2_ADDRESS_SPAN_EXTENDER_WINDOWED_SLAVE_BASE;
-		printf("memory_location = %u \n", memory_location);
+		alt_u32 *memory_location = (alt_u32 *)DDR2_ADDRESS_SPAN_EXTENDER_WINDOWED_SLAVE_BASE;
+		printf("memory_location = %lu \n", (alt_u32)memory_location);
 		memory_location += (TRAN_BURST_REGISTERS_OFFSET + TRAN_TX_REGISTER_OFFSET)*2;
-		printf("memory_location = %u \n", memory_location);
+		printf("memory_location = %lu \n", (alt_u32)memory_location);
 
 		alt_u16 cnt = 0;
-		alt_u8 resto = 0;
+//		alt_u8 resto = 0;
 		
 		/* Initiate the Channel Memory Location for the Transparent Interface */
 		if ((c_SpwID >= 'A') && (c_SpwID <= 'H')) {

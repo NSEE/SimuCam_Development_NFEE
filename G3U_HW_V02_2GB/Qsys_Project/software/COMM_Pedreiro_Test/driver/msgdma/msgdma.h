@@ -53,25 +53,28 @@ extern "C"
  *  Public API
  ******************************************************************************/
 
-int msgdma_extended_descriptor_async_transfer(
-	alt_msgdma_dev *dev,
-	alt_msgdma_extended_descriptor *desc);
+int iMsgdmaExtendedDescriptorAsyncTransfer(
+	alt_msgdma_dev *pxDev,
+	alt_msgdma_extended_descriptor *pxDesc);
 
-int msgdma_construct_extended_mm_to_mm_descriptor (
-	alt_msgdma_dev *dev,
-	alt_msgdma_extended_descriptor *descriptor, 
-	alt_u32 *read_address, 
-	alt_u32 *write_address, 
-	alt_u32 length, 
-	alt_u32 control, alt_u32 *read_address_high, alt_u32 *write_address_high, alt_u16 sequence_number,
-	alt_u8 read_burst_count,
-	alt_u8 write_burst_count, 
-	alt_u16 read_stride, 
-	alt_u16 write_stride);
+int iMsgdmaConstructExtendedMmToMmDescriptor (
+	alt_msgdma_dev *pxDev,
+	alt_msgdma_extended_descriptor *pxDescriptor,
+	alt_u32 *puliReadAddress,
+	alt_u32 *puliWriteAddress,
+	alt_u32 uliLength,
+	alt_u32 uliControl,
+	alt_u32 *puliReadAddressHigh,
+	alt_u32 *puliWriteAddressHigh,
+	alt_u16 usiSequenceNumber,
+	alt_u8 ucReadBurstCount,
+	alt_u8 ucWriteBurstCount,
+	alt_u16 usiReadStride,
+	alt_u16 usiWriteStride);
 
-int msgdma_extended_descriptor_sync_transfer(
-	alt_msgdma_dev *dev,
-	alt_msgdma_extended_descriptor *desc);
+int iMsgdmaExtendedDescriptorSyncTransfer(
+	alt_msgdma_dev *pxDev,
+	alt_msgdma_extended_descriptor *pxDesc);
 
 #ifdef __cplusplus
 }

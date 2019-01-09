@@ -101,8 +101,8 @@ static int msgdma_write_extended_descriptor(alt_u32 *csr_base,
 			descriptor->read_stride);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_STRIDE(descriptor_base,
 			descriptor->write_stride);
-	IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_ADDRESS_HIGH(descriptor_base, descriptor->read_address_high);
-	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS_HIGH(descriptor_base, descriptor->write_address_high);
+	IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_ADDRESS_HIGH(descriptor_base, (alt_u32)descriptor->read_address_high);
+	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS_HIGH(descriptor_base, (alt_u32)descriptor->write_address_high);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_CONTROL_ENHANCED(descriptor_base,
 			descriptor->control);
 	return 0;
@@ -521,16 +521,16 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
  *           return -EINVAL (invalid argument, could be due to argument which 
  *                          has larger value than hardware setting value)
  */
-int msgdma_construct_extended_mm_to_mm_descriptor(alt_msgdma_dev *dev,
-		alt_msgdma_extended_descriptor *descriptor, alt_u32 *read_address,
-		alt_u32 *write_address, alt_u32 length, alt_u32 control,
-		alt_u32 *read_address_high, alt_u32 *write_address_high,
-		alt_u16 sequence_number, alt_u8 read_burst_count,
-		alt_u8 write_burst_count, alt_u16 read_stride, alt_u16 write_stride) {
-	return msgdma_construct_extended_descriptor(dev, descriptor, read_address,
-			write_address, length, control, read_address_high,
-			write_address_high, sequence_number, read_burst_count,
-			write_burst_count, read_stride, write_stride);
+int iMsgdmaConstructExtendedMmToMmDescriptor(alt_msgdma_dev *pxDev,
+		alt_msgdma_extended_descriptor *pxDescriptor, alt_u32 *puliReadAddress,
+		alt_u32 *puliWriteAddress, alt_u32 uliLength, alt_u32 uliControl,
+		alt_u32 *puliReadAddressHigh, alt_u32 *puliWriteAddressHigh,
+		alt_u16 usiSequenceNumber, alt_u8 ucReadBurstCount,
+		alt_u8 ucWriteBurstCount, alt_u16 usiReadStride, alt_u16 usiWriteStride) {
+	return msgdma_construct_extended_descriptor(pxDev, pxDescriptor, puliReadAddress,
+			puliWriteAddress, uliLength, uliControl, puliReadAddressHigh,
+			puliWriteAddressHigh, usiSequenceNumber, ucReadBurstCount,
+			ucWriteBurstCount, usiReadStride, usiWriteStride);
 
 }
 
@@ -553,13 +553,13 @@ int msgdma_construct_extended_mm_to_mm_descriptor(alt_msgdma_dev *dev,
  * -EPERM -> operation not permitted due to descriptor type conflict
  * -ETIME -> Time out and skipping the looping after 5 msec.
  */
-int msgdma_extended_descriptor_async_transfer(alt_msgdma_dev *dev,
-		alt_msgdma_extended_descriptor *desc) {
+int iMsgdmaExtendedDescriptorAsyncTransfer(alt_msgdma_dev *pxDev,
+		alt_msgdma_extended_descriptor *pxDesc) {
 	/*
 	 * Error detection/handling should be performed at the application
 	 * or callback level as appropriate.
 	 */
-	return msgdma_descriptor_async_transfer(dev, NULL, desc);
+	return msgdma_descriptor_async_transfer(pxDev, NULL, pxDesc);
 }
 
 /*
@@ -594,8 +594,8 @@ int msgdma_extended_descriptor_async_transfer(alt_msgdma_dev *dev,
  *		conflict)
  *           return -ETIME (Time out and skipping the looping after 5 msec)
  */
-int msgdma_extended_descriptor_sync_transfer(alt_msgdma_dev *dev,
-		alt_msgdma_extended_descriptor *desc) {
-	return msgdma_descriptor_sync_transfer(dev, NULL, desc);
+int iMsgdmaExtendedDescriptorSyncTransfer(alt_msgdma_dev *pxDev,
+		alt_msgdma_extended_descriptor *pxDesc) {
+	return msgdma_descriptor_sync_transfer(pxDev, NULL, pxDesc);
 }
 

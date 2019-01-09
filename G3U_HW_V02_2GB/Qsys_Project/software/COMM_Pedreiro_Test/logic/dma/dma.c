@@ -293,7 +293,7 @@ bool DMA_EXTENDED_SINGLE_TRANSFER(alt_msgdma_dev *DmaDevice, alt_u32 SourceAddre
   bool bSuccess = TRUE;
   alt_msgdma_extended_descriptor DmaExtendedDescriptor;
 
-  if (msgdma_construct_extended_mm_to_mm_descriptor (DmaDevice,
+  if (iMsgdmaConstructExtendedMmToMmDescriptor (DmaDevice,
   		                                                 &DmaExtendedDescriptor,
   		                                                 (alt_u32 *)SourceAddressLow,
   		                                                 (alt_u32 *)DestinationAddressLow,
@@ -309,7 +309,7 @@ bool DMA_EXTENDED_SINGLE_TRANSFER(alt_msgdma_dev *DmaDevice, alt_u32 SourceAddre
 	  bSuccess = FALSE;
 	return bSuccess;
   } else {
-	if (msgdma_extended_descriptor_sync_transfer(DmaDevice, &DmaExtendedDescriptor) != 0) {
+	if (iMsgdmaExtendedDescriptorSyncTransfer(DmaDevice, &DmaExtendedDescriptor) != 0) {
 	  bSuccess = FALSE;
 	  return bSuccess;
 	}

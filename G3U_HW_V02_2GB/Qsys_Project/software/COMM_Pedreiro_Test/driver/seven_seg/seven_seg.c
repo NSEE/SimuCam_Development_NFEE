@@ -55,7 +55,7 @@ bool SSDP_CONFIG(alt_u8 SsdpConfig){
 		    return FALSE;
 	}
 
-	alt_u32 *pSsdpAddr = SSDP_BASE;
+	alt_u32 *pSsdpAddr = (alt_u32 *)SSDP_BASE;
 	*(pSsdpAddr + SSDP_CONTROL_REG_OFFSET) = (alt_u32) SspdConfigControl;
 	
 	return TRUE;
@@ -75,7 +75,7 @@ bool SSDP_CONFIG(alt_u8 SsdpConfig){
  */
 bool SSDP_UPDATE(alt_u8 SsdpData){
 
-	alt_u32 *pSsdpAddr = SSDP_BASE;
+	alt_u32 *pSsdpAddr = (alt_u32 *)SSDP_BASE;
 	*(pSsdpAddr + SSDP_DATA_REG_OFFSET) = (alt_u32) SsdpData;
 	
 	return TRUE;

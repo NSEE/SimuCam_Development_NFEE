@@ -55,13 +55,13 @@ int main(void) {
 	usleep(5000);
 	usleep(1000000);
 
-	disable_iso_drivers();
-	disable_lvds_board();
+	bDisableIsoDrivers();
+	bDisableLvdsBoard();
 
 	usleep(50000);
 
-	enable_iso_drivers();
-	enable_lvds_board();
+	bEnableIsoDrivers();
+	bEnableLvdsBoard();
 
 	alt_8 ucTempFpga = 0;
 	alt_8 ucTempBoard = 0;
@@ -221,8 +221,8 @@ int main(void) {
 //		break;
 //
 //	case 't':
-//		DDR2_EEPROM_TEST(DDR2_M1_ID);
-//		//DDR2_EEPROM_TEST(DDR2_M2_ID);
+//		bDdr2EepromTest(DDR2_M1_ID);
+//		//bDdr2EepromTest(DDR2_M2_ID);
 //		break;
 //
 //	default:
@@ -245,372 +245,372 @@ int main(void) {
 ////	getchar();
 //	printf("foi \n");
 
-	DDR2_SWITCH_MEMORY(DDR2_M1_ID);
-	alt_u32 Ddr2Base = DDR2_EXTENDED_ADDRESS_WINDOWED_BASE;
+	bDdr2SwitchMemory(DDR2_M1_ID);
+	alt_u32 uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 
-	alt_u32 *pDDR;
-	pDDR = (alt_u32 *) Ddr2Base;
+//	alt_u32 *puliDdr;
+//	puliDdr = (alt_u32 *) uliDdr2Base;
 
-//	*pDDR = 5;
-//	pDDR++;
-//	*pDDR = 3;
-//	pDDR++;
-//	*pDDR = 1;
-//	pDDR++;
-//	*pDDR = 43;
+//	*puliDdr = 5;
+//	puliDdr++;
+//	*puliDdr = 3;
+//	puliDdr++;
+//	*puliDdr = 1;
+//	puliDdr++;
+//	*puliDdr = 43;
 //
-//	pDDR = (alt_u32 *)Ddr2Base;
-//	printf("add : %u \n", *pDDR);
-//	pDDR++;
-//	printf("add : %u \n", *pDDR);
-//	pDDR++;
-//	printf("add : %u \n", *pDDR);
-//	pDDR++;
-//	printf("add : %u \n", *pDDR);
+//	puliDdr = (alt_u32 *)uliDdr2Base;
+//	printf("add : %u \n", *puliDdr);
+//	puliDdr++;
+//	printf("add : %u \n", *puliDdr);
+//	puliDdr++;
+//	printf("add : %u \n", *puliDdr);
+//	puliDdr++;
+//	printf("add : %u \n", *puliDdr);
 
 // buffer: 2176 B -> 544 dwords
 
-	int data_counter = 0;
+//	int iDataCounter = 0;
 
-	TFeebBufferDataBlock *buffer_data_m1 =
-			(TFeebBufferDataBlock *) Ddr2Base;
+	TFeebBufferDataBlock *pxBufferDataM1 =
+			(TFeebBufferDataBlock *) uliDdr2Base;
 
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[0] = 0x0100;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[1] = 0x0302;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[2] = 0x0504;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[3] = 0x0706;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[4] = 0x0908;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[5] = 0x0B0A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[6] = 0x0D0C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[7] = 0x0F0E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[8] = 0x1110;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[9] = 0x1312;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[10] = 0x1514;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[11] = 0x1716;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[12] = 0x1918;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[13] = 0x1B1A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[14] = 0x1D1C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[15] = 0x1F1E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[16] = 0x2120;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[17] = 0x2322;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[18] = 0x2524;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[19] = 0x2726;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[20] = 0x2928;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[21] = 0x2B2A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[22] = 0x2D2C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[23] = 0x2F2E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[24] = 0x3130;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[25] = 0x3332;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[26] = 0x3534;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[27] = 0x3736;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[28] = 0x3938;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[29] = 0x3B3A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[30] = 0x3D3C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[31] = 0x3F3E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[32] = 0x4140;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[33] = 0x4342;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[34] = 0x4544;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[35] = 0x4746;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[36] = 0x4948;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[37] = 0x4B4A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[38] = 0x4D4C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[39] = 0x4F4E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[40] = 0x5150;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[41] = 0x5352;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[42] = 0x5554;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[43] = 0x5756;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[44] = 0x5958;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[45] = 0x5B5A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[46] = 0x5D5C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[47] = 0x5F5E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[48] = 0x6160;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[49] = 0x6362;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[50] = 0x6564;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[51] = 0x6766;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[52] = 0x6968;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[53] = 0x6B6A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[54] = 0x6D6C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[55] = 0x6F6E;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[56] = 0x7170;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[57] = 0x7372;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[58] = 0x7574;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[59] = 0x7776;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[60] = 0x7978;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[61] = 0x7B7A;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[62] = 0x7D7C;
-	buffer_data_m1->xPixelDataBlock[0].usiPixel[63] = 0x7F7E;
-	buffer_data_m1->xPixelDataBlock[0].ulliMask = 0xFFFFFFFFFFFFFFFF;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[0] = 0x0100;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[1] = 0x0302;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[2] = 0x0504;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[3] = 0x0706;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[4] = 0x0908;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[5] = 0x0B0A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[6] = 0x0D0C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[7] = 0x0F0E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[8] = 0x1110;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[9] = 0x1312;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[10] = 0x1514;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[11] = 0x1716;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[12] = 0x1918;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[13] = 0x1B1A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[14] = 0x1D1C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[15] = 0x1F1E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[16] = 0x2120;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[17] = 0x2322;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[18] = 0x2524;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[19] = 0x2726;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[20] = 0x2928;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[21] = 0x2B2A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[22] = 0x2D2C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[23] = 0x2F2E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[24] = 0x3130;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[25] = 0x3332;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[26] = 0x3534;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[27] = 0x3736;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[28] = 0x3938;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[29] = 0x3B3A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[30] = 0x3D3C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[31] = 0x3F3E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[32] = 0x4140;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[33] = 0x4342;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[34] = 0x4544;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[35] = 0x4746;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[36] = 0x4948;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[37] = 0x4B4A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[38] = 0x4D4C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[39] = 0x4F4E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[40] = 0x5150;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[41] = 0x5352;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[42] = 0x5554;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[43] = 0x5756;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[44] = 0x5958;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[45] = 0x5B5A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[46] = 0x5D5C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[47] = 0x5F5E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[48] = 0x6160;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[49] = 0x6362;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[50] = 0x6564;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[51] = 0x6766;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[52] = 0x6968;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[53] = 0x6B6A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[54] = 0x6D6C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[55] = 0x6F6E;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[56] = 0x7170;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[57] = 0x7372;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[58] = 0x7574;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[59] = 0x7776;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[60] = 0x7978;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[61] = 0x7B7A;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[62] = 0x7D7C;
+	pxBufferDataM1->xPixelDataBlock[0].usiPixel[63] = 0x7F7E;
+	pxBufferDataM1->xPixelDataBlock[0].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[0] = 0x8180;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[1] = 0x8382;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[2] = 0x8584;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[3] = 0x8786;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[4] = 0x8988;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[5] = 0x8B8A;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[6] = 0x8D8C;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[7] = 0x8F8E;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[8] = 0x9190;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[9] = 0x9392;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[10] = 0x9594;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[11] = 0x9796;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[12] = 0x9998;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[13] = 0x9B9A;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[14] = 0x9D9C;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[15] = 0x9F9E;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[16] = 0xA1A0;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[17] = 0xA3A2;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[18] = 0xA5A4;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[19] = 0xA7A6;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[20] = 0xA9A8;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[21] = 0xABAA;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[22] = 0xADAC;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[23] = 0xAFAE;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[24] = 0xB1B0;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[25] = 0xB3B2;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[26] = 0xB5B4;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[27] = 0xB7B6;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[28] = 0xB9B8;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[29] = 0xBBBA;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[30] = 0xBDBC;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[31] = 0xBFBE;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[32] = 0xC1C0;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[33] = 0xC3C2;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[34] = 0xC5C4;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[35] = 0xC7C6;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[36] = 0xC9C8;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[37] = 0xCBCA;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[38] = 0xCDCC;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[39] = 0xCFCE;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[40] = 0xD1D0;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[41] = 0xD3D2;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[42] = 0xD5D4;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[43] = 0xD7D6;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[44] = 0xD9D8;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[45] = 0xDBDA;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[46] = 0xDDDC;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[47] = 0xDFDE;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[48] = 0xE1E0;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[49] = 0xE3E2;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[50] = 0xE5E4;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[51] = 0xE7E6;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[52] = 0xE9E8;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[53] = 0xEBEA;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[54] = 0xEDEC;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[55] = 0xEFEE;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[56] = 0xF1F0;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[57] = 0xF3F2;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[58] = 0xF5F4;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[59] = 0xF7F6;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[60] = 0xF9F8;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[61] = 0xFBFA;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[62] = 0xFDFC;
-	buffer_data_m1->xPixelDataBlock[1].usiPixel[63] = 0xFFFE;
-	buffer_data_m1->xPixelDataBlock[1].ulliMask = 0xFFFFFFFFFFFFFFFF;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[0] = 0x8180;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[1] = 0x8382;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[2] = 0x8584;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[3] = 0x8786;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[4] = 0x8988;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[5] = 0x8B8A;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[6] = 0x8D8C;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[7] = 0x8F8E;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[8] = 0x9190;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[9] = 0x9392;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[10] = 0x9594;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[11] = 0x9796;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[12] = 0x9998;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[13] = 0x9B9A;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[14] = 0x9D9C;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[15] = 0x9F9E;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[16] = 0xA1A0;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[17] = 0xA3A2;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[18] = 0xA5A4;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[19] = 0xA7A6;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[20] = 0xA9A8;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[21] = 0xABAA;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[22] = 0xADAC;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[23] = 0xAFAE;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[24] = 0xB1B0;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[25] = 0xB3B2;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[26] = 0xB5B4;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[27] = 0xB7B6;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[28] = 0xB9B8;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[29] = 0xBBBA;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[30] = 0xBDBC;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[31] = 0xBFBE;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[32] = 0xC1C0;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[33] = 0xC3C2;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[34] = 0xC5C4;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[35] = 0xC7C6;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[36] = 0xC9C8;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[37] = 0xCBCA;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[38] = 0xCDCC;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[39] = 0xCFCE;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[40] = 0xD1D0;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[41] = 0xD3D2;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[42] = 0xD5D4;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[43] = 0xD7D6;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[44] = 0xD9D8;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[45] = 0xDBDA;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[46] = 0xDDDC;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[47] = 0xDFDE;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[48] = 0xE1E0;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[49] = 0xE3E2;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[50] = 0xE5E4;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[51] = 0xE7E6;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[52] = 0xE9E8;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[53] = 0xEBEA;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[54] = 0xEDEC;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[55] = 0xEFEE;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[56] = 0xF1F0;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[57] = 0xF3F2;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[58] = 0xF5F4;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[59] = 0xF7F6;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[60] = 0xF9F8;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[61] = 0xFBFA;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[62] = 0xFDFC;
+	pxBufferDataM1->xPixelDataBlock[1].usiPixel[63] = 0xFFFE;
+	pxBufferDataM1->xPixelDataBlock[1].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m1->xPixelDataBlock[2] = buffer_data_m1->xPixelDataBlock[0];
-	buffer_data_m1->xPixelDataBlock[3] = buffer_data_m1->xPixelDataBlock[1];
-	buffer_data_m1->xPixelDataBlock[4] = buffer_data_m1->xPixelDataBlock[2];
-	buffer_data_m1->xPixelDataBlock[5] = buffer_data_m1->xPixelDataBlock[3];
-	buffer_data_m1->xPixelDataBlock[6] = buffer_data_m1->xPixelDataBlock[4];
-	buffer_data_m1->xPixelDataBlock[7] = buffer_data_m1->xPixelDataBlock[5];
-	buffer_data_m1->xPixelDataBlock[8] = buffer_data_m1->xPixelDataBlock[6];
-	buffer_data_m1->xPixelDataBlock[9] = buffer_data_m1->xPixelDataBlock[7];
-	buffer_data_m1->xPixelDataBlock[10] = buffer_data_m1->xPixelDataBlock[8];
-	buffer_data_m1->xPixelDataBlock[11] = buffer_data_m1->xPixelDataBlock[9];
-	buffer_data_m1->xPixelDataBlock[12] = buffer_data_m1->xPixelDataBlock[10];
-	buffer_data_m1->xPixelDataBlock[13] = buffer_data_m1->xPixelDataBlock[11];
-	buffer_data_m1->xPixelDataBlock[14] = buffer_data_m1->xPixelDataBlock[12];
-	buffer_data_m1->xPixelDataBlock[15] = buffer_data_m1->xPixelDataBlock[13];
+	pxBufferDataM1->xPixelDataBlock[2] = pxBufferDataM1->xPixelDataBlock[0];
+	pxBufferDataM1->xPixelDataBlock[3] = pxBufferDataM1->xPixelDataBlock[1];
+	pxBufferDataM1->xPixelDataBlock[4] = pxBufferDataM1->xPixelDataBlock[2];
+	pxBufferDataM1->xPixelDataBlock[5] = pxBufferDataM1->xPixelDataBlock[3];
+	pxBufferDataM1->xPixelDataBlock[6] = pxBufferDataM1->xPixelDataBlock[4];
+	pxBufferDataM1->xPixelDataBlock[7] = pxBufferDataM1->xPixelDataBlock[5];
+	pxBufferDataM1->xPixelDataBlock[8] = pxBufferDataM1->xPixelDataBlock[6];
+	pxBufferDataM1->xPixelDataBlock[9] = pxBufferDataM1->xPixelDataBlock[7];
+	pxBufferDataM1->xPixelDataBlock[10] = pxBufferDataM1->xPixelDataBlock[8];
+	pxBufferDataM1->xPixelDataBlock[11] = pxBufferDataM1->xPixelDataBlock[9];
+	pxBufferDataM1->xPixelDataBlock[12] = pxBufferDataM1->xPixelDataBlock[10];
+	pxBufferDataM1->xPixelDataBlock[13] = pxBufferDataM1->xPixelDataBlock[11];
+	pxBufferDataM1->xPixelDataBlock[14] = pxBufferDataM1->xPixelDataBlock[12];
+	pxBufferDataM1->xPixelDataBlock[15] = pxBufferDataM1->xPixelDataBlock[13];
 
-	DDR2_SWITCH_MEMORY(DDR2_M2_ID);
+	bDdr2SwitchMemory(DDR2_M2_ID);
 
-//	*pDDR = 5;
-//	pDDR++;
-//	*pDDR = 3;
-//	pDDR++;
-//	*pDDR = 1;
-//	pDDR++;
-//	*pDDR = 43;
+//	*puliDdr = 5;
+//	puliDdr++;
+//	*puliDdr = 3;
+//	puliDdr++;
+//	*puliDdr = 1;
+//	puliDdr++;
+//	*puliDdr = 43;
 //
-//	pDDR = (alt_u32 *)Ddr2Base;
-//	printf("add : %u \n", *pDDR);
-//	pDDR++;
-//	printf("add : %u \n", *pDDR);
-//	pDDR++;
-//	printf("add : %u \n", *pDDR);
-//	pDDR++;
-//	printf("add : %u \n", *pDDR);
+//	puliDdr = (alt_u32 *)uliDdr2Base;
+//	printf("add : %u \n", *puliDdr);
+//	puliDdr++;
+//	printf("add : %u \n", *puliDdr);
+//	puliDdr++;
+//	printf("add : %u \n", *puliDdr);
+//	puliDdr++;
+//	printf("add : %u \n", *puliDdr);
 
 // buffer: 2176 B -> 544 dwords
 
-	TFeebBufferDataBlock *buffer_data_m2 =
-			(TFeebBufferDataBlock *) Ddr2Base;
+	TFeebBufferDataBlock *pxBufferDataM2 =
+			(TFeebBufferDataBlock *) uliDdr2Base;
 
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[0] = 0x0100;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[1] = 0x0302;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[2] = 0x0504;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[3] = 0x0706;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[4] = 0x0908;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[5] = 0x0B0A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[6] = 0x0D0C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[7] = 0x0F0E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[8] = 0x1110;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[9] = 0x1312;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[10] = 0x1514;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[11] = 0x1716;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[12] = 0x1918;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[13] = 0x1B1A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[14] = 0x1D1C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[15] = 0x1F1E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[16] = 0x2120;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[17] = 0x2322;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[18] = 0x2524;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[19] = 0x2726;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[20] = 0x2928;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[21] = 0x2B2A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[22] = 0x2D2C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[23] = 0x2F2E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[24] = 0x3130;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[25] = 0x3332;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[26] = 0x3534;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[27] = 0x3736;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[28] = 0x3938;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[29] = 0x3B3A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[30] = 0x3D3C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[31] = 0x3F3E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[32] = 0x4140;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[33] = 0x4342;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[34] = 0x4544;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[35] = 0x4746;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[36] = 0x4948;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[37] = 0x4B4A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[38] = 0x4D4C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[39] = 0x4F4E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[40] = 0x5150;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[41] = 0x5352;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[42] = 0x5554;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[43] = 0x5756;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[44] = 0x5958;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[45] = 0x5B5A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[46] = 0x5D5C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[47] = 0x5F5E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[48] = 0x6160;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[49] = 0x6362;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[50] = 0x6564;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[51] = 0x6766;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[52] = 0x6968;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[53] = 0x6B6A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[54] = 0x6D6C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[55] = 0x6F6E;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[56] = 0x7170;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[57] = 0x7372;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[58] = 0x7574;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[59] = 0x7776;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[60] = 0x7978;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[61] = 0x7B7A;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[62] = 0x7D7C;
-	buffer_data_m2->xPixelDataBlock[0].usiPixel[63] = 0x7F7E;
-	buffer_data_m2->xPixelDataBlock[0].ulliMask = 0xFFFFFFFFFFFFFFFF;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[0] = 0x0100;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[1] = 0x0302;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[2] = 0x0504;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[3] = 0x0706;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[4] = 0x0908;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[5] = 0x0B0A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[6] = 0x0D0C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[7] = 0x0F0E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[8] = 0x1110;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[9] = 0x1312;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[10] = 0x1514;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[11] = 0x1716;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[12] = 0x1918;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[13] = 0x1B1A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[14] = 0x1D1C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[15] = 0x1F1E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[16] = 0x2120;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[17] = 0x2322;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[18] = 0x2524;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[19] = 0x2726;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[20] = 0x2928;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[21] = 0x2B2A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[22] = 0x2D2C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[23] = 0x2F2E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[24] = 0x3130;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[25] = 0x3332;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[26] = 0x3534;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[27] = 0x3736;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[28] = 0x3938;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[29] = 0x3B3A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[30] = 0x3D3C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[31] = 0x3F3E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[32] = 0x4140;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[33] = 0x4342;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[34] = 0x4544;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[35] = 0x4746;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[36] = 0x4948;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[37] = 0x4B4A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[38] = 0x4D4C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[39] = 0x4F4E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[40] = 0x5150;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[41] = 0x5352;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[42] = 0x5554;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[43] = 0x5756;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[44] = 0x5958;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[45] = 0x5B5A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[46] = 0x5D5C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[47] = 0x5F5E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[48] = 0x6160;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[49] = 0x6362;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[50] = 0x6564;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[51] = 0x6766;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[52] = 0x6968;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[53] = 0x6B6A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[54] = 0x6D6C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[55] = 0x6F6E;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[56] = 0x7170;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[57] = 0x7372;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[58] = 0x7574;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[59] = 0x7776;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[60] = 0x7978;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[61] = 0x7B7A;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[62] = 0x7D7C;
+	pxBufferDataM2->xPixelDataBlock[0].usiPixel[63] = 0x7F7E;
+	pxBufferDataM2->xPixelDataBlock[0].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[0] = 0x8180;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[1] = 0x8382;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[2] = 0x8584;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[3] = 0x8786;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[4] = 0x8988;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[5] = 0x8B8A;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[6] = 0x8D8C;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[7] = 0x8F8E;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[8] = 0x9190;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[9] = 0x9392;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[10] = 0x9594;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[11] = 0x9796;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[12] = 0x9998;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[13] = 0x9B9A;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[14] = 0x9D9C;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[15] = 0x9F9E;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[16] = 0xA1A0;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[17] = 0xA3A2;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[18] = 0xA5A4;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[19] = 0xA7A6;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[20] = 0xA9A8;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[21] = 0xABAA;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[22] = 0xADAC;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[23] = 0xAFAE;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[24] = 0xB1B0;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[25] = 0xB3B2;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[26] = 0xB5B4;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[27] = 0xB7B6;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[28] = 0xB9B8;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[29] = 0xBBBA;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[30] = 0xBDBC;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[31] = 0xBFBE;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[32] = 0xC1C0;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[33] = 0xC3C2;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[34] = 0xC5C4;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[35] = 0xC7C6;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[36] = 0xC9C8;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[37] = 0xCBCA;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[38] = 0xCDCC;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[39] = 0xCFCE;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[40] = 0xD1D0;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[41] = 0xD3D2;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[42] = 0xD5D4;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[43] = 0xD7D6;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[44] = 0xD9D8;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[45] = 0xDBDA;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[46] = 0xDDDC;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[47] = 0xDFDE;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[48] = 0xE1E0;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[49] = 0xE3E2;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[50] = 0xE5E4;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[51] = 0xE7E6;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[52] = 0xE9E8;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[53] = 0xEBEA;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[54] = 0xEDEC;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[55] = 0xEFEE;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[56] = 0xF1F0;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[57] = 0xF3F2;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[58] = 0xF5F4;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[59] = 0xF7F6;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[60] = 0xF9F8;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[61] = 0xFBFA;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[62] = 0xFDFC;
-	buffer_data_m2->xPixelDataBlock[1].usiPixel[63] = 0xFFFE;
-	buffer_data_m2->xPixelDataBlock[1].ulliMask = 0xFFFFFFFFFFFFFFFF;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[0] = 0x8180;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[1] = 0x8382;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[2] = 0x8584;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[3] = 0x8786;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[4] = 0x8988;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[5] = 0x8B8A;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[6] = 0x8D8C;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[7] = 0x8F8E;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[8] = 0x9190;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[9] = 0x9392;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[10] = 0x9594;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[11] = 0x9796;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[12] = 0x9998;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[13] = 0x9B9A;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[14] = 0x9D9C;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[15] = 0x9F9E;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[16] = 0xA1A0;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[17] = 0xA3A2;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[18] = 0xA5A4;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[19] = 0xA7A6;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[20] = 0xA9A8;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[21] = 0xABAA;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[22] = 0xADAC;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[23] = 0xAFAE;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[24] = 0xB1B0;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[25] = 0xB3B2;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[26] = 0xB5B4;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[27] = 0xB7B6;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[28] = 0xB9B8;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[29] = 0xBBBA;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[30] = 0xBDBC;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[31] = 0xBFBE;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[32] = 0xC1C0;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[33] = 0xC3C2;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[34] = 0xC5C4;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[35] = 0xC7C6;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[36] = 0xC9C8;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[37] = 0xCBCA;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[38] = 0xCDCC;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[39] = 0xCFCE;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[40] = 0xD1D0;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[41] = 0xD3D2;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[42] = 0xD5D4;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[43] = 0xD7D6;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[44] = 0xD9D8;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[45] = 0xDBDA;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[46] = 0xDDDC;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[47] = 0xDFDE;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[48] = 0xE1E0;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[49] = 0xE3E2;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[50] = 0xE5E4;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[51] = 0xE7E6;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[52] = 0xE9E8;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[53] = 0xEBEA;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[54] = 0xEDEC;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[55] = 0xEFEE;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[56] = 0xF1F0;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[57] = 0xF3F2;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[58] = 0xF5F4;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[59] = 0xF7F6;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[60] = 0xF9F8;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[61] = 0xFBFA;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[62] = 0xFDFC;
+	pxBufferDataM2->xPixelDataBlock[1].usiPixel[63] = 0xFFFE;
+	pxBufferDataM2->xPixelDataBlock[1].ulliMask = 0xFFFFFFFFFFFFFFFF;
 
-	buffer_data_m2->xPixelDataBlock[2] = buffer_data_m2->xPixelDataBlock[0];
-	buffer_data_m2->xPixelDataBlock[3] = buffer_data_m2->xPixelDataBlock[1];
-	buffer_data_m2->xPixelDataBlock[4] = buffer_data_m2->xPixelDataBlock[2];
-	buffer_data_m2->xPixelDataBlock[5] = buffer_data_m2->xPixelDataBlock[3];
-	buffer_data_m2->xPixelDataBlock[6] = buffer_data_m2->xPixelDataBlock[4];
-	buffer_data_m2->xPixelDataBlock[7] = buffer_data_m2->xPixelDataBlock[5];
-	buffer_data_m2->xPixelDataBlock[8] = buffer_data_m2->xPixelDataBlock[6];
-	buffer_data_m2->xPixelDataBlock[9] = buffer_data_m2->xPixelDataBlock[7];
-	buffer_data_m2->xPixelDataBlock[10] = buffer_data_m2->xPixelDataBlock[8];
-	buffer_data_m2->xPixelDataBlock[11] = buffer_data_m2->xPixelDataBlock[9];
-	buffer_data_m2->xPixelDataBlock[12] = buffer_data_m2->xPixelDataBlock[10];
-	buffer_data_m2->xPixelDataBlock[13] = buffer_data_m2->xPixelDataBlock[11];
-	buffer_data_m2->xPixelDataBlock[14] = buffer_data_m2->xPixelDataBlock[12];
-	buffer_data_m2->xPixelDataBlock[15] = buffer_data_m2->xPixelDataBlock[13];
+	pxBufferDataM2->xPixelDataBlock[2] = pxBufferDataM2->xPixelDataBlock[0];
+	pxBufferDataM2->xPixelDataBlock[3] = pxBufferDataM2->xPixelDataBlock[1];
+	pxBufferDataM2->xPixelDataBlock[4] = pxBufferDataM2->xPixelDataBlock[2];
+	pxBufferDataM2->xPixelDataBlock[5] = pxBufferDataM2->xPixelDataBlock[3];
+	pxBufferDataM2->xPixelDataBlock[6] = pxBufferDataM2->xPixelDataBlock[4];
+	pxBufferDataM2->xPixelDataBlock[7] = pxBufferDataM2->xPixelDataBlock[5];
+	pxBufferDataM2->xPixelDataBlock[8] = pxBufferDataM2->xPixelDataBlock[6];
+	pxBufferDataM2->xPixelDataBlock[9] = pxBufferDataM2->xPixelDataBlock[7];
+	pxBufferDataM2->xPixelDataBlock[10] = pxBufferDataM2->xPixelDataBlock[8];
+	pxBufferDataM2->xPixelDataBlock[11] = pxBufferDataM2->xPixelDataBlock[9];
+	pxBufferDataM2->xPixelDataBlock[12] = pxBufferDataM2->xPixelDataBlock[10];
+	pxBufferDataM2->xPixelDataBlock[13] = pxBufferDataM2->xPixelDataBlock[11];
+	pxBufferDataM2->xPixelDataBlock[14] = pxBufferDataM2->xPixelDataBlock[12];
+	pxBufferDataM2->xPixelDataBlock[15] = pxBufferDataM2->xPixelDataBlock[13];
 
 //	unsigned long data = 1;
 //
-//	pDDR = (alt_u32 *) Ddr2Base;
-//	for (data_counter = 0; data_counter < 544; data_counter++) {
-//		if (data_counter >= (512 + 1)) {
-//			*pDDR = 0xFFFFFFFF;
-//			pDDR++;
+//	puliDdr = (alt_u32 *) uliDdr2Base;
+//	for (iDataCounter = 0; iDataCounter < 544; iDataCounter++) {
+//		if (iDataCounter >= (512 + 1)) {
+//			*puliDdr = 0xFFFFFFFF;
+//			puliDdr++;
 //		} else {
-//			*pDDR = 0x55FE23D9;
+//			*puliDdr = 0x55FE23D9;
 //			data++;
-//			pDDR++;
+//			puliDdr++;
 //		}
 //	}
 
-//	pDDR = (alt_u32 *) Ddr2Base;
-//	for (data_counter = 0; data_counter < (136/4 * 16); data_counter++) {
-//		printf("mem[%03u]: %08X \n", data_counter, *pDDR);
-//		pDDR++;
+//	puliDdr = (alt_u32 *) uliDdr2Base;
+//	for (iDataCounter = 0; iDataCounter < (136/4 * 16); iDataCounter++) {
+//		printf("mem[%03u]: %08X \n", iDataCounter, *puliDdr);
+//		puliDdr++;
 //	}
 
 // init DMA
@@ -671,9 +671,9 @@ int main(void) {
 		}
 	}
 
-	bool loop = TRUE;
+	bool bLoop = TRUE;
 
-	while (loop) {
+	while (bLoop) {
 		usleep(5000);
 
 		bCommGetLinkStatus(&xSpw1);
@@ -749,7 +749,7 @@ int main(void) {
 		}
 	}
 
-	while (loop) {
+	while (bLoop) {
 		printf("selecione memoria \n");
 		switch (getchar()) {
 		case '1':
@@ -781,7 +781,7 @@ int main(void) {
 
 		case 'r':
 			printf("r \n");
-			loop = FALSE;
+			bLoop = FALSE;
 			break;
 
 		default:
@@ -794,7 +794,7 @@ int main(void) {
 	bCommSetLink(&xSpw8);
 
 	//*xSpw1.puliChAddr = 0x102;
-	printf("%08X", *(xSpw1.puliChAddr));
+	printf("%08lX", *(xSpw1.puliChAddr));
 
 	usleep(10000);
 
@@ -817,8 +817,8 @@ int main(void) {
 	}
 
 	int i = 0;
-	loop = TRUE;
-	while (loop) {
+	bLoop = TRUE;
+	while (bLoop) {
 		for (i = 0; i < 1000; i++) {
 			usleep(1000);
 		}
@@ -852,24 +852,24 @@ int main(void) {
 
 //if (*pSrc++ != *pDes++){
 
-//Realiza teste dos LEDS, entra em um loop infinito.
+//Realiza teste dos LEDS, entra em um bLoop infinito.
 	vTestLeds();
 
 	//Teste das DDR2 EEPROMs
-	//DDR2_EEPROM_TEST(DDR2_M1_ID);
-	//DDR2_EEPROM_TEST(DDR2_M2_ID);
+	//bDdr2EepromTest(DDR2_M1_ID);
+	//bDdr2EepromTest(DDR2_M2_ID);
 
 	//Dump das DDR2 EEPROMs
-	//DDR2_EEPROM_DUMP(DDR2_M1_ID);
-	//DDR2_EEPROM_DUMP(DDR2_M2_ID);
+	//bDdr2EepromDump(DDR2_M1_ID);
+	//bDdr2EepromDump(DDR2_M2_ID);
 
 	//Teste de escrita de leitura da DDR2 M1
-	//DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
-	//DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+	//bDdr2MemoryRandomWriteTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+	//bDdr2MemoryRandomReadTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
 
 	//Teste de escrita de leitura da DDR2 M2
-	//DDR2_MEMORY_RANDOM_WRITE_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
-	//DDR2_MEMORY_RANDOM_READ_TEST(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+	//bDdr2MemoryRandomWriteTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+	//bDdr2MemoryRandomReadTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
 
 	//Teste de transferencia com DMA (M1 -> M2);
 	//TestDMA_M1_M2();

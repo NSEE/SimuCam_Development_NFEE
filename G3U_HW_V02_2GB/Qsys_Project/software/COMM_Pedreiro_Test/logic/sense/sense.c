@@ -51,13 +51,13 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]){
         char Data;
 
         // read local temp
-        bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x00, &Data);
+        bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x00, (alt_u8 *)&Data);
         if (bSuccess)
             BoardTemp = Data;
 
         // read remote temp
         if (bSuccess){
-            bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x01, &Data);
+            bSuccess = I2C_Read(TEMP_SCL_BASE, TEMP_SDA_BASE, DeviceAddr, 0x01, (alt_u8 *)&Data);
             if (bSuccess)
                 FpgaTemp = Data;
         }
@@ -75,7 +75,7 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]){
 	bool bSuccess;
 
 	 // show temp
-	 bSuccess = TEMP_Read(FpgaTemp, BoardTemp);
+	 bSuccess = TEMP_Read((alt_8*)FpgaTemp, (alt_8*)BoardTemp);
 
 	 return(bSuccess);
  }

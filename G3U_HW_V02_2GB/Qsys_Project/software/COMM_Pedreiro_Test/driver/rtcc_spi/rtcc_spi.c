@@ -102,18 +102,18 @@ bool RTCC_SPI_R_MAC(alt_u8 uc_EUI48_array[6])
     alt_u8 uc_EUI48_B4 = 0;
     alt_u8 uc_EUI48_B5 = 0;
 
-    alt_u8 uc_sdi_mask;
+//    alt_u8 uc_sdi_mask;
 
     const alt_u8 uc_EUI48_B0_addr = 0x02;
-    const alt_u8 uc_EUI48_B1_addr = 0x03;
-    const alt_u8 uc_EUI48_B2_addr = 0x04;
-    const alt_u8 uc_EUI48_B3_addr = 0x05;
-    const alt_u8 uc_EUI48_B4_addr = 0x06;
-    const alt_u8 uc_EUI48_B5_addr = 0x07;
+//    const alt_u8 uc_EUI48_B1_addr = 0x03;
+//    const alt_u8 uc_EUI48_B2_addr = 0x04;
+//    const alt_u8 uc_EUI48_B3_addr = 0x05;
+//    const alt_u8 uc_EUI48_B4_addr = 0x06;
+//    const alt_u8 uc_EUI48_B5_addr = 0x07;
 
     const alt_u8 uc_IDREAD_cmd = 0x33;
 
-    int i = 0;
+//    int i = 0;
     
     // Start Communication
     v_spi_start();
