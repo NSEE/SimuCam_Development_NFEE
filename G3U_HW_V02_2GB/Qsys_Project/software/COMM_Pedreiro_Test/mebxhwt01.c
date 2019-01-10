@@ -16,21 +16,25 @@
 //#include "includes.h"
 
 #include "utils/util.h"
-#include "utils/meb_includes.h"
+#include "simucam_definitions.h"
 
 #include "driver/i2c/i2c.h"
 #include "driver/leds/leds.h"
 #include "driver/power_spi/power_spi.h"
 #include "driver/seven_seg/seven_seg.h"
 
-#include "logic/dma/dma.h"
-#include "logic/sense/sense.h"
-#include "logic/ddr2/ddr2.h"
+#include "api_driver/sense/sense.h"
+#include "api_driver/ddr2/ddr2.h"
 
 #include "driver/comm/comm_channel.h"
-#include "driver/simucam_dma/simucam_dma.h"
+#include "api_driver/simucam_dma/simucam_dma.h"
 #include "driver/reset/reset.h"
 #include "driver/ctrl_io_lvds/ctrl_io_lvds.h"
+
+#ifdef DEBUG_ON
+FILE* fp;
+char cDebugBuffer[256];
+#endif
 
 /**************************************************
  * Global
@@ -49,6 +53,11 @@ TCommChannel xComm8;
 
 int main(void) {
 
+	/* Debug device initialization - JTAG USB */
+#ifdef DEBUG_ON
+	fp = fopen(JTAG_UART_0_NAME, "r+");
+#endif
+
 //	vRstcHoldDeviceReset(RSTC_DEV_ALL_MSK);
 //	usleep(5000);
 	vRstcReleaseDeviceReset(RSTC_DEV_ALL_MSK);
@@ -66,10 +75,12 @@ int main(void) {
 	alt_8 ucTempFpga = 0;
 	alt_8 ucTempBoard = 0;
 
-	printf(" \n Nucleo de Sistemas Eletronicos Embarcados - MebX\n\n");
+#ifdef DEBUG_ON
+	debug(fp, "\n Nucleo de Sistemas Eletronicos Embarcados - MebX\n\n");
+#endif
 
 	//Configura Display de 7 segmentos
-	SSDP_CONFIG(SSDP_NORMAL_MODE);
+	bSSDisplayConfig(SSDP_NORMAL_MODE);
 
 	bSpwcInitCh(&xComm1.xSpacewire, eCommSpwCh1);
 	bSpwcInitCh(&xComm2.xSpacewire, eCommSpwCh2);
@@ -192,28 +203,28 @@ int main(void) {
 //	bSpwcGetLink(&xComm8);
 //	printf("empty r: %u \n", xComm8.xLinkConfig.bAutostart);
 
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_POWER_MASK);
 
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_1G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_1R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_2G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_2R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_3G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_3R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_4G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_4R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_5G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_5R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_6G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_6R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_7G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_7R_MASK);
+	bSetPainelLeds(LEDS_OFF, LEDS_8G_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_8R_MASK);
 
-//	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_ALL_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_3_MASK);
+//	bSetPainelLeds(LEDS_ON, LEDS_ST_ALL_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_ST_1_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_ST_3_MASK);
 
 //	switch (getchar()) {
 //	case 'a':
@@ -272,8 +283,7 @@ int main(void) {
 
 //	int iDataCounter = 0;
 
-	TSdmaBufferDataBlock *pxBufferDataM1 =
-			(TSdmaBufferDataBlock *) uliDdr2Base;
+	TSdmaBufferDataBlock *pxBufferDataM1 = (TSdmaBufferDataBlock *) uliDdr2Base;
 
 	pxBufferDataM1->xPixelDataBlock[0].usiPixel[0] = 0x0100;
 	pxBufferDataM1->xPixelDataBlock[0].usiPixel[1] = 0x0302;
@@ -443,8 +453,7 @@ int main(void) {
 
 // buffer: 2176 B -> 544 dwords
 
-	TSdmaBufferDataBlock *pxBufferDataM2 =
-			(TSdmaBufferDataBlock *) uliDdr2Base;
+	TSdmaBufferDataBlock *pxBufferDataM2 = (TSdmaBufferDataBlock *) uliDdr2Base;
 
 	pxBufferDataM2->xPixelDataBlock[0].usiPixel[0] = 0x0100;
 	pxBufferDataM2->xPixelDataBlock[0].usiPixel[1] = 0x0302;
@@ -616,58 +625,78 @@ int main(void) {
 // init DMA
 
 	if (bSdmaInitM1Dma()) {
-		printf("dma_m1 iniciado corretamente \n");
+#ifdef DEBUG_ON
+		debug(fp, "dma_m1 iniciado corretamente \n");
+#endif
 	}
 
 	if (bSdmaInitM2Dma()) {
-		printf("dma_m2 iniciado corretamente \n");
+#ifdef DEBUG_ON
+		debug(fp, "dma_m2 iniciado corretamente \n");
+#endif
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh1Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
-			printf("channel a transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel a transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh2Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh2Buffer)) {
-			printf("channel b transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel b transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh3Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh3Buffer)) {
-			printf("channel c transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel c transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh4Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh4Buffer)) {
-			printf("channel d transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel d transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh5Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh5Buffer)) {
-			printf("channel e transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel e transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh6Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh6Buffer)) {
-			printf("channel f transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel f transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh7Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh7Buffer)) {
-			printf("channel g transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel g transferido corretamente \n");
+#endif
 		}
 	}
 
 	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh8Buffer)) {
 		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh8Buffer)) {
-			printf("channel h transferido corretamente \n");
+#ifdef DEBUG_ON
+			debug(fp, "channel h transferido corretamente \n");
+#endif
 		}
 	}
 
@@ -678,142 +707,159 @@ int main(void) {
 
 		bSpwcGetLinkStatus(&xComm1.xSpacewire);
 		if (xComm1.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_1R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_1G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_1G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_1R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm2.xSpacewire);
 		if (xComm2.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_2R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_2G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_2G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_2R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm3.xSpacewire);
 		if (xComm3.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_3R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_3G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_3G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_3R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm4.xSpacewire);
 		if (xComm4.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_4R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_4G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_4G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_4R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm5.xSpacewire);
 		if (xComm5.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_5R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_5G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_5G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_5R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm6.xSpacewire);
 		if (xComm6.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_6R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_6G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_6G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_6R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm7.xSpacewire);
 		if (xComm7.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_7R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_7G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_7G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_7R_MASK);
 		}
 
 		bSpwcGetLinkStatus(&xComm8.xSpacewire);
 		if (xComm8.xSpacewire.xLinkStatus.bRunning) {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_8R_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_8G_MASK);
 		} else {
-			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+			bSetPainelLeds(LEDS_OFF, LEDS_8G_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_8R_MASK);
 		}
 	}
 
 	while (bLoop) {
-		printf("selecione memoria \n");
+#ifdef DEBUG_ON
+		debug(fp, "selecione memoria \n");
 		switch (getchar()) {
 		case '1':
-			printf("m2 R \n");
+			debug(fp, "m2 R \n")
+			;
 			if (bSdmaDmaM2Transfer(0, 16, eSdmaRightBuffer, eSdmaCh1Buffer)) {
-				printf("dma_m2 transferido corretamente \n");
+
+				debug(fp, "dma_m2 transferido corretamente \n");
+
 			}
 			break;
 
 		case '2':
-			printf("m2 L \n");
+			debug(fp, "m2 L \n")
+			;
 			if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
-				printf("dma_m2 transferido corretamente \n");
+				debug(fp, "dma_m2 transferido corretamente \n");
+
 			}
 			break;
 
 		case 'a':
-			printf("a \n");
+			debug(fp, "a \n")
+			;
 			if (bSdmaDmaM2Transfer(0, 16, eSdmaRightBuffer, eSdmaCh1Buffer)) {
-				printf("dma_m2 transferido corretamente \n");
+				debug(fp, "dma_m2 transferido corretamente \n");
 			}
 //			if (bSdmaDmaM1Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
-//				printf("dma_m1 transferido corretamente \n");
+//				debug(fp, "dma_m1 transferido corretamente \n");
 //			}
 			usleep(500);
 			bFeebGetBuffersStatus(&xComm1.xFeeBuffer);
-			printf("empty: %u \n", xComm1.xFeeBuffer.xBufferStatus.bRightBufferEmpty);
+			sprintf(cDebugBuffer, "empty: %u \n",
+					xComm1.xFeeBuffer.xBufferStatus.bRightBufferEmpty);
+			debug(fp, cDebugBuffer)
+			;
 			break;
 
 		case 'r':
-			printf("r \n");
+			sprintf(cDebugBuffer, "r \n");
+			debug(fp, cDebugBuffer)
+			;
 			bLoop = FALSE;
 			break;
 
 		default:
-			printf("errou \n");
+			sprintf(cDebugBuffer, "errou \n");
+			debug(fp, cDebugBuffer)
+			;
 			break;
 		}
 	}
+#endif
 
 	bSpwcSetLink(&xComm1.xSpacewire);
 	bSpwcSetLink(&xComm8.xSpacewire);
 
 	//*xComm1.puliSpwcChAddr = 0x102;
-	printf("%08lX", *(xComm1.xSpacewire.puliSpwcChAddr));
-
+#ifdef DEBUG_ON
+	sprintf(cDebugBuffer, "%08lX", *(xComm1.xSpacewire.puliSpwcChAddr));
+	debug(fp, cDebugBuffer);
+#endif
 	usleep(10000);
 
 	bSpwcGetLinkStatus(&xComm1.xSpacewire);
 	if (xComm1.xSpacewire.xLinkStatus.bRunning) {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
-		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+		bSetPainelLeds(LEDS_OFF, LEDS_1R_MASK);
+		bSetPainelLeds(LEDS_ON, LEDS_1G_MASK);
 	} else {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1G_MASK);
-		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
+		bSetPainelLeds(LEDS_OFF, LEDS_1G_MASK);
+		bSetPainelLeds(LEDS_ON, LEDS_1R_MASK);
 	}
 
 	bSpwcGetLinkStatus(&xComm8.xSpacewire);
 	if (xComm8.xSpacewire.xLinkStatus.bRunning) {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
-		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+		bSetPainelLeds(LEDS_OFF, LEDS_8R_MASK);
+		bSetPainelLeds(LEDS_ON, LEDS_8G_MASK);
 	} else {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8G_MASK);
-		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+		bSetPainelLeds(LEDS_OFF, LEDS_8G_MASK);
+		bSetPainelLeds(LEDS_ON, LEDS_8R_MASK);
 	}
 
 	int i = 0;
@@ -822,15 +868,24 @@ int main(void) {
 		for (i = 0; i < 1000; i++) {
 			usleep(1000);
 		}
+#ifdef DEBUG_ON
 		bFeebGetBuffersStatus(&xComm1.xFeeBuffer);
-		printf("empty r: %u \n", xComm1.xFeeBuffer.xBufferStatus.bRightBufferEmpty);
-		printf("empty l: %u \n", xComm1.xFeeBuffer.xBufferStatus.bLeftBufferEmpty);
+		sprintf(cDebugBuffer, "empty r: %u \n",
+				xComm1.xFeeBuffer.xBufferStatus.bRightBufferEmpty);
+		debug(fp, cDebugBuffer);
+		sprintf(cDebugBuffer, "empty l: %u \n",
+				xComm1.xFeeBuffer.xBufferStatus.bLeftBufferEmpty);
+		debug(fp, cDebugBuffer);
+#endif
 	}
 
 //}
 
 //getchar();
-	printf("passou 1 \n");
+#ifdef DEBUG_ON
+	sprintf(cDebugBuffer, "passou 1 \n");
+	debug(fp, cDebugBuffer);
+#endif
 
 //	while (COMM_READ_REG32(6) || 0x00000001){
 //	*pDes = (alt_u64) 0xFFFFFFFFFFFFFFFF;
@@ -855,42 +910,42 @@ int main(void) {
 //Realiza teste dos LEDS, entra em um bLoop infinito.
 	vTestLeds();
 
-	//Teste das DDR2 EEPROMs
-	//bDdr2EepromTest(DDR2_M1_ID);
-	//bDdr2EepromTest(DDR2_M2_ID);
+//Teste das DDR2 EEPROMs
+//bDdr2EepromTest(DDR2_M1_ID);
+//bDdr2EepromTest(DDR2_M2_ID);
 
-	//Dump das DDR2 EEPROMs
-	//bDdr2EepromDump(DDR2_M1_ID);
-	//bDdr2EepromDump(DDR2_M2_ID);
+//Dump das DDR2 EEPROMs
+//bDdr2EepromDump(DDR2_M1_ID);
+//bDdr2EepromDump(DDR2_M2_ID);
 
-	//Teste de escrita de leitura da DDR2 M1
-	//bDdr2MemoryRandomWriteTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
-	//bDdr2MemoryRandomReadTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+//Teste de escrita de leitura da DDR2 M1
+//bDdr2MemoryRandomWriteTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+//bDdr2MemoryRandomReadTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
 
-	//Teste de escrita de leitura da DDR2 M2
-	//bDdr2MemoryRandomWriteTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
-	//bDdr2MemoryRandomReadTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+//Teste de escrita de leitura da DDR2 M2
+//bDdr2MemoryRandomWriteTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+//bDdr2MemoryRandomReadTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
 
-	//Teste de transferencia com DMA (M1 -> M2);
-	//TestDMA_M1_M2();
+//Teste de transferencia com DMA (M1 -> M2);
+//TestDMA_M1_M2();
 
-	//Teste de transferencia com DMA (M2 -> M1);
-	//TestDMA_M2_M1();
+//Teste de transferencia com DMA (M2 -> M1);
+//TestDMA_M2_M1();
 
-	//Acende os leds de status e atualiza a temperatura da FPGA no display de 7 segmentos a cada 1 segundo
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_ALL_MASK);
+//Acende os leds de status e atualiza a temperatura da FPGA no display de 7 segmentos a cada 1 segundo
+	bSetPainelLeds(LEDS_ON, LEDS_ST_ALL_MASK);
 
-	// TESTE EPC - Reset
-	//ResetFTDI();
+// TESTE EPC - Reset
+//ResetFTDI();
 
-	//initWrite();
+//initWrite();
 
-	//FTDI_WRITE_REG(FTDI_BYTE_ENABLE_BURST_REG_OFFSET, 0b00001111);
-	//FTDI_WRITE_REG(FTDI_DATA_BURST_REG_OFFSET, 0xF0A0B0C0);
+//FTDI_WRITE_REG(FTDI_BYTE_ENABLE_BURST_REG_OFFSET, 0b00001111);
+//FTDI_WRITE_REG(FTDI_DATA_BURST_REG_OFFSET, 0xF0A0B0C0);
 
 	while (1) {
 		TEMP_Read(&ucTempFpga, &ucTempBoard);
-		SSDP_UPDATE(ucTempFpga);
+		bSSDisplayUpdate(ucTempFpga);
 		usleep(1000 * 1000);
 
 		// TESTE EPC - Read
@@ -979,87 +1034,87 @@ void vTestLeds(void) {
 	alt_u8 red = 0;
 
 	TEMP_Read(&tempFPGA, &tempBoard);
-	SSDP_UPDATE(tempFPGA);
+	bSSDisplayUpdate(tempFPGA);
 
 	while (1) {
 		switch (led) {
 		case 1:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_0_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_0_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_1_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_1R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_1G_MASK);
 			}
 			led++;
 			break;
 		case 2:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_1_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_2_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_1_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_2_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_2R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_2G_MASK);
 			}
 			led++;
 			break;
 		case 3:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_2_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_3_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_2_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_3_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_3R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_3G_MASK);
 			}
 			led++;
 			break;
 		case 4:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_3_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_4_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_3_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_4_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_4R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_4G_MASK);
 			}
 			led++;
 			break;
 		case 5:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_4_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_4_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_1_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_5R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_5G_MASK);
 			}
 			led++;
 			break;
 		case 6:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_5_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_2_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_5_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_2_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_6R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_6G_MASK);
 			}
 			led++;
 			break;
 		case 7:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_6_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_3_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_6_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_3_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_7R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_7G_MASK);
 			}
 			led++;
 			break;
 		case 8:
-			LEDS_BOARD_DRIVE(LEDS_ON, LEDS_BOARD_7_MASK);
-			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_4_MASK);
+			bSetBoardLeds(LEDS_ON, LEDS_BOARD_7_MASK);
+			bSetPainelLeds(LEDS_ON, LEDS_ST_4_MASK);
 			if (red) {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8R_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_8R_MASK);
 			} else {
-				LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
+				bSetPainelLeds(LEDS_ON, LEDS_8G_MASK);
 			}
 			led = 1;
 			if (red) {
@@ -1074,12 +1129,12 @@ void vTestLeds(void) {
 
 		usleep(1000 * 1000);
 
-		LEDS_BOARD_DRIVE(LEDS_OFF, LEDS_BOARD_ALL_MASK);
-		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_ST_ALL_MASK);
-		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_GR_ALL_MASK);
+		bSetBoardLeds(LEDS_OFF, LEDS_BOARD_ALL_MASK);
+		bSetPainelLeds(LEDS_OFF, LEDS_ST_ALL_MASK);
+		bSetPainelLeds(LEDS_OFF, LEDS_GR_ALL_MASK);
 
 		TEMP_Read(&tempFPGA, &tempBoard);
-		SSDP_UPDATE(tempFPGA);
+		bSSDisplayUpdate(tempFPGA);
 
 	}
 }

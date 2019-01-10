@@ -14,9 +14,7 @@
 #define DDR2_H_
 
 /* includes */
-#include "../../utils/meb_includes.h"
-#include "../../utils/util.h"
-#include "system.h"
+#include "../../simucam_definitions.h"
 #include "../../driver/i2c/i2c.h"
 
 /* address */

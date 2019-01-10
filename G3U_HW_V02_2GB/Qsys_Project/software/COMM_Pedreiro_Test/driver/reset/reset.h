@@ -8,7 +8,7 @@
 #ifndef RESET_H_
 #define RESET_H_
 
-#include "../../utils/meb_includes.h"
+#include "../../simucam_definitions.h"
 
 //! [constants definition]
 // address

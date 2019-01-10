@@ -85,8 +85,9 @@ bool bSdmaInitM2Dma(void) {
 	return bStatus;
 }
 
-bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
-		alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
+bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
+		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
+		alt_u8 ucChBufferId) {
 	bool bStatus = TRUE;
 	alt_u16 usiCnt = 0;
 
@@ -235,6 +236,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 			bStatus = FALSE;
 		} else {
 			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
+				// hold transfers for descriptor fifo space
+				while (0
+						!= (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1Dev->csr_base)
+								& ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+					alt_busy_sleep(1); /* delay 1us */
+				}
 				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
 						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 						(alt_u32 *) uliDestAddrLow,
@@ -258,8 +265,9 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 	return bStatus;
 }
 
-bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
-		alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
+bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
+		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
+		alt_u8 ucChBufferId) {
 	bool bStatus = TRUE;
 	alt_u16 usiCnt = 0;
 
@@ -408,6 +416,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 			bStatus = FALSE;
 		} else {
 			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
+				// hold transfers for descriptor fifo space
+				while (0
+						!= (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base)
+								& ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+					alt_busy_sleep(1); /* delay 1us */
+				}
 				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2Dev,
 						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 						(alt_u32 *) uliDestAddrLow,

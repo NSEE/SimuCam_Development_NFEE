@@ -8,7 +8,7 @@
 #ifndef SYNC_H_
 #define SYNC_H_
 
-#include "../../utils/meb_includes.h"
+#include "../../simucam_definitions.h"
 
 //! [constants definition]
 // address
@@ -89,7 +89,7 @@ typedef struct CtrReg {
 
 //! [public function prototypes]
 void vSyncInitIrq(void);
-void vSyncHandleIrq(void* context);
+void vSyncHandleIrq(void* pvContext);
 
 bool bSyncStatusExtnIrq(void);
 alt_u8 ucSyncStatusState(void);

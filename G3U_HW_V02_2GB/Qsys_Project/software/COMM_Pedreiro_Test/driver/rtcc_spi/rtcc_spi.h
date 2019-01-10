@@ -33,7 +33,7 @@
 #ifndef __RTCC_SPI_H__
 #define __RTCC_SPI_H__
 
-#include "../../utils/meb_includes.h"
+#include "../../simucam_definitions.h"
 #include "../../utils/util.h"
 
 bool RTCC_SPI_R_MAC(alt_u8 uc_EUI48_array[6]);

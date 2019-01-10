@@ -85,6 +85,10 @@ bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh);
 bool bFeebSetWindowing(TFeebChannel *pxFeebCh);
 bool bFeebGetWindowing(TFeebChannel *pxFeebCh);
 
+bool bFeebStartCh(TFeebChannel *pxFeebCh);
+bool bFeebStopCh(TFeebChannel *pxFeebCh);
+bool bFeebClrCh(TFeebChannel *pxFeebCh);
+
 bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh);
 //! [public function prototypes]
 

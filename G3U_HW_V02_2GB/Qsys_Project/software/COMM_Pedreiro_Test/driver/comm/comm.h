@@ -8,7 +8,7 @@
 #ifndef COMM_H_
 #define COMM_H_
 
-#include "../../utils/meb_includes.h"
+#include "../../simucam_definitions.h"
 
 //! [constants definition]
 // address

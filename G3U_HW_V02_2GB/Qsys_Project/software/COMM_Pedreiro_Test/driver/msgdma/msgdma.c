@@ -27,19 +27,6 @@
  * of California and by the laws of the United States of America.              *
  *                                                                             *
  ******************************************************************************/
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include "altera_msgdma_descriptor_regs.h"
-#include "altera_msgdma_csr_regs.h"
-#include "altera_msgdma_response_regs.h"
-#include "io.h"
-#include "altera_msgdma.h"
-#include "priv/alt_busy_sleep.h"
-#include "sys/alt_errno.h"
-#include "sys/alt_irq.h"
-#include "sys/alt_stdio.h"
 
 #include "msgdma.h"
 
@@ -90,7 +77,8 @@ static int msgdma_write_extended_descriptor(alt_u32 *csr_base,
 			(alt_u32 )descriptor->read_address_low);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS(descriptor_base,
 			(alt_u32 )descriptor->write_address_low);
-	IOWR_ALTERA_MSGDMA_DESCRIPTOR_LENGTH(descriptor_base, descriptor->transfer_length);
+	IOWR_ALTERA_MSGDMA_DESCRIPTOR_LENGTH(descriptor_base,
+			descriptor->transfer_length);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_SEQUENCE_NUMBER(descriptor_base,
 			descriptor->sequence_number);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_BURST(descriptor_base,
@@ -101,8 +89,10 @@ static int msgdma_write_extended_descriptor(alt_u32 *csr_base,
 			descriptor->read_stride);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_STRIDE(descriptor_base,
 			descriptor->write_stride);
-	IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_ADDRESS_HIGH(descriptor_base, (alt_u32)descriptor->read_address_high);
-	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS_HIGH(descriptor_base, (alt_u32)descriptor->write_address_high);
+	IOWR_ALTERA_MSGDMA_DESCRIPTOR_READ_ADDRESS_HIGH(descriptor_base,
+			(alt_u32 )descriptor->read_address_high);
+	IOWR_ALTERA_MSGDMA_DESCRIPTOR_WRITE_ADDRESS_HIGH(descriptor_base,
+			(alt_u32 )descriptor->write_address_high);
 	IOWR_ALTERA_MSGDMA_DESCRIPTOR_CONTROL_ENHANCED(descriptor_base,
 			descriptor->control);
 	return 0;
@@ -217,7 +207,9 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 		counter = 0; /* reset counter */
 		/*writing descriptor structure to the dispatcher, wait until descriptor
 		 write is succeed*/
-		alt_printf("invalid dma descriptor option\n");
+#ifdef DEBUG_ON
+		debug(fp, "invalid dma descriptor option\n");
+#endif
 
 		/*
 		 * Now that access to the registers is complete, release the
@@ -237,9 +229,10 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 			alt_busy_sleep(1); /* delay 1us */
 			if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 			{
-				alt_printf(
-						"time out after 5 msec while waiting free FIFO buffer"
-								" for storing extended descriptor\n");
+#ifdef DEBUG_ON
+				debug(fp,
+						"time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
+#endif
 				/*
 				 * Now that access to the registers is complete, release the
 				 * registers semaphore so that other threads can access the
@@ -354,8 +347,10 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 		alt_busy_sleep(1); /* delay 1us */
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 		{
-			alt_printf("time out after 5 msec while waiting free FIFO buffer"
-					" for storing descriptor\n");
+#ifdef DEBUG_ON
+			debug(fp,
+					"time out after 5 msec while waiting free FIFO buffer for storing descriptor\n");
+#endif
 			return -ETIME;
 		}
 		counter++;
@@ -392,7 +387,9 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 		counter = 0; /* reset counter */
 		/*writing descriptor structure to the dispatcher, wait until descriptor
 		 write is succeed*/
-		alt_printf("invalid dma descriptor option\n");
+#ifdef DEBUG_ON
+		debug(fp, "invalid dma descriptor option\n");
+#endif
 
 		/*
 		 * Now that access to the registers is complete, release the
@@ -412,8 +409,10 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 			alt_busy_sleep(1); /* delay 1us */
 			if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 			{
-				alt_printf("time out after 5 msec while writing extended"
-						" descriptor to FIFO\n");
+#ifdef DEBUG_ON
+				debug(fp,
+						"time out after 5 msec while writing extended descriptor to FIFO\n");
+#endif
 
 				/*
 				 * Now that access to the registers is complete, release the
@@ -458,8 +457,10 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 		alt_busy_sleep(1); /* delay 1us */
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 		{
-			alt_printf("time out after 5 msec while waiting for any pending"
-					" transfer complete\n");
+#ifdef DEBUG_ON
+			debug(fp,
+					"time out after 5 msec while waiting for any pending transfer complete\n");
+#endif
 
 			/*
 			 * Now that access to the registers is complete, release the registers
@@ -527,10 +528,10 @@ int iMsgdmaConstructExtendedMmToMmDescriptor(alt_msgdma_dev *pxDev,
 		alt_u32 *puliReadAddressHigh, alt_u32 *puliWriteAddressHigh,
 		alt_u16 usiSequenceNumber, alt_u8 ucReadBurstCount,
 		alt_u8 ucWriteBurstCount, alt_u16 usiReadStride, alt_u16 usiWriteStride) {
-	return msgdma_construct_extended_descriptor(pxDev, pxDescriptor, puliReadAddress,
-			puliWriteAddress, uliLength, uliControl, puliReadAddressHigh,
-			puliWriteAddressHigh, usiSequenceNumber, ucReadBurstCount,
-			ucWriteBurstCount, usiReadStride, usiWriteStride);
+	return msgdma_construct_extended_descriptor(pxDev, pxDescriptor,
+			puliReadAddress, puliWriteAddress, uliLength, uliControl,
+			puliReadAddressHigh, puliWriteAddressHigh, usiSequenceNumber,
+			ucReadBurstCount, ucWriteBurstCount, usiReadStride, usiWriteStride);
 
 }
 

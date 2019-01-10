@@ -8,8 +8,8 @@
 #ifndef SIMUCAM_DMA_H_
 #define SIMUCAM_DMA_H_
 
-#include "../../utils/meb_includes.h"
-#include "../msgdma/msgdma.h"
+#include "../../simucam_definitions.h"
+#include "../../driver/msgdma/msgdma.h"
 
 //! [constants definition]
 // address

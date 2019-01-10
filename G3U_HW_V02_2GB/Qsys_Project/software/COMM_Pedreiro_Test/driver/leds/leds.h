@@ -14,10 +14,7 @@
 #define LEDS_H_
 
 /* includes */
-#include "../../utils/meb_includes.h"
-#include "../../utils/util.h"
-#include "system.h"
-#include <altera_avalon_pio_regs.h>
+#include "../../simucam_definitions.h"
 
 /* address */
 #define LEDS_BOARD_BASE PIO_LED_BASE
@@ -70,7 +67,7 @@
 extern alt_u8 LedsBoardControl;
 extern alt_u32 LedsPainelControl;
 
-bool LEDS_BOARD_DRIVE(bool bDRIVE, alt_u8 LedsMask);
-bool LEDS_PAINEL_DRIVE(bool bDRIVE, alt_u32 LedsMask);
+bool bSetBoardLeds(bool bDRIVE, alt_u8 LedsMask);
+bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask);
 
 #endif /* LEDS_H_ */

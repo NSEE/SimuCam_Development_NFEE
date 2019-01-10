@@ -1,23 +1,27 @@
 /**
  * @file   util.c
  * @Author Rafael Corsi (corsiferrao@gmail.com)
- * @date   Marrço, 2015
- * @brief  Definiçõeses para acesso aos módulos via Avalon
+ * @date   MarrÃ§o, 2015
+ * @brief  DefiniÃ§Ä¡eses para acesso aos mÃ³dulos via Avalon
  *
  * tab = 4
  */
 
 #include "util.h"
 
+#ifdef DEBUG_ON
+char cDebugBuffer[256];
+#endif
+
 /**
  * @name    _reg_write
  * @brief   Escrita dos registradores de config. RMAP/SPW
  * @ingroup UTIL
  *
- * Acessa os registradores do módulos RMAP_SPW via acesso a memoria AVALON
+ * Acessa os registradores do mÃ³dulos RMAP_SPW via acesso a memoria AVALON
  *
- * @param [in] BASE_ADD Endereço base de acesso ao registrador
- * @param [in] REG_ADD  Endereço do registador (Offset)
+ * @param [in] BASE_ADD EndereÃ§o base de acesso ao registrador
+ * @param [in] REG_ADD  EndereÃ§o do registador (Offset)
  * @param [in] REG_DADO Dado a ser gravado no registrador
  *
  * @retval 1 : Sucesso 
@@ -36,10 +40,10 @@ alt_32 _reg_write(int BASE_ADD, alt_32 REG_ADD, alt_32 REG_Dado) {
  * @brief   Leitura dos registradores de config. RMAP/SPW
  * @ingroup UTIL
  *
- * Acessa os registradores do módulos RMAP_SPW via acesso a memoria AVALON
+ * Acessa os registradores do mÃ³dulos RMAP_SPW via acesso a memoria AVALON
  *
- * @param [in] BASE_ADD Endereço base de acesso ao registrador
- * @param [in] REG_ADD  Endereço do registador (Offset)
+ * @param [in] BASE_ADD EndereÃ§o base de acesso ao registrador
+ * @param [in] REG_ADD  EndereÃ§o do registador (Offset)
  * @param [in] REG_DADO Retorno do dado lido
  *
  * @retval 1 : Sucesso 
@@ -70,11 +74,18 @@ void _print_codec_status(int codec_status) {
 	int connecting = (int) ((codec_status >> 5) & 1);
 	int running = (int) ((codec_status >> 4) & 1);
 
-	printf("-------- link status \n");
-	printf("Link started    : %s \n", (started == 1) ? "S" : "N");
-	printf("Link connecting : %s \n", (connecting == 1) ? "S" : "N");
-	printf("Link running    : %s \n", (running == 1) ? "S" : "N");
-	printf("--------  \n");
+#ifdef DEBUG_ON
+	sprintf(cDebugBuffer, "-------- link status \n");
+	debug(fp, cDebugBuffer);
+	sprintf(cDebugBuffer, "Link started    : %s \n", (started == 1) ? "S" : "N");
+	debug(fp, cDebugBuffer);
+	sprintf(cDebugBuffer, "Link connecting : %s \n", (connecting == 1) ? "S" : "N");
+	debug(fp, cDebugBuffer);
+	sprintf(cDebugBuffer, "Link running    : %s \n", (running == 1) ? "S" : "N");
+	debug(fp, cDebugBuffer);
+	sprintf(cDebugBuffer, "--------  \n");
+	debug(fp, cDebugBuffer);
+#endif
 }
 
 /**
@@ -108,3 +119,51 @@ void _split_codec_status(int codec_status, int *started, int *connecting,
  * @retval INT8U of hecadecimal value
  *
  */
+alt_u8 aatoh(alt_u8 *buffer) {
+	alt_u8* a;
+	alt_u8 v;
+	a = buffer;
+	v = ((a[0] - (48 + 7 * (a[0] > 57))) << 4)
+			+ (a[1] - (48 + 7 * (a[1] > 57)));
+	return v;
+}
+
+/**
+ * @name    Verif_Error
+ * @brief   Prints errors
+ * @ingroup UTIL
+ *
+ * Prints errors and acts as a passthrough
+ *
+ * @param [in] int
+ * *
+ * @retval int
+ *
+ */
+
+alt_u8 Verif_Error(alt_u8 error_code) {
+	if (!error_code) {
+#ifdef DEBUG_ON
+	debug(fp, "ERROR\n\r");
+#endif
+		return 0;
+	} else
+		return 1;
+}
+
+/**
+ * @name    toInt
+ * @brief   Converts ASCII number to int
+ * @ingroup UTIL
+ *
+ * Converts 1 digit ASCII numbers to int
+ *
+ * @param [in] INT8U
+ * *
+ * @retval int
+ *
+ */
+
+alt_u8 toInt(alt_u8 ascii) {
+	return (int) ascii - 48;
+}

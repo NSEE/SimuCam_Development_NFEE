@@ -28,7 +28,7 @@ alt_u8 SspdConfigControl = 0x00;
  * @retval FALSE : Configuração não especificada
  *
  */
-bool SSDP_CONFIG(alt_u8 SsdpConfig){
+bool bSSDisplayConfig(alt_u8 SsdpConfig){
 
     switch(SsdpConfig){
 	    case SSDP_NORMAL_MODE:
@@ -73,7 +73,7 @@ bool SSDP_CONFIG(alt_u8 SsdpConfig){
  * @retval TRUE : Sucesso
  *
  */
-bool SSDP_UPDATE(alt_u8 SsdpData){
+bool bSSDisplayUpdate(alt_u8 SsdpData){
 
 	alt_u32 *pSsdpAddr = (alt_u32 *)SSDP_BASE;
 	*(pSsdpAddr + SSDP_DATA_REG_OFFSET) = (alt_u32) SsdpData;

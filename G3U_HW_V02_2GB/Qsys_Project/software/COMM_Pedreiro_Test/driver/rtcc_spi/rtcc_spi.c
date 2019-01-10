@@ -39,6 +39,10 @@
 #define SPI_SDO       (IORD_ALTERA_AVALON_PIO_DATA(RTCC_SDO_BASE) & 0x01)
 #define SPI_DELAY     usleep(150)  // based on 50MHZ of CPU clock
 
+#ifdef DEBUG_ON
+char cDebugBuffer[256];
+#endif
+
 void v_spi_start(void){
     //Pull CS_n Low to start communication
     SPI_SCK(0);
@@ -144,7 +148,10 @@ bool RTCC_SPI_R_MAC(alt_u8 uc_EUI48_array[6])
     uc_EUI48_array[4] = uc_EUI48_B4;
     uc_EUI48_array[5] = uc_EUI48_B5;
 
-    printf("RTCC EUI-48 MAC Address: 0x%02x:%02x:%02x:%02x:%02x:%02x \n", uc_EUI48_B0, uc_EUI48_B1, uc_EUI48_B2, uc_EUI48_B3, uc_EUI48_B4, uc_EUI48_B5);
+#ifdef DEBUG_ON
+	sprintf(cDebugBuffer, "RTCC EUI-48 MAC Address: 0x%02x:%02x:%02x:%02x:%02x:%02x \n", uc_EUI48_B0, uc_EUI48_B1, uc_EUI48_B2, uc_EUI48_B3, uc_EUI48_B4, uc_EUI48_B5);
+	debug(fp, cDebugBuffer);
+#endif
 
     return bSuccess;
 }

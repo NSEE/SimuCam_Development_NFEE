@@ -31,18 +31,8 @@
 #ifndef __MSGDMA_H__
 #define __MSGDMA_H__
 
-#include <stddef.h>
-#include <errno.h>
-
-#include "sys/alt_dev.h"
-#include "alt_types.h"
-#include "altera_msgdma.h"
-#include "altera_msgdma_csr_regs.h"
-#include "altera_msgdma_descriptor_regs.h"
-#include "altera_msgdma_response_regs.h"
-#include "altera_msgdma_prefetcher_regs.h"
-#include "os/alt_sem.h"
-#include "os/alt_flag.h"
+#include <altera_msgdma.h>
+#include "../../simucam_definitions.h"
 
 #ifdef __cplusplus
 extern "C"
