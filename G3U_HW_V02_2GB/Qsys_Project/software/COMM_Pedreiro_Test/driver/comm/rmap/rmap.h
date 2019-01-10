@@ -133,7 +133,7 @@ typedef struct RmapMemHKArea {
 	alt_u16 usiZeroHiresAmp;
 } TRmapMemHKArea;
 typedef struct RmapChannel {
-	alt_u32 *puliChAddr;
+	alt_u32 *puliRmapChAddr;
 	TRmapCodecConfig xRmapCodecConfig;
 	TRmapCodecStatus xRmapCodecStatus;
 	TRmapCodecError xRmapCodecError;
@@ -182,7 +182,7 @@ alt_u32 uliRmapCh6WriteCmdAddress(void);
 alt_u32 uliRmapCh7WriteCmdAddress(void);
 alt_u32 uliRmapCh8WriteCmdAddress(void);
 
-void vRmapInitIrq(alt_u8 ucSpwCh);
+void vRmapInitIrq(alt_u8 ucCommCh);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware
@@ -191,17 +191,23 @@ bool bRmapSetIrqControl(TRmapChannel *pxRmapCh);
 bool bRmapGetIrqControl(TRmapChannel *pxRmapCh);
 bool bRmapGetIrqFlags(TRmapChannel *pxRmapCh);
 
-bool bCommSetCodecConfig(TRmapChannel *pxRmapCh);
-bool bCommGetCodecConfig(TRmapChannel *pxRmapCh);
-bool bCommGetCodecStatus(TRmapChannel *pxRmapCh);
-bool bCommGetCodecError(TRmapChannel *pxRmapCh);
-bool bCommSetMemConfigArea(TRmapChannel *pxRmapCh);
-bool bCommGetMemConfigArea(TRmapChannel *pxRmapCh);
-bool bCommSetMemConfigStat(TRmapChannel *pxRmapCh);
-bool bCommGetMemConfigStat(TRmapChannel *pxRmapCh);
-bool bCommSetRmapMemHKArea(TRmapChannel *pxRmapCh);
-bool bCommGetRmapMemHKArea(TRmapChannel *pxRmapCh);
-bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucSpwCh);
+bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh);
+bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh);
+
+bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh);
+
+bool bRmapGetCodecError(TRmapChannel *pxRmapCh);
+
+bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh);
+bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh);
+
+bool bRmapSetMemConfigStat(TRmapChannel *pxRmapCh);
+bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh);
+
+bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh);
+bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh);
+
+bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

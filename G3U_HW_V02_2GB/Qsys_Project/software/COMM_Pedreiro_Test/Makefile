@@ -165,6 +165,7 @@ C_SRCS += driver/comm/data_packet/data_packet.c
 C_SRCS += driver/comm/fee_buffers/fee_buffers.c
 C_SRCS += driver/comm/rmap/rmap.c
 C_SRCS += driver/comm/spw_controller/spw_controller.c
+C_SRCS += driver/simucam_dma/simucam_dma.c
 CXX_SRCS :=
 ASM_SRCS :=
 

@@ -54,13 +54,18 @@ typedef struct SpwcChannel {
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware
 
-bool bSpwcSetLink(TSpwcChannel *pxCh);
-bool bSpwcGetLink(TSpwcChannel *pxCh);
-bool bSpwcGetLinkError(TSpwcChannel *pxCh);
-bool bSpwcGetLinkStatus(TSpwcChannel *pxCh);
-bool bSpwcGetTimecode(TSpwcChannel *pxCh);
-bool bSpwcClearTimecode(TSpwcChannel *pxCh);
-bool bSpwcInitCh(TSpwcChannel *pxCh, alt_u8 ucSpwCh);
+bool bSpwcSetLink(TSpwcChannel *pxSpwcCh);
+bool bSpwcGetLink(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
+
+bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

@@ -26,31 +26,31 @@ static alt_u32 uliSpwcReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [program memory private global variables]
 
 //! [public functions]
-bool bSpwcSetLink(TSpwcChannel *pxCh) {
+bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	alt_u32 uliReg = 0;
 
-	if (pxCh != NULL) {
-		uliReg = uliSpwcReadReg(pxCh->puliSpwcChAddr,
+	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
 		COMM_WINDOW_CTRL_REG_OFFSET);
 
-		if (pxCh->xLinkConfig.bAutostart) {
+		if (pxSpwcCh->xLinkConfig.bAutostart) {
 			uliReg |= COMM_CTRL_LINK_AUTOSTART_MSK;
 		} else {
 			uliReg &= (~COMM_CTRL_LINK_AUTOSTART_MSK);
 		}
-		if (pxCh->xLinkConfig.bStart) {
+		if (pxSpwcCh->xLinkConfig.bStart) {
 			uliReg |= COMM_CTRL_LINK_START_MSK;
 		} else {
 			uliReg &= (~COMM_CTRL_LINK_START_MSK);
 		}
-		if (pxCh->xLinkConfig.bDisconnect) {
+		if (pxSpwcCh->xLinkConfig.bDisconnect) {
 			uliReg |= COMM_CTRL_LINK_DISCONNECT_MSK;
 		} else {
 			uliReg &= (~COMM_CTRL_LINK_DISCONNECT_MSK);
 		}
 
-		vSpwcWriteReg(pxCh->puliSpwcChAddr, COMM_WINDOW_CTRL_REG_OFFSET,
+		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_WINDOW_CTRL_REG_OFFSET,
 				uliReg);
 		bStatus = TRUE;
 	}
@@ -58,28 +58,28 @@ bool bSpwcSetLink(TSpwcChannel *pxCh) {
 	return bStatus;
 }
 
-bool bSpwcGetLink(TSpwcChannel *pxCh) {
+bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	alt_u32 uliReg = 0;
 
-	if (pxCh != NULL) {
-		uliReg = uliSpwcReadReg(pxCh->puliSpwcChAddr,
+	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
 		COMM_WINDOW_CTRL_REG_OFFSET);
 
 		if (uliReg & COMM_CTRL_LINK_AUTOSTART_MSK) {
-			pxCh->xLinkConfig.bAutostart = TRUE;
+			pxSpwcCh->xLinkConfig.bAutostart = TRUE;
 		} else {
-			pxCh->xLinkConfig.bAutostart = FALSE;
+			pxSpwcCh->xLinkConfig.bAutostart = FALSE;
 		}
 		if (uliReg & COMM_CTRL_LINK_START_MSK) {
-			pxCh->xLinkConfig.bStart = TRUE;
+			pxSpwcCh->xLinkConfig.bStart = TRUE;
 		} else {
-			pxCh->xLinkConfig.bStart = FALSE;
+			pxSpwcCh->xLinkConfig.bStart = FALSE;
 		}
 		if (uliReg & COMM_CTRL_LINK_DISCONNECT_MSK) {
-			pxCh->xLinkConfig.bDisconnect = TRUE;
+			pxSpwcCh->xLinkConfig.bDisconnect = TRUE;
 		} else {
-			pxCh->xLinkConfig.bDisconnect = FALSE;
+			pxSpwcCh->xLinkConfig.bDisconnect = FALSE;
 		}
 
 		bStatus = TRUE;
@@ -88,33 +88,33 @@ bool bSpwcGetLink(TSpwcChannel *pxCh) {
 	return bStatus;
 }
 
-bool bSpwcGetLinkError(TSpwcChannel *pxCh) {
+bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	alt_u32 uliReg = 0;
 
-	if (pxCh != NULL) {
-		uliReg = uliSpwcReadReg(pxCh->puliSpwcChAddr,
+	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
 		COMM_WINDOW_STAT_REG_OFFSET);
 
 		if (uliReg & COMM_STAT_LINK_DISC_ERR_MSK) {
-			pxCh->xLinkError.bDisconnect = TRUE;
+			pxSpwcCh->xLinkError.bDisconnect = TRUE;
 		} else {
-			pxCh->xLinkError.bDisconnect = FALSE;
+			pxSpwcCh->xLinkError.bDisconnect = FALSE;
 		}
 		if (uliReg & COMM_STAT_LINK_PAR_ERR_MSK) {
-			pxCh->xLinkError.bParity = TRUE;
+			pxSpwcCh->xLinkError.bParity = TRUE;
 		} else {
-			pxCh->xLinkError.bParity = FALSE;
+			pxSpwcCh->xLinkError.bParity = FALSE;
 		}
 		if (uliReg & COMM_STAT_LINK_ESC_ERR_MSK) {
-			pxCh->xLinkError.bEscape = TRUE;
+			pxSpwcCh->xLinkError.bEscape = TRUE;
 		} else {
-			pxCh->xLinkError.bEscape = FALSE;
+			pxSpwcCh->xLinkError.bEscape = FALSE;
 		}
 		if (uliReg & COMM_STAT_LINK_CRED_ERR_MSK) {
-			pxCh->xLinkError.bCredit = TRUE;
+			pxSpwcCh->xLinkError.bCredit = TRUE;
 		} else {
-			pxCh->xLinkError.bCredit = FALSE;
+			pxSpwcCh->xLinkError.bCredit = FALSE;
 		}
 
 		bStatus = TRUE;
@@ -123,28 +123,28 @@ bool bSpwcGetLinkError(TSpwcChannel *pxCh) {
 	return bStatus;
 }
 
-bool bSpwcGetLinkStatus(TSpwcChannel *pxCh) {
+bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
 	alt_u32 uliReg = 0;
 
-	if (pxCh != NULL) {
-		uliReg = uliSpwcReadReg(pxCh->puliSpwcChAddr,
+	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
 		COMM_WINDOW_STAT_REG_OFFSET);
 
 		if (uliReg & COMM_STAT_LINK_STARTED_MSK) {
-			pxCh->xLinkStatus.bStarted = TRUE;
+			pxSpwcCh->xLinkStatus.bStarted = TRUE;
 		} else {
-			pxCh->xLinkStatus.bStarted = FALSE;
+			pxSpwcCh->xLinkStatus.bStarted = FALSE;
 		}
 		if (uliReg & COMM_STAT_LINK_CONNECTING_MSK) {
-			pxCh->xLinkStatus.bConnecting = TRUE;
+			pxSpwcCh->xLinkStatus.bConnecting = TRUE;
 		} else {
-			pxCh->xLinkStatus.bConnecting = FALSE;
+			pxSpwcCh->xLinkStatus.bConnecting = FALSE;
 		}
 		if (uliReg & COMM_STAT_LINK_RUNNING_MSK) {
-			pxCh->xLinkStatus.bRunning = TRUE;
+			pxSpwcCh->xLinkStatus.bRunning = TRUE;
 		} else {
-			pxCh->xLinkStatus.bRunning = FALSE;
+			pxSpwcCh->xLinkStatus.bRunning = FALSE;
 		}
 
 		bStatus = TRUE;
@@ -153,36 +153,36 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxCh) {
 	return bStatus;
 }
 
-bool bSpwcInitCh(TSpwcChannel *pxCh, alt_u8 ucSpwCh) {
+bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 
-	if (pxCh != NULL) {
+	if (pxSpwcCh != NULL) {
 		bStatus = TRUE;
 
-		switch (ucSpwCh) {
+		switch (ucCommCh) {
 		case eCommSpwCh1:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
 			break;
 		case eCommSpwCh2:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
 			break;
 		case eCommSpwCh3:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
 			break;
 		case eCommSpwCh4:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
 			break;
 		case eCommSpwCh5:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
 			break;
 		case eCommSpwCh6:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
 			break;
 		case eCommSpwCh7:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
 			break;
 		case eCommSpwCh8:
-			pxCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
+			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
 			break;
 		default:
 			bStatus = FALSE;
@@ -190,33 +190,33 @@ bool bSpwcInitCh(TSpwcChannel *pxCh, alt_u8 ucSpwCh) {
 		}
 
 		if (bStatus) {
-			if (!bFeebGetWindowing(pxCh)) {
+//			if (!bFeebGetWindowing(pxSpwcCh)) {
+//				bStatus = FALSE;
+//			}
+			if (!bSpwcGetLink(pxSpwcCh)) {
 				bStatus = FALSE;
 			}
-			if (!bSpwcGetLink(pxCh)) {
+			if (!bSpwcGetLinkError(pxSpwcCh)) {
 				bStatus = FALSE;
 			}
-			if (!bSpwcGetLinkError(pxCh)) {
+			if (!bSpwcGetLinkStatus(pxSpwcCh)) {
 				bStatus = FALSE;
 			}
-			if (!bSpwcGetLinkStatus(pxCh)) {
-				bStatus = FALSE;
-			}
-			if (!bCommGetTimecodeRx(pxCh)) {
-				bStatus = FALSE;
-			}
-			if (!bCommGetTimecodeTx(pxCh)) {
-				bStatus = FALSE;
-			}
-			if (!bFeebGetIrqControl(pxCh)) {
-				bStatus = FALSE;
-			}
-			if (!bFeebGetIrqFlags(pxCh)) {
-				bStatus = FALSE;
-			}
-			if (!bFeebGetBuffersStatus(pxCh)) {
-				bStatus = FALSE;
-			}
+//			if (!bCommGetTimecodeRx(pxSpwcCh)) {
+//				bStatus = FALSE;
+//			}
+//			if (!bCommGetTimecodeTx(pxSpwcCh)) {
+//				bStatus = FALSE;
+//			}
+//			if (!bFeebGetIrqControl(pxSpwcCh)) {
+//				bStatus = FALSE;
+//			}
+//			if (!bFeebGetIrqFlags(pxSpwcCh)) {
+//				bStatus = FALSE;
+//			}
+//			if (!bFeebGetBuffersStatus(pxSpwcCh)) {
+//				bStatus = FALSE;
+//			}
 		}
 	}
 	return bStatus;

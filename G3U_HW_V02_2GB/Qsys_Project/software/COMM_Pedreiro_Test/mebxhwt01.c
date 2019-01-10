@@ -27,8 +27,8 @@
 #include "logic/sense/sense.h"
 #include "logic/ddr2/ddr2.h"
 
-#include "driver/comm/comm.h"
-#include "driver/fee_buffers/fee_buffers.h"
+#include "driver/comm/comm_channel.h"
+#include "driver/simucam_dma/simucam_dma.h"
 #include "driver/reset/reset.h"
 #include "driver/ctrl_io_lvds/ctrl_io_lvds.h"
 
@@ -38,14 +38,14 @@
 
 void vTestLeds(void);
 
-TSpwcChannel xSpw1;
-TSpwcChannel xSpw2;
-TSpwcChannel xSpw3;
-TSpwcChannel xSpw4;
-TSpwcChannel xSpw5;
-TSpwcChannel xSpw6;
-TSpwcChannel xSpw7;
-TSpwcChannel xSpw8;
+TCommChannel xComm1;
+TCommChannel xComm2;
+TCommChannel xComm3;
+TCommChannel xComm4;
+TCommChannel xComm5;
+TCommChannel xComm6;
+TCommChannel xComm7;
+TCommChannel xComm8;
 
 int main(void) {
 
@@ -71,126 +71,126 @@ int main(void) {
 	//Configura Display de 7 segmentos
 	SSDP_CONFIG(SSDP_NORMAL_MODE);
 
-	bSpwcInitCh(&xSpw1, eCommSpwCh1);
-	bSpwcInitCh(&xSpw2, eCommSpwCh2);
-	bSpwcInitCh(&xSpw3, eCommSpwCh3);
-	bSpwcInitCh(&xSpw4, eCommSpwCh4);
-	bSpwcInitCh(&xSpw5, eCommSpwCh5);
-	bSpwcInitCh(&xSpw6, eCommSpwCh6);
-	bSpwcInitCh(&xSpw7, eCommSpwCh7);
-	bSpwcInitCh(&xSpw8, eCommSpwCh8);
+	bSpwcInitCh(&xComm1.xSpacewire, eCommSpwCh1);
+	bSpwcInitCh(&xComm2.xSpacewire, eCommSpwCh2);
+	bSpwcInitCh(&xComm3.xSpacewire, eCommSpwCh3);
+	bSpwcInitCh(&xComm4.xSpacewire, eCommSpwCh4);
+	bSpwcInitCh(&xComm5.xSpacewire, eCommSpwCh5);
+	bSpwcInitCh(&xComm6.xSpacewire, eCommSpwCh6);
+	bSpwcInitCh(&xComm7.xSpacewire, eCommSpwCh7);
+	bSpwcInitCh(&xComm8.xSpacewire, eCommSpwCh8);
 
 //	vFeebInitIrq(eCommSpwCh1);
 //	int_cnt = 0;
 //	printf("int_cnt: %u \n", int_cnt);
 //
-//	xSpw1.xIrqControl.bRightBufferEmptyEn = FALSE;
-//	bFeebSetIrqControl(&xSpw1);
+//	xComm1.xIrqControl.bRightBufferEmptyEn = FALSE;
+//	bFeebSetIrqControl(&xComm1);
 
-	xSpw1.xLinkConfig.bAutostart = FALSE;
-	xSpw1.xLinkConfig.bStart = FALSE;
-	xSpw1.xLinkConfig.bDisconnect = TRUE;
-	xSpw2.xLinkConfig.bAutostart = FALSE;
-	xSpw2.xLinkConfig.bStart = FALSE;
-	xSpw2.xLinkConfig.bDisconnect = TRUE;
-	xSpw3.xLinkConfig.bAutostart = FALSE;
-	xSpw3.xLinkConfig.bStart = FALSE;
-	xSpw3.xLinkConfig.bDisconnect = TRUE;
-	xSpw4.xLinkConfig.bAutostart = FALSE;
-	xSpw4.xLinkConfig.bStart = FALSE;
-	xSpw4.xLinkConfig.bDisconnect = TRUE;
-	xSpw5.xLinkConfig.bAutostart = FALSE;
-	xSpw5.xLinkConfig.bStart = FALSE;
-	xSpw5.xLinkConfig.bDisconnect = TRUE;
-	xSpw6.xLinkConfig.bAutostart = FALSE;
-	xSpw6.xLinkConfig.bStart = FALSE;
-	xSpw6.xLinkConfig.bDisconnect = TRUE;
-	xSpw7.xLinkConfig.bAutostart = FALSE;
-	xSpw7.xLinkConfig.bStart = FALSE;
-	xSpw7.xLinkConfig.bDisconnect = TRUE;
-	xSpw8.xLinkConfig.bAutostart = FALSE;
-	xSpw8.xLinkConfig.bStart = FALSE;
-	xSpw8.xLinkConfig.bDisconnect = TRUE;
-	bSpwcSetLink(&xSpw1);
-	bSpwcSetLink(&xSpw2);
-	bSpwcSetLink(&xSpw3);
-	bSpwcSetLink(&xSpw4);
-	bSpwcSetLink(&xSpw5);
-	bSpwcSetLink(&xSpw6);
-	bSpwcSetLink(&xSpw7);
-	bSpwcSetLink(&xSpw8);
+	xComm1.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm1.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm1.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm2.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm2.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm2.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm3.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm3.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm3.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm4.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm4.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm4.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm5.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm5.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm5.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm6.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm6.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm6.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm7.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm7.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm7.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	xComm8.xSpacewire.xLinkConfig.bAutostart = FALSE;
+	xComm8.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm8.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+	bSpwcSetLink(&xComm1.xSpacewire);
+	bSpwcSetLink(&xComm2.xSpacewire);
+	bSpwcSetLink(&xComm3.xSpacewire);
+	bSpwcSetLink(&xComm4.xSpacewire);
+	bSpwcSetLink(&xComm5.xSpacewire);
+	bSpwcSetLink(&xComm6.xSpacewire);
+	bSpwcSetLink(&xComm7.xSpacewire);
+	bSpwcSetLink(&xComm8.xSpacewire);
 
 	usleep(50000);
 	usleep(1000000);
 
-	xSpw1.xWindowingConfig.bMasking = TRUE;
-	xSpw1.xLinkConfig.bAutostart = TRUE;
-	xSpw1.xLinkConfig.bStart = TRUE;
-	xSpw1.xLinkConfig.bDisconnect = FALSE;
-	xSpw2.xWindowingConfig.bMasking = TRUE;
-	xSpw2.xLinkConfig.bAutostart = TRUE;
-//	xSpw2.xLinkConfig.bStart = TRUE;
-	xSpw2.xLinkConfig.bDisconnect = FALSE;
-	xSpw3.xWindowingConfig.bMasking = TRUE;
-	xSpw3.xLinkConfig.bAutostart = TRUE;
-//	xSpw3.xLinkConfig.bStart = TRUE;
-	xSpw3.xLinkConfig.bDisconnect = FALSE;
-	xSpw4.xWindowingConfig.bMasking = TRUE;
-	xSpw4.xLinkConfig.bAutostart = TRUE;
-//	xSpw4.xLinkConfig.bStart = TRUE;
-	xSpw4.xLinkConfig.bDisconnect = FALSE;
-	xSpw5.xWindowingConfig.bMasking = TRUE;
-	xSpw5.xLinkConfig.bAutostart = TRUE;
-//	xSpw5.xLinkConfig.bStart = TRUE;
-	xSpw5.xLinkConfig.bDisconnect = FALSE;
-	xSpw6.xWindowingConfig.bMasking = TRUE;
-	xSpw6.xLinkConfig.bAutostart = TRUE;
-//	xSpw6.xLinkConfig.bStart = TRUE;
-	xSpw6.xLinkConfig.bDisconnect = FALSE;
-	xSpw7.xWindowingConfig.bMasking = TRUE;
-	xSpw7.xLinkConfig.bAutostart = TRUE;
-//	xSpw7.xLinkConfig.bStart = TRUE;
-	xSpw7.xLinkConfig.bDisconnect = FALSE;
-	xSpw8.xWindowingConfig.bMasking = TRUE;
-	xSpw8.xLinkConfig.bAutostart = TRUE;
-//	xSpw8.xLinkConfig.bStart = TRUE;
-	xSpw8.xLinkConfig.bDisconnect = FALSE;
-	bFeebSetWindowing(&xSpw1);
-	bFeebSetWindowing(&xSpw2);
-	bFeebSetWindowing(&xSpw3);
-	bFeebSetWindowing(&xSpw4);
-	bFeebSetWindowing(&xSpw5);
-	bFeebSetWindowing(&xSpw6);
-	bFeebSetWindowing(&xSpw7);
-	bFeebSetWindowing(&xSpw8);
-	bSpwcSetLink(&xSpw1);
-	bSpwcSetLink(&xSpw2);
-	bSpwcSetLink(&xSpw3);
-	bSpwcSetLink(&xSpw4);
-	bSpwcSetLink(&xSpw5);
-	bSpwcSetLink(&xSpw6);
-	bSpwcSetLink(&xSpw7);
-	bSpwcSetLink(&xSpw8);
+	xComm1.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm1.xSpacewire.xLinkConfig.bAutostart = TRUE;
+	xComm1.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm1.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm2.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm2.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm2.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm2.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm3.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm3.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm3.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm3.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm4.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm4.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm4.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm4.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm5.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm5.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm5.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm5.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm6.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm6.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm6.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm6.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm7.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm7.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm7.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm7.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	xComm8.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
+	xComm8.xSpacewire.xLinkConfig.bAutostart = TRUE;
+//	xComm8.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm8.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+	bFeebSetWindowing(&xComm1.xFeeBuffer);
+	bFeebSetWindowing(&xComm2.xFeeBuffer);
+	bFeebSetWindowing(&xComm3.xFeeBuffer);
+	bFeebSetWindowing(&xComm4.xFeeBuffer);
+	bFeebSetWindowing(&xComm5.xFeeBuffer);
+	bFeebSetWindowing(&xComm6.xFeeBuffer);
+	bFeebSetWindowing(&xComm7.xFeeBuffer);
+	bFeebSetWindowing(&xComm8.xFeeBuffer);
+	bSpwcSetLink(&xComm1.xSpacewire);
+	bSpwcSetLink(&xComm2.xSpacewire);
+	bSpwcSetLink(&xComm3.xSpacewire);
+	bSpwcSetLink(&xComm4.xSpacewire);
+	bSpwcSetLink(&xComm5.xSpacewire);
+	bSpwcSetLink(&xComm6.xSpacewire);
+	bSpwcSetLink(&xComm7.xSpacewire);
+	bSpwcSetLink(&xComm8.xSpacewire);
 
-//	xSpw1.xWindowingConfig.bMasking = TRUE;
-//	bFeebSetWindowing(&xSpw1);
+//	xComm1.xWindowingConfig.bMasking = TRUE;
+//	bFeebSetWindowing(&xComm1);
 
-//	xSpw8.xLinkConfig.bAutostart = TRUE;
-//	bSpwcSetLink(&xSpw8);
+//	xComm8.xLinkConfig.bAutostart = TRUE;
+//	bSpwcSetLink(&xComm8);
 //
-//	bSpwcGetLink(&xSpw8);
-//	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
+//	bSpwcGetLink(&xComm8);
+//	printf("empty r: %u \n", xComm8.xLinkConfig.bAutostart);
 //	vRstcHoldDeviceReset(RSTC_DEV_COMM_CH8_RST_CTRL_MSK);
 //	usleep(5000);
 //	vRstcReleaseDeviceReset(RSTC_DEV_COMM_CH8_RST_CTRL_MSK);
-//	bSpwcGetLink(&xSpw8);
-//	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
+//	bSpwcGetLink(&xComm8);
+//	printf("empty r: %u \n", xComm8.xLinkConfig.bAutostart);
 //
-//	xSpw8.xLinkConfig.bAutostart = TRUE;
-//	bSpwcSetLink(&xSpw8);
+//	xComm8.xLinkConfig.bAutostart = TRUE;
+//	bSpwcSetLink(&xComm8);
 //
-//	bSpwcGetLink(&xSpw8);
-//	printf("empty r: %u \n", xSpw8.xLinkConfig.bAutostart);
+//	bSpwcGetLink(&xComm8);
+//	printf("empty r: %u \n", xComm8.xLinkConfig.bAutostart);
 
 	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_POWER_MASK);
 
@@ -231,12 +231,12 @@ int main(void) {
 //	}
 
 //	usleep(5000);
-//	if (xSpw1.xLinkStatus.bRunning) {
+//	if (xComm1.xLinkStatus.bRunning) {
 //		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 //		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
 //	}
 //
-//	if (xSpw8.xLinkStatus.bRunning) {
+//	if (xComm8.xLinkStatus.bRunning) {
 //		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 //		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
 //	}
@@ -272,8 +272,8 @@ int main(void) {
 
 //	int iDataCounter = 0;
 
-	TFeebBufferDataBlock *pxBufferDataM1 =
-			(TFeebBufferDataBlock *) uliDdr2Base;
+	TSdmaBufferDataBlock *pxBufferDataM1 =
+			(TSdmaBufferDataBlock *) uliDdr2Base;
 
 	pxBufferDataM1->xPixelDataBlock[0].usiPixel[0] = 0x0100;
 	pxBufferDataM1->xPixelDataBlock[0].usiPixel[1] = 0x0302;
@@ -443,8 +443,8 @@ int main(void) {
 
 // buffer: 2176 B -> 544 dwords
 
-	TFeebBufferDataBlock *pxBufferDataM2 =
-			(TFeebBufferDataBlock *) uliDdr2Base;
+	TSdmaBufferDataBlock *pxBufferDataM2 =
+			(TSdmaBufferDataBlock *) uliDdr2Base;
 
 	pxBufferDataM2->xPixelDataBlock[0].usiPixel[0] = 0x0100;
 	pxBufferDataM2->xPixelDataBlock[0].usiPixel[1] = 0x0302;
@@ -615,58 +615,58 @@ int main(void) {
 
 // init DMA
 
-	if (bFeebInitM1Dma()) {
+	if (bSdmaInitM1Dma()) {
 		printf("dma_m1 iniciado corretamente \n");
 	}
 
-	if (bFeebInitM2Dma()) {
+	if (bSdmaInitM2Dma()) {
 		printf("dma_m2 iniciado corretamente \n");
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh1Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh1Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh1Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
 			printf("channel a transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh2Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh2Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh2Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh2Buffer)) {
 			printf("channel b transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh3Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh3Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh3Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh3Buffer)) {
 			printf("channel c transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh4Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh4Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh4Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh4Buffer)) {
 			printf("channel d transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh5Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh5Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh5Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh5Buffer)) {
 			printf("channel e transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh6Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh6Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh6Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh6Buffer)) {
 			printf("channel f transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh7Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh7Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh7Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh7Buffer)) {
 			printf("channel g transferido corretamente \n");
 		}
 	}
 
-	if (bFeebDmaM1Transfer(0, 16, eFeebRightBuffer, eFeebCh8Buffer)) {
-		if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh8Buffer)) {
+	if (bSdmaDmaM1Transfer(0, 16, eSdmaRightBuffer, eSdmaCh8Buffer)) {
+		if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh8Buffer)) {
 			printf("channel h transferido corretamente \n");
 		}
 	}
@@ -676,8 +676,8 @@ int main(void) {
 	while (bLoop) {
 		usleep(5000);
 
-		bSpwcGetLinkStatus(&xSpw1);
-		if (xSpw1.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm1.xSpacewire);
+		if (xComm1.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
 		} else {
@@ -685,8 +685,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw2);
-		if (xSpw2.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm2.xSpacewire);
+		if (xComm2.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_2R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2G_MASK);
 		} else {
@@ -694,8 +694,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_2R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw3);
-		if (xSpw3.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm3.xSpacewire);
+		if (xComm3.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_3R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3G_MASK);
 		} else {
@@ -703,8 +703,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_3R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw4);
-		if (xSpw4.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm4.xSpacewire);
+		if (xComm4.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_4R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4G_MASK);
 		} else {
@@ -712,8 +712,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_4R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw5);
-		if (xSpw5.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm5.xSpacewire);
+		if (xComm5.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_5R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5G_MASK);
 		} else {
@@ -721,8 +721,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_5R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw6);
-		if (xSpw6.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm6.xSpacewire);
+		if (xComm6.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_6R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6G_MASK);
 		} else {
@@ -730,8 +730,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_6R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw7);
-		if (xSpw7.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm7.xSpacewire);
+		if (xComm7.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_7R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7G_MASK);
 		} else {
@@ -739,8 +739,8 @@ int main(void) {
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_7R_MASK);
 		}
 
-		bSpwcGetLinkStatus(&xSpw8);
-		if (xSpw8.xLinkStatus.bRunning) {
+		bSpwcGetLinkStatus(&xComm8.xSpacewire);
+		if (xComm8.xSpacewire.xLinkStatus.bRunning) {
 			LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 			LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
 		} else {
@@ -754,29 +754,29 @@ int main(void) {
 		switch (getchar()) {
 		case '1':
 			printf("m2 R \n");
-			if (bFeebDmaM2Transfer(0, 16, eFeebRightBuffer, eFeebCh1Buffer)) {
+			if (bSdmaDmaM2Transfer(0, 16, eSdmaRightBuffer, eSdmaCh1Buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
 			break;
 
 		case '2':
 			printf("m2 L \n");
-			if (bFeebDmaM2Transfer(0, 16, eFeebLeftBuffer, eFeebCh1Buffer)) {
+			if (bSdmaDmaM2Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
 			break;
 
 		case 'a':
 			printf("a \n");
-			if (bFeebDmaM2Transfer(0, 16, eFeebRightBuffer, eFeebCh1Buffer)) {
+			if (bSdmaDmaM2Transfer(0, 16, eSdmaRightBuffer, eSdmaCh1Buffer)) {
 				printf("dma_m2 transferido corretamente \n");
 			}
-//			if (bFeebDmaM1Transfer(0, 16, eFeebLeftBuffer, eFeebCh1Buffer)) {
+//			if (bSdmaDmaM1Transfer(0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
 //				printf("dma_m1 transferido corretamente \n");
 //			}
 			usleep(500);
-			bFeebGetBuffersStatus(&xSpw1);
-			printf("empty: %u \n", xSpw1.xBufferStatus.bRightBufferEmpty);
+			bFeebGetBuffersStatus(&xComm1.xFeeBuffer);
+			printf("empty: %u \n", xComm1.xFeeBuffer.xBufferStatus.bRightBufferEmpty);
 			break;
 
 		case 'r':
@@ -790,16 +790,16 @@ int main(void) {
 		}
 	}
 
-	bSpwcSetLink(&xSpw1);
-	bSpwcSetLink(&xSpw8);
+	bSpwcSetLink(&xComm1.xSpacewire);
+	bSpwcSetLink(&xComm8.xSpacewire);
 
-	//*xSpw1.puliSpwcChAddr = 0x102;
-	printf("%08lX", *(xSpw1.puliSpwcChAddr));
+	//*xComm1.puliSpwcChAddr = 0x102;
+	printf("%08lX", *(xComm1.xSpacewire.puliSpwcChAddr));
 
 	usleep(10000);
 
-	bSpwcGetLinkStatus(&xSpw1);
-	if (xSpw1.xLinkStatus.bRunning) {
+	bSpwcGetLinkStatus(&xComm1.xSpacewire);
+	if (xComm1.xSpacewire.xLinkStatus.bRunning) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_1R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1G_MASK);
 	} else {
@@ -807,8 +807,8 @@ int main(void) {
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_1R_MASK);
 	}
 
-	bSpwcGetLinkStatus(&xSpw8);
-	if (xSpw8.xLinkStatus.bRunning) {
+	bSpwcGetLinkStatus(&xComm8.xSpacewire);
+	if (xComm8.xSpacewire.xLinkStatus.bRunning) {
 		LEDS_PAINEL_DRIVE(LEDS_OFF, LEDS_8R_MASK);
 		LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_8G_MASK);
 	} else {
@@ -822,9 +822,9 @@ int main(void) {
 		for (i = 0; i < 1000; i++) {
 			usleep(1000);
 		}
-		bFeebGetBuffersStatus(&xSpw1);
-		printf("empty r: %u \n", xSpw1.xBufferStatus.bRightBufferEmpty);
-		printf("empty l: %u \n", xSpw1.xBufferStatus.bLeftBufferEmpty);
+		bFeebGetBuffersStatus(&xComm1.xFeeBuffer);
+		printf("empty r: %u \n", xComm1.xFeeBuffer.xBufferStatus.bRightBufferEmpty);
+		printf("empty l: %u \n", xComm1.xFeeBuffer.xBufferStatus.bLeftBufferEmpty);
 	}
 
 //}

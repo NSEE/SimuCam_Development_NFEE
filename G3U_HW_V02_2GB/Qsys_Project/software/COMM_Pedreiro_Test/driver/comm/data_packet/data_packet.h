@@ -37,7 +37,7 @@ typedef struct DpktPixelDelay {
 	alt_u16 usiAdcDelay;
 } TDpktPixelDelay;
 typedef struct DpktChannel {
-	alt_u32 *puliChAddr;
+	alt_u32 *puliDpktChAddr;
 	TDpktDataPacketConfig xDpktDataPacketConfig;
 	TDpktDataPacketHeader xDpktDataPacketHeader;
 	TDpktPixelDelay xDpktPixelDelay;
@@ -51,10 +51,13 @@ typedef struct DpktChannel {
 
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh);
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh);
+
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh);
+
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
-bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucSpwCh);
+
+bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
