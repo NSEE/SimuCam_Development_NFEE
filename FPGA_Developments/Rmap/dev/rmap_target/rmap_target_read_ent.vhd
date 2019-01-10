@@ -107,7 +107,10 @@ architecture rtl of rmap_target_read_ent is
 
 	signal s_read_error : std_logic;
 
-	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
+--	debug
+--	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
+	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
+
 	signal s_read_address      : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 	signal s_read_byte_counter : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
 

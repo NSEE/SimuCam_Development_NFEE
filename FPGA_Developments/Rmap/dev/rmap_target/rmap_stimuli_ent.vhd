@@ -118,7 +118,10 @@ begin
 				v_header(8)   := x"A0"; -- address ms
 				v_header(9)   := x"00"; -- address
 				v_header(10)  := x"00"; -- address
-				v_header(11)  := x"05"; -- address ls
+--				debug				
+--				v_header(11)  := x"05"; -- address ls
+				v_header(11)  := x"00"; -- address ls
+				
 				v_header(12)  := x"00"; -- data length ms
 				v_header(13)  := x"00"; -- data length 
 				v_header(14)  := x"10"; -- data length ls

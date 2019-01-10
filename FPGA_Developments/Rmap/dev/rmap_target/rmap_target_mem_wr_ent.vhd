@@ -80,12 +80,12 @@ end entity rmap_target_mem_wr_ent;
 --============================================================================
 architecture rtl of rmap_target_mem_wr_ent is
 
-	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
+	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
 
 	alias a_memory_address is mem_byte_address_i((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto g_MEMORY_ACCESS_WIDTH);
 	alias a_byte_address is mem_byte_address_i((g_MEMORY_ACCESS_WIDTH - 1) downto 0);
 
-	signal s_memory_data    : std_logic_vector(((8 * (2 ** c_WIDTH_MEMORY_ACCESS)) - 1) downto 0);
+	signal s_memory_data    : std_logic_vector(((8 * (2 ** g_MEMORY_ACCESS_WIDTH)) - 1) downto 0);
 	signal s_memory_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	signal s_write_flag : std_logic;

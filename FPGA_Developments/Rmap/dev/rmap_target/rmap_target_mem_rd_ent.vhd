@@ -106,7 +106,9 @@ begin
 		elsif (rising_edge(clk_i)) then -- synchronous process
 			
 			if (mem_control_i.read = '1') then
-				mem_flag_o.data  <= memory_data_i(((8 * (1 + to_integer(unsigned(a_byte_address)))) - 1) downto (8 * to_integer(unsigned(a_byte_address))));
+				-- Simplification of test, for the case of byte access
+--				mem_flag_o.data  <= memory_data_i(((8 * (1 + to_integer(unsigned(a_byte_address)))) - 1) downto (8 * to_integer(unsigned(a_byte_address))));
+				mem_flag_o.data  <= memory_data_i;
 			end if;
 			
 		end if;

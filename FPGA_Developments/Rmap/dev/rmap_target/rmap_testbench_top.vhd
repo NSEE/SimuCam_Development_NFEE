@@ -9,9 +9,13 @@ end entity rmap_testbench_top;
 
 architecture RTL of rmap_testbench_top is
 
+	-- 256 max quantity of buffer verification
 	constant c_TESTBENCH_VERIFY_BUFFER_WIDTH  : natural := 8;
+	-- 256 positions addressing:
 	constant c_TESTBENCH_MEMORY_ADDRESS_WIDTH : natural := 8;
+	-- 256 max quantity of read/write request
 	constant c_TESTBENCH_DATA_LENGTH_WIDTH    : natural := 8;
+	-- Byte access:
 	constant c_TESTBENCH_MEMORY_ACCESS_WIDTH  : natural := 0;
 
 	signal clk   : std_logic := '0';
@@ -33,10 +37,10 @@ architecture RTL of rmap_testbench_top is
 	type t_rmap_memory_type is array (0 to 255) of std_logic_vector(7 downto 0);
 	signal s_rmap_write_memory         : t_rmap_memory_type := (others => x"00");
 	signal s_rmap_write_memory_data    : std_logic_vector(((8 * (2 ** c_TESTBENCH_MEMORY_ACCESS_WIDTH)) - 1) downto 0);
-	signal s_rmap_write_memory_address : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_rmap_write_memory_address : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH - 1) downto 0) := (others  => '0');
 	signal s_rmap_read_memory          : t_rmap_memory_type := (others => x"00");
 	signal s_rmap_read_memory_data     : std_logic_vector(((8 * (2 ** c_TESTBENCH_MEMORY_ACCESS_WIDTH)) - 1) downto 0);
-	signal s_rmap_read_memory_address  : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_rmap_read_memory_address  : std_logic_vector((c_TESTBENCH_MEMORY_ADDRESS_WIDTH - 1) downto 0) := (others  => '0');
 
 	signal s_codec_fifo_control : t_rmap_target_spw_control;
 	signal s_codec_fifo_flag    : t_rmap_target_spw_flag;
@@ -51,7 +55,7 @@ architecture RTL of rmap_testbench_top is
 	signal s_codec_rx_fifo_valid_n : std_logic;
 
 begin
-
+	-- 100 MHz clock
 	clk   <= not clk after 5 ns;
 	rst   <= '0' after 100 ns;
 	rst_n <= not rst;
@@ -106,6 +110,7 @@ begin
 			codec_data_o  => s_codec_fifo_control.transmitter.data
 		);
 
+	-- Ensures that read mem array reflects write mem array
 	s_rmap_read_memory <= s_rmap_write_memory;
 
 	rmap_target_mem_rd_ent_inst : entity work.rmap_target_mem_rd_ent
