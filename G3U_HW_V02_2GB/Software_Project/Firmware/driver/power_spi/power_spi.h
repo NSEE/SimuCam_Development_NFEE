@@ -33,8 +33,7 @@
 #ifndef __POWER_SPI_H__
 #define __POWER_SPI_H__
 
-#include "../../utils/meb_includes.h"
-#include "../../utils/util.h"
+#include "../../simucam_definitions.h"
 
 #define POWER_DEVICE0_PORT_NUM  8
 #define POWER_DEVICE1_PORT_NUM  4

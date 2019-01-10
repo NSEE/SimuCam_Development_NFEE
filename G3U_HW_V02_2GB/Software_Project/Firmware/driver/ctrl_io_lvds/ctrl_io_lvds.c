@@ -9,7 +9,7 @@
 #include "ctrl_io_lvds.h"
 
 //! [private function prototypes]
-PRIVATE bool ctrl_io_lvds_drive(bool on_off, alt_u8 mask);
+static bool bCtrlIoLvdsDrive(bool bOnOff, alt_u8 ucMask);
 //! [private function prototypes]
 
 //! [data memory public global variables]
@@ -19,53 +19,53 @@ PRIVATE bool ctrl_io_lvds_drive(bool on_off, alt_u8 mask);
 //! [program memory public global variables]
 
 //! [data memory private global variables]
-PRIVATE alt_u8 io_value = 0x04;
+static alt_u8 ucIoValue = 0x04;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
 //! [program memory private global variables]
 
 //! [public functions]
-PUBLIC bool enable_iso_drivers(void)
+bool bEnableIsoDrivers(void)
 {
-  ctrl_io_lvds_drive(IO_ON, EN_ISO_DRIVERS_MASK);
+  bCtrlIoLvdsDrive(LVDS_IO_ON, LVDS_EN_ISO_DRIVERS_MSK);
   return  TRUE;
 }
 
-PUBLIC bool disable_iso_drivers(void)
+bool bDisableIsoDrivers(void)
 {
-  ctrl_io_lvds_drive(IO_OFF, EN_ISO_DRIVERS_MASK);
+  bCtrlIoLvdsDrive(LVDS_IO_OFF, LVDS_EN_ISO_DRIVERS_MSK);
   return  TRUE;
 }
 
-PUBLIC bool enable_lvds_board(void)
+bool bEnableLvdsBoard(void)
 {
-  ctrl_io_lvds_drive(IO_ON, PWDN_MASK);
+  bCtrlIoLvdsDrive(LVDS_IO_ON, LVDS_PWDN_MSK);
   return  TRUE;
 }
 
-PUBLIC bool disable_lvds_board(void)
+bool bDisableLvdsBoard(void)
 {
-  ctrl_io_lvds_drive(IO_OFF, PWDN_MASK);
+  bCtrlIoLvdsDrive(LVDS_IO_OFF, LVDS_PWDN_MSK);
   return  TRUE;
 }
 
-PUBLIC bool set_pre_emphasys(alt_u8 pem_level)
+bool bSetPreEmphasys(alt_u8 ucPemLevel)
 {
-  switch (pem_level) {
-    case PEM_OFF:
-      ctrl_io_lvds_drive(IO_OFF, PEM1_MASK | PEM0_MASK);
+  switch (ucPemLevel) {
+    case LVDS_PEM_OFF:
+      bCtrlIoLvdsDrive(LVDS_IO_OFF, LVDS_PEM1_MSK | LVDS_PEM0_MSK);
       break;
-    case PEM_LO:
-      ctrl_io_lvds_drive(IO_OFF, PEM1_MASK);
-      ctrl_io_lvds_drive(IO_ON,  PEM0_MASK);
+    case LVDS_PEM_LO:
+      bCtrlIoLvdsDrive(LVDS_IO_OFF, LVDS_PEM1_MSK);
+      bCtrlIoLvdsDrive(LVDS_IO_ON,  LVDS_PEM0_MSK);
       break;
-    case PEM_MID:
-      ctrl_io_lvds_drive(IO_OFF, PEM0_MASK);
-      ctrl_io_lvds_drive(IO_ON,  PEM1_MASK);
+    case LVDS_PEM_MID:
+      bCtrlIoLvdsDrive(LVDS_IO_OFF, LVDS_PEM0_MSK);
+      bCtrlIoLvdsDrive(LVDS_IO_ON,  LVDS_PEM1_MSK);
       break;
-    case PEM_HI:
-      ctrl_io_lvds_drive(IO_ON, PEM1_MASK | PEM0_MASK);
+    case LVDS_PEM_HI:
+      bCtrlIoLvdsDrive(LVDS_IO_ON, LVDS_PEM1_MSK | LVDS_PEM0_MSK);
       break;
     default:
       break;
@@ -76,26 +76,26 @@ PUBLIC bool set_pre_emphasys(alt_u8 pem_level)
 
 //! [private functions]
 /**
- * @name    ctrl_io_lvds_drive
+ * @name    bCtrlIoLvdsDrive
  * @brief
  * @ingroup ctrl_io_lvds
  *
  * Ativa ('1') ou desativa ('0') os i/o´s de controle lvds
  *
  * @param [in] on_off -> 0 = io´s off / 1 = i/o´s on
- * @param [in] mask   -> mascara de i/o´s a serem alterados
+ * @param [in] ulliMask   -> mascara de i/o´s a serem alterados
  *
  * @retval TRUE -> sucesso
  */
-PRIVATE bool ctrl_io_lvds_drive(bool on_off, alt_u8 mask)
+static bool bCtrlIoLvdsDrive(bool bOnOff, alt_u8 ucMask)
 {
-  if (on_off == IO_OFF) {
-	 io_value &= (~mask);
+  if (bOnOff == LVDS_IO_OFF) {
+	 ucIoValue &= (~ucMask);
   }
   else {
-	 io_value |= mask;
+	 ucIoValue |= ucMask;
   }
-  IOWR_ALTERA_AVALON_PIO_DATA(CTRL_IO_LVDS_ADDR_BASE, io_value);
+  IOWR_ALTERA_AVALON_PIO_DATA(LVDS_CTRL_IO_LVDS_ADDR_BASE, ucIoValue);
   return TRUE;
 }
 //! [private functions]

@@ -9,7 +9,7 @@
 #include "leds.h"
 
 alt_u8 LedsBoardControl = 0x00;
-alt_u32 LedsPainelControl = 0x00000000;
+alt_u32 LedsPainelControl = 0x00010000;
 
 /**
  * @name    LEDS_BOARD_DRIVE
@@ -24,7 +24,7 @@ alt_u32 LedsPainelControl = 0x00000000;
  * @retval TRUE : Sucesso
  *
  */
-bool LEDS_BOARD_DRIVE(bool bDRIVE, alt_u8 LedsMask){
+bool bSetBoardLeds(bool bDRIVE, alt_u8 LedsMask){
 
   // Board LEDs state: ON = 0; OFF = 1;
 
@@ -51,7 +51,7 @@ bool LEDS_BOARD_DRIVE(bool bDRIVE, alt_u8 LedsMask){
  * @retval TRUE : Sucesso
  *
  */
-bool LEDS_PAINEL_DRIVE(bool bDRIVE, alt_u32 LedsMask){
+bool bSetPainelLeds(bool bDRIVE, alt_u32 LedsMask){
 
   // Painel LEDs state: ON = 1; OFF = 0;
 

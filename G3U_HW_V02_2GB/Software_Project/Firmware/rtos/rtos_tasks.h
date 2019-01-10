@@ -8,9 +8,7 @@
 #ifndef RTOS_TASKS_H_
 #define RTOS_TASKS_H_
 
-	#include "system.h"
-	#include "alt_types.h"
-	#include <altera_msgdma.h>
+	#include "../simucam_definitions.h"
 
 	#define SIMUCAM_TASK_STACKSIZE 2048
 

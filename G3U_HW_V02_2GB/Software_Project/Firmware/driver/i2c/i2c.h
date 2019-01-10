@@ -33,8 +33,7 @@
 #ifndef __I2C_H__
 #define __I2C_H__
 
-#include "../../utils/meb_includes.h"
-#include "../../utils/util.h"
+#include "../../simucam_definitions.h"
 
 bool I2C_TestAdress(alt_u32 clk_base, alt_u32 data_base, alt_8 DeviceAddr);
 bool I2C_Write(alt_u32 clk_base, alt_u32 data_base, alt_8 DeviceAddr, alt_u8 ControlAddr, alt_u8 ControlData);

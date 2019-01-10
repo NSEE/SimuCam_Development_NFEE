@@ -1,20 +1,20 @@
-  /**
-  * @file   sync.c
-  * @Author Cassio Berni (ccberni@hotmail.com)
-  * @date   Novembro, 2018
-  * @brief  Source File para controle sync ip via Nios-Avalon
-  *
-  */
+/**
+ * @file   sync.c
+ * @Author Cassio Berni (ccberni@hotmail.com)
+ * @date   Novembro, 2018
+ * @brief  Source File para controle sync ip via Nios-Avalon
+ *
+ */
 
 #include "sync.h"
 
 //! [private function prototypes]
-PRIVATE bool write_reg(alt_u32 offset, alt_u32 data);
-PRIVATE alt_u32 read_reg(alt_u32 offset);
+static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue);
+static alt_u32 uliSyncReadReg(alt_u32 uliOffset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
-PUBLIC volatile alt_u8 n;
+volatile alt_u8 vucN;
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -22,7 +22,7 @@ PUBLIC volatile alt_u8 n;
 
 //! [data memory private global variables]
 // A variable to hold the context of interrupt
-PRIVATE volatile int hold_context;
+static volatile int viHoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -31,7 +31,7 @@ PRIVATE volatile int hold_context;
 //! [public functions]
 
 /**
- * @name    handle_irq
+ * @name    vSyncHandleIrq
  * @brief
  * @ingroup sync
  *
@@ -43,20 +43,19 @@ PRIVATE volatile int hold_context;
  *
  * @retval void
  */
-PUBLIC void handle_irq(void* context)
-{
-    // Cast context to hold_context's type. It is important that this be 
-    // declared volatile to avoid unwanted compiler optimization.
-    volatile int* hold_context_ptr = (volatile int*) context;
-    // Use context value according to your app logic...
-    //*hold_context_ptr = ...;
-    // if (*hold_context_ptr == '0') {}...
-    // App logic sequence...
-    n += 1;
+void vSyncHandleIrq(void* pvContext) {
+	// Cast pvContext to viHoldContext's type. It is important that this be
+	// declared volatile to avoid unwanted compiler optimization.
+	volatile int* pviHoldContext = (volatile int*) pvContext;
+	// Use pvContext value according to your app logic...
+	//*pviHoldContext = ...;
+	// if (*pviHoldContext == '0') {}...
+	// App logic sequence...
+	vucN += 1;
 }
 
 /**
- * @name    init_interrupt
+ * @name    vSyncInitIrq
  * @brief
  * @ingroup sync
  *
@@ -66,66 +65,62 @@ PUBLIC void handle_irq(void* context)
  *
  * @retval void
  */
-PUBLIC void init_interrupt(void)
-{
-    // Recast the hold_context pointer to match the alt_irq_register() function
-    // prototype.
-    void* hold_context_ptr = (void*) &hold_context;
-    // Register the interrupt handler
-    alt_irq_register(SYNC_IRQ, hold_context_ptr, handle_irq);
+void vSyncInitIrq(void) {
+	// Recast the viHoldContext pointer to match the alt_irq_register() function
+	// prototype.
+	void* hold_context_ptr = (void*) &viHoldContext;
+	// Register the interrupt handler
+	alt_irq_register(SYNC_IRQ, hold_context_ptr, vSyncHandleIrq);
 }
 
 // Status reg
 /**
- * @name    sync_status_extn_int
+ * @name    bSyncStatusExtnIrq
  * @brief
  * @ingroup sync
  *
- * Read bit extn_int of status reg (0 -> ext. sync / 1 -> int. sync)
+ * Read bit ExtnIrq of status reg (0 -> ext. sync / 1 -> int. sync)
  *
  * @param [in] void
  *
  * @retval bool result
  */
-PUBLIC bool sync_status_extn_int(void)
-{
-	alt_u32 aux;
-	bool result;
+bool bSyncStatusExtnIrq(void) {
+	alt_u32 uliAux;
+	bool bResult;
 
-	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
 
-	if (aux & STATUS_EXTN_INT_MASK) {
-		result = TRUE;
+	if (uliAux & SYNC_STAT_EXTN_IRQ_MSK) {
+		bResult = TRUE;
+	} else {
+		bResult = FALSE;
 	}
-	else {
-		result = FALSE;
-	}
-	return result;
+	return bResult;
 }
 
 /**
- * @name    sync_status_state
+ * @name    ucSyncStatusState
  * @brief
  * @ingroup sync
  *
- * Read state byte of status reg (0 -> idle / 1 -> running / 2 -> one shot / 3 -> err_inj)
+ * Read state byte of status reg (0 -> idle / 1 -> running / 2 -> one shot / 3 -> ErrInj)
  *
  * @param [in] void
  *
  * @retval alt_u8 result
  */
-PUBLIC alt_u8 sync_status_state(void)
-{
-	alt_u32 aux;
-	alt_u8 result;
+alt_u8 ucSyncStatusState(void) {
+	alt_u32 uliAux;
+	alt_u8 ucResult;
 
-	aux = read_reg(SYNC_STATUS_REG_OFFSET);
-	result = (alt_u8) ((aux & STATUS_STATE_MASK) >> 16);
-	return result;
+	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
+	ucResult = (alt_u8) ((uliAux & SYNC_STAT_STATE_MSK) >> 16);
+	return ucResult;
 }
 
 /**
- * @name    sync_status_error_code
+ * @name    ucSyncStatusErrorCode
  * @brief
  * @ingroup sync
  *
@@ -135,18 +130,17 @@ PUBLIC alt_u8 sync_status_state(void)
  *
  * @retval alt_u8 result
  */
-PUBLIC alt_u8 sync_status_error_code(void)
-{
-	alt_u32 aux;
-	alt_u8 result;
+alt_u8 ucSyncStatusErrorCode(void) {
+	alt_u32 uliAux;
+	alt_u8 ucResult;
 
-	aux = read_reg(SYNC_STATUS_REG_OFFSET);
-	result = (alt_u8) ((aux & STATUS_ERROR_CODE_MASK) >> 8);
-	return result;
+	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
+	ucResult = (alt_u8) ((uliAux & SYNC_STAT_ERROR_CODE_MSK) >> 8);
+	return ucResult;
 }
 
 /**
- * @name    sync_status_cycle_number
+ * @name    ucSyncStatusCycleNumber
  * @brief
  * @ingroup sync
  *
@@ -156,19 +150,18 @@ PUBLIC alt_u8 sync_status_error_code(void)
  *
  * @retval alt_u8 result
  */
-PUBLIC alt_u8 sync_status_cycle_number(void)
-{
-	alt_u32 aux;
-	alt_u8 result;
+alt_u8 ucSyncStatusCycleNumber(void) {
+	alt_u32 uliAux;
+	alt_u8 ucResult;
 
-	aux = read_reg(SYNC_STATUS_REG_OFFSET);
-	result = (alt_u8) ((aux & STATUS_CYCLE_NUMBER_MASK) >> 0);
-	return result;
+	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
+	ucResult = (alt_u8) ((uliAux & SYNC_STAT_CYCLE_NUMBER_MSK) >> 0);
+	return ucResult;
 }
 
 // Config regs
 /**
- * @name    sync_config_mbt
+ * @name    bSyncSetMbt
  * @brief
  * @ingroup sync
  *
@@ -178,14 +171,13 @@ PUBLIC alt_u8 sync_status_cycle_number(void)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_mbt(alt_u32 value)
-{
-	write_reg(SYNC_CONFIG_MBT_REG_OFFSET, value);
- 	return  TRUE;
+bool bSyncSetMbt(alt_u32 uliValue) {
+	bSyncWriteReg(SYNC_CONFIG_MBT_REG_OFFSET, uliValue);
+	return TRUE;
 }
 
 /**
- * @name    sync_config_bt
+ * @name    bSyncSetBt
  * @brief
  * @ingroup sync
  *
@@ -195,14 +187,13 @@ PUBLIC bool sync_config_mbt(alt_u32 value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_bt(alt_u32 value)
-{
-	write_reg(SYNC_CONFIG_BT_REG_OFFSET, value);
- 	return  TRUE;
+bool bSyncSetBt(alt_u32 uliValue) {
+	bSyncWriteReg(SYNC_CONFIG_BT_REG_OFFSET, uliValue);
+	return TRUE;
 }
 
 /**
- * @name    sync_config_per
+ * @name    bSyncSetPer
  * @brief
  * @ingroup sync
  *
@@ -212,14 +203,13 @@ PUBLIC bool sync_config_bt(alt_u32 value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_per(alt_u32 value)
-{
-	write_reg(SYNC_CONFIG_PER_REG_OFFSET, value);
- 	return  TRUE;
+bool bSyncSetPer(alt_u32 uliValue) {
+	bSyncWriteReg(SYNC_CONFIG_PER_REG_OFFSET, uliValue);
+	return TRUE;
 }
 
 /**
- * @name    sync_config_ost
+ * @name    bSyncSetOst
  * @brief
  * @ingroup sync
  *
@@ -229,46 +219,43 @@ PUBLIC bool sync_config_per(alt_u32 value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_ost(alt_u32 value)
-{
-	write_reg(SYNC_CONFIG_OST_REG_OFFSET, value);
- 	return  TRUE;
+bool bSyncSetOst(alt_u32 uliValue) {
+	bSyncWriteReg(SYNC_CONFIG_OST_REG_OFFSET, uliValue);
+	return TRUE;
 }
 
 /**
- * @name    sync_config_polarity
+ * @name    bSyncSetPolarity
  * @brief
  * @ingroup sync
  *
- * Write a bool value into polarity bit of general config register (value defines the level of blank pulses)
+ * Write a bool value into Polarity bit of general config register (value defines the level of blank pulses)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_polarity(bool value)
-{
-	alt_u32 aux;
+bool bSyncSetPolarity(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CONFIG_GENERAL_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CONFIG_GENERAL_POLARITY_MASK;
-	}
-	else {
-	aux |= CONFIG_GENERAL_POLARITY_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CONFIG_GEN_POLARITY_MSK;
+	} else {
+		uliAux |= SYNC_CONFIG_GEN_POLARITY_MSK;
 	}
 
-	write_reg(SYNC_CONFIG_GENERAL_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CONFIG_GENERAL_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_config_n_cycles
+ * @name    bSyncSetNCycles
  * @brief
  * @ingroup sync
  *
- * Write an alt_u8 value into n_cycles field of general config register.
+ * Write an alt_u8 value into nCycles field of general config register.
  * This field defines the number of cycles of a "major cycle".
  * '0' is allowed, but it´s equivalent to '1'.
  *
@@ -276,20 +263,19 @@ PUBLIC bool sync_config_polarity(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_config_n_cycles(alt_u8 value)
-{
-	alt_u32 aux;
+bool bSyncSetNCycles(alt_u8 ucValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_GENERAL_REG_OFFSET);
-	aux &= ~CONFIG_GENERAL_N_CYCLES_MASK;
-	aux |= (alt_u32) value;
+	uliAux = uliSyncReadReg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+	uliAux &= ~SYNC_CONFIG_GEN_N_CYCLES_MSK;
+	uliAux |= (alt_u32) ucValue;
 
-	write_reg(SYNC_CONFIG_GENERAL_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CONFIG_GENERAL_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_read_config_mbt
+ * @name    uliSyncGetMbt
  * @brief
  * @ingroup sync
  *
@@ -299,16 +285,15 @@ PUBLIC bool sync_config_n_cycles(alt_u8 value)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_config_mbt(void)
-{
-	alt_u32 aux;
+alt_u32 uliSyncGetMbt(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_MBT_REG_OFFSET);
- 	return  aux;
+	uliAux = uliSyncReadReg(SYNC_CONFIG_MBT_REG_OFFSET);
+	return uliAux;
 }
 
 /**
- * @name    sync_read_config_bt
+ * @name    uliSyncGetBt
  * @brief
  * @ingroup sync
  *
@@ -318,16 +303,15 @@ PUBLIC alt_u32 sync_read_config_mbt(void)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_config_bt(void)
-{
-	alt_u32 aux;
+alt_u32 uliSyncGetBt(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_BT_REG_OFFSET);
- 	return  aux;
+	uliAux = uliSyncReadReg(SYNC_CONFIG_BT_REG_OFFSET);
+	return uliAux;
 }
 
 /**
- * @name    sync_read_config_per
+ * @name    uliSyncGetPer
  * @brief
  * @ingroup sync
  *
@@ -337,16 +321,15 @@ PUBLIC alt_u32 sync_read_config_bt(void)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_config_per(void)
-{
-	alt_u32 aux;
+alt_u32 uliSyncGetPer(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_PER_REG_OFFSET);
- 	return  aux;
+	uliAux = uliSyncReadReg(SYNC_CONFIG_PER_REG_OFFSET);
+	return uliAux;
 }
 
 /**
- * @name    sync_read_config_ost
+ * @name    uliSyncGetOst
  * @brief
  * @ingroup sync
  *
@@ -356,16 +339,15 @@ PUBLIC alt_u32 sync_read_config_per(void)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_config_ost(void)
-{
-	alt_u32 aux;
+alt_u32 uliSyncGetOst(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_OST_REG_OFFSET);
- 	return  aux;
+	uliAux = uliSyncReadReg(SYNC_CONFIG_OST_REG_OFFSET);
+	return uliAux;
 }
 
 /**
- * @name    sync_read_config_general
+ * @name    uliSyncGetGeneral
  * @brief
  * @ingroup sync
  *
@@ -375,17 +357,16 @@ PUBLIC alt_u32 sync_read_config_ost(void)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_config_general(void)
-{
-	alt_u32 aux;
+alt_u32 uliSyncGetGeneral(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CONFIG_GENERAL_REG_OFFSET);
- 	return  aux;
+	uliAux = uliSyncReadReg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+	return uliAux;
 }
 
 // Error injection reg
 /**
- * @name    sync_err_inj
+ * @name    bSyncErrInj
  * @brief
  * @ingroup sync
  *
@@ -396,139 +377,132 @@ PUBLIC alt_u32 sync_read_config_general(void)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_err_inj(alt_u32 value)
-{
-	write_reg(SYNC_ERR_INJ_REG_OFFSET, value);
- 	return  TRUE;
+bool bSyncErrInj(alt_u32 uliValue) {
+	bSyncWriteReg(SYNC_ERR_INJ_REG_OFFSET, uliValue);
+	return TRUE;
 }
 
 // Control reg
 /**
- * @name    sync_ctr_extn_int
+ * @name    bSyncCtrExtnIrq
  * @brief
  * @ingroup sync
  *
- * Write a bool value into extn_int bit of control register (0 -> ext. sync / 1 -> int. sync)
+ * Write a bool value into ExtnIrq bit of control register (0 -> ext. sync / 1 -> int. sync)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_extn_int(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrExtnIrq(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_EXTN_INT_MASK;
-	}
-	else {
-	aux |= CTR_EXTN_INT_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_EXTN_INT_MSK;
+	} else {
+		uliAux |= SYNC_CTR_EXTN_INT_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_start
+ * @name    bSyncCtrStart
  * @brief
  * @ingroup sync
  *
- * Generate a start command by setting start bit of control register (1 -> start, auto return to zero)
+ * Generate a Start command by setting Start bit of control register (1 -> Start, auto return to zero)
  * Sync ip will be taken from idle to running state
  *
  * @param [in] void
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_start(void)
-{
-	alt_u32 aux;
+bool bSyncCtrStart(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	aux |= CTR_START_MASK;
+	uliAux |= SYNC_CTR_START_MSK;
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_reset
+ * @name    bSyncCtrReset
  * @brief
  * @ingroup sync
  *
- * Generate a reset command by setting reset bit of control register (1 -> reset, auto return to zero)
+ * Generate a Reset command by setting Reset bit of control register (1 -> Reset, auto return to zero)
  * Sync ip will be taken from any state to idle state
  *
  * @param [in] void
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_reset(void)
-{
-	alt_u32 aux;
+bool bSyncCtrReset(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	aux |= CTR_RESET_MASK;
+	uliAux |= SYNC_CTR_RESET_MSK;
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_one_shot
+ * @name    bSyncCtrOneShot
  * @brief
  * @ingroup sync
  *
- * Generate a one_shot command by setting one_shot bit of control register (1 -> one_shot, auto return to zero)
- * Sync ip will be taken from idle state to one_shot state
+ * Generate a OneShot command by setting OneShot bit of control register (1 -> OneShot, auto return to zero)
+ * Sync ip will be taken from idle state to OneShot state
  *
  * @param [in] void
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_one_shot(void)
-{
-	alt_u32 aux;
+bool bSyncCtrOneShot(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	aux |= CTR_ONE_SHOT_MASK;
+	uliAux |= SYNC_CTR_ONE_SHOT_MSK;
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_err_inj
+ * @name    bSyncCtrErrInj
  * @brief
  * @ingroup sync
  *
- * Generate a err_inj command by setting err_inj bit of control register (1 -> err_inj, auto return to zero)
+ * Generate a ErrInj command by setting ErrInj bit of control register (1 -> ErrInj, auto return to zero)
  * Sync ip will be taken from idle state to error injection state
  *
  * @param [in] void
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_err_inj(void)
-{
-	alt_u32 aux;
+bool bSyncCtrErrInj(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	aux |= CTR_ERR_INJ_MASK;
+	uliAux |= SYNC_CTR_ERR_INJ_MSK;
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_sync_out_enable
+ * @name    bSyncCtrSyncOutEnable
  * @brief
  * @ingroup sync
  *
@@ -538,25 +512,23 @@ PUBLIC bool sync_ctr_err_inj(void)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_sync_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrSyncOutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_SYNC_OUT_EN_MASK;
-	}
-	else {
-	aux |= CTR_SYNC_OUT_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_SYNC_OUT_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_SYNC_OUT_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_cha_out_enable
+ * @name    bSyncCtrCh1OutEnable
  * @brief
  * @ingroup sync
  *
@@ -566,25 +538,23 @@ PUBLIC bool sync_ctr_sync_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_cha_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh1OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHA_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHA_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHA_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHA_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_chb_out_enable
+ * @name    bSyncCtrCh2OutEnable
  * @brief
  * @ingroup sync
  *
@@ -594,25 +564,23 @@ PUBLIC bool sync_ctr_cha_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_chb_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh2OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHB_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHB_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHB_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHB_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_chc_out_enable
+ * @name    bSyncCtrCh3OutEnable
  * @brief
  * @ingroup sync
  *
@@ -622,25 +590,23 @@ PUBLIC bool sync_ctr_chb_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_chc_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh3OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHC_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHC_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHC_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHC_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_chd_out_enable
+ * @name    bSyncCtrCh4OutEnable
  * @brief
  * @ingroup sync
  *
@@ -650,25 +616,23 @@ PUBLIC bool sync_ctr_chc_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_chd_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh4OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHD_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHD_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHD_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHD_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_che_out_enable
+ * @name    bSyncCtrCh5OutEnable
  * @brief
  * @ingroup sync
  *
@@ -678,25 +642,23 @@ PUBLIC bool sync_ctr_chd_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_che_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh5OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHE_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHE_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHE_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHE_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_chf_out_enable
+ * @name    bSyncCtrCh6OutEnable
  * @brief
  * @ingroup sync
  *
@@ -706,25 +668,23 @@ PUBLIC bool sync_ctr_che_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_chf_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh6OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHF_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHF_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHF_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHF_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_chg_out_enable
+ * @name    bSyncCtrCh7OutEnable
  * @brief
  * @ingroup sync
  *
@@ -734,25 +694,23 @@ PUBLIC bool sync_ctr_chf_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_chg_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh7OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHG_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHG_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHG_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHG_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_ctr_chh_out_enable
+ * @name    bSyncCtrCh8OutEnable
  * @brief
  * @ingroup sync
  *
@@ -762,26 +720,24 @@ PUBLIC bool sync_ctr_chg_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_ctr_chh_out_enable(bool value)
-{
-	alt_u32 aux;
+bool bSyncCtrCh8OutEnable(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~CTR_CHH_EN_MASK;
-	}
-	else {
-	aux |= CTR_CHH_EN_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_CTR_CHH_EN_MSK;
+	} else {
+		uliAux |= SYNC_CTR_CHH_EN_MSK;
 	}
 
-	write_reg(SYNC_CTR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 // Int enable register
 /**
- * @name    sync_int_enable_error
+ * @name    bSyncIrqEnableError
  * @brief
  * @ingroup sync
  *
@@ -791,25 +747,23 @@ PUBLIC bool sync_ctr_chh_out_enable(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_int_enable_error(bool value)
-{
-	alt_u32 aux;
+bool bSyncIrqEnableError(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_INT_ENABLE_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~INT_ENABLE_ERROR_MASK;
-	}
-	else {
-	aux |= INT_ENABLE_ERROR_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_IRQ_ENABLE_ERROR_MSK;
+	} else {
+		uliAux |= SYNC_IRQ_ENABLE_ERROR_MSK;
 	}
 
-	write_reg(SYNC_INT_ENABLE_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_int_enable_blank
+ * @name    bSyncIrqEnableBlank
  * @brief
  * @ingroup sync
  *
@@ -819,26 +773,24 @@ PUBLIC bool sync_int_enable_error(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_int_enable_blank(bool value)
-{
-	alt_u32 aux;
+bool bSyncIrqEnableBlank(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_INT_ENABLE_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~INT_ENABLE_BLANK_MASK;
-	}
-	else {
-	aux |= INT_ENABLE_BLANK_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_IRQ_ENABLE_BLANK_MSK;
+	} else {
+		uliAux |= SYNC_IRQ_ENABLE_BLANK_MSK;
 	}
 
-	write_reg(SYNC_INT_ENABLE_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 // Int flag clear register
 /**
- * @name    sync_int_flag_clear_error
+ * @name    bSyncIrqFlagClrError
  * @brief
  * @ingroup sync
  *
@@ -848,25 +800,23 @@ PUBLIC bool sync_int_enable_blank(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_int_flag_clear_error(bool value)
-{
-	alt_u32 aux;
+bool bSyncIrqFlagClrError(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_INT_FLAG_CLEAR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~INT_FLAG_CLEAR_ERROR_MASK;
-	}
-	else {
-	aux |= INT_FLAG_CLEAR_ERROR_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_IRQ_FLAG_CLR_ERROR_MSK;
+	} else {
+		uliAux |= SYNC_IRQ_FLAG_CLR_ERROR_MSK;
 	}
 
-	write_reg(SYNC_INT_FLAG_CLEAR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 /**
- * @name    sync_int_flag_clear_blank
+ * @name    bSyncIrqFlagClrBlank
  * @brief
  * @ingroup sync
  *
@@ -876,26 +826,24 @@ PUBLIC bool sync_int_flag_clear_error(bool value)
  *
  * @retval bool TRUE
  */
-PUBLIC bool sync_int_flag_clear_blank(bool value)
-{
-	alt_u32 aux;
+bool bSyncIrqFlagClrBlank(bool bValue) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_INT_FLAG_CLEAR_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
 
-	if (value == BIT_OFF) {
-	aux &= ~INT_FLAG_CLEAR_BLANK_MASK;
-	}
-	else {
-	aux |= INT_FLAG_CLEAR_BLANK_MASK;
+	if (bValue == SYNC_BIT_OFF) {
+		uliAux &= ~SYNC_IRQ_FLAG_CLR_BLANK_MSK;
+	} else {
+		uliAux |= SYNC_IRQ_FLAG_CLR_BLANK_MSK;
 	}
 
-	write_reg(SYNC_INT_FLAG_CLEAR_REG_OFFSET, aux);
- 	return  TRUE;
+	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	return TRUE;
 }
 
 // Int flag reg
 /**
- * @name    sync_int_flag_error
+ * @name    bSyncIrqFlagError
  * @brief
  * @ingroup sync
  *
@@ -905,24 +853,22 @@ PUBLIC bool sync_int_flag_clear_blank(bool value)
  *
  * @retval bool result
  */
-PUBLIC bool sync_int_flag_error(void)
-{
-	alt_u32 aux;
-	bool result;
+bool bSyncIrqFlagError(void) {
+	alt_u32 uliAux;
+	bool bResult;
 
-	aux = read_reg(SYNC_INT_FLAG_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
 
-	if (aux & INT_FLAG_ERROR_MASK) {
-		result = TRUE;
+	if (uliAux & SYNC_IRQ_FLAG_ERROR_MSK) {
+		bResult = TRUE;
+	} else {
+		bResult = FALSE;
 	}
-	else {
-		result = FALSE;
-	}
-	return result;
+	return bResult;
 }
 
 /**
- * @name    sync_int_flag_blank
+ * @name    bSyncIrqFlagBlank
  * @brief
  * @ingroup sync
  *
@@ -932,24 +878,22 @@ PUBLIC bool sync_int_flag_error(void)
  *
  * @retval bool result
  */
-PUBLIC bool sync_int_flag_blank(void)
-{
-	alt_u32 aux;
-	bool result;
+bool bSyncIrqFlagBlank(void) {
+	alt_u32 uliAux;
+	bool bResult;
 
-	aux = read_reg(SYNC_INT_FLAG_REG_OFFSET);
+	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
 
-	if (aux & INT_FLAG_BLANK_MASK) {
-		result = TRUE;
+	if (uliAux & SYNC_IRQ_FLAG_BLANK_MSK) {
+		bResult = TRUE;
+	} else {
+		bResult = FALSE;
 	}
-	else {
-		result = FALSE;
-	}
-	return result;
+	return bResult;
 }
 
 /**
- * @name    sync_read_ctr
+ * @name    uliSyncGetCtr
  * @brief
  * @ingroup sync
  *
@@ -959,16 +903,15 @@ PUBLIC bool sync_int_flag_blank(void)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_ctr(void)
-{
-	alt_u32 aux;
+alt_u32 uliSyncGetCtr(void) {
+	alt_u32 uliAux;
 
-	aux = read_reg(SYNC_CTR_REG_OFFSET);
-	return aux;
+	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
+	return uliAux;
 }
 
 /**
- * @name    sync_read_status
+ * @name    uliSyncReadStatus
  * @brief
  * @ingroup sync
  *
@@ -978,18 +921,17 @@ PUBLIC alt_u32 sync_read_ctr(void)
  *
  * @retval alt_u32 value
  */
-PUBLIC alt_u32 sync_read_status(void)
-{
+alt_u32 uliSyncReadStatus(void) {
 	alt_u32 aux;
 
-	aux = read_reg(SYNC_STATUS_REG_OFFSET);
+	aux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
 	return aux;
 }
 //! [public functions]
 
 //! [private functions]
 /**
- * @name    write_reg
+ * @name    bSyncWriteReg
  * @brief
  * @ingroup sync
  *
@@ -1000,30 +942,28 @@ PUBLIC alt_u32 sync_read_status(void)
  *
  * @retval TRUE -> success
  */
-PRIVATE bool write_reg(alt_u32 offset, alt_u32 value)
-{
+static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
 	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
-	*(p_addr + offset) = value;
-	return  TRUE;
+	*(p_addr + uliOffset) = uliValue;
+	return TRUE;
 }
 
 /**
- * @name    read_reg
+ * @name    uliSyncReadReg
  * @brief
  * @ingroup sync
  *
  * Read 32 bits reg
  *
  * @param [in] alt_u32 offset
-  *
+ *
  * @retval alt_u32 value -> reg
  */
-PRIVATE alt_u32 read_reg(alt_u32 offset)
-{
+static alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
 	alt_u32 value;
 
-    alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
- 	value = *(p_addr + offset);
+	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
+	value = *(p_addr + uliOffset);
 	return value;
 }
 //! [private functions]

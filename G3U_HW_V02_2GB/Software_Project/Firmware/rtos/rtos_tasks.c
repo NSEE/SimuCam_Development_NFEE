@@ -8,10 +8,9 @@
 /* Includes */
 #include "rtos_tasks.h"
 
-#include "../alt_error_handler.h"
 
 #include "../utils/util.h"
-#include "../utils/meb_includes.h"
+#include "../simucam_definitions.h"
 
 #include "../driver/i2c/i2c.h"
 #include "../driver/leds/leds.h"
@@ -19,11 +18,11 @@
 #include "../driver/rtcc_spi/rtcc_spi.h"
 #include "../driver/seven_seg/seven_seg.h"
 
-#include "../logic/dma/dma.h"
-#include "../logic/sense/sense.h"
-#include "../logic/ddr2/ddr2.h"
-#include "../logic/comm/comm.h"
-#include "../logic/pgen/pgen.h"
+#include "../api_driver/dma/dma.h"
+#include "../api_driver/sense/sense.h"
+#include "../api_driver/ddr2/ddr2.h"
+#include "../driver/comm/comm.h"
+#include "../driver/pgen/pgen.h"
 
 /* OS Error Variables */
 alt_u8 error_code = 0;
@@ -169,7 +168,7 @@ void LogTask(void *task_data) {
 	printf("Created \"log\" Task (Prio:%d) \n", LOG_TASK_PRIORITY);
 	while (1) {
 		TEMP_Read(&tempFPGA, &tempBoard);
-		SSDP_UPDATE(tempFPGA);
+		bSSDisplayUpdate(tempFPGA);
 		OSTimeDlyHMSM(0, 0, 1, 0);
 	}
 }
@@ -186,7 +185,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWATask,
 	                             NULL,
@@ -197,7 +196,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWBTask,
 	                             NULL,
@@ -208,7 +207,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWCTask,
 	                             NULL,
@@ -219,7 +218,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWDTask,
 	                             NULL,
@@ -230,7 +229,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWETask,
 	                             NULL,
@@ -241,7 +240,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWFTask,
 	                             NULL,
@@ -252,7 +251,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWGTask,
 	                             NULL,
@@ -263,7 +262,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 	error_code = OSTaskCreateExt(SPWHTask,
 	                             NULL,
@@ -274,8 +273,8 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
 	
+
 	error_code = OSTaskCreateExt(LogTask,
 	                             NULL,
 	                             (void *) &LogTaskStk[SIMUCAM_TASK_STACKSIZE],
@@ -285,7 +284,7 @@ void Init_Simucam_Tasks(void) {
 	                             SIMUCAM_TASK_STACKSIZE,
 	                             NULL,
 	                             0);
-	alt_uCOSIIErrorHandler(error_code, 0);
+
 
 }
 
@@ -353,16 +352,16 @@ void Set_SpW_Led(char c_SpwID) {
 	}
 	alt_u32 SpW_Link_Status = ul_SpaceWire_Interface_Link_Status_Read(c_SpwID);
 	if (SpW_Link_Status & SPWC_LINK_RUNNING_STATUS_BIT_MASK) {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, ui_leds_mask_r);
-		LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_g);
+		bSetPainelLeds(LEDS_OFF, ui_leds_mask_r);
+		bSetPainelLeds(LEDS_ON, ui_leds_mask_g);
 	} else if (SpW_Link_Status
 			& (SPWC_LINK_DISCONNECT_ERROR_BIT_MASK
 					| SPWC_LINK_PARITY_ERROR_BIT_MASK
 					| SPWC_LINK_ESCAPE_ERROR_BIT_MASK
 					| SPWC_LINK_CREDIT_ERROR_BIT_MASK)) {
-		LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_g | ui_leds_mask_r);
+		bSetPainelLeds(LEDS_ON, ui_leds_mask_g | ui_leds_mask_r);
 	} else {
-		LEDS_PAINEL_DRIVE(LEDS_OFF, ui_leds_mask_g);
-		LEDS_PAINEL_DRIVE(LEDS_ON, ui_leds_mask_r);
+		bSetPainelLeds(LEDS_OFF, ui_leds_mask_g);
+		bSetPainelLeds(LEDS_ON, ui_leds_mask_r);
 	}
 }

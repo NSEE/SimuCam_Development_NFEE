@@ -14,9 +14,7 @@
 #define __SEVEN_SEG_H__
 
 /* includes */
-#include "../../utils/meb_includes.h"
-#include "../../utils/util.h"
-#include "system.h"
+#include "../../simucam_definitions.h"
 
 /* address */
 #define SSDP_BASE SEVEN_SEGMENT_CONTROLLER_0_BASE
@@ -38,7 +36,7 @@
 /* prototype */
 extern alt_u8 SspdConfigControl;
 
-bool SSDP_CONFIG(alt_u8 SsdpConfig);
-bool SSDP_UPDATE(alt_u8 SsdpData);
+bool bSSDisplayConfig(alt_u8 SsdpConfig);
+bool bSSDisplayUpdate(alt_u8 SsdpData);
 
 #endif /* SEVEN_SEG */
