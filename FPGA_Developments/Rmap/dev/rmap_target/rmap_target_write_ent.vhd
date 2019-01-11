@@ -111,12 +111,10 @@ architecture rtl of rmap_target_write_ent is
 
 	signal s_write_error : std_logic;
 
-	-- debug
---	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
 	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
-	
-	signal s_write_address        : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 	signal s_write_byte_counter   : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
+
+	signal s_write_address        : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
@@ -303,7 +301,9 @@ begin
 							-- data need to be verified and data crc checked out
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
-							s_byte_counter                 <= s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
+							-- debug - test with (data_length - 1) load
+--							s_byte_counter                 <= s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
+							s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
 						end if;
@@ -577,6 +577,7 @@ begin
 					-- default output signals
 					mem_control_o.write            <= '1';
 					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
+					-- conditional output signals
 					-- check if memory access is more than one byte
 					if (c_MEMORY_ACCESS_SIZE > 1) then
 						-- memory access is more than one byte, need to send write address and byte address
@@ -585,8 +586,7 @@ begin
 						-- memory access is only one byte, need to send just the write address
 						mem_byte_address_o <= s_write_address;
 					end if;
-				-- conditional output signals
-
+					
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
 					-- write memory data, waits for the memory to be ready for new data
@@ -597,7 +597,7 @@ begin
 					flags_o.write_data_discarded   <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
-				-- conditional output signals
+					-- conditional output signals
 
 				-- state "UNEXPECTED_PACKAGE_END"
 				when UNEXPECTED_PACKAGE_END =>
