@@ -8,7 +8,7 @@
 #include "ccd.h"
 
 
-void vCCDLoadDefaultValues( TCcdDefinitions *ccdDef ) {
+void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
@@ -22,7 +22,7 @@ void vCCDLoadDefaultValues( TCcdDefinitions *ccdDef ) {
 }
 
 /* Used to change de values of the CCD definitions from any source */
-void vCCDChangeValues( TCcdDefinitions *ccdDef, unsigned short int usiHeight, unsigned short int usiOLN, unsigned short int usiHalfWidth,
+void vCCDChangeValues( TCcdInfos *ccdDef, unsigned short int usiHeight, unsigned short int usiOLN, unsigned short int usiHalfWidth,
                                 unsigned short int usiSOverscanN, unsigned short int usiSPrescanN  ) {
 
 	ccdDef.usiHeight = usiHeight;

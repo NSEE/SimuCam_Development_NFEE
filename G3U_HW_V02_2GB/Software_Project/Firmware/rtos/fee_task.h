@@ -11,8 +11,6 @@
 #include "../simucam_definitions.h"
 #include "../utils/ccd.h"
 
-typedef enum { sFeeConfig = 0, sFeeOn, sFeeStandBy, sFeeFull, sFeeTestFullPattern, sFeeWin, sFeeTestWinPattern, sFeeTestPartialRedout } tFEEStates;
-
 
 void vFeeTask(void *task_data);
 
