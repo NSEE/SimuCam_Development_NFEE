@@ -10,13 +10,8 @@
 #ifndef __UTIL_H__
 #define __UTIL_H__
 
-<<<<<<< HEAD
-
 #include "../simucam_definitions.h"
 
-=======
-#include "../simucam_definitions.h"
->>>>>>> origin/Simucam_Dev_HW
 
 #define DEBUG_HIGH
 #define DEBUG_MID

@@ -82,7 +82,7 @@ ACDS_VERSION := 16.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 203
+# BUILD_NUMBER: 196
 
 # Qsys--generated SOPCINFO file. Required for resolving node instance ID's with 
 # design component names. 
@@ -152,14 +152,14 @@ SOPC_SYSID_FLAG += --id=0
 ELF_PATCH_FLAG  += --id 0
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x812040c0
-SOPC_SYSID_FLAG += --sidp=0x812040c0
-ELF_PATCH_FLAG  += --sidp 0x812040c0
+# setting SOPC_SYSID_BASE_ADDRESS is 0x81203080
+SOPC_SYSID_FLAG += --sidp=0x81203080
+ELF_PATCH_FLAG  += --sidp 0x81203080
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1543612356
-SOPC_SYSID_FLAG += --timestamp=1543612356
-ELF_PATCH_FLAG  += --timestamp 1543612356
+# setting SOPC_TIMESTAMP is 1546040973
+SOPC_SYSID_FLAG += --timestamp=1546040973
+ELF_PATCH_FLAG  += --timestamp 1546040973
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 
@@ -373,8 +373,6 @@ ELF_PATCH_FLAG  += --stdout_dev rs232_uart
 #                 SOFTWARE COMPONENT & DRIVER INCLUDE PATHS
 #------------------------------------------------------------------------------
 
-ALT_INCLUDE_DIRS += $(ALT_LIBRARY_ROOT_DIR)/drivers/inc
-ALT_INCLUDE_DIRS += $(ALT_LIBRARY_ROOT_DIR)/drivers/inc/iniche
 ALT_INCLUDE_DIRS += $(ALT_LIBRARY_ROOT_DIR)/UCOSII/inc
 ALT_INCLUDE_DIRS += $(ALT_LIBRARY_ROOT_DIR)/HAL/inc
 
@@ -382,7 +380,6 @@ ALT_INCLUDE_DIRS += $(ALT_LIBRARY_ROOT_DIR)/HAL/inc
 #        SOFTWARE COMPONENT & DRIVER PRODUCED ALT_CPPFLAGS ADDITIONS
 #------------------------------------------------------------------------------
 
-ALT_CPPFLAGS += -DALTERA_TRIPLE_SPEED_MAC
 ALT_CPPFLAGS += -D__ucosii__
 
 #END MANAGED

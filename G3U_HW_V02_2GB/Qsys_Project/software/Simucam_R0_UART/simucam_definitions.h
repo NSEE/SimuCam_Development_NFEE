@@ -41,7 +41,6 @@
 #include <sys/alt_stdio.h>
 
 /*---- initialization_simucam -----*/
-#include "driver/eth/eth.h"
 #include "driver/leds/leds.h"
 #include "driver/seven_seg/seven_seg.h"
 /*---------------------------------*/
