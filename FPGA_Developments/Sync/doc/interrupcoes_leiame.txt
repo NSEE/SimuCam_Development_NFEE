@@ -1,0 +1,9 @@
+13/12/2018 - Observações acerca do sub módulo "int" (interrupções) do sync ip:
+
+-> A versão inicial está limpando automaticamente as flags de interrupção, tão logo a condição que gera a int. seja extinta.
+
+-> Logo, no caso do blank, e não havendo int. erro junto, a carta de tempo do irq, que acompanha a carta da própria flag, será idêntica ao próprio sinal de sync, à exceção da polaridade (o irq sempre é ativo em '1' e repousa em '0').
+
+-> Nesse sentido, o registro de flag clear perde um pouco o sentido, mas sempre poderá ser usado.
+
+-> Numa possível 2a versão, se adotarmos o "não clear" automático das int. flags, o irq vai ser retido em '1' até que a flag seja limpa pelo nios explicitamente, não importando mais se a condição externa que gera a int. tenha sido extinta.

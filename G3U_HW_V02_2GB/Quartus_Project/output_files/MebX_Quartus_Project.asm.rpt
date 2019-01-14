@@ -1,5 +1,5 @@
 Assembler report for MebX_Quartus_Project
-Fri Nov 30 19:55:42 2018
+Thu Jan 03 18:05:37 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
@@ -39,7 +39,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Fri Nov 30 19:55:42 2018 ;
+; Assembler Status      ; Successful - Thu Jan 03 18:05:37 2019 ;
 ; Revision Name         ; MebX_Quartus_Project                  ;
 ; Top-level Entity Name ; MebX_TopLevel                         ;
 ; Family                ; Stratix IV                            ;
@@ -54,16 +54,15 @@ agreement for further details.
 +--------+---------+---------------+
 
 
-+-----------------------------------------------------------+
-; Assembler Encrypted IP Cores Summary                      ;
-+--------+-----------------------------------+--------------+
-; Vendor ; IP Core Name                      ; License Type ;
-+--------+-----------------------------------+--------------+
-; Altera ; Nios II Processor (6AF7 00A2)     ; Licensed     ;
-; Altera ; Triple-Speed Ethernet (6AF7 00BD) ; Licensed     ;
-; Altera ; Signal Tap (6AF7 BCE1)            ; Licensed     ;
-; Altera ; Signal Tap (6AF7 BCEC)            ; Licensed     ;
-+--------+-----------------------------------+--------------+
++-------------------------------------------------------+
+; Assembler Encrypted IP Cores Summary                  ;
++--------+-------------------------------+--------------+
+; Vendor ; IP Core Name                  ; License Type ;
++--------+-------------------------------+--------------+
+; Altera ; Nios II Processor (6AF7 00A2) ; Licensed     ;
+; Altera ; Signal Tap (6AF7 BCE1)        ; Licensed     ;
+; Altera ; Signal Tap (6AF7 BCEC)        ; Licensed     ;
++--------+-------------------------------+--------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -81,8 +80,8 @@ agreement for further details.
 ; Option         ; Setting                                                                                                                               ;
 +----------------+---------------------------------------------------------------------------------------------------------------------------------------+
 ; Device         ; EP4SGX230KF40C2                                                                                                                       ;
-; JTAG usercode  ; 0x0B043D36                                                                                                                            ;
-; Checksum       ; 0x0B043D36                                                                                                                            ;
+; JTAG usercode  ; 0x0AF31A35                                                                                                                            ;
+; Checksum       ; 0x0AF31A35                                                                                                                            ;
 +----------------+---------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -92,14 +91,14 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
-    Info: Processing started: Fri Nov 30 19:55:04 2018
+    Info: Processing started: Thu Jan 03 18:04:57 2019
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 1252 megabytes
-    Info: Processing ended: Fri Nov 30 19:55:43 2018
-    Info: Elapsed time: 00:00:39
+    Info: Peak virtual memory: 1226 megabytes
+    Info: Processing ended: Thu Jan 03 18:05:38 2019
+    Info: Elapsed time: 00:00:41
     Info: Total CPU time (on all processors): 00:00:37
 
 

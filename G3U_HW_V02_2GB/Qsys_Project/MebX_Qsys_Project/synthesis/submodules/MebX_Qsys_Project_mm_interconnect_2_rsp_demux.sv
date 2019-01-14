@@ -28,7 +28,7 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         MebX_Qsys_Project_mm_interconnect_2_rsp_demux
-//   ST_DATA_W:           89
+//   ST_DATA_W:           90
 //   ST_CHANNEL_W:        30
 //   NUM_OUTPUTS:         1
 //   VALID_WIDTH:         1
@@ -46,7 +46,7 @@ module MebX_Qsys_Project_mm_interconnect_2_rsp_demux
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [89-1    : 0]   sink_data, // ST_DATA_W=89
+    input  [90-1    : 0]   sink_data, // ST_DATA_W=90
     input  [30-1 : 0]   sink_channel, // ST_CHANNEL_W=30
     input                         sink_startofpacket,
     input                         sink_endofpacket,
@@ -56,7 +56,7 @@ module MebX_Qsys_Project_mm_interconnect_2_rsp_demux
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [89-1    : 0] src0_data, // ST_DATA_W=89
+    output reg [90-1    : 0] src0_data, // ST_DATA_W=90
     output reg [30-1 : 0] src0_channel, // ST_CHANNEL_W=30
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,

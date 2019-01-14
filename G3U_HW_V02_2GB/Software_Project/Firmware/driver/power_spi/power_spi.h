@@ -34,7 +34,10 @@
 #define __POWER_SPI_H__
 
 #include "../../simucam_definitions.h"
+<<<<<<< HEAD
 #include "../../utils/util.h"
+=======
+>>>>>>> origin/Simucam_Dev_HW
 
 #define POWER_DEVICE0_PORT_NUM  8
 #define POWER_DEVICE1_PORT_NUM  4

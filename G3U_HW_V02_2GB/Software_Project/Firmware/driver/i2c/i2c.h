@@ -34,7 +34,10 @@
 #define __I2C_H__
 
 #include "../../simucam_definitions.h"
+<<<<<<< HEAD
 #include "../../utils/util.h"
+=======
+>>>>>>> origin/Simucam_Dev_HW
 
 bool I2C_TestAdress(alt_u32 clk_base, alt_u32 data_base, alt_8 DeviceAddr);
 bool I2C_Write(alt_u32 clk_base, alt_u32 data_base, alt_8 DeviceAddr, alt_u8 ControlAddr, alt_u8 ControlData);

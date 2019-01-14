@@ -81,11 +81,13 @@ port(
     FAN_CTRL	: out std_logic;
 	 
 	 -- SD CARD
-    SD_WP_n   : in    std_logic;
-    SD_CMD    : inout std_logic;            
-    SD_CLK    : out   std_logic;                                      
-    SD_DAT    : inout std_logic_vector(3 downto 0);
-
+	 
+	 I_SD_CARD_WP_n  : in    std_logic;
+	 B_SD_CARD_CMD   : inout std_logic;
+	 B_SD_CARD_DAT   : inout std_logic;
+	 B_SD_CARD_DAT3  : inout std_logic;
+	 O_SD_CARD_CLOCK : out   std_logic;
+	 
     -- Ethernet
     ETH_MDC   : out std_logic_vector(3 downto 0);
     ETH_INT_n : in  std_logic_vector(3 downto 0);  
@@ -248,7 +250,11 @@ port(
 	
 	-- Sincronization
 	SINC_IN    : in  std_logic;
-    SINC_OUT   : out std_logic
+   SINC_OUT   : out std_logic;
+	
+	-- RS232 UART	 
+	I_RS232_UART_RXD : in  std_logic;
+   O_RS232_UART_TXD : out std_logic
 
   );
 end entity;
@@ -270,7 +276,7 @@ attribute KEEP of clk80: signal is true;
 -- Ethernet 
 -----------------------------------------
 signal rst_eth            : std_logic := '0';
-signal enet_refclk_125MHz : std_logic;
+signal enet_refclk_125MHz : std_logic := '0';
 
 signal enet_mdc      : std_logic;
 signal enet_mdio_in  : std_logic;
@@ -404,11 +410,6 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             led_painel_export                                    : out   std_logic_vector(20 downto 0);
             ssdp_ssdp1                            : out   std_logic_vector(7 downto 0);
             ssdp_ssdp0                            : out   std_logic_vector(7 downto 0);
-            sd_wp_n_export     : in    std_logic;            
-            sd_cmd_export      : inout std_logic;            
-            sd_clk_export      : out   std_logic;                                       
-            sd_dat_export      : inout std_logic_vector(3 downto 0);
-				
 				
             m1_ddr2_i2c_scl_export  : out   std_logic;                                 
             m1_ddr2_i2c_sda_export  : inout std_logic;      
@@ -463,15 +464,24 @@ signal spw_h_do : std_logic_vector (0 downto 0);
             rtcc_sdo_export       : in    std_logic  := 'X'; -- export
 				
 				sinc_in_export        : in    std_logic  := 'X'; -- export
-            sinc_out_export       : out   std_logic          -- export
+            sinc_out_export       : out   std_logic;          -- export
+				
+				sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
+            sd_card_ip_b_SD_cmd                                  : inout std_logic                     := 'X';             -- b_SD_cmd
+            sd_card_ip_b_SD_dat                                  : inout std_logic                     := 'X';             -- b_SD_dat
+            sd_card_ip_b_SD_dat3                                 : inout std_logic                     := 'X';             -- b_SD_dat3
+            sd_card_ip_o_SD_clock                                : out   std_logic;                                        -- o_SD_clock
+				
+            rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
+            rs232_uart_txd                                       : out   std_logic                                         -- txd
         );
     end component MebX_Qsys_Project;
 
 component pll_125
 	port
 	(
-		inclk0 : in std_logic  := '0';
-		c0     : in std_logic 
+		inclk0 : in  std_logic  := '0';
+		c0     : out std_logic 
 	);
 end component;
 
@@ -509,12 +519,6 @@ SOPC_INST : MebX_Qsys_Project
     button_export   => Button,
     ext_export	     => EXT_IO,
 
-    sd_wp_n_export   => sd_wp_n,
-    sd_cmd_export    => sd_cmd,
-    sd_clk_export    => sd_clk,
-    sd_dat_export    => sd_dat,
-
-    
     ETH_rst_export                         => rst_eth,
     tse_led_an                             => open, 
 	tse_led_char_err                       => open, 
@@ -625,7 +629,16 @@ SOPC_INST : MebX_Qsys_Project
 	rtcc_sdo_export       => RTCC_SDO,
 	
 	sinc_in_export        => SINC_IN,
-	sinc_out_export       => SINC_OUT
+	sinc_out_export       => SINC_OUT,
+	
+	sd_card_wp_n_io_export => I_SD_CARD_WP_n,   -- sd_card_wp_n_io.export
+	sd_card_ip_b_SD_cmd    => B_SD_CARD_CMD,    -- sd_card_ip.b_SD_cmd
+	sd_card_ip_b_SD_dat    => B_SD_CARD_DAT,    --           .b_SD_dat
+	sd_card_ip_b_SD_dat3   => B_SD_CARD_DAT3,   --           .b_SD_dat3
+	sd_card_ip_o_SD_clock  => O_SD_CARD_CLOCK,  --           .o_SD_clock
+	
+	rs232_uart_rxd => I_RS232_UART_RXD, -- rs232_uart.rxd
+	rs232_uart_txd => O_RS232_UART_TXD  --           .txd
 	
  );
 
@@ -683,32 +696,32 @@ LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
 ETH_RST_n <= (rst) and (rst_eth);
 
 -- ETH0
--- lvds_rxp     <= ETH_RX_p[0];
--- ETH_TX_p[0]  <= lvds_txp;
--- enet_mdio_in <= ETH_MDIO[0];
--- ETH_MDIO[0]  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('z')
--- ETH_MDC[0]   <= enet_mdc;
+-- lvds_rxp     <= ETH_RX_p(0);
+-- ETH_TX_p(0)  <= lvds_txp;
+-- enet_mdio_in <= ETH_MDIO(0);
+-- ETH_MDIO(0)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+-- ETH_MDC(0)   <= enet_mdc;
 
 -- ETH1
--- lvds_rxp     <= ETH_RX_p[1];
--- ETH_TX_p[1]  <= lvds_txp;
--- enet_mdio_in <= ETH_MDIO[1];
--- ETH_MDIO[1]  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('z')
--- ETH_MDC[1]   <= enet_mdc;
+-- lvds_rxp     <= ETH_RX_p(1);
+-- ETH_TX_p(1)  <= lvds_txp;
+-- enet_mdio_in <= ETH_MDIO(1);
+-- ETH_MDIO(1)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+-- ETH_MDC(1)   <= enet_mdc;
 
 -- ETH2
--- lvds_rxp     <= ETH_RX_p[2];
--- ETH_TX_p[2]  <= lvds_txp;
--- enet_mdio_in <= ETH_MDIO[2];
--- ETH_MDIO[2]  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('z')
--- ETH_MDC[2]   <= enet_mdc;
+-- lvds_rxp     <= ETH_RX_p(2);
+-- ETH_TX_p(2)  <= lvds_txp;
+-- enet_mdio_in <= ETH_MDIO(2);
+-- ETH_MDIO(2)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+-- ETH_MDC(2)   <= enet_mdc;
 
 -- ETH3
-lvds_rxp     <= ETH_RX_p[3];
-ETH_TX_p[3]  <= lvds_txp;
-enet_mdio_in <= ETH_MDIO[3];
-ETH_MDIO[3]  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('z')
-ETH_MDC[3]   <= enet_mdc;
+lvds_rxp     <= ETH_RX_p(3);
+ETH_TX_p(3)  <= lvds_txp;
+enet_mdio_in <= ETH_MDIO(3);
+ETH_MDIO(3)  <= (enet_mdio_out) when (enet_mdio_oen = '0') else ('Z');
+ETH_MDC(3)   <= enet_mdc;
 
 --==========--
 -- Flash

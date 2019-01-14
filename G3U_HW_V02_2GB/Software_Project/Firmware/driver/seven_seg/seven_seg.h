@@ -15,7 +15,10 @@
 
 /* includes */
 #include "../../simucam_definitions.h"
+<<<<<<< HEAD
 #include "../../utils/util.h"
+=======
+>>>>>>> origin/Simucam_Dev_HW
 
 /* address */
 #define SSDP_BASE SEVEN_SEGMENT_CONTROLLER_0_BASE

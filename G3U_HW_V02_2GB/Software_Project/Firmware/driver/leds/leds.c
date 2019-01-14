@@ -9,7 +9,7 @@
 #include "leds.h"
 
 alt_u8 LedsBoardControl = 0x00;
-alt_u32 LedsPainelControl = 0x00000000;
+alt_u32 LedsPainelControl = 0x00010000;
 
 /**
  * @name    LEDS_BOARD_DRIVE

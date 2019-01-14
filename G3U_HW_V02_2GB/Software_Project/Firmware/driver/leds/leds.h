@@ -15,8 +15,11 @@
 
 /* includes */
 #include "../../simucam_definitions.h"
+<<<<<<< HEAD
 #include "../../utils/util.h"
 
+=======
+>>>>>>> origin/Simucam_Dev_HW
 
 /* address */
 #define LEDS_BOARD_BASE PIO_LED_BASE

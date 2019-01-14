@@ -1,0 +1,291 @@
+# Reading C:/intelFPGA/16.1/modelsim_ase/tcl/vsim/pref.tcl
+# do tb_run_msim_rtl_vhdl.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5b Lib Mapping Utility 2016.10 Oct  5 2016
+# vmap work rtl_work 
+# Copying C:/intelFPGA/16.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:49 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package sync_mm_registers_pkg
+# -- Compiling package body sync_mm_registers_pkg
+# -- Loading package sync_mm_registers_pkg
+# End time: 14:16:49 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:49 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package sync_outen_pkg
+# -- Compiling package body sync_outen_pkg
+# -- Loading package sync_outen_pkg
+# End time: 14:16:49 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:49 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package sync_common_pkg
+# -- Compiling package body sync_common_pkg
+# -- Loading package sync_common_pkg
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling package tb_pkg
+# -- Compiling package body tb_pkg
+# -- Loading package tb_pkg
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity avs_stimuli
+# -- Compiling architecture rtl of avs_stimuli
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_outen_pkg
+# -- Compiling entity sync_outen
+# -- Compiling architecture rtl of sync_outen
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Compiling package sync_int_pkg
+# -- Compiling package body sync_int_pkg
+# -- Loading package sync_int_pkg
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Compiling package sync_gen_pkg
+# -- Compiling package body sync_gen_pkg
+# -- Loading package sync_gen_pkg
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Loading package sync_mm_registers_pkg
+# -- Compiling package sync_avalon_mm_pkg
+# -- Compiling package body sync_avalon_mm_pkg
+# -- Loading package sync_avalon_mm_pkg
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:50 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Loading package sync_int_pkg
+# -- Compiling entity sync_int
+# -- Compiling architecture rtl of sync_int
+# End time: 14:16:50 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:51 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Loading package sync_gen_pkg
+# -- Compiling entity sync_gen
+# -- Compiling architecture rtl of sync_gen
+# End time: 14:16:51 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:51 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Loading package sync_mm_registers_pkg
+# -- Loading package sync_avalon_mm_pkg
+# -- Compiling entity sync_avalon_mm_write
+# -- Compiling architecture rtl of sync_avalon_mm_write
+# End time: 14:16:51 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:51 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_common_pkg
+# -- Loading package sync_mm_registers_pkg
+# -- Loading package sync_avalon_mm_pkg
+# -- Compiling entity sync_avalon_mm_read
+# -- Compiling architecture rtl of sync_avalon_mm_read
+# End time: 14:16:51 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:51 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/sync_topfile.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package sync_mm_registers_pkg
+# -- Loading package sync_common_pkg
+# -- Loading package sync_avalon_mm_pkg
+# -- Loading package sync_gen_pkg
+# -- Loading package sync_outen_pkg
+# -- Loading package sync_int_pkg
+# -- Compiling entity sync_ent
+# -- Compiling architecture rtl of sync_ent
+# -- Loading entity sync_avalon_mm_read
+# -- Loading entity sync_avalon_mm_write
+# -- Loading entity sync_gen
+# -- Loading entity sync_outen
+# -- Loading entity sync_int
+# End time: 14:16:51 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:51 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package tb_pkg
+# -- Compiling entity tb
+# -- Compiling architecture rtl of tb
+# -- Loading entity avs_stimuli
+# -- Loading package sync_mm_registers_pkg
+# -- Loading package sync_common_pkg
+# -- Loading package sync_avalon_mm_pkg
+# -- Loading package sync_gen_pkg
+# -- Loading package sync_outen_pkg
+# -- Loading package sync_int_pkg
+# -- Loading entity sync_ent
+# End time: 14:16:51 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vcom -93 -work work {E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync_sim/../tb/tb.vhd}
+# Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+# Start time: 14:16:51 on Nov 29,2018
+# vcom -reportprogress 300 -93 -work work E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync_sim/../tb/tb.vhd 
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Loading package tb_pkg
+# -- Compiling entity tb
+# -- Compiling architecture rtl of tb
+# -- Loading entity avs_stimuli
+# -- Loading package sync_mm_registers_pkg
+# -- Loading package sync_common_pkg
+# -- Loading package sync_avalon_mm_pkg
+# -- Loading package sync_gen_pkg
+# -- Loading package sync_outen_pkg
+# -- Loading package sync_int_pkg
+# -- Loading entity sync_ent
+# End time: 14:16:51 on Nov 29,2018, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs="+acc"  tb
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cyclonev -L rtl_work -L work -voptargs=""+acc"" tb 
+# Start time: 14:16:51 on Nov 29,2018
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.tb_pkg(body)
+# Loading work.sync_mm_registers_pkg(body)
+# Loading work.sync_common_pkg(body)
+# Loading work.sync_avalon_mm_pkg(body)
+# Loading work.sync_gen_pkg(body)
+# Loading work.sync_outen_pkg(body)
+# Loading work.sync_int_pkg(body)
+# Loading work.tb(rtl)
+# Loading work.avs_stimuli(rtl)
+# Loading work.sync_ent(rtl)
+# Loading work.sync_avalon_mm_read(rtl)
+# Loading work.sync_avalon_mm_write(rtl)
+# Loading work.sync_gen(rtl)
+# Loading work.sync_outen(rtl)
+# Loading work.sync_int(rtl)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run -all
+restart
+run
+write format wave -window .main_pane.wave.interior.cs.body.pw.wf E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync_sim/simulation/modelsim/wave.do
+# End time: 14:22:10 on Nov 29,2018, Elapsed time: 0:05:19
+# Errors: 0, Warnings: 0

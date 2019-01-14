@@ -10,9 +10,13 @@
 #ifndef __UTIL_H__
 #define __UTIL_H__
 
+<<<<<<< HEAD
 
 #include "../simucam_definitions.h"
 
+=======
+#include "../simucam_definitions.h"
+>>>>>>> origin/Simucam_Dev_HW
 
 #define DEBUG_HIGH
 #define DEBUG_MID
@@ -31,10 +35,9 @@ void _split_codec_status(int codec_status, int *started, int *connecting, int *r
 void _print_codec_status(int codec_status);
 //void _print_link_config(LinkConfig *link);
 
-INT8U aatoh(INT8U *buffer);
-INT8U toint(INT8U ascii);
-INT8U Verif_Error(INT8U error_code);
-
+alt_u8 aatoh(alt_u8 *buffer);
+alt_u8 toint(alt_u8 ascii);
+alt_u8 Verif_Error(alt_u8 error_code);
 
 /**
  * @brief Set the High level log file
