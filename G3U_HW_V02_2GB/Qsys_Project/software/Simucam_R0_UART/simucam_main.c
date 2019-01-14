@@ -6,6 +6,7 @@
 #include "utils/communication_configs.h"
 #include "utils/configs_simucam.h"
 #include "utils/test_module_simucam.h"
+#include "utils/meb.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
 
@@ -82,8 +83,10 @@ OS_TMR  *xTimerRetransmission;
 /*==================================================================================================*/
 
 
-
-
+/*
+ * Control of all Simucam application
+ */
+TSimucam_MEB xSimMebStruct;
 
 /* Instanceatin and Initialization of the resources for the RTOS */
 bool bResourcesInitRTOS( void )
@@ -266,9 +269,12 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-		debug(fp, "Can't alocate resources for RTOS. (exit) \n");
+		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		return -1;
 	}
+
+	/* Start the structure of control of the Simucam Application, including all FEEs instances */
+	vSimucamStructureInit( &xSimMebStruct );
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR

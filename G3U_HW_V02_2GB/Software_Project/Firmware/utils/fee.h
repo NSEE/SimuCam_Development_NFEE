@@ -55,7 +55,7 @@ typedef struct FeeControl{
     bool bChannelEnable;                /* SPW Channel is enable? */
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
     tFEEStates eMode;                   /* Mode of NFEE */
-    tFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */    
+    tNFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */
 } TFeeControl;
 
 typedef struct NFee {

@@ -14,11 +14,11 @@ void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
         hard coded values */
     //bLoadCcdDefsSDCard();
 
-	ccdDef.usiHeight = 4510;
-	ccdDef.usiOLN = 30;
-	ccdDef.usiHalfWidth = 2255;
-	ccdDef.usiSOverscanN = 15;
-	ccdDef.usiSPrescanN = 25;
+	ccdDef->usiHeight = 4510;
+	ccdDef->usiOLN = 30;
+	ccdDef->usiHalfWidth = 2255;
+	ccdDef->usiSOverscanN = 15;
+	ccdDef->usiSPrescanN = 25;
 }
 
 /* Only in NFEE_CONFIG of NFEE_STAND_BY */
@@ -26,9 +26,9 @@ void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
 void vCCDChangeValues( TCcdInfos *ccdDef, unsigned short int usiHeight, unsigned short int usiOLN, unsigned short int usiHalfWidth,
                                 unsigned short int usiSOverscanN, unsigned short int usiSPrescanN  ) {
 
-	ccdDef.usiHeight = usiHeight;
-	ccdDef.usiOLN = usiOLN;
-	ccdDef.usiHalfWidth = usiHalfWidth;
-	ccdDef.usiSOverscanN = usiSOverscanN;
-	ccdDef.usiSPrescanN = usiSPrescanN;
+	ccdDef->usiHeight = usiHeight;
+	ccdDef->usiOLN = usiOLN;
+	ccdDef->usiHalfWidth = usiHalfWidth;
+	ccdDef->usiSOverscanN = usiSOverscanN;
+	ccdDef->usiSPrescanN = usiSPrescanN;
 }

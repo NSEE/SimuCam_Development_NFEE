@@ -53,10 +53,10 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     unsigned long ulTotalSizeL = 0; /* pixels */
     unsigned long ulMemLinesL = 0; /* mem lines */
+    unsigned long ulTotalMemLinesL = 0;
     unsigned long ulMemLeftBytesL = 0; /* bytes */
     unsigned long ulMemLeftLinesL = 0; /* mem lines */
     unsigned long ulMaskMemLinesL = 0; /* mem lines */
-    unsigned long ulTotalMemLinesL = 0;
     unsigned char ucPixelsInLastBlockL = 0;
     unsigned char ucShiftsL = 0;
     unsigned char ucIL = 0;
@@ -96,7 +96,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     /* For every 16 mem line will be 1 mask mem line */
     ulMaskMemLinesL = (unsigned long) ulMemLinesL / BLOCK_MEM_SIZE;
     ulMemLeftLinesL = ulMemLinesL % BLOCK_MEM_SIZE;
-    if ( ulMemLeftLinesL > 0 ) {
+    if ( ulMemLeftLinesL >= 1 ) {
         ulMaskMemLinesL = ulMaskMemLinesL + 1;
         ulTotalMemLinesL = ( ulMemLinesL - ulMemLeftLinesL + BLOCK_MEM_SIZE ) + ulMaskMemLinesL; /* One extra 16 sized block, will be filled with zero padding the ret os spare lines */
     } else {
@@ -104,7 +104,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     }
 
     /* Calculating how is the final mask with zero padding */
-    if ( ulMemLeftBytesL > 0 ) {
+    if ( ulMemLeftBytesL >= 1 ) {
         ucPixelsInLastBlockL = (unsigned char) (( ulMemLeftLinesL * PIXEL_PER_MEM_LINE ) + (unsigned int) ( ulMemLeftBytesL / BYTES_PER_PIXEL ));
     } else {
         ucPixelsInLastBlockL = (unsigned char) ( ulMemLeftLinesL * PIXEL_PER_MEM_LINE );
@@ -114,7 +114,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
     /* WARNING: Verify the memory alocation (endianess) */
-    pxNfeeL->xMemMap.xCommon.ucPaddingMask = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
 
     /* Number of block is te same as the number of line masks in the memory */
     pxNfeeL->xMemMap.xCommon.usiNTotalBlocks = ulMaskMemLinesL;

@@ -28,8 +28,8 @@ typedef struct Simucam_MEB {
     TNFee   xNfee[N_OF_NFEE];               /* All instances of control for the NFEE */
     unsigned char ucActualDDR;              /* Control the swap mechanism of DDRs ( 0: DDR0 or 1: DDR1 ) */
     /* Note 3: The EP and RT parameters are common to all the N-FEE simulation entities. */
-    unsigned float ucEP;                    /* Exposure period [NFEESIM-UR-447] */
-    unsigned float ucRT;                    /* CCD readout time [NFEESIM-UR-447] */
+    float ucEP;                    			/* Exposure period [NFEESIM-UR-447] */
+    float ucRT;                    			/* CCD readout time [NFEESIM-UR-447] */
     tSimucamSync  eSync;                    /* Internal or external sync [NFEESIM-UR-633]*/
     unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
     unsigned char ucIdNFEEMaster;       /* Set which N-FEE simulation is the master. [NFEESIM-UR-729]*/
@@ -39,14 +39,18 @@ typedef struct Simucam_MEB {
     /*todo: estruturas de controle para o simucam*/
 } TSimucam_MEB;
 
+
+extern TSimucam_MEB xSimMebStruct;
+
+
 void vSimucamStructureInit( TSimucam_MEB *xMeb );
 
 void vLoadDefaultEPValue( TSimucam_MEB *xMeb );
-void vChangeEPValue( TSimucam_MEB *xMeb, unsigned float ucValue );
-void vChangeDefaultEPValue( TSimucam_MEB *xMeb, unsigned float ucValue );
+void vChangeEPValue( TSimucam_MEB *xMeb, float ucValue );
+void vChangeDefaultEPValue( TSimucam_MEB *xMeb, float ucValue );
 void vLoadDefaultRTValue( TSimucam_MEB *xMeb );
-void vChangeRTValue( TSimucam_MEB *xMeb, unsigned float ucValue );
-void vChangeDefaultRTValue( TSimucam_MEB *xMeb, unsigned float ucValue );
+void vChangeRTValue( TSimucam_MEB *xMeb, float ucValue );
+void vChangeDefaultRTValue( TSimucam_MEB *xMeb, float ucValue );
 void vLoadDefaultSyncSource( TSimucam_MEB *xMeb );
 void vChangeSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
 void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
@@ -58,6 +62,6 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vLoadDefaultIdNFEEMaster( TSimucam_MEB *xMeb );
 void vChangeIdNFEEMaster( TSimucam_MEB *xMeb, unsigned char ucIdMaster );
 void vChangeDefaultIdNFEEMaster( TSimucam_MEB *xMeb, unsigned char ucIdMaster );
-void vSyncReset( TSimucam_MEB *xMeb, unsigned float ufSynchDelay );
+void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay );
 
 #endif /* MEB_H_ */

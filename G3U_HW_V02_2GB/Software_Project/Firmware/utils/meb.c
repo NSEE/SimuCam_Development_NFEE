@@ -38,18 +38,18 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Verify if if a Fast or Normal */
     if ( xMeb->eType == sNormalFEE ) {
         /* Are Normal Fee instances */
-        for ( ucIL = 0; ucIL < N_OF_NFEE ) {
+        for ( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ) {
             if ( ucIL < xMeb->ucNofFeesInUse ) {
                 vNFeeStructureInit( &xMeb->xNfee[ ucIL ], ucIL);
             } else {
                 vNFeeNotInUse( &xMeb->xNfee[ ucIL ], ucIL);
             }
-            xMeb->pbEnabledNFEEs[ ucIL ] = &xMeb->xNfee.xControl.bEnabled;
-            xMeb->pbRunningDmaNFEEs[ ucIL ] = &xMeb->xNfee.xControl.bUsingDMA;
+            xMeb->pbEnabledNFEEs[ ucIL ] = &xMeb->xNfee[ ucIL ].xControl.bEnabled;
+            xMeb->pbRunningDmaNFEEs[ ucIL ] = &xMeb->xNfee[ ucIL ].xControl.bUsingDMA;
         }
     } else {
         /* Are Fast Fee instances */
-        for ( ucIL = 0; ucIL < N_OF_FastFEE ) {
+        for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++ ) {
             if ( ucIL < xMeb->ucNofFeesInUse ) {
                 // todo: Not in use yet
             } else {
@@ -76,13 +76,13 @@ void vLoadDefaultEPValue( TSimucam_MEB *xMeb ) {
 
 /* Only in MEB_CONFIG */
 /* Change the active value of EP - Exposure period [NFEESIM-UR-447] */
-void vChangeEPValue( TSimucam_MEB *xMeb, unsigned float ucValue ) {
+void vChangeEPValue( TSimucam_MEB *xMeb, float ucValue ) {
     xMeb->ucEP = ucValue;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the default value of EP - Exposure period [NFEESIM-UR-447] */
-void vChangeDefaultEPValue( TSimucam_MEB *xMeb, unsigned float ucValue ) {
+void vChangeDefaultEPValue( TSimucam_MEB *xMeb, float ucValue ) {
     //bSaveEPSDCard(ucValue);
 }
 
@@ -96,13 +96,13 @@ void vLoadDefaultRTValue( TSimucam_MEB *xMeb ) {
 
 /* Only in MEB_CONFIG */
 /* Change the active value of RT - CCD readout time [NFEESIM-UR-447] */
-void vChangeRTValue( TSimucam_MEB *xMeb, unsigned float ucValue ) {
+void vChangeRTValue( TSimucam_MEB *xMeb, float ucValue ) {
     xMeb->ucRT = ucValue;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the default value of RT - CCD readout time [NFEESIM-UR-447] */
-void vChangeDefaultRTValue( TSimucam_MEB *xMeb, unsigned float ucValue ) {
+void vChangeDefaultRTValue( TSimucam_MEB *xMeb, float ucValue ) {
     //bSaveRTSDCard(ucValue);
 }
 
@@ -179,14 +179,14 @@ void vChangeDefaultIdNFEEMaster( TSimucam_MEB *xMeb, unsigned char ucIdMaster ) 
 
 /* Any mode */
 /* Synchronization Reset */
-void vSyncReset( TSimucam_MEB *xMeb, unsigned float ufSynchDelay ) {
+void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay ) {
     
     // Stop all transmission
 
     // Put all NFEE in Stand-by mode, if not in Config mode
 
     // Reset the time code
-    vResetTimeCode();
+    vResetTimeCode(xMeb);
 
     // Wait ufSynchDelay milliseconds
 

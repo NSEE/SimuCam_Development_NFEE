@@ -176,6 +176,7 @@ C_SRCS += utils/ccd.c
 C_SRCS += rtos/fee_task.c
 C_SRCS += utils/fee.c
 C_SRCS += utils/meb.c
+C_SRCS += rtos/sim_meb_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 
