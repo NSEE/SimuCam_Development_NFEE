@@ -7,56 +7,20 @@
 
 #include "fee.h"
 
-
-void vCalcMemoryDistribution( unsigned char ucFeeInst ) {
-    unsigned long ulTotalSizeL = 0; /* pixels */
-    unsigned long ulTotalBytesL = 0; /* bytes */
-    unsigned long ulMemLinesL = 0; /* mem lines */
-    unsigned long ulMemLeftBytesL = 0; /* bytes */
-    unsigned long ulMemLeftLinesL = 0; /* mem lines */
-    unsigned long ulMaskMemLinesL = 0; /* mem lines */
-    unsigned long ulTotalMemLinesL = 0;
-
-    /* (HEIGHT + usiOLN)*(usiSPrescanN + usiSOverscanN + usiHalfWidth) */
-    ulTotalSizeL =   ( xFEECcdDefs[ucFeeInst].usiHeight + xFEECcdDefs[ucFeeInst].usiOLN ) *
-                        ( xFEECcdDefs[ucFeeInst].usiHalfWidth + xFEECcdDefs[ucFeeInst].usiSOverscanN + xFEECcdDefs[ucFeeInst].usiSPrescanN );
-    
-    ulTotalBytesL = ulTotalSizeL * 2;  /* 1 pixel = 2 bytes */
-    ulMemLinesL = (unsigned long) ulTotalBytesL / BYTES_PER_MEM_LINE;
-    ulMemLeftBytesL = ulTotalBytesL % BYTES_PER_MEM_LINE;   /* Check how much lines will have in the last block */
-    if ( ulMemLeftBytesL > 0 ) {
-        ulMemLinesL = ulMemLinesL + 1;
-        ulTotalBytesL = ulTotalBytesL - ulMemLeftBytesL + BYTES_PER_MEM_LINE; /* Add a full line, after will be filled with zero padding */
-    }
-
-    /* Every 16 mem line will be 1 mask mem line */
-    ulMaskMemLinesL = (unsigned long) ulMemLinesL / BLOCK_MEM_SIZE;
-    ulMemLeftLinesL = ulMemLinesL % BLOCK_MEM_SIZE;
-    if ( ulMemLeftLinesL > 0 ) {
-        ulMaskMemLinesL = ulMaskMemLinesL + 1;
-        ulTotalMemLinesL = ( ulMemLinesL - ulMemLeftLinesL ) + ulMaskMemLinesL + BLOCK_MEM_SIZE; /* One extra 16 sized block, will be filled with zero padding the ret os spare lines */
-    } else {
-        ulTotalMemLinesL = ulMemLinesL + ulMaskMemLinesL;
-    }
-
-
-    /* todo: There's too many local variables! Use directly the global one */
-    xFEEMemMaps[ucFeeInst].ulOffsetRoot = OFFSET_STEP_FEE * ucFeeInst;   /*  Offset root memory for the FEE  */
-    xFEEMemMaps[ucFeeInst].ulTotalSizeBytes = ulTotalBytesL;
-    xFEEMemMaps[ucFeeInst].ulNMemLines  = ulMemLinesL;
-    xFEEMemMaps[ucFeeInst].ulNMaskMemLines = ulMaskMemLinesL;
-    xFEEMemMaps[ucFeeInst].ulNTotalMemLines = ulTotalMemLinesL;
-    /* The number of blocks is the same of number of line masks. todo: Improvement - Use only the mask number of lines*/
-    xFEEMemMaps[ucFeeInst].ulNBlocks17 = ulMaskMemLinesL;
-    xFEEMemMaps[ucFeeInst].ucNofLeftBytes = ulMemLeftBytesL;
-    xFEEMemMaps[ucFeeInst].ucNofLeftLines = ulMemLeftLinesL;
-}
-
-/* Initialize the structure of control of NFEE with the default Configurations */
-void vNFeeInitialization( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
-    unsigned char ucIL = 0;
+void vNFeeNotInUse( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
     /* NFEE id [0..7] */
+    pxNfeeL->ucId = ucIdNFEE;
+    pxNfeeL->xControl.bEnabled = FALSE;
+    pxNfeeL->xControl.bUsingDMA = FALSE;
+}
+
+
+/* Initialize the structure of control of NFEE with the default Configurations */
+void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
+    unsigned char ucIL = 0;
+
+    /* NFEE id [0..5] */
     pxNfeeL->ucId = ucIdNFEE;
 
     /* Load the default values of the CCDs regarding pixels configuration */
@@ -67,19 +31,21 @@ void vNFeeInitialization( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
     /* Initilizing control variables */
     pxNfeeL->xControl.bEnabled = TRUE;
-    pxNfeeL->xControl.bEnabled = FALSE;
-    pxNfeeL->xControl.ucTimeCode = 0;
+    pxNfeeL->xControl.bUsingDMA = FALSE;
     /* The NFEE initialize in the Config mode by default */
     pxNfeeL->xControl.eMode = sFeeConfig;    
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
-    //bLoadNFEEDefsSDCard();
+    //bLoadNFEEDefsSDCard(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /* Set the default redout order [ 0, 1, 2, 3 ] */
     for ( ucIL = 0; ucIL < 4; ucIL++) 
         pxNfeeL->xControl.ucROutOrder[ucIL] = ucIL;
     /* The default side is left */
-    pxNfeeL->xControl.eMode = sLeft;
+    pxNfeeL->xControl.eSide = sLeft;
+    pxNfeeL->xControl.bEchoing = FALSE;
+    pxNfeeL->xControl.bLogging = FALSE;
+    pxNfeeL->xControl.bChannelEnable = FALSE;
 
 }
 
@@ -162,8 +128,68 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
         pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulOffsetAddr = ulLastOffset; 
         ulLastOffset = ulLastOffset + ulStepHalfCCD;
     }
+}
 
+/* Load the default configuration of the SPW/RMAP */
+void vFeeSpwRMAPLoadDefault( TNFee *pxNfeeL ) {
+    //bGetSpwRmapSDCard();
+    //todo: For now is hardcoded
+    //todo: Verificar qual a estrutura usar para as configurações
+}
+
+/* Only in NFEE_CONFIG */
+/* Change the active configuration of the SPW/RMAP */
+void vFeeSpwRMAPChangeConfig( TNFee *pxNfeeL ) {
+    //todo: Verificar qual a estrutura usar para as configurações
+}
+
+/* Only in NFEE_CONFIG */
+/* Change the default configuration of the SPW/RMAP */
+void vFeeSpwRMAPChangeDefault( TNFee *pxNfeeL ) {
+    //bSaveSpwRmapSDCard();
+    //todo: Verificar qual a estrutura usar para as configurações, enviar o numero do FEE tbm
+}
+
+/* Any mode */
+/* Enable SPW channel for the FEE */
+void cFeeSpwChannelEnable( TNFee *pxNfeeL ) {
+    //todo: Verificar com o França
+}
+
+/* Any mode */
+/* Disable SPW channel for the FEE */
+void cFeeSpwChannelDisable( TNFee *pxNfeeL ) {
+    //todo: Verificar com o França
+}
+
+/* Any mode */
+/* Dump and send using PUS the RMAP Configuration areas [NFEESIM-UR-699] */
+void cFeeRMAPDump( TNFee *pxNfeeL ) {
+
+    //todo: ler as areas de memoria do RMAP e enviar via ethernet
 
 }
 
+/* Any mode */
+/* Allow the user to activate the echo mode for RMAP [NFEESIM-UR-588]  */
+void cFeeRMAPEchoingEnable( TNFee *pxNfeeL ) {
+    pxNfeeL->xControl.bEchoing = TRUE;
+}
 
+/* Any mode */
+/* Allow the user to disable the echo mode for RMAP [NFEESIM-UR-589]  */
+void cFeeRMAPEchoingDisable( TNFee *pxNfeeL ) {
+    pxNfeeL->xControl.bEchoing = FALSE;
+}
+
+/* Any mode */
+/* Allow the user to activate the log of RMAP [NFEESIM-UR-588]  */
+void cFeeRMAPLogEnable( TNFee *pxNfeeL ) {
+    pxNfeeL->xControl.bLogging = TRUE;
+}
+
+/* Any mode */
+/* Allow the user to disable the log of RMAP [NFEESIM-UR-589]  */
+void cFeeRMAPLogDisable( TNFee *pxNfeeL ) {
+    pxNfeeL->xControl.bLogging = FALSE;
+}

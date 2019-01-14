@@ -10,7 +10,8 @@
 
 #include "../simucam_definitions.h"
 #include "../utils/ccd.h"
-
+#include "../utils/fee.h"
+#include "../utils/meb.h"
 
 void vFeeTask(void *task_data);
 

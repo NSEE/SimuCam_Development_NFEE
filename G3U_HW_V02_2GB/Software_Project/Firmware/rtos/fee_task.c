@@ -37,6 +37,4 @@ void vFeeTask(void *task_data) {
 			// mudar de estado se isso estiver agendado
 
 
-
-
 }

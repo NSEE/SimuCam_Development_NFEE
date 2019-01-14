@@ -50,7 +50,9 @@ typedef enum { sLeft = 0, sRight, sBoth } tNFeeSide;
 typedef struct FeeControl{
     bool bEnabled;
     bool bUsingDMA;
-    unsigned char ucTimeCode;           /* Timecode */
+    bool bLogging;                      /* Log the RMAP Packets */
+    bool bEchoing;                      /* Echo the RMAP Packets */
+    bool bChannelEnable;                /* SPW Channel is enable? */
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
     tFEEStates eMode;                   /* Mode of NFEE */
     tFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */    
@@ -67,8 +69,8 @@ typedef struct FFee {
     /* To Be Defined */
 } TFFee;
 
-void vNFeeInitialization( TNFee *pxNfeeL );
-void vUpdateMemMapFEE( TNFee pxNfeeL );
-void vCalcMemoryDistribution( unsigned char ucFeeInst );
+void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE );
+void vUpdateMemMapFEE( TNFee *pxNfeeL );
+void vNFeeNotInUse( TNFee *pxNfeeL, unsigned char ucIdNFEE );
 
 #endif /* FEE_H_ */

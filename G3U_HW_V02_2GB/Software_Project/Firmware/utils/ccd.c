@@ -21,6 +21,7 @@ void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
 	ccdDef.usiSPrescanN = 25;
 }
 
+/* Only in NFEE_CONFIG of NFEE_STAND_BY */
 /* Used to change de values of the CCD definitions from any source */
 void vCCDChangeValues( TCcdInfos *ccdDef, unsigned short int usiHeight, unsigned short int usiOLN, unsigned short int usiHalfWidth,
                                 unsigned short int usiSOverscanN, unsigned short int usiSPrescanN  ) {
