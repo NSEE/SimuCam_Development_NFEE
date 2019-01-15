@@ -214,7 +214,7 @@ bool bResourcesInitRTOS( void )
 }
 
 void vVariablesInitialization ( void ) {
-	usiIdCMD = 0;
+	usiIdCMD = 1;
 }
 
 
@@ -232,6 +232,10 @@ int main(void)
 	#ifdef DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
 	#endif	
+
+	#ifdef DEBUG_ON
+		debug(fp, "Main entry point.\n");
+	#endif
 
 
 	/* Initialization of basic HW */
@@ -255,7 +259,9 @@ int main(void)
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-		debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. (exit) \n");
+		#ifdef DEBUG_ON
+			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. (exit) \n");
+		#endif
 		return -1;
 	}
 

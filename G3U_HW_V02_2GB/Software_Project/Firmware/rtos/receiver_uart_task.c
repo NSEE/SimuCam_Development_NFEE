@@ -189,6 +189,7 @@ bool setPreParsedFreePos( tPreParsed *xPrePReader ) {
     INT8U error_code;
     unsigned char ucCountRetries = 0;
 
+    ucCountRetries = 0;
     while ( ( bSuccess == FALSE ) && ( ucCountRetries < 2 ) ) {
 
         OSMutexPend(xMutexPreParsed, 2, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 2 ticks = 2 ms */
@@ -226,6 +227,7 @@ bool setPreAckSenderFreePos( tPreParsed *xPrePReader ) {
     INT8U error_code;
     unsigned char ucCountRetries = 0;
 
+    ucCountRetries = 0;
     /* Try to send the ACK/NACK packet to the Sender Ack Task only 2 times, to not block the fast receiver */
     while ( ( bSuccess == FALSE ) && ( ucCountRetries < 2 ) ) {
 
@@ -267,6 +269,7 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
     INT8U error_code;
     unsigned char ucCountRetries = 0;
 
+    ucCountRetries = 0;
     while ( ( bSuccess == FALSE ) && ( ucCountRetries < 2 ) ) {
 
         OSMutexPend(xMutexReceivedACK, 2, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 2 ticks = 2 ms */

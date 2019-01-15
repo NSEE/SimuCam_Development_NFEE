@@ -95,7 +95,7 @@ void vParserCommTask(void *task_data) {
 				/* Final parssing after identify that is a request packet */
 				/* ATTENTION: In order to avoid overhead of process the response to NUC of simple Requests
 				   will be threat here, and send from here the parser_rx.*/
-			   	switch (PreParsedLocal.cType)
+			   	switch (PreParsedLocal.cCommand)
 				{
 					case ETH_CMD: /*NUC requested the ETH Configuration*/
 							vSendEthConf();
@@ -107,7 +107,7 @@ void vParserCommTask(void *task_data) {
 				}
 				break;
 			case sReplyParsing:
-                switch (PreParsedLocal.cType)
+                switch (PreParsedLocal.cCommand)
                 {
                     case NUC_STATUS_CMD: /*Status from NUC*/
 

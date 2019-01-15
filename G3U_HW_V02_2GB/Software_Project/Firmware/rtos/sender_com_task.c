@@ -35,6 +35,9 @@ void vSenderComTask(void *task_data)
                 if ( OSSemAccept(xSemCommInit) ) {
                     eSenderMode = sDummySender;
                 } else {
+					#ifdef DEBUG_ON
+						debug(fp,"Sending start sequence\n");
+					#endif
                     /* Asking for NUC the status */
                     puts(START_STATUS_SEQUENCE);
                     OSTimeDlyHMSM(0, 0, 5, 0); /*Sleeps for 5 second*/
@@ -54,10 +57,7 @@ void vSenderComTask(void *task_data)
                 /* code */
                 eSenderMode = sDummySender;
 
-                if (desligarEm <= 3) {
-                    puts(TURNOFF_SEQUENCE);
-                }
-                desligarEm++;
+
 #ifdef DEBUG_ON
 	debug(fp,"sDummySender\n");
 #endif

@@ -54,7 +54,7 @@ bool bSendUART128 ( char *cBuffer, short int siIdMessage ) {
 					puts(cLocalBuffer128);
 					/*OSMutexAccept => non blocking*/
 					ucReturnMutexRetrans = OSMutexAccept(xMutexBuffer128, &ucErrorCodeMutexRetrans); /* Just check the the mutex (non blocking) */
-					if ( ucReturnMutexRetrans != 0 ) { /* Returning zero = Mutex not available */
+					if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) { 
 						/*	Best scenario, could get the mutex at the first try*/
 						for(i = 0; i < N_128; i++)
 						{
@@ -99,10 +99,10 @@ bool bSendUART128 ( char *cBuffer, short int siIdMessage ) {
 								}
 								OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
 							}
-						} while ((ucErrorCodeMutexRetrans!= OS_NO_ERR) || ( ucCountRetriesMutexRetrans < 4)); /* Try for 3 times*/
+						} while ((ucErrorCodeMutexRetrans!= OS_NO_ERR) && ( ucCountRetriesMutexRetrans < 4)); /* Try for 3 times*/
 					}
 				}
-			} while ( (ucErrorCodeMutexTxUART!= OS_NO_ERR) || ( ucCountRetriesMutexTxUART < 4) ); /* Try for 3 times*/
+			} while ( (ucErrorCodeMutexTxUART!= OS_NO_ERR) && ( ucCountRetriesMutexTxUART < 4) ); /* Try for 3 times*/
 
 			/* If was not possible to send the message or to copy the message to the (re)transmisison buffer*/
 			if (bSuccess!=TRUE) {
@@ -115,7 +115,7 @@ bool bSendUART128 ( char *cBuffer, short int siIdMessage ) {
 				}
 			}
 		}
-	} while ( (ucErrorCodeSem != OS_NO_ERR) || ( ucCountRetriesSem < 6)) ; /* Try for 5 times*/
+	} while ( (ucErrorCodeSem != OS_NO_ERR) && ( ucCountRetriesSem < 6)) ; /* Try for 5 times*/
 
 	return bSuccess;
 }

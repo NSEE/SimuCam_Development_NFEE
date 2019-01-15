@@ -161,7 +161,7 @@ void vTimeoutCheckerTask(void *task_data) {
                 before try to get all mutexes, will check if there is anything in the scheduler buffers (ucRetransB32,ucRetransB64,ucRetransB128). */
                 
             /*  Most part of the time this will be false, and many processing and kernell resources will be saved with this verification*/
-            if ( (ucRetransB32[0] != 255) && (ucRetransB64[0] != 255) && (ucRetransB128[0] != 255) ) {
+            if ( (ucRetransB32[0] != 255) || (ucRetransB64[0] != 255) || (ucRetransB128[0] != 255) ) {
 
                 /*  This operation will try to use the UART TX buffer, so after get the mutex it will remain for almost 3 or 4 ticks in the worst case.
                     In order to avoid that all the system lost the access to the communication for more time, and to minimize the priority inversion

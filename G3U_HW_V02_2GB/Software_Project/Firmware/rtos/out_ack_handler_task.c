@@ -63,13 +63,21 @@ void vOutAckHandlerTask(void *task_data) {
                 }
                 break;
 			case sSASending:
-                /* In this state has a parsed ack packet in the variable xSAckLocal
-                   we just need to calc the crc8 and create the uart packet to send. */
-                sprintf(cBufferAck, ACK_SPRINTF, xSAckLocal.cCommand, xSAckLocal.usiId);
-                crc = ucCrc8wInit( cBufferAck , strlen(cBufferAck));
-                sprintf(cBufferAck, "%s|%hhu;", cBufferAck, crc);
+
+                /* First check if is an NACK packet that should be sent */
+                if ( xSAckLocal.cType != '#' ) {
+                    /* In this state has a parsed ack packet in the variable xSAckLocal
+                    we just need to calc the crc8 and create the uart packet to send. */
+                    sprintf(cBufferAck, ACK_SPRINTF, xSAckLocal.cCommand, xSAckLocal.usiId);
+                    crc = ucCrc8wInit( cBufferAck , strlen(cBufferAck));
+                    sprintf(cBufferAck, "%s|%hhu;", cBufferAck, crc);
+                } else {
+                    /* Nack */
+                    sprintf(cBufferAck, "%s", NACK_SEQUENCE);
+                }
 
                 bSuccess = FALSE;
+                ucCountRetries = 0;
                 while ( ( bSuccess == FALSE ) && ( ucCountRetries < 6 ) ) {
 
                     OSMutexPend(xTxUARTMutex, 5, &error_code); /* Wait 5 ticks = 5 ms */

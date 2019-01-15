@@ -43,8 +43,8 @@
 /*======= Formats of Commands- UART==========*/
 /*======= Standards messages - UART==========*/
 #define NACK_SEQUENCE           "#|54;"
-#define TURNOFF_SEQUENCE        "?D|252;"
-#define START_STATUS_SEQUENCE   "?S|9;"
+#define TURNOFF_SEQUENCE        "?D:%d|252;"
+#define START_STATUS_SEQUENCE   "?S:0|23;"
 /*======= Standards messages - UART==========*/
 #define CHANGE_MODE_SEQUENCE    65000
 #define SIZE_RCV_BUFFER         64
