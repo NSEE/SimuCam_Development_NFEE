@@ -95,7 +95,7 @@ void vInAckHandlerTask(void *task_data) {
                     if ( (bFound == FALSE) && (bFinished32 == FALSE) ) {
                         /* Search in three (re)transmission buffer for the id*/
                         ucReturnMutex = OSMutexAccept(xMutexBuffer32, &error_code); /* Just check the the mutex (non blocking) */
-                        if ( ucReturnMutex != 0 ) { /* Returning zero = Mutex not available */
+                        if ( error_code == OS_NO_ERR ) {
                             /*Search for the id*/
                             for(i = 0; i < N_32; i++)
                             {
@@ -103,7 +103,6 @@ void vInAckHandlerTask(void *task_data) {
                                     /* Free the buffer and indicate by setting usiId to Zero. Post in the count semaphore to indicate
                                     that is an free position in the (re)trasmission buffer. */
                                     xBuffer32[i].usiId = 0;
-                                    OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer32);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -112,6 +111,7 @@ void vInAckHandlerTask(void *task_data) {
                                     break;
                                 }
                             }
+                            OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
                             bFinished32 = TRUE;
                         }
                     }
@@ -120,7 +120,7 @@ void vInAckHandlerTask(void *task_data) {
                     if ( (bFound == FALSE) && (bFinished64 == FALSE) ) {
                         /* Search in three (re)transmission buffer for the id*/
                         ucReturnMutex = OSMutexAccept(xMutexBuffer64, &error_code); /* Just check the the mutex (non blocking) */
-                        if ( ucReturnMutex != 0 ) { /* Returning zero = Mutex not available */
+                        if ( error_code == OS_NO_ERR ) {
                             /*Search for the id*/
                             for(i = 0; i < N_64; i++)
                             {
@@ -128,7 +128,7 @@ void vInAckHandlerTask(void *task_data) {
                                     /* Free the buffer and indicate by setting usiId to Zero. Post in the count semaphore to indicate
                                     that is an free position in the (re)trasmission buffer. */
                                     xBuffer64[i].usiId = 0;
-                                    OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer64*/
+
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer64);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -137,6 +137,7 @@ void vInAckHandlerTask(void *task_data) {
                                     break;
                                 }
                             }
+                            OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer64*/
                             bFinished64 = TRUE;
                         }
                     }
@@ -144,7 +145,7 @@ void vInAckHandlerTask(void *task_data) {
                     if ( (bFound == FALSE) && (bFinished128 == FALSE) ) {
                         /* Search in three (re)transmission buffer for the id*/
                         ucReturnMutex = OSMutexAccept(xMutexBuffer128, &error_code); /* Just check the the mutex (non blocking) */
-                        if ( ucReturnMutex != 0 ) { /* Returning zero = Mutex not available */
+                        if ( error_code == OS_NO_ERR ) {
                             /*Search for the id*/
                             for(i = 0; i < N_128; i++)
                             {
@@ -152,7 +153,6 @@ void vInAckHandlerTask(void *task_data) {
                                     /* Free the buffer and indicate by setting usiId to Zero. Post in the count semaphore to indicate
                                     that is an free position in the (re)trasmission buffer. */
                                     xBuffer128[i].usiId = 0;
-                                    OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
                                     bFound = TRUE;
                                     error_code = OSSemPost(xSemCountBuffer128);
                                     if ( error_code != OS_ERR_NONE ) {
@@ -161,6 +161,7 @@ void vInAckHandlerTask(void *task_data) {
                                     break;
                                 }
                             }
+                            OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
                             bFinished128 = TRUE;
                         }
                     }

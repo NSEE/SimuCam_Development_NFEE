@@ -10,8 +10,9 @@
 
 #include "../utils/communication_configs.h"
 #include "../utils/communication_utils.h"
+#include "../utils/log_manager_simucam.h"
 
-typedef enum { sConfiguring = 0, sWaitingConn, sWaitingMessage, sRequestParsing, sReplyParsing, sHandlingError } tParserStates;
+typedef enum { sConfiguring = 0, sWaitingConn, sWaitingMessage, sRequestParsing, sReplyParsing, sPusHandling, sHandlingError } tParserStates;
 
 
 void vParserCommTask(void *task_data);

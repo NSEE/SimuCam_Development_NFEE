@@ -20,7 +20,7 @@
 void vFailCreateMutexSResources( INT8U error_code )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailCreateMutexSResources. (exit)");
+		debug(fp,"vFailCreateMutexSResources. (exit)\n");
 	#endif
 	#ifdef DEBUG_ON
 		printErrorTask(error_code);
@@ -34,7 +34,7 @@ void vFailCreateMutexSResources( INT8U error_code )
 void vFailCreateSemaphoreResources( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailCreateSemaphoreResources. (exit)");
+		debug(fp,"vFailCreateSemaphoreResources. (exit)\n");
 	#endif
 
 	/*
@@ -47,7 +47,7 @@ void vFailCreateSemaphoreResources( void )
 void vFailTestCriticasParts( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailTestCriticasParts. (exit)");
+		debug(fp,"vFailTestCriticasParts. (exit)\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -63,7 +63,7 @@ void vFailSendxSemCommInit( void )
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"Could not send the vParserRXTask. (exit)");
+		debug(fp,"Could not send the vParserRXTask. (exit)\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -74,7 +74,7 @@ void vFailSendxSemCommInit( void )
 void vFailSendPreParsedSemaphore( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSendPreParsedSemaphore. (exit)");
+		debug(fp,"vFailSendPreParsedSemaphore. (exit)\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -85,7 +85,7 @@ void vFailSendPreParsedSemaphore( void )
 void vFailSendPreAckReceiverSemaphore( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSendPreAckReceiverSemaphore. (exit)");
+		debug(fp,"vFailSendPreAckReceiverSemaphore. (exit)\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -97,7 +97,7 @@ void vFailSendPreAckReceiverSemaphore( void )
 void vFailSendPreAckSenderSemaphore( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSendPreAckSenderSemaphore. (exit)");
+		debug(fp,"vFailSendPreAckSenderSemaphore. (exit)\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -109,7 +109,7 @@ void vFailSendPreAckSenderSemaphore( void )
 void vFailGetCountSemaphoreSenderTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetCountSemaphoreSenderTask. (exit)");
+		debug(fp,"vFailGetCountSemaphoreSenderTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -124,7 +124,7 @@ void vFailGetCountSemaphoreSenderTask( void )
 void vFailGetMutexSenderTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetMutexSenderTask. (exit)");
+		debug(fp,"vFailGetMutexSenderTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -140,7 +140,7 @@ void vFailGetMutexSenderTask( void )
 void vFailGetCountSemaphoreReceiverTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetCountSemaphoreReceiverTask. (exit)");
+		debug(fp,"vFailGetCountSemaphoreReceiverTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -155,7 +155,7 @@ void vFailGetCountSemaphoreReceiverTask( void )
 void vFailGetMutexReceiverTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetMutexReceiverTask. (exit)");
+		debug(fp,"vFailGetMutexReceiverTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -171,7 +171,7 @@ void vFailGetMutexReceiverTask( void )
 void vFailGetMutexTxUARTSenderTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetMutexTxUARTSenderTask. (exit)");
+		debug(fp,"vFailGetMutexTxUARTSenderTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -187,7 +187,7 @@ void vFailGetMutexTxUARTSenderTask( void )
 void vFailGetMacRTC( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetMacRTC");
+		debug(fp,"vFailGetMacRTC\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -199,7 +199,7 @@ void vFailGetMacRTC( void )
 void vFailInitialization( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailInitialization");
+		debug(fp,"vFailInitialization\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -211,7 +211,7 @@ void vFailInitialization( void )
 void vFailReceiverCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vReceiverUartTask");
+		debug(fp,"vReceiverUartTask\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -223,7 +223,7 @@ void vFailReceiverCreate( void )
 void vFailSenderCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSenderCreate");
+		debug(fp,"vFailSenderCreate\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -235,7 +235,7 @@ void vFailSenderCreate( void )
 void vFailDeleteInitialization( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailDeleteInitialization");
+		debug(fp,"vFailDeleteInitialization\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -247,7 +247,7 @@ void vFailDeleteInitialization( void )
 void vFailSetCountSemaphorexBuffer32( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSetCountSemaphorexBuffer32. (exit)");
+		debug(fp,"vFailSetCountSemaphorexBuffer32. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -262,7 +262,7 @@ void vFailSetCountSemaphorexBuffer32( void )
 void vFailSetCountSemaphorexBuffer64( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSetCountSemaphorexBuffer64. (exit)");
+		debug(fp,"vFailSetCountSemaphorexBuffer64. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -277,7 +277,7 @@ void vFailSetCountSemaphorexBuffer64( void )
 void vFailSetCountSemaphorexBuffer128( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSetCountSemaphorexBuffer128. (exit)");
+		debug(fp,"vFailSetCountSemaphorexBuffer128. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -292,7 +292,7 @@ void vFailSetCountSemaphorexBuffer128( void )
 void vFailFoundBufferRetransmission( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailFoundBufferRetransmission. (exit)");
+		debug(fp,"vFailFoundBufferRetransmission. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -308,7 +308,7 @@ void vFailFoundBufferRetransmission( void )
 void vFailGetCountSemaphorePreParsedBuffer( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetCountSemaphorePreParsedBuffer. (exit)");
+		debug(fp,"vFailGetCountSemaphorePreParsedBuffer. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -324,7 +324,7 @@ void vFailGetCountSemaphorePreParsedBuffer( void )
 void vFailGetxMutexPreParsedParserRxTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetxMutexPreParsedParserRxTask. (exit)");
+		debug(fp,"vFailGetxMutexPreParsedParserRxTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -340,7 +340,7 @@ void vFailGetxMutexPreParsedParserRxTask( void )
 void vNoContentInPreParsedBuffer( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vNoContentInPreParsedBuffer. (exit)");
+		debug(fp,"vNoContentInPreParsedBuffer. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -356,7 +356,7 @@ void vNoContentInPreParsedBuffer( void )
 void vCouldNotSendEthConfUART( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vCouldNotSendEthConfUART. (exit)");
+		debug(fp,"vCouldNotSendEthConfUART. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -371,7 +371,7 @@ void vCouldNotSendEthConfUART( void )
 void vFailSendNack( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSendNack. (exit)");
+		debug(fp,"vFailSendNack. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -386,7 +386,7 @@ void vFailSendNack( void )
 void vFailSetPreAckSenderBuffer( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSetPreAckSenderBuffer. (exit)");
+		debug(fp,"vFailSetPreAckSenderBuffer. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -401,7 +401,7 @@ void vFailSetPreAckSenderBuffer( void )
 void vFailSetPreParsedBuffer( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSetPreParsedBuffer. (exit)");
+		debug(fp,"vFailSetPreParsedBuffer. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -417,7 +417,7 @@ void vFailSetPreParsedBuffer( void )
 void vFailSetPreAckReceiverBuffer( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailSetPreAckReceiverBuffer. (exit)");
+		debug(fp,"vFailSetPreAckReceiverBuffer. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -433,7 +433,7 @@ void vFailSetPreAckReceiverBuffer( void )
 void vFailParserCommTaskCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailParserCommTaskCreate");
+		debug(fp,"vFailParserCommTaskCreate\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -444,7 +444,7 @@ void vFailParserCommTaskCreate( void )
 void vFailInAckHandlerTaskCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailInAckHandlerTaskCreate");
+		debug(fp,"vFailInAckHandlerTaskCreate\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -455,7 +455,7 @@ void vFailInAckHandlerTaskCreate( void )
 void vFailOutAckHandlerTaskCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailInAckHandlerTaskCreate");
+		debug(fp,"vFailInAckHandlerTaskCreate\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -467,7 +467,7 @@ void vFailOutAckHandlerTaskCreate( void )
 void vFailCreateTimerRetransmisison( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailCreateTimerRetransmisison");
+		debug(fp,"vFailCreateTimerRetransmisison\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -479,7 +479,7 @@ void vFailCreateTimerRetransmisison( void )
 void vCouldNotCheckBufferTimeOutFunction( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vCouldNotCheckBufferTimeOutFunction");
+		debug(fp,"vCouldNotCheckBufferTimeOutFunction\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -490,7 +490,7 @@ void vCouldNotCheckBufferTimeOutFunction( void )
 void vFailTimeoutCheckerTaskCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailTimeoutCheckerTaskCreate");
+		debug(fp,"vFailTimeoutCheckerTaskCreate\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -502,11 +502,11 @@ void vFailTimeoutCheckerTaskCreate( void )
 void vFailGetBlockingSemTimeoutTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailGetBlockingSemTimeoutTask. (exit)");
+		debug(fp,"vFailGetBlockingSemTimeoutTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"Retrun from a blocking (0) OSSemPend with a error.");
+		debug(fp,"Retrun from a blocking (0) OSSemPend with a error.\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -517,11 +517,11 @@ void vFailGetBlockingSemTimeoutTask( void )
 void vFailPostBlockingSemTimeoutTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailPostBlockingSemTimeoutTask. (exit)");
+		debug(fp,"vFailPostBlockingSemTimeoutTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"Could not Post the semaphore for the TimeoutTask.");
+		debug(fp,"Could not Post the semaphore for the TimeoutTask.\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -533,11 +533,11 @@ void vFailPostBlockingSemTimeoutTask( void )
 void vFailCouldNotRetransmitTimeoutTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailCouldNotRetransmitTimeoutTask. (exit)");
+		debug(fp,"vFailCouldNotRetransmitTimeoutTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"After sleep for 50 ticks, could not get access to the tx uart. No retransmission occurs.");
+		debug(fp,"After sleep for 50 ticks, could not get access to the tx uart. No retransmission occurs.\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -549,11 +549,11 @@ void vFailCouldNotRetransmitTimeoutTask( void )
 void vCouldNotRetransmitB32TimeoutTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vCouldNotRetransmitB32TimeoutTask. (exit)");
+		debug(fp,"vCouldNotRetransmitB32TimeoutTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (32).");
+		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (32).\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -564,11 +564,11 @@ void vCouldNotRetransmitB32TimeoutTask( void )
 void vCouldNotRetransmitB64TimeoutTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vCouldNotRetransmitB64TimeoutTask. (exit)");
+		debug(fp,"vCouldNotRetransmitB64TimeoutTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (64).");
+		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (64).\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -579,11 +579,11 @@ void vCouldNotRetransmitB64TimeoutTask( void )
 void vCouldNotRetransmitB128TimeoutTask( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vCouldNotRetransmitB128TimeoutTask. (exit)");
+		debug(fp,"vCouldNotRetransmitB128TimeoutTask. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (128).");
+		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (128).\n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -595,12 +595,44 @@ void vCouldNotRetransmitB128TimeoutTask( void )
 void vFailStartTimerRetransmission( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailStartTimerRetransmission. (exit)");
+		debug(fp,"vFailStartTimerRetransmission. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"Fail trying to start the timer xTimerRetransmission.");
+		debug(fp,"Fail trying to start the timer xTimerRetransmission.\n");
 	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCouldNotSendTurnOff( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotSendTurnOff. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send the turn off command. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCouldNotSendLog( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotSendLog. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send log packet to NUC. \n");
+	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento

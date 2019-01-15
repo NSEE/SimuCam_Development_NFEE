@@ -40,10 +40,11 @@
 /*======= Formats of Commands - UART==========*/
 #define ETH_SPRINTF             "!%c:%hu:%hu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hu" /*id,dhcp,ip,sub,gw,dns,port*/
 #define ACK_SPRINTF             "@%c:%hu"
+#define TURNOFF_SPRINTF         "?D:%hu"
+#define LOG_SPRINTF             "?L:%hu:%s"
 /*======= Formats of Commands- UART==========*/
 /*======= Standards messages - UART==========*/
 #define NACK_SEQUENCE           "#|54;"
-#define TURNOFF_SEQUENCE        "?D:%d|252;"
 #define START_STATUS_SEQUENCE   "?S:0|23;"
 /*======= Standards messages - UART==========*/
 #define CHANGE_MODE_SEQUENCE    65000

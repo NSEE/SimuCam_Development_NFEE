@@ -151,7 +151,7 @@ void vTimeoutCheckerTask(void *task_data) {
             /*  Check if could not check some of the (re)transmission buffer*/
             if ( (bFinished32==FALSE) || (bFinished64==FALSE) || (bFinished128==FALSE) ) {
                 /*  Could not check all (re)transmission buffer, only show message for now. There's no hard impact to thesystem
-                    but we need to know that is accurring*/
+                    but we need to know that is occourring*/
                 vCouldNotCheckBufferTimeOutFunction();
             }
 

@@ -56,6 +56,8 @@ void vCouldNotRetransmitB64TimeoutTask( void );
 void vCouldNotRetransmitB128TimeoutTask( void );
 void vFailStartTimerRetransmission( void );
 void vFailCouldNotRetransmitTimeoutTask( void );
+void vCouldNotSendTurnOff( void );
+void vCouldNotSendLog( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */
