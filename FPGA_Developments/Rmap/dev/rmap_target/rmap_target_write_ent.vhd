@@ -44,6 +44,8 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
+--! 09\01\2019 CB Constant redefinition and s_byte_counter load with\n
+--!            (s_byte_counter_vector - 1) -> line 306\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -301,8 +303,6 @@ begin
 							-- data need to be verified and data crc checked out
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
-							-- debug - test with (data_length - 1) load
---							s_byte_counter                 <= s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 							s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;

@@ -42,6 +42,7 @@ use work.RMAP_TARGET_PKG.ALL;
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
+--! 09\01\2019 CB Constants redefinition & data type conversion/casting\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
