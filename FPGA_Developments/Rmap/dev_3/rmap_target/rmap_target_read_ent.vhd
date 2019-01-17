@@ -44,6 +44,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
+--! 09\01\2019 CB Constants redefinition\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -107,9 +108,10 @@ architecture rtl of rmap_target_read_ent is
 
 	signal s_read_error : std_logic;
 
-	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
-	signal s_read_address      : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
 	signal s_read_byte_counter : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
+
+	signal s_read_address      : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);

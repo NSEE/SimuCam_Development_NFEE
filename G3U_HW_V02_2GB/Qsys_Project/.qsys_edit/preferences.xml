@@ -9,8 +9,13 @@
    <export preferredWidth="263" />
   </columns>
  </systemtable>
+<<<<<<< HEAD
  <library expandedCategories="Project,Library" />
  <window width="1936" height="1096" x="-1928" y="-8" />
+=======
+ <library expandedCategories="Library,Project" />
+ <window width="1936" height="1056" x="-8" y="-8" />
+>>>>>>> HW_CB_Rmap_Dev
  <generation synthesis="VHDL" simulation="NONE" testbench_simulation="VHDL" />
  <hdlexample language="VHDL" />
 </preferences>
