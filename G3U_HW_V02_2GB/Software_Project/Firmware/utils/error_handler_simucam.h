@@ -58,6 +58,8 @@ void vFailStartTimerRetransmission( void );
 void vFailCouldNotRetransmitTimeoutTask( void );
 void vCouldNotSendTurnOff( void );
 void vCouldNotSendLog( void );
+void vCouldNotSendTMPusCommand( const char *cData );
+
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

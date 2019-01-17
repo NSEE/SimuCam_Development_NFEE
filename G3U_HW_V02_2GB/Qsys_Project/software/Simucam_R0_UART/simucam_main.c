@@ -214,7 +214,7 @@ bool bResourcesInitRTOS( void )
 }
 
 void vVariablesInitialization ( void ) {
-	usiIdCMD = 1;
+	usiIdCMD = 2;
 }
 
 
@@ -225,6 +225,8 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
+	OSInit(); /* todo: Talvez remover */
+
 	/* Clear the RTOS timer */
 	OSTimeSet(0);
 

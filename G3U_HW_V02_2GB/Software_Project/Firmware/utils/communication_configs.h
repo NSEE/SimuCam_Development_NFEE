@@ -42,10 +42,13 @@
 #define ACK_SPRINTF             "@%c:%hu"
 #define TURNOFF_SPRINTF         "?D:%hu"
 #define LOG_SPRINTF             "?L:%hu:%s"
+//#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu%s|%hhu;"
+#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu"
+#define PUS_ADDER_SPRINTF       "%s:%hu"
 /*======= Formats of Commands- UART==========*/
 /*======= Standards messages - UART==========*/
 #define NACK_SEQUENCE           "#|54;"
-#define START_STATUS_SEQUENCE   "?S:0|23;"
+#define START_STATUS_SEQUENCE   "?S:1|38;"
 /*======= Standards messages - UART==========*/
 #define CHANGE_MODE_SEQUENCE    65000
 #define SIZE_RCV_BUFFER         64
@@ -60,6 +63,20 @@ extern OS_EVENT *xSemCommInit;
 extern unsigned short int usiIdCMD;
 
 /*================================== Reader UART ================================*/
+
+/* This structure will be used to send TM PUS packets through UART */
+#define SIZE_TM_PUS_VALUES     32
+typedef struct {
+    tErrorReceiver ucErrorFlag;
+    unsigned short int usiPid;
+    unsigned short int usiCat;
+    unsigned short int usiType;
+    unsigned short int usiSubType;
+    unsigned short int usiPusId;
+    unsigned char ucNofValues;
+    unsigned short int usiValues[SIZE_TM_PUS_VALUES];
+} tTMPus;
+
 
 /*Struct used to parse the received command through UART*/
 #define N_PREPARSED_ENTRIES     4
@@ -105,9 +122,10 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 /*================================== Reader UART ================================*/
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
+#define N_RETRIES_INI_INF       255
 #define N_RETRIES_COMM          3
 #define INTERVAL_RETRIES        1000    /* Milliseconds */
-#define TIMEOUT_COMM            4000    /* Milliseconds */
+#define TIMEOUT_COMM            5000    /* Milliseconds */
 #define TIMEOUT_COUNT           ( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
 #define TICKS_WAITING_FOR_SPACE 100     /* Ticks */

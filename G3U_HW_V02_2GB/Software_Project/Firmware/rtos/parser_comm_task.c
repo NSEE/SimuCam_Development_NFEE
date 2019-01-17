@@ -17,6 +17,7 @@ void vParserCommTask(void *task_data) {
 	bool bSuccess = FALSE;
 	INT8U error_code;
 	tParserStates eParserMode;
+	tTMPus xTmPusL;
 	static tPreParsed PreParsedLocal;
 	#ifdef DEBUG_ON
 		char cPUSDebug[128];
@@ -166,6 +167,8 @@ void vParserCommTask(void *task_data) {
 									debug(fp,"TC_SCAM_TEST_CONNECTION\n");
 								#endif
 
+								/* Reply with the TM os connection */
+								vTMPusTestConnection( usiPUSidL );
 
 								break;
 							default:
@@ -235,7 +238,7 @@ void vParserCommTask(void *task_data) {
 
 
 								break;
-							case 5: /* TC_SCAM_FEE_CALIBRATION_ENTER */
+							case 3: /* TC_SCAM_FEE_CALIBRATION_ENTER */
 								#ifdef DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "TC_SCAM_FEE_CALIBRATION_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );

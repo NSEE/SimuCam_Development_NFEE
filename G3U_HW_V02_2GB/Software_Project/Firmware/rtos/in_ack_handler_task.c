@@ -167,8 +167,13 @@ void vInAckHandlerTask(void *task_data) {
                     }
                     /* Check if finish the search, if not probably some mutex is in use, so put the task to sleep for some time*/
                     if ( ( bFound == FALSE ) && ( (bFinished32==FALSE) || (bFinished64==FALSE) ||(bFinished128==FALSE) )) {
-                        OSTimeDly(5); /* Make this task sleep for 5 ticks*/
+                        OSTimeDly(3); /* Make this task sleep for 3 ticks*/
                         ucCountRetries++;
+                        #ifdef DEBUG_ON
+                            /* Debug:remove */
+                            debug(fp, "Temp. Debug: Retrying again. ucCountRetries++; \n");
+                            fprintf( fp, " bFound = %d , bFinished32 = %d , bFinished64 = %d , bFinished128 = %d  \n", bFound, bFinished32, bFinished64, bFinished128 );
+                        #endif                      
                     }
                 }
                 

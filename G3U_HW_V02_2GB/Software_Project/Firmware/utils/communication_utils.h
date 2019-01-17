@@ -23,6 +23,11 @@ void vTimeoutCheck (void *p_arg);
 void vSendEthConf ( void );
 void vSendTurnOff ( void );
 void vSendLog ( const char * cDataIn );
+void vSendPusTM64 ( tTMPus xPcktPus );
+void vSendPusTM128 ( tTMPus xPcktPus );
+void vTMPusTestConnection( unsigned short int usiPusId );
+bool bSendStatusFirstTime ( char *cBuffer, short int siIdMessage );
+
 
 
 #endif /* COMMUNICATION_UTILS_H_ */

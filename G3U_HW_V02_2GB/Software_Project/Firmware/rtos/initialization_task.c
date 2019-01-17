@@ -25,6 +25,7 @@ void vInitialTask(void *task_data)
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
 
+	OSStatInit();  /* todo: Talves remover */
 
 	#else
 		error_code = OSTaskCreateExt(vReceiverUartTask,

@@ -638,3 +638,20 @@ void vCouldNotSendLog( void )
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+
+void vCouldNotSendTMPusCommand( const char *cData )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotSendTMPusCommand. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send the TM PUS command to NUC. \n");
+		debug(fp,"cData");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
