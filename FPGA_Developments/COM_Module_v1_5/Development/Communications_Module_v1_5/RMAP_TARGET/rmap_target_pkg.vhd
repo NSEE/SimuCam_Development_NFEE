@@ -277,7 +277,7 @@ package rmap_target_pkg is
 		user_target_logical_address : std_logic_vector(7 downto 0);
 	end record t_rmap_target_user_configs;
 
-	-- spw
+	-- SpW
 
 	constant c_EOP_VALUE : std_logic_vector(7 downto 0) := x"00";
 	constant c_EEP_VALUE : std_logic_vector(7 downto 0) := x"01";

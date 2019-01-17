@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.rmap_mem_area_nfee_pkg.all;
 
 entity rmap_mem_area_nfee_write is
 	port(
@@ -32,23 +33,23 @@ begin
 			rmap_config_registers_o.ccd_seq_2_config.slow_read_out_pause_count                        <= x"001F4";
 			rmap_config_registers_o.spw_packet_1_config.digitise_control                              <= '0';
 			rmap_config_registers_o.spw_packet_1_config.ccd_port_data_transmission_selection_control  <= "11";
-			rmap_config_registers_o.spw_packet_1_configpacket_size_control                            <= x"11F8";
+			rmap_config_registers_o.spw_packet_1_config.packet_size_control                            <= x"11F8";
 			rmap_config_registers_o.CCD_1_windowing_1_config.window_list_pointer_initial_address_ccd1 <= x"00000000";
-			rmap_config_registers_o.CCD_1_windowing_2_config.window_width_ccd1                        <= "00000";
-			rmap_config_registers_o.CCD_1_windowing_2_config.window_height_ccd1                       <= "00000";
-			rmap_config_registers_o.CCD_1_windowing_2_config.window_list_length_ccd1                  <= "0000";
+			rmap_config_registers_o.CCD_1_windowing_2_config.window_width_ccd1                        <= "000000";
+			rmap_config_registers_o.CCD_1_windowing_2_config.window_height_ccd1                       <= "000000";
+			rmap_config_registers_o.CCD_1_windowing_2_config.window_list_length_ccd1                  <= x"0000";
 			rmap_config_registers_o.CCD_2_windowing_1_config.window_list_pointer_initial_address_ccd2 <= x"00000000";
-			rmap_config_registers_o.CCD_2_windowing_2_config.window_width_ccd2                        <= "00000";
-			rmap_config_registers_o.CCD_2_windowing_2_config.window_height_ccd2                       <= "00000";
-			rmap_config_registers_o.CCD_2_windowing_2_config.window_list_length_ccd2                  <= "0000";
+			rmap_config_registers_o.CCD_2_windowing_2_config.window_width_ccd2                        <= "000000";
+			rmap_config_registers_o.CCD_2_windowing_2_config.window_height_ccd2                       <= "000000";
+			rmap_config_registers_o.CCD_2_windowing_2_config.window_list_length_ccd2                  <= x"0000";
 			rmap_config_registers_o.CCD_3_windowing_1_config.window_list_pointer_initial_address_ccd3 <= x"00000000";
-			rmap_config_registers_o.CCD_3_windowing_2_config.window_width_ccd3                        <= "00000";
-			rmap_config_registers_o.CCD_3_windowing_2_config.window_height_ccd3                       <= "00000";
-			rmap_config_registers_o.CCD_3_windowing_2_config.window_list_length_ccd3                  <= "0000";
+			rmap_config_registers_o.CCD_3_windowing_2_config.window_width_ccd3                        <= "000000";
+			rmap_config_registers_o.CCD_3_windowing_2_config.window_height_ccd3                       <= "000000";
+			rmap_config_registers_o.CCD_3_windowing_2_config.window_list_length_ccd3                  <= x"0000";
 			rmap_config_registers_o.CCD_4_windowing_1_config.window_list_pointer_initial_address_ccd4 <= x"00000000";
-			rmap_config_registers_o.CCD_4_windowing_2_config.window_width_ccd4                        <= "00000";
-			rmap_config_registers_o.CCD_4_windowing_2_config.window_height_ccd4                       <= "00000";
-			rmap_config_registers_o.CCD_4_windowing_2_config.window_list_length_ccd4                  <= "0000";
+			rmap_config_registers_o.CCD_4_windowing_2_config.window_width_ccd4                        <= "000000";
+			rmap_config_registers_o.CCD_4_windowing_2_config.window_height_ccd4                       <= "000000";
+			rmap_config_registers_o.CCD_4_windowing_2_config.window_list_length_ccd4                  <= x"0000";
 			rmap_config_registers_o.operation_mode_config.mode_selection_control                      <= x"1";
 			rmap_config_registers_o.sync_config.sync_configuration                                    <= "00";
 			rmap_config_registers_o.sync_config.self_trigger_control                                  <= '0';
@@ -125,7 +126,7 @@ begin
 		begin
 			-- NFEE Memory Write
 			-- Case for access to all registers
-			case (wr_addr_i) is
+			case (wr_addr_i(31 downto 0)) is
 
 				-- Config Area
 				when (x"00000000") =>
@@ -155,7 +156,7 @@ begin
 				when (x"00000009") =>
 					rmap_config_registers_o.spw_packet_1_config.packet_size_control(11 downto 4) <= rmap_writedata_i(7 downto 0);
 				when (x"0000000A") =>
-					rmap_config_registers_o.spw_packet_1_configpacket_size_control(15 downto 12) <= rmap_writedata_i(3 downto 0);
+					rmap_config_registers_o.spw_packet_1_config.packet_size_control(15 downto 12) <= rmap_writedata_i(3 downto 0);
 				when (x"0000000B") =>
 					null;
 				when (x"0000000C") =>

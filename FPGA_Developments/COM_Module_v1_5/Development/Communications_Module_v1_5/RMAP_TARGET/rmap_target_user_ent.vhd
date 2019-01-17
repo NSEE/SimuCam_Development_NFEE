@@ -42,6 +42,7 @@ use work.RMAP_TARGET_PKG.ALL;
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
+--! 09\01\2019 CB Minimum generics change - line 60\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -56,14 +57,14 @@ use work.RMAP_TARGET_PKG.ALL;
 entity rmap_target_user_ent is
 	generic(
 		g_VERIFY_BUFFER_WIDTH  : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 8;
-		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 30;
+		g_MEMORY_ADDRESS_WIDTH : natural range 0 to c_WIDTH_EXTENDED_ADDRESS := 32;
 		g_DATA_LENGTH_WIDTH    : natural range 0 to c_WIDTH_DATA_LENGTH      := 24
 	);
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i        : in  std_logic;   --! Local rmap clock
-		reset_i      : in  std_logic;   --! Reset = '0': reset active; Reset = '1': no reset
+		reset_n_i    : in  std_logic;   --! Reset = '0': reset active; Reset = '1': no reset
 
 		flags_i      : in  t_rmap_target_flags;
 		error_i      : in  t_rmap_target_rmap_error;
@@ -118,7 +119,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_i \n
+	--! read: clk_i, reset_n_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -130,11 +131,11 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_user_state
-	p_rmap_target_user_FSM_state : process(clk_i, reset_i)
+	p_rmap_target_user_FSM_state : process(clk_i, reset_n_i)
 		variable v_authorization_granted : std_logic_vector(3 downto 0);
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_i = '1') then
+		if (reset_n_i = '0') then
 			s_rmap_target_user_state                               <= IDLE;
 			s_error_general_error                                  <= '0';
 			s_error_invalid_key                                    <= '0';
@@ -262,7 +263,12 @@ begin
 						end if;
 					end if;
 					-- check if command was authorized
-					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
+					if (
+						(v_authorization_granted(0) = '1') and 
+						(v_authorization_granted(1) = '1') and 
+						(v_authorization_granted(2) = '1') and 
+						(v_authorization_granted(3) = '1')
+					) then
 						-- authorization granted
 						s_rmap_target_user_state <= WAITING_WRITE_FINISH;
 					end if;
@@ -445,13 +451,13 @@ begin
 	-- Begin of RMAP Target User Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_user_state, reset_i
+	-- read: s_rmap_target_user_state, reset_n_i
 	-- write:
 	-- r/w:
-	p_rmap_target_user_FSM_output : process(s_rmap_target_user_state, reset_i)
+	p_rmap_target_user_FSM_output : process(s_rmap_target_user_state, reset_n_i)
 	begin
 		-- asynchronous reset
-		if (reset_i = '1') then
+		if (reset_n_i = '0') then
 			control_o.command_parsing.user_ready           <= '0';
 			control_o.command_parsing.command_reset        <= '0';
 			control_o.reply_geneneration.send_reply        <= '0';

@@ -1,7 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
 use work.rmap_mem_area_nfee_pkg.all;
 
 entity rmap_mem_area_nfee_read is
@@ -27,7 +26,7 @@ begin
 		begin
 			-- NFEE Memory Read
 			-- Case for access to all registers
-			case (rd_addr_i) is
+			case (rd_addr_i(31 downto 0)) is
 
 				-- Config Area
 				when (x"00000000") =>
@@ -60,7 +59,7 @@ begin
 				when (x"00000009") =>
 					rmap_readdata_o(7 downto 0) <= rmap_config_registers_i.spw_packet_1_config.packet_size_control(11 downto 4);
 				when (x"0000000A") =>
-					rmap_readdata_o(3 downto 0) <= rmap_config_registers_i.spw_packet_1_configpacket_size_control(15 downto 12);
+					rmap_readdata_o(3 downto 0) <= rmap_config_registers_i.spw_packet_1_config.packet_size_control(15 downto 12);
 					rmap_readdata_o(7 downto 4) <= (others => '0');
 				when (x"0000000B") =>
 					rmap_readdata_o(7 downto 0) <= (others => '0');

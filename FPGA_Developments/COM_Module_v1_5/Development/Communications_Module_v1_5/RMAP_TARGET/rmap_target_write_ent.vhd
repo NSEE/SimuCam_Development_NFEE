@@ -44,6 +44,8 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
+--! 09\01\2019 CB Constant redefinition and s_byte_counter load with\n
+--!            (s_byte_counter_vector - 1) -> line 306\n
 --
 -------------------------------------------------------------------------------
 --! @todo <next thing to do> \n
@@ -66,7 +68,7 @@ entity rmap_target_write_ent is
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
 		clk_i              : in  std_logic; --! Local rmap clock
-		reset_i            : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		reset_n_i          : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
 		control_i          : in  t_rmap_target_write_control;
 		headerdata_i       : in  t_rmap_target_write_headerdata;
@@ -111,9 +113,10 @@ architecture rtl of rmap_target_write_ent is
 
 	signal s_write_error : std_logic;
 
-	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** c_WIDTH_MEMORY_ACCESS;
-	signal s_write_address        : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
 	signal s_write_byte_counter   : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
+
+	signal s_write_address        : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
@@ -136,7 +139,7 @@ begin
 	-- Beginning of p_rmap_target_top
 	--! FIXME Top Process for RMAP Target Codec, responsible for general reset 
 	--! and registering inputs and outputs
-	--! read: clk_i, reset_i \n
+	--! read: clk_i, reset_n_i \n
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
@@ -148,10 +151,10 @@ begin
 	-- read: clk_i, s_reset_n
 	-- write:
 	-- r/w: s_rmap_target_write_state
-	p_rmap_target_write_FSM_state : process(clk_i, reset_i)
+	p_rmap_target_write_FSM_state : process(clk_i, reset_n_i)
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_i = '1') then
+		if (reset_n_i = '0') then
 			s_rmap_target_write_state      <= IDLE;
 			s_rmap_target_write_next_state <= IDLE;
 			s_write_address                <= (others => '0');
@@ -237,7 +240,7 @@ begin
 					s_write_byte_counter           <= 0;
 					s_write_data_crc               <= RMAP_CalculateCRC(s_write_data_crc, spw_flag_i.data);
 					s_write_data_crc_ok            <= '0';
-					s_byte_counter                 <= (others => '0');
+					s_byte_counter                <= (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
 					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
@@ -300,7 +303,7 @@ begin
 							-- data need to be verified and data crc checked out
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
-							s_byte_counter                 <= s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
+							s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
 						end if;
@@ -440,13 +443,13 @@ begin
 	-- Begin of RMAP Target Write Finite State Machine
 	-- (output generation)
 	--=============================================================================
-	-- read: s_rmap_target_write_state, reset_i
+	-- read: s_rmap_target_write_state, reset_n_i
 	-- write:
 	-- r/w:
-	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_i)
+	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, reset_n_i)
 	begin
 		-- asynchronous reset
-		if (reset_i = '1') then
+		if (reset_n_i = '0') then
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
 			flags_o.write_data_discarded   <= '0';
@@ -574,6 +577,7 @@ begin
 					-- default output signals
 					mem_control_o.write            <= '1';
 					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
+					-- conditional output signals
 					-- check if memory access is more than one byte
 					if (c_MEMORY_ACCESS_SIZE > 1) then
 						-- memory access is more than one byte, need to send write address and byte address
@@ -582,8 +586,7 @@ begin
 						-- memory access is only one byte, need to send just the write address
 						mem_byte_address_o <= s_write_address;
 					end if;
-				-- conditional output signals
-
+					
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>
 					-- write memory data, waits for the memory to be ready for new data
@@ -594,7 +597,7 @@ begin
 					flags_o.write_data_discarded   <= '0';
 					spw_control_o.read             <= '0';
 					mem_control_o.write            <= '0';
-				-- conditional output signals
+					-- conditional output signals
 
 				-- state "UNEXPECTED_PACKAGE_END"
 				when UNEXPECTED_PACKAGE_END =>

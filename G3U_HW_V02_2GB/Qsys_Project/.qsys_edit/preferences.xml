@@ -4,18 +4,9 @@
  <systemtable filter="All Interfaces">
   <columns>
    <connections preferredWidth="655" />
-   <irq preferredWidth="207" />
-   <name preferredWidth="276" />
-   <export preferredWidth="263" />
+   <irq preferredWidth="34" />
   </columns>
  </systemtable>
-<<<<<<< HEAD
- <library expandedCategories="Project,Library" />
- <window width="1936" height="1096" x="-1928" y="-8" />
-=======
  <library expandedCategories="Library,Project" />
- <window width="1936" height="1056" x="-8" y="-8" />
->>>>>>> HW_CB_Rmap_Dev
- <generation synthesis="VHDL" simulation="NONE" testbench_simulation="VHDL" />
- <hdlexample language="VHDL" />
+ <window width="1920" height="1040" x="0" y="0" />
 </preferences>
