@@ -139,6 +139,10 @@ architecture rtl of comm_v1_50_top is
 
 begin
 
+	s_rmap_spw_flag.receiver.error <= '0';
+	s_rmap_spw_flag.transmitter.error <= '0';
+
+
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
 		port map(

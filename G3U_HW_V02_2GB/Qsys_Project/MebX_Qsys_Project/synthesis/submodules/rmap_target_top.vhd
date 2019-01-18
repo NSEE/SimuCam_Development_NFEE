@@ -10,7 +10,7 @@ use IEEE.NUMERIC_STD.ALL;
 use work.RMAP_TARGET_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
+-- Instituto Mauï¿½ de Tecnologia, Nï¿½cleo de Sistemas Eletrï¿½nicos Embarcados --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ use work.RMAP_TARGET_PKG.ALL;
 --! @brief Top entity for the RMAP Target Codec developed to be used at  
 --! Simucam. Suports Write and Read operations.
 --
---! @author Rodrigo França (rodrigo.franca@maua.br)
+--! @author Rodrigo Franï¿½a (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -35,7 +35,7 @@ use work.RMAP_TARGET_PKG.ALL;
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo França
+--! Author: Rodrigo Franï¿½a
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
@@ -218,7 +218,7 @@ begin
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
-	p_rmap_target_top_process : process(clk_i)
+	p_rmap_target_top_process : process(clk_i, reset_n_i)
 	begin
 		if (reset_n_i = '0') then       -- asynchronous reset
 			-- reset to default value
@@ -226,6 +226,8 @@ begin
 			s_rmap_target_user_configs.user_target_logical_address <= x"51";
 		elsif (rising_edge(clk_i)) then -- synchronous process
 			-- generate clock signal and LED output
+			s_rmap_target_user_configs.user_key                    <= x"D1";
+			s_rmap_target_user_configs.user_target_logical_address <= x"51";
 		end if;
 	end process p_rmap_target_top_process;
 
@@ -245,7 +247,7 @@ begin
 	spw_control_o.transmitter.flag  <= (s_rmap_target_spw_read_tx_control.flag) or (s_rmap_target_spw_reply_tx_control.flag);
 	spw_control_o.transmitter.data  <= (s_rmap_target_spw_read_tx_control.data) or (s_rmap_target_spw_reply_tx_control.data);
 	spw_control_o.transmitter.write <= (s_rmap_target_spw_read_tx_control.write) or (s_rmap_target_spw_reply_tx_control.write);
-
+	
 end architecture rtl;
 --============================================================================
 -- architecture end

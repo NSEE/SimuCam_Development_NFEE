@@ -10,7 +10,7 @@ use IEEE.NUMERIC_STD.ALL;
 use work.RMAP_TARGET_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
+-- Instituto Mauï¿½ de Tecnologia, Nï¿½cleo de Sistemas Eletrï¿½nicos Embarcados --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ use work.RMAP_TARGET_PKG.ALL;
 --! Target ID and Key checking, Write and Read authorization, error gathering 
 --! and other) and flow control for the RMAP Codec.
 --
---! @author Rodrigo França (rodrigo.franca@maua.br)
+--! @author Rodrigo Franï¿½a (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -38,7 +38,7 @@ use work.RMAP_TARGET_PKG.ALL;
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo França
+--! Author: Rodrigo Franï¿½a
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
@@ -132,17 +132,31 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_user_state
 	p_rmap_target_user_FSM_state : process(clk_i, reset_n_i)
-		variable v_authorization_granted : std_logic_vector(3 downto 0);
+		variable v_authorization_granted  : std_logic_vector(3 downto 0);
+		variable v_rmap_target_user_state : t_rmap_target_user_state := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
 			s_rmap_target_user_state                               <= IDLE;
+			v_rmap_target_user_state                               := IDLE;
 			s_error_general_error                                  <= '0';
 			s_error_invalid_key                                    <= '0';
 			s_error_verify_buffer_overrun                          <= '0';
 			s_error_rmap_command_not_implemented_or_not_authorised <= '0';
 			s_error_invalid_target_logical_address                 <= '0';
 			v_authorization_granted                                := (others => '0');
+			-- output
+			control_o.command_parsing.user_ready                   <= '0';
+			control_o.command_parsing.command_reset                <= '0';
+			control_o.reply_geneneration.send_reply                <= '0';
+			control_o.reply_geneneration.reply_reset               <= '0';
+			control_o.write_operation.write_authorization          <= '0';
+			control_o.write_operation.write_not_authorized         <= '0';
+			control_o.write_operation.write_reset                  <= '0';
+			control_o.read_operation.read_authorization            <= '0';
+			control_o.read_operation.read_reset                    <= '0';
+			reply_status                                           <= x"00";
+
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_user_state) is
@@ -152,6 +166,7 @@ begin
 					-- does nothing until a command package is received
 					-- default state transition
 					s_rmap_target_user_state                               <= IDLE;
+					v_rmap_target_user_state                               := IDLE;
 					-- default internal signal values
 					s_error_general_error                                  <= '0';
 					s_error_invalid_key                                    <= '0';
@@ -164,6 +179,7 @@ begin
 					if (flags_i.command_parsing.command_received = '1') then
 						-- command parsing finished, go to command received
 						s_rmap_target_user_state <= COMMAND_RECEIVED;
+						v_rmap_target_user_state := COMMAND_RECEIVED;
 					end if;
 
 				-- state "COMMAND_RECEIVED"
@@ -171,23 +187,28 @@ begin
 					-- treat the incoming command data
 					-- default state transition
 					s_rmap_target_user_state <= COMMAND_RECEIVED;
+					v_rmap_target_user_state := COMMAND_RECEIVED;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if the incoming package was discarded
 					if (flags_i.command_parsing.discarded_package = '1') then
 						-- package discarded, go to discarded package
 						s_rmap_target_user_state <= DISCARDED_PACKAGE;
+						v_rmap_target_user_state := DISCARDED_PACKAGE;
 					-- check if the incoming command is for a write operation
 					elsif (flags_i.command_parsing.write_request = '1') then
 						-- write command, go to write authorization
 						s_rmap_target_user_state <= WRITE_AUTHORIZATION;
+						v_rmap_target_user_state := WRITE_AUTHORIZATION;
 					-- check if the incoming command is for a read operation
 					elsif (flags_i.command_parsing.read_request = '1') then
 						-- read command, go to read authorization
 						s_rmap_target_user_state <= READ_AUTHORIZATION;
+						v_rmap_target_user_state := READ_AUTHORIZATION;
 					else
 						-- received package was not a rmap protocol, go to finish user operation
 						s_rmap_target_user_state <= FINISH_USER_OPERATION;
+						v_rmap_target_user_state := FINISH_USER_OPERATION;
 					end if;
 
 				-- state "DISCARDED_PACKAGE"
@@ -195,6 +216,7 @@ begin
 					-- incoming package discarded, treat errors
 					-- default state transition
 					s_rmap_target_user_state <= FINISH_USER_OPERATION;
+					v_rmap_target_user_state := FINISH_USER_OPERATION;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a reply is necessary
@@ -205,6 +227,7 @@ begin
 							(error_i.invalid_command_code = '1') or (error_i.too_much_data = '1')) then
 							-- repliable error occured, send error reply
 							s_rmap_target_user_state <= SEND_REPLY;
+							v_rmap_target_user_state := SEND_REPLY;
 						end if;
 					end if;
 
@@ -213,6 +236,7 @@ begin
 					-- write operation authorization
 					-- default state transition
 					s_rmap_target_user_state                               <= WAITING_WRITE_DISCARD;
+					v_rmap_target_user_state                               := WAITING_WRITE_DISCARD;
 					-- default internal signal values
 					s_error_general_error                                  <= '0';
 					s_error_invalid_key                                    <= '0';
@@ -263,14 +287,10 @@ begin
 						end if;
 					end if;
 					-- check if command was authorized
-					if (
-						(v_authorization_granted(0) = '1') and 
-						(v_authorization_granted(1) = '1') and 
-						(v_authorization_granted(2) = '1') and 
-						(v_authorization_granted(3) = '1')
-					) then
+					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 						-- authorization granted
 						s_rmap_target_user_state <= WAITING_WRITE_FINISH;
+						v_rmap_target_user_state := WAITING_WRITE_FINISH;
 					end if;
 
 				-- state "WAITING_WRITE_FINISH"
@@ -278,6 +298,7 @@ begin
 					-- wait the end of a write operation
 					-- default state transition
 					s_rmap_target_user_state <= WAITING_WRITE_FINISH;
+					v_rmap_target_user_state := WAITING_WRITE_FINISH;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a write authorization was granted
@@ -285,6 +306,7 @@ begin
 					if ((flags_i.write_operation.write_data_indication = '1') or (flags_i.write_operation.write_operation_failed = '1')) then
 						-- write operation finished, go to write operation finish
 						s_rmap_target_user_state <= WRITE_OPERATION_FINISH;
+						v_rmap_target_user_state := WRITE_OPERATION_FINISH;
 					end if;
 
 				-- state "WAITING_WRITE_DISCARD"
@@ -292,12 +314,14 @@ begin
 					-- write operation not authorized, wait for the write module to discard the rest of the write package
 					-- default state transition
 					s_rmap_target_user_state <= WAITING_WRITE_DISCARD;
+					v_rmap_target_user_state := WAITING_WRITE_DISCARD;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if the write module finished discarding the rest of the package				
 					if (flags_i.write_operation.write_data_discarded = '1') then
 						-- rest of the package discarded, go to write operation finish
 						s_rmap_target_user_state <= WRITE_OPERATION_FINISH;
+						v_rmap_target_user_state := WRITE_OPERATION_FINISH;
 					end if;
 
 				-- state "WRITE_OPERATION_FINISH"
@@ -305,12 +329,14 @@ begin
 					-- write operation finished, error checking and reply generation
 					-- default state transition
 					s_rmap_target_user_state <= FINISH_USER_OPERATION;
+					v_rmap_target_user_state := FINISH_USER_OPERATION;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a write reply was requested
 					if (codecdata_i.instructions.command.reply = '1') then
 						-- write reply requested, go to send reply
 						s_rmap_target_user_state <= SEND_REPLY;
+						v_rmap_target_user_state := SEND_REPLY;
 					end if;
 
 				-- state "READ_AUTHORIZATION"
@@ -318,6 +344,7 @@ begin
 					-- read operation authorization
 					-- default state transition
 					s_rmap_target_user_state                               <= FINISH_USER_OPERATION;
+					v_rmap_target_user_state                               := FINISH_USER_OPERATION;
 					-- default internal signal values
 					s_error_general_error                                  <= '0';
 					s_error_invalid_key                                    <= '0';
@@ -364,12 +391,14 @@ begin
 					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 						-- authorization granted
 						s_rmap_target_user_state <= SEND_REPLY;
+						v_rmap_target_user_state := SEND_REPLY;
 					else
 						-- authorization not granted
 						-- check if a reply is needed
 						if (codecdata_i.instructions.command.reply = '1') then
 							-- reply needed
 							s_rmap_target_user_state <= SEND_REPLY;
+							v_rmap_target_user_state := SEND_REPLY;
 						end if;
 					end if;
 
@@ -378,6 +407,7 @@ begin
 					-- wait the end of a read operation
 					-- default state transition
 					s_rmap_target_user_state <= WAITING_READ_FINISH;
+					v_rmap_target_user_state := WAITING_READ_FINISH;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a read authorization was granted
@@ -385,6 +415,7 @@ begin
 					if ((flags_i.read_operation.read_data_indication = '1') or (flags_i.read_operation.read_operation_failed = '1')) then
 						-- read operation finished, go to read operation finish
 						s_rmap_target_user_state <= READ_OPERATION_FINISH;
+						v_rmap_target_user_state := READ_OPERATION_FINISH;
 					end if;
 
 				-- state "READ_OPERATION_FINISH,"
@@ -392,6 +423,7 @@ begin
 					-- read operation finished, error checking and reply generation
 					-- default state transition
 					s_rmap_target_user_state <= FINISH_USER_OPERATION;
+					v_rmap_target_user_state := FINISH_USER_OPERATION;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -400,6 +432,7 @@ begin
 					-- send reply to initiator
 					-- default state transition
 					s_rmap_target_user_state <= WAITING_REPLY_FINISH;
+					v_rmap_target_user_state := WAITING_REPLY_FINISH;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -408,6 +441,7 @@ begin
 					-- wait the end of a reply generation
 					-- default state transition
 					s_rmap_target_user_state <= WAITING_REPLY_FINISH;
+					v_rmap_target_user_state := WAITING_REPLY_FINISH;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if the reply generation finished
@@ -417,15 +451,18 @@ begin
 						if (codecdata_i.instructions.command.write_read = '1') then
 							-- write reply, go to finish user operation
 							s_rmap_target_user_state <= FINISH_USER_OPERATION;
+							v_rmap_target_user_state := FINISH_USER_OPERATION;
 						else
 							-- read reply
 							-- check if a read was authorized
 							if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
 								-- authorized, go to waiting read finish
 								s_rmap_target_user_state <= WAITING_READ_FINISH;
+								v_rmap_target_user_state := WAITING_READ_FINISH;
 							else
 								-- not authorized, go to finish user operation
 								s_rmap_target_user_state <= FINISH_USER_OPERATION;
+								v_rmap_target_user_state := FINISH_USER_OPERATION;
 							end if;
 						end if;
 					end if;
@@ -435,6 +472,7 @@ begin
 					-- finish the user module operation
 					-- default state transition
 					s_rmap_target_user_state <= IDLE;
+					v_rmap_target_user_state := IDLE;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -442,35 +480,13 @@ begin
 				when others =>
 					-- jump to save state (ERROR?!)
 					s_rmap_target_user_state <= IDLE;
+					v_rmap_target_user_state := IDLE;
 
 			end case;
-		end if;
-	end process p_rmap_target_user_FSM_state;
 
-	--=============================================================================
-	-- Begin of RMAP Target User Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_user_state, reset_n_i
-	-- write:
-	-- r/w:
-	p_rmap_target_user_FSM_output : process(s_rmap_target_user_state, reset_n_i)
-	begin
-		-- asynchronous reset
-		if (reset_n_i = '0') then
-			control_o.command_parsing.user_ready           <= '0';
-			control_o.command_parsing.command_reset        <= '0';
-			control_o.reply_geneneration.send_reply        <= '0';
-			control_o.reply_geneneration.reply_reset       <= '0';
-			control_o.write_operation.write_authorization  <= '0';
-			control_o.write_operation.write_not_authorized <= '0';
-			control_o.write_operation.write_reset          <= '0';
-			control_o.read_operation.read_authorization    <= '0';
-			control_o.read_operation.read_reset            <= '0';
-			reply_status                                   <= x"00";
-		-- output generation when s_rmap_target_user_state changes
-		else
-			case (s_rmap_target_user_state) is
+			-- output
+
+			case (v_rmap_target_user_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -640,8 +656,206 @@ begin
 					null;
 
 			end case;
+
 		end if;
-	end process p_rmap_target_user_FSM_output;
+	end process p_rmap_target_user_FSM_state;
+
+	--=============================================================================
+	-- Begin of RMAP Target User Finite State Machine
+	-- (output generation)
+	--=============================================================================
+	-- read: s_rmap_target_user_state, reset_n_i
+	-- write:
+	-- r/w:
+	--	p_rmap_target_user_FSM_output : process(s_rmap_target_user_state, s_error_general_error, error_i, s_error_invalid_key, s_error_verify_buffer_overrun, s_error_rmap_command_not_implemented_or_not_authorised, s_error_invalid_target_logical_address)
+	--	begin
+	--			case (s_rmap_target_user_state) is
+	--
+	--				-- state "IDLE"
+	--				when RESET =>
+	--					-- default output signals
+	--			control_o.command_parsing.user_ready           <= '0';
+	--			control_o.command_parsing.command_reset        <= '0';
+	--			control_o.reply_geneneration.send_reply        <= '0';
+	--			control_o.reply_geneneration.reply_reset       <= '0';
+	--			control_o.write_operation.write_authorization  <= '0';
+	--			control_o.write_operation.write_not_authorized <= '0';
+	--			control_o.write_operation.write_reset          <= '0';
+	--			control_o.read_operation.read_authorization    <= '0';
+	--			control_o.read_operation.read_reset            <= '0';
+	--			reply_status                                   <= x"00";
+	--				-- conditional output signals
+	--
+	--				-- state "IDLE"
+	--				when IDLE =>
+	--					-- does nothing until a command package is received
+	--					-- default output signals
+	--					control_o.command_parsing.user_ready           <= '1';
+	--					control_o.command_parsing.command_reset        <= '0';
+	--					control_o.reply_geneneration.send_reply        <= '0';
+	--					control_o.reply_geneneration.reply_reset       <= '0';
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.write_operation.write_reset          <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--					control_o.read_operation.read_reset            <= '0';
+	--					reply_status                                   <= x"00";
+	--				-- conditional output signals
+	--
+	--				-- state "COMMAND_RECEIVED"
+	--				when COMMAND_RECEIVED =>
+	--					-- treat the incoming command data
+	--					-- default output signals
+	--					control_o.reply_geneneration.send_reply       <= '0';
+	--					control_o.write_operation.write_authorization <= '0';
+	--					control_o.read_operation.read_authorization   <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "DISCARDED_PACKAGE"
+	--				when DISCARDED_PACKAGE =>
+	--					-- incoming package discarded, treat errors
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "WRITE_AUTHORIZATION"
+	--				when WRITE_AUTHORIZATION =>
+	--					-- write operation authorization
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "WAITING_WRITE_FINISH"
+	--				when WAITING_WRITE_FINISH =>
+	--					-- wait the end of a write operation
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '1';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "WAITING_WRITE_DISCARD"
+	--				when WAITING_WRITE_DISCARD =>
+	--					-- write operation not authorized, wait for the write module to discard the rest of the write package
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '1';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals	
+	--
+	--				-- state "WRITE_OPERATION_FINISH,"
+	--				when WRITE_OPERATION_FINISH =>
+	--					-- write operation finished, error checking and reply generation
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "READ_AUTHORIZATION"
+	--				when READ_AUTHORIZATION =>
+	--					-- read operation authorization
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "WAITING_READ_FINISH"
+	--				when WAITING_READ_FINISH =>
+	--					-- wait the end of a read operation
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '1';
+	--				-- conditional output signals
+	--
+	--				-- state "READ_OPERATION_FINISH,"
+	--				when READ_OPERATION_FINISH =>
+	--					-- read operation finished, error checking and reply generation
+	--					-- default output signals
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--				-- conditional output signals
+	--
+	--				-- state "SEND_REPLY"
+	--				when SEND_REPLY =>
+	--					-- send reply to initiator
+	--					-- default output signals
+	--					control_o.reply_geneneration.send_reply <= '0';
+	--					reply_status                            <= std_logic_vector(to_unsigned(c_ERROR_CODE_COMMAND_EXECUTED_SUCCESSFULLY, 8));
+	--					-- conditional output signals
+	--					-- check if an error ocurred
+	--					if (s_error_general_error = '1') then
+	--						-- general error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_GENERAL_ERROR_CODE, 8));
+	--					elsif ((error_i.unused_packet_type = '1') or (error_i.invalid_command_code = '1')) then
+	--						-- unused rmap packet type or command code error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_UNUSED_RMAP_PACKET_TYPE_OR_COMMAND_CODE, 8));
+	--					elsif (s_error_invalid_key = '1') then
+	--						-- invalid key error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_KEY, 8));
+	--					elsif (error_i.invalid_data_crc = '1') then
+	--						-- invalid data crc error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_DATA_CRC, 8));
+	--					elsif (error_i.early_eop = '1') then
+	--						-- early eop error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EARLY_EOP, 8));
+	--					elsif (error_i.too_much_data = '1') then
+	--						-- too much data error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_TOO_MUCH_DATA, 8));
+	--					elsif (error_i.eep = '1') then
+	--						-- eep error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_EEP, 8));
+	--					elsif (s_error_verify_buffer_overrun = '1') then
+	--						-- verify buffer overrun error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_VERIFY_BUFFER_OVERRUN, 8));
+	--					elsif (s_error_rmap_command_not_implemented_or_not_authorised = '1') then
+	--						-- rmap command not implemented or not authorised error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMAP_COMMAND_NOT_IMPLEMENTED_OR_NOT_AUTHORISED, 8));
+	--					-- the next case is commented out because the RMW function is not implemented
+	--					-- elsif (s_error_rmw_data_length_error = '1') then
+	--					--   reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_RMW_DATA_LENGTH_ERROR,8));
+	--					elsif (s_error_invalid_target_logical_address = '1') then
+	--						-- invalid target logical address error ocurred
+	--						reply_status <= std_logic_vector(to_unsigned(c_ERROR_CODE_INVALID_TARGET_LOGICAL_ADDRESS, 8));
+	--					end if;
+	--
+	--				-- state "WAITING_REPLY_FINISH"
+	--				when WAITING_REPLY_FINISH =>
+	--					-- wait the end of a reply generation
+	--					-- default output signals
+	--					control_o.reply_geneneration.send_reply <= '1';
+	--				-- conditional output signals
+	--
+	--				-- state "FINISH_USER_OPERATION"
+	--				when FINISH_USER_OPERATION =>
+	--					-- finish the user module operation
+	--					-- default output signals
+	--					control_o.command_parsing.user_ready           <= '0';
+	--					control_o.command_parsing.command_reset        <= '1';
+	--					control_o.reply_geneneration.send_reply        <= '0';
+	--					control_o.reply_geneneration.reply_reset       <= '1';
+	--					control_o.write_operation.write_authorization  <= '0';
+	--					control_o.write_operation.write_not_authorized <= '0';
+	--					control_o.write_operation.write_reset          <= '1';
+	--					control_o.read_operation.read_authorization    <= '0';
+	--					control_o.read_operation.read_reset            <= '1';
+	--					reply_status                                   <= x"00";
+	--				-- conditional output signals
+	--
+	--				-- all the other states (not defined)
+	--				when others =>
+	--					null;
+	--
+	--			end case;
+	--
+	--	end process p_rmap_target_user_FSM_output;
 
 	s_data_length_vector <= codecdata_i.data_length(2) & codecdata_i.data_length(1) & codecdata_i.data_length(0);
 
