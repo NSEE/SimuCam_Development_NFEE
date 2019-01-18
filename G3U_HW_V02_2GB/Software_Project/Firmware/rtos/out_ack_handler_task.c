@@ -9,17 +9,14 @@
 
 
 void vOutAckHandlerTask(void *task_data) {
-
-	bool bSuccess = FALSE;
 	INT8U error_code;
 	tSerderACKState eSenderAckState;
 	static txSenderACKs xSAckLocal;
     char cBufferAck[16] = "";
-    unsigned char ucCountRetries = 0;
     unsigned char crc = 0;
 
 	#ifdef DEBUG_ON
-		debug(fp,"vSenderAckTask, enter task.\n");
+		debug(fp,"Out Ack Handler Task. (Task on)\n");
 	#endif
 
 	eSenderAckState = sSAConfiguring;
@@ -33,6 +30,7 @@ void vOutAckHandlerTask(void *task_data) {
 				break;
             case sSAGettingACK:
                 /* Waits the semaphore that indicates there are some ack message to send*/
+                eSenderAckState = sSAGettingACK;
                 OSSemPend(xSemCountSenderACK, 0, &error_code);
                 if ( error_code == OS_ERR_NONE ) {
 
@@ -61,9 +59,10 @@ void vOutAckHandlerTask(void *task_data) {
                         But if some error accours we will do nothing but print in the console */
                     vFailGetCountSemaphoreSenderTask();
                 }
+
                 break;
 			case sSASending:
-
+                
                 /* First check if is an NACK packet that should be sent */
                 if ( xSAckLocal.cType != '#' ) {
                     /* In this state has a parsed ack packet in the variable xSAckLocal
@@ -76,26 +75,21 @@ void vOutAckHandlerTask(void *task_data) {
                     sprintf(cBufferAck, "%s", NACK_SEQUENCE);
                 }
 
-                bSuccess = FALSE;
-                ucCountRetries = 0;
-                while ( ( bSuccess == FALSE ) && ( ucCountRetries < 6 ) ) {
+                OSMutexPend(xTxUARTMutex, 100, &error_code); /* Wait max 100 ticks = 100 ms */
+                if ( error_code == OS_NO_ERR ) {
+                    puts(cBufferAck);
+                    OSMutexPost(xTxUARTMutex);
+                } else
+                    vFailGetMutexTxUARTSenderTask(); /* Could not use the uart tx buffer to send the ack*/
 
-                    OSMutexPend(xTxUARTMutex, 5, &error_code); /* Wait 5 ticks = 5 ms */
-                    if ( error_code == OS_NO_ERR ) {
-                        puts(cBufferAck);
-                        OSMutexPost(xTxUARTMutex);
-                        bSuccess = TRUE;
-                    }
-                    ucCountRetries++;
-                }
-
-                if (bSuccess == FALSE) {
-                    /* Could not use the uart tx buffer to send the ack*/
-                    vFailGetMutexTxUARTSenderTask();
-                }
                 eSenderAckState = sSAGettingACK;
+                
 				break;
 			default:
+            	#ifdef DEBUG_ON
+		            debug(fp,"Critical: Default State. Should never get here.(vOutAckHandlerTask)\n");
+	            #endif
+                eSenderAckState = sSAGettingACK;
 				break;
 		}
 	}

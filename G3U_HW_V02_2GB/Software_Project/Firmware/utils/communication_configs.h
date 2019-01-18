@@ -29,6 +29,7 @@
 #define NACK_CHAR               '#'
 #define START_REQUEST_CHAR      '?'
 #define START_REPLY_CHAR        '!'
+#define ALL_INI_CHAR            "?!@#"
 /*======= Type of commands - UART==========*/
 /*======= Set of commands - UART==========*/
 #define ETH_CMD                 'C'
@@ -51,7 +52,7 @@
 #define START_STATUS_SEQUENCE   "?S:1|38;"
 /*======= Standards messages - UART==========*/
 #define CHANGE_MODE_SEQUENCE    65000
-#define SIZE_RCV_BUFFER         64
+#define SIZE_RCV_BUFFER         128
 #define SIZE_UCVALUES           32
 
 typedef enum { eNoError = 0, eBadFormatInit, eCRCErrorInit, eSemErrorInit, eBadFormat, eCRCError } tErrorReceiver;
@@ -122,17 +123,25 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 /*================================== Reader UART ================================*/
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
-#define N_RETRIES_INI_INF       255
-#define N_RETRIES_COMM          3
+#define N_RETRIES_INI_INF       250
+#define N_RETRIES_COMM          2       /* N + 1 */
 #define INTERVAL_RETRIES        1000    /* Milliseconds */
 #define TIMEOUT_COMM            5000    /* Milliseconds */
 #define TIMEOUT_COUNT           ( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
-#define TICKS_WAITING_FOR_SPACE 100     /* Ticks */
+#define N_RET_MUTEX_TX                  2
+#define N_RET_MUTEX_RETRANS             4
+#define N_RET_SEM_FOR_SPACE             2
+#define TICKS_WAITING_MUTEX_TX          1     /* Ticks */
+#define TICKS_WAITING_MUTEX_RETRANS     2     /* Ticks */
+#define TICKS_WAITING_FOR_SPACE         20    /* Ticks */
+
+#define MAX_RETRIES_ACK_IN              100
 
 #define N_128   2
 typedef struct {
     char buffer[128];
+    bool bSent;     /* Indicates if it was already transmited */
     unsigned short int usiId; /* If Zero is empty and available*/
     short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
@@ -141,6 +150,7 @@ typedef struct {
 #define N_64   4
 typedef struct {
     char buffer[64];
+    bool bSent;     /* Indicates if it was already transmited */
     unsigned short int usiId; /* If Zero is empty and available*/
     short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
@@ -149,28 +159,39 @@ typedef struct {
 #define N_32   8
 typedef struct {
     char buffer[32];
+    bool bSent;     /* Indicates if it was already transmited */
     unsigned short int usiId; /* If Zero is empty and available*/
     short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
 } txBuffer32;
 
+/* This struct was made to perform some operation of verification faster */
+typedef struct {
+    bool b128[N_128];
+    bool b64[N_64];
+    bool b32[N_32];
+} tInUseRetransBuffer;
+
+
 /*  Before access the any buffer for transmission the task should check in the Count Semaphore if has resource available
     if there is buffer free, the task should try to get the mutex in order to protect the integrity of the buffer */
-
+extern unsigned char SemCount128;
 extern OS_EVENT *xSemCountBuffer128;
 extern OS_EVENT *xMutexBuffer128;
 extern txBuffer128 xBuffer128[N_128];
 
+extern unsigned char SemCount64;
 extern OS_EVENT *xSemCountBuffer64;
 extern OS_EVENT *xMutexBuffer64;
 extern txBuffer64 xBuffer64[N_64];
 
+extern unsigned char SemCount32;
 extern OS_EVENT *xSemCountBuffer32;
 extern OS_EVENT *xMutexBuffer32;
 extern txBuffer32 xBuffer32[N_32];
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
-
+extern tInUseRetransBuffer xInUseRetrans;
 
 
 

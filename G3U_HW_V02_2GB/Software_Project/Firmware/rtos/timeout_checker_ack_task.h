@@ -14,5 +14,10 @@
 
 
 void vTimeoutCheckerTask(void *task_data);
+void vTimeoutCheckerTaskv2(void *task_data);
+void vCheck( void );
+inline void vCheckRetransmission128( void );
+inline void vCheckRetransmission64( void );
+inline void vCheckRetransmission32( void );
 
 #endif /* TIMEOUT_ACK_TASK_H_ */

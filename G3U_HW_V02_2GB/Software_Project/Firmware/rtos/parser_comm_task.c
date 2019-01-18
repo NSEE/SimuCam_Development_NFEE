@@ -23,9 +23,9 @@ void vParserCommTask(void *task_data) {
 		char cPUSDebug[128];
 	#endif
 
-	#ifdef DEBUG_ON
-		debug(fp,"vParserCommTask, enter task.\n");
-	#endif
+    #ifdef DEBUG_ON
+        debug(fp,"Parser Comm Task. (Task on)\n");
+    #endif
 
 	eParserMode = sConfiguring;
 

@@ -274,6 +274,7 @@ void vFailSetCountSemaphorexBuffer64( void )
 	 */
 }
 
+/*CRITICAL*/
 void vFailSetCountSemaphorexBuffer128( void )
 {
 	#ifdef DEBUG_ON
@@ -289,14 +290,59 @@ void vFailSetCountSemaphorexBuffer128( void )
 	 */
 }
 
-void vFailFoundBufferRetransmission( void )
+void vFailGetCountSemaphorexBuffer128( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailFoundBufferRetransmission. (exit)\n");
+		debug(fp,"vFailGetCountSemaphorexBuffer128. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		debug(fp,"Could not found the id in the (re)transmission buffers.(vReceiverAckTask)\n");
+		debug(fp,"Could not get to the semaphore.()\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailGetCountSemaphorexBuffer64( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailGetCountSemaphorexBuffer64. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not get to the semaphore.()\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailGetCountSemaphorexBuffer32( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailGetCountSemaphorexBuffer32. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not get to the semaphore.()\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailFoundBufferRetransmission( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"Warning: Incomming Ack id doesn't exists.\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not found the id in the (re)transmission buffers.(In Ack Handler)\n");
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -487,10 +533,11 @@ void vCouldNotCheckBufferTimeOutFunction( void )
 	 */
 }
 
+/* Critico */
 void vFailTimeoutCheckerTaskCreate( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vFailTimeoutCheckerTaskCreate\n");
+		debug(fp,"vFailTimeoutCheckerTaskCreate (Critico)\n");
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -649,6 +696,22 @@ void vCouldNotSendTMPusCommand( const char *cData )
 	#ifdef DEBUG_ON
 		debug(fp,"Could not send the TM PUS command to NUC. \n");
 		debug(fp,"cData");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+/* Not send message is bad but the Simucam will continue to work. */
+void vWarnCouldNotgetMutexRetrans128( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vWarnCouldNotgetMutexRetrans128. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Warning: Could not get the mutex for the retransmission. The message will be lost.\n");
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o

@@ -22,5 +22,8 @@ bool setPreParsedFreePos( tPreParsed *xPrePReader );
 bool setPreAckSenderFreePos( tPreParsed *xPrePReader );
 bool setPreAckReceiverFreePos( tPreParsed *xPrePReader );
 
+/*Version 2*/
+bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer );
+
 
 #endif /* RECEIVER_UART_TASK_H_ */

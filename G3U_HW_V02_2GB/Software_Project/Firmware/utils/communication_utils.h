@@ -27,7 +27,9 @@ void vSendPusTM64 ( tTMPus xPcktPus );
 void vSendPusTM128 ( tTMPus xPcktPus );
 void vTMPusTestConnection( unsigned short int usiPusId );
 bool bSendStatusFirstTime ( char *cBuffer, short int siIdMessage );
-
+bool bSendUART128v2 ( char *cBuffer, short int siIdMessage );
+bool bSendUART64v2 ( char *cBuffer, short int siIdMessage );
+bool bSendUART32v2  ( char *cBuffer, short int siIdMessage );
 
 
 #endif /* COMMUNICATION_UTILS_H_ */

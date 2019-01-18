@@ -13,40 +13,105 @@ void vInitialTask(void *task_data)
 {
   INT8U error_code = OS_ERR_NONE;
 
-	/* READ: Create the task that is responsible to READ UART buffer */
+/* ================== All the task that need syncronization should be started first ========================= */
+
+	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
 	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vReceiverUartTask,
+		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
 									NULL,
-									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
-									RECEIVER_TASK_PRIO,
-									RECEIVER_TASK_PRIO,
-									vReceiverUartTask_stk,
-									RECEIVER_TASK_SIZE,
+									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
+									TIMEOUT_CHECKER_PRIO,
+									TIMEOUT_CHECKER_PRIO,
+									vTimeoutCheckerTask_stk,
+									TIMEOUT_CHECKER_SIZE,
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
-
-	OSStatInit();  /* todo: Talves remover */
-
 	#else
-		error_code = OSTaskCreateExt(vReceiverUartTask,
+		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
 									NULL,
-									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
-									RECEIVER_TASK_PRIO,
-									RECEIVER_TASK_PRIO,
-									vReceiverUartTask_stk,
-									RECEIVER_TASK_SIZE,
+									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
+									TIMEOUT_CHECKER_PRIO,
+									TIMEOUT_CHECKER_PRIO,
+									vTimeoutCheckerTask_stk,
+									TIMEOUT_CHECKER_SIZE,
 									NULL,
 									0);
-
 	#endif
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#ifdef DEBUG_ON
-			printErrorTask( error_code );		
+			printErrorTask( error_code );
 		#endif
-		vFailReceiverCreate();
+		vFailTimeoutCheckerTaskCreate();
 	}
+
+
+
+	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vOutAckHandlerTask,
+									NULL,
+									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
+									OUT_ACK_TASK_PRIO,
+									OUT_ACK_TASK_PRIO,
+									vOutAckHandlerTask_stk,
+									OUT_ACK_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+	#else
+		error_code = OSTaskCreateExt(vOutAckHandlerTask,
+									NULL,
+									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
+									OUT_ACK_TASK_PRIO,
+									OUT_ACK_TASK_PRIO,
+									vOutAckHandlerTask_stk,
+									OUT_ACK_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );
+		#endif
+		vFailOutAckHandlerTaskCreate();
+	}
+
+
+
+	/* Create the task that is responsible to handle incomming ack packet */
+	#if STACK_MONITOR
+		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
+									NULL,
+									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
+									IN_ACK_TASK_PRIO,
+									IN_ACK_TASK_PRIO,
+									vInAckHandlerTask_stk,
+									IN_ACK_TASK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+	#else
+		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
+									NULL,
+									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
+									IN_ACK_TASK_PRIO,
+									IN_ACK_TASK_PRIO,
+									vInAckHandlerTask_stk,
+									IN_ACK_TASK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task for receive comm packets */
+		#ifdef DEBUG_ON
+			printErrorTask( error_code );
+		#endif
+		vFailInAckHandlerTaskCreate();
+	}
+
 
 
 	/* Create the task that is responsible to parse all received messages */
@@ -60,8 +125,6 @@ void vInitialTask(void *task_data)
 									PARSER_TASK_SIZE,
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
-
-
 	#else
 		error_code = OSTaskCreateExt(vParserCommTask,
 									NULL,
@@ -72,7 +135,6 @@ void vInitialTask(void *task_data)
 									PARSER_TASK_SIZE,
 									NULL,
 									0);
-
 	#endif
 
 	if ( error_code != OS_ERR_NONE) {
@@ -84,109 +146,36 @@ void vInitialTask(void *task_data)
 	}
 
 
-	/* Create the task that is responsible to handle incomming ack packet */
+
+	/* READ: Create the task that is responsible to READ UART buffer */
 	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vInAckHandlerTask,
+		error_code = OSTaskCreateExt(vReceiverUartTask,
 									NULL,
-									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
-									IN_ACK_TASK_PRIO,
-									IN_ACK_TASK_PRIO,
-									vInAckHandlerTask_stk,
-									IN_ACK_TASK_SIZE,
+									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
+									RECEIVER_TASK_PRIO,
+									RECEIVER_TASK_PRIO,
+									vReceiverUartTask_stk,
+									RECEIVER_TASK_SIZE,
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
-
-
 	#else
-		error_code = OSTaskCreateExt(vInAckHandlerTask,
+		error_code = OSTaskCreateExt(vReceiverUartTask,
 									NULL,
-									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
-									IN_ACK_TASK_PRIO,
-									IN_ACK_TASK_PRIO,
-									vInAckHandlerTask_stk,
-									IN_ACK_TASK_SIZE,
+									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
+									RECEIVER_TASK_PRIO,
+									RECEIVER_TASK_PRIO,
+									vReceiverUartTask_stk,
+									RECEIVER_TASK_SIZE,
 									NULL,
 									0);
-
 	#endif
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
 		#ifdef DEBUG_ON
-			printErrorTask( error_code );
+			printErrorTask( error_code );		
 		#endif
-		vFailInAckHandlerTaskCreate();
-	}
-
-
-
-	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
-	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vOutAckHandlerTask,
-									NULL,
-									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
-									OUT_ACK_TASK_PRIO,
-									OUT_ACK_TASK_PRIO,
-									vOutAckHandlerTask_stk,
-									OUT_ACK_TASK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
-
-
-	#else
-		error_code = OSTaskCreateExt(vOutAckHandlerTask,
-									NULL,
-									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
-									OUT_ACK_TASK_PRIO,
-									OUT_ACK_TASK_PRIO,
-									vOutAckHandlerTask_stk,
-									OUT_ACK_TASK_SIZE,
-									NULL,
-									0);
-
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
-			printErrorTask( error_code );
-		#endif
-		vFailOutAckHandlerTaskCreate();
-	}
-
-
-	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
-	#if STACK_MONITOR
-		error_code = OSTaskCreateExt(vTimeoutCheckerTask,
-									NULL,
-									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
-									TIMEOUT_CHECKER_PRIO,
-									TIMEOUT_CHECKER_PRIO,
-									vTimeoutCheckerTask_stk,
-									TIMEOUT_CHECKER_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
-
-
-	#else
-		error_code = OSTaskCreateExt(vTimeoutCheckerTask,
-									NULL,
-									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
-									TIMEOUT_CHECKER_PRIO,
-									TIMEOUT_CHECKER_PRIO,
-									vTimeoutCheckerTask_stk,
-									TIMEOUT_CHECKER_SIZE,
-									NULL,
-									0);
-
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
-			printErrorTask( error_code );
-		#endif
-		vFailTimeoutCheckerTaskCreate();
+		vFailReceiverCreate();
 	}
 
 
@@ -202,8 +191,6 @@ void vInitialTask(void *task_data)
 									SENDER_TASK_SIZE,
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
-
-
 	#else
 		error_code = OSTaskCreateExt(vSenderComTask,
 									NULL,
@@ -214,7 +201,6 @@ void vInitialTask(void *task_data)
 									SENDER_TASK_SIZE,
 									NULL,
 									0);
-
 	#endif
 
 	if ( error_code != OS_ERR_NONE) {
@@ -231,8 +217,6 @@ void vInitialTask(void *task_data)
 		/*	Could not create the timer that syncs the task that is responsible to retransmit the packets*/
 		vFailStartTimerRetransmission();
 	}
-
-
 
 
 

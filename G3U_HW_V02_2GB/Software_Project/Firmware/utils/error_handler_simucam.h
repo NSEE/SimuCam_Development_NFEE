@@ -59,7 +59,10 @@ void vFailCouldNotRetransmitTimeoutTask( void );
 void vCouldNotSendTurnOff( void );
 void vCouldNotSendLog( void );
 void vCouldNotSendTMPusCommand( const char *cData );
-
+void vWarnCouldNotgetMutexRetrans128( void );
+void vFailGetCountSemaphorexBuffer128( void );
+void vFailGetCountSemaphorexBuffer64( void );
+void vFailGetCountSemaphorexBuffer32( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

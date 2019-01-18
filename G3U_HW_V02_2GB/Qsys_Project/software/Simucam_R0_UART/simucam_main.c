@@ -20,6 +20,9 @@
 /*===== Global system variables ===========*/
 unsigned short int usiIdCMD; /* Used in the communication with NUC*/
 
+/* Indicates if there's free slots in the buffer of retransmission: xBuffer128, xBuffer64, xBuffer32 */
+tInUseRetransBuffer xInUseRetrans;
+
 txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
@@ -43,6 +46,10 @@ OS_EVENT *xSemCountBuffer64;
 OS_EVENT *xMutexBuffer64;
 OS_EVENT *xSemCountBuffer32;
 OS_EVENT *xMutexBuffer32;
+/* For performance porpuses in the Time Out CHecker task */
+unsigned char SemCount128;
+unsigned char SemCount64;
+unsigned char SemCount32;
 
 OS_EVENT *xSemCountReceivedACK;
 OS_EVENT *xSemCountPreParsed;
@@ -130,22 +137,28 @@ bool bResourcesInitRTOS( void )
 	}
 
 	/* This semaphore will count the number of positions available in the "big" buffer of 128 characters*/
+	SemCount128 = N_128;
 	xSemCountBuffer128 = OSSemCreate(N_128);
 	if (!xSemCountBuffer128) {
+		SemCount128 = 0;
 		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	/* This semaphore will count the number of positions available in the "medium" buffer of 64 characters*/
+	SemCount64 = N_64;
 	xSemCountBuffer64 = OSSemCreate(N_64);
 	if (!xSemCountBuffer64) {
+		SemCount64 = 0;
 		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
 
 	/* This semaphore will count the number of positions available in the "small" buffer of 32 characters*/
+	SemCount32 = N_32;
 	xSemCountBuffer32 = OSSemCreate(N_32);
 	if (!xSemCountBuffer32) {
+		SemCount32 = 0;
 		vFailCreateSemaphoreResources();
 		bSuccess = FALSE;
 	}
@@ -213,8 +226,54 @@ bool bResourcesInitRTOS( void )
 	return bSuccess;
 }
 
+/* Global variables already initialized with zero. But better safe than I'm sorry. */
 void vVariablesInitialization ( void ) {
+	unsigned char ucIL = 0;
+
 	usiIdCMD = 2;
+
+	memset( xInUseRetrans.b128 , FALSE , sizeof(bool)*N_128);
+	memset( xInUseRetrans.b64 , FALSE , sizeof(bool)*N_64);
+	memset( xInUseRetrans.b32 , FALSE , sizeof(bool)*N_32);
+	
+	for( ucIL = 0; ucIL < N_128; ucIL++)
+	{
+		memset( xBuffer128[usIL].buffer, 0, 128);
+		xBuffer128[usIL].bSent = FALSE;
+		xBuffer128[usIL].usiId = 0;
+		xBuffer128[usIL].usiTimeOut = 0;
+		xBuffer128[usIL].ucNofRetries = 0;
+	}
+
+	for( ucIL = 0; ucIL < N_64; ucIL++)
+	{
+		memset( xBuffer64[usIL].buffer, 0, 64);
+		xBuffer64[usIL].bSent = FALSE;
+		xBuffer64[usIL].usiId = 0;
+		xBuffer64[usIL].usiTimeOut = 0;
+		xBuffer64[usIL].ucNofRetries = 0;
+	}
+
+	for( ucIL = 0; ucIL < N_32; ucIL++)
+	{
+		memset( xBuffer32[usIL].buffer, 0, 32);
+		xBuffer32[usIL].bSent = FALSE;
+		xBuffer32[usIL].usiId = 0;
+		xBuffer32[usIL].usiTimeOut = 0;
+		xBuffer32[usIL].ucNofRetries = 0;
+	}	
+/* todo: Need start this variable also, but not now
+
+tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
+txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
+
+txSenderACKs xSenderACK[N_ACKS_SENDER];
+
+*/
+
+
+
+
 }
 
 
