@@ -14,9 +14,7 @@
 
 
 
-bool bSendUART128 ( char *cBuffer, short int siIdMessage );
-bool bSendUART64 ( char *cBuffer, short int siIdMessage );
-bool bSendUART32  ( char *cBuffer, short int siIdMessage );
+
 unsigned short int usiGetIdCMD ( void );
 short int siPosStr( char *buffer, char cValue);
 void vTimeoutCheck (void *p_arg);
@@ -26,7 +24,6 @@ void vSendLog ( const char * cDataIn );
 void vSendPusTM64 ( tTMPus xPcktPus );
 void vSendPusTM128 ( tTMPus xPcktPus );
 void vTMPusTestConnection( unsigned short int usiPusId );
-bool bSendStatusFirstTime ( char *cBuffer, short int siIdMessage );
 bool bSendUART128v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART64v2 ( char *cBuffer, short int siIdMessage );
 bool bSendUART32v2  ( char *cBuffer, short int siIdMessage );

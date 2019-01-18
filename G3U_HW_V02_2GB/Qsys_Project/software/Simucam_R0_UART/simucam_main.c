@@ -238,29 +238,29 @@ void vVariablesInitialization ( void ) {
 	
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
-		memset( xBuffer128[usIL].buffer, 0, 128);
-		xBuffer128[usIL].bSent = FALSE;
-		xBuffer128[usIL].usiId = 0;
-		xBuffer128[usIL].usiTimeOut = 0;
-		xBuffer128[usIL].ucNofRetries = 0;
+		memset( xBuffer128[ucIL].buffer, 0, 128);
+		xBuffer128[ucIL].bSent = FALSE;
+		xBuffer128[ucIL].usiId = 0;
+		xBuffer128[ucIL].usiTimeOut = 0;
+		xBuffer128[ucIL].ucNofRetries = 0;
 	}
 
 	for( ucIL = 0; ucIL < N_64; ucIL++)
 	{
-		memset( xBuffer64[usIL].buffer, 0, 64);
-		xBuffer64[usIL].bSent = FALSE;
-		xBuffer64[usIL].usiId = 0;
-		xBuffer64[usIL].usiTimeOut = 0;
-		xBuffer64[usIL].ucNofRetries = 0;
+		memset( xBuffer64[ucIL].buffer, 0, 64);
+		xBuffer64[ucIL].bSent = FALSE;
+		xBuffer64[ucIL].usiId = 0;
+		xBuffer64[ucIL].usiTimeOut = 0;
+		xBuffer64[ucIL].ucNofRetries = 0;
 	}
 
 	for( ucIL = 0; ucIL < N_32; ucIL++)
 	{
-		memset( xBuffer32[usIL].buffer, 0, 32);
-		xBuffer32[usIL].bSent = FALSE;
-		xBuffer32[usIL].usiId = 0;
-		xBuffer32[usIL].usiTimeOut = 0;
-		xBuffer32[usIL].ucNofRetries = 0;
+		memset( xBuffer32[ucIL].buffer, 0, 32);
+		xBuffer32[ucIL].bSent = FALSE;
+		xBuffer32[ucIL].usiId = 0;
+		xBuffer32[ucIL].usiTimeOut = 0;
+		xBuffer32[ucIL].ucNofRetries = 0;
 	}	
 /* todo: Need start this variable also, but not now
 
@@ -284,7 +284,7 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
-	OSInit(); /* todo: Talvez remover */
+	//OSInit(); /* todo: Talvez remover */
 
 	/* Clear the RTOS timer */
 	OSTimeSet(0);

@@ -35,7 +35,7 @@ void vReceiverUartTask(void *task_data) {
                 memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
                 scanf("%s", cReceive);
                 memcpy(cReceiveBuffer, cReceive, (SIZE_RCV_BUFFER -1) ); /* Make that there's a zero terminator */
-                bSuccess = bPreParserV2( cReceiveBuffer , &xPreParsedReader );
+                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedReader );
 
                 if ( bSuccess == TRUE ) {
 
@@ -132,6 +132,10 @@ bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
 
     /* Check if there is [!|?] , |, ; in the packet*/
     if ( (siTeminador == (siStrLen-1)) && (siCRC < siTeminador) && (siIniReq < siCRC) ) {
+
+#ifdef DEBUG_ON
+	fprintf(fp," Debug -  siIni = %hhu, siCRC = %hhu\n", siIniReq, siCRC );
+#endif
 
         xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(&buffer[siIniReq] , (siCRC - siIniReq) );
         xPerParcedBuffer->cType = buffer[siIniReq];
@@ -328,7 +332,7 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
     siTeminador = siPosStr(buffer, FINAL_CHAR);
 
     /* Check the protocol terminator char ';' */
-    if ( (siTeminador != (siStrLen-1) )
+    if ( (siTeminador != (siStrLen-1)) )
         return bSuccess;
 
     siCRC = siPosStr(buffer, SEPARATOR_CRC);
@@ -337,14 +341,14 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
     if ( siCRC > siTeminador )
         return bSuccess;
 
-    siIni = strcspn( buffer , ALL ); /* Verify if there's any one of the initial characters */
+    siIni = strcspn( buffer , ALL_INI_CHAR ); /* Verify if there's any one of the initial characters */
 
     /* Check if there's any initial char protocol and if is before the crc char */
     if ( siIni > siCRC)
         return bSuccess;
 
     
-    " ---> At this point we validate the existence and position of all characters in for the protocol in the message "
+    /*" ---> At this point we validate the existence and position of all characters in for the protocol in the message "*/
 
 
     xPerParcedBuffer->cType = buffer[siIni];
@@ -354,10 +358,13 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
     }
 
 
-    " ---> At this point the packet is a Resquest, Reply or ACK packet"
+    /*" ---> At this point the packet is a Resquest, Reply or ACK packet"*/
 
+	#ifdef DEBUG_ON
+		fprintf(fp," Debug -  siIni = %hhu, siCRC = %hhu\n", siIni, siCRC );
+	#endif
 
-    xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(&buffer[siIni] , (siCRC - siIni) );
+    xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit( &buffer[siIni] , (siCRC - siIni) );
 
     xPerParcedBuffer->cCommand = buffer[siIni+1];
     xPerParcedBuffer->ucNofBytes = 0;
@@ -401,7 +408,7 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
         }
     else
         bSuccess = FALSE; /* Index overflow in the buffer */
-    }
+
 
     return bSuccess;
 }

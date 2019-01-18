@@ -11,8 +11,6 @@
 
 void vTimeoutCheckerTaskv2(void *task_data) {
 	INT8U ucErrorCode = 0;
-	INT8U ucRetries = 0;
-	bool bSuccessL = FALSE;
 
     #ifdef DEBUG_ON
         debug(fp,"vTimeoutCheckerTask, enter task.\n");
@@ -81,12 +79,10 @@ void vCheck( void ) {
 
 inline void vCheckRetransmission128( void ) {
     INT8U ucErrorCodeL = 0;
-    INT8U  ucReturnMutex = 0;
     unsigned char ucIL = 0;
-    INT8U ucRetries = 0;
     unsigned char ucMax = 0;
 
-    ucReturnMutex = OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    OSMutexAccept(xMutexBuffer128, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
     if ( ucErrorCodeL != OS_NO_ERR ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
         return;
@@ -117,8 +113,8 @@ inline void vCheckRetransmission128( void ) {
                     /* Now it is a Free place */
                     xInUseRetrans.b128[ucIL] = FALSE;
                     SemCount128++;
-                    error_code = OSSemPost(xSemCountBuffer128);
-                    if ( error_code != OS_ERR_NONE ) {
+                    ucErrorCodeL = OSSemPost(xSemCountBuffer128);
+                    if ( ucErrorCodeL != OS_ERR_NONE ) {
                         SemCount128--;
                         vFailSetCountSemaphorexBuffer128(); /*Could not send back the semaphore, this is critical.*/
                     }                    
@@ -133,11 +129,9 @@ inline void vCheckRetransmission128( void ) {
 
 inline void vCheckRetransmission64( void ) {
     INT8U ucErrorCodeL = 0;
-    INT8U  ucReturnMutex = 0;
     unsigned char ucIL = 0;
-    INT8U ucRetries = 0;
 
-    ucReturnMutex = OSMutexAccept(xMutexBuffer64, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    OSMutexAccept(xMutexBuffer64, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
     if ( ucErrorCodeL != OS_NO_ERR ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
         return;
@@ -165,8 +159,8 @@ inline void vCheckRetransmission64( void ) {
                     /* Now it is a Free place */
                     xInUseRetrans.b64[ucIL] = FALSE;
                     SemCount64++;
-                    error_code = OSSemPost(xSemCountBuffer64);
-                    if ( error_code != OS_ERR_NONE ) {
+                    ucErrorCodeL = OSSemPost(xSemCountBuffer64);
+                    if ( ucErrorCodeL != OS_ERR_NONE ) {
                         SemCount64--;
                         vFailSetCountSemaphorexBuffer64(); /*Could not send back the semaphore, this is critical.*/
                     }                    
@@ -182,11 +176,9 @@ inline void vCheckRetransmission64( void ) {
 
 inline void vCheckRetransmission32( void ) {
     INT8U ucErrorCodeL = 0;
-    INT8U  ucReturnMutex = 0;
     unsigned char ucIL = 0;
-    INT8U ucRetries = 0;
 
-    ucReturnMutex = OSMutexAccept(xMutexBuffer32, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
+    OSMutexAccept(xMutexBuffer32, &ucErrorCodeL); /* Just check the the mutex (non blocking) */
     if ( ucErrorCodeL != OS_NO_ERR ) {
         /* Could not get the Mutex at this time, not critical it will try again later */
         return;
@@ -214,8 +206,8 @@ inline void vCheckRetransmission32( void ) {
                     /* Now it is a Free place */
                     xInUseRetrans.b32[ucIL] = FALSE;
                     SemCount32++;
-                    error_code = OSSemPost(xSemCountBuffer32);
-                    if ( error_code != OS_ERR_NONE ) {
+                    ucErrorCodeL = OSSemPost(xSemCountBuffer32);
+                    if ( ucErrorCodeL != OS_ERR_NONE ) {
                         SemCount32--;
                         vFailSetCountSemaphorexBuffer32(); /*Could not send back the semaphore, this is critical.*/
                     }                    

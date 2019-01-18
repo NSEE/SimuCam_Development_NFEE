@@ -12,20 +12,13 @@
 /* Always, ALWAYS send only an char[128] that you first did a memset(cBuffer,0,128), before put some string on it. */
 bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;;
-	INT8U ucRetries = 0;
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
 	
 
 	bSuccessL = FALSE;
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSSemPend(xSemCountBuffer128, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_SEM_FOR_SPACE ) );
 
+	OSSemPend(xSemCountBuffer128, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* No space in the transmission buffer */
@@ -38,21 +31,14 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 
 
 	/* Need to get the Mutex that protects xBuffer128 */
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSMutexPend(xMutexBuffer128, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_MUTEX_RETRANS ) );	
-
+	OSMutexPend(xMutexBuffer128, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#ifdef DEBUG_ON
 			debug(fp,"Could not get the mutex xMutexBuffer128 that protect xBuffer128. (bSendUART128v2)\n");
 		#endif
-		error_code = OSSemPost(xSemCountBuffer128);
-		if ( error_code != OS_ERR_NONE ) {
+		ucErrorCode = OSSemPost(xSemCountBuffer128);
+		if ( ucErrorCode != OS_ERR_NONE ) {
 			vFailSetCountSemaphorexBuffer128(); /*Could not send back the semaphore, this is critical.*/
 		}
 
@@ -63,7 +49,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 	/* ---> At this point we Have the mutex of the xBuffer128, and we can use it freely */
 
 
-	bSuccess = TRUE;
+	bSuccessL = TRUE;
 	/* Search for space */
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
@@ -86,14 +72,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
 
 
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_MUTEX_TX ) );	
-
+	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
@@ -131,20 +110,13 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 /* Always, ALWAYS send only an char[64] that you first did a memset(cBuffer,0,64), before put some string on it. */
 bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;
-	INT8U ucRetries = 0;
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
 	
 
 	bSuccessL = FALSE;
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSSemPend(xSemCountBuffer64, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_SEM_FOR_SPACE ) );
 
+	OSSemPend(xSemCountBuffer64, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* No space in the transmission buffer */
@@ -158,21 +130,14 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 	
 	
 	/* Need to get the Mutex that protects xBuffer64 */
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSMutexPend(xMutexBuffer64, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_MUTEX_RETRANS ) );	
-
+	OSMutexPend(xMutexBuffer64, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#ifdef DEBUG_ON
 			debug(fp,"Could not get the mutex xMutexBuffer64 that protect xBuffer64. (bSendUART64v2)\n");
 		#endif
-		error_code = OSSemPost(xSemCountBuffer64);
-		if ( error_code != OS_ERR_NONE ) {
+		ucErrorCode = OSSemPost(xSemCountBuffer64);
+		if ( ucErrorCode != OS_ERR_NONE ) {
 			vFailSetCountSemaphorexBuffer64(); /*Could not send back the semaphore, this is critical.*/
 		}
 
@@ -182,7 +147,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> At this point we Have the mutex of the xBuffer64, and we can use it freely */
 
-	bSuccess = TRUE;
+	bSuccessL = TRUE;
 	for( ucIL = 0; ucIL < N_64; ucIL++)
 	{
 		if ( xInUseRetrans.b64[ucIL] == FALSE ) {
@@ -204,14 +169,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
 
 
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_MUTEX_TX ) );	
-
+	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
@@ -249,20 +207,13 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 /* Always, ALWAYS send only an char[32] that you first did a memset(cBuffer,0,32), before put some string on it. */
 bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;
-	INT8U ucRetries = 0;
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
 	
 
 	bSuccessL = FALSE;
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSSemPend(xSemCountBuffer32, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_SEM_FOR_SPACE ) );
-
+	
+	OSSemPend(xSemCountBuffer32, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* No space in the transmission buffer */
@@ -275,21 +226,14 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 
 
 	/* Need to get the Mutex that protects xBuffer32 */
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSMutexPend(xMutexBuffer32, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_MUTEX_RETRANS ) );	
-
+	OSMutexPend(xMutexBuffer32, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex, so we need to give the semaphore back */
 		#ifdef DEBUG_ON
 			debug(fp,"Could not get the mutex xMutexBuffer32 that protect xBuffer64. (bSendUART32v2)\n");
 		#endif
-		error_code = OSSemPost(xSemCountBuffer32);
-		if ( error_code != OS_ERR_NONE ) {
+		ucErrorCode = OSSemPost(xSemCountBuffer32);
+		if ( ucErrorCode != OS_ERR_NONE ) {
 			vFailSetCountSemaphorexBuffer32(); /*Could not send back the semaphore, this is critical.*/
 		}
 
@@ -300,7 +244,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 	/* ---> At this point we Have the mutex of the xBuffer64, and we can use it freely */
 
 
-	bSuccess = TRUE;
+	bSuccessL = TRUE;
 	for( ucIL = 0; ucIL < N_32; ucIL++)
 	{
 		if ( xInUseRetrans.b32[ucIL] == FALSE ) {
@@ -322,14 +266,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
 
 
-	ucRetries = 0;
-	do
-	{
-		ucRetries++;
-		OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
-	/* When get semaphore or retrie N Times */
-	} while ( (ucErrorCode != OS_NO_ERR) && ( ucRetries++ < N_RET_MUTEX_TX ) );	
-
+	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex of TX */
 		/* That's ok, as the message was already put in the retransmission buffer it will be sent by the checker timeout task */
@@ -357,493 +294,6 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*Critical function: In the worst case it makes the task sleep for 425 miliseconds due to retries */
-bool bSendUART128 ( char *cBuffer, short int siIdMessage ) {
-    INT8U ucErrorCodeSem;
-	INT8U ucErrorCodeMutexRetrans;
-	INT8U ucErrorCodeMutexTxUART;
-	INT8U error_code;
-	INT8U ucReturnMutexRetrans;
-    unsigned char ucCountRetriesSem = 0;
-	unsigned char ucCountRetriesMutexRetrans = 0;
-	unsigned char ucCountRetriesMutexTxUART = 0;
-	unsigned char i = 0;
-	bool bSuccess = FALSE;
-	char cLocalBuffer128[128] = "";
-
-
-	/* Copy cBuffer to avoid problems of reentrancy*/
-	memcpy(cLocalBuffer128, cBuffer, 127);
-	bSuccess = FALSE;
-	/* Do while for try to get semaphore of the (re)transmission 'big' buffer (128) */
-	ucCountRetriesSem = 0;
-	do
-	{
-		ucCountRetriesSem++;
-		/* This semaphore tells if there's space available in the "big" buffer */
-		OSSemPend(xSemCountBuffer128, TICKS_WAITING_FOR_SPACE, &ucErrorCodeSem);
-		if ( ucErrorCodeSem == OS_NO_ERR ) {
-			/* There is space on the 'big' buffer of (re)transmission, but first try to transmit the packet
-			   only after successful then put in the retransmission buffer. Otherwise there is chance to fill the (re)transmission
-			   buffer and don't send the message.*/
-			ucCountRetriesMutexTxUART = 0;
-			do
-			{
-				ucCountRetriesMutexTxUART++;
-				/*This mutex protect the txUART buffer*/
-				OSMutexPend(xTxUARTMutex, 5, &ucErrorCodeMutexTxUART); /* Wait 5 ticks = 5 ms */
-				if ( ucErrorCodeMutexTxUART == OS_NO_ERR ) {
-					/* 	Transmit the message to the NUC*/
-					/* 	Trying the best scenario that is also get the mutex of the (re)transmission buffer
-					   	if couldn't get, send the message any way as fast as possible to post the tx UART mutex
-					   	and as soon as possible try to get the mutex of (re)transmission buffer.*/
-					puts(cLocalBuffer128);
-					/*OSMutexAccept => non blocking*/
-					ucReturnMutexRetrans = OSMutexAccept(xMutexBuffer128, &ucErrorCodeMutexRetrans); /* Just check the the mutex (non blocking) */
-					if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) { 
-						/*	Best scenario, could get the mutex at the first try*/
-						for(i = 0; i < N_128; i++)
-						{
-							if ( xBuffer128[i].usiId == 0 ) {
-								/* Found a free place */
-								bSuccess = TRUE;
-								memset(xBuffer128[i].buffer, 0, 128);
-								memcpy(xBuffer128[i].buffer, cLocalBuffer128, 127);
-								xBuffer128[i].usiId = siIdMessage;
-								xBuffer128[i].ucNofRetries = N_RETRIES_COMM;
-								xBuffer128[i].usiTimeOut = TIMEOUT_COUNT;
-								break;
-							}
-						}
-
-						OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
-					}
-					OSMutexPost(xTxUARTMutex);
-
-					/*  The message was send for sure, but there no garantee that the message was copied to the (re)transmission buffer
-						need check if bsuccess is true. */
-					if ( bSuccess != TRUE ) {
-						/* If not ok, try to get the mutex for 3 times */
-						ucCountRetriesMutexRetrans = 0;
-						do
-						{
-							ucCountRetriesMutexRetrans++;
-							/*OSMutexPend => Blocking*/
-							OSMutexPend(xMutexBuffer128, 5, &ucErrorCodeMutexRetrans); /*5 ticks = 5 miliseconds */
-							if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) {
-								/* Got access to (re)transmission buffer */
-								for(i = 0; i < N_128; i++)
-								{
-									if ( xBuffer128[i].usiId == 0 ) {
-										/* Found a free place */
-										bSuccess = TRUE;
-										memset(xBuffer128[i].buffer, 0, 128);
-										memcpy(xBuffer128[i].buffer, cLocalBuffer128, 127);										
-										xBuffer128[i].usiId = siIdMessage;
-										xBuffer128[i].ucNofRetries = N_RETRIES_COMM;
-										xBuffer128[i].usiTimeOut = TIMEOUT_COUNT;
-										break;
-									}
-								}
-								OSMutexPost(xMutexBuffer128); /* Free the Mutex after use the xBuffer128*/
-							}
-						} while ((ucErrorCodeMutexRetrans!= OS_NO_ERR) && ( ucCountRetriesMutexRetrans < 4)); /* Try for 3 times*/
-					}
-				}
-			} while ( (ucErrorCodeMutexTxUART!= OS_NO_ERR) && ( ucCountRetriesMutexTxUART < 4) ); /* Try for 3 times*/
-
-			/* If was not possible to send the message or to copy the message to the (re)transmisison buffer*/
-			if (bSuccess!=TRUE) {
-				/*	Got the semaphore but could not send te message or write in the (re)transmisison buffer,
-					so give the semaphore back in order to indicate that the position of the (re)transmission buffer
-					was not consumed. Another task could try to use it.*/
-				error_code = OSSemPost(xSemCountBuffer128);
-				if ( error_code != OS_ERR_NONE ) {
-					vFailSetCountSemaphorexBuffer128(); /*Could not send back the semaphore, this is critical.*/
-				}
-			}
-		}
-	} while ( (ucErrorCodeSem != OS_NO_ERR) && ( ucCountRetriesSem < 6)) ; /* Try for 5 times*/
-
-	return bSuccess;
-}
-
-
-
-/*Critical function: In the worst case it makes the task sleep for 425 miliseconds due to retries */
-bool bSendUART64 ( char *cBuffer, short int siIdMessage ) {
-    INT8U ucErrorCodeSem;
-	INT8U ucErrorCodeMutexRetrans;
-	INT8U ucErrorCodeMutexTxUART;
-	INT8U error_code;
-	INT8U ucReturnMutexRetrans;
-    unsigned char ucCountRetriesSem = 0;
-	unsigned char ucCountRetriesMutexRetrans = 0;
-	unsigned char ucCountRetriesMutexTxUART = 0;
-	unsigned char i = 0;
-	bool bSuccess = FALSE;
-	char cLocalBuffer64[64];
-
-
-	/* Copy cBuffer to avoid problems of reentrancy*/
-	memcpy(cLocalBuffer64, cBuffer, strlen(cBuffer));
-	bSuccess = FALSE;
-	/* Do while for try to get semaphore of the (re)transmission 'big' buffer (128) */
-	ucCountRetriesSem = 0;
-	do
-	{
-		ucCountRetriesSem++;
-		/* This semaphore tells if there's space available in the "big" buffer */
-		OSSemPend(xSemCountBuffer64, TICKS_WAITING_FOR_SPACE, &ucErrorCodeSem);
-		if ( ucErrorCodeSem == OS_NO_ERR ) {
-			/* There is space on the 'big' buffer of (re)transmission, but first try to transmit the packet
-			   only after successful then put in the retransmission buffer. Otherwise there is chance to fill the (re)transmission
-			   buffer and don't send the message.*/
-			ucCountRetriesMutexTxUART = 0;
-			do
-			{
-				ucCountRetriesMutexTxUART++;
-				/*This mutex protect the txUART buffer*/
-				OSMutexPend(xTxUARTMutex, 5, &ucErrorCodeMutexTxUART); /* Wait 5 ticks = 5 ms */
-				if ( ucErrorCodeMutexTxUART == OS_NO_ERR ) {
-					/* 	Transmit the message to the NUC*/
-					/* 	Trying the best scenario that is also get the mutex of the (re)transmission buffer
-					   	if couldn't get, send the message any way as fast as possible to post the tx UART mutex
-					   	and as soon as possible try to get the mutex of (re)transmission buffer.*/
-					puts(cLocalBuffer64);
-					/*OSMutexAccept => non blocking*/
-					ucReturnMutexRetrans = OSMutexAccept(xMutexBuffer64, &ucErrorCodeMutexRetrans); /* Just check the the mutex (non blocking) */
-					if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) { 
-						/*	Best scenario, could get the mutex at the first try*/
-						for(i = 0; i < N_64; i++)
-						{
-							if ( xBuffer64[i].usiId == 0 ) {
-								/* Found a free place */
-								bSuccess = TRUE;
-								memcpy(xBuffer64[i].buffer, cLocalBuffer64, 64);
-								xBuffer64[i].usiId = siIdMessage;
-								xBuffer64[i].ucNofRetries = N_RETRIES_COMM;
-								xBuffer64[i].usiTimeOut = TIMEOUT_COUNT;
-								break;
-							}
-						}
-
-						OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer128*/
-					}
-					OSMutexPost(xTxUARTMutex);
-
-					/*  The message was send for sure, but there no garantee that the message was copied to the (re)transmission buffer
-						need check if bsuccess is true. */
-					if ( bSuccess != TRUE ) {
-						/* If not ok, try to get the mutex for 3 times */
-						ucCountRetriesMutexRetrans = 0;
-						do
-						{
-							ucCountRetriesMutexRetrans++;
-							/*OSMutexPend => Blocking*/
-							OSMutexPend(xMutexBuffer64, 5, &ucErrorCodeMutexRetrans); /*5 ticks = 5 miliseconds */
-							if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) {
-								/* Got access to (re)transmission buffer */
-								for(i = 0; i < N_64; i++)
-								{
-									if ( xBuffer64[i].usiId == 0 ) {
-										/* Found a free place */
-										bSuccess = TRUE;
-										memcpy(xBuffer64[i].buffer, cLocalBuffer64, 64);
-										xBuffer64[i].usiId = siIdMessage;
-										xBuffer64[i].ucNofRetries = N_RETRIES_COMM;
-										xBuffer64[i].usiTimeOut = TIMEOUT_COUNT;
-										break;
-									}
-								}
-								OSMutexPost(xMutexBuffer64); /* Free the Mutex after use the xBuffer64*/
-							}
-						} while ((ucErrorCodeMutexRetrans!= OS_NO_ERR) && ( ucCountRetriesMutexRetrans < 4)); /* Try for 3 times*/
-					}
-				}
-			} while ( (ucErrorCodeMutexTxUART!= OS_NO_ERR) && ( ucCountRetriesMutexTxUART < 4) ); /* Try for 3 times*/
-
-			/* If was not possible to send the message or to copy the message to the (re)transmisison buffer*/
-			if (bSuccess!=TRUE) {
-				/*	Got the semaphore but could not send te message or write in the (re)transmisison buffer,
-					so give the semaphore back in order to indicate that the position of the (re)transmission buffer
-					was not consumed. Another task could try to use it.*/
-				error_code = OSSemPost(xSemCountBuffer64);
-				if ( error_code != OS_ERR_NONE ) {
-					vFailSetCountSemaphorexBuffer64(); /*Could not send back the semaphore, this is critical.*/
-				}
-			}
-		}
-	} while ( (ucErrorCodeSem != OS_NO_ERR) && ( ucCountRetriesSem < 6)) ; /* Try for 5 times*/
-
-	return bSuccess;
-}
-
-/*Critical function: In the worst case it makes the task sleep for 425 miliseconds due to retries */
-bool bSendUART32 ( char *cBuffer, short int siIdMessage ) {
-    INT8U ucErrorCodeSem;
-	INT8U ucErrorCodeMutexRetrans;
-	INT8U ucErrorCodeMutexTxUART;
-	INT8U error_code;
-	INT8U ucReturnMutexRetrans;
-    unsigned char ucCountRetriesSem = 0;
-	unsigned char ucCountRetriesMutexRetrans = 0;
-	unsigned char ucCountRetriesMutexTxUART = 0;
-	unsigned char i = 0;
-	bool bSuccess = FALSE;
-	char cLocalBuffer32[32];
-
-
-	/* Copy cBuffer to avoid problems of reentrancy*/
-	memcpy(cLocalBuffer32, cBuffer, strlen(cBuffer));
-	bSuccess = FALSE;
-	/* Do while for try to get semaphore of the (re)transmission 'big' buffer (128) */
-	ucCountRetriesSem = 0;
-	do
-	{
-		ucCountRetriesSem++;
-		/* This semaphore tells if there's space available in the "big" buffer */
-		OSSemPend(xSemCountBuffer32, TICKS_WAITING_FOR_SPACE, &ucErrorCodeSem);
-		if ( ucErrorCodeSem == OS_NO_ERR ) {
-			/* There is space on the 'big' buffer of (re)transmission, but first try to transmit the packet
-			   only after successful then put in the retransmission buffer. Otherwise there is chance to fill the (re)transmission
-			   buffer and don't send the message.*/
-			ucCountRetriesMutexTxUART = 0;
-			do
-			{
-				ucCountRetriesMutexTxUART++;
-				/*This mutex protect the txUART buffer*/
-				OSMutexPend(xTxUARTMutex, 5, &ucErrorCodeMutexTxUART); /* Wait 5 ticks = 5 ms */
-				if ( ucErrorCodeMutexTxUART == OS_NO_ERR ) {
-					/* 	Transmit the message to the NUC*/
-					/* 	Trying the best scenario that is also get the mutex of the (re)transmission buffer
-					   	if couldn't get, send the message any way as fast as possible to post the tx UART mutex
-					   	and as soon as possible try to get the mutex of (re)transmission buffer.*/
-					puts(cLocalBuffer32);
-					/*OSMutexAccept => non blocking*/
-					ucReturnMutexRetrans = OSMutexAccept(xMutexBuffer32, &ucErrorCodeMutexRetrans); /* Just check the the mutex (non blocking) */
-					if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) { 
-						/*	Best scenario, could get the mutex at the first try*/
-						for(i = 0; i < N_32; i++)
-						{
-							if ( xBuffer32[i].usiId == 0 ) {
-								/* Found a free place */
-								bSuccess = TRUE;
-								memcpy(xBuffer32[i].buffer, cLocalBuffer32, 32);
-								xBuffer32[i].usiId = siIdMessage;
-								xBuffer32[i].ucNofRetries = N_RETRIES_COMM;
-								xBuffer32[i].usiTimeOut = TIMEOUT_COUNT;
-								break;
-							}
-						}
-
-						OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
-					}
-					OSMutexPost(xTxUARTMutex);
-
-					/*  The message was send for sure, but there no garantee that the message was copied to the (re)transmission buffer
-						need check if bsuccess is true. */
-					if ( bSuccess != TRUE ) {
-						/* If not ok, try to get the mutex for 3 times */
-						ucCountRetriesMutexRetrans = 0;
-						do
-						{
-							ucCountRetriesMutexRetrans++;
-							/*OSMutexPend => Blocking*/
-							OSMutexPend(xMutexBuffer32, 5, &ucErrorCodeMutexRetrans); /*5 ticks = 5 miliseconds */
-							if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) {
-								/* Got access to (re)transmission buffer */
-								for(i = 0; i < N_32; i++)
-								{
-									if ( xBuffer32[i].usiId == 0 ) {
-										/* Found a free place */
-										bSuccess = TRUE;
-										memcpy(xBuffer32[i].buffer, cLocalBuffer32, 32);
-										xBuffer32[i].usiId = siIdMessage;
-										xBuffer32[i].ucNofRetries = N_RETRIES_COMM;
-										xBuffer32[i].usiTimeOut = TIMEOUT_COUNT;
-										break;
-									}
-								}
-								OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
-							}
-						} while ((ucErrorCodeMutexRetrans!= OS_NO_ERR) && ( ucCountRetriesMutexRetrans < 4)); /* Try for 3 times*/
-					}
-				}
-			} while ( (ucErrorCodeMutexTxUART!= OS_NO_ERR) && ( ucCountRetriesMutexTxUART < 4) ); /* Try for 3 times*/
-
-			/* If was not possible to send the message or to copy the message to the (re)transmisison buffer*/
-			if (bSuccess!=TRUE) {
-				/*	Got the semaphore but could not send te message or write in the (re)transmisison buffer,
-					so give the semaphore back in order to indicate that the position of the (re)transmission buffer
-					was not consumed. Another task could try to use it.*/
-				error_code = OSSemPost(xSemCountBuffer32);
-				if ( error_code != OS_ERR_NONE ) {
-					vFailSetCountSemaphorexBuffer64(); /*Could not send back the semaphore, this is critical.*/
-				}
-			}
-		}
-	} while ( (ucErrorCodeSem != OS_NO_ERR) && ( ucCountRetriesSem < 6)) ; /* Try for 5 times*/
-
-	return bSuccess;
-}
-
-/*Critical function: In the worst case it makes the task sleep for 425 miliseconds due to retries */
-bool bSendStatusFirstTime ( char *cBuffer, short int siIdMessage ) {
-    INT8U ucErrorCodeSem;
-	INT8U ucErrorCodeMutexRetrans;
-	INT8U ucErrorCodeMutexTxUART;
-	INT8U error_code;
-	INT8U ucReturnMutexRetrans;
-    unsigned char ucCountRetriesSem = 0;
-	unsigned char ucCountRetriesMutexRetrans = 0;
-	unsigned char ucCountRetriesMutexTxUART = 0;
-	unsigned char i = 0;
-	bool bSuccess = FALSE;
-	char cLocalBuffer32[32];
-
-
-	/* Copy cBuffer to avoid problems of reentrancy*/
-	memcpy(cLocalBuffer32, cBuffer, strlen(cBuffer));
-	bSuccess = FALSE;
-	/* Do while for try to get semaphore of the (re)transmission 'big' buffer (128) */
-	ucCountRetriesSem = 0;
-	do
-	{
-		ucCountRetriesSem++;
-		/* This semaphore tells if there's space available in the "big" buffer */
-		OSSemPend(xSemCountBuffer32, TICKS_WAITING_FOR_SPACE, &ucErrorCodeSem);
-		if ( ucErrorCodeSem == OS_NO_ERR ) {
-			/* There is space on the 'big' buffer of (re)transmission, but first try to transmit the packet
-			   only after successful then put in the retransmission buffer. Otherwise there is chance to fill the (re)transmission
-			   buffer and don't send the message.*/
-			ucCountRetriesMutexTxUART = 0;
-			do
-			{
-				ucCountRetriesMutexTxUART++;
-				/*This mutex protect the txUART buffer*/
-				OSMutexPend(xTxUARTMutex, 5, &ucErrorCodeMutexTxUART); /* Wait 5 ticks = 5 ms */
-				if ( ucErrorCodeMutexTxUART == OS_NO_ERR ) {
-					/* 	Transmit the message to the NUC*/
-					/* 	Trying the best scenario that is also get the mutex of the (re)transmission buffer
-					   	if couldn't get, send the message any way as fast as possible to post the tx UART mutex
-					   	and as soon as possible try to get the mutex of (re)transmission buffer.*/
-					puts(cLocalBuffer32);
-					/*OSMutexAccept => non blocking*/
-					ucReturnMutexRetrans = OSMutexAccept(xMutexBuffer32, &ucErrorCodeMutexRetrans); /* Just check the the mutex (non blocking) */
-					if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) { 
-						/*	Best scenario, could get the mutex at the first try*/
-						for(i = 0; i < N_32; i++)
-						{
-							if ( xBuffer32[i].usiId == 0 ) {
-								/* Found a free place */
-								bSuccess = TRUE;
-								memcpy(xBuffer32[i].buffer, cLocalBuffer32, 32);
-								xBuffer32[i].usiId = siIdMessage;
-								xBuffer32[i].ucNofRetries = N_RETRIES_INI_INF;
-								xBuffer32[i].usiTimeOut = TIMEOUT_COUNT;
-								break;
-							}
-						}
-
-						OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
-					}
-					OSMutexPost(xTxUARTMutex);
-
-					/*  The message was send for sure, but there no garantee that the message was copied to the (re)transmission buffer
-						need check if bsuccess is true. */
-					if ( bSuccess != TRUE ) {
-						/* If not ok, try to get the mutex for 3 times */
-						ucCountRetriesMutexRetrans = 0;
-						do
-						{
-							ucCountRetriesMutexRetrans++;
-							/*OSMutexPend => Blocking*/
-							OSMutexPend(xMutexBuffer32, 5, &ucErrorCodeMutexRetrans); /*5 ticks = 5 miliseconds */
-							if ( ucErrorCodeMutexRetrans == OS_NO_ERR ) {
-								/* Got access to (re)transmission buffer */
-								for(i = 0; i < N_32; i++)
-								{
-									if ( xBuffer32[i].usiId == 0 ) {
-										/* Found a free place */
-										bSuccess = TRUE;
-										memcpy(xBuffer32[i].buffer, cLocalBuffer32, 32);
-										xBuffer32[i].usiId = siIdMessage;
-										xBuffer32[i].ucNofRetries = N_RETRIES_INI_INF;
-										xBuffer32[i].usiTimeOut = TIMEOUT_COUNT;
-										break;
-									}
-								}
-								OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer32*/
-							}
-						} while ((ucErrorCodeMutexRetrans!= OS_NO_ERR) && ( ucCountRetriesMutexRetrans < 4)); /* Try for 3 times*/
-					}
-				}
-			} while ( (ucErrorCodeMutexTxUART!= OS_NO_ERR) && ( ucCountRetriesMutexTxUART < 4) ); /* Try for 3 times*/
-
-			/* If was not possible to send the message or to copy the message to the (re)transmisison buffer*/
-			if (bSuccess!=TRUE) {
-				/*	Got the semaphore but could not send te message or write in the (re)transmisison buffer,
-					so give the semaphore back in order to indicate that the position of the (re)transmission buffer
-					was not consumed. Another task could try to use it.*/
-				error_code = OSSemPost(xSemCountBuffer32);
-				if ( error_code != OS_ERR_NONE ) {
-					vFailSetCountSemaphorexBuffer64(); /*Could not send back the semaphore, this is critical.*/
-				}
-			}
-		}
-	} while ( (ucErrorCodeSem != OS_NO_ERR) && ( ucCountRetriesSem < 6)) ; /* Try for 5 times*/
-
-	return bSuccess;
-}
-
-
-
 void vSendEthConf ( void ) {
     char cBufferETH[128] = "";
     unsigned char crc = 0;
@@ -861,7 +311,7 @@ void vSendEthConf ( void ) {
     crc = ucCrc8wInit( cBufferETH , strlen(cBufferETH));
     sprintf(cBufferETH, "%s|%hhu;", cBufferETH, crc );
 
-	bSuccees = bSendUART128(cBufferETH, usiIdCMDLocal);
+	bSuccees = bSendUART128v2(cBufferETH, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -870,6 +320,7 @@ void vSendEthConf ( void ) {
 			vCouldNotSendEthConfUART();
 	}
 }
+
 
 void vSendTurnOff ( void ) {
     char cBufferTurnOff[32] = "";
@@ -884,7 +335,7 @@ void vSendTurnOff ( void ) {
     crc = ucCrc8wInit( cBufferTurnOff , strlen(cBufferTurnOff));
     sprintf(cBufferTurnOff, "%s|%hhu;", cBufferTurnOff, crc );
 
-	bSuccees = bSendUART32(cBufferTurnOff, usiIdCMDLocal);
+	bSuccees = bSendUART32v2(cBufferTurnOff, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -907,7 +358,7 @@ void vSendLog ( const char * cDataIn ) {
     crc = ucCrc8wInit( cBufferLog , strlen(cBufferLog));
     sprintf(cBufferLog, "%s|%hhu;", cBufferLog, crc );
 
-	bSuccees = bSendUART128(cBufferLog, usiIdCMDLocal);
+	bSuccees = bSendUART128v2(cBufferLog, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -943,6 +394,7 @@ void vTimeoutCheck (void *p_arg)
 	}
 }
 
+
 /* Send through a medium buffer */
 void vSendPusTM64 ( tTMPus xPcktPus ) {
     char cBufferPus[64] = "";
@@ -964,7 +416,7 @@ void vSendPusTM64 ( tTMPus xPcktPus ) {
     crc = ucCrc8wInit( cBufferPus , strlen(cBufferPus));
     sprintf(cBufferPus, "%s|%hhu;", cBufferPus, crc );
 
-	bSuccees = bSendUART64(cBufferPus, usiIdCMDLocal);
+	bSuccees = bSendUART64v2(cBufferPus, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -995,7 +447,7 @@ void vSendPusTM128 ( tTMPus xPcktPus ) {
     crc = ucCrc8wInit( cBufferPus , strlen(cBufferPus));
     sprintf(cBufferPus, "%s|%hhu;", cBufferPus, crc );
 
-	bSuccees = bSendUART128(cBufferPus, usiIdCMDLocal);
+	bSuccees = bSendUART128v2(cBufferPus, usiIdCMDLocal);
 
 	if ( bSuccees != TRUE ) {
 		/*	Message wasn't send or could not insert in the (re)transmission buffer
@@ -1010,7 +462,7 @@ void vSendPusTM128 ( tTMPus xPcktPus ) {
 /* TM_SCAM_TEST_CONNECTION */
 /* 
 hp-pck-type		hp-pid		hp-pcat		hp-srv-type		hp-srv-subtype
-0				64			0			17				2
+0				112			0			17				2
 */
 void vTMPusTestConnection( unsigned short int usiPusId ) {
 	tTMPus xTmPusL;

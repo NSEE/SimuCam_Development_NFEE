@@ -55,11 +55,6 @@ extern "C"
                                        /* ------------------------ SEMAPHORES ------------------------ */
 #define OS_SEM_PEND_ABORT_EN      1    /*    Include code for OSSemPendAbort()                         */
 
-/*todo: Remover depois*/
-#define OS_ARG_CHK_EN             1
-
-#define OS_TASK_STAT_STK_CHK_EN 1
-
                                                                                                                      
 #include "system.h"
 

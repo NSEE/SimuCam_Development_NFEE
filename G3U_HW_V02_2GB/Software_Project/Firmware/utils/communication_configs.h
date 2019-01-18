@@ -132,9 +132,9 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 #define N_RET_MUTEX_TX                  2
 #define N_RET_MUTEX_RETRANS             4
 #define N_RET_SEM_FOR_SPACE             2
-#define TICKS_WAITING_MUTEX_TX          1     /* Ticks */
-#define TICKS_WAITING_MUTEX_RETRANS     2     /* Ticks */
-#define TICKS_WAITING_FOR_SPACE         20    /* Ticks */
+#define TICKS_WAITING_MUTEX_TX          2     /* Ticks */
+#define TICKS_WAITING_MUTEX_RETRANS     4     /* Ticks */
+#define TICKS_WAITING_FOR_SPACE         40    /* Ticks */
 
 #define MAX_RETRIES_ACK_IN              100
 
