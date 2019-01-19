@@ -328,7 +328,7 @@ begin
 
 			end case;
 			-- output
-			case (v_rmap_target_read_state) is
+
 
 				--			when RESET =>
 				--			flags_o.read_busy             <= '0';

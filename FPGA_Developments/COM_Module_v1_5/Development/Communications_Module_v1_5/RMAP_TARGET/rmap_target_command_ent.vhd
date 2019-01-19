@@ -106,8 +106,8 @@ architecture rtl of rmap_target_command_ent is
 
 	signal s_rmap_target_command_next_state : t_rmap_target_command_state;
 
-	signal s_command_header_crc    : std_logic_vector(7 downto 0);
-	signal s_command_header_crc_ok : std_logic;
+	signal s_command_header_crc : std_logic_vector(7 downto 0);
+	--	signal s_command_header_crc_ok : std_logic;
 
 	signal s_write_command        : std_logic;
 	signal s_unused_packet_type   : std_logic;
@@ -140,17 +140,50 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_command_state
 	p_rmap_target_command_FSM_state : process(clk_i, reset_n_i)
+		variable v_rmap_target_command_state : t_rmap_target_command_state := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
-			s_rmap_target_command_state      <= IDLE;
-			s_rmap_target_command_next_state <= IDLE;
-			s_byte_counter                   <= 0;
-			s_write_command                  <= '0';
-			s_unused_packet_type             <= '0';
-			s_invalid_command_code           <= '0';
-			s_command_header_crc             <= x"00";
-			s_command_header_crc_ok          <= '0';
+			s_rmap_target_command_state                                <= IDLE;
+			s_rmap_target_command_next_state                           <= IDLE;
+			s_byte_counter                                             <= 0;
+			s_write_command                                            <= '0';
+			s_unused_packet_type                                       <= '0';
+			s_invalid_command_code                                     <= '0';
+			s_command_header_crc                                       <= x"00";
+			--			s_command_header_crc_ok                                    <= '0';
+			-- Outputs Generation
+			flags_o.command_received                                   <= '0';
+			flags_o.write_request                                      <= '0';
+			flags_o.read_request                                       <= '0';
+			flags_o.discarded_package                                  <= '0';
+			flags_o.command_busy                                       <= '0';
+			error_o.early_eop                                          <= '0';
+			error_o.eep                                                <= '0';
+			error_o.header_crc                                         <= '0';
+			error_o.unused_packet_type                                 <= '0';
+			error_o.invalid_command_code                               <= '0';
+			error_o.too_much_data                                      <= '0';
+			headerdata_o.target_logical_address                        <= x"00";
+			headerdata_o.instructions.packet_type                      <= "00";
+			headerdata_o.instructions.command.write_read               <= '0';
+			headerdata_o.instructions.command.verify_data_before_write <= '0';
+			headerdata_o.instructions.command.reply                    <= '0';
+			headerdata_o.instructions.command.increment_address        <= '0';
+			headerdata_o.instructions.reply_address_length             <= "00";
+			headerdata_o.key                                           <= x"00";
+			headerdata_o.reply_address                                 <= (others => x"00");
+			headerdata_o.initiator_logical_address                     <= x"00";
+			headerdata_o.transaction_identifier                        <= (others => x"00");
+			headerdata_o.extended_address                              <= x"00";
+			headerdata_o.address                                       <= (others => x"00");
+			headerdata_o.data_length                                   <= (others => x"00");
+			spw_control_o.read                                         <= '0';
+			s_discarted_package                                        <= '0';
+			s_not_rmap_package                                         <= '0';
+
+			v_rmap_target_command_state := IDLE;
+
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_command_state) is
@@ -160,6 +193,7 @@ begin
 					-- does nothing until user application signals it is ready to receive a command
 					-- default state transition
 					s_rmap_target_command_state      <= IDLE;
+					v_rmap_target_command_state      := IDLE;
 					s_rmap_target_command_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
@@ -167,13 +201,14 @@ begin
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if user application is ready to receive a command
 					if (control_i.user_ready = '1') then
 						-- user application is ready to receive a command
 						-- go to waiting buffer data
 						s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+						v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 						-- prepare for next field (target logical address)
 						s_rmap_target_command_next_state <= FIELD_TARGET_LOGICAL_ADDRESS;
 					end if;
@@ -183,6 +218,7 @@ begin
 					-- wait until the spacewire rx buffer has data
 					-- default state transition
 					s_rmap_target_command_state <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state := WAITING_BUFFER_DATA;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if rx buffer have valid data
@@ -193,10 +229,12 @@ begin
 							-- rx data is an unexpected package end
 							-- go to unexpected end of package					
 							s_rmap_target_command_state <= UNEXPECTED_PACKAGE_END;
+							v_rmap_target_command_state := UNEXPECTED_PACKAGE_END;
 						else
 							-- rx data is not an end of package
 							-- go to next field
 							s_rmap_target_command_state <= s_rmap_target_command_next_state;
+							v_rmap_target_command_state := s_rmap_target_command_next_state;
 						end if;
 					end if;
 
@@ -205,6 +243,7 @@ begin
 					-- target logical address field, receive command target logical address from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_PROTOCOL_IDENTIFIER;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
@@ -212,7 +251,7 @@ begin
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+				--					s_command_header_crc_ok          <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "FIELD_PROTOCOL_IDENTIFIER"
@@ -220,6 +259,7 @@ begin
 					-- protocol identifier field, receive command protocol identifier from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_INSTRUCTION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
@@ -227,13 +267,14 @@ begin
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values]
 					-- check if the arriving package is not a rmap package
 					if not (spw_flag_i.data = c_RMAP_PROTOCOL) then
 						-- not rmap package
 						-- go to not rmap package
 						s_rmap_target_command_state      <= NOT_RMAP_PACKAGE;
+						v_rmap_target_command_state      := NOT_RMAP_PACKAGE;
 						s_rmap_target_command_next_state <= IDLE;
 					end if;
 
@@ -242,13 +283,14 @@ begin
 					-- instruction field, receive command instruction from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_KEY;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if the command is for a write or a read operation
 					-- check if an unused packet type error occurred
@@ -290,9 +332,10 @@ begin
 					-- key field, receive command key from the initiator
 					-- default state transition
 					s_rmap_target_command_state <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state := WAITING_BUFFER_DATA;
 					-- default internal signal values
 					s_command_header_crc        <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok     <= '0';
+					--					s_command_header_crc_ok     <= '0';
 					-- conditional state transition and internal signal values
 					-- check if reply address is used
 					if (s_byte_counter = 0) then
@@ -308,11 +351,12 @@ begin
 					-- reply address field, receive command reply address from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_REPLY_ADDRESS;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if multi-byte field has ended
 					if (s_byte_counter = 0) then
@@ -330,11 +374,12 @@ begin
 					-- initiator logical address field, receive command initiator logical address from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_TRANSACTION_IDENTIFIER;
 					-- default internal signal values
 					s_byte_counter                   <= 1;
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+				--					s_command_header_crc_ok          <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "FIELD_TRANSACTION_IDENTIFIER"
@@ -342,11 +387,12 @@ begin
 					-- transaction identifier field, receive command transaction identifier from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_TRANSACTION_IDENTIFIER;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if multi-byte field has ended
 					if (s_byte_counter = 0) then
@@ -364,11 +410,12 @@ begin
 					-- extended address field, receive command extended address from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_ADDRESS;
 					-- default internal signal values
 					s_byte_counter                   <= 3;
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+				--					s_command_header_crc_ok          <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "FIELD_ADDRESS"
@@ -376,11 +423,12 @@ begin
 					-- address field, receive command address from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_ADDRESS;
 					-- default internal signal values
 					s_byte_counter                   <= 2;
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if multi-byte field has ended
 					if (s_byte_counter = 0) then
@@ -398,11 +446,12 @@ begin
 					-- data length field, receive command data length from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= FIELD_DATA_LENGTH;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_command_header_crc             <= RMAP_CalculateCRC(s_command_header_crc, spw_flag_i.data);
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if multi-byte field has ended
 					if (s_byte_counter = 0) then
@@ -420,28 +469,32 @@ begin
 					-- data crc field, receive command header crc from the initiator
 					-- default state transition
 					s_rmap_target_command_state      <= ERROR_CHECK;
+					v_rmap_target_command_state      := ERROR_CHECK;
 					s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					if (s_command_header_crc = spw_flag_i.data) then
 						-- calculated crc matches received crc
-						s_command_header_crc_ok <= '1';
+						--						s_command_header_crc_ok <= '1';
 						-- check if the command is for an read or write
 						if (s_write_command = '1') then
 							-- write command, next expected field is a data field; go to header error checking
 							s_rmap_target_command_state      <= ERROR_CHECK;
+							v_rmap_target_command_state      := ERROR_CHECK;
 							s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 						else
 							-- read command, next expected field is an eop
 							s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+							v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 							s_rmap_target_command_next_state <= FIELD_EOP;
 						end if;
 					else
 						-- crc does not match, go to discard package
 						s_rmap_target_command_state      <= DISCARD_PACKAGE;
+						v_rmap_target_command_state      := DISCARD_PACKAGE;
 						s_rmap_target_command_next_state <= WAITING_PACKAGE_END;
 					end if;
 
@@ -450,6 +503,7 @@ begin
 					-- eop field, receive eop indicating the end of package
 					-- default state transition
 					s_rmap_target_command_state      <= ERROR_CHECK;
+					v_rmap_target_command_state      := ERROR_CHECK;
 					s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
@@ -460,6 +514,7 @@ begin
 						-- data arrived, not an end of package
 						-- too much data error, go to discard package 
 						s_rmap_target_command_state      <= DISCARD_PACKAGE;
+						v_rmap_target_command_state      := DISCARD_PACKAGE;
 						s_rmap_target_command_next_state <= WAITING_PACKAGE_END;
 					end if;
 
@@ -467,17 +522,19 @@ begin
 				when ERROR_CHECK =>
 					-- verify if the received command has an error
 					s_rmap_target_command_state      <= COMMAND_FINISH_OPERATION;
+					v_rmap_target_command_state      := COMMAND_FINISH_OPERATION;
 					s_rmap_target_command_next_state <= IDLE;
 					-- default state transition
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if an unused packet type error or if an invalid command code error occurred
 					if ((s_unused_packet_type = '1') or (s_invalid_command_code = '1')) then
 						-- error ocurred, go to discard package
 						s_rmap_target_command_state      <= DISCARD_PACKAGE;
+						v_rmap_target_command_state      := DISCARD_PACKAGE;
 						s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					end if;
 
@@ -486,13 +543,14 @@ begin
 					-- unexpected package end arrived
 					-- default state transition
 					s_rmap_target_command_state      <= DISCARD_PACKAGE;
+					v_rmap_target_command_state      := DISCARD_PACKAGE;
 					s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+				--					s_command_header_crc_ok          <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "WAITING_PACKAGE_END"
@@ -500,19 +558,21 @@ begin
 					-- wait until a package end arrives
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_BUFFER_DATA;
+					v_rmap_target_command_state      := WAITING_BUFFER_DATA;
 					s_rmap_target_command_next_state <= WAITING_PACKAGE_END;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if an end of package arrived
 					if (spw_flag_i.flag = '1') then
 						-- package ended
 						-- go to write finish operation
 						s_rmap_target_command_state      <= COMMAND_FINISH_OPERATION;
+						v_rmap_target_command_state      := COMMAND_FINISH_OPERATION;
 						s_rmap_target_command_next_state <= IDLE;
 					end if;
 
@@ -521,13 +581,14 @@ begin
 					-- incoming spw data is not a rmap package
 					-- default state transition
 					s_rmap_target_command_state      <= WAITING_PACKAGE_END;
+					v_rmap_target_command_state      := WAITING_PACKAGE_END;
 					s_rmap_target_command_next_state <= COMMAND_FINISH_OPERATION;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+				--					s_command_header_crc_ok          <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "DISCARD_PACKAGE"
@@ -535,12 +596,13 @@ begin
 					-- discard current spw package data
 					-- default state transition
 					s_rmap_target_command_state <= s_rmap_target_command_next_state;
+					v_rmap_target_command_state := s_rmap_target_command_next_state;
 					-- default internal signal values
 					s_byte_counter              <= 0;
 					s_unused_packet_type        <= '0';
 					s_invalid_command_code      <= '0';
 					s_command_header_crc        <= x"00";
-					s_command_header_crc_ok     <= '0';
+				--					s_command_header_crc_ok     <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "COMMAND_FINISH_OPERATION"
@@ -548,17 +610,19 @@ begin
 					-- finish command operation
 					-- default state transition
 					s_rmap_target_command_state      <= COMMAND_FINISH_OPERATION;
+					v_rmap_target_command_state      := COMMAND_FINISH_OPERATION;
 					s_rmap_target_command_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                   <= 0;
 					s_unused_packet_type             <= '0';
 					s_invalid_command_code           <= '0';
 					s_command_header_crc             <= x"00";
-					s_command_header_crc_ok          <= '0';
+					--					s_command_header_crc_ok          <= '0';
 					-- conditional state transition and internal signal values
 					if (control_i.command_reset = '1') then
 						-- command reset commanded, go back to idle
 						s_rmap_target_command_state      <= IDLE;
+						v_rmap_target_command_state      := IDLE;
 						s_rmap_target_command_next_state <= IDLE;
 					end if;
 
@@ -566,54 +630,18 @@ begin
 				when others =>
 					-- jump to save state (ERROR?!)
 					s_rmap_target_command_state      <= IDLE;
+					v_rmap_target_command_state      := IDLE;
 					s_rmap_target_command_next_state <= IDLE;
 
 			end case;
-		end if;
-	end process p_rmap_target_command_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Command Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_command_state, reset_n_i
-	-- write:
-	-- r/w:
-	p_rmap_target_command_FSM_output : process(s_rmap_target_command_state, reset_n_i)
-	begin
-		-- asynchronous reset
-		if (reset_n_i = '0') then
-			flags_o.command_received                                   <= '0';
-			flags_o.write_request                                      <= '0';
-			flags_o.read_request                                       <= '0';
-			flags_o.discarded_package                                  <= '0';
-			flags_o.command_busy                                       <= '0';
-			error_o.early_eop                                          <= '0';
-			error_o.eep                                                <= '0';
-			error_o.header_crc                                         <= '0';
-			error_o.unused_packet_type                                 <= '0';
-			error_o.invalid_command_code                               <= '0';
-			error_o.too_much_data                                      <= '0';
-			headerdata_o.target_logical_address                        <= x"00";
-			headerdata_o.instructions.packet_type                      <= "00";
-			headerdata_o.instructions.command.write_read               <= '0';
-			headerdata_o.instructions.command.verify_data_before_write <= '0';
-			headerdata_o.instructions.command.reply                    <= '0';
-			headerdata_o.instructions.command.increment_address        <= '0';
-			headerdata_o.instructions.reply_address_length             <= "00";
-			headerdata_o.key                                           <= x"00";
-			headerdata_o.reply_address                                 <= (others => x"00");
-			headerdata_o.initiator_logical_address                     <= x"00";
-			headerdata_o.transaction_identifier                        <= (others => x"00");
-			headerdata_o.extended_address                              <= x"00";
-			headerdata_o.address                                       <= (others => x"00");
-			headerdata_o.data_length                                   <= (others => x"00");
-			spw_control_o.read                                         <= '0';
-			s_discarted_package                                        <= '0';
-			s_not_rmap_package                                         <= '0';
-		-- output generation when s_rmap_target_command_state changes
-		else
-			case (s_rmap_target_command_state) is
+			--=============================================================================
+			-- Begin of RMAP Target Command Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_command_state, reset_n_i
+			-- write:
+			-- r/w:
+			case (v_rmap_target_command_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -969,7 +997,7 @@ begin
 
 			end case;
 		end if;
-	end process p_rmap_target_command_FSM_output;
+	end process p_rmap_target_command_FSM_state;
 
 end architecture rtl;
 --============================================================================
