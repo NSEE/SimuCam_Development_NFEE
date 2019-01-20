@@ -34,44 +34,7 @@ void vParserCommTask(void *task_data) {
 		switch (eParserMode) {
 			case sConfiguring:
 				/*For future implementations*/
-				eParserMode = sWaitingConn;
-				break;
-			case sWaitingConn:
-
-				bSuccess = FALSE;
-				eParserMode = sWaitingConn;
-
-				OSSemPend(xSemCountPreParsed, 0, &error_code); /*Blocking*/
-				if ( error_code == OS_ERR_NONE ) {
-					/* There's command waiting to be threat */
-
-					/* Should post the semaphore to the Sender Task stop to send the Initialization message (Request Status) */
-					error_code = OSSemPost(xSemCommInit);
-                    if ( error_code == OS_ERR_NONE ) {
-
-                    	bSuccess = getPreParsedPacket(&PreParsedLocal); /*Blocking*/
-                    	if (bSuccess == TRUE) {
-                    		/* PreParsed Content copied to the local variable */
-                            if ( PreParsedLocal.cType == START_REPLY_CHAR )
-                            	eParserMode = sReplyParsing;
-                            else
-                            	eParserMode = sRequestParsing;
-                    	} else {
-							/* Semaphore was post by some task but has no message in the PreParsedBuffer*/
-							vNoContentInPreParsedBuffer();
-						}
-                    } else {
-						/*  Could not post the semaphore that indicates that NUC is connected and send a message.
-							this a very IMPORTANT signalization!*/
-                    	bSuccess = bTrySendSemaphoreCommInit();
-						if (bSuccess == TRUE) {
-							vFailSendxSemCommInit();
-						}
-                    }
-				} else {
-					vFailGetCountSemaphorePreParsedBuffer();
-				}
-
+				eParserMode = sWaitingMessage;
 				break;
 			case sWaitingMessage:
 
@@ -338,13 +301,15 @@ void vParserCommTask(void *task_data) {
 bool getPreParsedPacket( tPreParsed *xPreParsedParser ) {
     bool bSuccess = FALSE;
     INT8U error_code;
+    unsigned char i;
 
 	OSMutexPend(xMutexPreParsed, 0, &error_code); /*Blocking*/
 	if (error_code == OS_ERR_NONE) {
 		/* Got the Mutex */
 		/*For now, will only get the first, not the packet that is waiting for longer time*/
-		for(unsigned char i = 0; i < N_PREPARSED_ENTRIES; i++)
+		for( i = 0; i < N_PREPARSED_ENTRIES; i++)
 		{
+
             if ( xPreParsed[i].cType != 0 ) {
                 /* Locate a filled PreParsed variable in the array*/
             	/* Perform a copy to a local variable */

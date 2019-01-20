@@ -75,10 +75,23 @@ void vOutAckHandlerTask(void *task_data) {
                     sprintf(cBufferAck, "%s", NACK_SEQUENCE);
                 }
 
+#ifdef DEBUG_ON//todo:remover
+    debug(fp,"vOutAckHandlerTask - Tentando pegar Mutex TX \n");
+#endif
+
                 OSMutexPend(xTxUARTMutex, 100, &error_code); /* Wait max 100 ticks = 100 ms */
                 if ( error_code == OS_NO_ERR ) {
+#ifdef DEBUG_ON//todo:remover
+    debug(fp,"vOutAckHandlerTask - Sucesso Mutex TX \n");
+#endif
                     puts(cBufferAck);
+#ifdef DEBUG_ON//todo:remover
+    debug(fp,"vOutAckHandlerTask - Tentando devolver Mutex TX \n");
+#endif
                     OSMutexPost(xTxUARTMutex);
+#ifdef DEBUG_ON//todo:remover
+    debug(fp,"vOutAckHandlerTask - Devolveu \n");
+#endif
                 } else
                     vFailGetMutexTxUARTSenderTask(); /* Could not use the uart tx buffer to send the ack*/
 

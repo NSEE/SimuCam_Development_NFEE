@@ -61,7 +61,8 @@ void vInAckHandlerTaskV2(void *task_data) {
                     } else {
                         /*  Should never get here, will wait without timeout for the semaphore.
                             But if some error accours we will do nothing but print in the console */
-                        vFailGetMutexReceiverTask();
+                    	OSSemPost(xSemCountReceivedACK);
+                    	vFailGetMutexReceiverTask();
                     }
                 } else {
                     /*  Should never get here, will wait without timeout for the semaphore.
@@ -86,19 +87,19 @@ void vInAckHandlerTaskV2(void *task_data) {
                     ucCountRetries++;
 
                     /* There are any spot used in the xBuffer128? */
-                    if ( 0b00000001 == (0b00000001 & ucHashVerification ) )
+                    if ( 0b00000001 != (0b00000001 & ucHashVerification ) )
                         bFound = bCheckInAck128( &xRAckLocal, &bFinished128  );
                     else
                         bFinished128 = TRUE;
 
                     /* There are any spot used in the xBuffer64? */
-                    if ( 0b00000010 == (0b00000010 & ucHashVerification ) )
+                    if ( (0b00000010 != (0b00000010 & ucHashVerification )) && (bFound ==FALSE ) )
                         bFound = bCheckInAck64( &xRAckLocal, &bFinished64 );
                     else
                         bFinished64 = TRUE;
 
                     /* There are any spot used in the xBuffer32? */
-                    if ( 0b00000100 == (0b00000100 & ucHashVerification ) )
+                    if ( (0b00000100 != (0b00000100 & ucHashVerification ) ) && (bFound ==FALSE ) )
                         bFound = bCheckInAck32( &xRAckLocal, &bFinished32  );
                     else
                         bFinished32 = TRUE;
@@ -129,7 +130,8 @@ bool bCheckInAck128( txReceivedACK *xRecAckL , bool *bFinished ) {
     unsigned char ucIL = 0;
 
     bFound = FALSE;
-    OSSemPend(xMutexBuffer128, 1, &error_code); /* Mas wait 1 tick = 1 ms */
+    *bFinished = FALSE;
+    OSMutexPend(xMutexBuffer128, 5, &error_code); /* Mas wait 1 tick = 1 ms */
     if ( error_code != OS_NO_ERR )
         return bFound;
 
@@ -163,7 +165,8 @@ bool bCheckInAck64( txReceivedACK *xRecAckL , bool *bFinished ) {
     unsigned char ucIL = 0;
 
     bFound = FALSE;
-    OSSemPend(xMutexBuffer64, 1, &error_code); /* Mas wait 1 tick = 1 ms */
+    *bFinished = FALSE;
+    OSMutexPend(xMutexBuffer64, 1, &error_code); /* Mas wait 1 tick = 1 ms */
     if ( error_code != OS_NO_ERR )
         return bFound;
 
@@ -198,7 +201,8 @@ bool bCheckInAck32( txReceivedACK *xRecAckL , bool *bFinished ) {
     unsigned char ucIL = 0;
 
     bFound = FALSE;
-    OSSemPend(xMutexBuffer32, 1, &error_code); /* Mas wait 1 tick = 1 ms */
+    *bFinished = FALSE;
+    OSMutexPend(xMutexBuffer32, 1, &error_code); /* Mas wait 1 tick = 1 ms */
     if ( error_code != OS_NO_ERR )
         return bFound;
 
@@ -219,7 +223,7 @@ bool bCheckInAck32( txReceivedACK *xRecAckL , bool *bFinished ) {
             break;
         }
     }
-    OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xBuffer128*/
+    OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xMutexBuffer32*/
     (*bFinished) = TRUE;
 
     return bFound;

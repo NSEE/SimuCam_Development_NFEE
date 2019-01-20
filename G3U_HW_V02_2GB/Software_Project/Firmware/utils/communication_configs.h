@@ -51,7 +51,6 @@
 #define NACK_SEQUENCE           "#|54;"
 #define START_STATUS_SEQUENCE   "?S:1|38;"
 /*======= Standards messages - UART==========*/
-#define CHANGE_MODE_SEQUENCE    65000
 #define SIZE_RCV_BUFFER         128
 #define SIZE_UCVALUES           32
 
@@ -80,7 +79,7 @@ typedef struct {
 
 
 /*Struct used to parse the received command through UART*/
-#define N_PREPARSED_ENTRIES     4
+#define N_PREPARSED_ENTRIES     8
 typedef struct {
     tErrorReceiver ucErrorFlag;
     char cType; /* ?(request):0 or !(reply):1*/
@@ -96,7 +95,7 @@ extern OS_EVENT *xMutexPreParsed;
 extern tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 extern tPreParsed xPreParsedReader;
 
-#define N_ACKS_RECEIVED        4
+#define N_ACKS_RECEIVED        6
 typedef struct {
     char cType; /* If Zero is empty and available*/
     char cCommand;
@@ -124,21 +123,21 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
 #define N_RETRIES_INI_INF       250
-#define N_RETRIES_COMM          2       /* N + 1 */
-#define INTERVAL_RETRIES        1000    /* Milliseconds */
-#define TIMEOUT_COMM            5000    /* Milliseconds */
-#define TIMEOUT_COUNT           ( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
+#define N_RETRIES_COMM          1       /* N + 1 */
+#define INTERVAL_RETRIES        2000    /* Milliseconds */
+#define TIMEOUT_COMM            2000    /* Milliseconds */
+#define TIMEOUT_COUNT           1//( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
 #define N_RET_MUTEX_TX                  2
 #define N_RET_MUTEX_RETRANS             4
 #define N_RET_SEM_FOR_SPACE             2
 #define TICKS_WAITING_MUTEX_TX          2     /* Ticks */
 #define TICKS_WAITING_MUTEX_RETRANS     4     /* Ticks */
-#define TICKS_WAITING_FOR_SPACE         40    /* Ticks */
+#define TICKS_WAITING_FOR_SPACE         20    /* Ticks */
 
-#define MAX_RETRIES_ACK_IN              100
+#define MAX_RETRIES_ACK_IN              50
 
-#define N_128   2
+#define N_128   6
 typedef struct {
     char buffer[128];
     bool bSent;     /* Indicates if it was already transmited */
@@ -147,7 +146,7 @@ typedef struct {
     unsigned char ucNofRetries;
 } txBuffer128;
 
-#define N_64   4
+#define N_64   8
 typedef struct {
     char buffer[64];
     bool bSent;     /* Indicates if it was already transmited */

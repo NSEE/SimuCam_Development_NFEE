@@ -16,6 +16,7 @@
 #include "in_ack_handler_task.h"
 #include "out_ack_handler_task.h"
 #include "timeout_checker_ack_task.h"
+#include "stack_monitor_task.h"
 #include "../utils/error_handler_simucam.h"
 
 void vInitialTask(void *task_data);

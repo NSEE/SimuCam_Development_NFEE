@@ -267,6 +267,18 @@ ALT_CPPFLAGS += -DALT_STACK_CHECK -fstack-limit-register=et
 # SOPC_SYSID_FLAG in public.mk. none 
 # setting hal.enable_sopc_sysid_check is true
 
+# The value is assigned to ALT_LOG_FLAGS in the generated public.mk. See 
+# hal.log_port setting description. Values can be -1 through 3. hal.log_port 
+# must be set for this to be used. 
+# setting hal.log_flags is 0
+ALT_CPPFLAGS += -DALT_LOG_FLAGS=0
+
+# Slave descriptor of debug logging character-mode device. If defined, it 
+# enables extra debug messages in the HAL source. This setting is used by the 
+# ALT_LOG_PORT family of defines in system.h. none 
+# setting hal.log_port is jtag_uart_0
+ALT_CPPFLAGS += -DALT_LOG_ENABLE
+
 # C/C++ compiler to generate (do not generate) GP-relative accesses. 'none' 
 # tells the compilter not to generate GP-relative accesses. 'local' will 
 # generate GP-relative accesses for small data objects that are not external, 

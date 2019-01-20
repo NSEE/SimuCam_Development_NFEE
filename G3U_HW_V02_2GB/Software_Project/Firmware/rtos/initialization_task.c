@@ -13,10 +13,15 @@ void vInitialTask(void *task_data)
 {
   INT8U error_code = OS_ERR_NONE;
 
+	#if ( STACK_MONITOR == 1)
+		OSStatInit();
+	#endif
+
+
 /* ================== All the task that need syncronization should be started first ========================= */
 
 	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
-	#if STACK_MONITOR
+	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
 									NULL,
 									(void *)&vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE-1],
@@ -25,7 +30,7 @@ void vInitialTask(void *task_data)
 									vTimeoutCheckerTask_stk,
 									TIMEOUT_CHECKER_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
 		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
 									NULL,
@@ -47,9 +52,11 @@ void vInitialTask(void *task_data)
 	}
 
 
+	OSTimeDlyHMSM(0, 0, 0, 1);
+
 
 	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
-	#if STACK_MONITOR
+	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vOutAckHandlerTask,
 									NULL,
 									(void *)&vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE-1],
@@ -58,7 +65,7 @@ void vInitialTask(void *task_data)
 									vOutAckHandlerTask_stk,
 									OUT_ACK_TASK_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
 		error_code = OSTaskCreateExt(vOutAckHandlerTask,
 									NULL,
@@ -80,9 +87,11 @@ void vInitialTask(void *task_data)
 	}
 
 
+	OSTimeDlyHMSM(0, 0, 0, 1);
+
 
 	/* Create the task that is responsible to handle incomming ack packet */
-	#if STACK_MONITOR
+	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
 									NULL,
 									(void *)&vInAckHandlerTask_stk[IN_ACK_TASK_SIZE-1],
@@ -91,7 +100,7 @@ void vInitialTask(void *task_data)
 									vInAckHandlerTask_stk,
 									IN_ACK_TASK_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
 		error_code = OSTaskCreateExt(vInAckHandlerTaskV2,
 									NULL,
@@ -113,9 +122,11 @@ void vInitialTask(void *task_data)
 	}
 
 
+	OSTimeDlyHMSM(0, 0, 0, 1);
+
 
 	/* Create the task that is responsible to parse all received messages */
-	#if STACK_MONITOR
+	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vParserCommTask,
 									NULL,
 									(void *)&vParserCommTask_stk[PARSER_TASK_SIZE-1],
@@ -124,7 +135,7 @@ void vInitialTask(void *task_data)
 									vParserCommTask_stk,
 									PARSER_TASK_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CHK + OS_TASK_OPT_STK_CLR);
 	#else
 		error_code = OSTaskCreateExt(vParserCommTask,
 									NULL,
@@ -146,9 +157,11 @@ void vInitialTask(void *task_data)
 	}
 
 
+	OSTimeDlyHMSM(0, 0, 0, 1);
+
 
 	/* READ: Create the task that is responsible to READ UART buffer */
-	#if STACK_MONITOR
+	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vReceiverUartTask,
 									NULL,
 									(void *)&vReceiverUartTask_stk[RECEIVER_TASK_SIZE-1],
@@ -157,7 +170,7 @@ void vInitialTask(void *task_data)
 									vReceiverUartTask_stk,
 									RECEIVER_TASK_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CHK + OS_TASK_OPT_STK_CLR);
 	#else
 		error_code = OSTaskCreateExt(vReceiverUartTask,
 									NULL,
@@ -179,9 +192,11 @@ void vInitialTask(void *task_data)
 	}
 
 
+	OSTimeDlyHMSM(0, 0, 0, 1);
+
 
 	/* SEND: Create the task that is responsible to SEND UART packets */
-	#if STACK_MONITOR
+	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vSenderComTask,
 									NULL,
 									(void *)&senderTask_stk[SENDER_TASK_SIZE-1],
@@ -190,7 +205,7 @@ void vInitialTask(void *task_data)
 									senderTask_stk,
 									SENDER_TASK_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK);
 	#else
 		error_code = OSTaskCreateExt(vSenderComTask,
 									NULL,
@@ -202,6 +217,24 @@ void vInitialTask(void *task_data)
 									NULL,
 									0);
 	#endif
+
+	OSTimeDlyHMSM(0, 0, 0, 1);
+
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vStackMonitor,
+									NULL,
+									(void *)&vStackMonitor_stk[STACK_MONITOR_SIZE-1],
+									STACK_MONITOR_TASK_PRIO,
+									STACK_MONITOR_TASK_PRIO,
+									vStackMonitor_stk,
+									STACK_MONITOR_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK);
+	#endif
+
+
+
+
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for sender comm packets */
@@ -218,6 +251,8 @@ void vInitialTask(void *task_data)
 		vFailStartTimerRetransmission();
 	}
 
+
+	OSTimeDlyHMSM(0, 0, 0, 1);
 
 
 	/* Delete the Initialization Task  */

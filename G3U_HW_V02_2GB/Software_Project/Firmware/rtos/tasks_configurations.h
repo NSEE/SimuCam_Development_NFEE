@@ -25,6 +25,7 @@
 #define OUT_ACK_TASK_PRIO				25
 #define SENDER_TASK_PRIO                24
 #define IN_ACK_TASK_PRIO				23
+#define STACK_MONITOR_TASK_PRIO			2   /* Very High*/
 
 #define PCP_MUTEX_PrePareseds           9   /* MUTEX Reader -> PARSER task*/
 #define PCP_MUTEX_B32_PRIO              8   /* MUTEX Buffer TX char[32]*/
@@ -37,16 +38,16 @@
 
 
 /* --------------- Timers ------------------ */
-#define PERIOD_TIMER        5   /* In the BSP the Hz of the timer is 200 milli, period = 5 give me 1 sec */
-#define DLY_TIMER           200 /* (ticks: 1 tick == 1 millisec) */
+#define PERIOD_TIMER        4   /* In the BSP the Hz of the timer is 500 milli, period = 2 give me 2 sec */
+#define DLY_TIMER           10 /* (ticks: 1 tick == 1 millisec) */
 /* --------------- Timers ------------------ */
 
 
 /* Definition of Task Stack size */
-#if defined(STACK_MONITOR)
-    #define   TASK_STACKSIZE       2048
+#if (STACK_MONITO == 1)
+    #define   TASK_STACKSIZE       1024*2
 #else
-    #define   TASK_STACKSIZE       2048*4
+    #define   TASK_STACKSIZE       1024
 #endif
 
 #define INITIALIZATION_TASK_SIZE    TASK_STACKSIZE
@@ -56,6 +57,7 @@
 #define OUT_ACK_TASK_SIZE           TASK_STACKSIZE
 #define SENDER_TASK_SIZE            TASK_STACKSIZE
 #define TIMEOUT_CHECKER_SIZE        TASK_STACKSIZE
+#define STACK_MONITOR_SIZE          TASK_STACKSIZE
 
 
 
@@ -70,6 +72,7 @@ extern OS_STK    vInAckHandlerTask_stk[IN_ACK_TASK_SIZE];
 extern OS_STK    vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE];
 extern OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 extern OS_STK    senderTask_stk[SENDER_TASK_SIZE];
+extern OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
 
 /* -------------- Definition of Stacks------------------ */
 

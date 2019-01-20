@@ -182,6 +182,7 @@ C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
 C_SRCS += driver/msgdma/msgdma.c
 C_SRCS += driver/reset/reset.c
 C_SRCS += driver/sync/sync.c
+C_SRCS += rtos/stack_monitor_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

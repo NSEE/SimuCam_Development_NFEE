@@ -9,8 +9,8 @@
 #define SIMUCAM_DEFINITIONS_H_
 
 /*--Activate only during development fase--*/
-#define STACK_MONITOR   0
-#define QUERY_STACK     0
+#define STACK_MONITOR  0
+#define QUERY_STACK     1
 #define BY_PASS 		0
 /**-----------------------------------------*/
 #define DEBUG_ON    	1

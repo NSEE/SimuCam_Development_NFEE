@@ -68,36 +68,12 @@ void vSenderComTask(void *task_data)
             case sDummySender:
                 /* code */
                 eSenderMode = sDummySender;
-                /*
-                #ifdef DEBUG_ON
-                    debug(fp,"sDummySender\n");
-
-                    OSTaskStkChk( IN_ACK_TASK_PRIO , &data);
-                    fprintf(fp, "In_ack  total=%4ld,  free=%4ld, used=%4ld.\n", data.OSFree + data.OSUsed, data.OSFree, data.OSUsed);
-
-                    OSTaskStkChk( OUT_ACK_TASK_PRIO , pdata);
-                    fprintf(fp, "Out_ack  total=%4ld,  free=%4ld, used=%4ld.\n", pdata->OSFree + pdata->OSUsed, pdata->OSFree, pdata->OSUsed);
-
-                    OSTaskStkChk( RECEIVER_TASK_PRIO , pdata);
-                    fprintf(fp, "Receiver  total=%4ld,  free=%4ld, used=%4ld.\n", pdata->OSFree + pdata->OSUsed, pdata->OSFree, pdata->OSUsed);
-
-                    OSTaskStkChk( PARSER_TASK_PRIO , pdata);
-                    fprintf(fp, "Parser_comm  total=%4ld,  free=%4ld, used=%4ld.\n",  pdata->OSFree + pdata->OSUsed, pdata->OSFree, pdata->OSUsed);
-
-                    OSTaskStkChk( TIMEOUT_CHECKER_PRIO , pdata);
-                    fprintf(fp, "Timeoutchecker  total=%4ld,  free=%4ld, used=%4ld.\n",  pdata->OSFree + pdata->OSUsed, pdata->OSFree, pdata->OSUsed);
-
-                    OSTaskStkChk( SENDER_TASK_PRIO , pdata);
-                    fprintf(fp, "Sender  total=%4ld,  free=%4ld, used=%4ld.\n",  pdata->OSFree + pdata->OSUsed, pdata->OSFree, pdata->OSUsed);
-
-                #endif
-                */
 
                 #ifdef DEBUG_ON
                     debug(fp,"sDummySender\n");
                 #endif
 
-				OSTimeDlyHMSM(0, 0, 5, 0); /*Sleeps for 3 second*/
+				OSTimeDlyHMSM(0, 0, 10, 0); /*Sleeps for 3 second*/
 
                 break;
             default:

@@ -35,7 +35,7 @@ void vReceiverUartTask(void *task_data) {
                 memset(cReceiveBuffer, 0, SIZE_RCV_BUFFER);
                 scanf("%s", cReceive);
                 memcpy(cReceiveBuffer, cReceive, (SIZE_RCV_BUFFER -1) ); /* Make that there's a zero terminator */
-                bSuccess = bPreParser( cReceiveBuffer , &xPreParsedReader );
+                bSuccess = bPreParserV2( cReceiveBuffer , &xPreParsedReader );
 
                 if ( bSuccess == TRUE ) {
 
@@ -107,95 +107,6 @@ void vReceiverUartTask(void *task_data) {
     }
 }
 
-/*  This function will parse the buffer into a command, will identify if is an request or reply
-    also will separate all the values separated by ':'. If the command isn't complete (';' in the final)
-    it will return false. */
-    /* Max size of parsed value is 6 digits, for now*/
-bool bPreParser( char *buffer, tPreParsed *xPerParcedBuffer )
-{
-    bool bSuccess = FALSE;
-    short int siStrLen, siTeminador, siIniReq, siIniResp, siIniACK, siIniNACK, siCRC;
-    unsigned char i;
-	char c, *p_inteiro;
-	char inteiro[6]; /* Max size of parsed value is 6 digits, for now */
-
-    siStrLen = strlen(buffer);
-    siTeminador = siPosStr(buffer, FINAL_CHAR);
-    siIniACK = siPosStr(buffer, ACK_CHAR);
-    siIniNACK = siPosStr(buffer, NACK_CHAR);
-    siIniACK = min_sim(siIniACK, siIniNACK);
-    siIniReq = siPosStr(buffer, START_REQUEST_CHAR);
-    siIniResp = siPosStr(buffer, START_REPLY_CHAR);
-    siIniReq = min_sim(siIniReq, siIniResp);
-    siIniReq = min_sim(siIniReq, siIniACK);
-    siCRC = siPosStr(buffer, SEPARATOR_CRC);
-
-    /* Check if there is [!|?] , |, ; in the packet*/
-    if ( (siTeminador == (siStrLen-1)) && (siCRC < siTeminador) && (siIniReq < siCRC) ) {
-
-#ifdef DEBUG_ON
-	fprintf(fp," Debug -  siIni = %hhu, siCRC = %hhu\n", siIniReq, siCRC );
-#endif
-
-        xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit(&buffer[siIniReq] , (siCRC - siIniReq) );
-        xPerParcedBuffer->cType = buffer[siIniReq];
-
-        if (xPerParcedBuffer->cType == NACK_CHAR ) {
-            xPerParcedBuffer->ucMessageCRC8 = 54; /*CRC8("#")=54*/
-            xPerParcedBuffer->ucCalculatedCRC8 = 54; /*Even if calculated crc is wrong we should re-send the commands*/
-            bSuccess = TRUE;
-        } else {
-            xPerParcedBuffer->cCommand = buffer[siIniReq+1];
-            xPerParcedBuffer->ucNofBytes = 0;
-            memset( xPerParcedBuffer->usiValues , 0 , SIZE_UCVALUES);
-
-            i = siIniReq + 3; /* "?C:i..." */
-            do {
-                p_inteiro = inteiro;
-                memset( &(inteiro) , 0 , sizeof( inteiro ) );
-                do {
-                    c = buffer[i];
-                    if ( isdigit( c ) ) {
-                        (*p_inteiro) = c;
-                        p_inteiro++;
-                    }
-                    i++;
-                } while ( (siStrLen>i) && ( ( c != SEPARATOR_CHAR ) && ( c != FINAL_CHAR ) && ( c != SEPARATOR_CRC )) ); //ASCII: 58 = ':' 59 = ';' and '|'
-                (*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-                if ( ( c == SEPARATOR_CHAR ) || ( c == SEPARATOR_CRC ) ) {
-                    xPerParcedBuffer->usiValues[min_sim(xPerParcedBuffer->ucNofBytes,SIZE_UCVALUES)] = (unsigned short int)atoi( inteiro );
-                    xPerParcedBuffer->ucNofBytes++;
-                }
-                else if ( c == FINAL_CHAR )
-                {
-                    xPerParcedBuffer->ucMessageCRC8 = (unsigned char)atoi( inteiro );
-                }
-
-            } while ( (c != FINAL_CHAR) && (siStrLen>i) );
-
-            if ( c == FINAL_CHAR )
-                if ( xPerParcedBuffer->ucMessageCRC8 == xPerParcedBuffer->ucCalculatedCRC8 ){
-                    bSuccess = TRUE;
-                } else {
-                    /* Wrong CRC */
-                    #ifdef DEBUG_ON
-                        debug(fp,"Wrong CRC. Pre Parsed.\n");
-                    #endif
-                    bSuccess = FALSE;
-                }
-
-            else
-                bSuccess = FALSE; /*Index overflow in the buffer*/
-            }
-    } else {
-        /*Malformed Packet*/
-        bSuccess = FALSE;
-    }
-    memset(buffer,0,strlen(buffer));
-
-    return bSuccess;
-}
 
 /* Search for a Free location to put the pre parsed packet in the pipe for the ParserTask */
 bool setPreParsedFreePos( tPreParsed *xPrePReader ) {
@@ -203,7 +114,8 @@ bool setPreParsedFreePos( tPreParsed *xPrePReader ) {
     INT8U error_code;
     unsigned char i = 0;
 
-    OSMutexPend(xMutexPreParsed, 30, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait max 30 ticks = 30 ms */
+    bSuccess = FALSE;
+    OSMutexPend(xMutexPreParsed, 10, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait max 10 ticks = 10 ms */
     if ( error_code == OS_NO_ERR ) {
         /* Have free access to the buffer, check if there's any no threated command using the cType  */
 
@@ -238,7 +150,7 @@ bool setPreAckSenderFreePos( tPreParsed *xPrePReader ) {
     unsigned char i = 0;
 
     bSuccess = FALSE;
-    OSMutexPend(xMutexSenderACK, 50, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait max 50 ticks = 50 ms */
+    OSMutexPend(xMutexSenderACK, 10, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait max 10 ticks = 10 ms */
     if ( error_code == OS_NO_ERR ) {
         /* Have free access to the buffer, check if there's any no threated command using the cType  */
 
@@ -273,7 +185,7 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
     unsigned char i = 0;
 
     bSuccess = FALSE;
-    OSMutexPend(xMutexReceivedACK, 50, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 50 ticks = 50 ms */
+    OSMutexPend(xMutexReceivedACK, 20, &error_code); /* Try to get mutex that protects the preparsed buffer. Wait 20 ticks = 20 ms */
     if ( error_code == OS_NO_ERR ) {
         /* Have free access to the buffer, check if there's any no threated command using the cType  */
 
@@ -360,15 +272,13 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
 
     /*" ---> At this point the packet is a Resquest, Reply or ACK packet"*/
 
-	#ifdef DEBUG_ON
-		fprintf(fp," Debug -  siIni = %hhu, siCRC = %hhu\n", siIni, siCRC );
-	#endif
 
     xPerParcedBuffer->ucCalculatedCRC8 = ucCrc8wInit( &buffer[siIni] , (siCRC - siIni) );
 
     xPerParcedBuffer->cCommand = buffer[siIni+1];
     xPerParcedBuffer->ucNofBytes = 0;
-    memset( xPerParcedBuffer->usiValues , 0 , SIZE_UCVALUES*sizeof(xPerParcedBuffer->usiValues) );    
+
+    memset( xPerParcedBuffer->usiValues , 0x00 , sizeof(xPerParcedBuffer->usiValues) );
 
     i = siIni + 3; /* "?C:i..." */
     do {

@@ -80,6 +80,7 @@ OS_STK    vInAckHandlerTask_stk[IN_ACK_TASK_SIZE];
 OS_STK    vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE];
 OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
+OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
 /* -------------- Definition of Stacks------------------ */
 
 
@@ -232,9 +233,9 @@ void vVariablesInitialization ( void ) {
 
 	usiIdCMD = 2;
 
-	memset( xInUseRetrans.b128 , FALSE , sizeof(bool)*N_128);
-	memset( xInUseRetrans.b64 , FALSE , sizeof(bool)*N_64);
-	memset( xInUseRetrans.b32 , FALSE , sizeof(bool)*N_32);
+	memset( xInUseRetrans.b128 , FALSE , sizeof(xInUseRetrans.b128));
+	memset( xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
+	memset( xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
 	
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
@@ -284,10 +285,7 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
-	//OSInit(); /* todo: Talvez remover */
-
-	/* Clear the RTOS timer */
-	OSTimeSet(0);
+	OSInit();
 
 	/* Debug device initialization - JTAG USB */
 	#ifdef DEBUG_ON
@@ -342,6 +340,8 @@ int main(void)
 
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
 	vSimucamStructureInit( &xSimMebStruct );
+
+	vVariablesInitialization();
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR
