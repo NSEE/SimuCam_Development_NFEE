@@ -201,10 +201,10 @@ void vParserCommTask(void *task_data) {
 
 
 								break;
-							case 3: /* TC_SCAM_FEE_CALIBRATION_ENTER */
+							case 5: /* TC_SCAM_FEE_CALIBRATION_ENTER */
 								#ifdef DEBUG_ON
 									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "TC_SCAM_FEE_CALIBRATION_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
+									sprintf(cPUSDebug, "TC_SCAM_FEE_CALIBRATION_TEST_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
 								#endif
 

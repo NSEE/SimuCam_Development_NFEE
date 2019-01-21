@@ -79,9 +79,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART128v2 - Tentando pegar Mutex TX \n");
-#endif
+
 	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex of TX */
@@ -95,9 +93,6 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 		return bSuccessL;
 	}
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART128v2 - Sucesso Mutex TX \n");
-#endif
 
 	/* ---> At this point we have all resources to send the message */
 
@@ -107,13 +102,8 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 
 
 	/* ---> Best scenario, giving the mutexes back in the inverse order to avoid deadlock */
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART128v2 - Tentando devolver Mutex TX \n");
-#endif
+
 	OSMutexPost(xTxUARTMutex);
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART128v2 - Devolveu \n");
-#endif
 	OSMutexPost(xMutexBuffer128);
 
 	return bSuccessL;
@@ -195,9 +185,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART64v2 - Tentando pegar Mutex TX \n");
-#endif
+
 	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex of TX */
@@ -211,9 +199,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 		return bSuccessL;
 	}
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART64v2 - Sucesso Mutex TX \n");
-#endif
+
 	/* ---> At this point we have all resources to send the message */
 
 
@@ -222,13 +208,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 
 
 	/* ---> Best scenario, giving the mutexes back in the inverse order to avoid deadlock */
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART64v2 - Tentando devolver Mutex TX \n");
-#endif
 	OSMutexPost(xTxUARTMutex);
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART64v2 - Devolveu \n");
-#endif
 	OSMutexPost(xMutexBuffer64);
 
 	return bSuccessL;
@@ -308,9 +288,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> Now try to get the Mutex that protects the TX of the UART to transmit the message */
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART32v2 - Tentando pegar Mutex TX \n");
-#endif
+
 	OSMutexPend(xTxUARTMutex, TICKS_WAITING_MUTEX_TX, &ucErrorCode); /* Wait X ticks = X ms */
 	if ( ucErrorCode != OS_NO_ERR ) {
 		/* Could not get the mutex of TX */
@@ -323,9 +301,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 		OSMutexPost(xMutexBuffer32); /* Free the Mutex after use the xMutexBuffer32 */
 		return bSuccessL;
 	}
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART32v2 - Sucesso Mutex TX \n");
-#endif
+
 
 	/* ---> At this point we have all resources to send the message */
 
@@ -334,13 +310,8 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> Best scenario, giving the mutexes back in the inverse order to avoid deadlock */
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART32v2 - Tentando devolver Mutex TX \n");
-#endif
+
 	OSMutexPost(xTxUARTMutex);
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"bSendUART32v2 - Devolveu \n");
-#endif
 	OSMutexPost(xMutexBuffer32);
 
 	return bSuccessL;
@@ -523,7 +494,7 @@ void vTMPusTestConnection( unsigned short int usiPusId ) {
 
 	/* For now is hardcoded after full release of the pus I will create defines */
 	xTmPusL.usiPusId = usiPusId;
-	xTmPusL.usiPid = 64;
+	xTmPusL.usiPid = 112;
 	xTmPusL.usiCat = 0;
 	xTmPusL.usiType = 17;
 	xTmPusL.usiSubType = 2;

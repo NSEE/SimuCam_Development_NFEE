@@ -39,14 +39,9 @@ void vCheck( void ) {
     /* Nothing in the (re)transmission buffer */
     if ( ucHashVerification == 0b00000111 )
         return;
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"vCheck - Tentando pegar Mutex TX \n");
-#endif
+
     /* Try to get the Mutex of the UART */
 	OSMutexPend(xTxUARTMutex, 0, &ucErrorCode); /* Blocking */
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"vCheck - Sucesso get Mutex TX \n");
-#endif
     if ( ucErrorCode != OS_NO_ERR ) {
         /* Should never get here, is a blocking operation */
 		#ifdef DEBUG_ON
@@ -78,14 +73,8 @@ void vCheck( void ) {
     else
     	memset( xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32)); /* For consistency with SemCount32 */
 
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"vCheck - Tentando devolver Mutex TX \n");
-#endif
 
     OSMutexPost(xTxUARTMutex);
-#ifdef DEBUG_ON//todo:remover
-    debug(fp,"vCheck - Devolveu \n");
-#endif
 
     return;
 }
