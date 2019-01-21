@@ -4,125 +4,158 @@ use ieee.numeric_std.all;
 
 package avalon_mm_spacewire_registers_pkg is
 
-	--  Windowing Control Register                     (32 bits):
-	--    31- 9 : Reserved                               [-/-]
-	--     8- 8 : Masking enable control bit             [R/W]
-	--     7- 3 : Reserved                               [-/-]
-	--     2- 2 : Autostart control bit                  [R/W]
-	--     1- 1 : Link Start control bit                 [R/W]
-	--     0- 0 : Link Disconnect control bit            [R/W]
+	type t_comm_spw_link_config_status_wr_reg is record
+		spw_lnkcfg_disconnect : std_logic;
+		spw_lnkcfg_start      : std_logic;
+		spw_lnkcfg_autostart  : std_logic;
+	end record t_comm_spw_link_config_status_wr_reg;
 
-	--  Windowing Status Register                      (32 bits):
-	--    31-12 : Reserved                               [-/-]
-	--    11-11 : Link Disconnect error bit              [R/-]
-	--    10-10 : Link Parity error bit                  [R/-]
-	--     9- 9 : Link Escape error bit                  [R/-]
-	--     8- 8 : Link Credit error bit                  [R/-]
-	--     7- 3 : Reserved                               [-/-]	
-	--     2- 2 : Link Started status bit                [R/-]
-	--     1- 1 : Link Connecting status bit             [R/-]
-	--     0- 0 : Link Running status bit                [R/-]
+	type t_comm_spw_link_config_status_rd_reg is record
+		spw_link_running    : std_logic;
+		spw_link_connecting : std_logic;
+		spw_link_started    : std_logic;
+		spw_err_disconnect  : std_logic;
+		spw_err_parity      : std_logic;
+		spw_err_escape      : std_logic;
+		spw_err_credit      : std_logic;
+	end record t_comm_spw_link_config_status_rd_reg;
 
-	--  Timecode RX Register                           (32 bits):
-	--    31- 9 : Reserved                               [-/-]
-	--     8- 7 : RX TimeCode Control bits               [R/-]
-	--     6- 1 : RX TimeCode Counter value              [R/-]
-	--     0- 0 : RX TimeCode status bit                 [R/-]
-	--     0- 0 : RX TimeCode status bit clear           [-/W]
+	type t_comm_spw_timecode_wr_reg is record
+		timecode_clear : std_logic;
+	end record t_comm_spw_timecode_wr_reg;
 
-	--  Timecode TX Register                           (32 bits):
-	--    31- 9 : Reserved                               [-/-]
-	--     8- 7 : TX TimeCode Control bits               [R/W]
-	--     6- 1 : TX TimeCode Counter value              [R/W]
-	--     0- 0 : TX TimeCode control bit                [R/W]
+	type t_comm_spw_timecode_rd_reg is record
+		timecode_time    : std_logic_vector(5 downto 0);
+		timecode_control : std_logic_vector(1 downto 0);
+	end record t_comm_spw_timecode_rd_reg;
 
-	--  Interrupt Control Register                     (32 bits):
-	--    31- 9 : Reserved                               [-/-]
-	--     8- 8 : Left Buffer Empty interrupt enable     [R/W]
-	--     7- 1 : Reserved                               [-/-]
-	--     0- 0 : Right Buffer Empty interrupt enable    [R/W]
+	type t_comm_fee_windowing_buffers_config_wr_reg is record
+		fee_machine_clear : std_logic;
+		fee_machine_stop  : std_logic;
+		fee_machine_start : std_logic;
+		fee_masking_en    : std_logic;
+	end record t_comm_fee_windowing_buffers_config_wr_reg;
 
-	--  Interrupt Flag Register                        (32 bits):
-	--    31- 1 : Reserved                               [-/-]
-	--     0- 0 : Buffer Empty interrupt flag            [R/-]
-	--     0- 0 : Buffer Empty interrupt flag clear      [-/W]
+	type t_comm_fee_windowing_buffers_status_rd_reg is record
+		windowing_right_buffer_empty : std_logic;
+		windowing_left_buffer_empty  : std_logic;
+	end record t_comm_fee_windowing_buffers_status_rd_reg;
 
-	--  Windowing Buffer Register                      (32 bits):
-	--    31- 9 : Reserved                               [-/-]
-	--     8- 8 : Left Buffer Empty status bit           [R/-]
-	--     7- 1 : Reserved                               [-/-]
-	--     0- 0 : Right Buffer Empty status bit          [R/-]
+	type t_comm_rmap_codec_config_wr_reg is record
+		rmap_target_logical_addr : std_logic_vector(7 downto 0);
+		rmap_target_key          : std_logic_vector(7 downto 0);
+	end record t_comm_rmap_codec_config_wr_reg;
 
-	constant c_WINDOWING_AVALON_MM_REG_OFFSET   : natural := 0;
-	constant c_WINDOWING_CONTROL_MM_REG_ADDRESS : natural := 0;
-	constant c_WINDOWING_STATUS_MM_REG_ADDRESS  : natural := 1;
-	constant c_TIMECODE_RX_MM_REG_ADDRESS       : natural := 2;
-	constant c_TIMECODE_TX_MM_REG_ADDRESS       : natural := 3;
-	constant c_INTERRUPT_CONTROL_MM_REG_ADDRESS : natural := 4;
-	constant c_INTERRUPT_FLAG_MM_REG_ADDRESS    : natural := 5;
-	constant c_WINDOWING_BUFFER_MM_REG_ADDRESS  : natural := 6;
+	type t_comm_rmap_codec_status_rd_reg is record
+		rmap_stat_command_received    : std_logic;
+		rmap_stat_write_requested     : std_logic;
+		rmap_stat_write_authorized    : std_logic;
+		rmap_stat_read_requested      : std_logic;
+		rmap_stat_read_authorized     : std_logic;
+		rmap_stat_reply_sended        : std_logic;
+		rmap_stat_discarded_package   : std_logic;
+		rmap_err_early_eop            : std_logic;
+		rmap_err_eep                  : std_logic;
+		rmap_err_header_CRC           : std_logic;
+		rmap_err_unused_packet_type   : std_logic;
+		rmap_err_invalid_command_code : std_logic;
+		rmap_err_too_much_data        : std_logic;
+		rmap_err_invalid_data_crc     : std_logic;
+	end record t_comm_rmap_codec_status_rd_reg;
 
-	type t_windowing_control_register is record
-		mask_enable : std_logic;
-		autostart   : std_logic;
-		linkstart   : std_logic;
-		linkdis     : std_logic;
-	end record t_windowing_control_register;
+	type t_comm_rmap_last_write_addr_rd_reg is record
+		rmap_last_write_addr : std_logic_vector(31 downto 0);
+	end record t_comm_rmap_last_write_addr_rd_reg;
 
-	type t_windowing_status_register is record
-		errdis     : std_logic;
-		errpar     : std_logic;
-		erresc     : std_logic;
-		errcred    : std_logic;
-		started    : std_logic;
-		connecting : std_logic;
-		running    : std_logic;
-	end record t_windowing_status_register;
+	type t_comm_rmap_last_read_addr_rd_reg is record
+		rmap_last_read_addr : std_logic_vector(31 downto 0);
+	end record t_comm_rmap_last_read_addr_rd_reg;
 
-	type t_timecode_rx_register is record
-		rx_control  : std_logic_vector(1 downto 0);
-		rx_time     : std_logic_vector(5 downto 0);
-		rx_received : std_logic;
-	end record t_timecode_rx_register;
+	type t_comm_data_packet_config_1_wr_reg is record
+		data_pkt_ccd_x_size : std_logic_vector(15 downto 0);
+		data_pkt_ccd_y_size : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_config_1_wr_reg;
 
-	type t_timecode_rx_flags_register is record
-		rx_received_clear : std_logic;
-	end record t_timecode_rx_flags_register;
+	type t_comm_data_packet_config_2_wr_reg is record
+		data_pkt_data_y_size     : std_logic_vector(15 downto 0);
+		data_pkt_overscan_y_size : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_config_2_wr_reg;
 
-	type t_timecode_tx_register is record
-		tx_control : std_logic_vector(1 downto 0);
-		tx_time    : std_logic_vector(5 downto 0);
-		tx_send    : std_logic;
-	end record t_timecode_tx_register;
+	type t_comm_data_packet_config_3_wr_reg is record
+		data_pkt_packet_length : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_config_3_wr_reg;
 
-	type t_interrupt_control_register is record
-		R_buffer_empty_enable : std_logic;
-		L_buffer_empty_enable : std_logic;
-	end record t_interrupt_control_register;
+	type t_comm_data_packet_config_4_wr_reg is record
+		data_pkt_fee_mode   : std_logic_vector(7 downto 0);
+		data_pkt_ccd_number : std_logic_vector(7 downto 0);
+	end record t_comm_data_packet_config_4_wr_reg;
 
-	type t_interrupt_flag_register is record
-		buffer_empty_flag : std_logic;
-	end record t_interrupt_flag_register;
+	type t_comm_data_packet_header_1_rd_reg is record
+		data_pkt_header_length : std_logic_vector(15 downto 0);
+		data_pkt_header_type   : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_header_1_rd_reg;
 
-	type t_windowing_buffer_register is record
-		R_buffer_empty : std_logic;
-		L_buffer_empty : std_logic;
-	end record t_windowing_buffer_register;
+	type t_comm_data_packet_header_2_rd_reg is record
+		data_pkt_header_frame_counter    : std_logic_vector(15 downto 0);
+		data_pkt_header_sequence_counter : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_header_2_rd_reg;
 
-	type t_windowing_read_registers is record
-		windowing_status : t_windowing_status_register;
-		timecode_rx      : t_timecode_rx_register;
-		interrupt_flag   : t_interrupt_flag_register;
-		windowing_buffer : t_windowing_buffer_register;
-	end record t_windowing_read_registers;
+	type t_comm_data_packet_pixel_delay_1_wr_reg is record
+		data_pkt_line_delay : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_pixel_delay_1_wr_reg;
+
+	type t_comm_data_packet_pixel_delay_2_wr_reg is record
+		data_pkt_column_delay : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_pixel_delay_2_wr_reg;
+
+	type t_comm_data_packet_pixel_delay_3_wr_reg is record
+		data_pkt_adc_delay : std_logic_vector(15 downto 0);
+	end record t_comm_data_packet_pixel_delay_3_wr_reg;
+
+	type t_comm_comm_irq_control_wr_reg is record
+		comm_rmap_write_command_en : std_logic;
+		comm_right_buffer_empty_en : std_logic;
+		comm_left_buffer_empty_en  : std_logic;
+		comm_global_irq_en         : std_logic;
+	end record t_comm_comm_irq_control_wr_reg;
+
+	type t_comm_comm_irq_flags_rd_reg is record
+		comm_rmap_write_command_flag : std_logic;
+		comm_buffer_empty_flag       : std_logic;
+	end record t_comm_comm_irq_flags_rd_reg;
+
+	type t_comm_comm_irq_flags_clear_wr_reg is record
+		comm_rmap_write_command_flag_clear : std_logic;
+		comm_buffer_empty_flag_clear       : std_logic;
+	end record t_comm_comm_irq_flags_clear_wr_reg;
 
 	type t_windowing_write_registers is record
-		windowing_control    : t_windowing_control_register;
-		timecode_rx_flags    : t_timecode_rx_flags_register;
-		timecode_tx          : t_timecode_tx_register;
-		interrupt_flag_clear : t_interrupt_flag_register;
-		interrupt_control    : t_interrupt_control_register;
+		spw_link_config_status_reg       : t_comm_spw_link_config_status_wr_reg;
+		spw_timecode_reg                 : t_comm_spw_timecode_wr_reg;
+		fee_windowing_buffers_config_reg : t_comm_fee_windowing_buffers_config_wr_reg;
+		rmap_codec_config_reg            : t_comm_rmap_codec_config_wr_reg;
+		data_packet_config_1_reg         : t_comm_data_packet_config_1_wr_reg;
+		data_packet_config_2_reg         : t_comm_data_packet_config_2_wr_reg;
+		data_packet_config_3_reg         : t_comm_data_packet_config_3_wr_reg;
+		data_packet_config_4_reg         : t_comm_data_packet_config_4_wr_reg;
+		data_packet_pixel_delay_1_reg    : t_comm_data_packet_pixel_delay_1_wr_reg;
+		data_packet_pixel_delay_2_reg    : t_comm_data_packet_pixel_delay_2_wr_reg;
+		data_packet_pixel_delay_3_reg    : t_comm_data_packet_pixel_delay_3_wr_reg;
+		comm_irq_control_reg             : t_comm_comm_irq_control_wr_reg;
+		comm_irq_flags_clear_reg         : t_comm_comm_irq_flags_clear_wr_reg;
 	end record t_windowing_write_registers;
+
+	type t_windowing_read_registers is record
+		spw_link_config_status_reg_read_only : t_comm_spw_link_config_status_rd_reg;
+		spw_timecode_reg_read_only           : t_comm_spw_timecode_rd_reg;
+		fee_windowing_buffers_status_reg     : t_comm_fee_windowing_buffers_status_rd_reg;
+		rmap_codec_status_reg                : t_comm_rmap_codec_status_rd_reg;
+		rmap_last_write_addr_reg             : t_comm_rmap_last_write_addr_rd_reg;
+		rmap_last_read_addr_reg              : t_comm_rmap_last_read_addr_rd_reg;
+		data_packet_header_1_reg             : t_comm_data_packet_header_1_rd_reg;
+		data_packet_header_2_reg             : t_comm_data_packet_header_2_rd_reg;
+		comm_irq_flags_reg                   : t_comm_comm_irq_flags_rd_reg;
+	end record t_windowing_read_registers;
 
 end package avalon_mm_spacewire_registers_pkg;
 
