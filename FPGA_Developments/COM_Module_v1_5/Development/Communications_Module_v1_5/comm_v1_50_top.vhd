@@ -376,14 +376,30 @@ begin
 			g_MEMORY_ACCESS_WIDTH  => 0
 		)
 		port map(
-			clk_i                 => a_avs_clock,
-			reset_n_i             => rst_n,
-			spw_flag_i            => s_rmap_spw_flag,
-			mem_flag_i            => s_rmap_mem_flag,
-			spw_control_o         => s_rmap_spw_control,
-			mem_control_o         => s_rmap_mem_control,
-			mem_wr_byte_address_o => s_rmap_mem_wr_byte_address,
-			mem_rd_byte_address_o => s_rmap_mem_rd_byte_address
+			clk_i                      => a_avs_clock,
+			reset_n_i                  => rst_n,
+			spw_flag_i                 => s_rmap_spw_flag,
+			mem_flag_i                 => s_rmap_mem_flag,
+			spw_control_o              => s_rmap_spw_control,
+			conf_target_logical_addr_i => open,
+			conf_target_key_i          => open,
+			mem_control_o              => s_rmap_mem_control,
+			mem_wr_byte_address_o      => s_rmap_mem_wr_byte_address,
+			mem_rd_byte_address_o      => s_rmap_mem_rd_byte_address,
+			stat_command_received_o    => open,
+			stat_write_requested_o     => open,
+			stat_write_authorized_o    => open,
+			stat_read_requested_o      => open,
+			stat_read_authorized_o     => open,
+			stat_reply_sended_o        => open,
+			stat_discarded_package_o   => open,
+			err_early_eop_o            => open,
+			err_eep_o                  => open,
+			err_header_crc_o           => open,
+			err_unused_packet_type_o   => open,
+			err_invalid_command_code_o => open,
+			err_too_much_data_o        => open,
+			err_invalid_data_crc_o     => open
 		);
 
 	rmap_mem_area_nfee_read_inst : entity work.rmap_mem_area_nfee_read
