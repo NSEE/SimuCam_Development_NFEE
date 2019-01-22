@@ -6,8 +6,9 @@ package avalon_mm_spacewire_registers_pkg is
 
 	type t_comm_spw_link_config_status_wr_reg is record
 		spw_lnkcfg_disconnect : std_logic;
-		spw_lnkcfg_start      : std_logic;
+		spw_lnkcfg_linkstart  : std_logic;
 		spw_lnkcfg_autostart  : std_logic;
+		spw_lnkcfg_txdivcnt   : std_logic_vector(7 downto 0);
 	end record t_comm_spw_link_config_status_wr_reg;
 
 	type t_comm_spw_link_config_status_rd_reg is record
@@ -56,7 +57,7 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_stat_discarded_package   : std_logic;
 		rmap_err_early_eop            : std_logic;
 		rmap_err_eep                  : std_logic;
-		rmap_err_header_CRC           : std_logic;
+		rmap_err_header_crc           : std_logic;
 		rmap_err_unused_packet_type   : std_logic;
 		rmap_err_invalid_command_code : std_logic;
 		rmap_err_too_much_data        : std_logic;
@@ -146,15 +147,15 @@ package avalon_mm_spacewire_registers_pkg is
 	end record t_windowing_write_registers;
 
 	type t_windowing_read_registers is record
-		spw_link_config_status_reg_read_only : t_comm_spw_link_config_status_rd_reg;
-		spw_timecode_reg_read_only           : t_comm_spw_timecode_rd_reg;
-		fee_windowing_buffers_status_reg     : t_comm_fee_windowing_buffers_status_rd_reg;
-		rmap_codec_status_reg                : t_comm_rmap_codec_status_rd_reg;
-		rmap_last_write_addr_reg             : t_comm_rmap_last_write_addr_rd_reg;
-		rmap_last_read_addr_reg              : t_comm_rmap_last_read_addr_rd_reg;
-		data_packet_header_1_reg             : t_comm_data_packet_header_1_rd_reg;
-		data_packet_header_2_reg             : t_comm_data_packet_header_2_rd_reg;
-		comm_irq_flags_reg                   : t_comm_comm_irq_flags_rd_reg;
+		spw_link_config_status_reg       : t_comm_spw_link_config_status_rd_reg;
+		spw_timecode_reg                 : t_comm_spw_timecode_rd_reg;
+		fee_windowing_buffers_status_reg : t_comm_fee_windowing_buffers_status_rd_reg;
+		rmap_codec_status_reg            : t_comm_rmap_codec_status_rd_reg;
+		rmap_last_write_addr_reg         : t_comm_rmap_last_write_addr_rd_reg;
+		rmap_last_read_addr_reg          : t_comm_rmap_last_read_addr_rd_reg;
+		data_packet_header_1_reg         : t_comm_data_packet_header_1_rd_reg;
+		data_packet_header_2_reg         : t_comm_data_packet_header_2_rd_reg;
+		comm_irq_flags_reg               : t_comm_comm_irq_flags_rd_reg;
 	end record t_windowing_read_registers;
 
 end package avalon_mm_spacewire_registers_pkg;

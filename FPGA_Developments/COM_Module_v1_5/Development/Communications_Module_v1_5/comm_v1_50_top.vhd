@@ -172,7 +172,7 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
-			mask_enable_i                     => s_spacewire_write_registers.windowing_control.mask_enable,
+mask_enable_i                     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
 			window_data_write_o               => s_R_window_data_write,
 			window_mask_write_o               => s_R_window_mask_write,
@@ -193,7 +193,7 @@ begin
 			window_mask_o         => s_R_window_mask_out,
 			window_data_ready_o   => s_R_window_data_ready,
 			window_mask_ready_o   => s_R_window_mask_ready,
-			window_buffer_empty_o => s_spacewire_read_registers.windowing_buffer.R_buffer_empty
+window_buffer_empty_o => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty
 		);
 
 	-- left avalon mm windowing write instantiation
@@ -204,7 +204,7 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
-			mask_enable_i                     => s_spacewire_write_registers.windowing_control.mask_enable,
+			mask_enable_i                     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
 			window_data_write_o               => s_L_window_data_write,
 			window_mask_write_o               => s_L_window_mask_write,
@@ -225,7 +225,7 @@ begin
 			window_mask_o         => s_L_window_mask_out,
 			window_data_ready_o   => s_L_window_data_ready,
 			window_mask_ready_o   => s_L_window_mask_ready,
-			window_buffer_empty_o => s_spacewire_read_registers.windowing_buffer.L_buffer_empty
+			window_buffer_empty_o => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty
 		);
 
 	-- data controller instantiation
@@ -233,7 +233,7 @@ begin
 		port map(
 			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
-			mask_enable_i         => s_spacewire_write_registers.windowing_control.mask_enable,
+mask_enable_i         => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en,
 			window_data_R_i       => s_R_window_data_out,
 			window_mask_R_i       => s_R_window_mask_out,
 			window_data_R_ready_i => s_R_window_data_ready,
@@ -259,16 +259,14 @@ begin
 			clk_100_i                                  => a_avs_clock,
 			clk_200_i                                  => a_spw_clock,
 			rst_i                                      => a_reset,
-			--			spw_codec_link_command_clk100_i.autostart  => s_spacewire_write_registers.windowing_control.autostart,
-			--			spw_codec_link_command_clk100_i.linkstart  => s_spacewire_write_registers.windowing_control.linkstart,
-			--			spw_codec_link_command_clk100_i.linkdis    => s_spacewire_write_registers.windowing_control.linkdis,
-			spw_codec_link_command_clk100_i.autostart  => '1',
-			spw_codec_link_command_clk100_i.linkstart  => '0',
-			spw_codec_link_command_clk100_i.linkdis    => '0',
-			spw_codec_link_command_clk100_i.txdivcnt   => x"01",
-			spw_codec_timecode_tx_clk100_i.tick_in     => s_spacewire_write_registers.timecode_tx.tx_send,
-			spw_codec_timecode_tx_clk100_i.ctrl_in     => s_spacewire_write_registers.timecode_tx.tx_control,
-			spw_codec_timecode_tx_clk100_i.time_in     => s_spacewire_write_registers.timecode_tx.tx_time,
+			spw_codec_link_command_clk100_i.autostart  => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_autostart,
+			spw_codec_link_command_clk100_i.linkstart  => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_linkstart,
+			spw_codec_link_command_clk100_i.linkdis    => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_disconnect,
+			spw_codec_link_command_clk100_i.txdivcnt   => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_txdivcnt,
+			-- TODO: change
+--			spw_codec_timecode_tx_clk100_i.tick_in     => s_spacewire_write_registers.timecode_tx.tx_send,
+--			spw_codec_timecode_tx_clk100_i.ctrl_in     => s_spacewire_write_registers.timecode_tx.tx_control,
+--			spw_codec_timecode_tx_clk100_i.time_in     => s_spacewire_write_registers.timecode_tx.tx_time,
 			spw_codec_data_rx_command_clk100_i.rxread  => s_rmap_spw_control.receiver.read,
 			spw_codec_data_tx_command_clk100_i.txwrite => s_rmap_spw_control.transmitter.write,
 			spw_codec_data_tx_command_clk100_i.txflag  => s_rmap_spw_control.transmitter.flag,
@@ -278,16 +276,17 @@ begin
 			spw_codec_timecode_rx_clk200_i             => s_spw_codec_timecode_rx_clk200,
 			spw_codec_data_rx_status_clk200_i          => s_spw_codec_data_rx_status_clk200,
 			spw_codec_data_tx_status_clk200_i          => s_spw_codec_data_tx_status_clk200,
-			spw_codec_link_status_clk100_o.started     => s_spacewire_read_registers.windowing_status.started,
-			spw_codec_link_status_clk100_o.connecting  => s_spacewire_read_registers.windowing_status.connecting,
-			spw_codec_link_status_clk100_o.running     => s_spacewire_read_registers.windowing_status.running,
-			spw_codec_link_error_clk100_o.errdisc      => s_spacewire_read_registers.windowing_status.errdis,
-			spw_codec_link_error_clk100_o.errpar       => s_spacewire_read_registers.windowing_status.errpar,
-			spw_codec_link_error_clk100_o.erresc       => s_spacewire_read_registers.windowing_status.erresc,
-			spw_codec_link_error_clk100_o.errcred      => s_spacewire_read_registers.windowing_status.errcred,
-			spw_codec_timecode_rx_clk100_o.tick_out    => s_spacewire_read_registers.timecode_rx.rx_received,
-			spw_codec_timecode_rx_clk100_o.ctrl_out    => s_spacewire_read_registers.timecode_rx.rx_control,
-			spw_codec_timecode_rx_clk100_o.time_out    => s_spacewire_read_registers.timecode_rx.rx_time,
+			spw_codec_link_status_clk100_o.started     => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_started,
+			spw_codec_link_status_clk100_o.connecting  => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_connecting,
+			spw_codec_link_status_clk100_o.running     => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_running,
+			spw_codec_link_error_clk100_o.errdisc      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_disconnect,
+			spw_codec_link_error_clk100_o.errpar       => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_parity,
+			spw_codec_link_error_clk100_o.erresc       => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_escape,
+			spw_codec_link_error_clk100_o.errcred      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_credit,
+			-- TODO: change
+--			spw_codec_timecode_rx_clk100_o.tick_out    => s_spacewire_read_registers.spw_link_config_status_reg.,
+--			spw_codec_timecode_rx_clk100_o.ctrl_out    => s_spacewire_read_registers.spw_link_config_status_reg.,
+--			spw_codec_timecode_rx_clk100_o.time_out    => s_spacewire_read_registers.spw_link_config_status_reg.,
 			spw_codec_data_rx_status_clk100_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
 			spw_codec_data_rx_status_clk100_o.rxhalff  => s_spw_rxhalff,
 			spw_codec_data_rx_status_clk100_o.rxflag   => s_rmap_spw_flag.receiver.flag,
@@ -337,35 +336,36 @@ begin
 	p_interrupt_manager : process(a_avs_clock, a_reset) is
 	begin
 		if (a_reset) = '1' then
-			s_spacewire_read_registers.interrupt_flag.buffer_empty_flag <= '0';
+			s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
 			s_R_buffer_empty_delayed                                    <= '0';
 			s_L_buffer_empty_delayed                                    <= '0';
 		elsif rising_edge(a_avs_clock) then
 			-- flag clear
-			if (s_spacewire_write_registers.interrupt_flag_clear.buffer_empty_flag = '1') then
-				s_spacewire_read_registers.interrupt_flag.buffer_empty_flag <= '0';
+			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear = '1') then
+				s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
 			end if;
 			-- check if the R empty buffer interrupt is activated
-			if (s_spacewire_write_registers.interrupt_control.R_buffer_empty_enable = '1') then
+			if (s_spacewire_write_registers.comm_irq_control_reg.comm_right_buffer_empty_en = '1') then
 				-- detect a rising edge in of the R buffer empty signals
-				if (((s_R_buffer_empty_delayed = '0') and (s_spacewire_read_registers.windowing_buffer.R_buffer_empty = '1'))) then
-					s_spacewire_read_registers.interrupt_flag.buffer_empty_flag <= '1';
+				if (((s_R_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty = '1'))) then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
 				end if;
 			end if;
 			-- check if the L empty buffer interrupt is activated
-			if (s_spacewire_write_registers.interrupt_control.L_buffer_empty_enable = '1') then
+			if (s_spacewire_write_registers.comm_irq_control_reg.comm_left_buffer_empty_en = '1') then
 				-- detect a rising edge in of the L buffer empty signals
-				if (((s_L_buffer_empty_delayed = '0') and (s_spacewire_read_registers.windowing_buffer.L_buffer_empty = '1'))) then
-					s_spacewire_read_registers.interrupt_flag.buffer_empty_flag <= '1';
+				if (((s_L_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty = '1'))) then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
 				end if;
 			end if;
 			-- delay signals
-			s_R_buffer_empty_delayed <= s_spacewire_read_registers.windowing_buffer.R_buffer_empty;
-			s_L_buffer_empty_delayed <= s_spacewire_read_registers.windowing_buffer.L_buffer_empty;
+			s_R_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
+			s_L_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
 		end if;
 	end process p_interrupt_manager;
 
 	interrupt_sender_irq <= s_spacewire_read_registers.interrupt_flag.buffer_empty_flag;
+			-- TODO: change
 
 	-- RMAP (TEMP)
 	rmap_target_top_inst : entity work.rmap_target_top
@@ -386,20 +386,20 @@ begin
 			mem_control_o              => s_rmap_mem_control,
 			mem_wr_byte_address_o      => s_rmap_mem_wr_byte_address,
 			mem_rd_byte_address_o      => s_rmap_mem_rd_byte_address,
-			stat_command_received_o    => open,
-			stat_write_requested_o     => open,
-			stat_write_authorized_o    => open,
-			stat_read_requested_o      => open,
-			stat_read_authorized_o     => open,
-			stat_reply_sended_o        => open,
-			stat_discarded_package_o   => open,
-			err_early_eop_o            => open,
-			err_eep_o                  => open,
-			err_header_crc_o           => open,
-			err_unused_packet_type_o   => open,
-			err_invalid_command_code_o => open,
-			err_too_much_data_o        => open,
-			err_invalid_data_crc_o     => open
+			stat_command_received_o    => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_command_received,
+			stat_write_requested_o     => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_requested,
+			stat_write_authorized_o    => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized,
+			stat_read_requested_o      => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_requested,
+			stat_read_authorized_o     => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized,
+			stat_reply_sended_o        => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_reply_sended,
+			stat_discarded_package_o   => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_discarded_package,
+			err_early_eop_o            => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_early_eop,
+			err_eep_o                  => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_eep,
+			err_header_crc_o           => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_header_crc,
+			err_unused_packet_type_o   => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_unused_packet_type,
+			err_invalid_command_code_o => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_invalid_command_code,
+			err_too_much_data_o        => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_too_much_data,
+			err_invalid_data_crc_o     => s_spacewire_read_registers.rmap_codec_status_reg.rmap_err_invalid_data_crc
 		);
 
 	rmap_mem_area_nfee_read_inst : entity work.rmap_mem_area_nfee_read
