@@ -1,4 +1,4 @@
-#include "comm.h"
+#include "comm_channel.h""
 
 //! [private function prototypes]
 //! [private function prototypes]
@@ -16,6 +16,23 @@
 //! [program memory private global variables]
 
 //! [public functions]
+bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh) {
+	bool bStatus = FALSE;
+
+	if (!bSpwcInitCh(&(pxCommCh->xSpacewire), ucCommCh)) {
+		bStatus = FALSE;
+	}
+	if (!bFeebInitCh(&(pxCommCh->xFeeBuffer), ucCommCh)) {
+		bStatus = FALSE;
+	}
+	if (!bRmapInitCh(&(pxCommCh->xRmap), ucCommCh)) {
+		bStatus = FALSE;
+	}
+	if (!bDpktInitCh(&(pxCommCh->xDataPacket), ucCommCh)) {
+		bStatus = FALSE;
+	}
+	return bStatus;
+}
 //! [public functions]
 
 //! [private functions]

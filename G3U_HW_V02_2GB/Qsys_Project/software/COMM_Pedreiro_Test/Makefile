@@ -149,7 +149,6 @@ C_SRCS += driver/rtcc_spi/rtcc_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
 C_SRCS += utils/util.c
 C_SRCS += mebxhwt01.c
-C_SRCS += driver/comm/comm.c
 C_SRCS += driver/msgdma/msgdma.c
 C_SRCS += driver/reset/reset.c
 C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
@@ -161,6 +160,7 @@ C_SRCS += driver/comm/spw_controller/spw_controller.c
 C_SRCS += api_driver/ddr2/ddr2.c
 C_SRCS += api_driver/sense/sense.c
 C_SRCS += api_driver/simucam_dma/simucam_dma.c
+C_SRCS += driver/comm/comm_channel.c
 CXX_SRCS :=
 ASM_SRCS :=
 

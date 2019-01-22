@@ -77,8 +77,10 @@ entity rmap_target_top is
 		stat_command_received_o    : out std_logic;
 		stat_write_requested_o     : out std_logic;
 		stat_write_authorized_o    : out std_logic;
+		stat_write_finished_o      : out std_logic;
 		stat_read_requested_o      : out std_logic;
 		stat_read_authorized_o     : out std_logic;
+		stat_read_finished_o       : out std_logic;
 		stat_reply_sended_o        : out std_logic;
 		stat_discarded_package_o   : out std_logic;
 		err_early_eop_o            : out std_logic;
@@ -269,8 +271,10 @@ begin
 	stat_command_received_o    <= s_rmap_target_flags.command_parsing.command_received;
 	stat_write_requested_o     <= s_rmap_target_flags.command_parsing.write_request;
 	stat_write_authorized_o    <= s_rmap_target_control.write_operation.write_authorization;
+	stat_write_finished_o      <= s_rmap_target_flags.write_operation.write_data_indication;
 	stat_read_requested_o      <= s_rmap_target_flags.command_parsing.read_request;
 	stat_read_authorized_o     <= s_rmap_target_control.read_operation.read_authorization;
+	stat_read_finished_o       <= s_rmap_target_flags.read_operation.read_data_indication;
 	stat_reply_sended_o        <= s_rmap_target_flags.reply_geneneration.reply_finished;
 	stat_discarded_package_o   <= s_rmap_target_flags.command_parsing.discarded_package;
 	--
