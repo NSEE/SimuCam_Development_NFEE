@@ -145,12 +145,19 @@ begin
 			avalon_mm_spacewire_o.waitrequest <= '1';
 			p_control_triggers;
 			if (avalon_mm_spacewire_i.write = '1') then
-				avalon_mm_spacewire_o.waitrequest <= '0';
-				v_write_address                   := to_integer(unsigned(avalon_mm_spacewire_i.address));
-				s_data_acquired                   <= '1';
-				if (s_data_acquired = '1') then
-					p_writedata(v_write_address);
-					s_data_acquired <= '0';
+				v_write_address := to_integer(unsigned(avalon_mm_spacewire_i.address));
+				-- check if the address is allowed
+				if not (
+					((v_write_address >= to_integer(unsigned(x"A0"))) and (v_write_address <= to_integer(unsigned(x"BF")))) or 
+					((v_write_address >= to_integer(unsigned(x"40"))) and (v_write_address <= to_integer(unsigned(x"51"))))
+				) then
+					-- check if address is allowed
+					avalon_mm_spacewire_o.waitrequest <= '0';
+					s_data_acquired                   <= '1';
+					if (s_data_acquired = '1') then
+						p_writedata(v_write_address);
+						s_data_acquired <= '0';
+					end if;
 				end if;
 			end if;
 		end if;
