@@ -467,25 +467,9 @@ begin
 			end case;
 
 		end procedure p_nfee_mem_rd;
-	begin
-		if (rst_i = '1') then
-			rmap_memerror_o  <= '0';
-			rmap_datavalid_o <= '0';
-			rmap_readdata_o  <= (others => '0');
-		elsif rising_edge(clk_i) then
-			-- standard signals value
-			rmap_memerror_o  <= '0';
-			rmap_datavalid_o <= '0';
-			rmap_readdata_o  <= (others => '0');
-			-- check if a read request was issued
-			if (rmap_read_i = '1') then
-				rmap_datavalid_o <= '1';
-				p_nfee_mem_rd(rmap_readaddr_i);
-			end if;
-		end if;
-	end process p_rmap_mem_area_nfee_read;
 
-	p_avalon_mm_rmap_read : process(clk_i, rst_i) is
+		-- p_avalon_mm_rmap_read
+
 		procedure p_avs_config_readdata(read_address_i : t_avalon_mm_spacewire_address) is
 		begin
 			-- Registers Data Read
@@ -675,14 +659,29 @@ begin
 		variable v_read_address     : t_avalon_mm_spacewire_address := 0;
 		variable v_read_timeout_cnt : natural range 0 to 15         := 15;
 		variable v_read_executed    : std_logic                     := '0';
+
 	begin
 		if (rst_i = '1') then
+			rmap_memerror_o              <= '0';
+			rmap_datavalid_o             <= '0';
+			rmap_readdata_o              <= (others => '0');
+			-- p_avalon_mm_rmap_read
 			avalon_mm_rmap_o.readdata    <= (others => '0');
 			avalon_mm_rmap_o.waitrequest <= '1';
 			v_read_address               := 0;
 			v_read_timeout_cnt           := 15;
 			v_read_executed              := '0';
-		elsif (rising_edge(clk_i)) then
+		elsif rising_edge(clk_i) then
+			-- standard signals value
+			rmap_memerror_o              <= '0';
+			rmap_datavalid_o             <= '0';
+			rmap_readdata_o              <= (others => '0');
+			-- check if a read request was issued
+			if (rmap_read_i = '1') then
+				rmap_datavalid_o <= '1';
+				p_nfee_mem_rd(rmap_readaddr_i);
+			end if;
+			-- p_avalon_mm_rmap_read
 			avalon_mm_rmap_o.waitrequest <= '1';
 			if (v_read_executed = 0) then
 				avalon_mm_rmap_o.readdata <= (others => '0');
@@ -724,6 +723,6 @@ begin
 				v_read_executed := '0';
 			end if;
 		end if;
-	end process p_avalon_mm_rmap_read;
+	end process p_rmap_mem_area_nfee_read;
 
 end architecture RTL;

@@ -299,26 +299,9 @@ begin
 			end case;
 
 		end procedure p_nfee_mem_wr;
-	begin
-		if (rst_i = '1') then
-			rmap_memerror_o <= '0';
-			rmap_memready_o <= '0';
-			p_nfee_reg_reset;
-		elsif rising_edge(clk_i) then
 
-			-- standard signals value
-			rmap_memerror_o <= '0';
-			rmap_memready_o <= '1';
-			-- check if a write request was issued
-			if (rmap_write_i = '1') then
-				rmap_memready_o <= '1';
-				p_nfee_mem_wr(rmap_writeaddr_i);
-			end if;
+		-- p_avalon_mm_rmap_write
 
-		end if;
-	end process p_rmap_mem_area_nfee_write;
-
-	p_avalon_mm_rmap_write : process(clk_i, rst_i) is
 		procedure p_avs_config_writedata(write_address_i : t_avalon_mm_spacewire_address) is
 		begin
 			-- Registers Write Data
@@ -497,11 +480,27 @@ begin
 		variable v_write_executed    : std_logic                     := '0';
 	begin
 		if (rst_i = '1') then
+			rmap_memerror_o              <= '0';
+			rmap_memready_o              <= '0';
+			p_nfee_reg_reset;
+			-- p_avalon_mm_rmap_write
 			avalon_mm_rmap_o.waitrequest <= '1';
 			v_write_address              := 0;
 			v_write_timeout_cnt          := 15;
 			v_write_executed             := '0';
-		elsif (rising_edge(clk_i)) then
+		elsif rising_edge(clk_i) then
+
+			-- standard signals value
+			rmap_memerror_o <= '0';
+			rmap_memready_o <= '1';
+			-- check if a write request was issued
+			if (rmap_write_i = '1') then
+				rmap_memready_o <= '1';
+				p_nfee_mem_wr(rmap_writeaddr_i);
+			end if;
+
+			-- p_avalon_mm_rmap_write
+
 			avalon_mm_rmap_o.waitrequest <= '1';
 			if (v_write_executed = 0) then
 				if (avalon_mm_rmap_i.write = '1') then
@@ -541,7 +540,8 @@ begin
 			else
 				v_write_executed := '0';
 			end if;
+
 		end if;
-	end process p_avalon_mm_rmap_write;
+	end process p_rmap_mem_area_nfee_write;
 
 end architecture RTL;
