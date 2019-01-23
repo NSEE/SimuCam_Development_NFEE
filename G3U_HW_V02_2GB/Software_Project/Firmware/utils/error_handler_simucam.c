@@ -744,7 +744,7 @@ void vFailCreateNFEEQueue( unsigned char ucID )
 	#endif
 
 	#ifdef DEBUG_ON
-		printf(fp,"CRITICAL: Could not create the Queue to the NSEE %hu.\n",ucID);
+		printf(fp,"CRITICAL: Could not create the Queue to the NSEE %hhu.\n",ucID);
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o

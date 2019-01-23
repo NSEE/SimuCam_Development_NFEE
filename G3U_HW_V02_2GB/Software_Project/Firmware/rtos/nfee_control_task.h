@@ -5,8 +5,8 @@
  *      Author: Tiago-note
  */
 
-#ifndef DATA_CONTROL_TASK_H_
-#define DATA_CONTROL_TASK_H_
+#ifndef NFEE_CONTROL_TASK_H_
+#define NFEE_CONTROL_TASK_H_
 
 #include "tasks_configurations.h"
 #include "../simucam_definitions.h"
@@ -16,4 +16,4 @@
 
 void vNFeeControlTask(void *task_data);
 
-#endif /* DATA_CONTROL_TASK_H_ */
+#endif /* NFEE_CONTROL_TASK_H_ */

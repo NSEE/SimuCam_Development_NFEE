@@ -10,7 +10,6 @@
 
 #include "tasks_configurations.h"
 #include "../simucam_definitions.h"
-#include "../utils/fee.h"
 #include "../utils/data_controller.h"
 
 

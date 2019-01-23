@@ -55,6 +55,4 @@
 
 #include <altera_avalon_uart.h>
 
-extern TSimucam_MEB xSimMeb;
-
 #endif /* SIMUCAM_DEFINITIONS_H_ */

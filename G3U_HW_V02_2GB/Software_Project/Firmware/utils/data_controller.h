@@ -27,6 +27,7 @@ typedef struct NData_Control {
 	unsigned char xInsgestionSchedule[N_OF_NFEE];
 	OS_EVENT *xSemDmaAccess[N_OF_NFEE];
 	TNFee_CtrlReadOnly xReadOnlyFeeControl;
+	bool bUpdateComplete;
 } TNData_Control; /* Read Only Structure */
 
 void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOntrolL );

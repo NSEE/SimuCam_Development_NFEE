@@ -13,11 +13,11 @@ void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOn
 	unsigned char ucIL;
 
 	for ( ucIL = 0 ; ucIL < N_OF_NFEE; ucIL++ ) {
-		xDataControlL->xReadOnlyFeeControl->xNfee[ucIL] = &xNfeeCOntrolL->xNfee[ucIL];
-		xDataControlL->xReadOnlyFeeControl->pbEnabledNFEEs[ucIL] = &xNfeeCOntrolL->pbEnabledNFEEs[ucIL];
+		xDataControlL->xReadOnlyFeeControl.xNfee[ucIL] = &xNfeeCOntrolL->xNfee[ucIL];
+		xDataControlL->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL] = xNfeeCOntrolL->pbEnabledNFEEs[ucIL];
 	}
 	
-	xDataControlL->xReadOnlyFeeControl->ucTimeCode = &xNfeeCOntrolL->ucTimeCode;
+	xDataControlL->xReadOnlyFeeControl.ucTimeCode = &xNfeeCOntrolL->ucTimeCode;
 	xDataControlL->bUpdateComplete = FALSE;
 
 

@@ -125,7 +125,6 @@ TSimucam_MEB xSimMeb; /* Struct */
 /* Instanceatin and Initialization of the resources for the RTOS */
 bool bResourcesInitRTOS( void ) {
 	bool bSuccess = TRUE;
-	unsigned char ucIL;
 	INT8U err;
 
 	/* This semaphore in the sincronization of the task receiver_com_task with sender_com_task*/
@@ -407,7 +406,7 @@ int main(void)
 	}
 
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
-	vSimucamStructureInit( &xSimMebStruct );
+	vSimucamStructureInit( &xSimMeb );
 
 	vVariablesInitialization();
 

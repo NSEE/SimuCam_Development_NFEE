@@ -25,15 +25,12 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Load Default Config for Auto Reset Mode */
     vLoadDefaultAutoResetSync( xMeb );
 
-    // LoadNumberOfNFeesSDCard();
-    /* todo: Load from SDCard for now is Hardcoded for 4 instances of NFEE */
-    xMeb->ucNofFeesInUse = 2;
 
     /* Verify if if a Fast or Normal */
     if ( xMeb->eType == sNormalFEE ) {
         /* Are Normal Fee instances */
-        vNFeeControl( xMeb->xFeeControl );
-        vDataControllerInit( xMeb->xDataControl, xMeb->xFeeControl );
+    	vNFeeControlInit( &xMeb->xFeeControl );
+        vDataControllerInit( &xMeb->xDataControl, &xMeb->xFeeControl );
     } else {
         /* Are Fast Fee instances */
         /* todo: Not in use yet */
@@ -139,7 +136,7 @@ void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay ) {
     // Put all NFEE in Stand-by mode, if not in Config mode
 
     // Reset the time code
-    vResetTimeCode(xMeb);
+    vResetTimeCode(&xMeb->xFeeControl);
 
     // Wait ufSynchDelay milliseconds
 
