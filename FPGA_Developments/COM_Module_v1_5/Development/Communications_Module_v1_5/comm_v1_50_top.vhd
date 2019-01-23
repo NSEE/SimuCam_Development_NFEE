@@ -48,6 +48,10 @@ end entity comm_v1_50_top;
 
 architecture rtl of comm_v1_50_top is
 
+	-- dummy ports
+	signal s_rmap_irq_dummy : std_logic;
+	signal s_sync_dummy     : std_logic;
+
 	alias a_spw_clock is clock_sink_200_clk;
 	alias a_avs_clock is clock_sink_100_clk;
 	alias a_reset is reset_sink_reset;
@@ -100,11 +104,11 @@ architecture rtl of comm_v1_50_top is
 	-- data controller signals
 
 	-- spw codec signals
-	signal s_spw_rxvalid : std_logic;
-	signal s_spw_rxhalff : std_logic;
-	signal s_spw_rxflag  : std_logic;
-	signal s_spw_rxdata  : std_logic_vector(7 downto 0);
-	signal s_spw_rxread  : std_logic;
+	--	signal s_spw_rxvalid : std_logic;
+	--	signal s_spw_rxhalff : std_logic;
+	--	signal s_spw_rxflag  : std_logic;
+	--	signal s_spw_rxdata  : std_logic_vector(7 downto 0);
+	--	signal s_spw_rxread  : std_logic;
 	signal s_spw_txrdy   : std_logic;
 	signal s_spw_txhalff : std_logic;
 	signal s_spw_txwrite : std_logic;
@@ -138,12 +142,23 @@ architecture rtl of comm_v1_50_top is
 
 	signal rst_n : std_logic;
 
-	signal s_rmap_irq_dummy : std_logic;
-
 	signal s_rmap_write_data_finished : std_logic;
 	signal s_rmap_read_data_finished  : std_logic;
 
+	-- timecode manager
+	signal s_timecode_tick    : std_logic;
+	signal s_timecode_control : std_logic_vector(1 downto 0);
+	signal s_timecode_counter : std_logic_vector(5 downto 0);
+
+	-- spw mux
+	signal s_mux_rx_channel_command : t_spw_codec_data_rx_command;
+	signal s_mux_rx_channel_status  : t_spw_codec_data_rx_status;
+	signal s_mux_tx_channel_command : t_spw_codec_data_tx_command;
+	signal s_mux_tx_channel_status  : t_spw_codec_data_tx_status;
+
 begin
+
+	rst_n <= not a_reset;
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
@@ -259,182 +274,6 @@ begin
 			spw_txdata_o          => s_spw_txdata
 		);
 
-	-- spw codec clock domain synchronization
-	spw_clk_synchronization_ent_inst : entity work.spw_clk_synchronization_ent
-		port map(
-			clk_100_i                                  => a_avs_clock,
-			clk_200_i                                  => a_spw_clock,
-			rst_i                                      => a_reset,
-			spw_codec_link_command_clk100_i.autostart  => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_autostart,
-			spw_codec_link_command_clk100_i.linkstart  => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_linkstart,
-			spw_codec_link_command_clk100_i.linkdis    => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_disconnect,
-			spw_codec_link_command_clk100_i.txdivcnt   => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_txdivcnt,
-			-- TODO: change
-			--			spw_codec_timecode_tx_clk100_i.tick_in     => s_spacewire_write_registers.timecode_tx.tx_send,
-			--			spw_codec_timecode_tx_clk100_i.ctrl_in     => s_spacewire_write_registers.timecode_tx.tx_control,
-			--			spw_codec_timecode_tx_clk100_i.time_in     => s_spacewire_write_registers.timecode_tx.tx_time,
-			spw_codec_data_rx_command_clk100_i.rxread  => s_rmap_spw_control.receiver.read,
-			spw_codec_data_tx_command_clk100_i.txwrite => s_rmap_spw_control.transmitter.write,
-			spw_codec_data_tx_command_clk100_i.txflag  => s_rmap_spw_control.transmitter.flag,
-			spw_codec_data_tx_command_clk100_i.txdata  => s_rmap_spw_control.transmitter.data,
-			spw_codec_link_status_clk200_i             => s_spw_codec_link_status_clk200,
-			spw_codec_link_error_clk200_i              => s_spw_codec_link_error_clk200,
-			spw_codec_timecode_rx_clk200_i             => s_spw_codec_timecode_rx_clk200,
-			spw_codec_data_rx_status_clk200_i          => s_spw_codec_data_rx_status_clk200,
-			spw_codec_data_tx_status_clk200_i          => s_spw_codec_data_tx_status_clk200,
-			spw_codec_link_status_clk100_o.started     => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_started,
-			spw_codec_link_status_clk100_o.connecting  => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_connecting,
-			spw_codec_link_status_clk100_o.running     => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_running,
-			spw_codec_link_error_clk100_o.errdisc      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_disconnect,
-			spw_codec_link_error_clk100_o.errpar       => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_parity,
-			spw_codec_link_error_clk100_o.erresc       => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_escape,
-			spw_codec_link_error_clk100_o.errcred      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_credit,
-			-- TODO: change
-			--			spw_codec_timecode_rx_clk100_o.tick_out    => s_spacewire_read_registers.spw_link_config_status_reg.,
-			--			spw_codec_timecode_rx_clk100_o.ctrl_out    => s_spacewire_read_registers.spw_link_config_status_reg.,
-			--			spw_codec_timecode_rx_clk100_o.time_out    => s_spacewire_read_registers.spw_link_config_status_reg.,
-			spw_codec_data_rx_status_clk100_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
-			spw_codec_data_rx_status_clk100_o.rxhalff  => s_spw_rxhalff,
-			spw_codec_data_rx_status_clk100_o.rxflag   => s_rmap_spw_flag.receiver.flag,
-			spw_codec_data_rx_status_clk100_o.rxdata   => s_rmap_spw_flag.receiver.data,
-			spw_codec_data_tx_status_clk100_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
-			spw_codec_data_tx_status_clk100_o.txhalff  => s_spw_txhalff,
-			spw_codec_link_command_clk200_o            => s_spw_codec_link_command_clk200,
-			spw_codec_timecode_tx_clk200_o             => s_spw_codec_timecode_tx_clk200,
-			spw_codec_data_rx_command_clk200_o         => s_spw_codec_data_rx_command_clk200,
-			spw_codec_data_tx_command_clk200_o         => s_spw_codec_data_tx_command_clk200
-		);
-
-	-- spw codec instantiation 
-	spw_codec_ent_inst : entity work.spw_codec_ent
-		port map(
-			clk_200_i                         => a_spw_clock,
-			rst_i                             => a_reset,
-			spw_codec_link_command_i          => s_spw_codec_link_command_clk200,
-			spw_codec_ds_encoding_rx_i.spw_di => data_in,
-			spw_codec_ds_encoding_rx_i.spw_si => strobe_in,
-			spw_codec_timecode_tx_i           => s_spw_codec_timecode_tx_clk200,
-			spw_codec_data_rx_command_i       => s_spw_codec_data_rx_command_clk200,
-			spw_codec_data_tx_command_i       => s_spw_codec_data_tx_command_clk200,
-			spw_codec_link_status_o           => s_spw_codec_link_status_clk200,
-			spw_codec_ds_encoding_tx_o.spw_do => data_out,
-			spw_codec_ds_encoding_tx_o.spw_so => strobe_out,
-			spw_codec_link_error_o            => s_spw_codec_link_error_clk200,
-			spw_codec_timecode_rx_o           => s_spw_codec_timecode_rx_clk200,
-			spw_codec_data_rx_status_o        => s_spw_codec_data_rx_status_clk200,
-			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
-		);
-
-	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest)) when (a_reset = '0') else ('1');
-
-	p_codec_dummy_read : process(a_avs_clock, a_reset) is
-	begin
-		if (a_reset = '1') then
-			s_spw_rxread <= '0';
-		elsif rising_edge(a_avs_clock) then
-			s_spw_rxread <= '0';
-			if (s_spw_rxvalid = '1') then
-				s_spw_rxread <= '1';
-			end if;
-		end if;
-	end process p_codec_dummy_read;
-
-	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
-	begin
-		if (a_reset) = '1' then
-			s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
-			s_R_buffer_empty_delayed                                             <= '0';
-			s_L_buffer_empty_delayed                                             <= '0';
-		elsif rising_edge(a_avs_clock) then
-			-- flag clear
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear = '1') then
-				s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
-			end if;
-			-- check if the global interrupt is enabled
-			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
-				-- check if the R empty buffer interrupt is activated
-				if (s_spacewire_write_registers.comm_irq_control_reg.comm_right_buffer_empty_en = '1') then
-					-- detect a rising edge in of the R buffer empty signals
-					if (((s_R_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
-					end if;
-				end if;
-				-- check if the L empty buffer interrupt is activated
-				if (s_spacewire_write_registers.comm_irq_control_reg.comm_left_buffer_empty_en = '1') then
-					-- detect a rising edge in of the L buffer empty signals
-					if (((s_L_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
-					end if;
-				end if;
-			end if;
-			-- delay signals
-			s_R_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
-			s_L_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
-		end if;
-	end process p_fee_buffers_irq_manager;
-
-	p_rmap_write_irq_manager : process(a_avs_clock, a_reset) is
-	begin
-		if (a_reset) = '1' then
-			s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '0';
-			s_rmap_write_finished_delayed                                              <= '0';
-		elsif rising_edge(a_avs_clock) then
-			-- flag clear
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear = '1') then
-				s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '0';
-			end if;
-			-- check if the global interrupt is enabled
-			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
-				-- check if the rmap write finished interrupt is activated
-				if (s_spacewire_write_registers.comm_irq_control_reg.comm_rmap_write_command_en = '1') then
-					-- detect a rising edge in write finished signal
-					if (((s_rmap_write_finished_delayed = '0') and (s_rmap_write_data_finished = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '1';
-					end if;
-				end if;
-			end if;
-			-- delay signals
-			s_rmap_write_finished_delayed <= s_rmap_write_data_finished;
-		end if;
-	end process p_rmap_write_irq_manager;
-
-	-- TODO: change irq signal
-	interrupt_sender_irq <= s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag;
-	s_rmap_irq_dummy     <= s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag;
-
-	p_rmap_last_addr : process(a_avs_clock, a_reset) is
-		variable v_write_authorized : std_logic := '0';
-		variable v_read_authorized  : std_logic := '0';
-	begin
-		if (a_reset) = '1' then
-			s_spacewire_read_registers.rmap_last_write_addr_reg.rmap_last_write_addr <= (others => '0');
-			s_spacewire_read_registers.rmap_last_read_addr_reg.rmap_last_read_addr   <= (others => '0');
-			v_write_authorized                                                       := '0';
-			v_read_authorized                                                        := '0';
-		elsif rising_edge(a_avs_clock) then
-			if (v_write_authorized = '1') then
-				if (s_rmap_mem_control.write.write = '1') then
-					s_spacewire_read_registers.rmap_last_write_addr_reg.rmap_last_write_addr <= s_rmap_mem_wr_byte_address;
-					v_write_authorized                                                       := '0';
-				end if;
-			else
-				if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized = '1') then
-					v_write_authorized := '1';
-				end if;
-			end if;
-			if (v_read_authorized = '1') then
-				if (s_rmap_mem_control.read.read = '1') then
-					s_spacewire_read_registers.rmap_last_read_addr_reg.rmap_last_read_addr <= s_rmap_mem_rd_byte_address;
-					v_read_authorized                                                      := '0';
-				end if;
-			else
-				if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized = '1') then
-					v_read_authorized := '1';
-				end if;
-			end if;
-		end if;
-	end process p_rmap_last_addr;
-
 	-- RMAP (TEMP)
 	rmap_target_top_inst : entity work.rmap_target_top
 		generic map(
@@ -498,6 +337,227 @@ begin
 			rmap_hk_registers_o     => s_rmap_mem_hk_area
 		);
 
-	rst_n <= not a_reset;
+	-- spw mux
+	-- tx 0 / rx 0 -> rmap
+	-- tx 1        -> data controller 
+	spw_mux_ent_inst : entity work.spw_mux_ent
+		port map(
+			clk_i                          => a_avs_clock,
+			rst_i                          => a_reset,
+			spw_codec_rx_status_i          => s_mux_rx_channel_status,
+			spw_codec_tx_status_i          => s_mux_tx_channel_status,
+			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,
+			spw_mux_tx_0_command_i.txwrite => s_rmap_spw_control.transmitter.write,
+			spw_mux_tx_0_command_i.txflag  => s_rmap_spw_control.transmitter.flag,
+			spw_mux_tx_0_command_i.txdata  => s_rmap_spw_control.transmitter.data,
+			spw_mux_tx_1_command_i.txwrite => s_spw_txwrite,
+			spw_mux_tx_1_command_i.txflag  => s_spw_txflag,
+			spw_mux_tx_1_command_i.txdata  => s_spw_txdata,
+			spw_codec_rx_command_o         => s_mux_rx_channel_command,
+			spw_codec_tx_command_o         => s_mux_tx_channel_command,
+			spw_mux_rx_0_status_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
+			spw_mux_rx_0_status_o.rxhalff  => s_spw_rxhalff,
+			spw_mux_rx_0_status_o.rxflag   => s_rmap_spw_flag.receiver.flag,
+			spw_mux_rx_0_status_o.rxdata   => s_rmap_spw_flag.receiver.data,
+			spw_mux_tx_0_status_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
+			spw_mux_tx_0_status_o.txhalff  => open,
+			spw_mux_tx_1_status_o.txrdy    => s_spw_txrdy,
+			spw_mux_tx_1_status_o.txhalff  => s_spw_txhalff
+		);
+
+	-- spw codec clock domain synchronization
+	spw_clk_synchronization_ent_inst : entity work.spw_clk_synchronization_ent
+		port map(
+			clk_100_i                                 => a_avs_clock,
+			clk_200_i                                 => a_spw_clock,
+			rst_i                                     => a_reset,
+			spw_codec_link_command_clk100_i.autostart => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_autostart,
+			spw_codec_link_command_clk100_i.linkstart => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_linkstart,
+			spw_codec_link_command_clk100_i.linkdis   => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_disconnect,
+			spw_codec_link_command_clk100_i.txdivcnt  => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_txdivcnt,
+			spw_codec_timecode_tx_clk100_i.tick_in    => s_timecode_tick,
+			spw_codec_timecode_tx_clk100_i.ctrl_in    => s_timecode_control,
+			spw_codec_timecode_tx_clk100_i.time_in    => s_timecode_counter,
+			spw_codec_data_rx_command_clk100_i        => s_mux_rx_channel_command,
+			spw_codec_data_tx_command_clk100_i        => s_mux_tx_channel_command,
+			spw_codec_link_status_clk200_i            => s_spw_codec_link_status_clk200,
+			spw_codec_link_error_clk200_i             => s_spw_codec_link_error_clk200,
+			spw_codec_timecode_rx_clk200_i            => s_spw_codec_timecode_rx_clk200,
+			spw_codec_data_rx_status_clk200_i         => s_spw_codec_data_rx_status_clk200,
+			spw_codec_data_tx_status_clk200_i         => s_spw_codec_data_tx_status_clk200,
+			spw_codec_link_status_clk100_o.started    => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_started,
+			spw_codec_link_status_clk100_o.connecting => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_connecting,
+			spw_codec_link_status_clk100_o.running    => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_running,
+			spw_codec_link_error_clk100_o.errdisc     => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_disconnect,
+			spw_codec_link_error_clk100_o.errpar      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_parity,
+			spw_codec_link_error_clk100_o.erresc      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_escape,
+			spw_codec_link_error_clk100_o.errcred     => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_credit,
+			spw_codec_timecode_rx_clk100_o.tick_out   => open,
+			spw_codec_timecode_rx_clk100_o.ctrl_out   => open,
+			spw_codec_timecode_rx_clk100_o.time_out   => open,
+			spw_codec_data_rx_status_clk100_o         => s_mux_rx_channel_status,
+			spw_codec_data_tx_status_clk100_o         => s_mux_tx_channel_status,
+			spw_codec_link_command_clk200_o           => s_spw_codec_link_command_clk200,
+			spw_codec_timecode_tx_clk200_o            => s_spw_codec_timecode_tx_clk200,
+			spw_codec_data_rx_command_clk200_o        => s_spw_codec_data_rx_command_clk200,
+			spw_codec_data_tx_command_clk200_o        => s_spw_codec_data_tx_command_clk200
+		);
+
+	-- spw codec instantiation 
+	spw_codec_ent_inst : entity work.spw_codec_ent
+		port map(
+			clk_200_i                         => a_spw_clock,
+			rst_i                             => a_reset,
+			spw_codec_link_command_i          => s_spw_codec_link_command_clk200,
+			spw_codec_ds_encoding_rx_i.spw_di => data_in,
+			spw_codec_ds_encoding_rx_i.spw_si => strobe_in,
+			spw_codec_timecode_tx_i           => s_spw_codec_timecode_tx_clk200,
+			spw_codec_data_rx_command_i       => s_spw_codec_data_rx_command_clk200,
+			spw_codec_data_tx_command_i       => s_spw_codec_data_tx_command_clk200,
+			spw_codec_link_status_o           => s_spw_codec_link_status_clk200,
+			spw_codec_ds_encoding_tx_o.spw_do => data_out,
+			spw_codec_ds_encoding_tx_o.spw_so => strobe_out,
+			spw_codec_link_error_o            => s_spw_codec_link_error_clk200,
+			spw_codec_timecode_rx_o           => s_spw_codec_timecode_rx_clk200,
+			spw_codec_data_rx_status_o        => s_spw_codec_data_rx_status_clk200,
+			spw_codec_data_tx_status_o        => s_spw_codec_data_tx_status_clk200
+		);
+
+	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest)) when (a_reset = '0') else ('1');
+
+	--	p_codec_dummy_read : process(a_avs_clock, a_reset) is
+	--	begin
+	--		if (a_reset = '1') then
+	--			s_spw_rxread <= '0';
+	--		elsif rising_edge(a_avs_clock) then
+	--			s_spw_rxread <= '0';
+	--			if (s_spw_rxvalid = '1') then
+	--				s_spw_rxread <= '1';
+	--			end if;
+	--		end if;
+	--	end process p_codec_dummy_read;
+
+	p_rmap_last_addr : process(a_avs_clock, a_reset) is
+		variable v_write_authorized : std_logic := '0';
+		variable v_read_authorized  : std_logic := '0';
+	begin
+		if (a_reset) = '1' then
+			s_spacewire_read_registers.rmap_last_write_addr_reg.rmap_last_write_addr <= (others => '0');
+			s_spacewire_read_registers.rmap_last_read_addr_reg.rmap_last_read_addr   <= (others => '0');
+			v_write_authorized                                                       := '0';
+			v_read_authorized                                                        := '0';
+		elsif rising_edge(a_avs_clock) then
+			if (v_write_authorized = '1') then
+				if (s_rmap_mem_control.write.write = '1') then
+					s_spacewire_read_registers.rmap_last_write_addr_reg.rmap_last_write_addr <= s_rmap_mem_wr_byte_address;
+					v_write_authorized                                                       := '0';
+				end if;
+			else
+				if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized = '1') then
+					v_write_authorized := '1';
+				end if;
+			end if;
+			if (v_read_authorized = '1') then
+				if (s_rmap_mem_control.read.read = '1') then
+					s_spacewire_read_registers.rmap_last_read_addr_reg.rmap_last_read_addr <= s_rmap_mem_rd_byte_address;
+					v_read_authorized                                                      := '0';
+				end if;
+			else
+				if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized = '1') then
+					v_read_authorized := '1';
+				end if;
+			end if;
+		end if;
+	end process p_rmap_last_addr;
+
+	p_timecode_manager : process(a_avs_clock, a_reset) is
+		variable v_timecode_sended : std_logic := '0';
+	begin
+		if (a_reset) = '1' then
+			s_timecode_tick    <= '0';
+			s_timecode_control <= (others => '0');
+			s_timecode_counter <= (others => '0');
+			v_timecode_sended  := '0';
+		elsif rising_edge(a_avs_clock) then
+			s_timecode_tick <= '0';
+			if (s_sync_dummy = '1') then
+				if (v_timecode_sended = '0') then
+					v_timecode_sended  := '1';
+					s_timecode_tick    <= '1';
+					s_timecode_control <= (others => '0');
+					if (s_timecode_counter = "111111") then
+						s_timecode_counter <= (others => '0');
+					else
+						s_timecode_counter <= std_logic_vector(unsigned(s_timecode_counter) + 1);
+					end if;
+				end if;
+			else
+				v_timecode_sended := '0';
+			end if;
+		end if;
+	end process p_timecode_manager;
+
+	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
+	begin
+		if (a_reset) = '1' then
+			s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
+			s_R_buffer_empty_delayed                                             <= '0';
+			s_L_buffer_empty_delayed                                             <= '0';
+		elsif rising_edge(a_avs_clock) then
+			-- flag clear
+			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear = '1') then
+				s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
+			end if;
+			-- check if the global interrupt is enabled
+			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
+				-- check if the R empty buffer interrupt is activated
+				if (s_spacewire_write_registers.comm_irq_control_reg.comm_right_buffer_empty_en = '1') then
+					-- detect a rising edge in of the R buffer empty signals
+					if (((s_R_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty = '1'))) then
+						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
+					end if;
+				end if;
+				-- check if the L empty buffer interrupt is activated
+				if (s_spacewire_write_registers.comm_irq_control_reg.comm_left_buffer_empty_en = '1') then
+					-- detect a rising edge in of the L buffer empty signals
+					if (((s_L_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty = '1'))) then
+						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
+					end if;
+				end if;
+			end if;
+			-- delay signals
+			s_R_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
+			s_L_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
+		end if;
+	end process p_fee_buffers_irq_manager;
+
+	p_rmap_write_irq_manager : process(a_avs_clock, a_reset) is
+	begin
+		if (a_reset) = '1' then
+			s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '0';
+			s_rmap_write_finished_delayed                                              <= '0';
+		elsif rising_edge(a_avs_clock) then
+			-- flag clear
+			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear = '1') then
+				s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '0';
+			end if;
+			-- check if the global interrupt is enabled
+			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
+				-- check if the rmap write finished interrupt is activated
+				if (s_spacewire_write_registers.comm_irq_control_reg.comm_rmap_write_command_en = '1') then
+					-- detect a rising edge in write finished signal
+					if (((s_rmap_write_finished_delayed = '0') and (s_rmap_write_data_finished = '1'))) then
+						s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '1';
+					end if;
+				end if;
+			end if;
+			-- delay signals
+			s_rmap_write_finished_delayed <= s_rmap_write_data_finished;
+		end if;
+	end process p_rmap_write_irq_manager;
+
+	-- TODO: change irq signal
+	interrupt_sender_irq <= s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag;
+	s_rmap_irq_dummy     <= s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag;
 
 end architecture rtl;                   -- of comm_v1_50_top
