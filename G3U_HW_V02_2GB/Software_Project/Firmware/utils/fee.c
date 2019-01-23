@@ -103,6 +103,8 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
         ulTotalMemLinesL = ulMemLinesL + ulMaskMemLinesL;
     }
 
+    pxNfeeL->xMemMap.xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
+
     /* Calculating how is the final mask with zero padding */
     if ( ulMemLeftBytesL >= 1 ) {
         ucPixelsInLastBlockL = (unsigned char) (( ulMemLeftLinesL * PIXEL_PER_MEM_LINE ) + (unsigned int) ( ulMemLeftBytesL / BYTES_PER_PIXEL ));

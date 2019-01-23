@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>22/01/2019 19:00:13</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1548190813616</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jan 23, 2019 2:55:37 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1548262537024</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1010,7 +1010,7 @@
                 <SettingName>ucosii.miscellaneous.os_max_events</SettingName>
                 <Identifier>OS_MAX_EVENTS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>60</Value>
+                <Value>64</Value>
                 <DefaultValue>60</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of event control blocks</Description>
@@ -1034,7 +1034,7 @@
                 <SettingName>ucosii.miscellaneous.os_task_stat_stk_size</SettingName>
                 <Identifier>OS_TASK_STAT_STK_SIZE</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>1024</Value>
+                <Value>512</Value>
                 <DefaultValue>512</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Statistics task stack size</Description>
@@ -1646,7 +1646,7 @@
                 <SettingName>ucosii.timer.os_task_tmr_stk_size</SettingName>
                 <Identifier>OS_TASK_TMR_STK_SIZE</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>512</Value>
+                <Value>256</Value>
                 <DefaultValue>512</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Stack size for timer task</Description>
@@ -1658,7 +1658,7 @@
                 <SettingName>ucosii.timer.os_task_tmr_prio</SettingName>
                 <Identifier>OS_TASK_TMR_PRIO</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>18</Value>
+                <Value>29</Value>
                 <DefaultValue>0</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Priority of timer task (0=highest)</Description>

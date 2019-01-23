@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Tue Jan 22 19:00:03 BRST 2019
+ * Generated: Wed Jan 23 11:04:42 BRST 2019
  */
 
 /*
@@ -1370,7 +1370,7 @@
 #define OS_FLAG_QUERY_EN 1
 #define OS_FLAG_WAIT_CLR_EN 1
 #define OS_LOWEST_PRIO 40
-#define OS_MAX_EVENTS 60
+#define OS_MAX_EVENTS 64
 #define OS_MAX_FLAGS 32
 #define OS_MAX_MEM_PART 60
 #define OS_MAX_QS 16
@@ -1412,11 +1412,11 @@
 #define OS_TASK_QUERY_EN 1
 #define OS_TASK_STAT_EN 1
 #define OS_TASK_STAT_STK_CHK_EN 1
-#define OS_TASK_STAT_STK_SIZE 1024
+#define OS_TASK_STAT_STK_SIZE 512
 #define OS_TASK_SUSPEND_EN 1
 #define OS_TASK_SW_HOOK_EN 1
-#define OS_TASK_TMR_PRIO 18
-#define OS_TASK_TMR_STK_SIZE 512
+#define OS_TASK_TMR_PRIO 29
+#define OS_TASK_TMR_STK_SIZE 256
 #define OS_THREAD_SAFE_NEWLIB 1
 #define OS_TICKS_PER_SEC TIMER_1MS_TICKS_PER_SEC
 #define OS_TICK_STEP_EN 1

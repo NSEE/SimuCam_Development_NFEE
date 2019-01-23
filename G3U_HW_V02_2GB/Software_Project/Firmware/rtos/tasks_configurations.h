@@ -19,13 +19,13 @@
  * 40 -> MIN PRIORITY  */
 #define INITIALIZATION_TASK_PRIO        1
 #define INITIALIZATION_TASK_PRIO_FAIL   39
-#define RECEIVER_TASK_PRIO              30 	/* Never sleep - starving task (do not up the priority of this task)*/
-#define TIMEOUT_CHECKER_PRIO            28
-#define RESERVED_FOR_TIMER              27  /* This timer will be used for retransmission purposes (THIS WILL NOT BE USED IN THE CODE, IS JUST TO REMEMBER THAT OS_TASK_TMR_PRIO IS 18)*/
-#define PARSER_TASK_PRIO				26
-#define OUT_ACK_TASK_PRIO				25
-#define SENDER_TASK_PRIO                24
-#define IN_ACK_TASK_PRIO				23
+#define RECEIVER_TASK_PRIO              32 	/* Never sleep - starving task (do not up the priority of this task)*/
+#define TIMEOUT_CHECKER_PRIO            30
+#define RESERVED_FOR_TIMER              29  /* This timer will be used for retransmission purposes (THIS WILL NOT BE USED IN THE CODE, IS JUST TO REMEMBER THAT OS_TASK_TMR_PRIO IS 29)*/
+#define PARSER_TASK_PRIO				28
+#define OUT_ACK_TASK_PRIO				27
+#define SENDER_TASK_PRIO                26
+#define IN_ACK_TASK_PRIO				25
 
 #define PCP_MUTEX_PrePareseds           21   /* MUTEX Reader -> PARSER task*/
 #define PCP_MUTEX_B32_PRIO              20   /* MUTEX Buffer TX char[32]*/

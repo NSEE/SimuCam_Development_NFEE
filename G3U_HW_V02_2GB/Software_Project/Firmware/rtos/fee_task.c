@@ -22,7 +22,7 @@ void vFeeTask(void *task_data) {
 	#endif
 
 	#ifdef DEBUG_ON
-		vPrintConsoleNFee( pxNFee );
+		vPrintUARTNFee( pxNFee );
 	#endif
 
 
@@ -56,7 +56,11 @@ void vFeeTask(void *task_data) {
 }
 
 #ifdef DEBUG_ON
-	void vPrintConsoleNFee( TNFee *pxNFee ) {
+	void vPrintConsoleNFee( TNFee *pxNFeeI ) {
+		TNFee *pxNFee;
+
+		pxNFee = pxNFeeI;
+
 		fprintf(fp,"=================================NFEE %hhu=====================================\n", pxNFee->ucId);
 		fprintf(fp,"\n");
 		fprintf(fp,"NFEE %hhu CCD infos: \n", pxNFee->ucId);
@@ -129,12 +133,21 @@ void vFeeTask(void *task_data) {
 		fprintf(fp,"\n");
 		fprintf(fp,"==============================================================================\n");
 		fprintf(fp,"==============================================================================\n");
+		fprintf(fp,"\n");
+		fprintf(fp,"\n");
+		fprintf(fp,"\n");
+		fprintf(fp,"\n");
+		fprintf(fp,"\n");
 	}
 #endif
 
 
 #ifdef DEBUG_ON
-	void vPrintUARTNFee( TNFee *pxNFee ) {
+	void vPrintUARTNFee( TNFee *pxNFeeI ) {
+		TNFee *pxNFee;
+
+		pxNFee = pxNFeeI;
+
 		printf("=================================NFEE %hhu=====================================\n", pxNFee->ucId);
 		printf("\n");
 		printf("NFEE %hhu CCD infos: \n", pxNFee->ucId);
@@ -207,6 +220,10 @@ void vFeeTask(void *task_data) {
 		printf("\n");
 		printf("==============================================================================\n");
 		printf("==============================================================================\n");
+		printf("\n");
+		printf("\n");
+		printf("\n");
+		printf("\n");
 	}
 #endif
 

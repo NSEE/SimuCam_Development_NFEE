@@ -31,8 +31,8 @@ typedef struct FullCcdMemMap{
 
 /* Same for the all 4 CCDs of the FEE */
 typedef struct CcdMemDef{
-	unsigned short int usiNTotalBlocks;     /* Total of 17 line memorys (16 lines for pixels + 1 for mask) */
-	unsigned short int usiTotalBytes;       /* Total os bytes of a half CCD including the mask lines */
+	unsigned long usiNTotalBlocks;     /* Total of 17 line memorys (16 lines for pixels + 1 for mask) */
+	unsigned long usiTotalBytes;            /* Total os bytes of a half CCD including the mask lines */
     unsigned char ucPaddingBytes;           /* How many bytes need to be filled with zero padding in the last memory line that has pixels */
     union LastMask ucPaddingMask;	        /* Last mask with zero padding */
 } TCcdMemDef;
