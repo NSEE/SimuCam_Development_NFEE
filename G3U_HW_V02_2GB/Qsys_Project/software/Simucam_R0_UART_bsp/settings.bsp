@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>20/01/2019 19:02:26</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1548018146981</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>22/01/2019 19:00:13</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1548190813616</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1034,7 +1034,7 @@
                 <SettingName>ucosii.miscellaneous.os_task_stat_stk_size</SettingName>
                 <Identifier>OS_TASK_STAT_STK_SIZE</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>512</Value>
+                <Value>1024</Value>
                 <DefaultValue>512</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Statistics task stack size</Description>
@@ -1286,7 +1286,7 @@
                 <SettingName>ucosii.event_flag.os_max_flags</SettingName>
                 <Identifier>OS_MAX_FLAGS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>20</Value>
+                <Value>32</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Event Flags groups. CAUTION: This is required by the HAL and many Altera device drivers; use caution in reducing this value.</Description>
@@ -1574,7 +1574,7 @@
                 <SettingName>ucosii.queue.os_max_qs</SettingName>
                 <Identifier>OS_MAX_QS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>20</Value>
+                <Value>16</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Queue Control Blocks</Description>

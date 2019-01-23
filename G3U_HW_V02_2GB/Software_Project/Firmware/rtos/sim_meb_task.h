@@ -13,4 +13,8 @@
 #include "../utils/ccd.h"
 #include "../utils/meb.h"
 
+
+void vSimMebTask(void *task_data);
+
+
 #endif /* SIM_MEB_TASK_H_ */

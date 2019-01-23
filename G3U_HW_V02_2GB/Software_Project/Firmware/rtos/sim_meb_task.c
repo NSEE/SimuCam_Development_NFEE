@@ -10,12 +10,18 @@
 
 
 void vSimMebTask(void *task_data) {
-	tFEEStates eFeeState;
 	bool bSuccess = FALSE;
+	TSimucam_MEB * pxMebC;
 	INT8U error_code;
 
+	pxMebC = (TSimucam_MEB *) task_data;
 
-	//SIMUCAM MAIN TASK
+	#ifdef DEBUG_ON
+        debug(fp,"Sim Meb Controller Task. (Task on)\n");
+    #endif
 
+	for (;;) {
+		break; /*todo:Tirar depois do debug*/
+	}
 
 }

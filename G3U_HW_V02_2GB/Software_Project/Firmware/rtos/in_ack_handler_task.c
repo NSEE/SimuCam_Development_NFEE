@@ -24,7 +24,7 @@ void vInAckHandlerTaskV2(void *task_data) {
 
     #ifdef DEBUG_ON
         debug(fp,"In Ack Handler Task. (Task on)\n");
-    #endif    
+    #endif
 
 	eReceiverAckState = sRAConfiguring;
 

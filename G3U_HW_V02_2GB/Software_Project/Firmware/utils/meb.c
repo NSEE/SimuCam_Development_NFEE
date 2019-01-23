@@ -9,8 +9,6 @@
 #include "meb.h"
 
 void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
-    unsigned char ucIL = 0;
-
     // LoadTypeOfFeeSDCard();
     // todo: Load from SDCard for now is Hardcoded to Normal FEE
     xMeb->eType = sNormalFEE;
@@ -24,10 +22,6 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     vLoadDefaultRTValue( xMeb );
     /* Load SyncSource */
     vLoadDefaultSyncSource( xMeb );
-    /* Reset TimeCode */
-    vResetTimeCode( xMeb );
-    /* Load Default Id for NFEE master */
-    vLoadDefaultIdNFEEMaster( xMeb );
     /* Load Default Config for Auto Reset Mode */
     vLoadDefaultAutoResetSync( xMeb );
 
@@ -38,25 +32,13 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Verify if if a Fast or Normal */
     if ( xMeb->eType == sNormalFEE ) {
         /* Are Normal Fee instances */
-        for ( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ) {
-            if ( ucIL < xMeb->ucNofFeesInUse ) {
-                vNFeeStructureInit( &xMeb->xNfee[ ucIL ], ucIL);
-            } else {
-                vNFeeNotInUse( &xMeb->xNfee[ ucIL ], ucIL);
-            }
-            xMeb->pbEnabledNFEEs[ ucIL ] = &xMeb->xNfee[ ucIL ].xControl.bEnabled;
-            xMeb->pbRunningDmaNFEEs[ ucIL ] = &xMeb->xNfee[ ucIL ].xControl.bUsingDMA;
-        }
+        vNFeeControl( xMeb->xFeeControl );
+        vDataControllerInit( xMeb->xDataControl, xMeb->xFeeControl );
     } else {
         /* Are Fast Fee instances */
-        for ( ucIL = 0; ucIL < N_OF_FastFEE; ucIL++ ) {
-            if ( ucIL < xMeb->ucNofFeesInUse ) {
-                // todo: Not in use yet
-            } else {
-                // todo: Not in use yet
-            }            
-        }
+        /* todo: Not in use yet */
     }
+
 
     /* Reseting swap memory mechanism */
     xMeb->ucActualDDR = 0;
@@ -126,16 +108,6 @@ void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource ) {
     //bSaveSyncSourceSDCard(eSource);
 }
 
-/* Any mode */
-/* Set the time code of the Simucam */
-void vSetTimeCode( TSimucam_MEB *xMeb, unsigned char ucTime ) {
-    xMeb->ucTimeCode = ucTime;
-}
-
-/* Reset the time code of the Simucam */
-void vResetTimeCode( TSimucam_MEB *xMeb ) {
-    xMeb->ucTimeCode = 0;
-}
 
 /* Only in MEB_CONFIG */
 /* Load Default Config for AutoResetSync */
@@ -157,25 +129,6 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
     //bSaveAutoResetSyncSDCard(bAutoReset);
 }
 
-/* Only in MEB_CONFIG */
-/* Load Default Config for IdNFEEMaster */
-void vLoadDefaultIdNFEEMaster( TSimucam_MEB *xMeb ) {
-    //bGetIdNFEEMasterSDCard();
-    //todo: For now is hardcoded
-    xMeb->ucIdNFEEMaster = 0;
-}
-
-/* Only in MEB_CONFIG */
-/* Change the Config for IdNFEEMaster*/
-void vChangeIdNFEEMaster( TSimucam_MEB *xMeb, unsigned char ucIdMaster ) {
-    xMeb->ucIdNFEEMaster = ucIdMaster;
-}
-
-/* Only in MEB_CONFIG */
-/* Change the Default Config for IdNFEEMaster */
-void vChangeDefaultIdNFEEMaster( TSimucam_MEB *xMeb, unsigned char ucIdMaster ) {
-    //bSaveIdNFEEMasterSDCard(ucIdMaster);
-}
 
 /* Any mode */
 /* Synchronization Reset */

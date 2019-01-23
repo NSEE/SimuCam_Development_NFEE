@@ -63,6 +63,17 @@ void vWarnCouldNotgetMutexRetrans128( void );
 void vFailGetCountSemaphorexBuffer128( void );
 void vFailGetCountSemaphorexBuffer64( void );
 void vFailGetCountSemaphorexBuffer32( void );
+void vFailCreateScheduleQueue( void );
+void vFailCreateNFEEQueue( unsigned char ucID );
+void vCoudlNotCreateNFee0Task( void );
+void vCoudlNotCreateNFee1Task( void );
+void vCoudlNotCreateNFee2Task( void );
+void vCoudlNotCreateNFee3Task( void );
+void vCoudlNotCreateNFee4Task( void );
+void vCoudlNotCreateNFee5Task( void );
+void vCoudlNotCreateNFeeControllerTask( void );
+void vCoudlNotCreateDataControllerTask( void );
+void vCoudlNotCreateMebTask( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

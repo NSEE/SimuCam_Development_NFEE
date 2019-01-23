@@ -183,6 +183,10 @@ C_SRCS += driver/msgdma/msgdma.c
 C_SRCS += driver/reset/reset.c
 C_SRCS += driver/sync/sync.c
 C_SRCS += rtos/stack_monitor_task.c
+C_SRCS += utils/fee_controller.c
+C_SRCS += utils/data_controller.c
+C_SRCS += rtos/data_control_task.c
+C_SRCS += rtos/nfee_control_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

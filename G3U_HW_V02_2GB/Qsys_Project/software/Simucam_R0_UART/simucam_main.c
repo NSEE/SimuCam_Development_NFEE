@@ -7,6 +7,8 @@
 #include "utils/configs_simucam.h"
 #include "utils/test_module_simucam.h"
 #include "utils/meb.h"
+#include "utils/fee_controller.h"
+#include "utils/data_controller.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
 
@@ -64,7 +66,19 @@ OS_EVENT *xMutexSenderACK;
 
 
 /* --------------- Definition of Queues ------------ */
+/* This Queue will sync any FEE instance that needs to receive any command, including access to DMA */
+/* The NUmber of Queue for the FEE is hardcoded :/ */
+void *xFeeQueueTBL0[N_MSG_FEE];
+void *xFeeQueueTBL1[N_MSG_FEE];
+void *xFeeQueueTBL2[N_MSG_FEE];
+void *xFeeQueueTBL3[N_MSG_FEE];
+void *xFeeQueueTBL4[N_MSG_FEE];
+void *xFeeQueueTBL5[N_MSG_FEE];
+OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
+/* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
+void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
+OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
 
 /* -------------- Definition of Queues -------------- */
 
@@ -81,6 +95,18 @@ OS_STK    vOutAckHandlerTask_stk[OUT_ACK_TASK_SIZE];
 OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
+
+
+/* Main application Tasks */
+OS_STK    vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
+OS_STK    vDataControlTask_stk[DATA_CONTROL_STACK_SIZE];
+OS_STK    vSimMebTask_stk[MEB_STACK_SIZE];
+OS_STK    vFeeTask0_stk[FEES_STACK_SIZE];
+OS_STK    vFeeTask1_stk[FEES_STACK_SIZE];
+OS_STK    vFeeTask2_stk[FEES_STACK_SIZE];
+OS_STK    vFeeTask3_stk[FEES_STACK_SIZE];
+OS_STK    vFeeTask4_stk[FEES_STACK_SIZE];
+OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
 /* -------------- Definition of Stacks------------------ */
 
 
@@ -94,12 +120,12 @@ OS_TMR  *xTimerRetransmission;
 /*
  * Control of all Simucam application
  */
-TSimucam_MEB xSimMebStruct;
+TSimucam_MEB xSimMeb; /* Struct */
 
 /* Instanceatin and Initialization of the resources for the RTOS */
-bool bResourcesInitRTOS( void )
-{
+bool bResourcesInitRTOS( void ) {
 	bool bSuccess = TRUE;
+	unsigned char ucIL;
 	INT8U err;
 
 	/* This semaphore in the sincronization of the task receiver_com_task with sender_com_task*/
@@ -222,6 +248,48 @@ bool bResourcesInitRTOS( void )
 	if ( err != OS_ERR_NONE ) {
 		vFailCreateTimerRetransmisison();
 		bSuccess = FALSE;
+	}
+
+	xNfeeSchedule = OSQCreate(&xNfeeScheduleTBL[0], N_OF_MSG_QUEUE);
+	if ( xNfeeSchedule == NULL ) {
+		vFailCreateScheduleQueue();
+		bSuccess = FALSE;		
+	}
+
+
+	xFeeQ[0] = OSQCreate(&xFeeQueueTBL0[0], N_MSG_FEE);
+	if ( xFeeQ[0] == NULL ) {
+		vFailCreateNFEEQueue( 0 );
+		bSuccess = FALSE;		
+	}
+	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
+	if ( xFeeQ[1] == NULL ) {
+		vFailCreateNFEEQueue( 1 );
+		bSuccess = FALSE;		
+	}
+
+	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
+	if ( xFeeQ[2] == NULL ) {
+		vFailCreateNFEEQueue( 2 );
+		bSuccess = FALSE;		
+	}
+	
+	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
+	if ( xFeeQ[0] == NULL ) {
+		vFailCreateNFEEQueue( 3 );
+		bSuccess = FALSE;		
+	}
+
+	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
+	if ( xFeeQ[4] == NULL ) {
+		vFailCreateNFEEQueue( 4 );
+		bSuccess = FALSE;		
+	}
+
+	xFeeQ[5] = OSQCreate(&xFeeQueueTBL5[0], N_MSG_FEE);
+	if ( xFeeQ[5] == NULL ) {
+		vFailCreateNFEEQueue( 5 );
+		bSuccess = FALSE;		
 	}
 
 	return bSuccess;

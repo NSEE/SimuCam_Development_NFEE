@@ -718,3 +718,175 @@ void vWarnCouldNotgetMutexRetrans128( void )
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+
+/* CRITICAL. */
+void vFailCreateScheduleQueue( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateScheduleQueue. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"CRITICAL: Could not create the Queue to shcedule the access to the DMA.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+/* CRITICAL. */
+void vFailCreateNFEEQueue( unsigned char ucID )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateNFEEQueue. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		printf(fp,"CRITICAL: Could not create the Queue to the NSEE %hu.\n",ucID);
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCoudlNotCreateNFee0Task( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFee0Task. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE 0 Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCoudlNotCreateNFee1Task( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFee1Task. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE 1 Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCoudlNotCreateNFee2Task( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFee2Task. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE 2 Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCoudlNotCreateNFee3Task( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFee3Task. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE 3 Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCoudlNotCreateNFee4Task( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFee4Task. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE 4 Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCoudlNotCreateNFee5Task( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFee5Task. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE 5 Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCoudlNotCreateNFeeControllerTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateNFeeControllerTask. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create NFEE Controller Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCoudlNotCreateDataControllerTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateDataControllerTask. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create Data Controller Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCoudlNotCreateMebTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCoudlNotCreateMebTask. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not create Meb Task.\n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
