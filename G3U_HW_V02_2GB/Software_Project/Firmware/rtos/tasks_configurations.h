@@ -60,7 +60,7 @@
     #define   FEE_TASK_STACKSIZE      1024*2*/
 	#define   TASK_STACKSIZE          1024
     #define   FEE_TASK_STACKSIZE      1024
-    #define   HEAVY_TASK_STACKSIZE    1536
+    #define       1536
 #else
     #define   TASK_STACKSIZE          1024
     #define   FEE_TASK_STACKSIZE      1024
@@ -70,7 +70,7 @@
 /* Are equal only during the development */
 #define INITIALIZATION_TASK_SIZE    TASK_STACKSIZE
 #define RECEIVER_TASK_SIZE          HEAVY_TASK_STACKSIZE
-#define PARSER_TASK_SIZE            TASK_STACKSIZE
+#define PARSER_TASK_SIZE            HEAVY_TASK_STACKSIZE
 #define IN_ACK_TASK_SIZE            TASK_STACKSIZE
 #define OUT_ACK_TASK_SIZE           TASK_STACKSIZE
 #define SENDER_TASK_SIZE            TASK_STACKSIZE
@@ -118,6 +118,13 @@ extern OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sin
 extern void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
 extern OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
 
+/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+extern void *xQMaskCMDNFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
+OS_EVENT *xQMaskFeeCtrl;
+
+/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+extern void *xQMaskCMDNDataCtrlTBL[N_OF_MSG_QUEUE_MASK];
+OS_EVENT *xQMaskDataCtrl;
 /* -------------- Definition of Queues--------------------*/
 
 

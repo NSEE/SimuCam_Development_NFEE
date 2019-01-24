@@ -11,6 +11,10 @@
 #include "../simucam_definitions.h"
 #include "ccd.h"
 
+/* Meb state is here to Data controller and NFEE controller use the same enum */
+typedef enum { sMebConfig = 0, sRun } tSimucamStates;
+
+
 /* Definition of offset for each FEE in the DDR Memory */
 /* Worksheet: ccd_logic_math.xlsx */
 /* OFFESETs = [ 0, 224907824, 449815648, 674723472, 899631296, 1124539120, 1349446944, 1574354768  ] */

@@ -78,6 +78,10 @@ void vFailCreateMutexSPUSQueueMeb( INT8U error_code );
 void vFailSendPUStoMebTask( void );
 void vCouldNotGetCmdQueueMeb( void );
 void vCouldNotGetMutexMebPus( void );
+void vCouldNotCreateQueueMaskNfeeCtrl( void );
+void vCouldNotCreateQueueMaskDataCtrl( void );
+void vCouldNotGetQueueMaskNfeeCtrl( void );
+void vCouldNotGetQueueMaskDataCtrl( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

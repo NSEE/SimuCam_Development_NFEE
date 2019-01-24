@@ -944,3 +944,63 @@ void vCouldNotGetMutexMebPus( void )
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+void vCouldNotCreateQueueMaskNfeeCtrl( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotCreateQueueMaskNfeeCtrl. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not Create Queue Mask for NFEE Controller. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotCreateQueueMaskDataCtrl( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotCreateQueueMaskDataCtrl. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not Create Queue Mask for Data Controller. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotGetQueueMaskNfeeCtrl( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotGetQueueMaskNfeeCtrl. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not get Queue Mask for NFEE Controller. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotGetQueueMaskDataCtrl( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotGetQueueMaskDataCtrl. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not get Queue Mask for Data Controller. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}

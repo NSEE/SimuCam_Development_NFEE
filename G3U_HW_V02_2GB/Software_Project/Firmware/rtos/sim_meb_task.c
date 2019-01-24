@@ -8,10 +8,11 @@
 
 #include "sim_meb_task.h"
 
+/* All commands should pass through the MEB, it is the instance that hould know everything, and also know the self state and what is allowed to be performed or not */
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
-	unsigned int uiCmdMeb = 0;
+	tQMask uiCmdMeb;
 	INT8U error_code;
 
 	pxMebC = (TSimucam_MEB *) task_data;
@@ -21,22 +22,28 @@ void vSimMebTask(void *task_data) {
     #endif
 
 	for (;;) {
-
 		switch ( pxMebC->eMode )
 		{
 			case sMebConfig:
 
-				uiCmdMeb = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
+				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
-					/* Parse the cmd that comes in the Queue */
-					switch (uiCmdMeb) {
-						/* Receive a PUS command */
-						case Q_MEB_PUS:
-							vPusMebInTaskConfigMode( pxMebC );
-							break;
-						default:
-							break;
+					/* Check if the command is for MEB */
+					if ( uiCmdMeb.ucByte[3] == M_MEB_ADDR ) {
+						/* Parse the cmd that comes in the Queue */
+						switch (uiCmdMeb.ucByte[2]) {
+							/* Receive a PUS command */
+							case Q_MEB_PUS:
+								vPusMebInTaskConfigMode( pxMebC );
+								break;
+							default:
+								break;
+						}
+					} else {
+						#ifdef DEBUG_ON
+							fprintf(fp,"MEB Task: Command Ignored. Not Addressed to Meb. ADDR= %ui\n", uiCmdMeb.ucByte[3]);
+						#endif
 					}
 
 				} else {
@@ -46,9 +53,39 @@ void vSimMebTask(void *task_data) {
 
 				break;
 			case sRun:
-				/* code */
+				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
+				if ( error_code == OS_ERR_NONE ) {
+
+					/* Check if the command is for MEB */
+					if ( uiCmdMeb.ucByte[3] == M_MEB_ADDR ) {
+						/* Parse the cmd that comes in the Queue */
+						switch (uiCmdMeb.ucByte[2]) {
+							/* Receive a PUS command */
+							case Q_MEB_PUS:
+								vPusMebInTaskRunningMode( pxMebC );
+								break;
+							default:
+								break;
+						}
+					} else {
+						#ifdef DEBUG_ON
+							fprintf(fp,"MEB Task: Command Ignored. Not Addressed to Meb. ADDR= %ui\n", uiCmdMeb.ucByte[3]);
+						#endif
+					}
+
+				} else {
+					/* Should never get here (blocking operation), critical fail */
+					vCouldNotGetCmdQueueMeb();
+				}			
+
 				break;
 			default:
+				#ifdef DEBUG_ON
+					debug(fp,"MEB Task: Unknow state, backing to Config Mode.\n");
+				#endif
+				
+				/* todo:Aplicar toda logica de mudanÃ§a de esteado aqui */
+				pxMebC->eMode = sMebConfig;
 				break;
 		}
 	}
@@ -166,8 +203,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
 						#endif
 
-						/* todo: Usar as funções de configuração disponibilizadas pelo França  */
-						/* todo: Como a Meb esta em config ela pode operar todas as configurações tranquilamente  */
+						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
+						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
 						break;
 					case 4: /* TC_SCAM_SPW_LINK_DISABLE */
@@ -176,8 +213,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
 						#endif
 
-						/* todo: Usar as funções de configuração disponibilizadas pelo França  */
-						/* todo: Como a Meb esta em config ela pode operar todas as configurações tranquilamente  */
+						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
+						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
 						break;
 					case 5: /* TC_SCAM_SPW_LINK_RESET */
@@ -186,8 +223,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
 						#endif
 
-						/* todo: Usar as funções de configuração disponibilizadas pelo França  */
-						/* todo: Como a Meb esta em config ela pode operar todas as configurações tranquilamente  */
+						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
+						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
 						break;
 					case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
@@ -195,7 +232,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"MEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
 							fprintf(fp,"     -> TC_SCAM_SPW_RMAP_CONFIG_UPDATE \n");
 						#endif
-							/* todo: Usar libs do França para atualizar o link com os valores abaixo*/
+							/* todo: Usar libs do Franï¿½a para atualizar o link com os valores abaixo*/
 						xPusLocal.usiValues[2];
 						xPusLocal.usiValues[3];
 						xPusLocal.usiValues[4];
@@ -285,8 +322,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 						vEvtChangeMebMode(pxMebCLocal->eMode, sMebConfig);
 						pxMebCLocal->eMode = sMebConfig;
 
-	/*todo: URGENTE: Passar todos os FEE para modo de configuração  */
-	/*todo: URGENTE: Data Controller e NFEE COntroller também  */
+	/*todo: URGENTE: Passar todos os FEE para modo de configuraï¿½ï¿½o  */
+	/*todo: URGENTE: Data Controller e NFEE COntroller tambï¿½m  */
 
 
 						break;
@@ -369,8 +406,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
 						#endif
 
-						/* todo: Usar as funções de configuração disponibilizadas pelo França  */
-						/* todo: Como a Meb esta em config ela pode operar todas as configurações tranquilamente  */
+						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
+						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
 						break;
 					case 4: /* TC_SCAM_SPW_LINK_DISABLE */
@@ -379,8 +416,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
 						#endif
 
-						/* todo: Usar as funções de configuração disponibilizadas pelo França  */
-						/* todo: Como a Meb esta em config ela pode operar todas as configurações tranquilamente  */
+						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
+						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
 						break;
 					case 5: /* TC_SCAM_SPW_LINK_RESET */
@@ -389,8 +426,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
 						#endif
 
-						/* todo: Usar as funções de configuração disponibilizadas pelo França  */
-						/* todo: Como a Meb esta em config ela pode operar todas as configurações tranquilamente  */
+						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
+						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
 						break;
 					case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */

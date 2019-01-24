@@ -360,9 +360,11 @@ bool getPreParsedPacket( tPreParsed *xPreParsedParser ) {
 bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {
     bool bSuccess = FALSE;
     INT8U error_code;
+    tQMask xCdmLocal;
     unsigned char i = 0;
 
     bSuccess = FALSE;
+    xCdmLocal.ulWord = 0;
     OSMutexPend(xMutexPus, 10, &error_code); /* Try to get mutex that protects the xPus buffer. Wait max 10 ticks = 10 ms */
     if ( error_code == OS_NO_ERR ) {
 
@@ -374,8 +376,12 @@ bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {
             	xPus[i] = (*xPusL);
             	xPus[i].bInUse = TRUE;
 
+            	/* Build the command to Meb using the Mask Queue */
+            	xCdmLocal.ucByte[3] = M_MEB_ADDR;
+            	xCdmLocal.ucByte[2] = Q_MEB_PUS;
+
             	/* Sync the Meb task and tell that has a PUS command waiting */
-            	error_code = OSQPost(xMebQ, (void *)Q_MEB_PUS);
+            	error_code = OSQPost(xMebQ, (void *)xCdmLocal.ulWord);
                 if ( error_code != OS_ERR_NONE ) {
                 	vFailSendPUStoMebTask();
                 	xPus[i].bInUse = FALSE;

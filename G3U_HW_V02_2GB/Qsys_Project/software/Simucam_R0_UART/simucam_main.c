@@ -86,6 +86,13 @@ OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincroniza
 void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
 OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
 
+/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+void *xQMaskCMDNFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
+OS_EVENT *xQMaskFeeCtrl;
+
+/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+void *xQMaskCMDNDataCtrlTBL[N_OF_MSG_QUEUE_MASK];
+OS_EVENT *xQMaskDataCtrl;
 
 /* Comunication and syncronization of the Meb Task */
 void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
@@ -265,7 +272,6 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
-
 	xFeeQ[0] = OSQCreate(&xFeeQueueTBL0[0], N_MSG_FEE);
 	if ( xFeeQ[0] == NULL ) {
 		vFailCreateNFEEQueue( 0 );
@@ -308,7 +314,6 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
-
 	/* Mutex and Semaphores to control the communication of FastReaderTask */
 	xMutexPus = OSMutexCreate(PCP_MUTEX_PUS_QUEUE, &err);
 	if ( err != OS_ERR_NONE ) {
@@ -317,6 +322,19 @@ bool bResourcesInitRTOS( void ) {
 	}
 
 
+	/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+	xQMaskFeeCtrl = OSQCreate(&xQMaskCMDNFeeCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
+	if ( xQMaskFeeCtrl == NULL ) {
+		vCouldNotCreateQueueMaskNfeeCtrl( );
+		bSuccess = FALSE;		
+	}
+
+	/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
+	xQMaskFeeCtrl = OSQCreate(&xQMaskCMDNDataCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
+	if ( xQMaskFeeCtrl == NULL ) {
+		vCouldNotCreateQueueMaskDataCtrl( );
+		bSuccess = FALSE;		
+	}	
 
 	return bSuccess;
 }
@@ -398,7 +416,6 @@ int main(void)
 	#ifdef DEBUG_ON
 		debug(fp, "Main entry point.\n");
 	#endif
-
 
 	/* Initialization of basic HW */
 	vInitSimucamBasicHW();

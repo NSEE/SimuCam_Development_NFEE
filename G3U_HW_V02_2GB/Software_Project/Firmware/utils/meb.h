@@ -17,7 +17,6 @@
 
 
 /* Simucam operation modes */
-typedef enum { sMebConfig = 0, sRun } tSimucamStates;
 typedef enum { sInternal = 0, sExternal } tSimucamSync;
 typedef enum { sNormalFEE = 0, sFastFEE } tFeeType;
 

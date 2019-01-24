@@ -16,6 +16,8 @@ void vNFeeControlInit( TNFee_Control *xFeeControlL ) {
     /* Load Default Id for NFEE master */
     vLoadDefaultIdNFEEMaster( xFeeControlL );
 
+    xFeeControlL->sMode = sMebConfig;
+
     /* Calculate the */
     for ( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ) {
         vNFeeStructureInit( &xFeeControlL->xNfee[ ucIL ], ucIL);
