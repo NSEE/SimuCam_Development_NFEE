@@ -74,58 +74,58 @@ begin
 				-- Case for access to all registers address
 
 				-- comm registers
-				when (x"00") =>
+				when (16#00#) =>
 					spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_disconnect <= avalon_mm_spacewire_i.writedata(0);
 					spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_linkstart  <= avalon_mm_spacewire_i.writedata(1);
 					spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_autostart  <= avalon_mm_spacewire_i.writedata(2);
 					spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_txdivcnt   <= avalon_mm_spacewire_i.writedata(31 downto 24);
-				when (x"01") =>
+				when (16#01#) =>
 					spacewire_write_registers_o.spw_timecode_reg.timecode_clear <= avalon_mm_spacewire_i.writedata(8);
-				when (x"02") =>
+				when (16#02#) =>
 					spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_clear <= avalon_mm_spacewire_i.writedata(0);
 					spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_stop  <= avalon_mm_spacewire_i.writedata(1);
 					spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_start <= avalon_mm_spacewire_i.writedata(2);
 					spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_masking_en    <= avalon_mm_spacewire_i.writedata(3);
-				when (x"03") =>
+				when (16#03#) =>
 					null;
-				when (x"04") =>
+				when (16#04#) =>
 					spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_logical_addr <= avalon_mm_spacewire_i.writedata(7 downto 0);
 					spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_key          <= avalon_mm_spacewire_i.writedata(15 downto 8);
-				when (x"05") =>
+				when (16#05#) =>
 					null;
-				when (x"06") =>
+				when (16#06#) =>
 					null;
-				when (x"07") =>
+				when (16#07#) =>
 					null;
-				when (x"08") =>
+				when (16#08#) =>
 					spacewire_write_registers_o.data_packet_config_1_reg.data_pkt_ccd_x_size <= avalon_mm_spacewire_i.writedata(15 downto 0);
 					spacewire_write_registers_o.data_packet_config_1_reg.data_pkt_ccd_y_size <= avalon_mm_spacewire_i.writedata(31 downto 16);
-				when (x"09") =>
+				when (16#09#) =>
 					spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_data_y_size     <= avalon_mm_spacewire_i.writedata(15 downto 0);
 					spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_overscan_y_size <= avalon_mm_spacewire_i.writedata(31 downto 16);
-				when (x"0A") =>
+				when (16#0A#) =>
 					spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length <= avalon_mm_spacewire_i.writedata(15 downto 0);
-				when (x"0B") =>
+				when (16#0B#) =>
 					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode   <= avalon_mm_spacewire_i.writedata(7 downto 0);
 					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number <= avalon_mm_spacewire_i.writedata(15 downto 8);
-				when (x"0C") =>
+				when (16#0C#) =>
 					null;
-				when (x"0D") =>
+				when (16#0D#) =>
 					null;
-				when (x"0E") =>
+				when (16#0E#) =>
 					spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay <= avalon_mm_spacewire_i.writedata(15 downto 0);
-				when (x"0F") =>
+				when (16#0F#) =>
 					spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay <= avalon_mm_spacewire_i.writedata(15 downto 0);
-				when (x"10") =>
+				when (16#10#) =>
 					spacewire_write_registers_o.data_packet_pixel_delay_3_reg.data_pkt_adc_delay <= avalon_mm_spacewire_i.writedata(15 downto 0);
-				when (x"11") =>
+				when (16#11#) =>
 					spacewire_write_registers_o.comm_irq_control_reg.comm_rmap_write_command_en <= avalon_mm_spacewire_i.writedata(0);
 					spacewire_write_registers_o.comm_irq_control_reg.comm_right_buffer_empty_en <= avalon_mm_spacewire_i.writedata(8);
 					spacewire_write_registers_o.comm_irq_control_reg.comm_left_buffer_empty_en  <= avalon_mm_spacewire_i.writedata(9);
 					spacewire_write_registers_o.comm_irq_control_reg.comm_global_irq_en         <= avalon_mm_spacewire_i.writedata(16);
-				when (x"12") =>
+				when (16#12#) =>
 					null;
-				when (x"13") =>
+				when (16#13#) =>
 					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear <= avalon_mm_spacewire_i.writedata(0);
 					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear       <= avalon_mm_spacewire_i.writedata(8);
 				when others =>
@@ -148,8 +148,8 @@ begin
 				v_write_address := to_integer(unsigned(avalon_mm_spacewire_i.address));
 				-- check if the address is allowed
 				if not (
-					((v_write_address >= to_integer(unsigned(x"A0"))) and (v_write_address <= to_integer(unsigned(x"BF")))) or 
-					((v_write_address >= to_integer(unsigned(x"40"))) and (v_write_address <= to_integer(unsigned(x"51"))))
+					((v_write_address >= 16#A0#) and (v_write_address <= 16#BF#)) or 
+					((v_write_address >= 16#40#) and (v_write_address <= 16#51#))
 				) then
 					-- check if address is allowed
 					avalon_mm_spacewire_o.waitrequest <= '0';

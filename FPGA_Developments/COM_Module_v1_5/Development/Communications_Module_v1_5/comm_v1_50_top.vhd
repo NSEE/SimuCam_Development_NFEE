@@ -374,6 +374,9 @@ begin
 			spw_mux_tx_1_command_i.txwrite => s_data_controller_spw_txwrite,
 			spw_mux_tx_1_command_i.txflag  => s_data_controller_spw_txflag,
 			spw_mux_tx_1_command_i.txdata  => s_data_controller_spw_txdata,
+			spw_mux_tx_2_command_i.txwrite => '0',
+			spw_mux_tx_2_command_i.txflag  => '0',
+			spw_mux_tx_2_command_i.txdata  => x"00",
 			spw_codec_rx_command_o         => s_mux_rx_channel_command,
 			spw_codec_tx_command_o         => s_mux_tx_channel_command,
 			spw_mux_rx_0_status_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
@@ -383,7 +386,9 @@ begin
 			spw_mux_tx_0_status_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
 			spw_mux_tx_0_status_o.txhalff  => open,
 			spw_mux_tx_1_status_o.txrdy    => s_data_controller_spw_txrdy,
-			spw_mux_tx_1_status_o.txhalff  => s_data_controller_spw_txhalff
+			spw_mux_tx_1_status_o.txhalff  => s_data_controller_spw_txhalff,
+			spw_mux_tx_2_status_o.txrdy    => open,
+			spw_mux_tx_2_status_o.txhalff  => open
 		);
 
 	-- spw codec clock domain synchronization
