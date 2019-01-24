@@ -61,98 +61,9 @@ begin
 				v_field_counter := 0;
 				v_crc           := x"00";
 
+			-- Timeline (offset + 1001)
+			-- Verified write: 0x8f711bc0 at address 0
 			elsif (field_counter <= c_TIME_OFFSET + 2000) then
-
-				v_header(0)   := x"51"; -- target logical address
-				v_header(1)   := x"01"; -- protocol identifier
-				v_header(2)   := x"7C"; -- instruction
-				v_header(3)   := x"D1"; -- key
-				v_header(4)   := x"50"; -- initiator logical address
-				v_header(5)   := x"00"; -- transaction identifier ms
-				v_header(6)   := x"00"; -- transaction identifier ls 
-				v_header(7)   := x"00"; -- extended address
-				v_header(8)   := x"00"; -- address ms
-				v_header(9)   := x"00"; -- address
-				v_header(10)  := x"00"; -- address
-				v_header(11)  := x"38"; -- address ls
-				v_header(12)  := x"00"; -- data length ms
-				v_header(13)  := x"00"; -- data length 
-				v_header(14)  := x"04"; -- data length ls
-				v_header_size := 14;
-				v_header(15)  := x"15"; -- header CRC
-
-				v_data(0)   := x"00";   -- data
-				v_data(1)   := x"00";   -- data
-				v_data(2)   := x"00";   -- data
-				v_data(3)   := x"00";   -- data
-				v_data_size := 3;
-				v_data(4)  := x"00";    -- data crc
-
-				case v_rmap_machine is
-
-					when header =>
-						v_rmap_machine       := header;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_header(v_field_counter);
-						v_crc                := RMAP_CalculateCRC(v_crc, v_header(v_field_counter));
-						if (v_field_counter = v_header_size) then
-							v_rmap_machine := header_crc;
-						else
-							v_field_counter := v_field_counter + 1;
-						end if;
-
-					when header_crc =>
-						v_rmap_machine       := data;
-						v_field_counter      := v_field_counter + 1;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_crc;
-						v_crc                := x"00";
-						v_field_counter      := 0;
-
-					when data =>
-						v_rmap_machine       := data;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_data(v_field_counter);
-						v_crc                := RMAP_CalculateCRC(v_crc, v_data(v_field_counter));
-						if (v_field_counter = v_data_size) then
-							v_rmap_machine := data_crc;
-						else
-							v_field_counter := v_field_counter + 1;
-						end if;
-
-					when data_crc =>
-						v_rmap_machine       := eop;
-						v_field_counter      := v_field_counter + 1;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_crc;
-						v_crc                := x"00";
-						v_field_counter      := 0;
-
-					when eop =>
-						v_rmap_machine       := idle;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '1';
-						spw_tx_control.data  <= x"00";
-
-					when idle =>
-						v_rmap_machine  := idle;
-						v_field_counter := 0;
-						v_crc           := x"00";
-
-					when others =>
-						null;
-
-				end case;
-
-			elsif (field_counter <= c_TIME_OFFSET + 3000) then
-
-				if (field_counter = c_TIME_OFFSET + 2001) then
-					v_rmap_machine := header;
-				end if;
 
 				v_header(0)   := x"51"; -- target logical address
 				v_header(1)   := x"01"; -- protocol identifier
@@ -165,19 +76,19 @@ begin
 				v_header(8)   := x"00"; -- address ms
 				v_header(9)   := x"00"; -- address
 				v_header(10)  := x"00"; -- address
-				v_header(11)  := x"3C"; -- address ls
+				v_header(11)  := x"00"; -- address ls
 				v_header(12)  := x"00"; -- data length ms
 				v_header(13)  := x"00"; -- data length 
 				v_header(14)  := x"04"; -- data length ls
 				v_header_size := 14;
-				v_header(15)  := x"4A"; -- header CRC
+				v_header(15)  := x"C8"; -- header CRC
 
-				v_data(0)   := x"06";   -- data
-				v_data(1)   := x"00";   -- data
-				v_data(2)   := x"00";   -- data
-				v_data(3)   := x"00";   -- data
+				v_data(0)   := x"8F";   -- data
+				v_data(1)   := x"71";   -- data
+				v_data(2)   := x"1B";   -- data
+				v_data(3)   := x"C0";   -- data
 				v_data_size := 3;
-				v_data(4)  := x"AA";    -- data crc
+				v_data(4)  := x"94";    -- data crc
 
 				case v_rmap_machine is
 
@@ -239,15 +150,18 @@ begin
 
 				end case;
 
-			elsif (field_counter <= c_TIME_OFFSET + 4000) then
+			elsif (field_counter <= c_TIME_OFFSET + 4001) then
+				v_rmap_machine := header;
+				v_field_counter := 0;
+				v_crc           := x"00";
 
-				if (field_counter = c_TIME_OFFSET + 3001) then
-					v_rmap_machine := header;
-				end if;
+			-- Timeline (offset + 4001)
+			-- Read 4 bytes at address 8
+			elsif (field_counter <= c_TIME_OFFSET + 5000) then
 
 				v_header(0)   := x"51"; -- target logical address
 				v_header(1)   := x"01"; -- protocol identifier
-				v_header(2)   := x"7C"; -- instruction
+				v_header(2)   := x"4C"; -- instruction
 				v_header(3)   := x"D1"; -- key
 				v_header(4)   := x"50"; -- initiator logical address
 				v_header(5)   := x"00"; -- transaction identifier ms
@@ -256,20 +170,13 @@ begin
 				v_header(8)   := x"00"; -- address ms
 				v_header(9)   := x"00"; -- address
 				v_header(10)  := x"00"; -- address
-				v_header(11)  := x"00"; -- address ls
+				v_header(11)  := x"08"; -- address ls
 				v_header(12)  := x"00"; -- data length ms
 				v_header(13)  := x"00"; -- data length 
 				v_header(14)  := x"04"; -- data length ls
 				v_header_size := 14;
-				v_header(15)  := x"BC"; -- header CRC
+				v_header(15)  := x"1D"; -- header CRC
 
-				v_data(0)   := x"C0";   -- data
-				v_data(1)   := x"1B";   -- data
-				v_data(2)   := x"71";   -- data
-				v_data(3)   := x"8F";   -- data
-				v_data_size := 3;
-				v_data(4)  := x"94";    -- data crc
-				
 				case v_rmap_machine is
 
 					when header =>
@@ -285,27 +192,6 @@ begin
 						end if;
 
 					when header_crc =>
-						v_rmap_machine       := data;
-						v_field_counter      := v_field_counter + 1;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_crc;
-						v_crc                := x"00";
-						v_field_counter      := 0;
-
-					when data =>
-						v_rmap_machine       := data;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_data(v_field_counter);
-						v_crc                := RMAP_CalculateCRC(v_crc, v_data(v_field_counter));
-						if (v_field_counter = v_data_size) then
-							v_rmap_machine := data_crc;
-						else
-							v_field_counter := v_field_counter + 1;
-						end if;
-
-					when data_crc =>
 						v_rmap_machine       := eop;
 						v_field_counter      := v_field_counter + 1;
 						spw_tx_control.write <= '1';
@@ -324,17 +210,20 @@ begin
 						v_rmap_machine  := idle;
 						v_field_counter := 0;
 						v_crc           := x"00";
-						
+
 					when others =>
 						null;
 
 				end case;
 
-			elsif (field_counter <= c_TIME_OFFSET + 5000) then
+			elsif (field_counter <= c_TIME_OFFSET + 5001) then
+				v_rmap_machine := header;
+				v_field_counter := 0;
+				v_crc           := x"00";
 
-				if (field_counter = c_TIME_OFFSET + 4001) then
-					v_rmap_machine := header;
-				end if;
+			-- Timeline (offset + 5001)
+			-- Read 128 bytes at address 0x700 (hk)
+			elsif (field_counter <= c_TIME_OFFSET + 6000) then
 
 				v_header(0)   := x"51"; -- target logical address
 				v_header(1)   := x"01"; -- protocol identifier
@@ -394,68 +283,8 @@ begin
 				end case;
 
 			else
-
-				if (field_counter = c_TIME_OFFSET + 5001) then
-					v_rmap_machine := header;
-				end if;
-
-				v_header(0)   := x"51"; -- target logical address
-				v_header(1)   := x"01"; -- protocol identifier
-				v_header(2)   := x"4C"; -- instruction
-				v_header(3)   := x"D1"; -- key
-				v_header(4)   := x"50"; -- initiator logical address
-				v_header(5)   := x"00"; -- transaction identifier ms
-				v_header(6)   := x"04"; -- transaction identifier ls 
-				v_header(7)   := x"00"; -- extended address
-				v_header(8)   := x"00"; -- address ms
-				v_header(9)   := x"00"; -- address
-				v_header(10)  := x"00"; -- address
-				v_header(11)  := x"00"; -- address ls
-				v_header(12)  := x"00"; -- data length ms
-				v_header(13)  := x"00"; -- data length 
-				v_header(14)  := x"04"; -- data length ls
-				v_header_size := 14;
-				v_header(15)  := x"13"; -- header CRC
-
-				case v_rmap_machine is
-
-					when header =>
-						v_rmap_machine       := header;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_header(v_field_counter);
-						v_crc                := RMAP_CalculateCRC(v_crc, v_header(v_field_counter));
-						if (v_field_counter = v_header_size) then
-							v_rmap_machine := header_crc;
-						else
-							v_field_counter := v_field_counter + 1;
-						end if;
-
-					when header_crc =>
-						v_rmap_machine       := eop;
-						v_field_counter      := v_field_counter + 1;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '0';
-						spw_tx_control.data  <= v_crc;
-						v_crc                := x"00";
-						v_field_counter      := 0;
-
-					when eop =>
-						v_rmap_machine       := idle;
-						spw_tx_control.write <= '1';
-						spw_tx_control.flag  <= '1';
-						spw_tx_control.data  <= x"00";
-
-					when idle =>
-						v_rmap_machine  := idle;
-						v_field_counter := 0;
-						v_crc           := x"00";
-
-					when others =>
-						null;
-
-				end case;
-
+				null;
+				
 			end if;
 
 		end if;

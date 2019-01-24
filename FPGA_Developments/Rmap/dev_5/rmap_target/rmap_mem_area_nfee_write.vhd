@@ -43,20 +43,20 @@ begin
 			rmap_config_registers_o.spw_packet_1_config.ccd_port_data_transmission_selection_control  <= "11";
 			rmap_config_registers_o.spw_packet_1_config.packet_size_control                           <= x"11F8";
 			rmap_config_registers_o.CCD_1_windowing_1_config.window_list_pointer_initial_address_ccd1 <= x"00000000";
-			rmap_config_registers_o.CCD_1_windowing_2_config.window_width_ccd1                        <= "00000";
-			rmap_config_registers_o.CCD_1_windowing_2_config.window_height_ccd1                       <= "00000";
+			rmap_config_registers_o.CCD_1_windowing_2_config.window_width_ccd1                        <= "000000";
+			rmap_config_registers_o.CCD_1_windowing_2_config.window_height_ccd1                       <= "000000";
 			rmap_config_registers_o.CCD_1_windowing_2_config.window_list_length_ccd1                  <= x"0000";
 			rmap_config_registers_o.CCD_2_windowing_1_config.window_list_pointer_initial_address_ccd2 <= x"00000000";
-			rmap_config_registers_o.CCD_2_windowing_2_config.window_width_ccd2                        <= "00000";
-			rmap_config_registers_o.CCD_2_windowing_2_config.window_height_ccd2                       <= "00000";
+			rmap_config_registers_o.CCD_2_windowing_2_config.window_width_ccd2                        <= "000000";
+			rmap_config_registers_o.CCD_2_windowing_2_config.window_height_ccd2                       <= "000000";
 			rmap_config_registers_o.CCD_2_windowing_2_config.window_list_length_ccd2                  <= x"0000";
 			rmap_config_registers_o.CCD_3_windowing_1_config.window_list_pointer_initial_address_ccd3 <= x"00000000";
-			rmap_config_registers_o.CCD_3_windowing_2_config.window_width_ccd3                        <= "00000";
-			rmap_config_registers_o.CCD_3_windowing_2_config.window_height_ccd3                       <= "00000";
+			rmap_config_registers_o.CCD_3_windowing_2_config.window_width_ccd3                        <= "000000";
+			rmap_config_registers_o.CCD_3_windowing_2_config.window_height_ccd3                       <= "000000";
 			rmap_config_registers_o.CCD_3_windowing_2_config.window_list_length_ccd3                  <= x"0000";
 			rmap_config_registers_o.CCD_4_windowing_1_config.window_list_pointer_initial_address_ccd4 <= x"00000000";
-			rmap_config_registers_o.CCD_4_windowing_2_config.window_width_ccd4                        <= "00000";
-			rmap_config_registers_o.CCD_4_windowing_2_config.window_height_ccd4                       <= "00000";
+			rmap_config_registers_o.CCD_4_windowing_2_config.window_width_ccd4                        <= "000000";
+			rmap_config_registers_o.CCD_4_windowing_2_config.window_height_ccd4                       <= "000000";
 			rmap_config_registers_o.CCD_4_windowing_2_config.window_list_length_ccd4                  <= x"0000";
 			rmap_config_registers_o.operation_mode_config.mode_selection_control                      <= x"1";
 			rmap_config_registers_o.sync_config.sync_configuration                                    <= "00";
@@ -164,7 +164,7 @@ begin
 				when (x"0000000A") =>
 					rmap_config_registers_o.spw_packet_1_config.packet_size_control(11 downto 4) <= rmap_writedata_i(7 downto 0);
 				when (x"00000009") =>
-					rmap_config_registers_o.spw_packet_1_configpacket_size_control(15 downto 12) <= rmap_writedata_i(3 downto 0);
+					rmap_config_registers_o.spw_packet_1_config.packet_size_control(15 downto 12) <= rmap_writedata_i(3 downto 0);
 				when (x"00000008") =>
 					null;
 				when (x"0000000F") =>
@@ -309,56 +309,56 @@ begin
 				-- Case for access to all registers address
 
 				-- rmap config registers
-				when (x"40") =>
+				when (16#40#) =>
 					rmap_config_registers_o.ccd_seq_1_config.tri_level_clock_control               <= avalon_mm_rmap_i.writedata(1);
 					rmap_config_registers_o.ccd_seq_1_config.image_clock_direction_control         <= avalon_mm_rmap_i.writedata(2);
 					rmap_config_registers_o.ccd_seq_1_config.register_clock_direction_control      <= avalon_mm_rmap_i.writedata(3);
 					rmap_config_registers_o.ccd_seq_1_config.image_clock_transfer_count_control    <= avalon_mm_rmap_i.writedata(19 downto 4);
 					rmap_config_registers_o.ccd_seq_1_config.register_clock_transfer_count_control <= avalon_mm_rmap_i.writedata(31 downto 20);
-				when (x"41") =>
+				when (16#41#) =>
 					rmap_config_registers_o.ccd_seq_2_config.slow_read_out_pause_count <= avalon_mm_rmap_i.writedata(19 downto 0);
-				when (x"42") =>
+				when (16#42#) =>
 					rmap_config_registers_o.spw_packet_1_config.digitise_control                             <= avalon_mm_rmap_i.writedata(1);
 					rmap_config_registers_o.spw_packet_1_config.ccd_port_data_transmission_selection_control <= avalon_mm_rmap_i.writedata(3 downto 2);
 					rmap_config_registers_o.spw_packet_1_config.packet_size_control                          <= avalon_mm_rmap_i.writedata(19 downto 4);
-				when (x"43") =>
+				when (16#43#) =>
 					null;
-				when (x"44") =>
+				when (16#44#) =>
 					rmap_config_registers_o.CCD_1_windowing_1_config.window_list_pointer_initial_address_ccd1 <= avalon_mm_rmap_i.writedata(31 downto 0);
-				when (x"45") =>
+				when (16#45#) =>
 					rmap_config_registers_o.CCD_1_windowing_2_config.window_width_ccd1       <= avalon_mm_rmap_i.writedata(5 downto 0);
 					rmap_config_registers_o.CCD_1_windowing_2_config.window_height_ccd1      <= avalon_mm_rmap_i.writedata(11 downto 6);
 					rmap_config_registers_o.CCD_1_windowing_2_config.window_list_length_ccd1 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"46") =>
+				when (16#46#) =>
 					rmap_config_registers_o.CCD_2_windowing_1_config.window_list_pointer_initial_address_ccd2 <= avalon_mm_rmap_i.writedata(31 downto 0);
-				when (x"47") =>
+				when (16#47#) =>
 					rmap_config_registers_o.CCD_2_windowing_2_config.window_width_ccd2       <= avalon_mm_rmap_i.writedata(5 downto 0);
 					rmap_config_registers_o.CCD_2_windowing_2_config.window_height_ccd2      <= avalon_mm_rmap_i.writedata(11 downto 6);
 					rmap_config_registers_o.CCD_2_windowing_2_config.window_list_length_ccd2 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"48") =>
+				when (16#48#) =>
 					rmap_config_registers_o.CCD_3_windowing_1_config.window_list_pointer_initial_address_ccd3 <= avalon_mm_rmap_i.writedata(31 downto 0);
-				when (x"49") =>
+				when (16#49#) =>
 					rmap_config_registers_o.CCD_3_windowing_2_config.window_width_ccd3       <= avalon_mm_rmap_i.writedata(5 downto 0);
 					rmap_config_registers_o.CCD_3_windowing_2_config.window_height_ccd3      <= avalon_mm_rmap_i.writedata(11 downto 6);
 					rmap_config_registers_o.CCD_3_windowing_2_config.window_list_length_ccd3 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"4A") =>
+				when (16#4A#) =>
 					rmap_config_registers_o.CCD_4_windowing_1_config.window_list_pointer_initial_address_ccd4 <= avalon_mm_rmap_i.writedata(31 downto 0);
-				when (x"4B") =>
+				when (16#4B#) =>
 					rmap_config_registers_o.CCD_4_windowing_2_config.window_width_ccd4       <= avalon_mm_rmap_i.writedata(5 downto 0);
 					rmap_config_registers_o.CCD_4_windowing_2_config.window_height_ccd4      <= avalon_mm_rmap_i.writedata(11 downto 6);
 					rmap_config_registers_o.CCD_4_windowing_2_config.window_list_length_ccd4 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"4C") =>
+				when (16#4C#) =>
 					rmap_config_registers_o.operation_mode_config.mode_selection_control <= avalon_mm_rmap_i.writedata(7 downto 4);
-				when (x"4D") =>
+				when (16#4D#) =>
 					rmap_config_registers_o.sync_config.sync_configuration   <= avalon_mm_rmap_i.writedata(1 downto 0);
 					rmap_config_registers_o.sync_config.self_trigger_control <= avalon_mm_rmap_i.writedata(2);
-				when (x"4E") =>
+				when (16#4E#) =>
 					null;
-				when (x"4F") =>
+				when (16#4F#) =>
 					null;
-				when (x"50") =>
+				when (16#50#) =>
 					rmap_config_registers_o.frame_number.frame_number <= avalon_mm_rmap_i.writedata(1 downto 0);
-				when (x"51") =>
+				when (16#51#) =>
 					rmap_config_registers_o.current_mode.current_mode <= avalon_mm_rmap_i.writedata(3 downto 0);
 
 				when others =>
@@ -373,100 +373,100 @@ begin
 				-- Case for access to all registers address
 
 				-- rmap hk registers
-				when (x"A0") =>
+				when (16#A0#) =>
 					rmap_hk_registers_o.hk_ccd1_vod_e <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd1_vod_f <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A1") =>
+				when (16#A1#) =>
 					rmap_hk_registers_o.hk_ccd1_vrd_mon <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd2_vod_e   <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A2") =>
+				when (16#A2#) =>
 					rmap_hk_registers_o.hk_ccd2_vod_f   <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd2_vrd_mon <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A3") =>
+				when (16#A3#) =>
 					rmap_hk_registers_o.hk_ccd3_vod_e <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd3_vod_f <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A4") =>
+				when (16#A4#) =>
 					rmap_hk_registers_o.hk_ccd3_vrd_mon <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd4_vod_e   <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A5") =>
+				when (16#A5#) =>
 					rmap_hk_registers_o.hk_ccd4_vod_f   <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd4_vrd_mon <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A6") =>
+				when (16#A6#) =>
 					rmap_hk_registers_o.hk_vccd  <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_vrclk <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A7") =>
+				when (16#A7#) =>
 					rmap_hk_registers_o.hk_viclk     <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_vrclk_low <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A8") =>
+				when (16#A8#) =>
 					rmap_hk_registers_o.hk_5vb_pos <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_5vb_neg <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"A9") =>
+				when (16#A9#) =>
 					rmap_hk_registers_o.hk_3_3vb_pos <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_2_5va_pos <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"AA") =>
+				when (16#AA#) =>
 					rmap_hk_registers_o.hk_3_3vd_pos <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_2_5vd_pos <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"AB") =>
+				when (16#AB#) =>
 					rmap_hk_registers_o.hk_1_5vd_pos <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_5vref     <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"AC") =>
+				when (16#AC#) =>
 					rmap_hk_registers_o.hk_vccd_pos_raw <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_vclk_pos_raw <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"AD") =>
+				when (16#AD#) =>
 					rmap_hk_registers_o.hk_van1_pos_raw <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_van3_neg_raw <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"AE") =>
+				when (16#AE#) =>
 					rmap_hk_registers_o.hk_van2_pos_raw  <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_vdig_fpga_raw <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"AF") =>
+				when (16#AF#) =>
 					rmap_hk_registers_o.hk_vdig_spw_raw <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_viclk_low    <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B0") =>
+				when (16#B0#) =>
 					rmap_hk_registers_o.hk_adc_temp_a_e <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_adc_temp_a_f <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B1") =>
+				when (16#B1#) =>
 					rmap_hk_registers_o.hk_ccd1_temp <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd2_temp <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B2") =>
+				when (16#B2#) =>
 					rmap_hk_registers_o.hk_ccd3_temp <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.hk_ccd4_temp <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B3") =>
+				when (16#B3#) =>
 					rmap_hk_registers_o.hk_wp605_spare <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_0 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B4") =>
+				when (16#B4#) =>
 					rmap_hk_registers_o.lowres_prt_a_1 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_2 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B5") =>
+				when (16#B5#) =>
 					rmap_hk_registers_o.lowres_prt_a_3 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_4 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B6") =>
+				when (16#B6#) =>
 					rmap_hk_registers_o.lowres_prt_a_5 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_6 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B7") =>
+				when (16#B7#) =>
 					rmap_hk_registers_o.lowres_prt_a_7 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_8 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B8") =>
+				when (16#B8#) =>
 					rmap_hk_registers_o.lowres_prt_a_9  <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_10 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"B9") =>
+				when (16#B9#) =>
 					rmap_hk_registers_o.lowres_prt_a_11 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_12 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"BA") =>
+				when (16#BA#) =>
 					rmap_hk_registers_o.lowres_prt_a_13 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.lowres_prt_a_14 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"BB") =>
+				when (16#BB#) =>
 					rmap_hk_registers_o.lowres_prt_a_15 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.sel_hires_prt0  <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"BC") =>
+				when (16#BC#) =>
 					rmap_hk_registers_o.sel_hires_prt1 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.sel_hires_prt2 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"BD") =>
+				when (16#BD#) =>
 					rmap_hk_registers_o.sel_hires_prt3 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.sel_hires_prt4 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"BE") =>
+				when (16#BE#) =>
 					rmap_hk_registers_o.sel_hires_prt5 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.sel_hires_prt6 <= avalon_mm_rmap_i.writedata(31 downto 16);
-				when (x"BF") =>
+				when (16#BF#) =>
 					rmap_hk_registers_o.sel_hires_prt7 <= avalon_mm_rmap_i.writedata(15 downto 0);
 					rmap_hk_registers_o.zero_hires_amp <= avalon_mm_rmap_i.writedata(31 downto 16);
 
@@ -502,18 +502,18 @@ begin
 			-- p_avalon_mm_rmap_write
 
 			avalon_mm_rmap_o.waitrequest <= '1';
-			if (v_write_executed = 0) then
+			if (v_write_executed = '0') then
 				if (avalon_mm_rmap_i.write = '1') then
 					v_write_address := to_integer(unsigned(avalon_mm_rmap_i.address));
 					-- check if the write address is in the rmap area range
-					if ((v_write_address >= to_integer(unsigned(x"A0"))) and (v_write_address <= to_integer(unsigned(x"BF")))) then
+					if ((v_write_address >= 16#A0#) and (v_write_address <= 16#BF#)) then
 						-- read address is in the rmap housekeeping area range
 						-- no need to protect hk registers, write register
 						avalon_mm_rmap_o.waitrequest <= '0';
 						p_avs_hk_writedata(v_write_address);
 						v_write_timeout_cnt          := 15;
 						v_write_executed             := '1';
-					elsif ((v_read_address >= to_integer(unsigned(x"40"))) and (v_read_address <= to_integer(unsigned(x"51")))) then
+					elsif ((v_write_address >= 16#40#) and (v_write_address <= 16#51#)) then
 						-- write address is in the rmap area range 
 						-- check if a rmap write or a rmap read is ocurring
 						if ((rmap_write_authorized_i = '0') or (rmap_read_authorized_i = '0')) then
