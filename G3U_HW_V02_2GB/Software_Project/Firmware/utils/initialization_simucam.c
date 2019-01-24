@@ -22,4 +22,7 @@ void vInitSimucamBasicHW(void)
 	bSSDisplayConfig(SSDP_NORMAL_MODE);
 	bSSDisplayUpdate(0);
 
+	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
+	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
+
 }

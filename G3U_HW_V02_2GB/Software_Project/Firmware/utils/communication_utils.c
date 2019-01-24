@@ -369,6 +369,29 @@ void vSendTurnOff ( void ) {
 	}
 }
 
+void vSendReset ( void ) {
+    char cBufferTurnOff[32] = "";
+    unsigned char crc = 0;
+    unsigned short int  usiIdCMDLocal;
+	bool bSuccees = FALSE;
+
+    usiIdCMDLocal = usiGetIdCMD();
+
+	/* Creating the packet with the CRC */
+    sprintf(cBufferTurnOff, RESET_SPRINTF, usiIdCMDLocal);
+    crc = ucCrc8wInit( cBufferTurnOff , strlen(cBufferTurnOff));
+    sprintf(cBufferTurnOff, "%s|%hhu;", cBufferTurnOff, crc );
+
+	bSuccees = bSendUART32v2(cBufferTurnOff, usiIdCMDLocal);
+
+	if ( bSuccees != TRUE ) {
+		/*	Message wasn't send or could not insert in the (re)transmission buffer
+			this will not be returned, because the system should keep working, an error function shoudl be called
+			in order to print a message in the console, and maybe further implementation in the future*/
+			vCouldNotSendTurnOff();
+	}
+}
+
 void vSendLog ( const char * cDataIn ) {
     char cBufferLog[128] = "";
     unsigned char crc = 0;

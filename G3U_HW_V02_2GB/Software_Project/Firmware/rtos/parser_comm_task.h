@@ -12,6 +12,7 @@
 #include "../utils/communication_configs.h"
 #include "../utils/communication_utils.h"
 #include "../utils/log_manager_simucam.h"
+#include "../driver/reset/reset.h"
 
 typedef enum { sConfiguring = 0, sWaitingMessage, sRequestParsing, sReplyParsing, sPusHandling, sHandlingError } tParserStates;
 

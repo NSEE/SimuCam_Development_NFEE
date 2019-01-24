@@ -670,6 +670,20 @@ void vCouldNotSendTurnOff( void )
 	 */
 }
 
+void vCouldNotSendReset( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotSendReset. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not send the reset command. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
 
 void vCouldNotSendLog( void )
 {
@@ -999,6 +1013,40 @@ void vCouldNotGetQueueMaskDataCtrl( void )
 	#ifdef DEBUG_ON
 		debug(fp,"Could not get Queue Mask for Data Controller. \n");
 	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vFailSendMsgAccessDMA( unsigned char ucTemp)
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailSendMsgAccessDMA. FEE n: \n", ucTemp);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendMsgFeeCTRL( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendMsgFeeCTRL.  \n");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailFlushQueue( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"CRITICAL: vFailFlushQueue.  \n");
+	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento

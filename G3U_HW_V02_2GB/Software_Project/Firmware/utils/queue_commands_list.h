@@ -69,19 +69,17 @@ typedef union qMask{
 
 
 
-
-
-
 /*=====================================================================================================================*/
 /*=============================  FEE CONTROLLER  COMMAND   LIST   --   QUEUE  (Second Byte) ===========================*/
 /*=====================================================================================================================*/
 /* FORMAT: 32 bits MASK ()    0x BB BB */
-#define XXXX 		0x01 /* Indicates that income a PUS command and it should check the xPus array */
+#define M_NFC_CONFIG 		0x01 /* Indicates that should go to Config Mode */
+#define M_NFC_RUN 		    0x02 /* Indicates that should go to Run Mode */
 
+#define M_NFC_DMA_GIVEBACK  0x81
+#define M_NFC_DMA_REQUEST   0x80 /* DO NOT ATTRIBUTE 0x80 TO ANY OTHER COMMAND */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
-
-
 
 
 
@@ -90,13 +88,11 @@ typedef union qMask{
 /*=============================  DATA CONTROLLER  COMMAND   LIST   --   QUEUE  (Second Byte) ==========================*/
 /*=====================================================================================================================*/
 /* FORMAT: 32 bits MASK ()    0x BB BB */
-#define ZZZZZZ 		0x01/* Indicates that income a PUS command and it should check the xPus array */
+#define M_DATA_CONFIG 		0x01 /* Indicates that should go to Config Mode */
+#define M_DATA_RUN 		    0x02 /* Indicates that should go to Run Mode */
 
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
-
-
-
 
 
 
@@ -104,7 +100,13 @@ typedef union qMask{
 /*=============================  FEE Instances  COMMAND   LIST   --   QUEUE  (Second Byte) ============================*/
 /*=====================================================================================================================*/
 /* FORMAT: 32 bits MASK ()    0x BB BB */
-#define YYYYYYYY 		0x01/* Indicates that income a PUS command and it should check the xPus array */
+#define M_FEE_CONFIG 		0x01 /* Indicates that should go to Config Mode */
+#define M_FEE_RUN 		    0x02 /* Indicates that should go to Run Mode - Mode On -> StandBy */
+#define M_FEE_STANDBY	    0x04
+#define M_FEE_FULL_PATTERN  0x08
+
+#define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
+
 
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/

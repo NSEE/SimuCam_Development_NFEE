@@ -57,6 +57,7 @@ void vCouldNotRetransmitB128TimeoutTask( void );
 void vFailStartTimerRetransmission( void );
 void vFailCouldNotRetransmitTimeoutTask( void );
 void vCouldNotSendTurnOff( void );
+void vCouldNotSendReset( void );
 void vCouldNotSendLog( void );
 void vCouldNotSendTMPusCommand( const char *cData );
 void vWarnCouldNotgetMutexRetrans128( void );
@@ -82,6 +83,9 @@ void vCouldNotCreateQueueMaskNfeeCtrl( void );
 void vCouldNotCreateQueueMaskDataCtrl( void );
 void vCouldNotGetQueueMaskNfeeCtrl( void );
 void vCouldNotGetQueueMaskDataCtrl( void );
+void vFailSendMsgAccessDMA( unsigned char ucTemp);
+void vFailSendMsgFeeCTRL( void );
+void vFailFlushQueue( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

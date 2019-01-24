@@ -24,6 +24,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal );
 
 /* This function should treat the PUS command in the Running Mode, need check all the things that is possible to update in this mode */
 void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal );
+void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 
 #endif /* SIM_MEB_TASK_H_ */

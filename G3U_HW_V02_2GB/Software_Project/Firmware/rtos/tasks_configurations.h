@@ -60,7 +60,7 @@
     #define   FEE_TASK_STACKSIZE      1024*2*/
 	#define   TASK_STACKSIZE          1024
     #define   FEE_TASK_STACKSIZE      1024
-    #define       1536
+    #define   HEAVY_TASK_STACKSIZE    1536
 #else
     #define   TASK_STACKSIZE          1024
     #define   FEE_TASK_STACKSIZE      1024
