@@ -33,6 +33,7 @@ end entity spw_clk_synchronization_ent;
 architecture RTL of spw_clk_synchronization_ent is
 
 	-- clk100 commands to clk200 signals
+	signal s_link_command_stage_0 : t_spw_codec_link_command;
 	signal s_link_command_stage_1 : t_spw_codec_link_command;
 	signal s_link_command_stage_2 : t_spw_codec_link_command;
 
@@ -94,11 +95,20 @@ begin
 	p_clk200_clk100_commands_to_clk200 : process(clk_200_i, rst_i) is
 	begin
 		if (rst_i = '1') then
+			s_link_command_stage_1.autostart          <= '0';
+			s_link_command_stage_1.linkstart          <= '0';
+			s_link_command_stage_1.linkdis            <= '0';
+			s_link_command_stage_1.txdivcnt           <= x"01";
+			s_link_command_stage_2.autostart          <= '0';
+			s_link_command_stage_2.linkstart          <= '0';
+			s_link_command_stage_2.linkdis            <= '0';
+			s_link_command_stage_2.txdivcnt           <= x"01";
 			spw_codec_link_command_clk200_o.autostart <= '0';
 			spw_codec_link_command_clk200_o.linkstart <= '0';
 			spw_codec_link_command_clk200_o.linkdis   <= '0';
 			spw_codec_link_command_clk200_o.txdivcnt  <= x"01";
 		elsif rising_edge(clk_200_i) then
+			s_link_command_stage_1          <= s_link_command_stage_0;
 			s_link_command_stage_2          <= s_link_command_stage_1;
 			spw_codec_link_command_clk200_o <= s_link_command_stage_2;
 		end if;
@@ -106,9 +116,12 @@ begin
 	p_clk100_clk100_commands_to_clk200 : process(clk_100_i, rst_i) is
 	begin
 		if (rst_i = '1') then
-			null;
+			s_link_command_stage_0.autostart <= '0';
+			s_link_command_stage_0.linkstart <= '0';
+			s_link_command_stage_0.linkdis   <= '0';
+			s_link_command_stage_0.txdivcnt  <= x"01";
 		elsif rising_edge(clk_100_i) then
-			s_link_command_stage_1 <= spw_codec_link_command_clk100_i;
+			s_link_command_stage_0 <= spw_codec_link_command_clk100_i;
 		end if;
 	end process p_clk100_clk100_commands_to_clk200;
 

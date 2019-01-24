@@ -128,12 +128,22 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_reply_state
 	p_rmap_target_reply_FSM_state : process(clk_i, reset_n_i)
+		variable v_rmap_target_reply_state : t_rmap_target_reply_state := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
 			s_rmap_target_reply_state      <= IDLE;
+			v_rmap_target_reply_state      := IDLE;
 			s_rmap_target_reply_next_state <= IDLE;
 			s_byte_counter                 <= 0;
+			-- Outputs Generation
+			flags_o.reply_busy             <= '0';
+			flags_o.reply_finished         <= '0';
+			spw_control_o.data             <= x"00";
+			spw_control_o.flag             <= '0';
+			spw_control_o.write            <= '0';
+			s_reply_header_crc             <= x"00";
+			s_reply_address_flag           <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_reply_state) is
@@ -143,6 +153,7 @@ begin
 					-- does nothing until user application signals it is ready to send a reply
 					-- default state transition
 					s_rmap_target_reply_state      <= IDLE;
+					v_rmap_target_reply_state      := IDLE;
 					s_rmap_target_reply_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -162,6 +173,7 @@ begin
 						end if;
 						-- go to wating buffer space
 						s_rmap_target_reply_state <= WAITING_BUFFER_SPACE;
+						v_rmap_target_reply_state := WAITING_BUFFER_SPACE;
 					end if;
 
 				-- state "WAITING_BUFFER_SPACE"
@@ -169,6 +181,7 @@ begin
 					-- wait until the spacewire tx buffer has space
 					-- default state transition
 					s_rmap_target_reply_state <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state := WAITING_BUFFER_SPACE;
 					-- default internal signal values
 					-- conditional state transition
 					-- check if tx buffer can receive data
@@ -176,6 +189,7 @@ begin
 						-- tx buffer can receive data
 						-- go to next field
 						s_rmap_target_reply_state <= s_rmap_target_reply_next_state;
+						v_rmap_target_reply_state := s_rmap_target_reply_next_state;
 					end if;
 
 				-- state "FIELD_REPLY_SPW_ADDRESS"
@@ -183,6 +197,7 @@ begin
 					-- reply spw address field, send reply spw address to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_REPLY_SPW_ADDRESS;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -203,6 +218,7 @@ begin
 					-- initiator logical address field, send initiator logical address to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_PROTOCOL_IDENTIFIER;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -213,6 +229,7 @@ begin
 					-- protocol identifier field, send protocol identifier to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_INSTRUCTION;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -223,6 +240,7 @@ begin
 					-- instruction field, send instruction to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_STATUS;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -233,6 +251,7 @@ begin
 					-- status field, send status to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_TARGET_LOGICAL_ADDRESS;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -243,6 +262,7 @@ begin
 					-- target logical address field, send target logical address to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_TRANSACTION_IDENTIFIER;
 					-- default internal signal values
 					s_byte_counter                 <= 1;
@@ -253,6 +273,7 @@ begin
 					-- transaction identifier field, send transaction identifier to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_TRANSACTION_IDENTIFIER;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -279,6 +300,7 @@ begin
 					-- reserved field, send reserved to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_DATA_LEGNTH;
 					-- default internal signal values
 					s_byte_counter                 <= 2;
@@ -289,6 +311,7 @@ begin
 					-- data length field, send data length to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_reply_next_state <= FIELD_DATA_LEGNTH;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -309,6 +332,7 @@ begin
 					-- header crc field, send header crc to initiator
 					-- default state transition
 					s_rmap_target_reply_state <= WAITING_BUFFER_SPACE;
+					v_rmap_target_reply_state := WAITING_BUFFER_SPACE;
 					-- default internal signal values
 					s_byte_counter            <= 0;
 					-- conditional state transition and internal signal values
@@ -326,6 +350,7 @@ begin
 					-- eop field, send eop to initiator
 					-- default state transition
 					s_rmap_target_reply_state      <= REPLY_FINISH_GENERATION;
+					v_rmap_target_reply_state      := REPLY_FINISH_GENERATION;
 					s_rmap_target_reply_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -336,6 +361,7 @@ begin
 					-- finish reply generation
 					-- default state transition
 					s_rmap_target_reply_state      <= REPLY_FINISH_GENERATION;
+					v_rmap_target_reply_state      := REPLY_FINISH_GENERATION;
 					s_rmap_target_reply_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                 <= 0;
@@ -344,6 +370,7 @@ begin
 					if (control_i.reply_reset = '1') then
 						-- reply reset commanded, go back to idle
 						s_rmap_target_reply_state      <= IDLE;
+						v_rmap_target_reply_state      := IDLE;
 						s_rmap_target_reply_next_state <= IDLE;
 					end if;
 
@@ -351,33 +378,18 @@ begin
 				when others =>
 					-- jump to save state (ERROR?!)
 					s_rmap_target_reply_state      <= IDLE;
+					v_rmap_target_reply_state      := IDLE;
 					s_rmap_target_reply_next_state <= IDLE;
 
 			end case;
-		end if;
-	end process p_rmap_target_reply_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Reply Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_reply_state, reset_n_i
-	-- write:
-	-- r/w:
-	p_rmap_target_reply_FSM_output : process(s_rmap_target_reply_state, reset_n_i)
-	begin
-		-- asynchronous reset
-		if (reset_n_i = '0') then
-			flags_o.reply_busy     <= '0';
-			flags_o.reply_finished <= '0';
-			spw_control_o.data     <= x"00";
-			spw_control_o.flag     <= '0';
-			spw_control_o.write    <= '0';
-			s_reply_header_crc     <= x"00";
-			s_reply_address_flag   <= '0';
-		-- output generation when s_rmap_target_reply_state changes
-		else
-			case (s_rmap_target_reply_state) is
+			--=============================================================================
+			-- Begin of RMAP Target Reply Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_reply_state, reset_n_i
+			-- write:
+			-- r/w:
+			case (v_rmap_target_reply_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -629,7 +641,7 @@ begin
 
 			end case;
 		end if;
-	end process p_rmap_target_reply_FSM_output;
+	end process p_rmap_target_reply_FSM_state;
 
 end architecture rtl;
 --============================================================================

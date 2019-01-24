@@ -19,6 +19,49 @@ end entity avalon_mm_windowing_write_ent;
 
 architecture rtl of avalon_mm_windowing_write_ent is
 
+	function f_pixels_data_little_to_big_endian(little_endian_pixel_data_i : in std_logic_vector) return std_logic_vector is
+		variable v_big_endian_pixel_data : std_logic_vector(63 downto 0);
+	begin
+
+		-- pixels arrangement for little endian (avalon standart and real memory organization):
+		-- |  pixel_3_msb |  pixel_3_lsb |  pixel_2_msb |  pixel_2_lsb |  pixel_1_msb |  pixel_1_lsb |  pixel_0_msb |  pixel_0_lsb | 
+		-- | 63 downto 56 | 55 downto 48 | 47 downto 40 | 39 downto 32 | 31 downto 24 | 23 downto 16 | 15 downto  8 |  7 downto  0 |
+		--
+		-- pixels arrangement for big endian (for spacewire transmission):
+		-- |  pixel_3_lsb |  pixel_3_msb |  pixel_2_lsb |  pixel_2_msb |  pixel_1_lsb |  pixel_1_msb |  pixel_0_lsb |  pixel_0_msb | 
+		-- | 55 downto 48 | 63 downto 56 | 39 downto 32 | 47 downto 40 | 23 downto 16 | 31 downto 24 |  7 downto  0 | 15 downto  8 |
+		--
+		-- little endian to big endian conversion:
+		-- s_big_endian(55 downto 48) <= s_little_endian(63 downto 56);
+		-- s_big_endian(63 downto 56) <= s_little_endian(55 downto 48);
+		-- s_big_endian(39 downto 32) <= s_little_endian(47 downto 40);
+		-- s_big_endian(47 downto 40) <= s_little_endian(39 downto 32);
+		-- s_big_endian(23 downto 16) <= s_little_endian(31 downto 24);
+		-- s_big_endian(31 downto 24) <= s_little_endian(23 downto 16);
+		-- s_big_endian( 7 downto  0) <= s_little_endian(15 downto  8);
+		-- s_big_endian(15 downto  8) <= s_little_endian( 7 downto  0);
+
+		-- little endian to big endian conversion:
+		-- pixel 3 lsb
+		v_big_endian_pixel_data(55 downto 48) := little_endian_pixel_data_i(63 downto 56);
+		-- pixel 3 msb
+		v_big_endian_pixel_data(63 downto 56) := little_endian_pixel_data_i(55 downto 48);
+		-- pixel 2 lsb
+		v_big_endian_pixel_data(39 downto 32) := little_endian_pixel_data_i(47 downto 40);
+		-- pixel 2 msb
+		v_big_endian_pixel_data(47 downto 40) := little_endian_pixel_data_i(39 downto 32);
+		-- pixel 1 lsb
+		v_big_endian_pixel_data(23 downto 16) := little_endian_pixel_data_i(31 downto 24);
+		-- pixel 1 msb
+		v_big_endian_pixel_data(31 downto 24) := little_endian_pixel_data_i(23 downto 16);
+		-- pixel 0 lsb
+		v_big_endian_pixel_data(7 downto 0)   := little_endian_pixel_data_i(15 downto 8);
+		-- pixel 0 msb
+		v_big_endian_pixel_data(15 downto 8)  := little_endian_pixel_data_i(7 downto 0);
+
+		return v_big_endian_pixel_data;
+	end function f_pixels_data_little_to_big_endian;
+
 	signal s_windown_data_ctn : natural range 0 to 16;
 	signal s_waitrequest      : std_logic;
 
@@ -59,20 +102,20 @@ begin
 							if (write_address_i = 0) then
 								-- address is zero, new cicle
 								window_data_write_o <= '1';
-								window_data_o       <= avalon_mm_windowing_i.writedata;
+								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
 								s_windown_data_ctn  <= 1;
 							else
 								-- address not zero, verify counter
 								if (s_windown_data_ctn < 16) then
 									-- counter at data address
 									window_data_write_o <= '1';
-									window_data_o       <= avalon_mm_windowing_i.writedata;
+									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
 									-- increment counter
 									s_windown_data_ctn  <= s_windown_data_ctn + 1;
 								else
 									-- counter at mask address
 									window_mask_write_o <= '1';
-									window_data_o       <= avalon_mm_windowing_i.writedata;
+									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
 									-- reset counter
 									s_windown_data_ctn  <= 0;
 								end if;
@@ -96,20 +139,20 @@ begin
 							if (write_address_i = 0) then
 								-- address is zero, new cicle
 								window_data_write_o <= '1';
-								window_data_o       <= avalon_mm_windowing_i.writedata;
+								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
 								s_windown_data_ctn  <= 1;
 							else
 								-- address not zero, verify counter
 								if (s_windown_data_ctn < 16) then
 									-- counter at data address
 									window_data_write_o <= '1';
-									window_data_o       <= avalon_mm_windowing_i.writedata;
+									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
 									-- increment counter
 									s_windown_data_ctn  <= s_windown_data_ctn + 1;
 								else
 									-- counter at mask address
 									window_data_write_o <= '1';
-									window_data_o       <= avalon_mm_windowing_i.writedata;
+									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
 									-- set counter to first data
 									s_windown_data_ctn  <= 1;
 								end if;

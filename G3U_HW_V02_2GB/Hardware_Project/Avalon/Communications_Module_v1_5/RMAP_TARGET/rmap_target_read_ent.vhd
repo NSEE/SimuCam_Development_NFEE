@@ -109,9 +109,9 @@ architecture rtl of rmap_target_read_ent is
 	signal s_read_error : std_logic;
 
 	constant c_MEMORY_ACCESS_SIZE : natural := 2 ** g_MEMORY_ACCESS_WIDTH;
-	signal s_read_byte_counter : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
+	signal s_read_byte_counter    : natural range 0 to (c_MEMORY_ACCESS_SIZE - 1);
 
-	signal s_read_address      : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
+	signal s_read_address : std_logic_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 
 	constant c_BYTE_COUNTER_ZERO : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0) := (others => '0');
 	signal s_byte_counter        : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
@@ -144,14 +144,27 @@ begin
 	-- write:
 	-- r/w: s_rmap_target_read_state
 	p_rmap_target_read_FSM_state : process(clk_i, reset_n_i)
+		variable v_rmap_target_read_state : t_rmap_target_read_state := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
 			s_rmap_target_read_state      <= IDLE;
+			v_rmap_target_read_state      := IDLE;
 			s_rmap_target_read_next_state <= IDLE;
 			s_read_address                <= (others => '0');
 			s_read_byte_counter           <= 0;
 			s_byte_counter                <= (others => '0');
+			-- Outputs Generation
+			flags_o.read_busy             <= '0';
+			flags_o.read_data_indication  <= '0';
+			flags_o.read_operation_failed <= '0';
+			spw_control_o.data            <= x"00";
+			spw_control_o.flag            <= '0';
+			spw_control_o.write           <= '0';
+			mem_control_o.read            <= '0';
+			mem_byte_address_o            <= (others => '0');
+			s_read_data_crc               <= x"00";
+			s_read_error                  <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_read_state) is
@@ -161,6 +174,7 @@ begin
 					-- does nothing until user application signals a read authorization
 					-- default state transition
 					s_rmap_target_read_state      <= IDLE;
+					v_rmap_target_read_state      := IDLE;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
 					s_read_address                <= (others => '0');
@@ -176,6 +190,7 @@ begin
 						s_byte_counter                <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 						-- go to wating buffer space
 						s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
+						v_rmap_target_read_state      := WAITING_BUFFER_SPACE;
 						-- prepare for next field (data field)
 						s_rmap_target_read_next_state <= READ_DATA;
 					end if;
@@ -185,6 +200,7 @@ begin
 					-- wait until the spacewire tx buffer has space
 					-- default state transition
 					s_rmap_target_read_state <= WAITING_BUFFER_SPACE;
+					v_rmap_target_read_state := WAITING_BUFFER_SPACE;
 					-- default internal signal values
 					-- conditional state transition
 					-- check if tx buffer can receive data
@@ -192,6 +208,7 @@ begin
 						-- tx buffer can receive data
 						-- go to next field
 						s_rmap_target_read_state <= s_rmap_target_read_next_state;
+						v_rmap_target_read_state := s_rmap_target_read_next_state;
 					end if;
 
 				-- state "FIELD_DATA"
@@ -199,6 +216,7 @@ begin
 					-- data field, send read data to initiator
 					-- default state transition
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_read_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= READ_DATA;
 					-- default internal signal values
 					s_read_byte_counter           <= 0;
@@ -230,6 +248,7 @@ begin
 					-- data crc field, send read data crc to initiator
 					-- default state transition
 					s_rmap_target_read_state      <= WAITING_BUFFER_SPACE;
+					v_rmap_target_read_state      := WAITING_BUFFER_SPACE;
 					s_rmap_target_read_next_state <= FIELD_EOP;
 					-- default internal signal values
 					s_byte_counter                <= (others => '0');
@@ -240,6 +259,7 @@ begin
 					-- eop field, send eop to indicate end of package
 					-- default state transition
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
+					v_rmap_target_read_state      := READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                <= (others => '0');
@@ -250,6 +270,7 @@ begin
 					-- fetch memory data, wait for valid data in memory
 					-- default state transition
 					s_rmap_target_read_state <= READ_DATA;
+					v_rmap_target_read_state := READ_DATA;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if memory has valid data
@@ -257,11 +278,13 @@ begin
 						-- memory has valid data
 						-- go to next data field
 						s_rmap_target_read_state <= FIELD_DATA;
+						v_rmap_target_read_state := FIELD_DATA;
 					-- check if a read error ocurred
 					elsif (mem_flag_i.error = '1') then
 						-- read error occured
 						-- go to read not ok state
 						s_rmap_target_read_state      <= READ_NOT_OK;
+						v_rmap_target_read_state      := READ_NOT_OK;
 						s_rmap_target_read_next_state <= IDLE;
 					end if;
 
@@ -270,6 +293,7 @@ begin
 					-- error in read operation
 					-- default state transition
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
+					v_rmap_target_read_state      := READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                <= (others => '0');
@@ -280,6 +304,7 @@ begin
 					-- finish read operation
 					-- default state transition
 					s_rmap_target_read_state      <= READ_FINISH_OPERATION;
+					v_rmap_target_read_state      := READ_FINISH_OPERATION;
 					s_rmap_target_read_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                <= (others => '0');
@@ -288,6 +313,7 @@ begin
 					if (control_i.read_reset = '1') then
 						-- read reset commanded, go back to idle
 						s_rmap_target_read_state      <= IDLE;
+						v_rmap_target_read_state      := IDLE;
 						s_rmap_target_read_next_state <= IDLE;
 					end if;
 
@@ -295,36 +321,18 @@ begin
 				when others =>
 					-- jump to save state (ERROR?!)
 					s_rmap_target_read_state      <= IDLE;
+					v_rmap_target_read_state      := IDLE;
 					s_rmap_target_read_next_state <= IDLE;
 
 			end case;
-		end if;
-	end process p_rmap_target_read_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Read Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_read_state, reset_n_i
-	-- write:
-	-- r/w:
-	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, reset_n_i)
-	begin
-		-- asynchronous reset
-		if (reset_n_i = '0') then
-			flags_o.read_busy             <= '0';
-			flags_o.read_data_indication  <= '0';
-			flags_o.read_operation_failed <= '0';
-			spw_control_o.data            <= x"00";
-			spw_control_o.flag            <= '0';
-			spw_control_o.write           <= '0';
-			mem_control_o.read            <= '0';
-			mem_byte_address_o            <= (others => '0');
-			s_read_data_crc               <= x"00";
-			s_read_error                  <= '0';
-		-- output generation when s_rmap_target_read_state changes
-		else
-			case (s_rmap_target_read_state) is
+			--=============================================================================
+			-- Begin of RMAP Target Read Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_read_state, reset_n_i
+			-- write:
+			-- r/w:
+			case (v_rmap_target_read_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -470,7 +478,7 @@ begin
 
 			end case;
 		end if;
-	end process p_rmap_target_read_FSM_output;
+	end process p_rmap_target_read_FSM_state;
 
 end architecture rtl;
 --============================================================================

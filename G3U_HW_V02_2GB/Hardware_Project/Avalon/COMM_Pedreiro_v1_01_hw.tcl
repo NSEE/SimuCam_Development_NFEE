@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME COMM_Pedreiro_v1_01
-set_module_property VERSION 1.1
+set_module_property VERSION 1.5
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -66,6 +66,7 @@ add_fileset_file spwlink.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spac
 add_fileset_file spwxmit_fast.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
 add_fileset_file spw_codec_pkg.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spw_codec_pkg.vhd
 add_fileset_file spw_codec.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spw_codec.vhd
+add_fileset_file spw_mux_ent.vhd VHDL PATH Communications_Module_v1_5/SPW_MUX/spw_mux_ent.vhd
 add_fileset_file spw_data_dc_fifo.vhd VHDL PATH Communications_Module_v1_5/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
 add_fileset_file spw_timecode_dc_fifo.vhd VHDL PATH Communications_Module_v1_5/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
 add_fileset_file spw_clk_synchronization_ent.vhd VHDL PATH Communications_Module_v1_5/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
@@ -113,6 +114,7 @@ add_fileset_file spwlink.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spac
 add_fileset_file spwxmit_fast.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
 add_fileset_file spw_codec_pkg.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spw_codec_pkg.vhd
 add_fileset_file spw_codec.vhd VHDL PATH Communications_Module_v1_5/SPW_CODEC/spw_codec.vhd
+add_fileset_file spw_mux_ent.vhd VHDL PATH Communications_Module_v1_5/SPW_MUX/spw_mux_ent.vhd
 add_fileset_file spw_data_dc_fifo.vhd VHDL PATH Communications_Module_v1_5/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
 add_fileset_file spw_timecode_dc_fifo.vhd VHDL PATH Communications_Module_v1_5/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
 add_fileset_file spw_clk_synchronization_ent.vhd VHDL PATH Communications_Module_v1_5/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
@@ -144,7 +146,7 @@ add_fileset_file comm_v1_50_top.vhd VHDL PATH Communications_Module_v1_5/comm_v1
 # connection point reset_sink
 # 
 add_interface reset_sink reset end
-set_interface_property reset_sink associatedClock clock_sink_200
+set_interface_property reset_sink associatedClock clock_sink_100
 set_interface_property reset_sink synchronousEdges DEASSERT
 set_interface_property reset_sink ENABLED true
 set_interface_property reset_sink EXPORT_OF ""
@@ -156,39 +158,72 @@ add_interface_port reset_sink reset_sink_reset reset Input 1
 
 
 # 
-# connection point conduit_end
+# connection point spw_conduit_end
 # 
-add_interface conduit_end conduit end
-set_interface_property conduit_end associatedClock clock_sink_200
-set_interface_property conduit_end associatedReset reset_sink
-set_interface_property conduit_end ENABLED true
-set_interface_property conduit_end EXPORT_OF ""
-set_interface_property conduit_end PORT_NAME_MAP ""
-set_interface_property conduit_end CMSIS_SVD_VARIABLES ""
-set_interface_property conduit_end SVD_ADDRESS_GROUP ""
+add_interface spw_conduit_end conduit end
+set_interface_property spw_conduit_end associatedClock clock_sink_200
+set_interface_property spw_conduit_end associatedReset reset_sink
+set_interface_property spw_conduit_end ENABLED true
+set_interface_property spw_conduit_end EXPORT_OF ""
+set_interface_property spw_conduit_end PORT_NAME_MAP ""
+set_interface_property spw_conduit_end CMSIS_SVD_VARIABLES ""
+set_interface_property spw_conduit_end SVD_ADDRESS_GROUP ""
 
-add_interface_port conduit_end data_in data_in_signal Input 1
-add_interface_port conduit_end data_out data_out_signal Output 1
-add_interface_port conduit_end strobe_in strobe_in_signal Input 1
-add_interface_port conduit_end strobe_out strobe_out_signal Output 1
+add_interface_port spw_conduit_end data_in data_in_signal Input 1
+add_interface_port spw_conduit_end data_out data_out_signal Output 1
+add_interface_port spw_conduit_end strobe_in strobe_in_signal Input 1
+add_interface_port spw_conduit_end strobe_out strobe_out_signal Output 1
 
 
 # 
-# connection point interrupt_sender
+# connection point sync_conduit_end
 # 
-add_interface interrupt_sender interrupt end
-set_interface_property interrupt_sender associatedAddressablePoint avalon_slave_windowing
-set_interface_property interrupt_sender associatedClock clock_sink_200
-set_interface_property interrupt_sender associatedReset reset_sink
-set_interface_property interrupt_sender bridgedReceiverOffset ""
-set_interface_property interrupt_sender bridgesToReceiver ""
-set_interface_property interrupt_sender ENABLED true
-set_interface_property interrupt_sender EXPORT_OF ""
-set_interface_property interrupt_sender PORT_NAME_MAP ""
-set_interface_property interrupt_sender CMSIS_SVD_VARIABLES ""
-set_interface_property interrupt_sender SVD_ADDRESS_GROUP ""
+add_interface sync_conduit_end conduit end
+set_interface_property sync_conduit_end associatedClock clock_sink_100
+set_interface_property sync_conduit_end associatedReset reset_sink
+set_interface_property sync_conduit_end ENABLED true
+set_interface_property sync_conduit_end EXPORT_OF ""
+set_interface_property sync_conduit_end PORT_NAME_MAP ""
+set_interface_property sync_conduit_end CMSIS_SVD_VARIABLES ""
+set_interface_property sync_conduit_end SVD_ADDRESS_GROUP ""
 
-add_interface_port interrupt_sender interrupt_sender_irq irq Output 1
+add_interface_port sync_conduit_end sync_channel sync_channel_signal Input 1
+
+
+# 
+# connection point rmap_interrupt_sender
+# 
+add_interface rmap_interrupt_sender interrupt end
+set_interface_property rmap_interrupt_sender associatedAddressablePoint avalon_slave_windowing
+set_interface_property rmap_interrupt_sender associatedClock clock_sink_100
+set_interface_property rmap_interrupt_sender associatedReset reset_sink
+set_interface_property rmap_interrupt_sender bridgedReceiverOffset ""
+set_interface_property rmap_interrupt_sender bridgesToReceiver ""
+set_interface_property rmap_interrupt_sender ENABLED true
+set_interface_property rmap_interrupt_sender EXPORT_OF ""
+set_interface_property rmap_interrupt_sender PORT_NAME_MAP ""
+set_interface_property rmap_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property rmap_interrupt_sender SVD_ADDRESS_GROUP ""
+
+add_interface_port rmap_interrupt_sender rmap_interrupt_sender_irq irq Output 1
+
+
+# 
+# connection point buffers_interrupt_sender
+# 
+add_interface buffers_interrupt_sender interrupt end
+set_interface_property buffers_interrupt_sender associatedAddressablePoint avalon_slave_windowing
+set_interface_property buffers_interrupt_sender associatedClock clock_sink_100
+set_interface_property buffers_interrupt_sender associatedReset reset_sink
+set_interface_property buffers_interrupt_sender bridgedReceiverOffset ""
+set_interface_property buffers_interrupt_sender bridgesToReceiver ""
+set_interface_property buffers_interrupt_sender ENABLED true
+set_interface_property buffers_interrupt_sender EXPORT_OF ""
+set_interface_property buffers_interrupt_sender PORT_NAME_MAP ""
+set_interface_property buffers_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property buffers_interrupt_sender SVD_ADDRESS_GROUP ""
+
+add_interface_port buffers_interrupt_sender buffers_interrupt_sender_irq irq Output 1
 
 
 # 
@@ -224,7 +259,7 @@ add_interface_port clock_sink_200 clock_sink_200_clk clk Input 1
 # 
 add_interface avalon_slave_windowing avalon end
 set_interface_property avalon_slave_windowing addressUnits WORDS
-set_interface_property avalon_slave_windowing associatedClock clock_sink_200
+set_interface_property avalon_slave_windowing associatedClock clock_sink_100
 set_interface_property avalon_slave_windowing associatedReset reset_sink
 set_interface_property avalon_slave_windowing bitsPerSymbol 8
 set_interface_property avalon_slave_windowing burstOnBurstBoundariesOnly false
@@ -262,7 +297,7 @@ set_interface_assignment avalon_slave_windowing embeddedsw.configuration.isPrint
 # 
 add_interface avalon_slave_L_buffer avalon end
 set_interface_property avalon_slave_L_buffer addressUnits WORDS
-set_interface_property avalon_slave_L_buffer associatedClock clock_sink_200
+set_interface_property avalon_slave_L_buffer associatedClock clock_sink_100
 set_interface_property avalon_slave_L_buffer associatedReset reset_sink
 set_interface_property avalon_slave_L_buffer bitsPerSymbol 8
 set_interface_property avalon_slave_L_buffer burstOnBurstBoundariesOnly false
@@ -298,7 +333,7 @@ set_interface_assignment avalon_slave_L_buffer embeddedsw.configuration.isPrinta
 # 
 add_interface avalon_slave_R_buffer avalon end
 set_interface_property avalon_slave_R_buffer addressUnits WORDS
-set_interface_property avalon_slave_R_buffer associatedClock clock_sink_200
+set_interface_property avalon_slave_R_buffer associatedClock clock_sink_100
 set_interface_property avalon_slave_R_buffer associatedReset reset_sink
 set_interface_property avalon_slave_R_buffer bitsPerSymbol 8
 set_interface_property avalon_slave_R_buffer burstOnBurstBoundariesOnly false
