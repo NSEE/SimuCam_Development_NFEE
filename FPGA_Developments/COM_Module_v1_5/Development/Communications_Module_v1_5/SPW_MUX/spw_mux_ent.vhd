@@ -75,6 +75,19 @@ begin
 			s_mux_rx_selection   <= 0;
 			s_mux_tx_selection   <= 7;
 			s_spw_tx_fsm_command <= c_SPW_RESET_TX_COMMAND;
+
+			s_spw_mux_state <= IDLE;
+
+			s_tx_0_flag_buffer   <= '0';
+			s_tx_0_data_buffer   <= x"00";
+			s_tx_0_pending_write <= '0';
+			s_tx_0_channel_lock  <= '0';
+
+			s_tx_1_flag_buffer   <= '0';
+			s_tx_1_data_buffer   <= x"00";
+			s_tx_1_pending_write <= '0';
+			s_tx_1_channel_lock  <= '0';
+
 		elsif rising_edge(clk_i) then
 
 			s_mux_rx_selection <= 0;
@@ -256,14 +269,16 @@ begin
 
 	-- spw mux port 0 tx
 	spw_mux_tx_0_status_o.txhalff <= (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7)) else (c_SPW_RESET_TX_STATUS.txhalff);
-	spw_mux_tx_0_status_o.txrdy   <= ('0') when (s_tx_0_channel_lock = '1')
-		else (spw_codec_tx_status_i.txrdy) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7))
-		else (c_SPW_RESET_TX_STATUS.txrdy);
+	spw_mux_tx_0_status_o.txrdy   <= ('0') when ((s_tx_0_channel_lock = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP)) and (spw_mux_tx_0_command_i.txwrite = '1')) or (spw_mux_tx_0_command_i.txflag = '1'))
+		else (spw_codec_tx_status_i.txrdy);
+--		else (spw_codec_tx_status_i.txrdy) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7))
+--		else (c_SPW_RESET_TX_STATUS.txrdy);
 
 	-- spw mux port 1 tx
 	spw_mux_tx_1_status_o.txhalff <= (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7)) else (c_SPW_RESET_TX_STATUS.txhalff);
-	spw_mux_tx_1_status_o.txrdy   <= ('0') when (s_tx_1_channel_lock = '1')
-		else (spw_codec_tx_status_i.txrdy) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7))
-		else (c_SPW_RESET_TX_STATUS.txrdy);
+	spw_mux_tx_1_status_o.txrdy   <= ('0') when ((s_tx_1_channel_lock = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP)) and (spw_mux_tx_1_command_i.txwrite = '1')) or (spw_mux_tx_1_command_i.txflag = '1'))
+		else (spw_codec_tx_status_i.txrdy);
+--		else (spw_codec_tx_status_i.txrdy) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7))
+--		else (c_SPW_RESET_TX_STATUS.txrdy);
 
 end architecture RTL;
