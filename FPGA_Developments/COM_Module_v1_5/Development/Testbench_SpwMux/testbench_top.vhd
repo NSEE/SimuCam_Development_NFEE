@@ -30,10 +30,14 @@ architecture RTL of testbench_top is
 	signal s_mux_tx_1_command : t_spw_codec_data_tx_command;
 	signal s_mux_tx_1_status  : t_spw_codec_data_tx_status;
 
+	signal s_mux_tx_2_command : t_spw_codec_data_tx_command;
+	signal s_mux_tx_2_status  : t_spw_codec_data_tx_status;
+
 	signal s_time_counter : natural;
 
 	signal s_tx_0_counter : natural;
 	signal s_tx_1_counter : natural;
+	signal s_tx_2_counter : natural;
 
 begin
 
@@ -50,11 +54,13 @@ begin
 			spw_mux_rx_0_command_i => s_mux_rx_0_command,
 			spw_mux_tx_0_command_i => s_mux_tx_0_command,
 			spw_mux_tx_1_command_i => s_mux_tx_1_command,
+			spw_mux_tx_2_command_i => s_mux_tx_2_command,
 			spw_codec_rx_command_o => s_mux_rx_channel_command,
 			spw_codec_tx_command_o => s_mux_tx_channel_command,
 			spw_mux_rx_0_status_o  => s_mux_rx_0_status,
 			spw_mux_tx_0_status_o  => s_mux_tx_0_status,
-			spw_mux_tx_1_status_o  => s_mux_tx_1_status
+			spw_mux_tx_1_status_o  => s_mux_tx_1_status,
+			spw_mux_tx_2_status_o  => s_mux_tx_2_status
 		);
 
 	p_channel_stimulli : process(clk100, rst) is
@@ -79,14 +85,14 @@ begin
 			s_mux_tx_channel_status.txrdy   <= '0';
 
 			case (s_time_counter) is
-				when 120 to 174 =>
+				when 50 to 600 =>
 					s_mux_rx_channel_status.rxdata  <= std_logic_vector(to_unsigned(s_time_counter, 8));
 					s_mux_rx_channel_status.rxflag  <= '0';
 					s_mux_rx_channel_status.rxhalff <= '0';
 					s_mux_rx_channel_status.rxvalid <= '1';
 					s_mux_tx_channel_status.txhalff <= '0';
 					s_mux_tx_channel_status.txrdy   <= '1';
-				when 180 to 200 =>
+				when 650 to 1000 =>
 					s_mux_rx_channel_status.rxdata  <= std_logic_vector(to_unsigned(s_time_counter, 8));
 					s_mux_rx_channel_status.rxflag  <= '0';
 					s_mux_rx_channel_status.rxhalff <= '0';
@@ -115,7 +121,7 @@ begin
 			s_mux_tx_0_command.txwrite <= '0';
 
 			case (s_time_counter) is
-				when 110 to 140 =>
+				when 100 to 140 =>
 					s_mux_rx_0_command.rxread <= '1';
 					if (s_mux_tx_0_status.txrdy = '1') then
 						s_tx_0_counter             <= s_tx_0_counter + 1;
@@ -130,7 +136,7 @@ begin
 						s_mux_tx_0_command.txflag  <= '1';
 						s_mux_tx_0_command.txwrite <= '1';
 					end if;
-				when 150 to 170 =>
+				when 180 to 200 =>
 					s_mux_rx_0_command.rxread <= '1';
 					if (s_mux_tx_0_status.txrdy = '1') then
 						s_tx_0_counter             <= s_tx_0_counter + 1;
@@ -138,10 +144,25 @@ begin
 						s_mux_tx_0_command.txflag  <= '0';
 						s_mux_tx_0_command.txwrite <= '1';
 					end if;
-				when 175 =>
+				when 205 =>
 					s_mux_rx_0_command.rxread <= '1';
 					if (s_mux_tx_0_status.txrdy = '1') then
-						s_mux_tx_0_command.txdata  <= x"01";
+						s_mux_tx_0_command.txdata  <= x"00";
+						s_mux_tx_0_command.txflag  <= '1';
+						s_mux_tx_0_command.txwrite <= '1';
+					end if;
+				when 300 to 400 =>
+					s_mux_rx_0_command.rxread <= '1';
+					if (s_mux_tx_0_status.txrdy = '1') then
+						s_tx_0_counter             <= s_tx_0_counter + 1;
+						s_mux_tx_0_command.txdata  <= std_logic_vector(to_unsigned(s_tx_0_counter, 8));
+						s_mux_tx_0_command.txflag  <= '0';
+						s_mux_tx_0_command.txwrite <= '1';
+					end if;
+				when 405 =>
+					s_mux_rx_0_command.rxread <= '1';
+					if (s_mux_tx_0_status.txrdy = '1') then
+						s_mux_tx_0_command.txdata  <= x"00";
 						s_mux_tx_0_command.txflag  <= '1';
 						s_mux_tx_0_command.txwrite <= '1';
 					end if;
@@ -164,14 +185,40 @@ begin
 			s_mux_tx_1_command.txwrite <= '0';
 
 			case (s_time_counter) is
-				when 160 to 195 =>
+				when 146 to 215 =>
 					if (s_mux_tx_1_status.txrdy = '1') then
 						s_tx_1_counter             <= s_tx_1_counter + 1;
 						s_mux_tx_1_command.txdata  <= std_logic_vector(to_unsigned(s_tx_1_counter, 8));
 						s_mux_tx_1_command.txflag  <= '0';
 						s_mux_tx_1_command.txwrite <= '1';
 					end if;
-				when 200 =>
+				when 220 =>
+					if (s_mux_tx_1_status.txrdy = '1') then
+						s_mux_tx_1_command.txdata  <= x"00";
+						s_mux_tx_1_command.txflag  <= '1';
+						s_mux_tx_1_command.txwrite <= '1';
+					end if;
+				when 340 to 380 =>
+					if (s_mux_tx_1_status.txrdy = '1') then
+						s_tx_1_counter             <= s_tx_1_counter + 1;
+						s_mux_tx_1_command.txdata  <= std_logic_vector(to_unsigned(s_tx_1_counter, 8));
+						s_mux_tx_1_command.txflag  <= '0';
+						s_mux_tx_1_command.txwrite <= '1';
+					end if;
+				when 385 =>
+					if (s_mux_tx_1_status.txrdy = '1') then
+						s_mux_tx_1_command.txdata  <= x"00";
+						s_mux_tx_1_command.txflag  <= '1';
+						s_mux_tx_1_command.txwrite <= '1';
+					end if;
+				when 750 to 800 =>
+					if (s_mux_tx_1_status.txrdy = '1') then
+						s_tx_1_counter             <= s_tx_1_counter + 1;
+						s_mux_tx_1_command.txdata  <= std_logic_vector(to_unsigned(s_tx_1_counter, 8));
+						s_mux_tx_1_command.txflag  <= '0';
+						s_mux_tx_1_command.txwrite <= '1';
+					end if;
+				when 805 =>
 					if (s_mux_tx_1_status.txrdy = '1') then
 						s_mux_tx_1_command.txdata  <= x"00";
 						s_mux_tx_1_command.txflag  <= '1';
@@ -182,5 +229,50 @@ begin
 			end case;
 		end if;
 	end process p_ch1_stimulli;
+
+	p_ch2_stimulli : process(clk100, rst) is
+	begin
+		if (rst = '1') then
+			s_mux_tx_2_command.txdata  <= x"00";
+			s_mux_tx_2_command.txflag  <= '0';
+			s_mux_tx_2_command.txwrite <= '0';
+			s_tx_2_counter             <= 16#A0#;
+		elsif rising_edge(clk100) then
+			s_mux_tx_2_command.txdata  <= x"00";
+			s_mux_tx_2_command.txflag  <= '0';
+			s_mux_tx_2_command.txwrite <= '0';
+
+			case (s_time_counter) is
+				when 100 to 190 =>
+					if (s_mux_tx_2_status.txrdy = '1') then
+						s_tx_2_counter             <= s_tx_2_counter + 1;
+						s_mux_tx_2_command.txdata  <= std_logic_vector(to_unsigned(s_tx_2_counter, 8));
+						s_mux_tx_2_command.txflag  <= '0';
+						s_mux_tx_2_command.txwrite <= '1';
+					end if;
+				when 195 =>
+					if (s_mux_tx_2_status.txrdy = '1') then
+						s_mux_tx_2_command.txdata  <= x"00";
+						s_mux_tx_2_command.txflag  <= '1';
+						s_mux_tx_2_command.txwrite <= '1';
+					end if;
+				when 250 to 350 =>
+					if (s_mux_tx_2_status.txrdy = '1') then
+						s_tx_2_counter             <= s_tx_2_counter + 1;
+						s_mux_tx_2_command.txdata  <= std_logic_vector(to_unsigned(s_tx_2_counter, 8));
+						s_mux_tx_2_command.txflag  <= '0';
+						s_mux_tx_2_command.txwrite <= '1';
+					end if;
+				when 355 =>
+					if (s_mux_tx_2_status.txrdy = '1') then
+						s_mux_tx_2_command.txdata  <= x"00";
+						s_mux_tx_2_command.txflag  <= '1';
+						s_mux_tx_2_command.txwrite <= '1';
+					end if;
+				when others =>
+					null;
+			end case;
+		end if;
+	end process p_ch2_stimulli;
 
 end architecture RTL;

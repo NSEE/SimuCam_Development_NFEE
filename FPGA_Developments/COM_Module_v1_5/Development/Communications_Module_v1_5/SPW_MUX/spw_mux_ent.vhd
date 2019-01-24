@@ -13,11 +13,13 @@ entity spw_mux_ent is
 		spw_mux_rx_0_command_i : in  t_spw_codec_data_rx_command;
 		spw_mux_tx_0_command_i : in  t_spw_codec_data_tx_command;
 		spw_mux_tx_1_command_i : in  t_spw_codec_data_tx_command;
+		spw_mux_tx_2_command_i : in  t_spw_codec_data_tx_command;
 		spw_codec_rx_command_o : out t_spw_codec_data_rx_command;
 		spw_codec_tx_command_o : out t_spw_codec_data_tx_command;
 		spw_mux_rx_0_status_o  : out t_spw_codec_data_rx_status;
 		spw_mux_tx_0_status_o  : out t_spw_codec_data_tx_status;
-		spw_mux_tx_1_status_o  : out t_spw_codec_data_tx_status
+		spw_mux_tx_1_status_o  : out t_spw_codec_data_tx_status;
+		spw_mux_tx_2_status_o  : out t_spw_codec_data_tx_status
 	);
 end entity spw_mux_ent;
 
@@ -50,26 +52,32 @@ architecture RTL of spw_mux_ent is
 		SPW_TX_0_NOT_READY,
 		SPW_TX_0_WAITING_EOP,
 		SPW_TX_1_NOT_READY,
-		SPW_TX_1_WAITING_EOP
+		SPW_TX_1_WAITING_EOP,
+		SPW_TX_2_NOT_READY,
+		SPW_TX_2_WAITING_EOP
 	);
 
 	signal s_spw_mux_state : t_spw_mux_fsm;
 
-	signal s_tx_0_flag_buffer   : std_logic;
-	signal s_tx_0_data_buffer   : std_logic_vector(7 downto 0);
-	signal s_tx_0_pending_write : std_logic;
-	signal s_tx_0_channel_lock  : std_logic;
+	type t_tx_flag_buffer is array (0 to 2) of std_logic;
+	type t_tx_data_buffer is array (0 to 2) of std_logic_vector(7 downto 0);
+	type t_tx_pending_write is array (0 to 2) of std_logic;
+	type t_tx_channel_lock is array (0 to 2) of std_logic;
 
-	signal s_tx_1_flag_buffer   : std_logic;
-	signal s_tx_1_data_buffer   : std_logic_vector(7 downto 0);
-	signal s_tx_1_pending_write : std_logic;
-	signal s_tx_1_channel_lock  : std_logic;
+	type t_tx_channel_queue is array (0 to 2) of natural range 0 to 7;
+
+	signal s_tx_flag_buffer   : t_tx_flag_buffer;
+	signal s_tx_data_buffer   : t_tx_data_buffer;
+	signal s_tx_pending_write : t_tx_pending_write;
+	signal s_tx_channel_lock  : t_tx_channel_lock;
 
 	signal s_spw_tx_fsm_command : t_spw_codec_data_tx_command;
 
 begin
 
 	p_spw_mux : process(clk_i, rst_i) is
+		variable v_tx_channel_queue : t_tx_channel_queue;
+		variable v_tx_current_queue : natural range 0 to 7;
 	begin
 		if (rst_i = '1') then
 			s_mux_rx_selection   <= 0;
@@ -78,45 +86,75 @@ begin
 
 			s_spw_mux_state <= IDLE;
 
-			s_tx_0_flag_buffer   <= '0';
-			s_tx_0_data_buffer   <= x"00";
-			s_tx_0_pending_write <= '0';
-			s_tx_0_channel_lock  <= '0';
+			s_tx_flag_buffer   <= (others => '0');
+			s_tx_data_buffer   <= (others => x"00");
+			s_tx_pending_write <= (others => '0');
+			s_tx_channel_lock  <= (others => '0');
 
-			s_tx_1_flag_buffer   <= '0';
-			s_tx_1_data_buffer   <= x"00";
-			s_tx_1_pending_write <= '0';
-			s_tx_1_channel_lock  <= '0';
+			v_tx_channel_queue(0) := 7;
+			v_tx_channel_queue(1) := 7;
+			v_tx_channel_queue(2) := 7;
+
+			v_tx_current_queue := 0;
 
 		elsif rising_edge(clk_i) then
 
 			s_mux_rx_selection <= 0;
 
-			if ((spw_mux_tx_0_command_i.txwrite = '1') and (s_mux_tx_selection /= 0)) then
-				s_tx_0_flag_buffer   <= spw_mux_tx_0_command_i.txflag;
-				s_tx_0_data_buffer   <= spw_mux_tx_0_command_i.txdata;
-				s_tx_0_pending_write <= '1';
-				s_tx_0_channel_lock  <= '1';
+			if ((spw_mux_tx_0_command_i.txwrite = '1') and (s_mux_tx_selection /= 0) and (s_tx_channel_lock(0) = '0')) then
+				s_tx_flag_buffer(0)   <= spw_mux_tx_0_command_i.txflag;
+				s_tx_data_buffer(0)   <= spw_mux_tx_0_command_i.txdata;
+				s_tx_pending_write(0) <= '1';
+				s_tx_channel_lock(0)  <= '1';
+				if not ((v_tx_channel_queue(1) = 0) or (v_tx_channel_queue(2) = 0)) then
+					v_tx_channel_queue(0) := 0;
+				elsif not ((v_tx_channel_queue(1) = 1) or (v_tx_channel_queue(2) = 1)) then
+					v_tx_channel_queue(0) := 1;
+				else
+					v_tx_channel_queue(0) := 2;
+				end if;
 			end if;
 
-			if ((spw_mux_tx_1_command_i.txwrite = '1') and (s_mux_tx_selection /= 1)) then
-				s_tx_1_flag_buffer   <= spw_mux_tx_1_command_i.txflag;
-				s_tx_1_data_buffer   <= spw_mux_tx_1_command_i.txdata;
-				s_tx_1_pending_write <= '1';
-				s_tx_1_channel_lock  <= '1';
+			if ((spw_mux_tx_1_command_i.txwrite = '1') and (s_mux_tx_selection /= 1) and (s_tx_channel_lock(1) = '0')) then
+				s_tx_flag_buffer(1)   <= spw_mux_tx_1_command_i.txflag;
+				s_tx_data_buffer(1)   <= spw_mux_tx_1_command_i.txdata;
+				s_tx_pending_write(1) <= '1';
+				s_tx_channel_lock(1)  <= '1';
+				if not ((v_tx_channel_queue(0) = 0) or (v_tx_channel_queue(2) = 0)) then
+					v_tx_channel_queue(1) := 0;
+				elsif not ((v_tx_channel_queue(0) = 1) or (v_tx_channel_queue(2) = 1)) then
+					v_tx_channel_queue(1) := 1;
+				else
+					v_tx_channel_queue(1) := 2;
+				end if;
+			end if;
+
+			if ((spw_mux_tx_2_command_i.txwrite = '1') and (s_mux_tx_selection /= 2) and (s_tx_channel_lock(2) = '0')) then
+				s_tx_flag_buffer(2)   <= spw_mux_tx_2_command_i.txflag;
+				s_tx_data_buffer(2)   <= spw_mux_tx_2_command_i.txdata;
+				s_tx_pending_write(2) <= '1';
+				s_tx_channel_lock(2)  <= '1';
+				if not ((v_tx_channel_queue(0) = 0) or (v_tx_channel_queue(1) = 0)) then
+					v_tx_channel_queue(2) := 0;
+				elsif not ((v_tx_channel_queue(0) = 1) or (v_tx_channel_queue(1) = 1)) then
+					v_tx_channel_queue(2) := 1;
+				else
+					v_tx_channel_queue(2) := 2;
+				end if;
 			end if;
 
 			case (s_spw_mux_state) is
 
 				when IDLE =>
-					-- availabe to both spw tx channels
-					if (s_tx_0_pending_write = '1') then
-						s_tx_0_channel_lock <= '1';
-						s_mux_tx_selection  <= 7;
+					-- availabe to all spw tx channels
+					-- check if the spw tx ch 0 requested a write and is first in queue
+					if ((s_tx_pending_write(0) = '1') and (v_tx_channel_queue(0) = 0)) then
+						s_tx_channel_lock(0) <= '1';
+						s_mux_tx_selection   <= 7;
 						if (spw_codec_tx_status_i.txrdy = '1') then
 							s_spw_tx_fsm_command.txwrite <= '1';
-							s_spw_tx_fsm_command.txflag  <= s_tx_0_flag_buffer;
-							s_spw_tx_fsm_command.txdata  <= s_tx_0_data_buffer;
+							s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(0);
+							s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(0);
 							s_spw_mux_state              <= SPW_TX_0_WAITING_EOP;
 						else
 							s_spw_tx_fsm_command.txwrite <= '0';
@@ -124,14 +162,14 @@ begin
 							s_spw_tx_fsm_command.txdata  <= x"00";
 							s_spw_mux_state              <= SPW_TX_0_NOT_READY;
 						end if;
-					-- check if the spw tx ch 1 requested a write
-					elsif (s_tx_1_pending_write = '1') then
-						s_tx_1_channel_lock <= '1';
-						s_mux_tx_selection  <= 7;
+					-- check if the spw tx ch 1 requested a write and is first in queue
+					elsif ((s_tx_pending_write(1) = '1') and (v_tx_channel_queue(1) = 0)) then
+						s_tx_channel_lock(1) <= '1';
+						s_mux_tx_selection   <= 7;
 						if (spw_codec_tx_status_i.txrdy = '1') then
 							s_spw_tx_fsm_command.txwrite <= '1';
-							s_spw_tx_fsm_command.txflag  <= s_tx_1_flag_buffer;
-							s_spw_tx_fsm_command.txdata  <= s_tx_1_data_buffer;
+							s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(1);
+							s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(1);
 							s_spw_mux_state              <= SPW_TX_1_WAITING_EOP;
 						else
 							s_spw_tx_fsm_command.txwrite <= '0';
@@ -139,15 +177,30 @@ begin
 							s_spw_tx_fsm_command.txdata  <= x"00";
 							s_spw_mux_state              <= SPW_TX_1_NOT_READY;
 						end if;
+					-- check if the spw tx ch 2 requested a write and is first in queue
+					elsif ((s_tx_pending_write(2) = '1') and (v_tx_channel_queue(2) = 0)) then
+						s_tx_channel_lock(2) <= '1';
+						s_mux_tx_selection   <= 7;
+						if (spw_codec_tx_status_i.txrdy = '1') then
+							s_spw_tx_fsm_command.txwrite <= '1';
+							s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(2);
+							s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(2);
+							s_spw_mux_state              <= SPW_TX_2_WAITING_EOP;
+						else
+							s_spw_tx_fsm_command.txwrite <= '0';
+							s_spw_tx_fsm_command.txflag  <= '0';
+							s_spw_tx_fsm_command.txdata  <= x"00";
+							s_spw_mux_state              <= SPW_TX_2_NOT_READY;
+						end if;
 					end if;
 
 				when SPW_TX_0_NOT_READY =>
-					s_tx_0_channel_lock <= '1';
-					s_mux_tx_selection  <= 7;
+					s_tx_channel_lock(0) <= '1';
+					s_mux_tx_selection   <= 7;
 					if (spw_codec_tx_status_i.txrdy = '1') then
 						s_spw_tx_fsm_command.txwrite <= '1';
-						s_spw_tx_fsm_command.txflag  <= s_tx_0_flag_buffer;
-						s_spw_tx_fsm_command.txdata  <= s_tx_0_data_buffer;
+						s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(0);
+						s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(0);
 						s_spw_mux_state              <= SPW_TX_0_WAITING_EOP;
 					else
 						s_spw_tx_fsm_command.txwrite <= '0';
@@ -159,30 +212,55 @@ begin
 				when SPW_TX_0_WAITING_EOP =>
 					-- lock spw tx ch 0 until an end of package
 					s_spw_mux_state              <= SPW_TX_0_WAITING_EOP;
-					s_tx_0_channel_lock          <= '0';
-					s_tx_0_pending_write         <= '0';
+					s_tx_channel_lock(0)         <= '0';
+					s_tx_pending_write(0)        <= '0';
 					s_spw_tx_fsm_command.txwrite <= '0';
 					s_spw_tx_fsm_command.txflag  <= '0';
 					s_spw_tx_fsm_command.txdata  <= x"00";
 					s_mux_tx_selection           <= 0;
+					if (v_tx_channel_queue(0) < 7) then
+						v_tx_channel_queue(0) := 7;
+						if (v_tx_channel_queue(1) < 7) then
+							v_tx_channel_queue(1) := v_tx_channel_queue(1) - 1;
+						end if;
+						if (v_tx_channel_queue(2) < 7) then
+							v_tx_channel_queue(2) := v_tx_channel_queue(2) - 1;
+						end if;
+					end if;
 					-- check if a end of package ocurred
 					if ((spw_mux_tx_0_command_i.txflag = '1') and ((spw_mux_tx_0_command_i.txdata = x"00") or (spw_mux_tx_0_command_i.txdata = x"01"))) then
 						-- end of package ocurred
-						-- check if a request to use the spw tx ch 1 was issued
-						if (s_tx_1_pending_write = '1') then
+						-- check if a request to use the spw tx ch 1 was issued and it is first in the queue
+						if ((s_tx_pending_write(1) = '1') and (v_tx_channel_queue(1) = 0)) then
 							-- request to use the spw tx ch 1 was issued
-							s_tx_1_channel_lock <= '1';
-							s_mux_tx_selection  <= 7;
+							s_tx_channel_lock(1) <= '1';
+							s_mux_tx_selection   <= 7;
 							if (spw_codec_tx_status_i.txrdy = '1') then
 								s_spw_tx_fsm_command.txwrite <= '1';
-								s_spw_tx_fsm_command.txflag  <= s_tx_1_flag_buffer;
-								s_spw_tx_fsm_command.txdata  <= s_tx_1_data_buffer;
+								s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(1);
+								s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(1);
 								s_spw_mux_state              <= SPW_TX_1_WAITING_EOP;
 							else
 								s_spw_tx_fsm_command.txwrite <= '0';
 								s_spw_tx_fsm_command.txflag  <= '0';
 								s_spw_tx_fsm_command.txdata  <= x"00";
 								s_spw_mux_state              <= SPW_TX_1_NOT_READY;
+							end if;
+						-- check if a request to use the spw tx ch 2 was issued and it is first in the queue
+						elsif ((s_tx_pending_write(2) = '1') and (v_tx_channel_queue(2) = 0)) then
+							-- request to use the spw tx ch 2 was issued
+							s_tx_channel_lock(2) <= '1';
+							s_mux_tx_selection   <= 7;
+							if (spw_codec_tx_status_i.txrdy = '1') then
+								s_spw_tx_fsm_command.txwrite <= '1';
+								s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(2);
+								s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(2);
+								s_spw_mux_state              <= SPW_TX_2_WAITING_EOP;
+							else
+								s_spw_tx_fsm_command.txwrite <= '0';
+								s_spw_tx_fsm_command.txflag  <= '0';
+								s_spw_tx_fsm_command.txdata  <= x"00";
+								s_spw_mux_state              <= SPW_TX_2_NOT_READY;
 							end if;
 						else
 							-- no pending requests
@@ -196,12 +274,12 @@ begin
 					end if;
 
 				when SPW_TX_1_NOT_READY =>
-					s_tx_1_channel_lock <= '1';
-					s_mux_tx_selection  <= 7;
+					s_tx_channel_lock(1) <= '1';
+					s_mux_tx_selection   <= 7;
 					if (spw_codec_tx_status_i.txrdy = '1') then
 						s_spw_tx_fsm_command.txwrite <= '1';
-						s_spw_tx_fsm_command.txflag  <= s_tx_1_flag_buffer;
-						s_spw_tx_fsm_command.txdata  <= s_tx_1_data_buffer;
+						s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(1);
+						s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(1);
 						s_spw_mux_state              <= SPW_TX_1_WAITING_EOP;
 					else
 						s_spw_tx_fsm_command.txwrite <= '0';
@@ -211,33 +289,136 @@ begin
 					end if;
 
 				when SPW_TX_1_WAITING_EOP =>
-					-- lock spw tx ch 0 until an end of package
+					-- lock spw tx ch 1 until an end of package
 					s_spw_mux_state              <= SPW_TX_1_WAITING_EOP;
-					s_tx_1_channel_lock          <= '0';
-					s_tx_1_pending_write         <= '0';
+					s_tx_channel_lock(1)         <= '0';
+					s_tx_pending_write(1)        <= '0';
 					s_spw_tx_fsm_command.txwrite <= '0';
 					s_spw_tx_fsm_command.txflag  <= '0';
 					s_spw_tx_fsm_command.txdata  <= x"00";
 					s_mux_tx_selection           <= 1;
+					if (v_tx_channel_queue(1) < 7) then
+						v_tx_channel_queue(1) := 7;
+						if (v_tx_channel_queue(0) < 7) then
+							v_tx_channel_queue(0) := v_tx_channel_queue(0) - 1;
+						end if;
+						if (v_tx_channel_queue(2) < 7) then
+							v_tx_channel_queue(2) := v_tx_channel_queue(2) - 1;
+						end if;
+					end if;
 					-- check if a end of package ocurred
 					if ((spw_mux_tx_1_command_i.txflag = '1') and ((spw_mux_tx_1_command_i.txdata = x"00") or (spw_mux_tx_1_command_i.txdata = x"01"))) then
 						-- end of package ocurred
-						-- lock the channel
-						s_tx_1_channel_lock <= '1';
-						-- check if a request to use the spw tx ch 1 was issued
-						if (s_tx_0_pending_write = '1') then
-							-- request to use the spw tx ch 1 was issued
-							s_mux_tx_selection <= 7;
+						-- check if a request to use the spw tx ch 0 was issued and it is first in the queue
+						if ((s_tx_pending_write(0) = '1') and (v_tx_channel_queue(0) = 0)) then
+							-- request to use the spw tx ch 0 was issued
+							s_tx_channel_lock(0) <= '1';
+							s_mux_tx_selection   <= 7;
 							if (spw_codec_tx_status_i.txrdy = '1') then
 								s_spw_tx_fsm_command.txwrite <= '1';
-								s_spw_tx_fsm_command.txflag  <= s_tx_0_flag_buffer;
-								s_spw_tx_fsm_command.txdata  <= s_tx_0_data_buffer;
+								s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(0);
+								s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(0);
 								s_spw_mux_state              <= SPW_TX_0_WAITING_EOP;
 							else
 								s_spw_tx_fsm_command.txwrite <= '0';
 								s_spw_tx_fsm_command.txflag  <= '0';
 								s_spw_tx_fsm_command.txdata  <= x"00";
 								s_spw_mux_state              <= SPW_TX_0_NOT_READY;
+							end if;
+						-- check if a request to use the spw tx ch 2 was issued and it is first in the queue
+						elsif ((s_tx_pending_write(2) = '1') and (v_tx_channel_queue(2) = 0)) then
+							-- request to use the spw tx ch 2 was issued
+							s_tx_channel_lock(2) <= '1';
+							s_mux_tx_selection   <= 7;
+							if (spw_codec_tx_status_i.txrdy = '1') then
+								s_spw_tx_fsm_command.txwrite <= '1';
+								s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(2);
+								s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(2);
+								s_spw_mux_state              <= SPW_TX_2_WAITING_EOP;
+							else
+								s_spw_tx_fsm_command.txwrite <= '0';
+								s_spw_tx_fsm_command.txflag  <= '0';
+								s_spw_tx_fsm_command.txdata  <= x"00";
+								s_spw_mux_state              <= SPW_TX_2_NOT_READY;
+							end if;
+						else
+							-- no pending requests
+							-- return to idle state
+							s_spw_tx_fsm_command.txwrite <= '0';
+							s_spw_tx_fsm_command.txflag  <= '0';
+							s_spw_tx_fsm_command.txdata  <= x"00";
+							s_mux_tx_selection           <= 7;
+							s_spw_mux_state              <= IDLE;
+						end if;
+					end if;
+
+				when SPW_TX_2_NOT_READY =>
+					s_tx_channel_lock(2) <= '1';
+					s_mux_tx_selection   <= 7;
+					if (spw_codec_tx_status_i.txrdy = '1') then
+						s_spw_tx_fsm_command.txwrite <= '1';
+						s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(2);
+						s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(2);
+						s_spw_mux_state              <= SPW_TX_2_WAITING_EOP;
+					else
+						s_spw_tx_fsm_command.txwrite <= '0';
+						s_spw_tx_fsm_command.txflag  <= '0';
+						s_spw_tx_fsm_command.txdata  <= x"00";
+						s_spw_mux_state              <= SPW_TX_2_NOT_READY;
+					end if;
+
+				when SPW_TX_2_WAITING_EOP =>
+					-- lock spw tx ch 2 until an end of package
+					s_spw_mux_state              <= SPW_TX_2_WAITING_EOP;
+					s_tx_channel_lock(2)         <= '0';
+					s_tx_pending_write(2)        <= '0';
+					s_spw_tx_fsm_command.txwrite <= '0';
+					s_spw_tx_fsm_command.txflag  <= '0';
+					s_spw_tx_fsm_command.txdata  <= x"00";
+					s_mux_tx_selection           <= 2;
+					if (v_tx_channel_queue(2) < 7) then
+						v_tx_channel_queue(2) := 7;
+						if (v_tx_channel_queue(0) < 7) then
+							v_tx_channel_queue(0) := v_tx_channel_queue(0) - 1;
+						end if;
+						if (v_tx_channel_queue(1) < 7) then
+							v_tx_channel_queue(1) := v_tx_channel_queue(1) - 1;
+						end if;
+					end if;
+					-- check if a end of package ocurred
+					if ((spw_mux_tx_2_command_i.txflag = '1') and ((spw_mux_tx_2_command_i.txdata = x"00") or (spw_mux_tx_2_command_i.txdata = x"01"))) then
+						-- end of package ocurred
+						-- check if a request to use the spw tx ch 0 was issued and it is first in the queue
+						if ((s_tx_pending_write(0) = '1') and (v_tx_channel_queue(0) = 0)) then
+							-- request to use the spw tx ch 0 was issued
+							s_tx_channel_lock(0) <= '1';
+							s_mux_tx_selection   <= 7;
+							if (spw_codec_tx_status_i.txrdy = '1') then
+								s_spw_tx_fsm_command.txwrite <= '1';
+								s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(0);
+								s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(0);
+								s_spw_mux_state              <= SPW_TX_0_WAITING_EOP;
+							else
+								s_spw_tx_fsm_command.txwrite <= '0';
+								s_spw_tx_fsm_command.txflag  <= '0';
+								s_spw_tx_fsm_command.txdata  <= x"00";
+								s_spw_mux_state              <= SPW_TX_0_NOT_READY;
+							end if;
+						-- check if a request to use the spw tx ch 1 was issued and it is first in the queue
+						elsif ((s_tx_pending_write(1) = '1') and (v_tx_channel_queue(1) = 0)) then
+							-- request to use the spw tx ch 1 was issued
+							s_tx_channel_lock(1) <= '1';
+							s_mux_tx_selection   <= 7;
+							if (spw_codec_tx_status_i.txrdy = '1') then
+								s_spw_tx_fsm_command.txwrite <= '1';
+								s_spw_tx_fsm_command.txflag  <= s_tx_flag_buffer(1);
+								s_spw_tx_fsm_command.txdata  <= s_tx_data_buffer(1);
+								s_spw_mux_state              <= SPW_TX_1_WAITING_EOP;
+							else
+								s_spw_tx_fsm_command.txwrite <= '0';
+								s_spw_tx_fsm_command.txflag  <= '0';
+								s_spw_tx_fsm_command.txdata  <= x"00";
+								s_spw_mux_state              <= SPW_TX_1_NOT_READY;
 							end if;
 						else
 							-- no pending requests
@@ -261,6 +442,7 @@ begin
 	-- spw codec tx
 	spw_codec_tx_command_o <= (spw_mux_tx_0_command_i) when (s_mux_tx_selection = 0)
 		else (spw_mux_tx_1_command_i) when (s_mux_tx_selection = 1)
+		else (spw_mux_tx_2_command_i) when (s_mux_tx_selection = 2)
 		else (s_spw_tx_fsm_command) when (s_mux_tx_selection = 7)
 		else (c_SPW_RESET_TX_COMMAND);
 
@@ -268,17 +450,27 @@ begin
 	spw_mux_rx_0_status_o <= (spw_codec_rx_status_i) when (s_mux_rx_selection = 0) else (c_SPW_RESET_RX_STATUS);
 
 	-- spw mux port 0 tx
-	spw_mux_tx_0_status_o.txhalff <= (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7)) else (c_SPW_RESET_TX_STATUS.txhalff);
-	spw_mux_tx_0_status_o.txrdy   <= ('0') when ((s_tx_0_channel_lock = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP)) and (spw_mux_tx_0_command_i.txwrite = '1')) or (spw_mux_tx_0_command_i.txflag = '1'))
+	spw_mux_tx_0_status_o.txhalff <= (c_SPW_RESET_TX_STATUS.txhalff) when (rst_i = '1')
+		else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7))
+		else (c_SPW_RESET_TX_STATUS.txhalff);
+	spw_mux_tx_0_status_o.txrdy   <= (c_SPW_RESET_TX_STATUS.txrdy) when (rst_i = '1')
+		else ('0') when ((s_tx_channel_lock(0) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP) or (s_spw_mux_state = SPW_TX_2_WAITING_EOP)) and (spw_mux_tx_0_command_i.txwrite = '1')) or (spw_mux_tx_0_command_i.txflag = '1'))
 		else (spw_codec_tx_status_i.txrdy);
---		else (spw_codec_tx_status_i.txrdy) when ((s_mux_tx_selection = 0) or (s_mux_tx_selection = 7))
---		else (c_SPW_RESET_TX_STATUS.txrdy);
 
 	-- spw mux port 1 tx
-	spw_mux_tx_1_status_o.txhalff <= (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7)) else (c_SPW_RESET_TX_STATUS.txhalff);
-	spw_mux_tx_1_status_o.txrdy   <= ('0') when ((s_tx_1_channel_lock = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP)) and (spw_mux_tx_1_command_i.txwrite = '1')) or (spw_mux_tx_1_command_i.txflag = '1'))
+	spw_mux_tx_1_status_o.txhalff <= (c_SPW_RESET_TX_STATUS.txhalff) when (rst_i = '1')
+		else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7))
+		else (c_SPW_RESET_TX_STATUS.txhalff);
+	spw_mux_tx_1_status_o.txrdy   <= (c_SPW_RESET_TX_STATUS.txrdy) when (rst_i = '1')
+		else ('0') when ((s_tx_channel_lock(1) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP) or (s_spw_mux_state = SPW_TX_2_WAITING_EOP)) and (spw_mux_tx_1_command_i.txwrite = '1')) or (spw_mux_tx_1_command_i.txflag = '1'))
 		else (spw_codec_tx_status_i.txrdy);
---		else (spw_codec_tx_status_i.txrdy) when ((s_mux_tx_selection = 1) or (s_mux_tx_selection = 7))
---		else (c_SPW_RESET_TX_STATUS.txrdy);
+
+	-- spw mux port 2 tx
+	spw_mux_tx_2_status_o.txhalff <= (c_SPW_RESET_TX_STATUS.txhalff) when (rst_i = '1')
+		else (spw_codec_tx_status_i.txhalff) when ((s_mux_tx_selection = 2) or (s_mux_tx_selection = 7))
+		else (c_SPW_RESET_TX_STATUS.txhalff);
+	spw_mux_tx_2_status_o.txrdy   <= (c_SPW_RESET_TX_STATUS.txrdy) when (rst_i = '1')
+		else ('0') when ((s_tx_channel_lock(2) = '1') or (((s_spw_mux_state = IDLE) or (s_spw_mux_state = SPW_TX_0_WAITING_EOP) or (s_spw_mux_state = SPW_TX_1_WAITING_EOP)) and (spw_mux_tx_2_command_i.txwrite = '1')) or (spw_mux_tx_2_command_i.txflag = '1'))
+		else (spw_codec_tx_status_i.txrdy);
 
 end architecture RTL;
