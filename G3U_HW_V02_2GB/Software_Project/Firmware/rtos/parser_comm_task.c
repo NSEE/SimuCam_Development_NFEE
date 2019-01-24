@@ -10,14 +10,11 @@
 
 
 void vParserCommTask(void *task_data) {
-	unsigned short int usiTypeL;
-	unsigned short int usiSubTypeL;
-	unsigned short int usiPUSidL;
 	unsigned short int usiFeeInstL;
 	bool bSuccess = FALSE;
 	INT8U error_code;
 	tParserStates eParserMode;
-	tTMPus xTmPusL;
+	static tTMPus xTcPusL;
 	static tPreParsed PreParsedLocal;
 	#ifdef DEBUG_ON
 		char cPUSDebug[128];
@@ -71,10 +68,6 @@ void vParserCommTask(void *task_data) {
 						vSendEthConf();
 						eParserMode = sWaitingMessage;
 						break;
-                    case POWER_OFF_CMD: /*Shut down command from SGSE*/
-						vSendTurnOff();
-						eParserMode = sWaitingMessage;
-                        break;						
                     case PUS_CMD: /*PUS command to MEB - TC*/
 
 						#ifdef DEBUG_ON
@@ -84,9 +77,11 @@ void vParserCommTask(void *task_data) {
 							debug(fp, cPUSDebug );
 						#endif
 	
-						usiTypeL = PreParsedLocal.usiValues[3];
-						usiSubTypeL = PreParsedLocal.usiValues[4];
-						usiPUSidL = PreParsedLocal.usiValues[5];
+						xTcPusL.usiCat	= PreParsedLocal.usiValues[2];
+						xTcPusL.usiType = PreParsedLocal.usiValues[3];
+						xTcPusL.usiSubType = PreParsedLocal.usiValues[4];
+						xTcPusL.usiPusId = PreParsedLocal.usiValues[5];
+						xTcPusL.ucNofValues = 0; /* Don't assume that has values */
 
 						eParserMode = sPusHandling;
                         break;						
@@ -97,15 +92,10 @@ void vParserCommTask(void *task_data) {
 				break;
 			case sReplyParsing:
 				eParserMode = sWaitingMessage;
-                switch ( usiTypeL )
+                switch ( xTcPusL.usiType )
                 {
                     case NUC_STATUS_CMD: /*Status from NUC*/
 
-						
-                        break;
-                    case POWER_OFF_CMD: /*Shut down command from SGSE*/
-						vSendTurnOff();
-						
 						
                         break;
                     case HEART_BEAT_CMD: /*Heart beating (NUC are you there?)*/
@@ -120,10 +110,10 @@ void vParserCommTask(void *task_data) {
 			case sPusHandling:
 				eParserMode = sWaitingMessage;
 				
-                switch ( usiTypeL )
+                switch ( xTcPusL.usiType )
                 {
                     case 17: /* srv-Type = 17 */
-						switch ( usiSubTypeL )
+						switch ( xTcPusL.usiSubType )
 						{
 							case 1: /* TC_SCAM_TEST_CONNECTION */
 								#ifdef DEBUG_ON
@@ -131,13 +121,13 @@ void vParserCommTask(void *task_data) {
 								#endif
 
 								/* Reply with the TM os connection */
-								vTMPusTestConnection( usiPUSidL );
+								vTMPusTestConnection( xTcPusL.usiPusId );
 
 								break;
 							default:
 								#ifdef DEBUG_ON
 									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", usiTypeL, usiSubTypeL, usiPUSidL );
+									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									debug(fp, cPUSDebug );
 								#endif
 								eParserMode = sWaitingMessage;
@@ -145,33 +135,44 @@ void vParserCommTask(void *task_data) {
 						}
                         break;
                     case 250: /* srv-Type = 250 */
-						switch ( usiSubTypeL )
+						switch ( xTcPusL.usiSubType )
 						{
 							case 59: /* TC_SCAM_RESET */
 								#ifdef DEBUG_ON
 									debug(fp,"TC_SCAM_RESET\n");
 								#endif
-
 								
+								/*Just Reset the Simucam, what do with the NUC?*/
+
 								break;
 							case 60: /* TC_SCAM_CONFIG */
 								#ifdef DEBUG_ON
 									debug(fp,"TC_SCAM_CONFIG\n");
 								#endif
-
+								bSendMessagePUStoMebTask(&xTcPusL);
 
 								break;
 							case 61: /* TC_SCAM_RUN */
 								#ifdef DEBUG_ON
 									debug(fp,"TC_SCAM_RUN\n");
 								#endif
+								bSendMessagePUStoMebTask(&xTcPusL);
 
+								break;
+							case 62: /* TC_SCAM_TURNOFF */
+								#ifdef DEBUG_ON
+									debug(fp,"TC_SCAM_TURNOFF\n");
+								#endif
+								vSendTurnOff();
+
+								/* todo:Enviar emnsagens para a meb, e a meb distribui a mensagem */
+								/* todo:Enviar Sinalizar Led quando puder desligar */
 
 								break;
 							default:
 								#ifdef DEBUG_ON
 									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", usiTypeL, usiSubTypeL, usiPUSidL );
+									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									debug(fp, cPUSDebug );
 								#endif							
 								eParserMode = sWaitingMessage;
@@ -181,49 +182,65 @@ void vParserCommTask(void *task_data) {
                     case 251: /* srv-Type = 251 */
 						usiFeeInstL = PreParsedLocal.usiValues[6];
 
-						switch ( usiSubTypeL )
-						{
-							case 1: /* TC_SCAM_FEE_CONFIG_ENTER */
-								#ifdef DEBUG_ON
-									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "TC_SCAM_FEE_CONFIG_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
-								#endif							
+						if ( usiFeeInstL > N_OF_NFEE ) {
+							#ifdef DEBUG_ON
+								memset(cPUSDebug,0,128);
+								sprintf(cPUSDebug, "Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+								debug(fp, cPUSDebug );
+							#endif
+							/* todo: Enviar mensagem de erro se aplicavel */
+						} else {
+							xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+							xTcPusL.ucNofValues++;
 
+							switch ( xTcPusL.usiSubType )
+							{
+								case 1: /* TC_SCAM_FEE_CONFIG_ENTER */
+									#ifdef DEBUG_ON
+										memset(cPUSDebug,0,128);
+										sprintf(cPUSDebug, "TC_SCAM_FEE_CONFIG_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
+										debug(fp, cPUSDebug );
+									#endif							
+									bSendMessagePUStoMebTask(&xTcPusL);
 
-								break;
-							case 2: /* TC_SCAM_FEE_STANDBY_ENTER */
-								#ifdef DEBUG_ON
-									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "TC_SCAM_FEE_STANDBY_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
-								#endif
+									break;
+								case 2: /* TC_SCAM_FEE_STANDBY_ENTER */
+									#ifdef DEBUG_ON
+										memset(cPUSDebug,0,128);
+										sprintf(cPUSDebug, "TC_SCAM_FEE_STANDBY_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
+										debug(fp, cPUSDebug );
+									#endif
+									bSendMessagePUStoMebTask(&xTcPusL);
 
+									break;
+								case 5: /* TC_SCAM_FEE_CALIBRATION_TEST_ENTER */
+									#ifdef DEBUG_ON
+										memset(cPUSDebug,0,128);
+										sprintf(cPUSDebug, "TC_SCAM_FEE_CALIBRATION_TEST_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
+										debug(fp, cPUSDebug );
+									#endif
+									bSendMessagePUStoMebTask(&xTcPusL);
 
-								break;
-							case 5: /* TC_SCAM_FEE_CALIBRATION_ENTER */
-								#ifdef DEBUG_ON
-									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "TC_SCAM_FEE_CALIBRATION_TEST_ENTER-> Fee Instance: %hu;\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
-								#endif
-
-
-								break;
-							default:
-								#ifdef DEBUG_ON
-									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", usiTypeL, usiSubTypeL, usiPUSidL );
-									debug(fp, cPUSDebug );
-								#endif							
-								eParserMode = sWaitingMessage;
-								break;
+									break;
+								default:
+									#ifdef DEBUG_ON
+										memset(cPUSDebug,0,128);
+										sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
+										debug(fp, cPUSDebug );
+									#endif							
+									eParserMode = sWaitingMessage;
+									break;
+							}
 						}
+
+
                         break;
 					case 252: /* srv-Type = 252 */
 						usiFeeInstL = PreParsedLocal.usiValues[6];
+						xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+						xTcPusL.ucNofValues++;
 
-						switch ( usiSubTypeL )
+						switch ( xTcPusL.usiSubType )
 						{					
 							case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 								#ifdef DEBUG_ON
@@ -231,7 +248,7 @@ void vParserCommTask(void *task_data) {
 									sprintf(cPUSDebug, "TC_SCAM_SPW_LINK_ENABLE-> FEESIM_INSTANCE: %hu;\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
 								#endif
-
+								bSendMessagePUStoMebTask(&xTcPusL);
 
 								break;
 							case 4: /* TC_SCAM_SPW_LINK_DISABLE */
@@ -240,7 +257,7 @@ void vParserCommTask(void *task_data) {
 									sprintf(cPUSDebug, "TC_SCAM_SPW_LINK_DISABLE-> FEESIM_INSTANCE: %hu;\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
 								#endif
-
+								bSendMessagePUStoMebTask(&xTcPusL);
 
 								break;
 							case 5: /* TC_SCAM_SPW_LINK_RESET */
@@ -249,10 +266,24 @@ void vParserCommTask(void *task_data) {
 									sprintf(cPUSDebug, "TC_SCAM_SPW_LINK_RESET-> FEESIM_INSTANCE: %hu;\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
 								#endif
-
+								bSendMessagePUStoMebTask(&xTcPusL);
 
 								break;
 							case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[10];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[11];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[12];
+								xTcPusL.ucNofValues++;
+
+
 								#ifdef DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "TC_SCAM_SPW_RMAP_CONFIG_UPDATE->\n");
@@ -273,13 +304,11 @@ void vParserCommTask(void *task_data) {
 									debug(fp, cPUSDebug );
 								#endif
 
-
-
 								break;
 							default:
 								#ifdef DEBUG_ON
 									memset(cPUSDebug,0,128);
-									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", usiTypeL, usiSubTypeL, usiPUSidL );
+									sprintf(cPUSDebug, "Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									debug(fp, cPUSDebug );
 								#endif							
 								eParserMode = sWaitingMessage;
@@ -327,26 +356,36 @@ bool getPreParsedPacket( tPreParsed *xPreParsedParser ) {
 	return bSuccess;
 }
 
-bool bTrySendSemaphoreCommInit( void ) {
-	bool bSuccess = FALSE;
-	unsigned char ucCountRetries = 0;
-	INT8U error_code;
+/* Search for some free location in the xPus array to put the full command to send to the meb task */
+bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {
+    bool bSuccess = FALSE;
+    INT8U error_code;
+    unsigned char i = 0;
 
-	#ifdef DEBUG_ON
-		debug(fp,"Can't post semaphore to SenderTask. Trying more 10 times.\n");
-	#endif
+    bSuccess = FALSE;
+    OSMutexPend(xMutexPus, 10, &error_code); /* Try to get mutex that protects the xPus buffer. Wait max 10 ticks = 10 ms */
+    if ( error_code == OS_NO_ERR ) {
 
-	ucCountRetries = 0;
-	do
-	{
-		ucCountRetries++;
-		OSTimeDly(50); /* 50 ticks -> 50 ms -> context switch */
-		error_code = OSSemPost(xSemCommInit);
-	} while ((error_code != OS_ERR_NONE) && (ucCountRetries < 11));
+        for(i = 0; i < N_PUS_PIPE; i++)
+        {
+            if ( xPus[i].bInUse == FALSE ) {
+                /* Locate a free place*/
+                /* Need to check if the performance is the same as memcpy*/
+            	xPus[i] = (*xPusL);
+            	xPus[i].bInUse = TRUE;
 
-	if ( error_code == OS_ERR_NONE ) {
-		bSuccess = TRUE;
-	}
+            	/* Sync the Meb task and tell that has a PUS command waiting */
+            	error_code = OSQPost(xMebQ, (void *)Q_MEB_PUS);
+                if ( error_code != OS_ERR_NONE ) {
+                	vFailSendPUStoMebTask();
+                	xPus[i].bInUse = FALSE;
+                } else
+                    bSuccess = TRUE;
+                break;
+            }
+        }
+        OSMutexPost(xMutexPus);
+    }
 
-	return bSuccess;
+    return bSuccess;
 }

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Wed Jan 23 11:04:42 BRST 2019
+ * Generated: Wed Jan 23 18:04:49 BRST 2019
  */
 
 /*
@@ -1375,12 +1375,12 @@
 #define OS_MAX_MEM_PART 60
 #define OS_MAX_QS 16
 #define OS_MAX_TASKS 32
-#define OS_MBOX_ACCEPT_EN 1
-#define OS_MBOX_DEL_EN 1
-#define OS_MBOX_EN 1
-#define OS_MBOX_POST_EN 1
-#define OS_MBOX_POST_OPT_EN 1
-#define OS_MBOX_QUERY_EN 1
+#define OS_MBOX_ACCEPT_EN 0
+#define OS_MBOX_DEL_EN 0
+#define OS_MBOX_EN 0
+#define OS_MBOX_POST_EN 0
+#define OS_MBOX_POST_OPT_EN 0
+#define OS_MBOX_QUERY_EN 0
 #define OS_MEM_EN 1
 #define OS_MEM_NAME_SIZE 32
 #define OS_MEM_QUERY_EN 1
@@ -1403,20 +1403,20 @@
 #define OS_SEM_QUERY_EN 1
 #define OS_SEM_SET_EN 1
 #define OS_TASK_CHANGE_PRIO_EN 1
-#define OS_TASK_CREATE_EN 1
+#define OS_TASK_CREATE_EN 0
 #define OS_TASK_CREATE_EXT_EN 1
 #define OS_TASK_DEL_EN 1
-#define OS_TASK_IDLE_STK_SIZE 512
+#define OS_TASK_IDLE_STK_SIZE 1024
 #define OS_TASK_NAME_SIZE 32
 #define OS_TASK_PROFILE_EN 1
 #define OS_TASK_QUERY_EN 1
 #define OS_TASK_STAT_EN 1
 #define OS_TASK_STAT_STK_CHK_EN 1
-#define OS_TASK_STAT_STK_SIZE 512
+#define OS_TASK_STAT_STK_SIZE 1024
 #define OS_TASK_SUSPEND_EN 1
 #define OS_TASK_SW_HOOK_EN 1
 #define OS_TASK_TMR_PRIO 29
-#define OS_TASK_TMR_STK_SIZE 256
+#define OS_TASK_TMR_STK_SIZE 512
 #define OS_THREAD_SAFE_NEWLIB 1
 #define OS_TICKS_PER_SEC TIMER_1MS_TICKS_PER_SEC
 #define OS_TICK_STEP_EN 1

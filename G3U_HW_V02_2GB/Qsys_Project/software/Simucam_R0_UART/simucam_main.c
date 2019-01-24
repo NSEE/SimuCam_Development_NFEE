@@ -33,6 +33,8 @@ tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
 
 txSenderACKs xSenderACK[N_ACKS_SENDER];
+
+tTMPus xPus[N_PUS_PIPE];
 /*===== Global system variables ===========*/
 
 /*== Definition of some resources of RTOS - Semaphores - Stacks - Queues - Flags etc ==============*/
@@ -48,6 +50,10 @@ OS_EVENT *xSemCountBuffer64;
 OS_EVENT *xMutexBuffer64;
 OS_EVENT *xSemCountBuffer32;
 OS_EVENT *xMutexBuffer32;
+
+/* This Mutex Should protect the array xPus[N_PUS_PIPE]*/
+OS_EVENT *xMutexPus;
+
 /* For performance porpuses in the Time Out CHecker task */
 unsigned char SemCount128;
 unsigned char SemCount64;
@@ -80,6 +86,10 @@ OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincroniza
 void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
 OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
 
+
+/* Comunication and syncronization of the Meb Task */
+void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
+OS_EVENT *xMebQ;
 /* -------------- Definition of Queues -------------- */
 
 
@@ -291,6 +301,23 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 
+	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
+	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
+	if ( xFeeQ[5] == NULL ) {
+		vFailCreateNFEEQueue( 5 );
+		bSuccess = FALSE;		
+	}
+
+
+	/* Mutex and Semaphores to control the communication of FastReaderTask */
+	xMutexPus = OSMutexCreate(PCP_MUTEX_PUS_QUEUE, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexSPUSQueueMeb(err);
+		bSuccess = FALSE;
+	}
+
+
+
 	return bSuccess;
 }
 
@@ -329,7 +356,16 @@ void vVariablesInitialization ( void ) {
 		xBuffer32[ucIL].usiId = 0;
 		xBuffer32[ucIL].usiTimeOut = 0;
 		xBuffer32[ucIL].ucNofRetries = 0;
-	}	
+	}
+
+
+	for( ucIL = 0; ucIL < N_PUS_PIPE; ucIL++)
+	{
+		xPus[ucIL].bInUse = FALSE;
+		xPus[ucIL].ucNofValues = 0;
+		memset( xPus[ucIL].usiValues, 0, sizeof(xPus[ucIL].usiValues));
+	}
+
 /* todo: Need start this variable also, but not now
 
 tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
@@ -420,7 +456,7 @@ int main(void)
 									vInitialTask_stk,
 									INITIALIZATION_TASK_SIZE,
 									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CLR);
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
 		error_code = OSTaskCreateExt(vInitialTask,
 									NULL,

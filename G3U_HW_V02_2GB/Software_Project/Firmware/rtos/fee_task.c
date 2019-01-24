@@ -12,23 +12,25 @@
 
 void vFeeTask(void *task_data) {
 	bool bSuccess = FALSE;
-	TNFee *pxNFee;
+	static TNFee *pxNFee;
 	INT8U error_code;
 
 	pxNFee = ( TNFee * ) task_data;
 
 	#ifdef DEBUG_ON
 		fprintf(fp,"NFEE %hhu Task. (Task on)\n", pxNFee->ucId);
+		//debug(fp,"NFEE Task. (Task on)\n");
 	#endif
 
 	#ifdef DEBUG_ON
-		vPrintUARTNFee( pxNFee );
+		vPrintConsoleNFee( pxNFee );
 	#endif
 
 
 	for(;;){
-		break; /*todo:Tirar depois do debug*/
 		/* Simular N itera��es para verificar os endere�os de mem�ria */
+		OSTimeDlyHMSM(0, 0, 0, 500);
+
 	}
 
 
@@ -141,7 +143,7 @@ void vFeeTask(void *task_data) {
 	}
 #endif
 
-
+	/*
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFeeI ) {
 		TNFee *pxNFee;
@@ -227,3 +229,4 @@ void vFeeTask(void *task_data) {
 	}
 #endif
 
+*/

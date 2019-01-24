@@ -187,6 +187,7 @@ C_SRCS += utils/fee_controller.c
 C_SRCS += utils/data_controller.c
 C_SRCS += rtos/data_control_task.c
 C_SRCS += rtos/nfee_control_task.c
+C_SRCS += utils/events_handler.c
 CXX_SRCS :=
 ASM_SRCS :=
 

@@ -890,3 +890,57 @@ void vCoudlNotCreateMebTask( void )
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+
+void vFailCreateMutexSPUSQueueMeb( INT8U error_code )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateMutexSPUSQueueMeb. (exit)\n");
+	#endif
+	#ifdef DEBUG_ON
+		printErrorTask(error_code);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendPUStoMebTask( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailSendPUStoMebTask. (exit)\n");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotGetCmdQueueMeb( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotGetCmdQueueMeb. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		debug(fp,"Could not get COmmand from Queue in the Meb Task. \n");
+	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
+void vCouldNotGetMutexMebPus( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vCouldNotGetMutexMebPus. (exit)\n");
+	#endif
+	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}

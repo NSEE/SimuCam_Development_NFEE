@@ -27,13 +27,14 @@
 #define SENDER_TASK_PRIO                26
 #define IN_ACK_TASK_PRIO				25
 
-#define PCP_MUTEX_PrePareseds           21   /* MUTEX Reader -> PARSER task*/
-#define PCP_MUTEX_B32_PRIO              20   /* MUTEX Buffer TX char[32]*/
-#define PCP_MUTEX_B64_PRIO              19   /* MUTEX Buffer TX char[64]*/
-#define PCP_MUTEX_B128_PRIO             18   /* MUTEX Buffer TX char[128]*/
-#define PCP_MUTEX_RECEIVER_ACK          17   /* MUTEX Reader -> Ack receiver control*/
-#define PCP_MUTEX_SENDER_ACK            16   /* MUTEX Reader -> Ack receiver control*/
-#define PCP_MUTEX_TX_UART_PRIO          15   /* MUTEX TX UART*/
+#define PCP_MUTEX_PrePareseds           23   /* MUTEX Reader -> PARSER task*/
+#define PCP_MUTEX_B32_PRIO              22   /* MUTEX Buffer TX char[32]*/
+#define PCP_MUTEX_B64_PRIO              21   /* MUTEX Buffer TX char[64]*/
+#define PCP_MUTEX_B128_PRIO             20   /* MUTEX Buffer TX char[128]*/
+#define PCP_MUTEX_RECEIVER_ACK          19   /* MUTEX Reader -> Ack receiver control*/
+#define PCP_MUTEX_SENDER_ACK            18   /* MUTEX Reader -> Ack receiver control*/
+#define PCP_MUTEX_TX_UART_PRIO          17   /* MUTEX TX UART*/
+
 
 /* Main application priority */
 /* FEE 9 .. 14 */
@@ -41,8 +42,9 @@
 #define DATA_COTROL_TASK_PRIO           8
 #define FEE_COTROL_TASK_PRIO            7
 #define MEB_TASK_PRIO                   6
-#define PCP_MUTEX_DMA_DATA              5
-#define PCP_MUTEX_DMA_FEES              4
+#define PCP_MUTEX_PUS_QUEUE             5
+#define PCP_MUTEX_DMA_DATA              4
+#define PCP_MUTEX_DMA_FEES              3
 
 #define STACK_MONITOR_TASK_PRIO			2   /* Very High*/
 
@@ -53,17 +55,21 @@
 
 
 /* Definition of Task Stack size */
-#if (STACK_MONITO == 1)
-    #define   TASK_STACKSIZE          1024*2
-    #define   FEE_TASK_STACKSIZE      512*2
+#if (STACK_MONITOR == 1)
+/*    #define   TASK_STACKSIZE          1024*2
+    #define   FEE_TASK_STACKSIZE      1024*2*/
+	#define   TASK_STACKSIZE          1024
+    #define   FEE_TASK_STACKSIZE      1024
+    #define   HEAVY_TASK_STACKSIZE    1536
 #else
     #define   TASK_STACKSIZE          1024
-    #define   FEE_TASK_STACKSIZE      512
+    #define   FEE_TASK_STACKSIZE      1024
+    #define   HEAVY_TASK_STACKSIZE    1536
 #endif
 
 /* Are equal only during the development */
 #define INITIALIZATION_TASK_SIZE    TASK_STACKSIZE
-#define RECEIVER_TASK_SIZE          TASK_STACKSIZE
+#define RECEIVER_TASK_SIZE          HEAVY_TASK_STACKSIZE
 #define PARSER_TASK_SIZE            TASK_STACKSIZE
 #define IN_ACK_TASK_SIZE            TASK_STACKSIZE
 #define OUT_ACK_TASK_SIZE           TASK_STACKSIZE
@@ -106,12 +112,12 @@ extern OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
 
 /* -------------- Definition of Queues--------------------*/
 /* This Queue will sync any FEE instance that needs to receive any command, including access to DMA */
-extern void *xFeeQueueTBL[N_MSG_FEE];
 extern OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
 extern void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
 extern OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
+
 /* -------------- Definition of Queues--------------------*/
 
 

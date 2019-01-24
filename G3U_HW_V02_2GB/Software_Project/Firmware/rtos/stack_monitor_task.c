@@ -216,6 +216,148 @@ void vStackMonitor(void *task_data) {
     		fprintf(fp, " Could not get IN_ACK_TASK stack \n" );
     	}
 
+ 
+    	ucErrorCode = OSTaskStkChk( INITIALIZATION_TASK_PRIO , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"INITI_TASK",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get INIT_TASK stack \n" );
+    	}
+
+
+
+    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_TASK-0",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_TASK - 0 stack \n" );
+    	}
+
+
+
+    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+1 , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_TASK-1",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_TASK - 1 stack \n" );
+    	}
+
+
+    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+2 , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_TASK-2",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_TASK - 2 stack \n" );
+    	}
+
+
+    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+3 , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_TASK-3",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_TASK - 3 stack \n" );
+    	}
+
+
+
+    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+4 , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_TASK-4",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_TASK - 4 stack \n" );
+    	}
+
+
+    	ucErrorCode = OSTaskStkChk( NFEE_TASK_BASE_PRIO+5 , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_TASK-5",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_TASK - 5 stack \n" );
+    	}
+
+    	ucErrorCode = OSTaskStkChk( DATA_COTROL_TASK_PRIO , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"DATA_COTROL",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get DATA_COTROL stack \n" );
+    	}
+
+
+    	ucErrorCode = OSTaskStkChk( FEE_COTROL_TASK_PRIO , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"FEE_COTROL",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get FEE_COTROL stack \n" );
+    	}
+
+    	ucErrorCode = OSTaskStkChk( MEB_TASK_PRIO , &data);
+    	if ( ucErrorCode == OS_ERR_NONE  ) {
+
+    		fprintf(fp, " %s           %4ld              %4ld              %4ld  \n",
+    				"MEB_TASK",
+    				data.OSFree + data.OSUsed,
+                    data.OSFree,
+                    data.OSUsed );
+
+    	} else {
+    		fprintf(fp, " Could not get MEB_TASK stack \n" );
+    	}		
+
+
     	fprintf(fp, "\n" );
 
     	OSTimeDlyHMSM(0, 0, 10, 0);

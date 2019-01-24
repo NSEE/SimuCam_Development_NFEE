@@ -74,6 +74,10 @@ void vCoudlNotCreateNFee5Task( void );
 void vCoudlNotCreateNFeeControllerTask( void );
 void vCoudlNotCreateDataControllerTask( void );
 void vCoudlNotCreateMebTask( void );
+void vFailCreateMutexSPUSQueueMeb( INT8U error_code );
+void vFailSendPUStoMebTask( void );
+void vCouldNotGetCmdQueueMeb( void );
+void vCouldNotGetMutexMebPus( void );
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

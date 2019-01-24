@@ -15,10 +15,11 @@
 
 void vFeeTask(void *task_data);
 
+/*
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );
 	void vPrintConsoleNFee( TNFee *pxNFee );
 #endif
-
+*/
 
 #endif /* FEE_TASK_H_ */

@@ -23,7 +23,7 @@ void vDataControlTask(void *task_data) {
     #endif
 
 	for (;;) {
-		break; /*todo:Tirar depois do debug*/
+		OSTimeDlyHMSM(0, 0, 0, 500);; /*todo:Tirar depois do debug*/
 	}
 
 }

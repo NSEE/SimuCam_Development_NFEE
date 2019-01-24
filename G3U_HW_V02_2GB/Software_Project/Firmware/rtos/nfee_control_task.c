@@ -22,7 +22,12 @@ void vNFeeControlTask(void *task_data) {
     #endif
 
 	for (;;) {
-		break; /*todo:Tirar depois do debug*/
+
+		/* Tem os mesmos estados que o SIMUCAM : Config e Running */
+		/* No config ou a Meb ira configurar sozinha os FEEs e os controladores ou irá passar a mensagem completa sem usar a QueueMask */
+		/* No modo Running o NFEE control só utiliza o Queue MAsk pois é mais rapido e só transmite no Qmask tbm */
+
+		OSTimeDlyHMSM(0, 0, 0, 500); /*todo:Tirar depois do debug*/
 	}
 
 }

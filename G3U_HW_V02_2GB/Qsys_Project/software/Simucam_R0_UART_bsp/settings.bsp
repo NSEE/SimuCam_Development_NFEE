@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>Jan 23, 2019 2:55:37 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1548262537024</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jan 23, 2019 6:04:49 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1548273889342</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -134,7 +134,7 @@
                 <SettingName>hal.linker.exception_stack_size</SettingName>
                 <Identifier>none</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>1024</Value>
+                <Value>2048</Value>
                 <DefaultValue>1024</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Size of the exception stack in bytes.</Description>
@@ -170,7 +170,7 @@
                 <SettingName>hal.linker.interrupt_stack_size</SettingName>
                 <Identifier>none</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>1024</Value>
+                <Value>2048</Value>
                 <DefaultValue>1024</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Size of the interrupt stack in bytes.</Description>
@@ -782,7 +782,7 @@
                 <SettingName>hal.enable_c_plus_plus</SettingName>
                 <Identifier>ALT_NO_C_PLUS_PLUS</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>public_mk_define</DestinationFile>
                 <Description>Enable support for a subset of the C++ language. This option increases code footprint by adding support for C++ constructors. Certain features, such as multiple inheritance and exceptions are not supported. If false, adds -DALT_NO_C_PLUS_PLUS to ALT_CPPFLAGS in public.mk, and reduces code footprint.</Description>
@@ -1022,7 +1022,7 @@
                 <SettingName>ucosii.miscellaneous.os_task_idle_stk_size</SettingName>
                 <Identifier>OS_TASK_IDLE_STK_SIZE</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>512</Value>
+                <Value>1024</Value>
                 <DefaultValue>512</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Idle task stack size</Description>
@@ -1034,7 +1034,7 @@
                 <SettingName>ucosii.miscellaneous.os_task_stat_stk_size</SettingName>
                 <Identifier>OS_TASK_STAT_STK_SIZE</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>512</Value>
+                <Value>1024</Value>
                 <DefaultValue>512</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Statistics task stack size</Description>
@@ -1058,7 +1058,7 @@
                 <SettingName>ucosii.task.os_task_create_en</SettingName>
                 <Identifier>OS_TASK_CREATE_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSTaskCreate()</Description>
@@ -1406,7 +1406,7 @@
                 <SettingName>ucosii.os_mbox_en</SettingName>
                 <Identifier>OS_MBOX_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Enable code for mailboxes</Description>
@@ -1418,7 +1418,7 @@
                 <SettingName>ucosii.mailbox.os_mbox_accept_en</SettingName>
                 <Identifier>OS_MBOX_ACCEPT_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSMboxAccept()</Description>
@@ -1430,7 +1430,7 @@
                 <SettingName>ucosii.mailbox.os_mbox_del_en</SettingName>
                 <Identifier>OS_MBOX_DEL_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSMboxDel()</Description>
@@ -1442,7 +1442,7 @@
                 <SettingName>ucosii.mailbox.os_mbox_post_en</SettingName>
                 <Identifier>OS_MBOX_POST_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSMboxPost()</Description>
@@ -1454,7 +1454,7 @@
                 <SettingName>ucosii.mailbox.os_mbox_post_opt_en</SettingName>
                 <Identifier>OS_MBOX_POST_OPT_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSMboxPostOpt()</Description>
@@ -1466,7 +1466,7 @@
                 <SettingName>ucosii.mailbox.os_mbox_query_en</SettingName>
                 <Identifier>OS_MBOX_QUERY_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>1</Value>
+                <Value>0</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSMboxQuery()</Description>
@@ -1646,7 +1646,7 @@
                 <SettingName>ucosii.timer.os_task_tmr_stk_size</SettingName>
                 <Identifier>OS_TASK_TMR_STK_SIZE</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>256</Value>
+                <Value>512</Value>
                 <DefaultValue>512</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Stack size for timer task</Description>

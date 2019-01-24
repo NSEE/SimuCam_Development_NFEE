@@ -17,8 +17,6 @@ void vInitialTask(void *task_data)
 		OSStatInit();
 	#endif
 
-	OSTimeDlyHMSM(0, 0, 5, 0); /* todo: for debug, only debug*/
-
 
 /* ================== All the task that need syncronization should be started first ========================= */
 
@@ -54,10 +52,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
-
-
-
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 	/* Create the first NFEE 1 Task */
@@ -92,8 +87,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
-
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 	/* Create the first NFEE 2 Task */
@@ -128,8 +122,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
-
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 	/* Create the first NFEE 3 Task */
@@ -164,8 +157,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
-
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 
@@ -201,7 +193,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 
@@ -237,10 +229,9 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
-	for(;;) { OSTimeDlyHMSM(0, 0, 50, 0);} /* todo: for debug, only debug*/
-
+	
 	/* Create the first Data Controller Task */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vDataControlTask,
@@ -273,7 +264,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 
@@ -309,7 +300,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 
@@ -345,7 +336,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 500);
+	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 
@@ -594,7 +585,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 0, 2);
+	OSTimeDlyHMSM(0, 0, 30, 2); /* todo:debug REMOVER*/
 
 
 	/* Delete the Initialization Task  */

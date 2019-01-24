@@ -13,9 +13,7 @@ OS_STK_DATA *pdata;
 void vSenderComTask(void *task_data)
 {
     tSenderStates eSenderMode;
-    OS_STK_DATA data;
     bool bSuccess;
-    int desligarEm = 0;
 
     eSenderMode = sConfiguringSender;
 

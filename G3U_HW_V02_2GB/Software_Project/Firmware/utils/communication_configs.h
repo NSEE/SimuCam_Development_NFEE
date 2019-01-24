@@ -66,8 +66,10 @@ extern unsigned short int usiIdCMD;
 
 /* This structure will be used to send TM PUS packets through UART */
 #define SIZE_TM_PUS_VALUES     32
+#define N_PUS_PIPE     4
 typedef struct {
     tErrorReceiver ucErrorFlag;
+    bool bInUse;
     unsigned short int usiPid;
     unsigned short int usiCat;
     unsigned short int usiType;
@@ -76,6 +78,13 @@ typedef struct {
     unsigned char ucNofValues;
     unsigned short int usiValues[SIZE_TM_PUS_VALUES];
 } tTMPus;
+
+#define N_OF_MEB_MSG_QUEUE      8
+/* This Queue will synchronize the MEB task for any action that it should be aware (PUS, CHANGES in the FEE) */
+extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
+extern OS_EVENT *xMebQ;	
+extern OS_EVENT *xMutexPus;
+extern tTMPus xPus[N_PUS_PIPE];
 
 
 /*Struct used to parse the received command through UART*/
