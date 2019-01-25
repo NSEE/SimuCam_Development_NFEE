@@ -85,6 +85,7 @@ void vCouldNotGetQueueMaskNfeeCtrl( void );
 void vCouldNotGetQueueMaskDataCtrl( void );
 void vFailSendMsgAccessDMA( unsigned char ucTemp);
 void vFailSendMsgFeeCTRL( void );
+void vFailSendMsgDataCTRL( void );
 void vFailFlushQueue( void );
 
 

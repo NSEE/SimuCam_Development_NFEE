@@ -10,6 +10,7 @@
 
 #include "../simucam_definitions.h"
 #include "ccd.h"
+#include "../driver/comm/comm_channel.h"
 
 /* Meb state is here to Data controller and NFEE controller use the same enum */
 typedef enum { sMebConfig = 0, sRun } tSimucamStates;
@@ -40,7 +41,7 @@ typedef enum { sMebConfig = 0, sRun } tSimucamStates;
 
 
 /* FEE operation modes */
-typedef enum { sFeeConfig = 0, sFeeOn, sFeeStandBy, sFeeFull, sFeeTestFullPattern, sFeeWin, sFeeTestWinPattern, sFeeTestPartialRedout } tFEEStates;
+typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeFull, sFeeTestFullPattern, sFeeWin, sFeeTestWinPattern, sFeeTestPartialRedout, sToFeeConfig, sToFeeStandBy, sToTestFullPattern} tFEEStates;
 
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/
@@ -57,6 +58,7 @@ typedef struct FeeControl{
     bool bLogging;                      /* Log the RMAP Packets */
     bool bEchoing;                      /* Echo the RMAP Packets */
     bool bChannelEnable;                /* SPW Channel is enable? */
+    bool bSimulating;                   /* Start at any running mode - needs sync */
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
     tFEEStates eMode;                   /* Mode of NFEE */
     tNFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */
@@ -67,6 +69,7 @@ typedef struct NFee {
     TFEEMemoryMap xMemMap;          /* Memory map of the NFEE */
     TFeeControl   xControl;         /* Operation Control of the NFEE */
     TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
+    TCommChannel xChannel;
 } TNFee;
 
 typedef struct FFee {

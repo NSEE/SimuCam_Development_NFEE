@@ -69,10 +69,11 @@ void vNFeeControlTask(void *task_data) {
 					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 2, &error_code);
 					if ( error_code == OS_ERR_NONE ) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
-
-						bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, 0, ucFeeInstL );
-						if ( bCmdSent == TRUE )
-							bDmaBack = FALSE;
+						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
+							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, 0, ucFeeInstL );
+							if ( bCmdSent == TRUE )
+								bDmaBack = FALSE;
+						}
 					}
 				} 
 
@@ -95,9 +96,13 @@ void vNFeeControlTask(void *task_data) {
 							vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
 
 						} else {
-							#ifdef DEBUG_ON
-								fprintf(fp,"NFEE Controller Task: Command Ignored. Not Addressed to Meb. ADDR= %ui\n", uiCmdNFC.ucByte[3]);
-							#endif
+							/* Check if the message if for any one of the instances of NFEE */
+							if ( (uiCmdNFC.ucByte[3] >= M_NFEE_BASE_ADDR) && ( uiCmdNFC.ucByte[3] <= (M_NFEE_BASE_ADDR+N_OF_NFEE) ) ) {
+
+								//todo: tratar retorno
+								bSendCmdQToNFeeInst( (uiCmdNFC.ucByte[3]-M_NFEE_BASE_ADDR), uiCmdNFC.ucByte[2], uiCmdNFC.ucByte[1], uiCmdNFC.ucByte[0] );
+
+							}
 						}
 						bDmaBack = FALSE;
 					}
@@ -170,13 +175,14 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) {
 	tQMask uiCmdLocal;
 	unsigned char i;
+	bool bCheckSimulation;
 
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
 		case M_NFC_CONFIG:
 			#ifdef DEBUG_ON
-				debug(fp,"NFEE Controller Task: Changing to RUN Mode\n");
+				debug(fp,"NFEE Controller Task: Changing to Config Mode\n");
 			#endif
 
 			vEvtChangeFeeControllerMode(pxFeeCP->sMode, sMebConfig);

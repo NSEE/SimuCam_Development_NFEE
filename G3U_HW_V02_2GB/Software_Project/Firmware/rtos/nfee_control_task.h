@@ -8,12 +8,12 @@
 #ifndef NFEE_CONTROL_TASK_H_
 #define NFEE_CONTROL_TASK_H_
 
+#include "../utils/events_handler.h"
 #include "tasks_configurations.h"
 #include "../simucam_definitions.h"
 #include "../utils/fee.h"
 #include "../utils/fee_controller.h"
 #include "../utils/queue_commands_list.h"
-#include "../utils/events_handler.h"
 #include "../utils/error_handler_simucam.h"
 
 

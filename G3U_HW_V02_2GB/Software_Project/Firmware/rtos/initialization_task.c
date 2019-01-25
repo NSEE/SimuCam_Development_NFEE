@@ -22,7 +22,7 @@ void vInitialTask(void *task_data)
 
 	/* Create the first NFEE 0 Task */
 	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vFeeTask,
+		error_code = OSTaskCreateExt(vFeeTask0,
 									&xSimMeb.xFeeControl.xNfee[0],
 									(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
 									NFEE_TASK_BASE_PRIO,
@@ -32,7 +32,7 @@ void vInitialTask(void *task_data)
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
-		error_code = OSTaskCreateExt(vFeeTask,
+		error_code = OSTaskCreateExt(vFeeTask0,
 									&xSimMeb.xFeeControl.xNfee[0],
 									(void *)&vFeeTask0_stk[FEES_STACK_SIZE-1],
 									NFEE_TASK_BASE_PRIO,

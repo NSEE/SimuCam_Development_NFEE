@@ -11,6 +11,7 @@
 
 
 #include "../simucam_definitions.h"
+#include "../driver/comm/comm_channel.h"
 
 bool bTestSimucamCriticalHW( void );
 

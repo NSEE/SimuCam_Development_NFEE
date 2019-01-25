@@ -15,7 +15,6 @@
 #include "ccd.h"
 
 typedef struct NFee_CtrlReadOnly {
-	bool	bUpdateComplete;
 	TNFee   *xNfee[N_OF_NFEE];               /* All instances of control for the NFEE */
 	bool    *pbEnabledNFEEs[N_OF_NFEE];     /* Which are the NFEEs that are enabled */
 	unsigned char *ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/

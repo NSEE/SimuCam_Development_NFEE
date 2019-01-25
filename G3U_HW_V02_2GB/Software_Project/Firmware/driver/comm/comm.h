@@ -61,14 +61,14 @@
 
 //! [public module structs definition]
 enum CommSpwCh {
-	eCommSpwCh1 = 1,
-	eCommSpwCh2 = 2,
-	eCommSpwCh3 = 3,
-	eCommSpwCh4 = 4,
-	eCommSpwCh5 = 5,
-	eCommSpwCh6 = 6,
-	eCommSpwCh7 = 7,
-	eCommSpwCh8 = 8
+	eCommSpwCh1 = 0,
+	eCommSpwCh2,
+	eCommSpwCh3,
+	eCommSpwCh4,
+	eCommSpwCh5,
+	eCommSpwCh6,
+	eCommSpwCh7,
+	eCommSpwCh8
 } ECommSpwCh;
 //! [public module structs definition]
 

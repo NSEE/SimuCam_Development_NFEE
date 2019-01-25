@@ -28,6 +28,8 @@ typedef struct Simucam_MEB {
     /* Note 3: The EP and RT parameters are common to all the N-FEE simulation entities. */
     float ucEP;                    			/* Exposure period [NFEESIM-UR-447] */
     float ucRT;                    			/* CCD readout time [NFEESIM-UR-447] */
+    float fLineTransferTime;
+    float fPixelTransferTime;
     tSimucamSync  eSync;                    /* Internal or external sync [NFEESIM-UR-633]*/
     bool    bAutoRestSyncMode;              /* Auto Reset Sync Mode [NFEESIM-UR-728] */
     /* todo: estruturas de controle para o simucam */

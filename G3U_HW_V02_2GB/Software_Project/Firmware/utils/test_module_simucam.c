@@ -15,5 +15,7 @@ bool bTestSimucamCriticalHW( void )
 	 * SDcard para criar logs e pegar defaults
 	 */
 
+
+
 	return TRUE;
 }

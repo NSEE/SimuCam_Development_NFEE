@@ -26,6 +26,7 @@
 typedef struct NFee_Control {
 	TNFee   xNfee[N_OF_NFEE];               /* All instances of control for the NFEE */
 	bool    *pbEnabledNFEEs[N_OF_NFEE];     /* Which are the NFEEs that are enabled */
+	bool    *pbSimulatingNFEEs[N_OF_NFEE];     /* Which are the NFEEs that are enabled */
 	unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
 	unsigned char ucIdNFEEMaster;       /* Set which N-FEE simulation is the master. [NFEESIM-UR-729]*/
 	tSimucamStates sMode;

@@ -22,6 +22,7 @@ void vNFeeControlInit( TNFee_Control *xFeeControlL ) {
     for ( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ) {
         vNFeeStructureInit( &xFeeControlL->xNfee[ ucIL ], ucIL);
         xFeeControlL->pbEnabledNFEEs[ ucIL ] = &xFeeControlL->xNfee[ ucIL ].xControl.bEnabled;
+        xFeeControlL->pbSimulatingNFEEs[ ucIL ] = &xFeeControlL->xNfee[ ucIL ].xControl.bSimulating;
     }
 
 }

@@ -32,8 +32,11 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     /* Initilizing control variables */
     pxNfeeL->xControl.bEnabled = TRUE;
     pxNfeeL->xControl.bUsingDMA = FALSE;
+    pxNfeeL->xControl.bChannelEnable = FALSE;
+    pxNfeeL->xControl.bSimulating = FALSE;
+    
     /* The NFEE initialize in the Config mode by default */
-    pxNfeeL->xControl.eMode = sFeeConfig;    
+    pxNfeeL->xControl.eMode = sFeeInit;
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
@@ -46,6 +49,15 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.bEchoing = FALSE;
     pxNfeeL->xControl.bLogging = FALSE;
     pxNfeeL->xControl.bChannelEnable = FALSE;
+
+    /* todo:Back
+    if ( bCommInitCh(&pxNfeeL->xChannel, ucIdNFEE ) == FALSE ) {
+		#ifdef DEBUG_ON
+			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", ucIdNFEE);
+		#endif
+    }
+	*/
+
 
 }
 

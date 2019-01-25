@@ -15,6 +15,9 @@
 #include "../utils/ccd.h"
 #include "../utils/meb.h"
 #include "../utils/events_handler.h"
+#include "../driver/sync/sync.h"
+#include "../driver/comm/rmap/rmap.h"
+#include "../driver/comm/comm_channel.h"
 
 
 void vSimMebTask(void *task_data);
@@ -25,6 +28,10 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal );
 /* This function should treat the PUS command in the Running Mode, need check all the things that is possible to update in this mode */
 void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal );
 void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vMebChangeToConfig( TSimucam_MEB *pxMebCLocal );
+void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal );
+void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 
 #endif /* SIM_MEB_TASK_H_ */

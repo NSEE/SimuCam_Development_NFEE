@@ -92,6 +92,7 @@ void vSimMebTask(void *task_data) {
 }
 
 /* This function should treat the PUS command in the Config Mode, need check all the things that is possible to update in this mode */
+/* In the Config Mode the MEb takes control and change all values freely */
 void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 	unsigned char i;
 	unsigned short int usiFeeInstL;
@@ -134,14 +135,9 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 
 
 					case 61: /* TC_SCAM_RUN */
-						#ifdef DEBUG_ON
-							debug(fp,"MEB Task: Changing to RUN Mode\n");
-						#endif
 
-							vEvtChangeMebMode(pxMebCLocal->eMode, sRun);
-							pxMebCLocal->eMode = sRun;
+						vMebChangeToRunning( pxMebCLocal );
 
-							vSendCmdQToNFeeCTRL( M_NFC_RUN, 0, 0 );
 						break;
 					case 62: /* TC_SCAM_TURNOFF */
 						#ifdef DEBUG_ON
@@ -167,11 +163,10 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 					case 1: /* TC_SCAM_FEE_CONFIG_ENTER */
 						#ifdef DEBUG_ON
 							fprintf(fp,"MEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
-							fprintf(fp,"     -> FEE_CONFIG_ENTER \n");
+							fprintf(fp,"WARNING: NFEE-%hu is already in Config Mode \n\n", usiFeeInstL);
 						#endif
 
 						/* Build a function to send this command to the FEE instance */
-
 
 						break;
 					case 2: /* TC_SCAM_FEE_STANDBY_ENTER */
@@ -201,6 +196,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 						#ifdef DEBUG_ON
 							fprintf(fp,"MEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_ENABLE \n");
+							fprintf(fp,"WARNING: Can't operate the Link while Meb is is Config mode \n\n");
 						#endif
 
 						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
@@ -211,6 +207,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 						#ifdef DEBUG_ON
 							fprintf(fp,"MEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_DISABLE \n");
+							fprintf(fp,"WARNING: Can't operate the Link while Meb is is Config mode \n\n");
 						#endif
 
 						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
@@ -221,6 +218,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 						#ifdef DEBUG_ON
 							fprintf(fp,"MEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
 							fprintf(fp,"     -> TC_SCAM_SPW_LINK_RESET \n");
+							fprintf(fp,"WARNING: Can't operate the Link while Meb is is Config mode \n\n");
 						#endif
 
 						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
@@ -233,14 +231,22 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 							fprintf(fp,"     -> TC_SCAM_SPW_RMAP_CONFIG_UPDATE \n");
 						#endif
 							/* todo: Usar libs do Franï¿½a para atualizar o link com os valores abaixo*/
+							/*
 						xPusLocal.usiValues[2];
 						xPusLocal.usiValues[3];
 						xPusLocal.usiValues[4];
 						xPusLocal.usiValues[5];
 						xPusLocal.usiValues[6];
 						xPusLocal.usiValues[7];
+							*/
 
-/*
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusLocal.usiValues[12];
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusLocal.usiValues[9];
+
+						/*todo:Back todo: Tratar retorno*/
+						//bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
+
+						/*
 						#ifdef DEBUG_ON
 							memset(cPUSDebug,0,128);
 							sprintf(cPUSDebug, "TC_SCAM_SPW_RMAP_CONFIG_UPDATE->\n");
@@ -363,10 +369,11 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 				{
 					case 1: /* TC_SCAM_FEE_CONFIG_ENTER */
 						#ifdef DEBUG_ON
-							fprintf(fp,"MEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
-							fprintf(fp,"     -> FEE_CONFIG_ENTER \n");
+							fprintf(fp,"\nMEB Task: CMD to NFEE-%hu \n", usiFeeInstL);
+							fprintf(fp,"     -> FEE_CONFIG_ENTER \n\n");
 						#endif
 
+						vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );
 						/* Build a function to send this command to the FEE instance */
 						 /* Using QMASK send to NfeeControl that will forward */
 
@@ -378,6 +385,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 						#endif
 
 						/* Using QMASK send to NfeeControl that will foward */
+						vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_STANDBY, 0, usiFeeInstL );
 
 						break;
 					case 5: /* TC_SCAM_FEE_CALIBRATION_TEST_ENTER */
@@ -387,6 +395,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 						#endif
 
 						/* Using QMASK send to NfeeControl that will foward */
+						vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL_PATTERN, 0, usiFeeInstL );
 
 						break;
 					default:
@@ -411,6 +420,13 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
 						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
 
+						bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+						bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+
+
 						break;
 					case 4: /* TC_SCAM_SPW_LINK_DISABLE */
 						#ifdef DEBUG_ON
@@ -420,6 +436,14 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 
 						/* todo: Usar as funï¿½ï¿½es de configuraï¿½ï¿½o disponibilizadas pelo Franï¿½a  */
 						/* todo: Como a Meb esta em config ela pode operar todas as configuraï¿½ï¿½es tranquilamente  */
+						/* Disable the link SPW */
+						//todo: tratar retorno
+
+						bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+						bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 
 						break;
 					case 5: /* TC_SCAM_SPW_LINK_RESET */
@@ -472,5 +496,72 @@ void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}
+
+}
+
+/* Send to FEEs using the NFEE Controller */
+void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
+
+}
+
+
+void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPost(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
+
+}
+
+void vMebChangeToConfig( TSimucam_MEB *pxMebCLocal ) {
+	vEvtChangeMebMode(pxMebCLocal->eMode, sMebConfig);
+	pxMebCLocal->eMode = sMebConfig;
+
+/*todo: URGENTE: Passar todos os FEE para modo de configuraï¿½ï¿½o  */
+/*todo: URGENTE: Data Controller e NFEE COntroller tambï¿½m  */
+
+	vSendCmdQToNFeeCTRL( M_NFC_CONFIG, 0, 0 );
+	vSendCmdQToDataCTRL( M_DATA_CONFIG, 0, 0 );
+
+	/*todo: Para a geração do Sync  */
+
+
+}
+
+void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal ) {
+	#ifdef DEBUG_ON
+		debug(fp,"MEB Task: Changing to RUN Mode\n");
+	#endif
+
+	vEvtChangeMebMode(pxMebCLocal->eMode, sRun);
+	pxMebCLocal->eMode = sRun;
+
+	vSendCmdQToNFeeCTRL( M_NFC_RUN, 0, 0 );
+	vSendCmdQToDataCTRL( M_DATA_RUN, 0, 0 );
+
 
 }
