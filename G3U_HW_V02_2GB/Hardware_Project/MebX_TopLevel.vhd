@@ -343,6 +343,16 @@ signal spw_h_so : std_logic_vector (0 downto 0);
 signal spw_h_di : std_logic_vector (0 downto 0);
 signal spw_h_do : std_logic_vector (0 downto 0);
 
+signal spw_a_sync : std_logic;
+signal spw_b_sync : std_logic;
+signal spw_c_sync : std_logic;
+signal spw_d_sync : std_logic;
+signal spw_e_sync : std_logic;
+signal spw_f_sync : std_logic;
+signal spw_g_sync : std_logic;
+signal spw_h_sync : std_logic;
+
+
 -----------------------------------------
 	-- Sync - test
 	-----------------------------------------
@@ -449,6 +459,15 @@ signal spw_h_do : std_logic_vector (0 downto 0);
 			comm_h_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
 			comm_h_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
 			comm_h_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
+			
+            comm_a_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_e_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_f_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_g_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_h_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 			
             temp_scl_export       : out   std_logic;                     
             temp_sda_export       : inout std_logic;
@@ -609,7 +628,15 @@ SOPC_INST : MebX_Qsys_Project
 	comm_h_conduit_end_strobe_in_signal  => spw_h_si(0),
 	comm_h_conduit_end_data_out_signal   => spw_h_do(0),
 	comm_h_conduit_end_strobe_out_signal => spw_h_so(0),
-
+	
+            comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
+            comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
+            comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
+            comm_d_sync_end_sync_channel_signal                  => spw_d_sync,                  --            comm_d_sync_end.sync_channel_signal
+            comm_e_sync_end_sync_channel_signal                  => spw_e_sync,                  --            comm_e_sync_end.sync_channel_signal
+            comm_f_sync_end_sync_channel_signal                  => spw_f_sync,                  --            comm_f_sync_end.sync_channel_signal
+            comm_g_sync_end_sync_channel_signal                  => spw_g_sync,                  --            comm_g_sync_end.sync_channel_signal
+            comm_h_sync_end_sync_channel_signal                  => spw_h_sync,                  --            comm_h_sync_end.sync_channel_signal
 	
     temp_scl_export          => TEMP_SMCLK,
     temp_sda_export          => TEMP_SMDAT,
@@ -628,14 +655,14 @@ SOPC_INST : MebX_Qsys_Project
 	
 			sync_in_conduit                       => s_sync_in, --SYNC_IN,
 			sync_out_conduit                      => s_sync_out, --SYNC_OUT,
-			sync_spwa_conduit                     => open,
-			sync_spwb_conduit                     => open,
-			sync_spwc_conduit                     => open,
-			sync_spwd_conduit                     => open,
-			sync_spwe_conduit                     => open,
-			sync_spwf_conduit                     => open,
-			sync_spwg_conduit                     => open,
-			sync_spwh_conduit                     => open,
+			sync_spwa_conduit                     => spw_a_sync,
+			sync_spwb_conduit                     => spw_b_sync,
+			sync_spwc_conduit                     => spw_c_sync,
+			sync_spwd_conduit                     => spw_d_sync,
+			sync_spwe_conduit                     => spw_e_sync,
+			sync_spwf_conduit                     => spw_f_sync,
+			sync_spwg_conduit                     => spw_g_sync,
+			sync_spwh_conduit                     => spw_h_sync,
 	
 	sd_card_wp_n_io_export => I_SD_CARD_WP_n,   -- sd_card_wp_n_io.export
 	sd_card_ip_b_SD_cmd    => B_SD_CARD_CMD,    -- sd_card_ip.b_SD_cmd

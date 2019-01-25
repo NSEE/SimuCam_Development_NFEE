@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2018.12.28.21:49:33 -->
+ <!-- 2019.01.25.14:59:23 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1546040973</value>
+  <value>1548435562</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -724,7 +724,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -750,7 +750,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -789,7 +789,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -852,13 +852,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_A.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -866,7 +911,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -923,7 +968,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_A.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -1113,7 +1238,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -1484,7 +1609,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -1843,7 +1968,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -2144,7 +2269,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2170,7 +2295,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -2209,7 +2334,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -2272,13 +2397,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_B.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -2286,7 +2456,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -2343,7 +2513,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_B.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -2533,7 +2783,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -2904,7 +3154,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -3263,7 +3513,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -3564,7 +3814,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3590,7 +3840,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -3629,7 +3879,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -3692,13 +3942,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_C.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -3706,7 +4001,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -3763,7 +4058,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_C.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -3953,7 +4328,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4324,7 +4699,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4683,7 +5058,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -4984,7 +5359,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -5010,7 +5385,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -5049,7 +5424,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -5112,13 +5487,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_D.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -5126,7 +5546,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -5183,7 +5603,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_D.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -5373,7 +5873,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -5744,7 +6244,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6103,7 +6603,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6404,7 +6904,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -6430,7 +6930,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6469,7 +6969,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -6532,13 +7032,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_E.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -6546,7 +7091,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -6603,7 +7148,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_E.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -6793,7 +7418,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7164,7 +7789,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7523,7 +8148,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7824,7 +8449,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7850,7 +8475,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7889,7 +8514,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -7952,13 +8577,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_F.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -7966,7 +8636,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -8023,7 +8693,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_F.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -8213,7 +8963,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -8584,7 +9334,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -8943,7 +9693,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -9244,7 +9994,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_G">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -9270,7 +10020,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -9309,7 +10059,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -9372,13 +10122,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_G.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -9386,7 +10181,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -9443,7 +10238,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_G.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -9633,7 +10508,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -10004,7 +10879,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -10363,7 +11238,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -10664,7 +11539,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    path="COMM_Pedreiro_v1_01_H">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -10690,7 +11565,7 @@ particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -10729,7 +11604,7 @@ parameters are a RESULT of the module parameters. -->
     <role>reset</role>
    </port>
   </interface>
-  <interface name="conduit_end" kind="conduit_end" version="16.1">
+  <interface name="spw_conduit_end" kind="conduit_end" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -10792,13 +11667,58 @@ parameters are a RESULT of the module parameters. -->
     <role>strobe_out_signal</role>
    </port>
   </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="16.1">
+  <interface name="sync_conduit_end" kind="conduit_end" version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>conduit</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_channel</name>
+    <direction>Input</direction>
+    <width>1</width>
+    <role>sync_channel_signal</role>
+   </port>
+  </interface>
+  <interface name="rmap_interrupt_sender" kind="interrupt_sender" version="16.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
    <parameter name="associatedAddressablePoint">
     <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>COMM_Pedreiro_v1_01_H.avalon_slave_windowing</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -10806,7 +11726,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -10863,7 +11783,87 @@ parameters are a RESULT of the module parameters. -->
    <type>interrupt</type>
    <isStart>false</isStart>
    <port>
-    <name>interrupt_sender_irq</name>
+    <name>rmap_interrupt_sender_irq</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="buffers_interrupt_sender"
+     kind="interrupt_sender"
+     version="16.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value>COMM_Pedreiro_v1_01_H.avalon_slave_windowing</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock_sink_100</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset_sink</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>buffers_interrupt_sender_irq</name>
     <direction>Output</direction>
     <width>1</width>
     <role>irq</role>
@@ -11053,7 +12053,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -11424,7 +12424,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -11783,7 +12783,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedClock">
     <type>java.lang.String</type>
-    <value>clock_sink_200</value>
+    <value>clock_sink_100</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -59737,7 +60737,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="internalIrqMaskSystemInfo">
    <type>long</type>
-   <value>65535</value>
+   <value>16777215</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -61068,6 +62068,62 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <interrupt>
     <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_G</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_G.buffers_interrupt_sender</name>
+    <interruptNumber>5</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_F.buffers_interrupt_sender</name>
+    <interruptNumber>6</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_E.buffers_interrupt_sender</name>
+    <interruptNumber>8</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_D.buffers_interrupt_sender</name>
+    <interruptNumber>16</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_C.buffers_interrupt_sender</name>
+    <interruptNumber>18</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_B.buffers_interrupt_sender</name>
+    <interruptNumber>20</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_A.buffers_interrupt_sender</name>
+    <interruptNumber>22</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
+    <slaveName>buffers_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_H.buffers_interrupt_sender</name>
+    <interruptNumber>2</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>csr_irq</slaveName>
     <name>dma_DDR_M1.csr_irq</name>
@@ -61079,62 +62135,6 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>csr_irq</slaveName>
     <name>dma_DDR_M2.csr_irq</name>
     <interruptNumber>1</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_A.interrupt_sender</name>
-    <interruptNumber>2</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_B.interrupt_sender</name>
-    <interruptNumber>3</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_C.interrupt_sender</name>
-    <interruptNumber>4</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_G</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_G.interrupt_sender</name>
-    <interruptNumber>5</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_F.interrupt_sender</name>
-    <interruptNumber>6</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_E.interrupt_sender</name>
-    <interruptNumber>7</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_D.interrupt_sender</name>
-    <interruptNumber>8</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>COMM_Pedreiro_v1_01_H.interrupt_sender</name>
-    <interruptNumber>9</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
@@ -61177,6 +62177,62 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>irq</slaveName>
     <name>rs232_uart.irq</name>
     <interruptNumber>15</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_H</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_H.rmap_interrupt_sender</name>
+    <interruptNumber>3</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_G</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_G.rmap_interrupt_sender</name>
+    <interruptNumber>4</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_F.rmap_interrupt_sender</name>
+    <interruptNumber>7</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_E.rmap_interrupt_sender</name>
+    <interruptNumber>9</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_D.rmap_interrupt_sender</name>
+    <interruptNumber>17</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_C.rmap_interrupt_sender</name>
+    <interruptNumber>19</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_B.rmap_interrupt_sender</name>
+    <interruptNumber>21</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
+    <slaveName>rmap_interrupt_sender</slaveName>
+    <name>COMM_Pedreiro_v1_01_A.rmap_interrupt_sender</name>
+    <interruptNumber>23</interruptNumber>
    </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="16.1">
@@ -68121,7 +69177,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="rst_controller"
    kind="rst_controller"
-   version="1.1"
+   version="1.4"
    path="rst_controller">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -68261,7 +69317,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68322,7 +69378,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68383,7 +69439,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68444,7 +69500,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68505,7 +69561,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68566,7 +69622,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68627,7 +69683,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68688,7 +69744,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68749,7 +69805,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68810,7 +69866,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68871,7 +69927,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -68932,7 +69988,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="associatedDirectReset">
     <type>java.lang.String</type>
-    <value>reset_sink</value>
+    <value></value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -75002,7 +76058,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1546040973</value>
+   <value>1548435562</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -75022,7 +76078,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1546040973</value>
+   <value>1548435562</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -75038,7 +76094,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1546040973</value>
+   <value>1548435562</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -85342,6 +86398,286 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s0_clk</endConnectionPoint>
  </connection>
  <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_G.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_G.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>5</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_G</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_F.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_F.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>6</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_F</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_E.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_E.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>8</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_E</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_D.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_D.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>16</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_D</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_C.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_C.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>18</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_C</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_B.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_B.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>20</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_B</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_A.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_A.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>22</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_A</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_H.buffers_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_H.buffers_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>2</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_H</endModule>
+  <endConnectionPoint>buffers_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
    name="nios2_gen2_0.irq/dma_DDR_M1.csr_irq"
    kind="interrupt"
    version="16.1"
@@ -85410,286 +86746,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>dma_DDR_M2</endModule>
   <endConnectionPoint>csr_irq</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_A.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_A.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>2</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_A</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_B.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_B.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>3</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_B</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_C.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_C.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>4</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_C</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_G.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_G.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>5</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_G</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_F.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_F.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>6</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_F</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_E.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_E.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>7</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_E</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_D.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_D.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>8</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_D</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_H.interrupt_sender"
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_H.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>9</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_H</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
  </connection>
  <connection
    name="nios2_gen2_0.irq/sync.interrupt_sender"
@@ -85900,6 +86956,286 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>rs232_uart</endModule>
   <endConnectionPoint>irq</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_H.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_H.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>3</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_H</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_G.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_G.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>4</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_G</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_F.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_F.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>7</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_F</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_E.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_E.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>9</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_E</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_D.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_D.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>17</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_D</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_C.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_C.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>19</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_C</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_B.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_B.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>21</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_B</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_A.rmap_interrupt_sender"
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_A.rmap_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>23</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_A</endModule>
+  <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
  </connection>
  <connection
    name="clk_50.clk_reset/SEVEN_SEGMENT_CONTROLLER_0.SSDP_RST"
@@ -87684,11 +89020,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
-   name="rst_controller.reset_source_comm_ch8/COMM_Pedreiro_v1_01_H.reset_sink"
+   name="rst_controller.reset_source_comm_ch8/pio_LED_painel.reset"
    kind="reset"
    version="16.1"
    start="rst_controller.reset_source_comm_ch8"
-   end="COMM_Pedreiro_v1_01_H.reset_sink">
+   end="pio_LED_painel.reset">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -87707,8 +89043,8 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>rst_controller</startModule>
   <startConnectionPoint>reset_source_comm_ch8</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_H</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
+  <endModule>pio_LED_painel</endModule>
+  <endConnectionPoint>reset</endConnectionPoint>
  </connection>
  <connection
    name="rst_controller.reset_source_rs232/rs232_uart.reset"
@@ -89309,7 +90645,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>55</instanceCount>
+  <instanceCount>63</instanceCount>
   <name>conduit_end</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -89322,10 +90658,10 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>COMM_Pedreiro_v1_01</displayName>
-  <version>1.1</version>
+  <version>1.6</version>
  </plugin>
  <plugin>
-  <instanceCount>16</instanceCount>
+  <instanceCount>24</instanceCount>
   <name>interrupt_sender</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -89514,7 +90850,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>rst_controller</displayName>
-  <version>1.1</version>
+  <version>1.4</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -89573,7 +90909,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>16</instanceCount>
+  <instanceCount>24</instanceCount>
   <name>interrupt</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Fri Dec 28 21:52:58 BRST 2018
+ * Generated: Fri Jan 25 15:14:39 BRST 2019
  */
 
 /*
@@ -76,7 +76,7 @@
 
 #define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_A COMM_Pedreiro_v1_01
 #define COMM_PEDREIRO_V1_01_A_BASE 0x81202c00
-#define COMM_PEDREIRO_V1_01_A_IRQ 2
+#define COMM_PEDREIRO_V1_01_A_IRQ 22
 #define COMM_PEDREIRO_V1_01_A_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define COMM_PEDREIRO_V1_01_A_NAME "/dev/COMM_Pedreiro_v1_01_A"
 #define COMM_PEDREIRO_V1_01_A_SPAN 1024
@@ -90,7 +90,7 @@
 
 #define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_B COMM_Pedreiro_v1_01
 #define COMM_PEDREIRO_V1_01_B_BASE 0x81202800
-#define COMM_PEDREIRO_V1_01_B_IRQ 3
+#define COMM_PEDREIRO_V1_01_B_IRQ 20
 #define COMM_PEDREIRO_V1_01_B_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define COMM_PEDREIRO_V1_01_B_NAME "/dev/COMM_Pedreiro_v1_01_B"
 #define COMM_PEDREIRO_V1_01_B_SPAN 1024
@@ -104,7 +104,7 @@
 
 #define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_C COMM_Pedreiro_v1_01
 #define COMM_PEDREIRO_V1_01_C_BASE 0x81202400
-#define COMM_PEDREIRO_V1_01_C_IRQ 4
+#define COMM_PEDREIRO_V1_01_C_IRQ 18
 #define COMM_PEDREIRO_V1_01_C_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define COMM_PEDREIRO_V1_01_C_NAME "/dev/COMM_Pedreiro_v1_01_C"
 #define COMM_PEDREIRO_V1_01_C_SPAN 1024
@@ -118,7 +118,7 @@
 
 #define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_D COMM_Pedreiro_v1_01
 #define COMM_PEDREIRO_V1_01_D_BASE 0x81202000
-#define COMM_PEDREIRO_V1_01_D_IRQ 8
+#define COMM_PEDREIRO_V1_01_D_IRQ 16
 #define COMM_PEDREIRO_V1_01_D_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define COMM_PEDREIRO_V1_01_D_NAME "/dev/COMM_Pedreiro_v1_01_D"
 #define COMM_PEDREIRO_V1_01_D_SPAN 1024
@@ -132,7 +132,7 @@
 
 #define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_E COMM_Pedreiro_v1_01
 #define COMM_PEDREIRO_V1_01_E_BASE 0x81201c00
-#define COMM_PEDREIRO_V1_01_E_IRQ 7
+#define COMM_PEDREIRO_V1_01_E_IRQ 8
 #define COMM_PEDREIRO_V1_01_E_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define COMM_PEDREIRO_V1_01_E_NAME "/dev/COMM_Pedreiro_v1_01_E"
 #define COMM_PEDREIRO_V1_01_E_SPAN 1024
@@ -174,7 +174,7 @@
 
 #define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_H COMM_Pedreiro_v1_01
 #define COMM_PEDREIRO_V1_01_H_BASE 0x81201000
-#define COMM_PEDREIRO_V1_01_H_IRQ 9
+#define COMM_PEDREIRO_V1_01_H_IRQ 2
 #define COMM_PEDREIRO_V1_01_H_IRQ_INTERRUPT_CONTROLLER_ID 0
 #define COMM_PEDREIRO_V1_01_H_NAME "/dev/COMM_Pedreiro_v1_01_H"
 #define COMM_PEDREIRO_V1_01_H_SPAN 1024
@@ -317,18 +317,18 @@
 #define ALT_STDERR_IS_JTAG_UART
 #define ALT_STDERR_PRESENT
 #define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
-#define ALT_STDIN "/dev/jtag_uart_0"
-#define ALT_STDIN_BASE 0x81203090
-#define ALT_STDIN_DEV jtag_uart_0
-#define ALT_STDIN_IS_JTAG_UART
+#define ALT_STDIN "/dev/rs232_uart"
+#define ALT_STDIN_BASE 0x80000840
+#define ALT_STDIN_DEV rs232_uart
+#define ALT_STDIN_IS_UART
 #define ALT_STDIN_PRESENT
-#define ALT_STDIN_TYPE "altera_avalon_jtag_uart"
-#define ALT_STDOUT "/dev/jtag_uart_0"
-#define ALT_STDOUT_BASE 0x81203090
-#define ALT_STDOUT_DEV jtag_uart_0
-#define ALT_STDOUT_IS_JTAG_UART
+#define ALT_STDIN_TYPE "altera_avalon_uart"
+#define ALT_STDOUT "/dev/rs232_uart"
+#define ALT_STDOUT_BASE 0x80000840
+#define ALT_STDOUT_DEV rs232_uart
+#define ALT_STDOUT_IS_UART
 #define ALT_STDOUT_PRESENT
-#define ALT_STDOUT_TYPE "altera_avalon_jtag_uart"
+#define ALT_STDOUT_TYPE "altera_avalon_uart"
 #define ALT_SYSTEM_NAME "MebX_Qsys_Project"
 
 
@@ -1241,7 +1241,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1546040973
+#define SYSID_QSYS_TIMESTAMP 1548435562
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

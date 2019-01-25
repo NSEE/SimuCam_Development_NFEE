@@ -21,7 +21,6 @@ typedef struct RmapCodecConfig {
 	alt_u8 ucLogicalAddress;
 } TRmapCodecConfig;
 typedef struct RmapCodecStatus {
-	bool bIdle;
 	bool bCommandReceived;
 	bool bWriteRequested;
 	bool bWriteAuthorized;
@@ -59,6 +58,7 @@ typedef struct RmapMemConfigArea {
 	alt_u32 uliCcd4Windowing1Config;
 	alt_u32 uliCcd4Windowing2Config;
 	alt_u32 uliOperationModeConfig;
+	alt_u32 uliSyncConfig;
 	alt_u32 uliDacControl;
 	alt_u32 uliClockSourceControl;
 	alt_u32 uliFrameNumber;
@@ -203,7 +203,6 @@ bool bRmapGetCodecError(TRmapChannel *pxRmapCh);
 bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh);
 bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh);
 
-bool bRmapSetMemConfigStat(TRmapChannel *pxRmapCh);
 bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh);
 
 bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh);

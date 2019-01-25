@@ -33,7 +33,7 @@ typedef struct DpktDataPacketHeader {
 } TDpktDataPacketHeader;
 typedef struct DpktPixelDelay {
 	alt_u16 usiLineDelay;
-	alt_u16 usiColDelay;
+	alt_u16 usiColumnDelay;
 	alt_u16 usiAdcDelay;
 } TDpktPixelDelay;
 typedef struct DpktChannel {
