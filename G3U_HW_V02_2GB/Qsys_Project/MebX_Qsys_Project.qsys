@@ -1826,42 +1826,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="1.5"
+   version="1.6"
    enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
@@ -4421,13 +4421,6 @@
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_H.buffers_interrupt_sender">
-  <parameter name="irqNumber" value="2" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_G.buffers_interrupt_sender">
   <parameter name="irqNumber" value="5" />
  </connection>
@@ -4472,6 +4465,13 @@
    start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_A.buffers_interrupt_sender">
   <parameter name="irqNumber" value="22" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_H.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="2" />
  </connection>
  <connection
    kind="interrupt"
