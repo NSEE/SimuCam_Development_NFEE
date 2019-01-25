@@ -11,7 +11,7 @@ use work.RMAP_TARGET_PKG.ALL;
 use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauï¿½ de Tecnologia, Nï¿½cleo de Sistemas Eletrï¿½nicos Embarcados --
+-- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 --! Command is received, reading the necessary data from memory and sending 
 --! it to the Initiator.
 --
---! @author Rodrigo Franï¿½a (rodrigo.franca@maua.br)
+--! @author Rodrigo França (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -40,7 +40,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo Franï¿½a
+--! Author: Rodrigo França
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
@@ -91,7 +91,6 @@ architecture rtl of rmap_target_read_ent is
 	-- SYMBOLIC ENCODED state machine: s_RMAP_TARGET_READ_STATE
 	-- ========================================================
 	type t_rmap_target_read_state is (
-		--	RESET,
 		IDLE,
 		WAITING_BUFFER_SPACE,
 		FIELD_DATA,
@@ -155,7 +154,7 @@ begin
 			s_read_address                <= (others => '0');
 			s_read_byte_counter           <= 0;
 			s_byte_counter                <= (others => '0');
-			-- output
+			-- Outputs Generation
 			flags_o.read_busy             <= '0';
 			flags_o.read_data_indication  <= '0';
 			flags_o.read_operation_failed <= '0';
@@ -166,7 +165,6 @@ begin
 			mem_byte_address_o            <= (others => '0');
 			s_read_data_crc               <= x"00";
 			s_read_error                  <= '0';
-
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_rmap_target_read_state) is
@@ -327,20 +325,14 @@ begin
 					s_rmap_target_read_next_state <= IDLE;
 
 			end case;
-			-- output
-
-
-				--			when RESET =>
-				--			flags_o.read_busy             <= '0';
-				--			flags_o.read_data_indication  <= '0';
-				--			flags_o.read_operation_failed <= '0';
-				--			spw_control_o.data            <= x"00";
-				--			spw_control_o.flag            <= '0';
-				--			spw_control_o.write           <= '0';
-				--			mem_control_o.read            <= '0';
-				--			mem_byte_address_o            <= (others => '0');
-				--			s_read_data_crc               <= x"00";
-				--			s_read_error                  <= '0';
+			--=============================================================================
+			-- Begin of RMAP Target Read Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_read_state, reset_n_i
+			-- write:
+			-- r/w:
+			case (v_rmap_target_read_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -487,190 +479,6 @@ begin
 			end case;
 		end if;
 	end process p_rmap_target_read_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Read Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_read_state, reset_n_i
-	-- write:
-	-- r/w:
-	--	p_rmap_target_read_FSM_output : process(s_rmap_target_read_state, mem_flag_i, s_read_data_crc, s_read_address, s_read_error)
-	--	begin
-	--		-- asynchronous reset
-	--		if (reset_n_i = '0') then
-	--			flags_o.read_busy             <= '0';
-	--			flags_o.read_data_indication  <= '0';
-	--			flags_o.read_operation_failed <= '0';
-	--			spw_control_o.data            <= x"00";
-	--			spw_control_o.flag            <= '0';
-	--			spw_control_o.write           <= '0';
-	--			mem_control_o.read            <= '0';
-	--			mem_byte_address_o            <= (others => '0');
-	--			s_read_data_crc               <= x"00";
-	--			s_read_error                  <= '0';
-	--		-- output generation when s_rmap_target_read_state changes
-	--		else
-	---- output
-	--			case (s_rmap_target_read_state) is
-	--			
-	--			when RESET =>
-	--			flags_o.read_busy             <= '0';
-	--			flags_o.read_data_indication  <= '0';
-	--			flags_o.read_operation_failed <= '0';
-	--			spw_control_o.data            <= x"00";
-	--			spw_control_o.flag            <= '0';
-	--			spw_control_o.write           <= '0';
-	--			mem_control_o.read            <= '0';
-	--			mem_byte_address_o            <= (others => '0');
-	--			s_read_data_crc               <= x"00";
-	--			s_read_error                  <= '0';
-	--
-	--				-- state "IDLE"
-	--				when IDLE =>
-	--					-- does nothing until user application signals a read authorization
-	--					-- default output signals
-	--					-- reset outputs
-	--					flags_o.read_busy             <= '0';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					spw_control_o.data            <= x"00";
-	--					spw_control_o.flag            <= '0';
-	--					spw_control_o.write           <= '0';
-	--					mem_control_o.read            <= '0';
-	--					mem_byte_address_o            <= (others => '0');
-	--					s_read_data_crc               <= x"00";
-	--					s_read_error                  <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "WAITING_BUFFER_SPACE"
-	--				when WAITING_BUFFER_SPACE =>
-	--					-- wait until the spacewire tx buffer has space
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					-- clear spw tx write signal
-	--					spw_control_o.write           <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_DATA"
-	--				when FIELD_DATA =>
-	--					-- data field, send read data to initiator
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					mem_control_o.read            <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag            <= '0';
-	--					-- fill spw data with field data
-	--					spw_control_o.data            <= mem_flag_i.data;
-	--					-- update crc calculation
-	--					s_read_data_crc               <= RMAP_CalculateCRC(s_read_data_crc, mem_flag_i.data);
-	--					-- write the spw data
-	--					spw_control_o.write           <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_DATA_CRC"
-	--				when FIELD_DATA_CRC =>
-	--					-- data crc field, send read data crc to initiator
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag            <= '0';
-	--					-- fill spw data with field data
-	--					spw_control_o.data            <= s_read_data_crc;
-	--					-- write the spw data
-	--					spw_control_o.write           <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_EOP"
-	--				when FIELD_EOP =>
-	--					-- eop field, send eop to indicate end of package
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					-- indicate that the read operation was successful
-	--					s_read_error                  <= '0';
-	--					-- set spw flag (to indicate a package end)
-	--					spw_control_o.flag            <= '1';
-	--					-- fill spw data with the eop identifier (0x00)
-	--					spw_control_o.data            <= c_EOP_VALUE;
-	--					-- write the spw data
-	--					spw_control_o.write           <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "READ_DATA"
-	--				when READ_DATA =>
-	--					-- fetch memory data
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					-- check if memory access is more than one byte
-	--					if (c_MEMORY_ACCESS_SIZE > 1) then
-	--						-- memory access is more than one byte, need to send read address and byte address
-	--						mem_byte_address_o <= s_read_address & std_logic_vector(to_unsigned(s_read_byte_counter, g_MEMORY_ACCESS_WIDTH));
-	--					else
-	--						-- memory access is only one byte, need to send just the read address
-	--						mem_byte_address_o <= s_read_address;
-	--					end if;
-	--
-	--					-- set memory read request
-	--					mem_control_o.read <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "READ_NOT_OK"
-	--				when READ_NOT_OK =>
-	--					-- error in read operation
-	--					-- finish the read reply package with an EEP
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_data_indication  <= '0';
-	--					flags_o.read_operation_failed <= '0';
-	--					-- set the error flag
-	--					s_read_error                  <= '1';
-	--					-- set spw flag (to indicate a package end)
-	--					spw_control_o.flag            <= '1';
-	--					-- fill spw data with the eep identifier (0x01)
-	--					spw_control_o.data            <= c_EEP_VALUE;
-	--					-- write the spw data
-	--					spw_control_o.write           <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "READ_FINISH_OPERATION"
-	--				when READ_FINISH_OPERATION =>
-	--					-- finish read operation
-	--					-- default output signals
-	--					flags_o.read_busy             <= '1';
-	--					flags_o.read_operation_failed <= '0';
-	--					flags_o.read_data_indication  <= '0';
-	--					spw_control_o.write           <= '0';
-	--					spw_control_o.flag            <= '0';
-	--					spw_control_o.data            <= x"00";
-	--					mem_control_o.read            <= '0';
-	--					-- update output information
-	--					-- conditional output signals
-	--					-- check if a read error ocurred
-	--					if (s_read_error = '1') then
-	--						-- error ocurred, write operation failed
-	--						flags_o.read_operation_failed <= '1';
-	--					else
-	--						-- operation successful
-	--						flags_o.read_data_indication <= '1';
-	--					end if;
-	--
-	--				-- all the other states (not defined)
-	--				when others =>
-	--					null;
-	--
-	--			end case;
-	--		end if;
-	--	end process p_rmap_target_read_FSM_output;
 
 end architecture rtl;
 --============================================================================

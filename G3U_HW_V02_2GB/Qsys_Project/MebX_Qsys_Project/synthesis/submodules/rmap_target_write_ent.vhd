@@ -11,7 +11,7 @@ use work.RMAP_TARGET_PKG.ALL;
 use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauï¿½ de Tecnologia, Nï¿½cleo de Sistemas Eletrï¿½nicos Embarcados --
+-- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 --! Command is received, writing the necessary data to memory and handling 
 --! errors.
 --
---! @author Rodrigo Franï¿½a (rodrigo.franca@maua.br)
+--! @author Rodrigo França (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -40,7 +40,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo Franï¿½a
+--! Author: Rodrigo França
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
@@ -93,7 +93,6 @@ architecture rtl of rmap_target_write_ent is
 	-- SYMBOLIC ENCODED state machine: s_RMAP_TARGET_WRITE_STATE
 	-- =========================================================
 	type t_rmap_target_write_state is (
-		--	RESET,
 		IDLE,
 		WAITING_BUFFER_DATA,
 		FIELD_DATA,
@@ -154,7 +153,7 @@ begin
 	-- r/w: s_rmap_target_write_state
 	p_rmap_target_write_FSM_state : process(clk_i, reset_n_i)
 		variable v_rmap_target_write_state : t_rmap_target_write_state; -- current state
-		variable v_byte_counter : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
+		variable v_byte_counter            : std_logic_vector((g_DATA_LENGTH_WIDTH - 1) downto 0);
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (reset_n_i = '0') then
@@ -164,10 +163,10 @@ begin
 			s_write_address                <= (others => '0');
 			s_write_byte_counter           <= 0;
 			s_byte_counter                 <= (others => '0');
-			v_byte_counter := (others => '0');
+			v_byte_counter                 := (others => '0');
 			s_write_data_crc               <= x"00";
 			s_write_data_crc_ok            <= '0';
-			--output
+			-- Outputs Generation
 			flags_o.write_data_indication  <= '0';
 			flags_o.write_operation_failed <= '0';
 			flags_o.write_data_discarded   <= '0';
@@ -197,7 +196,7 @@ begin
 					s_write_address                <= (others => '0');
 					s_write_byte_counter           <= 0;
 					s_byte_counter                 <= (others => '0');
-					v_byte_counter := (others => '0');
+					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
@@ -208,7 +207,7 @@ begin
 						s_write_address                <= s_write_address_vector((g_MEMORY_ADDRESS_WIDTH - 1) downto 0);
 						-- prepare byte counter for multi-byte write data
 						s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
-						v_byte_counter := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
+						v_byte_counter                 := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 						-- check if the data need to be verified before written
 						if (headerdata_i.instruction_verify_data_before_write = '1') then
 							-- data does need to be verified to be written
@@ -271,7 +270,7 @@ begin
 					s_write_data_crc               <= RMAP_CalculateCRC(s_write_data_crc, spw_flag_i.data);
 					s_write_data_crc_ok            <= '0';
 					s_byte_counter                 <= (others => '0');
-					v_byte_counter := (others => '0');
+					v_byte_counter                 := (others => '0');
 					-- conditional state transition and internal signal values
 					-- check if all data has been written
 					if (s_byte_counter = c_BYTE_COUNTER_ZERO) then
@@ -312,7 +311,7 @@ begin
 					s_rmap_target_write_next_state <= FIELD_EOP;
 					-- default internal signal values
 					s_byte_counter                 <= (others => '0');
-					v_byte_counter := (others => '0');
+					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
@@ -329,7 +328,7 @@ begin
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                 <= (others => '0');
-					v_byte_counter := (others => '0');
+					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					-- conditional state transition and internal signal values
 					-- check if an end of package arrived
@@ -341,7 +340,7 @@ begin
 							-- data can be written to memory
 							-- prepare the data counter; go to verified data write
 							s_byte_counter                 <= std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
-							v_byte_counter := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
+							v_byte_counter                 := std_logic_vector(unsigned(s_byte_counter_vector((g_DATA_LENGTH_WIDTH - 1) downto 0)) - 1);
 							s_rmap_target_write_state      <= WRITE_VERIFIED_DATA;
 							v_rmap_target_write_state      := WRITE_VERIFIED_DATA;
 							s_rmap_target_write_next_state <= WRITE_FINISH_OPERATION;
@@ -439,7 +438,7 @@ begin
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                 <= (others => '0');
-					v_byte_counter := (others => '0');
+					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 				-- conditional state transition and internal signal values
@@ -473,7 +472,7 @@ begin
 					s_rmap_target_write_next_state <= IDLE;
 					-- default internal signal values
 					s_byte_counter                 <= (others => '0');
-					v_byte_counter := (others => '0');
+					v_byte_counter                 := (others => '0');
 					s_write_data_crc               <= x"00";
 					s_write_data_crc_ok            <= '0';
 					-- conditional state transition and internal signal values
@@ -492,8 +491,13 @@ begin
 					s_rmap_target_write_next_state <= IDLE;
 
 			end case;
-
-			-- output
+			--=============================================================================
+			-- Begin of RMAP Target Write Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_write_state, reset_n_i
+			-- write:
+			-- r/w:
 			case (v_rmap_target_write_state) is
 
 				-- state "IDLE"
@@ -696,252 +700,6 @@ begin
 			end case;
 		end if;
 	end process p_rmap_target_write_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Write Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_write_state, reset_n_i
-	-- write:
-	-- r/w:
-	--	p_rmap_target_write_FSM_output : process(s_rmap_target_write_state, headerdata_i, spw_flag_i, s_byte_counter, s_write_address, s_write_error, s_write_data_crc, s_write_verify_buffer, control_i)
-	--	begin
-	--		-- asynchronous reset
-	--		if (reset_n_i = '0') then
-	--			flags_o.write_data_indication  <= '0';
-	--			flags_o.write_operation_failed <= '0';
-	--			flags_o.write_data_discarded   <= '0';
-	--			flags_o.write_busy             <= '0';
-	--			error_o.early_eop              <= '0';
-	--			error_o.eep                    <= '0';
-	--			error_o.too_much_data          <= '0';
-	--			error_o.invalid_data_crc       <= '0';
-	--			spw_control_o.read             <= '0';
-	--			mem_control_o.write            <= '0';
-	--			mem_control_o.data             <= (others => '0');
-	--			mem_byte_address_o             <= (others => '0');
-	--			s_write_verify_buffer          <= (others => x"00");
-	--			s_write_error                  <= '0';
-	--		-- output generation when s_rmap_target_write_state changes
-	--		else
-	--			case (s_rmap_target_write_state) is
-	--
-	--				when RESET =>
-	--			flags_o.write_data_indication  <= '0';
-	--			flags_o.write_operation_failed <= '0';
-	--			flags_o.write_data_discarded   <= '0';
-	--			flags_o.write_busy             <= '0';
-	--			error_o.early_eop              <= '0';
-	--			error_o.eep                    <= '0';
-	--			error_o.too_much_data          <= '0';
-	--			error_o.invalid_data_crc       <= '0';
-	--			spw_control_o.read             <= '0';
-	--			mem_control_o.write            <= '0';
-	--			mem_control_o.data             <= (others => '0');
-	--			mem_byte_address_o             <= (others => '0');
-	--			s_write_verify_buffer          <= (others => x"00");
-	--			s_write_error                  <= '0';
-	--
-	--				-- state "IDLE"
-	--				when IDLE =>
-	--					-- does nothing until user application signals a write authorization
-	--					-- default output signals
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					flags_o.write_busy             <= '0';
-	--					error_o.early_eop              <= '0';
-	--					error_o.eep                    <= '0';
-	--					error_o.too_much_data          <= '0';
-	--					error_o.invalid_data_crc       <= '0';
-	--					spw_control_o.read             <= '0';
-	--					mem_control_o.write            <= '0';
-	--					mem_control_o.data             <= (others => '0');
-	--					mem_byte_address_o             <= (others => '0');
-	--					s_write_verify_buffer          <= (others => x"00");
-	--					s_write_error                  <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "WAITING_BUFFER_DATA"
-	--				when WAITING_BUFFER_DATA =>
-	--					-- wait until the spacewire rx buffer has data
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '0';
-	--					mem_control_o.write            <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_DATA"
-	--				when FIELD_DATA =>
-	--					-- data field, receive write data from the initiator
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '1';
-	--					mem_control_o.write            <= '0';
-	--					-- conditional output signals
-	--					-- check if the data need to be verified before written
-	--					if (headerdata_i.instruction_verify_data_before_write = '1') then
-	--						-- data need to be verified to be written
-	--						-- write data in verify buffer
-	--						s_write_verify_buffer(to_integer(unsigned(s_byte_counter))) <= spw_flag_i.data;
-	--					else
-	--						mem_control_o.write <= '1';
-	--						mem_control_o.data  <= spw_flag_i.data;
-	--						-- check if memory access is more than one byte
-	--						if (c_MEMORY_ACCESS_SIZE > 1) then
-	--							-- memory access is more than one byte, need to send write address and byte address
-	--							mem_byte_address_o <= s_write_address & std_logic_vector(to_unsigned(s_write_byte_counter, g_MEMORY_ACCESS_WIDTH));
-	--						else
-	--							-- memory access is only one byte, need to send just the write address
-	--							mem_byte_address_o <= s_write_address;
-	--						end if;
-	--					end if;
-	--
-	--				-- state "FIELD_DATA_CRC"
-	--				when FIELD_DATA_CRC =>
-	--					-- data crc field, receive write data crc from the initiator
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '1';
-	--					mem_control_o.write            <= '0';
-	--					-- conditional output signals
-	--					-- check if error crc occured
-	--					if not (s_write_data_crc = spw_flag_i.data) then
-	--						-- flag the error
-	--						error_o.invalid_data_crc <= '1';
-	--						s_write_error            <= '1';
-	--					end if;
-	--
-	--				-- state "FIELD_EOP"
-	--				when FIELD_EOP =>
-	--					-- eop field, receive eop indicating the end of package
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '1';
-	--					mem_control_o.write            <= '0';
-	--					-- default output signals
-	--					-- conditional output signals
-	--					-- check if data arrived insteady of an end of package
-	--					if (spw_flag_i.flag = '0') then
-	--						-- data arrived, not an end of package
-	--						-- too much data error
-	--						error_o.too_much_data <= '1';
-	--						s_write_error         <= '1';
-	--					end if;
-	--
-	--				-- state "WRITE_VERIFIED_DATA"
-	--				when WRITE_VERIFIED_DATA =>
-	--					-- write verified memory data
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '0';
-	--					-- default output signals
-	--					mem_control_o.write            <= '1';
-	--					mem_control_o.data             <= s_write_verify_buffer(to_integer(unsigned(s_byte_counter)));
-	--					-- conditional output signals
-	--					-- check if memory access is more than one byte
-	--					if (c_MEMORY_ACCESS_SIZE > 1) then
-	--						-- memory access is more than one byte, need to send write address and byte address
-	--						mem_byte_address_o <= s_write_address & std_logic_vector(to_unsigned(s_write_byte_counter, g_MEMORY_ACCESS_WIDTH));
-	--					else
-	--						-- memory access is only one byte, need to send just the write address
-	--						mem_byte_address_o <= s_write_address;
-	--					end if;
-	--					
-	--				-- state "WRITE_DATA"
-	--				when WRITE_DATA =>
-	--					-- write memory data, waits for the memory to be ready for new data
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '0';
-	--					mem_control_o.write            <= '0';
-	--					-- conditional output signals
-	--
-	--				-- state "UNEXPECTED_PACKAGE_END"
-	--				when UNEXPECTED_PACKAGE_END =>
-	--					-- unexpected package end arrived
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '1';
-	--					mem_control_o.write            <= '0';
-	--					error_o.early_eop              <= '0';
-	--					error_o.eep                    <= '0';
-	--					s_write_error                  <= '1';
-	--					-- conditional output signals
-	--					-- check if the unexpected package end is an early eop or and eep
-	--					if (spw_flag_i.data = c_EOP_VALUE) then
-	--						-- early eop error
-	--						error_o.early_eop <= '1';
-	--					else
-	--						-- eep error
-	--						error_o.eep <= '1';
-	--					end if;
-	--
-	--				-- state "WAITING_PACKAGE_END"
-	--				when WAITING_PACKAGE_END =>
-	--					-- wait until a package end arrives
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '1';
-	--					mem_control_o.write            <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "WRITE_FINISH_OPERATION"
-	--				when WRITE_FINISH_OPERATION =>
-	--					-- finish write operation
-	--					-- default output signals
-	--					flags_o.write_busy             <= '1';
-	--					flags_o.write_operation_failed <= '0';
-	--					flags_o.write_data_indication  <= '0';
-	--					flags_o.write_data_discarded   <= '0';
-	--					spw_control_o.read             <= '0';
-	--					mem_control_o.write            <= '0';
-	--					-- conditional output signals
-	--					-- check if the rest of the write package was discarded
-	--					if (control_i.write_not_authorized = '1') then
-	--						-- rest of the write package discarded
-	--						flags_o.write_data_discarded <= '1';
-	--					else
-	--						-- write package not discarded
-	--						-- check if a write error ocurred
-	--						if (s_write_error = '1') then
-	--							-- error ocurred, write operation failed
-	--							flags_o.write_operation_failed <= '1';
-	--						else
-	--							-- operation successful
-	--							flags_o.write_data_indication <= '1';
-	--						end if;
-	--					end if;
-	--
-	--				-- all the other states (not defined)
-	--				when others =>
-	--					null;
-	--
-	--			end case;
-	--		end if;
-	--	end process p_rmap_target_write_FSM_output;
 
 end architecture rtl;
 --============================================================================

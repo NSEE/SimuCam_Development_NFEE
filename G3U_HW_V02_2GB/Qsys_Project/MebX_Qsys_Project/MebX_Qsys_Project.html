@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2019.01.17.18:02:09</td>
+    <td class="l">2019.01.24.19:04:17</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -107,28 +107,28 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> Altera_UP_SD_Card_Avalon_Interface 16.1
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_A"><b>COMM_Pedreiro_v1_01_A</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_B"><b>COMM_Pedreiro_v1_01_B</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_C"><b>COMM_Pedreiro_v1_01_C</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_D"><b>COMM_Pedreiro_v1_01_D</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_E"><b>COMM_Pedreiro_v1_01_E</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_F"><b>COMM_Pedreiro_v1_01_F</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_G"><b>COMM_Pedreiro_v1_01_G</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_COMM_Pedreiro_v1_01_H"><b>COMM_Pedreiro_v1_01_H</b>
-     </a> COMM_Pedreiro_v1_01 1.1
+     </a> COMM_Pedreiro_v1_01 1.5
      <br/>&#160;&#160;
      <a href="#module_SEVEN_SEGMENT_CONTROLLER_0"><b>SEVEN_SEGMENT_CONTROLLER_0</b>
      </a> SEVEN_SEGMENT_CONTROLLER 1.0
@@ -215,7 +215,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> altera_avalon_uart 16.1
      <br/>&#160;&#160;
      <a href="#module_rst_controller"><b>rst_controller</b>
-     </a> rst_controller 1.1
+     </a> rst_controller 1.4
      <br/>&#160;&#160;
      <a href="#module_rtcc_alarm"><b>rtcc_alarm</b>
      </a> altera_avalon_pio 16.1
@@ -1672,16 +1672,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_A"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_A</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_A</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_A</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_A</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -1690,7 +1690,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -1813,16 +1819,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_B"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_B</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_B</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_B</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_B</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -1831,7 +1837,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -1954,16 +1966,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_C"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_C</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_C</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_C</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_C</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -1972,7 +1984,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2095,16 +2113,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_D"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_D</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_D</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_D</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_D</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -2113,7 +2131,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2236,16 +2260,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_E"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_E</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_E</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_E</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_E</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -2254,7 +2278,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2377,16 +2407,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_F"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_F</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_F</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_F</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_F</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -2395,7 +2425,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2518,16 +2554,16 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_G"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_G</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_G</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="main" rowspan="28">COMM_Pedreiro_v1_01_G</td>
+      <td class="main" rowspan="30">COMM_Pedreiro_v1_01_G</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_slave_windowing</td>
@@ -2536,7 +2572,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2659,12 +2701,12 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_COMM_Pedreiro_v1_01_H"> </a>
   <div>
    <hr/>
-   <h2>COMM_Pedreiro_v1_01_H</h2>COMM_Pedreiro_v1_01 v1.1
+   <h2>COMM_Pedreiro_v1_01_H</h2>COMM_Pedreiro_v1_01 v1.5
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">data_master&#160;&#160;</td>
@@ -2677,7 +2719,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -2755,15 +2803,9 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
      </tr>
      <tr>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="2">
        <a href="#module_rst_controller">rst_controller</a>
       </td>
-      <td class="from">reset_source_comm_ch8&#160;&#160;</td>
-     </tr>
-     <tr>
-      <td class="to">&#160;&#160;reset_sink</td>
-     </tr>
-     <tr>
       <td class="from">reset_source_simucam&#160;&#160;</td>
      </tr>
      <tr>
@@ -19915,7 +19957,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clk_100">clk_100</a>
       </td>
       <td class="from">clk&#160;&#160;</td>
-      <td class="main" rowspan="102">nios2_gen2_0</td>
+      <td class="main" rowspan="118">nios2_gen2_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;clk</td>
@@ -19974,7 +20016,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_A">COMM_Pedreiro_v1_01_A</a>
       </td>
      </tr>
@@ -19991,7 +20033,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20000,7 +20052,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_B">COMM_Pedreiro_v1_01_B</a>
       </td>
      </tr>
@@ -20017,7 +20069,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20026,7 +20088,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_C">COMM_Pedreiro_v1_01_C</a>
       </td>
      </tr>
@@ -20043,7 +20105,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20052,7 +20124,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_D">COMM_Pedreiro_v1_01_D</a>
       </td>
      </tr>
@@ -20069,7 +20141,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20078,7 +20160,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_E">COMM_Pedreiro_v1_01_E</a>
       </td>
      </tr>
@@ -20095,7 +20177,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20104,7 +20196,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_F">COMM_Pedreiro_v1_01_F</a>
       </td>
      </tr>
@@ -20121,7 +20213,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20130,7 +20232,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_G">COMM_Pedreiro_v1_01_G</a>
       </td>
      </tr>
@@ -20147,7 +20249,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -20156,7 +20268,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="from">data_master&#160;&#160;</td>
-      <td class="neighbor" rowspan="4">
+      <td class="neighbor" rowspan="6">
        <a href="#module_COMM_Pedreiro_v1_01_H">COMM_Pedreiro_v1_01_H</a>
       </td>
      </tr>
@@ -20173,7 +20285,17 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;buffers_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;rmap_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -21188,7 +21310,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">internalIrqMaskSystemInfo</td>
-        <td class="parametervalue">65535</td>
+        <td class="parametervalue">16777215</td>
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo</td>
@@ -22522,7 +22644,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clock_bridge_afi_50">clock_bridge_afi_50</a>
       </td>
       <td class="from">m0&#160;&#160;</td>
-      <td class="main" rowspan="10">pio_LED_painel</td>
+      <td class="main" rowspan="12">pio_LED_painel</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;s1</td>
@@ -22549,9 +22671,15 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
      </tr>
      <tr>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_rst_controller">rst_controller</a>
       </td>
+      <td class="from">reset_source_comm_ch8&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;reset</td>
+     </tr>
+     <tr>
       <td class="from">reset_source_simucam&#160;&#160;</td>
      </tr>
      <tr>
@@ -23137,7 +23265,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_rst_controller"> </a>
   <div>
    <hr/>
-   <h2>rst_controller</h2>rst_controller v1.1
+   <h2>rst_controller</h2>rst_controller v1.4
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -23356,13 +23484,13 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">reset_source_comm_ch8&#160;&#160;</td>
       <td class="neighbor" rowspan="4">
-       <a href="#module_COMM_Pedreiro_v1_01_H">COMM_Pedreiro_v1_01_H</a>
+       <a href="#module_pio_LED_painel">pio_LED_painel</a>
       </td>
      </tr>
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
+      <td class="to">&#160;&#160;reset</td>
      </tr>
      <tr>
       <td></td>
@@ -23372,7 +23500,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <tr>
       <td></td>
       <td></td>
-      <td class="to">&#160;&#160;reset_sink</td>
+      <td class="to">&#160;&#160;reset</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -23868,22 +23996,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">reset_source_simucam&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_pio_LED_painel">pio_LED_painel</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;reset</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">reset_source_simucam&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
        <a href="#module_pio_LED">pio_LED</a>
       </td>
      </tr>
@@ -24115,6 +24227,22 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;reset_n</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">reset_source_simucam&#160;&#160;</td>
+      <td class="neighbor" rowspan="2">
+       <a href="#module_COMM_Pedreiro_v1_01_H">COMM_Pedreiro_v1_01_H</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;reset_sink</td>
      </tr>
     </table>
    </div>
@@ -25565,7 +25693,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1547755327</td>
+        <td class="parametervalue">1548363855</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -25590,7 +25718,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1547755327</td>
+        <td class="parametervalue">1548363855</td>
        </tr>
       </table>
      </td>
@@ -26528,8 +26656,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0,02 seconds</td>
-    <td class="r">rendering took 0,34 seconds</td>
+    <td class="l">generation took 0,00 seconds</td>
+    <td class="r">rendering took 0,18 seconds</td>
    </tr>
   </table>
  </body>

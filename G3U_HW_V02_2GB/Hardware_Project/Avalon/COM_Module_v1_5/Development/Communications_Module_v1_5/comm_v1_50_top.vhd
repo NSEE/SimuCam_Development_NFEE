@@ -107,7 +107,7 @@ architecture rtl of comm_v1_50_top is
 
 	-- spw codec signals
 	--	signal s_spw_rxvalid : std_logic;
-	--	signal s_spw_rxhalff : std_logic;
+	signal s_spw_rxhalff : std_logic;
 	--	signal s_spw_rxflag  : std_logic;
 	--	signal s_spw_rxdata  : std_logic_vector(7 downto 0);
 	--	signal s_spw_rxread  : std_logic;

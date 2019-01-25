@@ -10,7 +10,7 @@ use IEEE.NUMERIC_STD.ALL;
 use work.RMAP_TARGET_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauï¿½ de Tecnologia, Nï¿½cleo de Sistemas Eletrï¿½nicos Embarcados --
+-- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
@@ -20,7 +20,7 @@ use work.RMAP_TARGET_PKG.ALL;
 --! @brief Top entity for the RMAP Target Codec developed to be used at  
 --! Simucam. Suports Write and Read operations.
 --
---! @author Rodrigo Franï¿½a (rodrigo.franca@maua.br)
+--! @author Rodrigo França (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -35,7 +35,7 @@ use work.RMAP_TARGET_PKG.ALL;
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo Franï¿½a
+--! Author: Rodrigo França
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
@@ -61,17 +61,35 @@ entity rmap_target_top is
 	port(
 		-- Global input signals
 		--! Local clock used by the RMAP Codec
-		clk_i                 : in  std_logic; --! Local rmap clock
-		reset_n_i             : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
+		clk_i                      : in  std_logic; --! Local rmap clock
+		reset_n_i                  : in  std_logic; --! Reset = '0': reset active; Reset = '1': no reset
 
-		spw_flag_i            : in  t_rmap_target_spw_flag;
-		mem_flag_i            : in  t_rmap_target_mem_flag;
+		spw_flag_i                 : in  t_rmap_target_spw_flag;
+		mem_flag_i                 : in  t_rmap_target_mem_flag;
+		conf_target_logical_addr_i : in  std_logic_vector(7 downto 0);
+		conf_target_key_i          : in  std_logic_vector(7 downto 0);
 		-- global output signals
 
-		spw_control_o         : out t_rmap_target_spw_control;
-		mem_control_o         : out t_rmap_target_mem_control;
-		mem_wr_byte_address_o : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
-		mem_rd_byte_address_o : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0)
+		spw_control_o              : out t_rmap_target_spw_control;
+		mem_control_o              : out t_rmap_target_mem_control;
+		mem_wr_byte_address_o      : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
+		mem_rd_byte_address_o      : out std_logic_vector((g_MEMORY_ADDRESS_WIDTH + g_MEMORY_ACCESS_WIDTH - 1) downto 0);
+		stat_command_received_o    : out std_logic;
+		stat_write_requested_o     : out std_logic;
+		stat_write_authorized_o    : out std_logic;
+		stat_write_finished_o      : out std_logic;
+		stat_read_requested_o      : out std_logic;
+		stat_read_authorized_o     : out std_logic;
+		stat_read_finished_o       : out std_logic;
+		stat_reply_sended_o        : out std_logic;
+		stat_discarded_package_o   : out std_logic;
+		err_early_eop_o            : out std_logic;
+		err_eep_o                  : out std_logic;
+		err_header_crc_o           : out std_logic;
+		err_unused_packet_type_o   : out std_logic;
+		err_invalid_command_code_o : out std_logic;
+		err_too_much_data_o        : out std_logic;
+		err_invalid_data_crc_o     : out std_logic
 		-- data bus(es)
 	);
 end entity rmap_target_top;
@@ -186,7 +204,7 @@ begin
 			spw_flag_i                                 => spw_flag_i.transmitter,
 			mem_flag_i                                 => mem_flag_i.read,
 			flags_o                                    => s_rmap_target_flags.read_operation,
---			error_o                                    => s_rmap_target_error.dummy,
+			--			error_o                                    => s_rmap_target_error.dummy,
 			spw_control_o                              => s_rmap_target_spw_read_tx_control,
 			mem_control_o                              => mem_control_o.read,
 			mem_byte_address_o                         => mem_rd_byte_address_o
@@ -206,7 +224,7 @@ begin
 			headerdata_i.data_length               => s_rmap_target_rmap_data.data_length,
 			spw_flag_i                             => spw_flag_i.transmitter,
 			flags_o                                => s_rmap_target_flags.reply_geneneration,
---			error_o                                => s_rmap_target_error.dummy,
+			--			error_o                                => s_rmap_target_error.dummy,
 			spw_control_o                          => s_rmap_target_spw_reply_tx_control
 		);
 
@@ -218,18 +236,15 @@ begin
 	--! write: - \n
 	--! r/w: - \n
 	--============================================================================
-	p_rmap_target_top_process : process(clk_i, reset_n_i)
-	begin
-		if (reset_n_i = '0') then       -- asynchronous reset
-			-- reset to default value
-			s_rmap_target_user_configs.user_key                    <= x"D1";
-			s_rmap_target_user_configs.user_target_logical_address <= x"51";
-		elsif (rising_edge(clk_i)) then -- synchronous process
-			-- generate clock signal and LED output
-			s_rmap_target_user_configs.user_key                    <= x"D1";
-			s_rmap_target_user_configs.user_target_logical_address <= x"51";
-		end if;
-	end process p_rmap_target_top_process;
+	--	p_rmap_target_top_process : process(clk_i)
+	--	begin
+	--		if (reset_n_i = '0') then       -- asynchronous reset
+	--			-- reset to default value
+	--
+	--		elsif (rising_edge(clk_i)) then -- synchronous process
+	--			-- generate clock signal and LED output
+	--		end if;
+	--	end process p_rmap_target_top_process;
 
 	-- signals assingment
 
@@ -247,7 +262,30 @@ begin
 	spw_control_o.transmitter.flag  <= (s_rmap_target_spw_read_tx_control.flag) or (s_rmap_target_spw_reply_tx_control.flag);
 	spw_control_o.transmitter.data  <= (s_rmap_target_spw_read_tx_control.data) or (s_rmap_target_spw_reply_tx_control.data);
 	spw_control_o.transmitter.write <= (s_rmap_target_spw_read_tx_control.write) or (s_rmap_target_spw_reply_tx_control.write);
-	
+
+	-- inputs
+	s_rmap_target_user_configs.user_key                    <= conf_target_key_i;
+	s_rmap_target_user_configs.user_target_logical_address <= conf_target_logical_addr_i;
+
+	-- outputs
+	stat_command_received_o    <= s_rmap_target_flags.command_parsing.command_received;
+	stat_write_requested_o     <= s_rmap_target_flags.command_parsing.write_request;
+	stat_write_authorized_o    <= s_rmap_target_control.write_operation.write_authorization;
+	stat_write_finished_o      <= s_rmap_target_flags.write_operation.write_data_indication;
+	stat_read_requested_o      <= s_rmap_target_flags.command_parsing.read_request;
+	stat_read_authorized_o     <= s_rmap_target_control.read_operation.read_authorization;
+	stat_read_finished_o       <= s_rmap_target_flags.read_operation.read_data_indication;
+	stat_reply_sended_o        <= s_rmap_target_flags.reply_geneneration.reply_finished;
+	stat_discarded_package_o   <= s_rmap_target_flags.command_parsing.discarded_package;
+	--
+	err_early_eop_o            <= s_rmap_target_rmap_error.early_eop;
+	err_eep_o                  <= s_rmap_target_rmap_error.eep;
+	err_header_crc_o           <= s_rmap_target_rmap_error.header_crc;
+	err_unused_packet_type_o   <= s_rmap_target_rmap_error.unused_packet_type;
+	err_invalid_command_code_o <= s_rmap_target_rmap_error.invalid_command_code;
+	err_too_much_data_o        <= s_rmap_target_rmap_error.too_much_data;
+	err_invalid_data_crc_o     <= s_rmap_target_rmap_error.invalid_data_crc;
+
 end architecture rtl;
 --============================================================================
 -- architecture end

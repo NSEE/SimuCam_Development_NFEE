@@ -13,8 +13,6 @@ entity avalon_mm_spacewire_write_ent is
 		avalon_mm_spacewire_i       : in  t_avalon_mm_spacewire_write_in;
 		avalon_mm_spacewire_o       : out t_avalon_mm_spacewire_write_out;
 		spacewire_write_registers_o : out t_windowing_write_registers;
-		rmap_config_registers_o     : out t_rmap_memory_config_area;
-		rmap_hk_registers_o         : out t_rmap_memory_hk_area
 	);
 end entity avalon_mm_spacewire_write_ent;
 

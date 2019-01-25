@@ -11,7 +11,7 @@ use work.RMAP_TARGET_PKG.ALL;
 use work.RMAP_TARGET_CRC_PKG.ALL;
 -------------------------------------------------------------------------------
 -- --
--- Instituto Mauï¿½ de Tecnologia, Nï¿½cleo de Sistemas Eletrï¿½nicos Embarcados --
+-- Instituto Mauá de Tecnologia, Núcleo de Sistemas Eletrônicos Embarcados --
 -- Plato Project --
 -- --
 -------------------------------------------------------------------------------
@@ -24,7 +24,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 --! Reply basead on the received Command, preparing all the data that need to 
 --! be sent to the Initiator.
 --
---! @author Rodrigo Franï¿½a (rodrigo.franca@maua.br)
+--! @author Rodrigo França (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -40,7 +40,7 @@ use work.RMAP_TARGET_CRC_PKG.ALL;
 --! SpaceWire - Remote memory access protocol, ECSS-E-ST-50-52C, 2010.02.05 \n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo Franï¿½a
+--! Author: Rodrigo França
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 06\02\2018 RF File Creation\n
@@ -81,7 +81,6 @@ architecture rtl of rmap_target_reply_ent is
 	-- SYMBOLIC ENCODED state machine: s_RMAP_TARGET_REPLY_STATE
 	-- =========================================================
 	type t_rmap_target_reply_state is (
-		--	RESET,
 		IDLE,
 		WAITING_BUFFER_SPACE,
 		FIELD_REPLY_SPW_ADDRESS,
@@ -137,7 +136,7 @@ begin
 			v_rmap_target_reply_state      := IDLE;
 			s_rmap_target_reply_next_state <= IDLE;
 			s_byte_counter                 <= 0;
-			-- output
+			-- Outputs Generation
 			flags_o.reply_busy             <= '0';
 			flags_o.reply_finished         <= '0';
 			spw_control_o.data             <= x"00";
@@ -383,8 +382,13 @@ begin
 					s_rmap_target_reply_next_state <= IDLE;
 
 			end case;
-
-			-- output
+			--=============================================================================
+			-- Begin of RMAP Target Reply Finite State Machine
+			-- (output generation)
+			--=============================================================================
+			-- read: s_rmap_target_reply_state, reset_n_i
+			-- write:
+			-- r/w:
 			case (v_rmap_target_reply_state) is
 
 				-- state "IDLE"
@@ -638,289 +642,6 @@ begin
 			end case;
 		end if;
 	end process p_rmap_target_reply_FSM_state;
-
-	--=============================================================================
-	-- Begin of RMAP Target Reply Finite State Machine
-	-- (output generation)
-	--=============================================================================
-	-- read: s_rmap_target_reply_state, reset_n_i
-	-- write:
-	-- r/w:
-	--	p_rmap_target_reply_FSM_output : process(s_rmap_target_reply_state, s_reply_address_flag, headerdata_i, s_byte_counter, s_reply_header_crc)
-	--	begin
-	-- asynchronous reset
-	--		if (reset_n_i = '0') then
-	--			flags_o.reply_busy     <= '0';
-	--			flags_o.reply_finished <= '0';
-	--			spw_control_o.data     <= x"00";
-	--			spw_control_o.flag     <= '0';
-	--			spw_control_o.write    <= '0';
-	--			s_reply_header_crc     <= x"00";
-	--			s_reply_address_flag   <= '0';
-	--		-- output generation when s_rmap_target_reply_state changes
-	--		else
-	--			case (s_rmap_target_reply_state) is
-	--			
-	--				when RESET =>
-	--			flags_o.reply_busy     <= '0';
-	--			flags_o.reply_finished <= '0';
-	--			spw_control_o.data     <= x"00";
-	--			spw_control_o.flag     <= '0';
-	--			spw_control_o.write    <= '0';
-	--			s_reply_header_crc     <= x"00";
-	--			s_reply_address_flag   <= '0';
-	--			
-	--				-- state "IDLE"
-	--				when IDLE =>
-	--					-- does nothing until user application signals it is ready to send a reply
-	--					-- reset outputs
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '0';
-	--					flags_o.reply_finished <= '0';
-	--					spw_control_o.data     <= x"00";
-	--					spw_control_o.flag     <= '0';
-	--					spw_control_o.write    <= '0';
-	--					s_reply_header_crc     <= x"00";
-	--					s_reply_address_flag   <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "WAITING_BUFFER_SPACE"
-	--				when WAITING_BUFFER_SPACE =>
-	--					-- wait until the spacewire tx buffer has space
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw tx write signal
-	--					spw_control_o.write    <= '0';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_REPLY_SPW_ADDRESS"
-	--				when FIELD_REPLY_SPW_ADDRESS =>
-	--					-- reply spw address field, send reply spw address to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					s_reply_address_flag   <= '0';
-	--					spw_control_o.flag     <= '0';
-	--					spw_control_o.data     <= x"00";
-	--					spw_control_o.write    <= '0';
-	--					-- conditional output signals
-	--					-- check if a non-zero reply spw address data have already been detected
-	--					if (s_reply_address_flag = '1') then
-	--						-- reply spw address data arrived
-	--						s_reply_address_flag <= '1';
-	--						-- fill spw data with field data
-	--						spw_control_o.data   <= headerdata_i.reply_spw_address(s_byte_counter);
-	--						-- write the spw data
-	--						spw_control_o.write  <= '1';
-	--					else
-	--						-- non-zero data not detected yet
-	--						-- check if the reply spw address data is a zero
-	--						if (headerdata_i.reply_spw_address(s_byte_counter) = x"00") then
-	--							-- data is a zero
-	--							-- check if the data is the last reply spw address
-	--							if (s_byte_counter = 0) then
-	--								-- last reply spw address
-	--								-- send a single 0x00 as the reply spw address
-	--								spw_control_o.data  <= x"00";
-	--								-- write the spw data
-	--								spw_control_o.write <= '1';
-	--							end if;
-	--						-- if not last reply spw address, the data is a leading zero and will be ignored
-	--						else
-	--							-- data is not a zero, leading zeros are over
-	--							-- flag that a non-zero reply spw address data arrived
-	--							s_reply_address_flag <= '1';
-	--							-- fill spw data with field data
-	--							spw_control_o.data   <= headerdata_i.reply_spw_address(s_byte_counter);
-	--							-- write the spw data
-	--							spw_control_o.write  <= '1';
-	--						end if;
-	--					end if;
-	--
-	--				-- state "FIELD_INITIATOR_LOGICAL_ADDRESS"
-	--				when FIELD_INITIATOR_LOGICAL_ADDRESS =>
-	--					-- initiator logical address field, send initiator logical address to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with field data
-	--					spw_control_o.data     <= headerdata_i.initiator_logical_address;
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.initiator_logical_address);
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_PROTOCOL_IDENTIFIER"
-	--				when FIELD_PROTOCOL_IDENTIFIER =>
-	--					-- protocol identifier field, send protocol identifier to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with the rmap protocol identifier (0x01)
-	--					spw_control_o.data     <= x"01";
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, x"01");
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_INSTRUCTION"
-	--				when FIELD_INSTRUCTION =>
-	--					-- instruction field, send instruction to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy             <= '1';
-	--					flags_o.reply_finished         <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag             <= '0';
-	--					-- fill spw data with field data
-	--					-- packet type = 0b00 (reply packet)
-	--					spw_control_o.data(7 downto 6) <= "00";
-	--					-- same command field as the command 
-	--					spw_control_o.data(5)          <= headerdata_i.instructions.command.write_read;
-	--					spw_control_o.data(4)          <= headerdata_i.instructions.command.verify_data_before_write;
-	--					spw_control_o.data(3)          <= headerdata_i.instructions.command.reply;
-	--					spw_control_o.data(2)          <= headerdata_i.instructions.command.increment_address;
-	--					-- same reply address length as the command
-	--					spw_control_o.data(1 downto 0) <= headerdata_i.instructions.reply_address_length;
-	--					-- update crc calculation
-	--					s_reply_header_crc             <= RMAP_CalculateCRC(s_reply_header_crc, ("00" & headerdata_i.instructions.command.write_read & headerdata_i.instructions.command.verify_data_before_write & headerdata_i.instructions.command.reply & headerdata_i.instructions.command.increment_address & headerdata_i.instructions.reply_address_length));
-	--					-- write the spw data
-	--					spw_control_o.write            <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_STATUS"
-	--				when FIELD_STATUS =>
-	--					-- status field, send status to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with field data
-	--					spw_control_o.data     <= headerdata_i.status;
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.status);
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_TARGET_LOGICAL_ADDRESS"
-	--				when FIELD_TARGET_LOGICAL_ADDRESS =>
-	--					-- target logical address field, send target logical address to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with field data
-	--					spw_control_o.data     <= headerdata_i.target_logical_address;
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.target_logical_address);
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_TRANSACTION_IDENTIFIER"
-	--				when FIELD_TRANSACTION_IDENTIFIER =>
-	--					-- transaction identifier field, send transaction identifier to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with the reserved field data (0x00)
-	--					spw_control_o.data     <= headerdata_i.transaction_identifier(s_byte_counter);
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.transaction_identifier(s_byte_counter));
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_RESERVED"
-	--				when FIELD_RESERVED =>
-	--					-- reserved field, send reserved to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with the reserved field data (0x00)
-	--					spw_control_o.data     <= x"00";
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, x"00");
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_DATA_LEGNTH"
-	--				when FIELD_DATA_LEGNTH =>
-	--					-- data length field, send data length to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with the reserved field data (0x00)
-	--					spw_control_o.data     <= headerdata_i.data_length(s_byte_counter);
-	--					-- update crc calculation
-	--					s_reply_header_crc     <= RMAP_CalculateCRC(s_reply_header_crc, headerdata_i.data_length(s_byte_counter));
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_HEADER_CRC"
-	--				when FIELD_HEADER_CRC =>
-	--					-- header crc field, send header crc to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- clear spw flag (to indicate a data)
-	--					spw_control_o.flag     <= '0';
-	--					-- fill spw data with field data
-	--					spw_control_o.data     <= s_reply_header_crc;
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "FIELD_EOP"
-	--				when FIELD_EOP =>
-	--					-- eop field, send eop to initiator
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					flags_o.reply_finished <= '0';
-	--					-- set spw flag (to indicate a package end)
-	--					spw_control_o.flag     <= '1';
-	--					-- fill spw data with the eop identifier (0x00)
-	--					spw_control_o.data     <= c_EOP_VALUE;
-	--					-- write the spw data
-	--					spw_control_o.write    <= '1';
-	--				-- conditional output signals
-	--
-	--				-- state "REPLY_FINISH_GENERATION"
-	--				when REPLY_FINISH_GENERATION =>
-	--					-- finish reply generation
-	--					-- default output signals
-	--					flags_o.reply_busy     <= '1';
-	--					-- indicate that the reply generation is finished
-	--					flags_o.reply_finished <= '1';
-	--					spw_control_o.write    <= '0';
-	--					spw_control_o.flag     <= '0';
-	--					spw_control_o.data     <= x"00";
-	--				-- conditional output signals
-	--
-	--				-- all the other states (not defined)
-	--				when others =>
-	--					null;
-	--
-	--			end case;
-	--		end if;
-	--	end process p_rmap_target_reply_FSM_output;
 
 end architecture rtl;
 --============================================================================
