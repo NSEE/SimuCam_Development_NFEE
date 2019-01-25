@@ -99,28 +99,28 @@ int main(void) {
 //	bFeebSetIrqControl(&xComm1);
 
 	xComm1.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm1.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm1.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm1.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm2.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm2.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm2.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm2.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm3.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm3.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm3.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm3.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm4.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm4.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm4.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm4.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm5.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm5.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm5.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm5.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm6.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm6.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm6.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm6.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm7.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm7.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm7.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm7.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	xComm8.xSpacewire.xLinkConfig.bAutostart = FALSE;
-	xComm8.xSpacewire.xLinkConfig.bStart = FALSE;
+	xComm8.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 	xComm8.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 	bSpwcSetLink(&xComm1.xSpacewire);
 	bSpwcSetLink(&xComm2.xSpacewire);
@@ -136,7 +136,7 @@ int main(void) {
 
 	xComm1.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
 	xComm1.xSpacewire.xLinkConfig.bAutostart = TRUE;
-	xComm1.xSpacewire.xLinkConfig.bStart = TRUE;
+	xComm1.xSpacewire.xLinkConfig.bLinkStart = TRUE;
 	xComm1.xSpacewire.xLinkConfig.bDisconnect = FALSE;
 	xComm2.xFeeBuffer.xWindowingConfig.bMasking = TRUE;
 	xComm2.xSpacewire.xLinkConfig.bAutostart = TRUE;

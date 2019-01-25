@@ -38,10 +38,10 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 		uliReg &= (~COMM_DATA_PKT_CCD_X_SIZE_MSK);
 		uliReg |= (COMM_DATA_PKT_CCD_X_SIZE_MSK
-				& alt_u32(pxDpktCh->xDpktDataPacketConfig.usiCcdXSize << 0));
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.usiCcdXSize << 0));
 		uliReg &= (~COMM_DATA_PKT_CCD_Y_SIZE_MSK);
 		uliReg |= (COMM_DATA_PKT_CCD_Y_SIZE_MSK
-				& alt_u32(pxDpktCh->xDpktDataPacketConfig.usiCcdYSize << 16));
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.usiCcdYSize << 16));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_CFG_1_REG_OFST,
 				uliReg);
@@ -50,11 +50,11 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 		uliReg &= (~COMM_DATA_PKT_DATA_Y_SIZE_MSK);
 		uliReg |= (COMM_DATA_PKT_DATA_Y_SIZE_MSK
-				& alt_u32(pxDpktCh->xDpktDataPacketConfig.usiDataYSize << 0));
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.usiDataYSize << 0));
 		uliReg &= (~COMM_DATA_PKT_OVER_Y_SIZE_MSK);
 		uliReg |=
 				(COMM_DATA_PKT_OVER_Y_SIZE_MSK
-						& alt_u32(
+						& (alt_u32)(
 								pxDpktCh->xDpktDataPacketConfig.usiOverscanYSize
 										<< 16));
 
@@ -66,7 +66,7 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 		uliReg &= (~COMM_DATA_PKT_LENGTH_MSK);
 		uliReg |=
 				(COMM_DATA_PKT_LENGTH_MSK
-						& alt_u32(
+						& (alt_u32)(
 								pxDpktCh->xDpktDataPacketConfig.usiPacketLength
 										<< 0));
 
@@ -77,10 +77,10 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 		uliReg &= (~COMM_DATA_PKT_FEE_MODE_MSK);
 		uliReg |= (COMM_DATA_PKT_FEE_MODE_MSK
-				& alt_u32(pxDpktCh->xDpktDataPacketConfig.ucFeeMode << 0));
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucFeeMode << 0));
 		uliReg &= (~COMM_DATA_PKT_CCD_NUMBER_MSK);
 		uliReg |= (COMM_DATA_PKT_CCD_NUMBER_MSK
-				& alt_u32(pxDpktCh->xDpktDataPacketConfig.ucCcdNumber << 8));
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucCcdNumber << 8));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_CFG_4_REG_OFST,
 				uliReg);
@@ -100,31 +100,31 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_CFG_1_REG_OFST);
 
-		pxDpktCh->xDpktDataPacketConfig.usiCcdXSize = alt_u16(
+		pxDpktCh->xDpktDataPacketConfig.usiCcdXSize = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_CCD_X_SIZE_MSK) >> 0);
-		pxDpktCh->xDpktDataPacketConfig.usiCcdYSize = alt_u16(
+		pxDpktCh->xDpktDataPacketConfig.usiCcdYSize = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_CCD_Y_SIZE_MSK) >> 16);
 
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_CFG_2_REG_OFST);
 
-		pxDpktCh->xDpktDataPacketConfig.usiDataYSize = alt_u16(
+		pxDpktCh->xDpktDataPacketConfig.usiDataYSize = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_DATA_Y_SIZE_MSK) >> 0);
-		pxDpktCh->xDpktDataPacketConfig.usiOverscanYSize = alt_u16(
+		pxDpktCh->xDpktDataPacketConfig.usiOverscanYSize = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_OVER_Y_SIZE_MSK) >> 16);
 
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_CFG_3_REG_OFST);
 
-		pxDpktCh->xDpktDataPacketConfig.usiPacketLength = alt_u16(
+		pxDpktCh->xDpktDataPacketConfig.usiPacketLength = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_LENGTH_MSK) >> 0);
 
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_CFG_4_REG_OFST);
 
-		pxDpktCh->xDpktDataPacketConfig.ucFeeMode = alt_u8(
+		pxDpktCh->xDpktDataPacketConfig.ucFeeMode= (alt_u8)(
 				(uliReg & COMM_DATA_PKT_FEE_MODE_MSK) >> 0);
-		pxDpktCh->xDpktDataPacketConfig.ucCcdNumber = alt_u8(
+		pxDpktCh->xDpktDataPacketConfig.ucCcdNumber= (alt_u8)(
 				(uliReg & COMM_DATA_PKT_CCD_NUMBER_MSK) >> 8);
 
 		bStatus = TRUE;
@@ -142,17 +142,17 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_HDR_1_REG_OFST);
 
-		pxDpktCh->xDpktDataPacketHeader.usiLength = alt_u16(
+		pxDpktCh->xDpktDataPacketHeader.usiLength = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_HDR_LENGTH_MSK) >> 0);
-		pxDpktCh->xDpktDataPacketHeader.usiType = alt_u16(
+		pxDpktCh->xDpktDataPacketHeader.usiType = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_HDR_TYPE_MSK) >> 16);
 
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_HDR_2_REG_OFST);
 
-		pxDpktCh->xDpktDataPacketHeader.usiFrameCounter = alt_u16(
+		pxDpktCh->xDpktDataPacketHeader.usiFrameCounter = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_HDR_FRAME_CNT_MSK) >> 0);
-		pxDpktCh->xDpktDataPacketHeader.usiSequenceCounter = alt_u16(
+		pxDpktCh->xDpktDataPacketHeader.usiSequenceCounter = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_SEQ_CNT_MSK) >> 16);
 
 		bStatus = TRUE;
@@ -172,7 +172,7 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 
 		uliReg &= (~COMM_DATA_PKT_LINE_DLY_MSK);
 		uliReg |= (COMM_DATA_PKT_LINE_DLY_MSK
-				& alt_u32(pxDpktCh->xDpktPixelDelay.usiLineDelay << 0));
+				& (alt_u32)(pxDpktCh->xDpktPixelDelay.usiLineDelay << 0));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_PX_DLY_1_REG_OFST,
 				uliReg);
@@ -181,7 +181,7 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 
 		uliReg &= (~COMM_DATA_PKT_COLUMN_DLY_MSK);
 		uliReg |= (COMM_DATA_PKT_COLUMN_DLY_MSK
-				& alt_u32(pxDpktCh->xDpktPixelDelay.usiColumnDelay << 0));
+				& (alt_u32)(pxDpktCh->xDpktPixelDelay.usiColumnDelay << 0));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_PX_DLY_2_REG_OFST,
 				uliReg);
@@ -190,7 +190,7 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 
 		uliReg &= (~COMM_DATA_PKT_ADC_DLY_MSK);
 		uliReg |= (COMM_DATA_PKT_ADC_DLY_MSK
-				& alt_u32(pxDpktCh->xDpktPixelDelay.usiAdcDelay << 0));
+				& (alt_u32)(pxDpktCh->xDpktPixelDelay.usiAdcDelay << 0));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_PX_DLY_3_REG_OFST,
 				uliReg);
@@ -210,19 +210,19 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_PX_DLY_1_REG_OFST);
 
-		pxDpktCh->xDpktPixelDelay.usiLineDelay = alt_u16(
+		pxDpktCh->xDpktPixelDelay.usiLineDelay = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_LINE_DLY_MSK) >> 0);
 
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_PX_DLY_2_REG_OFST);
 
-		pxDpktCh->xDpktPixelDelay.usiColumnDelay = alt_u16(
+		pxDpktCh->xDpktPixelDelay.usiColumnDelay = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_COLUMN_DLY_MSK) >> 0);
 
 		uliReg = uliDpktReadReg(pxDpktCh->puliDpktChAddr,
 				COMM_DATA_PKT_PX_DLY_3_REG_OFST);
 
-		pxDpktCh->xDpktPixelDelay.usiAdcDelay = alt_u16(
+		pxDpktCh->xDpktPixelDelay.usiAdcDelay = (alt_u16)(
 				(uliReg & COMM_DATA_PKT_ADC_DLY_MSK) >> 0);
 
 		bStatus = TRUE;

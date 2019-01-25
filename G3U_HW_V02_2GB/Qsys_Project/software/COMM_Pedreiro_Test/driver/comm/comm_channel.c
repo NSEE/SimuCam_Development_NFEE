@@ -1,4 +1,4 @@
-#include "comm_channel.h""
+#include "comm_channel.h"
 
 //! [private function prototypes]
 //! [private function prototypes]

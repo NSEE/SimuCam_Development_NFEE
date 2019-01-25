@@ -51,7 +51,7 @@ bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 		}
 		uliReg &= (~COMM_SPW_LNKCFG_TXDIVCNT_MSK);
 		uliReg |= (COMM_SPW_LNKCFG_TXDIVCNT_MSK
-				& alt_u32(pxSpwcCh->xLinkConfig.ucTxDivCnt << 24));
+				& (alt_u32)(pxSpwcCh->xLinkConfig.ucTxDivCnt << 24));
 
 		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_LINK_CFG_STAT_REG_OFST,
 				uliReg);
@@ -75,16 +75,16 @@ bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 			pxSpwcCh->xLinkConfig.bAutostart = FALSE;
 		}
 		if (uliReg & COMM_SPW_LNKCFG_LINKSTART_MSK) {
-			pxSpwcCh->xLinkConfig.bStart = TRUE;
+			pxSpwcCh->xLinkConfig.bLinkStart = TRUE;
 		} else {
-			pxSpwcCh->xLinkConfig.bStart = FALSE;
+			pxSpwcCh->xLinkConfig.bLinkStart = FALSE;
 		}
 		if (uliReg & COMM_SPW_LNKCFG_DISCONNECT_MSK) {
 			pxSpwcCh->xLinkConfig.bDisconnect = TRUE;
 		} else {
 			pxSpwcCh->xLinkConfig.bDisconnect = FALSE;
 		}
-		pxSpwcCh->xLinkConfig.ucTxDivCnt = alt_u8(
+		pxSpwcCh->xLinkConfig.ucTxDivCnt= (alt_u8)(
 				(uliReg & COMM_SPW_LNKCFG_TXDIVCNT_MSK) >> 24);
 
 		bStatus = TRUE;
@@ -166,9 +166,9 @@ bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
 		COMM_TIMECODE_REG_OFST);
 
-		pxSpwcCh->xTimecode.ucControl = alt_u8(
+		pxSpwcCh->xTimecode.ucControl= (alt_u8)(
 				(uliReg & COMM_TIMECODE_CONTROL_MSK) >> 6);
-		pxSpwcCh->xTimecode.ucCounter = alt_u8(
+		pxSpwcCh->xTimecode.ucCounter= (alt_u8)(
 				(uliReg & COMM_TIMECODE_TIME_MSK) >> 0);
 
 		bStatus = TRUE;

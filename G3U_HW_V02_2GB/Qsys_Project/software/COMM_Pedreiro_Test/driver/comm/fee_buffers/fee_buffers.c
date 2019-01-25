@@ -275,7 +275,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh1HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_A_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh1HandleIrq);
 		break;
 	case eCommSpwCh2:
@@ -283,7 +283,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh2HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_B_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_2_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh2HandleIrq);
 		break;
 	case eCommSpwCh3:
@@ -291,7 +291,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh3HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_C_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_3_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh3HandleIrq);
 		break;
 	case eCommSpwCh4:
@@ -299,7 +299,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh4HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_D_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_4_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh4HandleIrq);
 		break;
 	case eCommSpwCh5:
@@ -307,7 +307,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh5HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_E_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_5_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh5HandleIrq);
 		break;
 	case eCommSpwCh6:
@@ -315,7 +315,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh6HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_F_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_6_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh6HandleIrq);
 		break;
 	case eCommSpwCh7:
@@ -323,7 +323,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh7HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_G_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_7_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh7HandleIrq);
 		break;
 	case eCommSpwCh8:
@@ -331,7 +331,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// prototype.
 		pvHoldContext = (void*) &viCh8HoldContext;
 		// Register the interrupt handler
-		alt_irq_register(COMM_PEDREIRO_V1_01_H_IRQ, pvHoldContext,
+		alt_irq_register(COMM_CH_8_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh8HandleIrq);
 		break;
 	}
