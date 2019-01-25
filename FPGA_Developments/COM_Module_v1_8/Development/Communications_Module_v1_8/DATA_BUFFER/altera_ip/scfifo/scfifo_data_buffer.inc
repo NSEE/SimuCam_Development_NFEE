@@ -25,8 +25,10 @@ FUNCTION scfifo_data_buffer
 )
 
 RETURNS (
+	almost_empty,
+	almost_full,
 	empty,
 	full,
 	q[7..0],
-	usedw[8..0]
+	usedw[14..0]
 );
