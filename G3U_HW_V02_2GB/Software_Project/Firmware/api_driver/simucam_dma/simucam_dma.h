@@ -100,14 +100,14 @@ enum SdmaBufferSide {
 } ESdmaBufferSide;
 
 enum SdmaChBufferId {
-	eSdmaCh1Buffer = 1,
-	eSdmaCh2Buffer = 2,
-	eSdmaCh3Buffer = 3,
-	eSdmaCh4Buffer = 4,
-	eSdmaCh5Buffer = 5,
-	eSdmaCh6Buffer = 6,
-	eSdmaCh7Buffer = 7,
-	eSdmaCh8Buffer = 8
+	eSdmaCh1Buffer = 0,
+	eSdmaCh2Buffer = 1,
+	eSdmaCh3Buffer = 2,
+	eSdmaCh4Buffer = 3,
+	eSdmaCh5Buffer = 4,
+	eSdmaCh6Buffer = 5,
+	eSdmaCh7Buffer = 6,
+	eSdmaCh8Buffer = 7
 } ESdmaChBufferId;
 //! [public module structs definition]
 
