@@ -41,7 +41,7 @@ typedef enum { sMebConfig = 0, sRun } tSimucamStates;
 
 
 /* FEE operation modes */
-typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeFull, sFeeTestFullPattern, sFeeWin, sFeeTestWinPattern, sFeeTestPartialRedout, sToFeeConfig, sToFeeStandBy, sToTestFullPattern} tFEEStates;
+typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sSIMTestFullPattern} tFEEStates;
 
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/

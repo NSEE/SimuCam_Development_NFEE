@@ -28,12 +28,19 @@ void vFeeTask(void *task_data) {
 		vPrintConsoleNFee( pxNFee );
 	#endif
 
+
+
 	for(;;){
 
 		switch ( pxNFee->xControl.eMode ) {
 			case sFeeInit:
 
 				pxNFee->xControl.eMode = sToFeeConfig;
+
+				break;
+			case sSIMFeeConfig:
+
+				//pxNFee->xControl.eMode = sToFeeConfig;
 
 				break;
 			case sToFeeConfig: /* Transition */
@@ -47,7 +54,7 @@ void vFeeTask(void *task_data) {
 				/* Disable the link SPW */
 				//todo: tratar retorno
 				bSpwcGetLink(&pxNFee->xChannel.xSpacewire);
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
+				pxNFee->xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 				pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
 				pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 				bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
@@ -75,6 +82,11 @@ void vFeeTask(void *task_data) {
 
 				pxNFee->xControl.eMode = sToFeeStandBy;
 				break;
+			case sSIMFeeStandBy:
+
+				//pxNFee->xControl.eMode = sToFeeConfig;
+
+				break;
 			case sToFeeStandBy: /* Transition */
 
 				pxNFee->xControl.bSimulating = TRUE;
@@ -85,7 +97,7 @@ void vFeeTask(void *task_data) {
 
 				/* Enable link SPW the link SPW */
 				bSpwcGetLink(&pxNFee->xChannel.xSpacewire);
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
+				pxNFee->xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 				pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
 				pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
 				bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
@@ -102,11 +114,16 @@ void vFeeTask(void *task_data) {
 
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
-					vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
+					vQCmdFEEinStandBy( pxNFee, uiCmdFEE.ulWord );
 				} else {
 
 					/* todo: Criar funÁ„o de tratamento de erro*/
 				}
+
+				break;
+			case sSIMTestFullPattern:
+
+				//pxNFee->xControl.eMode = sToFeeConfig;
 
 				break;
 			case sToTestFullPattern: /* Transition */
@@ -436,178 +453,3 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 #endif
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	void vFeeTask0(void *task_data) {
-		bool bSuccess = FALSE;
-		static TNFee *pxNFee;
-		INT8U error_code;
-		tQMask uiCmdFEE;
-
-
-		pxNFee = ( TNFee * ) task_data;
-
-		#ifdef DEBUG_ON
-			fprintf(fp,"NFEE %hhu Task. (Task on)\n", pxNFee->ucId);
-			//debug(fp,"NFEE Task. (Task on)\n");
-		#endif
-
-		#ifdef DEBUG_ON
-			vPrintConsoleNFee( pxNFee );
-		#endif
-
-		for(;;){
-
-			switch ( pxNFee->xControl.eMode ) {
-				case sFeeInit:
-
-					pxNFee->xControl.eMode = sToFeeConfig;
-
-					break;
-				case sToFeeConfig: /* Transition */
-
-					/* Desabilitar interrupÁıes do buffer duplo */
-					/* Limpar interrupÁıes, zerar buffer duplo */
-
-					pxNFee->xControl.bSimulating = FALSE;
-					pxNFee->xControl.bUsingDMA = FALSE;
-
-					/* Disable the link SPW */
-					//todo: tratar retorno
-					bSpwcGetLink(&pxNFee->xChannel.xSpacewire);
-					pxNFee->xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
-					pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
-					pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
-					bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
-
-					//todo:Back
-					//bSpwcClearTimecode(&pxNFee->xChannel.xSpacewire);
-
-					#ifdef DEBUG_ON
-						fprintf(fp,"\nNFEE %hhu Task: Going to Config mode\n", pxNFee->ucId);
-					#endif
-					pxNFee->xControl.eMode = sFeeConfig;
-					break;
-				case sFeeConfig: /* Real mode */
-
-					uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
-					if ( error_code == OS_ERR_NONE ) {
-						vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
-					} else {
-
-						/* todo: Criar funÁ„o de tratamento de erro*/
-					}
-
-					break;
-				case sFeeOn: /* Real mode */
-
-					pxNFee->xControl.eMode = sToFeeStandBy;
-					break;
-				case sToFeeStandBy: /* Transition */
-
-					pxNFee->xControl.bSimulating = TRUE;
-					pxNFee->xControl.bUsingDMA = FALSE;
-					/* Limpar interrupÁıes, zerar buffer duplo */
-
-
-
-					/* Enable link SPW the link SPW */
-					bSpwcGetLink(&pxNFee->xChannel.xSpacewire);
-					pxNFee->xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
-					pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
-					pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
-					bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
-
-
-
-
-					#ifdef DEBUG_ON
-						fprintf(fp,"\nNFEE %hhu Task: Going to Standby mode\n", pxNFee->ucId);
-					#endif
-					pxNFee->xControl.eMode = sFeeStandBy;
-					break;
-				case sFeeStandBy: /* Real mode */
-
-					uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
-					if ( error_code == OS_ERR_NONE ) {
-						vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
-					} else {
-
-						/* todo: Criar funÁ„o de tratamento de erro*/
-					}
-
-					break;
-				case sToTestFullPattern: /* Transition */
-
-					pxNFee->xControl.bUsingDMA = TRUE;
-
-					#ifdef DEBUG_ON
-						fprintf(fp,"\nNFEE %hhu Task: Going to FULL Image Pattern mode\n", pxNFee->ucId);
-					#endif
-					pxNFee->xControl.eMode = sFeeTestFullPattern;
-					break;
-				case sFeeTestFullPattern: /* Real mode */
-
-					uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
-					if ( error_code == OS_ERR_NONE ) {
-
-						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
-
-					} else {
-
-						/* todo: Criar funÁ„o de tratamento de erro*/
-					}
-
-					break;
-				default:
-					pxNFee->xControl.eMode = sToFeeConfig;
-					#ifdef DEBUG_ON
-						fprintf(fp,"\nNFEE %hhu Task: Unexpected mode (default)\n", pxNFee->ucId);
-					#endif
-					break;
-			}
-
-		}
-
-
-		// Load default configurations CCD e FEE
-		// carregar valores baseado no *task_data
-
-
-
-		// IMplementar maquina de estados para o NFEE
-
-		// LOOP
-			// assim que tiver disponivel, agendar dma para buffer (transmiss√£o)
-
-			// Verificar se existe comando pus e realizar altera√ß√µes
-
-			// verificar se existe comando vindo do SPW
-
-			// precisa mudar de estado?
-				// em modo de emergencia ou apenas no sync?
-
-			// Check sync ?
-				// mudar de estado se isso estiver agendado
-
-
-	}
-
-

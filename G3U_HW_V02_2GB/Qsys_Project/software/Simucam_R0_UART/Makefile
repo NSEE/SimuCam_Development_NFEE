@@ -173,7 +173,6 @@ C_SRCS += utils/fee.c
 C_SRCS += utils/meb.c
 C_SRCS += rtos/sim_meb_task.c
 C_SRCS += api_driver/simucam_dma/simucam_dma.c
-C_SRCS += driver/comm/comm.c
 C_SRCS += driver/comm/data_packet/data_packet.c
 C_SRCS += driver/comm/fee_buffers/fee_buffers.c
 C_SRCS += driver/comm/rmap/rmap.c
@@ -189,6 +188,8 @@ C_SRCS += rtos/data_control_task.c
 C_SRCS += rtos/nfee_control_task.c
 C_SRCS += utils/events_handler.c
 C_SRCS += utils/pattern.c
+C_SRCS += driver/comm/comm_channel.c
+C_SRCS += utils/sync_handler.c
 CXX_SRCS :=
 ASM_SRCS :=
 

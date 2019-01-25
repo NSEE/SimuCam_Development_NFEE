@@ -51,7 +51,15 @@ void vSyncHandleIrq(void* pvContext) {
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...
 	// App logic sequence...
+
+
+
 	vucN += 1;
+
+	#ifdef DEBUG_ON
+		fprintf(fp,"Sync N=%hu \n", vucN);
+	#endif
+
 }
 
 /**

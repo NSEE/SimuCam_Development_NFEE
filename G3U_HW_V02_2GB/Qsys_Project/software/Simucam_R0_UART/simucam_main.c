@@ -1,6 +1,7 @@
 #include <sys/alt_stdio.h>
 #include <ucos_ii.h>
 #include "simucam_definitions.h"
+#include "utils/sync_handler.h"
 #include "utils/initialization_simucam.h"
 #include "utils/error_handler_simucam.h"
 #include "utils/communication_configs.h"
@@ -278,6 +279,7 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 0 );
 		bSuccess = FALSE;		
 	}
+	/*
 	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
 	if ( xFeeQ[1] == NULL ) {
 		vFailCreateNFEEQueue( 1 );
@@ -307,7 +309,7 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 5 );
 		bSuccess = FALSE;		
 	}
-
+*/
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
 	if ( xFeeQ[5] == NULL ) {
@@ -463,8 +465,8 @@ int main(void)
 	vVariablesInitialization();
 
 
-	vFillMemmoryPattern(&xSimMeb);
-	// vPrintMemmoryPattern(&xSimMeb);
+	//vFillMemmoryPattern(&xSimMeb);
+
 
 
 

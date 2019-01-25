@@ -421,7 +421,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 						/* todo: Como a Meb esta em config ela pode operar todas as configura��es tranquilamente  */
 
 						bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
 						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
 						bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
@@ -440,7 +440,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 						//todo: tratar retorno
 
 						bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bStart = FALSE;
+						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
 						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
 						pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 						bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
