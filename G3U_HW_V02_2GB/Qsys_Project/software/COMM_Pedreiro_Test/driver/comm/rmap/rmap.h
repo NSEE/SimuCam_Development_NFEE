@@ -58,8 +58,11 @@ typedef struct RmapMemConfigArea {
 	alt_u32 uliCcd4Windowing1Config;
 	alt_u32 uliCcd4Windowing2Config;
 	alt_u32 uliOperationModeConfig;
+	alt_u32 uliSyncConfig;
 	alt_u32 uliDacControl;
 	alt_u32 uliClockSourceControl;
+	alt_u32 uliFrameNumber;
+	alt_u32 uliCurrentMode;
 } TRmapMemConfigArea;
 typedef struct RmapMemConfigStat {
 	alt_u32 uliLastWriteAddress;

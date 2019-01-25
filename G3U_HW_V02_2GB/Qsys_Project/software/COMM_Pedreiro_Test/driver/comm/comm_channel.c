@@ -22,12 +22,16 @@ bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh) {
 	if (!bSpwcInitCh(&(pxCommCh->xSpacewire), ucCommCh)) {
 		bStatus = FALSE;
 	}
+	vFeebInitIrq(ucCommCh);
+
 	if (!bFeebInitCh(&(pxCommCh->xFeeBuffer), ucCommCh)) {
 		bStatus = FALSE;
 	}
 	if (!bRmapInitCh(&(pxCommCh->xRmap), ucCommCh)) {
 		bStatus = FALSE;
 	}
+	vRmapInitIrq(ucCommCh);
+
 	if (!bDpktInitCh(&(pxCommCh->xDataPacket), ucCommCh)) {
 		bStatus = FALSE;
 	}
