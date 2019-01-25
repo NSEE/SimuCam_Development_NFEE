@@ -422,6 +422,14 @@
          type = "String";
       }
    }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
+      }
+   }
    element SEVEN_SEGMENT_CONTROLLER_0
    {
       datum _sortIndex
@@ -1533,42 +1541,82 @@
  <interface name="clk50" internal="clk_50.clk_in" type="clock" dir="end" />
  <interface
    name="comm_a_conduit_end"
-   internal="COMM_Pedreiro_v1_01_A.conduit_end"
+   internal="COMM_Pedreiro_v1_01_A.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_a_sync_end"
+   internal="COMM_Pedreiro_v1_01_A.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_b_conduit_end"
-   internal="COMM_Pedreiro_v1_01_B.conduit_end"
+   internal="COMM_Pedreiro_v1_01_B.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_b_sync_end"
+   internal="COMM_Pedreiro_v1_01_B.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_c_conduit_end"
-   internal="COMM_Pedreiro_v1_01_C.conduit_end"
+   internal="COMM_Pedreiro_v1_01_C.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_c_sync_end"
+   internal="COMM_Pedreiro_v1_01_C.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_d_conduit_end"
-   internal="COMM_Pedreiro_v1_01_D.conduit_end"
+   internal="COMM_Pedreiro_v1_01_D.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_d_sync_end"
+   internal="COMM_Pedreiro_v1_01_D.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_e_conduit_end"
-   internal="COMM_Pedreiro_v1_01_E.conduit_end"
+   internal="COMM_Pedreiro_v1_01_E.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_e_sync_end"
+   internal="COMM_Pedreiro_v1_01_E.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_f_conduit_end"
-   internal="COMM_Pedreiro_v1_01_F.conduit_end"
+   internal="COMM_Pedreiro_v1_01_F.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_f_sync_end"
+   internal="COMM_Pedreiro_v1_01_F.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_g_conduit_end"
-   internal="COMM_Pedreiro_v1_01_G.conduit_end"
+   internal="COMM_Pedreiro_v1_01_G.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_g_sync_end"
+   internal="COMM_Pedreiro_v1_01_G.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
    name="comm_h_conduit_end"
-   internal="COMM_Pedreiro_v1_01_H.conduit_end"
+   internal="COMM_Pedreiro_v1_01_H.spw_conduit_end"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="comm_h_sync_end"
+   internal="COMM_Pedreiro_v1_01_H.sync_conduit_end"
    type="conduit"
    dir="end" />
  <interface
@@ -1778,42 +1826,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="1.1"
+   version="1.6"
    enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
@@ -2903,7 +2951,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="65535" />
+  <parameter name="internalIrqMaskSystemInfo" value="16777215" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -3159,7 +3207,7 @@
   <parameter name="useEopRegister" value="false" />
   <parameter name="useRelativePathForSimFile" value="false" />
  </module>
- <module name="rst_controller" kind="rst_controller" version="1.1" enabled="1" />
+ <module name="rst_controller" kind="rst_controller" version="1.4" enabled="1" />
  <module name="rtcc_alarm" kind="altera_avalon_pio" version="16.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="false" />
   <parameter name="bitModifyingOutReg" value="false" />
@@ -4373,6 +4421,62 @@
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_G.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="5" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_F.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="6" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_E.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="8" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_D.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="16" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_C.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="18" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_B.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="20" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_A.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="22" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_H.buffers_interrupt_sender">
+  <parameter name="irqNumber" value="2" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
    end="dma_DDR_M1.csr_irq">
   <parameter name="irqNumber" value="0" />
  </connection>
@@ -4382,62 +4486,6 @@
    start="nios2_gen2_0.irq"
    end="dma_DDR_M2.csr_irq">
   <parameter name="irqNumber" value="1" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_A.interrupt_sender">
-  <parameter name="irqNumber" value="2" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_B.interrupt_sender">
-  <parameter name="irqNumber" value="3" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_C.interrupt_sender">
-  <parameter name="irqNumber" value="4" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_G.interrupt_sender">
-  <parameter name="irqNumber" value="5" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_F.interrupt_sender">
-  <parameter name="irqNumber" value="6" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_E.interrupt_sender">
-  <parameter name="irqNumber" value="7" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_D.interrupt_sender">
-  <parameter name="irqNumber" value="8" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_H.interrupt_sender">
-  <parameter name="irqNumber" value="9" />
  </connection>
  <connection
    kind="interrupt"
@@ -4480,6 +4528,62 @@
    start="nios2_gen2_0.irq"
    end="rs232_uart.irq">
   <parameter name="irqNumber" value="15" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_H.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="3" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_G.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="4" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_F.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="7" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_E.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="9" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_D.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="17" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_C.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="19" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_B.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="21" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="COMM_Pedreiro_v1_01_A.rmap_interrupt_sender">
+  <parameter name="irqNumber" value="23" />
  </connection>
  <connection
    kind="reset"
@@ -4811,7 +4915,7 @@
    kind="reset"
    version="16.1"
    start="rst_controller.reset_source_comm_ch8"
-   end="COMM_Pedreiro_v1_01_H.reset_sink" />
+   end="pio_LED_painel.reset" />
  <connection
    kind="reset"
    version="16.1"

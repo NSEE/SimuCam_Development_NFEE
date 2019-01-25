@@ -1,0 +1,145 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/intelFPGA/16.1
+Pspw_codec_pkg
+Z0 DPx4 work 6 spwpkg 0 22 X0V^]0k6^b0BBTEk>VVP>0
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 w1548333006
+Z5 dC:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Testbench_SpwMux
+8C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spw_codec_pkg.vhd
+FC:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spw_codec_pkg.vhd
+l0
+L7
+V8cXa^iN6WLUHQT46aNPhO1
+!s100 ]:kiVoGH?3nJ`9IaciU_Q1
+Z6 OV;C;10.5b;63
+32
+Z7 !s110 1548345725
+!i10b 1
+Z8 !s108 1548345725.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spw_codec_pkg.vhd|
+!s107 C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spw_codec_pkg.vhd|
+!i113 1
+Z9 o-work work -2002 -explicit
+Z10 tExplicit 1 CvgOpt 0
+Espw_mux_ent
+Z11 w1548357957
+R0
+Z12 DPx4 work 13 spw_codec_pkg 0 22 8cXa^iN6WLUHQT46aNPhO1
+R1
+R2
+R3
+R5
+Z13 8C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_MUX/spw_mux_ent.vhd
+Z14 FC:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_MUX/spw_mux_ent.vhd
+l0
+L7
+VTlRIeCYCSdho3?;[gHo;73
+!s100 _MHfT;LEK_8Fmo<ne>5RJ2
+R6
+32
+Z15 !s110 1548358030
+!i10b 1
+Z16 !s108 1548358030.000000
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_MUX/spw_mux_ent.vhd|
+Z18 !s107 C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_MUX/spw_mux_ent.vhd|
+!i113 1
+R9
+R10
+Artl
+R0
+R12
+R1
+R2
+R3
+Z19 DEx4 work 11 spw_mux_ent 0 22 TlRIeCYCSdho3?;[gHo;73
+l76
+L26
+VAkVDAU7H1K4^[g8kDbP1o1
+!s100 oclF]8E`j37FJZXC0QS]L2
+R6
+32
+R15
+!i10b 1
+R16
+R17
+R18
+!i113 1
+R9
+R10
+Pspwpkg
+R2
+R3
+R4
+R5
+8C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
+FC:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
+l0
+L8
+VX0V^]0k6^b0BBTEk>VVP>0
+!s100 _:]e>`=coA7N4KIDH^?jo1
+R6
+32
+R7
+!i10b 1
+R8
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spacewire_light_codec/spwpkg.vhd|
+!s107 C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Communications_Module_v1_5/SPW_CODEC/spacewire_light_codec/spwpkg.vhd|
+!i113 1
+R9
+R10
+Etestbench_top
+Z20 w1548358143
+R0
+R12
+R1
+R2
+R3
+R5
+Z21 8C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Testbench_SpwMux/testbench_top.vhd
+Z22 FC:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Testbench_SpwMux/testbench_top.vhd
+l0
+L7
+VIH5^`L2hzeY1m;G9HZMXg1
+!s100 M4ZXQCQG?kMS?ac9^A8Z60
+R6
+32
+Z23 !s110 1548358147
+!i10b 1
+Z24 !s108 1548358147.000000
+Z25 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Testbench_SpwMux/testbench_top.vhd|
+Z26 !s107 C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_5/Development/Testbench_SpwMux/testbench_top.vhd|
+!i113 1
+R9
+R10
+Artl
+R19
+R0
+R12
+R1
+R2
+R3
+Z27 DEx4 work 13 testbench_top 0 22 IH5^`L2hzeY1m;G9HZMXg1
+l42
+L10
+VaIQ?lIN2GKXhnUcB^4zc93
+!s100 GZFdISdlUmV;>=Fz;;nUY0
+R6
+32
+R23
+!i10b 1
+R24
+R25
+R26
+!i113 1
+R9
+R10

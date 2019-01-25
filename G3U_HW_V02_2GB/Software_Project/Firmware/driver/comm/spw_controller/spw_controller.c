@@ -32,25 +32,28 @@ bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
-		COMM_WINDOW_CTRL_REG_OFFSET);
+		COMM_LINK_CFG_STAT_REG_OFST);
 
 		if (pxSpwcCh->xLinkConfig.bAutostart) {
-			uliReg |= COMM_CTRL_LINK_AUTOSTART_MSK;
+			uliReg |= COMM_SPW_LNKCFG_AUTOSTART_MSK;
 		} else {
-			uliReg &= (~COMM_CTRL_LINK_AUTOSTART_MSK);
+			uliReg &= (~COMM_SPW_LNKCFG_AUTOSTART_MSK);
 		}
-		if (pxSpwcCh->xLinkConfig.bStart) {
-			uliReg |= COMM_CTRL_LINK_START_MSK;
+		if (pxSpwcCh->xLinkConfig.bLinkStart) {
+			uliReg |= COMM_SPW_LNKCFG_LINKSTART_MSK;
 		} else {
-			uliReg &= (~COMM_CTRL_LINK_START_MSK);
+			uliReg &= (~COMM_SPW_LNKCFG_LINKSTART_MSK);
 		}
 		if (pxSpwcCh->xLinkConfig.bDisconnect) {
-			uliReg |= COMM_CTRL_LINK_DISCONNECT_MSK;
+			uliReg |= COMM_SPW_LNKCFG_DISCONNECT_MSK;
 		} else {
-			uliReg &= (~COMM_CTRL_LINK_DISCONNECT_MSK);
+			uliReg &= (~COMM_SPW_LNKCFG_DISCONNECT_MSK);
 		}
+		uliReg &= (~COMM_SPW_LNKCFG_TXDIVCNT_MSK);
+		uliReg |= (COMM_SPW_LNKCFG_TXDIVCNT_MSK
+				& (alt_u32)(pxSpwcCh->xLinkConfig.ucTxDivCnt << 24));
 
-		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_WINDOW_CTRL_REG_OFFSET,
+		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_LINK_CFG_STAT_REG_OFST,
 				uliReg);
 		bStatus = TRUE;
 	}
@@ -64,23 +67,25 @@ bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
-		COMM_WINDOW_CTRL_REG_OFFSET);
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		if (uliReg & COMM_CTRL_LINK_AUTOSTART_MSK) {
+		if (uliReg & COMM_SPW_LNKCFG_AUTOSTART_MSK) {
 			pxSpwcCh->xLinkConfig.bAutostart = TRUE;
 		} else {
 			pxSpwcCh->xLinkConfig.bAutostart = FALSE;
 		}
-		if (uliReg & COMM_CTRL_LINK_START_MSK) {
-			pxSpwcCh->xLinkConfig.bStart = TRUE;
+		if (uliReg & COMM_SPW_LNKCFG_LINKSTART_MSK) {
+			pxSpwcCh->xLinkConfig.bLinkStart = TRUE;
 		} else {
-			pxSpwcCh->xLinkConfig.bStart = FALSE;
+			pxSpwcCh->xLinkConfig.bLinkStart = FALSE;
 		}
-		if (uliReg & COMM_CTRL_LINK_DISCONNECT_MSK) {
+		if (uliReg & COMM_SPW_LNKCFG_DISCONNECT_MSK) {
 			pxSpwcCh->xLinkConfig.bDisconnect = TRUE;
 		} else {
 			pxSpwcCh->xLinkConfig.bDisconnect = FALSE;
 		}
+		pxSpwcCh->xLinkConfig.ucTxDivCnt= (alt_u8)(
+				(uliReg & COMM_SPW_LNKCFG_TXDIVCNT_MSK) >> 24);
 
 		bStatus = TRUE;
 	}
@@ -94,24 +99,24 @@ bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
-		COMM_WINDOW_STAT_REG_OFFSET);
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		if (uliReg & COMM_STAT_LINK_DISC_ERR_MSK) {
+		if (uliReg & COMM_SPW_LNKERR_DISCONNECT_MSK) {
 			pxSpwcCh->xLinkError.bDisconnect = TRUE;
 		} else {
 			pxSpwcCh->xLinkError.bDisconnect = FALSE;
 		}
-		if (uliReg & COMM_STAT_LINK_PAR_ERR_MSK) {
+		if (uliReg & COMM_SPW_LNKERR_PARITY_MSK) {
 			pxSpwcCh->xLinkError.bParity = TRUE;
 		} else {
 			pxSpwcCh->xLinkError.bParity = FALSE;
 		}
-		if (uliReg & COMM_STAT_LINK_ESC_ERR_MSK) {
+		if (uliReg & COMM_SPW_LNKERR_ESCAPE_MSK) {
 			pxSpwcCh->xLinkError.bEscape = TRUE;
 		} else {
 			pxSpwcCh->xLinkError.bEscape = FALSE;
 		}
-		if (uliReg & COMM_STAT_LINK_CRED_ERR_MSK) {
+		if (uliReg & COMM_SPW_LNKERR_CREDIT_MSK) {
 			pxSpwcCh->xLinkError.bCredit = TRUE;
 		} else {
 			pxSpwcCh->xLinkError.bCredit = FALSE;
@@ -129,24 +134,60 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
-		COMM_WINDOW_STAT_REG_OFFSET);
+		COMM_LINK_CFG_STAT_REG_OFST);
 
-		if (uliReg & COMM_STAT_LINK_STARTED_MSK) {
+		if (uliReg & COMM_SPW_LNKSTAT_STARTED_MSK) {
 			pxSpwcCh->xLinkStatus.bStarted = TRUE;
 		} else {
 			pxSpwcCh->xLinkStatus.bStarted = FALSE;
 		}
-		if (uliReg & COMM_STAT_LINK_CONNECTING_MSK) {
+		if (uliReg & COMM_SPW_LNKSTAT_CONNECTING_MSK) {
 			pxSpwcCh->xLinkStatus.bConnecting = TRUE;
 		} else {
 			pxSpwcCh->xLinkStatus.bConnecting = FALSE;
 		}
-		if (uliReg & COMM_STAT_LINK_RUNNING_MSK) {
+		if (uliReg & COMM_SPW_LNKSTAT_RUNNING_MSK) {
 			pxSpwcCh->xLinkStatus.bRunning = TRUE;
 		} else {
 			pxSpwcCh->xLinkStatus.bRunning = FALSE;
 		}
 
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
+
+	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_TIMECODE_REG_OFST);
+
+		pxSpwcCh->xTimecode.ucControl= (alt_u8)(
+				(uliReg & COMM_TIMECODE_CONTROL_MSK) >> 6);
+		pxSpwcCh->xTimecode.ucCounter= (alt_u8)(
+				(uliReg & COMM_TIMECODE_TIME_MSK) >> 0);
+
+		bStatus = TRUE;
+	}
+
+	return bStatus;
+}
+
+bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh) {
+	bool bStatus = FALSE;
+	alt_u32 uliReg = 0;
+
+	if (pxSpwcCh != NULL) {
+		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
+		COMM_TIMECODE_REG_OFST);
+
+		uliReg |= COMM_TIMECODE_CLR_MSK;
+
+		vSpwcWriteReg(pxSpwcCh->puliSpwcChAddr, COMM_TIMECODE_REG_OFST, uliReg);
 		bStatus = TRUE;
 	}
 
@@ -190,9 +231,6 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 		}
 
 		if (bStatus) {
-//			if (!bFeebGetWindowing(pxSpwcCh)) {
-//				bStatus = FALSE;
-//			}
 			if (!bSpwcGetLink(pxSpwcCh)) {
 				bStatus = FALSE;
 			}
@@ -202,21 +240,9 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 			if (!bSpwcGetLinkStatus(pxSpwcCh)) {
 				bStatus = FALSE;
 			}
-//			if (!bCommGetTimecodeRx(pxSpwcCh)) {
-//				bStatus = FALSE;
-//			}
-//			if (!bCommGetTimecodeTx(pxSpwcCh)) {
-//				bStatus = FALSE;
-//			}
-//			if (!bFeebGetIrqControl(pxSpwcCh)) {
-//				bStatus = FALSE;
-//			}
-//			if (!bFeebGetIrqFlags(pxSpwcCh)) {
-//				bStatus = FALSE;
-//			}
-//			if (!bFeebGetBuffersStatus(pxSpwcCh)) {
-//				bStatus = FALSE;
-//			}
+			if (!bSpwcGetTimecode(pxSpwcCh)) {
+				bStatus = FALSE;
+			}
 		}
 	}
 	return bStatus;

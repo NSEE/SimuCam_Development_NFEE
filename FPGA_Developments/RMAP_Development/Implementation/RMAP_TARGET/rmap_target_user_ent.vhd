@@ -262,7 +262,12 @@ begin
 						end if;
 					end if;
 					-- check if command was authorized
-					if ((v_authorization_granted(0) = '1') and (v_authorization_granted(1) = '1') and (v_authorization_granted(2) = '1') and (v_authorization_granted(3) = '1')) then
+					if (
+						(v_authorization_granted(0) = '1') and 
+						(v_authorization_granted(1) = '1') and 
+						(v_authorization_granted(2) = '1') and 
+						(v_authorization_granted(3) = '1')
+					) then
 						-- authorization granted
 						s_rmap_target_user_state <= WAITING_WRITE_FINISH;
 					end if;

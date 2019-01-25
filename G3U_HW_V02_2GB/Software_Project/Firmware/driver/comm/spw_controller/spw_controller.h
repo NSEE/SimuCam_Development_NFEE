@@ -18,8 +18,9 @@
 //! [public module structs definition]
 typedef struct SpwcLinkConfig {
 	bool bAutostart;
-	bool bStart;
+	bool bLinkStart;
 	bool bDisconnect;
+	alt_u8 ucTxDivCnt;
 } TSpwcLinkConfig;
 
 typedef struct SpwcLinkError {
