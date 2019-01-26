@@ -10,6 +10,7 @@ entity avalon_mm_windowing_write_ent is
 		rst_i                 : in  std_logic;
 		avalon_mm_windowing_i : in  t_avalon_mm_windowing_write_in;
 		mask_enable_i         : in  std_logic;
+--		pattern_timecode_i    : in  std_logic;
 		avalon_mm_windowing_o : out t_avalon_mm_windowing_write_out;
 		window_data_write_o   : out std_logic;
 		window_mask_write_o   : out std_logic;
@@ -18,6 +19,61 @@ entity avalon_mm_windowing_write_ent is
 end entity avalon_mm_windowing_write_ent;
 
 architecture rtl of avalon_mm_windowing_write_ent is
+
+--	function f_pattern_pixels_change_timecode(pattern_pixel_data_i : in std_logic_vector; timecode_i : in std_logic_vector) return std_logic_vector is
+--		variable v_new_pattern_pixel_data : std_logic_vector(63 downto 0);
+--	begin
+--
+--		-- generic pixel pattern (according to PLATO-DLR-PL-ICD-0002, issue 1.2):
+--		-- |  timecode[2:0] |       ccd      |      side      |    row[4:0]    |   column[4:0]  |
+--		-- |  15 downto 13  |  12 downto 11  |       10       |   9 downto  5  |   4 downto  0  |
+--		--
+--		-- pixels arrangement for little endian (avalon standart and real memory organization):
+--		-- |  pixel_3_msb |  pixel_3_lsb |  pixel_2_msb |  pixel_2_lsb |  pixel_1_msb |  pixel_1_lsb |  pixel_0_msb |  pixel_0_lsb | 
+--		-- | 63 downto 56 | 55 downto 48 | 47 downto 40 | 39 downto 32 | 31 downto 24 | 23 downto 16 | 15 downto  8 |  7 downto  0 |
+--		--
+--		-- pixel 0 pattern (in pattern data):
+--		-- |  timecode[2:0] |       ccd      |      side      |    row[4:0]    |   column[4:0]  |
+--		-- |  15 downto 13  |  12 downto 11  |       10       |   9 downto  5  |   4 downto  0  |
+--		--
+--		-- pixel 1 pattern (in pattern data):
+--		-- |  timecode[2:0] |       ccd      |      side      |    row[4:0]    |   column[4:0]  |
+--		-- |  31 downto 29  |  28 downto 27  |       26       |  25 downto 21  |  20 downto 16  |
+--		--
+--		-- pixel 2 pattern (in pattern data):
+--		-- |  timecode[2:0] |       ccd      |      side      |    row[4:0]    |   column[4:0]  |
+--		-- |  47 downto 45  |  44 downto 43  |       42       |  41 downto 37  |  36 downto 32  |
+--		--
+--		-- pixel 3 pattern (in pattern data):
+--		-- |  timecode[2:0] |       ccd      |      side      |    row[4:0]    |   column[4:0]  |
+--		-- |  63 downto 61  |  60 downto 59  |       58       |  57 downto 53  |  52 downto 48  |
+--		--
+--		-- timecode pattern replacement:
+--		-- s_new_pattern_data(63 downto 61) <= s_timecode(2 downto 0);
+--		-- s_new_pattern_data(60 downto 48) <= s_old_pattern_data(60 downto 48);
+--		-- s_new_pattern_data(47 downto 45) <= s_timecode(2 downto 0);
+--		-- s_new_pattern_data(44 downto 32) <= s_old_pattern_data(44 downto 32);
+--		-- s_new_pattern_data(31 downto 29) <= s_timecode(2 downto 0);
+--		-- s_new_pattern_data(28 downto 16) <= s_old_pattern_data(28 downto 16);
+--		-- s_new_pattern_data(15 downto 13) <= s_timecode(2 downto 0);
+--		-- s_new_pattern_data(12 downto  0) <= s_old_pattern_data(12 downto  0);
+--
+--		-- timecode pattern replacement:
+--		-- pixel 3 pattern
+--		v_new_pattern_pixel_data(63 downto 61) := timecode_i(2 downto 0);
+--		v_new_pattern_pixel_data(60 downto 48) := pattern_pixel_data_i(60 downto 48);
+--		-- pixel 2 pattern
+--		v_new_pattern_pixel_data(47 downto 45) := timecode_i(2 downto 0);
+--		v_new_pattern_pixel_data(44 downto 32) := pattern_pixel_data_i(44 downto 32);
+--		-- pixel 1 pattern
+--		v_new_pattern_pixel_data(31 downto 29) := timecode_i(2 downto 0);
+--		v_new_pattern_pixel_data(28 downto 16) := pattern_pixel_data_i(28 downto 16);
+--		-- pixel 0 pattern
+--		v_new_pattern_pixel_data(15 downto 13) := timecode_i(2 downto 0);
+--		v_new_pattern_pixel_data(12 downto 0)  := pattern_pixel_data_i(12 downto 0);
+--
+--		return v_new_pattern_pixel_data;
+--	end function f_pattern_pixels_change_timecode;
 
 	function f_pixels_data_little_to_big_endian(little_endian_pixel_data_i : in std_logic_vector) return std_logic_vector is
 		variable v_big_endian_pixel_data : std_logic_vector(63 downto 0);
@@ -88,7 +144,7 @@ begin
 		begin
 
 			-- check if masking is enabled
-			if (mask_enable_i = '1') then
+--			if (mask_enable_i = '1') then
 				-- masking enabled
 				-- Registers Write Data
 				case (write_address_i) is
@@ -125,44 +181,44 @@ begin
 					when others =>
 						null;
 				end case;
-			else
-				-- masking disabled
-				-- Registers Write Data
-				case (write_address_i) is
-					-- Case for access to all registers address
-
-					when 0 to 254 =>
-						-- check if the waitrequested is still active
-						if (s_waitrequest = '1') then
-							-- waitrequest active, execute write operation
-							-- check if it is the beggining of a new cicle
-							if (write_address_i = 0) then
-								-- address is zero, new cicle
-								window_data_write_o <= '1';
-								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-								s_windown_data_ctn  <= 1;
-							else
-								-- address not zero, verify counter
-								if (s_windown_data_ctn < 16) then
-									-- counter at data address
-									window_data_write_o <= '1';
-									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-									-- increment counter
-									s_windown_data_ctn  <= s_windown_data_ctn + 1;
-								else
-									-- counter at mask address
-									window_data_write_o <= '1';
-									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-									-- set counter to first data
-									s_windown_data_ctn  <= 1;
-								end if;
-							end if;
-						end if;
-
-					when others =>
-						null;
-				end case;
-			end if;
+--			else
+--				-- masking disabled
+--				-- Registers Write Data
+--				case (write_address_i) is
+--					-- Case for access to all registers address
+--
+--					when 0 to 254 =>
+--						-- check if the waitrequested is still active
+--						if (s_waitrequest = '1') then
+--							-- waitrequest active, execute write operation
+--							-- check if it is the beggining of a new cicle
+--							if (write_address_i = 0) then
+--								-- address is zero, new cicle
+--								window_data_write_o <= '1';
+--								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+--								s_windown_data_ctn  <= 1;
+--							else
+--								-- address not zero, verify counter
+--								if (s_windown_data_ctn < 16) then
+--									-- counter at data address
+--									window_data_write_o <= '1';
+--									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+--									-- increment counter
+--									s_windown_data_ctn  <= s_windown_data_ctn + 1;
+--								else
+--									-- counter at mask address
+--									window_data_write_o <= '1';
+--									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+--									-- set counter to first data
+--									s_windown_data_ctn  <= 1;
+--								end if;
+--							end if;
+--						end if;
+--
+--					when others =>
+--						null;
+--				end case;
+--			end if;
 
 		end procedure p_writedata;
 
