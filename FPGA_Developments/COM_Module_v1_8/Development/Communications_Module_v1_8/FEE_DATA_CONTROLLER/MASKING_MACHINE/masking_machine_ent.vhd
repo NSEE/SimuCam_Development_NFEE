@@ -7,10 +7,11 @@ entity masking_machine_ent is
 	port(
 		clk_i                         : in  std_logic;
 		rst_i                         : in  std_logic;
---		ccd_column_qtd_i              : in  std_logic;
---		line_delay_i                  : in  std_logic_vector(15 downto 0);
---		column_delay_i                : in  std_logic_vector(15 downto 0);
---		adc_delay_i                   : in  std_logic_vector(15 downto 0);
+		masking_machine_hold_i        : in  std_logic;
+		--		ccd_column_qtd_i              : in  std_logic;
+		--		line_delay_i                  : in  std_logic_vector(15 downto 0);
+		--		column_delay_i                : in  std_logic_vector(15 downto 0);
+		--		adc_delay_i                   : in  std_logic_vector(15 downto 0);
 		current_timecode_i            : in  std_logic_vector(7 downto 0);
 		window_data_i                 : in  std_logic_vector(63 downto 0);
 		window_mask_i                 : in  std_logic_vector(63 downto 0);
@@ -141,8 +142,8 @@ begin
 				when IDLE =>
 					s_masking_machine_state <= IDLE;
 					s_mask_counter          <= 0;
-					-- check if the windowing buffer is ready
-					if ((window_data_ready_i = '1') and (window_mask_ready_i = '1')) then
+					-- check if the windowing machine is released and the windowing buffer is ready
+					if ((masking_machine_hold_i = '0') and (window_data_ready_i = '1') and (window_mask_ready_i = '1')) then
 						-- fetch mask and data
 						window_mask_read_o      <= '1';
 						s_masking_machine_state <= MASK_FETCH;
@@ -293,9 +294,9 @@ begin
 							-- fetch mask and data
 							-- check if the current mask ended, fetch new mask
 							if (s_mask_counter = 63) then
-								-- current mask ended
-								-- check if there is more mask available
-								if (window_mask_ready_i = '1') then
+								-- current mask ended, one full data block parsed
+								-- check if the windowing machine is released and there is more mask available
+								if ((masking_machine_hold_i = '0') and (window_mask_ready_i = '1')) then
 									window_mask_read_o      <= '1';
 									s_masking_machine_state <= MASK_FETCH;
 								else
