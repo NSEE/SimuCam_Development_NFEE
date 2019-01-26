@@ -55,7 +55,9 @@ typedef union qMask{
 /* -------------------------------------------------------------------------------------------*/
 
 
-
+/* General command to sync */
+#define M_MASTER_SYNC               0xE0    /* Command send byt the Sync Interrupt */
+#define M_SYNC                      0xE1    /* Command send byt the Sync Interrupt */
 
 
 /*=====================================================================================================================*/
@@ -75,6 +77,9 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_NFC_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_NFC_RUN 		    0x02 /* Indicates that should go to Run Mode */
+#define M_NFC_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
+#define M_NFC_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
+
 
 #define M_NFC_DMA_GIVEBACK  0x81
 #define M_NFC_DMA_REQUEST   0x80 /* DO NOT ATTRIBUTE 0x80 TO ANY OTHER COMMAND */
@@ -91,6 +96,8 @@ typedef union qMask{
 #define M_DATA_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_DATA_RUN 		    0x02 /* Indicates that should go to Run Mode */
 
+#define M_DATA_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
+#define M_DATA_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -106,7 +113,6 @@ typedef union qMask{
 #define M_FEE_FULL_PATTERN  0x08
 
 #define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
-#define M_FEE_SYNC          0x80    /* Command send byt the Sync Interrupt */
 
 #define M_FEE_CONFIG_FORCED		    0xA1 /* Indicates that should go to Config Mode */
 #define M_FEE_RUN_FORCED            0xA2 /* Indicates that should go to Run Mode - Mode On -> StandBy */

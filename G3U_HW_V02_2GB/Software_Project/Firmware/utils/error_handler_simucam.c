@@ -950,7 +950,7 @@ void vFailSendPUStoMebTask( void )
 void vCouldNotGetCmdQueueMeb( void )
 {
 	#ifdef DEBUG_ON
-		debug(fp,"vCouldNotGetCmdQueueMeb. (exit)\n");
+		debug(fp,"CRITICAL: vCouldNotGetCmdQueueMeb. (exit)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -1058,6 +1058,17 @@ void vFailSendMsgSync( unsigned char ucTemp)
 	 */
 }
 
+void vFailSendMsgMasterSyncMeb( void )
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailSendMsgMasterSyncMeb \n");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
 void vFailSendMsgFeeCTRL( void )
 {
 	#ifdef DEBUG_ON
@@ -1084,6 +1095,28 @@ void vFailFlushQueue( void )
 {
 	#ifdef DEBUG_ON
 		debug(fp,"CRITICAL: vFailFlushQueue.  \n");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailFlushMEBQueue( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"CRITICAL: vFailFlushMEBQueue.  \n");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailFlushNFEEQueue( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"CRITICAL: vFailFlushNFEEQueue.  \n");
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o

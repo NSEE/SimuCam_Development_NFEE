@@ -22,6 +22,12 @@ void vFeeTask0(void *task_data);
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
+bool bDisableSPWChannel( TSpwcChannel *xSPW );
+bool bEnableSPWChannel( TSpwcChannel *xSPW );
+bool bDisableRmapIRQ( TRmapChannel *pxRmapCh );
+bool bEnableRmapIRQ( TRmapChannel *pxRmapCh );
+bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
+bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
 
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );

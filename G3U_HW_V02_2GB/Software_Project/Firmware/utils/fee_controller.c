@@ -16,13 +16,14 @@ void vNFeeControlInit( TNFee_Control *xFeeControlL ) {
     /* Load Default Id for NFEE master */
     vLoadDefaultIdNFEEMaster( xFeeControlL );
 
-    xFeeControlL->sMode = sMebConfig;
+    xFeeControlL->sMode = sMebInit;
 
     /* Calculate the */
     for ( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ) {
         vNFeeStructureInit( &xFeeControlL->xNfee[ ucIL ], ucIL);
         xFeeControlL->pbEnabledNFEEs[ ucIL ] = &xFeeControlL->xNfee[ ucIL ].xControl.bEnabled;
         xFeeControlL->pbSimulatingNFEEs[ ucIL ] = &xFeeControlL->xNfee[ ucIL ].xControl.bSimulating;
+        xFeeControlL->xNfee[ ucIL ].xControl.pActualMem = xFeeControlL->pActualMem;
     }
 
 }

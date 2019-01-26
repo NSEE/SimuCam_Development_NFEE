@@ -114,3 +114,11 @@ bool bStartSync(void) {
 bool bStopSync(void) {
 	return bSyncCtrReset();
 }
+
+bool bClearCounterSync(void) {
+
+	bool bSuccess;
+	bSuccess = bSyncClCtrStart();
+
+	return bSuccess;
+}

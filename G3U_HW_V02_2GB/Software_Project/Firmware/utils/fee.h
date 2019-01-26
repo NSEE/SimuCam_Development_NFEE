@@ -13,7 +13,7 @@
 #include "../driver/comm/comm_channel.h"
 
 /* Meb state is here to Data controller and NFEE controller use the same enum */
-typedef enum { sMebConfig = 0, sRun } tSimucamStates;
+typedef enum { sMebInit  = 0, sMebToConfig, sMebToRun, sMebConfig, sMebRun } tSimucamStates;
 
 
 /* Definition of offset for each FEE in the DDR Memory */
@@ -39,6 +39,11 @@ typedef enum { sMebConfig = 0, sRun } tSimucamStates;
 #define N_OF_CCD                4
 
 
+/* This struct will contain the pointer for the functions that manipulate all the double buffers pf all Channels SPW (8) */
+/*typedef struct FuncDoubleBuffers{
+
+} tFDbBuffer ;*/
+
 
 /* FEE operation modes */
 typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sSIMTestFullPattern, sFeeWaitingSync} tFEEStates;
@@ -54,12 +59,15 @@ typedef struct FEEMemoryMap{
 typedef enum { sLeft = 0, sRight, sBoth } tNFeeSide;
 typedef struct FeeControl{
     bool bEnabled;
+    bool bDMALocked;					/* Is true while the FEee has the mutex of the DMA */
     bool bUsingDMA;
     bool bLogging;                      /* Log the RMAP Packets */
     bool bEchoing;                      /* Echo the RMAP Packets */
     bool bChannelEnable;                /* SPW Channel is enable? */
     bool bSimulating;                   /* Start at any running mode - needs sync */
     bool bWatingSync;
+    unsigned char *pActualMem;				/* Point to the actual memory in simulation */
+    unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
     tFEEStates eMode;                   /* Mode of NFEE */
     tFEEStates eNextMode;

@@ -9,11 +9,12 @@
 
 #include "data_control_task.h"
 
-
+/* 0% Ready! */
 void vDataControlTask(void *task_data) {
-	bool bSuccess = FALSE;
-	TNData_Control *pxDataC;
+	tQMask uiCmdDTC;
+	bool bCmdSent;
 	INT8U error_code;
+	TNData_Control *pxDataC;
 
 
 	pxDataC = (TNData_Control *) task_data;
@@ -23,8 +24,28 @@ void vDataControlTask(void *task_data) {
     #endif
 
     pxDataC->bUpdateComplete = TRUE;
+
+	errorCodeL = OSQFlush(xQMaskDataCtrl);
+	if ( errorCodeL != OS_NO_ERR ) {
+		vFailFlushQueue();
+	}
+
 	for (;;) {
-		OSTimeDlyHMSM(0, 0, 10, 0);; /*todo:Tirar depois do debug*/
+
+		uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskCMDNDataCtrlTBL, 0, &error_code); /* Blocking operation */
+		if ( error_code == OS_ERR_NONE ) {
+
+			/* Check if the command is for NFEE Controller */
+			if ( uiCmdDTC.ucByte[3] == M_DATA_CTRL_ADDR ) {
+
+				/* todo: For now, do nothing */
+
+			} else {
+
+				/* todo: For now, do nothing */
+			}
+		}
+		OSTimeDlyHMSM(0, 0, 5, 0); /*todo:Tirar depois do debug*/
 	}
 
 }

@@ -12,7 +12,10 @@
 #include "meb.h"
 #include "fee.h"
 
-void vEvtChangeMebMode( tSimucamStates eOldState, tSimucamStates eNewState );
-void vEvtChangeFeeControllerMode( tSimucamStates eOldState, tSimucamStates eNewState );
+
+void vEvtChangeMebMode( void );
+void vEvtChangeFeeControllerMode( void );
+void vEvtChangeDataControllerMode( void );
+
 
 #endif /* EVENTS_HANDLER_H_ */

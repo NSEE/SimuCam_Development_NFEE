@@ -27,6 +27,8 @@ typedef struct NData_Control {
 	OS_EVENT *xSemDmaAccess[N_OF_NFEE];
 	TNFee_CtrlReadOnly xReadOnlyFeeControl;
 	bool bUpdateComplete;
+	tSimucamStates sMode;
+	unsigned char *pNextMem;				/* Point to the actual memory in simulation */
 } TNData_Control; /* Read Only Structure */
 
 void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOntrolL );

@@ -35,6 +35,12 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.bChannelEnable = FALSE;
     pxNfeeL->xControl.bSimulating = FALSE;
     pxNfeeL->xControl.bWatingSync = FALSE;
+    pxNfeeL->xControl.bEchoing = FALSE;
+    pxNfeeL->xControl.bLogging = FALSE;
+    pxNfeeL->xControl.bDMALocked = FALSE;
+    /* The default side is left */
+    pxNfeeL->xControl.eSide = sLeft;
+    pxNfeeL->xControl.ucTimeCode = 0;
     
 
     /* The NFEE initialize in the Config mode by default */
@@ -48,20 +54,13 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     /* Set the default redout order [ 0, 1, 2, 3 ] */
     for ( ucIL = 0; ucIL < 4; ucIL++) 
         pxNfeeL->xControl.ucROutOrder[ucIL] = ucIL;
-    /* The default side is left */
-    pxNfeeL->xControl.eSide = sLeft;
-    pxNfeeL->xControl.bEchoing = FALSE;
-    pxNfeeL->xControl.bLogging = FALSE;
-    pxNfeeL->xControl.bChannelEnable = FALSE;
 
-    /* todo:Back
+    /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
     if ( bCommInitCh(&pxNfeeL->xChannel, ucIdNFEE ) == FALSE ) {
 		#ifdef DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", ucIdNFEE);
 		#endif
     }
-	*/
-
 
 }
 

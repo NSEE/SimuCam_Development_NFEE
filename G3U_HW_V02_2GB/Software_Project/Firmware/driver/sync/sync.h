@@ -151,6 +151,8 @@ bool bSyncCtrCh6OutEnable(bool bValue);
 bool bSyncCtrCh7OutEnable(bool bValue);
 bool bSyncCtrCh8OutEnable(bool bValue);
 
+void vSyncClearCounter(void);
+
 alt_u32 uliSyncGetCtr(void);
 //! [public function prototypes]
 

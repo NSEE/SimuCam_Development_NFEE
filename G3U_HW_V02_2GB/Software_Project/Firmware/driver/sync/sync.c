@@ -45,13 +45,10 @@ static volatile int viHoldContext;
  */
 void vSyncHandleIrq(void* pvContext) {
 	unsigned char ucIL;
+	unsigned char ucSyncL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
-
-	uiCmdtoSend.ucByte[2] = M_FEE_SYNC;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
 	// Cast pvContext to viHoldContext's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
 	volatile int* pviHoldContext = (volatile int*) pvContext;
@@ -60,11 +57,28 @@ void vSyncHandleIrq(void* pvContext) {
 	// if (*pviHoldContext == '0') {}...
 	// App logic sequence...
 
+	uiCmdtoSend.ulWord = 0;
+	/* MasterSync? */
+	ucSyncL = (vucN % 4);
+	if ( ucSyncL == 0 ) {
+
+		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
+
+		/* Send Priority message to the Meb Task to indicate the Master Sync */
+		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendMsgMasterSyncMeb( );
+		}
+
+	} else {
+		uiCmdtoSend.ucByte[2] = M_SYNC;
+
+
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 
 		if ( xSimMeb.xFeeControl.xNfee[ucIL].xControl.bWatingSync == TRUE ) {
 			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-
 			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
 			if ( error_codel != OS_ERR_NONE ) {
 				vFailSendMsgSync( ucIL );
@@ -75,11 +89,16 @@ void vSyncHandleIrq(void* pvContext) {
 	vucN += 1;
 
 	#ifdef DEBUG_ON
-		fprintf(fp,"Sync N=%hu \n", vucN);
+		fprintf(fp,"Sync %hu \n", ucSyncL);
 	#endif
 
 	vSyncIrqFlagClrSync();
+}
 
+void vSyncClearCounter(void) {
+	// Recast the viHoldContext pointer to match the alt_irq_register() function
+	// prototype.
+	vucN = 0;
 }
 
 /**

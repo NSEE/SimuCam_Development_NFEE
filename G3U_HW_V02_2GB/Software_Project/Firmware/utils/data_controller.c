@@ -12,6 +12,8 @@
 void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOntrolL ) {
 	unsigned char ucIL;
 
+	xDataControlL->sMode = sMebInit;
+
 	for ( ucIL = 0 ; ucIL < N_OF_NFEE; ucIL++ ) {
 		xDataControlL->xReadOnlyFeeControl.xNfee[ucIL] = &xNfeeCOntrolL->xNfee[ucIL];
 		xDataControlL->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL] = xNfeeCOntrolL->pbEnabledNFEEs[ucIL];

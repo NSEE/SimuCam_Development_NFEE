@@ -47,13 +47,8 @@ void vFeebCh1HandleIrq(void* pvContext) {
 }
 
 void vFeebCh2HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
 	volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+
 	vFeebCh2IrqFlagClrBufferEmpty();
 }
 

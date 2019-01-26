@@ -14,10 +14,10 @@ void vNFeeControlTask(void *task_data) {
 	TNFee_Control * pxFeeC;
 	tQMask uiCmdNFC;
 	bool bCmdSent;
-	INT8U error_code;
 	INT8U error_codeCtrl;
 	unsigned char ucFeeInstL;
 	static bool bDmaBack;
+	unsigned char ucIL;
 
 	pxFeeC = (TNFee_Control *) task_data;
 
@@ -25,21 +25,77 @@ void vNFeeControlTask(void *task_data) {
         debug(fp,"NFee Controller Task. (Task on)\n");
     #endif
 
-	bCmdSent = FALSE;
-	bDmaBack = TRUE;
 	for (;;) {
 
-		/* todo: Tem os mesmos estados que o SIMUCAM : Config e Running */
-		/* todo: No config ou a Meb ira configurar sozinha os FEEs e os controladores ou ir� passar a mensagem completa sem usar a QueueMask */
-		/* todo: No modo Running o NFEE control s� utiliza o Queue MAsk pois � mais rapido e s� transmite no Qmask tbm */
-
-		
 		switch (pxFeeC->sMode)
 		{
+			case sMebInit:
+				/* Starting the NFEE Controller */
+
+				/* Clear in CMD Queue  */
+				error_codeCtrl = OSQFlush(xQMaskFeeCtrl);
+				if ( error_codeCtrl != OS_NO_ERR ) {
+					vFailFlushQueue();
+				}
+
+				bCmdSent = FALSE;
+				bDmaBack = TRUE;
+				pxFeeC->sMode = sMebToConfig;
+				break;
+
+
+			case sMebToConfig:
+				/* Transition state */
+				#ifdef DEBUG_ON
+					debug(fp,"NFEE Controller Task:: Config Mode\n");
+				#endif
+
+				/* Clear Queue that is responsible to schedule the DMA access */
+				error_codeCtrl = OSQFlush(xNfeeSchedule);
+				if ( error_codeCtrl != OS_NO_ERR ) {
+					vFailFlushQueue();
+				}
+
+				pxFeeC->ucTimeCode = 0;
+				pxFeeC->sMode = sMebConfig;
+				break;
+
+
+			case sMebToRun:
+				/* Transition state */
+				vEvtChangeFeeControllerMode();
+				#ifdef DEBUG_ON
+					debug(fp,"NFEE Controller Task:: RUN Mode\n");
+				#endif
+
+				/* Clear Queue that is responsible to schedule the DMA access */
+				error_codeCtrl = OSQFlush(xNfeeSchedule);
+				if ( error_codeCtrl != OS_NO_ERR ) {
+					vFailFlushQueue();
+				}
+
+				/* Clear message that maybe is in the FEEs Queues */
+				for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++)
+				{
+					error_codeCtrl = OSQFlush( xFeeQ[ ucIL ] );
+					if ( error_codeCtrl != OS_NO_ERR ) {
+						vFailFlushQueue();
+					}
+				}
+
+
+				pxFeeC->ucTimeCode = 0;
+
+				bCmdSent = FALSE;
+				bDmaBack = TRUE;
+				pxFeeC->sMode = sMebRun;
+				break;
+
+
 			case sMebConfig:
 				
-				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_code); /* Blocking operation */
-				if ( error_code == OS_ERR_NONE ) {
+				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
+				if ( error_codeCtrl == OS_ERR_NONE ) {
 
 					/* Check if the command is for NFEE Controller */
 					if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
@@ -58,7 +114,7 @@ void vNFeeControlTask(void *task_data) {
 					vCouldNotGetQueueMaskNfeeCtrl();
 				}
 				break;
-			case sRun:
+			case sMebRun:
 				/* 	We have 2 importantes Queues here.  
 					xQMaskFeeCtrl is How NFEE Controller receive Commands in a fat way and 
 					xNfeeSchedule that has the schedule of access to the DMA (this has priority)*/
@@ -66,8 +122,8 @@ void vNFeeControlTask(void *task_data) {
 
 				/* Get the id of the FEE that wants DMA access */
 				if ( bDmaBack == TRUE ) {
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 2, &error_code);
-					if ( error_code == OS_ERR_NONE ) {
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 2, &error_codeCtrl);
+					if ( error_codeCtrl == OS_ERR_NONE ) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
 						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
 							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, 0, ucFeeInstL );
@@ -111,7 +167,7 @@ void vNFeeControlTask(void *task_data) {
 				break;		
 			default:
 				#ifdef DEBUG_ON
-					debug(fp,"NFEE Controller Task: Unknow state, backing to Config Mode.\n");
+					debug(fp,"NFEE Controller Task: Unknown state, backing to Config Mode.\n");
 				#endif
 				
 				/* todo:Aplicar toda logica de mudança de esteado aqui */
@@ -130,42 +186,22 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
+		case M_NFC_CONFIG_FORCED:
 		case M_NFC_CONFIG:
 			#ifdef DEBUG_ON
 				debug(fp,"NFEE Controller Task: NFC already in the Config Mode\n");
 			#endif
-
 			/* Do nothing for now */
-
 			break;
+
+		case M_NFC_RUN_FORCED:
 		case M_NFC_RUN:
-			#ifdef DEBUG_ON
-				debug(fp,"NFEE Controller Task: Changing to RUN Mode\n");
-			#endif
+			pxFeeCP->sMode = sMebToRun;
+			break;
 
-			vEvtChangeFeeControllerMode(pxFeeCP->sMode, sRun);
-			pxFeeCP->sMode = sRun;
-			/* ALlow NFEEs to go to any Running mode */
-
-			/* Clear The Queue That gives access to the DMA */
-			errorCodeL = OSQFlush(xNfeeSchedule);
-			if ( errorCodeL != OS_NO_ERR ) {
-				vFailFlushQueue();
-			}
-
-			for( i = 0; i < N_OF_NFEE; i++)
-			{
-				errorCodeL = OSQFlush( xFeeQ[ i ] );
-				if ( errorCodeL != OS_NO_ERR ) {
-					vFailFlushQueue();
-				}
-			}
-
-
-			break;		
 		default:
 			#ifdef DEBUG_ON
-				debug(fp,"NFEE Controller Task: Unknow Command.\n");
+				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
 	}
@@ -181,15 +217,14 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 
 	switch (uiCmdLocal.ucByte[2]) {
 		case M_NFC_CONFIG:
+		case M_NFC_CONFIG_FORCED:
 			#ifdef DEBUG_ON
 				debug(fp,"NFEE Controller Task: Changing to Config Mode\n");
 			#endif
 
-			vEvtChangeFeeControllerMode(pxFeeCP->sMode, sMebConfig);
-			pxFeeCP->sMode = sMebConfig;
+			pxFeeCP->sMode = sMebToConfig;
 
 			/* Change all NFEEs to Config mode */
-
 			for( i = 0; i < N_OF_NFEE; i++)
 			{
 				if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {

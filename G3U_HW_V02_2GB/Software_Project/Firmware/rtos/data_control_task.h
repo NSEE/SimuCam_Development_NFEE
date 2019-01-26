@@ -11,6 +11,7 @@
 #include "tasks_configurations.h"
 #include "../simucam_definitions.h"
 #include "../utils/data_controller.h"
+#include "../utils/queue_commands_list.h"
 
 
 void vDataControlTask(void *task_data);

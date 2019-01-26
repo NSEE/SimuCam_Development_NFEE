@@ -14,7 +14,7 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     xMeb->eType = sNormalFEE;
     
     /* Simucam start in the Meb Config Mode */
-    xMeb->eMode = sMebConfig;
+    xMeb->eMode = sMebInit;
 
     /* Load EP */
     vLoadDefaultEPValue( xMeb );
@@ -28,20 +28,27 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* todo: Change for change functions */
     xMeb->fLineTransferTime = 0;
     xMeb->fPixelTransferTime = 0;
+    xMeb->usiDelaySyncReset = 500; /* milliseconds */
+
+    /* Reseting swap memory mechanism */
+    xMeb->ucActualDDR = 0;
+    xMeb->ucNextDDR = 1;
+
+    xMeb->xFeeControl.pActualMem = &xMeb->ucActualDDR;
+    xMeb->xDataControl.pNextMem = &xMeb->ucNextDDR;
 
     /* Verify if if a Fast or Normal */
     if ( xMeb->eType == sNormalFEE ) {
         /* Are Normal Fee instances */
     	vNFeeControlInit( &xMeb->xFeeControl );
         vDataControllerInit( &xMeb->xDataControl, &xMeb->xFeeControl );
+
     } else {
         /* Are Fast Fee instances */
         /* todo: Not in use yet */
     }
 
 
-    /* Reseting swap memory mechanism */
-    xMeb->ucActualDDR = 0;
 
     /* At this point all structures that manage the aplication of Simucam and FEE are initialized, the tasks could start now */
 
@@ -114,13 +121,13 @@ void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource ) {
 void vLoadDefaultAutoResetSync( TSimucam_MEB *xMeb ) {
     //bGetAutoResetSyncSDCard();
     //todo: For now is hardcoded
-    xMeb->bAutoRestSyncMode = TRUE;
+    xMeb->bAutoResetSyncMode = TRUE;
 }
 
 /* Only in MEB_CONFIG */
 /* Change the Config for AutoResetSync*/
 void vChangeAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
-    xMeb->bAutoRestSyncMode = bAutoReset;
+    xMeb->bAutoResetSyncMode = bAutoReset;
 }
 
 /* Only in MEB_CONFIG */

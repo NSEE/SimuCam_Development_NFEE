@@ -21,7 +21,6 @@ void vFeeTask(void *task_data) {
 
 	#ifdef DEBUG_ON
 		fprintf(fp,"NFEE %hhu Task. (Task on)\n", pxNFee->ucId);
-		//debug(fp,"NFEE Task. (Task on)\n");
 	#endif
 
 	#ifdef DEBUG_ON
@@ -29,50 +28,83 @@ void vFeeTask(void *task_data) {
 	#endif
 
 
-
 	for(;;){
 
 		switch ( pxNFee->xControl.eMode ) {
 			case sFeeInit:
 
+				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}				
+
 				pxNFee->xControl.eMode = sToFeeConfig;
 
 				break;
 			case sToFeeConfig: /* Transition */
-
-				/* Desabilitar interrupï¿½ï¿½es do buffer duplo */
-				/* Limpar interrupï¿½ï¿½es, zerar buffer duplo */
-
-				pxNFee->xControl.bSimulating = FALSE;
-				pxNFee->xControl.bUsingDMA = FALSE;
-
-				/* Disable the link SPW */
-				//todo: tratar retorno
-				bSpwcGetLink(&pxNFee->xChannel.xSpacewire);
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
-				bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
-
-				//todo:Back
-				//bSpwcClearTimecode(&pxNFee->xChannel.xSpacewire);
-
 				#ifdef DEBUG_ON
-					fprintf(fp,"\nNFEE %hhu Task: Going to Config mode\n", pxNFee->ucId);
+					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
 				#endif
 
+				/* Complete when MUTEX were created */
+				if ( pxNFee->xControl.bDMALocked == TRUE ) {
+					/* If is with the Mutex, should release */
+					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+				}
+
+				/* End of simulation! Clear everything that is possible */
+				pxNFee->xControl.bWatingSync = FALSE;
+				pxNFee->xControl.bSimulating = FALSE;
+				pxNFee->xControl.bUsingDMA = FALSE;
+				pxNFee->xControl.bEnabled = TRUE;
+				pxNFee->xControl.ucTimeCode = 0;
+
+				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				/* Clear the Queue that indicates when Sync Signals occours */
+				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				/* Disable the link SPW */
+				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
+				pxNFee->xControl.bChannelEnable = FALSE;
+
+
+				/* Disable RMAP interrupts */
+				bDisableRmapIRQ(&pxNFee->xChannel.xRmap);
+
+
+				/* Disable IRQ and clear the Double Buffer */
+				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+
+				/* Clear the timecode of the channel SPW (for now is for spw channel) */
+				bSpwcClearTimecode(&pxNFee->xChannel.xSpacewire);
+
 				pxNFee->xControl.eMode = sFeeConfig;
-
-
 				break;
+
+
 			case sFeeConfig: /* Real mode */
 
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
 				} else {
-
-					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
+					#ifdef DEBUG_ON
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+					#endif
 				}
 
 				break;
@@ -86,33 +118,36 @@ void vFeeTask(void *task_data) {
 
 				break;
 			case sToFeeStandBy: /* Transition */
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE-%hu Task: Standby Mode\n", pxNFee->ucId);
+				#endif
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
-				/* Limpar interrupï¿½ï¿½es, zerar buffer duplo */
+
+				/* Disable IRQ and clear the Double Buffer */
+				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 
 
-				/* Enable link SPW the link SPW */
-				bSpwcGetLink(&pxNFee->xChannel.xSpacewire);
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
-				pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
-				bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
+				/* Disable RMAP interrupts */
+				bEnableRmapIRQ(&pxNFee->xChannel.xRmap);
 
+				/* Disable the link SPW */
+				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
+				pxNFee->xControl.bChannelEnable = TRUE;
 
-				#ifdef DEBUG_ON
-					fprintf(fp,"\nNFEE %hhu Task: Going to Standby mode\n", pxNFee->ucId);
-				#endif
 				pxNFee->xControl.eMode = sFeeStandBy;
 				break;
+
 			case sFeeStandBy: /* Real mode */
 
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					vQCmdFEEinStandBy( pxNFee, uiCmdFEE.ulWord );
 				} else {
-
-					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
+					#ifdef DEBUG_ON
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+					#endif
 				}
 
 				break;
@@ -122,19 +157,23 @@ void vFeeTask(void *task_data) {
 
 				break;
 			case sToTestFullPattern: /* Transition */
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE-%hu Task: Full Image Pattern Mode\n", pxNFee->ucId);
+				#endif
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 
 				if (pxNFee->xControl.bWatingSync==TRUE)
 					pxNFee->xControl.eMode = sFeeWaitingSync;
 
+				/* Disable IRQ and clear the Double Buffer */
+				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+				/* Preciso enviar daqui o id para o schedule do FEE? Pois a interrupção do buffer começa desabilitada */
 				/* Esperar QUEUE para DMA
 				 * PEGAR MUTEX DMA */
 
 
-				#ifdef DEBUG_ON
-					fprintf(fp,"\nNFEE %hhu Task: Going to FULL Image Pattern mode\n", pxNFee->ucId);
-				#endif
 				pxNFee->xControl.eMode = sFeeTestFullPattern;
 				break;
 			case sFeeTestFullPattern: /* Real mode */
@@ -145,8 +184,9 @@ void vFeeTask(void *task_data) {
 					vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 
 				} else {
-
-					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
+					#ifdef DEBUG_ON
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+					#endif
 				}
 
 				break;
@@ -161,8 +201,9 @@ void vFeeTask(void *task_data) {
 					/* todo: Write in the RMAP */
 
 				} else {
-
-					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
+					#ifdef DEBUG_ON
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xWaitSyncQFee\n", pxNFee->ucId);
+					#endif
 				}
 
 				pxNFee->xControl.bWatingSync = FALSE;
@@ -339,6 +380,87 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 		}
 	}
+}
+
+bool bDisableRmapIRQ( TRmapChannel *pxRmapCh ) {
+	/* Disable SPW channel */
+	bRmapGetIrqControl(pxRmapCh);
+	pxRmapCh->xRmapIrqControl.bWriteCmdEn = FALSE;
+	bRmapSetIrqControl(pxRmapCh);
+
+	/*todo: No treatment for now  */
+	return TRUE;
+}
+
+bool bEnableRmapIRQ( TRmapChannel *pxRmapCh ) {
+	/* Disable SPW channel */
+	bRmapGetIrqControl(pxRmapCh);
+	pxRmapCh->xRmapIrqControl.bWriteCmdEn = TRUE;
+	bRmapSetIrqControl(pxRmapCh);
+
+	/*todo: No treatment for now  */
+	return TRUE;
+}
+
+bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
+	/* Disable SPW channel */
+	bSpwcGetLink(xSPW);
+	xSPW->xLinkConfig.bLinkStart = FALSE;
+	xSPW->xLinkConfig.bAutostart = FALSE;
+	xSPW->xLinkConfig.bDisconnect = TRUE;
+	bSpwcSetLink(xSPW);
+
+	/*todo: No treatment for now  */
+	return TRUE;
+}
+
+bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
+	/* Enable SPW channel */
+	bSpwcGetLink(xSPW);
+	xSPW->xLinkConfig.bLinkStart = FALSE;
+	xSPW->xLinkConfig.bAutostart = TRUE;
+	xSPW->xLinkConfig.bDisconnect = FALSE;
+	bSpwcSetLink(xSPW);
+
+	/*todo: No treatment for now  */
+	return TRUE;
+}
+
+bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
+
+	/* Clear all buffer form the Double Buffer */
+	bFeebClrCh(pxFeebCh);
+
+	/* Start the module Double Buffer */
+	bFeebStartCh(pxFeebCh);
+
+	/*Enable IRQ of FEE Buffer*/
+	bFeebGetIrqControl(pxFeebCh);
+	pxFeebCh->xIrqControl.bLeftBufferEmptyEn = TRUE;
+	pxFeebCh->xIrqControl.bRightBufferEmptyEn = TRUE;
+	bFeebSetIrqControl(pxFeebCh);
+
+	/*todo: No treatment for now  */
+	return TRUE;
+}
+
+
+bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
+
+	/*Disable IRQ of FEE Buffer*/
+	bFeebGetIrqControl(pxFeebCh);
+	pxFeebCh->xIrqControl.bLeftBufferEmptyEn = FALSE;
+	pxFeebCh->xIrqControl.bRightBufferEmptyEn = FALSE;
+	bFeebSetIrqControl(pxFeebCh);
+
+	/* Stop the module Double Buffer */
+	bFeebStopCh(pxFeebCh);
+
+	/* Clear all buffer form the Double Buffer */
+	bFeebClrCh(pxFeebCh);
+
+	/*todo: No treatment for now  */
+	return TRUE;
 }
 
 
