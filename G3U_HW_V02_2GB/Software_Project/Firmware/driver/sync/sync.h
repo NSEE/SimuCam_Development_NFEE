@@ -28,6 +28,8 @@
 #define SYNC_CONFIG_GENERAL_REG_OFFSET  8
 #define SYNC_ERR_INJ_REG_OFFSET         9
 #define SYNC_CTR_REG_OFFSET             10
+#define SYNC_IRQ_FG_CLR_REG_OFFSET      11
+#define SYNC_IRQ_FG_REG_OFFSET          12
 
 // bit states
 #define SYNC_BIT_ON                     TRUE
@@ -65,6 +67,11 @@
 #define SYNC_CTR_CHC_EN_MSK             0x00000004
 #define SYNC_CTR_CHB_EN_MSK             0x00000002
 #define SYNC_CTR_CHA_EN_MSK             0x00000001
+
+#define SYNC_IRQ_FG_CLR_MSK             0x00000001
+
+#define SYNC_IRQ_FG_MSK                 0x00000001
+
 //! [constants definition]
 
 //! [public module structs definition]
@@ -94,6 +101,9 @@ typedef struct CtrReg {
 //! [public function prototypes]
 void vSyncInitIrq(void);
 void vSyncHandleIrq(void* pvContext);
+
+void vSyncIrqFlagClrSync(void);
+bool bSyncIrqFlagSync(void);
 
 bool bSyncStatusExtnIrq(void);
 alt_u8 ucSyncStatusState(void);
