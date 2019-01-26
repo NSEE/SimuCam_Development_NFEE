@@ -73,6 +73,22 @@ void vSyncInitIrq(void) {
 	alt_irq_register(SYNC_IRQ, hold_context_ptr, vSyncHandleIrq);
 }
 
+void vSyncIrqFlagClrSync(void) {
+	bSyncWriteReg(SYNC_IRQ_FG_CLR_REG_OFFSET, (alt_u32) SYNC_IRQ_FG_CLR_MSK);
+}
+
+bool bSyncIrqFlagSync(void) {
+	bool bFlag;
+
+	if (uliSyncReadReg(SYNC_IRQ_FG_REG_OFFSET) & SYNC_IRQ_FG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+
+	return bFlag;
+}
+
 // Status reg
 /**
  * @name    bSyncStatusExtnIrq

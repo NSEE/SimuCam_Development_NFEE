@@ -51,14 +51,14 @@ use work.sync_mm_registers_pkg.all;
 --! Entity declaration for sync avalon mm read
 --============================================================================
 entity sync_avalon_mm_read is
-	port (
-		clk_i          : in  std_logic;
-		rst_i          : in  std_logic;
-		avalon_mm_i    : in  t_sync_avalon_mm_read_i;
-		mm_write_reg_i : in  t_sync_mm_write_registers;
-		mm_read_reg_i  : in  t_sync_mm_read_registers;
-
-		avalon_mm_o    : out t_sync_avalon_mm_read_o
+	port(
+		clk_i           : in  std_logic;
+		rst_i           : in  std_logic;
+		avalon_mm_i     : in  t_sync_avalon_mm_read_i;
+		mm_write_reg_i  : in  t_sync_mm_write_registers;
+		mm_read_reg_i   : in  t_sync_mm_read_registers;
+		sync_irq_flag_i : in  std_logic;
+		avalon_mm_o     : out t_sync_avalon_mm_read_o
 	);
 end entity sync_avalon_mm_read;
 
@@ -67,9 +67,9 @@ end entity sync_avalon_mm_read;
 --============================================================================
 architecture rtl of sync_avalon_mm_read is
 
---============================================================================
--- architecture begin
---============================================================================
+	--============================================================================
+	-- architecture begin
+	--============================================================================
 begin
 	p_sync_avalon_mm_read : process(clk_i, rst_i) is
 		-- Sync module readdata procedure
@@ -93,63 +93,63 @@ begin
 				-- Interrupt enable register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS) =>
 					--    31-2 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 2)  <= (others => '0');
+					avalon_mm_o.readdata(31 downto 2) <= (others => '0');
 					--     1- 1 : Error interrupt enable bit                [R/W]
-					avalon_mm_o.readdata(1)            <= mm_write_reg_i.int_enable_register.error_int_enable;
+					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_enable_register.error_int_enable;
 					--     0- 0 : Blank pulse interrupt enable bit          [R/W]
-					avalon_mm_o.readdata(0)            <= mm_write_reg_i.int_enable_register.blank_pulse_int_enable;
+					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_enable_register.blank_pulse_int_enable;
 
 				-- Interrupt flag clear register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS) =>
 					--    31-2 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 2)  <= (others => '0');
+					avalon_mm_o.readdata(31 downto 2) <= (others => '0');
 					--     1- 1 : Error interrupt flag clear bit            [R/W]
-					avalon_mm_o.readdata(1)            <= mm_write_reg_i.int_flag_clear_register.error_int_flag_clear;
+					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_flag_clear_register.error_int_flag_clear;
 					--     0- 0 : Blank pulse interrupt flag clear bit      [R/W]
-					avalon_mm_o.readdata(0)            <= mm_write_reg_i.int_flag_clear_register.blank_pulse_int_flag_clear;
+					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_flag_clear_register.blank_pulse_int_flag_clear;
 
 				-- Interrupt flag register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_REG_ADDRESS) =>
 					--    31-2 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 2)  <= (others => '0');
+					avalon_mm_o.readdata(31 downto 2) <= (others => '0');
 					--     1- 1 : Error interrupt flag bit		            [R/-]
-					avalon_mm_o.readdata(1)            <= mm_read_reg_i.int_flag_register.error_int_flag;
+					avalon_mm_o.readdata(1)           <= mm_read_reg_i.int_flag_register.error_int_flag;
 					--     0- 0 : Blank pulse interrupt flag bit 		    [R/-]
-					avalon_mm_o.readdata(0)            <= mm_read_reg_i.int_flag_register.blank_pulse_int_flag;
+					avalon_mm_o.readdata(0)           <= mm_read_reg_i.int_flag_register.blank_pulse_int_flag;
 
 				-- Master blank time register (32 bits):
 				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>
 					--    31-0 : Master blank time value		            [R/W]
-					avalon_mm_o.readdata(31 downto 0)  <= mm_write_reg_i.config_register.master_blank_time;
+					avalon_mm_o.readdata(31 downto 0) <= mm_write_reg_i.config_register.master_blank_time;
 
 				-- Blank time register (32 bits):
 				when (c_SYNC_CONFIG_BLANK_TIME_MM_REG_ADDRESS) =>
 					--    31-0 : Blank time value		            		[R/W]
-					avalon_mm_o.readdata(31 downto 0)  <= mm_write_reg_i.config_register.blank_time;
+					avalon_mm_o.readdata(31 downto 0) <= mm_write_reg_i.config_register.blank_time;
 
 				-- Period register (32 bits):
 				when (c_SYNC_CONFIG_PERIOD_MM_REG_ADDRESS) =>
 					--    31-0 : Period value		            			[R/W]
-					avalon_mm_o.readdata(31 downto 0)  <= mm_write_reg_i.config_register.period;
+					avalon_mm_o.readdata(31 downto 0) <= mm_write_reg_i.config_register.period;
 
 				-- One shot time register (32 bits):
 				when (c_SYNC_CONFIG_ONE_SHOT_TIME_MM_REG_ADDRESS) =>
 					--    31-0 : One shot time value	           			[R/W]
-					avalon_mm_o.readdata(31 downto 0)  <= mm_write_reg_i.config_register.one_shot_time;
+					avalon_mm_o.readdata(31 downto 0) <= mm_write_reg_i.config_register.one_shot_time;
 
 				-- General config register (32 bits):
 				when (c_SYNC_CONFIG_GENERAL_MM_REG_ADDRESS) =>
 					--    31- 9 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 9)  <= (others => '0');
+					avalon_mm_o.readdata(31 downto 9) <= (others => '0');
 					--     8- 8 : Signal polarity bit		                [R/W]
-					avalon_mm_o.readdata(8)            <= mm_write_reg_i.config_register.general.signal_polarity;
+					avalon_mm_o.readdata(8)           <= mm_write_reg_i.config_register.general.signal_polarity;
 					--     7- 0 : Number of cycles value           			[R/W]
-					avalon_mm_o.readdata(7 downto 0)   <= mm_write_reg_i.config_register.general.number_of_cycles;
+					avalon_mm_o.readdata(7 downto 0)  <= mm_write_reg_i.config_register.general.number_of_cycles;
 
 				-- Error injection register (32 bits):
 				when (c_SYNC_ERROR_INJECTION_MM_REG_ADDRESS) =>
 					--    31-0 : Error injection value	           			[R/W]
-					avalon_mm_o.readdata(31 downto 0)  <= mm_write_reg_i.error_injection_register.error_injection;
+					avalon_mm_o.readdata(31 downto 0) <= mm_write_reg_i.error_injection_register.error_injection;
 
 				-- Control register (32 bits):
 				when (c_SYNC_CONTROL_MM_REG_ADDRESS) =>
@@ -185,6 +185,10 @@ begin
 					avalon_mm_o.readdata(1)            <= mm_write_reg_i.control_register.channel_b_enable;
 					--     0- 0 : channel A out enable bit               	[R/W]
 					avalon_mm_o.readdata(0)            <= mm_write_reg_i.control_register.channel_a_enable;
+
+				when (c_SYNC_IRQ_FLAG) =>
+					avalon_mm_o.readdata(31 downto 1) <= (others => '0');
+					avalon_mm_o.readdata(0)           <= sync_irq_flag_i;
 
 				when others =>
 					avalon_mm_o.readdata <= (others => '0');

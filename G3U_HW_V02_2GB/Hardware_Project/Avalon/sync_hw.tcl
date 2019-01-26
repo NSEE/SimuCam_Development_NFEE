@@ -4,7 +4,7 @@
 
 
 # 
-# Sync "Sync" v1.0
+# Sync "Sync" v1.1
 # Franca/Cassio 2018.11.27.16:37:25
 # Synchronism module - Plato Simucam - R0
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION "Synchronism module - Plato Simucam - R0"
 set_module_property NAME Sync
-set_module_property VERSION 1.0
+set_module_property VERSION 1.1
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR Franca/Cassio
