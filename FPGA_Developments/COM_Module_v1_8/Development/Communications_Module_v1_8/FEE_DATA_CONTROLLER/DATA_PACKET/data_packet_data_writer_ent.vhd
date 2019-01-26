@@ -6,6 +6,11 @@ entity data_packet_data_writer_ent is
 	port(
 		clk_i                          : in  std_logic;
 		rst_i                          : in  std_logic;
+		-- general inputs
+		fee_clear_signal_i             : in  std_logic;
+		fee_stop_signal_i              : in  std_logic;
+		fee_start_signal_i             : in  std_logic;
+		-- others
 		data_wr_start_i                : in  std_logic;
 		data_wr_reset_i                : in  std_logic;
 		data_wr_length_i               : in  std_logic_vector(15 downto 0);

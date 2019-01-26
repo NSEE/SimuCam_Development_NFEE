@@ -6,6 +6,11 @@ entity data_packet_hk_writer_ent is
 	port(
 		clk_i                          : in  std_logic;
 		rst_i                          : in  std_logic;
+		-- general inputs
+		fee_clear_signal_i             : in  std_logic;
+		fee_stop_signal_i              : in  std_logic;
+		fee_start_signal_i             : in  std_logic;
+		-- others
 		housekeeping_wr_start_i        : in  std_logic;
 		housekeeping_wr_reset_i        : in  std_logic;
 		hk_mem_valid_i                 : in  std_logic;

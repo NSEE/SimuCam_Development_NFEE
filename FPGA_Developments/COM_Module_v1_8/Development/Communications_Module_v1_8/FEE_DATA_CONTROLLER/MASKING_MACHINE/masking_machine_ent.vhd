@@ -1,4 +1,5 @@
 -- TODO: adicionar delays
+-- TODO: evitar o mascaramento de mais de um full image
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -7,17 +8,24 @@ entity masking_machine_ent is
 	port(
 		clk_i                         : in  std_logic;
 		rst_i                         : in  std_logic;
+		-- general inputs
+		sync_signal_i                 : in  std_logic;
+		fee_clear_signal_i            : in  std_logic;
+		fee_stop_signal_i             : in  std_logic;
+		fee_start_signal_i            : in  std_logic;
+		-- others
 		masking_machine_hold_i        : in  std_logic;
-		--		ccd_column_qtd_i              : in  std_logic;
-		--		line_delay_i                  : in  std_logic_vector(15 downto 0);
-		--		column_delay_i                : in  std_logic_vector(15 downto 0);
-		--		adc_delay_i                   : in  std_logic_vector(15 downto 0);
+		fee_ccd_x_size_i              : in  std_logic_vector(15 downto 0);
+		fee_ccd_y_size_i              : in  std_logic_vector(15 downto 0);
+		fee_line_delay_i              : in  std_logic_vector(15 downto 0);
+		fee_column_delay_i            : in  std_logic_vector(15 downto 0);
+		fee_adc_delay_i               : in  std_logic_vector(15 downto 0);
 		current_timecode_i            : in  std_logic_vector(7 downto 0);
 		window_data_i                 : in  std_logic_vector(63 downto 0);
 		window_mask_i                 : in  std_logic_vector(63 downto 0);
 		window_data_ready_i           : in  std_logic;
 		window_mask_ready_i           : in  std_logic;
-		masking_buffer_clear_i        : in  std_logic;
+		--		masking_buffer_clear_i        : in  std_logic;
 		masking_buffer_rdreq_i        : in  std_logic;
 		window_data_read_o            : out std_logic;
 		window_mask_read_o            : out std_logic;

@@ -6,6 +6,11 @@ entity data_packet_header_gen_ent is
 	port(
 		clk_i                                : in  std_logic;
 		rst_i                                : in  std_logic;
+		-- general inputs
+		fee_clear_signal_i                   : in  std_logic;
+		fee_stop_signal_i                    : in  std_logic;
+		fee_start_signal_i                   : in  std_logic;
+		-- others
 		header_gen_send_i                    : in  std_logic;
 		header_gen_reset_i                   : in  std_logic;
 		headerdata_logical_address_i         : in  std_logic_vector(7 downto 0);

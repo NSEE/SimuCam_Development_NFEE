@@ -6,6 +6,11 @@ entity data_transmitter_ent is
 	port(
 		clk_i                           : in  std_logic;
 		rst_i                           : in  std_logic;
+		-- general inputs
+		fee_clear_signal_i              : in  std_logic;
+		fee_stop_signal_i               : in  std_logic;
+		fee_start_signal_i              : in  std_logic;
+		-- others
 		data_transmitter_reset_i        : in  std_logic;
 		send_buffer_stat_almost_empty_i : in  std_logic;
 		send_buffer_stat_empty_i        : in  std_logic;

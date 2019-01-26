@@ -7,10 +7,15 @@ entity send_buffer_ent is
 	port(
 		clk_i                      : in  std_logic;
 		rst_i                      : in  std_logic;
+		-- general inputs
+		fee_clear_signal_i         : in  std_logic;
+		fee_stop_signal_i          : in  std_logic;
+		fee_start_signal_i         : in  std_logic;
+		-- others
 		-- TODO: fazer funcionar
 		fee_data_loaded_i          : in  std_logic;
 		buffer_cfg_length_i        : in  std_logic_vector(15 downto 0);
-		buffer_clear_i             : in  std_logic;
+		--		buffer_clear_i             : in  std_logic;
 		buffer_wrdata_i            : in  std_logic_vector(7 downto 0);
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
