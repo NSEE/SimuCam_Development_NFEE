@@ -49,6 +49,7 @@ begin
 				if (delay_trigger_i = '1') then
 					s_idle       <= '0';
 					delay_busy_o <= '1';
+					-- TODO: acerter delay timer para fazer a quantidade correta de ciclos de clock
 					s_timer_cnt  <= delay_timer_i;
 				end if;
 			else
@@ -60,6 +61,7 @@ begin
 				-- generate clkdiv event
 				s_clkdiv_evt <= '0';
 				s_clkdiv_cnt <= std_logic_vector(unsigned(s_clkdiv_cnt) + 1);
+				-- TODO: acerter clkdiv event pata fazer a quantidade correta de ciclos de clock
 				if (s_clkdiv_cnt = g_CLKDIV) then
 					s_clkdiv_evt <= '1';
 					s_clkdiv_cnt <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));

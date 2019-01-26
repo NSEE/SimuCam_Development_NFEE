@@ -40,7 +40,7 @@ begin
 		variable v_data_transmitter_state : t_data_transmitter_fsm := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (reset_n_i = '0') then
+		if (rst_i = '1') then
 			s_data_transmitter_state    <= IDLE;
 			v_data_transmitter_state    := IDLE;
 			-- Outputs Generation

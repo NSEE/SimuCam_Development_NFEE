@@ -45,70 +45,70 @@ architecture RTL of data_packet_header_gen_ent is
 		FIELD_SEQUENCE_COUNTER_LSB,
 		HEADER_UNIT_FINISH_OPERATION
 	);
-	signal s_data_packet_header_state      : t_data_packet_header_fsm; -- current state
-	signal s_data_packet_header_next_state : t_data_packet_header_fsm;
+	signal s_header_gen_state      : t_data_packet_header_fsm; -- current state
+	signal s_header_gen_next_state : t_data_packet_header_fsm;
 
 begin
 
-	p_data_packet_header_FSM_state : process(clk_i, rst_i)
-		variable v_data_packet_header_state : s_data_packet_header_state := IDLE; -- current state
+	p_data_packet_header_gen_FSM_state : process(clk_i, rst_i)
+		variable v_header_gen_state : s_header_gen_state := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
-		if (rst_i = '0') then
-			s_data_packet_header_state      <= IDLE;
-			v_data_packet_header_state      := IDLE;
-			s_data_packet_header_next_state <= IDLE;
+		if (rst_i = '1') then
+			s_header_gen_state      <= IDLE;
+			v_header_gen_state      := IDLE;
+			s_header_gen_next_state <= IDLE;
 			-- Outputs Generation
-			header_gen_busy_o               <= '0';
-			header_gen_finished_o           <= '0';
-			send_buffer_wrdata_o            <= x"00";
-			send_buffer_wrreq_o             <= '0';
+			header_gen_busy_o       <= '0';
+			header_gen_finished_o   <= '0';
+			send_buffer_wrdata_o    <= x"00";
+			send_buffer_wrreq_o     <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
-			case (s_data_packet_header_state) is
+			case (s_header_gen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
 					-- does nothing until the control unit signals it is ready to send a header
 					-- default state transition
-					s_data_packet_header_state      <= IDLE;
-					v_data_packet_header_state      := IDLE;
-					s_data_packet_header_next_state <= IDLE;
+					s_header_gen_state      <= IDLE;
+					v_header_gen_state      := IDLE;
+					s_header_gen_next_state <= IDLE;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a data packet header was requested
 					if (header_gen_send_i = '1') then
 						-- data packet header was requested
 						-- set next field as logical address
-						s_data_packet_header_next_state <= FIELD_LOGICAL_ADDRESS;
+						s_header_gen_next_state <= FIELD_LOGICAL_ADDRESS;
 						-- go to wating buffer space
-						s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-						v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
+						s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+						v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
 					end if;
 
 				-- state "WAITING_SEND_BUFFER_SPACE"
 				when WAITING_SEND_BUFFER_SPACE =>
 					-- wait until the send buffer have available space
 					-- default state transition
-					s_data_packet_header_state <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_state <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state := WAITING_SEND_BUFFER_SPACE;
 					-- default internal signal values
 					-- conditional state transition
 					-- check if send buffer is ready and is not full
 					if ((send_buffer_wrready_i = '1') and (send_buffer_stat_full_i = '0')) then
 						-- send buffer is ready and is not full
 						-- go to next field
-						s_data_packet_header_state <= s_data_packet_header_next_state;
-						v_data_packet_header_state := s_data_packet_header_next_state;
+						s_header_gen_state <= s_header_gen_next_state;
+						v_header_gen_state := s_header_gen_next_state;
 					end if;
 
 				-- state "FIELD_LOGICAL_ADDRESS"
 				when FIELD_LOGICAL_ADDRESS =>
 					-- logical address field, send logical address
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_PROTOCOL_IDENTIFIER;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_PROTOCOL_IDENTIFIER;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -116,9 +116,9 @@ begin
 				when FIELD_PROTOCOL_IDENTIFIER =>
 					-- protocol identifier field, send protocol identifier
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_LENGTH_MSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_LENGTH_MSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -126,9 +126,9 @@ begin
 				when FIELD_LENGTH_MSB =>
 					-- length field msb, send length msb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_LENGTH_LSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_LENGTH_LSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -136,9 +136,9 @@ begin
 				when FIELD_LENGTH_LSB =>
 					-- length field lsb, send length lsb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_TYPE_MSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_TYPE_MSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -146,9 +146,9 @@ begin
 				when FIELD_TYPE_MSB =>
 					-- type field msb, send type msb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_TYPE_LSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_TYPE_LSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -156,9 +156,9 @@ begin
 				when FIELD_TYPE_LSB =>
 					-- type field lsb, send type lsb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_FRAME_COUNTER_MSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_FRAME_COUNTER_MSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -166,9 +166,9 @@ begin
 				when FIELD_FRAME_COUNTER_MSB =>
 					-- frame counter field msb, send frame counter msb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_FRAME_COUNTER_LSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_FRAME_COUNTER_LSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -176,9 +176,9 @@ begin
 				when FIELD_FRAME_COUNTER_LSB =>
 					-- frame counter field lsb, send frame counter lsb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_SEQUENCE_COUNTER_MSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_SEQUENCE_COUNTER_MSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -186,9 +186,9 @@ begin
 				when FIELD_SEQUENCE_COUNTER_MSB =>
 					-- sequence counter field msb, send sequence counter msb
 					-- default state transition
-					s_data_packet_header_state      <= WAITING_SEND_BUFFER_SPACE;
-					v_data_packet_header_state      := WAITING_SEND_BUFFER_SPACE;
-					s_data_packet_header_next_state <= FIELD_SEQUENCE_COUNTER_LSB;
+					s_header_gen_state      <= WAITING_SEND_BUFFER_SPACE;
+					v_header_gen_state      := WAITING_SEND_BUFFER_SPACE;
+					s_header_gen_next_state <= FIELD_SEQUENCE_COUNTER_LSB;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -196,9 +196,9 @@ begin
 				when FIELD_SEQUENCE_COUNTER_LSB =>
 					-- sequence counter field lsb, send sequence counter lsb
 					-- default state transition
-					s_data_packet_header_state      <= HEADER_UNIT_FINISH_OPERATION;
-					v_data_packet_header_state      := HEADER_UNIT_FINISH_OPERATION;
-					s_data_packet_header_next_state <= IDLE;
+					s_header_gen_state      <= HEADER_UNIT_FINISH_OPERATION;
+					v_header_gen_state      := HEADER_UNIT_FINISH_OPERATION;
+					s_header_gen_next_state <= IDLE;
 				-- default internal signal values
 				-- conditional state transition and internal signal values
 
@@ -206,31 +206,31 @@ begin
 				when HEADER_UNIT_FINISH_OPERATION =>
 					-- finish header unit operation
 					-- default state transition
-					s_data_packet_header_state      <= REPLY_FINISH_GENERATION;
-					v_data_packet_header_state      := REPLY_FINISH_GENERATION;
-					s_data_packet_header_next_state <= IDLE;
+					s_header_gen_state      <= HEADER_UNIT_FINISH_OPERATION;
+					v_header_gen_state      := HEADER_UNIT_FINISH_OPERATION;
+					s_header_gen_next_state <= IDLE;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a header generator reset was requested
 					if (header_gen_reset_i = '1') then
 						-- reply reset commanded, go back to idle
-						s_data_packet_header_state      <= IDLE;
-						v_data_packet_header_state      := IDLE;
-						s_data_packet_header_next_state <= IDLE;
+						s_header_gen_state      <= IDLE;
+						v_header_gen_state      := IDLE;
+						s_header_gen_next_state <= IDLE;
 					end if;
 
 				-- all the other states (not defined)
 				when others =>
 					-- jump to save state (ERROR?!)
-					s_data_packet_header_state      <= IDLE;
-					v_data_packet_header_state      := IDLE;
-					s_data_packet_header_next_state <= IDLE;
+					s_header_gen_state      <= IDLE;
+					v_header_gen_state      := IDLE;
+					s_header_gen_next_state <= IDLE;
 
 			end case;
 
 			-- output generation
 
-			case (v_data_packet_header_state) is
+			case (v_header_gen_state) is
 
 				-- state "IDLE"
 				when IDLE =>
@@ -396,6 +396,6 @@ begin
 
 			end case;
 		end if;
-	end process p_data_packet_header_FSM_state;
+	end process p_data_packet_header_gen_FSM_state;
 
 end architecture RTL;
