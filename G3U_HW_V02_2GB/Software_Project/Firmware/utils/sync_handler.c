@@ -12,9 +12,9 @@
 
 bool bInitSync( void ) {
 	bool	bSuccess;
+	alt_u32	aux_32;
 
-
-	vSyncInitIrq();
+	//vSyncInitIrq();
 
 	#ifdef DEBUG_ON
 		debug(fp, "Initializing Sync Module.\n");
@@ -94,15 +94,20 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
+	bSuccess = bSyncCtrStart();
+	bSyncCtrReset();
+	aux_32 = bSyncIrqEnableBlank(TRUE);
+
+
 	return bSuccess;
 }
 
 
 bool bStartSync(void) {
-	alt_u32	aux_32;
+
 	bool bSuccess;
 	bSuccess = bSyncCtrStart();
-	aux_32 = bSyncIrqEnableBlank(TRUE);
+
 	return bSuccess;
 }
 

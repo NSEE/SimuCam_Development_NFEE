@@ -106,8 +106,12 @@ typedef union qMask{
 #define M_FEE_FULL_PATTERN  0x08
 
 #define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
+#define M_FEE_SYNC          0x80    /* Command send byt the Sync Interrupt */
 
-
+#define M_FEE_CONFIG_FORCED		    0xA1 /* Indicates that should go to Config Mode */
+#define M_FEE_RUN_FORCED            0xA2 /* Indicates that should go to Run Mode - Mode On -> StandBy */
+#define M_FEE_STANDBY_FORCED        0xA4
+#define M_FEE_FULL_PATTERN_FORCED   0xA8
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 

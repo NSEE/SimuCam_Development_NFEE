@@ -34,9 +34,13 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.bUsingDMA = FALSE;
     pxNfeeL->xControl.bChannelEnable = FALSE;
     pxNfeeL->xControl.bSimulating = FALSE;
+    pxNfeeL->xControl.bWatingSync = FALSE;
     
+
     /* The NFEE initialize in the Config mode by default */
     pxNfeeL->xControl.eMode = sFeeInit;
+    pxNfeeL->xControl.eNextMode = sFeeInit;
+
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */

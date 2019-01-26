@@ -38,15 +38,10 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.eMode = sToFeeConfig;
 
 				break;
-			case sSIMFeeConfig:
-
-				//pxNFee->xControl.eMode = sToFeeConfig;
-
-				break;
 			case sToFeeConfig: /* Transition */
 
-				/* Desabilitar interrupções do buffer duplo */
-				/* Limpar interrupções, zerar buffer duplo */
+				/* Desabilitar interrupï¿½ï¿½es do buffer duplo */
+				/* Limpar interrupï¿½ï¿½es, zerar buffer duplo */
 
 				pxNFee->xControl.bSimulating = FALSE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -65,7 +60,11 @@ void vFeeTask(void *task_data) {
 				#ifdef DEBUG_ON
 					fprintf(fp,"\nNFEE %hhu Task: Going to Config mode\n", pxNFee->ucId);
 				#endif
-				pxNFee->xControl.eMode = sFeeConfig;
+
+				if ( pxNFee->xControl.bWatingSync == TRUE )
+					pxNFee->xControl.eNextMode = sFeeConfig;
+				else
+					pxNFee->xControl
 				break;
 			case sFeeConfig: /* Real mode */
 
@@ -74,7 +73,7 @@ void vFeeTask(void *task_data) {
 					vQCmdFEEinConfig( pxNFee, uiCmdFEE.ulWord );
 				} else {
 
-					/* todo: Criar função de tratamento de erro*/
+					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
 				}
 
 				break;
@@ -91,8 +90,7 @@ void vFeeTask(void *task_data) {
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
-				/* Limpar interrupções, zerar buffer duplo */
-
+				/* Limpar interrupï¿½ï¿½es, zerar buffer duplo */
 
 
 				/* Enable link SPW the link SPW */
@@ -101,8 +99,6 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
 				pxNFee->xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
 				bSpwcSetLink(&pxNFee->xChannel.xSpacewire);
-
-
 
 
 				#ifdef DEBUG_ON
@@ -117,7 +113,7 @@ void vFeeTask(void *task_data) {
 					vQCmdFEEinStandBy( pxNFee, uiCmdFEE.ulWord );
 				} else {
 
-					/* todo: Criar função de tratamento de erro*/
+					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
 				}
 
 				break;
@@ -129,6 +125,13 @@ void vFeeTask(void *task_data) {
 			case sToTestFullPattern: /* Transition */
 
 				pxNFee->xControl.bUsingDMA = TRUE;
+
+				if (pxNFee->xControl.bWatingSync==TRUE)
+					pxNFee->xControl.eMode = sFeeWaitingSync;
+
+				/* Esperar QUEUE para DMA
+				 * PEGAR MUTEX DMA */
+
 
 				#ifdef DEBUG_ON
 					fprintf(fp,"\nNFEE %hhu Task: Going to FULL Image Pattern mode\n", pxNFee->ucId);
@@ -144,9 +147,26 @@ void vFeeTask(void *task_data) {
 
 				} else {
 
-					/* todo: Criar função de tratamento de erro*/
+					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
 				}
 
+				break;
+
+			case sFeeWaitingSync:
+
+				pxNFee->xControl.eMode = pxNFee->xControl.eNextMode;
+
+				uiCmdFEE.ulWord = (unsigned int)OSQPend(xWaitSyncQFee[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+				if ( error_code == OS_ERR_NONE ) {
+
+					/* todo: Write in the RMAP */
+
+				} else {
+
+					/* todo: Criar funï¿½ï¿½o de tratamento de erro*/
+				}
+
+				pxNFee->xControl.bWatingSync = FALSE;
 				break;
 			default:
 				pxNFee->xControl.eMode = sToFeeConfig;
@@ -191,22 +211,33 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CONFIG_FORCED:
 			case M_FEE_CONFIG:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Already in Config mode\n", pxNFeeP->ucId);
 				#endif
 				break;
 			case M_FEE_RUN:
-				pxNFeeP->xControl.eMode = sFeeOn;
+				/*pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sFeeOn;*/
 				break;
 			case M_FEE_STANDBY:
-				pxNFeeP->xControl.eMode = sToFeeStandBy;
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
 				break;
+			case M_FEE_STANDBY_FORCED:
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eMode = sToFeeStandBy;
+				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
+				break;				
+			case M_FEE_FULL_PATTERN_FORCED:
 			case M_FEE_FULL_PATTERN:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: Can't go to Full Image Pattern from Config mode\n", pxNFeeP->ucId);
 				#endif
-				break;
+				break;											
 			default:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
@@ -225,19 +256,36 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_CONFIG:
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sToFeeConfig; /* To finish the actual transfer only when sync comes */
+				break;
+			case M_FEE_CONFIG_FORCED:
+				pxNFeeP->xControl.bWatingSync = FALSE;
 				pxNFeeP->xControl.eMode = sToFeeConfig;
-				break;
+				pxNFeeP->xControl.eNextMode = sToFeeConfig; /* To finish the actual transfer only when sync comes */
+				break;				
 			case M_FEE_RUN:
-				pxNFeeP->xControl.eMode = sFeeOn;
+				/*pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sFeeOn;*/
 				break;
+			case M_FEE_STANDBY_FORCED:
 			case M_FEE_STANDBY:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Already in Stand by mode\n", pxNFeeP->ucId);
 				#endif
 				break;
 			case M_FEE_FULL_PATTERN:
+				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sToTestFullPattern;
+				pxNFeeP->xControl.eNextMode = sToTestFullPattern;
 				break;
+			case M_FEE_FULL_PATTERN_FORCED:
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eMode = sToTestFullPattern;
+				pxNFeeP->xControl.eNextMode = sToTestFullPattern;
+				break;				
 			default:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
@@ -256,14 +304,30 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 
 		switch (uiCmdFEEL.ucByte[2]) {
 			case M_FEE_CONFIG:
-				pxNFeeP->xControl.eMode = sToFeeConfig;
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sToFeeConfig;
 				break;
+			case M_FEE_CONFIG_FORCED:
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eMode = sToFeeConfig;
+				pxNFeeP->xControl.eNextMode = sToFeeConfig;
+				break;				
 			case M_FEE_RUN:
-				pxNFeeP->xControl.eMode = sFeeOn;
+				/*pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sFeeOn;*/
 				break;
 			case M_FEE_STANDBY:
-				pxNFeeP->xControl.eMode = sToFeeStandBy;
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sToFeeStandBy; /* To finish the actual transfer only when sync comes */
 				break;
+			case M_FEE_STANDBY_FORCED:
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eMode = sToFeeStandBy;
+				pxNFeeP->xControl.eNextMode = sToFeeStandBy; /* To finish the actual transfer only when sync comes */
+				break;				
 			case M_FEE_FULL_PATTERN:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Already in Full Image Pattern mode\n", pxNFeeP->ucId);

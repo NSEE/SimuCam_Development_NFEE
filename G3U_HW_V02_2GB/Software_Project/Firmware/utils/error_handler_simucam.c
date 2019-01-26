@@ -766,6 +766,22 @@ void vFailCreateNFEEQueue( unsigned char ucID )
 	 */
 }
 
+/* CRITICAL. */
+void vFailCreateNFEESyncQueue( unsigned char ucID )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"vFailCreateNFEESyncQueue. (exit)\n");
+	#endif
+
+	#ifdef DEBUG_ON
+		printf(fp,"CRITICAL: Could not create the Queue to the NFEE %hhu.\n",ucID);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
 void vCoudlNotCreateNFee0Task( void )
 {
 	#ifdef DEBUG_ON
@@ -1024,6 +1040,17 @@ void vFailSendMsgAccessDMA( unsigned char ucTemp)
 {
 	#ifdef DEBUG_ON
 		fprintf(fp,"vFailSendMsgAccessDMA. FEE n: \n", ucTemp);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendMsgSync( unsigned char ucTemp)
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailSendMsgSync. FEE n: \n", ucTemp);
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o

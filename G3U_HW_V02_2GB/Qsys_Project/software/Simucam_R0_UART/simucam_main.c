@@ -84,6 +84,13 @@ void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
 OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
+void *SyncTBL1[N_MSG_SYNC];
+void *SyncTBL2[N_MSG_SYNC];
+void *SyncTBL3[N_MSG_SYNC];
+void *SyncTBL4[N_MSG_SYNC];
+void *SyncTBL5[N_MSG_SYNC];
+OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
+
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
 void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
 OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the ISR the NFEE Number that has empty buffer, in order to grant acess to the DMA */
@@ -310,6 +317,15 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;		
 	}
 */
+
+
+	xWaitSyncQFee[0] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
+	if ( xFeeQ[0] == NULL ) {
+		vFailCreateNFEESyncQueue( 0 );
+		bSuccess = FALSE;
+	}
+
+
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
 	if ( xFeeQ[5] == NULL ) {
@@ -465,7 +481,16 @@ int main(void)
 	vVariablesInitialization();
 
 
-	//vFillMemmoryPattern(&xSimMeb);
+	bInitSync();
+#ifdef DEBUG_ON
+	debug(fp, "Sync Init: Tstart.\n");
+#endif
+	bStartSync();
+#ifdef DEBUG_ON
+	debug(fp, "Sync Init: after.\n");
+#endif
+
+	vFillMemmoryPattern(&xSimMeb);
 
 
 

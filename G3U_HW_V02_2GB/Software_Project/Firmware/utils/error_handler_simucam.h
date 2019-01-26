@@ -87,6 +87,8 @@ void vFailSendMsgAccessDMA( unsigned char ucTemp);
 void vFailSendMsgFeeCTRL( void );
 void vFailSendMsgDataCTRL( void );
 void vFailFlushQueue( void );
+void vFailCreateNFEESyncQueue( unsigned char ucID );
+void vFailSendMsgSync( unsigned char ucTemp);
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

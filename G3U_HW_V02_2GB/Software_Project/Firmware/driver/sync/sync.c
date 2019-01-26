@@ -44,6 +44,14 @@ static volatile int viHoldContext;
  * @retval void
  */
 void vSyncHandleIrq(void* pvContext) {
+	unsigned char ucIL;
+	unsigned char error_codel;
+	tQMask uiCmdtoSend;
+
+
+	uiCmdtoSend.ucByte[2] = M_FEE_SYNC;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 0;
 	// Cast pvContext to viHoldContext's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
 	volatile int* pviHoldContext = (volatile int*) pvContext;
@@ -52,7 +60,17 @@ void vSyncHandleIrq(void* pvContext) {
 	// if (*pviHoldContext == '0') {}...
 	// App logic sequence...
 
+	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 
+		if ( xSimMeb.xFeeControl.xNfee[ucIL].xControl.bWatingSync == TRUE ) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+
+			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
+		}
+	}
 
 	vucN += 1;
 

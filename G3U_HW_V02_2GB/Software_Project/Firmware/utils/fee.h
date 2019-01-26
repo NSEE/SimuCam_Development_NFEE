@@ -41,7 +41,7 @@ typedef enum { sMebConfig = 0, sRun } tSimucamStates;
 
 
 /* FEE operation modes */
-typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sSIMTestFullPattern} tFEEStates;
+typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sSIMTestFullPattern, sFeeWaitingSync} tFEEStates;
 
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/
@@ -59,8 +59,10 @@ typedef struct FeeControl{
     bool bEchoing;                      /* Echo the RMAP Packets */
     bool bChannelEnable;                /* SPW Channel is enable? */
     bool bSimulating;                   /* Start at any running mode - needs sync */
+    bool bWatingSync;
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
     tFEEStates eMode;                   /* Mode of NFEE */
+    tFEEStates eNextMode;
     tNFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */
 } TFeeControl;
 
