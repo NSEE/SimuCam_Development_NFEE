@@ -78,6 +78,8 @@ void vSyncHandleIrq(void* pvContext) {
 		fprintf(fp,"Sync N=%hu \n", vucN);
 	#endif
 
+	vSyncIrqFlagClrSync();
+
 }
 
 /**

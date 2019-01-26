@@ -14,7 +14,7 @@ bool bInitSync( void ) {
 	bool	bSuccess;
 	alt_u32	aux_32;
 
-	//vSyncInitIrq();
+	vSyncInitIrq();
 
 	#ifdef DEBUG_ON
 		debug(fp, "Initializing Sync Module.\n");

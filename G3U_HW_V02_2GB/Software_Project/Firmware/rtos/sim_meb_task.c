@@ -137,6 +137,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal ) {
 					case 61: /* TC_SCAM_RUN */
 
 						vMebChangeToRunning( pxMebCLocal );
+						OSTimeDlyHMSM(0,0,0,20);
+						bStartSync();
 
 						break;
 					case 62: /* TC_SCAM_TURNOFF */
@@ -332,7 +334,13 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal ) {
 	/*todo: URGENTE: Data Controller e NFEE COntroller tamb�m  */
 
 						vSendCmdQToNFeeCTRL( M_NFC_CONFIG, 0, 0 );
-
+						OSTimeDlyHMSM(0,0,0,10);
+						/* Stop Sync Generation */
+						bStopSync();
+						/* Clear all time code */
+						for ( i=0 ; i<N_OF_NFEE; i++ ){
+							bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xNfee[i].xChannel.xSpacewire);
+						}
 
 						break;
 
@@ -532,7 +540,7 @@ void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned
 	/* Sync the Meb task and tell that has a PUS command waiting */
 	error_codel = OSQPost(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgFeeCTRL();
+		vFailSendMsgDataCTRL();
 	}
 
 }

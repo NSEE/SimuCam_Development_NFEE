@@ -480,17 +480,12 @@ int main(void)
 
 	vVariablesInitialization();
 
-
 	bInitSync();
-#ifdef DEBUG_ON
-	debug(fp, "Sync Init: Tstart.\n");
-#endif
-	bStartSync();
-#ifdef DEBUG_ON
-	debug(fp, "Sync Init: after.\n");
-#endif
 
-	vFillMemmoryPattern(&xSimMeb);
+
+
+
+	//vFillMemmoryPattern(&xSimMeb);
 
 
 

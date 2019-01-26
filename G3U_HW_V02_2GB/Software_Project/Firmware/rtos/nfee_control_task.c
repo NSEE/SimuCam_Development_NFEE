@@ -193,7 +193,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			for( i = 0; i < N_OF_NFEE; i++)
 			{
 				if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
-					bSendCmdQToNFeeInst( i, M_FEE_CONFIG, 0, i  );
+					bSendCmdQToNFeeInst( i, M_FEE_CONFIG_FORCED, 0, i  );
 				}
 			}
 

@@ -61,10 +61,9 @@ void vFeeTask(void *task_data) {
 					fprintf(fp,"\nNFEE %hhu Task: Going to Config mode\n", pxNFee->ucId);
 				#endif
 
-				if ( pxNFee->xControl.bWatingSync == TRUE )
-					pxNFee->xControl.eNextMode = sFeeConfig;
-				else
-					pxNFee->xControl
+				pxNFee->xControl.eMode = sFeeConfig;
+
+
 				break;
 			case sFeeConfig: /* Real mode */
 

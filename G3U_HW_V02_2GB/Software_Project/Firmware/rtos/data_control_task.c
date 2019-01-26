@@ -22,8 +22,9 @@ void vDataControlTask(void *task_data) {
         debug(fp,"Data Controller Task. (Task on)\n");
     #endif
 
+    pxDataC->bUpdateComplete = TRUE;
 	for (;;) {
-		OSTimeDlyHMSM(0, 0, 0, 500);; /*todo:Tirar depois do debug*/
+		OSTimeDlyHMSM(0, 0, 10, 0);; /*todo:Tirar depois do debug*/
 	}
 
 }
