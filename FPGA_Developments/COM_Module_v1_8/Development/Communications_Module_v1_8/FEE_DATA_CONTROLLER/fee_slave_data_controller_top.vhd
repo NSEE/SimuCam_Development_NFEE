@@ -1,62 +1,56 @@
+-- TODO slave controller
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity fee_data_controller_top is
+entity fee_slave_data_controller_top is
 	generic(
 		g_FEE_CCD_SIDE : std_logic := '0'
 	);
 	port(
-		clk_i                              : in  std_logic;
-		rst_i                              : in  std_logic;
+		clk_i                      : in  std_logic;
+		rst_i                      : in  std_logic;
 		-- general inputs
-		fee_sync_signal_i                  : in  std_logic;
-		fee_current_timecode_i             : in  std_logic;
+		fee_sync_signal_i          : in  std_logic;
+		fee_current_timecode_i     : in  std_logic;
+		-- fee slave data controller control
+		fee_slave_imgdata_start_i  : in  std_logic;
+		fee_slave_frame_counter_i  : in  std_logic_vector(15 downto 0);
+		fee_slave_frame_number_i   : in  std_logic_vector(1 downto 0);
 		-- fee data controller control
-		fee_machine_clear_i                : in  std_logic;
-		fee_machine_stop_i                 : in  std_logic;
-		fee_machine_start_i                : in  std_logic;
+		fee_machine_clear_i        : in  std_logic;
+		fee_machine_stop_i         : in  std_logic;
+		fee_machine_start_i        : in  std_logic;
 		-- fee windowing buffer status
-		fee_window_data_i                  : in  std_logic_vector(63 downto 0);
-		fee_window_mask_i                  : in  std_logic_vector(63 downto 0);
-		fee_window_data_ready_i            : in  std_logic;
-		fee_window_mask_ready_i            : in  std_logic;
-		-- fee housekeeping memory status
-		fee_hk_mem_valid_i                 : in  std_logic;
-		fee_hk_mem_data_i                  : in  std_logic_vector(7 downto 0);
+		fee_window_data_i          : in  std_logic_vector(63 downto 0);
+		fee_window_mask_i          : in  std_logic_vector(63 downto 0);
+		fee_window_data_ready_i    : in  std_logic;
+		fee_window_mask_ready_i    : in  std_logic;
 		-- fee spw codec tx status
-		fee_spw_tx_ready_i                 : in  std_logic;
+		fee_spw_tx_ready_i         : in  std_logic;
 		-- data packet parameters
-		data_pkt_ccd_x_size_i              : in  std_logic_vector(15 downto 0);
-		data_pkt_ccd_y_size_i              : in  std_logic_vector(15 downto 0);
-		data_pkt_data_y_size_i             : in  std_logic_vector(15 downto 0);
-		data_pkt_overscan_y_size_i         : in  std_logic_vector(15 downto 0);
-		data_pkt_packet_length_i           : in  std_logic_vector(15 downto 0);
-		data_pkt_fee_mode_i                : in  std_logic_vector(2 downto 0);
-		data_pkt_ccd_number_i              : in  std_logic_vector(1 downto 0);
+		data_pkt_ccd_x_size_i      : in  std_logic_vector(15 downto 0);
+		data_pkt_ccd_y_size_i      : in  std_logic_vector(15 downto 0);
+		data_pkt_data_y_size_i     : in  std_logic_vector(15 downto 0);
+		data_pkt_overscan_y_size_i : in  std_logic_vector(15 downto 0);
+		data_pkt_packet_length_i   : in  std_logic_vector(15 downto 0);
+		data_pkt_fee_mode_i        : in  std_logic_vector(2 downto 0);
+		data_pkt_ccd_number_i      : in  std_logic_vector(1 downto 0);
 		-- data delays parameters
-		data_pkt_line_delay_i              : in  std_logic_vector(15 downto 0);
-		data_pkt_column_delay_i            : in  std_logic_vector(15 downto 0);
-		data_pkt_adc_delay_i               : in  std_logic_vector(15 downto 0);
+		data_pkt_line_delay_i      : in  std_logic_vector(15 downto 0);
+		data_pkt_column_delay_i    : in  std_logic_vector(15 downto 0);
+		data_pkt_adc_delay_i       : in  std_logic_vector(15 downto 0);
 		-- fee windowing buffer control
-		fee_window_data_read_o             : out std_logic;
-		fee_window_mask_read_o             : out std_logic;
-		-- fee housekeeping memory control
-		fee_hk_mem_byte_address_o          : out std_logic_vector(31 downto 0);
-		fee_hk_mem_read_o                  : out std_logic;
+		fee_window_data_read_o     : out std_logic;
+		fee_window_mask_read_o     : out std_logic;
 		-- fee spw codec tx control
-		fee_spw_tx_write_o                 : out std_logic;
-		fee_spw_tx_flag_o                  : out std_logic;
-		fee_spw_tx_data_o                  : out std_logic_vector(7 downto 0);
-		-- data packet header
-		data_pkt_header_length_o           : out std_logic_vector(15 downto 0);
-		data_pkt_header_type_o             : out std_logic_vector(15 downto 0);
-		data_pkt_header_frame_counter_o    : out std_logic_vector(15 downto 0);
-		data_pkt_header_sequence_counter_o : out std_logic_vector(15 downto 0)
+		fee_spw_tx_write_o         : out std_logic;
+		fee_spw_tx_flag_o          : out std_logic;
+		fee_spw_tx_data_o          : out std_logic_vector(7 downto 0)
 	);
-end entity fee_data_controller_top;
+end entity fee_slave_data_controller_top;
 
-architecture RTL of fee_data_controller_top is
+architecture RTL of fee_slave_data_controller_top is
 
 	-- general signals
 	signal s_current_frame_number               : std_logic_vector(1 downto 0);

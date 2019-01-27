@@ -9,6 +9,7 @@ entity rmap_mem_area_nfee_write is
 	port(
 		clk_i                   : in  std_logic;
 		rst_i                   : in  std_logic;
+		fee_frame_number_i      : in  std_logic_vector(1 downto 0);
 		rmap_write_i            : in  std_logic;
 		rmap_writeaddr_i        : in  std_logic_vector(31 downto 0);
 		rmap_writedata_i        : in  std_logic_vector(7 downto 0);
@@ -61,7 +62,7 @@ begin
 			rmap_config_registers_o.operation_mode_config.mode_selection_control                      <= x"1";
 			rmap_config_registers_o.sync_config.sync_configuration                                    <= "00";
 			rmap_config_registers_o.sync_config.self_trigger_control                                  <= '0';
-			rmap_config_registers_o.frame_number.frame_number                                         <= "00";
+			--			rmap_config_registers_o.frame_number.frame_number                                         <= "00";
 			rmap_config_registers_o.current_mode.current_mode                                         <= "0000";
 			-- HK Area
 			rmap_hk_registers_o.hk_ccd1_vod_e                                                         <= x"FFFF";
@@ -277,7 +278,8 @@ begin
 				when (x"00000044") =>
 					null;
 				when (x"0000004B") =>
-					rmap_config_registers_o.frame_number.frame_number <= rmap_writedata_i(1 downto 0);
+					--					rmap_config_registers_o.frame_number.frame_number <= rmap_writedata_i(1 downto 0);
+					null;
 				when (x"0000004A") =>
 					null;
 				when (x"00000049") =>
@@ -285,7 +287,8 @@ begin
 				when (x"00000048") =>
 					null;
 				when (x"0000004F") =>
-					rmap_config_registers_o.current_mode.current_mode <= rmap_writedata_i(3 downto 0);
+					--					rmap_config_registers_o.current_mode.current_mode <= rmap_writedata_i(3 downto 0);
+					null;
 				when (x"0000004E") =>
 					null;
 				when (x"0000004D") =>
@@ -357,7 +360,8 @@ begin
 				when (16#4F#) =>
 					null;
 				when (16#50#) =>
-					rmap_config_registers_o.frame_number.frame_number <= avalon_mm_rmap_i.writedata(1 downto 0);
+					--					rmap_config_registers_o.frame_number.frame_number <= avalon_mm_rmap_i.writedata(1 downto 0);
+					null;
 				when (16#51#) =>
 					rmap_config_registers_o.current_mode.current_mode <= avalon_mm_rmap_i.writedata(3 downto 0);
 
@@ -489,6 +493,9 @@ begin
 			v_write_timeout_cnt          := 15;
 			v_write_executed             := '0';
 		elsif rising_edge(clk_i) then
+
+			-- fee frame number value assignment
+			rmap_config_registers_o.frame_number.frame_number <= fee_frame_number_i;
 
 			-- standard signals value
 			rmap_memerror_o <= '0';

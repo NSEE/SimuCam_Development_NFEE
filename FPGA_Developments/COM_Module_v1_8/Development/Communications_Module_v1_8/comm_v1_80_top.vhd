@@ -1,4 +1,4 @@
--- comm_v1_50_top.vhd
+-- comm_v1_80_top.vhd
 
 -- This file was auto-generated as a prototype implementation of a module
 -- created in component editor.  It ties off all outputs to ground and
@@ -19,7 +19,7 @@ use work.spw_codec_pkg.all;
 use work.rmap_target_pkg.all;
 use work.rmap_mem_area_nfee_pkg.all;
 
-entity comm_v1_50_top is
+entity comm_v1_80_top is
 	port(
 		reset_sink_reset                   : in  std_logic                     := '0'; --          --               reset_sink.a_reset
 		data_in                            : in  std_logic                     := '0'; --          --          spw_conduit_end.data_in_signal
@@ -46,9 +46,9 @@ entity comm_v1_50_top is
 		avalon_slave_R_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
 		avalon_slave_R_buffer_waitrequest  : out std_logic --                                      --                         .waitrequest
 	);
-end entity comm_v1_50_top;
+end entity comm_v1_80_top;
 
-architecture rtl of comm_v1_50_top is
+architecture rtl of comm_v1_80_top is
 
 	-- dummy ports
 	alias a_spw_clock is clock_sink_200_clk;
@@ -130,39 +130,42 @@ architecture rtl of comm_v1_50_top is
 
 	-- right fee data controller signals --
 	-- windowing buffer right fee data controller signals
-	signal s_R_fee_data_controller_window_data_read    : std_logic;
-	signal s_R_fee_data_controller_window_mask_read    : std_logic;
-	signal s_R_fee_data_controller_window_data_out     : std_logic_vector(63 downto 0);
-	signal s_R_fee_data_controller_window_mask_out     : std_logic_vector(63 downto 0);
-	signal s_R_fee_data_controller_window_data_ready   : std_logic;
-	signal s_R_fee_data_controller_window_mask_ready   : std_logic;
+	signal s_R_fee_data_controller_window_data_read  : std_logic;
+	signal s_R_fee_data_controller_window_mask_read  : std_logic;
+	signal s_R_fee_data_controller_window_data_out   : std_logic_vector(63 downto 0);
+	signal s_R_fee_data_controller_window_mask_out   : std_logic_vector(63 downto 0);
+	signal s_R_fee_data_controller_window_data_ready : std_logic;
+	signal s_R_fee_data_controller_window_mask_ready : std_logic;
 	-- spw codec right fee data controller signals
-	signal s_R_fee_data_controller_spw_txrdy           : std_logic;
-	signal s_R_fee_data_controller_spw_txwrite         : std_logic;
-	signal s_R_fee_data_controller_spw_txflag          : std_logic;
-	signal s_R_fee_data_controller_spw_txdata          : std_logic_vector(7 downto 0);
-	-- rmap memory right fee data controller signals
-	signal s_R_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
-	signal s_R_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
-	signal s_R_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
+	signal s_R_fee_data_controller_spw_txrdy         : std_logic;
+	signal s_R_fee_data_controller_spw_txwrite       : std_logic;
+	signal s_R_fee_data_controller_spw_txflag        : std_logic;
+	signal s_R_fee_data_controller_spw_txdata        : std_logic_vector(7 downto 0);
 
 	-- left fee data controller signals --
 	-- windowing buffer left fee data controller signals
-	signal s_L_fee_data_controller_window_data_read    : std_logic;
-	signal s_L_fee_data_controller_window_mask_read    : std_logic;
-	signal s_L_fee_data_controller_window_data_out     : std_logic_vector(63 downto 0);
-	signal s_L_fee_data_controller_window_mask_out     : std_logic_vector(63 downto 0);
-	signal s_L_fee_data_controller_window_data_ready   : std_logic;
-	signal s_L_fee_data_controller_window_mask_ready   : std_logic;
+	signal s_L_fee_data_controller_window_data_read  : std_logic;
+	signal s_L_fee_data_controller_window_mask_read  : std_logic;
+	signal s_L_fee_data_controller_window_data_out   : std_logic_vector(63 downto 0);
+	signal s_L_fee_data_controller_window_mask_out   : std_logic_vector(63 downto 0);
+	signal s_L_fee_data_controller_window_data_ready : std_logic;
+	signal s_L_fee_data_controller_window_mask_ready : std_logic;
 	-- spw codec left fee data controller signals
-	signal s_L_fee_data_controller_spw_txrdy           : std_logic;
-	signal s_L_fee_data_controller_spw_txwrite         : std_logic;
-	signal s_L_fee_data_controller_spw_txflag          : std_logic;
-	signal s_L_fee_data_controller_spw_txdata          : std_logic_vector(7 downto 0);
-	-- rmap memory left fee data controller signals
-	signal s_L_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
-	signal s_L_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
-	signal s_L_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
+	signal s_L_fee_data_controller_spw_txrdy         : std_logic;
+	signal s_L_fee_data_controller_spw_txwrite       : std_logic;
+	signal s_L_fee_data_controller_spw_txflag        : std_logic;
+	signal s_L_fee_data_controller_spw_txdata        : std_logic_vector(7 downto 0);
+
+	-- fee master data controller signals --
+	-- rmap memory fee master data controller signals
+	signal s_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
+	signal s_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
+	signal s_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
+
+	-- fee slave data controller signals --
+	signal s_fee_slave_imgdata_start : std_logic;
+	signal s_fee_slave_frame_counter : std_logic_vector(15 downto 0);
+	signal s_fee_slave_frame_number  : std_logic_vector(1 downto 0);
 
 	-- spw codec clock synchronization signals
 	signal s_spw_codec_link_command_clk200    : t_spw_codec_link_command;
@@ -206,8 +209,8 @@ architecture rtl of comm_v1_50_top is
 	signal s_current_timecode : std_logic_vector(7 downto 0);
 
 	-- sync edge detection
-	-- TODO: terminar o edge detection
 	signal s_sync_in_trigger : std_logic;
+	signal s_sync_in_delayed : std_logic;
 
 	-- spw mux
 	-- "spw mux" to "codec" signals
@@ -221,6 +224,10 @@ architecture rtl of comm_v1_50_top is
 	-- spw mux tx 2 signals
 	signal s_mux_tx_2_command       : t_spw_codec_data_tx_command;
 	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
+
+	-- buffer size
+	signal s_right_buffer_size : std_logic_vector(3 downto 0);
+	signal s_left_buffer_size  : std_logic_vector(3 downto 0);
 
 begin
 
@@ -236,7 +243,9 @@ begin
 			avalon_mm_spacewire_o.readdata    => s_avalon_mm_windwoing_read_readdata,
 			avalon_mm_spacewire_o.waitrequest => s_avalon_mm_windwoing_read_waitrequest,
 			spacewire_write_registers_i       => s_spacewire_write_registers,
-			spacewire_read_registers_i        => s_spacewire_read_registers
+			spacewire_read_registers_i        => s_spacewire_read_registers,
+			right_buffer_size_i               => s_right_buffer_size,
+			left_buffer_size_i                => s_left_buffer_size
 		);
 
 	-- windowing avalon mm write instantiation
@@ -248,7 +257,9 @@ begin
 			avalon_mm_spacewire_i.write       => avalon_slave_windowing_write,
 			avalon_mm_spacewire_i.writedata   => avalon_slave_windowing_writedata,
 			avalon_mm_spacewire_o.waitrequest => s_avalon_mm_windwoing_write_waitrequest,
-			spacewire_write_registers_o       => s_spacewire_write_registers
+			spacewire_write_registers_o       => s_spacewire_write_registers,
+			right_buffer_size_o               => s_right_buffer_size,
+			left_buffer_size_o                => s_left_buffer_size
 		);
 
 	-- rigth avalon mm windowing write instantiation
@@ -259,7 +270,7 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
-			mask_enable_i                     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en,
+			mask_enable_i                     => '1',
 			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
 			window_data_write_o               => s_R_window_data_write,
 			window_mask_write_o               => s_R_window_mask_write,
@@ -271,6 +282,10 @@ begin
 		port map(
 			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
+			window_buffer_size_i  => s_right_buffer_size,
+			fee_clear_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_stop_signal_i     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_start_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
 			window_data_write_i   => s_R_window_data_write,
 			window_mask_write_i   => s_R_window_mask_write,
 			window_data_i         => s_R_window_data,
@@ -291,7 +306,7 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
-			mask_enable_i                     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en,
+			mask_enable_i                     => '1',
 			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
 			window_data_write_o               => s_L_window_data_write,
 			window_mask_write_o               => s_L_window_mask_write,
@@ -303,6 +318,10 @@ begin
 		port map(
 			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
+			window_buffer_size_i  => s_left_buffer_size,
+			fee_clear_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_stop_signal_i     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_start_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
 			window_data_write_i   => s_L_window_data_write,
 			window_mask_write_i   => s_L_window_mask_write,
 			window_data_i         => s_L_window_data,
@@ -443,51 +462,48 @@ begin
 			spw_txdata_o          => s_data_controller_spw_txdata
 		);
 
-	-- right fee data controller instantiation
-	right_fee_data_controller_top_inst : entity work.fee_data_controller_top
+	-- TODO slave controller
+	-- right fee slave data controller instantiation
+	right_fee_slave_data_controller_top_inst : entity work.fee_slave_data_controller_top
 		generic map(
 			g_FEE_CCD_SIDE => c_CCD_RIGHT_SIDE
 		)
 		port map(
-			clk_i                              => a_avs_clock,
-			rst_i                              => a_reset,
-			fee_sync_signal_i                  => s_sync_in_trigger,
-			fee_current_timecode_i             => s_current_timecode,
-			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
-			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
-			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
-			fee_window_data_i                  => s_R_fee_data_controller_window_data_out,
-			fee_window_mask_i                  => s_R_fee_data_controller_window_mask_out,
-			fee_window_data_ready_i            => s_R_fee_data_controller_window_data_ready,
-			fee_window_mask_ready_i            => s_R_fee_data_controller_window_mask_ready,
-			fee_hk_mem_valid_i                 => s_R_fee_data_controller_mem_rd_flag.valid,
-			fee_hk_mem_data_i                  => s_R_fee_data_controller_mem_rd_flag.data,
-			fee_spw_tx_ready_i                 => s_R_fee_data_controller_spw_txrdy,
-			data_pkt_ccd_x_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_x_size,
-			data_pkt_ccd_y_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_y_size,
-			data_pkt_data_y_size_i             => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_data_y_size,
-			data_pkt_overscan_y_size_i         => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_overscan_y_size,
-			data_pkt_packet_length_i           => s_spacewire_write_registers.data_packet_config_3_reg.data_pkt_packet_length,
-			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
-			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
-			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
-			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
-			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
-			fee_window_data_read_o             => s_R_fee_data_controller_window_data_read,
-			fee_window_mask_read_o             => s_R_fee_data_controller_window_mask_read,
-			fee_hk_mem_byte_address_o          => s_R_fee_data_controller_mem_rd_byte_address,
-			fee_hk_mem_read_o                  => s_R_fee_data_controller_mem_rd_control.read,
-			fee_spw_tx_write_o                 => s_R_fee_data_controller_spw_txwrite,
-			fee_spw_tx_flag_o                  => s_R_fee_data_controller_spw_txflag,
-			fee_spw_tx_data_o                  => s_R_fee_data_controller_spw_txdata,
-			data_pkt_header_length_o           => s_spacewire_read_registers.data_packet_header_1_reg.data_pkt_header_length,
-			data_pkt_header_type_o             => s_spacewire_read_registers.data_packet_header_1_reg.data_pkt_header_type,
-			data_pkt_header_frame_counter_o    => s_spacewire_read_registers.data_packet_header_2_reg.data_pkt_header_frame_counter,
-			data_pkt_header_sequence_counter_o => s_spacewire_read_registers.data_packet_header_2_reg.data_pkt_header_sequence_counter
+			clk_i                      => a_avs_clock,
+			rst_i                      => a_reset,
+			fee_sync_signal_i          => s_sync_in_trigger,
+			fee_current_timecode_i     => s_current_timecode,
+			fee_slave_imgdata_start_i  => s_fee_slave_imgdata_start,
+			fee_slave_frame_counter_i  => s_fee_slave_frame_counter,
+			fee_slave_frame_number_i   => s_fee_slave_frame_number,
+			fee_machine_clear_i        => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_machine_stop_i         => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_machine_start_i        => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
+			fee_window_data_i          => s_R_fee_data_controller_window_data_out,
+			fee_window_mask_i          => s_R_fee_data_controller_window_mask_out,
+			fee_window_data_ready_i    => s_R_fee_data_controller_window_data_ready,
+			fee_window_mask_ready_i    => s_R_fee_data_controller_window_mask_ready,
+			fee_spw_tx_ready_i         => s_R_fee_data_controller_spw_txrdy,
+			data_pkt_ccd_x_size_i      => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_x_size,
+			data_pkt_ccd_y_size_i      => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_y_size,
+			data_pkt_data_y_size_i     => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_data_y_size,
+			data_pkt_overscan_y_size_i => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_overscan_y_size,
+			data_pkt_packet_length_i   => s_spacewire_write_registers.data_packet_config_3_reg.data_pkt_packet_length,
+			data_pkt_fee_mode_i        => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
+			data_pkt_ccd_number_i      => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
+			data_pkt_line_delay_i      => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
+			data_pkt_column_delay_i    => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
+			data_pkt_adc_delay_i       => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
+			fee_window_data_read_o     => s_R_fee_data_controller_window_data_read,
+			fee_window_mask_read_o     => s_R_fee_data_controller_window_mask_read,
+			fee_spw_tx_write_o         => s_R_fee_data_controller_spw_txwrite,
+			fee_spw_tx_flag_o          => s_R_fee_data_controller_spw_txflag,
+			fee_spw_tx_data_o          => s_R_fee_data_controller_spw_txdata
 		);
 
-	-- left fee data controller instantiation
-	left_fee_data_controller_top_inst : entity work.fee_data_controller_top
+	-- TODO master controller
+	-- left fee master data controller instantiation
+	left_fee_master_data_controller_top_inst : entity work.fee_master_data_controller_top
 		generic map(
 			g_FEE_CCD_SIDE => c_CCD_LEFT_SIDE
 		)
@@ -503,8 +519,8 @@ begin
 			fee_window_mask_i                  => s_L_fee_data_controller_window_mask_out,
 			fee_window_data_ready_i            => s_L_fee_data_controller_window_data_ready,
 			fee_window_mask_ready_i            => s_L_fee_data_controller_window_mask_ready,
-			fee_hk_mem_valid_i                 => s_L_fee_data_controller_mem_rd_flag.valid,
-			fee_hk_mem_data_i                  => s_L_fee_data_controller_mem_rd_flag.data,
+			fee_hk_mem_valid_i                 => s_fee_data_controller_mem_rd_flag.valid,
+			fee_hk_mem_data_i                  => s_fee_data_controller_mem_rd_flag.data,
 			fee_spw_tx_ready_i                 => s_L_fee_data_controller_spw_txrdy,
 			data_pkt_ccd_x_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_x_size,
 			data_pkt_ccd_y_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_y_size,
@@ -516,10 +532,13 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
+			fee_slave_imgdata_start_o          => s_fee_slave_imgdata_start,
+			fee_slave_frame_counter_o          => s_fee_slave_frame_counter,
+			fee_slave_frame_number_o           => s_fee_slave_frame_number,
 			fee_window_data_read_o             => s_L_fee_data_controller_window_data_read,
 			fee_window_mask_read_o             => s_L_fee_data_controller_window_mask_read,
-			fee_hk_mem_byte_address_o          => s_L_fee_data_controller_mem_rd_byte_address,
-			fee_hk_mem_read_o                  => s_L_fee_data_controller_mem_rd_control.read,
+			fee_hk_mem_byte_address_o          => s_fee_data_controller_mem_rd_byte_address,
+			fee_hk_mem_read_o                  => s_fee_data_controller_mem_rd_control.read,
 			fee_spw_tx_write_o                 => s_L_fee_data_controller_spw_txwrite,
 			fee_spw_tx_flag_o                  => s_L_fee_data_controller_spw_txflag,
 			fee_spw_tx_data_o                  => s_L_fee_data_controller_spw_txdata,
@@ -570,6 +589,8 @@ begin
 		port map(
 			clk_i                        => a_avs_clock,
 			rst_i                        => a_reset,
+			fee_hk_read_i                => s_fee_data_controller_mem_rd_control.read,
+			fee_hk_readaddr_i            => s_fee_data_controller_mem_rd_byte_address,
 			rmap_read_i                  => s_rmap_mem_control.read.read,
 			rmap_readaddr_i              => s_rmap_mem_rd_byte_address,
 			rmap_config_registers_i      => s_rmap_mem_config_area,
@@ -579,6 +600,8 @@ begin
 			rmap_write_authorized_i      => s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized,
 			rmap_write_finished_i        => s_rmap_write_data_finished,
 			rmap_memerror_o              => s_rmap_mem_flag.read.error,
+			fee_hk_datavalid_o           => s_fee_data_controller_mem_rd_flag.valid,
+			fee_hk_readdata_o            => s_fee_data_controller_mem_rd_flag.data,
 			rmap_datavalid_o             => s_rmap_mem_flag.read.valid,
 			rmap_readdata_o              => s_rmap_mem_flag.read.data,
 			avalon_mm_rmap_o.readdata    => s_avalon_mm_rmap_mem_read_readdata,
@@ -589,6 +612,7 @@ begin
 		port map(
 			clk_i                        => a_avs_clock,
 			rst_i                        => a_reset,
+			fee_frame_number_i           => s_fee_slave_frame_number,
 			rmap_write_i                 => s_rmap_mem_control.write.write,
 			rmap_writeaddr_i             => s_rmap_mem_wr_byte_address,
 			rmap_writedata_i             => s_rmap_mem_control.write.data,
@@ -818,4 +842,22 @@ begin
 	end process p_rmap_write_irq_manager;
 	rmap_interrupt_sender_irq <= s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag;
 
-end architecture rtl;                   -- of comm_v1_50_top
+	-- sync in trigger generation
+	p_sync_in_triger : process(a_avs_clock, a_reset) is
+	begin
+		if (a_reset) = '1' then
+			s_sync_in_trigger <= '0';
+			s_sync_in_delayed <= '0';
+		elsif rising_edge(a_avs_clock) then
+			-- trigger signal
+			s_sync_in_trigger <= '0';
+			-- edge detection
+			if ((s_sync_in_delayed = '0') and (sync_channel = '1')) then
+				s_sync_in_trigger <= '1';
+			end if;
+			-- delay signals
+			s_sync_in_delayed <= sync_channel;
+		end if;
+	end process p_rmap_write_irq_manager;
+
+end architecture rtl;                   -- of comm_v1_80_top

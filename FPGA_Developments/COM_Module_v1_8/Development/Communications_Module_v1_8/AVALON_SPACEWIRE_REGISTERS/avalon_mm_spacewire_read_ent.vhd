@@ -13,7 +13,9 @@ entity avalon_mm_spacewire_read_ent is
 		avalon_mm_spacewire_i       : in  t_avalon_mm_spacewire_read_in;
 		avalon_mm_spacewire_o       : out t_avalon_mm_spacewire_read_out;
 		spacewire_write_registers_i : in  t_windowing_write_registers;
-		spacewire_read_registers_i  : in  t_windowing_read_registers
+		spacewire_read_registers_i  : in  t_windowing_read_registers;
+		right_buffer_size_i         : in  std_logic_vector(3 downto 0);
+		left_buffer_size_i          : in  std_logic_vector(3 downto 0)
 	);
 end entity avalon_mm_spacewire_read_ent;
 
@@ -140,6 +142,12 @@ begin
 					avalon_mm_spacewire_o.readdata(7 downto 1)  <= (others => '0');
 					avalon_mm_spacewire_o.readdata(8)           <= spacewire_write_registers_i.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear;
 					avalon_mm_spacewire_o.readdata(31 downto 9) <= (others => '0');
+				when (16#14#) =>
+					avalon_mm_spacewire_o.readdata(3 downto 0)  <= right_buffer_size_i;
+					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
+				when (16#15#) =>
+					avalon_mm_spacewire_o.readdata(3 downto 0)  <= left_buffer_size_i;
+					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
 				when others =>
 					avalon_mm_spacewire_o.readdata <= (others => '0');
 
@@ -160,10 +168,7 @@ begin
 			if (avalon_mm_spacewire_i.read = '1') then
 				v_read_address := to_integer(unsigned(avalon_mm_spacewire_i.address));
 				-- check if the address is allowed
-				if not (
-					((v_read_address >= 16#A0#) and (v_read_address <= 16#BF#)) or 
-					((v_read_address >= 16#40#) and (v_read_address <= 16#51#))
-				) then
+				if not (((v_read_address >= 16#A0#) and (v_read_address <= 16#BF#)) or ((v_read_address >= 16#40#) and (v_read_address <= 16#51#))) then
 					-- check if address is allowed
 					avalon_mm_spacewire_o.waitrequest <= '0';
 					p_readdata(v_read_address);
