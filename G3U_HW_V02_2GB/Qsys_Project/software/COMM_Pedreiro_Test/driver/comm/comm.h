@@ -306,15 +306,19 @@
 //! [constants definition]
 
 //! [public module structs definition]
+enum CommBufferSide {
+	eCommLeftBuffer = 0, eCommRightBuffer = 1
+} ESdmaBufferSide;
+
 enum CommSpwCh {
 	eCommSpwCh1 = 0,
-	eCommSpwCh2 = 2,
-	eCommSpwCh3 = 3,
-	eCommSpwCh4 = 4,
-	eCommSpwCh5 = 5,
-	eCommSpwCh6 = 6,
-	eCommSpwCh7 = 7,
-	eCommSpwCh8 = 8
+	eCommSpwCh2 = 1,
+	eCommSpwCh3 = 2,
+	eCommSpwCh4 = 3,
+	eCommSpwCh5 = 4,
+	eCommSpwCh6 = 5,
+	eCommSpwCh7 = 6,
+	eCommSpwCh8 = 7
 } ECommSpwCh;
 //! [public module structs definition]
 

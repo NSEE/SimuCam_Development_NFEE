@@ -7,18 +7,20 @@ use work.windowing_fifo_pkg.all;
 
 entity windowing_buffer_ent is
 	port(
-		clk_i                 : in  std_logic;
-		rst_i                 : in  std_logic;
-		window_data_write_i   : in  std_logic;
-		window_mask_write_i   : in  std_logic;
-		window_data_i         : in  std_logic_vector(63 downto 0);
-		window_data_read_i    : in  std_logic;
-		window_mask_read_i    : in  std_logic;
-		window_data_o         : out std_logic_vector(63 downto 0);
-		window_mask_o         : out std_logic_vector(63 downto 0);
-		window_data_ready_o   : out std_logic;
-		window_mask_ready_o   : out std_logic;
-		window_buffer_empty_o : out std_logic
+		clk_i                   : in  std_logic;
+		rst_i                   : in  std_logic;
+		window_data_write_i     : in  std_logic;
+		window_mask_write_i     : in  std_logic;
+		window_data_i           : in  std_logic_vector(63 downto 0);
+		window_data_read_i      : in  std_logic;
+		window_mask_read_i      : in  std_logic;
+		window_data_o           : out std_logic_vector(63 downto 0);
+		window_mask_o           : out std_logic_vector(63 downto 0);
+		window_data_ready_o     : out std_logic;
+		window_mask_ready_o     : out std_logic;
+		window_buffer_empty_o   : out std_logic;
+		window_buffer_0_empty_o : out std_logic;
+		window_buffer_1_empty_o : out std_logic
 	);
 end entity windowing_buffer_ent;
 
