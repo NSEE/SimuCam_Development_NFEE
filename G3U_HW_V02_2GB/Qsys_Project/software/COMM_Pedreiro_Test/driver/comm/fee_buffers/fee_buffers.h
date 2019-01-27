@@ -32,6 +32,8 @@ typedef struct FeebIrqFlag {
 typedef struct FeebBufferStatus {
 	bool bLeftBufferEmpty;
 	bool bRightBufferEmpty;
+	alt_u8 ucLeftBufferSize;
+	alt_u8 ucRightBufferSize;
 } TFeebBufferStatus;
 
 typedef struct FeebChannel {

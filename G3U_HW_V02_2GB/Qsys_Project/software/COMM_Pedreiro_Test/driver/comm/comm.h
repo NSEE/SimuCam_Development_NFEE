@@ -58,6 +58,8 @@
 #define COMM_IRQ_CONTROL_REG_OFST        0x11
 #define COMM_IRQ_FLAGS_REG_OFST          0x12
 #define COMM_IRQ_FLAGS_CLR_REG_OFST      0x13
+#define COMM_RIGT_FEEBUFF_SIZE_REG_OFST  0x14
+#define COMM_LEFT_FEEBUFF_SIZE_REG_OFST  0x15
 // RMAP config addr
 #define COMM_RMAP_CCD_SEQ_1_CFG_REG_OFST 0x40
 #define COMM_RMAP_CCD_SEQ_2_CFG_REG_OFST 0x41
@@ -191,6 +193,9 @@
 
 #define COMM_IRQ_RMAP_WRCMD_FLG_CLR_MSK  (1 << 0)
 #define COMM_IRQ_BUFF_EPY_FLG_CLR_MSK    (1 << 8)
+
+#define COMM_RIGT_FEEBUFF_SIZE_MSK       (0xF << 0)
+#define COMM_LEFT_FEEBUFF_SIZE_MSK       (0xF << 0)
 
 // rmap config bit masks
 #define COMM_RMAP_TRI_LV_CLK_CTRL_MSK    (1 << 1)

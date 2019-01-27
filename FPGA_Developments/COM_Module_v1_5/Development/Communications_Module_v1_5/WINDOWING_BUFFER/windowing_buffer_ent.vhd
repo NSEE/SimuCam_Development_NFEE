@@ -9,6 +9,7 @@ entity windowing_buffer_ent is
 	port(
 		clk_i                   : in  std_logic;
 		rst_i                   : in  std_logic;
+		window_buffer_size_i    : in  std_logic_vector(3 downto 0);
 		window_data_write_i     : in  std_logic;
 		window_mask_write_i     : in  std_logic;
 		window_data_i           : in  std_logic_vector(63 downto 0);
@@ -67,6 +68,10 @@ architecture RTL of windowing_buffer_ent is
 	signal s_data_buffer_1_lock : std_logic;
 	signal s_mask_buffer_0_lock : std_logic;
 	signal s_mask_buffer_1_lock : std_logic;
+
+	-- windowing buffers size signals
+	signal s_window_mask_buffer_size : std_logic_vector(3 downto 0);
+	signal s_window_data_buffer_size : std_logic_vector(7 downto 0);
 
 begin
 
@@ -193,7 +198,8 @@ begin
 							s_windowing_data_fifo_0_control.write.wrreq <= '1';
 							s_windowing_data_fifo_0_wr_data.data        <= window_data_i;
 							-- check if this will be the last data for the buffer 0
-							if (s_windowing_data_fifo_0_status.write.usedw = "11111111") then
+							if (s_windowing_data_fifo_0_status.write.usedw = s_window_data_buffer_size) then
+								--							if (s_windowing_data_fifo_0_status.write.usedw = "11111111") then
 								-- next data will be stored in buffer 1
 								s_write_data_buffer_0_active <= '0';
 								-- set the data ready flag
@@ -216,7 +222,8 @@ begin
 								s_windowing_data_fifo_1_control.write.wrreq <= '1';
 								s_windowing_data_fifo_1_wr_data.data        <= window_data_i;
 								-- check if this will be the last data for the buffer 1
-								if (s_windowing_data_fifo_1_status.write.usedw = "11111111") then
+								if (s_windowing_data_fifo_1_status.write.usedw = s_window_data_buffer_size) then
+									--								if (s_windowing_data_fifo_1_status.write.usedw = "11111111") then
 									-- next data will be stored in buffer 0
 									s_write_data_buffer_0_active <= '1';
 									-- set the data ready flag
@@ -242,7 +249,8 @@ begin
 							s_windowing_mask_fifo_0_control.write.wrreq <= '1';
 							s_windowing_mask_fifo_0_wr_data.data        <= window_data_i;
 							-- check if this will be the last data for the buffer 0
-							if (s_windowing_mask_fifo_0_status.write.usedw = "1111") then
+							if (s_windowing_mask_fifo_0_status.write.usedw = s_window_mask_buffer_size) then
+								--							if (s_windowing_mask_fifo_0_status.write.usedw = "1111") then
 								-- next data will be stored in buffer 1
 								s_write_mask_buffer_0_active <= '0';
 								-- set the mask ready flag
@@ -265,7 +273,8 @@ begin
 								s_windowing_mask_fifo_1_control.write.wrreq <= '1';
 								s_windowing_mask_fifo_1_wr_data.data        <= window_data_i;
 								-- check if this will be the last data for the buffer 1
-								if (s_windowing_mask_fifo_1_status.write.usedw = "1111") then
+								if (s_windowing_mask_fifo_1_status.write.usedw = s_window_mask_buffer_size) then
+									--								if (s_windowing_mask_fifo_1_status.write.usedw = "1111") then
 									-- next data will be stored in buffer 0
 									s_write_mask_buffer_0_active <= '1';
 									-- set the mask ready flag
@@ -367,9 +376,16 @@ begin
 		end if;
 	end process p_windowing_buffer;
 
+	-- signals assignments
+	s_window_mask_buffer_size             <= window_buffer_size_i;
+	s_window_data_buffer_size(7 downto 4) <= window_buffer_size_i;
+	s_window_data_buffer_size(3 downto 0) <= "1111";
+
 	-- output signals generation:
-	window_buffer_empty_o <= (((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty)) or ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty)));
-	window_data_ready_o   <= ((s_data_buffer_0_ready) or (s_data_buffer_1_ready));
-	window_mask_ready_o   <= ((s_mask_buffer_0_ready) or (s_mask_buffer_1_ready));
+	window_buffer_empty_o   <= (((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty)) or ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty)));
+	window_buffer_0_empty_o <= ((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty));
+	window_buffer_1_empty_o <= ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty));
+	window_data_ready_o     <= ((s_data_buffer_0_ready) or (s_data_buffer_1_ready));
+	window_mask_ready_o     <= ((s_mask_buffer_0_ready) or (s_mask_buffer_1_ready));
 
 end architecture RTL;
