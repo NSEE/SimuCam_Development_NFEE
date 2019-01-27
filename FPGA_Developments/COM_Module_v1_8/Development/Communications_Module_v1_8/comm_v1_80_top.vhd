@@ -56,6 +56,8 @@ architecture rtl of comm_v1_50_top is
 	alias a_reset is reset_sink_reset;
 
 	-- constants
+	constant c_CCD_LEFT_SIDE  : std_logic := '0';
+	constant c_CCD_RIGHT_SIDE : std_logic := '1';
 
 	-- signals
 
@@ -77,10 +79,10 @@ architecture rtl of comm_v1_50_top is
 	signal s_spacewire_write_registers : t_windowing_write_registers;
 	signal s_spacewire_read_registers  : t_windowing_read_registers;
 
-	-- rigth avalon mm windowing write signals
+	-- right avalon mm windowing write signals
 	signal s_R_window_data : std_logic_vector(63 downto 0);
 
-	-- rigth windowing buffer signals
+	-- right windowing buffer signals
 	signal s_R_window_data_write : std_logic;
 	signal s_R_window_mask_write : std_logic;
 	signal s_R_window_data_read  : std_logic;
@@ -103,19 +105,64 @@ architecture rtl of comm_v1_50_top is
 	signal s_L_window_data_ready : std_logic;
 	signal s_L_window_mask_ready : std_logic;
 
-	-- data controller signals
+	-- data controller signals --
+	-- right windowing buffer data controller signals
+	signal s_data_controller_R_window_data_read  : std_logic;
+	signal s_data_controller_R_window_mask_read  : std_logic;
+	signal s_data_controller_R_window_data_out   : std_logic_vector(63 downto 0);
+	signal s_data_controller_R_window_mask_out   : std_logic_vector(63 downto 0);
+	signal s_data_controller_R_window_data_ready : std_logic;
+	signal s_data_controller_R_window_mask_ready : std_logic;
+	-- left windowing buffer data controller signals
+	signal s_data_controller_L_window_data_read  : std_logic;
+	signal s_data_controller_L_window_mask_read  : std_logic;
+	signal s_data_controller_L_window_data_out   : std_logic_vector(63 downto 0);
+	signal s_data_controller_L_window_mask_out   : std_logic_vector(63 downto 0);
+	signal s_data_controller_L_window_data_ready : std_logic;
+	signal s_data_controller_L_window_mask_ready : std_logic;
+	-- spw codec data controller signals
+	signal s_data_controller_spw_rxhalff         : std_logic;
+	signal s_data_controller_spw_txrdy           : std_logic;
+	signal s_data_controller_spw_txhalff         : std_logic;
+	signal s_data_controller_spw_txwrite         : std_logic;
+	signal s_data_controller_spw_txflag          : std_logic;
+	signal s_data_controller_spw_txdata          : std_logic_vector(7 downto 0);
 
-	-- spw codec signals
-	--	signal s_spw_rxvalid : std_logic;
-	signal s_spw_rxhalff : std_logic;
-	--	signal s_spw_rxflag  : std_logic;
-	--	signal s_spw_rxdata  : std_logic_vector(7 downto 0);
-	--	signal s_spw_rxread  : std_logic;
-	signal s_data_controller_spw_txrdy   : std_logic;
-	signal s_data_controller_spw_txhalff : std_logic;
-	signal s_data_controller_spw_txwrite : std_logic;
-	signal s_data_controller_spw_txflag  : std_logic;
-	signal s_data_controller_spw_txdata  : std_logic_vector(7 downto 0);
+	-- right fee data controller signals --
+	-- windowing buffer right fee data controller signals
+	signal s_R_fee_data_controller_window_data_read    : std_logic;
+	signal s_R_fee_data_controller_window_mask_read    : std_logic;
+	signal s_R_fee_data_controller_window_data_out     : std_logic_vector(63 downto 0);
+	signal s_R_fee_data_controller_window_mask_out     : std_logic_vector(63 downto 0);
+	signal s_R_fee_data_controller_window_data_ready   : std_logic;
+	signal s_R_fee_data_controller_window_mask_ready   : std_logic;
+	-- spw codec right fee data controller signals
+	signal s_R_fee_data_controller_spw_txrdy           : std_logic;
+	signal s_R_fee_data_controller_spw_txwrite         : std_logic;
+	signal s_R_fee_data_controller_spw_txflag          : std_logic;
+	signal s_R_fee_data_controller_spw_txdata          : std_logic_vector(7 downto 0);
+	-- rmap memory right fee data controller signals
+	signal s_R_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
+	signal s_R_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
+	signal s_R_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
+
+	-- left fee data controller signals --
+	-- windowing buffer left fee data controller signals
+	signal s_L_fee_data_controller_window_data_read    : std_logic;
+	signal s_L_fee_data_controller_window_mask_read    : std_logic;
+	signal s_L_fee_data_controller_window_data_out     : std_logic_vector(63 downto 0);
+	signal s_L_fee_data_controller_window_mask_out     : std_logic_vector(63 downto 0);
+	signal s_L_fee_data_controller_window_data_ready   : std_logic;
+	signal s_L_fee_data_controller_window_mask_ready   : std_logic;
+	-- spw codec left fee data controller signals
+	signal s_L_fee_data_controller_spw_txrdy           : std_logic;
+	signal s_L_fee_data_controller_spw_txwrite         : std_logic;
+	signal s_L_fee_data_controller_spw_txflag          : std_logic;
+	signal s_L_fee_data_controller_spw_txdata          : std_logic_vector(7 downto 0);
+	-- rmap memory left fee data controller signals
+	signal s_L_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
+	signal s_L_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
+	signal s_L_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 
 	-- spw codec clock synchronization signals
 	signal s_spw_codec_link_command_clk200    : t_spw_codec_link_command;
@@ -156,12 +203,24 @@ architecture rtl of comm_v1_50_top is
 	signal s_timecode_tick    : std_logic;
 	signal s_timecode_control : std_logic_vector(1 downto 0);
 	signal s_timecode_counter : std_logic_vector(5 downto 0);
+	signal s_current_timecode : std_logic_vector(7 downto 0);
+
+	-- sync edge detection
+	-- TODO: terminar o edge detection
+	signal s_sync_in_trigger : std_logic;
 
 	-- spw mux
+	-- "spw mux" to "codec" signals
 	signal s_mux_rx_channel_command : t_spw_codec_data_rx_command;
 	signal s_mux_rx_channel_status  : t_spw_codec_data_rx_status;
 	signal s_mux_tx_channel_command : t_spw_codec_data_tx_command;
 	signal s_mux_tx_channel_status  : t_spw_codec_data_tx_status;
+	-- spw mux tx 1 signals
+	signal s_mux_tx_1_command       : t_spw_codec_data_tx_command;
+	signal s_mux_tx_1_status        : t_spw_codec_data_tx_status;
+	-- spw mux tx 2 signals
+	signal s_mux_tx_2_command       : t_spw_codec_data_tx_command;
+	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
 
 begin
 
@@ -256,29 +315,218 @@ begin
 			window_buffer_empty_o => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty
 		);
 
+	-- signals muxing for "fee data controller" and "data controller"
+	--   -- "fee_masking_en" is set  : the "fee data controller" have the access right to the windowing buffers and the spw mux
+	--   -- "fee_masking_en" is clear: the "data controller"     have the access right to the windowing buffers and the spw mux
+	-- 
+	-- right windowing buffer control muxing
+	s_R_window_data_read                      <= ('0') when (a_reset = '1')
+		else (s_data_controller_R_window_data_read) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_fee_data_controller_window_data_read);
+	s_R_window_mask_read                      <= ('0') when (a_reset = '1')
+		else (s_data_controller_R_window_mask_read) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_fee_data_controller_window_mask_read);
+	-- right windowing buffer status muxing
+	s_R_fee_data_controller_window_data_out   <= ('0') when (a_reset = '1')
+		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_R_fee_data_controller_window_mask_out   <= ('0') when (a_reset = '1')
+		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_R_fee_data_controller_window_data_ready <= ('0') when (a_reset = '1')
+		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_R_fee_data_controller_window_mask_ready <= ('0') when (a_reset = '1')
+		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_data_controller_R_window_data_out       <= ('0') when (a_reset = '1')
+		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_R_window_mask_out       <= ('0') when (a_reset = '1')
+		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_R_window_data_ready     <= ('0') when (a_reset = '1')
+		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_R_window_mask_ready     <= ('0') when (a_reset = '1')
+		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	-- left windowing buffer control muxing
+	s_L_window_data_read                      <= ('0') when (a_reset = '1')
+		else (s_data_controller_L_window_data_read) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_fee_data_controller_window_data_read);
+	s_L_window_mask_read                      <= ('0') when (a_reset = '1')
+		else (s_data_controller_L_window_mask_read) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_fee_data_controller_window_mask_read);
+	-- left windowing buffer status muxing
+	s_L_fee_data_controller_window_data_out   <= ('0') when (a_reset = '1')
+		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_L_fee_data_controller_window_mask_out   <= ('0') when (a_reset = '1')
+		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_L_fee_data_controller_window_data_ready <= ('0') when (a_reset = '1')
+		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_L_fee_data_controller_window_mask_ready <= ('0') when (a_reset = '1')
+		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_data_controller_L_window_data_out       <= ('0') when (a_reset = '1')
+		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_L_window_mask_out       <= ('0') when (a_reset = '1')
+		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_L_window_data_ready     <= ('0') when (a_reset = '1')
+		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_L_window_mask_ready     <= ('0') when (a_reset = '1')
+		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	-- spw mux tx 1 command muxing
+	s_mux_tx_1_command.txwrite                <= ('0') when (a_reset = '1')
+		else (s_data_controller_spw_txwrite) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_fee_data_controller_spw_txwrite);
+	s_mux_tx_1_command.txflag                 <= ('0') when (a_reset = '1')
+		else (s_data_controller_spw_txflage) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_fee_data_controller_spw_txflag);
+	s_mux_tx_1_command.txdata                 <= ((others => '0')) when (a_reset = '1')
+		else (s_data_controller_spw_txdatae) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_fee_data_controller_spw_txdata);
+	-- spw mux tx 1 status muxing
+	s_R_fee_data_controller_spw_txrdy         <= ('0') when (a_reset = '1')
+		else (s_mux_tx_1_status.txrdy) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+	s_data_controller_spw_txrdy               <= ('0') when (a_reset = '1')
+		else (s_mux_tx_1_status.txrdy) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	s_data_controller_spw_txhalff             <= ('0') when (a_reset = '1')
+		else (s_mux_tx_1_status.txhalff) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else ('0');
+	-- spw mux tx 2 command muxing
+	s_mux_tx_2_command.txwrite                <= ('0') when (a_reset = '1')
+		else ('0') when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_fee_data_controller_spw_txwrite);
+	s_mux_tx_2_command.txflag                 <= ('0') when (a_reset = '1')
+		else ('0') when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_fee_data_controller_spw_txflag);
+	s_mux_tx_2_command.txdata                 <= ((others => '0')) when (a_reset = '1')
+		else ((others => '0')) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_fee_data_controller_spw_txdata);
+	-- spw mux tx 2 status muxing
+	s_L_fee_data_controller_spw_txrdy         <= ('0') when (a_reset = '1')
+		else (s_mux_tx_2_status.txrdy) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
+		else ('0');
+
 	-- data controller instantiation
 	data_controller_ent_inst : entity work.data_controller_ent
 		port map(
 			clk_i                 => a_avs_clock,
 			rst_i                 => a_reset,
-			mask_enable_i         => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en,
-			window_data_R_i       => s_R_window_data_out,
-			window_mask_R_i       => s_R_window_mask_out,
-			window_data_R_ready_i => s_R_window_data_ready,
-			window_mask_R_ready_i => s_R_window_mask_ready,
-			window_data_L_i       => s_L_window_data_out,
-			window_mask_L_i       => s_L_window_mask_out,
-			window_data_L_ready_i => s_L_window_data_ready,
-			window_mask_L_ready_i => s_L_window_mask_ready,
+			mask_enable_i         => '1',
+			window_data_R_i       => s_data_controller_R_window_data_out,
+			window_mask_R_i       => s_data_controller_R_window_mask_out,
+			window_data_R_ready_i => s_data_controller_R_window_data_ready,
+			window_mask_R_ready_i => s_data_controller_R_window_mask_ready,
+			window_data_L_i       => s_data_controller_L_window_data_out,
+			window_mask_L_i       => s_data_controller_L_window_mask_out,
+			window_data_L_ready_i => s_data_controller_L_window_data_ready,
+			window_mask_L_ready_i => s_data_controller_L_window_mask_ready,
 			spw_txrdy_i           => s_data_controller_spw_txrdy,
 			spw_txhalff_i         => s_data_controller_spw_txhalff,
-			window_data_R_read_o  => s_R_window_data_read,
-			window_mask_R_read_o  => s_R_window_mask_read,
-			window_data_L_read_o  => s_L_window_data_read,
-			window_mask_L_read_o  => s_L_window_mask_read,
+			window_data_R_read_o  => s_data_controller_R_window_data_read,
+			window_mask_R_read_o  => s_data_controller_R_window_mask_read,
+			window_data_L_read_o  => s_data_controller_L_window_data_read,
+			window_mask_L_read_o  => s_data_controller_L_window_mask_read,
 			spw_txwrite_o         => s_data_controller_spw_txwrite,
 			spw_txflag_o          => s_data_controller_spw_txflag,
 			spw_txdata_o          => s_data_controller_spw_txdata
+		);
+
+	-- right fee data controller instantiation
+	right_fee_data_controller_top_inst : entity work.fee_data_controller_top
+		generic map(
+			g_FEE_CCD_SIDE => c_CCD_RIGHT_SIDE
+		)
+		port map(
+			clk_i                              => a_avs_clock,
+			rst_i                              => a_reset,
+			fee_sync_signal_i                  => s_sync_in_trigger,
+			fee_current_timecode_i             => s_current_timecode,
+			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
+			fee_window_data_i                  => s_R_fee_data_controller_window_data_out,
+			fee_window_mask_i                  => s_R_fee_data_controller_window_mask_out,
+			fee_window_data_ready_i            => s_R_fee_data_controller_window_data_ready,
+			fee_window_mask_ready_i            => s_R_fee_data_controller_window_mask_ready,
+			fee_hk_mem_valid_i                 => s_R_fee_data_controller_mem_rd_flag.valid,
+			fee_hk_mem_data_i                  => s_R_fee_data_controller_mem_rd_flag.data,
+			fee_spw_tx_ready_i                 => s_R_fee_data_controller_spw_txrdy,
+			data_pkt_ccd_x_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_x_size,
+			data_pkt_ccd_y_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_y_size,
+			data_pkt_data_y_size_i             => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_data_y_size,
+			data_pkt_overscan_y_size_i         => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_overscan_y_size,
+			data_pkt_packet_length_i           => s_spacewire_write_registers.data_packet_config_3_reg.data_pkt_packet_length,
+			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
+			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
+			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
+			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
+			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
+			fee_window_data_read_o             => s_R_fee_data_controller_window_data_read,
+			fee_window_mask_read_o             => s_R_fee_data_controller_window_mask_read,
+			fee_hk_mem_byte_address_o          => s_R_fee_data_controller_mem_rd_byte_address,
+			fee_hk_mem_read_o                  => s_R_fee_data_controller_mem_rd_control.read,
+			fee_spw_tx_write_o                 => s_R_fee_data_controller_spw_txwrite,
+			fee_spw_tx_flag_o                  => s_R_fee_data_controller_spw_txflag,
+			fee_spw_tx_data_o                  => s_R_fee_data_controller_spw_txdata,
+			data_pkt_header_length_o           => s_spacewire_read_registers.data_packet_header_1_reg.data_pkt_header_length,
+			data_pkt_header_type_o             => s_spacewire_read_registers.data_packet_header_1_reg.data_pkt_header_type,
+			data_pkt_header_frame_counter_o    => s_spacewire_read_registers.data_packet_header_2_reg.data_pkt_header_frame_counter,
+			data_pkt_header_sequence_counter_o => s_spacewire_read_registers.data_packet_header_2_reg.data_pkt_header_sequence_counter
+		);
+
+	-- left fee data controller instantiation
+	left_fee_data_controller_top_inst : entity work.fee_data_controller_top
+		generic map(
+			g_FEE_CCD_SIDE => c_CCD_LEFT_SIDE
+		)
+		port map(
+			clk_i                              => a_avs_clock,
+			rst_i                              => a_reset,
+			fee_sync_signal_i                  => s_sync_in_trigger,
+			fee_current_timecode_i             => s_current_timecode,
+			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
+			fee_window_data_i                  => s_L_fee_data_controller_window_data_out,
+			fee_window_mask_i                  => s_L_fee_data_controller_window_mask_out,
+			fee_window_data_ready_i            => s_L_fee_data_controller_window_data_ready,
+			fee_window_mask_ready_i            => s_L_fee_data_controller_window_mask_ready,
+			fee_hk_mem_valid_i                 => s_L_fee_data_controller_mem_rd_flag.valid,
+			fee_hk_mem_data_i                  => s_L_fee_data_controller_mem_rd_flag.data,
+			fee_spw_tx_ready_i                 => s_L_fee_data_controller_spw_txrdy,
+			data_pkt_ccd_x_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_x_size,
+			data_pkt_ccd_y_size_i              => s_spacewire_write_registers.data_packet_config_1_reg.data_pkt_ccd_y_size,
+			data_pkt_data_y_size_i             => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_data_y_size,
+			data_pkt_overscan_y_size_i         => s_spacewire_write_registers.data_packet_config_2_reg.data_pkt_overscan_y_size,
+			data_pkt_packet_length_i           => s_spacewire_write_registers.data_packet_config_3_reg.data_pkt_packet_length,
+			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
+			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
+			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
+			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
+			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
+			fee_window_data_read_o             => s_L_fee_data_controller_window_data_read,
+			fee_window_mask_read_o             => s_L_fee_data_controller_window_mask_read,
+			fee_hk_mem_byte_address_o          => s_L_fee_data_controller_mem_rd_byte_address,
+			fee_hk_mem_read_o                  => s_L_fee_data_controller_mem_rd_control.read,
+			fee_spw_tx_write_o                 => s_L_fee_data_controller_spw_txwrite,
+			fee_spw_tx_flag_o                  => s_L_fee_data_controller_spw_txflag,
+			fee_spw_tx_data_o                  => s_L_fee_data_controller_spw_txdata,
+			data_pkt_header_length_o           => s_spacewire_read_registers.data_packet_header_1_reg.data_pkt_header_length,
+			data_pkt_header_type_o             => s_spacewire_read_registers.data_packet_header_1_reg.data_pkt_header_type,
+			data_pkt_header_frame_counter_o    => s_spacewire_read_registers.data_packet_header_2_reg.data_pkt_header_frame_counter,
+			data_pkt_header_sequence_counter_o => s_spacewire_read_registers.data_packet_header_2_reg.data_pkt_header_sequence_counter
 		);
 
 	-- RMAP (TEMP)
@@ -360,7 +608,8 @@ begin
 
 	-- spw mux
 	-- tx 0 / rx 0 -> rmap
-	-- tx 1        -> data controller 
+	-- tx 1        -> "right fee data controller" or "data controller"
+	-- tx 2        -> "left fee data controller"  or nothing 
 	spw_mux_ent_inst : entity work.spw_mux_ent
 		port map(
 			clk_i                          => a_avs_clock,
@@ -371,24 +620,18 @@ begin
 			spw_mux_tx_0_command_i.txwrite => s_rmap_spw_control.transmitter.write,
 			spw_mux_tx_0_command_i.txflag  => s_rmap_spw_control.transmitter.flag,
 			spw_mux_tx_0_command_i.txdata  => s_rmap_spw_control.transmitter.data,
-			spw_mux_tx_1_command_i.txwrite => s_data_controller_spw_txwrite,
-			spw_mux_tx_1_command_i.txflag  => s_data_controller_spw_txflag,
-			spw_mux_tx_1_command_i.txdata  => s_data_controller_spw_txdata,
-			spw_mux_tx_2_command_i.txwrite => '0',
-			spw_mux_tx_2_command_i.txflag  => '0',
-			spw_mux_tx_2_command_i.txdata  => x"00",
+			spw_mux_tx_1_command_i         => s_mux_tx_1_command,
+			spw_mux_tx_2_command_i         => s_mux_tx_2_command,
 			spw_codec_rx_command_o         => s_mux_rx_channel_command,
 			spw_codec_tx_command_o         => s_mux_tx_channel_command,
 			spw_mux_rx_0_status_o.rxvalid  => s_rmap_spw_flag.receiver.valid,
-			spw_mux_rx_0_status_o.rxhalff  => s_spw_rxhalff,
+			spw_mux_rx_0_status_o.rxhalff  => s_data_controller_spw_rxhalff,
 			spw_mux_rx_0_status_o.rxflag   => s_rmap_spw_flag.receiver.flag,
 			spw_mux_rx_0_status_o.rxdata   => s_rmap_spw_flag.receiver.data,
 			spw_mux_tx_0_status_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
 			spw_mux_tx_0_status_o.txhalff  => open,
-			spw_mux_tx_1_status_o.txrdy    => s_data_controller_spw_txrdy,
-			spw_mux_tx_1_status_o.txhalff  => s_data_controller_spw_txhalff,
-			spw_mux_tx_2_status_o.txrdy    => open,
-			spw_mux_tx_2_status_o.txhalff  => open
+			spw_mux_tx_1_status_o          => s_mux_tx_1_status,
+			spw_mux_tx_2_status_o          => s_mux_tx_2_status
 		);
 
 	-- spw codec clock domain synchronization
@@ -511,6 +754,8 @@ begin
 			end if;
 		end if;
 	end process p_timecode_manager;
+	s_current_timecode(7 downto 6) <= s_timecode_control;
+	s_current_timecode(5 downto 0) <= s_timecode_counter;
 
 	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
 	begin
