@@ -555,6 +555,22 @@ void vMebInit(TSimucam_MEB *pxMebCLocal) {
 
 /* Swap memory reference */
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
+	unsigned char tCode;
+	unsigned char tCodeNext;
+
+	/*todo: Apenas para teste !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+	/* Configurar o tamanho normal do double buffer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
+	bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
+	tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
+	tCodeNext = ( tCode ) % 4;
+	#ifdef DEBUG_ON
+		fprintf(fp,"\n\nMEB TASK:  TIME CODE: %hhu \n ", tCode);
+		fprintf(fp,"MEB TASK:  MODULUS: %hhu \n\n ", tCodeNext);
+	#endif
+
 
 	pxMebCLocal->ucActualDDR = (pxMebCLocal->ucActualDDR + 1) % 2 ;
 	pxMebCLocal->ucNextDDR = (pxMebCLocal->ucNextDDR + 1) % 2 ;

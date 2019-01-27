@@ -127,7 +127,7 @@ void vNFeeControlTask(void *task_data) {
 					if ( error_codeCtrl == OS_ERR_NONE ) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
 #ifdef DEBUG_ON
-	fprintf(fp,"\nController: chegou agendamento ( %hhu )\n",ucFeeInstL);
+	//fprintf(fp,"\nController: chegou agendamento ( %hhu )\n",ucFeeInstL);
 #endif
 
 						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
@@ -135,7 +135,7 @@ void vNFeeControlTask(void *task_data) {
 							if ( bCmdSent == TRUE ) {
 								bDmaBack = FALSE;
 #ifdef DEBUG_ON
-	fprintf(fp,"\nController: Enviado para fee ( %hhu )\n",ucFeeInstL);
+	//fprintf(fp,"\nController: Enviado para fee ( %hhu )\n",ucFeeInstL);
 #endif
 							}
 						}
@@ -144,7 +144,7 @@ void vNFeeControlTask(void *task_data) {
 
 				if ( bDmaBack == FALSE ) {
 #ifdef DEBUG_ON
-	fprintf(fp,"\nController: Esperando bloqueado FORÉVA pelo dma de volta na fila xQMaskFeeCtrl\n ");
+	//fprintf(fp,"\nController: Esperando bloqueado FORÉVA pelo dma de volta na fila xQMaskFeeCtrl\n ");
 #endif
 					/* DMA with some NFEE instance */
 					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl);
@@ -167,7 +167,7 @@ void vNFeeControlTask(void *task_data) {
 						if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
 							
 #ifdef DEBUG_ON
-	fprintf(fp,"\nController:  Mensagem normal para FEE controller\n ");
+	//fprintf(fp,"\nController:  Mensagem normal para FEE controller\n ");
 #endif
 							vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
 
@@ -182,7 +182,7 @@ void vNFeeControlTask(void *task_data) {
 						}
 					}
 				}
-				OSTimeDlyHMSM(0,0,0,250); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				OSTimeDlyHMSM(0,0,0,20); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				break;		
 			default:
 				#ifdef DEBUG_ON

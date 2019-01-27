@@ -16,7 +16,7 @@ void vFeeTask(void *task_data) {
 	INT8U error_code;
 	unsigned char ucMemUsing;
 	alt_u32 tCodeNext;
-	alt_u32 tCode;
+	static alt_u32 incrementador; /* remover*/
 	tQMask uiCmdFEE;
 	TCcdMemMap *xCcdMapLocal;
 	unsigned char ucReadout;
@@ -127,6 +127,8 @@ void vFeeTask(void *task_data) {
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Standby Mode\n", pxNFee->ucId);
 				#endif
+
+				incrementador = 0; // remover !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -255,7 +257,7 @@ void vFeeTask(void *task_data) {
 	                        pxNFee->xControl.bDMALocked = FALSE;
 						}
 
-
+						incrementador = 2; // remover !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 #ifdef DEBUG_ON
 	fprintf(fp,"\nFEE TASK:  MANDOU OS COMANDOS VIA DMA\n ");
@@ -287,32 +289,36 @@ void vFeeTask(void *task_data) {
 				}
 
 				break;
+
+
 			case sToTestFullPattern: /* Transition */
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Full Image Pattern Mode\n", pxNFee->ucId);
 				#endif
 
 				pxNFee->xControl.bUsingDMA = TRUE;
-
+				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				pxNFee->xControl.eMode = sFeeTestFullPattern;
 				break;
+
+
 			case sFeeTestFullPattern: /* Real mode */
 
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  sFeeTestFullPattern\n ");
+	//fprintf(fp,"\nFEE TASK:  sFeeTestFullPattern\n ");
 #endif
 
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  RECEBEU COMANDO\n ");
+	//fprintf(fp,"\nFEE TASK:  RECEBEU COMANDO\n ");
 #endif
 
 					/* First Check if is access to the DMA (priority) */
 						if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  ERA ACESSO AO DMA\n ");
+	//fprintf(fp,"\nFEE TASK:  ERA ACESSO AO DMA\n ");
 #endif
 
 							/* Try to get the Mutex */
@@ -320,7 +326,7 @@ void vFeeTask(void *task_data) {
 		                    if ( error_code == OS_ERR_NONE ) {
 		                    	pxNFee->xControl.bDMALocked = TRUE;
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  PEGOU MUTEX DO DMA\n ");
+	//fprintf(fp,"\nFEE TASK:  PEGOU MUTEX DO DMA\n ");
 #endif
 
 		                    	/* Is this the last block? */
@@ -333,8 +339,10 @@ void vFeeTask(void *task_data) {
 		                    		pxNFee->xControl.eMode = sSIMTestFullPattern;
 		                    		pxNFee->xControl.eNextMode = sSIMTestFullPattern;
 		                    		pxNFee->xControl.bUsingDMA = FALSE;
+		                    		pxNFee->xControl.eMode = sToFeeStandBy; /* todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 		                    	} else {
 		                    		usiLengthBlocks = SDMA_MAX_BLOCKS;
+		                    		bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 		                    	}
 
 		                    	if ( ucMemUsing == 0  ) {
@@ -354,14 +362,21 @@ void vFeeTask(void *task_data) {
 		                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 		                        pxNFee->xControl.bDMALocked = FALSE;
 		                        //bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+		                        incrementador++; // remover !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  ENVIOU DADOS AO DMA\n ");
+	//fprintf(fp,"\nFEE TASK:  ENVIOU DADOS AO DMA\n ");
 #endif
 		                        /* Send message talling to controller that is not using the DMA any more */
 								bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  DEVOLVEU AO CONTROLLER\n ");
+	//fprintf(fp,"\nFEE TASK:  DEVOLVEU AO CONTROLLER\n ");
 #endif
+
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  pckt: %ui\n ",incrementador);
+#endif
+
 
                    }
 						} else {
