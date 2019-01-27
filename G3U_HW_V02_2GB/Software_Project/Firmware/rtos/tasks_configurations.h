@@ -43,8 +43,8 @@
 #define FEE_COTROL_TASK_PRIO            7
 #define MEB_TASK_PRIO                   6
 #define PCP_MUTEX_PUS_QUEUE             5
-#define PCP_MUTEX_DMA_DATA              4
-#define PCP_MUTEX_DMA_FEES              3
+#define PCP_MUTEX_DMA_1                 4
+#define PCP_MUTEX_DMA_0                 3
 
 #define STACK_MONITOR_TASK_PRIO			2   /* Very High*/
 
@@ -121,11 +121,11 @@ extern OS_EVENT *xNfeeSchedule;				        /* Queue that will receive from the I
 
 /* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
 extern void *xQMaskCMDNFeeCtrlTBL[N_OF_MSG_QUEUE_MASK];
-OS_EVENT *xQMaskFeeCtrl;
+extern OS_EVENT *xQMaskFeeCtrl;
 
 /* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
 extern void *xQMaskCMDNDataCtrlTBL[N_OF_MSG_QUEUE_MASK];
-OS_EVENT *xQMaskDataCtrl;
+extern OS_EVENT *xQMaskDataCtrl;
 /* -------------- Definition of Queues--------------------*/
 
 
@@ -157,6 +157,16 @@ extern OS_EVENT *xSemTimeoutChecker;
 
 extern OS_EVENT *xSemCountSenderACK;
 extern OS_EVENT *xMutexSenderACK;
+
+
+/* Struct for the DMA control */
+typedef struct Dma{
+    OS_EVENT *xMutexDMA;
+    void (*pDmaTranfer)(alt_u32, alt_u16, alt_u8, alt_u8);
+}tDmaSim;
+
+extern tDmaSim xDma[2];
+
 /*---------------Semaphore and Mutex ---------------------*/
 
 /* --------------- Timers ------------------ */

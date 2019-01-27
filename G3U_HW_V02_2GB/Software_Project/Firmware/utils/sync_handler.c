@@ -117,8 +117,5 @@ bool bStopSync(void) {
 
 bool bClearCounterSync(void) {
 
-	bool bSuccess;
-	bSuccess = bSyncClCtrStart();
-
-	return bSuccess;
+	vSyncClearCounter();
 }

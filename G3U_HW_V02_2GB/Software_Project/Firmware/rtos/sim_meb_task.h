@@ -25,10 +25,10 @@ void vSimMebTask(void *task_data);
 void vPusMebTask( TSimucam_MEB *pxMebCLocal );
 
 /* This function should treat the PUS command in the Config Mode, need check all the things that is possible to update in this mode */
-void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal );
+void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 /* This function should treat the PUS command in the Running Mode, need check all the things that is possible to update in this mode */
-void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal );
+void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );

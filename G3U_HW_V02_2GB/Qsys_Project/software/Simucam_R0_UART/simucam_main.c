@@ -147,6 +147,7 @@ OS_TMR  *xTimerRetransmission;
  * Control of all Simucam application
  */
 TSimucam_MEB xSimMeb; /* Struct */
+tDmaSim xDma[2];		  /* Control of the DMA */
 
 /* Instanceatin and Initialization of the resources for the RTOS */
 bool bResourcesInitRTOS( void ) {
@@ -349,10 +350,28 @@ bool bResourcesInitRTOS( void ) {
 	}
 
 	/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
-	xQMaskFeeCtrl = OSQCreate(&xQMaskCMDNDataCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
+	xQMaskDataCtrl = OSQCreate(&xQMaskCMDNDataCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
 	if ( xQMaskFeeCtrl == NULL ) {
 		vCouldNotCreateQueueMaskDataCtrl( );
 		bSuccess = FALSE;		
+	}
+
+	xMutexSenderACK = OSMutexCreate(PCP_MUTEX_SENDER_ACK, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
+	xDma[0].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_0, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexDMA();
+		bSuccess = FALSE;
+	}
+
+	xDma[1].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_1, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexDMA();
+		bSuccess = FALSE;
 	}	
 
 	return bSuccess;

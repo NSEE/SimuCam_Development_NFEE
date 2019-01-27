@@ -189,7 +189,7 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
 				break;
 			case sMebRun:
-				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
+				vPusMebInTaskRunningMode(pxMebCLocal, &xPusLocal);
 				break;
 			default:
 				break;

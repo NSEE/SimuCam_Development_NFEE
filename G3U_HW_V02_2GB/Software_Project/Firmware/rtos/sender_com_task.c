@@ -68,10 +68,10 @@ void vSenderComTask(void *task_data)
                 eSenderMode = sDummySender;
 
                 #ifdef DEBUG_ON
-                    debug(fp,"sDummySender\n");
+                    debug(fp,"Working...\n");
                 #endif
 
-				OSTimeDlyHMSM(0, 0, 10, 0); /*Sleeps for 3 second*/
+				OSTimeDlyHMSM(0, 0, 25, 0); /*Sleeps for 3 second*/
 
                 break;
             default:

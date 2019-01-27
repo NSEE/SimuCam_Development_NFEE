@@ -8,10 +8,7 @@
 
 #include "sync.h"
 
-//! [private function prototypes]
-static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue);
-static alt_u32 uliSyncReadReg(alt_u32 uliOffset);
-//! [private function prototypes]
+
 
 //! [data memory public global variables]
 volatile alt_u8 vucN;
@@ -49,13 +46,8 @@ void vSyncHandleIrq(void* pvContext) {
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
-	// Cast pvContext to viHoldContext's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
 	volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use pvContext value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+
 
 	uiCmdtoSend.ulWord = 0;
 	/* MasterSync? */
@@ -71,7 +63,7 @@ void vSyncHandleIrq(void* pvContext) {
 			vFailSendMsgMasterSyncMeb( );
 		}
 
-	} else {
+	} else
 		uiCmdtoSend.ucByte[2] = M_SYNC;
 
 
@@ -1005,7 +997,7 @@ alt_u32 uliSyncReadStatus(void) {
  *
  * @retval TRUE -> success
  */
-static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
+bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
 	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
 	*(p_addr + uliOffset) = uliValue;
 	return TRUE;
@@ -1022,7 +1014,7 @@ static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
  *
  * @retval alt_u32 value -> reg
  */
-static alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
+alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
 	alt_u32 value;
 
 	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;

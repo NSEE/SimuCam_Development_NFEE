@@ -17,7 +17,7 @@
 
 //! [public functions]
 bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh) {
-	bool bStatus = FALSE;
+	bool bStatus = TRUE;
 
 	if (!bSpwcInitCh(&(pxCommCh->xSpacewire), ucCommCh)) {
 		bStatus = FALSE;

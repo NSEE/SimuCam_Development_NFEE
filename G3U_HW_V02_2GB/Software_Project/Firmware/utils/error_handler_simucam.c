@@ -31,6 +31,18 @@ void vFailCreateMutexSResources( INT8U error_code )
 	 */
 }
 
+void vFailCreateMutexDMA( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp," CRITICAL: vFailCreateMutexDMA. (exit)\n");
+	#endif
+
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
 void vFailCreateSemaphoreResources( void )
 {
 	#ifdef DEBUG_ON
@@ -1101,6 +1113,18 @@ void vFailFlushQueue( void )
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+void vFailFlushQueueData( void )
+{
+	#ifdef DEBUG_ON
+		debug(fp,"CRITICAL: vFailFlushQueueData.  \n");
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
 
 void vFailFlushMEBQueue( void )
 {

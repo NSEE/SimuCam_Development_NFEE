@@ -14,6 +14,9 @@ void vFeeTask(void *task_data) {
 	bool bSuccess = FALSE;
 	static TNFee *pxNFee;
 	INT8U error_code;
+	unsigned char ucMemUsing;
+	alt_u32 tCodeNext;
+	alt_u32 tCode;
 	tQMask uiCmdFEE;
 
 
@@ -153,7 +156,34 @@ void vFeeTask(void *task_data) {
 				break;
 			case sSIMTestFullPattern:
 
-				//pxNFee->xControl.eMode = sToFeeConfig;
+				pxNFee->xControl.bUsingDMA = TRUE;
+
+				/* Enable IRQ and clear the Double Buffer */
+				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+				tCodeNext = (bSpwcGetTimecode(&pxNFee->xChannel.xSpacewire) + 1) % 4;
+				if ( tCodeNext == 0 ) {
+					/* Should get Data from the another memory, because is a cicle start */
+					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
+				} else {
+					ucMemUsing = (unsigned char) *pxNFee->xControl.pActualMem ; /* Select the of the data control (te future)*/
+				}
+
+
+
+
+
+
+
+
+				if (pxNFee->xControl.bWatingSync==TRUE) {
+					pxNFee->xControl.eNextMode = sToTestFullPattern;
+					pxNFee->xControl.eMode = sFeeWaitingSync;
+				} else {
+					pxNFee->xControl.eNextMode = sToTestFullPattern;
+					pxNFee->xControl.eMode = sToTestFullPattern;
+				}
+
 
 				break;
 			case sToTestFullPattern: /* Transition */
@@ -199,6 +229,30 @@ void vFeeTask(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 
 					/* todo: Write in the RMAP */
+
+
+					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+
+					/* UCL- NFEE ICD p. 49 */
+					switch ( pxNFee->xControl.eNextMode ) {
+						case sToFeeConfig:
+						case sFeeConfig:
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /* Off-Mode */
+							break;
+						case sFeeStandBy:
+						case sToFeeStandBy:
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00;
+							break;
+						case sSIMTestFullPattern:
+						case sToTestFullPattern:
+						case sFeeTestFullPattern:
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x02;
+							break;
+						default:
+							break;
+					}
+
+					bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				} else {
 					#ifdef DEBUG_ON
@@ -318,13 +372,13 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case M_FEE_FULL_PATTERN:
 				pxNFeeP->xControl.bWatingSync = TRUE;
-				pxNFeeP->xControl.eMode = sToTestFullPattern;
-				pxNFeeP->xControl.eNextMode = sToTestFullPattern;
+				pxNFeeP->xControl.eMode = sSIMTestFullPattern; /*sSIMTestFullPattern*/
+				pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
 				break;
 			case M_FEE_FULL_PATTERN_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
-				pxNFeeP->xControl.eMode = sToTestFullPattern;
-				pxNFeeP->xControl.eNextMode = sToTestFullPattern;
+				pxNFeeP->xControl.eMode = sSIMTestFullPattern;
+				pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
 				break;				
 			default:
 				#ifdef DEBUG_ON

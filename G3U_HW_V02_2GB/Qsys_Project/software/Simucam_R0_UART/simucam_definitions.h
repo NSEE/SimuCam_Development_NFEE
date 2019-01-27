@@ -39,6 +39,14 @@
 #include "system.h"
 #include <stdio.h>
 #include <sys/alt_stdio.h>
+#include <unistd.h>  // usleep (unix standard?)
+#include <sys/alt_flash.h>
+#include <sys/alt_flash_types.h>
+#include <sys/alt_alarm.h> // time tick function (alt_nticks(), alt_ticks_per_second())
+#include <sys/alt_timestamp.h>
+#include <sys/alt_irq.h>  // interrupt
+#include <priv/alt_legacy_irq.h>
+#include <priv/alt_busy_sleep.h>
 
 /*---- initialization_simucam -----*/
 #include "driver/leds/leds.h"
@@ -54,5 +62,8 @@
 #define min_sim( x , y ) ((x < y) ? x : y)
 
 #include <altera_avalon_uart.h>
+
+
+
 
 #endif /* SIMUCAM_DEFINITIONS_H_ */

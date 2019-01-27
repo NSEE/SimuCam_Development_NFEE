@@ -12,7 +12,6 @@
 /* 0% Ready! */
 void vDataControlTask(void *task_data) {
 	tQMask uiCmdDTC;
-	bool bCmdSent;
 	INT8U error_code;
 	TNData_Control *pxDataC;
 
@@ -25,9 +24,9 @@ void vDataControlTask(void *task_data) {
 
     pxDataC->bUpdateComplete = TRUE;
 
-	errorCodeL = OSQFlush(xQMaskDataCtrl);
-	if ( errorCodeL != OS_NO_ERR ) {
-		vFailFlushQueue();
+    error_code = OSQFlush(xQMaskDataCtrl);
+	if ( error_code != OS_NO_ERR ) {
+		vFailFlushQueueData();
 	}
 
 	for (;;) {

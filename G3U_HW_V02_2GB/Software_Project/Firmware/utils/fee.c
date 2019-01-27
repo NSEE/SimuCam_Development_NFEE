@@ -58,7 +58,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
     if ( bCommInitCh(&pxNfeeL->xChannel, ucIdNFEE ) == FALSE ) {
 		#ifdef DEBUG_ON
-			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", ucIdNFEE);
+			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
 		#endif
     }
 
