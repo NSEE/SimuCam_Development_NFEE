@@ -11,7 +11,7 @@ entity fee_master_data_controller_top is
 		rst_i                              : in  std_logic;
 		-- general inputs
 		fee_sync_signal_i                  : in  std_logic;
-		fee_current_timecode_i             : in  std_logic;
+		fee_current_timecode_i             : in  std_logic_vector(7 downto 0);
 		-- fee data controller control
 		fee_machine_clear_i                : in  std_logic;
 		fee_machine_stop_i                 : in  std_logic;
@@ -121,7 +121,7 @@ architecture RTL of fee_master_data_controller_top is
 	-- data transmitter signals
 	signal s_data_transmitter_busy              : std_logic;
 	signal s_data_transmitter_finished          : std_logic;
-	signal s_data_transmitter_reset             : std_logic;
+--	signal s_data_transmitter_reset             : std_logic;
 
 	signal s_start_masking : std_logic;
 
@@ -308,7 +308,7 @@ begin
 			fee_clear_signal_i              => fee_machine_clear_i,
 			fee_stop_signal_i               => fee_machine_stop_i,
 			fee_start_signal_i              => fee_machine_start_i,
-			data_transmitter_reset_i        => s_data_transmitter_reset,
+--			data_transmitter_reset_i        => s_data_transmitter_reset,
 			send_buffer_stat_almost_empty_i => s_send_buffer_stat_almost_empty,
 			send_buffer_stat_empty_i        => s_send_buffer_stat_empty,
 			send_buffer_rddata_i            => s_send_buffer_rddata,

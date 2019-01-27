@@ -71,7 +71,7 @@ architecture RTL of masking_machine_ent is
 		sclr  : std_logic;
 		wrreq : std_logic;
 		full  : std_logic;
-		usedw : std_logic_vector(14 downto 0);
+		usedw : std_logic_vector(7 downto 0);
 	end record t_masking_fifo;
 
 	-- masking fifo signals
@@ -134,7 +134,6 @@ begin
 			window_data_read_o         <= '0';
 			window_mask_read_o         <= '0';
 			s_masking_fifo.data        <= (others => '0');
-			s_masking_fifo.rdreq       <= '0';
 			s_masking_fifo.wrreq       <= '0';
 			s_masking_machine_state    <= STOPPED;
 			s_registered_window_data   <= (others => '0');
@@ -157,7 +156,6 @@ begin
 					window_data_read_o         <= '0';
 					window_mask_read_o         <= '0';
 					s_masking_fifo.data        <= (others => '0');
-					s_masking_fifo.rdreq       <= '0';
 					s_masking_fifo.wrreq       <= '0';
 					s_masking_machine_state    <= STOPPED;
 					s_registered_window_data   <= (others => '0');
@@ -175,7 +173,6 @@ begin
 					window_data_read_o         <= '0';
 					window_mask_read_o         <= '0';
 					s_masking_fifo.data        <= (others => '0');
-					s_masking_fifo.rdreq       <= '0';
 					s_masking_fifo.wrreq       <= '0';
 					s_masking_machine_state    <= STOPPED;
 					s_registered_window_data   <= (others => '0');
@@ -364,7 +361,7 @@ begin
 							if (s_mask_counter = 63) then
 								-- current mask ended, one full data block parsed
 								-- check if data bytes for the read-out cycle ended
-								if (s_fee_remaining_data_bytes = (others => '0')) then
+								if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
 									-- data bytes for the read-out cycle ended, stop masking
 									s_masking_machine_state <= NOT_STARTED;
 								else

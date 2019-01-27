@@ -229,6 +229,12 @@ architecture rtl of comm_v1_80_top is
 	signal s_right_buffer_size : std_logic_vector(3 downto 0);
 	signal s_left_buffer_size  : std_logic_vector(3 downto 0);
 
+	-- dummy
+	signal s_dummy_spw_mux_tx0_txhalff  : std_logic;
+	signal s_dummy_timecode_rx_tick_out : std_logic;
+	signal s_dummy_timecode_rx_ctrl_out : std_logic_vector(1 downto 0);
+	signal s_dummy_timecode_rx_time_out : std_logic_vector(5 downto 0);
+
 begin
 
 	rst_n <= not a_reset;
@@ -346,24 +352,24 @@ begin
 		else (s_data_controller_R_window_mask_read) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else (s_R_fee_data_controller_window_mask_read);
 	-- right windowing buffer status muxing
-	s_R_fee_data_controller_window_data_out   <= ('0') when (a_reset = '1')
+	s_R_fee_data_controller_window_data_out   <= ((others => '0')) when (a_reset = '1')
 		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
-		else ('0');
-	s_R_fee_data_controller_window_mask_out   <= ('0') when (a_reset = '1')
+		else ((others => '0'));
+	s_R_fee_data_controller_window_mask_out   <= ((others => '0')) when (a_reset = '1')
 		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
-		else ('0');
+		else ((others => '0'));
 	s_R_fee_data_controller_window_data_ready <= ('0') when (a_reset = '1')
 		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
 		else ('0');
 	s_R_fee_data_controller_window_mask_ready <= ('0') when (a_reset = '1')
 		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
 		else ('0');
-	s_data_controller_R_window_data_out       <= ('0') when (a_reset = '1')
+	s_data_controller_R_window_data_out       <= ((others => '0')) when (a_reset = '1')
 		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
-		else ('0');
-	s_data_controller_R_window_mask_out       <= ('0') when (a_reset = '1')
+		else ((others => '0'));
+	s_data_controller_R_window_mask_out       <= ((others => '0')) when (a_reset = '1')
 		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
-		else ('0');
+		else ((others => '0'));
 	s_data_controller_R_window_data_ready     <= ('0') when (a_reset = '1')
 		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else ('0');
@@ -378,24 +384,24 @@ begin
 		else (s_data_controller_L_window_mask_read) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else (s_L_fee_data_controller_window_mask_read);
 	-- left windowing buffer status muxing
-	s_L_fee_data_controller_window_data_out   <= ('0') when (a_reset = '1')
+	s_L_fee_data_controller_window_data_out   <= ((others => '0')) when (a_reset = '1')
 		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
-		else ('0');
-	s_L_fee_data_controller_window_mask_out   <= ('0') when (a_reset = '1')
+		else ((others => '0'));
+	s_L_fee_data_controller_window_mask_out   <= ((others => '0')) when (a_reset = '1')
 		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
-		else ('0');
+		else ((others => '0'));
 	s_L_fee_data_controller_window_data_ready <= ('0') when (a_reset = '1')
 		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
 		else ('0');
 	s_L_fee_data_controller_window_mask_ready <= ('0') when (a_reset = '1')
 		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '1')
 		else ('0');
-	s_data_controller_L_window_data_out       <= ('0') when (a_reset = '1')
+	s_data_controller_L_window_data_out       <= ((others => '0')) when (a_reset = '1')
 		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
-		else ('0');
-	s_data_controller_L_window_mask_out       <= ('0') when (a_reset = '1')
+		else ((others => '0'));
+	s_data_controller_L_window_mask_out       <= ((others => '0')) when (a_reset = '1')
 		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
-		else ('0');
+		else ((others => '0'));
 	s_data_controller_L_window_data_ready     <= ('0') when (a_reset = '1')
 		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else ('0');
@@ -407,10 +413,10 @@ begin
 		else (s_data_controller_spw_txwrite) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else (s_R_fee_data_controller_spw_txwrite);
 	s_mux_tx_1_command.txflag                 <= ('0') when (a_reset = '1')
-		else (s_data_controller_spw_txflage) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_spw_txflag) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else (s_R_fee_data_controller_spw_txflag);
 	s_mux_tx_1_command.txdata                 <= ((others => '0')) when (a_reset = '1')
-		else (s_data_controller_spw_txdatae) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_spw_txdata) when (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_masking_en = '0')
 		else (s_R_fee_data_controller_spw_txdata);
 	-- spw mux tx 1 status muxing
 	s_R_fee_data_controller_spw_txrdy         <= ('0') when (a_reset = '1')
@@ -651,7 +657,7 @@ begin
 			spw_mux_rx_0_status_o.rxflag   => s_rmap_spw_flag.receiver.flag,
 			spw_mux_rx_0_status_o.rxdata   => s_rmap_spw_flag.receiver.data,
 			spw_mux_tx_0_status_o.txrdy    => s_rmap_spw_flag.transmitter.ready,
-			spw_mux_tx_0_status_o.txhalff  => open,
+			spw_mux_tx_0_status_o.txhalff  => s_dummy_spw_mux_tx0_txhalff,
 			spw_mux_tx_1_status_o          => s_mux_tx_1_status,
 			spw_mux_tx_2_status_o          => s_mux_tx_2_status
 		);
@@ -683,9 +689,9 @@ begin
 			spw_codec_link_error_clk100_o.errpar      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_parity,
 			spw_codec_link_error_clk100_o.erresc      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_escape,
 			spw_codec_link_error_clk100_o.errcred     => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_credit,
-			spw_codec_timecode_rx_clk100_o.tick_out   => open,
-			spw_codec_timecode_rx_clk100_o.ctrl_out   => open,
-			spw_codec_timecode_rx_clk100_o.time_out   => open,
+			spw_codec_timecode_rx_clk100_o.tick_out   => s_dummy_timecode_rx_tick_out,
+			spw_codec_timecode_rx_clk100_o.ctrl_out   => s_dummy_timecode_rx_ctrl_out,
+			spw_codec_timecode_rx_clk100_o.time_out   => s_dummy_timecode_rx_time_out,
 			spw_codec_data_rx_status_clk100_o         => s_mux_rx_channel_status,
 			spw_codec_data_tx_status_clk100_o         => s_mux_tx_channel_status,
 			spw_codec_link_command_clk200_o           => s_spw_codec_link_command_clk200,
@@ -856,6 +862,6 @@ begin
 			-- delay signals
 			s_sync_in_delayed <= sync_channel;
 		end if;
-	end process p_rmap_write_irq_manager;
+	end process p_sync_in_triger;
 
 end architecture rtl;                   -- of comm_v1_80_top

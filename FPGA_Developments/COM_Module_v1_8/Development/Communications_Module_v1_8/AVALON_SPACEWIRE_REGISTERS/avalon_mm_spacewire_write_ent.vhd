@@ -44,8 +44,8 @@ begin
 			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_data_y_size               <= x"0000";
 			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_overscan_y_size           <= x"0000";
 			spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length             <= x"0000";
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= x"00";
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                <= x"00";
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= "000";
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                <= "00";
 			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay           <= x"0000";
 			spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay         <= x"0000";
 			spacewire_write_registers_o.data_packet_pixel_delay_3_reg.data_pkt_adc_delay            <= x"0000";
@@ -108,8 +108,8 @@ begin
 				when (16#0A#) =>
 					spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length <= avalon_mm_spacewire_i.writedata(15 downto 0);
 				when (16#0B#) =>
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode   <= avalon_mm_spacewire_i.writedata(7 downto 0);
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number <= avalon_mm_spacewire_i.writedata(15 downto 8);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode   <= avalon_mm_spacewire_i.writedata(2 downto 0);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number <= avalon_mm_spacewire_i.writedata(9 downto 8);
 				when (16#0C#) =>
 					null;
 				when (16#0D#) =>

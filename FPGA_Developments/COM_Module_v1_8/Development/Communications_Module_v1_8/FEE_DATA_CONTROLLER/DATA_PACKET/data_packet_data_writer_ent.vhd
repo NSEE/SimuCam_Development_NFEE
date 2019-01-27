@@ -45,7 +45,7 @@ architecture RTL of data_packet_data_writer_ent is
 begin
 
 	p_data_packet_data_writer_FSM_state : process(clk_i, rst_i)
-		variable v_data_writer_state : s_data_writer_state := IDLE; -- current state
+		variable v_data_writer_state : t_data_writer_fsm := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then

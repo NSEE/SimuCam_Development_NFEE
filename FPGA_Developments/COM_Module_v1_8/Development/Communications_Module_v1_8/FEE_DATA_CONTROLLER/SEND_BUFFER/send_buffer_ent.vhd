@@ -315,8 +315,8 @@ begin
 
 	-- wr buffer output signal muxing
 	buffer_stat_almost_full_o <= ('0') when (rst_i = '1')
-		else ('1') when ((s_data_fifo_0.usedw = std_logic(unsigned(buffer_cfg_length_i(14 downto 0)) - 1)) and (s_wr_data_buffer_selection = 0))
-		else ('1') when ((s_data_fifo_1.usedw = std_logic(unsigned(buffer_cfg_length_i(14 downto 0)) - 1)) and (s_wr_data_buffer_selection = 1))
+		else ('1') when ((s_data_fifo_0.usedw = std_logic_vector(unsigned(buffer_cfg_length_i(14 downto 0)) - 1)) and (s_wr_data_buffer_selection = 0))
+		else ('1') when ((s_data_fifo_1.usedw = std_logic_vector(unsigned(buffer_cfg_length_i(14 downto 0)) - 1)) and (s_wr_data_buffer_selection = 1))
 		else ('0');
 	buffer_stat_full_o        <= ('0') when (rst_i = '1')
 		else ('1') when ((s_data_fifo_0.usedw = buffer_cfg_length_i(14 downto 0)) and (s_wr_data_buffer_selection = 0))
@@ -343,7 +343,7 @@ begin
 	buffer_rddata_o            <= ((others => '0')) when (rst_i = '1')
 		else (s_data_fifo_0.q) when (s_rd_data_buffer_selection = 0)
 		else (s_data_fifo_1.q) when (s_rd_data_buffer_selection = 1)
-		else ('0');
+		else ((others => '0'));
 	buffer_stat_almost_empty_o <= ('0') when (rst_i = '1')
 		else (s_data_fifo_0.almost_empty) when (s_rd_data_buffer_selection = 0)
 		else (s_data_fifo_1.almost_empty) when (s_rd_data_buffer_selection = 1)

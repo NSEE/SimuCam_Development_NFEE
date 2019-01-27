@@ -48,7 +48,7 @@ architecture RTL of data_packet_hk_writer_ent is
 begin
 
 	p_data_packet_housekeeping_writer_FSM_state : process(clk_i, rst_i)
-		variable v_housekeeping_writer_state : s_housekeeping_writer_state := IDLE; -- current state
+		variable v_housekeeping_writer_state : t_housekeeping_writer_fsm := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
@@ -115,9 +115,9 @@ begin
 					-- check if the send buffer is ready and is not full
 					if ((send_buffer_wrready_i = '1') and (send_buffer_stat_full_i = '0')) then
 						-- send buffer is ready and is not full
-						-- go to fetch data
-						s_housekeeping_writer_state <= FETCH_DATA;
-						v_housekeeping_writer_state := FETCH_DATA;
+						-- go to read housekeeping
+						s_housekeeping_writer_state <= READ_HOUSEKEEPING;
+						v_housekeeping_writer_state := READ_HOUSEKEEPING;
 					end if;
 
 				-- state "READ_HOUSEKEEPING"

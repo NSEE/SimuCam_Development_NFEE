@@ -158,8 +158,6 @@ begin
 			headerdata_sequence_counter_o        <= (others => '0');
 			header_gen_send_o                    <= '0';
 			header_gen_reset_o                   <= '1';
-			housekeeping_wr_start_o              <= '0';
-			housekeeping_wr_reset_o              <= '1';
 			data_wr_start_o                      <= '0';
 			data_wr_reset_o                      <= '1';
 			data_wr_length_o                     <= (others => '0');
@@ -187,8 +185,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
@@ -221,8 +217,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
@@ -245,8 +239,6 @@ begin
 					-- start the img header generation
 					s_fee_data_manager_state             <= WAITING_IMG_HEADER_FINISH;
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
@@ -289,8 +281,6 @@ begin
 					s_fee_data_manager_state      <= WAITING_IMG_HEADER_FINISH;
 					header_gen_send_o             <= '0';
 					header_gen_reset_o            <= '0';
-					housekeeping_wr_start_o       <= '0';
-					housekeeping_wr_reset_o       <= '0';
 					data_wr_start_o               <= '0';
 					data_wr_reset_o               <= '0';
 					data_wr_length_o              <= (others => '0');
@@ -321,8 +311,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_reset_o                      <= '0';
 					send_buffer_fee_data_loaded_o        <= '0';
 					-- keep the masking machine released
@@ -347,8 +335,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
@@ -388,8 +374,6 @@ begin
 					-- start the over header generation
 					s_fee_data_manager_state             <= WAITING_OVER_HEADER_FINISH;
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
@@ -432,8 +416,6 @@ begin
 					s_fee_data_manager_state      <= WAITING_OVER_HEADER_FINISH;
 					header_gen_send_o             <= '0';
 					header_gen_reset_o            <= '0';
-					housekeeping_wr_start_o       <= '0';
-					housekeeping_wr_reset_o       <= '0';
 					data_wr_start_o               <= '0';
 					data_wr_reset_o               <= '0';
 					data_wr_length_o              <= (others => '0');
@@ -464,8 +446,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_reset_o                      <= '0';
 					send_buffer_fee_data_loaded_o        <= '0';
 					-- keep the masking machine released
@@ -490,8 +470,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
@@ -545,8 +523,6 @@ begin
 					headerdata_sequence_counter_o        <= (others => '0');
 					header_gen_send_o                    <= '0';
 					header_gen_reset_o                   <= '0';
-					housekeeping_wr_start_o              <= '0';
-					housekeeping_wr_reset_o              <= '0';
 					data_wr_start_o                      <= '0';
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');

@@ -57,7 +57,7 @@ architecture RTL of data_packet_header_gen_ent is
 begin
 
 	p_data_packet_header_gen_FSM_state : process(clk_i, rst_i)
-		variable v_header_gen_state : s_header_gen_state := IDLE; -- current state
+		variable v_header_gen_state : t_data_packet_header_fsm := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
@@ -309,7 +309,7 @@ begin
 					header_gen_busy_o     <= '1';
 					header_gen_finished_o <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_length_field_i(15 downto 7);
+					send_buffer_wrdata_o  <= headerdata_length_field_i(15 downto 8);
 					-- write the send buffer data
 					send_buffer_wrreq_o   <= '1';
 				-- conditional output signals
@@ -333,8 +333,8 @@ begin
 					header_gen_busy_o                  <= '1';
 					header_gen_finished_o              <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o(15 downto 11) <= (others => '0');
-					send_buffer_wrdata_o(10 downto 8)  <= headerdata_type_field_mode_i;
+					send_buffer_wrdata_o(7 downto 3) <= (others => '0');
+					send_buffer_wrdata_o(2 downto 0)  <= headerdata_type_field_mode_i;
 					-- write the send buffer data
 					send_buffer_wrreq_o                <= '1';
 				-- conditional output signals

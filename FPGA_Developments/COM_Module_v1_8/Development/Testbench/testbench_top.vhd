@@ -19,12 +19,16 @@ architecture RTL of testbench_top is
 	signal s_do : std_logic;
 	signal s_si : std_logic;
 	signal s_so : std_logic;
-	
+
 	-- spacewire clock signal
 	signal s_spw_clock : std_logic;
 
 	-- irq signal
-	signal s_irq : std_logic;
+	signal s_irq_rmap    : std_logic;
+	signal s_irq_buffers : std_logic;
+
+	-- sync signal
+	signal s_sync : std_logic;
 
 	-- config_avalon_stimuli signals
 	signal s_config_avalon_stimuli_mm_readdata    : std_logic_vector(31 downto 0); -- -- avalon_mm.readdata
@@ -48,9 +52,9 @@ architecture RTL of testbench_top is
 
 begin
 
-	clk200 <= not clk200 after 2.5 ns;        -- 200 MHz
-	clk100 <= not clk100 after 5 ns;        -- 100 MHz
-	rst <= '0' after 100 ns;
+	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
+	clk100 <= not clk100 after 5 ns;    -- 100 MHz
+	rst    <= '0' after 100 ns;
 
 	config_avalon_stimuli_inst : entity work.config_avalon_stimuli
 		generic map(
@@ -96,14 +100,16 @@ begin
 			avalon_mm_writedata_o   => s_avalon_buffer_L_stimuli_mm_writedata
 		);
 
-	comm_v1_01_top_inst : entity work.comm_v1_01_top
+	comm_v1_01_top_inst : entity work.comm_v1_80_top
 		port map(
 			reset_sink_reset                   => rst,
 			data_in                            => s_di,
 			data_out                           => s_do,
 			strobe_in                          => s_si,
 			strobe_out                         => s_so,
-			interrupt_sender_irq               => s_irq,
+			sync_channel                       => s_sync,
+			rmap_interrupt_sender_irq          => s_irq_rmap,
+			buffers_interrupt_sender_irq       => s_irq_buffers,
 			clock_sink_200_clk                 => clk200,
 			clock_sink_100_clk                 => clk100,
 			avalon_slave_windowing_address     => s_config_avalon_stimuli_mm_address,
@@ -121,10 +127,10 @@ begin
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
 			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
 		);
-		
-		s_di <= s_do;
-		s_si <= s_so;
-		
-		s_spw_clock <= (s_so) xor (s_do);
-		
+
+	s_di <= s_do;
+	s_si <= s_so;
+
+	s_spw_clock <= (s_so) xor (s_do);
+
 end architecture RTL;
