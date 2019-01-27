@@ -56,7 +56,7 @@ architecture RTL of fee_slave_data_controller_top is
 	--	signal s_current_frame_counter              : std_logic_vector(15 downto 0);
 	-- masking machine signals
 	signal s_masking_machine_hold               : std_logic;
-	signal s_masking_buffer_clear               : std_logic;
+--	signal s_masking_buffer_clear               : std_logic;
 	signal s_masking_buffer_rdreq               : std_logic;
 	signal s_masking_buffer_almost_empty        : std_logic;
 	signal s_masking_buffer_empty               : std_logic;
@@ -89,7 +89,7 @@ architecture RTL of fee_slave_data_controller_top is
 	signal s_send_buffer_data_wr_wrreq          : std_logic;
 	-- send buffer signals
 	signal s_send_buffer_fee_data_loaded        : std_logic;
-	signal s_send_buffer_clear                  : std_logic;
+--	signal s_send_buffer_clear                  : std_logic;
 	signal s_send_buffer_wrdata                 : std_logic_vector(7 downto 0);
 	signal s_send_buffer_wrreq                  : std_logic;
 	signal s_send_buffer_rdreq                  : std_logic;

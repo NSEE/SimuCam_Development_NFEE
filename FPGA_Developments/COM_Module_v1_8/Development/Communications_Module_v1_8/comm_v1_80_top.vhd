@@ -64,9 +64,17 @@ architecture rtl of comm_v1_80_top is
 	signal rst_n : std_logic;
 
 	-- interrupt edge detection signals
-	signal s_R_buffer_empty_delayed      : std_logic;
-	signal s_L_buffer_empty_delayed      : std_logic;
+	signal s_R_buffer_0_empty_delayed    : std_logic;
+	signal s_R_buffer_1_empty_delayed    : std_logic;
+	signal s_L_buffer_0_empty_delayed    : std_logic;
+	signal s_L_buffer_1_empty_delayed    : std_logic;
 	signal s_rmap_write_finished_delayed : std_logic;
+
+	-- windowing internal buffers empty
+	signal s_R_buffer_0_empty : std_logic;
+	signal s_R_buffer_1_empty : std_logic;
+	signal s_L_buffer_0_empty : std_logic;
+	signal s_L_buffer_1_empty : std_logic;
 
 	-- windowing avalon mm read signals
 	signal s_avalon_mm_windwoing_read_readdata    : std_logic_vector(31 downto 0);
@@ -286,22 +294,24 @@ begin
 	-- rigth windowing buffer instantiation
 	rigth_windowing_buffer_ent_inst : entity work.windowing_buffer_ent
 		port map(
-			clk_i                 => a_avs_clock,
-			rst_i                 => a_reset,
-			window_buffer_size_i  => s_right_buffer_size,
-			fee_clear_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
-			fee_stop_signal_i     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
-			fee_start_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
-			window_data_write_i   => s_R_window_data_write,
-			window_mask_write_i   => s_R_window_mask_write,
-			window_data_i         => s_R_window_data,
-			window_data_read_i    => s_R_window_data_read,
-			window_mask_read_i    => s_R_window_mask_read,
-			window_data_o         => s_R_window_data_out,
-			window_mask_o         => s_R_window_mask_out,
-			window_data_ready_o   => s_R_window_data_ready,
-			window_mask_ready_o   => s_R_window_mask_ready,
-			window_buffer_empty_o => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty
+			clk_i                   => a_avs_clock,
+			rst_i                   => a_reset,
+			window_buffer_size_i    => s_right_buffer_size,
+			fee_clear_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_stop_signal_i       => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_start_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
+			window_data_write_i     => s_R_window_data_write,
+			window_mask_write_i     => s_R_window_mask_write,
+			window_data_i           => s_R_window_data,
+			window_data_read_i      => s_R_window_data_read,
+			window_mask_read_i      => s_R_window_mask_read,
+			window_data_o           => s_R_window_data_out,
+			window_mask_o           => s_R_window_mask_out,
+			window_data_ready_o     => s_R_window_data_ready,
+			window_mask_ready_o     => s_R_window_mask_ready,
+			window_buffer_empty_o   => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty,
+			window_buffer_0_empty_o => s_R_buffer_0_empty,
+			window_buffer_1_empty_o => s_R_buffer_1_empty
 		);
 
 	-- left avalon mm windowing write instantiation
@@ -322,22 +332,24 @@ begin
 	-- left windowing buffer instantiation
 	left_windowing_buffer_ent_inst : entity work.windowing_buffer_ent
 		port map(
-			clk_i                 => a_avs_clock,
-			rst_i                 => a_reset,
-			window_buffer_size_i  => s_left_buffer_size,
-			fee_clear_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
-			fee_stop_signal_i     => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
-			fee_start_signal_i    => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
-			window_data_write_i   => s_L_window_data_write,
-			window_mask_write_i   => s_L_window_mask_write,
-			window_data_i         => s_L_window_data,
-			window_data_read_i    => s_L_window_data_read,
-			window_mask_read_i    => s_L_window_mask_read,
-			window_data_o         => s_L_window_data_out,
-			window_mask_o         => s_L_window_mask_out,
-			window_data_ready_o   => s_L_window_data_ready,
-			window_mask_ready_o   => s_L_window_mask_ready,
-			window_buffer_empty_o => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty
+			clk_i                   => a_avs_clock,
+			rst_i                   => a_reset,
+			window_buffer_size_i    => s_left_buffer_size,
+			fee_clear_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_stop_signal_i       => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_start_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
+			window_data_write_i     => s_L_window_data_write,
+			window_mask_write_i     => s_L_window_mask_write,
+			window_data_i           => s_L_window_data,
+			window_data_read_i      => s_L_window_data_read,
+			window_mask_read_i      => s_L_window_mask_read,
+			window_data_o           => s_L_window_data_out,
+			window_mask_o           => s_L_window_mask_out,
+			window_data_ready_o     => s_L_window_data_ready,
+			window_mask_ready_o     => s_L_window_mask_ready,
+			window_buffer_empty_o   => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty,
+			window_buffer_0_empty_o => s_L_buffer_0_empty,
+			window_buffer_1_empty_o => s_L_buffer_1_empty
 		);
 
 	-- signals muxing for "fee data controller" and "data controller"
@@ -765,8 +777,18 @@ begin
 			s_timecode_counter <= (others => '0');
 			v_timecode_sended  := '0';
 		elsif rising_edge(a_avs_clock) then
+
+			-- check if a timecode clear was issued
+			if (s_spacewire_write_registers.spw_timecode_reg.timecode_clear = '1') then
+				-- timecode clear issued, clear timecode
+				s_timecode_control <= (others => '0');
+				s_timecode_counter <= (others => '0');
+			end if;
+
 			s_timecode_tick <= '0';
+			-- check if a sync signal was issued
 			if (sync_channel = '1') then
+				-- sync issued, increment timecode and send by spw
 				if (v_timecode_sended = '0') then
 					v_timecode_sended  := '1';
 					s_timecode_tick    <= '1';
@@ -780,42 +802,92 @@ begin
 			else
 				v_timecode_sended := '0';
 			end if;
+
 		end if;
 	end process p_timecode_manager;
-	s_current_timecode(7 downto 6) <= s_timecode_control;
-	s_current_timecode(5 downto 0) <= s_timecode_counter;
+	s_current_timecode(7 downto 6)                               <= s_timecode_control;
+	s_current_timecode(5 downto 0)                               <= s_timecode_counter;
+	s_spacewire_read_registers.spw_timecode_reg.timecode_control <= s_timecode_control;
+	s_spacewire_read_registers.spw_timecode_reg.timecode_time    <= s_timecode_counter;
 
 	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
+		variable v_fee_right_buffer_irq_counter : natural range 0 to 2 := 0;
+		variable v_fee_left_buffer_irq_counter  : natural range 0 to 2 := 0;
 	begin
 		if (a_reset) = '1' then
 			s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
-			s_R_buffer_empty_delayed                                             <= '0';
-			s_L_buffer_empty_delayed                                             <= '0';
+			s_R_buffer_0_empty_delayed                                           <= '0';
+			s_R_buffer_1_empty_delayed                                           <= '0';
+			s_L_buffer_0_empty_delayed                                           <= '0';
+			s_L_buffer_1_empty_delayed                                           <= '0';
+			v_fee_right_buffer_irq_counter                                       := 0;
+			v_fee_left_buffer_irq_counter                                        := 0;
 		elsif rising_edge(a_avs_clock) then
-			-- flag clear
+			-- check if a flag clear command was received
 			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear = '1') then
-				s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
+				-- flag clear command received
+				-- check if the interrupt counter is cleared
+				if ((v_fee_right_buffer_irq_counter + v_fee_left_buffer_irq_counter) = 0) then
+					-- interrupt counter is cleared, flag clear
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
+				else
+					-- interrupt counter is not cleared, decrement interrupt counter
+					-- TODO: revisar
+					if (v_fee_right_buffer_irq_counter > 0) then
+						v_fee_right_buffer_irq_counter := v_fee_right_buffer_irq_counter - 1;
+					end if;
+					if (v_fee_left_buffer_irq_counter > 0) then
+						v_fee_left_buffer_irq_counter := v_fee_left_buffer_irq_counter - 1;
+					end if;
+					-- check if the interrupt counter cleared
+					if ((v_fee_right_buffer_irq_counter + v_fee_left_buffer_irq_counter) = 0) then
+						-- interrupt counter cleared, flag clear
+						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
+					end if;
+				end if;
 			end if;
 			-- check if the global interrupt is enabled
 			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
 				-- check if the R empty buffer interrupt is activated
 				if (s_spacewire_write_registers.comm_irq_control_reg.comm_right_buffer_empty_en = '1') then
-					-- detect a rising edge in of the R buffer empty signals
-					if (((s_R_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty = '1'))) then
+					-- detect a rising edge in of the R buffer 0 empty signals
+					if (((s_R_buffer_0_empty_delayed = '0') and (s_R_buffer_0_empty = '1'))) then
+						-- R buffer 0 become empty, increment interrupt counter
+						v_fee_right_buffer_irq_counter := v_fee_right_buffer_irq_counter + 1;
+					end if;
+					-- detect a rising edge in of the R buffer 1 empty signals
+					if (((s_R_buffer_1_empty_delayed = '0') and (s_R_buffer_1_empty = '1'))) then
+						-- R buffer 1 become empty, increment interrupt counter
+						v_fee_right_buffer_irq_counter := v_fee_right_buffer_irq_counter + 1;
+					end if;
+					-- set interrupt flag based on the interrupt counter 
+					if (v_fee_right_buffer_irq_counter > 0) then
 						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
 					end if;
 				end if;
 				-- check if the L empty buffer interrupt is activated
 				if (s_spacewire_write_registers.comm_irq_control_reg.comm_left_buffer_empty_en = '1') then
-					-- detect a rising edge in of the L buffer empty signals
-					if (((s_L_buffer_empty_delayed = '0') and (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty = '1'))) then
+					-- detect a rising edge in of the L buffer 0 empty signals
+					if (((s_L_buffer_0_empty_delayed = '0') and (s_L_buffer_0_empty = '1'))) then
+						-- L buffer 0 become empty, increment interrupt counter
+						v_fee_left_buffer_irq_counter := v_fee_left_buffer_irq_counter + 1;
+					end if;
+					-- detect a rising edge in of the L buffer 1 empty signals
+					if (((s_L_buffer_1_empty_delayed = '0') and (s_L_buffer_1_empty = '1'))) then
+						-- L buffer 1 become empty, increment interrupt counter
+						v_fee_left_buffer_irq_counter := v_fee_left_buffer_irq_counter + 1;
+					end if;
+					-- set interrupt flag based on the interrupt counter 
+					if (v_fee_left_buffer_irq_counter > 0) then
 						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
 					end if;
 				end if;
 			end if;
 			-- delay signals
-			s_R_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
-			s_L_buffer_empty_delayed <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
+			s_R_buffer_0_empty_delayed <= s_R_buffer_0_empty;
+			s_R_buffer_1_empty_delayed <= s_R_buffer_1_empty;
+			s_L_buffer_0_empty_delayed <= s_L_buffer_0_empty;
+			s_L_buffer_1_empty_delayed <= s_L_buffer_1_empty;
 		end if;
 	end process p_fee_buffers_irq_manager;
 	buffers_interrupt_sender_irq <= s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag;

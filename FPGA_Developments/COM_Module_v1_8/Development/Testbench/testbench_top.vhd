@@ -133,4 +133,23 @@ begin
 
 	s_spw_clock <= (s_so) xor (s_do);
 
+	p_sync_generator : process(clk100, rst) is
+		variable v_sync_div_cnt : natural := 0;
+	begin
+		if (rst = '1') then
+			s_sync         <= '0';
+			v_sync_div_cnt := 0;
+		elsif rising_edge(clk100) then
+			if (v_sync_div_cnt = 100) then
+				if (s_sync = '0') then
+					s_sync <= '1';
+				else
+					s_sync <= '0';
+				end if;
+				v_sync_div_cnt := 0;
+			end if;
+			v_sync_div_cnt := v_sync_div_cnt + 1;
+		end if;
+	end process p_sync_generator;
+
 end architecture RTL;

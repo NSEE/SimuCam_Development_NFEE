@@ -67,7 +67,7 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_current_frame_counter              : std_logic_vector(15 downto 0);
 	-- masking machine signals
 	signal s_masking_machine_hold               : std_logic;
-	signal s_masking_buffer_clear               : std_logic;
+--	signal s_masking_buffer_clear               : std_logic;
 	signal s_masking_buffer_rdreq               : std_logic;
 	signal s_masking_buffer_almost_empty        : std_logic;
 	signal s_masking_buffer_empty               : std_logic;
@@ -107,7 +107,7 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_send_buffer_data_wr_wrreq          : std_logic;
 	-- send buffer signals
 	signal s_send_buffer_fee_data_loaded        : std_logic;
-	signal s_send_buffer_clear                  : std_logic;
+--	signal s_send_buffer_clear                  : std_logic;
 	signal s_send_buffer_wrdata                 : std_logic_vector(7 downto 0);
 	signal s_send_buffer_wrreq                  : std_logic;
 	signal s_send_buffer_rdreq                  : std_logic;
@@ -121,7 +121,7 @@ architecture RTL of fee_master_data_controller_top is
 	-- data transmitter signals
 	signal s_data_transmitter_busy              : std_logic;
 	signal s_data_transmitter_finished          : std_logic;
---	signal s_data_transmitter_reset             : std_logic;
+	--	signal s_data_transmitter_reset             : std_logic;
 
 	signal s_start_masking : std_logic;
 
@@ -308,7 +308,7 @@ begin
 			fee_clear_signal_i              => fee_machine_clear_i,
 			fee_stop_signal_i               => fee_machine_stop_i,
 			fee_start_signal_i              => fee_machine_start_i,
---			data_transmitter_reset_i        => s_data_transmitter_reset,
+			--			data_transmitter_reset_i        => s_data_transmitter_reset,
 			send_buffer_stat_almost_empty_i => s_send_buffer_stat_almost_empty,
 			send_buffer_stat_empty_i        => s_send_buffer_stat_empty,
 			send_buffer_rddata_i            => s_send_buffer_rddata,
@@ -394,5 +394,31 @@ begin
 	fee_slave_imgdata_start_o <= s_start_masking;
 	fee_slave_frame_counter_o <= s_current_frame_counter;
 	fee_slave_frame_number_o  <= s_current_frame_number;
+
+	-- data pkt header manager
+	p_data_pkt_header_manager : process(clk_i, rst_i) is
+	begin
+		if (rst_i = '1') then
+			data_pkt_header_length_o           <= (others => '0');
+			data_pkt_header_type_o             <= (others => '0');
+			data_pkt_header_frame_counter_o    <= (others => '0');
+			data_pkt_header_sequence_counter_o <= (others => '0');
+		elsif rising_edge(clk_i) then
+			-- check if a header generator send was requested
+			if (s_header_gen_send = '1') then
+				-- header generator send requested, update the data pkt header
+				data_pkt_header_length_o             <= s_headerdata_length_field;
+				data_pkt_header_type_o(15 downto 11) <= (others => '0');
+				data_pkt_header_type_o(10 downto 8)  <= s_headerdata_type_field_mode;
+				data_pkt_header_type_o(7)            <= s_headerdata_type_field_last_packet;
+				data_pkt_header_type_o(6)            <= s_headerdata_type_field_ccd_side;
+				data_pkt_header_type_o(5 downto 4)   <= s_headerdata_type_field_ccd_number;
+				data_pkt_header_type_o(3 downto 2)   <= s_headerdata_type_field_frame_number;
+				data_pkt_header_type_o(1 downto 0)   <= s_headerdata_type_field_packet_type;
+				data_pkt_header_frame_counter_o      <= s_headerdata_frame_counter;
+				data_pkt_header_sequence_counter_o   <= s_headerdata_sequence_counter;
+			end if;
+		end if;
+	end process p_data_pkt_header_manager;
 
 end architecture RTL;
