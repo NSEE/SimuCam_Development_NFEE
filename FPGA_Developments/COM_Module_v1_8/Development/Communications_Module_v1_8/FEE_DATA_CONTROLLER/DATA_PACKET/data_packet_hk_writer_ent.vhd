@@ -34,6 +34,7 @@ architecture RTL of data_packet_hk_writer_ent is
 	constant c_HK_LAST_BYTE_ADDR  : std_logic_vector(31 downto 0) := x"0000077F";
 
 	type t_housekeeping_writer_fsm is (
+		STOPPED,
 		IDLE,
 		WAITING_SEND_BUFFER_SPACE,
 		READ_HOUSEKEEPING,
@@ -51,8 +52,8 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_housekeeping_writer_state <= IDLE;
-			v_housekeeping_writer_state := IDLE;
+			s_housekeeping_writer_state <= STOPPED;
+			v_housekeeping_writer_state := STOPPED;
 			s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
 			-- Outputs Generation
 			housekeeping_wr_busy_o      <= '0';
@@ -64,6 +65,25 @@ begin
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_housekeeping_writer_state) is
+
+				when STOPPED =>
+					-- stopped state. do nothing and reset
+					s_housekeeping_writer_state <= STOPPED;
+					v_housekeeping_writer_state := STOPPED;
+					s_housekepping_addr         <= c_HK_RESET_BYTE_ADDR;
+					-- Outputs Generation
+					housekeeping_wr_busy_o      <= '0';
+					housekeeping_wr_finished_o  <= '0';
+					hk_mem_byte_address_o       <= c_HK_RESET_BYTE_ADDR;
+					hk_mem_read_o               <= '0';
+					send_buffer_wrdata_o        <= x"00";
+					send_buffer_wrreq_o         <= '0';
+					-- check if a start was issued
+					if (fee_start_signal_i = '1') then
+						-- start issued, go to idle
+						s_housekeeping_writer_state <= IDLE;
+						v_housekeeping_writer_state := IDLE;
+					end if;
 
 				-- state "IDLE"
 				when IDLE =>
@@ -236,6 +256,14 @@ begin
 					null;
 
 			end case;
+
+			-- check if a stop was issued
+			if (fee_stop_signal_i = '1') then
+				-- stop issued, go to stopped
+				s_housekeeping_writer_state <= STOPPED;
+				v_housekeeping_writer_state := STOPPED;
+			end if;
+
 		end if;
 	end process p_data_packet_housekeeping_writer_FSM_state;
 

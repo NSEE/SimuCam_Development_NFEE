@@ -1,4 +1,3 @@
--- TODO: colocar algum controlador para o ultimo pacote (não prenche completamente o buffer)
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -12,7 +11,6 @@ entity send_buffer_ent is
 		fee_stop_signal_i          : in  std_logic;
 		fee_start_signal_i         : in  std_logic;
 		-- others
-		-- TODO: fazer funcionar
 		fee_data_loaded_i          : in  std_logic;
 		buffer_cfg_length_i        : in  std_logic_vector(15 downto 0);
 		--		buffer_clear_i             : in  std_logic;
@@ -53,6 +51,7 @@ architecture RTL of send_buffer_ent is
 
 	-- send buffer write fsm type
 	type t_send_buffer_write_fsm is (
+		STOPPED,
 		WAIT_WR_DFIFO_0,
 		WRITE_DFIFO_0,
 		WAIT_WR_DFIFO_1,
@@ -63,6 +62,7 @@ architecture RTL of send_buffer_ent is
 
 	-- send buffer read fsm type
 	type t_send_buffer_read_fsm is (
+		STOPPED,
 		WAIT_RD_DFIFO_0,
 		READ_DFIFO_0,
 		WAIT_RD_DFIFO_1,
@@ -125,10 +125,26 @@ begin
 			s_rd_data_buffer_selection <= 2;
 			s_data_fifo_0_rdhold       <= '1';
 			s_data_fifo_1_rdhold       <= '1';
+			-- states
+			s_send_buffer_write_state  <= STOPPED;
+			s_send_buffer_read_state   <= STOPPED;
 		elsif rising_edge(clk_i) then
 
 			-- send buffer write fsm
 			case (s_send_buffer_write_state) is
+
+				when STOPPED =>
+					-- stopped state. do nothing and reset
+					s_send_buffer_write_state  <= STOPPED;
+					buffer_wrready_o           <= '0';
+					s_wr_data_buffer_selection <= 2;
+					s_data_fifo_0_rdhold       <= '1';
+					s_data_fifo_1_rdhold       <= '1';
+					-- check if a start was issued
+					if (fee_start_signal_i = '1') then
+						-- start issued, go to normal operation
+						s_send_buffer_write_state <= WAIT_WR_DFIFO_0;
+					end if;
 
 				when WAIT_WR_DFIFO_0 =>
 					-- wait data fifo 0 become availabe for write
@@ -152,8 +168,8 @@ begin
 					s_send_buffer_write_state  <= WRITE_DFIFO_0;
 					s_data_fifo_0_rdhold       <= '1';
 					buffer_wrready_o           <= '1';
-					-- check if the data fifo 0 is full (start using data fifo 1 and release data fifo 0 for read)
-					if (s_data_fifo_0.usedw = buffer_cfg_length_i(14 downto 0)) then
+					-- check if the data fifo 0 is full or the fee data is loaded  (start using data fifo 1 and release data fifo 0 for read)
+					if ((s_data_fifo_0.usedw = buffer_cfg_length_i(14 downto 0)) or (fee_data_loaded_i = '1')) then
 						-- data fifo 0 is full, go to waiting data fifo 1
 						s_wr_data_buffer_selection <= 2;
 						s_send_buffer_write_state  <= WAIT_WR_DFIFO_1;
@@ -185,8 +201,8 @@ begin
 					s_send_buffer_write_state  <= WRITE_DFIFO_1;
 					s_data_fifo_1_rdhold       <= '1';
 					buffer_wrready_o           <= '1';
-					-- check if the data fifo 1 is full (start using data fifo 0 and release data fifo 1 for read)
-					if (s_data_fifo_1.usedw = buffer_cfg_length_i(14 downto 0)) then
+					-- check if the data fifo 1 is full or the fee data is loaded  (start using data fifo 0 and release data fifo 1 for read)
+					if ((s_data_fifo_1.usedw = buffer_cfg_length_i(14 downto 0)) or (fee_data_loaded_i = '1')) then
 						-- data fifo 1 is full, go to waiting data fifo 0
 						s_wr_data_buffer_selection <= 2;
 						s_send_buffer_write_state  <= WAIT_WR_DFIFO_0;
@@ -202,6 +218,17 @@ begin
 
 			-- send buffer write fsm
 			case (s_send_buffer_read_state) is
+
+				when STOPPED =>
+					-- stopped state. do nothing and reset
+					s_send_buffer_read_state   <= STOPPED;
+					buffer_rdready_o           <= '0';
+					s_rd_data_buffer_selection <= 2;
+					-- check if a start was issued
+					if (fee_start_signal_i = '1') then
+						-- start issued, go to normal operation
+						s_send_buffer_read_state <= WAIT_RD_DFIFO_0;
+					end if;
 
 				when WAIT_RD_DFIFO_0 =>
 					-- wait until data fifo 0 is released for read
@@ -271,13 +298,20 @@ begin
 
 			end case;
 
+			-- check if a stop was issued
+			if (fee_stop_signal_i = '1') then
+				-- stop issued, go to stopped
+				s_send_buffer_write_state <= STOPPED;
+				s_send_buffer_read_state  <= STOPPED;
+			end if;
+
 		end if;
 	end process p_send_buffer;
 
 	-- data fifo 0 sclear signal reset
-	s_data_fifo_0.sclr <= ('1') when (rst_i = '1') else (buffer_clear_i);
+	s_data_fifo_0.sclr <= ('1') when (rst_i = '1') else (fee_clear_signal_i);
 	-- data fifo 1 sclear signal reset
-	s_data_fifo_1.sclr <= ('1') when (rst_i = '1') else (buffer_clear_i);
+	s_data_fifo_1.sclr <= ('1') when (rst_i = '1') else (fee_clear_signal_i);
 
 	-- wr buffer output signal muxing
 	buffer_stat_almost_full_o <= ('0') when (rst_i = '1')

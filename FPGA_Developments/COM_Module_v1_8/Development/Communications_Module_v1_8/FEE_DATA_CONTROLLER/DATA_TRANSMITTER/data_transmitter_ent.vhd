@@ -11,7 +11,6 @@ entity data_transmitter_ent is
 		fee_stop_signal_i               : in  std_logic;
 		fee_start_signal_i              : in  std_logic;
 		-- others
-		data_transmitter_reset_i        : in  std_logic;
 		send_buffer_stat_almost_empty_i : in  std_logic;
 		send_buffer_stat_empty_i        : in  std_logic;
 		send_buffer_rddata_i            : in  std_logic_vector(7 downto 0);
@@ -29,6 +28,7 @@ end entity data_transmitter_ent;
 architecture RTL of data_transmitter_ent is
 
 	type t_data_transmitter_fsm is (
+		STOPPED,
 		IDLE,
 		WAITING_DATA_BUFFER_SPACE,
 		FETCH_DATA,
@@ -41,13 +41,13 @@ architecture RTL of data_transmitter_ent is
 
 begin
 
-	p_data_transmitter_FSM : process(clk_i, reset_n_i)
+	p_data_transmitter_FSM : process(clk_i, rst_i)
 		variable v_data_transmitter_state : t_data_transmitter_fsm := IDLE; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_data_transmitter_state    <= IDLE;
-			v_data_transmitter_state    := IDLE;
+			s_data_transmitter_state    <= STOPPED;
+			v_data_transmitter_state    := STOPPED;
 			-- Outputs Generation
 			data_transmitter_busy_o     <= '0';
 			data_transmitter_finished_o <= '0';
@@ -58,6 +58,24 @@ begin
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_data_transmitter_state) is
+
+				when STOPPED =>
+					-- stopped state. do nothing and reset
+					s_data_transmitter_state    <= STOPPED;
+					v_data_transmitter_state    := STOPPED;
+					-- Outputs Generation
+					data_transmitter_busy_o     <= '0';
+					data_transmitter_finished_o <= '0';
+					send_buffer_rdreq_o         <= '0';
+					spw_tx_write_o              <= '0';
+					spw_tx_flag_o               <= '0';
+					spw_tx_data_o               <= x"00";
+					-- check if a start was issued
+					if (fee_start_signal_i = '1') then
+						-- start issued, go to idle
+						s_data_transmitter_state <= IDLE;
+						v_data_transmitter_state := IDLE;
+					end if;
 
 				-- state "IDLE"
 				when IDLE =>
@@ -149,11 +167,8 @@ begin
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a data transmitter reset was requested
-					if (data_transmitter_reset_i = '1') then
-						-- data transmitter reset requested, go back to idle
-						s_data_transmitter_state <= IDLE;
-						v_data_transmitter_state := IDLE;
-					end if;
+					s_data_transmitter_state <= IDLE;
+					v_data_transmitter_state := IDLE;
 
 				-- all the other states (not defined)
 				when others =>
@@ -267,6 +282,14 @@ begin
 					null;
 
 			end case;
+
+			-- check if a stop was issued
+			if (fee_stop_signal_i = '1') then
+				-- stop issued, go to stopped
+				s_data_transmitter_state <= STOPPED;
+				v_data_transmitter_state := STOPPED;
+			end if;
+
 		end if;
 	end process p_data_transmitter_FSM;
 

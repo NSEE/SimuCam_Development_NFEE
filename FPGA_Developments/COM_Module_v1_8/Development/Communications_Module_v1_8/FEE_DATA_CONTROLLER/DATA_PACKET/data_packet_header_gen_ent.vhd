@@ -36,6 +36,7 @@ end entity data_packet_header_gen_ent;
 architecture RTL of data_packet_header_gen_ent is
 
 	type t_data_packet_header_fsm is (
+		STOPPED,
 		IDLE,
 		WAITING_SEND_BUFFER_SPACE,
 		FIELD_LOGICAL_ADDRESS,
@@ -60,9 +61,9 @@ begin
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
-			s_header_gen_state      <= IDLE;
-			v_header_gen_state      := IDLE;
-			s_header_gen_next_state <= IDLE;
+			s_header_gen_state      <= STOPPED;
+			v_header_gen_state      := STOPPED;
+			s_header_gen_next_state <= STOPPED;
 			-- Outputs Generation
 			header_gen_busy_o       <= '0';
 			header_gen_finished_o   <= '0';
@@ -71,6 +72,24 @@ begin
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_header_gen_state) is
+
+				when STOPPED =>
+					-- stopped state. do nothing and reset
+					s_header_gen_state      <= STOPPED;
+					v_header_gen_state      := STOPPED;
+					s_header_gen_next_state <= STOPPED;
+					-- Outputs Generation
+					header_gen_busy_o       <= '0';
+					header_gen_finished_o   <= '0';
+					send_buffer_wrdata_o    <= x"00";
+					send_buffer_wrreq_o     <= '0';
+					-- check if a start was issued
+					if (fee_start_signal_i = '1') then
+						-- start issued, go to idle
+						s_header_gen_state      <= IDLE;
+						v_header_gen_state      := IDLE;
+						s_header_gen_next_state <= IDLE;
+					end if;
 
 				-- state "IDLE"
 				when IDLE =>
@@ -400,6 +419,15 @@ begin
 					null;
 
 			end case;
+
+			-- check if a stop was issued
+			if (fee_stop_signal_i = '1') then
+				-- stop issued, go to stopped
+				s_header_gen_state      <= STOPPED;
+				v_header_gen_state      := STOPPED;
+				s_header_gen_next_state <= STOPPED;
+			end if;
+
 		end if;
 	end process p_data_packet_header_gen_FSM_state;
 

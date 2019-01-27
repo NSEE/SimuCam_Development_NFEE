@@ -151,7 +151,6 @@ begin
 			s_last_packet_flag                   <= '0';
 			-- outputs
 			masking_machine_hold_o               <= '1';
-			masking_buffer_clear_o               <= '1';
 			headerdata_logical_address_o         <= (others => '0');
 			headerdata_length_field_o            <= (others => '0');
 			headerdata_type_field_mode_o         <= (others => '0');
@@ -170,7 +169,6 @@ begin
 			data_wr_reset_o                      <= '1';
 			data_wr_length_o                     <= (others => '0');
 			send_buffer_fee_data_loaded_o        <= '0';
-			send_buffer_clear_o                  <= '1';
 		elsif rising_edge(clk_i) then
 
 			case (s_fee_data_manager_state) is
@@ -182,7 +180,6 @@ begin
 					s_fee_sequence_counter               <= (others => '0');
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -201,7 +198,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- hold the masking machine
 					masking_machine_hold_o               <= '1';
 					-- check if a start was issued
@@ -218,7 +214,6 @@ begin
 					s_fee_sequence_counter               <= (others => '0');
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -237,7 +232,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine on hold
 					masking_machine_hold_o               <= '1';
 					if (sync_signal_i = '1') then
@@ -254,7 +248,6 @@ begin
 					s_fee_remaining_data_bytes           <= (others => '0');
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
-					masking_buffer_clear_o               <= '0';
 					header_gen_reset_o                   <= '0';
 					housekeeping_wr_start_o              <= '0';
 					housekeeping_wr_reset_o              <= '0';
@@ -262,7 +255,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the hk header data
@@ -286,7 +278,6 @@ begin
 					s_fee_remaining_data_bytes     <= (others => '0');
 					s_fee_current_packet_data_size <= (others => '0');
 					s_last_packet_flag             <= '0';
-					masking_buffer_clear_o         <= '0';
 					header_gen_send_o              <= '0';
 					header_gen_reset_o             <= '0';
 					housekeeping_wr_start_o        <= '0';
@@ -295,7 +286,6 @@ begin
 					data_wr_reset_o                <= '0';
 					data_wr_length_o               <= (others => '0');
 					send_buffer_fee_data_loaded_o  <= '0';
-					send_buffer_clear_o            <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o         <= '0';
 					-- check if the header generator is finished
@@ -313,7 +303,6 @@ begin
 					s_fee_remaining_data_bytes           <= (others => '0');
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -331,7 +320,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- start the hk writer
@@ -343,7 +331,6 @@ begin
 					s_fee_remaining_data_bytes           <= (others => '0');
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -362,7 +349,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- check if the hk writer is finished
@@ -386,7 +372,6 @@ begin
 				when IMG_HEADER_START =>
 					-- start the img header generation
 					s_fee_data_manager_state             <= WAITING_IMG_HEADER_FINISH;
-					masking_buffer_clear_o               <= '0';
 					header_gen_reset_o                   <= '0';
 					housekeeping_wr_start_o              <= '0';
 					housekeeping_wr_reset_o              <= '0';
@@ -394,7 +379,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the img header data
@@ -431,7 +415,6 @@ begin
 				when WAITING_IMG_HEADER_FINISH =>
 					-- wait for the img header generation to finish
 					s_fee_data_manager_state      <= WAITING_IMG_HEADER_FINISH;
-					masking_buffer_clear_o        <= '0';
 					header_gen_send_o             <= '0';
 					header_gen_reset_o            <= '0';
 					housekeeping_wr_start_o       <= '0';
@@ -440,7 +423,6 @@ begin
 					data_wr_reset_o               <= '0';
 					data_wr_length_o              <= (others => '0');
 					send_buffer_fee_data_loaded_o <= '0';
-					send_buffer_clear_o           <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o        <= '0';
 					-- check if the header generator is finished
@@ -455,7 +437,6 @@ begin
 				when IMG_DATA_START =>
 					-- start the data writer
 					s_fee_data_manager_state             <= WAITING_IMG_DATA_FINISH;
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -472,7 +453,6 @@ begin
 					housekeeping_wr_reset_o              <= '0';
 					data_wr_reset_o                      <= '0';
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- set the data writer length
@@ -483,7 +463,6 @@ begin
 				when WAITING_IMG_DATA_FINISH =>
 					-- wait for the data writer to finish
 					s_fee_data_manager_state             <= WAITING_IMG_DATA_FINISH;
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -502,7 +481,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- check if the data writer is finished
@@ -537,7 +515,6 @@ begin
 				when OVER_HEADER_START =>
 					-- start the over header generation
 					s_fee_data_manager_state             <= WAITING_OVER_HEADER_FINISH;
-					masking_buffer_clear_o               <= '0';
 					header_gen_reset_o                   <= '0';
 					housekeeping_wr_start_o              <= '0';
 					housekeeping_wr_reset_o              <= '0';
@@ -545,7 +522,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the over header data
@@ -582,7 +558,6 @@ begin
 				when WAITING_OVER_HEADER_FINISH =>
 					-- wait for the over header generation to finish
 					s_fee_data_manager_state      <= WAITING_OVER_HEADER_FINISH;
-					masking_buffer_clear_o        <= '0';
 					header_gen_send_o             <= '0';
 					header_gen_reset_o            <= '0';
 					housekeeping_wr_start_o       <= '0';
@@ -591,7 +566,6 @@ begin
 					data_wr_reset_o               <= '0';
 					data_wr_length_o              <= (others => '0');
 					send_buffer_fee_data_loaded_o <= '0';
-					send_buffer_clear_o           <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o        <= '0';
 					-- check if the header generator is finished
@@ -606,7 +580,6 @@ begin
 				when OVER_DATA_START =>
 					-- start the data writer
 					s_fee_data_manager_state             <= WAITING_OVER_DATA_FINISH;
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -623,7 +596,6 @@ begin
 					housekeeping_wr_reset_o              <= '0';
 					data_wr_reset_o                      <= '0';
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- set the data writer length
@@ -634,7 +606,6 @@ begin
 				when WAITING_OVER_DATA_FINISH =>
 					-- wait for the data writer to finish
 					s_fee_data_manager_state             <= WAITING_IMG_DATA_FINISH;
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -653,7 +624,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- check if the data writer is finished
@@ -691,7 +661,6 @@ begin
 					s_fee_sequence_counter               <= (others => '0');
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
-					masking_buffer_clear_o               <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -710,7 +679,6 @@ begin
 					data_wr_reset_o                      <= '0';
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
-					send_buffer_clear_o                  <= '0';
 					-- hold the masking machine
 					masking_machine_hold_o               <= '1';
 					-- return to idle to wait another sync
