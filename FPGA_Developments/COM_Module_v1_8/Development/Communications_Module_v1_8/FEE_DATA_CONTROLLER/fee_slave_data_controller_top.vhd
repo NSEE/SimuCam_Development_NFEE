@@ -1,4 +1,3 @@
--- TODO slave controller
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -53,8 +52,8 @@ end entity fee_slave_data_controller_top;
 architecture RTL of fee_slave_data_controller_top is
 
 	-- general signals
-	signal s_current_frame_number               : std_logic_vector(1 downto 0);
-	signal s_current_frame_counter              : std_logic_vector(15 downto 0);
+	--	signal s_current_frame_number               : std_logic_vector(1 downto 0);
+	--	signal s_current_frame_counter              : std_logic_vector(15 downto 0);
 	-- masking machine signals
 	signal s_masking_machine_hold               : std_logic;
 	signal s_masking_buffer_clear               : std_logic;
@@ -80,13 +79,6 @@ architecture RTL of fee_slave_data_controller_top is
 	signal s_header_gen_reset                   : std_logic;
 	signal s_send_buffer_header_gen_wrdata      : std_logic_vector(7 downto 0);
 	signal s_send_buffer_header_gen_wrreq       : std_logic;
-	-- housekeeping writer signals
-	signal s_housekeeping_wr_busy               : std_logic;
-	signal s_housekeeping_wr_finished           : std_logic;
-	signal s_housekeeping_wr_start              : std_logic;
-	signal s_housekeeping_wr_reset              : std_logic;
-	signal s_send_buffer_housekeeping_wr_wrdata : std_logic_vector(7 downto 0);
-	signal s_send_buffer_housekeeping_wr_wrreq  : std_logic;
 	-- data writer signals
 	signal s_data_wr_busy                       : std_logic;
 	signal s_data_wr_finished                   : std_logic;
@@ -124,6 +116,7 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
+			fee_start_masking_i           => fee_slave_imgdata_start_i,
 			masking_machine_hold_i        => s_masking_machine_hold,
 			fee_ccd_x_size_i              => data_pkt_ccd_x_size_i,
 			fee_ccd_y_size_i              => data_pkt_ccd_y_size_i,
@@ -143,8 +136,8 @@ begin
 			masking_buffer_rddata_o       => s_masking_buffer_rddata
 		);
 
-	-- fee data manager instantiation
-	fee_data_manager_ent_inst : entity work.fee_data_manager_ent
+	-- fee slave data manager instantiation
+	fee_slave_data_manager_ent_inst : entity work.fee_slave_data_manager_ent
 		port map(
 			clk_i                                => clk_i,
 			rst_i                                => rst_i,
@@ -152,8 +145,8 @@ begin
 			fee_stop_signal_i                    => fee_machine_stop_i,
 			fee_start_signal_i                   => fee_machine_start_i,
 			sync_signal_i                        => fee_sync_signal_i,
-			current_frame_number_i               => s_current_frame_number,
-			current_frame_counter_i              => s_current_frame_counter,
+			current_frame_number_i               => fee_slave_frame_number_i,
+			current_frame_counter_i              => fee_slave_frame_counter_i,
 			fee_ccd_x_size_i                     => data_pkt_ccd_x_size_i,
 			fee_data_y_size_i                    => data_pkt_data_y_size_i,
 			fee_overscan_y_size_i                => data_pkt_overscan_y_size_i,
@@ -162,7 +155,6 @@ begin
 			fee_ccd_number_i                     => data_pkt_ccd_number_i,
 			fee_ccd_side_i                       => g_FEE_CCD_SIDE,
 			header_gen_finished_i                => s_header_gen_finished,
-			housekeeping_wr_finished_i           => s_housekeeping_wr_finished,
 			data_wr_finished_i                   => s_data_wr_finished,
 			masking_machine_hold_o               => s_masking_machine_hold,
 			headerdata_logical_address_o         => s_headerdata_logical_address,
@@ -177,8 +169,6 @@ begin
 			headerdata_sequence_counter_o        => s_headerdata_sequence_counter,
 			header_gen_send_o                    => s_header_gen_send,
 			header_gen_reset_o                   => s_header_gen_reset,
-			housekeeping_wr_start_o              => s_housekeeping_wr_start,
-			housekeeping_wr_reset_o              => s_housekeeping_wr_reset,
 			data_wr_start_o                      => s_data_wr_start,
 			data_wr_reset_o                      => s_data_wr_reset,
 			data_wr_length_o                     => s_data_wr_length,
@@ -212,29 +202,6 @@ begin
 			header_gen_finished_o                => s_header_gen_finished,
 			send_buffer_wrdata_o                 => s_send_buffer_header_gen_wrdata,
 			send_buffer_wrreq_o                  => s_send_buffer_header_gen_wrreq
-		);
-
-	-- data packet housekeeping writer instantiation
-	data_packet_hk_writer_ent_inst : entity work.data_packet_hk_writer_ent
-		port map(
-			clk_i                          => clk_i,
-			rst_i                          => rst_i,
-			fee_clear_signal_i             => fee_machine_clear_i,
-			fee_stop_signal_i              => fee_machine_stop_i,
-			fee_start_signal_i             => fee_machine_start_i,
-			housekeeping_wr_start_i        => s_housekeeping_wr_start,
-			housekeeping_wr_reset_i        => s_housekeeping_wr_reset,
-			hk_mem_valid_i                 => fee_hk_mem_valid_i,
-			hk_mem_data_i                  => fee_hk_mem_data_i,
-			send_buffer_stat_almost_full_i => s_send_buffer_stat_almost_full,
-			send_buffer_stat_full_i        => s_send_buffer_stat_full,
-			send_buffer_wrready_i          => s_send_buffer_wrready,
-			housekeeping_wr_busy_o         => s_housekeeping_wr_busy,
-			housekeeping_wr_finished_o     => s_housekeeping_wr_finished,
-			hk_mem_byte_address_o          => fee_hk_mem_byte_address_o,
-			hk_mem_read_o                  => fee_hk_mem_read_o,
-			send_buffer_wrdata_o           => s_send_buffer_housekeeping_wr_wrdata,
-			send_buffer_wrreq_o            => s_send_buffer_housekeeping_wr_wrreq
 		);
 
 	-- data packet data writer instantiation
@@ -282,8 +249,8 @@ begin
 			buffer_rdready_o           => s_send_buffer_rdready,
 			buffer_wrready_o           => s_send_buffer_wrready
 		);
-	s_send_buffer_wrdata <= (s_send_buffer_header_gen_wrdata) or (s_send_buffer_housekeeping_wr_wrdata) or (s_send_buffer_data_wr_wrdata);
-	s_send_buffer_wrreq  <= (s_send_buffer_header_gen_wrreq) or (s_send_buffer_housekeeping_wr_wrreq) or (s_send_buffer_data_wr_wrreq);
+	s_send_buffer_wrdata <= (s_send_buffer_header_gen_wrdata) or (s_send_buffer_data_wr_wrdata);
+	s_send_buffer_wrreq  <= (s_send_buffer_header_gen_wrreq) or (s_send_buffer_data_wr_wrreq);
 
 	-- data transmitter instantiation
 	data_transmitter_ent_inst : entity work.data_transmitter_ent
@@ -306,73 +273,5 @@ begin
 			spw_tx_flag_o                   => fee_spw_tx_flag_o,
 			spw_tx_data_o                   => fee_spw_tx_data_o
 		);
-
-	-- fee frame manager
-	p_fee_frame_manager : process(clk_i, rst_i) is
-		variable v_full_frame_cnt : std_logic_vector(17 downto 0) := (others => '0');
-		variable v_stopped_flag   : std_logic                     := '1';
-	begin
-		if (rst_i = '1') then
-			s_current_frame_counter <= (others => '0');
-			s_current_frame_number  <= (others => '0');
-			v_full_frame_cnt        := (others => '0');
-			v_stopped_flag          := '1';
-		elsif rising_edge(clk_i) then
-
-			--
-			-- Definitions:
-			--
-			-- frame counter : full read-out cycle counter
-			--   |  frame counter |
-			--   |  15 downto  0  |
-			--
-			-- frame number : current frame inside a full read-out cycle
-			--   |   frame number |
-			--   |   1 downto  0  |
-			--
-			-- full frame counter:
-			--   |  frame counter |   frame number |
-			--   |  17 downto  2  |   1 downto  0  |
-			--
-
-			-- check if frame manager is stopped
-			if (v_stopped_flag = '1') then
-				-- frame manager stopped
-				-- check if a clear request was received
-				if (fee_machine_clear_i = '1') then
-					-- clear request received
-					-- clear counters
-					s_current_frame_counter <= (others => '0');
-					s_current_frame_number  <= (others => '0');
-					v_full_frame_cnt        := (others => '0');
-				end if;
-				-- check if a start request was received
-				if (fee_machine_start_i = '1') then
-					-- start request received
-					-- start frame manager
-					v_stopped_flag := '0';
-				end if;
-			else
-				-- frame manager not stopped
-				-- check if a sync signal was received
-				if (fee_sync_signal_i = '1') then
-					-- sync signal received
-					-- update counters
-					v_full_frame_cnt(17 downto 2) := s_current_frame_counter;
-					v_full_frame_cnt(1 downto 0)  := s_current_frame_number;
-					v_full_frame_cnt              := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
-					s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
-					s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
-				end if;
-				-- check if a stop request was received
-				if (fee_machine_stop_i = '1') then
-					-- stop request received
-					-- stop frame manager
-					v_stopped_flag := '1';
-				end if;
-			end if;
-
-		end if;
-	end process p_fee_frame_manager;
 
 end architecture RTL;

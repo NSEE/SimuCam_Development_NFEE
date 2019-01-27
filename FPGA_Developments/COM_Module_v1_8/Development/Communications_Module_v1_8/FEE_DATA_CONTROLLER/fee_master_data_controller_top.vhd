@@ -1,4 +1,3 @@
--- TODO master controller
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -124,6 +123,8 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_data_transmitter_finished          : std_logic;
 	signal s_data_transmitter_reset             : std_logic;
 
+	signal s_start_masking : std_logic;
+
 begin
 
 	-- masking machine instantiation
@@ -135,6 +136,7 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
+			fee_start_masking_i           => s_start_masking,
 			masking_machine_hold_i        => s_masking_machine_hold,
 			fee_ccd_x_size_i              => data_pkt_ccd_x_size_i,
 			fee_ccd_y_size_i              => data_pkt_ccd_y_size_i,
@@ -154,8 +156,8 @@ begin
 			masking_buffer_rddata_o       => s_masking_buffer_rddata
 		);
 
-	-- fee data manager instantiation
-	fee_data_manager_ent_inst : entity work.fee_data_manager_ent
+	-- fee master data manager instantiation
+	fee_master_data_manager_ent_inst : entity work.fee_master_data_manager_ent
 		port map(
 			clk_i                                => clk_i,
 			rst_i                                => rst_i,
@@ -175,6 +177,8 @@ begin
 			header_gen_finished_i                => s_header_gen_finished,
 			housekeeping_wr_finished_i           => s_housekeeping_wr_finished,
 			data_wr_finished_i                   => s_data_wr_finished,
+			data_transmitter_finished_i          => s_data_transmitter_finished,
+			imgdata_start_o                      => s_start_masking,
 			masking_machine_hold_o               => s_masking_machine_hold,
 			headerdata_logical_address_o         => s_headerdata_logical_address,
 			headerdata_length_field_o            => s_headerdata_length_field,
@@ -385,5 +389,10 @@ begin
 
 		end if;
 	end process p_fee_frame_manager;
+
+	-- outputs generation
+	fee_slave_imgdata_start_o <= s_start_masking;
+	fee_slave_frame_counter_o <= s_current_frame_counter;
+	fee_slave_frame_number_o  <= s_current_frame_number;
 
 end architecture RTL;

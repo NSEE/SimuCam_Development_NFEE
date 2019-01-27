@@ -462,7 +462,6 @@ begin
 			spw_txdata_o          => s_data_controller_spw_txdata
 		);
 
-	-- TODO slave controller
 	-- right fee slave data controller instantiation
 	right_fee_slave_data_controller_top_inst : entity work.fee_slave_data_controller_top
 		generic map(
@@ -501,7 +500,6 @@ begin
 			fee_spw_tx_data_o          => s_R_fee_data_controller_spw_txdata
 		);
 
-	-- TODO master controller
 	-- left fee master data controller instantiation
 	left_fee_master_data_controller_top_inst : entity work.fee_master_data_controller_top
 		generic map(
