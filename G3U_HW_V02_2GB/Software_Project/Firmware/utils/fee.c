@@ -62,6 +62,12 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 		#endif
     }
 
+    if ( bCommSetGlobalIrqEn( TRUE, ucIdNFEE ) == FALSE ) {
+		#ifdef DEBUG_ON
+			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
+		#endif
+    }
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */

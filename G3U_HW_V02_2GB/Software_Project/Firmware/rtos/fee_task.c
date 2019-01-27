@@ -158,6 +158,9 @@ void vFeeTask(void *task_data) {
 
 				break;
 			case sSIMTestFullPattern:
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  ENTROU NO SIM TEST FULL\n ");
+#endif
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
@@ -167,6 +170,9 @@ void vFeeTask(void *task_data) {
 
 				/* Configurar o tamanho normal do double buffer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 				bSpwcGetTimecode(&pxNFee->xChannel.xSpacewire);
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  TIME CODE SPW: %hhu \n ", pxNFee->xChannel.xSpacewire.xTimecode.ucCounter);
+#endif
 				tCodeNext = ( pxNFee->xChannel.xSpacewire.xTimecode.ucCounter + 1) % 4;
 				if ( tCodeNext == 0 ) {
 					/* Should get Data from the another memory, because is a cicle start */
@@ -185,32 +191,83 @@ void vFeeTask(void *task_data) {
 
 				/* todo: resetar o tamanho do buffer size para o maximo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  JA PEGOU A REFERENCIA DE ENDERECO, VAI MANDAR MENSAGEM REQUISITANDO DMA\n ");
+#endif
+
 				/* Make one requests for the Double buffer */
 				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
+
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  ENVIOU MENSAGEM PARA O CONTROLLER PEDINDO DMA. AGUARDANDO NO xFeeQ\n ");
+#endif
 
 				/* When get the mutex, perform two DMA writes in order to fill the "double" part of the double buffer */
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  RECEBEU MENSAGEM\n ");
+#endif
+
 					/* First Check if is access to the DMA (priority) */
 					if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  ERA DE ACESSO AO DMA\n ");
+#endif
 
 						/* Try to get the Mutex */
 	                    OSMutexPend(xDma[ucMemUsing].xMutexDMA, 0, &error_code); /* Blocking way */
 	                    if ( error_code == OS_ERR_NONE ) {
 	                    	pxNFee->xControl.bDMALocked = TRUE;
 
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  PEGOU MUTEX\n ");
+#endif
+
+						if (  ucMemUsing == 0  ) {
 							/* Initializing the addr */
 	                    	xCcdMapLocal->ulBlockI = 0;
 							xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
-							(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+							bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId);
+							//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
 							xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
 							xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-							(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+							bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId);
+							//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
 							xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
 							xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
 	                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 	                        pxNFee->xControl.bDMALocked = FALSE;
+						} else {
+							/* Initializing the addr */
+	                    	xCcdMapLocal->ulBlockI = 0;
+							xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
+							bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId);
+							//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+							xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+							xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+							bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId);
+							//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+							xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+							xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+	                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
+	                        pxNFee->xControl.bDMALocked = FALSE;
+						}
+
+
+
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  MANDOU OS COMANDOS VIA DMA\n ");
+#endif
+
+	                        /* Send message telling to controller that is not using the DMA any more */
+							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  MSG PARA CONTROLER DEVOLVENDO DMA\n ");
+#endif
+
+
 	                    }
 					} else {
 						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
@@ -241,16 +298,30 @@ void vFeeTask(void *task_data) {
 				break;
 			case sFeeTestFullPattern: /* Real mode */
 
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  sFeeTestFullPattern\n ");
+#endif
+
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  RECEBEU COMANDO\n ");
+#endif
+
 					/* First Check if is access to the DMA (priority) */
 						if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  ERA ACESSO AO DMA\n ");
+#endif
 
 							/* Try to get the Mutex */
 		                    OSMutexPend(xDma[ucMemUsing].xMutexDMA, 0, &error_code); /* Blocking way */
 		                    if ( error_code == OS_ERR_NONE ) {
 		                    	pxNFee->xControl.bDMALocked = TRUE;
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  PEGOU MUTEX DO DMA\n ");
+#endif
 
 		                    	/* Is this the last block? */
 		                    	if ( (xCcdMapLocal->ulBlockI+SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
@@ -266,13 +337,33 @@ void vFeeTask(void *task_data) {
 		                    		usiLengthBlocks = SDMA_MAX_BLOCKS;
 		                    	}
 
+		                    	if ( ucMemUsing == 0  ) {
+
+		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+		                    		bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId);
+		                    	} else {
+
+		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+		                    		bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId);
+		                    	}
+
+
 								/* Value of xCcdMapLocal->ulAddrI already set in the last iteration */
-								(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+
 								xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
 		                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 		                        pxNFee->xControl.bDMALocked = FALSE;
-		                        bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
-		                    }
+		                        //bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  ENVIOU DADOS AO DMA\n ");
+#endif
+		                        /* Send message talling to controller that is not using the DMA any more */
+								bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
+#ifdef DEBUG_ON
+	fprintf(fp,"\nFEE TASK:  DEVOLVEU AO CONTROLLER\n ");
+#endif
+
+                   }
 						} else {
 							vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 						}
@@ -567,6 +658,31 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	/* Sync the Meb task and tell that has a PUS command waiting */
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailRequestDMA( ucValue );
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+
+	return bSuccesL;
+}
+
+
+bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailRequestDMA( ucValue );
 		bSuccesL = FALSE;

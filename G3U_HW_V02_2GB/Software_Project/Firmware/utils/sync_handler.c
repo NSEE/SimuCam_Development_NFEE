@@ -94,6 +94,15 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
+	// Habilita sync_out_ch1 enable (libera sync para o Ch 1)
+	bSuccess = bSyncCtrCh1OutEnable(TRUE);
+	if ( bSuccess == FALSE ) {
+		#ifdef DEBUG_ON
+			debug(fp, "Sync Init: Temp Error.\n");
+		#endif
+		return bSuccess;
+	}
+
 	bSuccess = bSyncCtrStart();
 	bSyncCtrReset();
 	aux_32 = bSyncIrqEnableBlank(TRUE);

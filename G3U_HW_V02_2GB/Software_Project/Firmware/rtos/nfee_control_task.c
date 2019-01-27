@@ -122,33 +122,53 @@ void vNFeeControlTask(void *task_data) {
 
 				/* Get the id of the FEE that wants DMA access */
 				if ( bDmaBack == TRUE ) {
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 2, &error_codeCtrl);
+
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 4, &error_codeCtrl);
 					if ( error_codeCtrl == OS_ERR_NONE ) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
+#ifdef DEBUG_ON
+	fprintf(fp,"\nController: chegou agendamento ( %hhu )\n",ucFeeInstL);
+#endif
+
 						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
 							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, 0, ucFeeInstL );
-							if ( bCmdSent == TRUE )
+							if ( bCmdSent == TRUE ) {
 								bDmaBack = FALSE;
+#ifdef DEBUG_ON
+	fprintf(fp,"\nController: Enviado para fee ( %hhu )\n",ucFeeInstL);
+#endif
+							}
 						}
 					}
 				} 
 
-				if ( bDmaBack == FALSE )
+				if ( bDmaBack == FALSE ) {
+#ifdef DEBUG_ON
+	fprintf(fp,"\nController: Esperando bloqueado FORÉVA pelo dma de volta na fila xQMaskFeeCtrl\n ");
+#endif
 					/* DMA with some NFEE instance */
 					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl);
-				else
+				} else {
 					/* If No FEE has the DMA */
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 2, &error_codeCtrl);
+
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 4, &error_codeCtrl);
+				}
 
 				if ( error_codeCtrl == OS_ERR_NONE ){
 					/* Check if is some FEE giving the DMA back */
 					if ( uiCmdNFC.ucByte[2] == M_NFC_DMA_GIVEBACK ) {
 						bDmaBack = TRUE;
+#ifdef DEBUG_ON
+	fprintf(fp,"\nController: Devolveram o dma\n");
+#endif
 					} else {
 
 						/* Check if the command is for NFEE Controller */
 						if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
 							
+#ifdef DEBUG_ON
+	fprintf(fp,"\nController:  Mensagem normal para FEE controller\n ");
+#endif
 							vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
 
 						} else {
@@ -162,7 +182,7 @@ void vNFeeControlTask(void *task_data) {
 						}
 					}
 				}
-				
+				OSTimeDlyHMSM(0,0,0,250); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				break;		
 			default:
 				#ifdef DEBUG_ON

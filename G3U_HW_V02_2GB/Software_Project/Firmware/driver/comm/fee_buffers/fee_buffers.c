@@ -56,6 +56,10 @@ void vFeebCh1HandleIrq(void* pvContext) {
 		vFailRequestDMAFromIRQ( 0 );
 	}
 
+#ifdef DEBUG_ON
+	fprintf(fp,"Interrupcao fee buffer\n");
+#endif
+
 	/* Make one requests for the Double buffer */
 	/* Address of the NFEE is hard coded */
 

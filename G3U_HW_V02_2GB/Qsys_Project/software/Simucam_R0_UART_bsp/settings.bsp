@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>27/01/2019 01:04:27</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1548558267713</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jan 27, 2019 12:06:11 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1548597971874</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1058,7 +1058,7 @@
                 <SettingName>ucosii.task.os_task_create_en</SettingName>
                 <Identifier>OS_TASK_CREATE_EN</Identifier>
                 <Type>Boolean</Type>
-                <Value>0</Value>
+                <Value>1</Value>
                 <DefaultValue>1</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Include code for OSTaskCreate()</Description>
@@ -1286,7 +1286,7 @@
                 <SettingName>ucosii.event_flag.os_max_flags</SettingName>
                 <Identifier>OS_MAX_FLAGS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>40</Value>
+                <Value>48</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Event Flags groups. CAUTION: This is required by the HAL and many Altera device drivers; use caution in reducing this value.</Description>
