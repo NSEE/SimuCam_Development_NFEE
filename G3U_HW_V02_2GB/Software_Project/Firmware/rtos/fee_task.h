@@ -16,6 +16,7 @@
 #include "../driver/comm/spw_controller/spw_controller.h"
 #include "../driver/comm/comm_channel.h"
 #include "../utils/queue_commands_list.h"
+#include "../api_driver/simucam_dma/simucam_dma.h"
 
 void vFeeTask(void *task_data);
 void vFeeTask0(void *task_data);
@@ -28,6 +29,7 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh );
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh );
 bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
+bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );

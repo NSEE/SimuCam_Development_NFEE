@@ -115,7 +115,7 @@ bool bStopSync(void) {
 	return bSyncCtrReset();
 }
 
-bool bClearCounterSync(void) {
+void bClearCounterSync(void) {
 
 	vSyncClearCounter();
 }

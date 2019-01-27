@@ -11,6 +11,8 @@
 
 
 #include "../simucam_definitions.h"
+#include "../api_driver/simucam_dma/simucam_dma.h"
+#include "../rtos/tasks_configurations.h"
 #include "../driver/comm/comm_channel.h"
 
 bool bTestSimucamCriticalHW( void );

@@ -85,6 +85,7 @@ void vCouldNotCreateQueueMaskDataCtrl( void );
 void vCouldNotGetQueueMaskNfeeCtrl( void );
 void vCouldNotGetQueueMaskDataCtrl( void );
 void vFailSendMsgAccessDMA( unsigned char ucTemp);
+void vFailRequestDMA( unsigned char ucTemp);
 void vFailSendMsgFeeCTRL( void );
 void vFailSendMsgDataCTRL( void );
 void vFailFlushQueue( void );
@@ -94,6 +95,7 @@ void vFailFlushNFEEQueue( void );
 void vFailCreateNFEESyncQueue( unsigned char ucID );
 void vFailSendMsgSync( unsigned char ucTemp);
 void vFailSendMsgMasterSyncMeb( void );
+void vFailRequestDMAFromIRQ( unsigned char ucTemp);
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

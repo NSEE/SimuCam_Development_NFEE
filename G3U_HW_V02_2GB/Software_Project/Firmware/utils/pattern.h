@@ -7,6 +7,7 @@ extern "C" {
 
 // include necessário para trabalhar com as ddr
 #include "../api_driver/ddr2/ddr2.h"
+#include "../api_driver/simucam_dma/simucam_dma.h"
 
 #define PATTERN_MEMORY_FULLMASK 0xFFFFFFFFFFFFFFFF
 #define PATTERN_TIMECODE_VALUE 0xFF
@@ -18,10 +19,10 @@ extern "C" {
 #define PATTERN_MASK_COLUMN(column) (column & 0x1F)
 
 // struct de um bloco de pixels (64 px + 64b de mascaras = 128 bytes de pixels + 8 bytes de mascaras)
-typedef struct SdmaPixelDataBlock {
+/*typedef struct SdmaPixelDataBlock {
 	alt_u16 usiPixel[64];
 	alt_u64 ulliMask;
-} TSdmaPixelDataBlock;
+} TSdmaPixelDataBlock;*/
 
 #ifdef  __cplusplus
 }

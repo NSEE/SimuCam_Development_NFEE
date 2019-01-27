@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>25/01/2019 22:43:40</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1548463420481</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Jan 27, 2019 12:45:26 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1548557126903</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -134,7 +134,7 @@
                 <SettingName>hal.linker.exception_stack_size</SettingName>
                 <Identifier>none</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>2048</Value>
+                <Value>1024</Value>
                 <DefaultValue>1024</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Size of the exception stack in bytes.</Description>
@@ -878,7 +878,7 @@
                 <SettingName>ucosii.os_max_tasks</SettingName>
                 <Identifier>OS_MAX_TASKS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>32</Value>
+                <Value>40</Value>
                 <DefaultValue>10</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of tasks</Description>
@@ -890,7 +890,7 @@
                 <SettingName>ucosii.os_lowest_prio</SettingName>
                 <Identifier>OS_LOWEST_PRIO</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>40</Value>
+                <Value>42</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Lowest assignable priority</Description>
@@ -1286,7 +1286,7 @@
                 <SettingName>ucosii.event_flag.os_max_flags</SettingName>
                 <Identifier>OS_MAX_FLAGS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>32</Value>
+                <Value>40</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Event Flags groups. CAUTION: This is required by the HAL and many Altera device drivers; use caution in reducing this value.</Description>
@@ -1574,7 +1574,7 @@
                 <SettingName>ucosii.queue.os_max_qs</SettingName>
                 <Identifier>OS_MAX_QS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>16</Value>
+                <Value>32</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Queue Control Blocks</Description>

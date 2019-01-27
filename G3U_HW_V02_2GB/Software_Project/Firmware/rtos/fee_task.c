@@ -18,6 +18,9 @@ void vFeeTask(void *task_data) {
 	alt_u32 tCodeNext;
 	alt_u32 tCode;
 	tQMask uiCmdFEE;
+	TCcdMemMap *xCcdMapLocal;
+	unsigned char ucReadout;
+	alt_u16 usiLengthBlocks;
 
 
 	pxNFee = ( TNFee * ) task_data;
@@ -57,8 +60,8 @@ void vFeeTask(void *task_data) {
 				/* Complete when MUTEX were created */
 				if ( pxNFee->xControl.bDMALocked == TRUE ) {
 					/* If is with the Mutex, should release */
-					//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+					OSMutexPost(xDma[ucMemUsing].xMutexDMA);
+					pxNFee->xControl.bDMALocked = FALSE;
 				}
 
 				/* End of simulation! Clear everything that is possible */
@@ -157,9 +160,12 @@ void vFeeTask(void *task_data) {
 			case sSIMTestFullPattern:
 
 				pxNFee->xControl.bUsingDMA = TRUE;
+				pxNFee->xControl.bSimulating = TRUE;
 
 				/* Enable IRQ and clear the Double Buffer */
 				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+				/* Configurar o tamanho normal do double buffer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
 
 				tCodeNext = (bSpwcGetTimecode(&pxNFee->xChannel.xSpacewire) + 1) % 4;
 				if ( tCodeNext == 0 ) {
@@ -169,12 +175,51 @@ void vFeeTask(void *task_data) {
 					ucMemUsing = (unsigned char) *pxNFee->xControl.pActualMem ; /* Select the of the data control (te future)*/
 				}
 
+				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext];
+
+				if ( pxNFee->xControl.eSide == sLeft )
+					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xLeft;
+				else
+					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xRight;
 
 
+				/* todo: resetar o tamanho do buffer size para o maximo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
+				/* Make one requests for the Double buffer */
+				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 
+				/* When get the mutex, perform two DMA writes in order to fill the "double" part of the double buffer */
+				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+				if ( error_code == OS_ERR_NONE ) {
 
+					/* First Check if is access to the DMA (priority) */
+					if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
 
+						/* Try to get the Mutex */
+	                    OSMutexPend(xDma[ucMemUsing].xMutexDMA, 0, &error_code); /* Blocking way */
+	                    if ( error_code == OS_ERR_NONE ) {
+	                    	pxNFee->xControl.bDMALocked = TRUE;
+
+							/* Initializing the addr */
+	                    	xCcdMapLocal->ulBlockI = 0;
+							xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
+							(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+							xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+							xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+							(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+							xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+							xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+	                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
+	                        pxNFee->xControl.bDMALocked = FALSE;
+	                    }
+					} else {
+						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
+					}
+				} else {
+					#ifdef DEBUG_ON
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+					#endif
+				}
 
 				if (pxNFee->xControl.bWatingSync==TRUE) {
 					pxNFee->xControl.eNextMode = sToTestFullPattern;
@@ -184,7 +229,6 @@ void vFeeTask(void *task_data) {
 					pxNFee->xControl.eMode = sToTestFullPattern;
 				}
 
-
 				break;
 			case sToTestFullPattern: /* Transition */
 				#ifdef DEBUG_ON
@@ -193,17 +237,6 @@ void vFeeTask(void *task_data) {
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 
-				if (pxNFee->xControl.bWatingSync==TRUE)
-					pxNFee->xControl.eMode = sFeeWaitingSync;
-
-				/* Disable IRQ and clear the Double Buffer */
-				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
-
-				/* Preciso enviar daqui o id para o schedule do FEE? Pois a interrupção do buffer começa desabilitada */
-				/* Esperar QUEUE para DMA
-				 * PEGAR MUTEX DMA */
-
-
 				pxNFee->xControl.eMode = sFeeTestFullPattern;
 				break;
 			case sFeeTestFullPattern: /* Real mode */
@@ -211,7 +244,38 @@ void vFeeTask(void *task_data) {
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
-					vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
+					/* First Check if is access to the DMA (priority) */
+						if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
+
+							/* Try to get the Mutex */
+		                    OSMutexPend(xDma[ucMemUsing].xMutexDMA, 0, &error_code); /* Blocking way */
+		                    if ( error_code == OS_ERR_NONE ) {
+		                    	pxNFee->xControl.bDMALocked = TRUE;
+
+		                    	/* Is this the last block? */
+		                    	if ( (xCcdMapLocal->ulBlockI+SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
+
+		                    		/* todo: Configurar o tamanho do buffer para um numero menor = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI */
+		                    		/* todo: Nao esquece porra !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+		                    		usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
+		                    		pxNFee->xControl.bWatingSync = TRUE;
+		                    		pxNFee->xControl.eMode = sSIMTestFullPattern;
+		                    		pxNFee->xControl.eNextMode = sSIMTestFullPattern;
+		                    		pxNFee->xControl.bUsingDMA = FALSE;
+		                    	} else {
+		                    		usiLengthBlocks = SDMA_MAX_BLOCKS;
+		                    	}
+
+								/* Value of xCcdMapLocal->ulAddrI already set in the last iteration */
+								(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+								xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+		                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
+		                        pxNFee->xControl.bDMALocked = FALSE;
+		                        bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+		                    }
+						} else {
+							vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
+						}
 
 				} else {
 					#ifdef DEBUG_ON
@@ -228,9 +292,7 @@ void vFeeTask(void *task_data) {
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xWaitSyncQFee[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
-					/* todo: Write in the RMAP */
-
-
+					/* Write in the RMAP */
 					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 					/* UCL- NFEE ICD p. 49 */
@@ -271,28 +333,6 @@ void vFeeTask(void *task_data) {
 		}
 
 	}
-
-
-	// Load default configurations CCD e FEE
-	// carregar valores baseado no *task_data
-
-
-
-	// IMplementar maquina de estados para o NFEE
-
-	// LOOP
-		// assim que tiver disponivel, agendar dma para buffer (transmissÃ£o)
-
-		// Verificar se existe comando pus e realizar alteraÃ§Ãµes
-
-		// verificar se existe comando vindo do SPW
-
-		// precisa mudar de estado?
-			// em modo de emergencia ou apenas no sync?
-
-		// Check sync ?
-			// mudar de estado se isso estiver agendado
-
 
 }
 
@@ -371,18 +411,14 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case M_FEE_FULL_PATTERN:
+			case M_FEE_FULL_PATTERN_FORCED:
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sSIMTestFullPattern; /*sSIMTestFullPattern*/
-				pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
-				break;
-			case M_FEE_FULL_PATTERN_FORCED:
-				pxNFeeP->xControl.bWatingSync = FALSE;
-				pxNFeeP->xControl.eMode = sSIMTestFullPattern;
 				pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
 				break;				
 			default:
 				#ifdef DEBUG_ON
-					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
 		}
@@ -517,6 +553,29 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 	return TRUE;
 }
 
+bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailRequestDMA( ucValue );
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+
+	return bSuccesL;
+}
 
 
 #ifdef DEBUG_ON

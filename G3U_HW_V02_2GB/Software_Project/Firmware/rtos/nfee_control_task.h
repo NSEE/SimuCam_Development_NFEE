@@ -15,6 +15,7 @@
 #include "../utils/fee_controller.h"
 #include "../utils/queue_commands_list.h"
 #include "../utils/error_handler_simucam.h"
+#include "../api_driver/simucam_dma/simucam_dma.h"
 
 
 void vNFeeControlTask(void *task_data);

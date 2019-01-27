@@ -1059,6 +1059,29 @@ void vFailSendMsgAccessDMA( unsigned char ucTemp)
 	 */
 }
 
+void vFailRequestDMA( unsigned char ucTemp)
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailRequestDMA. FEE n: \n", ucTemp);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailRequestDMAFromIRQ( unsigned char ucTemp)
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailRequestDMA. FEE n: \n", ucTemp);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
 void vFailSendMsgSync( unsigned char ucTemp)
 {
 	#ifdef DEBUG_ON

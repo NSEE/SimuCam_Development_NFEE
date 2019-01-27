@@ -321,7 +321,7 @@ bool bResourcesInitRTOS( void ) {
 
 
 	xWaitSyncQFee[0] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
-	if ( xFeeQ[0] == NULL ) {
+	if ( xWaitSyncQFee[0] == NULL ) {
 		vFailCreateNFEESyncQueue( 0 );
 		bSuccess = FALSE;
 	}
@@ -329,7 +329,7 @@ bool bResourcesInitRTOS( void ) {
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
-	if ( xFeeQ[5] == NULL ) {
+	if ( xMebQ == NULL ) {
 		vFailCreateNFEEQueue( 5 );
 		bSuccess = FALSE;		
 	}
@@ -351,7 +351,7 @@ bool bResourcesInitRTOS( void ) {
 
 	/* This Queue is the fast way to comunicate with NFEE Controller task, the communication will be done by sending ints using MASKs*/
 	xQMaskDataCtrl = OSQCreate(&xQMaskCMDNDataCtrlTBL[0], N_OF_MSG_QUEUE_MASK);
-	if ( xQMaskFeeCtrl == NULL ) {
+	if ( xQMaskDataCtrl == NULL ) {
 		vCouldNotCreateQueueMaskDataCtrl( );
 		bSuccess = FALSE;		
 	}
