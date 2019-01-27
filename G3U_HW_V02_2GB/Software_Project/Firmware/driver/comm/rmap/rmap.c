@@ -38,11 +38,7 @@ static volatile int viCh8HoldContext;
 
 //! [public functions]
 void vRmapCh1HandleIrq(void* pvContext) {
-	unsigned char ucIL;
-	unsigned char ucSyncL;
-	unsigned char error_codel;
-	tQMask uiCmdtoSend;
-	unsigned int uiLastCmdIndex;
+
 
 
 	// Cast context to hold_context's type. It is important that this be
@@ -55,46 +51,46 @@ void vRmapCh1HandleIrq(void* pvContext) {
 
 
 
-	uiCmdtoSend.ulWord = 0;
-	/* MasterSync? */
-
-	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 0;
-	uiCmdtoSend.ucByte[2] = M_MASTER_SYNC /*depende da vida*/;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
-
-	xSimMeb.xFeeControl.xNfee[0].xChannel.xRmap;
-
-	uiLastCmdIndex = uliRmapCh1WriteCmdAddress();
-
-	uliRmapReadReg(xSimMeb.xFeeControl.xNfee[0].xChannel.xRmap.puliRmapChAddr,  uiLastCmdIndex);
-
-
-
-	if ( ucSyncL == 0 ) {
-
-
-
-		/* Send Priority message to the Meb Task to indicate the Master Sync */
-		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgMasterSyncMeb( );
-		}
-
-	} else
-		uiCmdtoSend.ucByte[2] = M_SYNC;
-
-
-	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-
-		if ( xSimMeb.xFeeControl.xNfee[ucIL].xControl.bWatingSync == TRUE ) {
-			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
-			if ( error_codel != OS_ERR_NONE ) {
-				vFailSendMsgSync( ucIL );
-			}
-		}
-	}
+//	uiCmdtoSend.ulWord = 0;
+//	/* MasterSync? */
+//
+//	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+//	uiCmdtoSend.ucByte[2] = M_MASTER_SYNC /*depende da vida*/;
+//	uiCmdtoSend.ucByte[1] = 0;
+//	uiCmdtoSend.ucByte[0] = 0;
+//
+//	xSimMeb.xFeeControl.xNfee[0].xChannel.xRmap;
+//
+//	uiLastCmdIndex = uliRmapCh1WriteCmdAddress()
+//
+//	uliRmapReadReg(xSimMeb.xFeeControl.xNfee[0].xChannel.xRmap.puliRmapChAddr,  uiLastCmdIndex);
+//
+//
+//
+//	if ( ucSyncL == 0 ) {
+//
+//
+//
+//		/* Send Priority message to the Meb Task to indicate the Master Sync */
+//		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+//		if ( error_codel != OS_ERR_NONE ) {
+//			vFailSendMsgMasterSyncMeb( );
+//		}
+//
+//	} else
+//		uiCmdtoSend.ucByte[2] = M_SYNC;
+//
+//
+//	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+//
+//		if ( xSimMeb.xFeeControl.xNfee[ucIL].xControl.bWatingSync == TRUE ) {
+//			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+//			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
+//			if ( error_codel != OS_ERR_NONE ) {
+//				vFailSendMsgSync( ucIL );
+//			}
+//		}
+//	}
 
 
 

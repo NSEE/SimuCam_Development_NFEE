@@ -159,7 +159,7 @@ void vNFeeControlTask(void *task_data) {
 					if ( uiCmdNFC.ucByte[2] == M_NFC_DMA_GIVEBACK ) {
 						bDmaBack = TRUE;
 #ifdef DEBUG_ON
-	fprintf(fp,"\nController: Devolveram o dma\n");
+//	fprintf(fp,"\nController: Devolveram o dma\n");
 #endif
 					} else {
 
@@ -182,7 +182,7 @@ void vNFeeControlTask(void *task_data) {
 						}
 					}
 				}
-				OSTimeDlyHMSM(0,0,0,20); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				OSTimeDlyHMSM(0,0,0,10); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				break;		
 			default:
 				#ifdef DEBUG_ON

@@ -9,11 +9,6 @@
 #define RMAP_H_
 
 #include "../comm.h"
-#include "../../utils/fee_controller.h"
-#include "../../utils/queue_commands_list.h"
-#include "../../utils/meb.h"
-#include "../../utils/communication_configs.h"
-#include "../../rtos/tasks_configurations.h"
 
 //! [constants definition]
 // address

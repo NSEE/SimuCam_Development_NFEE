@@ -288,6 +288,8 @@ void vFeeTask(void *task_data) {
 					pxNFee->xControl.eMode = sToTestFullPattern;
 				}
 
+
+
 				break;
 
 
@@ -297,8 +299,10 @@ void vFeeTask(void *task_data) {
 				#endif
 
 				pxNFee->xControl.bUsingDMA = TRUE;
-				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				pxNFee->xControl.eMode = sFeeTestFullPattern;
+
+
 				break;
 
 
@@ -333,16 +337,17 @@ void vFeeTask(void *task_data) {
 		                    	if ( (xCcdMapLocal->ulBlockI+SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
 
 		                    		/* todo: Configurar o tamanho do buffer para um numero menor = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI */
-		                    		/* todo: Nao esquece porra !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+		                    		/* todo: Nao esquece  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 		                    		usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
 		                    		pxNFee->xControl.bWatingSync = TRUE;
 		                    		pxNFee->xControl.eMode = sSIMTestFullPattern;
 		                    		pxNFee->xControl.eNextMode = sSIMTestFullPattern;
 		                    		pxNFee->xControl.bUsingDMA = FALSE;
 		                    		pxNFee->xControl.eMode = sToFeeStandBy; /* todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+		                    		pxNFee->xControl.eNextMode = sToFeeStandBy; /* todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
 		                    	} else {
 		                    		usiLengthBlocks = SDMA_MAX_BLOCKS;
-		                    		bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+		                    		//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 		                    	}
 
 		                    	if ( ucMemUsing == 0  ) {
@@ -374,7 +379,10 @@ void vFeeTask(void *task_data) {
 #endif
 
 #ifdef DEBUG_ON
-	fprintf(fp,"\nFEE TASK:  pckt: %ui\n ",incrementador);
+	fprintf(fp,"\n    i: %u ",incrementador);
+	fprintf(fp,"\nblock: %u ",xCcdMapLocal->ulBlockI);
+	fprintf(fp,"\n  max: %u ",pxNFee->xMemMap.xCommon.usiNTotalBlocks );
+	fprintf(fp,"\nbytes: %u \n",xCcdMapLocal->ulAddrI);
 #endif
 
 
