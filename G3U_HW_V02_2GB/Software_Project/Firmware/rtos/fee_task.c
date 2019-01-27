@@ -166,8 +166,8 @@ void vFeeTask(void *task_data) {
 				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 
 				/* Configurar o tamanho normal do double buffer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-
-				tCodeNext = (bSpwcGetTimecode(&pxNFee->xChannel.xSpacewire) + 1) % 4;
+				bSpwcGetTimecode(&pxNFee->xChannel.xSpacewire);
+				tCodeNext = ( pxNFee->xChannel.xSpacewire.xTimecode.ucCounter + 1) % 4;
 				if ( tCodeNext == 0 ) {
 					/* Should get Data from the another memory, because is a cicle start */
 					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/

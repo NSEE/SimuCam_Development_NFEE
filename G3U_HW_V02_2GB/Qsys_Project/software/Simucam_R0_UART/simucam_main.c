@@ -84,6 +84,7 @@ void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
 OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
+void *SyncTBL0[N_MSG_SYNC];
 void *SyncTBL1[N_MSG_SYNC];
 void *SyncTBL2[N_MSG_SYNC];
 void *SyncTBL3[N_MSG_SYNC];
@@ -320,7 +321,7 @@ bool bResourcesInitRTOS( void ) {
 */
 
 
-	xWaitSyncQFee[0] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
+	xWaitSyncQFee[0] = OSQCreate(&SyncTBL0[0], N_MSG_SYNC);
 	if ( xWaitSyncQFee[0] == NULL ) {
 		vFailCreateNFEESyncQueue( 0 );
 		bSuccess = FALSE;
@@ -354,12 +355,6 @@ bool bResourcesInitRTOS( void ) {
 	if ( xQMaskDataCtrl == NULL ) {
 		vCouldNotCreateQueueMaskDataCtrl( );
 		bSuccess = FALSE;		
-	}
-
-	xMutexSenderACK = OSMutexCreate(PCP_MUTEX_SENDER_ACK, &err);
-	if ( err != OS_ERR_NONE ) {
-		vFailCreateMutexSResources(err);
-		bSuccess = FALSE;
 	}
 
 	xDma[0].xMutexDMA = OSMutexCreate(PCP_MUTEX_DMA_0, &err);

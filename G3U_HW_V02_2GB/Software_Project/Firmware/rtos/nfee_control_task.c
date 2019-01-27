@@ -160,7 +160,6 @@ void vNFeeControlTask(void *task_data) {
 
 							}
 						}
-						bDmaBack = FALSE;
 					}
 				}
 				

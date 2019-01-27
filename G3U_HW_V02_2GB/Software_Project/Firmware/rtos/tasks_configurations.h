@@ -37,14 +37,14 @@
 
 
 /* Main application priority */
-/* FEE 9 .. 14 */
-#define NFEE_TASK_BASE_PRIO             9
-#define DATA_COTROL_TASK_PRIO           8
-#define FEE_COTROL_TASK_PRIO            7
-#define MEB_TASK_PRIO                   6
-#define PCP_MUTEX_PUS_QUEUE             5
-#define PCP_MUTEX_DMA_1                 4
-#define PCP_MUTEX_DMA_0                 3
+/* FEE 11 .. 16 */
+#define NFEE_TASK_BASE_PRIO             11
+#define DATA_COTROL_TASK_PRIO           10
+#define FEE_COTROL_TASK_PRIO            9
+#define MEB_TASK_PRIO                   8
+#define PCP_MUTEX_PUS_QUEUE             7
+#define PCP_MUTEX_DMA_1                 6
+#define PCP_MUTEX_DMA_0                 4
 
 #define STACK_MONITOR_TASK_PRIO			2   /* Very High*/
 
