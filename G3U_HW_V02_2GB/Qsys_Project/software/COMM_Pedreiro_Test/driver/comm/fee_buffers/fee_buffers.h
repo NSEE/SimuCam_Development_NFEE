@@ -71,6 +71,15 @@ bool bFeebCh6IrqFlagBufferEmpty(void);
 bool bFeebCh7IrqFlagBufferEmpty(void);
 bool bFeebCh8IrqFlagBufferEmpty(void);
 
+bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+
 void vFeebInitIrq(alt_u8 ucCommCh);
 
 // Get functions -> get data from hardware to channel variable
@@ -90,6 +99,7 @@ bool bFeebStopCh(TFeebChannel *pxFeebCh);
 bool bFeebClrCh(TFeebChannel *pxFeebCh);
 
 bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh);
+
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
