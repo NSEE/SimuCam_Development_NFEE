@@ -12,36 +12,6 @@
 			comm_b_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_b_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
 			comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_c_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_c_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_c_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_c_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_d_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_d_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_d_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_d_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_e_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_e_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_e_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_e_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_e_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_f_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_f_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_f_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_f_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_f_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_g_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_g_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_g_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_g_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_g_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_h_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_h_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_h_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_h_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_h_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 			csense_adc_fo_export                                 : out   std_logic;                                        -- export
 			csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     -- export
 			csense_sck_export                                    : out   std_logic;                                        -- export

@@ -31,10 +31,10 @@
 #define DDR2_EXT_ADDR_WINDOWED_SPAN     (2 ^ DDR2_ADDRESS_SPAN_EXTENDER_WINDOWED_SLAVE_SLAVE_ADDRESS_WIDTH)
 #define DDR2_EXT_ADDR_WINDOWED_MASK     (DDR2_EXT_ADDR_WINDOWED_SPAN - 1)
 #define DDR2_M1_MEMORY_WINDOWED_OFFSET  0x00000000
-#define DDR2_M1_ID                      0x01
+#define DDR2_M1_ID                      0x00
 #define DDR2_M1_MEMORY_SIZE             2147483648
 #define DDR2_M2_MEMORY_WINDOWED_OFFSET  0x80000000
-#define DDR2_M2_ID                      0x02
+#define DDR2_M2_ID                      0x01
 #define DDR2_M2_MEMORY_SIZE             2147483648
 #define DDR2_EEPROM_I2C_ADDRESS         0xA0
 #define DDR2_VERBOSE                    TRUE

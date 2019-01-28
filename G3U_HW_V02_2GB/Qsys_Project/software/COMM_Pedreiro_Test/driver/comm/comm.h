@@ -31,12 +31,12 @@
 // address
 #define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
-#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_C_BASE
-#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_D_BASE
-#define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_E_BASE
-#define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_F_BASE
-#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_G_BASE
-#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_H_BASE
+#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
 // address offset
 #define COMM_LINK_CFG_STAT_REG_OFST      0x00
 #define COMM_TIMECODE_REG_OFST           0x01
@@ -313,17 +313,17 @@
 //! [public module structs definition]
 enum CommBufferSide {
 	eCommLeftBuffer = 0, eCommRightBuffer = 1
-} ESdmaBufferSide;
+} ECommBufferSide;
 
 enum CommSpwCh {
 	eCommSpwCh1 = 0,
-	eCommSpwCh2 = 1,
-	eCommSpwCh3 = 2,
-	eCommSpwCh4 = 3,
-	eCommSpwCh5 = 4,
-	eCommSpwCh6 = 5,
-	eCommSpwCh7 = 6,
-	eCommSpwCh8 = 7
+	eCommSpwCh2,
+	eCommSpwCh3,
+	eCommSpwCh4,
+	eCommSpwCh5,
+	eCommSpwCh6,
+	eCommSpwCh7,
+	eCommSpwCh8
 } ECommSpwCh;
 //! [public module structs definition]
 

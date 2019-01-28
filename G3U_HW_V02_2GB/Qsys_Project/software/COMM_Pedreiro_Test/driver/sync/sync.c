@@ -8,10 +8,7 @@
 
 #include "sync.h"
 
-//! [private function prototypes]
-static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue);
-static alt_u32 uliSyncReadReg(alt_u32 uliOffset);
-//! [private function prototypes]
+
 
 //! [data memory public global variables]
 volatile alt_u8 vucN;
@@ -44,14 +41,59 @@ static volatile int viHoldContext;
  * @retval void
  */
 void vSyncHandleIrq(void* pvContext) {
-	// Cast pvContext to viHoldContext's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
+/*
+	unsigned char ucIL;
+	unsigned char ucSyncL;
+	unsigned char error_codel;
+	tQMask uiCmdtoSend;
+*/
 	volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use pvContext value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+/*
+
+	uiCmdtoSend.ulWord = 0;
+	/* MasterSync? */
+/*
+	ucSyncL = (vucN % 4);
+	if ( ucSyncL == 0 ) {
+
+		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
+
+		/* Send Priority message to the Meb Task to indicate the Master Sync */
+	/*
+		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendMsgMasterSyncMeb( );
+		}
+
+	} else
+		uiCmdtoSend.ucByte[2] = M_SYNC;
+
+
+	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+
+		if ( xSimMeb.xFeeControl.xNfee[ucIL].xControl.bWatingSync == TRUE ) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
+		}
+	}
+
 	vucN += 1;
+
+	#ifdef DEBUG_ON
+		fprintf(fp,"Sync %hu \n", ucSyncL);
+	#endif
+*/
+	vSyncIrqFlagClrSync();
+}
+
+void vSyncClearCounter(void) {
+	// Recast the viHoldContext pointer to match the alt_irq_register() function
+	// prototype.
+	vucN = 0;
 }
 
 /**
@@ -958,7 +1000,7 @@ alt_u32 uliSyncReadStatus(void) {
  *
  * @retval TRUE -> success
  */
-static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
+bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
 	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
 	*(p_addr + uliOffset) = uliValue;
 	return TRUE;
@@ -975,7 +1017,7 @@ static bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
  *
  * @retval alt_u32 value -> reg
  */
-static alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
+alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
 	alt_u32 value;
 
 	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;

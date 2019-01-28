@@ -1246,7 +1246,7 @@ GND                          : L27       : gnd    :                   :         
 NC                           : L28       :        :                   :         :           :                
 FSM_D[3]                     : L29       : bidir  : 2.5 V             :         : 1A        : Y              
 GND                          : L30       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : L31       :        :                   :         : 1A        :                
+FSM_A[0]                     : L31       : output : 2.5 V             :         : 1A        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : L32       :        :                   :         : 1C        :                
 GND                          : L33       : gnd    :                   :         :           :                
 SEVEN_SEG_HEX0[0]            : L34       : output : 2.5 V             :         : 1C        : Y              
@@ -1399,7 +1399,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :      
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
-FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                
