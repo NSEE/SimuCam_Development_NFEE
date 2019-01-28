@@ -9,6 +9,10 @@
 #define FEE_BUFFERS_H_
 
 #include "../comm.h"
+#include "../../../utils/error_handler_simucam.h"
+#include "../../../utils/queue_commands_list.h"
+
+extern OS_EVENT *xNfeeSchedule;
 
 //! [constants definition]
 // address

@@ -11,9 +11,20 @@
 #ifndef __NETWORK_UTILITIES_H__
 #define __NETWORK_UTILITIES_H__
 
-#include <errno.h>
+#include "simucam_defs_vars_structs_includes.h"
+#include "driver/rtcc_spi/rtcc_spi.h"
+#include "utils/configs_simucam.h"
 
-error_t get_board_mac_addr(unsigned char mac_addr[6]);
+#define IP4_ADDR(ipaddr, a,b,c,d) ipaddr = \
+    htonl((((alt_u32)(a & 0xff) << 24) | ((alt_u32)(b & 0xff) << 16) | \
+          ((alt_u32)(c & 0xff) << 8) | (alt_u32)(d & 0xff)))
+
+int get_board_mac_addr(unsigned char mac_addr[6]);
+int get_ip_addr(alt_iniche_dev *p_dev,
+                ip_addr* ipaddr,
+                ip_addr* netmask,
+                ip_addr* gw,
+                int* use_dhcp);
 
 #endif /*__NETWORK_UTILITIES_H__ */
 

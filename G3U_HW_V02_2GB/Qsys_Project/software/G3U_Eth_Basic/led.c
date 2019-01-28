@@ -30,19 +30,7 @@
  */
 
 
-/* <stdlib.h>: Contains C "rand()" function. */
-#include <stdlib.h> 
-
-/* <stdio.h>: Contains C "printf()" function. */
-#include <stdio.h>  
-
-/* MicroC/OS-II definitions */
-#include "includes.h" 
-
-/* Device driver accessor macros for peripherial I/O component 
- * (used for leds).) */
-#include "altera_avalon_pio_regs.h"
-
+#include "simucam_defs_vars_structs_includes.h"
 /* Simple Socket Server definitions */
 #include "simple_socket_server.h" 
 

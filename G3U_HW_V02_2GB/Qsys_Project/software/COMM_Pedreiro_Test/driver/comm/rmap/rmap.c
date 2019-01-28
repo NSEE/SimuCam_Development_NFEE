@@ -10,7 +10,7 @@
 //! [private function prototypes]
 static void vRmapWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 		alt_u32 uliValue);
-static alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
+alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 
 static alt_u32 uliConvRmapCfgAddr(alt_u32 puliRmapAddr);
 //! [private function prototypes]
@@ -38,13 +38,26 @@ static volatile int viCh8HoldContext;
 
 //! [public functions]
 void vRmapCh1HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
 	volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+	tQMask uiCmdRmap;
+	INT8U ucADDRReg;
+	INT8U error_codel;
+
+	/* Warnning simplification: For now all address is lower than 1 bytes  */
+	ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
+
+
+	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+	uiCmdRmap.ucByte[1] = ucADDRReg;
+	uiCmdRmap.ucByte[0] = 0;
+
+
+	error_codel = OSQPost(xFeeQ[0], (void *)uiCmdRmap.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendRMAPFromIRQ( 0 );
+	}
+
 	vRmapCh1IrqFlagClrWriteCmd();
 }
 
@@ -1563,7 +1576,7 @@ static void vRmapWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 	*(puliAddr + uliOffset) = uliValue;
 }
 
-static alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
+alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
 	alt_u32 uliValue;
 
 	uliValue = *(puliAddr + uliOffset);

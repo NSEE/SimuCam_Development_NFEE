@@ -29,6 +29,7 @@
 #define NACK_CHAR               '#'
 #define START_REQUEST_CHAR      '?'
 #define START_REPLY_CHAR        '!'
+#define ALL_INI_CHAR            "?!@#"
 /*======= Type of commands - UART==========*/
 /*======= Set of commands - UART==========*/
 #define ETH_CMD                 'C'
@@ -40,14 +41,18 @@
 /*======= Formats of Commands - UART==========*/
 #define ETH_SPRINTF             "!%c:%hu:%hu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hhu:%hu" /*id,dhcp,ip,sub,gw,dns,port*/
 #define ACK_SPRINTF             "@%c:%hu"
+#define TURNOFF_SPRINTF         "?D:%hu"
+#define RESET_SPRINTF         	"?R:%hu"
+#define LOG_SPRINTF             "?L:%hu:%s"
+//#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu%s|%hhu;"
+#define PUS_TM_SPRINTF          "!P:%hu:%hu:%hu:%hu:%hu:%hu"
+#define PUS_ADDER_SPRINTF       "%s:%hu"
 /*======= Formats of Commands- UART==========*/
 /*======= Standards messages - UART==========*/
 #define NACK_SEQUENCE           "#|54;"
-#define TURNOFF_SEQUENCE        "?D|252;"
-#define START_STATUS_SEQUENCE   "?S|9;"
+#define START_STATUS_SEQUENCE   "?S:1|38;"
 /*======= Standards messages - UART==========*/
-#define CHANGE_MODE_SEQUENCE    65000
-#define SIZE_RCV_BUFFER         64
+#define SIZE_RCV_BUFFER         128
 #define SIZE_UCVALUES           32
 
 typedef enum { eNoError = 0, eBadFormatInit, eCRCErrorInit, eSemErrorInit, eBadFormat, eCRCError } tErrorReceiver;
@@ -60,8 +65,31 @@ extern unsigned short int usiIdCMD;
 
 /*================================== Reader UART ================================*/
 
+/* This structure will be used to send TM PUS packets through UART */
+#define SIZE_TM_PUS_VALUES     32
+#define N_PUS_PIPE     4
+typedef struct {
+    tErrorReceiver ucErrorFlag;
+    bool bInUse;
+    unsigned short int usiPid;
+    unsigned short int usiCat;
+    unsigned short int usiType;
+    unsigned short int usiSubType;
+    unsigned short int usiPusId;
+    unsigned char ucNofValues;
+    unsigned short int usiValues[SIZE_TM_PUS_VALUES];
+} tTMPus;
+
+#define N_OF_MEB_MSG_QUEUE      8
+/* This Queue will synchronize the MEB task for any action that it should be aware (PUS, CHANGES in the FEE) */
+extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
+extern OS_EVENT *xMebQ;	
+extern OS_EVENT *xMutexPus;
+extern tTMPus xPus[N_PUS_PIPE];
+
+
 /*Struct used to parse the received command through UART*/
-#define N_PREPARSED_ENTRIES     4
+#define N_PREPARSED_ENTRIES     8
 typedef struct {
     tErrorReceiver ucErrorFlag;
     char cType; /* ?(request):0 or !(reply):1*/
@@ -77,7 +105,7 @@ extern OS_EVENT *xMutexPreParsed;
 extern tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 extern tPreParsed xPreParsedReader;
 
-#define N_ACKS_RECEIVED        4
+#define N_ACKS_RECEIVED        6
 typedef struct {
     char cType; /* If Zero is empty and available*/
     char cCommand;
@@ -104,24 +132,34 @@ extern txSenderACKs xSenderACK[N_ACKS_SENDER];
 /*================================== Reader UART ================================*/
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
-#define N_RETRIES_COMM          3
-#define INTERVAL_RETRIES        1000    /* Milliseconds */
-#define TIMEOUT_COMM            4000    /* Milliseconds */
-#define TIMEOUT_COUNT           ( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
+#define N_RETRIES_INI_INF       250
+#define N_RETRIES_COMM          1       /* N + 1 */
+#define INTERVAL_RETRIES        2000    /* Milliseconds */
+#define TIMEOUT_COMM            2000    /* Milliseconds */
+#define TIMEOUT_COUNT           1//( (unsigned short int) TIMEOUT_COMM / INTERVAL_RETRIES)
 
-#define TICKS_WAITING_FOR_SPACE 100     /* Ticks */
+#define N_RET_MUTEX_TX                  2
+#define N_RET_MUTEX_RETRANS             4
+#define N_RET_SEM_FOR_SPACE             2
+#define TICKS_WAITING_MUTEX_TX          2     /* Ticks */
+#define TICKS_WAITING_MUTEX_RETRANS     4     /* Ticks */
+#define TICKS_WAITING_FOR_SPACE         20    /* Ticks */
 
-#define N_128   2
+#define MAX_RETRIES_ACK_IN              50
+
+#define N_128   6
 typedef struct {
     char buffer[128];
+    bool bSent;     /* Indicates if it was already transmited */
     unsigned short int usiId; /* If Zero is empty and available*/
     short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
 } txBuffer128;
 
-#define N_64   4
+#define N_64   8
 typedef struct {
     char buffer[64];
+    bool bSent;     /* Indicates if it was already transmited */
     unsigned short int usiId; /* If Zero is empty and available*/
     short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
@@ -130,28 +168,39 @@ typedef struct {
 #define N_32   8
 typedef struct {
     char buffer[32];
+    bool bSent;     /* Indicates if it was already transmited */
     unsigned short int usiId; /* If Zero is empty and available*/
     short int usiTimeOut; /*seconds*/
     unsigned char ucNofRetries;
 } txBuffer32;
 
+/* This struct was made to perform some operation of verification faster */
+typedef struct {
+    bool b128[N_128];
+    bool b64[N_64];
+    bool b32[N_32];
+} tInUseRetransBuffer;
+
+
 /*  Before access the any buffer for transmission the task should check in the Count Semaphore if has resource available
     if there is buffer free, the task should try to get the mutex in order to protect the integrity of the buffer */
-
+extern unsigned char SemCount128;
 extern OS_EVENT *xSemCountBuffer128;
 extern OS_EVENT *xMutexBuffer128;
 extern txBuffer128 xBuffer128[N_128];
 
+extern unsigned char SemCount64;
 extern OS_EVENT *xSemCountBuffer64;
 extern OS_EVENT *xMutexBuffer64;
 extern txBuffer64 xBuffer64[N_64];
 
+extern unsigned char SemCount32;
 extern OS_EVENT *xSemCountBuffer32;
 extern OS_EVENT *xMutexBuffer32;
 extern txBuffer32 xBuffer32[N_32];
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
-
+extern tInUseRetransBuffer xInUseRetrans;
 
 
 

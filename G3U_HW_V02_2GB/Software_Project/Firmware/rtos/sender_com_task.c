@@ -8,15 +8,17 @@
 #include "sender_com_task.h"
 
 
+OS_STK_DATA *pdata;
+
 void vSenderComTask(void *task_data)
 {
     tSenderStates eSenderMode;
-    int desligarEm = 0;
+    bool bSuccess;
 
     eSenderMode = sConfiguringSender;
 
     #ifdef DEBUG_ON
-        debug(fp,"vSenderComTask, enter task.\n");
+        debug(fp,"Sender Comm Task. (Task on)\n");
     #endif
 
     for (;;){
@@ -32,14 +34,25 @@ void vSenderComTask(void *task_data)
                 /*  This semaphore will return a non-zero value if the NUC communicate with the MEB 
                     vReceiverComTask is responsible to send this semaphore.
                     OSSemAccept -> Non blocking Pend*/
-                if ( OSSemAccept(xSemCommInit) ) {
+
+                #ifdef DEBUG_ON
+                    debug(fp,"Preparing the Start Sequence.\n");
+                #endif
+
+                /* id of the first message will be 1 */
+                bSuccess = bSendUART32v2(START_STATUS_SEQUENCE, 1);
+                if ( bSuccess == TRUE ) {
                     eSenderMode = sDummySender;
+                    #ifdef DEBUG_ON
+                        debug(fp,"Success, start message in the retransmission buffer.\n");
+                    #endif                    
                 } else {
-                    /* Asking for NUC the status */
-                    puts(START_STATUS_SEQUENCE);
+                    #ifdef DEBUG_ON
+                        debug(fp,"Fail, try again in 5 seconds.\n");
+                    #endif 
+                    eSenderMode = sStartingConnSender;
                     OSTimeDlyHMSM(0, 0, 5, 0); /*Sleeps for 5 second*/
                 }
-
                 break;
 
 
@@ -54,25 +67,22 @@ void vSenderComTask(void *task_data)
                 /* code */
                 eSenderMode = sDummySender;
 
-                if (desligarEm <= 3) {
-                    puts(TURNOFF_SEQUENCE);
-                }
-                desligarEm++;
-#ifdef DEBUG_ON
-	debug(fp,"sDummySender\n");
-#endif
-				OSTimeDlyHMSM(0, 0, 10, 0); /*Sleeps for 3 second*/
+                #ifdef DEBUG_ON
+                    debug(fp,"Working...\n");
+                #endif
+
+				OSTimeDlyHMSM(0, 0, 25, 0); /*Sleeps for 3 second*/
+
                 break;
             default:
-#ifdef DEBUG_ON
-	debug(fp,"sender default\n");
-#endif
+                #ifdef DEBUG_ON
+                    debug(fp,"Sender default\n");
+                #endif
+                eSenderMode = sDummySender;
                 break;
         }
 
     }
-
-
 
 
 }

@@ -9,6 +9,11 @@
 #define SYNC_H_
 
 #include "../../simucam_definitions.h"
+#include "../../utils/fee_controller.h"
+#include "../../utils/queue_commands_list.h"
+#include "../../utils/meb.h"
+#include "../../utils/communication_configs.h"
+#include "../../rtos/tasks_configurations.h"
 
 //! [constants definition]
 // address
@@ -146,6 +151,13 @@ bool bSyncCtrCh5OutEnable(bool bValue);
 bool bSyncCtrCh6OutEnable(bool bValue);
 bool bSyncCtrCh7OutEnable(bool bValue);
 bool bSyncCtrCh8OutEnable(bool bValue);
+
+//! [private function prototypes]
+bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue);
+alt_u32 uliSyncReadReg(alt_u32 uliOffset);
+//! [private function prototypes]
+
+void vSyncClearCounter(void);
 
 alt_u32 uliSyncGetCtr(void);
 //! [public function prototypes]

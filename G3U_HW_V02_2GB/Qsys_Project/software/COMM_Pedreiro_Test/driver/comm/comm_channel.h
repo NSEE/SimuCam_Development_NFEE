@@ -30,6 +30,8 @@ typedef struct CommChannel {
 //! [public module structs definition]
 
 //! [public function prototypes]
+bool bCommSetGlobalIrqEn(bool bGlobalIrqEnable, alt_u8 ucCommCh);
+
 bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh);
 //! [public function prototypes]
 

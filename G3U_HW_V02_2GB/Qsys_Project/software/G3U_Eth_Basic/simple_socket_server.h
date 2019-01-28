@@ -63,6 +63,11 @@
   #error including notes on migrating applications from lwIP to NicheStack.
 #endif
 
+
+#include "simucam_defs_vars_structs_includes.h"
+
+
+
 /*
  * Task Prototypes:
  * 
@@ -165,24 +170,7 @@ void SSSCreateTasks();
 #define BIT_6 0x40
 #define BIT_7 0x80
 
-/* 
- * TX & RX buffer sizes for all socket sends & receives in our sss app
- */
-#define SSS_RX_BUF_SIZE  1500
-#define SSS_TX_BUF_SIZE  1500
 
-/* 
- * Here we structure to manage sss communication for a single connection
- */
-typedef struct SSS_SOCKET
-{
-  enum { READY, COMPLETE, CLOSE } state; 
-  int       fd;
-  int       close;
-  INT8U     rx_buffer[SSS_RX_BUF_SIZE];
-  INT8U     *rx_rd_pos; /* position we've read up to */
-  INT8U     *rx_wr_pos; /* position we've written up to */
-} SSSConn;
 
 /*
  * Handles to our MicroC/OS-II resources. All of the resources beginning with 

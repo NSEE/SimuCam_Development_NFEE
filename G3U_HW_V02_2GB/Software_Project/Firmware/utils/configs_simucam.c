@@ -46,7 +46,9 @@ bool vLoadDefaultETHConf( void ){
 						bEOF = TRUE;
 						break;
 					case -2: 	//EOF
-						printf("Problem with SDCard");
+						#ifdef DEBUG_ON
+							debug(fp,"SDCard: Problem with SDCard");
+						#endif
 						bEOF = TRUE;
 						break;
 					case 0x20: 	//ASCII: 0x20 = space
@@ -191,21 +193,32 @@ bool vLoadDefaultETHConf( void ){
 						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
-						if (close == FALSE)
-							printf("Problema em fechar o arquivo\n");
-
+						if (close == FALSE){
+							#ifdef DEBUG_ON
+								debug(fp,"SDCard: Can't close the file.\n");
+							#endif
+						}
 						/* End of Parser File */
 						bEOF = TRUE;
 						bSuccess = TRUE; //pensar melhor
 						break;
 					default:
-						printf("Algum erro ocorreu na leitura do arquivo! c= %i \n", c);
+						#ifdef DEBUG_ON
+							fprintf(fp,"SDCard: Problem with the parser.\n");
+						#endif
 						break;
 				}
 			} while ( bEOF == FALSE );
-		} else printf("N�o achou o arquivo - fopen fail\n");
-	} else printf("Sem SDCard\n");
-
+		} else {
+			#ifdef DEBUG_ON
+				fprintf(fp,"SDCard: File not found.\n");
+			#endif
+		}
+	} else {
+		#ifdef DEBUG_ON
+			fprintf(fp,"SDCard: No SDCard.\n");
+		#endif
+	}
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
 		/*Enviar mensagem que e gravar log que n�o encontrou o arquivo e come�ara a utilizar o padrao*/

@@ -15,6 +15,15 @@
 // bit masks
 //! [constants definition]
 
+enum DpktMode {
+    eDpktFullImage        = 0,
+    eDpktFullImagePattern = 1,
+    eDpktWindowing        = 2,
+    eDpktWindowingPattern = 3,
+    eDpktPartialReadOut   = 4
+} EDpktMode;
+
+
 //! [public module structs definition]
 typedef struct DpktDataPacketConfig {
 	alt_u16 usiCcdXSize;

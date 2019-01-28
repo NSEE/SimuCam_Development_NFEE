@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Mon Apr 30 08:33:16 BRT 2018
+ * Generated: Fri Nov 23 17:37:32 BRST 2018
  */
 
 /*
@@ -59,6 +59,7 @@
  */
 
 #include "altera_nios2_gen2_irq.h"
+#include "Altera_UP_SD_Card_Avalon_Interface.h"
 #include "altera_avalon_jtag_uart.h"
 #include "altera_avalon_sgdma.h"
 #include "altera_avalon_sysid_qsys.h"
@@ -79,6 +80,7 @@ ALTERA_AVALON_TIMER_INSTANCE ( TIMER_1MS, timer_1ms);
 ALTERA_AVALON_TIMER_INSTANCE ( TIMER_1US, timer_1us);
 ALTERA_ETH_TSE_INSTANCE ( TSE_MAC, tse_mac);
 ALTERA_MSGDMA_CSR_DESCRIPTOR_SLAVE_INSTANCE ( DMA_DDR_M, DMA_DDR_M_CSR, DMA_DDR_M_DESCRIPTOR_SLAVE, dma_DDR_M);
+ALTERA_UP_SD_CARD_AVALON_INTERFACE_INSTANCE ( ALTERA_UP_SD_CARD_AVALON_INTERFACE_0, Altera_UP_SD_Card_Avalon_Interface_0);
 
 /*
  * Initialize the interrupt controller devices
@@ -109,4 +111,5 @@ void alt_sys_init( void )
     ALTERA_AVALON_SYSID_QSYS_INIT ( SYSID_QSYS, sysid_qsys);
     ALTERA_ETH_TSE_INIT ( TSE_MAC, tse_mac);
     ALTERA_MSGDMA_INIT ( DMA_DDR_M, dma_DDR_M);
+    ALTERA_UP_SD_CARD_AVALON_INTERFACE_INIT ( ALTERA_UP_SD_CARD_AVALON_INTERFACE_0, Altera_UP_SD_Card_Avalon_Interface_0);
 }

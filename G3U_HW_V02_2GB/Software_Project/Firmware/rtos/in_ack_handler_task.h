@@ -14,5 +14,9 @@
 typedef enum { sRAConfiguring = 0, sRAGettingACK, sRACleanningBuffer } tReceiverACKState;
 
 void vInAckHandlerTask(void *task_data);
+void vInAckHandlerTaskV2(void *task_data);
+bool bCheckInAck32( txReceivedACK *xRecAckL , bool *bFinished );
+bool bCheckInAck64( txReceivedACK *xRecAckL , bool *bFinished );
+bool bCheckInAck128( txReceivedACK *xRecAckL , bool *bFinished );
 
 #endif /* IN_ACK_HANDLER_TASK_H_ */

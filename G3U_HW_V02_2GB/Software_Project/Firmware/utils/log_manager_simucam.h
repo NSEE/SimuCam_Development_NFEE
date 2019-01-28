@@ -10,10 +10,11 @@
 
 
 #include "../simucam_definitions.h"
+#include "communication_utils.h"
 
 
 bool bLogWriteSDCard ( const char * cDataIn, const char * cFilename );
-bool bLogWriteETH ( const char * cDataIn );
+void vLogWriteNUC ( const char * cDataIn );
 
 
 #endif /* LOGGER_MANAGER_SIMUCAM_H_ */

@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "nfee_control_task.h": "c",
+        "fee.h": "c",
+        "meb.h": "c",
+        "fee_controller.h": "c",
+        "ccd.h": "c",
+        "queue_commands_list.h\u0000ds_list.h": "c",
+        "queue_commands_list.h\u0000list.h": "c",
+        "queue_commands_list.h\u0000mands_list.h": "c",
+        "queue_commands_list.h\u0000mmands_list.h": "c",
+        "queue_commands_list.h\u0000nds_list.h": "c",
+        "queue_commands_list.h\u0000s_list.h": "c",
+        "queue_commands_list.h\u0000_list.h": "c",
+        "parser_comm_task.h": "c",
+        "initialization_simucam.h": "c"
+    }
+}

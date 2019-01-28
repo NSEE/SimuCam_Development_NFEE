@@ -58,8 +58,6 @@
 #define COMM_IRQ_CONTROL_REG_OFST        0x11
 #define COMM_IRQ_FLAGS_REG_OFST          0x12
 #define COMM_IRQ_FLAGS_CLR_REG_OFST      0x13
-#define COMM_RIGT_FEEBUFF_SIZE_REG_OFST  0x14
-#define COMM_LEFT_FEEBUFF_SIZE_REG_OFST  0x15
 // RMAP config addr
 #define COMM_RMAP_CCD_SEQ_1_CFG_REG_OFST 0x40
 #define COMM_RMAP_CCD_SEQ_2_CFG_REG_OFST 0x41
@@ -194,9 +192,6 @@
 #define COMM_IRQ_RMAP_WRCMD_FLG_CLR_MSK  (1 << 0)
 #define COMM_IRQ_BUFF_EPY_FLG_CLR_MSK    (1 << 8)
 
-#define COMM_RIGT_FEEBUFF_SIZE_MSK       (0xF << 0)
-#define COMM_LEFT_FEEBUFF_SIZE_MSK       (0xF << 0)
-
 // rmap config bit masks
 #define COMM_RMAP_TRI_LV_CLK_CTRL_MSK    (1 << 1)
 #define COMM_RMAP_IMGCLK_DIR_CTRL_MSK    (1 << 2)
@@ -311,19 +306,15 @@
 //! [constants definition]
 
 //! [public module structs definition]
-enum CommBufferSide {
-	eCommLeftBuffer = 0, eCommRightBuffer = 1
-} ESdmaBufferSide;
-
 enum CommSpwCh {
 	eCommSpwCh1 = 0,
-	eCommSpwCh2 = 1,
-	eCommSpwCh3 = 2,
-	eCommSpwCh4 = 3,
-	eCommSpwCh5 = 4,
-	eCommSpwCh6 = 5,
-	eCommSpwCh7 = 6,
-	eCommSpwCh8 = 7
+	eCommSpwCh2,
+	eCommSpwCh3,
+	eCommSpwCh4,
+	eCommSpwCh5,
+	eCommSpwCh6,
+	eCommSpwCh7,
+	eCommSpwCh8
 } ECommSpwCh;
 //! [public module structs definition]
 

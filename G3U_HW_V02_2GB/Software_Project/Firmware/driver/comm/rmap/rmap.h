@@ -9,11 +9,15 @@
 #define RMAP_H_
 
 #include "../comm.h"
+#include "../../../utils/queue_commands_list.h"
+#include "../../../simucam_definitions.h"
 
 //! [constants definition]
 // address
 // bit masks
 //! [constants definition]
+
+extern OS_EVENT *xFeeQ[N_OF_NFEE];
 
 //! [public module structs definition]
 typedef struct RmapCodecConfig {

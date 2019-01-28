@@ -23,21 +23,9 @@
  * networking stack and MicroC/OS-II Real-Time Operating System.  
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h> 
-
-/* MicroC/OS-II definitions */
-#include "includes.h"
 
 /* Simple Socket Server definitions */
 #include "simple_socket_server.h"                                                                    
-#include "alt_error_handler.h"
-
-/* Nichestack definitions */
-#include "ipport.h"
-#include "tcpport.h"
-
 #include "driver/leds/leds.h"
 
 /*
@@ -533,7 +521,7 @@ void SSSSimpleSocketServerTask() {
 	sss_reset_connection(&conn);
 	printf("[sss_task] Simple Socket Server listening on port %d\n", SSS_PORT);
 
-	LEDS_PAINEL_DRIVE(LEDS_ON, LEDS_ST_1_MASK);
+	bSetPainelLeds(LEDS_ON, LEDS_ST_1_MASK);
 
 	while (1) {
 		/*

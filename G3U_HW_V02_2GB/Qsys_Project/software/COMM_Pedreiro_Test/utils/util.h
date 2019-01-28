@@ -12,6 +12,7 @@
 
 #include "../simucam_definitions.h"
 
+
 #define DEBUG_HIGH
 #define DEBUG_MID
 

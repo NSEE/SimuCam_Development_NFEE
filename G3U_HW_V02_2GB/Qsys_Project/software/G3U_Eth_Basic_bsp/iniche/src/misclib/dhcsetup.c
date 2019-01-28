@@ -25,6 +25,7 @@
 #include "net.h"        /* For nets[] */
 #include "in_utils.h"   /* For netexit() */
 
+
 int dhc_main_ipset(int iface, int state);
 
 
@@ -60,6 +61,8 @@ dhc_setup(void)
    int      dhcnets = 0;   /* number of nets doing DHCP */
 
    e = dhc_init();
+
+   printf("dhcp setup");
 
    if (e)
    {

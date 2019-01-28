@@ -67,7 +67,7 @@
 #define __ALT_ERROR_HANDLER_H__
 
 /* MicroC/OS-II definitions */
-#include "includes.h"
+#include "simucam_defs_vars_structs_includes.h"
 
 /* EXPANDED_DIAGNOSIS_CODE value of 255 is equivalent to -1 
  * (after casting to INT8S) for functions that return -1 as an error_code 

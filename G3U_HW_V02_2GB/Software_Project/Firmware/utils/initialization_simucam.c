@@ -18,11 +18,11 @@ void vInitSimucamBasicHW(void)
 	/* Turn On Power LED */
 	bSetPainelLeds(LEDS_ON, LEDS_POWER_MASK);
 
-	/* Release ETH Reset */
-	vEthReleaseReset();
-
 	/* Configure Seven Segments Display */
 	bSSDisplayConfig(SSDP_NORMAL_MODE);
 	bSSDisplayUpdate(0);
+
+	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
+	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 
 }

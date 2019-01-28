@@ -46,6 +46,7 @@ unsigned char ucCrc8(unsigned crc, unsigned char const *data, size_t len)
 unsigned char ucCrc8wInit(char const *data, size_t len)
 {
 	unsigned char crc;
+
 	crc = ucCrc8(0, NULL, 0);
 	return ucCrc8(crc, (unsigned char const *)data, len);
 }

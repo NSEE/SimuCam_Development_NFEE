@@ -81,7 +81,11 @@
 #define SDMA_DMA_M2_NAME                DMA_DDR_M2_CSR_NAME
 //
 #define SDMA_PIXEL_BLOCK_SIZE_BYTES     136
-#define SDMA_BUFFER_SIZE_BYTES          (SDMA_PIXEL_BLOCK_SIZE_BYTES * 16)
+#define SDMA_MAX_BLOCKS					16
+
+#define SDMA_BUFFER_SIZE_BYTES          (SDMA_PIXEL_BLOCK_SIZE_BYTES * SDMA_MAX_BLOCKS)
+
+
 // bit masks
 //! [constants definition]
 
@@ -96,7 +100,7 @@ typedef struct SdmaBufferDataBlock {
 } TSdmaBufferDataBlock;
 
 enum SdmaBufferSide {
-	eSdmaLeftBuffer = 0, eSdmaRightBuffer = 1
+	eSdmaLeftBuffer = 0, eSdmaRightBuffer, 
 } ESdmaBufferSide;
 
 enum SdmaChBufferId {
@@ -114,12 +118,11 @@ enum SdmaChBufferId {
 //! [public function prototypes]
 bool bSdmaInitM1Dma(void);
 bool bSdmaInitM2Dma(void);
-bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
-		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
-		alt_u8 ucChBufferId);
-bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
-		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
-		alt_u8 ucChBufferId);
+bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
+		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
+		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bSdmaSetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

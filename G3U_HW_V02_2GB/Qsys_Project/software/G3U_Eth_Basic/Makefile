@@ -143,27 +143,20 @@ ELF := G3U_Eth_Basic.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS += alt_error_handler.c
-C_SRCS += iniche_init.c
 C_SRCS += led.c
-C_SRCS += network_utilities.c
 C_SRCS += simple_socket_server.c
 C_SRCS += tse_my_system.c
-C_SRCS += driver/i2c/i2c.c
-C_SRCS += driver/leds/leds.c
-C_SRCS += driver/power_spi/power_spi.c
-C_SRCS += driver/rtcc_spi/rtcc_spi.c
-C_SRCS += driver/seven_seg/seven_seg.c
-C_SRCS += logic/comm/spwc/spwc.c
-C_SRCS += logic/comm/tran/tran.c
-C_SRCS += logic/ddr2/ddr2.c
-C_SRCS += logic/dma/dma.c
-C_SRCS += logic/eth/eth.c
-C_SRCS += logic/pgen/pgen.c
-C_SRCS += logic/sense/sense.c
-C_SRCS += rtos/default_configs.c
-C_SRCS += rtos/rtos_tasks.c
-C_SRCS += utils/util.c
 C_SRCS += command_control.c
+C_SRCS += simucam.c
+C_SRCS += utils/initialization_simucam.c
+C_SRCS += utils/error_handler_simucam.c
+C_SRCS += utils/test_module_simucam.c
+C_SRCS += utils/log_manager_simucam.c
+C_SRCS += utils/sdcard_file_manager.c
+C_SRCS += utils/configs_simucam.c
+C_SRCS += rtos/initialization_task.c
+C_SRCS += rtos/socket_debug_task.c
+C_SRCS += network_utilities.c
 CXX_SRCS :=
 ASM_SRCS :=
 

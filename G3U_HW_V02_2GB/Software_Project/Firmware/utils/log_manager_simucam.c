@@ -14,8 +14,14 @@ bool bLogWriteSDCard ( const char * cDataIn, const char * cFilename )
 	return TRUE;
 }
 
-bool bLogWriteETH ( const char * cDataIn )
+/* Prefer to use directly vSendLog, if there's any error use this function */
+void vLogWriteNUC ( const char * cDataIn )
 {
-
-	return TRUE;
+	char cTemp[114] = "";
+	memset(cTemp,0,114);
+	memcpy(cTemp,cDataIn, min_sim( strlen(cDataIn), 113 ) ); /* 113 to let a zero terminator in the worst case (truc the message) */
+	vSendLog ( cDataIn );
 }
+
+
+

@@ -8,15 +8,18 @@
 #ifndef PARSER_COMM_TASK_H_
 #define PARSER_COMM_TASK_H_
 
+#include "../utils/queue_commands_list.h"
 #include "../utils/communication_configs.h"
 #include "../utils/communication_utils.h"
+#include "../utils/log_manager_simucam.h"
+#include "../driver/reset/reset.h"
 
-typedef enum { sConfiguring = 0, sWaitingConn, sWaitingMessage, sRequestParsing, sReplyParsing, sHandlingError } tParserStates;
+typedef enum { sConfiguring = 0, sWaitingMessage, sRequestParsing, sReplyParsing, sPusHandling, sHandlingError } tParserStates;
 
 
 void vParserCommTask(void *task_data);
 bool getPreParsedPacket( tPreParsed *xPreParsedParser );
 unsigned short int usiGetIdCMD ( void );
-bool bTrySendSemaphoreCommInit( void );
+bool bSendMessagePUStoMebTask( tTMPus *xPusL );
 
 #endif /* PARSER_COMM_TASK_H_ */

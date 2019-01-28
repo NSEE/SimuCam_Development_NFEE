@@ -9,6 +9,7 @@
 #define INITIALIZATION_SIMUCAM_H_
 
 #include "../simucam_definitions.h"
+#include "../driver/reset/reset.h"
 
 void vInitSimucamBasicHW(void);
 
