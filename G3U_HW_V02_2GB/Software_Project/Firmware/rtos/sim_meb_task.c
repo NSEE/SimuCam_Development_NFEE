@@ -12,6 +12,7 @@
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
+	unsigned char ucIL;
 	tQMask uiCmdMeb;
 	INT8U error_code;
 
@@ -68,6 +69,15 @@ void vSimMebTask(void *task_data) {
 
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+
+
+				/* Clear the timecode of the channel SPW (for now is for spw channel) */
+				for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
+					bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
+					pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+				}
+
+				bSyncCtrReset();
 				vSyncClearCounter();
 				bStartSync();
 
@@ -130,6 +140,9 @@ void vSimMebTask(void *task_data) {
 
 								break;
 							default:
+								#ifdef DEBUG_ON
+									fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdMeb.ucByte[2]);
+								#endif
 								break;
 						}
 					} else {
@@ -480,7 +493,7 @@ void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	uiCmdtoSend.ucByte[0] = ucValue;
 
 	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}
@@ -534,7 +547,7 @@ void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	uiCmdtoSend.ucByte[0] = ucValue;
 
 	/*Send a command to other entities (Data Controller) */
-	error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPost(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}

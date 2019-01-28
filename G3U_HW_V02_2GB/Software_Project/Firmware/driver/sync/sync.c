@@ -74,6 +74,8 @@ void vSyncHandleIrq(void* pvContext) {
 			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
 			if ( error_codel != OS_ERR_NONE ) {
 				vFailSendMsgSync( ucIL );
+				/*  */
+				OSQFlush( xWaitSyncQFee[ ucIL] );
 			}
 		}
 	}

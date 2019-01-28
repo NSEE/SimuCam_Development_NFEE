@@ -13,6 +13,10 @@ static void vRmapWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 
 static alt_u32 uliConvRmapCfgAddr(alt_u32 puliRmapAddr);
+
+
+TRmapChannel xRmap[N_OF_NFEE];
+
 //! [private function prototypes]
 
 //! [data memory public global variables]
@@ -37,26 +41,54 @@ static volatile int viCh8HoldContext;
 //! [program memory private global variables]
 
 //! [public functions]
+/* todo:Trigger not working right */
 void vRmapCh1HandleIrq(void* pvContext) {
 	volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
 	INT8U ucADDRReg;
+	INT32U ucValueReg;
+	INT32U ucValueMasked;
 	INT8U error_codel;
 
 	/* Warnning simplification: For now all address is lower than 1 bytes  */
+
 	ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
 
+	/*Need verify if is force trigger*/
+	if (0x4D == ucADDRReg) {
+		ucValueReg = uliRmapReadReg(xRmap[0].puliRmapChAddr,  ucADDRReg);
+		ucValueMasked = (COMM_RMAP_SELF_TRIGGER_CTRL_MSK & ucValueReg) >> 2; /* Number of rows */
+		if (ucValueMasked){
+			//if ( xSimMeb->xFeeControl.xNfee[0].xControl.bWatingSync == TRUE ) {
+				uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+				uiCmdRmap.ucByte[2] = M_SYNC;
+				error_codel = OSQPost(xWaitSyncQFee[ 0 ], (void *)uiCmdRmap.ulWord);
+				if ( error_codel != OS_ERR_NONE ) {
+					vFailSendMsgSyncRMAPTRIGGER(0);
+				}
 
-	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
-	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
-	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = 0;
+				#ifdef DEBUG_ON
+					fprintf(fp," - Mode Forced.\n");
+				#endif
+			//}
+			/* Clear the trigger */
+			//bRmapGetMemConfigArea(&xSimMeb->xFeeControl.xNfee[0].xChannel.xRmap);
+			//xSimMeb->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig = ( xSimMeb->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig & 0xFFFFFFFB);
+			//bRmapSetMemConfigArea(&xSimMeb->xFeeControl.xNfee[0].xChannel.xRmap);
+		}
+	} else {
+		uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+		uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+		uiCmdRmap.ucByte[1] = ucADDRReg;
+		uiCmdRmap.ucByte[0] = 0;
 
-
-	error_codel = OSQPost(xFeeQ[0], (void *)uiCmdRmap.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendRMAPFromIRQ( 0 );
+		error_codel = OSQPost(xFeeQ[0], (void *)uiCmdRmap.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendRMAPFromIRQ( 0 );
+		}
 	}
+
+
 
 	vRmapCh1IrqFlagClrWriteCmd();
 }
@@ -287,6 +319,7 @@ alt_u32 uliRmapCh1WriteCmdAddress(void) {
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_1_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
+
 
 	uliWriteAddr = uliConvRmapCfgAddr(uliWriteAddr);
 
@@ -1586,7 +1619,7 @@ alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
 static alt_u32 uliConvRmapCfgAddr(alt_u32 puliRmapAddr) {
 	alt_u32 uliValue;
 
-	switch (puliRmapAddr) {
+	switch (puliRmapAddr-3) {
 	case 0x00000000:
 		uliValue = 0x00000040;
 		break;

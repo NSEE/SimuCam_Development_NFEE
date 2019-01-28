@@ -153,6 +153,20 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     }
 }
 
+/* Update the memory mapping for the FEE due to the CCD informations */
+void vResetMemCCDFEE( TNFee *pxNfeeL ) {
+	unsigned char ucIL = 0;
+
+    for ( ucIL = 0; ucIL < 4; ucIL++ ) {
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulAddrI = 0;
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulBlockI = 0;
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulAddrI = 0;
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulBlockI = 0;
+    }
+}
+
+
+
 /* Load the default configuration of the SPW/RMAP */
 void vFeeSpwRMAPLoadDefault( TNFee *pxNfeeL ) {
     //bGetSpwRmapSDCard();

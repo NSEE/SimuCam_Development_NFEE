@@ -10,6 +10,7 @@
 
 #include "../../simucam_definitions.h"
 
+
 //! [constants definition]
 // irq numbers
 #define COMM_CH_1_RMAP_IRQ              23
@@ -313,7 +314,7 @@
 //! [public module structs definition]
 enum CommBufferSide {
 	eCommLeftBuffer = 0, eCommRightBuffer = 1
-} ESdmaBufferSide;
+} ECommBufferSide;
 
 enum CommSpwCh {
 	eCommSpwCh1 = 0,

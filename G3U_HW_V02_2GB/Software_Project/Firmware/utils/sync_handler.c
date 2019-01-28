@@ -115,6 +115,7 @@ bool bInitSync( void ) {
 bool bStartSync(void) {
 
 	bool bSuccess;
+	bSyncCtrReset();
 	bSuccess = bSyncCtrStart();
 
 	return bSuccess;

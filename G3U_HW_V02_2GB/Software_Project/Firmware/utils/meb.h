@@ -21,6 +21,7 @@ typedef enum { sInternal = 0, sExternal } tSimucamSync;
 typedef enum { sNormalFEE = 0, sFastFEE } tFeeType;
 
 
+/*Moved to simucam definitions*/
 typedef struct Simucam_MEB {
     tFeeType        eType;                  /* Normal or Fast FEE */
     tSimucamStates  eMode;                  /* Mode of operation for the Simucam */
@@ -38,7 +39,6 @@ typedef struct Simucam_MEB {
     TNData_Control xDataControl;
     TNFee_Control xFeeControl;
 } TSimucam_MEB;
-
 
 extern TSimucam_MEB xSimMeb;
 

@@ -45,26 +45,30 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
+	vFeebCh1IrqFlagClrBufferEmpty();
 
 
-	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailRequestDMAFromIRQ( 0 );
-	}
-
-#ifdef DEBUG_ON
+//
+//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+//	uiCmdtoSend.ucByte[1] = 0;
+//	uiCmdtoSend.ucByte[0] = 0;
+//
+//
+//	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+//	if ( error_codel != OS_ERR_NONE ) {
+//		vFailRequestDMAFromIRQ( 0 );
+//	}
+//
+//#ifdef DEBUG_ON
 //	fprintf(fp,"Interrupcao fee buffer\n");
-#endif
+//#endif
 
 	/* Make one requests for the Double buffer */
 	/* Address of the NFEE is hard coded */
 
 
-	vFeebCh1IrqFlagClrBufferEmpty();
+
 }
 
 void vFeebCh2HandleIrq(void* pvContext) {

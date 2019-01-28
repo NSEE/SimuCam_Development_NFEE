@@ -24,8 +24,8 @@
 #define N_OF_NFEE       1	/* ONLY for tests */
 #define N_OF_FastFEE    2
 
-#define DATA_PACKET		FALSE	/* Using data packet or Transparent mode ( 0 ) */
-
+#define DATA_PACKET		TRUE	/* Using data packet or Transparent mode ( 0 ) */
+#define TRANSPARENT		FALSE
 
 #ifndef bool
 	//typedef short int bool;
@@ -58,6 +58,7 @@
 #include "driver/leds/leds.h"
 #include "driver/seven_seg/seven_seg.h"
 /*---------------------------------*/
+
 
 
 /* Variable that will carry the debug JTAG device file descriptor*/

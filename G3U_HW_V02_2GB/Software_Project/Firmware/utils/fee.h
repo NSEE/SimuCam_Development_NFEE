@@ -89,5 +89,6 @@ typedef struct FFee {
 void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE );
 void vUpdateMemMapFEE( TNFee *pxNfeeL );
 void vNFeeNotInUse( TNFee *pxNfeeL, unsigned char ucIdNFEE );
+void vResetMemCCDFEE( TNFee *pxNfeeL );
 
 #endif /* FEE_H_ */

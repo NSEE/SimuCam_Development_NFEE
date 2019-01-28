@@ -18,6 +18,7 @@
 #include "../utils/queue_commands_list.h"
 #include "../api_driver/simucam_dma/simucam_dma.h"
 #include "../driver/comm/data_packet/data_packet.h"
+#include "../driver/comm/rmap/rmap.h"
 
 void vFeeTask(void *task_data);
 void vFeeTask0(void *task_data);
@@ -26,8 +27,8 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
 bool bDisableSPWChannel( TSpwcChannel *xSPW );
 bool bEnableSPWChannel( TSpwcChannel *xSPW );
-bool bDisableRmapIRQ( TRmapChannel *pxRmapCh );
-bool bEnableRmapIRQ( TRmapChannel *pxRmapCh );
+bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
+bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
 bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
