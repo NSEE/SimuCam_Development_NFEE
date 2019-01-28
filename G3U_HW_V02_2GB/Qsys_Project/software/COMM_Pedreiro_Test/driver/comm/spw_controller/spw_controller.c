@@ -207,6 +207,7 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 		case eCommSpwCh2:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
 			break;
+/*
 		case eCommSpwCh3:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
 			break;
@@ -225,6 +226,7 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 		case eCommSpwCh8:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
 			break;
+*/
 		default:
 			bStatus = FALSE;
 			break;

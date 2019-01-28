@@ -96,6 +96,14 @@ bool bFeebGetIrqControl(TFeebChannel *pxFeebCh);
 bool bFeebGetIrqFlags(TFeebChannel *pxFeebCh);
 
 bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh);
+bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh);
+
+bool bFeebGetCh1LeftBufferEmpty(void);
+bool bFeebGetCh1RightBufferEmpty(void);
+bool bFeebGetCh2LeftBufferEmpty(void);
+bool bFeebGetCh2RightBufferEmpty(void);
+
+bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
 bool bFeebSetWindowing(TFeebChannel *pxFeebCh);
 bool bFeebGetWindowing(TFeebChannel *pxFeebCh);

@@ -101,19 +101,24 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 
 	alt_u32 uliControlBits = 0x00000000;
 
+	bool bBufferEmptyFlag = FALSE;
+
 	switch (ucChBufferId) {
 	case eSdmaCh1Buffer:
 		switch (ucBufferSide) {
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_1_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_1_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = bFeebGetCh1RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_1_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_1_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = bFeebGetCh1LeftBufferEmpty();
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -122,13 +127,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_2_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_2_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = bFeebGetCh2RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_2_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_2_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = bFeebGetCh2LeftBufferEmpty();
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -137,13 +145,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -152,13 +163,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -167,13 +181,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -182,13 +199,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -197,13 +217,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -212,13 +235,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_HIGH;
+			bBufferEmptyFlag = FALSE;
 			break;
 		default:
 			bStatus = FALSE;
+			bBufferEmptyFlag = FALSE;
 			break;
 		}
 		break;
@@ -231,7 +257,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 			+ (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
 
-	if (bStatus) {
+	if ((bStatus) && (bBufferEmptyFlag)) {
 		if (pxDmaM1Dev == NULL) {
 			bStatus = FALSE;
 		} else {

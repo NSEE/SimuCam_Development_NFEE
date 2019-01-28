@@ -31,12 +31,12 @@
 // address
 #define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
-#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_C_BASE
-#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_D_BASE
-#define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_E_BASE
-#define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_F_BASE
-#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_G_BASE
-#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_H_BASE
+#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
+#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
 // address offset
 #define COMM_LINK_CFG_STAT_REG_OFST      0x00
 #define COMM_TIMECODE_REG_OFST           0x01
@@ -58,6 +58,8 @@
 #define COMM_IRQ_CONTROL_REG_OFST        0x11
 #define COMM_IRQ_FLAGS_REG_OFST          0x12
 #define COMM_IRQ_FLAGS_CLR_REG_OFST      0x13
+#define COMM_RIGT_FEEBUFF_SIZE_REG_OFST  0x14
+#define COMM_LEFT_FEEBUFF_SIZE_REG_OFST  0x15
 // RMAP config addr
 #define COMM_RMAP_CCD_SEQ_1_CFG_REG_OFST 0x40
 #define COMM_RMAP_CCD_SEQ_2_CFG_REG_OFST 0x41
@@ -192,6 +194,9 @@
 #define COMM_IRQ_RMAP_WRCMD_FLG_CLR_MSK  (1 << 0)
 #define COMM_IRQ_BUFF_EPY_FLG_CLR_MSK    (1 << 8)
 
+#define COMM_RIGT_FEEBUFF_SIZE_MSK       (0xF << 0)
+#define COMM_LEFT_FEEBUFF_SIZE_MSK       (0xF << 0)
+
 // rmap config bit masks
 #define COMM_RMAP_TRI_LV_CLK_CTRL_MSK    (1 << 1)
 #define COMM_RMAP_IMGCLK_DIR_CTRL_MSK    (1 << 2)
@@ -306,6 +311,10 @@
 //! [constants definition]
 
 //! [public module structs definition]
+enum CommBufferSide {
+	eCommLeftBuffer = 0, eCommRightBuffer = 1
+} ECommBufferSide;
+
 enum CommSpwCh {
 	eCommSpwCh1 = 0,
 	eCommSpwCh2,

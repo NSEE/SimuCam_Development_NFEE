@@ -39,11 +39,13 @@ static volatile int viCh8HoldContext;
 //! [public functions]
 void vRmapCh1HandleIrq(void* pvContext) {
 	volatile int* pviHoldContext = (volatile int*) pvContext;
+/* TODO: remover
 	tQMask uiCmdRmap;
 	INT8U ucADDRReg;
 	INT8U error_codel;
 
 	/* Warnning simplification: For now all address is lower than 1 bytes  */
+/*
 	ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
 
 
@@ -57,7 +59,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendRMAPFromIRQ( 0 );
 	}
-
+*/
 	vRmapCh1IrqFlagClrWriteCmd();
 }
 

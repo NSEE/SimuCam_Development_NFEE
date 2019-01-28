@@ -41,16 +41,18 @@ static volatile int viHoldContext;
  * @retval void
  */
 void vSyncHandleIrq(void* pvContext) {
+/*
 	unsigned char ucIL;
 	unsigned char ucSyncL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
-
+*/
 	volatile int* pviHoldContext = (volatile int*) pvContext;
-
+/*
 
 	uiCmdtoSend.ulWord = 0;
 	/* MasterSync? */
+/*
 	ucSyncL = (vucN % 4);
 	if ( ucSyncL == 0 ) {
 
@@ -58,6 +60,7 @@ void vSyncHandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
 
 		/* Send Priority message to the Meb Task to indicate the Master Sync */
+	/*
 		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendMsgMasterSyncMeb( );
@@ -83,7 +86,7 @@ void vSyncHandleIrq(void* pvContext) {
 	#ifdef DEBUG_ON
 		fprintf(fp,"Sync %hu \n", ucSyncL);
 	#endif
-
+*/
 	vSyncIrqFlagClrSync();
 }
 

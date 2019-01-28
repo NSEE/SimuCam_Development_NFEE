@@ -10,6 +10,7 @@
 
 #include "../../simucam_definitions.h"
 #include "../../driver/msgdma/msgdma.h"
+#include "../../driver/comm/fee_buffers/fee_buffers.h"
 
 //! [constants definition]
 // address
