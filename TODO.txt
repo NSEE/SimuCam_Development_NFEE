@@ -1,0 +1,13 @@
+-- frame number contabilizando desde do primeiro sync
+
+-- colocar restrição de buffer empty na lib do dma
+
+x -- acertar rmap last addr (offset)
+
+x -- verificar interrupçao de buffer empty (dois ciclos? - detector de borda)
+
+x -- adaptar slave com as mesmas condições do master
+
+-- unificar funções de set buffer size
+
+
