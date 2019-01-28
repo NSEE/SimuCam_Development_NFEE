@@ -118,6 +118,10 @@ typedef union qMask{
 #define M_FEE_RUN_FORCED            0xA2 /* Indicates that should go to Run Mode - Mode On -> StandBy */
 #define M_FEE_STANDBY_FORCED        0xA4
 #define M_FEE_FULL_PATTERN_FORCED   0xA8
+
+
+#define M_FEE_RMAP                  0xF0 /* RMAP command received */
+
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 

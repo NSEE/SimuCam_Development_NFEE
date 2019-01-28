@@ -17,6 +17,7 @@
 #include "../driver/comm/comm_channel.h"
 #include "../utils/queue_commands_list.h"
 #include "../api_driver/simucam_dma/simucam_dma.h"
+#include "../driver/comm/data_packet/data_packet.h"
 
 void vFeeTask(void *task_data);
 void vFeeTask0(void *task_data);
@@ -31,6 +32,8 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
 
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );

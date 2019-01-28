@@ -8,7 +8,7 @@
 
 #include "fee_task.h"
 
-
+TRmapChannel RmapConfAreaL;
 
 void vFeeTask(void *task_data) {
 	bool bSuccess = FALSE;
@@ -49,10 +49,48 @@ void vFeeTask(void *task_data) {
 					vFailFlushNFEEQueue();
 				}				
 
+				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFee->xCcdInfo.usiHalfWidth;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFee->xCcdInfo.usiHeight;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize = pxNFee->xCcdInfo.usiHeight - pxNFee->xCcdInfo.usiOLN;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFee->xCcdInfo.usiOLN;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = 32768;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern; /* todo:Não esquecer de atualizar para o ENUM  */
+				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
+
 				pxNFee->xControl.eMode = sToFeeConfig;
 
 				break;
 			case sToFeeConfig: /* Transition */
+
+				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
+				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /*Off*/
+				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+
+				/*  */
+				switch ( pxNFee->xControl.eNextMode ) {
+					case sToFeeConfig:
+					case sFeeConfig:
+						pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /* Off-Mode */
+						break;
+					case sFeeStandBy:
+					case sToFeeStandBy:
+
+						break;
+					case sSIMTestFullPattern:
+					case sToTestFullPattern:
+					case sFeeTestFullPattern:
+						pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x02;
+						break;
+					default:
+						break;
+				}
+
+
+
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
 				#endif
@@ -124,6 +162,11 @@ void vFeeTask(void *task_data) {
 
 				break;
 			case sToFeeStandBy: /* Transition */
+				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
+				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
+				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Standby Mode\n", pxNFee->ucId);
 				#endif
@@ -189,6 +232,12 @@ void vFeeTask(void *task_data) {
 					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xLeft;
 				else
 					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xRight;
+
+
+				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = ucReadout;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern; /* todo:Não esquecer de atualizar para o ENUM  */
+				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 
 				/* todo: resetar o tamanho do buffer size para o maximo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
@@ -294,6 +343,10 @@ void vFeeTask(void *task_data) {
 
 
 			case sToTestFullPattern: /* Transition */
+				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
+				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x02; /*Pattern Full Image*/
+				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Full Image Pattern Mode\n", pxNFee->ucId);
 				#endif
@@ -364,6 +417,7 @@ void vFeeTask(void *task_data) {
 								/* Value of xCcdMapLocal->ulAddrI already set in the last iteration */
 
 								xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+								xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
 		                        OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 		                        pxNFee->xControl.bDMALocked = FALSE;
 		                        //bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
@@ -379,10 +433,10 @@ void vFeeTask(void *task_data) {
 #endif
 
 #ifdef DEBUG_ON
-	fprintf(fp,"\n    i: %u ",incrementador);
-	fprintf(fp,"\nblock: %u ",xCcdMapLocal->ulBlockI);
-	fprintf(fp,"\n  max: %u ",pxNFee->xMemMap.xCommon.usiNTotalBlocks );
-	fprintf(fp,"\nbytes: %u \n",xCcdMapLocal->ulAddrI);
+	//fprintf(fp,"\n    i: %u ",incrementador);
+	fprintf(fp,"\nbs: %u ",xCcdMapLocal->ulBlockI);
+	//fprintf(fp,"\n  max: %u ",pxNFee->xMemMap.xCommon.usiNTotalBlocks );
+	//fprintf(fp,"\nbytes: %u \n",xCcdMapLocal->ulAddrI);
 #endif
 
 
@@ -404,33 +458,7 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.eMode = pxNFee->xControl.eNextMode;
 
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xWaitSyncQFee[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
-				if ( error_code == OS_ERR_NONE ) {
-
-					/* Write in the RMAP */
-					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-
-					/* UCL- NFEE ICD p. 49 */
-					switch ( pxNFee->xControl.eNextMode ) {
-						case sToFeeConfig:
-						case sFeeConfig:
-							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /* Off-Mode */
-							break;
-						case sFeeStandBy:
-						case sToFeeStandBy:
-							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00;
-							break;
-						case sSIMTestFullPattern:
-						case sToTestFullPattern:
-						case sFeeTestFullPattern:
-							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x02;
-							break;
-						default:
-							break;
-					}
-
-					bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
-
-				} else {
+				if ( error_code != OS_ERR_NONE ) {
 					#ifdef DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xWaitSyncQFee\n", pxNFee->ucId);
 					#endif
@@ -485,7 +513,12 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: Can't go to Full Image Pattern from Config mode\n", pxNFeeP->ucId);
 				#endif
-				break;											
+				break;
+			case M_FEE_RMAP:
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE %hhu Task: Shouldn't receive RMAP Messages in this mode (Config Mode)\n", pxNFeeP->ucId);
+				#endif
+				break;
 			default:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
@@ -529,7 +562,17 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sSIMTestFullPattern; /*sSIMTestFullPattern*/
 				pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
-				break;				
+				break;
+			case M_FEE_RMAP:
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
+				#endif
+
+
+				/* Perform some actions, check if is a valid command for this mode of opera  */
+				vQCmdFeeRMAPinStandBy( pxNFeeP, cmd );
+
+				break;
 			default:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
@@ -538,6 +581,8 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 		}
 	}
 }
+
+
 
 void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
@@ -577,6 +622,16 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 					fprintf(fp,"NFEE %hhu Task:  Already in Full Image Pattern mode\n", pxNFeeP->ucId);
 				#endif
 				break;
+			case M_FEE_RMAP:
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
+				#endif
+
+
+				/* Perform some actions, check if is a valid command for this mode of opera  */
+				vQCmdFeeRMAPinFullPattern( pxNFeeP, cmd );
+
+				break;
 			default:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
@@ -586,8 +641,266 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 	}
 }
 
+
+
+void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
+	tQMask uiCmdFEEL;
+	INT8U ucADDRReg;
+	INT32U ucValueReg;
+	INT32U ucValueMasked;
+	INT32U ucValueMasked2;
+
+	#ifdef DEBUG_ON
+		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
+	#endif
+
+	uiCmdFEEL.ulWord = cmd;
+
+	ucADDRReg = uiCmdFEEL.ucByte[1];
+	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+
+
+	switch (ucADDRReg) {
+		case 0x40://0x00000000: ccd_seq_1_config
+			ucValueMasked = (COMM_RMAP_IMGCLK_TRCNT_CTRL_MSK & ucValueReg) >> 4; /* Number of rows */
+			ucValueMasked2 = (COMM_RMAP_REGCLK_TRCNT_CTRL_MSK & ucValueReg) >> 20; /* Number of columns */
+
+			/* upsate minha estrutura depois atualizar a do frança */
+
+			pxNFeeP->xCcdInfo.usiHeight = ucValueMasked;
+			pxNFeeP->xCcdInfo.usiHalfWidth = ucValueMasked2;
+			vUpdateMemMapFEE(pxNFeeP);
+
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFeeP->xCcdInfo.usiHalfWidth;
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFeeP->xCcdInfo.usiHeight;
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize = pxNFeeP->xCcdInfo.usiHeight - pxNFeeP->xCcdInfo.usiOLN;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+			#ifdef DEBUG_ON
+				fprintf(fp," - Rows: %u\n - Columns: %u\n", ucValueMasked, ucValueMasked2);
+			#endif
+
+			break;
+		case 0x041://0x00000004:ccd_seq_2_config
+			break;
+		case 0x042://0x00000008:spw_packet_1_config
+
+			ucValueMasked = (ucValueReg & COMM_RMAP_PACKET_SIZE_CTRL_MSK) >> 4;
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = ucValueMasked;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+			#ifdef DEBUG_ON
+				fprintf(fp," - Pckt Length: %u\n - Columns: %u\n", ucValueMasked, ucValueMasked2);
+			#endif
+
+			break;
+		case 0x043://0x0000000C:spw_packet_2_config
+		case 0x44://0x00000010:CCD_1_windowing_1_config
+		case 0x45://0x00000014:CCD_1_windowing_2_config
+		case 0x46://0x00000018:CCD_2_windowing_1_config
+		case 0x47://0x0000001C:CCD_2_windowing_2_config
+		case 0x48://0x00000020:CCD_3_windowing_1_config
+		case 0x49://0x00000024:CCD_3_windowing_2_config
+		case 0x4A://0x00000028:CCD_4_windowing_1_config
+		case 0x4B://0x0000002C:CCD_4_windowing_2_config
+			#ifdef DEBUG_ON
+				fprintf(fp," Command not allowed yet ( %hhu )\n", ucValueMasked);
+			#endif
+				break;
+		case 0x0000004C://0x00000038:operation_mode_config
+			/* Mode Selection */
+			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >>4;
+
+
+			switch (ucValueMasked) {
+				case 0: /* Standby */
+				#ifdef DEBUG_ON
+					fprintf(fp,"- to Stand-By\n");
+				#endif
+
+					uiCmdFEEL.ucByte[2] = M_FEE_STANDBY;
+					vQCmdFEEinStandBy( pxNFeeP, uiCmdFEEL.ulWord);
+
+					break;
+				case 2: /* PAttern Full image */
+				#ifdef DEBUG_ON
+					fprintf(fp,"- to Full-Image-Pattern\n");
+				#endif
+
+					uiCmdFEEL.ucByte[2] = M_FEE_FULL_PATTERN;
+					vQCmdFEEinStandBy( pxNFeeP, uiCmdFEEL.ulWord);
+
+					break;
+				case 6:
+				#ifdef DEBUG_ON
+					fprintf(fp," Off-Mode not allowed.\n");
+				#endif
+					break;
+				case 1:
+				case 3:
+				case 4:
+				case 5:
+				default:
+					#ifdef DEBUG_ON
+						fprintf(fp," mode not allowed yet ( %hhu )\n", ucValueMasked);
+					#endif
+					break;
+			}
+
+			break;
+		case 0x0000004D://0x0000003C:sync_config
+
+			ucValueMasked = (COMM_RMAP_SELF_TRIGGER_CTRL_MSK & ucValueReg) >> 2; /* Number of rows */
+
+			/* Cannot perform this operation */
+			if ( ucValueMasked ) {
+				#ifdef DEBUG_ON
+					fprintf(fp," - operation not allowed (StandBy-Mode)\n");
+				#endif
+				/* Clear the trigger */
+				bRmapGetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+				pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig = ( pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig & 0xFFFFFFFB);
+				bRmapSetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+			}
+
+			break;
+		case 0x0000004E://0x00000040:dac_control
+		case 0x0000004F://0x00000044:clock_source_control
+		case 0x00000050://0x00000048:frame_number
+		case 0x00000051://0x0000004C:current_mode
+		default:
+			#ifdef DEBUG_ON
+				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
+			#endif
+			break;
+		}
+}
+
+void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
+	tQMask uiCmdFEEL;
+	INT8U error_codel;
+	INT8U ucADDRReg;
+	INT8U ucValueReg;
+	INT32U ucValueMasked;
+
+	#ifdef DEBUG_ON
+		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
+	#endif
+
+	uiCmdFEEL.ulWord = cmd;
+
+	ucADDRReg = uiCmdFEEL.ucByte[1];
+	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+
+
+	switch (ucADDRReg) {
+		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x041://0x00000004:ccd_seq_2_config
+		case 0x042://0x00000008:spw_packet_1_config
+		case 0x043://0x0000000C:spw_packet_2_config
+		case 0x44://0x00000010:CCD_1_windowing_1_config
+		case 0x45://0x00000014:CCD_1_windowing_2_config
+		case 0x46://0x00000018:CCD_2_windowing_1_config
+		case 0x47://0x0000001C:CCD_2_windowing_2_config
+		case 0x48://0x00000020:CCD_3_windowing_1_config
+		case 0x49://0x00000024:CCD_3_windowing_2_config
+		case 0x4A://0x00000028:CCD_4_windowing_1_config
+		case 0x4B://0x0000002C:CCD_4_windowing_2_config
+			#ifdef DEBUG_ON
+				fprintf(fp," Command not allowed yet ( %hhu )\n", ucValueMasked);
+			#endif
+				break;
+
+		case 0x0000004C://0x00000038:operation_mode_config
+			/* Mode Selection */
+			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >>4;
+
+			switch (ucValueMasked) {
+				case 0: /* Standby */
+				#ifdef DEBUG_ON
+					fprintf(fp,"- to Stand-By\n");
+				#endif
+
+					uiCmdFEEL.ucByte[2] = M_FEE_STANDBY;
+					vQCmdFEEinFullPattern( pxNFeeP, uiCmdFEEL.ulWord);
+
+					break;
+				case 2: /* PAttern Full image */
+				#ifdef DEBUG_ON
+					fprintf(fp,"- to Full-Image-Pattern\n");
+				#endif
+
+					uiCmdFEEL.ucByte[2] = M_FEE_FULL_PATTERN;
+					vQCmdFEEinFullPattern( pxNFeeP, uiCmdFEEL.ulWord);
+
+					break;
+				case 6:
+				#ifdef DEBUG_ON
+					fprintf(fp," Off-Mode not allowed.\n");
+				#endif
+					break;
+				case 1:
+				case 3:
+				case 4:
+				case 5:
+				default:
+					#ifdef DEBUG_ON
+						fprintf(fp," mode not allowed yet ( %hhu )\n", ucValueMasked);
+					#endif
+					break;
+			}
+
+			break;
+		case 0x0000004D://0x0000003C:sync_config
+
+			ucValueMasked = (COMM_RMAP_SELF_TRIGGER_CTRL_MSK & ucValueReg) >> 2; /* Number of rows */
+
+			/* Cannot perform this operation */
+			if ( ucValueMasked ) {
+
+				if ( pxNFeeP->xControl.bWatingSync == TRUE ) {
+					uiCmdFEEL.ucByte[3] = M_NFEE_BASE_ADDR + pxNFeeP->ucId;
+					uiCmdFEEL.ucByte[2] = M_SYNC;
+					error_codel = OSQPost(xWaitSyncQFee[ pxNFeeP->ucId ], (void *)uiCmdFEEL.ulWord);
+					if ( error_codel != OS_ERR_NONE ) {
+						vFailSendMsgSyncRMAPTRIGGER( pxNFeeP->ucId );
+					}
+
+					#ifdef DEBUG_ON
+						fprintf(fp," - Mode Forced.\n");
+					#endif
+				}
+
+				/* Clear the trigger */
+				bRmapGetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+				pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig = ( pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig & 0xFFFFFFFB);
+				bRmapSetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+			}
+
+			break;
+		case 0x0000004E://0x00000040:dac_control
+		case 0x0000004F://0x00000044:clock_source_control
+		case 0x00000050://0x00000048:frame_number
+		case 0x00000051://0x0000004C:current_mode
+		default:
+			#ifdef DEBUG_ON
+				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
+			#endif
+			break;
+		}
+
+
+
+}
+
+
+
+
+
 bool bDisableRmapIRQ( TRmapChannel *pxRmapCh ) {
-	/* Disable SPW channel */
+	/* Disable RMAP channel */
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteCmdEn = FALSE;
 	bRmapSetIrqControl(pxRmapCh);
@@ -597,7 +910,10 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh ) {
 }
 
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh ) {
-	/* Disable SPW channel */
+	/* Enable RMAP */
+	/* Before Enable the IRQ for Rmap, make a copy for compare when some command arrive */
+	bRmapGetMemConfigArea(&RmapConfAreaL);
+
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteCmdEn = TRUE;
 	bRmapSetIrqControl(pxRmapCh);
@@ -637,6 +953,11 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
 
 	/* Start the module Double Buffer */
 	bFeebStartCh(pxFeebCh);
+
+	/*Enable IRQ of FEE Buffer*/
+	bFeebGetWindowing(pxFeebCh);
+	pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
+	bFeebSetWindowing(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
@@ -715,6 +1036,27 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 
 	return bSuccesL;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #ifdef DEBUG_ON

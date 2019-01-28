@@ -15,9 +15,6 @@
 
 
 
-#define N_OF_NFEE       1	/* ONLY for tests */
-#define N_OF_FastFEE    2
-
 #define N_OF_MSG_QUEUE 	12 	/* N_OF_NFEE * 2 => Two empty buffer ISRs */
 #define N_MSG_FEE		4	/* The FEE entities will receive comands through the Queue, and this define is the length */
 

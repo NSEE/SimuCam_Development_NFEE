@@ -96,6 +96,8 @@ void vFailCreateNFEESyncQueue( unsigned char ucID );
 void vFailSendMsgSync( unsigned char ucTemp);
 void vFailSendMsgMasterSyncMeb( void );
 void vFailRequestDMAFromIRQ( unsigned char ucTemp);
+void vFailSendRMAPFromIRQ( unsigned char ucTemp);
+void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp);
 
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

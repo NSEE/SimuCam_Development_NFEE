@@ -21,6 +21,12 @@
 
 
 
+#define N_OF_NFEE       1	/* ONLY for tests */
+#define N_OF_FastFEE    2
+
+#define DATA_PACKET		FALSE	/* Using data packet or Transparent mode ( 0 ) */
+
+
 #ifndef bool
 	//typedef short int bool;
 	//typedef enum e_bool { false = 0, true = 1 } bool;

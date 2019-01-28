@@ -182,7 +182,7 @@ void vNFeeControlTask(void *task_data) {
 						}
 					}
 				}
-				OSTimeDlyHMSM(0,0,0,10); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				OSTimeDlyHMSM(0,0,0,20); /*remover!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				break;		
 			default:
 				#ifdef DEBUG_ON

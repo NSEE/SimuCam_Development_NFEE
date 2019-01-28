@@ -1082,10 +1082,33 @@ void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 }
 
 
+void vFailSendRMAPFromIRQ( unsigned char ucTemp)
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailSendRMAPFromIRQ. FEE n: \n", ucTemp);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
 void vFailSendMsgSync( unsigned char ucTemp)
 {
 	#ifdef DEBUG_ON
 		fprintf(fp,"vFailSendMsgSync. FEE n: \n", ucTemp);
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
+{
+	#ifdef DEBUG_ON
+		fprintf(fp,"vFailSendMsgSyncRMAPTRIGGER (FORCED MODE). FEE n: \n", ucTemp);
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
