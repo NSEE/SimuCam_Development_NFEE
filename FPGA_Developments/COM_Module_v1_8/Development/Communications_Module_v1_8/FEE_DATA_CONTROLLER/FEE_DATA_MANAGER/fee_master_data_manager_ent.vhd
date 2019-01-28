@@ -99,6 +99,7 @@ architecture RTL of fee_master_data_manager_ent is
 		HK_DATA_START,
 		WAITING_HK_DATA_FINISH,
 		WAITING_HK_TRANSMITTER_FINISH,
+		WAITING_IMG_DATA_START,
 		IMG_HEADER_START,
 		WAITING_IMG_HEADER_FINISH,
 		IMG_DATA_START,
@@ -138,7 +139,7 @@ architecture RTL of fee_master_data_manager_ent is
 	signal s_fee_sequence_counter         : std_logic_vector(15 downto 0);
 	signal s_fee_current_packet_data_size : std_logic_vector(15 downto 0);
 	signal s_last_packet_flag             : std_logic;
-	
+
 begin
 
 	p_fee_data_manager : process(clk_i, rst_i) is
@@ -372,7 +373,7 @@ begin
 						-- clear the last packet flag
 						s_last_packet_flag            <= '0';
 						-- set the remaining data bytes counter to the image data size 
-						s_fee_remaining_data_bytes    <= std_logic_vector(resize(unsigned(fee_ccd_x_size_i) * unsigned(fee_data_y_size_i) * 2, s_fee_remaining_data_bytes'length));
+						s_fee_remaining_data_bytes    <= (others => '0');
 						-- go to img header start
 						s_fee_data_manager_state      <= WAITING_HK_TRANSMITTER_FINISH;
 					end if;
@@ -401,14 +402,49 @@ begin
 					imgdata_start_o                      <= '0';
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
+					-- clear the last packet flag
+					s_last_packet_flag                   <= '0';
+					-- set the remaining data bytes counter to the image data size 
+					s_fee_remaining_data_bytes           <= (others => '0');
 					-- check if the data transmitter is finished
 					if (data_transmitter_finished_i = '1') then
 						-- data transmitter finished
 						-- signal the start of the imgdata cycle
 						imgdata_start_o          <= '1';
 						-- go to img header start
-						s_fee_data_manager_state <= IMG_HEADER_START;
+						s_fee_data_manager_state <= WAITING_IMG_DATA_START;
 					end if;
+
+				when WAITING_IMG_DATA_START =>
+					-- wait for a indication that the img data has started (sincronize the slave and master module)
+					-- for master: go to img header state
+					-- for slave: wait a img data started flag
+					s_fee_data_manager_state             <= IMG_HEADER_START;
+					headerdata_logical_address_o         <= (others => '0');
+					headerdata_length_field_o            <= (others => '0');
+					headerdata_type_field_mode_o         <= (others => '0');
+					headerdata_type_field_last_packet_o  <= '0';
+					headerdata_type_field_ccd_side_o     <= '0';
+					headerdata_type_field_ccd_number_o   <= (others => '0');
+					headerdata_type_field_frame_number_o <= (others => '0');
+					headerdata_type_field_packet_type_o  <= (others => '0');
+					headerdata_frame_counter_o           <= (others => '0');
+					headerdata_sequence_counter_o        <= (others => '0');
+					header_gen_send_o                    <= '0';
+					header_gen_reset_o                   <= '0';
+					housekeeping_wr_start_o              <= '0';
+					housekeeping_wr_reset_o              <= '0';
+					data_wr_start_o                      <= '0';
+					data_wr_reset_o                      <= '0';
+					data_wr_length_o                     <= (others => '0');
+					send_buffer_fee_data_loaded_o        <= '0';
+					imgdata_start_o                      <= '0';
+					-- keep the masking machine released
+					masking_machine_hold_o               <= '0';
+					-- clear the last packet flag
+					s_last_packet_flag                   <= '0';
+					-- set the remaining data bytes counter to the image data size 
+					s_fee_remaining_data_bytes           <= std_logic_vector(resize(unsigned(fee_ccd_x_size_i) * unsigned(fee_data_y_size_i) * 2, s_fee_remaining_data_bytes'length));
 
 				when IMG_HEADER_START =>
 					-- start the img header generation

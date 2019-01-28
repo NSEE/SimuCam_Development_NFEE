@@ -56,7 +56,7 @@ architecture RTL of fee_slave_data_controller_top is
 	--	signal s_current_frame_counter              : std_logic_vector(15 downto 0);
 	-- masking machine signals
 	signal s_masking_machine_hold               : std_logic;
---	signal s_masking_buffer_clear               : std_logic;
+	--	signal s_masking_buffer_clear               : std_logic;
 	signal s_masking_buffer_rdreq               : std_logic;
 	signal s_masking_buffer_almost_empty        : std_logic;
 	signal s_masking_buffer_empty               : std_logic;
@@ -89,7 +89,7 @@ architecture RTL of fee_slave_data_controller_top is
 	signal s_send_buffer_data_wr_wrreq          : std_logic;
 	-- send buffer signals
 	signal s_send_buffer_fee_data_loaded        : std_logic;
---	signal s_send_buffer_clear                  : std_logic;
+	--	signal s_send_buffer_clear                  : std_logic;
 	signal s_send_buffer_wrdata                 : std_logic_vector(7 downto 0);
 	signal s_send_buffer_wrreq                  : std_logic;
 	signal s_send_buffer_rdreq                  : std_logic;
@@ -103,7 +103,15 @@ architecture RTL of fee_slave_data_controller_top is
 	-- data transmitter signals
 	signal s_data_transmitter_busy              : std_logic;
 	signal s_data_transmitter_finished          : std_logic;
---	signal s_data_transmitter_reset             : std_logic;
+	--	signal s_data_transmitter_reset             : std_logic;
+	-- registered data pkt config signals (for the entire read-out)
+	signal s_registered_fee_ccd_x_size_i        : std_logic_vector(15 downto 0);
+	signal s_registered_fee_ccd_y_size_i        : std_logic_vector(15 downto 0);
+	signal s_registered_fee_data_y_size_i       : std_logic_vector(15 downto 0);
+	signal s_registered_fee_overscan_y_size_i   : std_logic_vector(15 downto 0);
+	signal s_registered_fee_packet_length_i     : std_logic_vector(15 downto 0);
+	signal s_registered_fee_fee_mode_i          : std_logic_vector(2 downto 0);
+	signal s_registered_fee_ccd_number_i        : std_logic_vector(1 downto 0);
 
 begin
 
@@ -154,6 +162,7 @@ begin
 			fee_fee_mode_i                       => data_pkt_fee_mode_i,
 			fee_ccd_number_i                     => data_pkt_ccd_number_i,
 			fee_ccd_side_i                       => g_FEE_CCD_SIDE,
+			imgdata_start_i                      => fee_slave_imgdata_start_i,
 			header_gen_finished_i                => s_header_gen_finished,
 			data_wr_finished_i                   => s_data_wr_finished,
 			masking_machine_hold_o               => s_masking_machine_hold,
@@ -260,7 +269,7 @@ begin
 			fee_clear_signal_i              => fee_machine_clear_i,
 			fee_stop_signal_i               => fee_machine_stop_i,
 			fee_start_signal_i              => fee_machine_start_i,
---			data_transmitter_reset_i        => s_data_transmitter_reset,
+			--			data_transmitter_reset_i        => s_data_transmitter_reset,
 			send_buffer_stat_almost_empty_i => s_send_buffer_stat_almost_empty,
 			send_buffer_stat_empty_i        => s_send_buffer_stat_empty,
 			send_buffer_rddata_i            => s_send_buffer_rddata,
@@ -273,5 +282,28 @@ begin
 			spw_tx_flag_o                   => fee_spw_tx_flag_o,
 			spw_tx_data_o                   => fee_spw_tx_data_o
 		);
+	p_register_data_pkt_config : process(clk_i, rst_i) is
+	begin
+		if (rst_i = '1') then
+			s_registered_fee_ccd_x_size_i      <= std_logic_vector(to_unsigned(2295, 16));
+			s_registered_fee_ccd_y_size_i      <= std_logic_vector(to_unsigned(4540, 16));
+			s_registered_fee_data_y_size_i     <= std_logic_vector(to_unsigned(4510, 16));
+			s_registered_fee_overscan_y_size_i <= std_logic_vector(to_unsigned(30, 16));
+			s_registered_fee_packet_length_i   <= std_logic_vector(to_unsigned(32768, 16));
+			s_registered_fee_fee_mode_i        <= std_logic_vector(to_unsigned(1, 3));
+			s_registered_fee_ccd_number_i      <= std_logic_vector(to_unsigned(0, 2));
+		elsif rising_edge(clk_i) then
+			-- check if a sync signal was received
+			if (fee_sync_signal_i = '1') then
+				s_registered_fee_ccd_x_size_i      <= data_pkt_ccd_x_size_i;
+				s_registered_fee_ccd_y_size_i      <= data_pkt_ccd_y_size_i;
+				s_registered_fee_data_y_size_i     <= data_pkt_data_y_size_i;
+				s_registered_fee_overscan_y_size_i <= data_pkt_overscan_y_size_i;
+				s_registered_fee_packet_length_i   <= data_pkt_packet_length_i;
+				s_registered_fee_fee_mode_i        <= data_pkt_fee_mode_i;
+				s_registered_fee_ccd_number_i      <= data_pkt_ccd_number_i;
+			end if;
+		end if;
+	end process p_register_data_pkt_config;
 
 end architecture RTL;

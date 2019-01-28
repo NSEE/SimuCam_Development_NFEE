@@ -440,7 +440,7 @@ begin
 			s_registered_fee_ccd_number_i      <= std_logic_vector(to_unsigned(0, 2));
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
-			if (fee_sync_signal_i) then
+			if (fee_sync_signal_i = '1') then
 				s_registered_fee_ccd_x_size_i      <= data_pkt_ccd_x_size_i;
 				s_registered_fee_ccd_y_size_i      <= data_pkt_ccd_y_size_i;
 				s_registered_fee_data_y_size_i     <= data_pkt_data_y_size_i;

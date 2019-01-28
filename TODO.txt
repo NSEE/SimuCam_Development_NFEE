@@ -2,10 +2,12 @@
 
 -- colocar restrição de buffer empty na lib do dma
 
--- acertar rmap last addr (offset)
+x -- acertar rmap last addr (offset)
 
--- verificar interrupçao de buffer empty (dois ciclos? - detector de borda)
+x -- verificar interrupçao de buffer empty (dois ciclos? - detector de borda)
 
--- adaptar slave com as mesmas condições do master
+x -- adaptar slave com as mesmas condições do master
 
 -- unificar funções de set buffer size
+
+

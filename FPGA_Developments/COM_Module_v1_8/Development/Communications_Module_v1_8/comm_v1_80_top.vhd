@@ -736,34 +736,30 @@ begin
 	avalon_slave_windowing_waitrequest <= ((s_avalon_mm_windwoing_read_waitrequest) and (s_avalon_mm_windwoing_write_waitrequest) and (s_avalon_mm_rmap_mem_read_waitrequest) and (s_avalon_mm_rmap_mem_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	p_rmap_last_addr : process(a_avs_clock, a_reset) is
-		variable v_write_authorized : std_logic := '0';
-		variable v_read_authorized  : std_logic := '0';
+		variable v_write_addr_recorded : std_logic := '0';
+		variable v_read_addr_recorded  : std_logic := '0';
 	begin
 		if (a_reset) = '1' then
 			s_spacewire_read_registers.rmap_last_write_addr_reg.rmap_last_write_addr <= (others => '0');
 			s_spacewire_read_registers.rmap_last_read_addr_reg.rmap_last_read_addr   <= (others => '0');
-			v_write_authorized                                                       := '0';
-			v_read_authorized                                                        := '0';
+			v_write_addr_recorded                                                    := '0';
+			v_read_addr_recorded                                                     := '0';
 		elsif rising_edge(a_avs_clock) then
-			if (v_write_authorized = '1') then
-				if (s_rmap_mem_control.write.write = '1') then
+			if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized = '1') then
+				if ((s_rmap_mem_control.write.write = '1') and (v_write_addr_recorded = '0')) then
 					s_spacewire_read_registers.rmap_last_write_addr_reg.rmap_last_write_addr <= s_rmap_mem_wr_byte_address;
-					v_write_authorized                                                       := '0';
+					v_write_addr_recorded                                                    := '1';
 				end if;
 			else
-				if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized = '1') then
-					v_write_authorized := '1';
-				end if;
+				v_write_addr_recorded := '0';
 			end if;
-			if (v_read_authorized = '1') then
-				if (s_rmap_mem_control.read.read = '1') then
+			if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized = '1') then
+				if ((s_rmap_mem_control.read.read = '1') and (v_read_addr_recorded = '0')) then
 					s_spacewire_read_registers.rmap_last_read_addr_reg.rmap_last_read_addr <= s_rmap_mem_rd_byte_address;
-					v_read_authorized                                                      := '0';
+					v_read_addr_recorded                                                   := '1';
 				end if;
 			else
-				if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized = '1') then
-					v_read_authorized := '1';
-				end if;
+				v_read_addr_recorded := '0';
 			end if;
 		end if;
 	end process p_rmap_last_addr;
@@ -811,8 +807,9 @@ begin
 	s_spacewire_read_registers.spw_timecode_reg.timecode_time    <= s_timecode_counter;
 
 	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
-		variable v_fee_right_buffer_irq_counter : natural range 0 to 2 := 0;
-		variable v_fee_left_buffer_irq_counter  : natural range 0 to 2 := 0;
+		--		variable v_fee_buffer_irq_counter : natural range 0 to 4 := 0;
+		variable v_fee_buffer_irq_counter : natural range 0 to 2 := 0;
+		variable v_flag_clear_delayed     : std_logic            := '0';
 	begin
 		if (a_reset) = '1' then
 			s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
@@ -820,32 +817,34 @@ begin
 			s_R_buffer_1_empty_delayed                                           <= '0';
 			s_L_buffer_0_empty_delayed                                           <= '0';
 			s_L_buffer_1_empty_delayed                                           <= '0';
-			v_fee_right_buffer_irq_counter                                       := 0;
-			v_fee_left_buffer_irq_counter                                        := 0;
+			v_fee_buffer_irq_counter                                             := 0;
+			v_flag_clear_delayed                                                 := '0';
 		elsif rising_edge(a_avs_clock) then
-			-- check if a flag clear command was received
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear = '1') then
+			-- check if a flag clear command was received (rising edge)
+			if ((s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear = '1') and (v_flag_clear_delayed = '0')) then
 				-- flag clear command received
 				-- check if the interrupt counter is cleared
-				if ((v_fee_right_buffer_irq_counter + v_fee_left_buffer_irq_counter) = 0) then
+				if ((v_fee_buffer_irq_counter + v_fee_buffer_irq_counter) = 0) then
 					-- interrupt counter is cleared, flag clear
 					s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
 				else
 					-- interrupt counter is not cleared, decrement interrupt counter
-					-- TODO: revisar
-					if (v_fee_right_buffer_irq_counter > 0) then
-						v_fee_right_buffer_irq_counter := v_fee_right_buffer_irq_counter - 1;
+					if (v_fee_buffer_irq_counter > 0) then
+						v_fee_buffer_irq_counter := v_fee_buffer_irq_counter - 1;
 					end if;
-					if (v_fee_left_buffer_irq_counter > 0) then
-						v_fee_left_buffer_irq_counter := v_fee_left_buffer_irq_counter - 1;
+					if (v_fee_buffer_irq_counter > 0) then
+						v_fee_buffer_irq_counter := v_fee_buffer_irq_counter - 1;
 					end if;
 					-- check if the interrupt counter cleared
-					if ((v_fee_right_buffer_irq_counter + v_fee_left_buffer_irq_counter) = 0) then
+					if ((v_fee_buffer_irq_counter + v_fee_buffer_irq_counter) = 0) then
 						-- interrupt counter cleared, flag clear
 						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '0';
 					end if;
 				end if;
 			end if;
+			-- update the flag clear delayed
+			v_flag_clear_delayed       := s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear;
+			--
 			-- check if the global interrupt is enabled
 			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
 				-- check if the R empty buffer interrupt is activated
@@ -853,16 +852,12 @@ begin
 					-- detect a rising edge in of the R buffer 0 empty signals
 					if (((s_R_buffer_0_empty_delayed = '0') and (s_R_buffer_0_empty = '1'))) then
 						-- R buffer 0 become empty, increment interrupt counter
-						v_fee_right_buffer_irq_counter := v_fee_right_buffer_irq_counter + 1;
+						v_fee_buffer_irq_counter := v_fee_buffer_irq_counter + 1;
 					end if;
 					-- detect a rising edge in of the R buffer 1 empty signals
 					if (((s_R_buffer_1_empty_delayed = '0') and (s_R_buffer_1_empty = '1'))) then
 						-- R buffer 1 become empty, increment interrupt counter
-						v_fee_right_buffer_irq_counter := v_fee_right_buffer_irq_counter + 1;
-					end if;
-					-- set interrupt flag based on the interrupt counter 
-					if (v_fee_right_buffer_irq_counter > 0) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
+						v_fee_buffer_irq_counter := v_fee_buffer_irq_counter + 1;
 					end if;
 				end if;
 				-- check if the L empty buffer interrupt is activated
@@ -870,17 +865,17 @@ begin
 					-- detect a rising edge in of the L buffer 0 empty signals
 					if (((s_L_buffer_0_empty_delayed = '0') and (s_L_buffer_0_empty = '1'))) then
 						-- L buffer 0 become empty, increment interrupt counter
-						v_fee_left_buffer_irq_counter := v_fee_left_buffer_irq_counter + 1;
+						v_fee_buffer_irq_counter := v_fee_buffer_irq_counter + 1;
 					end if;
 					-- detect a rising edge in of the L buffer 1 empty signals
 					if (((s_L_buffer_1_empty_delayed = '0') and (s_L_buffer_1_empty = '1'))) then
 						-- L buffer 1 become empty, increment interrupt counter
-						v_fee_left_buffer_irq_counter := v_fee_left_buffer_irq_counter + 1;
+						v_fee_buffer_irq_counter := v_fee_buffer_irq_counter + 1;
 					end if;
-					-- set interrupt flag based on the interrupt counter 
-					if (v_fee_left_buffer_irq_counter > 0) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
-					end if;
+				end if;
+				-- set interrupt flag based on the interrupt counter 
+				if (v_fee_buffer_irq_counter > 0) then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_buffer_empty_flag <= '1';
 				end if;
 			end if;
 			-- delay signals
