@@ -47,23 +47,23 @@ module MebX_Qsys_Project_mm_interconnect_1_router_default_decode
      parameter DEFAULT_CHANNEL = 1,
                DEFAULT_WR_CHANNEL = -1,
                DEFAULT_RD_CHANNEL = -1,
-               DEFAULT_DESTID = 16 
+               DEFAULT_DESTID = 4 
    )
-  (output [107 - 103 : 0] default_destination_id,
-   output [18-1 : 0] default_wr_channel,
-   output [18-1 : 0] default_rd_channel,
-   output [18-1 : 0] default_src_channel
+  (output [103 - 101 : 0] default_destination_id,
+   output [6-1 : 0] default_wr_channel,
+   output [6-1 : 0] default_rd_channel,
+   output [6-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[107 - 103 : 0];
+    DEFAULT_DESTID[103 - 101 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 18'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 6'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module MebX_Qsys_Project_mm_interconnect_1_router_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 18'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 18'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 6'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 6'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [121-1 : 0]    sink_data,
+    input  [117-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module MebX_Qsys_Project_mm_interconnect_1_router
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [121-1    : 0] src_data,
-    output reg [18-1 : 0] src_channel,
+    output reg [117-1    : 0] src_data,
+    output reg [6-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -114,12 +114,12 @@ module MebX_Qsys_Project_mm_interconnect_1_router
     // -------------------------------------------------------
     localparam PKT_ADDR_H = 68;
     localparam PKT_ADDR_L = 36;
-    localparam PKT_DEST_ID_H = 107;
-    localparam PKT_DEST_ID_L = 103;
-    localparam PKT_PROTECTION_H = 111;
-    localparam PKT_PROTECTION_L = 109;
-    localparam ST_DATA_W = 121;
-    localparam ST_CHANNEL_W = 18;
+    localparam PKT_DEST_ID_H = 103;
+    localparam PKT_DEST_ID_L = 101;
+    localparam PKT_PROTECTION_H = 107;
+    localparam PKT_PROTECTION_L = 105;
+    localparam ST_DATA_W = 117;
+    localparam ST_CHANNEL_W = 6;
     localparam DECODER_TYPE = 0;
 
     localparam PKT_TRANS_WRITE = 71;
@@ -165,7 +165,7 @@ module MebX_Qsys_Project_mm_interconnect_1_router
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
     wire [PKT_DEST_ID_W-1:0] default_destid;
-    wire [18-1 : 0] default_src_channel;
+    wire [6-1 : 0] default_src_channel;
 
 
 
@@ -191,14 +191,14 @@ module MebX_Qsys_Project_mm_interconnect_1_router
 
     // ( 0x0 .. 0x80000000 )
     if ( {address[RG:PAD0],{PAD0{1'b0}}} == 32'h0   ) begin
-            src_channel = 18'b10;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 16;
+            src_channel = 6'b10;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 4;
     end
 
     // ( 0x80000000 .. 0x100000000 )
     if ( {address[RG:PAD1],{PAD1{1'b0}}} == 32'h80000000   ) begin
-            src_channel = 18'b01;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 17;
+            src_channel = 6'b01;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 5;
     end
 
 end
