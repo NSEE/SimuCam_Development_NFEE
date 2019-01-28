@@ -118,11 +118,12 @@ enum SdmaChBufferId {
 //! [public function prototypes]
 bool bSdmaInitM1Dma(void);
 bool bSdmaInitM2Dma(void);
-bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
-		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
-bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
-		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
-bool bSdmaSetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
+		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
+		alt_u8 ucChBufferId);
+bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
+		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
+		alt_u8 ucChBufferId);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
