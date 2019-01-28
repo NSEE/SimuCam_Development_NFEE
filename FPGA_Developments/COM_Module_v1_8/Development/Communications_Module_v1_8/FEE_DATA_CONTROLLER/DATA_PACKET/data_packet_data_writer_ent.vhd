@@ -35,6 +35,7 @@ architecture RTL of data_packet_data_writer_ent is
 		IDLE,
 		WAITING_SEND_BUFFER_SPACE,
 		FETCH_DATA,
+		DELAY,
 		WRITE_DATA,
 		DATA_WRITER_FINISH
 	);
@@ -119,6 +120,14 @@ begin
 				-- state "FETCH_DATA"
 				when FETCH_DATA =>
 					-- fetch data from the masking buffer
+					-- default state transition
+					s_data_writer_state <= DELAY;
+					v_data_writer_state := DELAY;
+				-- default internal signal values
+				-- conditional state transition
+				
+				-- state "DELAY"
+				when DELAY =>
 					-- default state transition
 					s_data_writer_state <= WRITE_DATA;
 					v_data_writer_state := WRITE_DATA;
@@ -209,6 +218,17 @@ begin
 					send_buffer_wrdata_o   <= x"00";
 					send_buffer_wrreq_o    <= '0';
 				-- conditional output signals
+				
+				-- state "DELAY"
+				when DELAY =>
+					-- default state transition
+					-- default output signals
+					data_wr_busy_o         <= '1';
+					data_wr_finished_o     <= '0';
+					-- fetch data from masking buffer
+					masking_buffer_rdreq_o <= '0';
+					send_buffer_wrdata_o   <= x"00";
+					send_buffer_wrreq_o    <= '0';
 
 				-- state "WRITE_DATA"
 				when WRITE_DATA =>

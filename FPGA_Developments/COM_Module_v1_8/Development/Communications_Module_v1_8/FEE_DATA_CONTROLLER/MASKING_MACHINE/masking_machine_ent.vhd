@@ -40,6 +40,7 @@ architecture RTL of masking_machine_ent is
 	-- function to change the timecode from the pattern pixels
 	function f_pixel_msb_change_timecode(pixel_msb_i : in std_logic_vector; timecode_i : in std_logic_vector) return std_logic_vector is
 		variable v_new_pixel_msb : std_logic_vector(7 downto 0);
+		variable v_old_pixel_msb : std_logic_vector(7 downto 0);
 	begin
 
 		-- generic pixel pattern (according to PLATO-DLR-PL-ICD-0002, issue 1.2):
@@ -58,9 +59,11 @@ architecture RTL of masking_machine_ent is
 		-- s_new_pixel_msb(7 downto 5) <= s_timecode(2 downto 0);
 		-- s_new_pixel_msb(4 downto 0) <= s_old_pixel_msb(4 downto 0);
 
+		-- set old pixel data (vector slide conflict resolution)
+		v_old_pixel_msb             := pixel_msb_i;
 		-- timecode pixel msb replacement:
 		v_new_pixel_msb(7 downto 5) := timecode_i(2 downto 0);
-		v_new_pixel_msb(4 downto 0) := pixel_msb_i(4 downto 0);
+		v_new_pixel_msb(4 downto 0) := v_old_pixel_msb(4 downto 0);
 
 		return v_new_pixel_msb;
 	end function f_pixel_msb_change_timecode;
@@ -166,7 +169,7 @@ begin
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
-						s_masking_machine_state <= IDLE;
+						s_masking_machine_state <= NOT_STARTED;
 					end if;
 
 				when NOT_STARTED =>
@@ -174,7 +177,7 @@ begin
 					window_mask_read_o         <= '0';
 					s_masking_fifo.data        <= (others => '0');
 					s_masking_fifo.wrreq       <= '0';
-					s_masking_machine_state    <= STOPPED;
+					s_masking_machine_state    <= NOT_STARTED;
 					s_registered_window_data   <= (others => '0');
 					s_registered_window_mask   <= (others => '0');
 					s_mask_counter             <= 0;
@@ -200,6 +203,10 @@ begin
 
 				when MASK_FETCH =>
 					-- check if the delay for the data fetch already happened
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					if (s_delay = '1') then
 						-- delay happened
 						s_delay                  <= '0';
@@ -215,6 +222,10 @@ begin
 
 				when DATA_FETCH =>
 					-- check if the delay for the data fetch already happened
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					if (s_delay = '1') then
 						-- delay happened
 						s_delay                  <= '0';
@@ -229,6 +240,10 @@ begin
 
 				when PIXEL_0_BYTE_MSB =>
 					s_masking_machine_state <= PIXEL_0_BYTE_MSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -244,6 +259,10 @@ begin
 
 				when PIXEL_0_BYTE_LSB =>
 					s_masking_machine_state <= PIXEL_0_BYTE_LSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -260,6 +279,10 @@ begin
 
 				when PIXEL_1_BYTE_MSB =>
 					s_masking_machine_state <= PIXEL_1_BYTE_MSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -275,6 +298,10 @@ begin
 
 				when PIXEL_1_BYTE_LSB =>
 					s_masking_machine_state <= PIXEL_1_BYTE_LSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -291,6 +318,10 @@ begin
 
 				when PIXEL_2_BYTE_MSB =>
 					s_masking_machine_state <= PIXEL_2_BYTE_MSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -306,6 +337,10 @@ begin
 
 				when PIXEL_2_BYTE_LSB =>
 					s_masking_machine_state <= PIXEL_2_BYTE_LSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -322,6 +357,10 @@ begin
 
 				when PIXEL_3_BYTE_MSB =>
 					s_masking_machine_state <= PIXEL_3_BYTE_MSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space
@@ -337,6 +376,10 @@ begin
 
 				when PIXEL_3_BYTE_LSB =>
 					s_masking_machine_state <= PIXEL_3_BYTE_LSB;
+					window_data_read_o         <= '0';
+					window_mask_read_o         <= '0';
+					s_masking_fifo.data        <= (others => '0');
+					s_masking_fifo.wrreq       <= '0';
 					-- check if masking fifo is not full
 					if (s_masking_fifo.full = '0') then
 						-- masking fifo has space

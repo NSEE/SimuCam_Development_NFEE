@@ -46,8 +46,11 @@ architecture RTL of avalon_buffer_L_stimuli is
 		return v_next_data;
 	end function f_next_data;
 
-	constant c_RESET_DATA : natural := 255;
-	constant c_FINAL_DATA : natural := 1;
+--	constant c_RESET_DATA : natural := 255;
+--	constant c_FINAL_DATA : natural := 1;
+
+	constant c_RESET_DATA : natural := 0;
+	constant c_FINAL_DATA : natural := 255;
 
 	signal s_counter     : natural                                     := 0;
 	signal s_address_cnt : natural range 0 to (2**g_ADDRESS_WIDTH - 1) := 0;
@@ -90,22 +93,39 @@ begin
 					v_registered_data     := (others => '0');
 					if (s_mask_cnt < 16) then
 						s_mask_cnt                      <= s_mask_cnt + 1;
+--						v_registered_data(7 downto 0)   := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(15 downto 8)  := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(23 downto 16) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(31 downto 24) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(39 downto 32) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(47 downto 40) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(55 downto 48) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+--						v_registered_data(63 downto 56) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+
 						v_registered_data(7 downto 0)   := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(15 downto 8)  := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(23 downto 16) := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(31 downto 24) := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(39 downto 32) := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(47 downto 40) := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(55 downto 48) := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(63 downto 56) := std_logic_vector(to_unsigned(v_data_cnt, 8));
-						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '0');
+						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 					else
 						s_mask_cnt        <= 0;
 						v_registered_data := (others => '1');
@@ -123,9 +143,9 @@ begin
 					s_counter     <= 2500;
 					s_address_cnt <= s_address_cnt + 1;
 					--if (s_address_cnt = (2**g_ADDRESS_WIDTH - 2)) then
---					if (s_address_cnt = (1020 - 1)) then
+					if (s_address_cnt = (1020 - 1)) then
 --					if (s_address_cnt = (272 - 1)) then
-					if (s_address_cnt = (68 - 1)) then
+--					if (s_address_cnt = (68 - 1)) then
 						if (s_times_cnt < 1) then
 --							s_counter     <= 2000;
 							s_address_cnt <= 0;

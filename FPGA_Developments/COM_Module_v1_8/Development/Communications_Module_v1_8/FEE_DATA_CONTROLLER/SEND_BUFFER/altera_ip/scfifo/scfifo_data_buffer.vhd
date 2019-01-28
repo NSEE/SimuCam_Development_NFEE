@@ -112,8 +112,8 @@ BEGIN
 	scfifo_component : scfifo
 	GENERIC MAP (
 		add_ram_output_register => "OFF",
-		almost_empty_value => 1,
-		almost_full_value => 32767,
+		almost_empty_value => 2,
+		almost_full_value => 32766,
 		intended_device_family => "Stratix IV",
 		lpm_numwords => 32768,
 		lpm_showahead => "OFF",

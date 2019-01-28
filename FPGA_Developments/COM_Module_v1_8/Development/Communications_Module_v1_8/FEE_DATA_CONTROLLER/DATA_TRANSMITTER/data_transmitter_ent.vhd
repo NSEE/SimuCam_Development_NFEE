@@ -32,6 +32,7 @@ architecture RTL of data_transmitter_ent is
 		IDLE,
 		WAITING_DATA_BUFFER_SPACE,
 		FETCH_DATA,
+		DELAY,
 		TRANSMIT_DATA,
 		WAITING_EOP_BUFFER_SPACE,
 		TRANSMIT_EOP,
@@ -112,6 +113,14 @@ begin
 				-- state "FETCH_DATA"
 				when FETCH_DATA =>
 					-- fetch data from the send buffer
+					-- default state transition
+					s_data_transmitter_state <= DELAY;
+					v_data_transmitter_state := DELAY;
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "DELAY"
+				when DELAY =>
 					-- default state transition
 					s_data_transmitter_state <= TRANSMIT_DATA;
 					v_data_transmitter_state := TRANSMIT_DATA;
@@ -220,6 +229,19 @@ begin
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
 				-- conditional output signals
+
+				-- state "DELAY"
+				when DELAY =>
+					-- default state transition
+					data_transmitter_busy_o     <= '1';
+					data_transmitter_finished_o <= '0';
+					-- fetch data from send buffer
+					send_buffer_rdreq_o         <= '0';
+					spw_tx_write_o              <= '0';
+					spw_tx_flag_o               <= '0';
+					spw_tx_data_o               <= x"00";
+				-- default internal signal values
+				-- conditional state transition
 
 				-- state "TRANSMIT_DATA"
 				when TRANSMIT_DATA =>

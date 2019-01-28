@@ -138,7 +138,7 @@ architecture RTL of fee_master_data_manager_ent is
 	signal s_fee_sequence_counter         : std_logic_vector(15 downto 0);
 	signal s_fee_current_packet_data_size : std_logic_vector(15 downto 0);
 	signal s_last_packet_flag             : std_logic;
-
+	
 begin
 
 	p_fee_data_manager : process(clk_i, rst_i) is
@@ -380,9 +380,6 @@ begin
 				when WAITING_HK_TRANSMITTER_FINISH =>
 					-- wait for the data transmitter to finish, to release the slave fee data controller for operation
 					s_fee_data_manager_state             <= WAITING_HK_TRANSMITTER_FINISH;
-					s_fee_remaining_data_bytes           <= (others => '0');
-					s_fee_current_packet_data_size       <= (others => '0');
-					s_last_packet_flag                   <= '0';
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
@@ -656,7 +653,7 @@ begin
 
 				when WAITING_OVER_DATA_FINISH =>
 					-- wait for the data writer to finish
-					s_fee_data_manager_state             <= WAITING_IMG_DATA_FINISH;
+					s_fee_data_manager_state             <= WAITING_OVER_DATA_FINISH;
 					headerdata_logical_address_o         <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
