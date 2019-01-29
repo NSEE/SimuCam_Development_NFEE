@@ -46,9 +46,13 @@ begin
 			spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length             <= std_logic_vector(to_unsigned(32768, 16));
 			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= std_logic_vector(to_unsigned(1, 3));
 			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                <= std_logic_vector(to_unsigned(0, 2));
-			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay           <= x"0000";
+			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay           <= std_logic_vector(to_unsigned(900, 16));
 			spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay         <= x"0000";
-			spacewire_write_registers_o.data_packet_pixel_delay_3_reg.data_pkt_adc_delay            <= x"0000";
+			-- PLATO-MSSL-PL-ICD-0002, Issue 3.0, page 16, Figure 3-3 : Video interface ADC operate at @ 2.941 Msps 
+			-- PTO-CCD-E2V-ICD-0019, Issue 3, page 27, Table 10:
+			--   Line transfer time = [82..90] us ==> @10Mhz --> 100 ns -->  delay = 900
+			--   Register clock period = 333 ns ==> @100MHz --> 10 ns --> delay = 33
+			spacewire_write_registers_o.data_packet_pixel_delay_3_reg.data_pkt_adc_delay            <= std_logic_vector(to_unsigned(33, 16));
 			spacewire_write_registers_o.comm_irq_control_reg.comm_rmap_write_command_en             <= '0';
 			spacewire_write_registers_o.comm_irq_control_reg.comm_right_buffer_empty_en             <= '0';
 			spacewire_write_registers_o.comm_irq_control_reg.comm_left_buffer_empty_en              <= '0';
