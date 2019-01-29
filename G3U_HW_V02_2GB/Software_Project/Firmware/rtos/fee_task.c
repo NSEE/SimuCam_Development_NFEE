@@ -460,6 +460,10 @@ void vFeeTask(void *task_data) {
 
 			case sFeeWaitingSync:
 
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE-%hu Task: (sFeeWaitingSync)\n", pxNFee->ucId);
+				#endif
+
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code != OS_ERR_NONE ) {
 					#ifdef DEBUG_ON
@@ -745,9 +749,11 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	INT32U ucValueMasked;
 	INT32U ucValueMasked2;
 
+
 #ifdef DEBUG_ON
-	fprintf(fp,"vQCmdFeeRMAPinStandBy REMOVER\n", pxNFeeP->ucId);
+	fprintf(fp,"\nNFEE %hhu Task: RMAP msg received (StandBy)\n", pxNFeeP->ucId);
 #endif
+
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -906,6 +912,10 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 	INT8U ucValueReg;
 	INT32U ucValueMasked;
 
+	#ifdef DEBUG_ON
+		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received (FullPattern)\n", pxNFeeP->ucId);
+	#endif
+
 	uiCmdFEEL.ulWord = cmd;
 
 	ucADDRReg = uiCmdFEEL.ucByte[1];
@@ -941,7 +951,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 
 					pxNFeeP->xControl.bWatingSync = TRUE;
-					pxNFeeP->xControl.eMode = sFeeTestFullPattern;
+					//pxNFeeP->xControl.eMode = sFeeTestFullPattern;
 					pxNFeeP->xControl.eNextMode = sToFeeStandBy; /* To finish the actual transfer only when sync comes */
 
 					break;
@@ -1011,7 +1021,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 	INT32U ucValueMasked;
 
 	#ifdef DEBUG_ON
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
+		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received (WaitingSync)\n", pxNFeeP->ucId);
 	#endif
 
 	uiCmdFEEL.ulWord = cmd;
@@ -1053,9 +1063,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				}
 
 				/* Clear the trigger */
-				bRmapGetMemConfigArea(&pxNFeeP->xChannel.xRmap);
-				pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig = ( pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig & 0xFFFFFFFB);
-				bRmapSetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+//				bRmapGetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+//				pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig = ( pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig & 0xFFFFFFFB);
+//				bRmapSetMemConfigArea(&pxNFeeP->xChannel.xRmap);
 			}
 
 			break;
