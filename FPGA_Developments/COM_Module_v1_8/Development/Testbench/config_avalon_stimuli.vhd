@@ -87,8 +87,8 @@ begin
 					avalon_mm_write_o        <= '1';
 					avalon_mm_writedata_o    <= (others => '0');
 					avalon_mm_writedata_o(0) <= '0'; -- fee_machine_clear
-					avalon_mm_writedata_o(1) <= '0'; -- fee_machine_stop
-					avalon_mm_writedata_o(2) <= '1'; -- fee_machine_start
+					avalon_mm_writedata_o(1) <= '1'; -- fee_machine_stop
+					avalon_mm_writedata_o(2) <= '0'; -- fee_machine_start
 					avalon_mm_writedata_o(3) <= '1'; -- fee_masking_en
 					avalon_mm_read_o         <= '0';
 
