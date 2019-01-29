@@ -68,6 +68,18 @@ begin
 				--					avalon_mm_writedata_o <= (others => '0');
 				--					avalon_mm_writedata_o(8) <= '1'; -- timecode_clear
 
+				-- spw_link_config_status_reg
+				when 500 to 501 =>
+					-- register write
+					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                   <= '1';
+					avalon_mm_writedata_o               <= (others => '0');
+					avalon_mm_writedata_o(0)            <= '0'; -- spw_lnkcfg_disconnect	
+					avalon_mm_writedata_o(1)            <= '0'; -- spw_lnkcfg_linkstart	
+					avalon_mm_writedata_o(2)            <= '1'; -- spw_lnkcfg_autostart	
+					avalon_mm_writedata_o(31 downto 24) <= x"02"; -- spw_lnkcfg_txdivcnt	
+					avalon_mm_read_o                    <= '0';
+
 				-- fee_windowing_buffers_config_reg
 				when 1000 to 1001 =>
 					-- register write

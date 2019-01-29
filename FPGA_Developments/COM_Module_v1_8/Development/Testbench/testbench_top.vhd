@@ -2,6 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+use work.rmap_target_pkg.all;
+use work.rmap_mem_area_nfee_pkg.all;
+use work.spwpkg.all;
+
 entity testbench_top is
 end entity testbench_top;
 
@@ -14,11 +18,17 @@ architecture RTL of testbench_top is
 
 	-- dut signals
 
-	-- lvds signals
-	signal s_di : std_logic;
-	signal s_do : std_logic;
-	signal s_si : std_logic;
-	signal s_so : std_logic;
+	-- lvds signals (comm)
+	signal s_spw_codec_comm_di : std_logic;
+	signal s_spw_codec_comm_do : std_logic;
+	signal s_spw_codec_comm_si : std_logic;
+	signal s_spw_codec_comm_so : std_logic;
+
+	-- lvds signals (dummy)
+	signal s_spw_codec_dummy_di : std_logic;
+	signal s_spw_codec_dummy_do : std_logic;
+	signal s_spw_codec_dummy_si : std_logic;
+	signal s_spw_codec_dummy_so : std_logic;
 
 	-- spacewire clock signal
 	signal s_spw_clock : std_logic;
@@ -49,6 +59,16 @@ architecture RTL of testbench_top is
 	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
 	signal s_avalon_buffer_L_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(63 downto 0); -- --          .writedata
+
+	--dummy
+	signal s_dummy_spw_tx_flag    : t_rmap_target_spw_tx_flag;
+	signal s_dummy_spw_tx_control : t_rmap_target_spw_tx_control;
+
+	signal s_dummy_spw_rxvalid : std_logic;
+	signal s_dummy_spw_rxhalff : std_logic;
+	signal s_dummy_spw_rxflag  : std_logic;
+	signal s_dummy_spw_rxdata  : std_logic_vector(7 downto 0);
+	signal s_dummy_spw_rxread  : std_logic;
 
 begin
 
@@ -103,10 +123,10 @@ begin
 	comm_v1_01_top_inst : entity work.comm_v1_80_top
 		port map(
 			reset_sink_reset                   => rst,
-			data_in                            => s_di,
-			data_out                           => s_do,
-			strobe_in                          => s_si,
-			strobe_out                         => s_so,
+			data_in                            => s_spw_codec_comm_di,
+			data_out                           => s_spw_codec_comm_do,
+			strobe_in                          => s_spw_codec_comm_si,
+			strobe_out                         => s_spw_codec_comm_so,
 			sync_channel                       => s_sync,
 			rmap_interrupt_sender_irq          => s_irq_rmap,
 			buffers_interrupt_sender_irq       => s_irq_buffers,
@@ -128,10 +148,10 @@ begin
 			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
 		);
 
-	s_di <= s_do;
-	s_si <= s_so;
+	--	s_spw_codec_comm_di <= s_spw_codec_comm_do;
+	--	s_spw_codec_comm_si <= s_spw_codec_comm_so;
 
-	s_spw_clock <= (s_so) xor (s_do);
+	s_spw_clock <= (s_spw_codec_comm_so) xor (s_spw_codec_comm_do);
 
 	p_sync_generator : process(clk100, rst) is
 		variable v_sync_div_cnt : natural := 0;
@@ -149,8 +169,88 @@ begin
 				v_sync_div_cnt := 0;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;
---			s_sync         <= '0';
+			--			s_sync         <= '0';
 		end if;
 	end process p_sync_generator;
+
+	-- spw connection
+	-- SpaceWire Light Codec Component 
+	spw_stimuli_spwstream_inst : entity work.spwstream
+		generic map(
+			sysfreq         => 100000000.0,
+			txclkfreq       => 0.0,
+			rximpl          => impl_generic,
+			rxchunk         => 1,
+			tximpl          => impl_generic,
+			rxfifosize_bits => 11,
+			txfifosize_bits => 11
+		)
+		port map(
+			clk        => clk100,
+			rxclk      => clk100,
+			txclk      => clk100,
+			rst        => rst,
+			autostart  => '1',
+			linkstart  => '1',
+			linkdis    => '0',
+			txdivcnt   => x"01",
+			tick_in    => '0',
+			ctrl_in    => "00",
+			time_in    => "000000",
+			txwrite    => s_dummy_spw_tx_control.write,
+			txflag     => s_dummy_spw_tx_control.flag,
+			txdata     => s_dummy_spw_tx_control.data,
+			txrdy      => s_dummy_spw_tx_flag.ready,
+			txhalff    => open,
+			tick_out   => open,
+			ctrl_out   => open,
+			time_out   => open,
+			rxvalid    => s_dummy_spw_rxvalid,
+			rxhalff    => s_dummy_spw_rxhalff,
+			rxflag     => s_dummy_spw_rxflag,
+			rxdata     => s_dummy_spw_rxdata,
+			rxread     => s_dummy_spw_rxread,
+			started    => open,
+			connecting => open,
+			running    => open,
+			errdisc    => open,
+			errpar     => open,
+			erresc     => open,
+			errcred    => open,
+			spw_di     => s_spw_codec_dummy_di,
+			spw_si     => s_spw_codec_dummy_si,
+			spw_do     => s_spw_codec_dummy_do,
+			spw_so     => s_spw_codec_dummy_so
+		);
+
+	p_codec_dummy_read : process(clk100, rst) is
+		variable v_time_counter : natural := 0;
+		variable v_data_counter : natural := 0;
+	begin
+		if (rst = '1') then
+			s_dummy_spw_rxread <= '0';
+		elsif rising_edge(clk100) then
+			v_time_counter     := v_time_counter + 1;
+			s_dummy_spw_rxread <= '0';
+			if (s_dummy_spw_rxvalid = '1') then
+				s_dummy_spw_rxread <= '1';
+				
+				-- check incoming data
+				if (s_dummy_spw_rxdata = x"00") then
+					--assert false report "Wrong Spw Rx Data" severity error;
+				end if;
+			end if;
+			
+			if ((s_dummy_spw_rxvalid = '1') and (s_dummy_spw_rxread = '1')) then
+				v_data_counter := v_data_counter+1;
+				end if;
+			
+		end if;
+	end process p_codec_dummy_read;
+
+	s_spw_codec_comm_di  <= s_spw_codec_dummy_do;
+	s_spw_codec_comm_si  <= s_spw_codec_dummy_so;
+	s_spw_codec_dummy_di <= s_spw_codec_comm_do;
+	s_spw_codec_dummy_si <= s_spw_codec_comm_so;
 
 end architecture RTL;

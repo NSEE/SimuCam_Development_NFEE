@@ -1,6 +1,6 @@
 -- frame number contabilizando desde do primeiro sync
 
--- colocar restrição de buffer empty na lib do dma
+x -- colocar restrição de buffer empty na lib do dma
 
 x -- acertar rmap last addr (offset)
 
@@ -8,6 +8,18 @@ x -- verificar interrupçao de buffer empty (dois ciclos? - detector de borda)
 
 x -- adaptar slave com as mesmas condições do master
 
--- unificar funções de set buffer size
+x -- unificar funções de set buffer size
 
 
+
+x -- zerar o frame counter com o timecode clear
+
+x -- Verificar se o data size é respeitado (efetivamente n bytes estão sendo transferidos)
+
+x -- Verificar se o min lenght (1024) e o max (32768) são respeitados e aceitos
+
+x -- Verificar a consistencia dos dados
+
+x -- Verificar um full readout
+
+-- Terminar bloco de Delay!!!
