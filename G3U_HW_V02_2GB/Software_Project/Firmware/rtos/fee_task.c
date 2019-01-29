@@ -24,6 +24,8 @@ void vFeeTask(void *task_data) {
 	alt_u16 usiLengthBlocks;
 	bool bDmaReturn;
 	bool bFinal;
+	alt_u16 *pusiHK;
+	unsigned char ucIL;
 
 
 	pxNFee = ( TNFee * ) task_data;
@@ -61,6 +63,15 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern; /* todo:N�o esquecer de atualizar para o ENUM  */
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
+				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
+				pusiHK = &pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE;
+				for (ucIL = 0; ucIL < 128; ++ucIL) {
+					*pusiHK = ucIL;
+					pusiHK++;
+				}
+
+				bRmapSetRmapMemHKArea(&pxNFee->xChannel.xRmap);
 
 
 				pxNFee->xControl.eMode = sToFeeConfig;
@@ -950,9 +961,19 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 					fprintf(fp,"- to Stand-By\n");
 				#endif
 
-					pxNFeeP->xControl.bWatingSync = TRUE;
+					if ( pxNFeeP->xControl.eMode == sNextPatternIteration ) {
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eMode = sFeeWaitingSync;
+						pxNFeeP->xControl.eNextMode = sToFeeStandBy;
+					} else {
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eMode = sFeeTestFullPattern;
+						pxNFeeP->xControl.eNextMode = sToFeeStandBy;
+					}
+
+					//pxNFeeP->xControl.bWatingSync = TRUE;
 					//pxNFeeP->xControl.eMode = sFeeTestFullPattern;
-					pxNFeeP->xControl.eNextMode = sToFeeStandBy; /* To finish the actual transfer only when sync comes */
+					//pxNFeeP->xControl.eNextMode = sToFeeStandBy; /* To finish the actual transfer only when sync comes */
 
 					break;
 				case 2: /* PAttern Full image */
@@ -1044,9 +1065,54 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 		case 0x4A://0x00000028:CCD_4_windowing_1_config
 		case 0x4B://0x0000002C:CCD_4_windowing_2_config
 		case 0x0000004C://0x00000038:operation_mode_config
-		#ifdef DEBUG_ON
-			fprintf(fp,"- a mode was already selected by DPU, waiting for sync.\n", pxNFeeP->ucId);
-		#endif
+
+		ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >>4;
+
+		switch (ucValueMasked) {
+			case 0: /* Standby */
+			#ifdef DEBUG_ON
+				fprintf(fp,"- to Stand-By\n");
+			#endif
+
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync;
+				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
+
+
+				break;
+			case 2: /* PAttern Full image */
+
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync; /*sSIMTestFullPattern*/
+				pxNFeeP->xControl.eNextMode = sNextPatternIteration;
+
+				break;
+			case 6:
+			#ifdef DEBUG_ON
+				fprintf(fp," Off-Mode not allowed.\n");
+			#endif
+				break;
+			case 1:
+			case 3:
+			case 4:
+			case 5:
+			default:
+				#ifdef DEBUG_ON
+					fprintf(fp," mode not allowed yet ( %hhu )\n", ucValueMasked);
+				#endif
+				break;
+		}
+
+			break;
+		case 2: /* PAttern Full image */
+			#ifdef DEBUG_ON
+				fprintf(fp,"NFEE %hhu Task:  Already in Full Image Pattern mode\n", pxNFeeP->ucId);
+			#endif
+
+			pxNFeeP->xControl.bWatingSync = TRUE;
+			pxNFeeP->xControl.eMode = sNextPatternIteration; /*sSIMTestFullPattern*/
+			pxNFeeP->xControl.eNextMode = sFeeWaitingSync;
+
 			break;
 		case 0x0000004D://0x0000003C:sync_config
 

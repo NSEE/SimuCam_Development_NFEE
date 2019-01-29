@@ -9,6 +9,7 @@
 #define CCD_H_
 
 #include "../simucam_definitions.h"
+#include "configs_simucam.h"
 
 #define BYTES_PER_PIXEL		2
 

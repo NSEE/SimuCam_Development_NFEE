@@ -13,12 +13,20 @@ void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
     //bLoadCcdDefsSDCard();
-
+/*
 	ccdDef->usiHeight = 4510;
 	ccdDef->usiOLN = 30;
 	ccdDef->usiHalfWidth = 2255;
 	ccdDef->usiSOverscanN = 15;
 	ccdDef->usiSPrescanN = 25;
+*/
+
+	ccdDef->usiHeight = xDefaults.usiRows;
+	ccdDef->usiOLN = xDefaults.usiOLN;
+	ccdDef->usiHalfWidth = xDefaults.usiCols;
+	ccdDef->usiSOverscanN = xDefaults.usiOverScanSerial;
+	ccdDef->usiSPrescanN = xDefaults.usiPreScanSerial;
+
 }
 
 /* Only in NFEE_CONFIG of NFEE_STAND_BY */

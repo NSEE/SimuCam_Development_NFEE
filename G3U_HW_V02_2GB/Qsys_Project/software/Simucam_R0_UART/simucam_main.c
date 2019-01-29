@@ -470,10 +470,20 @@ int main(void)
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
 		#ifdef DEBUG_ON
-			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. (exit) \n");
+			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
 		#endif
 		return -1;
 	}
+
+	bIniSimucamStatus = vLoadDebugConfs();
+	if (bIniSimucamStatus == FALSE) {
+		/* Default configuration for eth connection loaded */
+		#ifdef DEBUG_ON
+			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
+		#endif
+		return -1;
+	}
+
 
 	/* If debug is enable, will print the eth configuration in the*/
 	#ifdef DEBUG_ON

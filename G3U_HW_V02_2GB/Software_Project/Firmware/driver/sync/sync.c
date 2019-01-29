@@ -1018,3 +1018,24 @@ alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
 }
 //! [private functions]
 
+/*
+ * Return the necessary PER value for a
+ * Sync Signal period in usiPeriodMs ms.
+ */
+alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs) {
+
+	/*
+	 * Period = PER * ClkCycles@50MHz
+	 * PER = Period / ClkCycles@50MHz
+	 *
+	 * ClkCycles@50MHz = 20 ns = 20e-6 ms
+	 *
+	 * Period[ms] / 20e-6 = Period[ms] * 5e+4
+	 * PER = Period[ms] * 5e+4
+	 */
+
+	alt_u32 uliPer;
+	uliPer = usiPeriodMs * 5e+4;
+
+	return uliPer;
+}

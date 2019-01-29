@@ -40,7 +40,7 @@ bool bInitSync( void ) {
 	}
 
 	// PER => 6,25s @ 20 ns (50 MHz)
-	bSuccess = bSyncSetPer((alt_u32)PER);
+	bSuccess = bSyncSetPer(  uliPerCalcPeriodMs( xDefaults.usiSyncPeriod ) );
 	if ( bSuccess == FALSE ) {
 		#ifdef DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
