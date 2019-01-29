@@ -36,7 +36,9 @@ architecture RTL of data_transmitter_ent is
 		TRANSMIT_DATA,
 		WAITING_EOP_BUFFER_SPACE,
 		TRANSMIT_EOP,
-		DATA_TRANSMITTER_FINISH
+		DATA_TRANSMITTER_FINISH,
+		WAITING_EEP_BUFFER_SPACE,
+		TRANSMIT_EEP
 	);
 	signal s_data_transmitter_state : t_data_transmitter_fsm; -- current state
 
@@ -179,6 +181,31 @@ begin
 					s_data_transmitter_state <= IDLE;
 					v_data_transmitter_state := IDLE;
 
+				-- state "WAITING_EEP_BUFFER_SPACE"
+				when WAITING_EEP_BUFFER_SPACE =>
+					-- wait until the spacewire tx buffer has space for an eep
+					-- default state transition
+					s_data_transmitter_state <= WAITING_EEP_BUFFER_SPACE;
+					v_data_transmitter_state := WAITING_EEP_BUFFER_SPACE;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if tx buffer can receive data
+					if (spw_tx_ready_i = '1') then
+						-- tx buffer can receive data
+						-- go to transmit data
+						s_data_transmitter_state <= TRANSMIT_EEP;
+						v_data_transmitter_state := TRANSMIT_EEP;
+					end if;
+
+				-- state "TRANSMIT_EEP"
+				when TRANSMIT_EEP =>
+					-- transmit eep to the spw codec
+					-- default state transition
+					s_data_transmitter_state <= STOPPED;
+					v_data_transmitter_state := STOPPED;
+				-- default internal signal values
+				-- conditional state transition and internal signal values
+
 				-- all the other states (not defined)
 				when others =>
 					-- jump to save state (ERROR?!)
@@ -299,6 +326,34 @@ begin
 					spw_tx_data_o               <= x"00";
 				-- conditional output signals
 
+				-- state "WAITING_EEP_BUFFER_SPACE"
+				when WAITING_EEP_BUFFER_SPACE =>
+					-- wait until the spacewire tx buffer has space for an eep
+					-- default output signals
+					data_transmitter_busy_o     <= '1';
+					data_transmitter_finished_o <= '0';
+					send_buffer_rdreq_o         <= '0';
+					-- clear spw tx write signal
+					spw_tx_write_o              <= '0';
+					spw_tx_flag_o               <= '0';
+					spw_tx_data_o               <= x"00";
+				-- conditional output signals
+
+				-- state "TRANSMIT_EEP"
+				when TRANSMIT_EEP =>
+					-- transmit eep to the spw codec
+					-- default output signals
+					data_transmitter_busy_o     <= '1';
+					data_transmitter_finished_o <= '0';
+					send_buffer_rdreq_o         <= '0';
+					-- set spw flag (to indicate a package end)
+					spw_tx_flag_o               <= '1';
+					-- fill spw data with the eop identifier (0x00)
+					spw_tx_data_o               <= x"01";
+					-- write the spw data
+					spw_tx_write_o              <= '1';
+				-- conditional output signals
+
 				-- all the other states (not defined)
 				when others =>
 					null;
@@ -308,8 +363,16 @@ begin
 			-- check if a stop was issued
 			if (fee_stop_signal_i = '1') then
 				-- stop issued, go to stopped
-				s_data_transmitter_state <= STOPPED;
-				v_data_transmitter_state := STOPPED;
+				-- check if the transmitter is in the middle of a transmission (have the spw mux access rights)
+				if ((s_data_transmitter_state /= STOPPED) and (s_data_transmitter_state /= IDLE) and (s_data_transmitter_state /= DATA_TRANSMITTER_FINISH)) then
+					-- transmit and eep to release the spw mux and indicate an error
+					s_data_transmitter_state <= WAITING_EEP_BUFFER_SPACE;
+					v_data_transmitter_state := WAITING_EEP_BUFFER_SPACE;
+				else
+					-- no need to release the spw mux and indicate an erro, go to stopped
+					s_data_transmitter_state <= STOPPED;
+					v_data_transmitter_state := STOPPED;
+				end if;
 			end if;
 
 		end if;
