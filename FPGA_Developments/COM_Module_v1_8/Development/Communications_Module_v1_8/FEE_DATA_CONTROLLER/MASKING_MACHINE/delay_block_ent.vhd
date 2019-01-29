@@ -23,6 +23,7 @@ architecture RTL of delay_block_ent is
 	signal s_clkdiv_evt : std_logic;
 	signal s_timer_cnt  : std_logic_vector((g_TIMER_WIDTH - 1) downto 0);
 	signal s_idle       : std_logic;
+	signal s_clk_evt    : std_logic;
 
 begin
 
@@ -50,7 +51,8 @@ begin
 					s_idle       <= '0';
 					delay_busy_o <= '1';
 					-- TODO: acerter delay timer para fazer a quantidade correta de ciclos de clock
-					s_timer_cnt  <= delay_timer_i;
+					s_timer_cnt  <= std_logic_vector(unsigned(delay_timer_i) - 1);
+					s_clkdiv_cnt <= std_logic_vector(to_unsigned(1, g_CLKDIV'length));
 				end if;
 			else
 				-- module in middle of delay
@@ -58,14 +60,14 @@ begin
 				delay_busy_o     <= '1';
 				delay_finished_o <= '0';
 
-				-- generate clkdiv event
-				s_clkdiv_evt <= '0';
-				s_clkdiv_cnt <= std_logic_vector(unsigned(s_clkdiv_cnt) + 1);
-				-- TODO: acerter clkdiv event pata fazer a quantidade correta de ciclos de clock
-				if (s_clkdiv_cnt = g_CLKDIV) then
-					s_clkdiv_evt <= '1';
-					s_clkdiv_cnt <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));
-				end if;
+					-- generate clkdiv event
+					s_clkdiv_evt <= '0';
+					s_clkdiv_cnt <= std_logic_vector(unsigned(s_clkdiv_cnt) + 1);
+					-- TODO: acerter clkdiv event pata fazer a quantidade correta de ciclos de clock
+					if (s_clkdiv_cnt = g_CLKDIV) then
+						s_clkdiv_evt <= '1';
+						s_clkdiv_cnt <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));
+					end if;
 
 				-- check if a clkdiv event ocurred
 				if (s_clkdiv_evt = '1') then
@@ -84,5 +86,10 @@ begin
 			end if;
 		end if;
 	end process p_delay_block;
+	
+				s_clk_evt
+				if (g_CLKDIV = x"01") then
+					s_clkdiv_evt <= clk_i;
+				else
 
 end architecture RTL;
