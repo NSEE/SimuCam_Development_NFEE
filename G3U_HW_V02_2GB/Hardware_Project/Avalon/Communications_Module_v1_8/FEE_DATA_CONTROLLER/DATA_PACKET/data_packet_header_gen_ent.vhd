@@ -330,13 +330,13 @@ begin
 				when FIELD_TYPE_MSB =>
 					-- type field msb, send type msb
 					-- default output signals
-					header_gen_busy_o                  <= '1';
-					header_gen_finished_o              <= '0';
+					header_gen_busy_o                <= '1';
+					header_gen_finished_o            <= '0';
 					-- fill spw data with field data
 					send_buffer_wrdata_o(7 downto 3) <= (others => '0');
-					send_buffer_wrdata_o(2 downto 0)  <= headerdata_type_field_mode_i;
+					send_buffer_wrdata_o(2 downto 0) <= headerdata_type_field_mode_i;
 					-- write the send buffer data
-					send_buffer_wrreq_o                <= '1';
+					send_buffer_wrreq_o              <= '1';
 				-- conditional output signals
 
 				-- state "FIELD_TYPE_LSB"

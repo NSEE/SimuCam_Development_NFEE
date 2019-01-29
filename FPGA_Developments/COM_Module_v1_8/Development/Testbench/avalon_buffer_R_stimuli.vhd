@@ -67,6 +67,7 @@ begin
 			avalon_mm_write_o     <= '0';
 			avalon_mm_writedata_o <= (others => '0');
 			s_counter             <= 0;
+			s_counter             <= 5000;
 			s_address_cnt         <= 0;
 			s_mask_cnt            <= 0;
 			s_times_cnt           <= 0;
@@ -78,7 +79,7 @@ begin
 			avalon_mm_address_o   <= (others => '0');
 			avalon_mm_write_o     <= '0';
 			avalon_mm_writedata_o <= (others => '0');
---			s_counter             <= s_counter + 1;
+			s_counter             <= s_counter + 1;
 
 			case s_counter is
 

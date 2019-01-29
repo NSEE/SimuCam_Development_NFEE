@@ -12,6 +12,8 @@ entity fee_master_data_controller_top is
 		-- general inputs
 		fee_sync_signal_i                  : in  std_logic;
 		fee_current_timecode_i             : in  std_logic_vector(7 downto 0);
+		fee_clear_frame_i  : in  std_logic;
+		fee_side_activated_i  : in  std_logic;
 		-- fee data controller control
 		fee_machine_clear_i                : in  std_logic;
 		fee_machine_stop_i                 : in  std_logic;
@@ -172,6 +174,7 @@ begin
 			fee_stop_signal_i                    => fee_machine_stop_i,
 			fee_start_signal_i                   => fee_machine_start_i,
 			sync_signal_i                        => fee_sync_signal_i,
+			side_activated_i => fee_side_activated_i,
 			current_frame_number_i               => s_current_frame_number,
 			current_frame_counter_i              => s_current_frame_counter,
 			fee_ccd_x_size_i                     => s_registered_fee_ccd_x_size_i,
@@ -392,6 +395,12 @@ begin
 					-- stop frame manager
 					v_stopped_flag := '1';
 				end if;
+			end if;
+
+			if (fee_clear_frame_i = '1') then
+				s_current_frame_counter <= (others => '0');
+				s_current_frame_number  <= (others => '0');
+				v_full_frame_cnt        := (others => '0');
 			end if;
 
 		end if;
