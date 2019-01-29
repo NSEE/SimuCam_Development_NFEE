@@ -12,6 +12,7 @@ entity fee_master_data_manager_ent is
 		fee_stop_signal_i                    : in  std_logic;
 		fee_start_signal_i                   : in  std_logic;
 		sync_signal_i                        : in  std_logic;
+		side_activated_i : in  std_logic;
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
 		-- fee data manager parameters
@@ -140,6 +141,8 @@ architecture RTL of fee_master_data_manager_ent is
 	signal s_fee_current_packet_data_size : std_logic_vector(15 downto 0);
 	signal s_last_packet_flag             : std_logic;
 
+	signal s_forced_sync : std_logic;
+
 begin
 
 	p_fee_data_manager : process(clk_i, rst_i) is
@@ -172,6 +175,7 @@ begin
 			data_wr_length_o                     <= (others => '0');
 			send_buffer_fee_data_loaded_o        <= '0';
 			imgdata_start_o                      <= '0';
+			s_forced_sync                        <= '0';
 		elsif rising_edge(clk_i) then
 
 			case (s_fee_data_manager_state) is
@@ -202,6 +206,7 @@ begin
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
 					imgdata_start_o                      <= '0';
+					s_forced_sync                        <= '0';
 					-- hold the masking machine
 					masking_machine_hold_o               <= '1';
 					-- check if a start was issued
@@ -237,9 +242,10 @@ begin
 					data_wr_length_o                     <= (others => '0');
 					send_buffer_fee_data_loaded_o        <= '0';
 					imgdata_start_o                      <= '0';
+					s_forced_sync                        <= '0';
 					-- keep the masking machine on hold
 					masking_machine_hold_o               <= '1';
-					if (sync_signal_i = '1') then
+					if (((sync_signal_i = '1') or (s_forced_sync = '1')) and (side_activated_i = '1')) then
 						-- sync signal received
 						-- release the masking machine
 						masking_machine_hold_o   <= '0';
@@ -777,6 +783,15 @@ begin
 				-- stop issued, go to stopped
 				s_fee_data_manager_state <= STOPPED;
 			end if;
+
+--			-- check if a sync was issued and is not in stopped or idle
+--			if ((sync_signal_i = '1') and (s_fee_data_manager_state /= IDLE) and (s_fee_data_manager_state /= STOPPED)) then
+--				-- sync arrived, force the idle state and set a forced sync
+--				s_fee_data_manager_state <= IDLE;
+--				s_forced_sync            <= '1';
+--			else
+--				s_forced_sync <= '0';
+--			end if;
 
 		end if;
 	end process p_fee_data_manager;
