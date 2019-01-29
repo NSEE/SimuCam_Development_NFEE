@@ -94,8 +94,7 @@ begin
 					if (data_wr_start_i = '1') then
 						-- data write requested
 						-- set the data counter
-						-- TODO: acerter data length para ler a quantidade correta de dados
-						s_data_cnt          <= data_wr_length_i;
+						s_data_cnt          <= std_logic_vector(unsigned(data_wr_length_i) - 1);
 						-- go to wating buffer space
 						s_data_writer_state <= WAITING_SEND_BUFFER_SPACE;
 						v_data_writer_state := WAITING_SEND_BUFFER_SPACE;
@@ -125,7 +124,7 @@ begin
 					v_data_writer_state := DELAY;
 				-- default internal signal values
 				-- conditional state transition
-				
+
 				-- state "DELAY"
 				when DELAY =>
 					-- default state transition
@@ -218,7 +217,7 @@ begin
 					send_buffer_wrdata_o   <= x"00";
 					send_buffer_wrreq_o    <= '0';
 				-- conditional output signals
-				
+
 				-- state "DELAY"
 				when DELAY =>
 					-- default state transition

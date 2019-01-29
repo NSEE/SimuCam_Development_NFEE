@@ -143,8 +143,8 @@ begin
 					s_counter     <= 2500;
 					s_address_cnt <= s_address_cnt + 1;
 					--if (s_address_cnt = (2**g_ADDRESS_WIDTH - 2)) then
-					if (s_address_cnt = (1020 - 1)) then
---					if (s_address_cnt = (272 - 1)) then
+--					if (s_address_cnt = (1020 - 1)) then
+					if (s_address_cnt = (272 - 1)) then
 --					if (s_address_cnt = (68 - 1)) then
 						if (s_times_cnt < 1) then
 --							s_counter     <= 2000;
