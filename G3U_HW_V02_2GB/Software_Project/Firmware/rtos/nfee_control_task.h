@@ -22,5 +22,6 @@ void vNFeeControlTask(void *task_data);
 void vPerformActionNFCConfig( unsigned int uiCmdParam,  TNFee_Control *pxFeeCP );
 void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP );
 bool bSendCmdQToNFeeInst( unsigned char ucFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+bool bSendCmdQToNFeeInst_Prio( unsigned char ucFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 #endif /* NFEE_CONTROL_TASK_H_ */

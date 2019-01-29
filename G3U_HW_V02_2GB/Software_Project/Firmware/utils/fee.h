@@ -46,7 +46,7 @@ typedef enum { sMebInit  = 0, sMebToConfig, sMebToRun, sMebConfig, sMebRun } tSi
 
 
 /* FEE operation modes */
-typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sSIMTestFullPattern, sFeeWaitingSync} tFEEStates;
+typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sNextPatternIteration, sEndTransmission ,sFeeWaitingSync} tFEEStates;
 
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/

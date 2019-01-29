@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>27/01/2019 23:54:29</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1548640469872</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>28/01/2019 20:36:50</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1548715010208</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1953,42 +1953,6 @@
                 <addressRange>0x81100000 - 0x811F9FFF</addressRange>
                 <addressSpan>1024000</addressSpan>
                 <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_H</slaveDescriptor>
-                <addressRange>0x81201000 - 0x812013FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_G</slaveDescriptor>
-                <addressRange>0x81201400 - 0x812017FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_F</slaveDescriptor>
-                <addressRange>0x81201800 - 0x81201BFF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_E</slaveDescriptor>
-                <addressRange>0x81201C00 - 0x81201FFF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_D</slaveDescriptor>
-                <addressRange>0x81202000 - 0x812023FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_C</slaveDescriptor>
-                <addressRange>0x81202400 - 0x812027FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_B</slaveDescriptor>

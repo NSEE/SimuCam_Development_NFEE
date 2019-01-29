@@ -101,11 +101,7 @@ void vNFeeControlTask(void *task_data) {
 						
 						vPerformActionNFCConfig(uiCmdNFC.ulWord, pxFeeC);
 
-					} else {
-						#ifdef DEBUG_ON
-							fprintf(fp,"Provavel para FEE (Remover)\n");
-						#endif
-					}
+					};
 					bCmdSent = FALSE;
 					bDmaBack = TRUE;
 				} else {
@@ -210,6 +206,8 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 		case M_NFC_RUN:
 			pxFeeCP->sMode = sMebToRun;
 			break;
+		case M_NFC_DMA_GIVEBACK:
+		case M_NFC_DMA_REQUEST:
 
 		default:
 			#ifdef DEBUG_ON
@@ -230,9 +228,6 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 	switch (uiCmdLocal.ucByte[2]) {
 		case M_NFC_CONFIG:
 		case M_NFC_CONFIG_FORCED:
-			#ifdef DEBUG_ON
-				debug(fp,"NFEE Controller Task: Changing to Config Mode\n");
-			#endif
 
 			pxFeeCP->sMode = sMebToConfig;
 
@@ -240,7 +235,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			for( i = 0; i < N_OF_NFEE; i++)
 			{
 				if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
-					bSendCmdQToNFeeInst( i, M_FEE_CONFIG_FORCED, 0, i  );
+					bSendCmdQToNFeeInst_Prio( i, M_FEE_CONFIG_FORCED, 0, i  );
 				}
 			}
 
@@ -251,10 +246,13 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			#endif		
 			/* Do nothing for now */
 
-			break;		
+			break;
+		case M_NFC_DMA_GIVEBACK:
+		case M_NFC_DMA_REQUEST:
+			break;
 		default:
 			#ifdef DEBUG_ON
-				debug(fp,"NFEE Controller Task: Unknow Command.\n");
+				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
 	}
@@ -275,6 +273,31 @@ bool bSendCmdQToNFeeInst( unsigned char ucFeeInstP, unsigned char ucCMD, unsigne
 	/* Sync the Meb task and tell that has a PUS command waiting */
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xFeeQ[ ucFeeInstP ], (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgAccessDMA( ucFeeInstP );
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+
+	return bSuccesL;
+}
+
+
+bool bSendCmdQToNFeeInst_Prio( unsigned char ucFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucFeeInstP;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPostFront(xFeeQ[ ucFeeInstP ], (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgAccessDMA( ucFeeInstP );
 		bSuccesL = FALSE;

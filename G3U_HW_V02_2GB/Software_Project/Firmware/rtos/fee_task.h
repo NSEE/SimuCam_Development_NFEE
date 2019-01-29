@@ -25,6 +25,7 @@ void vFeeTask0(void *task_data);
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
+void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
 bool bDisableSPWChannel( TSpwcChannel *xSPW );
 bool bEnableSPWChannel( TSpwcChannel *xSPW );
 bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
@@ -33,8 +34,9 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
+void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
 
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );

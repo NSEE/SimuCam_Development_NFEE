@@ -12,6 +12,8 @@
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
+	unsigned char tCode;
+	unsigned char tCodeNext;
 	unsigned char ucIL;
 	tQMask uiCmdMeb;
 	INT8U error_code;
@@ -137,6 +139,15 @@ void vSimMebTask(void *task_data) {
 							case M_MASTER_SYNC:
 								/* Perform memory SWAP */
 								vSwapMemmory(pxMebC);
+							case M_SYNC:
+								#ifdef DEBUG_ON
+									bSpwcGetTimecode(&pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire);
+									tCode = ( pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
+									tCodeNext = ( tCode ) % 4;
+
+									fprintf(fp,"\n\nMEB TASK:  TC: %hhu ( %hhu ) \n\n ", tCode, tCodeNext);
+
+								#endif
 
 								break;
 							default:
@@ -493,7 +504,7 @@ void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	uiCmdtoSend.ucByte[0] = ucValue;
 
 	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}
@@ -547,7 +558,7 @@ void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	uiCmdtoSend.ucByte[0] = ucValue;
 
 	/*Send a command to other entities (Data Controller) */
-	error_codel = OSQPost(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}
@@ -568,22 +579,6 @@ void vMebInit(TSimucam_MEB *pxMebCLocal) {
 
 /* Swap memory reference */
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
-	unsigned char tCode;
-	unsigned char tCodeNext;
-
-	/*todo: Apenas para teste !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
-
-
-	/* Configurar o tamanho normal do double buffer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-	bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-	tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
-	tCodeNext = ( tCode ) % 4;
-	#ifdef DEBUG_ON
-		fprintf(fp,"\n\nMEB TASK:  TIME CODE: %hhu \n ", tCode);
-		fprintf(fp,"MEB TASK:  MODULUS: %hhu \n\n ", tCodeNext);
-	#endif
-
 
 	pxMebCLocal->ucActualDDR = (pxMebCLocal->ucActualDDR + 1) % 2 ;
 	pxMebCLocal->ucNextDDR = (pxMebCLocal->ucNextDDR + 1) % 2 ;
@@ -593,7 +588,6 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */
 void vReleaseSyncMessages(void) {
 	unsigned char ucIL;
-	unsigned char ucSyncL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 

@@ -68,18 +68,20 @@ void vFeeTask(void *task_data) {
 				break;
 			case sToFeeConfig: /* Transition */
 
-				/* Cleaning other syncs that maybe in the queue */
-				pxNFee->xControl.bWatingSync = FALSE;
-				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
-				if ( error_code != OS_NO_ERR ) {
-					vFailFlushNFEEQueue();
-				}
-
-
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /*Off*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+
+				/* Disable the link SPW */
+				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
+				pxNFee->xControl.bChannelEnable = FALSE;
+
+				/* Disable RMAP interrupts */
+				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
+
+				/* Disable IRQ and clear the Double Buffer */
+				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
@@ -90,6 +92,13 @@ void vFeeTask(void *task_data) {
 					/* If is with the Mutex, should release */
 					OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 					pxNFee->xControl.bDMALocked = FALSE;
+				}
+
+				/* Cleaning other syncs that maybe in the queue */
+				pxNFee->xControl.bWatingSync = FALSE;
+				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
 				}
 
 				/* Send message telling to controller that is not using the DMA any more */
@@ -107,22 +116,6 @@ void vFeeTask(void *task_data) {
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
-
-				/* Clear the Queue that indicates when Sync Signals occours */
-				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
-				if ( error_code != OS_NO_ERR ) {
-					vFailFlushNFEEQueue();
-				}
-
-				/* Disable the link SPW */
-				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
-				pxNFee->xControl.bChannelEnable = FALSE;
-
-				/* Disable RMAP interrupts */
-				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
-
-				/* Disable IRQ and clear the Double Buffer */
-				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.eMode = sFeeConfig;
@@ -142,16 +135,30 @@ void vFeeTask(void *task_data) {
 				}
 
 				break;
-			case sFeeOn: /* Real mode */
+			case sFeeOn: /* Not implemented yet */
 
 				pxNFee->xControl.eMode = sToFeeStandBy;
 				break;
-			case sSIMFeeStandBy:
-
-				//pxNFee->xControl.eMode = sToFeeConfig;
-
-				break;
 			case sToFeeStandBy: /* Transition */
+
+				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
+				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
+				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+
+				/* Disable IRQ and clear the Double Buffer */
+				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+				/* Disable RMAP interrupts */
+				bEnableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
+
+				/* Disable the link SPW */
+				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
+				pxNFee->xControl.bChannelEnable = TRUE;
+
+				pxNFee->xControl.bSimulating = TRUE;
+				pxNFee->xControl.bUsingDMA = FALSE;
+				pxNFee->xControl.bEnabled = TRUE;
 
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -163,31 +170,12 @@ void vFeeTask(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
-				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
-				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
-				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
-
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Standby Mode\n", pxNFee->ucId);
 				#endif
 
 				/* Reset the memory addr variables thats is used in the transmission*/
 				vResetMemCCDFEE(pxNFee);
-
-				pxNFee->xControl.bSimulating = TRUE;
-				pxNFee->xControl.bUsingDMA = FALSE;
-				pxNFee->xControl.bEnabled = TRUE;
-
-				/* Disable IRQ and clear the Double Buffer */
-				bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
-
-				/* Disable RMAP interrupts */
-				bEnableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
-
-				/* Disable the link SPW */
-				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
-				pxNFee->xControl.bChannelEnable = TRUE;
 
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.eMode = sFeeStandBy;
@@ -208,7 +196,7 @@ void vFeeTask(void *task_data) {
 				break;
 
 
-			case sSIMTestFullPattern:
+			case sNextPatternIteration:
 
 
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
@@ -324,8 +312,8 @@ void vFeeTask(void *task_data) {
 							#endif							
 	                    }
 					} else {
-						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 
+						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 					}
 				} else {
 					#ifdef DEBUG_ON
@@ -350,7 +338,7 @@ void vFeeTask(void *task_data) {
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				pxNFee->xControl.eMode = sFeeTestFullPattern;
-				pxNFee->xControl.eNextMode = sSIMTestFullPattern;
+				pxNFee->xControl.eNextMode = sFeeTestFullPattern;
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bEnabled = TRUE;
@@ -373,11 +361,12 @@ void vFeeTask(void *task_data) {
 		                    	pxNFee->xControl.bDMALocked = TRUE;
 
 		                    	/* Is this the last block? */
-		                    	if ( (xCcdMapLocal->ulBlockI+SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
+		                    	if ( (xCcdMapLocal->ulBlockI + SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
 
 									#ifdef DEBUG_ON
 										//fprintf(fp,"\n    i: %u ",incrementador);
 										fprintf(fp,"\nEnd of transmission NFEE-%hhu -> CCD %hhu  -> Time Code Ref. used -> %hu  \n", pxNFee->ucId, ucReadout, tCodFeeTask);
+										fprintf(fp,"\nMemory used: %u ", ucMemUsing);
 										fprintf(fp,"\nTotal blocks transmited: %u ",xCcdMapLocal->ulBlockI);
 									#endif
 
@@ -403,13 +392,12 @@ void vFeeTask(void *task_data) {
 		                    		bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI, usiLengthBlocks, pxNFee->xControl.eSide, pxNFee->ucId);
 		                    	}
 
+
 		                    	if ( bDmaReturn = TRUE ) {
 									/* Value of xCcdMapLocal->ulAddrI already set in the last iteration */
-
 									xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
 									xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-									OSMutexPost(xDma[ucMemUsing].xMutexDMA);
-									pxNFee->xControl.bDMALocked = FALSE;
+
 									//bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 		                    	} else {
 									#ifdef DEBUG_ON
@@ -418,25 +406,22 @@ void vFeeTask(void *task_data) {
 									bFinal = FALSE;
 		                    	}
 
+		                    	OSMutexPost(xDma[ucMemUsing].xMutexDMA);
+		                    	pxNFee->xControl.bDMALocked = FALSE;
 		                        /* Send message telling to controller that is not using the DMA any more */
 								bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
-								if ( ((xCcdMapLocal->ulBlockI) % 5000 == 0) ) {
+								/* Just to see the progress */
+								if ( ((xCcdMapLocal->ulBlockI) % 4096 == 0) ) {
 
 									#ifdef DEBUG_ON
 										fprintf(fp,"\nblock: %u ", xCcdMapLocal->ulBlockI);
 									#endif
 								}
 
+
 								if ( bFinal == TRUE ) {
-									pxNFee->xControl.bWatingSync = TRUE;
-									if ( pxNFee->xControl.eNextMode == sToFeeStandBy ) {
-										pxNFee->xControl.eMode =  sSIMTestFullPattern;
-									} else {
-										pxNFee->xControl.eMode =  sFeeWaitingSync;
-									}
-									
-									pxNFee->xControl.bUsingDMA = FALSE;
+									pxNFee->xControl.eMode = sEndTransmission;
 								} else {
 									bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 								}
@@ -458,25 +443,35 @@ void vFeeTask(void *task_data) {
 
 				break;
 
-			case sFeeWaitingSync:
+			case sEndTransmission:
 
-				pxNFee->xControl.eMode = pxNFee->xControl.eNextMode;
+				pxNFee->xControl.bWatingSync = TRUE;
+				pxNFee->xControl.bUsingDMA = FALSE;
 
-				uiCmdFEE.ulWord = (unsigned int)OSQPend(xWaitSyncQFee[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
-				if ( error_code != OS_ERR_NONE ) {
-					#ifdef DEBUG_ON
-						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xWaitSyncQFee\n", pxNFee->ucId);
-					#endif
-				}
-
-				/* Cleaning other syncs that maybe in the queue */
-				pxNFee->xControl.bWatingSync = FALSE;
-				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
-				if ( error_code != OS_NO_ERR ) {
-					vFailFlushNFEEQueue();
+				if ( pxNFee->xControl.eNextMode == sToFeeStandBy ) {
+					pxNFee->xControl.eMode =  sFeeWaitingSync;
+					pxNFee->xControl.eNextMode =  sToFeeStandBy;
+				} else {
+					pxNFee->xControl.eMode =  sNextPatternIteration;
+					pxNFee->xControl.eNextMode =  sFeeWaitingSync;
 				}
 
 				break;
+
+			case sFeeWaitingSync:
+
+				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+				if ( error_code != OS_ERR_NONE ) {
+					#ifdef DEBUG_ON
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (sFeeWaitingSync)\n", pxNFee->ucId);
+					#endif
+				} else {
+					vQCmdFEEinWaitingSync( pxNFee, uiCmdFEE.ulWord  );
+				}
+
+				break;
+
+
 			default:
 				pxNFee->xControl.eMode = sToFeeConfig;
 				#ifdef DEBUG_ON
@@ -487,6 +482,60 @@ void vFeeTask(void *task_data) {
 
 	}
 
+}
+
+void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
+	tQMask uiCmdFEEL;
+
+	uiCmdFEEL.ulWord = cmd;
+
+	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
+
+		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CONFIG:
+			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eMode = sToFeeConfig;
+				pxNFeeP->xControl.eNextMode = sToFeeConfig;
+				break;
+			case M_FEE_STANDBY_FORCED:
+			case M_FEE_STANDBY:
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sFeeWaitingSync; /*sSIMTestFullPattern*/
+				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
+				break;
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_FULL_PATTERN_FORCED: /* There are no forced mode to go to the Pattern Mode */
+				pxNFeeP->xControl.bWatingSync = TRUE;
+				pxNFeeP->xControl.eMode = sNextPatternIteration; /*sSIMTestFullPattern*/
+				pxNFeeP->xControl.eNextMode = sFeeWaitingSync;
+				break;
+			case M_FEE_RMAP:
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
+				#endif
+				/* Perform some actions, check if is a valid command for this mode of operation  */
+				vQCmdFeeRMAPWaitingSync( pxNFeeP, cmd );
+				break;
+			case M_SYNC:
+			case M_MASTER_SYNC:
+				/* Warning */
+					pxNFeeP->xControl.eMode = pxNFeeP->xControl.eNextMode;
+					pxNFeeP->xControl.bWatingSync = FALSE;
+
+				break;
+			case M_FEE_DMA_ACCESS:
+				pxNFeeP->xControl.bUsingDMA = FALSE;
+				/* Send message telling to controller that is not using the DMA any more */
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
+				break;
+			default:
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
+				#endif
+				break;
+		}
+	}
 }
 
 
@@ -504,14 +553,12 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 					fprintf(fp,"NFEE %hhu Task:  Already in Config mode\n", pxNFeeP->ucId);
 				#endif
 				break;
-			case M_FEE_RUN:
-
-				break;
-			case M_FEE_STANDBY:
+			/*case M_FEE_STANDBY:
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;
 				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
-				break;
+				break;*/
+			case M_FEE_STANDBY: /* Config -> StandBy is always forced mode (don't need sync) */
 			case M_FEE_STANDBY_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
 				pxNFeeP->xControl.eMode = sToFeeStandBy;
@@ -527,6 +574,14 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: Shouldn't receive RMAP Messages in this mode (Config Mode)\n", pxNFeeP->ucId);
 				#endif
+				break;
+			case M_FEE_DMA_ACCESS:
+				pxNFeeP->xControl.bUsingDMA = FALSE;
+				/* Send message telling to controller that is not using the DMA any more */
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
+				break;
+			case M_SYNC:
+			case M_MASTER_SYNC:
 				break;
 			default:
 				#ifdef DEBUG_ON
@@ -545,21 +600,17 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
-			case M_FEE_CONFIG:
+			/*case M_FEE_CONFIG:
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;
-				pxNFeeP->xControl.eNextMode = sToFeeConfig; /* To finish the actual transfer only when sync comes */
-				break;
-			case M_FEE_CONFIG_FORCED:
+				pxNFeeP->xControl.eNextMode = sToFeeConfig;
+				break;*/
+			case M_FEE_CONFIG:
+			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
 				pxNFeeP->xControl.eMode = sToFeeConfig;
-				pxNFeeP->xControl.eNextMode = sToFeeConfig; /* To finish the actual transfer only when sync comes */
+				pxNFeeP->xControl.eNextMode = sToFeeConfig;
 				break;				
-			case M_FEE_RUN:
-				/*pxNFeeP->xControl.bWatingSync = TRUE;
-				pxNFeeP->xControl.eMode = sFeeWaitingSync;
-				pxNFeeP->xControl.eNextMode = sFeeOn;*/
-				break;
 			case M_FEE_STANDBY_FORCED:
 			case M_FEE_STANDBY:
 				#ifdef DEBUG_ON
@@ -567,20 +618,35 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				#endif
 				break;
 			case M_FEE_FULL_PATTERN:
-			case M_FEE_FULL_PATTERN_FORCED:
+			case M_FEE_FULL_PATTERN_FORCED: /* There are no forced mode to go to the Pattern Mode */
 				pxNFeeP->xControl.bWatingSync = TRUE;
-				pxNFeeP->xControl.eMode = sSIMTestFullPattern; /*sSIMTestFullPattern*/
-				pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
+				pxNFeeP->xControl.eMode = sNextPatternIteration; /*sSIMTestFullPattern*/
+				pxNFeeP->xControl.eNextMode = sFeeWaitingSync;
 				break;
+
 			case M_FEE_RMAP:
+				vQCmdFeeRMAPinStandBy( pxNFeeP, cmd );
+
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
 				#endif
+				/* Perform some actions, check if is a valid command for this mode of operation  */
+
+				break;
 
 
-				/* Perform some actions, check if is a valid command for this mode of opera  */
-				vQCmdFeeRMAPinStandBy( pxNFeeP, cmd );
-
+			case M_SYNC:
+			case M_MASTER_SYNC:
+				/* Warning */
+				if ( pxNFeeP->xControl.eMode == sFeeWaitingSync ) {
+					pxNFeeP->xControl.eMode = pxNFeeP->xControl.eNextMode;
+					pxNFeeP->xControl.bWatingSync = FALSE;
+				}
+				break;
+			case M_FEE_DMA_ACCESS:
+				pxNFeeP->xControl.bUsingDMA = FALSE;
+				/* Send message telling to controller that is not using the DMA any more */
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			default:
 				#ifdef DEBUG_ON
@@ -601,11 +667,12 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
-			case M_FEE_CONFIG:
-				/*pxNFeeP->xControl.bWatingSync = TRUE;
+			/*case M_FEE_CONFIG:
+				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;
-				pxNFeeP->xControl.eNextMode = sToFeeConfig;*/
-				break;
+				pxNFeeP->xControl.eNextMode = sToFeeConfig;
+				break;*/
+			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
 				pxNFeeP->xControl.eMode = sToFeeConfig;
@@ -620,7 +687,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 				/*pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;
 				pxNFeeP->xControl.eNextMode = sToFeeStandBy;*/ /* To finish the actual transfer only when sync comes */
-				if ( pxNFeeP->xControl.eMode == sSIMTestFullPattern ) {
+				if ( pxNFeeP->xControl.eMode == sNextPatternIteration ) {
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					pxNFeeP->xControl.eMode = sFeeWaitingSync;
 					pxNFeeP->xControl.eNextMode = sToFeeStandBy;
@@ -650,6 +717,16 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 				vQCmdFeeRMAPinFullPattern( pxNFeeP, cmd );
 
 				break;
+
+			case M_SYNC:
+			case M_MASTER_SYNC:
+				/* Warning */
+				if ( pxNFeeP->xControl.eMode == sFeeWaitingSync ) {
+					pxNFeeP->xControl.eMode = pxNFeeP->xControl.eNextMode;
+					pxNFeeP->xControl.bWatingSync = FALSE;
+				}
+
+				break;
 			default:
 				#ifdef DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
@@ -668,22 +745,19 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	INT32U ucValueMasked;
 	INT32U ucValueMasked2;
 
-	#ifdef DEBUG_ON
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	#endif
+#ifdef DEBUG_ON
+	fprintf(fp,"vQCmdFeeRMAPinStandBy REMOVER\n", pxNFeeP->ucId);
+#endif
 
 	uiCmdFEEL.ulWord = cmd;
 
 	ucADDRReg = uiCmdFEEL.ucByte[1];
 	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
 
-
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			ucValueMasked = (COMM_RMAP_IMGCLK_TRCNT_CTRL_MSK & ucValueReg) >> 4; /* Number of rows */
 			ucValueMasked2 = (COMM_RMAP_REGCLK_TRCNT_CTRL_MSK & ucValueReg) >> 20; /* Number of columns */
-
-			/* upsate minha estrutura depois atualizar a do fran�a */
 
 			pxNFeeP->xCcdInfo.usiHeight = ucValueMasked;
 			pxNFeeP->xCcdInfo.usiHalfWidth = ucValueMasked2;
@@ -696,7 +770,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 			#ifdef DEBUG_ON
-				fprintf(fp," - Rows: %u\n - Columns: %u\n", ucValueMasked, ucValueMasked2);
+				fprintf(fp,"- Rows: %u\n - Columns: %u\n", ucValueMasked, ucValueMasked2);
 			#endif
 
 			break;
@@ -710,7 +784,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 			#ifdef DEBUG_ON
-				fprintf(fp," - Pckt Length: %u\n", ucValueMasked);
+				fprintf(fp,"- Pckt Length: %u\n", ucValueMasked);
 			#endif
 
 			ucValueMasked2 = (ucValueReg & COMM_RMAP_CCD_DTRAN_SEL_CTRL_MSK) >> 2;
@@ -744,8 +818,6 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					#endif
 					break;
 			}
-
-
 			break;
 		case 0x043://0x0000000C:spw_packet_2_config
 		case 0x44://0x00000010:CCD_1_windowing_1_config
@@ -757,19 +829,18 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 		case 0x4A://0x00000028:CCD_4_windowing_1_config
 		case 0x4B://0x0000002C:CCD_4_windowing_2_config
 			#ifdef DEBUG_ON
-				fprintf(fp," Command not allowed yet ( %hhu )\n", ucValueMasked);
+				fprintf(fp,"Command not allowed yet ( %hhu )\n", ucValueMasked);
 			#endif
 				break;
 		case 0x0000004C://0x00000038:operation_mode_config
 			/* Mode Selection */
 			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >>4;
 
-
 			switch (ucValueMasked) {
 				case 0: /* Standby */
 
 				#ifdef DEBUG_ON
-					fprintf(fp,"NFEE %hhu Task:  Already in Stand by mode\n", pxNFeeP->ucId);
+					fprintf(fp,"- already in Stand by mode\n", pxNFeeP->ucId);
 				#endif
 
 					break;
@@ -779,13 +850,13 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 				#endif
 
 					pxNFeeP->xControl.bWatingSync = TRUE;
-					pxNFeeP->xControl.eMode = sSIMTestFullPattern; /*sSIMTestFullPattern*/
-					pxNFeeP->xControl.eNextMode = sSIMTestFullPattern;
+					pxNFeeP->xControl.eMode = sNextPatternIteration; /*sSIMTestFullPattern*/
+					pxNFeeP->xControl.eNextMode = sFeeWaitingSync;
 
 					break;
 				case 6:
 				#ifdef DEBUG_ON
-					fprintf(fp," Off-Mode not allowed.\n");
+					fprintf(fp,"- Off-Mode not allowed.\n");
 				#endif
 					break;
 				case 1:
@@ -794,7 +865,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 				case 5:
 				default:
 					#ifdef DEBUG_ON
-						fprintf(fp," mode not allowed yet ( %hhu )\n", ucValueMasked);
+						fprintf(fp,"- mode not allowed yet ( %hhu )\n", ucValueMasked);
 					#endif
 					break;
 			}
@@ -828,16 +899,12 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 		}
 }
 
-void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
+void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
 	INT8U error_codel;
 	INT8U ucADDRReg;
 	INT8U ucValueReg;
 	INT32U ucValueMasked;
-
-	#ifdef DEBUG_ON
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	#endif
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -874,7 +941,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 				#endif
 
 					pxNFeeP->xControl.bWatingSync = TRUE;
-					pxNFeeP->xControl.eMode = sFeeWaitingSync;
+					pxNFeeP->xControl.eMode = sFeeTestFullPattern;
 					pxNFeeP->xControl.eNextMode = sToFeeStandBy; /* To finish the actual transfer only when sync comes */
 
 					break;
@@ -905,21 +972,81 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 
 			ucValueMasked = (COMM_RMAP_SELF_TRIGGER_CTRL_MSK & ucValueReg) >> 2; /* Number of rows */
 
-			/* Cannot perform this operation */
 			if ( ucValueMasked ) {
 
-				pxNFeeP->xControl.bWatingSync = FALSE;
+				if ( pxNFeeP->xControl.eNextMode == sToFeeStandBy ) {
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eMode = pxNFeeP->xControl.eNextMode;
+					#ifdef DEBUG_ON
+						fprintf(fp," - Mode Forced.\n");
+					#endif
+				}
+
+				/* Clear the trigger */
+//				bRmapGetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+//				pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig = ( pxNFeeP->xChannel.xRmap.xRmapMemConfigArea.uliSyncConfig & 0xFFFFFFFB);
+//				bRmapSetMemConfigArea(&pxNFeeP->xChannel.xRmap);
+
+			}
+
+			break;
+		case 0x0000004E://0x00000040:dac_control
+		case 0x0000004F://0x00000044:clock_source_control
+		case 0x00000050://0x00000048:frame_number
+		case 0x00000051://0x0000004C:current_mode
+		default:
+			#ifdef DEBUG_ON
+				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
+			#endif
+			break;
+		}
+}
 
 
-				if ( pxNFeeP->xControl.bWatingSync == TRUE ) {
-					uiCmdFEEL.ucByte[3] = M_NFEE_BASE_ADDR + pxNFeeP->ucId;
-					uiCmdFEEL.ucByte[2] = M_SYNC;
-					error_codel = OSQPost(xWaitSyncQFee[ pxNFeeP->ucId ], (void *)uiCmdFEEL.ulWord);
-					if ( error_codel != OS_ERR_NONE ) {
-						vFailSendMsgSyncRMAPTRIGGER( pxNFeeP->ucId );
-					}
+void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
+	tQMask uiCmdFEEL;
+	INT8U error_codel;
+	INT8U ucADDRReg;
+	INT8U ucValueReg;
+	INT32U ucValueMasked;
+
+	#ifdef DEBUG_ON
+		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
+	#endif
+
+	uiCmdFEEL.ulWord = cmd;
+
+	ucADDRReg = uiCmdFEEL.ucByte[1];
+	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
 
 
+	switch (ucADDRReg) {
+		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x041://0x00000004:ccd_seq_2_config
+		case 0x042://0x00000008:spw_packet_1_config
+		case 0x043://0x0000000C:spw_packet_2_config
+		case 0x44://0x00000010:CCD_1_windowing_1_config
+		case 0x45://0x00000014:CCD_1_windowing_2_config
+		case 0x46://0x00000018:CCD_2_windowing_1_config
+		case 0x47://0x0000001C:CCD_2_windowing_2_config
+		case 0x48://0x00000020:CCD_3_windowing_1_config
+		case 0x49://0x00000024:CCD_3_windowing_2_config
+		case 0x4A://0x00000028:CCD_4_windowing_1_config
+		case 0x4B://0x0000002C:CCD_4_windowing_2_config
+		case 0x0000004C://0x00000038:operation_mode_config
+		#ifdef DEBUG_ON
+			fprintf(fp,"- a mode was already selected by DPU, waiting for sync.\n", pxNFeeP->ucId);
+		#endif
+			break;
+		case 0x0000004D://0x0000003C:sync_config
+
+			ucValueMasked = (COMM_RMAP_SELF_TRIGGER_CTRL_MSK & ucValueReg) >> 2; /* Number of rows */
+
+			if ( ucValueMasked ) {
+
+				if ( pxNFeeP->xControl.eNextMode == sToFeeStandBy ) {
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eMode = pxNFeeP->xControl.eNextMode;
 					#ifdef DEBUG_ON
 						fprintf(fp," - Mode Forced.\n");
 					#endif
@@ -945,7 +1072,6 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 }
 
 
-
 bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	/* Disable RMAP channel */
 	bRmapGetIrqControl(pxRmapCh);
@@ -959,7 +1085,7 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 	/* Enable RMAP */
 	/* Before Enable the IRQ for Rmap, make a copy for compare when some command arrive */
-	bRmapGetMemConfigArea(&xRmap[ucId]);
+	//bRmapGetMemConfigArea(&xRmap[ucId]);
 
 	bRmapGetIrqControl(pxRmapCh);
 	pxRmapCh->xRmapIrqControl.bWriteCmdEn = TRUE;
@@ -1003,7 +1129,7 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetWindowing(pxFeebCh);
-	pxFeebCh->xWindowingConfig.bMasking = TRANSPARENT;/* True= data packet;    FALSE= Transparent mode */
+	pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 	bFeebSetWindowing(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
