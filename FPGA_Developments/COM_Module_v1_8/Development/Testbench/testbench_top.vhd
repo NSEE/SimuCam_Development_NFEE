@@ -70,6 +70,11 @@ architecture RTL of testbench_top is
 	signal s_dummy_spw_rxdata  : std_logic_vector(7 downto 0);
 	signal s_dummy_spw_rxread  : std_logic;
 
+	signal s_delay_trigger  : std_logic;
+	signal s_delay_timer    : std_logic_vector(7 downto 0);
+	signal s_delay_busy     : std_logic;
+	signal s_delay_finished : std_logic;
+
 begin
 
 	clk200 <= not clk200 after 2.5 ns;  -- 200 MHz
@@ -229,22 +234,31 @@ begin
 	begin
 		if (rst = '1') then
 			s_dummy_spw_rxread <= '0';
+			s_delay_timer      <= std_logic_vector(to_unsigned(0, s_delay_timer'length));
+			s_delay_trigger    <= '0';
 		elsif rising_edge(clk100) then
 			v_time_counter     := v_time_counter + 1;
 			s_dummy_spw_rxread <= '0';
 			if (s_dummy_spw_rxvalid = '1') then
 				s_dummy_spw_rxread <= '1';
-				
+
 				-- check incoming data
 				if (s_dummy_spw_rxdata = x"00") then
 					--assert false report "Wrong Spw Rx Data" severity error;
 				end if;
 			end if;
-			
+
 			if ((s_dummy_spw_rxvalid = '1') and (s_dummy_spw_rxread = '1')) then
-				v_data_counter := v_data_counter+1;
-				end if;
-			
+				v_data_counter := v_data_counter + 1;
+			end if;
+
+			s_delay_timer <= std_logic_vector(to_unsigned(10, s_delay_timer'length));
+			if (v_time_counter = 1000) then
+				s_delay_trigger <= '1';
+			else
+				s_delay_trigger <= '0';
+			end if;
+
 		end if;
 	end process p_codec_dummy_read;
 
@@ -252,5 +266,19 @@ begin
 	s_spw_codec_comm_si  <= s_spw_codec_dummy_so;
 	s_spw_codec_dummy_di <= s_spw_codec_comm_do;
 	s_spw_codec_dummy_si <= s_spw_codec_comm_so;
+
+	delay_block_ent_inst : entity work.delay_block_ent
+		generic map(
+			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
+			g_TIMER_WIDTH => s_delay_timer'length
+		)
+		port map(
+			clk_i            => clk100,
+			rst_i            => rst,
+			delay_trigger_i  => s_delay_trigger,
+			delay_timer_i    => s_delay_timer,
+			delay_busy_o     => s_delay_busy,
+			delay_finished_o => s_delay_finished
+		);
 
 end architecture RTL;

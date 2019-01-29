@@ -23,6 +23,7 @@ architecture RTL of delay_block_ent is
 	signal s_clkdiv_evt : std_logic;
 	signal s_timer_cnt  : std_logic_vector((g_TIMER_WIDTH - 1) downto 0);
 	signal s_idle       : std_logic;
+	signal s_clk_evt    : std_logic;
 
 begin
 
@@ -50,7 +51,8 @@ begin
 					s_idle       <= '0';
 					delay_busy_o <= '1';
 					-- TODO: acerter delay timer para fazer a quantidade correta de ciclos de clock
-					s_timer_cnt  <= delay_timer_i;
+					s_timer_cnt  <= std_logic_vector(unsigned(delay_timer_i) - 1);
+					s_clkdiv_cnt <= std_logic_vector(to_unsigned(1, g_CLKDIV'length));
 				end if;
 			else
 				-- module in middle of delay
@@ -68,7 +70,7 @@ begin
 				end if;
 
 				-- check if a clkdiv event ocurred
-				if (s_clkdiv_evt = '1') then
+				if (s_clk_evt = '1') then
 					-- check if the timer counter finished
 					if (s_timer_cnt = std_logic_vector(to_unsigned(0, g_TIMER_WIDTH))) then
 						-- signal a delay finished
@@ -84,5 +86,9 @@ begin
 			end if;
 		end if;
 	end process p_delay_block;
+
+	s_clk_evt <= ('0') when (rst_i = '1')
+		else (clk_i) when (g_CLKDIV = x"00")
+		else (s_clkdiv_evt);
 
 end architecture RTL;
