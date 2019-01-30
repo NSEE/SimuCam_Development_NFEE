@@ -24,6 +24,7 @@ architecture RTL of delay_block_ent is
 	signal s_timer_cnt  : std_logic_vector((g_TIMER_WIDTH - 1) downto 0);
 	signal s_idle       : std_logic;
 	signal s_clk_evt    : std_logic;
+	signal s_clk_n      : std_logic;
 
 begin
 
@@ -41,18 +42,24 @@ begin
 			-- check if the module is in idle or in middle of a delay
 			if (s_idle = '1') then
 				-- module in idle, wait for a delay trigger
-				s_idle       <= '1';
-				delay_busy_o <= '0';
-				s_timer_cnt  <= std_logic_vector(to_unsigned(0, g_TIMER_WIDTH));
-				s_clkdiv_evt <= '0';
-				s_clkdiv_cnt <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));
+				s_idle           <= '1';
+				delay_busy_o     <= '0';
+				delay_finished_o <= '0';
+				s_timer_cnt      <= std_logic_vector(to_unsigned(0, g_TIMER_WIDTH));
+				s_clkdiv_evt     <= '0';
+				s_clkdiv_cnt     <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));
 				-- check if a delay was triggered
 				if (delay_trigger_i = '1') then
-					s_idle       <= '0';
-					delay_busy_o <= '1';
-					-- TODO: acerter delay timer para fazer a quantidade correta de ciclos de clock
-					s_timer_cnt  <= std_logic_vector(unsigned(delay_timer_i) - 1);
-					s_clkdiv_cnt <= std_logic_vector(to_unsigned(1, g_CLKDIV'length));
+					-- check if the timer is 0 (no delay)
+					if (delay_timer_i = std_logic_vector(to_unsigned(0, g_TIMER_WIDTH))) then
+						-- no delay, just generate a finish
+						delay_finished_o <= '1';
+					else
+						s_idle       <= '0';
+						delay_busy_o <= '1';
+						s_timer_cnt  <= std_logic_vector(unsigned(delay_timer_i) - 1);
+						s_clkdiv_cnt <= std_logic_vector(to_unsigned(1, g_CLKDIV'length));
+					end if;
 				end if;
 			else
 				-- module in middle of delay
@@ -63,7 +70,6 @@ begin
 				-- generate clkdiv event
 				s_clkdiv_evt <= '0';
 				s_clkdiv_cnt <= std_logic_vector(unsigned(s_clkdiv_cnt) + 1);
-				-- TODO: acerter clkdiv event pata fazer a quantidade correta de ciclos de clock
 				if (s_clkdiv_cnt = g_CLKDIV) then
 					s_clkdiv_evt <= '1';
 					s_clkdiv_cnt <= std_logic_vector(to_unsigned(0, g_CLKDIV'length));
@@ -88,7 +94,9 @@ begin
 	end process p_delay_block;
 
 	s_clk_evt <= ('0') when (rst_i = '1')
-		else (clk_i) when (g_CLKDIV = x"00")
+		else (s_clk_n) when (g_CLKDIV = x"00")
 		else (s_clkdiv_evt);
+
+	s_clk_n <= not clk_i;
 
 end architecture RTL;

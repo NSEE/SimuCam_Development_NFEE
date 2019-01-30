@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project
-Tue Jan 29 05:48:07 2019
+Wed Jan 30 06:39:42 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
@@ -41,18 +41,18 @@ agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Tue Jan 29 05:48:07 2019           ;
+; Flow Status                       ; Successful - Wed Jan 30 06:39:42 2019           ;
 ; Quartus Prime Version             ; 16.1.0 Build 196 10/24/2016 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project                            ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
 ; Family                            ; Stratix IV                                      ;
 ; Device                            ; EP4SGX230KF40C2                                 ;
 ; Timing Models                     ; Final                                           ;
-; Logic utilization                 ; 39 %                                            ;
-;     Combinational ALUTs           ; 54,846 / 182,400 ( 30 % )                       ;
+; Logic utilization                 ; 40 %                                            ;
+;     Combinational ALUTs           ; 56,221 / 182,400 ( 31 % )                       ;
 ;     Memory ALUTs                  ; 1,305 / 91,200 ( 1 % )                          ;
-;     Dedicated logic registers     ; 44,334 / 182,400 ( 24 % )                       ;
-; Total registers                   ; 45622                                           ;
+;     Dedicated logic registers     ; 44,954 / 182,400 ( 25 % )                       ;
+; Total registers                   ; 46242                                           ;
 ; Total pins                        ; 452 / 888 ( 51 % )                              ;
 ; Total virtual pins                ; 0                                               ;
 ; Total block memory bits           ; 11,332,556 / 14,625,792 ( 77 % )                ;
@@ -71,7 +71,7 @@ agreement for further details.
 +-------------------+----------------------+
 ; Option            ; Setting              ;
 +-------------------+----------------------+
-; Start date & time ; 01/29/2019 05:05:54  ;
+; Start date & time ; 01/30/2019 05:57:00  ;
 ; Main task         ; Compilation          ;
 ; Revision Name     ; MebX_Quartus_Project ;
 +-------------------+----------------------+
@@ -83,7 +83,7 @@ agreement for further details.
 ; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name       ; Section Id     ;
 +---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                             ; 66485671440360.154874554716900                                                ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 66485671440360.154883501309400                                                ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -153,12 +153,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:12:34     ; 1.0                     ; 2994 MB             ; 00:10:36                           ;
-; Fitter                    ; 00:22:52     ; 1.2                     ; 3635 MB             ; 00:43:58                           ;
-; Assembler                 ; 00:00:42     ; 1.0                     ; 1200 MB             ; 00:00:35                           ;
-; TimeQuest Timing Analyzer ; 00:02:21     ; 1.2                     ; 2000 MB             ; 00:02:27                           ;
-; EDA Netlist Writer        ; 00:02:31     ; 1.0                     ; 1466 MB             ; 00:01:34                           ;
-; Total                     ; 00:41:00     ; --                      ; --                  ; 00:59:10                           ;
+; Analysis & Synthesis      ; 00:09:45     ; 1.0                     ; 3003 MB             ; 00:10:05                           ;
+; Fitter                    ; 00:27:47     ; 1.2                     ; 3646 MB             ; 00:55:20                           ;
+; Assembler                 ; 00:00:37     ; 1.0                     ; 1210 MB             ; 00:00:34                           ;
+; TimeQuest Timing Analyzer ; 00:02:04     ; 1.2                     ; 2030 MB             ; 00:02:23                           ;
+; EDA Netlist Writer        ; 00:01:36     ; 1.0                     ; 1499 MB             ; 00:01:32                           ;
+; Total                     ; 00:41:49     ; --                      ; --                  ; 01:09:54                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
