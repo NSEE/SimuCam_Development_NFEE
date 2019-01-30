@@ -14,6 +14,7 @@
 
 
 // Master blank time = (MBT * 20 ns) = 400 ms
+//#define MBT	10E6
 #define MBT	20E6
 // Blank time = (BT * 20 ns) = 200 ms
 #define BT	10E6

@@ -20,7 +20,7 @@ void vFeeTask(void *task_data) {
 	unsigned char ucMemUsing;
 	static alt_u32 tCodFeeTask;
 	alt_u32 tCodeNext;
-	static alt_u32 incrementador; /* remover*/
+	static unsigned long incrementador; /* remover*/
 	tQMask uiCmdFEE;
 	TCcdMemMap *xCcdMapLocal;
 	unsigned char ucReadout;
@@ -290,6 +290,8 @@ void vFeeTask(void *task_data) {
 				/* Reset the memory addr variables thats is used in the transmission*/
 				vResetMemCCDFEE(pxNFee);
 
+				incrementador = 0;
+
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.eMode = sFeeStandBy;
 				break;
@@ -434,6 +436,7 @@ void vFeeTask(void *task_data) {
 					#endif
 				}
 
+				incrementador++;
 				break;
 
 
@@ -478,7 +481,7 @@ void vFeeTask(void *task_data) {
 
 									#ifdef DEBUG_ON
 										//fprintf(fp,"\n    i: %u ",incrementador);
-										fprintf(fp,"\nEnd of transmission NFEE-%hhu -> CCD %hhu  -> Time Code Ref. used -> %hu  \n", pxNFee->ucId, ucReadout, tCodFeeTask);
+										fprintf(fp,"\nEnd of transmission NFEE-%hhu -> CCD %hhu  -> Time Code Ref. used -> %hu   (n=%lu)\n", pxNFee->ucId, ucReadout, tCodFeeTask, incrementador);
 										fprintf(fp,"\nMemory used: %u ", ucMemUsing);
 										fprintf(fp,"\nTotal blocks transmited: %u ",xCcdMapLocal->ulBlockI);
 									#endif
