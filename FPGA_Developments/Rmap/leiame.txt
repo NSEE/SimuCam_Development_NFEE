@@ -1,0 +1,9 @@
+dev   -> Codec Rmap + interfaces de teste: memória e spw;
+
+dev_2 -> Interface de memória real (config. crítica + hk);
+
+dev_3 -> Interface SpW real (SpW light);
+
+dev_4 -> Acertos das máquinas de estado do codec rmap em função de problemas na síntese 	 (não ocorre na simulação);
+
+dev_5 -> Inversão de endianness (de little para big endian).
