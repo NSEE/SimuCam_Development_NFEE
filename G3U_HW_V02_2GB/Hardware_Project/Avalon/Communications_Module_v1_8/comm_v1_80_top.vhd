@@ -251,10 +251,17 @@ architecture rtl of comm_v1_80_top is
 
 	signal s_right_side_activated : std_logic;
 	signal s_left_side_activated  : std_logic;
+	
+	-- sync_in polarity fix (timing issues, need to be improved!!!)
+	signal s_sync_channel_n : std_logic;
 
 begin
 
+	-- reset_n creation
 	rst_n <= not a_reset;
+	
+	-- sync_in polarity fix (timing issues, need to be improved!!!) 
+	s_sync_channel_n <= not sync_channel;
 
 	-- windowing avalon mm read instantiation
 	avalon_mm_spacewire_read_ent_inst : entity work.avalon_mm_spacewire_read_ent
@@ -821,7 +828,7 @@ s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byt
 
 			s_timecode_tick <= '0';
 			-- check if a sync signal was issued
-			if (sync_channel = '1') then
+			if (s_sync_channel_n = '1') then
 				-- sync issued, increment timecode and send by spw
 				if (v_timecode_sended = '0') then
 					v_timecode_sended  := '1';
@@ -965,7 +972,7 @@ s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byt
 			-- trigger signal
 			s_sync_in_trigger      <= '0';
 			-- edge detection
-			if ((s_sync_in_delayed = '0') and (sync_channel = '1')) then
+			if ((s_sync_in_delayed = '0') and (s_sync_channel_n = '1')) then
 				s_sync_in_trigger <= '1';
 				if (s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty = '0') then
 					-- check if the left side has data (is activated)
@@ -976,7 +983,7 @@ s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byt
 				end if;
 			end if;
 			-- delay signals
-			s_sync_in_delayed      <= sync_channel;
+			s_sync_in_delayed      <= s_sync_channel_n;
 		end if;
 	end process p_sync_in_triger;
 

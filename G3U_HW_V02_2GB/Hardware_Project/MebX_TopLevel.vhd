@@ -352,9 +352,6 @@ signal spw_f_sync : std_logic;
 signal spw_g_sync : std_logic;
 signal spw_h_sync : std_logic;
 
-signal s_dummy : std_logic;
-
-
 -----------------------------------------
 	-- Sync - test
 	-----------------------------------------
