@@ -360,24 +360,24 @@ begin
 			--   |  17 downto  2  |   1 downto  0  |
 			--
 
-			-- check if frame manager is stopped
-			if (v_stopped_flag = '1') then
-				-- frame manager stopped
-				-- check if a clear request was received
-				if (fee_machine_clear_i = '1') then
-					-- clear request received
-					-- clear counters
-					s_current_frame_counter <= (others => '0');
-					s_current_frame_number  <= (others => '0');
-					v_full_frame_cnt        := (others => '0');
-				end if;
-				-- check if a start request was received
-				if (fee_machine_start_i = '1') then
-					-- start request received
-					-- start frame manager
-					v_stopped_flag := '0';
-				end if;
-			else
+--			-- check if frame manager is stopped
+--			if (v_stopped_flag = '1') then
+--				-- frame manager stopped
+--				-- check if a clear request was received
+--				if (fee_machine_clear_i = '1') then
+--					-- clear request received
+--					-- clear counters
+--					s_current_frame_counter <= (others => '0');
+--					s_current_frame_number  <= (others => '0');
+--					v_full_frame_cnt        := (others => '0');
+--				end if;
+--				-- check if a start request was received
+--				if (fee_machine_start_i = '1') then
+--					-- start request received
+--					-- start frame manager
+--					v_stopped_flag := '0';
+--				end if;
+--			else
 				-- frame manager not stopped
 				-- check if a sync signal was received
 				if (fee_sync_signal_i = '1') then
@@ -389,13 +389,13 @@ begin
 					s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
 					s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
 				end if;
-				-- check if a stop request was received
-				if (fee_machine_stop_i = '1') then
-					-- stop request received
-					-- stop frame manager
-					v_stopped_flag := '1';
-				end if;
-			end if;
+--				-- check if a stop request was received
+--				if (fee_machine_stop_i = '1') then
+--					-- stop request received
+--					-- stop frame manager
+--					v_stopped_flag := '1';
+--				end if;
+--			end if;
 
 			if (fee_clear_frame_i = '1') then
 				s_current_frame_counter <= (others => '0');
