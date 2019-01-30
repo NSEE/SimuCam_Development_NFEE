@@ -485,6 +485,27 @@ int main(void)
 	}
 
 
+/*
+
+	xDefaults.usiRows = 4510;
+	xDefaults.usiCols = 2255;
+	xDefaults.usiOLN = 30;
+	xDefaults.usiPreScanSerial = 25;
+	xDefaults.usiOverScanSerial = 15;
+	xDefaults.usiSyncPeriod = 6250;
+	xDefaults.usiDelay = 0;
+	xDefaults.bDataPacket = TRUE;
+	xDefaults.ulLineDelay = 90000;
+	xDefaults.ulColDelay = 0;
+	xDefaults.ulADCPixelDelay = 333;
+	xDefaults.ucLogicalAddr = 0x51;
+	xDefaults.ucRmapKey = 0xD1;
+
+*/
+
+
+
+
 	/* If debug is enable, will print the eth configuration in the*/
 	#ifdef DEBUG_ON
 		vShowEthConfig();
@@ -506,7 +527,7 @@ int main(void)
 
 	bInitSync();
 
-	vFillMemmoryPattern( &xSimMeb );
+	//vFillMemmoryPattern( &xSimMeb );
 
 
 

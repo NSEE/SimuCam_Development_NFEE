@@ -43,6 +43,8 @@ typedef struct Defaults{
 	unsigned long ulLineDelay;
 	unsigned long ulColDelay;
 	unsigned long ulADCPixelDelay;
+	unsigned short int ucRmapKey;
+	unsigned short int ucLogicalAddr;
 }TDefaults;
 
 

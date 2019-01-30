@@ -37,6 +37,7 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
+void vLoadCtemp(void);
 
 #ifdef DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );

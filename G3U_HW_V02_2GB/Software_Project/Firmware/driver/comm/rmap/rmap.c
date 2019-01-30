@@ -937,7 +937,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd1VodE >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD1_VOD_F_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD1_VOD_F_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd1VodF >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd1VodF << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_0_REG_OFST,
 				uliReg);
 
@@ -948,7 +948,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd1VrdMon >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD2_VOD_E_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD2_VOD_E_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2VodE >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2VodE << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_1_REG_OFST,
 				uliReg);
 
@@ -959,7 +959,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2VodF >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD2_VRD_MON_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD2_VRD_MON_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2VrdMon >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2VrdMon << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_2_REG_OFST,
 				uliReg);
 
@@ -970,7 +970,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd3VodE >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD3_VOD_F_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD3_VOD_F_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd3VodF >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd3VodF << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_3_REG_OFST,
 				uliReg);
 
@@ -981,7 +981,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd3VrdMon >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD4_VOD_E_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD4_VOD_E_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4VodE >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4VodE << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_4_REG_OFST,
 				uliReg);
 
@@ -992,7 +992,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4VodF >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD4_VRD_MON_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD4_VRD_MON_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4VrdMon >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4VrdMon << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_5_REG_OFST,
 				uliReg);
 
@@ -1003,7 +1003,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVccd >> 0));
 		uliReg &= (~COMM_RMAP_HK_VRCLK_MSK);
 		uliReg |= (COMM_RMAP_HK_VRCLK_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVrclk >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVrclk << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_6_REG_OFST,
 				uliReg);
 
@@ -1014,7 +1014,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkViclk >> 0));
 		uliReg &= (~COMM_RMAP_HK_VRCLK_LOW_MSK);
 		uliReg |= (COMM_RMAP_HK_VRCLK_LOW_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVrclkLow >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVrclkLow << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_7_REG_OFST,
 				uliReg);
 
@@ -1025,7 +1025,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk5vbPos >> 0));
 		uliReg &= (~COMM_RMAP_HK_5VB_NEG_MSK);
 		uliReg |= (COMM_RMAP_HK_5VB_NEG_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk5vbNeg >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk5vbNeg << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_8_REG_OFST,
 				uliReg);
 
@@ -1036,7 +1036,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk33vbPos >> 0));
 		uliReg &= (~COMM_RMAP_HK_2_5VA_POS_MSK);
 		uliReg |= (COMM_RMAP_HK_2_5VA_POS_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk25vaPos >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk25vaPos << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_9_REG_OFST,
 				uliReg);
 
@@ -1047,7 +1047,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk33vdPos >> 0));
 		uliReg &= (~COMM_RMAP_HK_2_5VD_POS_MSK);
 		uliReg |= (COMM_RMAP_HK_2_5VD_POS_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk25vdPos >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk25vdPos << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_10_REG_OFST,
 				uliReg);
 
@@ -1058,7 +1058,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk15vdPos >> 0));
 		uliReg &= (~COMM_RMAP_HK_5VREF_MSK);
 		uliReg |= (COMM_RMAP_HK_5VREF_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk5vref >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHk5vref << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_11_REG_OFST,
 				uliReg);
 
@@ -1069,7 +1069,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVccdPosRaw >> 0));
 		uliReg &= (~COMM_RMAP_HK_VCLK_POS_RAW_MSK);
 		uliReg |= (COMM_RMAP_HK_VCLK_POS_RAW_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVclkPosRaw >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVclkPosRaw << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_12_REG_OFST,
 				uliReg);
 
@@ -1080,7 +1080,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVan1PosRaw >> 0));
 		uliReg &= (~COMM_RMAP_HK_VAN3_NEG_RAW_MSK);
 		uliReg |= (COMM_RMAP_HK_VAN3_NEG_RAW_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVan3NegRaw >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVan3NegRaw << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_13_REG_OFST,
 				uliReg);
 
@@ -1091,7 +1091,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVan2PosRaw >> 0));
 		uliReg &= (~COMM_RMAP_HK_VDIG_FPGA_RAW_MSK);
 		uliReg |= (COMM_RMAP_HK_VDIG_FPGA_RAW_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVdigFpgaRaw >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVdigFpgaRaw << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_14_REG_OFST,
 				uliReg);
 
@@ -1102,7 +1102,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkVdigSpwRaw >> 0));
 		uliReg &= (~COMM_RMAP_HK_VICLK_LOW_MSK);
 		uliReg |= (COMM_RMAP_HK_VICLK_LOW_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkViclkLow >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkViclkLow << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_15_REG_OFST,
 				uliReg);
 
@@ -1113,7 +1113,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkAdcTempAE >> 0));
 		uliReg &= (~COMM_RMAP_HK_ADC_TEMP_A_F_MSK);
 		uliReg |= (COMM_RMAP_HK_ADC_TEMP_A_F_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkAdcTempAF >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkAdcTempAF << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_16_REG_OFST,
 				uliReg);
 
@@ -1124,7 +1124,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd1Temp >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD2_TEMP_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD2_TEMP_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2Temp >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd2Temp << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_17_REG_OFST,
 				uliReg);
 
@@ -1135,7 +1135,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd3Temp >> 0));
 		uliReg &= (~COMM_RMAP_HK_CCD4_TEMP_MSK);
 		uliReg |= (COMM_RMAP_HK_CCD4_TEMP_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4Temp >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkCcd4Temp << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_18_REG_OFST,
 				uliReg);
 
@@ -1146,7 +1146,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiHkWp605Spare >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_0_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_0_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA0 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA0 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_19_REG_OFST,
 				uliReg);
 
@@ -1157,7 +1157,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA1 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_2_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_2_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA2 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA2 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_20_REG_OFST,
 				uliReg);
 
@@ -1168,7 +1168,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA3 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_4_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_4_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA4 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA4 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_21_REG_OFST,
 				uliReg);
 
@@ -1179,7 +1179,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA5 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_6_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_6_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA6 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA6 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_22_REG_OFST,
 				uliReg);
 
@@ -1190,7 +1190,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA7 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_8_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_8_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA8 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA8 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_23_REG_OFST,
 				uliReg);
 
@@ -1201,7 +1201,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA9 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_10_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_10_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA10 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA10 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_24_REG_OFST,
 				uliReg);
 
@@ -1212,7 +1212,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA11 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_12_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_12_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA12 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA12 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_25_REG_OFST,
 				uliReg);
 
@@ -1223,7 +1223,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA13 >> 0));
 		uliReg &= (~COMM_RMAP_LOWRES_PRT_A_14_MSK);
 		uliReg |= (COMM_RMAP_LOWRES_PRT_A_14_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA14 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA14 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_26_REG_OFST,
 				uliReg);
 
@@ -1234,7 +1234,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiLowresPrtA15 >> 0));
 		uliReg &= (~COMM_RMAP_SEL_HIRES_PRT0_MSK);
 		uliReg |= (COMM_RMAP_SEL_HIRES_PRT0_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt0 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt0 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_27_REG_OFST,
 				uliReg);
 
@@ -1245,7 +1245,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt1 >> 0));
 		uliReg &= (~COMM_RMAP_SEL_HIRES_PRT2_MSK);
 		uliReg |= (COMM_RMAP_SEL_HIRES_PRT2_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt2 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt2 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_28_REG_OFST,
 				uliReg);
 
@@ -1256,7 +1256,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt3 >> 0));
 		uliReg &= (~COMM_RMAP_SEL_HIRES_PRT4_MSK);
 		uliReg |= (COMM_RMAP_SEL_HIRES_PRT4_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt4 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt4 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_29_REG_OFST,
 				uliReg);
 
@@ -1267,7 +1267,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt5 >> 0));
 		uliReg &= (~COMM_RMAP_SEL_HIRES_PRT6_MSK);
 		uliReg |= (COMM_RMAP_SEL_HIRES_PRT6_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt6 >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt6 << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_30_REG_OFST,
 				uliReg);
 
@@ -1278,7 +1278,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiSelHiresPrt7 >> 0));
 		uliReg &= (~COMM_RMAP_ZERO_HIRES_AMP_MSK);
 		uliReg |= (COMM_RMAP_ZERO_HIRES_AMP_MSK
-				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiZeroHiresAmp >> 16));
+				& (alt_u32) (pxRmapCh->xRmapMemHKArea.usiZeroHiresAmp << 16));
 		vRmapWriteReg(pxRmapCh->puliRmapChAddr, COMM_RMAP_HK_31_REG_OFST,
 				uliReg);
 

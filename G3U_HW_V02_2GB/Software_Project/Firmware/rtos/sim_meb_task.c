@@ -17,6 +17,7 @@ void vSimMebTask(void *task_data) {
 	unsigned char ucIL;
 	tQMask uiCmdMeb;
 	INT8U error_code;
+	INT8U ucFrameNumber;
 
 	pxMebC = (TSimucam_MEB *) task_data;
 
@@ -145,7 +146,15 @@ void vSimMebTask(void *task_data) {
 									tCode = ( pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
 									tCodeNext = ( tCode ) % 4;
 
-									fprintf(fp,"\n\nMEB TASK:  TC: %hhu ( %hhu ) \n\n ", tCode, tCodeNext);
+									fprintf(fp,"\n\nMEB TASK:  TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
+
+
+									bRmapGetMemConfigArea(&pxMebC->xFeeControl.xNfee[0].xChannel.xRmap);
+									ucFrameNumber = pxMebC->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
+
+									//bRmapSetMemConfigArea(&pxMebC->xFeeControl.xNfee[0].xChannel.xRmap);
+
+									fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 
 								#endif
 

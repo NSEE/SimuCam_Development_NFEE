@@ -8,7 +8,10 @@
 
 #include "fee_task.h"
 
-TRmapChannel RmapConfAreaL;
+const char *cTemp[64];
+
+
+
 
 void vFeeTask(void *task_data) {
 	bool bSuccess = FALSE;
@@ -25,6 +28,7 @@ void vFeeTask(void *task_data) {
 	bool bDmaReturn;
 	bool bFinal;
 	alt_u16 *pusiHK;
+	alt_u32 *pusiHK32;
 	unsigned char ucIL;
 
 
@@ -64,15 +68,113 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern; /* todo:N�o esquecer de atualizar para o ENUM  */
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
+
+/*
 				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
 				pusiHK = &pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE;
-				for (ucIL = 0; ucIL < 128; ++ucIL) {
+				for (ucIL = 0; ucIL < 64; ++ucIL) {
 					*pusiHK = ucIL;
 					pusiHK++;
 				}
 
 				bRmapSetRmapMemHKArea(&pxNFee->xChannel.xRmap);
 
+				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
+				pusiHK = &pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE;
+*/
+				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE = 0xFF00;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodF = 0xFF01;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VrdMon = 0xFF02;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2VodE = 0xFF03;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2VodF = 0xFF04;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2VrdMon = 0xFF05;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3VodE = 0xFF06;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3VodF = 0xFF07;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3VrdMon = 0xFF08;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4VodE  = 0xFF09;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4VodF = 0xFF0A;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4VrdMon = 0xFF0B;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVccd = 0xFF0C;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVrclk = 0xFF0D;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkViclk = 0xFF0E;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVrclkLow = 0xFF0F;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk5vbPos = 0xFF10;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk5vbNeg = 0xFF11;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk33vbPos = 0xFF12;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk25vaPos = 0xFF13;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk33vdPos = 0xFF14;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk25vdPos = 0xFF15;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk15vdPos = 0xFF16;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHk5vref = 0xFF17;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVccdPosRaw = 0xFF18;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVclkPosRaw = 0xFF19;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVan1PosRaw = 0xFF1A;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVan3NegRaw = 0xFF1B;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVan2PosRaw = 0xFF1C;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVdigFpgaRaw = 0xFF1D;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkVdigSpwRaw = 0xFF1E;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkViclkLow = 0xFF1F;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkAdcTempAE = 0xFF20;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkAdcTempAF = 0xFF21;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1Temp = 0xFF22;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2Temp = 0xFF23;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3Temp = 0xFF24;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4Temp = 0xFF25;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkWp605Spare = 0xFF26;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA0 = 0xFF27;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA1 = 0xFF28;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA2 = 0xFF29;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA3 = 0xFF2A;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA4 = 0xFF2B;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA5 = 0xFF2C;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA6 = 0xFF2D;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA7 = 0xFF2E;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA8 = 0xFF2F;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA9 = 0xFF30;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA10 = 0xFF31;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA11 = 0xFF32;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA12 = 0xFF33;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA13 = 0xFF34;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA14 = 0xFF35;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA15 = 0xFF36;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt0 = 0xFF37;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt1 = 0xFF38;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt2 = 0xFF39;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt3 = 0xFF3A;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt4 = 0xFF3B;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt5 = 0xFF3C;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt6 = 0xFF3D;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt7 = 0xFF3E;
+				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiZeroHiresAmp = 0xFF3F;
+				bRmapSetRmapMemHKArea(&pxNFee->xChannel.xRmap);
+
+
+				vLoadCtemp();
+
+				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
+				pusiHK = &pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE;
+
+#ifdef DEBUG_ON
+				fprintf(fp,"\n\n================= H  K ==================\n");
+
+				for (ucIL = 0; ucIL < 64; ++ucIL) {
+					fprintf(fp,"   - %s = %04x \n", cTemp[ucIL] , *pusiHK);
+					pusiHK++;
+				}
+				fprintf(fp,"\n================= H  K ==================\n\n");
+#endif
+
+				/* Change the configuration */
+				bRmapGetCodecConfig( &pxNFee->xChannel.xRmap );
+				pxNFee->xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char) xDefaults.ucRmapKey ;
+				pxNFee->xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char) xDefaults.ucLogicalAddr;
+				bRmapSetCodecConfig( &pxNFee->xChannel.xRmap );
+
+				#ifdef DEBUG_ON
+					fprintf(fp,"NFEE %hhu Task. RMAP KEY = %hu\n", xDefaults.ucRmapKey );
+					fprintf(fp,"NFEE %hhu Task. Log. Addr. = %hu \n", xDefaults.ucLogicalAddr);
+				#endif
 
 				pxNFee->xControl.eMode = sToFeeConfig;
 
@@ -1481,3 +1583,72 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 #endif
 
 */
+
+
+
+void vLoadCtemp(void) {
+	cTemp[0]="usiHkCcd1VodE";
+	cTemp[1]="usiHkCcd1VodF";
+	cTemp[2]="usiHkCcd1VrdMon";
+	cTemp[3]="usiHkCcd2VodE";
+	cTemp[4]="usiHkCcd2VodF";
+	cTemp[5]="usiHkCcd2VrdMon";
+	cTemp[6]="usiHkCcd3VodE";
+	cTemp[7]="usiHkCcd3VodF";
+	cTemp[8]="usiHkCcd3VrdMon";
+	cTemp[9]="usiHkCcd4VodE";
+	cTemp[10]="usiHkCcd4VodF";
+	cTemp[11]="usiHkCcd4VrdMon";
+	cTemp[12]="usiHkVccd";
+	cTemp[13]="usiHkVrclk";
+	cTemp[14]="usiHkViclk";
+	cTemp[15]="usiHkVrclkLow";
+	cTemp[16]="usiHk5vbPos";
+	cTemp[17]="usiHk5vbNeg";
+	cTemp[18]="usiHk33vbPos";
+	cTemp[19]="usiHk25vaPos";
+	cTemp[20]="usiHk33vdPos";
+	cTemp[21]="usiHk25vdPos";
+	cTemp[22]="usiHk15vdPos";
+	cTemp[23]="usiHk5vref";
+	cTemp[24]="usiHkVccdPosRaw";
+	cTemp[25]="usiHkVclkPosRaw";
+	cTemp[26]="usiHkVan1PosRaw";
+	cTemp[27]="usiHkVan3NegRaw";
+	cTemp[28]="usiHkVan2PosRaw";
+	cTemp[29]="usiHkVdigFpgaRaw";
+	cTemp[30]="usiHkVdigSpwRaw";
+	cTemp[31]="usiHkViclkLow";
+	cTemp[32]="usiHkAdcTempAE";
+	cTemp[33]="usiHkAdcTempAF";
+	cTemp[34]="usiHkCcd1Temp";
+	cTemp[35]="usiHkCcd2Temp";
+	cTemp[36]="usiHkCcd3Temp";
+	cTemp[37]="usiHkCcd4Temp";
+	cTemp[38]="usiHkWp605Spare";
+	cTemp[39]="usiLowresPrtA0";
+	cTemp[40]="usiLowresPrtA1";
+	cTemp[41]="usiLowresPrtA2";
+	cTemp[42]="usiLowresPrtA3";
+	cTemp[43]="usiLowresPrtA4";
+	cTemp[44]="usiLowresPrtA5";
+	cTemp[45]="usiLowresPrtA6";
+	cTemp[46]="usiLowresPrtA7";
+	cTemp[47]="usiLowresPrtA8";
+	cTemp[48]="usiLowresPrtA9";
+	cTemp[49]="usiLowresPrtA10";
+	cTemp[50]="usiLowresPrtA11";
+	cTemp[51]="usiLowresPrtA12";
+	cTemp[52]="usiLowresPrtA13";
+	cTemp[53]="usiLowresPrtA14";
+	cTemp[54]="usiLowresPrtA15";
+	cTemp[55]="usiSelHiresPrt0";
+	cTemp[56]="usiSelHiresPrt1";
+	cTemp[57]="usiSelHiresPrt2";
+	cTemp[58]="usiSelHiresPrt3";
+	cTemp[59]="usiSelHiresPrt4";
+	cTemp[60]="usiSelHiresPrt5";
+	cTemp[61]="usiSelHiresPrt6";
+	cTemp[62]="usiSelHiresPrt7";
+	cTemp[63]="usiZeroHiresAmp";
+}

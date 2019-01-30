@@ -68,6 +68,13 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 		#endif
     }
 
+    bDpktGetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiAdcDelay = usiAdcPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiColumnDelay = 0 ;
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs(xDefaults.ulLineDelay);
+    bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
+
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */

@@ -116,7 +116,44 @@ bool vLoadDefaultETHConf( void ){
 						} while ( (c !=59) );
 
 						break;
+					case 'P':
+						ucParser = 0;
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xConfEth.siPortPUS = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
 					case 'H':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						sidhcpTemp = atoi( inteiro );
+						if (sidhcpTemp == 1)
+							xConfEth.bDHCP = TRUE;
+						else
+							xConfEth.bDHCP = FALSE;
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+
+					case 'S':
 
 						ucParser = 0;
 						do {
@@ -266,12 +303,6 @@ bool vLoadDefaultETHConf( void ){
 
 
 
-
-
-
-
-
-
 bool vLoadDebugConfs( void ){
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
@@ -366,6 +397,44 @@ bool vLoadDebugConfs( void ){
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiOverScanSerial = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'R':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.ucRmapKey = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'A':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.ucLogicalAddr = atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -581,10 +650,11 @@ bool vLoadDebugConfs( void ){
 		xDefaults.ulLineDelay = 0;
 		xDefaults.ulColDelay = 0;
 		xDefaults.ulADCPixelDelay = 0;
+		xDefaults.ucLogicalAddr = 0x51;
+		xDefaults.ucRmapKey = 0xD1;
 
 	}
 
 	return bSuccess;
 }
-
 
