@@ -172,7 +172,7 @@ void vNFeeControlTask(void *task_data) {
 					}
 				}
 				if ( xDefaults.usiDelay == 0 ) {
-					OSTimeDlyHMSM(0,0,0,xDefaults.usiDelay); /*remover depois dos testes !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				//	OSTimeDlyHMSM(0,0,0,xDefaults.usiDelay); /*remover depois dos testes !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 				}
 				
 				break;		
@@ -224,7 +224,6 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) {
 	tQMask uiCmdLocal;
 	unsigned char i;
-	bool bCheckSimulation;
 
 	uiCmdLocal.ulWord = uiCmdParam;
 

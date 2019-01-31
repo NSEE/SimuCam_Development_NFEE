@@ -277,7 +277,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 					bStatus = FALSE;
 //					break;
 				} else {
-					if (iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM1Dev,
+					if (iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1Dev,
 							&xDmaExtendedDescriptor)) {
 						bStatus = FALSE;
 //						break;

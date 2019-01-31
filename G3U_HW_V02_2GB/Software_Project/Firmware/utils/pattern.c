@@ -24,13 +24,13 @@ alt_u32 pattern_createPattern(alt_u8 mem_number, alt_u32 mem_offset, alt_u8 ccd_
 			pxPixelData->usiPixel[i++] = PATTERN_MASK_TIMECODE(PATTERN_TIMECODE_VALUE) | PATTERN_MASK_CCDNUMBER(ccd_number) | PATTERN_MASK_CCDSIDE(ccd_side) | PATTERN_MASK_ROW(row) | PATTERN_MASK_COLUMN(col);
 		}
 	}
-
 	//pxPixelData->ulliMask = xSimMeb.xFeeControl.xNfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;
-	if ( xDefaults.bMaskSD == TRUE ) {
-		pxPixelData->ulliMask = (unsigned long long) ((xDefaults.ullMaskMSB<<32) | (xDefaults.ullMaskLSB<<0));
-	} else {
-		pxPixelData->ulliMask = xSimMeb.xFeeControl.xNfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;
+	pxPixelData->ulliMask = 0;
+	for (alt_u8 j = 0; j < i; j++) // create the mask (i.e.: if i stops at block 3 , the mask will be 0b00...0111)
+	{
+		pxPixelData->ulliMask |= 0x8000000000000000 >> j;
 	}
+
 
 
 	offset += sizeof(TSdmaPixelDataBlock); // increment offset so we return the next available memory block
