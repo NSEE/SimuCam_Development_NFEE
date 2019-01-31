@@ -527,7 +527,7 @@ int main(void)
 
 	bInitSync();
 
-	//vFillMemmoryPattern( &xSimMeb );
+	vFillMemmoryPattern( &xSimMeb );
 
 
 

@@ -8,6 +8,8 @@ extern "C" {
 // include necessário para trabalhar com as ddr
 #include "../api_driver/ddr2/ddr2.h"
 #include "../api_driver/simucam_dma/simucam_dma.h"
+#include "../simucam_definitions.h"
+#include "meb.h"
 
 #define PATTERN_MEMORY_FULLMASK 0xFFFFFFFFFFFFFFFF
 #define PATTERN_TIMECODE_VALUE 0xFF

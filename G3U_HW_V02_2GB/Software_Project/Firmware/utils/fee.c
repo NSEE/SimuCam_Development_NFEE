@@ -133,6 +133,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
 
     pxNfeeL->xMemMap.xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
 
+
     /* Calculating how is the final mask with zero padding */
     if ( ulMemLeftBytesL >= 1 ) {
         ucPixelsInLastBlockL = (unsigned char) (( ulMemLeftLinesL * PIXEL_PER_MEM_LINE ) + (unsigned int) ( ulMemLeftBytesL / BYTES_PER_PIXEL ));
@@ -145,6 +146,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
 
     /* WARNING: Verify the memory alocation (endianess) */
     pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
 
     /* Number of block is te same as the number of line masks in the memory */
     pxNfeeL->xMemMap.xCommon.usiNTotalBlocks = ulMaskMemLinesL;
@@ -158,6 +160,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
         pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulOffsetAddr = ulLastOffset; 
         ulLastOffset = ulLastOffset + ulStepHalfCCD;
     }
+
 }
 
 /* Update the memory mapping for the FEE due to the CCD informations */

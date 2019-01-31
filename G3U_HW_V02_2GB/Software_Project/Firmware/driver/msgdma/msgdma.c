@@ -345,6 +345,9 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 	while ((dev->descriptor_fifo_depth <= fifo_write_fill_level)
 			|| (dev->descriptor_fifo_depth <= fifo_read_fill_level)) {
 		alt_busy_sleep(1); /* delay 1us */
+#ifdef DEBUG_ON
+	fprintf(fp,"\n-- DMA can't write in the descriptor \n ");
+#endif
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 		{
 #ifdef DEBUG_ON
