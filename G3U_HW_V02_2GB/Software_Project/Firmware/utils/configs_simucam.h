@@ -48,6 +48,7 @@ typedef struct Defaults{
 	unsigned long ullMaskLSB;
 	unsigned long ullMaskMSB;
 	bool bMaskSD;
+	unsigned short int usiLinkNFEE0;
 
 }TDefaults;
 

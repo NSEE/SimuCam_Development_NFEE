@@ -47,6 +47,18 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.eMode = sFeeInit;
     pxNfeeL->xControl.eNextMode = sFeeInit;
 
+    switch (ucIdNFEE) {
+		case 0:
+			pxNfeeL->ucSPWId = (unsigned char)xDefaults.usiLinkNFEE0;
+			break;
+		default:
+			#ifdef DEBUG_ON
+				fprintf(fp, "\n CRITICAL! Can't bind the SPQ channel with the NFEE %i \n", pxNfeeL->ucId);
+			#endif
+			break;
+	}
+
+
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
@@ -56,13 +68,13 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
         pxNfeeL->xControl.ucROutOrder[ucIL] = ucIL;
 
     /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
-    if ( bCommInitCh(&pxNfeeL->xChannel, ucIdNFEE ) == FALSE ) {
+    if ( bCommInitCh(&pxNfeeL->xChannel, pxNfeeL->ucSPWId ) == FALSE ) {
 		#ifdef DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
 		#endif
     }
 
-    if ( bCommSetGlobalIrqEn( TRUE, ucIdNFEE ) == FALSE ) {
+    if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId ) == FALSE ) {
 		#ifdef DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
 		#endif
@@ -145,8 +157,8 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
     /* WARNING: Verify the memory alocation (endianess) */
-    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
-    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
+    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
     //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF);
 
 

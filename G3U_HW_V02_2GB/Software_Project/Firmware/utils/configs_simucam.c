@@ -585,6 +585,22 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
+					case 'B':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiLinkNFEE0 = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
 					case 'W':
 
 						p_inteiro = inteiroll;

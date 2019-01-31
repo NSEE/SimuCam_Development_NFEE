@@ -75,7 +75,8 @@ typedef struct FeeControl{
 } TFeeControl;
 
 typedef struct NFee {
-    unsigned char ucId;             /* IF of the NFEE instance */
+    unsigned char ucId;             /* ID of the NFEE instance */
+    unsigned char ucSPWId;             /* ID of the SPW instance For This NFEE Instance */
     TFEEMemoryMap xMemMap;          /* Memory map of the NFEE */
     TFeeControl   xControl;         /* Operation Control of the NFEE */
     TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */

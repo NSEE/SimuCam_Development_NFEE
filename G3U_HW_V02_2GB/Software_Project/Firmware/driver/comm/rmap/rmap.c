@@ -67,7 +67,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
 #endif
 
-	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord);
+	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendRMAPFromIRQ( 0 );
 	}
@@ -76,13 +76,31 @@ void vRmapCh1HandleIrq(void* pvContext) {
 }
 
 void vRmapCh2HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
+	tQMask uiCmdRmap;
+	INT8U ucADDRReg;
+	INT32U ucValueReg;
+	INT32U ucValueMasked;
+	INT8U error_codel;
+
 	volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+
+	ucADDRReg = (unsigned char)uliRmapCh2WriteCmdAddress();
+
+	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
+	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+	uiCmdRmap.ucByte[1] = ucADDRReg;
+	uiCmdRmap.ucByte[0] = 0;
+
+#ifdef DEBUG_ON
+	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+#endif
+
+	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendRMAPFromIRQ( 0 );
+	}
+
+
 	vRmapCh2IrqFlagClrWriteCmd();
 }
 
