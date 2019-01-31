@@ -372,62 +372,29 @@ void vFeeTask(void *task_data) {
 	                    if ( error_code == OS_ERR_NONE ) {
 	                    	pxNFee->xControl.bDMALocked = TRUE;
 
-							if (  ucMemUsing == 0  ) {
-								/* Initializing the addr */
-								xCcdMapLocal->ulBlockI = 0;
-								xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
+							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee );
+							OSMutexPost(xDma[ucMemUsing].xMutexDMA);
+							pxNFee->xControl.bDMALocked = FALSE;
+		
+						}
+						/* Send message telling to controller that is not using the DMA any more */
+						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);							
 
-								bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-								if ( bDmaReturn == TRUE ) {
-									//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-									xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-									xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-									bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-									if ( bDmaReturn == TRUE ) {
-										//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-										xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-										xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-									}
-								}
-								OSMutexPost(xDma[ucMemUsing].xMutexDMA);
-								pxNFee->xControl.bDMALocked = FALSE;
+						if ( bDmaReturn == TRUE ) {
+							if (pxNFee->xControl.bWatingSync==TRUE) {
+								pxNFee->xControl.eNextMode = sToTestFullPattern;
+								pxNFee->xControl.eMode = sFeeWaitingSync;
 							} else {
-								xCcdMapLocal->ulBlockI = 0;
-								xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
-								bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-								if ( bDmaReturn == TRUE ) {
-									//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-									xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-									xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-									bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-									if ( bDmaReturn == TRUE ) {
-										//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-										xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-										xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-
-									}
-								}
-								OSMutexPost(xDma[ucMemUsing].xMutexDMA);
-								pxNFee->xControl.bDMALocked = FALSE;
+								pxNFee->xControl.eNextMode = sToTestFullPattern;
+								pxNFee->xControl.eMode = sToTestFullPattern;
 							}
-	                        /* Send message telling to controller that is not using the DMA any more */
-							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);							
-
-							if ( bDmaReturn == TRUE ) {
-								if (pxNFee->xControl.bWatingSync==TRUE) {
-									pxNFee->xControl.eNextMode = sToTestFullPattern;
-									pxNFee->xControl.eMode = sFeeWaitingSync;
-								} else {
-									pxNFee->xControl.eNextMode = sToTestFullPattern;
-									pxNFee->xControl.eMode = sToTestFullPattern;
-								}
-							}
+							incrementador++;
+						}
 
 
 							#ifdef DEBUG_ON
 								fprintf(fp,"\nFEE TASK:  Double buffer prepared\n ");
 							#endif							
-	                    }
 					} else {
 
 						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
@@ -436,9 +403,7 @@ void vFeeTask(void *task_data) {
 					#ifdef DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
-				}
-
-				incrementador++;
+				}	
 				break;
 
 
@@ -505,11 +470,11 @@ void vFeeTask(void *task_data) {
 
 		                    	if ( ucMemUsing == 0  ) {
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-		                    		bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucId);
+		                    		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucId);
 		                    	} else {
 
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-		                    		bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucId);
+		                    		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucId);
 		                    	}
 
 
@@ -970,7 +935,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 		case 0x4A://0x00000028:CCD_4_windowing_1_config
 		case 0x4B://0x0000002C:CCD_4_windowing_2_config
 			#ifdef DEBUG_ON
-				fprintf(fp,"Command not allowed yet ( %hhu )\n", ucValueMasked);
+				fprintf(fp,"Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 				break;
 		case 0x0000004C://0x00000038:operation_mode_config
@@ -1124,7 +1089,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 		case 0x4A://0x00000028:CCD_4_windowing_1_config
 		case 0x4B://0x0000002C:CCD_4_windowing_2_config
 			#ifdef DEBUG_ON
-				fprintf(fp," Command not allowed yet ( %hhu )\n", ucValueMasked);
+				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 				break;
 
@@ -1709,16 +1674,15 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, ulLengthBlocks, ucIterationSide, ucID);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, ulLengthBlocks, ucIterationSide, ucID);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -1727,100 +1691,27 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}
 
 
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! AAQUI
-
-	if ( (xCcdMapLocal->ulBlockI + SDMA_MAX_BLOCKS*2) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
-
+	if ( (xCcdMapLocal->ulBlockI + SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
 		ulLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
-		if (  ucMem == 0  ) {
-
-			bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
-			if ( bDmaReturn == TRUE ) {
-				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-				bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, ucID);
-				if ( bDmaReturn == TRUE ) {
-					//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-					xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-					xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-				}
-			}
-
-
-		} else {
-
-
-
-		}
-
-
 	} else {
-
-
-		if (  ucMem == 0  ) {
-			/* Initializing the addr */
-			xCcdMapLocal->ulBlockI = 0;
-			xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
-
-			bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-			if ( bDmaReturn == TRUE ) {
-				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-				bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-				if ( bDmaReturn == TRUE ) {
-					//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-					xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-					xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-				}
-			}
-			OSMutexPost(xDma[ucMem].xMutexDMA);
-			pxNFee->xControl.bDMALocked = FALSE;
-		} else {
-			xCcdMapLocal->ulBlockI = 0;
-			xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
-			bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-			if ( bDmaReturn == TRUE ) {
-				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-				bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
-				if ( bDmaReturn == TRUE ) {
-					//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-					xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-					xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-
-				}
-			}
-			OSMutexPost(xDma[ucMem].xMutexDMA);
-			pxNFee->xControl.bDMALocked = FALSE;
-
-
+		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	}
+
 	if (  ucMem == 0  ) {
-		/* Initializing the addr */
-
-
-
-	} else {
-		xCcdMapLocal->ulBlockI = 0;
-		xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
-		bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, ulLengthBlocks, ucIterationSide, ucID);
 		if ( bDmaReturn == TRUE ) {
-			//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-			xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-			xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-			bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, ucID);
-			if ( bDmaReturn == TRUE ) {
-				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-
-			}
-		}
+			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
+			xCcdMapLocal->ulBlockI += ulLengthBlocks;
+		} else
+			return bDmaReturn;
+	} else {
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, ulLengthBlocks, ucIterationSide, ucID);
+		if ( bDmaReturn == TRUE ) {
+			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
+			xCcdMapLocal->ulBlockI += ulLengthBlocks;
+		} else
+			return bDmaReturn;
 	}
 
 	return bDmaReturn;

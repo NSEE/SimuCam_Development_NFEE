@@ -311,6 +311,7 @@ bool vLoadDebugConfs( void ){
 	unsigned char ucParser;
 	char c, *p_inteiro;
 	char inteiro[8];
+	char inteiroll[24];
 
 
 	if ( (xSdHandle.connected == TRUE) && (bSDcardIsPresent()) && (bSDcardFAT16Check()) ){
@@ -320,6 +321,7 @@ bool vLoadDebugConfs( void ){
 		if ( siFile >= 0 ){
 
 			memset( &(inteiro) , 10 , sizeof( inteiro ) );
+			memset( &(inteiroll) , 10 , sizeof( inteiroll ) );
 			p_inteiro = inteiro;
 
 			do {
@@ -583,6 +585,40 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
+					case 'W':
+
+						p_inteiro = inteiroll;
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.ullMaskMSB = (unsigned long)atoll( inteiroll );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'U':
+
+						p_inteiro = inteiroll;
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.ullMaskLSB = (unsigned long)atoll( inteiroll );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
 					case 'T':
 
 						do {
@@ -599,6 +635,26 @@ bool vLoadDebugConfs( void ){
 							xDefaults.bDataPacket = TRUE;
 						else
 							xDefaults.bDataPacket = FALSE;
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'Z':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						sidhcpTemp = atoi( inteiro );
+						if (sidhcpTemp == 1)
+							xDefaults.bMaskSD = TRUE;
+						else
+							xDefaults.bMaskSD = FALSE;
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 

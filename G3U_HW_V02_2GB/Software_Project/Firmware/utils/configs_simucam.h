@@ -45,6 +45,10 @@ typedef struct Defaults{
 	unsigned long ulADCPixelDelay;
 	unsigned short int ucRmapKey;
 	unsigned short int ucLogicalAddr;
+	unsigned long ullMaskLSB;
+	unsigned long ullMaskMSB;
+	bool bMaskSD;
+
 }TDefaults;
 
 

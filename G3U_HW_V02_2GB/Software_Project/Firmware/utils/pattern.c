@@ -26,7 +26,12 @@ alt_u32 pattern_createPattern(alt_u8 mem_number, alt_u32 mem_offset, alt_u8 ccd_
 	}
 
 	//pxPixelData->ulliMask = xSimMeb.xFeeControl.xNfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;
-	pxPixelData->ulliMask = 0xFF00000000000000000000FF;
+	if ( xDefaults.bMaskSD == TRUE ) {
+		pxPixelData->ulliMask = (unsigned long long) ((xDefaults.ullMaskMSB<<32) | (xDefaults.ullMaskLSB<<0));
+	} else {
+		pxPixelData->ulliMask = xSimMeb.xFeeControl.xNfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;
+	}
+
 
 	offset += sizeof(TSdmaPixelDataBlock); // increment offset so we return the next available memory block
 	return offset;
