@@ -246,7 +246,7 @@ begin
 							else
 								-- counter at mask address
 								window_mask_write_o <= '1';
-								window_data_o       <= f_mask_conv(f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata));
+								window_data_o       <= f_mask_conv(avalon_mm_windowing_i.writedata);
 								-- reset counter
 								s_windown_data_ctn  <= 0;
 							end if;
