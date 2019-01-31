@@ -1695,43 +1695,116 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 
 
 
-bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID  ) {
+bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee ) {
 	bool  bDmaReturn;
+	unsigned long ulLengthBlocks;
 
 	bDmaReturn = FALSE;
-/*
+	xCcdMapLocal->ulBlockI = 0;
+	xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
+
 	if ( (xCcdMapLocal->ulBlockI + SDMA_MAX_BLOCKS) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
+		ulLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
+	} else {
+		ulLengthBlocks = SDMA_MAX_BLOCKS;
+	}
+
+
+	if (  ucMem == 0  ) {
+		bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+		if ( bDmaReturn == TRUE ) {
+			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
+			xCcdMapLocal->ulBlockI += ulLengthBlocks;
+		} else
+			return bDmaReturn;
+	} else {
+		bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+		if ( bDmaReturn == TRUE ) {
+			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
+			xCcdMapLocal->ulBlockI += ulLengthBlocks;
+		} else
+			return bDmaReturn;
+	}
+
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! AAQUI
+
+	if ( (xCcdMapLocal->ulBlockI + SDMA_MAX_BLOCKS*2) >= pxNFee->xMemMap.xCommon.usiNTotalBlocks ) {
+
+		ulLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
+		if (  ucMem == 0  ) {
+
+			bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+			if ( bDmaReturn == TRUE ) {
+				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+				bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+				if ( bDmaReturn == TRUE ) {
+					//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+					xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+					xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+				}
+			}
+
+
+		} else {
 
 
 
+		}
 
 
 	} else {
 
 
+		if (  ucMem == 0  ) {
+			/* Initializing the addr */
+			xCcdMapLocal->ulBlockI = 0;
+			xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
 
-
-
-	}
-	*/
-
-	if (  ucMem == 0  ) {
-		/* Initializing the addr */
-		xCcdMapLocal->ulBlockI = 0;
-		xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
-
-		bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, ucID);
-		if ( bDmaReturn == TRUE ) {
-			//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-			xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
-			xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
-			bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, ucID);
+			bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI, SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
 			if ( bDmaReturn == TRUE ) {
 				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
 				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
 				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+				bDmaReturn = bSdmaDmaM1Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
+				if ( bDmaReturn == TRUE ) {
+					//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+					xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+					xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+				}
 			}
-		}
+			OSMutexPost(xDma[ucMem].xMutexDMA);
+			pxNFee->xControl.bDMALocked = FALSE;
+		} else {
+			xCcdMapLocal->ulBlockI = 0;
+			xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;
+			bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
+			if ( bDmaReturn == TRUE ) {
+				//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+				xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+				xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+				bDmaReturn = bSdmaDmaM2Transfer(xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, ucIterationSide, pxNFee->ucId);
+				if ( bDmaReturn == TRUE ) {
+					//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+					xCcdMapLocal->ulAddrI += SDMA_BUFFER_SIZE_BYTES;
+					xCcdMapLocal->ulBlockI += SDMA_MAX_BLOCKS;
+
+				}
+			}
+			OSMutexPost(xDma[ucMem].xMutexDMA);
+			pxNFee->xControl.bDMALocked = FALSE;
+
+
+	}
+
+	}
+	if (  ucMem == 0  ) {
+		/* Initializing the addr */
+
+
+
 	} else {
 		xCcdMapLocal->ulBlockI = 0;
 		xCcdMapLocal->ulAddrI = xCcdMapLocal->ulOffsetAddr;

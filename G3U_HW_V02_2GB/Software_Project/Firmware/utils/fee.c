@@ -145,8 +145,10 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
     /* WARNING: Verify the memory alocation (endianess) */
-    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
     //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
+    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF);
+
 
     /* Number of block is te same as the number of line masks in the memory */
     pxNfeeL->xMemMap.xCommon.usiNTotalBlocks = ulMaskMemLinesL;
