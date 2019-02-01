@@ -169,10 +169,10 @@ architecture rtl of comm_v1_80_top is
 	signal s_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
 	signal s_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
 	signal s_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
-	
+
 	signal s_R_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
 	signal s_R_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
-	
+
 	signal s_L_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
 	signal s_L_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 
@@ -240,8 +240,8 @@ architecture rtl of comm_v1_80_top is
 	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
 
 	-- buffer size
-	signal s_right_buffer_size : std_logic_vector(3 downto 0);
-	signal s_left_buffer_size  : std_logic_vector(3 downto 0);
+	signal s_right_buffer_size : std_logic_vector(7 downto 0);
+	signal s_left_buffer_size  : std_logic_vector(7 downto 0);
 
 	-- dummy
 	signal s_dummy_spw_mux_tx0_txhalff  : std_logic;
@@ -251,7 +251,7 @@ architecture rtl of comm_v1_80_top is
 
 	signal s_right_side_activated : std_logic;
 	signal s_left_side_activated  : std_logic;
-	
+
 	-- sync_in polarity fix (timing issues, need to be improved!!!)
 	signal s_sync_channel_n : std_logic;
 
@@ -259,7 +259,7 @@ begin
 
 	-- reset_n creation
 	rst_n <= not a_reset;
-	
+
 	-- sync_in polarity fix (timing issues, need to be improved!!!) 
 	s_sync_channel_n <= not sync_channel;
 
@@ -507,7 +507,7 @@ begin
 			fee_sync_signal_i                  => s_sync_in_trigger,
 			fee_current_timecode_i             => s_current_timecode,
 			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_reg.timecode_clear,
-			fee_side_activated_i   => s_right_side_activated,
+			fee_side_activated_i               => s_right_side_activated,
 			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
 			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
 			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
@@ -555,7 +555,7 @@ begin
 			fee_sync_signal_i                  => s_sync_in_trigger,
 			fee_current_timecode_i             => s_current_timecode,
 			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_reg.timecode_clear,
-			fee_side_activated_i   => s_left_side_activated,
+			fee_side_activated_i               => s_left_side_activated,
 			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
 			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
 			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
@@ -651,9 +651,9 @@ begin
 			avalon_mm_rmap_o.readdata    => s_avalon_mm_rmap_mem_read_readdata,
 			avalon_mm_rmap_o.waitrequest => s_avalon_mm_rmap_mem_read_waitrequest
 		);
-		
-s_fee_data_controller_mem_rd_control.read  <=  (s_R_fee_data_controller_mem_rd_control.read) or (s_L_fee_data_controller_mem_rd_control.read);
-s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byte_address) or (s_L_fee_data_controller_mem_rd_byte_address);
+
+	s_fee_data_controller_mem_rd_control.read <= (s_R_fee_data_controller_mem_rd_control.read) or (s_L_fee_data_controller_mem_rd_control.read);
+	s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byte_address) or (s_L_fee_data_controller_mem_rd_byte_address);
 
 	rmap_mem_area_nfee_write_inst : entity work.rmap_mem_area_nfee_write
 		port map(
@@ -986,5 +986,46 @@ s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byt
 			s_sync_in_delayed      <= s_sync_channel_n;
 		end if;
 	end process p_sync_in_triger;
+
+	--	signal s_dummy_mode_data : std_logic_vector(64 downto 0);
+	--	signal s_dummy_mode_mask_wr : std_logic;
+	--	signal s_dummy_mode_mask_rd : std_logic;
+	--	
+	--	signal s_dummy_mux_data : std_logic_vector(64 downto 0);
+	--	signal s_dummy_mux_mask_wr : std_logic;
+	--	signal s_dummy_mux_mask_rd : std_logic;
+
+--	-- dummy mode
+--	p_dummy_mode : process(a_avs_clock, a_reset) is
+--		variable v_pattern_cnt : natural;
+--		variable v_data_cnt    : natural range 0 to 16;
+--	begin
+--		if (a_reset) then
+--			s_dummy_mode_data    <= (others => '0');
+--			s_dummy_mode_mask_wr <= '0';
+--			s_dummy_mode_mask_rd <= '0';
+--			v_pattern_cnt        := 0;
+--			v_data_cnt           := 0;
+--		elsif rising_edge(a_avs_clock) then
+--			if (s_sync_in_trigger = '1') then
+--				s_dummy_mode_data(63 downto 56) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(55 downto 48) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(47 downto 40) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(39 downto 32) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(31 downto 24) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(23 downto 16) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(15 downto 8)  <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--				s_dummy_mode_data(7 downto 0)   <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+--				v_pattern_cnt                   := v_pattern_cnt + 1;
+--			end if;
+--		end if;
+--	end process p_dummy_mode;
 
 end architecture rtl;                   -- of comm_v1_80_top
