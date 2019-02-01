@@ -21,7 +21,8 @@ alt_u32 pattern_createPattern(alt_u8 mem_number, alt_u32 mem_offset, alt_u8 ccd_
 				i = 0;
 			}
 			// Generate pattern pixel (16-bits)
-			pxPixelData->usiPixel[i++] = PATTERN_MASK_TIMECODE(PATTERN_TIMECODE_VALUE) | PATTERN_MASK_CCDNUMBER(ccd_number) | PATTERN_MASK_CCDSIDE(ccd_side) | PATTERN_MASK_ROW(row) | PATTERN_MASK_COLUMN(col);
+			//pxPixelData->usiPixel[i++] = PATTERN_MASK_TIMECODE(PATTERN_TIMECODE_VALUE) | PATTERN_MASK_CCDNUMBER(ccd_number) | PATTERN_MASK_CCDSIDE(ccd_side) | PATTERN_MASK_ROW(row) | PATTERN_MASK_COLUMN(col);
+			pxPixelData->usiPixel[i++] = 0xFFFF;
 		}
 	}
 	//pxPixelData->ulliMask = xSimMeb.xFeeControl.xNfee[0].xMemMap.xCommon.ucPaddingMask.ullWord;

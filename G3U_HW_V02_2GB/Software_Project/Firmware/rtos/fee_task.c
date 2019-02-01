@@ -329,6 +329,9 @@ void vFeeTask(void *task_data) {
 
 				bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,0);
 				bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,1);
+				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+
 
 				/* Enable IRQ and clear the Double Buffer */
 				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
@@ -442,11 +445,15 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bEnabled = TRUE;
-				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
-				bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,0);
-				bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,1);
+				bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+				bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+
+
 				break;
 
 
@@ -481,9 +488,10 @@ void vFeeTask(void *task_data) {
 
 		                    		bFinal = TRUE;
 
-									bFeebCh2SetBufferSize(usiLengthBlocks,0);
-									bFeebCh2SetBufferSize(usiLengthBlocks,1);
-
+									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,0);
+									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,1);
+									//bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,0);
+									//bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,1);
 		                    	} else {
 
 		                    		bFinal = FALSE;
@@ -533,7 +541,7 @@ void vFeeTask(void *task_data) {
 								if ( bFinal == TRUE ) {
 									pxNFee->xControl.eMode = sEndTransmission;
 								} else {
-									bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+									//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 								}
 
 		                    }
@@ -1439,13 +1447,13 @@ bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
 	// TODO: mudar [rfranca]
 	/* Stop the module Double Buffer */
-//	bFeebStopCh(pxFeebCh);
+	bFeebStopCh(pxFeebCh);
 	// TODO: mudar [rfranca]
 	/* Clear all buffer form the Double Buffer */
-//	bFeebClrCh(pxFeebCh);
+	bFeebClrCh(pxFeebCh);
 	// TODO: mudar [rfranca]
 	/* Start the module Double Buffer */
-//	bFeebStartCh(pxFeebCh);
+	bFeebStartCh(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetWindowing(pxFeebCh);
@@ -1727,8 +1735,11 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	} else {
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
-	bFeebCh2SetBufferSize(ulLengthBlocks,0);
-	bFeebCh2SetBufferSize(ulLengthBlocks,1);
+
+	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
+	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
+	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
+	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 
 
 	//bFeebSetBufferSize(&pxNFee->xChannel.xFeeBuffer,ulLengthBlocks,0);
@@ -1757,8 +1768,13 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	bFeebCh2SetBufferSize(ulLengthBlocks,0);
-	bFeebCh2SetBufferSize(ulLengthBlocks,1);
+	//bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
+	//bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
+
+	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
+	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
+	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
+	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 
 	//bFeebSetBufferSize(&pxNFee->xChannel.xFeeBuffer,ulLengthBlocks,0);
 	//bFeebSetBufferSize(&pxNFee->xChannel.xFeeBuffer,ulLengthBlocks,1);

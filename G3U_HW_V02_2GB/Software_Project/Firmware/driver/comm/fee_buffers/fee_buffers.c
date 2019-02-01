@@ -82,7 +82,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[1] = 0;
 	uiCmdtoSend.ucByte[0] = 1;
 
-	/* Sync the Meb task and tell that has a PUS command waiting */
+	 /*Sync the Meb task and tell that has a PUS command waiting*/
 	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailRequestDMAFromIRQ( 1 );
