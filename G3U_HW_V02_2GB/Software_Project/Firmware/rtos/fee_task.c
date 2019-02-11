@@ -320,17 +320,24 @@ void vFeeTask(void *task_data) {
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiDelay);
 
-#ifdef DEBUG_ON
-	//fprintf(fp,"\n    i: %u ",incrementador);
-	fprintf(fp,"\n\n=========Delay=============\n");
-	fprintf(fp,"usiCcdXSize %hu\n", xDefaults.usiDelay);
-	fprintf(fp,"=========DATA PACKET=============\n");
-#endif
+				#ifdef DEBUG_ON
+					//fprintf(fp,"\n    i: %u ",incrementador);
+					fprintf(fp,"\n\n=========Delay=============\n");
+					fprintf(fp,"usiCcdXSize %hu\n", xDefaults.usiDelay);
+					fprintf(fp,"=========DATA PACKET=============\n");
+				#endif
 
-				bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,0);
-				bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,1);
+				//bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,0);
+				//bFeebCh2SetBufferSize(SDMA_MAX_BLOCKS,1);
 				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+				if (xDefaults.usiLinkNFEE0 == 0) {
+					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+				} else {
+					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+				}
 
 
 				/* Enable IRQ and clear the Double Buffer */
@@ -434,7 +441,7 @@ void vFeeTask(void *task_data) {
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				#ifdef DEBUG_ON
-				//	fprintf(fp,"NFEE-%hu Task: Full Image Pattern Mode\n", pxNFee->ucId);
+					fprintf(fp,"NFEE-%hu Task: Full Image Pattern Mode\n", pxNFee->ucId);
 				#endif
 
 				ucIterationSide = pxNFee->xControl.eSide;
@@ -445,11 +452,20 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bEnabled = TRUE;
-				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
-				bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
-				bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+
+				if (xDefaults.usiLinkNFEE0 == 0) {
+					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+				} else {
+					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
+				}
+
+				//bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
+				//bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 				//bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 
@@ -488,8 +504,16 @@ void vFeeTask(void *task_data) {
 
 		                    		bFinal = TRUE;
 
-									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,0);
-									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,1);
+		            				if (xDefaults.usiLinkNFEE0 == 0) {
+		            					bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,0);
+		            					bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,1);
+		            				} else {
+		            					bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,0);
+		            					bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,1);
+		            				}
+
+									//bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,0);
+									//bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,1);
 									//bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,0);
 									//bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,1);
 		                    	} else {
@@ -520,7 +544,7 @@ void vFeeTask(void *task_data) {
 									//bDisAndClrDbBuffer(&pxNFee->xChannel.xFeeBuffer);
 		                    	} else {
 									#ifdef DEBUG_ON
-										fprintf(fp,"\n-- Can't write ib the DMA \n ");
+										fprintf(fp,"\n-- Can't write in the DMA \n ");
 									#endif
 									bFinal = FALSE;
 		                    	}
@@ -528,6 +552,7 @@ void vFeeTask(void *task_data) {
 
 		                        /* Send message telling to controller that is not using the DMA any more */
 								bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
+
 
 								/* Just to see the progress
 								if ( ((xCcdMapLocal->ulBlockI) % 2048 == 0) ) {
@@ -541,7 +566,7 @@ void vFeeTask(void *task_data) {
 								if ( bFinal == TRUE ) {
 									pxNFee->xControl.eMode = sEndTransmission;
 								} else {
-									//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+									bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 								}
 
 		                    }
@@ -584,25 +609,7 @@ void vFeeTask(void *task_data) {
 
 				//pxNFee->xControl.eMode =  sFeeWaitingSync;
 				//pxNFee->xControl.eNextMode =  sToFeeStandBy;
-/*
 
-
-
-
-					bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-					#ifdef DEBUG_ON
-						//fprintf(fp,"\n    i: %u ",incrementador);
-						fprintf(fp,"\n\n=========DATA PACKET END TRANS=============\n");
-						fprintf(fp,"usiCcdXSize %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize);
-						fprintf(fp,"usiCcdYSize %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize);
-						fprintf(fp,"usiDataYSize %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize);
-						fprintf(fp,"usiOverscanYSize %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize);
-						fprintf(fp,"usiPacketLength %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength);
-						fprintf(fp,"ucCcdNumber %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber);
-						fprintf(fp,"ucFeeMode %hu\n", pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode);
-						fprintf(fp,"=========DATA PACKET=============\n");
-					#endif
-*/
 
 				bFinal = FALSE;
 				break;
@@ -1736,10 +1743,16 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
-	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
-	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
-	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
+	if (xDefaults.usiLinkNFEE0 == 0) {
+		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
+		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
+	} else {
+		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
+		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
+	}
+
+
+
 
 
 	//bFeebSetBufferSize(&pxNFee->xChannel.xFeeBuffer,ulLengthBlocks,0);
@@ -1768,11 +1781,19 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
+	if (xDefaults.usiLinkNFEE0 == 0) {
+		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
+		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
+	} else {
+		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
+		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
+	}
+
 	//bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
 	//bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
 
-	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
-	bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
+	//bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
+	//bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
 	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
 	//bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 
