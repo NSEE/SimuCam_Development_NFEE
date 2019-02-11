@@ -297,7 +297,10 @@ begin
 					header_gen_busy_o     <= '1';
 					header_gen_finished_o <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= x"F0";
+--					 TODO: Tornar reprogravamel por sw
+--					send_buffer_wrdata_o  <= x"F0";
+--					CCSDS Protocol Identifier
+					send_buffer_wrdata_o  <= x"02";
 					-- write the send buffer data
 					send_buffer_wrreq_o   <= '1';
 				-- conditional output signals
