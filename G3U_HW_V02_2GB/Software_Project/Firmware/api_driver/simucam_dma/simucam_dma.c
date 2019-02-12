@@ -85,9 +85,396 @@ bool bSdmaInitM2Dma(void) {
 	return bStatus;
 }
 
-bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
-		alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide,
-		alt_u8 ucChBufferId) {
+//bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
+//	bool bStatus;
+//	alt_u16 usiCnt = 0;
+//
+//	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
+//
+//	alt_u32 uliDestAddrLow = 0;
+//	alt_u32 uliDestAddrHigh = 0;
+//
+//	alt_u32 uliSrcAddrLow = 0;
+//	alt_u32 uliSrcAddrHigh = 0;
+//
+//	alt_u32 uliControlBits = 0x00000000;
+//	bool bBufferEmptyFlag;
+//
+//
+//	bStatus = FALSE;
+//	bBufferEmptyFlag = FALSE;
+//	switch (ucChBufferId) {
+//	case eSdmaCh1Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_1_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_1_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh1RightBufferEmpty();
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_1_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_1_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh1LeftBufferEmpty();
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh2Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_2_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_2_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh2RightBufferEmpty();
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_2_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_2_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh2LeftBufferEmpty();
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh3Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh4Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh5Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh6Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh7Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh8Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	default:
+//		bStatus = FALSE;
+//		break;
+//	}
+//
+//	uliSrcAddrLow = (alt_u32) SDMA_M1_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
+//	uliSrcAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
+//
+//	if ((bBufferEmptyFlag) && (usiTransferSizeInBlocks <= 16)) {
+//
+//		if (pxDmaM1Dev != NULL) {
+//			// hold transfers for descriptor fifo space
+//			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+//				alt_busy_sleep(1); /* delay 1us */
+//			}
+//			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
+//					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+//					(alt_u32 *) uliDestAddrLow,
+//					SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks, uliControlBits,
+//					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
+//					1, 1, 1, 1, 1)	) {
+//
+//				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1Dev,	&xDmaExtendedDescriptor)) {
+//					bStatus = TRUE;
+//				}
+//			}
+//		}
+//	}
+//	return bStatus;
+//}
+
+//bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
+//	bool bStatus;
+//	alt_u16 usiCnt = 0;
+//
+//	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
+//
+//	alt_u32 uliDestAddrLow = 0;
+//	alt_u32 uliDestAddrHigh = 0;
+//
+//	alt_u32 uliSrcAddrLow = 0;
+//	alt_u32 uliSrcAddrHigh = 0;
+//
+//	alt_u32 uliControlBits = 0x00000000;
+//	bool bBufferEmptyFlag;
+//
+//	bStatus = FALSE;
+//	bBufferEmptyFlag = FALSE;
+//	switch (ucChBufferId) {
+//	case eSdmaCh1Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_1_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_1_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh1RightBufferEmpty();
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_1_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_1_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh1LeftBufferEmpty();
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh2Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_2_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_2_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh2RightBufferEmpty();
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_2_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_2_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = bFeebGetCh2LeftBufferEmpty();
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh3Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh4Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh5Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh6Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh7Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	case eSdmaCh8Buffer:
+//		switch (ucBufferSide) {
+//		case eSdmaRightBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		case eSdmaLeftBuffer:
+//			uliDestAddrLow = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_LOW;
+//			uliDestAddrHigh = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_HIGH;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		default:
+//			bStatus = FALSE;
+//			bBufferEmptyFlag = FALSE;
+//			break;
+//		}
+//		break;
+//	default:
+//		bStatus = FALSE;
+//		break;
+//	}
+//
+//	uliSrcAddrLow = (alt_u32) SDMA_M2_BASE_ADDR_LOW
+//			+ (alt_u32) uliDdrInitialAddr;
+//	uliSrcAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
+//
+//	if ((bBufferEmptyFlag) && (usiTransferSizeInBlocks <= 16)) {
+//		if (pxDmaM2Dev != NULL) {
+//
+//			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+//				alt_busy_sleep(1); /* delay 1us */
+//			}
+//			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2Dev,
+//					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
+//					(alt_u32 *) uliDestAddrLow,
+//					SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks, uliControlBits,
+//					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
+//					1, 1, 1, 1, 1)) {
+//
+//				if ( 0 == iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM2Dev,
+//						&xDmaExtendedDescriptor)) {
+//					bStatus = TRUE;
+//				}
+//
+//			}
+//		}
+//	}
+//	return bStatus;
+//}
+
+bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
 	bool bStatus = TRUE;
 	alt_u16 usiCnt = 0;
 
@@ -253,9 +640,26 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		break;
 	}
 
+	bStatus = bBufferEmptyFlag;
+
 	uliSrcAddrLow = (alt_u32) SDMA_M1_BASE_ADDR_LOW
 			+ (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
+
+
+	if ( bBufferEmptyFlag == FALSE ) {
+
+		#ifdef DEBUG_ON
+			fprintf(fp,"-------DEBUG-------- FEE Buffer FULL \n");
+		#endif
+	}
+
+
+	if ( (usiTransferSizeInBlocks > 16) ) {
+		#ifdef DEBUG_ON
+			fprintf(fp,"-------DEBUG-------- Bloco Maior que 16 \n");
+		#endif
+	}
 
 	if ((bStatus) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= 16)) {
 		if (pxDmaM1Dev == NULL) {
@@ -263,11 +667,16 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 		} else {
 //			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
 				// hold transfers for descriptor fifo space
-				while (0
-						!= (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1Dev->csr_base)
-								& ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+				#ifdef DEBUG_ON
+					fprintf(fp,"-------DEBUG-------- Antes do IORD_ALTERA_MSGDMA_CSR_STATUS \n");
+				#endif
+
+
 					alt_busy_sleep(1); /* delay 1us */
 				}
+				#ifdef DEBUG_ON
+					fprintf(fp,"-------DEBUG-------- OK - Depois do IORD_ALTERA_MSGDMA_CSR_STATUS \n");
+				#endif
 				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
 						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 						(alt_u32 *) uliDestAddrLow,
@@ -275,11 +684,20 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 						(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 						1, 1, 1, 1, 1)) {
 					bStatus = FALSE;
+
+					#ifdef DEBUG_ON
+						fprintf(fp,"-------DEBUG-------- FAIL - iMsgdmaConstructExtendedMmToMmDescriptor FAIL \n");
+					#endif
+
 //					break;
 				} else {
 					if (iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1Dev,
 							&xDmaExtendedDescriptor)) {
 						bStatus = FALSE;
+					#ifdef DEBUG_ON
+						fprintf(fp,"-------DEBUG-------- FAIL - iMsgdmaExtendedDescriptorAsyncTransfer FAIL \n");
+					#endif
+
 //						break;
 					}
 //					uliSrcAddrLow += (alt_u32) SDMA_PIXEL_BLOCK_SIZE_BYTES;
@@ -287,7 +705,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr,
 				}
 //			}
 		}
-	}
+	} else { bStatus = FALSE; }
 	return bStatus;
 }
 
@@ -458,6 +876,23 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
 		bStatus = FALSE;
 		break;
 	}
+	bStatus = bBufferEmptyFlag;
+
+
+	if ( bBufferEmptyFlag == FALSE ) {
+
+		#ifdef DEBUG_ON
+			fprintf(fp,"-------DEBUG-------- FEE Buffer FULL \n");
+		#endif
+	}
+
+
+	if ( (usiTransferSizeInBlocks > 16) ) {
+		#ifdef DEBUG_ON
+			fprintf(fp,"-------DEBUG-------- Bloco Maior que 16 \n");
+		#endif
+	}
+
 
 	uliSrcAddrLow = (alt_u32) SDMA_M2_BASE_ADDR_LOW
 			+ (alt_u32) uliDdrInitialAddr;
@@ -469,11 +904,19 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
 		} else {
 //			for (usiCnt = 0; usiCnt < usiTransferSizeInBlocks; usiCnt++) {
 				// hold transfers for descriptor fifo space
+
+				#ifdef DEBUG_ON
+					fprintf(fp,"-------DEBUG-------- Antes do IORD_ALTERA_MSGDMA_CSR_STATUS \n");
+				#endif
+
 				while (0
 						!= (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base)
 								& ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 					alt_busy_sleep(1); /* delay 1us */
 				}
+				#ifdef DEBUG_ON
+					fprintf(fp,"-------DEBUG-------- OK - Depois do IORD_ALTERA_MSGDMA_CSR_STATUS \n");
+				#endif
 				if (iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2Dev,
 						&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 						(alt_u32 *) uliDestAddrLow,
@@ -481,11 +924,17 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
 						(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 						1, 1, 1, 1, 1)) {
 					bStatus = FALSE;
+					#ifdef DEBUG_ON
+						fprintf(fp,"-------DEBUG-------- FAIL - iMsgdmaConstructExtendedMmToMmDescriptor FAIL \n");
+					#endif
 //					break;
 				} else {
 					if (iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM2Dev,
 							&xDmaExtendedDescriptor)) {
 						bStatus = FALSE;
+						#ifdef DEBUG_ON
+							fprintf(fp,"-------DEBUG-------- FAIL - iMsgdmaExtendedDescriptorAsyncTransfer FAIL \n");
+						#endif
 //						break;
 					}
 //					uliSrcAddrLow += (alt_u32) SDMA_PIXEL_BLOCK_SIZE_BYTES;
@@ -493,7 +942,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr,
 				}
 //			}
 		}
-	}
+	} else { bStatus = FALSE; }
 	return bStatus;
 }
 //! [public functions]
