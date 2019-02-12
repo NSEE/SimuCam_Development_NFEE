@@ -230,8 +230,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 			if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 			{
 #ifdef DEBUG_ON
-				debug(fp,
-						"time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
+				debug(fp, "time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
 #endif
 				/*
 				 * Now that access to the registers is complete, release the

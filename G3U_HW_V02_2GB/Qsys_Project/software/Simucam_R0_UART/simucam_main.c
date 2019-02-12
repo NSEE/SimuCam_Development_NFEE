@@ -516,7 +516,9 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
+#ifdef DEBUG_ON
 		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
+#endif
 		return -1;
 	}
 

@@ -9,16 +9,18 @@
 #define SIMUCAM_DEFINITIONS_H_
 
 /*--Activate only during development fase--*/
-#define STACK_MONITOR   1
-#define QUERY_STACK     1
+#define STACK_MONITOR   0
+#define QUERY_STACK     0
 #define BY_PASS 		0
 /**-----------------------------------------*/
-#define DEBUG_ON    	1
+undefine(DEBUG_ON);
+//#define DEBUG_ON    	0
 #if defined(STACK_MONITOR) || defined(QUERY_STACK) || defined(BY_PASS)
-    #define DEBUG_ON    1 /* This value should always be 1 when one of the above options is defined */
+//    #define DEBUG_ON    0 /* This value should always be 1 when one of the above options is defined */
 #endif
-#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
-
+#ifdef DEBUG_ON
+	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
+#endif
 
 
 #define N_OF_NFEE       1	/* ONLY for tests */
