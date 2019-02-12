@@ -502,9 +502,14 @@ void vFeeTask(void *task_data) {
 
 		                    	if ( ucMemUsing == 0  ) {
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
+									#ifdef DEBUG_ON
+										fprintf(fp,"\n-- bSdmaDmaM1Transfer \n ");
+									#endif
 		                    		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
 		                    	} else {
-
+									#ifdef DEBUG_ON
+										fprintf(fp,"\n-- bSdmaDmaM1Transfer \n ");
+									#endif
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
 		                    		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
 		                    	}
