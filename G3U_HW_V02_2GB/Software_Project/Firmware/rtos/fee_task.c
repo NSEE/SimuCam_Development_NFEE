@@ -529,11 +529,11 @@ void vFeeTask(void *task_data) {
 									#ifdef DEBUG_ON
 										fprintf(fp,"\n-- bSdmaDmaM1Transfer \n ");
 									#endif
-		                    		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, usiLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		                    		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)usiLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
 
 		                    	} else {
 									#ifdef DEBUG_ON
-										fprintf(fp,"\n-- bSdmaDmaM1Transfer \n ");
+										fprintf(fp,"\n-- bSdmaDmaM2Transfer \n ");
 									#endif
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
 		                    		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)usiLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
@@ -542,6 +542,9 @@ void vFeeTask(void *task_data) {
 		                    	OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 		                    	pxNFee->xControl.bDMALocked = FALSE;
 
+								#ifdef DEBUG_ON
+									fprintf(fp,"\n-- verificacao bDmaReturn \n ");
+								#endif
 		                    	if ( bDmaReturn == TRUE ) {
 
 									#ifdef DEBUG_ON

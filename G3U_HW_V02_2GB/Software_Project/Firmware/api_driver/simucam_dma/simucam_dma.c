@@ -670,10 +670,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 				#ifdef DEBUG_ON
 					fprintf(fp,"-------DEBUG-------- Antes do IORD_ALTERA_MSGDMA_CSR_STATUS \n");
 				#endif
-
-
+				while (0
+						!= (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base)
+								& ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 					alt_busy_sleep(1); /* delay 1us */
 				}
+
 				#ifdef DEBUG_ON
 					fprintf(fp,"-------DEBUG-------- OK - Depois do IORD_ALTERA_MSGDMA_CSR_STATUS \n");
 				#endif
