@@ -77,18 +77,22 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
+	vFeebCh2IrqFlagClrBufferEmpty();
+
+	/*
+
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
 	uiCmdtoSend.ucByte[0] = 1;
-
+*/
 	 /*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	/*error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailRequestDMAFromIRQ( 1 );
 	}
+*/
 
-	vFeebCh2IrqFlagClrBufferEmpty();
 }
 
 void vFeebCh3HandleIrq(void* pvContext) {

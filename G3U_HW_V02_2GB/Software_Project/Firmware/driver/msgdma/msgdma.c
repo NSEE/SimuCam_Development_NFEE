@@ -531,6 +531,7 @@ int iMsgdmaConstructExtendedMmToMmDescriptor(alt_msgdma_dev *pxDev,
 		alt_u32 *puliReadAddressHigh, alt_u32 *puliWriteAddressHigh,
 		alt_u16 usiSequenceNumber, alt_u8 ucReadBurstCount,
 		alt_u8 ucWriteBurstCount, alt_u16 usiReadStride, alt_u16 usiWriteStride) {
+
 	return msgdma_construct_extended_descriptor(pxDev, pxDescriptor,
 			puliReadAddress, puliWriteAddress, uliLength, uliControl,
 			puliReadAddressHigh, puliWriteAddressHigh, usiSequenceNumber,

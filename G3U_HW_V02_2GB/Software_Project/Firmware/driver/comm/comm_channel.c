@@ -76,7 +76,7 @@ bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh) {
 	if (!bSpwcInitCh(&(pxCommCh->xSpacewire), ucCommCh)) {
 		bStatus = FALSE;
 	}
-	vFeebInitIrq(ucCommCh);
+	//vFeebInitIrq(ucCommCh);
 
 	if (!bFeebInitCh(&(pxCommCh->xFeeBuffer), ucCommCh)) {
 		bStatus = FALSE;

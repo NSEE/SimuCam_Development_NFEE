@@ -171,9 +171,9 @@ void vNFeeControlTask(void *task_data) {
 						}
 					}
 				}
-				if ( xDefaults.usiDelay == 0 ) {
+				//if ( xDefaults.usiDelay == 0 ) {
 				//	OSTimeDlyHMSM(0,0,0,xDefaults.usiDelay); /*remover depois dos testes !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-				}
+				//}
 				
 				break;		
 			default:
