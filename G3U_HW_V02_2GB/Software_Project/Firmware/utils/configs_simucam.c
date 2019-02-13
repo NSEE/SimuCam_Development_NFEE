@@ -501,26 +501,6 @@ bool vLoadDebugConfs( void ){
 						} while ( (c !=59) );
 
 						break;
-					case 'H':
-
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-							/*Tiago: Proteger com mutex*/
-							xDefaults.HK[min_sim(ucParser,15)] = atoi( inteiro );
-							/*Tiago: Proteger com mutex*/
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
 					case 'D':
 
 						do {
@@ -601,9 +581,8 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
-					case 'W':
+					case 'F':
 
-						p_inteiro = inteiroll;
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
@@ -613,14 +592,13 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.ullMaskMSB = (unsigned long)atoll( inteiroll );
+						xDefaults.usiDebugLevel = atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
 						break;
-					case 'U':
+					case 'F':
 
-						p_inteiro = inteiroll;
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
@@ -630,7 +608,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.ullMaskLSB = (unsigned long)atoll( inteiroll );
+						xDefaults.usiPatternType = atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 

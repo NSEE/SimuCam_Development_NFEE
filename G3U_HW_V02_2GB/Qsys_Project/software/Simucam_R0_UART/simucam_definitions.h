@@ -11,12 +11,11 @@
 /*--Activate only during development fase--*/
 #define STACK_MONITOR   0
 #define QUERY_STACK     0
-#define BY_PASS 		0
 /**-----------------------------------------*/
-undefine(DEBUG_ON);
-//#define DEBUG_ON    	0
-#if defined(STACK_MONITOR) || defined(QUERY_STACK) || defined(BY_PASS)
-//    #define DEBUG_ON    0 /* This value should always be 1 when one of the above options is defined */
+
+#define DEBUG_ON    	1
+#if defined(STACK_MONITOR) || defined(QUERY_STACK)
+    #define DEBUG_ON    1 /* This value should always be 1 when one of the above options is defined */
 #endif
 #ifdef DEBUG_ON
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
