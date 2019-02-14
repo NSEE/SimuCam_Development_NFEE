@@ -47,7 +47,7 @@ bool vLoadDefaultETHConf( void ){
 						bEOF = TRUE;
 						break;
 					case -2: 	//EOF
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							debug(fp,"SDCard: Problem with SDCard");
 						#endif
 						bEOF = TRUE;
@@ -196,7 +196,7 @@ bool vLoadDefaultETHConf( void ){
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){
-							#ifdef DEBUG_ON
+							#if DEBUG_ON
 								debug(fp,"SDCard: Can't close the file.\n");
 							#endif
 						}
@@ -205,19 +205,19 @@ bool vLoadDefaultETHConf( void ){
 						bSuccess = TRUE; //pensar melhor
 						break;
 					default:
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp,"SDCard: Problem with the parser.\n");
 						#endif
 						break;
 				}
 			} while ( bEOF == FALSE );
 		} else {
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"SDCard: File not found.\n");
 			#endif
 		}
 	} else {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp,"SDCard: No SDCard.\n");
 		#endif
 	}
@@ -267,7 +267,7 @@ bool vLoadDefaultETHConf( void ){
 	return bSuccess;
 }
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	void vShowEthConfig( void ) {
 		char buffer[40];
 
@@ -338,7 +338,7 @@ bool vLoadDebugConfs( void ){
 						bEOF = TRUE;
 						break;
 					case -2: 	//EOF
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							debug(fp,"SDCard: Problem with SDCard");
 						#endif
 						bEOF = TRUE;
@@ -597,7 +597,7 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
-					case 'F':
+					case 'Q':
 
 						do {
 							c = cGetNextChar(siFile);
@@ -609,6 +609,22 @@ bool vLoadDebugConfs( void ){
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiPatternType = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'Y':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiGuardNFEEDelay = atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -646,9 +662,9 @@ bool vLoadDebugConfs( void ){
 						/*Tiago: Proteger com mutex*/
 						sidhcpTemp = atoi( inteiro );
 						if (sidhcpTemp == 1)
-							xDefaults.bMaskSD = TRUE;
+							xDefaults.bOneShot = TRUE;
 						else
-							xDefaults.bMaskSD = FALSE;
+							xDefaults.bOneShot = FALSE;
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -656,7 +672,7 @@ bool vLoadDebugConfs( void ){
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){
-							#ifdef DEBUG_ON
+							#if DEBUG_ON
 								debug(fp,"SDCard: Can't close the file.\n");
 							#endif
 						}
@@ -665,19 +681,19 @@ bool vLoadDebugConfs( void ){
 						bSuccess = TRUE; //pensar melhor
 						break;
 					default:
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp,"SDCard: Problem with the parser.\n");
 						#endif
 						break;
 				}
 			} while ( bEOF == FALSE );
 		} else {
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"SDCard: File not found.\n");
 			#endif
 		}
 	} else {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp,"SDCard: No SDCard.\n");
 		#endif
 	}

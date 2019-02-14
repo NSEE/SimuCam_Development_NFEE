@@ -40,7 +40,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
 void vLoadCtemp(void);
 bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee );
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	void vPrintUARTNFee( TNFee *pxNFee );
 	void vPrintConsoleNFee( TNFee *pxNFee );
 #endif

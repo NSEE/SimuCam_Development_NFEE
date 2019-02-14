@@ -75,7 +75,7 @@ void vSyncHandleIrq(void* pvContext) {
 
 	vucN += 1;
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		fprintf(fp,"Sync %hu \n", ucSyncL);
 	#endif
 

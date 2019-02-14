@@ -9,7 +9,7 @@
 
 #include "util.h"
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 char cDebugBuffer[256];
 #endif
 
@@ -74,7 +74,7 @@ void _print_codec_status(int codec_status) {
 	int connecting = (int) ((codec_status >> 5) & 1);
 	int running = (int) ((codec_status >> 4) & 1);
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "-------- link status \n");
 	debug(fp, cDebugBuffer);
 	sprintf(cDebugBuffer, "Link started    : %s \n", (started == 1) ? "S" : "N");
@@ -143,7 +143,7 @@ alt_u8 aatoh(alt_u8 *buffer) {
 
 alt_u8 Verif_Error(alt_u8 error_code) {
 	if (!error_code) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "ERROR\n\r");
 #endif
 		return 0;

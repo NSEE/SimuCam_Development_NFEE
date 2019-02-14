@@ -15,7 +15,7 @@ void vOutAckHandlerTask(void *task_data) {
     char cBufferAck[16] = "";
     unsigned char crc = 0;
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		debug(fp,"Out Ack Handler Task. (Task on)\n");
 	#endif
 
@@ -87,7 +87,7 @@ void vOutAckHandlerTask(void *task_data) {
                 
 				break;
 			default:
-            	#ifdef DEBUG_ON
+            	#if DEBUG_ON
 		            debug(fp,"Critical: Default State. Should never get here.(vOutAckHandlerTask)\n");
 	            #endif
                 eSenderAckState = sSAGettingACK;

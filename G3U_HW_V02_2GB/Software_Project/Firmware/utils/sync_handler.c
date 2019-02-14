@@ -16,7 +16,7 @@ bool bInitSync( void ) {
 
 	vSyncInitIrq();
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		debug(fp, "Initializing Sync Module.\n");
 	#endif
 
@@ -24,7 +24,7 @@ bool bInitSync( void ) {
 	// MBT => 400 ms @ 20 ns (50 MHz)
 	bSuccess = bSyncSetMbt(MBT);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -33,7 +33,7 @@ bool bInitSync( void ) {
 	// BT => 200 ms @ 20 ns (50 MHz)
 	bSuccess = bSyncSetBt(BT);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -42,7 +42,7 @@ bool bInitSync( void ) {
 	// PER => 6,25s @ 20 ns (50 MHz)
 	bSuccess = bSyncSetPer(  uliPerCalcPeriodMs( xDefaults.usiSyncPeriod ) );
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -51,7 +51,7 @@ bool bInitSync( void ) {
 	// OST => 500 ms @ 20 ns (50 MHz)
 	bSuccess = bSyncSetOst(OST);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -61,7 +61,7 @@ bool bInitSync( void ) {
 	// Polaridade
 	bSuccess = bSyncSetPolarity(POL);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -70,7 +70,7 @@ bool bInitSync( void ) {
 	// N. de ciclos
 	bSuccess = bSyncSetNCycles(N_CICLOS);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -79,7 +79,7 @@ bool bInitSync( void ) {
 	// Altera mux para sync interno
 	bSuccess = bSyncCtrExtnIrq(TRUE);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -88,7 +88,7 @@ bool bInitSync( void ) {
 	// Habilita sync_out enable (deve aparecer na saída o sync int.)
 	bSuccess = bSyncCtrSyncOutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -98,7 +98,7 @@ bool bInitSync( void ) {
 	// Habilita sync_out_ch1 enable (libera sync para o Ch 1)
 	bSuccess = bSyncCtrCh1OutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -107,7 +107,7 @@ bool bInitSync( void ) {
 	// Habilita sync_out_ch1 enable (libera sync para o Ch 1)
 	bSuccess = bSyncCtrCh2OutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;

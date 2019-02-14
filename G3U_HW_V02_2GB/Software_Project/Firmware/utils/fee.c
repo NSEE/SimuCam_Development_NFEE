@@ -52,7 +52,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 			pxNfeeL->ucSPWId = (unsigned char)xDefaults.usiLinkNFEE0;
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "\n CRITICAL! Can't bind the SPQ channel with the NFEE %i \n", pxNfeeL->ucId);
 			#endif
 			break;
@@ -69,13 +69,13 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
     /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
     if ( bCommInitCh(&pxNfeeL->xChannel, pxNfeeL->ucSPWId ) == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
 		#endif
     }
 
     if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId ) == FALSE ) {
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
 		#endif
     }

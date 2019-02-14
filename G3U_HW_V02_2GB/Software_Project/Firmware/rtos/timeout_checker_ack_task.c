@@ -12,7 +12,7 @@
 void vTimeoutCheckerTaskv2(void *task_data) {
 	INT8U ucErrorCode = 0;
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"vTimeoutCheckerTask, enter task.\n");
     #endif   
 
@@ -44,7 +44,7 @@ void vCheck( void ) {
 	OSMutexPend(xTxUARTMutex, 0, &ucErrorCode); /* Blocking */
     if ( ucErrorCode != OS_NO_ERR ) {
         /* Should never get here, is a blocking operation */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Should never get here. Trying to get xTxUARTMutex. (vCheck)\n");
 		#endif
         return;

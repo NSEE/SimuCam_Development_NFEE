@@ -17,7 +17,7 @@
 
 #include "includes.h"
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
     FILE* fp;
 #endif
 
@@ -440,11 +440,11 @@ int main(void)
 	OSInit();
 
 	/* Debug device initialization - JTAG USB */
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
 	#endif	
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		debug(fp, "Main entry point.\n");
 	#endif
 
@@ -469,7 +469,7 @@ int main(void)
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
 		#endif
 		return -1;
@@ -478,7 +478,7 @@ int main(void)
 	bIniSimucamStatus = vLoadDebugConfs();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
 		#endif
 		return -1;
@@ -507,7 +507,7 @@ int main(void)
 
 
 	/* If debug is enable, will print the eth configuration in the*/
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		vShowEthConfig();
 	#endif
 
@@ -516,7 +516,7 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 #endif
 		return -1;
@@ -581,7 +581,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 
 	n_of_NFEE_in_mem = 1;
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "Start to fill the memory with Pattern.\n");
 #endif
 
@@ -604,17 +604,17 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp, "NFEE %i - CCD %i. \n", NFee_i, ccd_number);
 				#endif
 			}
 		}
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp, "Memory %i. \n",mem_number);
 		#endif
 	}
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "Memory Filled. \n");
 #endif
 
@@ -633,7 +633,7 @@ void vPrintMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 
 	n_of_NFEE_in_mem = 1;
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "Start to fill the memory with Pattern.\n");
 #endif
 
@@ -656,17 +656,17 @@ void vPrintMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp, "NFEE %i - CCD %i. \n", NFee_i, ccd_number);
 				#endif
 			}
 		}
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp, "Memory %i. \n",mem_number);
 		#endif
 	}
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "Memory Filled. \n");
 #endif
 

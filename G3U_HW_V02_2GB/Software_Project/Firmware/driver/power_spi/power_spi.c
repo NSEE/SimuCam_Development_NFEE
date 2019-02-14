@@ -66,7 +66,7 @@ bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN,
 
 	if (SPI_SDO) {
 		SPI_CS_N(IcIndex, 1);  // chip select: inactive
-#ifdef DEBUG_ON
+#if DEBUG_ON
 //		debug(fp, "Timeout \r\n");
 #endif
 		return FALSE;
@@ -147,7 +147,7 @@ bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN,
 	}
 	bSuccess = (nZeroCnt & 0x01) ? FALSE : TRUE;
 	if (!bSuccess) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 //		debug(fp, "Parity Check Error \r\n");
 #endif
 		return FALSE;

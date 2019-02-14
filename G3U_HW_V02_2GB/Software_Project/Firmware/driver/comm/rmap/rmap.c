@@ -52,7 +52,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 
 	/* Warnning simplification: For now all address is lower than 1 bytes  */
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"IRQ RMAP.\n");
 #endif
 
@@ -63,7 +63,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[1] = ucADDRReg;
 	uiCmdRmap.ucByte[0] = 0;
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
 #endif
 
@@ -91,7 +91,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[1] = ucADDRReg;
 	uiCmdRmap.ucByte[0] = 0;
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
 #endif
 

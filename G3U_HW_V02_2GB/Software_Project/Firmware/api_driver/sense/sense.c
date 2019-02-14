@@ -1,6 +1,6 @@
 #include "sense.h"
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 char cDebugBuffer[256];
 #endif
 
@@ -26,13 +26,13 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 				SGL = (Value32 >> 5) & 0x01;
 				PARITY = Value32 & 0x01;
 				if (HEAD != 0) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 					sprintf(cDebugBuffer, "[%d]Unexpected HEAD\r\n", i);
 					debug(fp, cDebugBuffer);
 #endif
 					bSuccess = FALSE;
 				} else if (Channel != i) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 					sprintf(cDebugBuffer,
 							"[%d]Unexpected Channel. Expected:%d, Read:%d\r\n",
 							i, i, Channel);
@@ -40,13 +40,13 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 #endif
 					bSuccess = FALSE;
 				} else if (SIGN ^ bSIGN) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 					sprintf(cDebugBuffer, "[%d]Unexpected SIGN\r\n", i);
 					debug(fp, cDebugBuffer);
 #endif
 					bSuccess = FALSE;
 				} else if (SGL ^ SGL) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 					sprintf(cDebugBuffer, "[%d]Unexpected SGL\r\n", i);
 					debug(fp, cDebugBuffer);
 #endif
@@ -55,7 +55,7 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 				if (bSuccess)
 					szVol[nPortIndex++] = Value32; //(Value32 >> 6) & 0xFFFFFF; // 24 bits
 			} else {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 				sprintf(cDebugBuffer, "SPI Read Error\r\n");
 				debug(fp, cDebugBuffer);
 #endif
@@ -130,7 +130,7 @@ void sense_log(void) {
 				fVolDrop = 0.0; //always be positive in schematic // -(float)(0x400000-RESULT)/(float)0x400000;
 			if (SIG && MSB) {
 				fVol = fRef * 0.5;
-#ifdef DEBUG_ON
+#if DEBUG_ON
 				sprintf(cDebugBuffer, "[%s:%06XH,Over]\r\n  VolDrop:%f(V)\r\n",
 						szName[i], (int) szVol[i], fVol);
 				debug(fp, cDebugBuffer);
@@ -139,7 +139,7 @@ void sense_log(void) {
 				fVol = fRef * 0.5 * fVolDrop;
 				fCurrent = fVolDrop / szRes[i];
 				fPower = szRefVol[i] * fCurrent;
-#ifdef DEBUG_ON
+#if DEBUG_ON
 				sprintf(cDebugBuffer,
 						"[%s:%06XH,Pos]\r\n  VolDrop:%f(V), Current:%f(A), Power:%f(W)\r\n",
 						szName[i], (int) szVol[i], fVolDrop, fCurrent, fPower);
@@ -149,7 +149,7 @@ void sense_log(void) {
 				fVol = fRef * 0.5 * fVolDrop;
 				fCurrent = fVolDrop / szRes[i];
 				fPower = szRefVol[i] * fCurrent;
-#ifdef DEBUG_ON
+#if DEBUG_ON
 				sprintf(cDebugBuffer,
 						"[%s:%06XH,Neg]\r\n  VolDrop:%f(V), Current:%f(A), Power:%f(W)\r\n",
 						szName[i], (int) szVol[i], fVolDrop, fCurrent, fPower);
@@ -157,19 +157,19 @@ void sense_log(void) {
 #endif
 			} else if (!SIG && !MSB) {
 				fVol = -fRef * 0.5;
-#ifdef DEBUG_ON
+#if DEBUG_ON
 				sprintf(cDebugBuffer, "[%s:%06XH,Under]\r\n  VolDrop:%f(V)\r\n",
 						szName[i], (int) szVol[i], fVol);
 				debug(fp, cDebugBuffer);
 #endif
 			}
 		}
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		sprintf(cDebugBuffer, "\r\n");
 		debug(fp, cDebugBuffer);
 #endif
 	} else {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		sprintf(cDebugBuffer, "Error\r\n");
 		debug(fp, cDebugBuffer);
 #endif

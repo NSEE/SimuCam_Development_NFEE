@@ -18,7 +18,7 @@ void vDataControlTask(void *task_data) {
 
 	pxDataC = (TNData_Control *) task_data;
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
         debug(fp,"Data Controller Task. (Task on)\n");
     #endif
 

@@ -22,7 +22,7 @@ void vNFeeControlTask(void *task_data) {
 
 	pxFeeC = (TNFee_Control *) task_data;
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
         debug(fp,"NFee Controller Task. (Task on)\n");
     #endif
 
@@ -45,7 +45,7 @@ void vNFeeControlTask(void *task_data) {
 
 			case sMebToConfig:
 				/* Transition state */
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"NFEE Controller Task:: Config Mode\n");
 				#endif
 
@@ -65,7 +65,7 @@ void vNFeeControlTask(void *task_data) {
 			case sMebToRun:
 				/* Transition state */
 				vEvtChangeFeeControllerMode();
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"NFEE Controller Task:: RUN Mode\n");
 				#endif
 
@@ -177,7 +177,7 @@ void vNFeeControlTask(void *task_data) {
 				
 				break;		
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"NFEE Controller Task: Unknown state, backing to Config Mode.\n");
 				#endif
 				
@@ -199,7 +199,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 	switch (uiCmdLocal.ucByte[2]) {
 		case M_NFC_CONFIG_FORCED:
 		case M_NFC_CONFIG:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: NFC already in the Config Mode\n");
 			#endif
 			/* Do nothing for now */
@@ -213,7 +213,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 		case M_NFC_DMA_REQUEST:
 
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
@@ -243,7 +243,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 
 			break;
 		case M_NFC_RUN:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: NFC already in the Running Mode\n");
 			#endif		
 			/* Do nothing for now */
@@ -253,7 +253,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 		case M_NFC_DMA_REQUEST:
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;

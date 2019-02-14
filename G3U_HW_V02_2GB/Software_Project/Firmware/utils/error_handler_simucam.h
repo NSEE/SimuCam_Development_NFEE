@@ -10,7 +10,7 @@
 
 #include "../simucam_definitions.h"
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
     void printErrorTask( INT8U error_code );
 #endif
 

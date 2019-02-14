@@ -17,7 +17,7 @@
 #if defined(STACK_MONITOR) || defined(QUERY_STACK)
     #define DEBUG_ON    1 /* This value should always be 1 when one of the above options is defined */
 #endif
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
 #endif
 
@@ -63,7 +63,7 @@
 
 
 /* Variable that will carry the debug JTAG device file descriptor*/
-#ifdef DEBUG_ON
+#if DEBUG_ON
     extern FILE* fp;
 #endif
 

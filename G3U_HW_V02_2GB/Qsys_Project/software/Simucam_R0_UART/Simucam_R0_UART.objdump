@@ -2098,7 +2098,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 81100320:	2005883a 	mov	r2,r4
 81100324:	e0bfff05 	stb	r2,-4(fp)
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "===== DE4 DDR2 EEPROM Test =====\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2153,7 +2153,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 81100388:	e0bff917 	ldw	r2,-28(fp)
 8110038c:	00004506 	br	811004a4 <bDdr2EepromTest+0x19c>
 	alt_u8 ucControlAddr, ucValue;
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "DDR2 EEPROM Read Test\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2180,7 +2180,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 811003d0:	e13ffa17 	ldw	r4,-24(fp)
 811003d4:	1108f140 	call	81108f14 <I2C_Read>
 811003d8:	e0bff915 	stw	r2,-28(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "DDR2 EEPROM Read Test\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2195,7 +2195,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 811003f4:	e0bff917 	ldw	r2,-28(fp)
 811003f8:	103fe91e 	bne	r2,zero,811003a0 <__reset+0xfb0e03a0>
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "DDR2 EEPROM Write Test\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2226,7 +2226,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 	if (!bSuccess) {
 81100448:	e0bff917 	ldw	r2,-28(fp)
 8110044c:	10001426 	beq	r2,zero,811004a0 <bDdr2EepromTest+0x198>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		sprintf(cDebugBuffer, "Failed to write EEPROM\n");
 		debug(fp, cDebugBuffer);
 #endif
@@ -2249,7 +2249,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 		if (!bSuccess) {
 81100484:	e0bff917 	ldw	r2,-28(fp)
 81100488:	10000526 	beq	r2,zero,811004a0 <bDdr2EepromTest+0x198>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 			sprintf(cDebugBuffer, "Failed to read EEPROM for verify\n");
 			debug(fp, cDebugBuffer);
 #endif
@@ -2261,7 +2261,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 81100498:	18800126 	beq	r3,r2,811004a0 <bDdr2EepromTest+0x198>
 				bSuccess = FALSE;
 8110049c:	e03ff915 	stw	zero,-28(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2291,7 +2291,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 811004d0:	2005883a 	mov	r2,r4
 811004d4:	e0bfff05 	stb	r2,-4(fp)
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "===== DE4 DDR2 EEPROM Dump =====\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2377,7 +2377,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 81100598:	1000021e 	bne	r2,zero,811005a4 <bDdr2EepromDump+0xec>
 8110059c:	e0bfbe17 	ldw	r2,-264(fp)
 811005a0:	103ff81e 	bne	r2,zero,81100584 <__reset+0xfb0e0584>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2669,7 +2669,7 @@ static ALT_INLINE alt_u32 ALT_ALWAYS_INLINE alt_nticks (void)
 81100860:	10c00015 	stw	r3,0(r2)
 81100864:	d0a08817 	ldw	r2,-32224(gp)
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "Writing data...\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2762,7 +2762,7 @@ static ALT_INLINE alt_u32 ALT_ALWAYS_INLINE alt_nticks (void)
 	alt_dcache_flush_all();
 81100954:	112f1b80 	call	8112f1b8 <alt_dcache_flush_all>
 81100958:	d0e08817 	ldw	r3,-32224(gp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2771,7 +2771,7 @@ static ALT_INLINE alt_u32 ALT_ALWAYS_INLINE alt_nticks (void)
 8110095c:	e0bff117 	ldw	r2,-60(fp)
 81100960:	1885c83a 	sub	r2,r3,r2
 81100964:	e0bfef15 	stw	r2,-68(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -2915,7 +2915,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 	iNProgressIndex = 0;
 81100aa0:	e03fee15 	stw	zero,-72(fp)
 81100aa4:	d0a08817 	ldw	r2,-32224(gp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "Reading/Verifying Data...\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -3032,7 +3032,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 81100bbc:	e0bfe717 	ldw	r2,-100(fp)
 81100bc0:	18bfc436 	bltu	r3,r2,81100ad4 <__reset+0xfb0e0ad4>
 81100bc4:	d0e08817 	ldw	r3,-32224(gp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -3041,7 +3041,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 81100bc8:	e0bff117 	ldw	r2,-60(fp)
 81100bcc:	1885c83a 	sub	r2,r3,r2
 81100bd0:	e0bff015 	stw	r2,-64(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -3158,7 +3158,7 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	ucPercentage = 5;
 81100cd8:	00800144 	movi	r2,5
 81100cdc:	e0bff305 	stb	r2,-52(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		sprintf(cDebugBuffer, "00%%..");
 		debug(fp, cDebugBuffer);
 #endif
@@ -3200,7 +3200,7 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 81100d2c:	10803fcc 	andi	r2,r2,255
 81100d30:	10000e26 	beq	r2,zero,81100d6c <bDdr2MemoryRandomWriteTest+0x178>
 				& ((alt_u32) puliDestination > uliNextMilestone)) {
-#ifdef DEBUG_ON
+#if DEBUG_ON
 			sprintf(cDebugBuffer, "..%02d%%..", ucPercentage);
 			debug(fp, cDebugBuffer);
 #endif
@@ -3268,7 +3268,7 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 81100da0:	e0bff717 	ldw	r2,-36(fp)
 81100da4:	1885c83a 	sub	r2,r3,r2
 81100da8:	e0bff615 	stw	r2,-40(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -3423,7 +3423,7 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 81100efc:	e0bff217 	ldw	r2,-56(fp)
 81100f00:	e0fff317 	ldw	r3,-52(fp)
 81100f04:	18800e2e 	bgeu	r3,r2,81100f40 <bDdr2MemoryRandomReadTest+0x16c>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 			sprintf(cDebugBuffer, "..%02d%%..", ucPercentage);
 			debug(fp, cDebugBuffer);
 #endif
@@ -3478,7 +3478,7 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 81100f70:	e0bff717 	ldw	r2,-36(fp)
 81100f74:	1885c83a 	sub	r2,r3,r2
 81100f78:	e0bff615 	stw	r2,-40(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "\n");
 	debug(fp, cDebugBuffer);
 #endif
@@ -4182,7 +4182,7 @@ bool DMA_MULTIPLE_TRANSFER(alt_msgdma_dev *DmaDevice, alt_u32 SourceAddressArray
 
 81101630 <POWER_Read>:
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 char cDebugBuffer[256];
 #endif
 
@@ -4283,7 +4283,7 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 				if (HEAD != 0) {
 81101754:	e0bffa43 	ldbu	r2,-23(fp)
 81101758:	10000226 	beq	r2,zero,81101764 <POWER_Read+0x134>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 					sprintf(cDebugBuffer, "[%d]Unexpected HEAD\r\n", i);
 					debug(fp, cDebugBuffer);
 #endif
@@ -4306,7 +4306,7 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 81101778:	e0fffac3 	ldbu	r3,-21(fp)
 8110177c:	e0bff817 	ldw	r2,-32(fp)
 81101780:	18800126 	beq	r3,r2,81101788 <POWER_Read+0x158>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 					sprintf(cDebugBuffer, "[%d]Unexpected SIGN\r\n", i);
 					debug(fp, cDebugBuffer);
 #endif
@@ -4679,7 +4679,7 @@ void sense_log(void) {
 81101bb0:	1007883a 	mov	r3,r2
 81101bb4:	e0ff1715 	stw	r3,-932(fp)
 81101bb8:	00008306 	br	81101dc8 <sense_log+0x460>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 				sprintf(cDebugBuffer, "[%s:%06XH,Over]\r\n  VolDrop:%f(V)\r\n",
 						szName[i], (int) szVol[i], fVol);
 				debug(fp, cDebugBuffer);
@@ -4849,7 +4849,7 @@ void sense_log(void) {
 81101ddc:	1000021e 	bne	r2,zero,81101de8 <sense_log+0x480>
 81101de0:	e0bf1317 	ldw	r2,-948(fp)
 81101de4:	103f3f1e 	bne	r2,zero,81101ae4 <__reset+0xfb0e1ae4>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		sprintf(cDebugBuffer, "Error\r\n");
 		debug(fp, cDebugBuffer);
 #endif
@@ -10269,7 +10269,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 81105014:	e0bfff17 	ldw	r2,-4(fp)
 81105018:	e0bffc15 	stw	r2,-16(fp)
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"IRQ RMAP.\n");
 #endif
 
@@ -10289,7 +10289,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[0] = 0;
 8110503c:	e03ffe05 	stb	zero,-8(fp)
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
 #endif
 
@@ -10353,7 +10353,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[0] = 0;
 811050c8:	e03ffe05 	stb	zero,-8(fp)
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
 #endif
 
@@ -18605,7 +18605,7 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 		alt_busy_sleep(1); /* delay 1us */
 81109c10:	01000044 	movi	r4,1
 81109c14:	112ef6c0 	call	8112ef6c <alt_busy_sleep>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"\n-- DMA can't write in the descriptor \n ");
 #endif
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
@@ -18613,7 +18613,7 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 81109c1c:	1084e230 	cmpltui	r2,r2,5000
 81109c20:	1000021e 	bne	r2,zero,81109c2c <msgdma_descriptor_sync_transfer+0x8c>
 		{
-#ifdef DEBUG_ON
+#if DEBUG_ON
 			debug(fp,
 					"time out after 5 msec while waiting free FIFO buffer for storing descriptor\n");
 #endif
@@ -19271,7 +19271,7 @@ bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN,
 8110a1c8:	00a00034 	movhi	r2,32768
 8110a1cc:	10824804 	addi	r2,r2,2336
 8110a1d0:	10c00035 	stwio	r3,0(r2)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 //		debug(fp, "Timeout \r\n");
 #endif
 		return FALSE;
@@ -19623,7 +19623,7 @@ bool POWER_SPI_RW(alt_u8 IcIndex, alt_u8 NextChannel, bool bEN, bool bSIGN,
 	if (!bSuccess) {
 8110a528:	e0bffb17 	ldw	r2,-20(fp)
 8110a52c:	1000021e 	bne	r2,zero,8110a538 <POWER_SPI_RW+0x4c4>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 //		debug(fp, "Parity Check Error \r\n");
 #endif
 		return FALSE;
@@ -19829,7 +19829,7 @@ static alt_u32 uliRstReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
 
 8110a750 <v_spi_start>:
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 char cDebugBuffer[256];
 #endif
 
@@ -20163,7 +20163,7 @@ bool RTCC_SPI_R_MAC(alt_u8 uc_EUI48_array[6])
 8110aa68:	10800144 	addi	r2,r2,5
 8110aa6c:	e0fffe43 	ldbu	r3,-7(fp)
 8110aa70:	10c00005 	stb	r3,0(r2)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	sprintf(cDebugBuffer, "RTCC EUI-48 MAC Address: 0x%02x:%02x:%02x:%02x:%02x:%02x \n", uc_EUI48_B0, uc_EUI48_B1, uc_EUI48_B2, uc_EUI48_B3, uc_EUI48_B4, uc_EUI48_B5);
 	debug(fp, cDebugBuffer);
 #endif
@@ -20410,7 +20410,7 @@ void vSyncHandleIrq(void* pvContext) {
 8110ac90:	10800044 	addi	r2,r2,1
 8110ac94:	d0a05205 	stb	r2,-32440(gp)
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		fprintf(fp,"Sync %hu \n", ucSyncL);
 	#endif
 
@@ -22179,7 +22179,7 @@ void vDataControlTask(void *task_data) {
 8110bc60:	e0bffd17 	ldw	r2,-12(fp)
 8110bc64:	e0bffa15 	stw	r2,-24(fp)
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
         debug(fp,"Data Controller Task. (Task on)\n");
     #endif
 
@@ -22679,7 +22679,7 @@ void vFeeTask(void *task_data) {
 8110c1e8:	10804304 	addi	r2,r2,268
 8110c1ec:	1009883a 	mov	r4,r2
 8110c1f0:	1105d240 	call	81105d24 <bRmapSetCodecConfig>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task. RMAP KEY = %hu\n", xDefaults.ucRmapKey );
 					fprintf(fp,"NFEE %hhu Task. Log. Addr. = %hu \n", xDefaults.ucLogicalAddr);
 				#endif
@@ -22740,7 +22740,7 @@ void vFeeTask(void *task_data) {
 8110c278:	10803b04 	addi	r2,r2,236
 8110c27c:	1009883a 	mov	r4,r2
 8110c280:	110deac0 	call	8110deac <bDisAndClrDbBuffer>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
 				#endif
 
@@ -22884,7 +22884,7 @@ void vFeeTask(void *task_data) {
 8110c400:	180b883a 	mov	r5,r3
 8110c404:	1009883a 	mov	r4,r2
 8110c408:	110cfb80 	call	8110cfb8 <vQCmdFEEinConfig>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -22989,7 +22989,7 @@ void vFeeTask(void *task_data) {
 8110c50c:	10000126 	beq	r2,zero,8110c514 <vFeeTask+0x84c>
 					vFailFlushNFEEQueue();
 8110c510:	11173b40 	call	811173b4 <vFailFlushNFEEQueue>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Standby Mode\n", pxNFee->ucId);
 				#endif
 
@@ -23045,7 +23045,7 @@ void vFeeTask(void *task_data) {
 8110c598:	180b883a 	mov	r5,r3
 8110c59c:	1009883a 	mov	r4,r2
 8110c5a0:	110d0f40 	call	8110d0f4 <vQCmdFEEinStandBy>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -23382,13 +23382,13 @@ void vFeeTask(void *task_data) {
 8110c930:	10800044 	addi	r2,r2,1
 8110c934:	d0a05415 	stw	r2,-32432(gp)
 				} else {
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}	
 				break;
 8110c938:	00013206 	br	8110ce04 <vFeeTask+0x113c>
-							#ifdef DEBUG_ON
+							#if DEBUG_ON
 								fprintf(fp,"\nFEE TASK:  Double buffer prepared\n ");
 							#endif							
 					} else {
@@ -23400,7 +23400,7 @@ void vFeeTask(void *task_data) {
 8110c948:	1009883a 	mov	r4,r2
 8110c94c:	110d2840 	call	8110d284 <vQCmdFEEinFullPattern>
 				} else {
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}	
@@ -23428,7 +23428,7 @@ void vFeeTask(void *task_data) {
 8110c97c:	1009883a 	mov	r4,r2
 8110c980:	11061480 	call	81106148 <bRmapSetMemConfigArea>
 
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: Full Image Pattern Mode\n", pxNFee->ucId);
 				#endif
 
@@ -23644,7 +23644,7 @@ void vFeeTask(void *task_data) {
 8110cb8c:	e0bff503 	ldbu	r2,-44(fp)
 8110cb90:	1000111e 	bne	r2,zero,8110cbd8 <vFeeTask+0xf10>
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										fprintf(fp,"\n-- bSdmaDmaM1Transfer \n ");
 									#endif
 		                    		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)usiLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
@@ -23666,7 +23666,7 @@ void vFeeTask(void *task_data) {
 8110cbd0:	e0bff815 	stw	r2,-32(fp)
 8110cbd4:	00001006 	br	8110cc18 <vFeeTask+0xf50>
 		                    	} else {
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										fprintf(fp,"\n-- bSdmaDmaM2Transfer \n ");
 									#endif
 		                    		//(*xDma[ucMemUsing].pDmaTranfer)( xCcdMapLocal->ulAddrI,SDMA_MAX_BLOCKS, pxNFee->xControl.eSide, pxNFee->ucId );
@@ -23702,14 +23702,14 @@ void vFeeTask(void *task_data) {
 8110cc38:	d0a05317 	ldw	r2,-32436(gp)
 8110cc3c:	10002215 	stw	zero,136(r2)
 
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									fprintf(fp,"\n-- verificacao bDmaReturn \n ");
 								#endif
 		                    	if ( bDmaReturn == TRUE ) {
 8110cc40:	e0bff817 	ldw	r2,-32(fp)
 8110cc44:	10800058 	cmpnei	r2,r2,1
 8110cc48:	10000e1e 	bne	r2,zero,8110cc84 <vFeeTask+0xfbc>
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										fprintf(fp,"\n-- xCcdMapLocal->ulBlockI = %lu \n ", xCcdMapLocal->ulBlockI);
 									#endif
 
@@ -23732,7 +23732,7 @@ void vFeeTask(void *task_data) {
 8110cc80:	00000106 	br	8110cc88 <vFeeTask+0xfc0>
 
 		                    	} else {
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										fprintf(fp,"\n-- Can't write in the DMA \n ");
 									#endif
 									bFinal = FALSE;
@@ -23762,7 +23762,7 @@ void vFeeTask(void *task_data) {
 8110ccb0:	d0a05317 	ldw	r2,-32436(gp)
 8110ccb4:	00c002c4 	movi	r3,11
 8110ccb8:	10c02c15 	stw	r3,176(r2)
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -23782,7 +23782,7 @@ void vFeeTask(void *task_data) {
 8110ccd0:	000b883a 	mov	r5,zero
 8110ccd4:	01002004 	movi	r4,128
 8110ccd8:	110df180 	call	8110df18 <bSendRequestNFeeCtrl>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -23810,7 +23810,7 @@ void vFeeTask(void *task_data) {
 8110cd04:	d0e05317 	ldw	r3,-32436(gp)
 8110cd08:	18c02d17 	ldw	r3,180(r3)
 8110cd0c:	10c02c15 	stw	r3,176(r2)
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -23868,7 +23868,7 @@ void vFeeTask(void *task_data) {
 				break;
 8110cd84:	00002406 	br	8110ce18 <vFeeTask+0x1150>
 
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE-%hu Task: (sFeeWaitingSync)\n", pxNFee->ucId);
 				#endif
 
@@ -23891,7 +23891,7 @@ void vFeeTask(void *task_data) {
 8110cdc0:	e0bffd43 	ldbu	r2,-11(fp)
 8110cdc4:	10803fcc 	andi	r2,r2,255
 8110cdc8:	1000121e 	bne	r2,zero,8110ce14 <vFeeTask+0x114c>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (sFeeWaitingSync)\n", pxNFee->ucId);
 					#endif
 				} else {
@@ -23912,12 +23912,12 @@ void vFeeTask(void *task_data) {
 8110cde4:	d0a05317 	ldw	r2,-32436(gp)
 8110cde8:	00c00144 	movi	r3,5
 8110cdec:	10c02c15 	stw	r3,176(r2)
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"\nNFEE %hhu Task: Unexpected mode (default)\n", pxNFee->ucId);
 				#endif
 				break;
 8110cdf0:	00000906 	br	8110ce18 <vFeeTask+0x1150>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -23925,7 +23925,7 @@ void vFeeTask(void *task_data) {
 				break;
 8110cdf4:	0001883a 	nop
 8110cdf8:	003bbd06 	br	8110bcf0 <__reset+0xfb0ebcf0>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -23934,14 +23934,14 @@ void vFeeTask(void *task_data) {
 8110cdfc:	0001883a 	nop
 8110ce00:	003bbb06 	br	8110bcf0 <__reset+0xfb0ebcf0>
 				} else {
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}	
 				break;
 8110ce04:	0001883a 	nop
 8110ce08:	003bb906 	br	8110bcf0 <__reset+0xfb0ebcf0>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					#endif
 				}
@@ -24007,7 +24007,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 8110ce8c:	1000121e 	bne	r2,zero,8110ced8 <vQCmdFEEinWaitingSync+0xbc>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24024,7 +24024,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 8110cea0:	1000351e 	bne	r2,zero,8110cf78 <vQCmdFEEinWaitingSync+0x15c>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24045,7 +24045,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 8110cec4:	1000171e 	bne	r2,zero,8110cf24 <vQCmdFEEinWaitingSync+0x108>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24060,7 +24060,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 8110ced0:	10001e1e 	bne	r2,zero,8110cf4c <vQCmdFEEinWaitingSync+0x130>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24116,7 +24116,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 8110cf48:	00001506 	br	8110cfa0 <vQCmdFEEinWaitingSync+0x184>
 			case M_FEE_RMAP:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
 				#endif
 				/* Perform some actions, check if is a valid command for this mode of operation  */
@@ -24210,7 +24210,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d028:	1000251e 	bne	r2,zero,8110d0c0 <vQCmdFEEinConfig+0x108>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24227,7 +24227,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d03c:	1000161e 	bne	r2,zero,8110d098 <vQCmdFEEinConfig+0xe0>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24248,7 +24248,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d060:	1000191e 	bne	r2,zero,8110d0c8 <vQCmdFEEinConfig+0x110>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24263,7 +24263,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d06c:	10001a1e 	bne	r2,zero,8110d0d8 <vQCmdFEEinConfig+0x120>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24286,7 +24286,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d090:	10c02d15 	stw	r3,180(r2)
 				break;				
 8110d094:	00001106 	br	8110d0dc <vQCmdFEEinConfig+0x124>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: Shouldn't receive RMAP Messages in this mode (Config Mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24307,7 +24307,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d0bc:	00000706 	br	8110d0dc <vQCmdFEEinConfig+0x124>
 			case M_FEE_CONFIG_FORCED:
 			case M_FEE_CONFIG:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Already in Config mode\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24315,7 +24315,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d0c4:	00000506 	br	8110d0dc <vQCmdFEEinConfig+0x124>
 			case M_FEE_FULL_PATTERN_FORCED:
 			case M_FEE_FULL_PATTERN:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: Can't go to Full Image Pattern from Config mode\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24331,7 +24331,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d0d4:	00000106 	br	8110d0dc <vQCmdFEEinConfig+0x124>
 				break;
 			case M_FEE_RMAP:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: Shouldn't receive RMAP Messages in this mode (Config Mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24390,7 +24390,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d164:	1000121e 	bne	r2,zero,8110d1b0 <vQCmdFEEinStandBy+0xbc>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24407,7 +24407,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d178:	10002f1e 	bne	r2,zero,8110d238 <vQCmdFEEinStandBy+0x144>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24428,7 +24428,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d19c:	10000d1e 	bne	r2,zero,8110d1d4 <vQCmdFEEinStandBy+0xe0>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24443,7 +24443,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d1a8:	1000141e 	bne	r2,zero,8110d1fc <vQCmdFEEinStandBy+0x108>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Config mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24491,7 +24491,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d1fc:	e17fff17 	ldw	r5,-4(fp)
 8110d200:	e13ffe17 	ldw	r4,-8(fp)
 8110d204:	110d4480 	call	8110d448 <vQCmdFeeRMAPinStandBy>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
 				#endif
 				/* Perform some actions, check if is a valid command for this mode of operation  */
@@ -24536,7 +24536,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d25c:	00000306 	br	8110d26c <vQCmdFEEinStandBy+0x178>
 			case M_FEE_STANDBY_FORCED:
 			case M_FEE_STANDBY:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Already in Stand by mode\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24605,7 +24605,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 8110d2f4:	1000101e 	bne	r2,zero,8110d338 <vQCmdFEEinFullPattern+0xb4>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24622,7 +24622,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 8110d308:	1000461e 	bne	r2,zero,8110d424 <vQCmdFEEinFullPattern+0x1a0>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24641,7 +24641,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 8110d324:	1000251e 	bne	r2,zero,8110d3bc <vQCmdFEEinFullPattern+0x138>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24656,7 +24656,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 8110d330:	10002b1e 	bne	r2,zero,8110d3e0 <vQCmdFEEinFullPattern+0x15c>
 				break;
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode (in Confg mode)\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24743,7 +24743,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 8110d3d8:	10c02d15 	stw	r3,180(r2)
 				break;				
 8110d3dc:	00001406 	br	8110d430 <vQCmdFEEinFullPattern+0x1ac>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task: RMAP Message Received\n", pxNFeeP->ucId);
 				#endif
 
@@ -24786,7 +24786,7 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 8110d420:	00000306 	br	8110d430 <vQCmdFEEinFullPattern+0x1ac>
 				break;				
 			case M_FEE_FULL_PATTERN:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"NFEE %hhu Task:  Already in Full Image Pattern mode\n", pxNFeeP->ucId);
 				#endif
 				break;
@@ -24825,7 +24825,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d45c:	df000704 	addi	fp,sp,28
 8110d460:	e13ffe15 	stw	r4,-8(fp)
 8110d464:	e17fff15 	stw	r5,-4(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	fprintf(fp,"\nNFEE %hhu Task: RMAP msg received (StandBy)\n", pxNFeeP->ucId);
 #endif
 
@@ -24946,7 +24946,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d5d4:	1009883a 	mov	r4,r2
 8110d5d8:	1102b200 	call	81102b20 <bDpktSetPacketConfig>
 
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"- Rows: %u\n - Columns: %u\n", ucValueMasked, ucValueMasked2);
 			#endif
 
@@ -24979,7 +24979,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d620:	1009883a 	mov	r4,r2
 8110d624:	1102b200 	call	81102b20 <bDpktSetPacketConfig>
 
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"- Pckt Length: %u\n", ucValueMasked);
 			#endif
 
@@ -25001,7 +25001,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eSide = sLeft;
 8110d654:	e0bffe17 	ldw	r2,-8(fp)
 8110d658:	10002e15 	stw	zero,184(r2)
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp," - Left side\n");
 					#endif
 					break;
@@ -25011,7 +25011,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d660:	e0bffe17 	ldw	r2,-8(fp)
 8110d664:	00c00044 	movi	r3,1
 8110d668:	10c02e15 	stw	r3,184(r2)
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp," - Right side\n");
 					#endif
 					break;
@@ -25020,7 +25020,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eSide = sLeft;
 8110d670:	e0bffe17 	ldw	r2,-8(fp)
 8110d674:	10002e15 	stw	zero,184(r2)
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp," - Both sides, but not supported yet. Switching to Left side\n");
 					#endif
 				default:
@@ -25045,13 +25045,13 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d6ac:	10804304 	addi	r2,r2,268
 8110d6b0:	1009883a 	mov	r4,r2
 8110d6b4:	11061480 	call	81106148 <bRmapSetMemConfigArea>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp," - Switching to Left side\n");
 					#endif
 					break;
 8110d6b8:	0001883a 	nop
 				}
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"\nNFEE %hhu Task: Side changed (FullPattern) side: %hhu\n", pxNFeeP->ucId, pxNFeeP->xControl.eSide);
 			#endif
 			break;
@@ -25076,13 +25076,13 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d6e4:	10000d26 	beq	r2,zero,8110d71c <vQCmdFeeRMAPinStandBy+0x2d4>
 				case 5:
 				default:
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"- mode not allowed yet ( %hhu )\n", ucValueMasked);
 					#endif
 					break;
 8110d6e8:	00000d06 	br	8110d720 <vQCmdFeeRMAPinStandBy+0x2d8>
 				case 2: /* PAttern Full image */
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"- to Full-Image-Pattern\n");
 				#endif
 
@@ -25102,14 +25102,14 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 					break;
 8110d710:	00000306 	br	8110d720 <vQCmdFeeRMAPinStandBy+0x2d8>
 				case 6:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"- Off-Mode not allowed.\n");
 				#endif
 					break;
 8110d714:	0001883a 	nop
 8110d718:	00001c06 	br	8110d78c <vQCmdFeeRMAPinStandBy+0x344>
 
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"- already in Stand by mode\n", pxNFeeP->ucId);
 				#endif
 
@@ -25134,7 +25134,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			if ( ucValueMasked ) {
 8110d734:	e0bffb17 	ldw	r2,-20(fp)
 8110d738:	10001326 	beq	r2,zero,8110d788 <vQCmdFeeRMAPinStandBy+0x340>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp," - operation not allowed (StandBy-Mode)\n");
 				#endif
 				/* Clear the trigger */
@@ -25161,7 +25161,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 8110d774:	00000406 	br	8110d788 <vQCmdFeeRMAPinStandBy+0x340>
 		case 0x00000051://0x0000004C:current_mode
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -25182,7 +25182,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 
 			break;
 8110d788:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -25207,7 +25207,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d7bc:	e13ffe15 	stw	r4,-8(fp)
 8110d7c0:	e17fff15 	stw	r5,-4(fp)
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received (FullPattern)\n", pxNFeeP->ucId);
 	#endif
 
@@ -25285,7 +25285,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eSide = sLeft;
 8110d89c:	e0bffe17 	ldw	r2,-8(fp)
 8110d8a0:	10002e15 	stw	zero,184(r2)
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Left side\n");
 						#endif
 						break;
@@ -25295,7 +25295,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d8a8:	e0bffe17 	ldw	r2,-8(fp)
 8110d8ac:	00c00044 	movi	r3,1
 8110d8b0:	10c02e15 	stw	r3,184(r2)
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Right side\n");
 						#endif
 						break;
@@ -25304,7 +25304,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eSide = sLeft;
 8110d8b8:	e0bffe17 	ldw	r2,-8(fp)
 8110d8bc:	10002e15 	stw	zero,184(r2)
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Both sides, but not supported yet. Switching to Left side\n");
 						#endif
 					default:
@@ -25329,12 +25329,12 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d8f4:	10804304 	addi	r2,r2,268
 8110d8f8:	1009883a 	mov	r4,r2
 8110d8fc:	11061480 	call	81106148 <bRmapSetMemConfigArea>
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Switching to Left side\n");
 						#endif
 					break;
 8110d900:	0001883a 	nop
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"\nNFEE %hhu Task: Side changed (FullPattern) side: %hhu\n", pxNFeeP->ucId, pxNFeeP->xControl.eSide);
 				#endif
 
@@ -25374,13 +25374,13 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d944:	10000126 	beq	r2,zero,8110d94c <vQCmdFeeRMAPinFullPattern+0x1a8>
 				case 5:
 				default:
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp," mode not allowed yet ( %hhu )\n", ucValueMasked);
 					#endif
 					break;
 8110d948:	00001b06 	br	8110d9b8 <vQCmdFeeRMAPinFullPattern+0x214>
 				case 0: /* Standby */
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"- to Stand-By\n");
 				#endif
 
@@ -25433,7 +25433,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 					break;
 8110d9a8:	00000306 	br	8110d9b8 <vQCmdFeeRMAPinFullPattern+0x214>
 				case 2: /* PAttern Full image */
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"NFEE %hhu Task:  Already in Full Image Pattern mode\n", pxNFeeP->ucId);
 					#endif
 
@@ -25441,7 +25441,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110d9ac:	0001883a 	nop
 8110d9b0:	00001c06 	br	8110da24 <vQCmdFeeRMAPinFullPattern+0x280>
 				case 6:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp," Off-Mode not allowed.\n");
 				#endif
 					break;
@@ -25489,7 +25489,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110da04:	00000606 	br	8110da20 <vQCmdFeeRMAPinFullPattern+0x27c>
 		case 0x00000051://0x0000004C:current_mode
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -25497,7 +25497,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 8110da0c:	00000506 	br	8110da24 <vQCmdFeeRMAPinFullPattern+0x280>
 		case 0x4A://0x00000028:CCD_4_windowing_1_config
 		case 0x4B://0x0000002C:CCD_4_windowing_2_config
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 				break;
@@ -25518,7 +25518,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			break;
 8110da20:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -25544,7 +25544,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110da54:	e13ffe15 	stw	r4,-8(fp)
 8110da58:	e17fff15 	stw	r5,-4(fp)
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received (WaitingSync)\n", pxNFeeP->ucId);
 	#endif
 
@@ -25575,7 +25575,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110daa0:	10005b1e 	bne	r2,zero,8110dc10 <vQCmdFeeRMAPWaitingSync+0x1d4>
 		case 0x00000051://0x0000004C:current_mode
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -25592,7 +25592,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110dab4:	1000601e 	bne	r2,zero,8110dc38 <vQCmdFeeRMAPWaitingSync+0x1fc>
 		case 0x00000051://0x0000004C:current_mode
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -25631,7 +25631,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 						pxNFeeP->xControl.eSide = sLeft;
 8110db08:	e0bffe17 	ldw	r2,-8(fp)
 8110db0c:	10002e15 	stw	zero,184(r2)
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Left side\n");
 						#endif
 						break;
@@ -25641,7 +25641,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110db14:	e0bffe17 	ldw	r2,-8(fp)
 8110db18:	00c00044 	movi	r3,1
 8110db1c:	10c02e15 	stw	r3,184(r2)
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Right side\n");
 						#endif
 						break;
@@ -25650,7 +25650,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 						pxNFeeP->xControl.eSide = sLeft;
 8110db24:	e0bffe17 	ldw	r2,-8(fp)
 8110db28:	10002e15 	stw	zero,184(r2)
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Both sides, but not supported yet. Switching to Left side\n");
 						#endif
 					default:
@@ -25675,12 +25675,12 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110db60:	10804304 	addi	r2,r2,268
 8110db64:	1009883a 	mov	r4,r2
 8110db68:	11061480 	call	81106148 <bRmapSetMemConfigArea>
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp," - Switching to Left side\n");
 						#endif
 					break;
 8110db6c:	0001883a 	nop
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp,"\nNFEE %hhu Task: Side changed (FullPattern) side: %hhu\n", pxNFeeP->ucId, pxNFeeP->xControl.eSide);
 				#endif
 
@@ -25693,7 +25693,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110db7c:	e0bffe17 	ldw	r2,-8(fp)
 8110db80:	00c00304 	movi	r3,12
 8110db84:	10c02d15 	stw	r3,180(r2)
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"\nNFEE %hhu Task: Can't change the CCD side while in transmission (FullPattern) side: %hhu\n", pxNFeeP->ucId, pxNFeeP->xControl.eSide);
 					#endif
 				}
@@ -25720,13 +25720,13 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 8110dbb0:	10000126 	beq	r2,zero,8110dbb8 <vQCmdFeeRMAPWaitingSync+0x17c>
 			case 5:
 			default:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					fprintf(fp," mode not allowed yet ( %hhu )\n", ucValueMasked);
 				#endif
 				break;
 8110dbb4:	00001506 	br	8110dc0c <vQCmdFeeRMAPWaitingSync+0x1d0>
 			case 0: /* Standby */
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"- to Stand-By\n");
 			#endif
 
@@ -25764,7 +25764,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 8110dc04:	00000106 	br	8110dc0c <vQCmdFeeRMAPWaitingSync+0x1d0>
 			case 6:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Off-Mode not allowed.\n");
 			#endif
 				break;
@@ -25777,7 +25777,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 8110dc0c:	00002006 	br	8110dc90 <vQCmdFeeRMAPWaitingSync+0x254>
 		case 2: /* PAttern Full image */
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"NFEE %hhu Task:  Already in Full Image Pattern mode\n", pxNFeeP->ucId);
 			#endif
 
@@ -25830,7 +25830,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 
 			break;
 8110dc80:	00000206 	br	8110dc8c <vQCmdFeeRMAPWaitingSync+0x250>
-					#ifdef DEBUG_ON
+					#if DEBUG_ON
 						fprintf(fp,"\nNFEE %hhu Task: Can't change the CCD side while in transmission (FullPattern) side: %hhu\n", pxNFeeP->ucId, pxNFeeP->xControl.eSide);
 					#endif
 				}
@@ -25845,7 +25845,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 
 			break;
 8110dc8c:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp," Command not allowed yet ( %hhu )\n", ucADDRReg);
 			#endif
 			break;
@@ -27028,7 +27028,7 @@ void vInAckHandlerTaskV2(void *task_data) {
     unsigned char i = 0;
 8110e9a8:	e03ffa45 	stb	zero,-23(fp)
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"In Ack Handler Task. (Task on)\n");
     #endif
 
@@ -27323,7 +27323,7 @@ void vInAckHandlerTaskV2(void *task_data) {
 				break;
 8110ec78:	00000306 	br	8110ec88 <vInAckHandlerTaskV2+0x314>
 			default:
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
 		            debug(fp,"Critical: Default State. Should never get here.(vInAckHandlerTaskV2)\n");
 	            #endif
                 eReceiverAckState = sRAGettingACK;
@@ -27782,7 +27782,7 @@ void vInitialTask(void *task_data)
 8110f0d8:	10803fcc 	andi	r2,r2,255
 8110f0dc:	10000126 	beq	r2,zero,8110f0e4 <vInitialTask+0x78>
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 			vCoudlNotCreateNFee0Task();
@@ -27830,7 +27830,7 @@ void vInitialTask(void *task_data)
 8110f144:	10803fcc 	andi	r2,r2,255
 8110f148:	10000126 	beq	r2,zero,8110f150 <vInitialTask+0xe4>
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 			vCoudlNotCreateDataControllerTask();
@@ -27878,7 +27878,7 @@ void vInitialTask(void *task_data)
 8110f1b0:	10803fcc 	andi	r2,r2,255
 8110f1b4:	10000126 	beq	r2,zero,8110f1bc <vInitialTask+0x150>
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 			vCoudlNotCreateNFeeControllerTask();
@@ -27926,7 +27926,7 @@ void vInitialTask(void *task_data)
 8110f21c:	10803fcc 	andi	r2,r2,255
 8110f220:	10000126 	beq	r2,zero,8110f228 <vInitialTask+0x1bc>
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 			vCoudlNotCreateMebTask();
@@ -27973,7 +27973,7 @@ void vInitialTask(void *task_data)
 8110f284:	10803fcc 	andi	r2,r2,255
 8110f288:	10000126 	beq	r2,zero,8110f290 <vInitialTask+0x224>
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 		vFailTimeoutCheckerTaskCreate();
@@ -28020,7 +28020,7 @@ void vInitialTask(void *task_data)
 8110f2ec:	10803fcc 	andi	r2,r2,255
 8110f2f0:	10000126 	beq	r2,zero,8110f2f8 <vInitialTask+0x28c>
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 		vFailOutAckHandlerTaskCreate();
@@ -28067,7 +28067,7 @@ void vInitialTask(void *task_data)
 8110f354:	10803fcc 	andi	r2,r2,255
 8110f358:	10000126 	beq	r2,zero,8110f360 <vInitialTask+0x2f4>
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 		vFailInAckHandlerTaskCreate();
@@ -28114,7 +28114,7 @@ void vInitialTask(void *task_data)
 8110f3bc:	10803fcc 	andi	r2,r2,255
 8110f3c0:	10000126 	beq	r2,zero,8110f3c8 <vInitialTask+0x35c>
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );
 		#endif
 		vFailParserCommTaskCreate();
@@ -28161,7 +28161,7 @@ void vInitialTask(void *task_data)
 8110f424:	10803fcc 	andi	r2,r2,255
 8110f428:	10000126 	beq	r2,zero,8110f430 <vInitialTask+0x3c4>
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );		
 		#endif
 		vFailReceiverCreate();
@@ -28219,7 +28219,7 @@ void vInitialTask(void *task_data)
 8110f4a0:	10803fcc 	andi	r2,r2,255
 8110f4a4:	10000126 	beq	r2,zero,8110f4ac <vInitialTask+0x440>
 		/* Can't create Task for sender comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );		
 		#endif
 		vFailSenderCreate();
@@ -28261,7 +28261,7 @@ void vInitialTask(void *task_data)
 8110f4f4:	10000c26 	beq	r2,zero,8110f528 <vInitialTask+0x4bc>
 		/*	Can't delete the initialization task, the problem is that the priority of this
 			is that the PRIO is so high that will cause starvation if not deleted */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			printErrorTask( error_code );		
 		#endif
 		vFailDeleteInitialization();
@@ -28361,7 +28361,7 @@ void vNFeeControlTask(void *task_data) {
 8110f5c8:	10c09a15 	stw	r3,616(r2)
 				break;
 8110f5cc:	0000ba06 	br	8110f8b8 <vNFeeControlTask+0x378>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"NFEE Controller Task:: Config Mode\n");
 				#endif
 
@@ -28399,7 +28399,7 @@ void vNFeeControlTask(void *task_data) {
 				/* Transition state */
 				vEvtChangeFeeControllerMode();
 8110f614:	11174040 	call	81117404 <vEvtChangeFeeControllerMode>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"NFEE Controller Task:: RUN Mode\n");
 				#endif
 
@@ -28695,7 +28695,7 @@ void vNFeeControlTask(void *task_data) {
 				
 				break;		
 8110f8a0:	00000406 	br	8110f8b4 <vNFeeControlTask+0x374>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"NFEE Controller Task: Unknown state, backing to Config Mode.\n");
 				#endif
 				
@@ -28752,7 +28752,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 8110f8fc:	10000a1e 	bne	r2,zero,8110f928 <vPerformActionNFCConfig+0x6c>
 
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
@@ -28769,7 +28769,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 8110f910:	1000011e 	bne	r2,zero,8110f918 <vPerformActionNFCConfig+0x5c>
 
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
@@ -28786,7 +28786,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 			break;
 8110f924:	00000106 	br	8110f92c <vPerformActionNFCConfig+0x70>
 		case M_NFC_CONFIG:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: NFC already in the Config Mode\n");
 			#endif
 			/* Do nothing for now */
@@ -28835,7 +28835,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 8110f98c:	1000221e 	bne	r2,zero,8110fa18 <vPerformActionNFCRunning+0xd8>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
@@ -28850,7 +28850,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 8110f998:	1000011e 	bne	r2,zero,8110f9a0 <vPerformActionNFCRunning+0x60>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
@@ -28915,14 +28915,14 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			break;
 8110fa10:	0001883a 	nop
 8110fa14:	00000106 	br	8110fa1c <vPerformActionNFCRunning+0xdc>
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: NFC already in the Running Mode\n");
 			#endif		
 			/* Do nothing for now */
 
 			break;
 8110fa18:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			#endif	
 			break;
@@ -29126,7 +29126,7 @@ void vOutAckHandlerTask(void *task_data) {
     unsigned char crc = 0;
 8110fc20:	e03ffa45 	stb	zero,-23(fp)
 
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		debug(fp,"Out Ack Handler Task. (Task on)\n");
 	#endif
 
@@ -29369,7 +29369,7 @@ void vOutAckHandlerTask(void *task_data) {
 				break;
 8110fe70:	00000306 	br	8110fe80 <vOutAckHandlerTask+0x2bc>
 			default:
-            	#ifdef DEBUG_ON
+            	#if DEBUG_ON
 		            debug(fp,"Critical: Default State. Should never get here.(vOutAckHandlerTask)\n");
 	            #endif
                 eSenderAckState = sSAGettingACK;
@@ -29399,7 +29399,7 @@ void vParserCommTask(void *task_data) {
 	bool bSuccess = FALSE;
 8110fea0:	e03ffd15 	stw	zero,-12(fp)
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"Parser Comm Task. (Task on)\n");
     #endif
 
@@ -29673,7 +29673,7 @@ void vParserCommTask(void *task_data) {
 811100e0:	10bfffcc 	andi	r2,r2,65535
 811100e4:	10800060 	cmpeqi	r2,r2,1
 811100e8:	10000726 	beq	r2,zero,81110108 <vParserCommTask+0x284>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									debug(fp,"Parser Task: TC_SCAM_TEST_CONNECTION\n");
 								#endif
 
@@ -29688,7 +29688,7 @@ void vParserCommTask(void *task_data) {
 
 								break;
 81110104:	00000306 	br	81110114 <vParserCommTask+0x290>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									debug(fp, cPUSDebug );
@@ -29723,7 +29723,7 @@ void vParserCommTask(void *task_data) {
 81110154:	00001606 	br	811101b0 <vParserCommTask+0x32c>
 						{
 							case 59: /* TC_SCAM_RESET */
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									debug(fp,"Parser Task: TC_SCAM_RESET\n");
 								#endif
 								vSendReset();
@@ -29742,7 +29742,7 @@ void vParserCommTask(void *task_data) {
 								break;
 81110178:	00001006 	br	811101bc <vParserCommTask+0x338>
 							case 60: /* TC_SCAM_CONFIG */
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									debug(fp,"Parser Task: TC_SCAM_CONFIG\n");
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -29753,7 +29753,7 @@ void vParserCommTask(void *task_data) {
 								break;
 81110188:	00000c06 	br	811101bc <vParserCommTask+0x338>
 							case 61: /* TC_SCAM_RUN */
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									debug(fp,"Parser Task: TC_SCAM_RUN\n");
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -29764,7 +29764,7 @@ void vParserCommTask(void *task_data) {
 								break;
 81110198:	00000806 	br	811101bc <vParserCommTask+0x338>
 							case 62: /* TC_SCAM_TURNOFF */
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									debug(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								#endif
 								vSendTurnOff();
@@ -29778,7 +29778,7 @@ void vParserCommTask(void *task_data) {
 
 								break;
 811101ac:	00000306 	br	811101bc <vParserCommTask+0x338>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									debug(fp, cPUSDebug );
@@ -29842,7 +29842,7 @@ void vParserCommTask(void *task_data) {
 81110244:	18000a1e 	bne	r3,zero,81110270 <vParserCommTask+0x3ec>
 81110248:	10800060 	cmpeqi	r2,r2,1
 8111024c:	10000c26 	beq	r2,zero,81110280 <vParserCommTask+0x3fc>
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: TC_SCAM_FEE_CONFIG_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 										debug(fp, cPUSDebug );
@@ -29854,7 +29854,7 @@ void vParserCommTask(void *task_data) {
 
 									break;
 8111025c:	00000b06 	br	8111028c <vParserCommTask+0x408>
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: TC_SCAM_FEE_STANDBY_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 										debug(fp, cPUSDebug );
@@ -29866,7 +29866,7 @@ void vParserCommTask(void *task_data) {
 
 									break;
 8111026c:	00000706 	br	8111028c <vParserCommTask+0x408>
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: TC_SCAM_FEE_CALIBRATION_TEST_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 										debug(fp, cPUSDebug );
@@ -29878,7 +29878,7 @@ void vParserCommTask(void *task_data) {
 
 									break;
 8111027c:	00000306 	br	8111028c <vParserCommTask+0x408>
-									#ifdef DEBUG_ON
+									#if DEBUG_ON
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 										debug(fp, cPUSDebug );
@@ -29939,7 +29939,7 @@ void vParserCommTask(void *task_data) {
 81110320:	10800160 	cmpeqi	r2,r2,5
 81110324:	1000091e 	bne	r2,zero,8111034c <vParserCommTask+0x4c8>
 81110328:	00008b06 	br	81110558 <vParserCommTask+0x6d4>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_LINK_ENABLE (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
@@ -29951,7 +29951,7 @@ void vParserCommTask(void *task_data) {
 
 								break;
 81110338:	00008a06 	br	81110564 <vParserCommTask+0x6e0>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_LINK_DISABLE (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
@@ -29963,7 +29963,7 @@ void vParserCommTask(void *task_data) {
 
 								break;
 81110348:	00008606 	br	81110564 <vParserCommTask+0x6e0>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_LINK_RESET (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
 									debug(fp, cPUSDebug );
@@ -30121,7 +30121,7 @@ void vParserCommTask(void *task_data) {
 
 								break;
 81110554:	00000306 	br	81110564 <vParserCommTask+0x6e0>
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
 									debug(fp, cPUSDebug );
@@ -30440,7 +30440,7 @@ void vReceiverUartTask(void *task_data) {
     bool bSuccess = FALSE;
 81110828:	e03fae15 	stw	zero,-328(fp)
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"Receiver UART Task. (Task on)\n");
     #endif
 
@@ -30554,7 +30554,7 @@ void vReceiverUartTask(void *task_data) {
                 break;
 81110938:	00003906 	br	81110a20 <vReceiverUartTask+0x214>
                             eReaderRXMode = sGetRxUart;
-                            #ifdef DEBUG_ON
+                            #if DEBUG_ON
                                 debug(fp,"Nack Received. Do nothing!\n");
                             #endif
                         } else
@@ -31102,7 +31102,7 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
 81110e34:	d0a06417 	ldw	r2,-32368(gp)
 81110e38:	1009883a 	mov	r4,r2
 81110e3c:	1135b100 	call	81135b10 <OSMutexPost>
-        #ifdef DEBUG_ON
+        #if DEBUG_ON
             debug(fp,"Could not put the ack packet receiveid in the queue. (setPreAckReceiverFreePos)\n");
         #endif
     }
@@ -31395,7 +31395,7 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
 8111115c:	00000306 	br	8111116c <bPreParserV2+0x314>
         } else {
             /* Wrong CRC */
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 fprintf(fp,"Wrong CRC. Expected = %hhu, received = %hhu\n", xPerParcedBuffer->ucCalculatedCRC8, xPerParcedBuffer->ucMessageCRC8 );
             #endif
             bSuccess = FALSE;
@@ -31459,7 +31459,7 @@ void vSenderComTask(void *task_data)
 811111d0:	e0bffd15 	stw	r2,-12(fp)
                 break;
 811111d4:	00001f06 	br	81111254 <vSenderComTask+0xcc>
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     debug(fp,"Preparing the Start Sequence.\n");
                 #endif
 
@@ -31486,7 +31486,7 @@ void vSenderComTask(void *task_data)
 81111200:	00001406 	br	81111254 <vSenderComTask+0xcc>
                     #endif                    
                 } else {
-                    #ifdef DEBUG_ON
+                    #if DEBUG_ON
                         debug(fp,"Fail, try again in 5 seconds.\n");
                     #endif 
                     eSenderMode = sStartingConnSender;
@@ -31510,7 +31510,7 @@ void vSenderComTask(void *task_data)
 81111224:	00800144 	movi	r2,5
 81111228:	e0bffd15 	stw	r2,-12(fp)
 
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     debug(fp,"Working...\n");
                 #endif
 
@@ -31524,7 +31524,7 @@ void vSenderComTask(void *task_data)
                 break;
 81111240:	00000406 	br	81111254 <vSenderComTask+0xcc>
             default:
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     debug(fp,"Sender default\n");
                 #endif
                 eSenderMode = sDummySender;
@@ -31601,7 +31601,7 @@ void vSimMebTask(void *task_data) {
 811112c8:	10c00115 	stw	r3,4(r2)
 				break;
 811112cc:	00008906 	br	811114f4 <vSimMebTask+0x29c>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"MEB Task: Config Mode\n");
 				#endif
 
@@ -31651,7 +31651,7 @@ void vSimMebTask(void *task_data) {
 				break;
 81111330:	00007006 	br	811114f4 <vSimMebTask+0x29c>
 			case sMebToRun:
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"MEB Task: Run Mode\n");
 				#endif
 				/* Transition to Run Mode (Starting the Simulation) */
@@ -31760,7 +31760,7 @@ void vSimMebTask(void *task_data) {
 81111430:	1000061e 	bne	r2,zero,8111144c <vSimMebTask+0x1f4>
 								break;
 							default:
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdMeb.ucByte[2]);
 								#endif
 								break;
@@ -31788,7 +31788,7 @@ void vSimMebTask(void *task_data) {
 81111448:	00002706 	br	811114e8 <vSimMebTask+0x290>
 								break;
 							case M_MASTER_SYNC:
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
 								#endif
 								break;
@@ -31833,7 +31833,7 @@ void vSimMebTask(void *task_data) {
 811114a8:	1000011e 	bne	r2,zero,811114b0 <vSimMebTask+0x258>
 								break;
 							default:
-								#ifdef DEBUG_ON
+								#if DEBUG_ON
 									fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdMeb.ucByte[2]);
 								#endif
 								break;
@@ -31884,7 +31884,7 @@ void vSimMebTask(void *task_data) {
 				}			
 				break;
 811114d4:	00000606 	br	811114f0 <vSimMebTask+0x298>
-				#ifdef DEBUG_ON
+				#if DEBUG_ON
 					debug(fp,"MEB Task: Unknow state, backing to Config Mode\n");
 				#endif
 				
@@ -32095,7 +32095,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111694:	1000011e 	bne	r2,zero,8111169c <vPusMebInTaskConfigMode+0x48>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (CONFIG)\n\n" );
 			#endif
 			break;
@@ -32127,7 +32127,7 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 811116c4:	11117780 	call	81111778 <vPusType252conf>
 			break;
 811116c8:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (CONFIG)\n\n" );
 			#endif
 			break;
@@ -32161,7 +32161,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111718:	1000051e 	bne	r2,zero,81111730 <vPusType250conf+0x4c>
 		case 60:
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			#endif
 			break;
@@ -32182,7 +32182,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/*todo: Do nothing for now */
 			break;
 81111730:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			#endif
 			break;
@@ -32204,7 +32204,7 @@ void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111758:	df000204 	addi	fp,sp,8
 8111175c:	e13ffe15 	stw	r4,-8(fp)
 81111760:	e17fff15 	stw	r5,-4(fp)
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		fprintf(fp, "MEB Task: Can't change the mode of the NFEE while MEB is Config mode\n\n" );
 	#endif
 }
@@ -32239,7 +32239,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 811117b4:	1000011e 	bne	r2,zero,811117bc <vPusType252conf+0x44>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			#endif
 			break;
@@ -32338,13 +32338,13 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 811118d8:	1009883a 	mov	r4,r2
 811118dc:	1105b6c0 	call	81105b6c <bRmapSetIrqControl>
 			/* todo: Need to treat all the returns */
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
 			#endif
 
 			break;
 811118e0:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			#endif
 			break;
@@ -32385,7 +32385,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 8111193c:	1000011e 	bne	r2,zero,81111944 <vPusMebInTaskRunningMode+0x48>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -32417,7 +32417,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 8111196c:	1111ae00 	call	81111ae0 <vPusType252run>
 			break;
 81111970:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -32452,7 +32452,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 811119c0:	1000051e 	bne	r2,zero,811119d8 <vPusType250run+0x4c>
 		case 61:
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -32473,7 +32473,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/*todo: Do nothing for now */
 			break;
 811119d8:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -32514,7 +32514,7 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111a3c:	1000011e 	bne	r2,zero,81111a44 <vPusType251run+0x54>
 		case 6:
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not implemented yet (SubType:%hu)\n\n",xPusL->usiSubType );
 			#endif
 			break;
@@ -32569,7 +32569,7 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111ac0:	1111ed40 	call	81111ed4 <vSendCmdQToNFeeCTRL_GEN>
 			break;
 81111ac4:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not implemented yet (SubType:%hu)\n\n",xPusL->usiSubType );
 			#endif
 			break;
@@ -32611,7 +32611,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111b2c:	10004a1e 	bne	r2,zero,81111c58 <vPusType252run+0x178>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -32628,7 +32628,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111b40:	1000971e 	bne	r2,zero,81111da0 <vPusType252run+0x2c0>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -32676,7 +32676,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111bc0:	1885883a 	add	r2,r3,r2
 81111bc4:	1009883a 	mov	r4,r2
 81111bc8:	11084640 	call	81108464 <bSpwcSetLink>
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", usiFeeInstL);
 			#endif
 
@@ -32722,7 +32722,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111c48:	1885883a 	add	r2,r3,r2
 81111c4c:	1009883a 	mov	r4,r2
 81111c50:	11084640 	call	81108464 <bSpwcSetLink>
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", usiFeeInstL);
 			#endif
 
@@ -32833,7 +32833,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111d98:	1105b6c0 	call	81105b6c <bRmapSetIrqControl>
 
 			/* todo: Need to treat all the returns */
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
 			#endif
 			break;
@@ -32848,12 +32848,12 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 81111da4:	00000106 	br	81111dac <vPusType252run+0x2cc>
 
 			/* todo: Need to treat all the returns */
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
 			#endif
 			break;
 81111da8:	0001883a 	nop
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
 			#endif
 			break;
@@ -33317,7 +33317,7 @@ void vTimeoutCheckerTaskv2(void *task_data) {
 8111223c:	e13fff15 	stw	r4,-4(fp)
 	INT8U ucErrorCode = 0;
 81112240:	e03ffe05 	stb	zero,-8(fp)
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"vTimeoutCheckerTask, enter task.\n");
     #endif   
 
@@ -33482,7 +33482,7 @@ void vCheck( void ) {
 811123c4:	00000106 	br	811123cc <vCheck+0x158>
     if ( ucErrorCode != OS_NO_ERR ) {
         /* Should never get here, is a blocking operation */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Should never get here. Trying to get xTxUARTMutex. (vCheck)\n");
 		#endif
         return;
@@ -34971,7 +34971,7 @@ int main(void)
 	
 	OSInit();
 81113358:	11315340 	call	81131534 <OSInit>
-	#ifdef DEBUG_ON
+	#if DEBUG_ON
 		debug(fp, "Main entry point.\n");
 	#endif
 
@@ -35015,7 +35015,7 @@ int main(void)
 811133a0:	e0bffe17 	ldw	r2,-8(fp)
 811133a4:	1000021e 	bne	r2,zero,811133b0 <main+0x74>
 		/* Default configuration for eth connection loaded */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
 		#endif
 		return -1;
@@ -35030,7 +35030,7 @@ int main(void)
 811133b8:	e0bffe17 	ldw	r2,-8(fp)
 811133bc:	1000021e 	bne	r2,zero,811133c8 <main+0x8c>
 		/* Default configuration for eth connection loaded */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
 		#endif
 		return -1;
@@ -35048,7 +35048,7 @@ int main(void)
 811133d0:	e0bffe17 	ldw	r2,-8(fp)
 811133d4:	1000021e 	bne	r2,zero,811133e0 <main+0xa4>
 		/* Default configuration for eth connection loaded */
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 #endif
 		return -1;
@@ -35293,7 +35293,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 81113634:	e0bffa03 	ldbu	r2,-24(fp)
 81113638:	108000b0 	cmpltui	r2,r2,2
 8111363c:	103f971e 	bne	r2,zero,8111349c <__reset+0xfb0f349c>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "Memory Filled. \n");
 #endif
 
@@ -35476,7 +35476,7 @@ void vPrintMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 8111381c:	e0bffa03 	ldbu	r2,-24(fp)
 81113820:	108000b0 	cmpltui	r2,r2,2
 81113824:	103f971e 	bne	r2,zero,81113684 <__reset+0xfb0f3684>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "Memory Filled. \n");
 #endif
 
@@ -35661,7 +35661,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 811139e0:	10803fcc 	andi	r2,r2,255
 811139e4:	10000a26 	beq	r2,zero,81113a10 <bSendUART128v2+0xb0>
 		/* Could not get the mutex, so we need to give the semaphore back */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Could not get the mutex xMutexBuffer128 that protect xBuffer128. (bSendUART128v2)\n");
 		#endif
 		ucErrorCode = OSSemPost(xSemCountBuffer128);
@@ -35822,7 +35822,7 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 81113b8c:	e0bffd03 	ldbu	r2,-12(fp)
 81113b90:	10803fcc 	andi	r2,r2,255
 81113b94:	10000526 	beq	r2,zero,81113bac <bSendUART128v2+0x24c>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART128v2)\n");
 		#endif
 		/* Indicates that this buffer already has a message that should be sent by the retransmission immediately */
@@ -35940,7 +35940,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 81113c98:	10803fcc 	andi	r2,r2,255
 81113c9c:	10000a26 	beq	r2,zero,81113cc8 <bSendUART64v2+0xb0>
 		/* Could not get the mutex, so we need to give the semaphore back */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Could not get the mutex xMutexBuffer64 that protect xBuffer64. (bSendUART64v2)\n");
 		#endif
 		ucErrorCode = OSSemPost(xSemCountBuffer64);
@@ -36103,7 +36103,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 81113e4c:	e0bffd03 	ldbu	r2,-12(fp)
 81113e50:	10803fcc 	andi	r2,r2,255
 81113e54:	10000526 	beq	r2,zero,81113e6c <bSendUART64v2+0x254>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART64v2)\n");
 		#endif
 		/* Indicates that this buffer already has a message that should be sent by the retransmission immediately */
@@ -36220,7 +36220,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 81113f58:	10803fcc 	andi	r2,r2,255
 81113f5c:	10000a26 	beq	r2,zero,81113f88 <bSendUART32v2+0xb0>
 		/* Could not get the mutex, so we need to give the semaphore back */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Could not get the mutex xMutexBuffer32 that protect xBuffer32. (bSendUART32v2)\n");
 		#endif
 		ucErrorCode = OSSemPost(xSemCountBuffer32);
@@ -36383,7 +36383,7 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 8111410c:	e0bffd03 	ldbu	r2,-12(fp)
 81114110:	10803fcc 	andi	r2,r2,255
 81114114:	10000526 	beq	r2,zero,8111412c <bSendUART32v2+0x254>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp,"Could not get the mutex xTxUARTMutex, but the message is already in the retransmission buffer. (bSendUART32v2)\n");
 		#endif
 		/* Indicates that this buffer already has a message that should be sent by the retransmission immediately */
@@ -37693,7 +37693,7 @@ bool vLoadDefaultETHConf( void ){
 						break;
 81114e64:	00015d06 	br	811153dc <vLoadDefaultETHConf+0x7bc>
 					case -2: 	//EOF
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							debug(fp,"SDCard: Problem with SDCard");
 						#endif
 						bEOF = TRUE;
@@ -38183,7 +38183,7 @@ bool vLoadDefaultETHConf( void ){
 811153b8:	1009883a 	mov	r4,r2
 811153bc:	11186940 	call	81118694 <siCloseFile>
 811153c0:	e0bffb15 	stw	r2,-20(fp)
-							#ifdef DEBUG_ON
+							#if DEBUG_ON
 								debug(fp,"SDCard: Can't close the file.\n");
 							#endif
 						}
@@ -38197,7 +38197,7 @@ bool vLoadDefaultETHConf( void ){
 						break;
 811153d4:	00000106 	br	811153dc <vLoadDefaultETHConf+0x7bc>
 					default:
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp,"SDCard: Problem with the parser.\n");
 						#endif
 						break;
@@ -38206,7 +38206,7 @@ bool vLoadDefaultETHConf( void ){
 			} while ( bEOF == FALSE );
 811153dc:	e0bff817 	ldw	r2,-32(fp)
 811153e0:	103e2d26 	beq	r2,zero,81114c98 <__reset+0xfb0f4c98>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp,"SDCard: No SDCard.\n");
 		#endif
 	}
@@ -38554,7 +38554,7 @@ bool vLoadDebugConfs( void ){
 						break;
 811157cc:	0002ea06 	br	81116378 <vLoadDebugConfs+0xe20>
 					case -2: 	//EOF
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							debug(fp,"SDCard: Problem with SDCard");
 						#endif
 						bEOF = TRUE;
@@ -39632,7 +39632,7 @@ bool vLoadDebugConfs( void ){
 81116354:	1009883a 	mov	r4,r2
 81116358:	11186940 	call	81118694 <siCloseFile>
 8111635c:	e0bff515 	stw	r2,-44(fp)
-							#ifdef DEBUG_ON
+							#if DEBUG_ON
 								debug(fp,"SDCard: Can't close the file.\n");
 							#endif
 						}
@@ -39646,7 +39646,7 @@ bool vLoadDebugConfs( void ){
 						break;
 81116370:	00000106 	br	81116378 <vLoadDebugConfs+0xe20>
 					default:
-						#ifdef DEBUG_ON
+						#if DEBUG_ON
 							fprintf(fp,"SDCard: Problem with the parser.\n");
 						#endif
 						break;
@@ -39655,7 +39655,7 @@ bool vLoadDebugConfs( void ){
 			} while ( bEOF == FALSE );
 81116378:	e0bff217 	ldw	r2,-56(fp)
 8111637c:	103c9926 	beq	r2,zero,811155e4 <__reset+0xfb0f55e4>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp,"SDCard: No SDCard.\n");
 		#endif
 	}
@@ -41945,7 +41945,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 81117558:	10000126 	beq	r2,zero,81117560 <vNFeeStructureInit+0xbc>
 			break;
 		default:
-			#ifdef DEBUG_ON
+			#if DEBUG_ON
 				fprintf(fp, "\n CRITICAL! Can't bind the SPQ channel with the NFEE %i \n", pxNfeeL->ucId);
 			#endif
 			break;
@@ -42003,7 +42003,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 811175c8:	100b883a 	mov	r5,r2
 811175cc:	1809883a 	mov	r4,r3
 811175d0:	11029ac0 	call	811029ac <bCommInitCh>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
 		#endif
     }
@@ -42015,7 +42015,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 811175e0:	100b883a 	mov	r5,r2
 811175e4:	01000044 	movi	r4,1
 811175e8:	11028400 	call	81102840 <bCommSetGlobalIrqEn>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
 		#endif
     }
@@ -43680,7 +43680,7 @@ bool bInitializeSDCard( void ){
 		/* Unable to open the SDCard device. */
 		bSucess = FALSE;
 8111863c:	e03fff15 	stw	zero,-4(fp)
-#ifdef DEBUG_ON
+#if DEBUG_ON
 		debug(fp, "Unable to open the SDCard device.\r\n");
 #endif
 	}
@@ -43794,7 +43794,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 81118740:	e0bffe17 	ldw	r2,-8(fp)
 81118744:	1000021e 	bne	r2,zero,81118750 <bInitSync+0x3c>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43811,7 +43811,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 81118760:	e0bffe17 	ldw	r2,-8(fp)
 81118764:	1000021e 	bne	r2,zero,81118770 <bInitSync+0x5c>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43833,7 +43833,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 81118794:	e0bffe17 	ldw	r2,-8(fp)
 81118798:	1000021e 	bne	r2,zero,811187a4 <bInitSync+0x90>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43850,7 +43850,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 811187b4:	e0bffe17 	ldw	r2,-8(fp)
 811187b8:	1000021e 	bne	r2,zero,811187c4 <bInitSync+0xb0>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43867,7 +43867,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 811187d0:	e0bffe17 	ldw	r2,-8(fp)
 811187d4:	1000021e 	bne	r2,zero,811187e0 <bInitSync+0xcc>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43883,7 +43883,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 811187ec:	e0bffe17 	ldw	r2,-8(fp)
 811187f0:	1000021e 	bne	r2,zero,811187fc <bInitSync+0xe8>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43899,7 +43899,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 81118808:	e0bffe17 	ldw	r2,-8(fp)
 8111880c:	1000021e 	bne	r2,zero,81118818 <bInitSync+0x104>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43915,7 +43915,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 81118824:	e0bffe17 	ldw	r2,-8(fp)
 81118828:	1000021e 	bne	r2,zero,81118834 <bInitSync+0x120>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43932,7 +43932,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 81118840:	e0bffe17 	ldw	r2,-8(fp)
 81118844:	1000021e 	bne	r2,zero,81118850 <bInitSync+0x13c>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -43948,7 +43948,7 @@ bool bInitSync( void ) {
 	if ( bSuccess == FALSE ) {
 8111885c:	e0bffe17 	ldw	r2,-8(fp)
 81118860:	1000021e 	bne	r2,zero,8111886c <bInitSync+0x158>
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
 			debug(fp, "Sync Init: Temp Error.\n");
 		#endif
 		return bSuccess;
@@ -44324,7 +44324,7 @@ alt_u8 Verif_Error(alt_u8 error_code) {
 	if (!error_code) {
 81118bdc:	e0bfff03 	ldbu	r2,-4(fp)
 81118be0:	1000021e 	bne	r2,zero,81118bec <Verif_Error+0x2c>
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	debug(fp, "ERROR\n\r");
 #endif
 		return 0;

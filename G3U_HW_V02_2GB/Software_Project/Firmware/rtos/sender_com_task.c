@@ -17,7 +17,7 @@ void vSenderComTask(void *task_data)
 
     eSenderMode = sConfiguringSender;
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"Sender Comm Task. (Task on)\n");
     #endif
 
@@ -35,7 +35,7 @@ void vSenderComTask(void *task_data)
                     vReceiverComTask is responsible to send this semaphore.
                     OSSemAccept -> Non blocking Pend*/
 
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     debug(fp,"Preparing the Start Sequence.\n");
                 #endif
 
@@ -43,11 +43,11 @@ void vSenderComTask(void *task_data)
                 bSuccess = bSendUART32v2(START_STATUS_SEQUENCE, 1);
                 if ( bSuccess == TRUE ) {
                     eSenderMode = sDummySender;
-                    #ifdef DEBUG_ON
+                    #if DEBUG_ON
                         debug(fp,"Success, start message in the retransmission buffer.\n");
                     #endif                    
                 } else {
-                    #ifdef DEBUG_ON
+                    #if DEBUG_ON
                         debug(fp,"Fail, try again in 5 seconds.\n");
                     #endif 
                     eSenderMode = sStartingConnSender;
@@ -67,7 +67,7 @@ void vSenderComTask(void *task_data)
                 /* code */
                 eSenderMode = sDummySender;
 
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     debug(fp,"Working...\n");
                 #endif
 
@@ -75,7 +75,7 @@ void vSenderComTask(void *task_data)
 
                 break;
             default:
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     debug(fp,"Sender default\n");
                 #endif
                 eSenderMode = sDummySender;
