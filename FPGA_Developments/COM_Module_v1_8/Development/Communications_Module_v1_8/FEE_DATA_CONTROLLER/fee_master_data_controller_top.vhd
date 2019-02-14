@@ -75,6 +75,8 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_masking_buffer_almost_empty        : std_logic;
 	signal s_masking_buffer_empty               : std_logic;
 	signal s_masking_buffer_rddata              : std_logic_vector(7 downto 0);
+	-- data manager signals
+	signal s_data_manager_sync                  : std_logic;
 	-- header data signals
 	signal s_headerdata_logical_address         : std_logic_vector(7 downto 0);
 	signal s_headerdata_protocol_id             : std_logic_vector(7 downto 0);
@@ -144,7 +146,7 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
-			sync_signal_i                 => fee_sync_signal_i,
+			sync_signal_i                 => s_data_manager_sync,
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
@@ -176,7 +178,7 @@ begin
 			fee_clear_signal_i                   => fee_machine_clear_i,
 			fee_stop_signal_i                    => fee_machine_stop_i,
 			fee_start_signal_i                   => fee_machine_start_i,
-			sync_signal_i                        => fee_sync_signal_i,
+			sync_signal_i                        => s_data_manager_sync,
 			side_activated_i                     => fee_side_activated_i,
 			current_frame_number_i               => s_current_frame_number,
 			current_frame_counter_i              => s_current_frame_counter,
@@ -468,5 +470,18 @@ begin
 			end if;
 		end if;
 	end process p_register_data_pkt_config;
+
+	p_data_manager_sync_gen : process(clk_i, rst_i) is
+	begin
+		if (rst_i = '1') then
+			s_data_manager_sync <= '0';
+		elsif rising_edge(clk_i) then
+			s_data_manager_sync <= '0';
+			-- check if a sync signal was received and the mode is valid
+			if ((fee_sync_signal_i = '1') and (data_pkt_fee_mode_i(3) = '1')) then
+				s_data_manager_sync <= '1';
+			end if;
+		end if;
+	end process p_data_manager_sync_gen;
 
 end architecture RTL;
