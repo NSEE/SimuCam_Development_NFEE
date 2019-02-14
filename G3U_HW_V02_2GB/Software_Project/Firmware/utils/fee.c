@@ -47,6 +47,18 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.eMode = sFeeInit;
     pxNfeeL->xControl.eNextMode = sFeeInit;
 
+    switch (ucIdNFEE) {
+		case 0:
+			pxNfeeL->ucSPWId = (unsigned char)xDefaults.usiLinkNFEE0;
+			break;
+		default:
+			#ifdef DEBUG_ON
+				fprintf(fp, "\n CRITICAL! Can't bind the SPQ channel with the NFEE %i \n", pxNfeeL->ucId);
+			#endif
+			break;
+	}
+
+
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
@@ -56,17 +68,24 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
         pxNfeeL->xControl.ucROutOrder[ucIL] = ucIL;
 
     /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
-    if ( bCommInitCh(&pxNfeeL->xChannel, ucIdNFEE ) == FALSE ) {
+    if ( bCommInitCh(&pxNfeeL->xChannel, pxNfeeL->ucSPWId ) == FALSE ) {
 		#ifdef DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Initialized SPW Channel %i \n", pxNfeeL->ucId);
 		#endif
     }
 
-    if ( bCommSetGlobalIrqEn( TRUE, ucIdNFEE ) == FALSE ) {
+    if ( bCommSetGlobalIrqEn( TRUE, pxNfeeL->ucSPWId ) == FALSE ) {
 		#ifdef DEBUG_ON
 			fprintf(fp, "\n CRITICAL! Can't Enable global interrupt for the channel %i \n", pxNfeeL->ucId);
 		#endif
     }
+
+    bDpktGetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiAdcDelay = usiAdcPxDelayCalcPeriodNs(xDefaults.ulADCPixelDelay);
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiColumnDelay = 0 ;
+    pxNfeeL->xChannel.xDataPacket.xDpktPixelDelay.usiLineDelay = usiLineTrDelayCalcPeriodNs(xDefaults.ulLineDelay);
+    bDpktSetPixelDelay(&pxNfeeL->xChannel.xDataPacket);
+
 
 }
 
@@ -126,6 +145,7 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
 
     pxNfeeL->xMemMap.xCommon.usiTotalBytes = ulTotalMemLinesL * BYTES_PER_MEM_LINE;
 
+
     /* Calculating how is the final mask with zero padding */
     if ( ulMemLeftBytesL >= 1 ) {
         ucPixelsInLastBlockL = (unsigned char) (( ulMemLeftLinesL * PIXEL_PER_MEM_LINE ) + (unsigned int) ( ulMemLeftBytesL / BYTES_PER_PIXEL ));
@@ -137,7 +157,10 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
     /* WARNING: Verify the memory alocation (endianess) */
-    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
+    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF);
+
 
     /* Number of block is te same as the number of line masks in the memory */
     pxNfeeL->xMemMap.xCommon.usiNTotalBlocks = ulMaskMemLinesL;
@@ -151,7 +174,22 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
         pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulOffsetAddr = ulLastOffset; 
         ulLastOffset = ulLastOffset + ulStepHalfCCD;
     }
+
 }
+
+/* Update the memory mapping for the FEE due to the CCD informations */
+void vResetMemCCDFEE( TNFee *pxNfeeL ) {
+	unsigned char ucIL = 0;
+
+    for ( ucIL = 0; ucIL < 4; ucIL++ ) {
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulAddrI = 0;
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulBlockI = 0;
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulAddrI = 0;
+        pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulBlockI = 0;
+    }
+}
+
+
 
 /* Load the default configuration of the SPW/RMAP */
 void vFeeSpwRMAPLoadDefault( TNFee *pxNfeeL ) {

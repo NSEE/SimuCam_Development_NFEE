@@ -31,7 +31,7 @@ void vDataControlTask(void *task_data) {
 
 	for (;;) {
 
-		uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskCMDNDataCtrlTBL, 0, &error_code); /* Blocking operation */
+		uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
 		if ( error_code == OS_ERR_NONE ) {
 
 			/* Check if the command is for NFEE Controller */

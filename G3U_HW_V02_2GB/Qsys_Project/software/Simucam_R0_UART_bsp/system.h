@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Sun Jan 27 12:06:12 BRST 2019
+ * Generated: Wed Feb 13 13:44:46 BRST 2019
  */
 
 /*
@@ -95,90 +95,6 @@
 #define COMM_PEDREIRO_V1_01_B_NAME "/dev/COMM_Pedreiro_v1_01_B"
 #define COMM_PEDREIRO_V1_01_B_SPAN 1024
 #define COMM_PEDREIRO_V1_01_B_TYPE "COMM_Pedreiro_v1_01"
-
-
-/*
- * COMM_Pedreiro_v1_01_C configuration
- *
- */
-
-#define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_C COMM_Pedreiro_v1_01
-#define COMM_PEDREIRO_V1_01_C_BASE 0x81202400
-#define COMM_PEDREIRO_V1_01_C_IRQ 18
-#define COMM_PEDREIRO_V1_01_C_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define COMM_PEDREIRO_V1_01_C_NAME "/dev/COMM_Pedreiro_v1_01_C"
-#define COMM_PEDREIRO_V1_01_C_SPAN 1024
-#define COMM_PEDREIRO_V1_01_C_TYPE "COMM_Pedreiro_v1_01"
-
-
-/*
- * COMM_Pedreiro_v1_01_D configuration
- *
- */
-
-#define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_D COMM_Pedreiro_v1_01
-#define COMM_PEDREIRO_V1_01_D_BASE 0x81202000
-#define COMM_PEDREIRO_V1_01_D_IRQ 16
-#define COMM_PEDREIRO_V1_01_D_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define COMM_PEDREIRO_V1_01_D_NAME "/dev/COMM_Pedreiro_v1_01_D"
-#define COMM_PEDREIRO_V1_01_D_SPAN 1024
-#define COMM_PEDREIRO_V1_01_D_TYPE "COMM_Pedreiro_v1_01"
-
-
-/*
- * COMM_Pedreiro_v1_01_E configuration
- *
- */
-
-#define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_E COMM_Pedreiro_v1_01
-#define COMM_PEDREIRO_V1_01_E_BASE 0x81201c00
-#define COMM_PEDREIRO_V1_01_E_IRQ 8
-#define COMM_PEDREIRO_V1_01_E_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define COMM_PEDREIRO_V1_01_E_NAME "/dev/COMM_Pedreiro_v1_01_E"
-#define COMM_PEDREIRO_V1_01_E_SPAN 1024
-#define COMM_PEDREIRO_V1_01_E_TYPE "COMM_Pedreiro_v1_01"
-
-
-/*
- * COMM_Pedreiro_v1_01_F configuration
- *
- */
-
-#define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_F COMM_Pedreiro_v1_01
-#define COMM_PEDREIRO_V1_01_F_BASE 0x81201800
-#define COMM_PEDREIRO_V1_01_F_IRQ 6
-#define COMM_PEDREIRO_V1_01_F_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define COMM_PEDREIRO_V1_01_F_NAME "/dev/COMM_Pedreiro_v1_01_F"
-#define COMM_PEDREIRO_V1_01_F_SPAN 1024
-#define COMM_PEDREIRO_V1_01_F_TYPE "COMM_Pedreiro_v1_01"
-
-
-/*
- * COMM_Pedreiro_v1_01_G configuration
- *
- */
-
-#define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_G COMM_Pedreiro_v1_01
-#define COMM_PEDREIRO_V1_01_G_BASE 0x81201400
-#define COMM_PEDREIRO_V1_01_G_IRQ 5
-#define COMM_PEDREIRO_V1_01_G_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define COMM_PEDREIRO_V1_01_G_NAME "/dev/COMM_Pedreiro_v1_01_G"
-#define COMM_PEDREIRO_V1_01_G_SPAN 1024
-#define COMM_PEDREIRO_V1_01_G_TYPE "COMM_Pedreiro_v1_01"
-
-
-/*
- * COMM_Pedreiro_v1_01_H configuration
- *
- */
-
-#define ALT_MODULE_CLASS_COMM_Pedreiro_v1_01_H COMM_Pedreiro_v1_01
-#define COMM_PEDREIRO_V1_01_H_BASE 0x81201000
-#define COMM_PEDREIRO_V1_01_H_IRQ 2
-#define COMM_PEDREIRO_V1_01_H_IRQ_INTERRUPT_CONTROLLER_ID 0
-#define COMM_PEDREIRO_V1_01_H_NAME "/dev/COMM_Pedreiro_v1_01_H"
-#define COMM_PEDREIRO_V1_01_H_SPAN 1024
-#define COMM_PEDREIRO_V1_01_H_TYPE "COMM_Pedreiro_v1_01"
 
 
 /*
@@ -1243,7 +1159,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1548435562
+#define SYSID_QSYS_TIMESTAMP 1548685346
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 

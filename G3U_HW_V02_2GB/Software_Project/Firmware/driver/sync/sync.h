@@ -155,6 +155,7 @@ bool bSyncCtrCh8OutEnable(bool bValue);
 //! [private function prototypes]
 bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue);
 alt_u32 uliSyncReadReg(alt_u32 uliOffset);
+alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs);
 //! [private function prototypes]
 
 void vSyncClearCounter(void);

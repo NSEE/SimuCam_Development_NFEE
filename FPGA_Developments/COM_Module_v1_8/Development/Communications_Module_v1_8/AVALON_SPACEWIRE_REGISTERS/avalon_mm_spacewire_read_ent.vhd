@@ -14,8 +14,8 @@ entity avalon_mm_spacewire_read_ent is
 		avalon_mm_spacewire_o       : out t_avalon_mm_spacewire_read_out;
 		spacewire_write_registers_i : in  t_windowing_write_registers;
 		spacewire_read_registers_i  : in  t_windowing_read_registers;
-		right_buffer_size_i         : in  std_logic_vector(3 downto 0);
-		left_buffer_size_i          : in  std_logic_vector(3 downto 0)
+		right_buffer_size_i         : in  std_logic_vector(7 downto 0);
+		left_buffer_size_i          : in  std_logic_vector(7 downto 0)
 	);
 end entity avalon_mm_spacewire_read_ent;
 
@@ -145,11 +145,11 @@ begin
 					avalon_mm_spacewire_o.readdata(8)           <= spacewire_write_registers_i.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear;
 					avalon_mm_spacewire_o.readdata(31 downto 9) <= (others => '0');
 				when (16#14#) =>
-					avalon_mm_spacewire_o.readdata(3 downto 0)  <= right_buffer_size_i;
-					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
+					avalon_mm_spacewire_o.readdata(7 downto 0)  <= right_buffer_size_i;
+					avalon_mm_spacewire_o.readdata(31 downto 8) <= (others => '0');
 				when (16#15#) =>
-					avalon_mm_spacewire_o.readdata(3 downto 0)  <= left_buffer_size_i;
-					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
+					avalon_mm_spacewire_o.readdata(7 downto 0)  <= left_buffer_size_i;
+					avalon_mm_spacewire_o.readdata(31 downto 8) <= (others => '0');
 				when others =>
 					avalon_mm_spacewire_o.readdata <= (others => '0');
 

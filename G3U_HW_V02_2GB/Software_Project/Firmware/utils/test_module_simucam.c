@@ -26,8 +26,8 @@ bool bTestSimucamCriticalHW( void ) {
 		return bSuccess;
 	}
 
-	xDma[0].pDmaTranfer = bSdmaDmaM1Transfer;
-	xDma[0].pDmaTranfer = bSdmaDmaM2Transfer;
+	//xDma[0].pDmaTranfer = bSdmaDmaM1Transfer;
+	//xDma[0].pDmaTranfer = bSdmaDmaM2Transfer;
 
 
 	return TRUE;

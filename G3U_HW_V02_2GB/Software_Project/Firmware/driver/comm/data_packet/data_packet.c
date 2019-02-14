@@ -295,4 +295,50 @@ static alt_u32 uliDpktReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
 	uliValue = *(puliAddr + uliOffset);
 	return uliValue;
 }
+
+/*
+ * Return the necessary delay value for a
+ * ADC Pixel Delay period in uliPeriodNs ns.
+ */
+alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs) {
+
+	/*
+	 * Delay = AdcPxDelay * ClkCycles@100MHz
+	 * AdcPxDelay = Delay / ClkCycles@100MHz
+	 *
+	 * ClkCycles@100MHz = 10 ns
+	 *
+	 * Delay[ns] / 10 = Delay[ns] * 1e-1
+	 * AdcPxDelay = Delay[ns] * 1e-1
+	 */
+
+	alt_u16 usiAdcPxDelay;
+	usiAdcPxDelay = (alt_u16) ((float) uliPeriodNs * 1e-1);
+
+	return usiAdcPxDelay;
+}
+
+/*
+ * Return the necessary delay value for a
+ * Line Transfer Delay period in uliPeriodNs ns.
+ */
+alt_u16 usiLineTrDelayCalcPeriodNs(alt_u32 uliPeriodNs) {
+
+	/*
+	 * Delay = LineTrDelay * ClkCycles@10MHz
+	 * LineTrDelay = Delay / ClkCycles@10MHz
+	 *
+	 * ClkCycles@10MHz = 100 ns
+	 *
+	 * Delay[ns] / 100 = Delay[ns] * 1e-2
+	 * LineTrDelay = Delay[ns] * 1e-2
+	 */
+
+	alt_u16 LineTrDelay;
+	LineTrDelay = (alt_u16) ((float) uliPeriodNs * 1e-2);
+
+	return LineTrDelay;
+}
+
+
 //! [private functions]

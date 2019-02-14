@@ -15,6 +15,7 @@
 #include "../utils/ccd.h"
 #include "../utils/meb.h"
 #include "../utils/events_handler.h"
+#include "../utils/sync_handler.h"
 #include "../driver/sync/sync.h"
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/comm/comm_channel.h"

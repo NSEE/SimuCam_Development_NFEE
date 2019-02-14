@@ -11,6 +11,7 @@
 
 /*Configuration related to the eth connection*/
 TConfEth xConfEth;
+TDefaults xDefaults;
 
 
 bool vLoadDefaultETHConf( void ){
@@ -115,6 +116,43 @@ bool vLoadDefaultETHConf( void ){
 						} while ( (c !=59) );
 
 						break;
+					case 'P':
+						ucParser = 0;
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xConfEth.siPortPUS = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'H':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						sidhcpTemp = atoi( inteiro );
+						if (sidhcpTemp == 1)
+							xConfEth.bDHCP = TRUE;
+						else
+							xConfEth.bDHCP = FALSE;
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+
 					case 'S':
 
 						ucParser = 0;
@@ -155,42 +193,6 @@ bool vLoadDefaultETHConf( void ){
 						} while ( (c !=59) );
 
 						break;						
-					case 'P':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-						/*Tiago: Proteger com mutex*/
-						xConfEth.siPortPUS = atoi( inteiro );
-						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
-
-						break;
-					case 'H':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-						/*Tiago: Proteger com mutex*/
-						sidhcpTemp = atoi( inteiro );
-						if (sidhcpTemp == 1)
-							xConfEth.bDHCP = TRUE;
-						else
-							xConfEth.bDHCP = FALSE;
-						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
-
-						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){
@@ -297,3 +299,412 @@ bool vLoadDefaultETHConf( void ){
 
 	}
 #endif
+
+
+
+
+bool vLoadDebugConfs( void ){
+	short int siFile, sidhcpTemp;
+	bool bSuccess = FALSE;
+	bool bEOF = FALSE;
+	bool close = FALSE;
+	unsigned char ucParser;
+	char c, *p_inteiro;
+	char inteiro[8];
+	char inteiroll[24];
+
+
+	if ( (xSdHandle.connected == TRUE) && (bSDcardIsPresent()) && (bSDcardFAT16Check()) ){
+
+		siFile = siOpenFile( DEBUG_FILE_NAME );
+
+		if ( siFile >= 0 ){
+
+			memset( &(inteiro) , 10 , sizeof( inteiro ) );
+			memset( &(inteiroll) , 10 , sizeof( inteiroll ) );
+			p_inteiro = inteiro;
+
+			do {
+				c = cGetNextChar(siFile);
+				//printf("%c \n", c);
+				switch (c) {
+					case 39:// single quote '
+						c = cGetNextChar(siFile);
+						while ( c != 39 ){
+							c = cGetNextChar(siFile);
+						}
+						break;
+					case -1: 	//EOF
+						bEOF = TRUE;
+						break;
+					case -2: 	//EOF
+						#ifdef DEBUG_ON
+							debug(fp,"SDCard: Problem with SDCard");
+						#endif
+						bEOF = TRUE;
+						break;
+					case 0x20: 	//ASCII: 0x20 = space
+					case 10: 	//ASCII: 10 = LN
+					case 13: 	//ASCII: 13 = CR
+						break;
+
+					case 'S':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiSyncPeriod = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'P':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiPreScanSerial = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'N':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiOverScanSerial = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'R':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.ucRmapKey = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'A':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.ucLogicalAddr = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'L':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiRows = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+
+					case 'O':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiOLN = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'C':
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiCols = atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
+					case 'D':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiDelay = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'K':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.ulColDelay = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'M':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.ulADCPixelDelay = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'J':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.ulLineDelay = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'B':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiLinkNFEE0 = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'F':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiDebugLevel = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'F':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiPatternType = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'T':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						sidhcpTemp = atoi( inteiro );
+						if (sidhcpTemp == 1)
+							xDefaults.bDataPacket = TRUE;
+						else
+							xDefaults.bDataPacket = FALSE;
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'Z':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						sidhcpTemp = atoi( inteiro );
+						if (sidhcpTemp == 1)
+							xDefaults.bMaskSD = TRUE;
+						else
+							xDefaults.bMaskSD = FALSE;
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 0x3C: //"<"
+						close = siCloseFile(siFile);
+						if (close == FALSE){
+							#ifdef DEBUG_ON
+								debug(fp,"SDCard: Can't close the file.\n");
+							#endif
+						}
+						/* End of Parser File */
+						bEOF = TRUE;
+						bSuccess = TRUE; //pensar melhor
+						break;
+					default:
+						#ifdef DEBUG_ON
+							fprintf(fp,"SDCard: Problem with the parser.\n");
+						#endif
+						break;
+				}
+			} while ( bEOF == FALSE );
+		} else {
+			#ifdef DEBUG_ON
+				fprintf(fp,"SDCard: File not found.\n");
+			#endif
+		}
+	} else {
+		#ifdef DEBUG_ON
+			fprintf(fp,"SDCard: No SDCard.\n");
+		#endif
+	}
+	/* Load the default configuration if not successful in read the SDCard */
+	if ( bSuccess == FALSE ) {
+		/*Enviar mensagem que e gravar log que n�o encontrou o arquivo e come�ara a utilizar o padrao*/
+		printf("Debug Configs: Could not load the default values from SDCard\n");
+		printf("Can't find the file:'%s'.\n", ETH_FILE_NAME);
+
+
+
+		xDefaults.usiRows = 4510;
+		xDefaults.usiCols = 2255;
+		xDefaults.usiOLN = 30;
+		xDefaults.usiPreScanSerial = 25;
+		xDefaults.usiOverScanSerial = 15;
+		xDefaults.usiSyncPeriod = 6250;
+		xDefaults.usiDelay = 20;
+		xDefaults.bDataPacket = TRUE;
+		xDefaults.ulLineDelay = 0;
+		xDefaults.ulColDelay = 0;
+		xDefaults.ulADCPixelDelay = 0;
+		xDefaults.ucLogicalAddr = 0x51;
+		xDefaults.ucRmapKey = 0xD1;
+
+	}
+
+	return bSuccess;
+}
+

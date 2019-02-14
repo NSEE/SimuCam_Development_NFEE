@@ -17,6 +17,7 @@
 
 
 #define ETH_FILE_NAME "DEF/ETH"
+#define DEBUG_FILE_NAME "DEF/DEBUG"
 
 typedef struct ConfEth{
 	unsigned char ucIP[4];
@@ -29,12 +30,39 @@ typedef struct ConfEth{
 }TConfEth;
 
 
+typedef struct Defaults{
+	unsigned char HK[16];
+	unsigned short int usiOverScanSerial;
+	unsigned short int usiPreScanSerial;
+	unsigned short int usiOLN;
+	unsigned short int usiCols;
+	unsigned short int usiRows;
+	unsigned short int usiSyncPeriod;
+	unsigned short int usiDelay;
+	bool bDataPacket;
+	unsigned long ulLineDelay;
+	unsigned long ulColDelay;
+	unsigned long ulADCPixelDelay;
+	unsigned short int ucRmapKey;
+	unsigned short int ucLogicalAddr;
+	bool bMaskSD;
+	unsigned short int usiLinkNFEE0;
+	unsigned short int usiDebugLevel;
+	unsigned short int usiPatternType
+
+
+}TDefaults;
+
+
 extern TConfEth xConfEth;
+extern TDefaults xDefaults;
 
 
 
 /*Functions*/
 bool vLoadDefaultETHConf( void );
+bool vLoadDebugConfs( void );
+
 #ifdef DEBUG_ON
 	void vShowEthConfig( void );
 #endif

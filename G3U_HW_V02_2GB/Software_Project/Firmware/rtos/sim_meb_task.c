@@ -12,8 +12,12 @@
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
+	unsigned char tCode;
+	unsigned char tCodeNext;
+	unsigned char ucIL;
 	tQMask uiCmdMeb;
 	INT8U error_code;
+	INT8U ucFrameNumber;
 
 	pxMebC = (TSimucam_MEB *) task_data;
 
@@ -68,6 +72,15 @@ void vSimMebTask(void *task_data) {
 
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+
+
+				/* Clear the timecode of the channel SPW (for now is for spw channel) */
+				for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
+					bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
+					pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+				}
+
+				bSyncCtrReset();
 				vSyncClearCounter();
 				bStartSync();
 
@@ -127,9 +140,29 @@ void vSimMebTask(void *task_data) {
 							case M_MASTER_SYNC:
 								/* Perform memory SWAP */
 								vSwapMemmory(pxMebC);
+							case M_SYNC:
+								#ifdef DEBUG_ON
+									bSpwcGetTimecode(&pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire);
+									tCode = ( pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
+									tCodeNext = ( tCode ) % 4;
+
+									fprintf(fp,"\n\nMEB TASK:  TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
+
+
+									bRmapGetMemConfigArea(&pxMebC->xFeeControl.xNfee[0].xChannel.xRmap);
+									ucFrameNumber = pxMebC->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
+
+									//bRmapSetMemConfigArea(&pxMebC->xFeeControl.xNfee[0].xChannel.xRmap);
+
+									fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
+
+								#endif
 
 								break;
 							default:
+								#ifdef DEBUG_ON
+									fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdMeb.ucByte[2]);
+								#endif
 								break;
 						}
 					} else {
@@ -555,22 +588,6 @@ void vMebInit(TSimucam_MEB *pxMebCLocal) {
 
 /* Swap memory reference */
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
-	unsigned char tCode;
-	unsigned char tCodeNext;
-
-	/*todo: Apenas para teste !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
-
-
-	/* Configurar o tamanho normal do double buffer !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  */
-	bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-	tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
-	tCodeNext = ( tCode ) % 4;
-	#ifdef DEBUG_ON
-		fprintf(fp,"\n\nMEB TASK:  TIME CODE: %hhu \n ", tCode);
-		fprintf(fp,"MEB TASK:  MODULUS: %hhu \n\n ", tCodeNext);
-	#endif
-
 
 	pxMebCLocal->ucActualDDR = (pxMebCLocal->ucActualDDR + 1) % 2 ;
 	pxMebCLocal->ucNextDDR = (pxMebCLocal->ucNextDDR + 1) % 2 ;
@@ -580,7 +597,6 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */
 void vReleaseSyncMessages(void) {
 	unsigned char ucIL;
-	unsigned char ucSyncL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 

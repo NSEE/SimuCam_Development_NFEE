@@ -67,6 +67,8 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh);
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh);
 
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh);
+alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs);
+alt_u16 usiLineTrDelayCalcPeriodNs(alt_u32 uliPeriodNs);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

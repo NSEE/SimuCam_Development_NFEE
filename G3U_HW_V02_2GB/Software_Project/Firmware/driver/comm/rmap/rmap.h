@@ -10,6 +10,7 @@
 
 #include "../comm.h"
 #include "../../../utils/queue_commands_list.h"
+#include "../../../utils/error_handler_simucam.h"
 #include "../../../simucam_definitions.h"
 
 //! [constants definition]
@@ -18,6 +19,9 @@
 //! [constants definition]
 
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
+extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
+
+
 
 //! [public module structs definition]
 typedef struct RmapCodecConfig {
@@ -150,6 +154,8 @@ typedef struct RmapChannel {
 	TRmapMemHKArea xRmapMemHKArea;
 } TRmapChannel;
 //! [public module structs definition]
+
+extern TRmapChannel xRmap[N_OF_NFEE];
 
 //! [public function prototypes]
 void vRmapCh1HandleIrq(void* pvContext);

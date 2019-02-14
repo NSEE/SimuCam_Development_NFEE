@@ -230,8 +230,7 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 			if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 			{
 #ifdef DEBUG_ON
-				debug(fp,
-						"time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
+				debug(fp, "time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
 #endif
 				/*
 				 * Now that access to the registers is complete, release the
@@ -345,6 +344,9 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 	while ((dev->descriptor_fifo_depth <= fifo_write_fill_level)
 			|| (dev->descriptor_fifo_depth <= fifo_read_fill_level)) {
 		alt_busy_sleep(1); /* delay 1us */
+#ifdef DEBUG_ON
+	fprintf(fp,"\n-- DMA can't write in the descriptor \n ");
+#endif
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 		{
 #ifdef DEBUG_ON
@@ -528,6 +530,7 @@ int iMsgdmaConstructExtendedMmToMmDescriptor(alt_msgdma_dev *pxDev,
 		alt_u32 *puliReadAddressHigh, alt_u32 *puliWriteAddressHigh,
 		alt_u16 usiSequenceNumber, alt_u8 ucReadBurstCount,
 		alt_u8 ucWriteBurstCount, alt_u16 usiReadStride, alt_u16 usiWriteStride) {
+
 	return msgdma_construct_extended_descriptor(pxDev, pxDescriptor,
 			puliReadAddress, puliWriteAddress, uliLength, uliControl,
 			puliReadAddressHigh, puliWriteAddressHigh, usiSequenceNumber,

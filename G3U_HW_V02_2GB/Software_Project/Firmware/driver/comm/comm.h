@@ -10,6 +10,7 @@
 
 #include "../../simucam_definitions.h"
 
+
 //! [constants definition]
 // irq numbers
 #define COMM_CH_1_RMAP_IRQ              23

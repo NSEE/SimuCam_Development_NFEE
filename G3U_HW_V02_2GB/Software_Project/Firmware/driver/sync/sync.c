@@ -52,29 +52,24 @@ void vSyncHandleIrq(void* pvContext) {
 	uiCmdtoSend.ulWord = 0;
 	/* MasterSync? */
 	ucSyncL = (vucN % 4);
-	if ( ucSyncL == 0 ) {
-
-		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+	if ( ucSyncL == 0 )
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
-
-		/* Send Priority message to the Meb Task to indicate the Master Sync */
-		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgMasterSyncMeb( );
-		}
-
-	} else
+	else
 		uiCmdtoSend.ucByte[2] = M_SYNC;
 
+	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+
+	/* Send Priority message to the Meb Task to indicate the Master Sync */
+	error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgMasterSyncMeb( );
+	}
 
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-
-		if ( xSimMeb.xFeeControl.xNfee[ucIL].xControl.bWatingSync == TRUE ) {
-			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-			error_codel = OSQPost(xWaitSyncQFee[ ucIL ], (void *)uiCmdtoSend.ulWord);
-			if ( error_codel != OS_ERR_NONE ) {
-				vFailSendMsgSync( ucIL );
-			}
+		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+		error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendMsgSync( ucIL );
 		}
 	}
 
@@ -1023,3 +1018,24 @@ alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
 }
 //! [private functions]
 
+/*
+ * Return the necessary PER value for a
+ * Sync Signal period in usiPeriodMs ms.
+ */
+alt_u32 uliPerCalcPeriodMs(alt_u16 usiPeriodMs) {
+
+	/*
+	 * Period = PER * ClkCycles@50MHz
+	 * PER = Period / ClkCycles@50MHz
+	 *
+	 * ClkCycles@50MHz = 20 ns = 20e-6 ms
+	 *
+	 * Period[ms] / 20e-6 = Period[ms] * 5e+4
+	 * PER = Period[ms] * 5e+4
+	 */
+
+	alt_u32 uliPer;
+	uliPer = usiPeriodMs * 5e+4;
+
+	return uliPer;
+}

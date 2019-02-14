@@ -14,12 +14,13 @@
 
 
 // Master blank time = (MBT * 20 ns) = 400 ms
+//#define MBT	10E6
 #define MBT	20E6
 // Blank time = (BT * 20 ns) = 200 ms
 #define BT	10E6
 // Period = (PER * 20 ns) = 6,25 s
 //#define PER	312500E3
-#define PER	312500E3*4
+#define PER	312500E3*3
 // One shot time = (OST * 20 ns) = 500 ms
 #define OST	25E6
 // Blank level polarity = '0'

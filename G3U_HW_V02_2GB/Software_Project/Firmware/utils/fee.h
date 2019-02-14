@@ -46,7 +46,7 @@ typedef enum { sMebInit  = 0, sMebToConfig, sMebToRun, sMebConfig, sMebRun } tSi
 
 
 /* FEE operation modes */
-typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sSIMTestFullPattern, sFeeWaitingSync} tFEEStates;
+typedef enum { sFeeInit = 0, sFeeConfig, sFeeOn, sFeeStandBy, sFeeTestFullPattern, sToFeeConfig, sToFeeStandBy, sToTestFullPattern, sSIMFeeConfig, sSIMFeeStandBy, sNextPatternIteration, sEndTransmission ,sFeeWaitingSync} tFEEStates;
 
 typedef struct FEEMemoryMap{
     unsigned long ulOffsetRoot;     /* Root Addr Ofset of the FEE*/
@@ -75,7 +75,8 @@ typedef struct FeeControl{
 } TFeeControl;
 
 typedef struct NFee {
-    unsigned char ucId;             /* IF of the NFEE instance */
+    unsigned char ucId;             /* ID of the NFEE instance */
+    unsigned char ucSPWId;             /* ID of the SPW instance For This NFEE Instance */
     TFEEMemoryMap xMemMap;          /* Memory map of the NFEE */
     TFeeControl   xControl;         /* Operation Control of the NFEE */
     TCcdInfos xCcdInfo;             /* Pixel configuration of the NFEE */
@@ -89,5 +90,6 @@ typedef struct FFee {
 void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE );
 void vUpdateMemMapFEE( TNFee *pxNfeeL );
 void vNFeeNotInUse( TNFee *pxNfeeL, unsigned char ucIdNFEE );
+void vResetMemCCDFEE( TNFee *pxNfeeL );
 
 #endif /* FEE_H_ */
