@@ -13,8 +13,8 @@ entity avalon_mm_spacewire_write_ent is
 		avalon_mm_spacewire_i       : in  t_avalon_mm_spacewire_write_in;
 		avalon_mm_spacewire_o       : out t_avalon_mm_spacewire_write_out;
 		spacewire_write_registers_o : out t_windowing_write_registers;
-		right_buffer_size_o         : out std_logic_vector(7 downto 0);
-		left_buffer_size_o          : out std_logic_vector(7 downto 0)
+		right_buffer_size_o         : out std_logic_vector(3 downto 0);
+		left_buffer_size_o          : out std_logic_vector(3 downto 0)
 	);
 end entity avalon_mm_spacewire_write_ent;
 
@@ -44,7 +44,8 @@ begin
 			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_data_y_size               <= std_logic_vector(to_unsigned(4510, 16));
 			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_overscan_y_size           <= std_logic_vector(to_unsigned(30, 16));
 			spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length             <= std_logic_vector(to_unsigned(32768, 16));
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= std_logic_vector(to_unsigned(1, 3));
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id               <= x"F0";
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= std_logic_vector(to_unsigned(1, 4));
 			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                <= std_logic_vector(to_unsigned(0, 2));
 			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay           <= std_logic_vector(to_unsigned(900, 16));
 			spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay         <= x"0000";
@@ -112,8 +113,9 @@ begin
 				when (16#0A#) =>
 					spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length <= avalon_mm_spacewire_i.writedata(15 downto 0);
 				when (16#0B#) =>
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode   <= avalon_mm_spacewire_i.writedata(2 downto 0);
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number <= avalon_mm_spacewire_i.writedata(9 downto 8);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode    <= avalon_mm_spacewire_i.writedata(3 downto 0);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number  <= avalon_mm_spacewire_i.writedata(9 downto 8);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id <= avalon_mm_spacewire_i.writedata(23 downto 16);
 				when (16#0C#) =>
 					null;
 				when (16#0D#) =>
@@ -135,9 +137,9 @@ begin
 					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear <= avalon_mm_spacewire_i.writedata(0);
 					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear       <= avalon_mm_spacewire_i.writedata(8);
 				when (16#14#) =>
-					right_buffer_size_o <= avalon_mm_spacewire_i.writedata(7 downto 0);
+					right_buffer_size_o <= avalon_mm_spacewire_i.writedata(3 downto 0);
 				when (16#15#) =>
-					left_buffer_size_o <= avalon_mm_spacewire_i.writedata(7 downto 0);
+					left_buffer_size_o <= avalon_mm_spacewire_i.writedata(3 downto 0);
 				when others =>
 					null;
 

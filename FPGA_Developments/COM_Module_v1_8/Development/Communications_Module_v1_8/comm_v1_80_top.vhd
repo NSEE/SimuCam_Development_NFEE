@@ -240,8 +240,8 @@ architecture rtl of comm_v1_80_top is
 	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
 
 	-- buffer size
-	signal s_right_buffer_size : std_logic_vector(7 downto 0);
-	signal s_left_buffer_size  : std_logic_vector(7 downto 0);
+	signal s_right_buffer_size : std_logic_vector(3 downto 0);
+	signal s_left_buffer_size  : std_logic_vector(3 downto 0);
 
 	-- dummy
 	signal s_dummy_spw_mux_tx0_txhalff  : std_logic;
@@ -525,6 +525,7 @@ begin
 			data_pkt_packet_length_i           => s_spacewire_write_registers.data_packet_config_3_reg.data_pkt_packet_length,
 			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
 			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
+			data_pkt_protocol_id_i             => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_protocol_id,
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
@@ -573,6 +574,7 @@ begin
 			data_pkt_packet_length_i           => s_spacewire_write_registers.data_packet_config_3_reg.data_pkt_packet_length,
 			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
 			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
+			data_pkt_protocol_id_i             => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_protocol_id,
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
