@@ -81,6 +81,12 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 		uliReg &= (~COMM_DATA_PKT_CCD_NUMBER_MSK);
 		uliReg |= (COMM_DATA_PKT_CCD_NUMBER_MSK
 				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucCcdNumber << 8));
+		uliReg &= (~COMM_DATA_PKT_PROTOCOL_ID_MSK);
+		uliReg |= (COMM_DATA_PKT_PROTOCOL_ID_MSK
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucProtocolId << 16));
+		uliReg &= (~COMM_DATA_PKT_LOGICAL_ADDR_MSK);
+		uliReg |= (COMM_DATA_PKT_LOGICAL_ADDR_MSK
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucLogicalAddr << 24));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_CFG_4_REG_OFST,
 				uliReg);
@@ -126,6 +132,10 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 				(uliReg & COMM_DATA_PKT_FEE_MODE_MSK) >> 0);
 		pxDpktCh->xDpktDataPacketConfig.ucCcdNumber= (alt_u8)(
 				(uliReg & COMM_DATA_PKT_CCD_NUMBER_MSK) >> 8);
+		pxDpktCh->xDpktDataPacketConfig.ucProtocolId= (alt_u8)(
+				(uliReg & COMM_DATA_PKT_PROTOCOL_ID_MSK) >> 16);
+		pxDpktCh->xDpktDataPacketConfig.ucLogicalAddr= (alt_u8)(
+				(uliReg & COMM_DATA_PKT_LOGICAL_ADDR_MSK) >> 24);
 
 		bStatus = TRUE;
 	}

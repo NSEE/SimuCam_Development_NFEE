@@ -117,7 +117,7 @@ begin
 					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode     <= avalon_mm_spacewire_i.writedata(3 downto 0);
 					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number   <= avalon_mm_spacewire_i.writedata(9 downto 8);
 					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id  <= avalon_mm_spacewire_i.writedata(23 downto 16);
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_logical_addr <= avalon_mm_spacewire_i.writedata(31 downto 34);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_logical_addr <= avalon_mm_spacewire_i.writedata(31 downto 24);
 				when (16#0C#) =>
 					null;
 				when (16#0D#) =>

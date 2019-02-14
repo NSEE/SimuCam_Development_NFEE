@@ -33,6 +33,8 @@ typedef struct DpktDataPacketConfig {
 	alt_u16 usiPacketLength;
 	alt_u8 ucFeeMode;
 	alt_u8 ucCcdNumber;
+	alt_u8 ucProtocolId;
+	alt_u8 ucLogicalAddr;
 } TDpktDataPacketConfig;
 typedef struct DpktDataPacketHeader {
 	alt_u16 usiLength;

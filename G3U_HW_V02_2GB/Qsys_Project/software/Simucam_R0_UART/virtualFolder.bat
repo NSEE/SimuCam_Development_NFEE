@@ -1,4 +1,5 @@
 @echo off
+PUSHD "%~dp0"
 title Create virtual folder inside the project
 echo This is an script that should run into source project file in order to create an virtual folder linked to driver, api_driver and utils file in the Firmware folder.
 echo If you create a project in the default location, then you folder project is inside "Qsys_Project\software\<name_of_your_project>
