@@ -247,7 +247,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 	uliSrcAddrLow = (alt_u32) SDMA_M1_BASE_ADDR_LOW	+ (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M1_BASE_ADDR_HIGH;
 
-	if ( (bChannelFlag) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= 16)) {
+	if ( (bChannelFlag) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 
 		if (pxDmaM1Dev != NULL) {
 			// hold transfers for descriptor fifo space
@@ -446,7 +446,7 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 			+ (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
 
-	if ((bChannelFlag) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= 16)) {
+	if ((bChannelFlag) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 		if (pxDmaM2Dev != NULL) {
 
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {

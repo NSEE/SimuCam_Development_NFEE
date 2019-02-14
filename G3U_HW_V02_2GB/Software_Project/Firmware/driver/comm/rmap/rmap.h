@@ -194,7 +194,7 @@ alt_u32 uliRmapCh6WriteCmdAddress(void);
 alt_u32 uliRmapCh7WriteCmdAddress(void);
 alt_u32 uliRmapCh8WriteCmdAddress(void);
 
-void vRmapInitIrq(alt_u8 ucCommCh);
+bool vRmapInitIrq(alt_u8 ucCommCh);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware

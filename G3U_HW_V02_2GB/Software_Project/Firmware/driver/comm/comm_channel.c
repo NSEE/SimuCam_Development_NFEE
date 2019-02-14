@@ -20,41 +20,50 @@ static alt_u32 uliCommReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 
 //! [public functions]
 bool bCommSetGlobalIrqEn(bool bGlobalIrqEnable, alt_u8 ucCommCh) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	volatile alt_u32 uliReg = 0;
 	alt_u32 *puliCommAddr = 0;
 
 	switch (ucCommCh) {
 	case eCommSpwCh1:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh2:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh3:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh4:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh5:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh6:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh7:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	case eCommSpwCh8:
 		puliCommAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
+		bValidCh = TRUE;
 		break;
 	default:
-		bStatus = FALSE;
+		bValidCh = FALSE;
 		break;
 	}
 
-	if (bStatus) {
+	if (bValidCh) {
 		uliReg = uliCommReadReg(puliCommAddr,
 		COMM_IRQ_CONTROL_REG_OFST);
 
@@ -65,30 +74,40 @@ bool bCommSetGlobalIrqEn(bool bGlobalIrqEnable, alt_u8 ucCommCh) {
 		}
 
 		vCommWriteReg(puliCommAddr, COMM_IRQ_CONTROL_REG_OFST, uliReg);
+
+		bStatus = TRUE;
 	}
 
 	return bStatus;
 }
 
 bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh) {
-	bool bStatus = TRUE;
+	bool bStatus = FALSE;
+	bool bInitFail = FALSE;
 
 	if (!bSpwcInitCh(&(pxCommCh->xSpacewire), ucCommCh)) {
-		bStatus = FALSE;
+		bInitFail = TRUE;
 	}
-	//vFeebInitIrq(ucCommCh);
-
+//	if (!vFeebInitIrq(ucCommCh)) {
+//		bInitFail = TRUE;
+//	}
 	if (!bFeebInitCh(&(pxCommCh->xFeeBuffer), ucCommCh)) {
-		bStatus = FALSE;
+		bInitFail = TRUE;
 	}
 	if (!bRmapInitCh(&(pxCommCh->xRmap), ucCommCh)) {
-		bStatus = FALSE;
+		bInitFail = TRUE;
 	}
-	vRmapInitIrq(ucCommCh);
-
+	if (!vRmapInitIrq(ucCommCh)) {
+		bInitFail = TRUE;
+	}
 	if (!bDpktInitCh(&(pxCommCh->xDataPacket), ucCommCh)) {
-		bStatus = FALSE;
+		bInitFail = TRUE;
 	}
+
+	if (!bInitFail) {
+		bStatus = TRUE;
+	}
+
 	return bStatus;
 }
 //! [public functions]
@@ -100,7 +119,7 @@ static void vCommWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 }
 
 static alt_u32 uliCommReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
-	alt_u32 uliValue;
+	volatile alt_u32 uliValue;
 
 	uliValue = *(puliAddr + uliOffset);
 	return uliValue;

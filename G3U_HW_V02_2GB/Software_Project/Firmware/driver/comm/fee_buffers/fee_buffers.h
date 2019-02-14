@@ -86,7 +86,7 @@ bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
-void vFeebInitIrq(alt_u8 ucCommCh);
+bool vFeebInitIrq(alt_u8 ucCommCh);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware

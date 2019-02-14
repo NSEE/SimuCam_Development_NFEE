@@ -315,7 +315,7 @@ bool bRmapCh8IrqFlagWriteCmd(void) {
 }
 
 alt_u32 uliRmapCh1WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_1_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -327,7 +327,7 @@ alt_u32 uliRmapCh1WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh2WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_2_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -338,7 +338,7 @@ alt_u32 uliRmapCh2WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh3WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_3_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -349,7 +349,7 @@ alt_u32 uliRmapCh3WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh4WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_4_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -360,7 +360,7 @@ alt_u32 uliRmapCh4WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh5WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_5_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -371,7 +371,7 @@ alt_u32 uliRmapCh5WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh6WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_6_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -382,7 +382,7 @@ alt_u32 uliRmapCh6WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh7WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_7_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -393,7 +393,7 @@ alt_u32 uliRmapCh7WriteCmdAddress(void) {
 }
 
 alt_u32 uliRmapCh8WriteCmdAddress(void) {
-	alt_u32 uliWriteAddr;
+	volatile alt_u32 uliWriteAddr;
 
 	uliWriteAddr = uliRmapReadReg((alt_u32*)
 	COMM_CHANNEL_8_BASE_ADDR, COMM_RMAP_LST_WR_ADDR_REG_OFST);
@@ -403,7 +403,8 @@ alt_u32 uliRmapCh8WriteCmdAddress(void) {
 	return uliWriteAddr;
 }
 
-void vRmapInitIrq(alt_u8 ucCommCh) {
+bool vRmapInitIrq(alt_u8 ucCommCh) {
+	bool bStatus = FALSE;
 	void* pvHoldContext;
 	switch (ucCommCh) {
 	case eCommSpwCh1:
@@ -412,6 +413,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh1HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_RMAP_IRQ, pvHoldContext, vRmapCh1HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh2:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -419,6 +421,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh2HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_2_RMAP_IRQ, pvHoldContext, vRmapCh2HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh3:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -426,6 +429,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh3HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_3_RMAP_IRQ, pvHoldContext, vRmapCh3HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh4:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -433,6 +437,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh4HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_4_RMAP_IRQ, pvHoldContext, vRmapCh4HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh5:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -440,6 +445,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh5HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_5_RMAP_IRQ, pvHoldContext, vRmapCh5HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh6:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -447,6 +453,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh6HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_RMAP_IRQ, pvHoldContext, vRmapCh6HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh7:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -454,6 +461,7 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh7HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_7_RMAP_IRQ, pvHoldContext, vRmapCh7HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh8:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -461,13 +469,19 @@ void vRmapInitIrq(alt_u8 ucCommCh) {
 		pvHoldContext = (void*) &viCh8HoldContext;
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_8_RMAP_IRQ, pvHoldContext, vRmapCh8HandleIrq);
+		bStatus = TRUE;
+		break;
+	default:
+		bStatus = FALSE;
 		break;
 	}
+
+	return bStatus;
 }
 
 bool bRmapSetIrqControl(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 		uliReg = uliRmapReadReg(pxRmapCh->puliRmapChAddr,
@@ -489,7 +503,7 @@ bool bRmapSetIrqControl(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetIrqControl(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 		uliReg = uliRmapReadReg(pxRmapCh->puliRmapChAddr,
@@ -509,7 +523,7 @@ bool bRmapGetIrqControl(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetIrqFlags(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 		uliReg = uliRmapReadReg(pxRmapCh->puliRmapChAddr,
@@ -529,7 +543,7 @@ bool bRmapGetIrqFlags(TRmapChannel *pxRmapCh) {
 
 bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 
@@ -554,7 +568,7 @@ bool bRmapSetCodecConfig(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 		uliReg = uliRmapReadReg(pxRmapCh->puliRmapChAddr,
@@ -573,7 +587,7 @@ bool bRmapGetCodecConfig(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 		uliReg = uliRmapReadReg(pxRmapCh->puliRmapChAddr,
@@ -623,7 +637,7 @@ bool bRmapGetCodecStatus(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetCodecError(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 		uliReg = uliRmapReadReg(pxRmapCh->puliRmapChAddr,
@@ -673,7 +687,7 @@ bool bRmapGetCodecError(TRmapChannel *pxRmapCh) {
 
 bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 
@@ -836,7 +850,7 @@ bool bRmapSetMemConfigArea(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 
@@ -920,7 +934,7 @@ bool bRmapGetMemConfigArea(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 
@@ -944,7 +958,7 @@ bool bRmapGetMemConfigStat(TRmapChannel *pxRmapCh) {
 
 bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 
@@ -1308,7 +1322,7 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 
 bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxRmapCh != NULL) {
 
@@ -1544,58 +1558,71 @@ bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh) {
 
 bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	bool bInitFail = FALSE;
 
 	if (pxRmapCh != NULL) {
-		bStatus = TRUE;
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
 			pxRmapCh->puliRmapChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		default:
-			bStatus = FALSE;
+			bValidCh = FALSE;
 			break;
 		}
 
-		if (bStatus) {
+		if (bValidCh) {
 			if (!bRmapGetIrqControl(pxRmapCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bRmapGetCodecConfig(pxRmapCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bRmapGetCodecStatus(pxRmapCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bRmapGetMemConfigArea(pxRmapCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bRmapGetMemConfigStat(pxRmapCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bRmapGetRmapMemHKArea(pxRmapCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
+			}
+
+			if (!bInitFail) {
+				bStatus = TRUE;
 			}
 		}
 	}
@@ -1610,7 +1637,7 @@ static void vRmapWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 }
 
 alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
-	alt_u32 uliValue;
+	volatile alt_u32 uliValue;
 
 	uliValue = *(puliAddr + uliOffset);
 	return uliValue;

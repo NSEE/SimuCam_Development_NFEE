@@ -38,20 +38,21 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 	debug(fp, cDebugBuffer);
 #endif
 	const alt_u8 cucDeviceAddr = DDR2_EEPROM_I2C_ADDRESS;
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 uliI2cSclBase;
 	alt_u32 uliI2cSdaBase;
 	int iI;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		uliI2cSclBase = DDR2_M1_EEPROM_I2C_SCL_BASE;
 		uliI2cSdaBase = DDR2_M1_EEPROM_I2C_SDA_BASE;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		uliI2cSclBase = DDR2_M2_EEPROM_I2C_SCL_BASE;
 		uliI2cSdaBase = DDR2_M2_EEPROM_I2C_SDA_BASE;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
@@ -171,20 +172,21 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 	debug(fp, cDebugBuffer);
 #endif
 	const alt_u8 cucDeviceAddr = DDR2_EEPROM_I2C_ADDRESS;
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 uliI2cSclBase;
 	alt_u32 uliI2cSdaBase;
 	int iI;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		uliI2cSclBase = DDR2_M1_EEPROM_I2C_SCL_BASE;
 		uliI2cSdaBase = DDR2_M1_EEPROM_I2C_SDA_BASE;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		uliI2cSclBase = DDR2_M2_EEPROM_I2C_SCL_BASE;
 		uliI2cSdaBase = DDR2_M2_EEPROM_I2C_SDA_BASE;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
@@ -422,16 +424,17 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 bool bDdr2SwitchMemory(alt_u8 ucMemoryId) {
 
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 *puliDdr2MemAddr = (alt_u32 *) DDR2_EXT_ADDR_CONTROL_BASE;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		*(puliDdr2MemAddr) = (alt_u32) DDR2_M1_MEMORY_WINDOWED_OFFSET;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		*(puliDdr2MemAddr) = (alt_u32) DDR2_M2_MEMORY_WINDOWED_OFFSET;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
@@ -464,21 +467,22 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId) {
 	sprintf(cDebugBuffer, "===== DE4 DDR2 Memory Write Test =====\n");
 	debug(fp, cDebugBuffer);
 #endif
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 uliDdr2Base;
 	alt_u32 uliByteLen;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M1_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M2_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
@@ -595,21 +599,22 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 	sprintf(cDebugBuffer, "===== DE4 DDR2 Memory Read Test =====\n");
 	debug(fp, cDebugBuffer);
 #endif
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 uliDdr2Base;
 	alt_u32 uliByteLen;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M1_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M2_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
@@ -727,21 +732,22 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	sprintf(cDebugBuffer, "===== DE4 DDR2 Memory Random Write Test =====\n");
 	debug(fp, cDebugBuffer);
 #endif
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 uliDdr2Base;
 	alt_u32 uliByteLen;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M1_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M2_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
@@ -856,21 +862,22 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	sprintf(cDebugBuffer, "===== DE4 DDR2 Memory Random Read Test =====\n");
 	debug(fp, cDebugBuffer);
 #endif
-	bool bSuccess;
+	bool bSuccess = FALSE;
 	alt_u32 uliDdr2Base;
 	alt_u32 uliByteLen;
 
-	bSuccess = TRUE;
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M1_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	case DDR2_M2_ID:
 		bDdr2SwitchMemory(ucMemoryId);
 		uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
 		uliByteLen = DDR2_M2_MEMORY_SIZE;
+		bSuccess = TRUE;
 		break;
 	default:
 		bSuccess = FALSE;
