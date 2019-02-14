@@ -44,9 +44,10 @@ begin
 			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_data_y_size               <= std_logic_vector(to_unsigned(4510, 16));
 			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_overscan_y_size           <= std_logic_vector(to_unsigned(30, 16));
 			spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length             <= std_logic_vector(to_unsigned(32768, 16));
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id               <= x"F0";
 			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= std_logic_vector(to_unsigned(1, 4));
 			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                <= std_logic_vector(to_unsigned(0, 2));
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id               <= x"F0";
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_logical_addr              <= x"50";
 			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay           <= std_logic_vector(to_unsigned(900, 16));
 			spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay         <= x"0000";
 			-- PLATO-MSSL-PL-ICD-0002, Issue 3.0, page 16, Figure 3-3 : Video interface ADC operate at @ 2.941 Msps 
@@ -113,9 +114,10 @@ begin
 				when (16#0A#) =>
 					spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length <= avalon_mm_spacewire_i.writedata(15 downto 0);
 				when (16#0B#) =>
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode    <= avalon_mm_spacewire_i.writedata(3 downto 0);
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number  <= avalon_mm_spacewire_i.writedata(9 downto 8);
-					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id <= avalon_mm_spacewire_i.writedata(23 downto 16);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode     <= avalon_mm_spacewire_i.writedata(3 downto 0);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number   <= avalon_mm_spacewire_i.writedata(9 downto 8);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id  <= avalon_mm_spacewire_i.writedata(23 downto 16);
+					spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_logical_addr <= avalon_mm_spacewire_i.writedata(31 downto 34);
 				when (16#0C#) =>
 					null;
 				when (16#0D#) =>

@@ -526,6 +526,7 @@ begin
 			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
 			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
 			data_pkt_protocol_id_i             => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_protocol_id,
+			data_pkt_logical_addr_i            => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_logical_addr,
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
@@ -575,6 +576,7 @@ begin
 			data_pkt_fee_mode_i                => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_fee_mode,
 			data_pkt_ccd_number_i              => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_ccd_number,
 			data_pkt_protocol_id_i             => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_protocol_id,
+			data_pkt_logical_addr_i            => s_spacewire_write_registers.data_packet_config_4_reg.data_pkt_logical_addr,
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
@@ -997,37 +999,37 @@ begin
 	--	signal s_dummy_mux_mask_wr : std_logic;
 	--	signal s_dummy_mux_mask_rd : std_logic;
 
---	-- dummy mode
---	p_dummy_mode : process(a_avs_clock, a_reset) is
---		variable v_pattern_cnt : natural;
---		variable v_data_cnt    : natural range 0 to 16;
---	begin
---		if (a_reset) then
---			s_dummy_mode_data    <= (others => '0');
---			s_dummy_mode_mask_wr <= '0';
---			s_dummy_mode_mask_rd <= '0';
---			v_pattern_cnt        := 0;
---			v_data_cnt           := 0;
---		elsif rising_edge(a_avs_clock) then
---			if (s_sync_in_trigger = '1') then
---				s_dummy_mode_data(63 downto 56) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(55 downto 48) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(47 downto 40) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(39 downto 32) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(31 downto 24) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(23 downto 16) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(15 downto 8)  <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---				s_dummy_mode_data(7 downto 0)   <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
---				v_pattern_cnt                   := v_pattern_cnt + 1;
---			end if;
---		end if;
---	end process p_dummy_mode;
+	--	-- dummy mode
+	--	p_dummy_mode : process(a_avs_clock, a_reset) is
+	--		variable v_pattern_cnt : natural;
+	--		variable v_data_cnt    : natural range 0 to 16;
+	--	begin
+	--		if (a_reset) then
+	--			s_dummy_mode_data    <= (others => '0');
+	--			s_dummy_mode_mask_wr <= '0';
+	--			s_dummy_mode_mask_rd <= '0';
+	--			v_pattern_cnt        := 0;
+	--			v_data_cnt           := 0;
+	--		elsif rising_edge(a_avs_clock) then
+	--			if (s_sync_in_trigger = '1') then
+	--				s_dummy_mode_data(63 downto 56) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(55 downto 48) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(47 downto 40) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(39 downto 32) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(31 downto 24) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(23 downto 16) <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(15 downto 8)  <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--				s_dummy_mode_data(7 downto 0)   <= std_logic_vector(to_unsiged(v_pattern_cnt, 8));
+	--				v_pattern_cnt                   := v_pattern_cnt + 1;
+	--			end if;
+	--		end if;
+	--	end process p_dummy_mode;
 
 end architecture rtl;                   -- of comm_v1_80_top

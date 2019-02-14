@@ -16,6 +16,7 @@ entity fee_master_data_manager_ent is
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
 		-- fee data manager parameters
+		fee_logical_addr_i                   : in  std_logic_vector(7 downto 0);
 		fee_protocol_id_i                    : in  std_logic_vector(7 downto 0);
 		fee_ccd_x_size_i                     : in  std_logic_vector(15 downto 0);
 		--		fee_ccd_y_size_i                     : in  std_logic_vector(15 downto 0);
@@ -80,8 +81,6 @@ architecture RTL of fee_master_data_manager_ent is
 	constant c_DATA_PKT_HEADER_SIZE    : natural                       := 10;
 	-- hk packet data size [bytes]
 	constant c_HK_PKT_DATA_SIZE        : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(128, 16));
-	-- dpu logical address
-	constant c_DPU_LOGICAL_ADDR        : std_logic_vector(7 downto 0)  := x"50";
 	-- type field, mode bits
 	constant c_FULL_IMAGE_MODE         : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(0, 3));
 	constant c_FULL_IMAGE_PATTERN_MODE : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(1, 3));
@@ -275,7 +274,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the hk header data
-					headerdata_logical_address_o         <= c_DPU_LOGICAL_ADDR;
+					headerdata_logical_address_o         <= fee_logical_addr_i;
 					headerdata_protocol_id_o             <= fee_protocol_id_i;
 					headerdata_length_field_o            <= c_HK_PKT_DATA_SIZE;
 					--					headerdata_type_field_mode_o         <= c_FULL_IMAGE_PATTERN_MODE;
@@ -476,7 +475,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the img header data
-					headerdata_logical_address_o         <= c_DPU_LOGICAL_ADDR;
+					headerdata_logical_address_o         <= fee_logical_addr_i;
 					headerdata_protocol_id_o             <= fee_protocol_id_i;
 					-- check if the remaining data length is equal or smaller than the packet data size
 					if (unsigned(s_fee_remaining_data_bytes) <= (unsigned(fee_packet_length_i) - c_DATA_PKT_HEADER_SIZE)) then
@@ -626,7 +625,7 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the over header data
-					headerdata_logical_address_o         <= c_DPU_LOGICAL_ADDR;
+					headerdata_logical_address_o         <= fee_logical_addr_i;
 					headerdata_protocol_id_o             <= fee_protocol_id_i;
 					-- check if the remaining data length is equal or smaller than the packet data size
 					if (unsigned(s_fee_remaining_data_bytes) <= (unsigned(fee_packet_length_i) - c_DATA_PKT_HEADER_SIZE)) then

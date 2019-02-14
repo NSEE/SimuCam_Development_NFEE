@@ -287,35 +287,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwstream
 -- Compiling architecture spwstream_arch of spwstream
 
-} {} {}} ../Communications_Module_v1_8/comm_v1_80_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/comm_v1_80_top.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package avalon_mm_windowing_pkg
--- Loading package avalon_mm_spacewire_pkg
--- Loading package avalon_mm_spacewire_registers_pkg
--- Loading package spwpkg
--- Loading package spw_codec_pkg
--- Loading package rmap_target_pkg
--- Loading package rmap_mem_area_nfee_pkg
--- Compiling entity comm_v1_80_top
--- Compiling architecture rtl of comm_v1_80_top
--- Loading entity avalon_mm_spacewire_read_ent
--- Loading entity avalon_mm_spacewire_write_ent
--- Loading entity avalon_mm_windowing_write_ent
--- Loading package windowing_fifo_pkg
--- Loading entity windowing_buffer_ent
--- Loading entity data_controller_ent
--- Loading entity fee_master_data_controller_top
--- Loading entity rmap_target_top
--- Loading entity rmap_mem_area_nfee_read
--- Loading entity rmap_mem_area_nfee_write
--- Loading entity spw_mux_ent
--- Loading entity spw_clk_synchronization_ent
--- Loading entity spw_codec_ent
-
 } {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -390,15 +361,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling package spwpkg
-
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_master_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_master_data_manager_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity fee_master_data_manager_ent
--- Compiling architecture RTL of fee_master_data_manager_ent
 
 } {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
