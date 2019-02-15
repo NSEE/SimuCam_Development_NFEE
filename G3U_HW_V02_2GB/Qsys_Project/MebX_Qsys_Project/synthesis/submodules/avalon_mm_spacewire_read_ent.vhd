@@ -68,9 +68,12 @@ begin
 					avalon_mm_spacewire_o.readdata(3)           <= spacewire_write_registers_i.fee_windowing_buffers_config_reg.fee_masking_en;
 					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
 				when (16#03#) =>
-					avalon_mm_spacewire_o.readdata(0)           <= spacewire_read_registers_i.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
-					avalon_mm_spacewire_o.readdata(1)           <= spacewire_read_registers_i.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
-					avalon_mm_spacewire_o.readdata(31 downto 3) <= (others => '0');
+					avalon_mm_spacewire_o.readdata(0)            <= spacewire_read_registers_i.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
+					avalon_mm_spacewire_o.readdata(1)            <= spacewire_read_registers_i.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
+					avalon_mm_spacewire_o.readdata(7 downto 3)   <= (others => '0');
+					avalon_mm_spacewire_o.readdata(8)            <= spacewire_read_registers_i.fee_windowing_buffers_status_reg.fee_right_machine_busy;
+					avalon_mm_spacewire_o.readdata(9)            <= spacewire_read_registers_i.fee_windowing_buffers_status_reg.fee_left_machine_busy;
+					avalon_mm_spacewire_o.readdata(31 downto 10) <= (others => '0');
 				when (16#04#) =>
 					avalon_mm_spacewire_o.readdata(7 downto 0)   <= spacewire_write_registers_i.rmap_codec_config_reg.rmap_target_logical_addr;
 					avalon_mm_spacewire_o.readdata(15 downto 8)  <= spacewire_write_registers_i.rmap_codec_config_reg.rmap_target_key;

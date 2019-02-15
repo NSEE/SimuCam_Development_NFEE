@@ -42,6 +42,8 @@ entity fee_master_data_controller_top is
 		data_pkt_line_delay_i              : in  std_logic_vector(15 downto 0);
 		data_pkt_column_delay_i            : in  std_logic_vector(15 downto 0);
 		data_pkt_adc_delay_i               : in  std_logic_vector(15 downto 0);
+		-- fee machine status
+		fee_machine_busy_o                 : out std_logic;
 		-- fee slave data controller control
 		fee_slave_imgdata_start_o          : out std_logic;
 		fee_slave_frame_counter_o          : out std_logic_vector(15 downto 0);
@@ -199,6 +201,7 @@ begin
 			data_transmitter_finished_i          => s_data_transmitter_finished,
 			imgdata_start_o                      => s_start_masking,
 			masking_machine_hold_o               => s_masking_machine_hold,
+			fee_data_manager_busy_o              => fee_machine_busy_o,
 			headerdata_logical_address_o         => s_headerdata_logical_address,
 			headerdata_protocol_id_o             => s_headerdata_protocol_id,
 			headerdata_length_field_o            => s_headerdata_length_field,
