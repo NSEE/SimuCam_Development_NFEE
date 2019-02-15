@@ -66,7 +66,9 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFee->xCcdInfo.usiOLN;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = 32768;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern; /* todo:N�o esquecer de atualizar para o ENUM  */
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
@@ -326,7 +328,11 @@ void vFeeTask(void *task_data) {
 				vResetMemCCDFEE(pxNFee);
 
 				/* Wait until both buffers are empty  */
-				while ( (bFeebGetCh1LeftBufferEmpty()== FALSE) || (bFeebGetCh1RightBufferEmpty()== FALSE)  ) {}
+				if (xDefaults.usiLinkNFEE0 == 0) {
+					while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
+				} else {
+					while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
+				}
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiGuardNFEEDelay);
 

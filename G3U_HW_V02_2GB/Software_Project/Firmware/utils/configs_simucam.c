@@ -618,6 +618,38 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
+					case 'D':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiDataProtId = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
+					case 'H':
+
+						do {
+							c = cGetNextChar(siFile);
+							if ( isdigit( c ) ) {
+								(*p_inteiro) = c;
+								p_inteiro++;
+							}
+						} while ( c !=59 ); //ASCII: 59 = ';'
+						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiDpuLogicalAddr = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						p_inteiro = inteiro;
+
+						break;
 					case 'T':
 
 						do {
@@ -671,7 +703,7 @@ bool vLoadDebugConfs( void ){
 						break;
 					default:
 						#if DEBUG_ON
-							fprintf(fp,"SDCard: Problem with the parser.\n");
+							fprintf(fp,"SDCard: Problem with the parser. (%hhu)\n",c);
 						#endif
 						break;
 				}

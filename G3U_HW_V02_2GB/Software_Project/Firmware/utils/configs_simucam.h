@@ -49,6 +49,8 @@ typedef struct Defaults{
 	unsigned short int usiDebugLevel;
 	unsigned short int usiPatternType;
 	unsigned short int usiGuardNFEEDelay;
+	unsigned short int usiDataProtId;
+	unsigned short int usiDpuLogicalAddr;
 
 }TDefaults;
 
