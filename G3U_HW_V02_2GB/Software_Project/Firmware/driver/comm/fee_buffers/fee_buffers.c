@@ -737,6 +737,17 @@ bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh) {
 			pxFeebCh->xBufferStatus.bRightBufferEmpty = FALSE;
 		}
 
+		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
+			pxFeebCh->xBufferStatus.bRightFeeBusy = TRUE;
+		} else {
+			pxFeebCh->xBufferStatus.bRightFeeBusy = FALSE;
+		}
+		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
+			pxFeebCh->xBufferStatus.bLeftFeeBusy = TRUE;
+		} else {
+			pxFeebCh->xBufferStatus.bLeftFeeBusy = FALSE;
+		}
+
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
 		COMM_RIGT_FEEBUFF_SIZE_REG_OFST);
 		pxFeebCh->xBufferStatus.ucRightBufferSize = (alt_u8) (uliReg
@@ -850,6 +861,74 @@ bool bFeebGetCh2RightBufferEmpty(void){
 		COMM_FEE_BUFF_STAT_REG_OFST);
 
 		if (uliReg & COMM_WIND_RIGH_BUFF_EMPTY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh1LeftFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh1RightFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh2LeftFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh2RightFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
 			bFlag = TRUE;
 		} else {
 			bFlag = FALSE;
