@@ -1651,8 +1651,8 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 		fprintf(fp,"        Total Bytes 	= %lu \n", pxNFee->xMemMap.ulTotalBytes);
 		fprintf(fp,"        LUT ADDR 	= %lu \n", pxNFee->xMemMap.ulLUTAddr);
 		fprintf(fp,"    Common to all CCDs: \n");
-		fprintf(fp,"        Total Bytes 	= %hu \n", pxNFee->xMemMap.xCommon.usiTotalBytes);
-		fprintf(fp,"        Total of Blocks = %hu \n", pxNFee->xMemMap.xCommon.usiNTotalBlocks);
+		fprintf(fp,"        Total Bytes 	= %lu \n", pxNFee->xMemMap.xCommon.usiTotalBytes);
+		fprintf(fp,"        Total of Blocks = %lu \n", pxNFee->xMemMap.xCommon.usiNTotalBlocks);
 		fprintf(fp,"        Padding Bytes 	= %hhu\n", pxNFee->xMemMap.xCommon.ucPaddingBytes);
 		fprintf(fp,"        Padding MASK 	= %llu\n", pxNFee->xMemMap.xCommon.ucPaddingMask.ullWord);
 		fprintf(fp,"\n");
