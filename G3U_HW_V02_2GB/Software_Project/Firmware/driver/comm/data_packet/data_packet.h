@@ -16,12 +16,12 @@
 //! [constants definition]
 
 enum DpktMode {
-    eDpktFullImage        = 0,
+	eDpktStandBy          = 0,
+	eDpktFullImage        = 8, // First bit is used to indicate non standby. The modes start in 0b1000 = 8.
     eDpktFullImagePattern ,
     eDpktWindowing        ,
     eDpktWindowingPattern ,
     eDpktPartialReadOut   ,
-    eDpktStandBy
 } EDpktMode;
 
 
