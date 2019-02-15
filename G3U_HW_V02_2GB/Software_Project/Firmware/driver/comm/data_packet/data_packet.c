@@ -29,7 +29,7 @@ static alt_u32 uliDpktReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [public functions]
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxDpktCh != NULL) {
 
@@ -81,6 +81,12 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 		uliReg &= (~COMM_DATA_PKT_CCD_NUMBER_MSK);
 		uliReg |= (COMM_DATA_PKT_CCD_NUMBER_MSK
 				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucCcdNumber << 8));
+		uliReg &= (~COMM_DATA_PKT_PROTOCOL_ID_MSK);
+		uliReg |= (COMM_DATA_PKT_PROTOCOL_ID_MSK
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucProtocolId << 16));
+		uliReg &= (~COMM_DATA_PKT_LOGICAL_ADDR_MSK);
+		uliReg |= (COMM_DATA_PKT_LOGICAL_ADDR_MSK
+				& (alt_u32)(pxDpktCh->xDpktDataPacketConfig.ucLogicalAddr << 24));
 
 		vDpktWriteReg(pxDpktCh->puliDpktChAddr, COMM_DATA_PKT_CFG_4_REG_OFST,
 				uliReg);
@@ -93,7 +99,7 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxDpktCh != NULL) {
 
@@ -126,6 +132,10 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 				(uliReg & COMM_DATA_PKT_FEE_MODE_MSK) >> 0);
 		pxDpktCh->xDpktDataPacketConfig.ucCcdNumber= (alt_u8)(
 				(uliReg & COMM_DATA_PKT_CCD_NUMBER_MSK) >> 8);
+		pxDpktCh->xDpktDataPacketConfig.ucProtocolId= (alt_u8)(
+				(uliReg & COMM_DATA_PKT_PROTOCOL_ID_MSK) >> 16);
+		pxDpktCh->xDpktDataPacketConfig.ucLogicalAddr= (alt_u8)(
+				(uliReg & COMM_DATA_PKT_LOGICAL_ADDR_MSK) >> 24);
 
 		bStatus = TRUE;
 	}
@@ -135,7 +145,7 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxDpktCh != NULL) {
 
@@ -163,7 +173,7 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxDpktCh != NULL) {
 
@@ -203,7 +213,7 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxDpktCh != NULL) {
 
@@ -233,49 +243,62 @@ bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 
 bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	bool bInitFail = FALSE;
 
 	if (pxDpktCh != NULL) {
-		bStatus = TRUE;
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
 			pxDpktCh->puliDpktChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		default:
-			bStatus = FALSE;
+			bValidCh = FALSE;
 			break;
 		}
 
-		if (bStatus) {
+		if (bValidCh) {
 			if (!bDpktGetPacketConfig(pxDpktCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bDpktGetPacketHeader(pxDpktCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bDpktGetPixelDelay(pxDpktCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
+			}
+
+			if (!bInitFail) {
+				bStatus = TRUE;
 			}
 		}
 	}
@@ -290,7 +313,7 @@ static void vDpktWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 }
 
 static alt_u32 uliDpktReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
-	alt_u32 uliValue;
+	volatile alt_u32 uliValue;
 
 	uliValue = *(puliAddr + uliOffset);
 	return uliValue;

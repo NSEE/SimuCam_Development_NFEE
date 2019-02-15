@@ -138,6 +138,8 @@
 
 #define COMM_WIND_RIGH_BUFF_EMPTY_MSK    (1 << 0)
 #define COMM_WIND_LEFT_BUFF_EMPTY_MSK    (1 << 1)
+#define COMM_WIND_RIGH_FEE_BUSY_MSK      (1 << 8)
+#define COMM_WIND_LEFT_FEE_BUSY_MSK      (1 << 9)
 
 #define COMM_RMAP_TARGET_LOG_ADDR_MSK    (0xFF << 0)
 #define COMM_RMAP_TARGET_KEY_MSK         (0xFF << 8)
@@ -171,6 +173,8 @@
 
 #define COMM_DATA_PKT_FEE_MODE_MSK       (0xFF << 0)
 #define COMM_DATA_PKT_CCD_NUMBER_MSK     (0xFF << 8)
+#define COMM_DATA_PKT_PROTOCOL_ID_MSK    (0xFF << 16)
+#define COMM_DATA_PKT_LOGICAL_ADDR_MSK   (0xFF << 24)
 
 #define COMM_DATA_PKT_HDR_LENGTH_MSK     (0xFFFF << 0)
 #define COMM_DATA_PKT_HDR_TYPE_MSK       (0xFFFF << 16)

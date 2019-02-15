@@ -28,7 +28,7 @@ static alt_u32 uliSpwcReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [public functions]
 bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
@@ -63,7 +63,7 @@ bool bSpwcSetLink(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
@@ -95,7 +95,7 @@ bool bSpwcGetLink(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
@@ -130,7 +130,7 @@ bool bSpwcGetLinkError(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
@@ -160,7 +160,7 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
@@ -179,7 +179,7 @@ bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxSpwcCh != NULL) {
 		uliReg = uliSpwcReadReg(pxSpwcCh->puliSpwcChAddr,
@@ -196,52 +196,65 @@ bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh) {
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	bool bInitFail = FALSE;
 
 	if (pxSpwcCh != NULL) {
-		bStatus = TRUE;
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
 			pxSpwcCh->puliSpwcChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		default:
-			bStatus = FALSE;
+			bValidCh = FALSE;
 			break;
 		}
 
-		if (bStatus) {
+		if (bValidCh) {
 			if (!bSpwcGetLink(pxSpwcCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bSpwcGetLinkError(pxSpwcCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bSpwcGetLinkStatus(pxSpwcCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bSpwcGetTimecode(pxSpwcCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
+			}
+
+			if (!bInitFail) {
+				bStatus = TRUE;
 			}
 		}
 	}
@@ -256,7 +269,7 @@ static void vSpwcWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 }
 
 static alt_u32 uliSpwcReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
-	alt_u32 uliValue;
+	volatile alt_u32 uliValue;
 
 	uliValue = *(puliAddr + uliOffset);
 	return uliValue;

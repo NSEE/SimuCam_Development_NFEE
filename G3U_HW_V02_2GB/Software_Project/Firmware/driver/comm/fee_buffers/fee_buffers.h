@@ -36,6 +36,8 @@ typedef struct FeebIrqFlag {
 typedef struct FeebBufferStatus {
 	bool bLeftBufferEmpty;
 	bool bRightBufferEmpty;
+	bool bLeftFeeBusy;
+	bool bRightFeeBusy;
 	alt_u8 ucLeftBufferSize;
 	alt_u8 ucRightBufferSize;
 } TFeebBufferStatus;
@@ -86,7 +88,7 @@ bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
-void vFeebInitIrq(alt_u8 ucCommCh);
+bool vFeebInitIrq(alt_u8 ucCommCh);
 
 // Get functions -> get data from hardware to channel variable
 // Set functions -> set data from channel variable to hardware
@@ -102,6 +104,11 @@ bool bFeebGetCh1LeftBufferEmpty(void);
 bool bFeebGetCh1RightBufferEmpty(void);
 bool bFeebGetCh2LeftBufferEmpty(void);
 bool bFeebGetCh2RightBufferEmpty(void);
+
+bool bFeebGetCh1LeftFeeBusy(void);
+bool bFeebGetCh1RightFeeBusy(void);
+bool bFeebGetCh2LeftFeeBusy(void);
+bool bFeebGetCh2RightFeeBusy(void);
 
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 

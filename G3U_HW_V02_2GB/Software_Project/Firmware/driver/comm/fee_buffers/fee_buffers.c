@@ -331,8 +331,8 @@ bool bFeebCh8IrqFlagBufferEmpty(void) {
 }
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -341,27 +341,27 @@ bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -370,27 +370,27 @@ bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -399,27 +399,27 @@ bool bFeebCh3SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -428,27 +428,27 @@ bool bFeebCh4SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -457,27 +457,27 @@ bool bFeebCh5SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -486,27 +486,27 @@ bool bFeebCh6SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -515,27 +515,27 @@ bool bFeebCh7SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
 bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
-	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	bool bStatus = FALSE;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -544,25 +544,26 @@ bool bFeebCh8SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
 			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
 			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			bStatus = TRUE;
 			break;
 		default:
 			bStatus = FALSE;
 			break;
 		}
-	} else {
-		bStatus = FALSE;
 	}
 
 	return bStatus;
 }
 
-void vFeebInitIrq(alt_u8 ucCommCh) {
+bool vFeebInitIrq(alt_u8 ucCommCh) {
+	bool bStatus = FALSE;
 	void* pvHoldContext;
 	switch (ucCommCh) {
 	case eCommSpwCh1:
@@ -572,6 +573,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh1HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh2:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -580,6 +582,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_2_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh2HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh3:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -588,6 +591,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_3_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh3HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh4:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -596,6 +600,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_4_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh4HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh5:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -604,6 +609,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_5_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh5HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh6:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -612,6 +618,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_6_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh6HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh7:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -620,6 +627,7 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_7_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh7HandleIrq);
+		bStatus = TRUE;
 		break;
 	case eCommSpwCh8:
 		// Recast the hold_context pointer to match the alt_irq_register() function
@@ -628,13 +636,19 @@ void vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_8_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh8HandleIrq);
+		bStatus = TRUE;
+		break;
+	default:
+		bStatus = FALSE;
 		break;
 	}
+
+	return bStatus;
 }
 
 bool bFeebSetIrqControl(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -661,7 +675,7 @@ bool bFeebSetIrqControl(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetIrqControl(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -686,7 +700,7 @@ bool bFeebGetIrqControl(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetIrqFlags(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -706,7 +720,7 @@ bool bFeebGetIrqFlags(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -721,6 +735,17 @@ bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh) {
 			pxFeebCh->xBufferStatus.bRightBufferEmpty = TRUE;
 		} else {
 			pxFeebCh->xBufferStatus.bRightBufferEmpty = FALSE;
+		}
+
+		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
+			pxFeebCh->xBufferStatus.bRightFeeBusy = TRUE;
+		} else {
+			pxFeebCh->xBufferStatus.bRightFeeBusy = FALSE;
+		}
+		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
+			pxFeebCh->xBufferStatus.bLeftFeeBusy = TRUE;
+		} else {
+			pxFeebCh->xBufferStatus.bLeftFeeBusy = FALSE;
 		}
 
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -741,7 +766,7 @@ bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh){
 	bool bFlag = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -760,7 +785,7 @@ bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh){
 
 bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh){
 	bool bFlag = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -779,7 +804,7 @@ bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh){
 
 bool bFeebGetCh1LeftBufferEmpty(void){
 	bool bFlag = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
 		COMM_FEE_BUFF_STAT_REG_OFST);
@@ -796,7 +821,7 @@ bool bFeebGetCh1LeftBufferEmpty(void){
 
 bool bFeebGetCh1RightBufferEmpty(void){
 	bool bFlag = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
 		COMM_FEE_BUFF_STAT_REG_OFST);
@@ -813,7 +838,7 @@ bool bFeebGetCh1RightBufferEmpty(void){
 
 bool bFeebGetCh2LeftBufferEmpty(void){
 	bool bFlag = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
 		COMM_FEE_BUFF_STAT_REG_OFST);
@@ -830,7 +855,7 @@ bool bFeebGetCh2LeftBufferEmpty(void){
 
 bool bFeebGetCh2RightBufferEmpty(void){
 	bool bFlag = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
 		COMM_FEE_BUFF_STAT_REG_OFST);
@@ -845,10 +870,78 @@ bool bFeebGetCh2RightBufferEmpty(void){
 		return bFlag;
 }
 
+bool bFeebGetCh1LeftFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh1RightFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh2LeftFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
+bool bFeebGetCh2RightFeeBusy(void){
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
+		COMM_FEE_BUFF_STAT_REG_OFST);
+
+		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
+			bFlag = TRUE;
+		} else {
+			bFlag = FALSE;
+
+	}
+
+		return bFlag;
+}
+
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 		alt_u8 ucBufferSide) {
 	bool bStatus = TRUE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
@@ -877,7 +970,7 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 
 bool bFeebSetWindowing(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -900,7 +993,7 @@ bool bFeebSetWindowing(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetWindowing(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -920,7 +1013,7 @@ bool bFeebGetWindowing(TFeebChannel *pxFeebCh) {
 
 bool bFeebStartCh(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -939,7 +1032,7 @@ bool bFeebStartCh(TFeebChannel *pxFeebCh) {
 
 bool bFeebStopCh(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -958,7 +1051,7 @@ bool bFeebStopCh(TFeebChannel *pxFeebCh) {
 
 bool bFeebClrCh(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	alt_u32 uliReg = 0;
+	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
@@ -977,52 +1070,65 @@ bool bFeebClrCh(TFeebChannel *pxFeebCh) {
 
 bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
+	bool bValidCh = FALSE;
+	bool bInitFail = FALSE;
 
 	if (pxFeebCh != NULL) {
-		bStatus = TRUE;
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_1_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_2_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_3_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_4_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_5_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_6_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_7_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
 			pxFeebCh->puliFeebChAddr = (alt_u32 *) COMM_CHANNEL_8_BASE_ADDR;
+			bValidCh = TRUE;
 			break;
 		default:
-			bStatus = FALSE;
+			bValidCh = FALSE;
 			break;
 		}
 
-		if (bStatus) {
+		if (bValidCh) {
 			if (!bFeebGetIrqControl(pxFeebCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bFeebGetIrqFlags(pxFeebCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bFeebGetBuffersStatus(pxFeebCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
 			}
 			if (!bFeebGetWindowing(pxFeebCh)) {
-				bStatus = FALSE;
+				bInitFail = TRUE;
+			}
+
+			if (!bInitFail) {
+				bStatus = TRUE;
 			}
 		}
 	}
@@ -1038,7 +1144,7 @@ static void vFeebWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 }
 
 static alt_u32 uliFeebReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
-	alt_u32 uliValue;
+	volatile alt_u32 uliValue;
 
 	uliValue = *(puliAddr + uliOffset);
 	return uliValue;
