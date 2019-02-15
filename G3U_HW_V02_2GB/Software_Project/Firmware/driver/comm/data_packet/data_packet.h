@@ -17,10 +17,11 @@
 
 enum DpktMode {
     eDpktFullImage        = 0,
-    eDpktFullImagePattern = 1,
-    eDpktWindowing        = 2,
-    eDpktWindowingPattern = 3,
-    eDpktPartialReadOut   = 4
+    eDpktFullImagePattern ,
+    eDpktWindowing        ,
+    eDpktWindowingPattern ,
+    eDpktPartialReadOut   ,
+    eDpktStandBy
 } EDpktMode;
 
 

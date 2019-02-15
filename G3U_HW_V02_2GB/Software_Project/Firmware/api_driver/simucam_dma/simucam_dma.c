@@ -76,7 +76,6 @@ bool bSdmaInitM2Dma(void) {
 
 bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
 	bool bStatus;
-	alt_u16 usiCnt = 0;
 
 	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
 
@@ -273,7 +272,6 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 
 bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId) {
 	bool bStatus;
-	alt_u16 usiCnt = 0;
 
 	alt_msgdma_extended_descriptor xDmaExtendedDescriptor;
 

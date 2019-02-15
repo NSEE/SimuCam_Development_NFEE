@@ -46,7 +46,7 @@ void vSyncHandleIrq(void* pvContext) {
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 
 
 	uiCmdtoSend.ulWord = 0;
@@ -74,10 +74,6 @@ void vSyncHandleIrq(void* pvContext) {
 	}
 
 	vucN += 1;
-
-	#ifdef DEBUG_ON
-		fprintf(fp,"Sync %hu \n", ucSyncL);
-	#endif
 
 	vSyncIrqFlagClrSync();
 }

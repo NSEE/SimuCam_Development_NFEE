@@ -11,6 +11,7 @@
 #define __UTIL_H__
 
 #include "../simucam_definitions.h"
+#include "../utils/configs_simucam.h"
 
 
 #define DEBUG_HIGH

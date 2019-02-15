@@ -10,7 +10,7 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParssedBuffer ) {
     {
         case eBadFormatInit:
         case eCRCErrorInit:
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 debug(fp,"CRC Fail or BadFormat. In the Initialization.\n");
             #endif
 
@@ -23,7 +23,7 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParssedBuffer ) {
             break;
         case eSemErrorInit:
             
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 debug(fp,"Can't post semaphore to SenderTask.\n");
             #endif
 
@@ -41,7 +41,7 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParssedBuffer ) {
 
         case eBadFormat:
         case eCRCError:
-             #ifdef DEBUG_ON
+             #if DEBUG_ON
                 debug(fp,"eBadFormat or eCRCError.\n");
             #endif
 
@@ -53,14 +53,14 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParssedBuffer ) {
             break;
         case eNoError:
             xReturnState = sReceiving;
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 debug(fp,"No error. Why Handling Error?. (tErrorHandlerFunc)\n");
             #endif 
             break;
         default:
             break;
     }
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"(tErrorHandlerFunc)\n");
     #endif     
 
@@ -78,7 +78,7 @@ void vReceiverComTask(void *task_data)
     
     eReceiverMode = sConfiguring;
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"vReceiverComTask, enter task.\n");
     #endif
 
@@ -291,7 +291,7 @@ void vReceiverComTask(void *task_data)
             case sPiping:
                 /*  This mode is used to send everuthing that is received in UART
                     to the std console of NIOS II output */
-                #ifdef DEBUG_ON
+                #if DEBUG_ON
                     scanf("%s", cReceiveBuffer);
                     if ( strcmp( cReceiveBuffer , CHANGE_MODE_SEQUENCE ) == 0 ) {
                         debug(fp,"Changing de mode of operation. \n");
@@ -398,7 +398,7 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
     {
         case eBadFormatInit:
         case eCRCErrorInit:
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 debug(fp,"CRC Fail or BadFormat. In the Initialization.\n");
             #endif
 
@@ -411,7 +411,7 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
             break;
         case eSemErrorInit:
             
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 debug(fp,"Can't post semaphore to SenderTask.\n");
             #endif
 
@@ -429,7 +429,7 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
 
         case eBadFormat:
         case eCRCError:
-             #ifdef DEBUG_ON
+             #if DEBUG_ON
                 debug(fp,"eBadFormat or eCRCError.\n");
             #endif
 
@@ -441,14 +441,14 @@ inline tReceiverStates tErrorHandlerFunc( tPreParsed *xPerParcedBuffer ) {
             break;
         case eNoError:
             xReturnState = sReceiving;
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
                 debug(fp,"No error. Why Handling Error?. (tErrorHandlerFunc)\n");
             #endif 
             break;
         default:
             break;
     }
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"(tErrorHandlerFunc)\n");
     #endif     
 

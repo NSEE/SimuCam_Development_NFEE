@@ -12,8 +12,10 @@
 void vTimeoutCheckerTaskv2(void *task_data) {
 	INT8U ucErrorCode = 0;
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
         debug(fp,"vTimeoutCheckerTask, enter task.\n");
+	}
     #endif   
 
     for (;;) {
@@ -44,8 +46,10 @@ void vCheck( void ) {
 	OSMutexPend(xTxUARTMutex, 0, &ucErrorCode); /* Blocking */
     if ( ucErrorCode != OS_NO_ERR ) {
         /* Should never get here, is a blocking operation */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			debug(fp,"Should never get here. Trying to get xTxUARTMutex. (vCheck)\n");
+    	}
 		#endif
         return;
     }
@@ -182,7 +186,6 @@ inline void vCheckRetransmission32( void ) {
         return;
     }
     
-
     /* ---> At this point we have access to the xBuffer32*/
 
     /* Search the one that if in use */

@@ -16,8 +16,10 @@ void vReceiverUartTask(void *task_data) {
     tReaderStates eReaderRXMode;
     static tPreParsed xPreParsedReader;
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
+    if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
         debug(fp,"Receiver UART Task. (Task on)\n");
+    }
     #endif
 
     eReaderRXMode = sRConfiguring;
@@ -47,8 +49,10 @@ void vReceiverUartTask(void *task_data) {
                         /* If is a Nack, do nothing. The packet will be retransmited by the timeout checker. */
                         if ( xPreParsedReader.cType == NACK_CHAR ) {
                             eReaderRXMode = sGetRxUart;
-                            #ifdef DEBUG_ON
+                            #if DEBUG_ON
+                            if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
                                 debug(fp,"Nack Received. Do nothing!\n");
+                            }
                             #endif
                         } else
                             eReaderRXMode = sSendToACKReceiver;
@@ -211,8 +215,10 @@ bool setPreAckReceiverFreePos( tPreParsed *xPrePReader ) {
         OSMutexPost(xMutexReceivedACK);
     } else {
         /* Could not  */
-        #ifdef DEBUG_ON
+        #if DEBUG_ON
+    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
             debug(fp,"Could not put the ack packet receiveid in the queue. (setPreAckReceiverFreePos)\n");
+    	}
         #endif
     }
 
@@ -311,8 +317,10 @@ bool bPreParserV2( char *buffer, tPreParsed *xPerParcedBuffer )
             bSuccess = TRUE;
         } else {
             /* Wrong CRC */
-            #ifdef DEBUG_ON
+            #if DEBUG_ON
+        	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
                 fprintf(fp,"Wrong CRC. Expected = %hhu, received = %hhu\n", xPerParcedBuffer->ucCalculatedCRC8, xPerParcedBuffer->ucMessageCRC8 );
+        	}
             #endif
             bSuccess = FALSE;
         }

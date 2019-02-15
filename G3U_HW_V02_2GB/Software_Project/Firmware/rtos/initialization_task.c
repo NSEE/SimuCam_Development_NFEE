@@ -45,8 +45,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 			vCoudlNotCreateNFee0Task();
 	}
@@ -80,7 +82,7 @@ void vInitialTask(void *task_data)
 //
 //	if ( error_code != OS_ERR_NONE) {
 //		/* Can't create Task */
-//		#ifdef DEBUG_ON
+//		#if DEBUG_ON
 //			printErrorTask( error_code );
 //		#endif
 //			vCoudlNotCreateNFee1Task();
@@ -115,7 +117,7 @@ void vInitialTask(void *task_data)
 //
 //	if ( error_code != OS_ERR_NONE) {
 //		//* Can't create Task */
-//		#ifdef DEBUG_ON
+//		#if DEBUG_ON
 //			printErrorTask( error_code );
 //		#endif
 //			vCoudlNotCreateNFee2Task();
@@ -150,7 +152,7 @@ void vInitialTask(void *task_data)
 //
 //	if ( error_code != OS_ERR_NONE) {
 //		/* Can't create Task */
-//		#ifdef DEBUG_ON
+//		#if DEBUG_ON
 //			printErrorTask( error_code );
 //		#endif
 //			vCoudlNotCreateNFee3Task();
@@ -186,7 +188,7 @@ void vInitialTask(void *task_data)
 //
 //	if ( error_code != OS_ERR_NONE) {
 //		/* Can't create Task */
-//		#ifdef DEBUG_ON
+//		#if DEBUG_ON
 //			printErrorTask( error_code );
 //		#endif
 //			vCoudlNotCreateNFee4Task();
@@ -222,7 +224,7 @@ void vInitialTask(void *task_data)
 //
 //	if ( error_code != OS_ERR_NONE) {
 //		/* Can't create Task */
-//		#ifdef DEBUG_ON
+//		#if DEBUG_ON
 //			printErrorTask( error_code );
 //		#endif
 //			vCoudlNotCreateNFee5Task();
@@ -257,8 +259,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 			vCoudlNotCreateDataControllerTask();
 	}
@@ -293,8 +297,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 			vCoudlNotCreateNFeeControllerTask();
 	}
@@ -329,8 +335,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 			vCoudlNotCreateMebTask();
 	}
@@ -376,8 +384,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 		vFailTimeoutCheckerTaskCreate();
 	}
@@ -411,8 +421,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 		vFailOutAckHandlerTaskCreate();
 	}
@@ -446,8 +458,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 		vFailInAckHandlerTaskCreate();
 	}
@@ -481,8 +495,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );
+		}
 		#endif
 		vFailParserCommTaskCreate();
 	}
@@ -516,8 +532,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for receive comm packets */
-		#ifdef DEBUG_ON
-			printErrorTask( error_code );		
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
 		#endif
 		vFailReceiverCreate();
 	}
@@ -571,8 +589,10 @@ void vInitialTask(void *task_data)
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for sender comm packets */
-		#ifdef DEBUG_ON
-			printErrorTask( error_code );		
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
 		#endif
 		vFailSenderCreate();
 	}
@@ -593,8 +613,10 @@ void vInitialTask(void *task_data)
 	if ( error_code != OS_ERR_NONE) {
 		/*	Can't delete the initialization task, the problem is that the priority of this
 			is that the PRIO is so high that will cause starvation if not deleted */
-		#ifdef DEBUG_ON
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			printErrorTask( error_code );		
+		}
 		#endif
 		vFailDeleteInitialization();
 		/*	To not exit the intire application, the PRIO of this task will be lowered*/

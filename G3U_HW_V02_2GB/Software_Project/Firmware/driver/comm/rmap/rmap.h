@@ -10,6 +10,7 @@
 
 #include "../comm.h"
 #include "../../../utils/queue_commands_list.h"
+#include "../../../utils/configs_simucam.h"
 #include "../../../utils/error_handler_simucam.h"
 #include "../../../simucam_definitions.h"
 

@@ -16,7 +16,7 @@ void vStackMonitor(void *task_data) {
 	OS_STK_DATA data;
 	char cBuffer[128];
 
-    #ifdef DEBUG_ON
+    #if DEBUG_ON
         debug(fp,"vStackMonitor, enter task.\n");
     #endif
 
@@ -117,7 +117,7 @@ void vStackMonitor(void *task_data) {
 }
 
 #else
-#ifdef DEBUG_ON
+#if DEBUG_ON
 void vStackMonitor(void *task_data) {
 	INT8U ucErrorCode = 0;
 	OS_STK_DATA data;

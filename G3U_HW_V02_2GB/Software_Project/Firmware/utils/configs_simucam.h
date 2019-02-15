@@ -38,18 +38,17 @@ typedef struct Defaults{
 	unsigned short int usiCols;
 	unsigned short int usiRows;
 	unsigned short int usiSyncPeriod;
-	unsigned short int usiDelay;
 	bool bDataPacket;
 	unsigned long ulLineDelay;
 	unsigned long ulColDelay;
 	unsigned long ulADCPixelDelay;
 	unsigned short int ucRmapKey;
 	unsigned short int ucLogicalAddr;
-	bool bMaskSD;
+	bool bOneShot;
 	unsigned short int usiLinkNFEE0;
 	unsigned short int usiDebugLevel;
-	unsigned short int usiPatternType
-
+	unsigned short int usiPatternType;
+	unsigned short int usiGuardNFEEDelay;
 
 }TDefaults;
 
@@ -63,7 +62,7 @@ extern TDefaults xDefaults;
 bool vLoadDefaultETHConf( void );
 bool vLoadDebugConfs( void );
 
-#ifdef DEBUG_ON
+#if DEBUG_ON
 	void vShowEthConfig( void );
 #endif
 #endif /* CONFIGS_SIMUCAM_H_ */
