@@ -2,9 +2,6 @@
 
 alt_u32 pattern_createPattern(alt_u8 mem_number, alt_u32 mem_offset, alt_u8 ccd_number, alt_u8 ccd_side, alt_u32 width_cols, alt_u32 height_rows)
 {
-	unsigned long long a0;
-	unsigned long long a1;
-
 	bDdr2SwitchMemory(mem_number); // Switch to the desired memory
 	alt_u32 offset = mem_offset;
 	alt_u8 i = 0;
@@ -31,8 +28,6 @@ alt_u32 pattern_createPattern(alt_u8 mem_number, alt_u32 mem_offset, alt_u8 ccd_
 	{
 		pxPixelData->ulliMask |= 0x8000000000000000 >> j;
 	}
-
-
 
 	offset += sizeof(TSdmaPixelDataBlock); // increment offset so we return the next available memory block
 	return offset;

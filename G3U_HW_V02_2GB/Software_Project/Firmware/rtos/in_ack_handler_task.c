@@ -23,7 +23,9 @@ void vInAckHandlerTaskV2(void *task_data) {
     unsigned char i = 0;
 
     #if DEBUG_ON
+    if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
         debug(fp,"In Ack Handler Task. (Task on)\n");
+    }
     #endif
 
 	eReceiverAckState = sRAConfiguring;
@@ -115,7 +117,9 @@ void vInAckHandlerTaskV2(void *task_data) {
 				break;
 			default:
                 #if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly) {
 		            debug(fp,"Critical: Default State. Should never get here.(vInAckHandlerTaskV2)\n");
+				}
 	            #endif
                 eReceiverAckState = sRAGettingACK;
 				break;

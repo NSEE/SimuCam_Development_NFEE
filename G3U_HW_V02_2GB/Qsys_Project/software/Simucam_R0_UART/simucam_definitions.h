@@ -37,6 +37,7 @@
 	#define TRUE    1
 #endif
 
+typedef enum { dlFullMessage  = 0, dlCustom0, dlMinorMessage, dlCustom1, dlMajorMessage, dlCustom2, dlCriticalOnly } tDebugLevel;
 
 #include <altera_up_sd_card_avalon_interface.h>
 #include <altera_msgdma.h>

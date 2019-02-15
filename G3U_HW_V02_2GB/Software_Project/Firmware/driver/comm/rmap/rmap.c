@@ -43,17 +43,17 @@ static volatile int viCh8HoldContext;
 //! [public functions]
 /* todo:Trigger not working right */
 void vRmapCh1HandleIrq(void* pvContext) {
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	tQMask uiCmdRmap;
 	INT8U ucADDRReg;
-	INT32U ucValueReg;
-	INT32U ucValueMasked;
 	INT8U error_codel;
 
 	/* Warnning simplification: For now all address is lower than 1 bytes  */
 
 #if DEBUG_ON
-	fprintf(fp,"IRQ RMAP.\n");
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IRQ RMAP.\n");
+	}
 #endif
 
 	ucADDRReg = (unsigned char)uliRmapCh1WriteCmdAddress();
@@ -64,7 +64,9 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[0] = 0;
 
 #if DEBUG_ON
-	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+	}
 #endif
 
 	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
@@ -78,11 +80,14 @@ void vRmapCh1HandleIrq(void* pvContext) {
 void vRmapCh2HandleIrq(void* pvContext) {
 	tQMask uiCmdRmap;
 	INT8U ucADDRReg;
-	INT32U ucValueReg;
-	INT32U ucValueMasked;
 	INT8U error_codel;
 
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IRQ RMAP.\n");
+	}
+#endif
 
 	ucADDRReg = (unsigned char)uliRmapCh2WriteCmdAddress();
 
@@ -92,7 +97,9 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[0] = 0;
 
 #if DEBUG_ON
-	fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+	}
 #endif
 
 	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
@@ -107,7 +114,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 void vRmapCh3HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...
@@ -118,7 +125,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 void vRmapCh4HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...
@@ -129,7 +136,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 void vRmapCh5HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...
@@ -140,7 +147,7 @@ void vRmapCh5HandleIrq(void* pvContext) {
 void vRmapCh6HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*hold_context_ptr = ...;
 	// if (*hold_context_ptr == '0') {}...
@@ -151,7 +158,7 @@ void vRmapCh6HandleIrq(void* pvContext) {
 void vRmapCh7HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...
@@ -162,7 +169,7 @@ void vRmapCh7HandleIrq(void* pvContext) {
 void vRmapCh8HandleIrq(void* pvContext) {
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
-	volatile int* pviHoldContext = (volatile int*) pvContext;
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	// Use context value according to your app logic...
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...

@@ -428,7 +428,6 @@ txSenderACKs xSenderACK[N_ACKS_SENDER];
 
 }
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-void vPrintMemmoryPattern( TSimucam_MEB *xSimMebL );
 
 
 /* Entry point */
@@ -466,49 +465,34 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDefaultETHConf();
-	if (bIniSimucamStatus == FALSE) {
-		/* Default configuration for eth connection loaded */
-		#if DEBUG_ON
-			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
-		#endif
-		return -1;
-	}
-
 	bIniSimucamStatus = vLoadDebugConfs();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
+		}
+		#endif
+		return -1;
+	}
+
+	bIniSimucamStatus = vLoadDefaultETHConf();
+	if (bIniSimucamStatus == FALSE) {
+		/* Default configuration for eth connection loaded */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
+		}
 		#endif
 		return -1;
 	}
 
 
-/*
-
-	xDefaults.usiRows = 4510;
-	xDefaults.usiCols = 2255;
-	xDefaults.usiOLN = 30;
-	xDefaults.usiPreScanSerial = 25;
-	xDefaults.usiOverScanSerial = 15;
-	xDefaults.usiSyncPeriod = 6250;
-	xDefaults.usiDelay = 0;
-	xDefaults.bDataPacket = TRUE;
-	xDefaults.ulLineDelay = 90000;
-	xDefaults.ulColDelay = 0;
-	xDefaults.ulADCPixelDelay = 333;
-	xDefaults.ucLogicalAddr = 0x51;
-	xDefaults.ucRmapKey = 0xD1;
-
-*/
-
-
-
-
 	/* If debug is enable, will print the eth configuration in the*/
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 		vShowEthConfig();
+	}
 	#endif
 
 
@@ -516,9 +500,11 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-#if DEBUG_ON
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
-#endif
+	}
+	#endif
 		return -1;
 	}
 
@@ -582,98 +568,61 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	n_of_NFEE_in_mem = 1;
 
 #if DEBUG_ON
-	debug(fp, "Start to fill the memory with Pattern.\n");
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		debug(fp, "\nStart to fill the memory with Pattern.\n");
+	}
 #endif
-
 
 	/* memory 0 and 1*/
 	for ( mem_number = 0; mem_number < 2; mem_number++ ){
 		/* n NFEE */
-
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			fprintf(fp, "Memory %i\n",mem_number);
+		}
+		#endif
 		for( NFee_i = 0; NFee_i < n_of_NFEE_in_mem; NFee_i++ ) {
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp, "--NFEE %i\n", NFee_i);
+			}
+			#endif
 			/* 4 CCDs */
 			height_rows = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiOLN;
 			width_cols = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSPrescanN;
 			for( ccd_number = 0; ccd_number < 4; ccd_number++ ) {
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp, "-----CCD %i\n", ccd_number);
+				}
+				#endif
 
 				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
 					if (ccd_side == 0){
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp, "------Left side\n");
+						}
+						#endif
 						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xLeft.ulOffsetAddr;
 					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp, "------Right side\n");
+						}
+						#endif
 						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xRight.ulOffsetAddr;
 					}
 					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
 				}
-				#if DEBUG_ON
-					fprintf(fp, "NFEE %i - CCD %i. \n", NFee_i, ccd_number);
-				#endif
 			}
 		}
-		#if DEBUG_ON
-			fprintf(fp, "Memory %i. \n",mem_number);
-		#endif
 	}
 
 #if DEBUG_ON
-	debug(fp, "Memory Filled. \n");
-#endif
-
-
-}
-
-void vPrintMemmoryPattern( TSimucam_MEB *xSimMebL ) {
-	alt_u8 mem_number;
-	alt_u32 mem_offset;
-	alt_u8 ccd_number;
-	alt_u8 ccd_side;
-	alt_u32 width_cols;
-	alt_u32 height_rows;
-	alt_u8 n_of_NFEE_in_mem;
-	alt_u8 NFee_i;
-
-	n_of_NFEE_in_mem = 1;
-
-#if DEBUG_ON
-	debug(fp, "Start to fill the memory with Pattern.\n");
-#endif
-
-
-	/* memory 0 and 1*/
-	for ( mem_number = 0; mem_number < 2; mem_number++ ){
-		/* n NFEE */
-
-		for( NFee_i = 0; NFee_i < n_of_NFEE_in_mem; NFee_i++ ) {
-			/* 4 CCDs */
-			width_cols = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHeight + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiOLN;
-			height_rows = xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiHalfWidth + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSOverscanN + xSimMebL->xFeeControl.xNfee[NFee_i].xCcdInfo.usiSPrescanN;
-			for( ccd_number = 0; ccd_number < 4; ccd_number++ ) {
-
-				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
-					if (ccd_side == 0){
-						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xLeft.ulOffsetAddr;
-					} else {
-						mem_offset = xSimMebL->xFeeControl.xNfee[NFee_i].xMemMap.xCcd[ccd_number].xRight.ulOffsetAddr;
-					}
-					pattern_createPattern(mem_number, mem_offset, ccd_number, ccd_side, width_cols, height_rows);
-				}
-				#if DEBUG_ON
-					fprintf(fp, "NFEE %i - CCD %i. \n", NFee_i, ccd_number);
-				#endif
-			}
-		}
-		#if DEBUG_ON
-			fprintf(fp, "Memory %i. \n",mem_number);
-		#endif
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	debug(fp, "\nMemory Filled\n");
 	}
-
-#if DEBUG_ON
-	debug(fp, "Memory Filled. \n");
 #endif
 
-
 }
-
-
-
-
-

@@ -20,10 +20,10 @@
 void vFailCreateMutexSResources( INT8U error_code )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateMutexSResources. (exit)\n");
-	#endif
-	#if DEBUG_ON
 		printErrorTask(error_code);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -34,7 +34,9 @@ void vFailCreateMutexSResources( INT8U error_code )
 void vFailCreateMutexDMA( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp," CRITICAL: vFailCreateMutexDMA. (exit)\n");
+	}
 	#endif
 
 	/*
@@ -46,7 +48,9 @@ void vFailCreateMutexDMA( void )
 void vFailCreateSemaphoreResources( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateSemaphoreResources. (exit)\n");
+	}
 	#endif
 
 	/*
@@ -59,7 +63,9 @@ void vFailCreateSemaphoreResources( void )
 void vFailTestCriticasParts( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailTestCriticasParts. (exit)\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -71,11 +77,10 @@ void vFailTestCriticasParts( void )
 void vFailSendxSemCommInit( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendxSemCommInit. (exit)");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the vParserRXTask. (exit)\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -86,7 +91,9 @@ void vFailSendxSemCommInit( void )
 void vFailSendPreParsedSemaphore( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPreParsedSemaphore. (exit)\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -97,7 +104,9 @@ void vFailSendPreParsedSemaphore( void )
 void vFailSendPreAckReceiverSemaphore( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPreAckReceiverSemaphore. (exit)\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -109,7 +118,9 @@ void vFailSendPreAckReceiverSemaphore( void )
 void vFailSendPreAckSenderSemaphore( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPreAckSenderSemaphore. (exit)\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -121,11 +132,10 @@ void vFailSendPreAckSenderSemaphore( void )
 void vFailGetCountSemaphoreSenderTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphoreSenderTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get the semaphore and some error happens.(vSenderAckTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -136,11 +146,10 @@ void vFailGetCountSemaphoreSenderTask( void )
 void vFailGetMutexSenderTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMutexSenderTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get mutex that protects the xSenderACK.(vSenderAckTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -152,11 +161,10 @@ void vFailGetMutexSenderTask( void )
 void vFailGetCountSemaphoreReceiverTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphoreReceiverTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get the semaphore and some error happens.(vReceiverAckTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -167,11 +175,10 @@ void vFailGetCountSemaphoreReceiverTask( void )
 void vFailGetMutexReceiverTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMutexReceiverTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get mutex that protects the xSenderACK.(vReceiverAckTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -183,11 +190,10 @@ void vFailGetMutexReceiverTask( void )
 void vFailGetMutexTxUARTSenderTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMutexTxUARTSenderTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get mutex that protects the tx buffer.(vSenderAckTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -199,7 +205,9 @@ void vFailGetMutexTxUARTSenderTask( void )
 void vFailGetMacRTC( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetMacRTC\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -211,7 +219,9 @@ void vFailGetMacRTC( void )
 void vFailInitialization( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInitialization\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -223,7 +233,9 @@ void vFailInitialization( void )
 void vFailReceiverCreate( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vReceiverUartTask\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -235,7 +247,9 @@ void vFailReceiverCreate( void )
 void vFailSenderCreate( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSenderCreate\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -247,7 +261,9 @@ void vFailSenderCreate( void )
 void vFailDeleteInitialization( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailDeleteInitialization\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -259,11 +275,10 @@ void vFailDeleteInitialization( void )
 void vFailSetCountSemaphorexBuffer32( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer32. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not post to the semaphore.()\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -274,11 +289,10 @@ void vFailSetCountSemaphorexBuffer32( void )
 void vFailSetCountSemaphorexBuffer64( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer64. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not post to the semaphore.()\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -290,11 +304,10 @@ void vFailSetCountSemaphorexBuffer64( void )
 void vFailSetCountSemaphorexBuffer128( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetCountSemaphorexBuffer128. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not post to the semaphore.()\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -305,11 +318,10 @@ void vFailSetCountSemaphorexBuffer128( void )
 void vFailGetCountSemaphorexBuffer128( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer128. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get to the semaphore.()\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -320,11 +332,10 @@ void vFailGetCountSemaphorexBuffer128( void )
 void vFailGetCountSemaphorexBuffer64( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer64. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get to the semaphore.()\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -335,11 +346,10 @@ void vFailGetCountSemaphorexBuffer64( void )
 void vFailGetCountSemaphorexBuffer32( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorexBuffer32. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get to the semaphore.()\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -350,11 +360,10 @@ void vFailGetCountSemaphorexBuffer32( void )
 void vFailFoundBufferRetransmission( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"Warning: Incomming Ack id doesn't exists.\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not found the id in the (re)transmission buffers.(In Ack Handler)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -366,11 +375,10 @@ void vFailFoundBufferRetransmission( void )
 void vFailGetCountSemaphorePreParsedBuffer( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetCountSemaphorePreParsedBuffer. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get the semaphore and some error happens.(vParserRXTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -382,11 +390,10 @@ void vFailGetCountSemaphorePreParsedBuffer( void )
 void vFailGetxMutexPreParsedParserRxTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetxMutexPreParsedParserRxTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get the mutex and some error happens.(vParserRXTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -398,11 +405,10 @@ void vFailGetxMutexPreParsedParserRxTask( void )
 void vNoContentInPreParsedBuffer( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vNoContentInPreParsedBuffer. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Semaphore was post by some task but has no message in the PreParsedBuffer.(vParserRXTask)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -414,11 +420,10 @@ void vNoContentInPreParsedBuffer( void )
 void vCouldNotSendEthConfUART( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendEthConfUART. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send or not write ETH conf of the NUC in the (re)transmission buffer.(vSendEthConf)\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -429,11 +434,10 @@ void vCouldNotSendEthConfUART( void )
 void vFailSendNack( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendNack. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Send Nack using the PreAckSender buffer. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -444,11 +448,10 @@ void vFailSendNack( void )
 void vFailSetPreAckSenderBuffer( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetPreAckSenderBuffer. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the message to the task out_ack_handler using the PreAckSender buffer.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -459,11 +462,10 @@ void vFailSetPreAckSenderBuffer( void )
 void vFailSetPreParsedBuffer( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetPreParsedBuffer. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the message to the task parser_comm using the PreParsed buffer.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -475,11 +477,10 @@ void vFailSetPreParsedBuffer( void )
 void vFailSetPreAckReceiverBuffer( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSetPreAckReceiverBuffer. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the message to the task in_out_handler using the PreAckReceiver buffer.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -491,7 +492,9 @@ void vFailSetPreAckReceiverBuffer( void )
 void vFailParserCommTaskCreate( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailParserCommTaskCreate\n");
+	}
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -502,7 +505,9 @@ void vFailParserCommTaskCreate( void )
 void vFailInAckHandlerTaskCreate( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInAckHandlerTaskCreate\n");
+	}
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -513,7 +518,9 @@ void vFailInAckHandlerTaskCreate( void )
 void vFailOutAckHandlerTaskCreate( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailInAckHandlerTaskCreate\n");
+	}
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -525,7 +532,9 @@ void vFailOutAckHandlerTaskCreate( void )
 void vFailCreateTimerRetransmisison( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateTimerRetransmisison\n");
+	}
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -537,7 +546,9 @@ void vFailCreateTimerRetransmisison( void )
 void vCouldNotCheckBufferTimeOutFunction( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotCheckBufferTimeOutFunction\n");
+	}
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -549,7 +560,9 @@ void vCouldNotCheckBufferTimeOutFunction( void )
 void vFailTimeoutCheckerTaskCreate( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailTimeoutCheckerTaskCreate (Critico)\n");
+	}
 	#endif
 	/*
 	 * Implementaï¿½ï¿½o de indicaï¿½ï¿½o de falha antes de finalizar a execuï¿½ï¿½o
@@ -561,11 +574,10 @@ void vFailTimeoutCheckerTaskCreate( void )
 void vFailGetBlockingSemTimeoutTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailGetBlockingSemTimeoutTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Retrun from a blocking (0) OSSemPend with a error.\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -576,11 +588,10 @@ void vFailGetBlockingSemTimeoutTask( void )
 void vFailPostBlockingSemTimeoutTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailPostBlockingSemTimeoutTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not Post the semaphore for the TimeoutTask.\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -592,11 +603,10 @@ void vFailPostBlockingSemTimeoutTask( void )
 void vFailCouldNotRetransmitTimeoutTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCouldNotRetransmitTimeoutTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"After sleep for 50 ticks, could not get access to the tx uart. No retransmission occurs.\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -608,11 +618,10 @@ void vFailCouldNotRetransmitTimeoutTask( void )
 void vCouldNotRetransmitB32TimeoutTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotRetransmitB32TimeoutTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (32).\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -623,11 +632,10 @@ void vCouldNotRetransmitB32TimeoutTask( void )
 void vCouldNotRetransmitB64TimeoutTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotRetransmitB64TimeoutTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (64).\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -638,11 +646,10 @@ void vCouldNotRetransmitB64TimeoutTask( void )
 void vCouldNotRetransmitB128TimeoutTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotRetransmitB128TimeoutTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"There's something to retransmit but could not get the mutex for the buffer (128).\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -654,11 +661,10 @@ void vCouldNotRetransmitB128TimeoutTask( void )
 void vFailStartTimerRetransmission( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailStartTimerRetransmission. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Fail trying to start the timer xTimerRetransmission.\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -670,11 +676,10 @@ void vFailStartTimerRetransmission( void )
 void vCouldNotSendTurnOff( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendTurnOff. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the turn off command. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -685,11 +690,10 @@ void vCouldNotSendTurnOff( void )
 void vCouldNotSendReset( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendReset. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the reset command. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -700,11 +704,10 @@ void vCouldNotSendReset( void )
 void vCouldNotSendLog( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendLog. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send log packet to NUC. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -716,12 +719,11 @@ void vCouldNotSendLog( void )
 void vCouldNotSendTMPusCommand( const char *cData )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotSendTMPusCommand. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not send the TM PUS command to NUC. \n");
 		debug(fp,"cData");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -733,11 +735,10 @@ void vCouldNotSendTMPusCommand( const char *cData )
 void vWarnCouldNotgetMutexRetrans128( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vWarnCouldNotgetMutexRetrans128. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Warning: Could not get the mutex for the retransmission. The message will be lost.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -750,11 +751,10 @@ void vWarnCouldNotgetMutexRetrans128( void )
 void vFailCreateScheduleQueue( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateScheduleQueue. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"CRITICAL: Could not create the Queue to shcedule the access to the DMA.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -766,11 +766,10 @@ void vFailCreateScheduleQueue( void )
 void vFailCreateNFEEQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateNFEEQueue. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NSEE %hhu.\n",ucID);
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -782,11 +781,10 @@ void vFailCreateNFEEQueue( unsigned char ucID )
 void vFailCreateNFEESyncQueue( unsigned char ucID )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateNFEESyncQueue. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		fprintf(fp,"CRITICAL: Could not create the Queue to the NFEE %hhu.\n",ucID);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -797,11 +795,10 @@ void vFailCreateNFEESyncQueue( unsigned char ucID )
 void vCoudlNotCreateNFee0Task( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee0Task. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE 0 Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -813,11 +810,10 @@ void vCoudlNotCreateNFee0Task( void )
 void vCoudlNotCreateNFee1Task( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee1Task. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE 1 Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -828,11 +824,10 @@ void vCoudlNotCreateNFee1Task( void )
 void vCoudlNotCreateNFee2Task( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee2Task. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE 2 Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -843,11 +838,10 @@ void vCoudlNotCreateNFee2Task( void )
 void vCoudlNotCreateNFee3Task( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee3Task. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE 3 Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -858,11 +852,10 @@ void vCoudlNotCreateNFee3Task( void )
 void vCoudlNotCreateNFee4Task( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee4Task. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE 4 Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -873,11 +866,10 @@ void vCoudlNotCreateNFee4Task( void )
 void vCoudlNotCreateNFee5Task( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFee5Task. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE 5 Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -889,11 +881,10 @@ void vCoudlNotCreateNFee5Task( void )
 void vCoudlNotCreateNFeeControllerTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateNFeeControllerTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create NFEE Controller Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -905,11 +896,10 @@ void vCoudlNotCreateNFeeControllerTask( void )
 void vCoudlNotCreateDataControllerTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateDataControllerTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create Data Controller Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -921,11 +911,10 @@ void vCoudlNotCreateDataControllerTask( void )
 void vCoudlNotCreateMebTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCoudlNotCreateMebTask. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not create Meb Task.\n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -937,10 +926,10 @@ void vCoudlNotCreateMebTask( void )
 void vFailCreateMutexSPUSQueueMeb( INT8U error_code )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailCreateMutexSPUSQueueMeb. (exit)\n");
-	#endif
-	#if DEBUG_ON
 		printErrorTask(error_code);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -951,7 +940,9 @@ void vFailCreateMutexSPUSQueueMeb( INT8U error_code )
 void vFailSendPUStoMebTask( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendPUStoMebTask. (exit)\n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -962,11 +953,10 @@ void vFailSendPUStoMebTask( void )
 void vCouldNotGetCmdQueueMeb( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vCouldNotGetCmdQueueMeb. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get COmmand from Queue in the Meb Task. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -978,7 +968,9 @@ void vCouldNotGetCmdQueueMeb( void )
 void vCouldNotGetMutexMebPus( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotGetMutexMebPus. (exit)\n");
+	}
 	#endif
 	
 	/*
@@ -990,11 +982,10 @@ void vCouldNotGetMutexMebPus( void )
 void vCouldNotCreateQueueMaskNfeeCtrl( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotCreateQueueMaskNfeeCtrl. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not Create Queue Mask for NFEE Controller. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1005,11 +996,10 @@ void vCouldNotCreateQueueMaskNfeeCtrl( void )
 void vCouldNotCreateQueueMaskDataCtrl( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotCreateQueueMaskDataCtrl. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not Create Queue Mask for Data Controller. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1020,11 +1010,10 @@ void vCouldNotCreateQueueMaskDataCtrl( void )
 void vCouldNotGetQueueMaskNfeeCtrl( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotGetQueueMaskNfeeCtrl. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get Queue Mask for NFEE Controller. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1035,11 +1024,10 @@ void vCouldNotGetQueueMaskNfeeCtrl( void )
 void vCouldNotGetQueueMaskDataCtrl( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vCouldNotGetQueueMaskDataCtrl. (exit)\n");
-	#endif
-
-	#if DEBUG_ON
 		debug(fp,"Could not get Queue Mask for Data Controller. \n");
+	}
 	#endif	
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1051,7 +1039,9 @@ void vCouldNotGetQueueMaskDataCtrl( void )
 void vFailSendMsgAccessDMA( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-		fprintf(fp,"vFailSendMsgAccessDMA. FEE n: \n", ucTemp);
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMsgAccessDMA. FEE n:%hhu \n", ucTemp);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1062,7 +1052,9 @@ void vFailSendMsgAccessDMA( unsigned char ucTemp)
 void vFailRequestDMA( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-		fprintf(fp,"vFailRequestDMA. FEE n: \n", ucTemp);
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailRequestDMA. FEE n:%hhu \n", ucTemp);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1073,7 +1065,9 @@ void vFailRequestDMA( unsigned char ucTemp)
 void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-		fprintf(fp,"vFailRequestDMA. FEE n: \n", ucTemp);
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailRequestDMA. FEE n:%hhu \n", ucTemp);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1085,7 +1079,9 @@ void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 void vFailSendRMAPFromIRQ( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-		fprintf(fp,"vFailSendRMAPFromIRQ. FEE n: \n", ucTemp);
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendRMAPFromIRQ. FEE n:%hhu \n", ucTemp);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1097,7 +1093,9 @@ void vFailSendRMAPFromIRQ( unsigned char ucTemp)
 void vFailSendMsgSync( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-		fprintf(fp,"vFailSendMsgSync. FEE n: \n", ucTemp);
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMsgSync. FEE n:%hhu \n", ucTemp);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1108,7 +1106,9 @@ void vFailSendMsgSync( unsigned char ucTemp)
 void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
 {
 	#if DEBUG_ON
-		fprintf(fp,"vFailSendMsgSyncRMAPTRIGGER (FORCED MODE). FEE n: \n", ucTemp);
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMsgSyncRMAPTRIGGER (FORCED MODE). FEE n:%hhu \n", ucTemp);
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1119,7 +1119,9 @@ void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
 void vFailSendMsgMasterSyncMeb( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMsgMasterSyncMeb \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1130,7 +1132,9 @@ void vFailSendMsgMasterSyncMeb( void )
 void vFailSendMsgFeeCTRL( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendMsgFeeCTRL.  \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1141,7 +1145,9 @@ void vFailSendMsgFeeCTRL( void )
 void vFailSendMsgDataCTRL( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"vFailSendMsgDataCTRL.  \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1152,7 +1158,9 @@ void vFailSendMsgDataCTRL( void )
 void vFailFlushQueue( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushQueue.  \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1163,7 +1171,9 @@ void vFailFlushQueue( void )
 void vFailFlushQueueData( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushQueueData.  \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1175,7 +1185,9 @@ void vFailFlushQueueData( void )
 void vFailFlushMEBQueue( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushMEBQueue.  \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
@@ -1186,7 +1198,9 @@ void vFailFlushMEBQueue( void )
 void vFailFlushNFEEQueue( void )
 {
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp,"CRITICAL: vFailFlushNFEEQueue.  \n");
+	}
 	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o

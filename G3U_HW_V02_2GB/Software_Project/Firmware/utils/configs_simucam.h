@@ -51,7 +51,6 @@ typedef struct Defaults{
 	unsigned short int usiPatternType;
 	unsigned short int usiGuardNFEEDelay;
 
-
 }TDefaults;
 
 

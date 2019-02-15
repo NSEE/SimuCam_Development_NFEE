@@ -18,7 +18,9 @@ void vSenderComTask(void *task_data)
     eSenderMode = sConfiguringSender;
 
     #if DEBUG_ON
+    if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
         debug(fp,"Sender Comm Task. (Task on)\n");
+    }
     #endif
 
     for (;;){
@@ -36,7 +38,9 @@ void vSenderComTask(void *task_data)
                     OSSemAccept -> Non blocking Pend*/
 
                 #if DEBUG_ON
+            	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
                     debug(fp,"Preparing the Start Sequence.\n");
+            	}
                 #endif
 
                 /* id of the first message will be 1 */
@@ -44,11 +48,15 @@ void vSenderComTask(void *task_data)
                 if ( bSuccess == TRUE ) {
                     eSenderMode = sDummySender;
                     #if DEBUG_ON
+                    if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
                         debug(fp,"Success, start message in the retransmission buffer.\n");
+                    }
                     #endif                    
                 } else {
                     #if DEBUG_ON
+                	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
                         debug(fp,"Fail, try again in 5 seconds.\n");
+                	}
                     #endif 
                     eSenderMode = sStartingConnSender;
                     OSTimeDlyHMSM(0, 0, 5, 0); /*Sleeps for 5 second*/
@@ -58,17 +66,15 @@ void vSenderComTask(void *task_data)
 
             case sReadingQueue:
 
-                //pPointer = OSQPend(xQSenderTask, 0, &error_code);
-
-                
-
                 break;
             case sDummySender:
                 /* code */
                 eSenderMode = sDummySender;
 
                 #if DEBUG_ON
+                if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
                     debug(fp,"Working...\n");
+                }
                 #endif
 
 				OSTimeDlyHMSM(0, 0, 25, 0); /*Sleeps for 3 second*/
@@ -76,7 +82,9 @@ void vSenderComTask(void *task_data)
                 break;
             default:
                 #if DEBUG_ON
+            	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
                     debug(fp,"Sender default\n");
+            	}
                 #endif
                 eSenderMode = sDummySender;
                 break;

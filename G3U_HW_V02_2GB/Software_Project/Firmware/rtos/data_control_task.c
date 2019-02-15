@@ -19,7 +19,9 @@ void vDataControlTask(void *task_data) {
 	pxDataC = (TNData_Control *) task_data;
 
 	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
         debug(fp,"Data Controller Task. (Task on)\n");
+	}
     #endif
 
     pxDataC->bUpdateComplete = TRUE;

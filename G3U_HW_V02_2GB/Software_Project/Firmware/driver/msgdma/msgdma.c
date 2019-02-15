@@ -208,7 +208,9 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 		/*writing descriptor structure to the dispatcher, wait until descriptor
 		 write is succeed*/
 #if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		debug(fp, "invalid dma descriptor option\n");
+	}
 #endif
 
 		/*
@@ -229,9 +231,11 @@ static int msgdma_descriptor_async_transfer(alt_msgdma_dev *dev,
 			alt_busy_sleep(1); /* delay 1us */
 			if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 			{
-#if DEBUG_ON
-				debug(fp, "time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
-#endif
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					debug(fp, "time out after 5 msec while waiting free FIFO buffer for storing extended descriptor\n");
+				}
+				#endif
 				/*
 				 * Now that access to the registers is complete, release the
 				 * registers semaphore so that other threads can access the
@@ -345,13 +349,16 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 			|| (dev->descriptor_fifo_depth <= fifo_read_fill_level)) {
 		alt_busy_sleep(1); /* delay 1us */
 #if DEBUG_ON
-	fprintf(fp,"\n-- DMA can't write in the descriptor \n ");
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"\n-- DMA can't write in the descriptor \n ");
+	}
 #endif
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 		{
 #if DEBUG_ON
-			debug(fp,
-					"time out after 5 msec while waiting free FIFO buffer for storing descriptor\n");
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp, "time out after 5 msec while waiting free FIFO buffer for storing descriptor\n");
+	}
 #endif
 			return -ETIME;
 		}
@@ -389,9 +396,11 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 		counter = 0; /* reset counter */
 		/*writing descriptor structure to the dispatcher, wait until descriptor
 		 write is succeed*/
-#if DEBUG_ON
-		debug(fp, "invalid dma descriptor option\n");
-#endif
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "invalid dma descriptor option\n");
+		}
+		#endif
 
 		/*
 		 * Now that access to the registers is complete, release the
@@ -411,10 +420,11 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 			alt_busy_sleep(1); /* delay 1us */
 			if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 			{
-#if DEBUG_ON
-				debug(fp,
-						"time out after 5 msec while writing extended descriptor to FIFO\n");
-#endif
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					debug(fp, "time out after 5 msec while writing extended descriptor to FIFO\n");
+				}
+				#endif
 
 				/*
 				 * Now that access to the registers is complete, release the
@@ -459,10 +469,11 @@ static int msgdma_descriptor_sync_transfer(alt_msgdma_dev *dev,
 		alt_busy_sleep(1); /* delay 1us */
 		if (5000 <= counter) /* time_out if waiting longer than 5 msec */
 		{
-#if DEBUG_ON
-			debug(fp,
-					"time out after 5 msec while waiting for any pending transfer complete\n");
-#endif
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				debug(fp, "time out after 5 msec while waiting for any pending transfer complete\n");
+			}
+			#endif
 
 			/*
 			 * Now that access to the registers is complete, release the registers

@@ -48,11 +48,7 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
         /* todo: Not in use yet */
     }
 
-
-
     /* At this point all structures that manage the aplication of Simucam and FEE are initialized, the tasks could start now */
-
-
 }
 
 /* Only in MEB_CONFIG */

@@ -16,7 +16,9 @@ void vOutAckHandlerTask(void *task_data) {
     unsigned char crc = 0;
 
 	#if DEBUG_ON
+    if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		debug(fp,"Out Ack Handler Task. (Task on)\n");
+    }
 	#endif
 
 	eSenderAckState = sSAConfiguring;
@@ -88,7 +90,9 @@ void vOutAckHandlerTask(void *task_data) {
 				break;
 			default:
             	#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		            debug(fp,"Critical: Default State. Should never get here.(vOutAckHandlerTask)\n");
+				}
 	            #endif
                 eSenderAckState = sSAGettingACK;
 				break;

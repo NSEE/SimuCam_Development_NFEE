@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>13/02/2019 13:44:45</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1550072685288</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>14/02/2019 22:16:09</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1550189769915</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>E:\Maua\simucam-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -170,7 +170,7 @@
                 <SettingName>hal.linker.interrupt_stack_size</SettingName>
                 <Identifier>none</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>2048</Value>
+                <Value>1024</Value>
                 <DefaultValue>1024</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Size of the interrupt stack in bytes.</Description>

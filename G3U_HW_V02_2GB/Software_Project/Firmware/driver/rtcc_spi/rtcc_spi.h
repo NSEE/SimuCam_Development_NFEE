@@ -35,6 +35,7 @@
 
 #include "../../simucam_definitions.h"
 #include "../../utils/util.h"
+#include "../../utils/configs_simucam.h"
 
 bool RTCC_SPI_R_MAC(alt_u8 uc_EUI48_array[6]);
 

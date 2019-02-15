@@ -42,34 +42,21 @@ bool bInitializeSDCard( void ){
 			}
 		} else {
 			/* There's no SDCard in the slot */
-#if DEBUG_ON
-			debug(fp, "There is no SD in the slot.\r\n");
-#endif
+			#if DEBUG_ON
+				debug(fp, "There is no SD in the slot.\r\n");
+			#endif
 		}
 
 	} else {
 		/* Unable to open the SDCard device. */
 		bSucess = FALSE;
-#if DEBUG_ON
-		debug(fp, "Unable to open the SDCard device.\r\n");
-#endif
+		#if DEBUG_ON
+			debug(fp, "Unable to open the SDCard device.\r\n");
+		#endif
 	}
 
 	return bSucess;
 }
-
-/*Function with low performance, avoid to use as much as possible*/
-/*
-char cGetCharbyIndex( short int file_handle, unsigned int positionByte ) {
-	short int readCharacter;
-	vSetBytePosition(file_handle, positionByte);
-	readCharacter = alt_up_sd_card_read(file_handle);
-	if ( readCharacter < 0 ) {
-		readCharacter = -1;
-	}
-	return (char)readCharacter;
-}
-*/
 
 short int siOpenFile( char *filename ) {
 	return alt_up_sd_card_fopen( filename, FALSE );
@@ -82,14 +69,3 @@ bool siCloseFile( short int file_handle ) {
 char cGetNextChar( short int file_handle ) {
 	return (char)alt_up_sd_card_read( file_handle );
 }
-
-/*unsigned int uiGetEOFPointer( short int file_handle ) {
-	vSetBytePosition(file_handle,0);
-	while ( alt_up_sd_card_read(file_handle) > 0 ) {;}
-
-	return uiGetBytePosition(file_handle);
-}*/
-
-//ReadLine?
-
-//WriteLine?

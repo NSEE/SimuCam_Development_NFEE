@@ -48,7 +48,9 @@ bool vLoadDefaultETHConf( void ){
 						break;
 					case -2: 	//EOF
 						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							debug(fp,"SDCard: Problem with SDCard");
+						}
 						#endif
 						bEOF = TRUE;
 						break;
@@ -197,7 +199,9 @@ bool vLoadDefaultETHConf( void ){
 						close = siCloseFile(siFile);
 						if (close == FALSE){
 							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 								debug(fp,"SDCard: Can't close the file.\n");
+							}
 							#endif
 						}
 						/* End of Parser File */
@@ -206,28 +210,29 @@ bool vLoadDefaultETHConf( void ){
 						break;
 					default:
 						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 							fprintf(fp,"SDCard: Problem with the parser.\n");
+						}
 						#endif
 						break;
 				}
 			} while ( bEOF == FALSE );
 		} else {
 			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				fprintf(fp,"SDCard: File not found.\n");
+			}
 			#endif
 		}
 	} else {
 		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			fprintf(fp,"SDCard: No SDCard.\n");
+		}
 		#endif
 	}
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
-		/*Enviar mensagem que e gravar log que n�o encontrou o arquivo e come�ara a utilizar o padrao*/
-		printf("Aten��o: Arquivo de conex�o n�o foi encontrado. Carregando conf padrao\n");
-		printf("N�o encontrou:'%s'.\n", ETH_FILE_NAME);
-
-
 		xConfEth.siPortPUS = 17000;
 		/*ucIP[0].ucIP[1].ucIP[2].ucIP[3]
 		 *192.168.0.5*/
@@ -699,25 +704,7 @@ bool vLoadDebugConfs( void ){
 	}
 	/* Load the default configuration if not successful in read the SDCard */
 	if ( bSuccess == FALSE ) {
-		/*Enviar mensagem que e gravar log que n�o encontrou o arquivo e come�ara a utilizar o padrao*/
-		printf("Debug Configs: Could not load the default values from SDCard\n");
-		printf("Can't find the file:'%s'.\n", ETH_FILE_NAME);
-
-
-
-		xDefaults.usiRows = 4510;
-		xDefaults.usiCols = 2255;
-		xDefaults.usiOLN = 30;
-		xDefaults.usiPreScanSerial = 25;
-		xDefaults.usiOverScanSerial = 15;
-		xDefaults.usiSyncPeriod = 6250;
-		xDefaults.usiDelay = 20;
-		xDefaults.bDataPacket = TRUE;
-		xDefaults.ulLineDelay = 0;
-		xDefaults.ulColDelay = 0;
-		xDefaults.ulADCPixelDelay = 0;
-		xDefaults.ucLogicalAddr = 0x51;
-		xDefaults.ucRmapKey = 0xD1;
+		/* Load default? */
 
 	}
 
