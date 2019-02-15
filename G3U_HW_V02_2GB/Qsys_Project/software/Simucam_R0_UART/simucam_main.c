@@ -518,7 +518,6 @@ int main(void)
 	vFillMemmoryPattern( &xSimMeb );
 
 
-
 	/* Creating the initialization task*/
 	#if STACK_MONITOR
 		error_code = OSTaskCreateExt(vInitialTask,

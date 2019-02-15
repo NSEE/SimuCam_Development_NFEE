@@ -46,7 +46,7 @@ void vSyncHandleIrq(void* pvContext) {
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
+	volatile int* pviHoldContext = (volatile int*) pvContext;
 
 
 	uiCmdtoSend.ulWord = 0;
