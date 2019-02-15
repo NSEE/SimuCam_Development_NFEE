@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>14/02/2019 22:16:09</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1550189769915</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>E:\Maua\simucam-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>15/02/2019 09:24:49</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1550229889133</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>

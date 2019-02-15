@@ -8,8 +8,7 @@
 #include "rmap.h"
 
 //! [private function prototypes]
-static void vRmapWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
-		alt_u32 uliValue);
+static void vRmapWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset, alt_u32 uliValue);
 alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 
 static alt_u32 uliConvRmapCfgAddr(alt_u32 puliRmapAddr);

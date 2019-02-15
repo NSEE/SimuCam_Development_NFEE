@@ -506,22 +506,6 @@ bool vLoadDebugConfs( void ){
 						} while ( (c !=59) );
 
 						break;
-					case 'D':
-
-						do {
-							c = cGetNextChar(siFile);
-							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
-							}
-						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-						/*Tiago: Proteger com mutex*/
-						xDefaults.usiDelay = atoi( inteiro );
-						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
-
-						break;
 					case 'K':
 
 						do {

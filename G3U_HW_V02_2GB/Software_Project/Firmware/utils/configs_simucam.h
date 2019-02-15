@@ -38,7 +38,6 @@ typedef struct Defaults{
 	unsigned short int usiCols;
 	unsigned short int usiRows;
 	unsigned short int usiSyncPeriod;
-	unsigned short int usiDelay;
 	bool bDataPacket;
 	unsigned long ulLineDelay;
 	unsigned long ulColDelay;

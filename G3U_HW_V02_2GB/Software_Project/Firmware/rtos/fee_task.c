@@ -161,8 +161,8 @@ void vFeeTask(void *task_data) {
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-					fprintf(fp,"NFEE %hhu Task. RMAP KEY = %hu\n", xDefaults.ucRmapKey );
-					fprintf(fp,"NFEE %hhu Task. Log. Addr. = %hu \n", xDefaults.ucLogicalAddr);
+					fprintf(fp,"NFEE %hhu Task. RMAP KEY = %hu\n", pxNFee->ucId ,xDefaults.ucRmapKey );
+					fprintf(fp,"NFEE %hhu Task. Log. Addr. = %hu \n", pxNFee->ucId, xDefaults.ucLogicalAddr);
 				}
 				#endif
 
