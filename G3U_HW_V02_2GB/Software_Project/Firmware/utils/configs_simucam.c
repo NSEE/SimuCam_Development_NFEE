@@ -644,7 +644,7 @@ bool vLoadDebugConfs( void ){
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-						/*Tiago: Proteger com mutex*/
+						/*Tiago: Proteger com mutex*/+
 						xDefaults.usiDpuLogicalAddr = atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
