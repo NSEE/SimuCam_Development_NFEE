@@ -512,15 +512,15 @@ bool vLoadDebugConfs( void ){
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
+								(*p_inteiroll) = c;
+								p_inteiroll++;
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
 						xDefaults.ulColDelay = (unsigned long)atoll( inteiroll );
 						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiroll;
+						p_inteiroll = inteiroll;
 
 						break;
 					case 'M':
@@ -528,11 +528,11 @@ bool vLoadDebugConfs( void ){
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
+								(*p_inteiroll) = c;
+								p_inteiroll++;
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
 						xDefaults.ulADCPixelDelay = (unsigned long)atoll( inteiroll );
 						/*Tiago: Proteger com mutex*/
@@ -544,11 +544,11 @@ bool vLoadDebugConfs( void ){
 						do {
 							c = cGetNextChar(siFile);
 							if ( isdigit( c ) ) {
-								(*p_inteiro) = c;
-								p_inteiro++;
+								(*p_inteiroll) = c;
+								p_inteiroll++;
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
 						xDefaults.ulLineDelay = (unsigned long)atoll( inteiroll );
 						/*Tiago: Proteger com mutex*/

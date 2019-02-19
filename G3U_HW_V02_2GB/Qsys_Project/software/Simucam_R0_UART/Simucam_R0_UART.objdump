@@ -33,19 +33,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   9 .debug_aranges 00001d78  00000000  00000000  00056028  2**3
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_info   00072870  00000000  00000000  00057da0  2**0
+ 10 .debug_info   0007286e  00000000  00000000  00057da0  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_abbrev 0001699d  00000000  00000000  000ca610  2**0
+ 11 .debug_abbrev 0001699d  00000000  00000000  000ca60e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   000233c1  00000000  00000000  000e0fad  2**0
+ 12 .debug_line   000233c1  00000000  00000000  000e0fab  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_frame  00009a5c  00000000  00000000  00104370  2**2
+ 13 .debug_frame  00009a5c  00000000  00000000  0010436c  2**2
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_str    0000cc81  00000000  00000000  0010ddcc  2**0
+ 14 .debug_str    0000cc81  00000000  00000000  0010ddc8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 15 .debug_loc    00026ee0  00000000  00000000  0011aa4d  2**0
+ 15 .debug_loc    00026ee0  00000000  00000000  0011aa49  2**0
                   CONTENTS, READONLY, DEBUGGING
- 16 .debug_alt_sim_info 00000040  00000000  00000000  00141930  2**2
+ 16 .debug_alt_sim_info 00000040  00000000  00000000  0014192c  2**2
                   CONTENTS, READONLY, DEBUGGING
  17 .debug_ranges 000023a0  00000000  00000000  00141970  2**3
                   CONTENTS, READONLY, DEBUGGING
@@ -46824,20 +46824,20 @@ bool vLoadDefaultETHConf( void ){
 
 
 bool vLoadDebugConfs( void ){
-8111bbf4:	deffed04 	addi	sp,sp,-76
+8111bbf4:	deffee04 	addi	sp,sp,-72
 8111bbf8:	de00012e 	bgeu	sp,et,8111bc00 <vLoadDebugConfs+0xc>
 8111bbfc:	003b68fa 	trap	3
-8111bc00:	dfc01215 	stw	ra,72(sp)
-8111bc04:	df001115 	stw	fp,68(sp)
-8111bc08:	dc001015 	stw	r16,64(sp)
-8111bc0c:	df001104 	addi	fp,sp,68
+8111bc00:	dfc01115 	stw	ra,68(sp)
+8111bc04:	df001015 	stw	fp,64(sp)
+8111bc08:	dc000f15 	stw	r16,60(sp)
+8111bc0c:	df001004 	addi	fp,sp,64
 	short int siFile, sidhcpTemp;
 	bool bSuccess = FALSE;
-8111bc10:	e03fef15 	stw	zero,-68(fp)
+8111bc10:	e03ff015 	stw	zero,-64(fp)
 	bool bEOF = FALSE;
-8111bc14:	e03ff015 	stw	zero,-64(fp)
+8111bc14:	e03ff115 	stw	zero,-60(fp)
 	bool close = FALSE;
-8111bc18:	e03ff315 	stw	zero,-52(fp)
+8111bc18:	e03ff515 	stw	zero,-44(fp)
 	char c, *p_inteiro, *p_inteiroll;
 	char inteiro[8];
 	char inteiroll[24];
@@ -46856,40 +46856,40 @@ bool vLoadDebugConfs( void ){
 8111bc38:	01204574 	movhi	r4,33045
 8111bc3c:	21024c04 	addi	r4,r4,2352
 8111bc40:	11208b80 	call	811208b8 <siOpenFile>
-8111bc44:	e0bff40d 	sth	r2,-48(fp)
+8111bc44:	e0bff60d 	sth	r2,-40(fp)
 
 		if ( siFile >= 0 ){
-8111bc48:	e0bff40f 	ldh	r2,-48(fp)
+8111bc48:	e0bff60f 	ldh	r2,-40(fp)
 8111bc4c:	1003d016 	blt	r2,zero,8111cb90 <vLoadDebugConfs+0xf9c>
 
 			memset( &(inteiro) , 10 , sizeof( inteiro ) );
-8111bc50:	e0bff684 	addi	r2,fp,-38
+8111bc50:	e0bff704 	addi	r2,fp,-36
 8111bc54:	01800204 	movi	r6,8
 8111bc58:	01400284 	movi	r5,10
 8111bc5c:	1009883a 	mov	r4,r2
 8111bc60:	11244a00 	call	811244a0 <memset>
 			memset( &(inteiroll) , 10 , sizeof( inteiroll ) );
-8111bc64:	e0bff884 	addi	r2,fp,-30
+8111bc64:	e0bff904 	addi	r2,fp,-28
 8111bc68:	01800604 	movi	r6,24
 8111bc6c:	01400284 	movi	r5,10
 8111bc70:	1009883a 	mov	r4,r2
 8111bc74:	11244a00 	call	811244a0 <memset>
 			p_inteiro = inteiro;
-8111bc78:	e0bff684 	addi	r2,fp,-38
-8111bc7c:	e0bff215 	stw	r2,-56(fp)
+8111bc78:	e0bff704 	addi	r2,fp,-36
+8111bc7c:	e0bff315 	stw	r2,-52(fp)
 			p_inteiroll = inteiroll;
-8111bc80:	e0bff884 	addi	r2,fp,-30
-8111bc84:	e0bff515 	stw	r2,-44(fp)
+8111bc80:	e0bff904 	addi	r2,fp,-28
+8111bc84:	e0bff415 	stw	r2,-48(fp)
 
 			do {
 				c = cGetNextChar(siFile);
-8111bc88:	e0bff40f 	ldh	r2,-48(fp)
+8111bc88:	e0bff60f 	ldh	r2,-40(fp)
 8111bc8c:	1009883a 	mov	r4,r2
 8111bc90:	11209340 	call	81120934 <cGetNextChar>
-8111bc94:	e0bff145 	stb	r2,-59(fp)
+8111bc94:	e0bff245 	stb	r2,-55(fp)
 				//printf("%c \n", c);
 				switch (c) {
-8111bc98:	e0bff147 	ldb	r2,-59(fp)
+8111bc98:	e0bff247 	ldb	r2,-55(fp)
 8111bc9c:	10800084 	addi	r2,r2,2
 8111bca0:	10c01768 	cmpgeui	r3,r2,93
 8111bca4:	1803ae1e 	bne	r3,zero,8111cb60 <vLoadDebugConfs+0xf6c>
@@ -46994,24 +46994,24 @@ bool vLoadDebugConfs( void ){
 8111be30:	8111ca70 	cmpltui	r4,r16,18217
 					case 39:// single quote '
 						c = cGetNextChar(siFile);
-8111be34:	e0bff40f 	ldh	r2,-48(fp)
+8111be34:	e0bff60f 	ldh	r2,-40(fp)
 8111be38:	1009883a 	mov	r4,r2
 8111be3c:	11209340 	call	81120934 <cGetNextChar>
-8111be40:	e0bff145 	stb	r2,-59(fp)
+8111be40:	e0bff245 	stb	r2,-55(fp)
 						while ( c != 39 ){
 8111be44:	00000406 	br	8111be58 <vLoadDebugConfs+0x264>
 							c = cGetNextChar(siFile);
-8111be48:	e0bff40f 	ldh	r2,-48(fp)
+8111be48:	e0bff60f 	ldh	r2,-40(fp)
 8111be4c:	1009883a 	mov	r4,r2
 8111be50:	11209340 	call	81120934 <cGetNextChar>
-8111be54:	e0bff145 	stb	r2,-59(fp)
+8111be54:	e0bff245 	stb	r2,-55(fp)
 				c = cGetNextChar(siFile);
 				//printf("%c \n", c);
 				switch (c) {
 					case 39:// single quote '
 						c = cGetNextChar(siFile);
 						while ( c != 39 ){
-8111be58:	e0bff147 	ldb	r2,-59(fp)
+8111be58:	e0bff247 	ldb	r2,-55(fp)
 8111be5c:	108009d8 	cmpnei	r2,r2,39
 8111be60:	103ff91e 	bne	r2,zero,8111be48 <__reset+0xfb0fbe48>
 							c = cGetNextChar(siFile);
@@ -47021,7 +47021,7 @@ bool vLoadDebugConfs( void ){
 					case -1: 	//EOF
 						bEOF = TRUE;
 8111be68:	00800044 	movi	r2,1
-8111be6c:	e0bff015 	stw	r2,-64(fp)
+8111be6c:	e0bff115 	stw	r2,-60(fp)
 						break;
 8111be70:	00034406 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case -2: 	//EOF
@@ -47037,7 +47037,7 @@ bool vLoadDebugConfs( void ){
 						#endif
 						bEOF = TRUE;
 8111be90:	00800044 	movi	r2,1
-8111be94:	e0bff015 	stw	r2,-64(fp)
+8111be94:	e0bff115 	stw	r2,-60(fp)
 						break;
 8111be98:	00033a06 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 10: 	//ASCII: 10 = LN
@@ -47046,17 +47046,17 @@ bool vLoadDebugConfs( void ){
 
 					case 'S':
 						ucParser = 0;
-8111be9c:	e03ff105 	stb	zero,-60(fp)
+8111be9c:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111bea0:	e0bff40f 	ldh	r2,-48(fp)
+8111bea0:	e0bff60f 	ldh	r2,-40(fp)
 8111bea4:	1009883a 	mov	r4,r2
 8111bea8:	11209340 	call	81120934 <cGetNextChar>
-8111beac:	e0bff145 	stb	r2,-59(fp)
+8111beac:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111beb0:	d0e00317 	ldw	r3,-32756(gp)
-8111beb4:	e0bff147 	ldb	r2,-59(fp)
+8111beb4:	e0bff247 	ldb	r2,-55(fp)
 8111beb8:	10800044 	addi	r2,r2,1
 8111bebc:	1885883a 	add	r2,r3,r2
 8111bec0:	10800003 	ldbu	r2,0(r2)
@@ -47064,28 +47064,28 @@ bool vLoadDebugConfs( void ){
 8111bec8:	1080010c 	andi	r2,r2,4
 8111becc:	10000626 	beq	r2,zero,8111bee8 <vLoadDebugConfs+0x2f4>
 									(*p_inteiro) = c;
-8111bed0:	e0bff217 	ldw	r2,-56(fp)
-8111bed4:	e0fff143 	ldbu	r3,-59(fp)
+8111bed0:	e0bff317 	ldw	r2,-52(fp)
+8111bed4:	e0fff243 	ldbu	r3,-55(fp)
 8111bed8:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111bedc:	e0bff217 	ldw	r2,-56(fp)
+8111bedc:	e0bff317 	ldw	r2,-52(fp)
 8111bee0:	10800044 	addi	r2,r2,1
-8111bee4:	e0bff215 	stw	r2,-56(fp)
+8111bee4:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111bee8:	e0bff147 	ldb	r2,-59(fp)
+8111bee8:	e0bff247 	ldb	r2,-55(fp)
 8111beec:	10800ba0 	cmpeqi	r2,r2,46
 8111bef0:	1000031e 	bne	r2,zero,8111bf00 <vLoadDebugConfs+0x30c>
-8111bef4:	e0bff147 	ldb	r2,-59(fp)
+8111bef4:	e0bff247 	ldb	r2,-55(fp)
 8111bef8:	10800ed8 	cmpnei	r2,r2,59
 8111befc:	103fe81e 	bne	r2,zero,8111bea0 <__reset+0xfb0fbea0>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111bf00:	e0bff217 	ldw	r2,-56(fp)
+8111bf00:	e0bff317 	ldw	r2,-52(fp)
 8111bf04:	00c00284 	movi	r3,10
 8111bf08:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiSyncPeriod = (unsigned short int)atoi( inteiro );
-8111bf0c:	e0bff684 	addi	r2,fp,-38
+8111bf0c:	e0bff704 	addi	r2,fp,-36
 8111bf10:	1009883a 	mov	r4,r2
 8111bf14:	112312c0 	call	8112312c <atoi>
 8111bf18:	1007883a 	mov	r3,r2
@@ -47094,14 +47094,14 @@ bool vLoadDebugConfs( void ){
 8111bf24:	10c0038d 	sth	r3,14(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111bf28:	e0bff684 	addi	r2,fp,-38
-8111bf2c:	e0bff215 	stw	r2,-56(fp)
+8111bf28:	e0bff704 	addi	r2,fp,-36
+8111bf2c:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111bf30:	e0bff103 	ldbu	r2,-60(fp)
+8111bf30:	e0bff203 	ldbu	r2,-56(fp)
 8111bf34:	10800044 	addi	r2,r2,1
-8111bf38:	e0bff105 	stb	r2,-60(fp)
+8111bf38:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111bf3c:	e0bff147 	ldb	r2,-59(fp)
+8111bf3c:	e0bff247 	ldb	r2,-55(fp)
 8111bf40:	10800ed8 	cmpnei	r2,r2,59
 8111bf44:	103fd61e 	bne	r2,zero,8111bea0 <__reset+0xfb0fbea0>
 
@@ -47109,17 +47109,17 @@ bool vLoadDebugConfs( void ){
 8111bf48:	00030e06 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'P':
 						ucParser = 0;
-8111bf4c:	e03ff105 	stb	zero,-60(fp)
+8111bf4c:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111bf50:	e0bff40f 	ldh	r2,-48(fp)
+8111bf50:	e0bff60f 	ldh	r2,-40(fp)
 8111bf54:	1009883a 	mov	r4,r2
 8111bf58:	11209340 	call	81120934 <cGetNextChar>
-8111bf5c:	e0bff145 	stb	r2,-59(fp)
+8111bf5c:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111bf60:	d0e00317 	ldw	r3,-32756(gp)
-8111bf64:	e0bff147 	ldb	r2,-59(fp)
+8111bf64:	e0bff247 	ldb	r2,-55(fp)
 8111bf68:	10800044 	addi	r2,r2,1
 8111bf6c:	1885883a 	add	r2,r3,r2
 8111bf70:	10800003 	ldbu	r2,0(r2)
@@ -47127,28 +47127,28 @@ bool vLoadDebugConfs( void ){
 8111bf78:	1080010c 	andi	r2,r2,4
 8111bf7c:	10000626 	beq	r2,zero,8111bf98 <vLoadDebugConfs+0x3a4>
 									(*p_inteiro) = c;
-8111bf80:	e0bff217 	ldw	r2,-56(fp)
-8111bf84:	e0fff143 	ldbu	r3,-59(fp)
+8111bf80:	e0bff317 	ldw	r2,-52(fp)
+8111bf84:	e0fff243 	ldbu	r3,-55(fp)
 8111bf88:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111bf8c:	e0bff217 	ldw	r2,-56(fp)
+8111bf8c:	e0bff317 	ldw	r2,-52(fp)
 8111bf90:	10800044 	addi	r2,r2,1
-8111bf94:	e0bff215 	stw	r2,-56(fp)
+8111bf94:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111bf98:	e0bff147 	ldb	r2,-59(fp)
+8111bf98:	e0bff247 	ldb	r2,-55(fp)
 8111bf9c:	10800ba0 	cmpeqi	r2,r2,46
 8111bfa0:	1000031e 	bne	r2,zero,8111bfb0 <vLoadDebugConfs+0x3bc>
-8111bfa4:	e0bff147 	ldb	r2,-59(fp)
+8111bfa4:	e0bff247 	ldb	r2,-55(fp)
 8111bfa8:	10800ed8 	cmpnei	r2,r2,59
 8111bfac:	103fe81e 	bne	r2,zero,8111bf50 <__reset+0xfb0fbf50>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111bfb0:	e0bff217 	ldw	r2,-56(fp)
+8111bfb0:	e0bff317 	ldw	r2,-52(fp)
 8111bfb4:	00c00284 	movi	r3,10
 8111bfb8:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiPreScanSerial = (unsigned short int)atoi( inteiro );
-8111bfbc:	e0bff684 	addi	r2,fp,-38
+8111bfbc:	e0bff704 	addi	r2,fp,-36
 8111bfc0:	1009883a 	mov	r4,r2
 8111bfc4:	112312c0 	call	8112312c <atoi>
 8111bfc8:	1007883a 	mov	r3,r2
@@ -47157,14 +47157,14 @@ bool vLoadDebugConfs( void ){
 8111bfd4:	10c0018d 	sth	r3,6(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111bfd8:	e0bff684 	addi	r2,fp,-38
-8111bfdc:	e0bff215 	stw	r2,-56(fp)
+8111bfd8:	e0bff704 	addi	r2,fp,-36
+8111bfdc:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111bfe0:	e0bff103 	ldbu	r2,-60(fp)
+8111bfe0:	e0bff203 	ldbu	r2,-56(fp)
 8111bfe4:	10800044 	addi	r2,r2,1
-8111bfe8:	e0bff105 	stb	r2,-60(fp)
+8111bfe8:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111bfec:	e0bff147 	ldb	r2,-59(fp)
+8111bfec:	e0bff247 	ldb	r2,-55(fp)
 8111bff0:	10800ed8 	cmpnei	r2,r2,59
 8111bff4:	103fd61e 	bne	r2,zero,8111bf50 <__reset+0xfb0fbf50>
 
@@ -47172,17 +47172,17 @@ bool vLoadDebugConfs( void ){
 8111bff8:	0002e206 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'N':
 						ucParser = 0;
-8111bffc:	e03ff105 	stb	zero,-60(fp)
+8111bffc:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c000:	e0bff40f 	ldh	r2,-48(fp)
+8111c000:	e0bff60f 	ldh	r2,-40(fp)
 8111c004:	1009883a 	mov	r4,r2
 8111c008:	11209340 	call	81120934 <cGetNextChar>
-8111c00c:	e0bff145 	stb	r2,-59(fp)
+8111c00c:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c010:	d0e00317 	ldw	r3,-32756(gp)
-8111c014:	e0bff147 	ldb	r2,-59(fp)
+8111c014:	e0bff247 	ldb	r2,-55(fp)
 8111c018:	10800044 	addi	r2,r2,1
 8111c01c:	1885883a 	add	r2,r3,r2
 8111c020:	10800003 	ldbu	r2,0(r2)
@@ -47190,28 +47190,28 @@ bool vLoadDebugConfs( void ){
 8111c028:	1080010c 	andi	r2,r2,4
 8111c02c:	10000626 	beq	r2,zero,8111c048 <vLoadDebugConfs+0x454>
 									(*p_inteiro) = c;
-8111c030:	e0bff217 	ldw	r2,-56(fp)
-8111c034:	e0fff143 	ldbu	r3,-59(fp)
+8111c030:	e0bff317 	ldw	r2,-52(fp)
+8111c034:	e0fff243 	ldbu	r3,-55(fp)
 8111c038:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c03c:	e0bff217 	ldw	r2,-56(fp)
+8111c03c:	e0bff317 	ldw	r2,-52(fp)
 8111c040:	10800044 	addi	r2,r2,1
-8111c044:	e0bff215 	stw	r2,-56(fp)
+8111c044:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c048:	e0bff147 	ldb	r2,-59(fp)
+8111c048:	e0bff247 	ldb	r2,-55(fp)
 8111c04c:	10800ba0 	cmpeqi	r2,r2,46
 8111c050:	1000031e 	bne	r2,zero,8111c060 <vLoadDebugConfs+0x46c>
-8111c054:	e0bff147 	ldb	r2,-59(fp)
+8111c054:	e0bff247 	ldb	r2,-55(fp)
 8111c058:	10800ed8 	cmpnei	r2,r2,59
 8111c05c:	103fe81e 	bne	r2,zero,8111c000 <__reset+0xfb0fc000>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c060:	e0bff217 	ldw	r2,-56(fp)
+8111c060:	e0bff317 	ldw	r2,-52(fp)
 8111c064:	00c00284 	movi	r3,10
 8111c068:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiOverScanSerial = (unsigned short int)atoi( inteiro );
-8111c06c:	e0bff684 	addi	r2,fp,-38
+8111c06c:	e0bff704 	addi	r2,fp,-36
 8111c070:	1009883a 	mov	r4,r2
 8111c074:	112312c0 	call	8112312c <atoi>
 8111c078:	1007883a 	mov	r3,r2
@@ -47220,14 +47220,14 @@ bool vLoadDebugConfs( void ){
 8111c084:	10c0010d 	sth	r3,4(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c088:	e0bff684 	addi	r2,fp,-38
-8111c08c:	e0bff215 	stw	r2,-56(fp)
+8111c088:	e0bff704 	addi	r2,fp,-36
+8111c08c:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c090:	e0bff103 	ldbu	r2,-60(fp)
+8111c090:	e0bff203 	ldbu	r2,-56(fp)
 8111c094:	10800044 	addi	r2,r2,1
-8111c098:	e0bff105 	stb	r2,-60(fp)
+8111c098:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c09c:	e0bff147 	ldb	r2,-59(fp)
+8111c09c:	e0bff247 	ldb	r2,-55(fp)
 8111c0a0:	10800ed8 	cmpnei	r2,r2,59
 8111c0a4:	103fd61e 	bne	r2,zero,8111c000 <__reset+0xfb0fc000>
 
@@ -47235,17 +47235,17 @@ bool vLoadDebugConfs( void ){
 8111c0a8:	0002b606 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'R':
 						ucParser = 0;
-8111c0ac:	e03ff105 	stb	zero,-60(fp)
+8111c0ac:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c0b0:	e0bff40f 	ldh	r2,-48(fp)
+8111c0b0:	e0bff60f 	ldh	r2,-40(fp)
 8111c0b4:	1009883a 	mov	r4,r2
 8111c0b8:	11209340 	call	81120934 <cGetNextChar>
-8111c0bc:	e0bff145 	stb	r2,-59(fp)
+8111c0bc:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c0c0:	d0e00317 	ldw	r3,-32756(gp)
-8111c0c4:	e0bff147 	ldb	r2,-59(fp)
+8111c0c4:	e0bff247 	ldb	r2,-55(fp)
 8111c0c8:	10800044 	addi	r2,r2,1
 8111c0cc:	1885883a 	add	r2,r3,r2
 8111c0d0:	10800003 	ldbu	r2,0(r2)
@@ -47253,28 +47253,28 @@ bool vLoadDebugConfs( void ){
 8111c0d8:	1080010c 	andi	r2,r2,4
 8111c0dc:	10000626 	beq	r2,zero,8111c0f8 <vLoadDebugConfs+0x504>
 									(*p_inteiro) = c;
-8111c0e0:	e0bff217 	ldw	r2,-56(fp)
-8111c0e4:	e0fff143 	ldbu	r3,-59(fp)
+8111c0e0:	e0bff317 	ldw	r2,-52(fp)
+8111c0e4:	e0fff243 	ldbu	r3,-55(fp)
 8111c0e8:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c0ec:	e0bff217 	ldw	r2,-56(fp)
+8111c0ec:	e0bff317 	ldw	r2,-52(fp)
 8111c0f0:	10800044 	addi	r2,r2,1
-8111c0f4:	e0bff215 	stw	r2,-56(fp)
+8111c0f4:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c0f8:	e0bff147 	ldb	r2,-59(fp)
+8111c0f8:	e0bff247 	ldb	r2,-55(fp)
 8111c0fc:	10800ba0 	cmpeqi	r2,r2,46
 8111c100:	1000031e 	bne	r2,zero,8111c110 <vLoadDebugConfs+0x51c>
-8111c104:	e0bff147 	ldb	r2,-59(fp)
+8111c104:	e0bff247 	ldb	r2,-55(fp)
 8111c108:	10800ed8 	cmpnei	r2,r2,59
 8111c10c:	103fe81e 	bne	r2,zero,8111c0b0 <__reset+0xfb0fc0b0>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c110:	e0bff217 	ldw	r2,-56(fp)
+8111c110:	e0bff317 	ldw	r2,-52(fp)
 8111c114:	00c00284 	movi	r3,10
 8111c118:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.ucRmapKey = (unsigned short int)atoi( inteiro );
-8111c11c:	e0bff684 	addi	r2,fp,-38
+8111c11c:	e0bff704 	addi	r2,fp,-36
 8111c120:	1009883a 	mov	r4,r2
 8111c124:	112312c0 	call	8112312c <atoi>
 8111c128:	1007883a 	mov	r3,r2
@@ -47283,14 +47283,14 @@ bool vLoadDebugConfs( void ){
 8111c134:	10c0080d 	sth	r3,32(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c138:	e0bff684 	addi	r2,fp,-38
-8111c13c:	e0bff215 	stw	r2,-56(fp)
+8111c138:	e0bff704 	addi	r2,fp,-36
+8111c13c:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c140:	e0bff103 	ldbu	r2,-60(fp)
+8111c140:	e0bff203 	ldbu	r2,-56(fp)
 8111c144:	10800044 	addi	r2,r2,1
-8111c148:	e0bff105 	stb	r2,-60(fp)
+8111c148:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c14c:	e0bff147 	ldb	r2,-59(fp)
+8111c14c:	e0bff247 	ldb	r2,-55(fp)
 8111c150:	10800ed8 	cmpnei	r2,r2,59
 8111c154:	103fd61e 	bne	r2,zero,8111c0b0 <__reset+0xfb0fc0b0>
 
@@ -47298,17 +47298,17 @@ bool vLoadDebugConfs( void ){
 8111c158:	00028a06 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'A':
 						ucParser = 0;
-8111c15c:	e03ff105 	stb	zero,-60(fp)
+8111c15c:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c160:	e0bff40f 	ldh	r2,-48(fp)
+8111c160:	e0bff60f 	ldh	r2,-40(fp)
 8111c164:	1009883a 	mov	r4,r2
 8111c168:	11209340 	call	81120934 <cGetNextChar>
-8111c16c:	e0bff145 	stb	r2,-59(fp)
+8111c16c:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c170:	d0e00317 	ldw	r3,-32756(gp)
-8111c174:	e0bff147 	ldb	r2,-59(fp)
+8111c174:	e0bff247 	ldb	r2,-55(fp)
 8111c178:	10800044 	addi	r2,r2,1
 8111c17c:	1885883a 	add	r2,r3,r2
 8111c180:	10800003 	ldbu	r2,0(r2)
@@ -47316,28 +47316,28 @@ bool vLoadDebugConfs( void ){
 8111c188:	1080010c 	andi	r2,r2,4
 8111c18c:	10000626 	beq	r2,zero,8111c1a8 <vLoadDebugConfs+0x5b4>
 									(*p_inteiro) = c;
-8111c190:	e0bff217 	ldw	r2,-56(fp)
-8111c194:	e0fff143 	ldbu	r3,-59(fp)
+8111c190:	e0bff317 	ldw	r2,-52(fp)
+8111c194:	e0fff243 	ldbu	r3,-55(fp)
 8111c198:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c19c:	e0bff217 	ldw	r2,-56(fp)
+8111c19c:	e0bff317 	ldw	r2,-52(fp)
 8111c1a0:	10800044 	addi	r2,r2,1
-8111c1a4:	e0bff215 	stw	r2,-56(fp)
+8111c1a4:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c1a8:	e0bff147 	ldb	r2,-59(fp)
+8111c1a8:	e0bff247 	ldb	r2,-55(fp)
 8111c1ac:	10800ba0 	cmpeqi	r2,r2,46
 8111c1b0:	1000031e 	bne	r2,zero,8111c1c0 <vLoadDebugConfs+0x5cc>
-8111c1b4:	e0bff147 	ldb	r2,-59(fp)
+8111c1b4:	e0bff247 	ldb	r2,-55(fp)
 8111c1b8:	10800ed8 	cmpnei	r2,r2,59
 8111c1bc:	103fe81e 	bne	r2,zero,8111c160 <__reset+0xfb0fc160>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c1c0:	e0bff217 	ldw	r2,-56(fp)
+8111c1c0:	e0bff317 	ldw	r2,-52(fp)
 8111c1c4:	00c00284 	movi	r3,10
 8111c1c8:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.ucLogicalAddr = (unsigned short int)atoi( inteiro );
-8111c1cc:	e0bff684 	addi	r2,fp,-38
+8111c1cc:	e0bff704 	addi	r2,fp,-36
 8111c1d0:	1009883a 	mov	r4,r2
 8111c1d4:	112312c0 	call	8112312c <atoi>
 8111c1d8:	1007883a 	mov	r3,r2
@@ -47346,14 +47346,14 @@ bool vLoadDebugConfs( void ){
 8111c1e4:	10c0088d 	sth	r3,34(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c1e8:	e0bff684 	addi	r2,fp,-38
-8111c1ec:	e0bff215 	stw	r2,-56(fp)
+8111c1e8:	e0bff704 	addi	r2,fp,-36
+8111c1ec:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c1f0:	e0bff103 	ldbu	r2,-60(fp)
+8111c1f0:	e0bff203 	ldbu	r2,-56(fp)
 8111c1f4:	10800044 	addi	r2,r2,1
-8111c1f8:	e0bff105 	stb	r2,-60(fp)
+8111c1f8:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c1fc:	e0bff147 	ldb	r2,-59(fp)
+8111c1fc:	e0bff247 	ldb	r2,-55(fp)
 8111c200:	10800ed8 	cmpnei	r2,r2,59
 8111c204:	103fd61e 	bne	r2,zero,8111c160 <__reset+0xfb0fc160>
 
@@ -47361,17 +47361,17 @@ bool vLoadDebugConfs( void ){
 8111c208:	00025e06 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'L':
 						ucParser = 0;
-8111c20c:	e03ff105 	stb	zero,-60(fp)
+8111c20c:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c210:	e0bff40f 	ldh	r2,-48(fp)
+8111c210:	e0bff60f 	ldh	r2,-40(fp)
 8111c214:	1009883a 	mov	r4,r2
 8111c218:	11209340 	call	81120934 <cGetNextChar>
-8111c21c:	e0bff145 	stb	r2,-59(fp)
+8111c21c:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c220:	d0e00317 	ldw	r3,-32756(gp)
-8111c224:	e0bff147 	ldb	r2,-59(fp)
+8111c224:	e0bff247 	ldb	r2,-55(fp)
 8111c228:	10800044 	addi	r2,r2,1
 8111c22c:	1885883a 	add	r2,r3,r2
 8111c230:	10800003 	ldbu	r2,0(r2)
@@ -47379,28 +47379,28 @@ bool vLoadDebugConfs( void ){
 8111c238:	1080010c 	andi	r2,r2,4
 8111c23c:	10000626 	beq	r2,zero,8111c258 <vLoadDebugConfs+0x664>
 									(*p_inteiro) = c;
-8111c240:	e0bff217 	ldw	r2,-56(fp)
-8111c244:	e0fff143 	ldbu	r3,-59(fp)
+8111c240:	e0bff317 	ldw	r2,-52(fp)
+8111c244:	e0fff243 	ldbu	r3,-55(fp)
 8111c248:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c24c:	e0bff217 	ldw	r2,-56(fp)
+8111c24c:	e0bff317 	ldw	r2,-52(fp)
 8111c250:	10800044 	addi	r2,r2,1
-8111c254:	e0bff215 	stw	r2,-56(fp)
+8111c254:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c258:	e0bff147 	ldb	r2,-59(fp)
+8111c258:	e0bff247 	ldb	r2,-55(fp)
 8111c25c:	10800ba0 	cmpeqi	r2,r2,46
 8111c260:	1000031e 	bne	r2,zero,8111c270 <vLoadDebugConfs+0x67c>
-8111c264:	e0bff147 	ldb	r2,-59(fp)
+8111c264:	e0bff247 	ldb	r2,-55(fp)
 8111c268:	10800ed8 	cmpnei	r2,r2,59
 8111c26c:	103fe81e 	bne	r2,zero,8111c210 <__reset+0xfb0fc210>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c270:	e0bff217 	ldw	r2,-56(fp)
+8111c270:	e0bff317 	ldw	r2,-52(fp)
 8111c274:	00c00284 	movi	r3,10
 8111c278:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiRows = (unsigned short int)atoi( inteiro );
-8111c27c:	e0bff684 	addi	r2,fp,-38
+8111c27c:	e0bff704 	addi	r2,fp,-36
 8111c280:	1009883a 	mov	r4,r2
 8111c284:	112312c0 	call	8112312c <atoi>
 8111c288:	1007883a 	mov	r3,r2
@@ -47409,14 +47409,14 @@ bool vLoadDebugConfs( void ){
 8111c294:	10c0030d 	sth	r3,12(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c298:	e0bff684 	addi	r2,fp,-38
-8111c29c:	e0bff215 	stw	r2,-56(fp)
+8111c298:	e0bff704 	addi	r2,fp,-36
+8111c29c:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c2a0:	e0bff103 	ldbu	r2,-60(fp)
+8111c2a0:	e0bff203 	ldbu	r2,-56(fp)
 8111c2a4:	10800044 	addi	r2,r2,1
-8111c2a8:	e0bff105 	stb	r2,-60(fp)
+8111c2a8:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c2ac:	e0bff147 	ldb	r2,-59(fp)
+8111c2ac:	e0bff247 	ldb	r2,-55(fp)
 8111c2b0:	10800ed8 	cmpnei	r2,r2,59
 8111c2b4:	103fd61e 	bne	r2,zero,8111c210 <__reset+0xfb0fc210>
 
@@ -47425,17 +47425,17 @@ bool vLoadDebugConfs( void ){
 
 					case 'O':
 						ucParser = 0;
-8111c2bc:	e03ff105 	stb	zero,-60(fp)
+8111c2bc:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c2c0:	e0bff40f 	ldh	r2,-48(fp)
+8111c2c0:	e0bff60f 	ldh	r2,-40(fp)
 8111c2c4:	1009883a 	mov	r4,r2
 8111c2c8:	11209340 	call	81120934 <cGetNextChar>
-8111c2cc:	e0bff145 	stb	r2,-59(fp)
+8111c2cc:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c2d0:	d0e00317 	ldw	r3,-32756(gp)
-8111c2d4:	e0bff147 	ldb	r2,-59(fp)
+8111c2d4:	e0bff247 	ldb	r2,-55(fp)
 8111c2d8:	10800044 	addi	r2,r2,1
 8111c2dc:	1885883a 	add	r2,r3,r2
 8111c2e0:	10800003 	ldbu	r2,0(r2)
@@ -47443,28 +47443,28 @@ bool vLoadDebugConfs( void ){
 8111c2e8:	1080010c 	andi	r2,r2,4
 8111c2ec:	10000626 	beq	r2,zero,8111c308 <vLoadDebugConfs+0x714>
 									(*p_inteiro) = c;
-8111c2f0:	e0bff217 	ldw	r2,-56(fp)
-8111c2f4:	e0fff143 	ldbu	r3,-59(fp)
+8111c2f0:	e0bff317 	ldw	r2,-52(fp)
+8111c2f4:	e0fff243 	ldbu	r3,-55(fp)
 8111c2f8:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c2fc:	e0bff217 	ldw	r2,-56(fp)
+8111c2fc:	e0bff317 	ldw	r2,-52(fp)
 8111c300:	10800044 	addi	r2,r2,1
-8111c304:	e0bff215 	stw	r2,-56(fp)
+8111c304:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c308:	e0bff147 	ldb	r2,-59(fp)
+8111c308:	e0bff247 	ldb	r2,-55(fp)
 8111c30c:	10800ba0 	cmpeqi	r2,r2,46
 8111c310:	1000031e 	bne	r2,zero,8111c320 <vLoadDebugConfs+0x72c>
-8111c314:	e0bff147 	ldb	r2,-59(fp)
+8111c314:	e0bff247 	ldb	r2,-55(fp)
 8111c318:	10800ed8 	cmpnei	r2,r2,59
 8111c31c:	103fe81e 	bne	r2,zero,8111c2c0 <__reset+0xfb0fc2c0>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c320:	e0bff217 	ldw	r2,-56(fp)
+8111c320:	e0bff317 	ldw	r2,-52(fp)
 8111c324:	00c00284 	movi	r3,10
 8111c328:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiOLN = (unsigned short int)atoi( inteiro );
-8111c32c:	e0bff684 	addi	r2,fp,-38
+8111c32c:	e0bff704 	addi	r2,fp,-36
 8111c330:	1009883a 	mov	r4,r2
 8111c334:	112312c0 	call	8112312c <atoi>
 8111c338:	1007883a 	mov	r3,r2
@@ -47473,14 +47473,14 @@ bool vLoadDebugConfs( void ){
 8111c344:	10c0020d 	sth	r3,8(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c348:	e0bff684 	addi	r2,fp,-38
-8111c34c:	e0bff215 	stw	r2,-56(fp)
+8111c348:	e0bff704 	addi	r2,fp,-36
+8111c34c:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c350:	e0bff103 	ldbu	r2,-60(fp)
+8111c350:	e0bff203 	ldbu	r2,-56(fp)
 8111c354:	10800044 	addi	r2,r2,1
-8111c358:	e0bff105 	stb	r2,-60(fp)
+8111c358:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c35c:	e0bff147 	ldb	r2,-59(fp)
+8111c35c:	e0bff247 	ldb	r2,-55(fp)
 8111c360:	10800ed8 	cmpnei	r2,r2,59
 8111c364:	103fd61e 	bne	r2,zero,8111c2c0 <__reset+0xfb0fc2c0>
 
@@ -47488,17 +47488,17 @@ bool vLoadDebugConfs( void ){
 8111c368:	00020606 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'C':
 						ucParser = 0;
-8111c36c:	e03ff105 	stb	zero,-60(fp)
+8111c36c:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c370:	e0bff40f 	ldh	r2,-48(fp)
+8111c370:	e0bff60f 	ldh	r2,-40(fp)
 8111c374:	1009883a 	mov	r4,r2
 8111c378:	11209340 	call	81120934 <cGetNextChar>
-8111c37c:	e0bff145 	stb	r2,-59(fp)
+8111c37c:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c380:	d0e00317 	ldw	r3,-32756(gp)
-8111c384:	e0bff147 	ldb	r2,-59(fp)
+8111c384:	e0bff247 	ldb	r2,-55(fp)
 8111c388:	10800044 	addi	r2,r2,1
 8111c38c:	1885883a 	add	r2,r3,r2
 8111c390:	10800003 	ldbu	r2,0(r2)
@@ -47506,28 +47506,28 @@ bool vLoadDebugConfs( void ){
 8111c398:	1080010c 	andi	r2,r2,4
 8111c39c:	10000626 	beq	r2,zero,8111c3b8 <vLoadDebugConfs+0x7c4>
 									(*p_inteiro) = c;
-8111c3a0:	e0bff217 	ldw	r2,-56(fp)
-8111c3a4:	e0fff143 	ldbu	r3,-59(fp)
+8111c3a0:	e0bff317 	ldw	r2,-52(fp)
+8111c3a4:	e0fff243 	ldbu	r3,-55(fp)
 8111c3a8:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c3ac:	e0bff217 	ldw	r2,-56(fp)
+8111c3ac:	e0bff317 	ldw	r2,-52(fp)
 8111c3b0:	10800044 	addi	r2,r2,1
-8111c3b4:	e0bff215 	stw	r2,-56(fp)
+8111c3b4:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c3b8:	e0bff147 	ldb	r2,-59(fp)
+8111c3b8:	e0bff247 	ldb	r2,-55(fp)
 8111c3bc:	10800ba0 	cmpeqi	r2,r2,46
 8111c3c0:	1000031e 	bne	r2,zero,8111c3d0 <vLoadDebugConfs+0x7dc>
-8111c3c4:	e0bff147 	ldb	r2,-59(fp)
+8111c3c4:	e0bff247 	ldb	r2,-55(fp)
 8111c3c8:	10800ed8 	cmpnei	r2,r2,59
 8111c3cc:	103fe81e 	bne	r2,zero,8111c370 <__reset+0xfb0fc370>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c3d0:	e0bff217 	ldw	r2,-56(fp)
+8111c3d0:	e0bff317 	ldw	r2,-52(fp)
 8111c3d4:	00c00284 	movi	r3,10
 8111c3d8:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.usiCols = (unsigned short int)atoi( inteiro );
-8111c3dc:	e0bff684 	addi	r2,fp,-38
+8111c3dc:	e0bff704 	addi	r2,fp,-36
 8111c3e0:	1009883a 	mov	r4,r2
 8111c3e4:	112312c0 	call	8112312c <atoi>
 8111c3e8:	1007883a 	mov	r3,r2
@@ -47536,14 +47536,14 @@ bool vLoadDebugConfs( void ){
 8111c3f4:	10c0028d 	sth	r3,10(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c3f8:	e0bff684 	addi	r2,fp,-38
-8111c3fc:	e0bff215 	stw	r2,-56(fp)
+8111c3f8:	e0bff704 	addi	r2,fp,-36
+8111c3fc:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c400:	e0bff103 	ldbu	r2,-60(fp)
+8111c400:	e0bff203 	ldbu	r2,-56(fp)
 8111c404:	10800044 	addi	r2,r2,1
-8111c408:	e0bff105 	stb	r2,-60(fp)
+8111c408:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c40c:	e0bff147 	ldb	r2,-59(fp)
+8111c40c:	e0bff247 	ldb	r2,-55(fp)
 8111c410:	10800ed8 	cmpnei	r2,r2,59
 8111c414:	103fd61e 	bne	r2,zero,8111c370 <__reset+0xfb0fc370>
 
@@ -47553,39 +47553,39 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c41c:	e0bff40f 	ldh	r2,-48(fp)
+8111c41c:	e0bff60f 	ldh	r2,-40(fp)
 8111c420:	1009883a 	mov	r4,r2
 8111c424:	11209340 	call	81120934 <cGetNextChar>
-8111c428:	e0bff145 	stb	r2,-59(fp)
+8111c428:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c42c:	d0e00317 	ldw	r3,-32756(gp)
-8111c430:	e0bff147 	ldb	r2,-59(fp)
+8111c430:	e0bff247 	ldb	r2,-55(fp)
 8111c434:	10800044 	addi	r2,r2,1
 8111c438:	1885883a 	add	r2,r3,r2
 8111c43c:	10800003 	ldbu	r2,0(r2)
 8111c440:	10803fcc 	andi	r2,r2,255
 8111c444:	1080010c 	andi	r2,r2,4
 8111c448:	10000626 	beq	r2,zero,8111c464 <vLoadDebugConfs+0x870>
-								(*p_inteiro) = c;
-8111c44c:	e0bff217 	ldw	r2,-56(fp)
-8111c450:	e0fff143 	ldbu	r3,-59(fp)
+								(*p_inteiroll) = c;
+8111c44c:	e0bff417 	ldw	r2,-48(fp)
+8111c450:	e0fff243 	ldbu	r3,-55(fp)
 8111c454:	10c00005 	stb	r3,0(r2)
-								p_inteiro++;
-8111c458:	e0bff217 	ldw	r2,-56(fp)
+								p_inteiroll++;
+8111c458:	e0bff417 	ldw	r2,-48(fp)
 8111c45c:	10800044 	addi	r2,r2,1
-8111c460:	e0bff215 	stw	r2,-56(fp)
+8111c460:	e0bff415 	stw	r2,-48(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c464:	e0bff147 	ldb	r2,-59(fp)
+8111c464:	e0bff247 	ldb	r2,-55(fp)
 8111c468:	10800ed8 	cmpnei	r2,r2,59
 8111c46c:	103feb1e 	bne	r2,zero,8111c41c <__reset+0xfb0fc41c>
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c470:	e0bff217 	ldw	r2,-56(fp)
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+8111c470:	e0bff417 	ldw	r2,-48(fp)
 8111c474:	00c00284 	movi	r3,10
 8111c478:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.ulColDelay = (unsigned long)atoll( inteiroll );
-8111c47c:	e0bff884 	addi	r2,fp,-30
+8111c47c:	e0bff904 	addi	r2,fp,-28
 8111c480:	1009883a 	mov	r4,r2
 8111c484:	11231440 	call	81123144 <atoll>
 8111c488:	1009883a 	mov	r4,r2
@@ -47595,9 +47595,9 @@ bool vLoadDebugConfs( void ){
 8111c498:	10a25304 	addi	r2,r2,-30388
 8111c49c:	10c00615 	stw	r3,24(r2)
 						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiroll;
-8111c4a0:	e0bff884 	addi	r2,fp,-30
-8111c4a4:	e0bff215 	stw	r2,-56(fp)
+						p_inteiroll = inteiroll;
+8111c4a0:	e0bff904 	addi	r2,fp,-28
+8111c4a4:	e0bff415 	stw	r2,-48(fp)
 
 						break;
 8111c4a8:	0001b606 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47605,39 +47605,39 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c4ac:	e0bff40f 	ldh	r2,-48(fp)
+8111c4ac:	e0bff60f 	ldh	r2,-40(fp)
 8111c4b0:	1009883a 	mov	r4,r2
 8111c4b4:	11209340 	call	81120934 <cGetNextChar>
-8111c4b8:	e0bff145 	stb	r2,-59(fp)
+8111c4b8:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c4bc:	d0e00317 	ldw	r3,-32756(gp)
-8111c4c0:	e0bff147 	ldb	r2,-59(fp)
+8111c4c0:	e0bff247 	ldb	r2,-55(fp)
 8111c4c4:	10800044 	addi	r2,r2,1
 8111c4c8:	1885883a 	add	r2,r3,r2
 8111c4cc:	10800003 	ldbu	r2,0(r2)
 8111c4d0:	10803fcc 	andi	r2,r2,255
 8111c4d4:	1080010c 	andi	r2,r2,4
 8111c4d8:	10000626 	beq	r2,zero,8111c4f4 <vLoadDebugConfs+0x900>
-								(*p_inteiro) = c;
-8111c4dc:	e0bff217 	ldw	r2,-56(fp)
-8111c4e0:	e0fff143 	ldbu	r3,-59(fp)
+								(*p_inteiroll) = c;
+8111c4dc:	e0bff417 	ldw	r2,-48(fp)
+8111c4e0:	e0fff243 	ldbu	r3,-55(fp)
 8111c4e4:	10c00005 	stb	r3,0(r2)
-								p_inteiro++;
-8111c4e8:	e0bff217 	ldw	r2,-56(fp)
+								p_inteiroll++;
+8111c4e8:	e0bff417 	ldw	r2,-48(fp)
 8111c4ec:	10800044 	addi	r2,r2,1
-8111c4f0:	e0bff215 	stw	r2,-56(fp)
+8111c4f0:	e0bff415 	stw	r2,-48(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c4f4:	e0bff147 	ldb	r2,-59(fp)
+8111c4f4:	e0bff247 	ldb	r2,-55(fp)
 8111c4f8:	10800ed8 	cmpnei	r2,r2,59
 8111c4fc:	103feb1e 	bne	r2,zero,8111c4ac <__reset+0xfb0fc4ac>
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c500:	e0bff217 	ldw	r2,-56(fp)
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+8111c500:	e0bff417 	ldw	r2,-48(fp)
 8111c504:	00c00284 	movi	r3,10
 8111c508:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.ulADCPixelDelay = (unsigned long)atoll( inteiroll );
-8111c50c:	e0bff884 	addi	r2,fp,-30
+8111c50c:	e0bff904 	addi	r2,fp,-28
 8111c510:	1009883a 	mov	r4,r2
 8111c514:	11231440 	call	81123144 <atoll>
 8111c518:	1009883a 	mov	r4,r2
@@ -47648,8 +47648,8 @@ bool vLoadDebugConfs( void ){
 8111c52c:	10c00715 	stw	r3,28(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiroll = inteiroll;
-8111c530:	e0bff884 	addi	r2,fp,-30
-8111c534:	e0bff515 	stw	r2,-44(fp)
+8111c530:	e0bff904 	addi	r2,fp,-28
+8111c534:	e0bff415 	stw	r2,-48(fp)
 
 						break;
 8111c538:	00019206 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47657,39 +47657,39 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c53c:	e0bff40f 	ldh	r2,-48(fp)
+8111c53c:	e0bff60f 	ldh	r2,-40(fp)
 8111c540:	1009883a 	mov	r4,r2
 8111c544:	11209340 	call	81120934 <cGetNextChar>
-8111c548:	e0bff145 	stb	r2,-59(fp)
+8111c548:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c54c:	d0e00317 	ldw	r3,-32756(gp)
-8111c550:	e0bff147 	ldb	r2,-59(fp)
+8111c550:	e0bff247 	ldb	r2,-55(fp)
 8111c554:	10800044 	addi	r2,r2,1
 8111c558:	1885883a 	add	r2,r3,r2
 8111c55c:	10800003 	ldbu	r2,0(r2)
 8111c560:	10803fcc 	andi	r2,r2,255
 8111c564:	1080010c 	andi	r2,r2,4
 8111c568:	10000626 	beq	r2,zero,8111c584 <vLoadDebugConfs+0x990>
-								(*p_inteiro) = c;
-8111c56c:	e0bff217 	ldw	r2,-56(fp)
-8111c570:	e0fff143 	ldbu	r3,-59(fp)
+								(*p_inteiroll) = c;
+8111c56c:	e0bff417 	ldw	r2,-48(fp)
+8111c570:	e0fff243 	ldbu	r3,-55(fp)
 8111c574:	10c00005 	stb	r3,0(r2)
-								p_inteiro++;
-8111c578:	e0bff217 	ldw	r2,-56(fp)
+								p_inteiroll++;
+8111c578:	e0bff417 	ldw	r2,-48(fp)
 8111c57c:	10800044 	addi	r2,r2,1
-8111c580:	e0bff215 	stw	r2,-56(fp)
+8111c580:	e0bff415 	stw	r2,-48(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c584:	e0bff147 	ldb	r2,-59(fp)
+8111c584:	e0bff247 	ldb	r2,-55(fp)
 8111c588:	10800ed8 	cmpnei	r2,r2,59
 8111c58c:	103feb1e 	bne	r2,zero,8111c53c <__reset+0xfb0fc53c>
-						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c590:	e0bff217 	ldw	r2,-56(fp)
+						(*p_inteiroll) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+8111c590:	e0bff417 	ldw	r2,-48(fp)
 8111c594:	00c00284 	movi	r3,10
 8111c598:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.ulLineDelay = (unsigned long)atoll( inteiroll );
-8111c59c:	e0bff884 	addi	r2,fp,-30
+8111c59c:	e0bff904 	addi	r2,fp,-28
 8111c5a0:	1009883a 	mov	r4,r2
 8111c5a4:	11231440 	call	81123144 <atoll>
 8111c5a8:	1009883a 	mov	r4,r2
@@ -47700,8 +47700,8 @@ bool vLoadDebugConfs( void ){
 8111c5bc:	10c00515 	stw	r3,20(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiroll = inteiroll;
-8111c5c0:	e0bff884 	addi	r2,fp,-30
-8111c5c4:	e0bff515 	stw	r2,-44(fp)
+8111c5c0:	e0bff904 	addi	r2,fp,-28
+8111c5c4:	e0bff415 	stw	r2,-48(fp)
 
 						break;
 8111c5c8:	00016e06 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47709,13 +47709,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c5cc:	e0bff40f 	ldh	r2,-48(fp)
+8111c5cc:	e0bff60f 	ldh	r2,-40(fp)
 8111c5d0:	1009883a 	mov	r4,r2
 8111c5d4:	11209340 	call	81120934 <cGetNextChar>
-8111c5d8:	e0bff145 	stb	r2,-59(fp)
+8111c5d8:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c5dc:	d0e00317 	ldw	r3,-32756(gp)
-8111c5e0:	e0bff147 	ldb	r2,-59(fp)
+8111c5e0:	e0bff247 	ldb	r2,-55(fp)
 8111c5e4:	10800044 	addi	r2,r2,1
 8111c5e8:	1885883a 	add	r2,r3,r2
 8111c5ec:	10800003 	ldbu	r2,0(r2)
@@ -47723,25 +47723,25 @@ bool vLoadDebugConfs( void ){
 8111c5f4:	1080010c 	andi	r2,r2,4
 8111c5f8:	10000626 	beq	r2,zero,8111c614 <vLoadDebugConfs+0xa20>
 								(*p_inteiro) = c;
-8111c5fc:	e0bff217 	ldw	r2,-56(fp)
-8111c600:	e0fff143 	ldbu	r3,-59(fp)
+8111c5fc:	e0bff317 	ldw	r2,-52(fp)
+8111c600:	e0fff243 	ldbu	r3,-55(fp)
 8111c604:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111c608:	e0bff217 	ldw	r2,-56(fp)
+8111c608:	e0bff317 	ldw	r2,-52(fp)
 8111c60c:	10800044 	addi	r2,r2,1
-8111c610:	e0bff215 	stw	r2,-56(fp)
+8111c610:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c614:	e0bff147 	ldb	r2,-59(fp)
+8111c614:	e0bff247 	ldb	r2,-55(fp)
 8111c618:	10800ed8 	cmpnei	r2,r2,59
 8111c61c:	103feb1e 	bne	r2,zero,8111c5cc <__reset+0xfb0fc5cc>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c620:	e0bff217 	ldw	r2,-56(fp)
+8111c620:	e0bff317 	ldw	r2,-52(fp)
 8111c624:	00c00284 	movi	r3,10
 8111c628:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiLinkNFEE0 = (unsigned short int)atoi( inteiro );
-8111c62c:	e0bff684 	addi	r2,fp,-38
+8111c62c:	e0bff704 	addi	r2,fp,-36
 8111c630:	1009883a 	mov	r4,r2
 8111c634:	112312c0 	call	8112312c <atoi>
 8111c638:	1007883a 	mov	r3,r2
@@ -47750,8 +47750,8 @@ bool vLoadDebugConfs( void ){
 8111c644:	10c00a0d 	sth	r3,40(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111c648:	e0bff684 	addi	r2,fp,-38
-8111c64c:	e0bff215 	stw	r2,-56(fp)
+8111c648:	e0bff704 	addi	r2,fp,-36
+8111c64c:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111c650:	00014c06 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47759,13 +47759,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c654:	e0bff40f 	ldh	r2,-48(fp)
+8111c654:	e0bff60f 	ldh	r2,-40(fp)
 8111c658:	1009883a 	mov	r4,r2
 8111c65c:	11209340 	call	81120934 <cGetNextChar>
-8111c660:	e0bff145 	stb	r2,-59(fp)
+8111c660:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c664:	d0e00317 	ldw	r3,-32756(gp)
-8111c668:	e0bff147 	ldb	r2,-59(fp)
+8111c668:	e0bff247 	ldb	r2,-55(fp)
 8111c66c:	10800044 	addi	r2,r2,1
 8111c670:	1885883a 	add	r2,r3,r2
 8111c674:	10800003 	ldbu	r2,0(r2)
@@ -47773,25 +47773,25 @@ bool vLoadDebugConfs( void ){
 8111c67c:	1080010c 	andi	r2,r2,4
 8111c680:	10000626 	beq	r2,zero,8111c69c <vLoadDebugConfs+0xaa8>
 								(*p_inteiro) = c;
-8111c684:	e0bff217 	ldw	r2,-56(fp)
-8111c688:	e0fff143 	ldbu	r3,-59(fp)
+8111c684:	e0bff317 	ldw	r2,-52(fp)
+8111c688:	e0fff243 	ldbu	r3,-55(fp)
 8111c68c:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111c690:	e0bff217 	ldw	r2,-56(fp)
+8111c690:	e0bff317 	ldw	r2,-52(fp)
 8111c694:	10800044 	addi	r2,r2,1
-8111c698:	e0bff215 	stw	r2,-56(fp)
+8111c698:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c69c:	e0bff147 	ldb	r2,-59(fp)
+8111c69c:	e0bff247 	ldb	r2,-55(fp)
 8111c6a0:	10800ed8 	cmpnei	r2,r2,59
 8111c6a4:	103feb1e 	bne	r2,zero,8111c654 <__reset+0xfb0fc654>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c6a8:	e0bff217 	ldw	r2,-56(fp)
+8111c6a8:	e0bff317 	ldw	r2,-52(fp)
 8111c6ac:	00c00284 	movi	r3,10
 8111c6b0:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiDebugLevel = (unsigned short int)atoi( inteiro );
-8111c6b4:	e0bff684 	addi	r2,fp,-38
+8111c6b4:	e0bff704 	addi	r2,fp,-36
 8111c6b8:	1009883a 	mov	r4,r2
 8111c6bc:	112312c0 	call	8112312c <atoi>
 8111c6c0:	1007883a 	mov	r3,r2
@@ -47800,8 +47800,8 @@ bool vLoadDebugConfs( void ){
 8111c6cc:	10c00a8d 	sth	r3,42(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111c6d0:	e0bff684 	addi	r2,fp,-38
-8111c6d4:	e0bff215 	stw	r2,-56(fp)
+8111c6d0:	e0bff704 	addi	r2,fp,-36
+8111c6d4:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111c6d8:	00012a06 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47809,13 +47809,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c6dc:	e0bff40f 	ldh	r2,-48(fp)
+8111c6dc:	e0bff60f 	ldh	r2,-40(fp)
 8111c6e0:	1009883a 	mov	r4,r2
 8111c6e4:	11209340 	call	81120934 <cGetNextChar>
-8111c6e8:	e0bff145 	stb	r2,-59(fp)
+8111c6e8:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c6ec:	d0e00317 	ldw	r3,-32756(gp)
-8111c6f0:	e0bff147 	ldb	r2,-59(fp)
+8111c6f0:	e0bff247 	ldb	r2,-55(fp)
 8111c6f4:	10800044 	addi	r2,r2,1
 8111c6f8:	1885883a 	add	r2,r3,r2
 8111c6fc:	10800003 	ldbu	r2,0(r2)
@@ -47823,25 +47823,25 @@ bool vLoadDebugConfs( void ){
 8111c704:	1080010c 	andi	r2,r2,4
 8111c708:	10000626 	beq	r2,zero,8111c724 <vLoadDebugConfs+0xb30>
 								(*p_inteiro) = c;
-8111c70c:	e0bff217 	ldw	r2,-56(fp)
-8111c710:	e0fff143 	ldbu	r3,-59(fp)
+8111c70c:	e0bff317 	ldw	r2,-52(fp)
+8111c710:	e0fff243 	ldbu	r3,-55(fp)
 8111c714:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111c718:	e0bff217 	ldw	r2,-56(fp)
+8111c718:	e0bff317 	ldw	r2,-52(fp)
 8111c71c:	10800044 	addi	r2,r2,1
-8111c720:	e0bff215 	stw	r2,-56(fp)
+8111c720:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c724:	e0bff147 	ldb	r2,-59(fp)
+8111c724:	e0bff247 	ldb	r2,-55(fp)
 8111c728:	10800ed8 	cmpnei	r2,r2,59
 8111c72c:	103feb1e 	bne	r2,zero,8111c6dc <__reset+0xfb0fc6dc>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c730:	e0bff217 	ldw	r2,-56(fp)
+8111c730:	e0bff317 	ldw	r2,-52(fp)
 8111c734:	00c00284 	movi	r3,10
 8111c738:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiPatternType = (unsigned short int)atoi( inteiro );
-8111c73c:	e0bff684 	addi	r2,fp,-38
+8111c73c:	e0bff704 	addi	r2,fp,-36
 8111c740:	1009883a 	mov	r4,r2
 8111c744:	112312c0 	call	8112312c <atoi>
 8111c748:	1007883a 	mov	r3,r2
@@ -47850,8 +47850,8 @@ bool vLoadDebugConfs( void ){
 8111c754:	10c00b0d 	sth	r3,44(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111c758:	e0bff684 	addi	r2,fp,-38
-8111c75c:	e0bff215 	stw	r2,-56(fp)
+8111c758:	e0bff704 	addi	r2,fp,-36
+8111c75c:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111c760:	00010806 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47859,13 +47859,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c764:	e0bff40f 	ldh	r2,-48(fp)
+8111c764:	e0bff60f 	ldh	r2,-40(fp)
 8111c768:	1009883a 	mov	r4,r2
 8111c76c:	11209340 	call	81120934 <cGetNextChar>
-8111c770:	e0bff145 	stb	r2,-59(fp)
+8111c770:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c774:	d0e00317 	ldw	r3,-32756(gp)
-8111c778:	e0bff147 	ldb	r2,-59(fp)
+8111c778:	e0bff247 	ldb	r2,-55(fp)
 8111c77c:	10800044 	addi	r2,r2,1
 8111c780:	1885883a 	add	r2,r3,r2
 8111c784:	10800003 	ldbu	r2,0(r2)
@@ -47873,25 +47873,25 @@ bool vLoadDebugConfs( void ){
 8111c78c:	1080010c 	andi	r2,r2,4
 8111c790:	10000626 	beq	r2,zero,8111c7ac <vLoadDebugConfs+0xbb8>
 								(*p_inteiro) = c;
-8111c794:	e0bff217 	ldw	r2,-56(fp)
-8111c798:	e0fff143 	ldbu	r3,-59(fp)
+8111c794:	e0bff317 	ldw	r2,-52(fp)
+8111c798:	e0fff243 	ldbu	r3,-55(fp)
 8111c79c:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111c7a0:	e0bff217 	ldw	r2,-56(fp)
+8111c7a0:	e0bff317 	ldw	r2,-52(fp)
 8111c7a4:	10800044 	addi	r2,r2,1
-8111c7a8:	e0bff215 	stw	r2,-56(fp)
+8111c7a8:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c7ac:	e0bff147 	ldb	r2,-59(fp)
+8111c7ac:	e0bff247 	ldb	r2,-55(fp)
 8111c7b0:	10800ed8 	cmpnei	r2,r2,59
 8111c7b4:	103feb1e 	bne	r2,zero,8111c764 <__reset+0xfb0fc764>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c7b8:	e0bff217 	ldw	r2,-56(fp)
+8111c7b8:	e0bff317 	ldw	r2,-52(fp)
 8111c7bc:	00c00284 	movi	r3,10
 8111c7c0:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiGuardNFEEDelay = (unsigned short int)atoi( inteiro );
-8111c7c4:	e0bff684 	addi	r2,fp,-38
+8111c7c4:	e0bff704 	addi	r2,fp,-36
 8111c7c8:	1009883a 	mov	r4,r2
 8111c7cc:	112312c0 	call	8112312c <atoi>
 8111c7d0:	1007883a 	mov	r3,r2
@@ -47900,8 +47900,8 @@ bool vLoadDebugConfs( void ){
 8111c7dc:	10c00b8d 	sth	r3,46(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111c7e0:	e0bff684 	addi	r2,fp,-38
-8111c7e4:	e0bff215 	stw	r2,-56(fp)
+8111c7e0:	e0bff704 	addi	r2,fp,-36
+8111c7e4:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111c7e8:	0000e606 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47909,13 +47909,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c7ec:	e0bff40f 	ldh	r2,-48(fp)
+8111c7ec:	e0bff60f 	ldh	r2,-40(fp)
 8111c7f0:	1009883a 	mov	r4,r2
 8111c7f4:	11209340 	call	81120934 <cGetNextChar>
-8111c7f8:	e0bff145 	stb	r2,-59(fp)
+8111c7f8:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c7fc:	d0e00317 	ldw	r3,-32756(gp)
-8111c800:	e0bff147 	ldb	r2,-59(fp)
+8111c800:	e0bff247 	ldb	r2,-55(fp)
 8111c804:	10800044 	addi	r2,r2,1
 8111c808:	1885883a 	add	r2,r3,r2
 8111c80c:	10800003 	ldbu	r2,0(r2)
@@ -47923,25 +47923,25 @@ bool vLoadDebugConfs( void ){
 8111c814:	1080010c 	andi	r2,r2,4
 8111c818:	10000626 	beq	r2,zero,8111c834 <vLoadDebugConfs+0xc40>
 								(*p_inteiro) = c;
-8111c81c:	e0bff217 	ldw	r2,-56(fp)
-8111c820:	e0fff143 	ldbu	r3,-59(fp)
+8111c81c:	e0bff317 	ldw	r2,-52(fp)
+8111c820:	e0fff243 	ldbu	r3,-55(fp)
 8111c824:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111c828:	e0bff217 	ldw	r2,-56(fp)
+8111c828:	e0bff317 	ldw	r2,-52(fp)
 8111c82c:	10800044 	addi	r2,r2,1
-8111c830:	e0bff215 	stw	r2,-56(fp)
+8111c830:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c834:	e0bff147 	ldb	r2,-59(fp)
+8111c834:	e0bff247 	ldb	r2,-55(fp)
 8111c838:	10800ed8 	cmpnei	r2,r2,59
 8111c83c:	103feb1e 	bne	r2,zero,8111c7ec <__reset+0xfb0fc7ec>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c840:	e0bff217 	ldw	r2,-56(fp)
+8111c840:	e0bff317 	ldw	r2,-52(fp)
 8111c844:	00c00284 	movi	r3,10
 8111c848:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiDataProtId = (unsigned short int)atoi( inteiro );
-8111c84c:	e0bff684 	addi	r2,fp,-38
+8111c84c:	e0bff704 	addi	r2,fp,-36
 8111c850:	1009883a 	mov	r4,r2
 8111c854:	112312c0 	call	8112312c <atoi>
 8111c858:	1007883a 	mov	r3,r2
@@ -47950,8 +47950,8 @@ bool vLoadDebugConfs( void ){
 8111c864:	10c00c0d 	sth	r3,48(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111c868:	e0bff684 	addi	r2,fp,-38
-8111c86c:	e0bff215 	stw	r2,-56(fp)
+8111c868:	e0bff704 	addi	r2,fp,-36
+8111c86c:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111c870:	0000c406 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -47959,13 +47959,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c874:	e0bff40f 	ldh	r2,-48(fp)
+8111c874:	e0bff60f 	ldh	r2,-40(fp)
 8111c878:	1009883a 	mov	r4,r2
 8111c87c:	11209340 	call	81120934 <cGetNextChar>
-8111c880:	e0bff145 	stb	r2,-59(fp)
+8111c880:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c884:	d0e00317 	ldw	r3,-32756(gp)
-8111c888:	e0bff147 	ldb	r2,-59(fp)
+8111c888:	e0bff247 	ldb	r2,-55(fp)
 8111c88c:	10800044 	addi	r2,r2,1
 8111c890:	1885883a 	add	r2,r3,r2
 8111c894:	10800003 	ldbu	r2,0(r2)
@@ -47973,25 +47973,25 @@ bool vLoadDebugConfs( void ){
 8111c89c:	1080010c 	andi	r2,r2,4
 8111c8a0:	10000626 	beq	r2,zero,8111c8bc <vLoadDebugConfs+0xcc8>
 								(*p_inteiro) = c;
-8111c8a4:	e0bff217 	ldw	r2,-56(fp)
-8111c8a8:	e0fff143 	ldbu	r3,-59(fp)
+8111c8a4:	e0bff317 	ldw	r2,-52(fp)
+8111c8a8:	e0fff243 	ldbu	r3,-55(fp)
 8111c8ac:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111c8b0:	e0bff217 	ldw	r2,-56(fp)
+8111c8b0:	e0bff317 	ldw	r2,-52(fp)
 8111c8b4:	10800044 	addi	r2,r2,1
-8111c8b8:	e0bff215 	stw	r2,-56(fp)
+8111c8b8:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111c8bc:	e0bff147 	ldb	r2,-59(fp)
+8111c8bc:	e0bff247 	ldb	r2,-55(fp)
 8111c8c0:	10800ed8 	cmpnei	r2,r2,59
 8111c8c4:	103feb1e 	bne	r2,zero,8111c874 <__reset+0xfb0fc874>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c8c8:	e0bff217 	ldw	r2,-56(fp)
+8111c8c8:	e0bff317 	ldw	r2,-52(fp)
 8111c8cc:	00c00284 	movi	r3,10
 8111c8d0:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						xDefaults.usiDpuLogicalAddr = (unsigned short int)atoi( inteiro );
-8111c8d4:	e0bff684 	addi	r2,fp,-38
+8111c8d4:	e0bff704 	addi	r2,fp,-36
 8111c8d8:	1009883a 	mov	r4,r2
 8111c8dc:	112312c0 	call	8112312c <atoi>
 8111c8e0:	1007883a 	mov	r3,r2
@@ -48000,25 +48000,25 @@ bool vLoadDebugConfs( void ){
 8111c8ec:	10c00c8d 	sth	r3,50(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111c8f0:	e0bff684 	addi	r2,fp,-38
-8111c8f4:	e0bff215 	stw	r2,-56(fp)
+8111c8f0:	e0bff704 	addi	r2,fp,-36
+8111c8f4:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111c8f8:	0000a206 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 'E':
 
 						ucParser = 0;
-8111c8fc:	e03ff105 	stb	zero,-60(fp)
+8111c8fc:	e03ff205 	stb	zero,-56(fp)
 						do {
 							do {
 								c = cGetNextChar(siFile);
-8111c900:	e0bff40f 	ldh	r2,-48(fp)
+8111c900:	e0bff60f 	ldh	r2,-40(fp)
 8111c904:	1009883a 	mov	r4,r2
 8111c908:	11209340 	call	81120934 <cGetNextChar>
-8111c90c:	e0bff145 	stb	r2,-59(fp)
+8111c90c:	e0bff245 	stb	r2,-55(fp)
 								if ( isdigit( c ) ) {
 8111c910:	d0e00317 	ldw	r3,-32756(gp)
-8111c914:	e0bff147 	ldb	r2,-59(fp)
+8111c914:	e0bff247 	ldb	r2,-55(fp)
 8111c918:	10800044 	addi	r2,r2,1
 8111c91c:	1885883a 	add	r2,r3,r2
 8111c920:	10800003 	ldbu	r2,0(r2)
@@ -48026,34 +48026,34 @@ bool vLoadDebugConfs( void ){
 8111c928:	1080010c 	andi	r2,r2,4
 8111c92c:	10000626 	beq	r2,zero,8111c948 <vLoadDebugConfs+0xd54>
 									(*p_inteiro) = c;
-8111c930:	e0bff217 	ldw	r2,-56(fp)
-8111c934:	e0fff143 	ldbu	r3,-59(fp)
+8111c930:	e0bff317 	ldw	r2,-52(fp)
+8111c934:	e0fff243 	ldbu	r3,-55(fp)
 8111c938:	10c00005 	stb	r3,0(r2)
 									p_inteiro++;
-8111c93c:	e0bff217 	ldw	r2,-56(fp)
+8111c93c:	e0bff317 	ldw	r2,-52(fp)
 8111c940:	10800044 	addi	r2,r2,1
-8111c944:	e0bff215 	stw	r2,-56(fp)
+8111c944:	e0bff315 	stw	r2,-52(fp)
 								}
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-8111c948:	e0bff147 	ldb	r2,-59(fp)
+8111c948:	e0bff247 	ldb	r2,-55(fp)
 8111c94c:	10800ba0 	cmpeqi	r2,r2,46
 8111c950:	1000031e 	bne	r2,zero,8111c960 <vLoadDebugConfs+0xd6c>
-8111c954:	e0bff147 	ldb	r2,-59(fp)
+8111c954:	e0bff247 	ldb	r2,-55(fp)
 8111c958:	10800ed8 	cmpnei	r2,r2,59
 8111c95c:	103fe81e 	bne	r2,zero,8111c900 <__reset+0xfb0fc900>
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111c960:	e0bff217 	ldw	r2,-56(fp)
+8111c960:	e0bff317 	ldw	r2,-52(fp)
 8111c964:	00c00284 	movi	r3,10
 8111c968:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
-8111c96c:	e0bff103 	ldbu	r2,-60(fp)
+8111c96c:	e0bff203 	ldbu	r2,-56(fp)
 8111c970:	108000e8 	cmpgeui	r2,r2,3
 8111c974:	1000021e 	bne	r2,zero,8111c980 <vLoadDebugConfs+0xd8c>
-8111c978:	e43ff103 	ldbu	r16,-60(fp)
+8111c978:	e43ff203 	ldbu	r16,-56(fp)
 8111c97c:	00000106 	br	8111c984 <vLoadDebugConfs+0xd90>
 8111c980:	040000c4 	movi	r16,3
-8111c984:	e0bff684 	addi	r2,fp,-38
+8111c984:	e0bff704 	addi	r2,fp,-36
 8111c988:	1009883a 	mov	r4,r2
 8111c98c:	112312c0 	call	8112312c <atoi>
 8111c990:	1007883a 	mov	r3,r2
@@ -48063,14 +48063,14 @@ bool vLoadDebugConfs( void ){
 8111c9a0:	10c00005 	stb	r3,0(r2)
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
-8111c9a4:	e0bff684 	addi	r2,fp,-38
-8111c9a8:	e0bff215 	stw	r2,-56(fp)
+8111c9a4:	e0bff704 	addi	r2,fp,-36
+8111c9a8:	e0bff315 	stw	r2,-52(fp)
 							ucParser++;
-8111c9ac:	e0bff103 	ldbu	r2,-60(fp)
+8111c9ac:	e0bff203 	ldbu	r2,-56(fp)
 8111c9b0:	10800044 	addi	r2,r2,1
-8111c9b4:	e0bff105 	stb	r2,-60(fp)
+8111c9b4:	e0bff205 	stb	r2,-56(fp)
 						} while ( (c !=59) );
-8111c9b8:	e0bff147 	ldb	r2,-59(fp)
+8111c9b8:	e0bff247 	ldb	r2,-55(fp)
 8111c9bc:	10800ed8 	cmpnei	r2,r2,59
 8111c9c0:	103fcf1e 	bne	r2,zero,8111c900 <__reset+0xfb0fc900>
 
@@ -48080,13 +48080,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111c9c8:	e0bff40f 	ldh	r2,-48(fp)
+8111c9c8:	e0bff60f 	ldh	r2,-40(fp)
 8111c9cc:	1009883a 	mov	r4,r2
 8111c9d0:	11209340 	call	81120934 <cGetNextChar>
-8111c9d4:	e0bff145 	stb	r2,-59(fp)
+8111c9d4:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111c9d8:	d0e00317 	ldw	r3,-32756(gp)
-8111c9dc:	e0bff147 	ldb	r2,-59(fp)
+8111c9dc:	e0bff247 	ldb	r2,-55(fp)
 8111c9e0:	10800044 	addi	r2,r2,1
 8111c9e4:	1885883a 	add	r2,r3,r2
 8111c9e8:	10800003 	ldbu	r2,0(r2)
@@ -48094,30 +48094,30 @@ bool vLoadDebugConfs( void ){
 8111c9f0:	1080010c 	andi	r2,r2,4
 8111c9f4:	10000626 	beq	r2,zero,8111ca10 <vLoadDebugConfs+0xe1c>
 								(*p_inteiro) = c;
-8111c9f8:	e0bff217 	ldw	r2,-56(fp)
-8111c9fc:	e0fff143 	ldbu	r3,-59(fp)
+8111c9f8:	e0bff317 	ldw	r2,-52(fp)
+8111c9fc:	e0fff243 	ldbu	r3,-55(fp)
 8111ca00:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111ca04:	e0bff217 	ldw	r2,-56(fp)
+8111ca04:	e0bff317 	ldw	r2,-52(fp)
 8111ca08:	10800044 	addi	r2,r2,1
-8111ca0c:	e0bff215 	stw	r2,-56(fp)
+8111ca0c:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111ca10:	e0bff147 	ldb	r2,-59(fp)
+8111ca10:	e0bff247 	ldb	r2,-55(fp)
 8111ca14:	10800ed8 	cmpnei	r2,r2,59
 8111ca18:	103feb1e 	bne	r2,zero,8111c9c8 <__reset+0xfb0fc9c8>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111ca1c:	e0bff217 	ldw	r2,-56(fp)
+8111ca1c:	e0bff317 	ldw	r2,-52(fp)
 8111ca20:	00c00284 	movi	r3,10
 8111ca24:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						sidhcpTemp = atoi( inteiro );
-8111ca28:	e0bff684 	addi	r2,fp,-38
+8111ca28:	e0bff704 	addi	r2,fp,-36
 8111ca2c:	1009883a 	mov	r4,r2
 8111ca30:	112312c0 	call	8112312c <atoi>
-8111ca34:	e0bff60d 	sth	r2,-40(fp)
+8111ca34:	e0bff68d 	sth	r2,-38(fp)
 						if (sidhcpTemp == 1)
-8111ca38:	e0bff60f 	ldh	r2,-40(fp)
+8111ca38:	e0bff68f 	ldh	r2,-38(fp)
 8111ca3c:	10800058 	cmpnei	r2,r2,1
 8111ca40:	1000051e 	bne	r2,zero,8111ca58 <vLoadDebugConfs+0xe64>
 							xDefaults.bDataPacket = TRUE;
@@ -48133,8 +48133,8 @@ bool vLoadDebugConfs( void ){
 8111ca60:	10000415 	stw	zero,16(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111ca64:	e0bff684 	addi	r2,fp,-38
-8111ca68:	e0bff215 	stw	r2,-56(fp)
+8111ca64:	e0bff704 	addi	r2,fp,-36
+8111ca68:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111ca6c:	00004506 	br	8111cb84 <vLoadDebugConfs+0xf90>
@@ -48142,13 +48142,13 @@ bool vLoadDebugConfs( void ){
 
 						do {
 							c = cGetNextChar(siFile);
-8111ca70:	e0bff40f 	ldh	r2,-48(fp)
+8111ca70:	e0bff60f 	ldh	r2,-40(fp)
 8111ca74:	1009883a 	mov	r4,r2
 8111ca78:	11209340 	call	81120934 <cGetNextChar>
-8111ca7c:	e0bff145 	stb	r2,-59(fp)
+8111ca7c:	e0bff245 	stb	r2,-55(fp)
 							if ( isdigit( c ) ) {
 8111ca80:	d0e00317 	ldw	r3,-32756(gp)
-8111ca84:	e0bff147 	ldb	r2,-59(fp)
+8111ca84:	e0bff247 	ldb	r2,-55(fp)
 8111ca88:	10800044 	addi	r2,r2,1
 8111ca8c:	1885883a 	add	r2,r3,r2
 8111ca90:	10800003 	ldbu	r2,0(r2)
@@ -48156,30 +48156,30 @@ bool vLoadDebugConfs( void ){
 8111ca98:	1080010c 	andi	r2,r2,4
 8111ca9c:	10000626 	beq	r2,zero,8111cab8 <vLoadDebugConfs+0xec4>
 								(*p_inteiro) = c;
-8111caa0:	e0bff217 	ldw	r2,-56(fp)
-8111caa4:	e0fff143 	ldbu	r3,-59(fp)
+8111caa0:	e0bff317 	ldw	r2,-52(fp)
+8111caa4:	e0fff243 	ldbu	r3,-55(fp)
 8111caa8:	10c00005 	stb	r3,0(r2)
 								p_inteiro++;
-8111caac:	e0bff217 	ldw	r2,-56(fp)
+8111caac:	e0bff317 	ldw	r2,-52(fp)
 8111cab0:	10800044 	addi	r2,r2,1
-8111cab4:	e0bff215 	stw	r2,-56(fp)
+8111cab4:	e0bff315 	stw	r2,-52(fp)
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
-8111cab8:	e0bff147 	ldb	r2,-59(fp)
+8111cab8:	e0bff247 	ldb	r2,-55(fp)
 8111cabc:	10800ed8 	cmpnei	r2,r2,59
 8111cac0:	103feb1e 	bne	r2,zero,8111ca70 <__reset+0xfb0fca70>
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-8111cac4:	e0bff217 	ldw	r2,-56(fp)
+8111cac4:	e0bff317 	ldw	r2,-52(fp)
 8111cac8:	00c00284 	movi	r3,10
 8111cacc:	10c00005 	stb	r3,0(r2)
 						/*Tiago: Proteger com mutex*/
 						sidhcpTemp = atoi( inteiro );
-8111cad0:	e0bff684 	addi	r2,fp,-38
+8111cad0:	e0bff704 	addi	r2,fp,-36
 8111cad4:	1009883a 	mov	r4,r2
 8111cad8:	112312c0 	call	8112312c <atoi>
-8111cadc:	e0bff60d 	sth	r2,-40(fp)
+8111cadc:	e0bff68d 	sth	r2,-38(fp)
 						if (sidhcpTemp == 1)
-8111cae0:	e0bff60f 	ldh	r2,-40(fp)
+8111cae0:	e0bff68f 	ldh	r2,-38(fp)
 8111cae4:	10800058 	cmpnei	r2,r2,1
 8111cae8:	1000051e 	bne	r2,zero,8111cb00 <vLoadDebugConfs+0xf0c>
 							xDefaults.bOneShot = TRUE;
@@ -48195,19 +48195,19 @@ bool vLoadDebugConfs( void ){
 8111cb08:	10000915 	stw	zero,36(r2)
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
-8111cb0c:	e0bff684 	addi	r2,fp,-38
-8111cb10:	e0bff215 	stw	r2,-56(fp)
+8111cb0c:	e0bff704 	addi	r2,fp,-36
+8111cb10:	e0bff315 	stw	r2,-52(fp)
 
 						break;
 8111cb14:	00001b06 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
-8111cb18:	e0bff40f 	ldh	r2,-48(fp)
+8111cb18:	e0bff60f 	ldh	r2,-40(fp)
 8111cb1c:	1009883a 	mov	r4,r2
 8111cb20:	11208f40 	call	811208f4 <siCloseFile>
-8111cb24:	e0bff315 	stw	r2,-52(fp)
+8111cb24:	e0bff515 	stw	r2,-44(fp)
 						if (close == FALSE){
-8111cb28:	e0bff317 	ldw	r2,-52(fp)
+8111cb28:	e0bff517 	ldw	r2,-44(fp)
 8111cb2c:	1000071e 	bne	r2,zero,8111cb4c <vLoadDebugConfs+0xf58>
 							#if DEBUG_ON
 								debug(fp,"SDCard: Can't close the file.\n");
@@ -48223,17 +48223,17 @@ bool vLoadDebugConfs( void ){
 						/* End of Parser File */
 						bEOF = TRUE;
 8111cb4c:	00800044 	movi	r2,1
-8111cb50:	e0bff015 	stw	r2,-64(fp)
+8111cb50:	e0bff115 	stw	r2,-60(fp)
 						bSuccess = TRUE; //pensar melhor
 8111cb54:	00800044 	movi	r2,1
-8111cb58:	e0bfef15 	stw	r2,-68(fp)
+8111cb58:	e0bff015 	stw	r2,-64(fp)
 						break;
 8111cb5c:	00000906 	br	8111cb84 <vLoadDebugConfs+0xf90>
 					default:
 						#if DEBUG_ON
 							fprintf(fp,"SDCard: Problem with the parser. (%hhu)\n",c);
 8111cb60:	d0a06217 	ldw	r2,-32376(gp)
-8111cb64:	e0fff147 	ldb	r3,-59(fp)
+8111cb64:	e0fff247 	ldb	r3,-55(fp)
 8111cb68:	180d883a 	mov	r6,r3
 8111cb6c:	01604574 	movhi	r5,33045
 8111cb70:	29424f04 	addi	r5,r5,2364
@@ -48255,7 +48255,7 @@ bool vLoadDebugConfs( void ){
 						break;
 				}
 			} while ( bEOF == FALSE );
-8111cb84:	e0bff017 	ldw	r2,-64(fp)
+8111cb84:	e0bff117 	ldw	r2,-60(fp)
 8111cb88:	103c3f26 	beq	r2,zero,8111bc88 <__reset+0xfb0fbc88>
 
 	if ( (xSdHandle.connected == TRUE) && (bSDcardIsPresent()) && (bSDcardFAT16Check()) ){
@@ -48303,7 +48303,7 @@ bool vLoadDebugConfs( void ){
 	}
 
 	return bSuccess;
-8111cbcc:	e0bfef17 	ldw	r2,-68(fp)
+8111cbcc:	e0bff017 	ldw	r2,-64(fp)
 }
 8111cbd0:	e6ffff04 	addi	sp,fp,-4
 8111cbd4:	dfc00217 	ldw	ra,8(sp)
