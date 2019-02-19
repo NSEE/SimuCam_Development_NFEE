@@ -87,6 +87,8 @@ package avalon_mm_spacewire_registers_pkg is
 	end record t_comm_data_packet_config_3_wr_reg;
 
 	type t_comm_data_packet_config_4_wr_reg is record
+		data_pkt_logical_addr : std_logic_vector(7 downto 0);
+		data_pkt_protocol_id  : std_logic_vector(7 downto 0);
 		data_pkt_fee_mode   : std_logic_vector(2 downto 0);
 		data_pkt_ccd_number : std_logic_vector(1 downto 0);
 	end record t_comm_data_packet_config_4_wr_reg;

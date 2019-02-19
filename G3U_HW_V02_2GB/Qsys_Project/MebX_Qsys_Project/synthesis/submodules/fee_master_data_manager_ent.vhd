@@ -16,6 +16,8 @@ entity fee_master_data_manager_ent is
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
 		-- fee data manager parameters
+		fee_logical_addr_i                   : in  std_logic_vector(7 downto 0);
+		fee_protocol_id_i                    : in  std_logic_vector(7 downto 0);
 		fee_ccd_x_size_i                     : in  std_logic_vector(15 downto 0);
 		--		fee_ccd_y_size_i                     : in  std_logic_vector(15 downto 0);
 		fee_data_y_size_i                    : in  std_logic_vector(15 downto 0);
@@ -44,6 +46,7 @@ entity fee_master_data_manager_ent is
 		--		masking_buffer_clear_o               : out std_logic;
 		-- header data
 		headerdata_logical_address_o         : out std_logic_vector(7 downto 0);
+		headerdata_protocol_id_o             : out std_logic_vector(7 downto 0);
 		headerdata_length_field_o            : out std_logic_vector(15 downto 0);
 		headerdata_type_field_mode_o         : out std_logic_vector(2 downto 0);
 		headerdata_type_field_last_packet_o  : out std_logic;
@@ -157,6 +160,7 @@ begin
 			-- outputs
 			masking_machine_hold_o               <= '1';
 			headerdata_logical_address_o         <= (others => '0');
+			headerdata_protocol_id_o             <= (others => '0');
 			headerdata_length_field_o            <= (others => '0');
 			headerdata_type_field_mode_o         <= (others => '0');
 			headerdata_type_field_last_packet_o  <= '0';
@@ -188,6 +192,7 @@ begin
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -224,6 +229,7 @@ begin
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -270,7 +276,8 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the hk header data
-					headerdata_logical_address_o         <= c_DPU_LOGICAL_ADDR;
+					headerdata_logical_address_o         <= fee_logical_addr_i;
+					headerdata_protocol_id_o             <= fee_protocol_id_i;
 					headerdata_length_field_o            <= c_HK_PKT_DATA_SIZE;
 					--					headerdata_type_field_mode_o         <= c_FULL_IMAGE_PATTERN_MODE;
 					headerdata_type_field_mode_o         <= fee_fee_mode_i;
@@ -317,6 +324,7 @@ begin
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -346,6 +354,7 @@ begin
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -388,6 +397,7 @@ begin
 					-- wait for the data transmitter to finish, to release the slave fee data controller for operation
 					s_fee_data_manager_state             <= WAITING_HK_TRANSMITTER_FINISH;
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -427,6 +437,7 @@ begin
 					-- for slave: wait a img data started flag
 					s_fee_data_manager_state             <= IMG_HEADER_START;
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -466,7 +477,8 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the img header data
-					headerdata_logical_address_o         <= c_DPU_LOGICAL_ADDR;
+					headerdata_logical_address_o         <= fee_logical_addr_i;
+					headerdata_protocol_id_o             <= fee_protocol_id_i;
 					-- check if the remaining data length is equal or smaller than the packet data size
 					if (unsigned(s_fee_remaining_data_bytes) <= (unsigned(fee_packet_length_i) - c_DATA_PKT_HEADER_SIZE)) then
 						-- remaining data length is equal or smaller, last packet
@@ -523,6 +535,7 @@ begin
 					-- start the data writer
 					s_fee_data_manager_state             <= WAITING_IMG_DATA_FINISH;
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -550,6 +563,7 @@ begin
 					-- wait for the data writer to finish
 					s_fee_data_manager_state             <= WAITING_IMG_DATA_FINISH;
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -613,7 +627,8 @@ begin
 					-- keep the masking machine released
 					masking_machine_hold_o               <= '0';
 					-- configure the over header data
-					headerdata_logical_address_o         <= c_DPU_LOGICAL_ADDR;
+					headerdata_logical_address_o         <= fee_logical_addr_i;
+					headerdata_protocol_id_o             <= fee_protocol_id_i;
 					-- check if the remaining data length is equal or smaller than the packet data size
 					if (unsigned(s_fee_remaining_data_bytes) <= (unsigned(fee_packet_length_i) - c_DATA_PKT_HEADER_SIZE)) then
 						-- remaining data length is equal or smaller, last packet
@@ -670,6 +685,7 @@ begin
 					-- start the data writer
 					s_fee_data_manager_state             <= WAITING_OVER_DATA_FINISH;
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -697,6 +713,7 @@ begin
 					-- wait for the data writer to finish
 					s_fee_data_manager_state             <= WAITING_OVER_DATA_FINISH;
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';
@@ -753,6 +770,7 @@ begin
 					s_fee_current_packet_data_size       <= (others => '0');
 					s_last_packet_flag                   <= '0';
 					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
 					headerdata_length_field_o            <= (others => '0');
 					headerdata_type_field_mode_o         <= (others => '0');
 					headerdata_type_field_last_packet_o  <= '0';

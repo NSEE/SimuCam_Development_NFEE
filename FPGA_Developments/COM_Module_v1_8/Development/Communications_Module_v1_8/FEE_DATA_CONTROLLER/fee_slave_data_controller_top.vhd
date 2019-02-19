@@ -195,6 +195,7 @@ begin
 			header_gen_send_i                    => s_header_gen_send,
 			header_gen_reset_i                   => s_header_gen_reset,
 			headerdata_logical_address_i         => s_headerdata_logical_address,
+			headerdata_protocol_id_i             => x"F0",
 			headerdata_length_field_i            => s_headerdata_length_field,
 			headerdata_type_field_mode_i         => s_headerdata_type_field_mode,
 			headerdata_type_field_last_packet_i  => s_headerdata_type_field_last_packet,
