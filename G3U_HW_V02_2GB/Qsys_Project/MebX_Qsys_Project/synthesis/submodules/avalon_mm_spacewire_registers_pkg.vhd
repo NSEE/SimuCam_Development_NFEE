@@ -40,8 +40,6 @@ package avalon_mm_spacewire_registers_pkg is
 	type t_comm_fee_windowing_buffers_status_rd_reg is record
 		windowing_right_buffer_empty : std_logic;
 		windowing_left_buffer_empty  : std_logic;
-		fee_right_machine_busy       : std_logic;
-		fee_left_machine_busy        : std_logic;
 	end record t_comm_fee_windowing_buffers_status_rd_reg;
 
 	type t_comm_rmap_codec_config_wr_reg is record
@@ -89,10 +87,8 @@ package avalon_mm_spacewire_registers_pkg is
 	end record t_comm_data_packet_config_3_wr_reg;
 
 	type t_comm_data_packet_config_4_wr_reg is record
-		data_pkt_logical_addr : std_logic_vector(7 downto 0);
-		data_pkt_protocol_id  : std_logic_vector(7 downto 0);
-		data_pkt_fee_mode     : std_logic_vector(3 downto 0);
-		data_pkt_ccd_number   : std_logic_vector(1 downto 0);
+		data_pkt_fee_mode   : std_logic_vector(2 downto 0);
+		data_pkt_ccd_number : std_logic_vector(1 downto 0);
 	end record t_comm_data_packet_config_4_wr_reg;
 
 	type t_comm_data_packet_header_1_rd_reg is record

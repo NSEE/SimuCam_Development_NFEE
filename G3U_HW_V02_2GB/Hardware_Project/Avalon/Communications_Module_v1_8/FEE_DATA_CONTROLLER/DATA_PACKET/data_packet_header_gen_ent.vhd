@@ -14,7 +14,6 @@ entity data_packet_header_gen_ent is
 		header_gen_send_i                    : in  std_logic;
 		header_gen_reset_i                   : in  std_logic;
 		headerdata_logical_address_i         : in  std_logic_vector(7 downto 0);
-		headerdata_protocol_id_i             : in  std_logic_vector(7 downto 0);
 		headerdata_length_field_i            : in  std_logic_vector(15 downto 0);
 		headerdata_type_field_mode_i         : in  std_logic_vector(2 downto 0);
 		headerdata_type_field_last_packet_i  : in  std_logic;
@@ -298,7 +297,10 @@ begin
 					header_gen_busy_o     <= '1';
 					header_gen_finished_o <= '0';
 					-- fill spw data with field data
-					send_buffer_wrdata_o  <= headerdata_protocol_id_i;
+--					 TODO: Tornar reprogravamel por sw
+--					send_buffer_wrdata_o  <= x"F0";
+--					CCSDS Protocol Identifier
+					send_buffer_wrdata_o  <= x"02";
 					-- write the send buffer data
 					send_buffer_wrreq_o   <= '1';
 				-- conditional output signals
