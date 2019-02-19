@@ -31,7 +31,7 @@ typedef struct ConfEth{
 
 
 typedef struct Defaults{
-	unsigned char HK[16];
+	unsigned char ucReadOutOrder[4];
 	unsigned short int usiOverScanSerial;
 	unsigned short int usiPreScanSerial;
 	unsigned short int usiOLN;

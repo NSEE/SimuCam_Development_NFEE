@@ -71,7 +71,7 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=58) && (c !=59) ); //ASCII: 58 = ':' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucMAC[min_sim(ucParser,5)] = atoi( inteiro );
+							xConfEth.ucMAC[min_sim(ucParser,5)] = (unsigned char)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -91,7 +91,7 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucIP[min_sim(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucIP[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -111,7 +111,7 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucGTW[min_sim(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucGTW[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -129,7 +129,7 @@ bool vLoadDefaultETHConf( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xConfEth.siPortPUS = atoi( inteiro );
+						xConfEth.siPortPUS = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -168,7 +168,7 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucSubNet[min_sim(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucSubNet[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -188,7 +188,7 @@ bool vLoadDefaultETHConf( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xConfEth.ucDNS[min_sim(ucParser,3)] = atoi( inteiro );
+							xConfEth.ucDNS[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -314,7 +314,7 @@ bool vLoadDebugConfs( void ){
 	bool bEOF = FALSE;
 	bool close = FALSE;
 	unsigned char ucParser;
-	char c, *p_inteiro;
+	char c, *p_inteiro, *p_inteiroll;
 	char inteiro[8];
 	char inteiroll[24];
 
@@ -328,6 +328,7 @@ bool vLoadDebugConfs( void ){
 			memset( &(inteiro) , 10 , sizeof( inteiro ) );
 			memset( &(inteiroll) , 10 , sizeof( inteiroll ) );
 			p_inteiro = inteiro;
+			p_inteiroll = inteiroll;
 
 			do {
 				c = cGetNextChar(siFile);
@@ -365,7 +366,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.usiSyncPeriod = atoi( inteiro );
+							xDefaults.usiSyncPeriod = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -384,7 +385,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.usiPreScanSerial = atoi( inteiro );
+							xDefaults.usiPreScanSerial = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -403,7 +404,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.usiOverScanSerial = atoi( inteiro );
+							xDefaults.usiOverScanSerial = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -422,7 +423,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.ucRmapKey = atoi( inteiro );
+							xDefaults.ucRmapKey = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -441,7 +442,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.ucLogicalAddr = atoi( inteiro );
+							xDefaults.ucLogicalAddr = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -460,7 +461,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.usiRows = atoi( inteiro );
+							xDefaults.usiRows = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -480,7 +481,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.usiOLN = atoi( inteiro );
+							xDefaults.usiOLN = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -499,7 +500,7 @@ bool vLoadDebugConfs( void ){
 							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
 							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 							/*Tiago: Proteger com mutex*/
-							xDefaults.usiCols = atoi( inteiro );
+							xDefaults.usiCols = (unsigned short int)atoi( inteiro );
 							/*Tiago: Proteger com mutex*/
 							p_inteiro = inteiro;
 							ucParser++;
@@ -517,9 +518,9 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.ulColDelay = atoi( inteiro );
+						xDefaults.ulColDelay = (unsigned long)atoll( inteiroll );
 						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
+						p_inteiro = inteiroll;
 
 						break;
 					case 'M':
@@ -533,9 +534,9 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.ulADCPixelDelay = atoi( inteiro );
+						xDefaults.ulADCPixelDelay = (unsigned long)atoll( inteiroll );
 						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
+						p_inteiroll = inteiroll;
 
 						break;
 					case 'J':
@@ -549,9 +550,9 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.ulLineDelay = atoi( inteiro );
+						xDefaults.ulLineDelay = (unsigned long)atoll( inteiroll );
 						/*Tiago: Proteger com mutex*/
-						p_inteiro = inteiro;
+						p_inteiroll = inteiroll;
 
 						break;
 					case 'B':
@@ -565,7 +566,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.usiLinkNFEE0 = atoi( inteiro );
+						xDefaults.usiLinkNFEE0 = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -581,7 +582,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.usiDebugLevel = atoi( inteiro );
+						xDefaults.usiDebugLevel = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -597,7 +598,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.usiPatternType = atoi( inteiro );
+						xDefaults.usiPatternType = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -613,7 +614,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.usiGuardNFEEDelay = atoi( inteiro );
+						xDefaults.usiGuardNFEEDelay = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -629,7 +630,7 @@ bool vLoadDebugConfs( void ){
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
 						/*Tiago: Proteger com mutex*/
-						xDefaults.usiDataProtId = atoi( inteiro );
+						xDefaults.usiDataProtId = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
 
@@ -644,10 +645,30 @@ bool vLoadDebugConfs( void ){
 							}
 						} while ( c !=59 ); //ASCII: 59 = ';'
 						(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-						/*Tiago: Proteger com mutex*/+
-						xDefaults.usiDpuLogicalAddr = atoi( inteiro );
+						/*Tiago: Proteger com mutex*/
+						xDefaults.usiDpuLogicalAddr = (unsigned short int)atoi( inteiro );
 						/*Tiago: Proteger com mutex*/
 						p_inteiro = inteiro;
+
+						break;
+					case 'E':
+
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.ucReadOutOrder[min_sim(ucParser,3)] = (unsigned char)atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
 
 						break;
 					case 'T':
