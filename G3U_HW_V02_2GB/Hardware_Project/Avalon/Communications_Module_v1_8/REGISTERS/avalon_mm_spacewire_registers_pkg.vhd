@@ -40,6 +40,8 @@ package avalon_mm_spacewire_registers_pkg is
 	type t_comm_fee_windowing_buffers_status_rd_reg is record
 		windowing_right_buffer_empty : std_logic;
 		windowing_left_buffer_empty  : std_logic;
+		fee_right_machine_busy       : std_logic;
+		fee_left_machine_busy        : std_logic;
 	end record t_comm_fee_windowing_buffers_status_rd_reg;
 
 	type t_comm_rmap_codec_config_wr_reg is record

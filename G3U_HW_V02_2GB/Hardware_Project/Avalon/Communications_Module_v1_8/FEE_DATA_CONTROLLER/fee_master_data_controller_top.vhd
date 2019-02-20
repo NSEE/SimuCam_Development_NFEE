@@ -42,6 +42,8 @@ entity fee_master_data_controller_top is
 		data_pkt_line_delay_i              : in  std_logic_vector(15 downto 0);
 		data_pkt_column_delay_i            : in  std_logic_vector(15 downto 0);
 		data_pkt_adc_delay_i               : in  std_logic_vector(15 downto 0);
+		-- fee machine status
+		fee_machine_busy_o                 : out std_logic;
 		-- fee slave data controller control
 		fee_slave_imgdata_start_o          : out std_logic;
 		fee_slave_frame_counter_o          : out std_logic_vector(15 downto 0);
@@ -197,6 +199,7 @@ begin
 			data_transmitter_finished_i          => s_data_transmitter_finished,
 			imgdata_start_o                      => s_start_masking,
 			masking_machine_hold_o               => s_masking_machine_hold,
+			fee_data_manager_busy_o              => fee_machine_busy_o,
 			headerdata_logical_address_o         => s_headerdata_logical_address,
 			headerdata_protocol_id_o             => s_headerdata_protocol_id,
 			headerdata_length_field_o            => s_headerdata_length_field,
@@ -369,42 +372,42 @@ begin
 			--   |  17 downto  2  |   1 downto  0  |
 			--
 
---			-- check if frame manager is stopped
---			if (v_stopped_flag = '1') then
---				-- frame manager stopped
---				-- check if a clear request was received
---				if (fee_machine_clear_i = '1') then
---					-- clear request received
---					-- clear counters
---					s_current_frame_counter <= (others => '0');
---					s_current_frame_number  <= (others => '0');
---					v_full_frame_cnt        := (others => '0');
---				end if;
---				-- check if a start request was received
---				if (fee_machine_start_i = '1') then
---					-- start request received
---					-- start frame manager
---					v_stopped_flag := '0';
---				end if;
---			else
-				-- frame manager not stopped
-				-- check if a sync signal was received
-				if (fee_sync_signal_i = '1') then
-					-- sync signal received
-					-- update counters
-					v_full_frame_cnt(17 downto 2) := s_current_frame_counter;
-					v_full_frame_cnt(1 downto 0)  := s_current_frame_number;
-					v_full_frame_cnt              := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
-					s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
-					s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
-				end if;
---				-- check if a stop request was received
---				if (fee_machine_stop_i = '1') then
---					-- stop request received
---					-- stop frame manager
---					v_stopped_flag := '1';
---				end if;
---			end if;
+			--			-- check if frame manager is stopped
+			--			if (v_stopped_flag = '1') then
+			--				-- frame manager stopped
+			--				-- check if a clear request was received
+			--				if (fee_machine_clear_i = '1') then
+			--					-- clear request received
+			--					-- clear counters
+			--					s_current_frame_counter <= (others => '0');
+			--					s_current_frame_number  <= (others => '0');
+			--					v_full_frame_cnt        := (others => '0');
+			--				end if;
+			--				-- check if a start request was received
+			--				if (fee_machine_start_i = '1') then
+			--					-- start request received
+			--					-- start frame manager
+			--					v_stopped_flag := '0';
+			--				end if;
+			--			else
+			-- frame manager not stopped
+			-- check if a sync signal was received
+			if (fee_sync_signal_i = '1') then
+				-- sync signal received
+				-- update counters
+				v_full_frame_cnt(17 downto 2) := s_current_frame_counter;
+				v_full_frame_cnt(1 downto 0)  := s_current_frame_number;
+				v_full_frame_cnt              := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
+				s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
+				s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
+			end if;
+			--				-- check if a stop request was received
+			--				if (fee_machine_stop_i = '1') then
+			--					-- stop request received
+			--					-- stop frame manager
+			--					v_stopped_flag := '1';
+			--				end if;
+			--			end if;
 
 			if (fee_clear_frame_i = '1') then
 				s_current_frame_counter <= (others => '0');

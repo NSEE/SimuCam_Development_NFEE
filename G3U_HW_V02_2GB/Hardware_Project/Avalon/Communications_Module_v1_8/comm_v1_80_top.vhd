@@ -169,10 +169,10 @@ architecture rtl of comm_v1_80_top is
 	signal s_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
 	signal s_fee_data_controller_mem_rd_flag         : t_rmap_target_mem_rd_flag;
 	signal s_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
-	
+
 	signal s_R_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
 	signal s_R_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
-	
+
 	signal s_L_fee_data_controller_mem_rd_control      : t_rmap_target_mem_rd_control;
 	signal s_L_fee_data_controller_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 
@@ -251,7 +251,7 @@ architecture rtl of comm_v1_80_top is
 
 	signal s_right_side_activated : std_logic;
 	signal s_left_side_activated  : std_logic;
-	
+
 	-- sync_in polarity fix (timing issues, need to be improved!!!)
 	signal s_sync_channel_n : std_logic;
 
@@ -259,7 +259,7 @@ begin
 
 	-- reset_n creation
 	rst_n <= not a_reset;
-	
+
 	-- sync_in polarity fix (timing issues, need to be improved!!!) 
 	s_sync_channel_n <= not sync_channel;
 
@@ -507,7 +507,7 @@ begin
 			fee_sync_signal_i                  => s_sync_in_trigger,
 			fee_current_timecode_i             => s_current_timecode,
 			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_reg.timecode_clear,
-			fee_side_activated_i   => s_right_side_activated,
+			fee_side_activated_i               => s_right_side_activated,
 			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
 			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
 			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
@@ -530,6 +530,7 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
+			fee_machine_busy_o                 => s_spacewire_read_registers.fee_windowing_buffers_status_reg.fee_right_machine_busy,
 			fee_slave_imgdata_start_o          => open,
 			fee_slave_frame_counter_o          => open,
 			fee_slave_frame_number_o           => open,
@@ -557,7 +558,7 @@ begin
 			fee_sync_signal_i                  => s_sync_in_trigger,
 			fee_current_timecode_i             => s_current_timecode,
 			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_reg.timecode_clear,
-			fee_side_activated_i   => s_left_side_activated,
+			fee_side_activated_i               => s_left_side_activated,
 			fee_machine_clear_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
 			fee_machine_stop_i                 => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
 			fee_machine_start_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
@@ -580,6 +581,7 @@ begin
 			data_pkt_line_delay_i              => s_spacewire_write_registers.data_packet_pixel_delay_1_reg.data_pkt_line_delay,
 			data_pkt_column_delay_i            => s_spacewire_write_registers.data_packet_pixel_delay_2_reg.data_pkt_column_delay,
 			data_pkt_adc_delay_i               => s_spacewire_write_registers.data_packet_pixel_delay_3_reg.data_pkt_adc_delay,
+			fee_machine_busy_o                 => s_spacewire_read_registers.fee_windowing_buffers_status_reg.fee_left_machine_busy,
 			fee_slave_imgdata_start_o          => s_fee_slave_imgdata_start,
 			fee_slave_frame_counter_o          => s_fee_slave_frame_counter,
 			fee_slave_frame_number_o           => s_fee_slave_frame_number,
@@ -655,9 +657,9 @@ begin
 			avalon_mm_rmap_o.readdata    => s_avalon_mm_rmap_mem_read_readdata,
 			avalon_mm_rmap_o.waitrequest => s_avalon_mm_rmap_mem_read_waitrequest
 		);
-		
-s_fee_data_controller_mem_rd_control.read  <=  (s_R_fee_data_controller_mem_rd_control.read) or (s_L_fee_data_controller_mem_rd_control.read);
-s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byte_address) or (s_L_fee_data_controller_mem_rd_byte_address);
+
+	s_fee_data_controller_mem_rd_control.read <= (s_R_fee_data_controller_mem_rd_control.read) or (s_L_fee_data_controller_mem_rd_control.read);
+	s_fee_data_controller_mem_rd_byte_address <= (s_R_fee_data_controller_mem_rd_byte_address) or (s_L_fee_data_controller_mem_rd_byte_address);
 
 	rmap_mem_area_nfee_write_inst : entity work.rmap_mem_area_nfee_write
 		port map(

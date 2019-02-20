@@ -1,4 +1,4 @@
-../Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_pkg.vhd
+../Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -8,7 +8,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body rmap_mem_area_nfee_pkg
 -- Loading package rmap_mem_area_nfee_pkg
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_generic.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -17,7 +17,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwrecvfront_generic
 -- Compiling architecture spwrecvfront_arch of spwrecvfront_generic
 
-} {} {}} ../Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/spw_clk_synchronization_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -30,7 +30,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity spw_data_sc_fifo
 -- Loading entity spw_timecode_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -38,7 +38,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling package avalon_mm_spacewire_pkg
 
-} {} {}} ../Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_read_ent.vhd
+} {} {}} ../Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_read_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -50,7 +50,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity avalon_mm_spacewire_read_ent
 -- Compiling architecture rtl of avalon_mm_spacewire_read_ent
 
-} {} {}} ../Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -58,7 +58,17 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package NUMERIC_STD
 -- Compiling package avalon_mm_windowing_pkg
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_user_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_user_ent.vhd
+} {} {}} config_avalon_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/config_avalon_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package avalon_mm_spacewire_registers_pkg
+-- Compiling entity config_avalon_stimuli
+-- Compiling architecture RTL of config_avalon_stimuli
+
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_user_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_user_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -68,7 +78,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_user_ent
 -- Compiling architecture rtl of rmap_target_user_ent
 
-} {} {}} ../Communications_Module_v1_8/DATA_CONTROLLER/data_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/DATA_CONTROLLER/data_controller_ent.vhd
+} {} {}} ../Communications_Module_v1_8/DATA_CONTROLLER/data_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/DATA_CONTROLLER/data_controller_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -77,7 +87,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity data_controller_ent
 -- Compiling architecture RTL of data_controller_ent
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -87,7 +97,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwxmit
 -- Compiling architecture spwxmit_arch of spwxmit
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/masking_machine_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/masking_machine_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/masking_machine_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/masking_machine_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -98,7 +108,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity delay_block_ent
 -- Loading entity masking_machine_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/streamtest.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/streamtest.vhd
+} {} {}} avalon_buffer_L_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/avalon_buffer_L_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity avalon_buffer_L_stimuli
+-- Compiling architecture RTL of avalon_buffer_L_stimuli
+
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/streamtest.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/streamtest.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -108,7 +127,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity streamtest
 -- Compiling architecture streamtest_arch of streamtest
 
-} {} {}} ../Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_write.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_write.vhd
+} {} {}} avalon_buffer_R_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/avalon_buffer_R_stimuli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity avalon_buffer_R_stimuli
+-- Compiling architecture RTL of avalon_buffer_R_stimuli
+
+} {} {}} ../Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_write.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_write.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -119,7 +147,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_mem_area_nfee_write
 -- Compiling architecture RTL of rmap_mem_area_nfee_write
 
-} {} {}} ../Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_write_ent.vhd
+} {} {}} ../Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_WINDOWING_BUFFER/avalon_mm_windowing_write_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -129,7 +157,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity avalon_mm_windowing_write_ent
 -- Compiling architecture rtl of avalon_mm_windowing_write_ent
 
-} {} {}} ../Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_write_ent.vhd
+} {} {}} ../Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/AVALON_SPACEWIRE_REGISTERS/avalon_mm_spacewire_write_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -141,7 +169,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity avalon_mm_spacewire_write_ent
 -- Compiling architecture rtl of avalon_mm_spacewire_write_ent
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwxmit_fast.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -151,7 +179,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwxmit_fast
 -- Compiling architecture spwxmit_fast_arch of spwxmit_fast
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_block_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_block_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_block_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/delay_block_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -160,7 +188,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity delay_block_ent
 -- Compiling architecture RTL of delay_block_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -168,7 +196,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity masking_machine_sc_fifo
 -- Compiling architecture SYN of masking_machine_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd
+} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -179,7 +207,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of windowing_mask_fifo_ent
 -- Loading entity windowing_mask_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_hk_writer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_hk_writer_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_hk_writer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_hk_writer_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -188,7 +216,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity data_packet_hk_writer_ent
 -- Compiling architecture RTL of data_packet_hk_writer_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_slave_data_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_slave_data_controller_top.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_slave_data_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_slave_data_controller_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -203,7 +231,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity send_buffer_ent
 -- Loading entity data_transmitter_ent
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_write_ent.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_write_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -214,7 +242,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_write_ent
 -- Compiling architecture rtl of rmap_target_write_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_master_data_controller_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_master_data_controller_top.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_master_data_controller_top.vhd {2 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_master_data_controller_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -229,8 +257,9 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity data_packet_data_writer_ent
 -- Loading entity send_buffer_ent
 -- Loading entity data_transmitter_ent
+** Warning: C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/fee_master_data_controller_top.vhd(489): (vcom-1152) Index value 3 is out of index range 2 downto 0 of ieee.std_logic_1164.STD_LOGIC_VECTOR.
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_read_ent.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_read_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -241,7 +270,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_read_ent
 -- Compiling architecture rtl of rmap_target_read_ent
 
-} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -251,7 +280,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body windowing_fifo_pkg
 -- Loading package windowing_fifo_pkg
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/syncdff.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/syncdff.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/syncdff.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/syncdff.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -259,7 +288,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity syncdff
 -- Compiling architecture syncdff_arch of syncdff
 
-} {} {}} ../Communications_Module_v1_8/REGISTERS/avalon_mm_spacewire_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/REGISTERS/avalon_mm_spacewire_registers_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/REGISTERS/avalon_mm_spacewire_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/REGISTERS/avalon_mm_spacewire_registers_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -269,7 +298,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body avalon_mm_spacewire_registers_pkg
 -- Loading package avalon_mm_spacewire_registers_pkg
 
-} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_data_fifo_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_data_fifo_ent.vhd
+} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_data_fifo_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_data_fifo_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -280,7 +309,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of windowing_data_fifo_ent
 -- Loading entity windowing_data_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwstream.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwstream.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwstream.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwstream.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -290,7 +319,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwstream
 -- Compiling architecture spwstream_arch of spwstream
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_crc_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -300,7 +329,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body rmap_target_crc_pkg
 -- Loading package rmap_target_crc_pkg
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecvfront_fast.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -310,7 +339,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwrecvfront_fast
 -- Compiling architecture spwrecvfront_arch of spwrecvfront_fast
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -320,7 +349,29 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body rmap_target_pkg
 -- Loading package rmap_target_pkg
 
-} {} {}} ../Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
+} {} {}} testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/testbench_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package rmap_target_pkg
+-- Loading package rmap_mem_area_nfee_pkg
+-- Loading package spwpkg
+-- Compiling entity testbench_top
+-- Compiling architecture RTL of testbench_top
+-- Loading package avalon_mm_spacewire_registers_pkg
+-- Loading entity config_avalon_stimuli
+-- Loading entity avalon_buffer_R_stimuli
+-- Loading entity avalon_buffer_L_stimuli
+-- Loading package avalon_mm_windowing_pkg
+-- Loading package avalon_mm_spacewire_pkg
+-- Loading package spw_codec_pkg
+-- Loading entity comm_v1_80_top
+-- Loading entity spwstream
+-- Loading entity delay_block_ent
+
+} {} {}} ../Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_data_dc_fifo/spw_data_dc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -328,7 +379,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spw_data_sc_fifo
 -- Compiling architecture SYN of spw_data_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CLK_SYNCHRONIZATION/altera_ipcore/dcfifo/spw_timecode_dc_fifo/spw_timecode_dc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -336,14 +387,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spw_timecode_sc_fifo
 -- Compiling architecture SYN of spw_timecode_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwpkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwpkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwpkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Compiling package spwpkg
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_master_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_master_data_manager_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_master_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_master_data_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -352,7 +403,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity fee_master_data_manager_ent
 -- Compiling architecture RTL of fee_master_data_manager_ent
 
-} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
+} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -360,7 +411,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity windowing_mask_sc_fifo
 -- Compiling architecture SYN of windowing_mask_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/SPW_MUX/spw_mux_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_MUX/spw_mux_ent.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_MUX/spw_mux_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_MUX/spw_mux_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -371,7 +422,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spw_mux_ent
 -- Compiling architecture RTL of spw_mux_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/data_transmitter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/data_transmitter_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/data_transmitter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_TRANSMITTER/data_transmitter_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -380,7 +431,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity data_transmitter_ent
 -- Compiling architecture RTL of data_transmitter_ent
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_reply_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_reply_ent.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_reply_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_reply_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -391,7 +442,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_target_reply_ent
 -- Compiling architecture rtl of rmap_target_reply_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/send_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/send_buffer_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/send_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/send_buffer_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -401,7 +452,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of send_buffer_ent
 -- Loading entity scfifo_data_buffer
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecv.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecv.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecv.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwrecv.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -411,7 +462,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwrecv
 -- Compiling architecture spwrecv_arch of spwrecv
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_data_writer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_data_writer_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_data_writer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_data_writer_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -420,7 +471,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity data_packet_data_writer_ent
 -- Compiling architecture RTL of data_packet_data_writer_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_slave_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_slave_data_manager_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_slave_data_manager_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER/fee_slave_data_manager_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -429,7 +480,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity fee_slave_data_manager_ent
 -- Compiling architecture RTL of fee_slave_data_manager_ent
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/scfifo_data_buffer.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/scfifo_data_buffer.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/scfifo_data_buffer.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/scfifo_data_buffer.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -437,7 +488,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity scfifo_data_buffer
 -- Compiling architecture SYN of scfifo_data_buffer
 
-} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd
+} {} {}} ../Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET/data_packet_header_gen_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -446,7 +497,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity data_packet_header_gen_ent
 -- Compiling architecture RTL of data_packet_header_gen_ent
 
-} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_buffer_ent.vhd
+} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/windowing_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_buffer_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -458,7 +509,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity windowing_data_fifo_ent
 -- Loading entity windowing_mask_fifo_ent
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwlink.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwlink.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwlink.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwlink.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -468,7 +519,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwlink
 -- Compiling architecture spwlink_arch of spwlink
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_top.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -484,7 +535,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity rmap_target_read_ent
 -- Loading entity rmap_target_reply_ent
 
-} {} {}} ../Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_read.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_MEMORY/rmap_mem_area_nfee_read.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -495,7 +546,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity rmap_mem_area_nfee_read
 -- Compiling architecture RTL of rmap_mem_area_nfee_read
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spw_codec.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spw_codec.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spw_codec.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spw_codec.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -507,7 +558,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture rtl of spw_codec_ent
 -- Loading entity spwstream
 
-} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_data_sc_fifo/windowing_data_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_data_sc_fifo/windowing_data_sc_fifo.vhd
+} {} {}} ../Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_data_sc_fifo/windowing_data_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_data_sc_fifo/windowing_data_sc_fifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -515,7 +566,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity windowing_data_sc_fifo
 -- Compiling architecture SYN of windowing_data_sc_fifo
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spw_codec_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spw_codec_pkg.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spw_codec_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spw_codec_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -524,7 +575,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package spwpkg
 -- Compiling package spw_codec_pkg
 
-} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwram.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwram.vhd
+} {} {}} ../Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwram.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/SPW_CODEC/spacewire_light_codec/spwram.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -533,7 +584,7 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity spwram
 -- Compiling architecture spwram_arch of spwram
 
-} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_command_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Dev/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_command_ent.vhd
+} {} {}} ../Communications_Module_v1_8/RMAP_TARGET/rmap_target_command_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/RMAP_TARGET/rmap_target_command_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
