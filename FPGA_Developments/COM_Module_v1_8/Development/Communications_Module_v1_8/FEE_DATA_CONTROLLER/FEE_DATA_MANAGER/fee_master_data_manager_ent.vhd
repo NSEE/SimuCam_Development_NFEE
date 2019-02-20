@@ -12,7 +12,7 @@ entity fee_master_data_manager_ent is
 		fee_stop_signal_i                    : in  std_logic;
 		fee_start_signal_i                   : in  std_logic;
 		sync_signal_i                        : in  std_logic;
-		side_activated_i : in  std_logic;
+		side_activated_i                     : in  std_logic;
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
 		-- fee data manager parameters
