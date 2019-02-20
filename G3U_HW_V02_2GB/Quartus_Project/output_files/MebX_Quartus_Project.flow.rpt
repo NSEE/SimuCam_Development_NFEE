@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project
-Tue Feb 19 22:05:30 2019
+Wed Feb 20 15:20:49 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
@@ -41,7 +41,7 @@ agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Tue Feb 19 22:05:30 2019           ;
+; Flow Status                       ; Successful - Wed Feb 20 15:20:49 2019           ;
 ; Quartus Prime Version             ; 16.1.0 Build 196 10/24/2016 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project                            ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
@@ -49,10 +49,10 @@ agreement for further details.
 ; Device                            ; EP4SGX230KF40C2                                 ;
 ; Timing Models                     ; Final                                           ;
 ; Logic utilization                 ; 40 %                                            ;
-;     Combinational ALUTs           ; 56,641 / 182,400 ( 31 % )                       ;
+;     Combinational ALUTs           ; 56,620 / 182,400 ( 31 % )                       ;
 ;     Memory ALUTs                  ; 1,305 / 91,200 ( 1 % )                          ;
-;     Dedicated logic registers     ; 45,101 / 182,400 ( 25 % )                       ;
-; Total registers                   ; 46389                                           ;
+;     Dedicated logic registers     ; 45,080 / 182,400 ( 25 % )                       ;
+; Total registers                   ; 46368                                           ;
 ; Total pins                        ; 452 / 888 ( 51 % )                              ;
 ; Total virtual pins                ; 0                                               ;
 ; Total block memory bits           ; 11,332,556 / 14,625,792 ( 77 % )                ;
@@ -71,7 +71,7 @@ agreement for further details.
 +-------------------+----------------------+
 ; Option            ; Setting              ;
 +-------------------+----------------------+
-; Start date & time ; 02/19/2019 21:15:25  ;
+; Start date & time ; 02/20/2019 14:36:56  ;
 ; Main task         ; Compilation          ;
 ; Revision Name     ; MebX_Quartus_Project ;
 +-------------------+----------------------+
@@ -83,7 +83,7 @@ agreement for further details.
 ; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name       ; Section Id     ;
 +---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                             ; 66485671440360.155062171811860                                                ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 114435141155264.155068421508932                                               ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -153,12 +153,12 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:11:36     ; 1.0                     ; 3009 MB             ; 00:10:32                           ;
-; Fitter                    ; 00:29:41     ; 1.2                     ; 3675 MB             ; 00:59:21                           ;
-; Assembler                 ; 00:00:47     ; 1.0                     ; 1209 MB             ; 00:00:37                           ;
-; TimeQuest Timing Analyzer ; 00:02:38     ; 1.2                     ; 2014 MB             ; 00:02:40                           ;
-; EDA Netlist Writer        ; 00:03:41     ; 1.0                     ; 1492 MB             ; 00:01:39                           ;
-; Total                     ; 00:48:23     ; --                      ; --                  ; 01:14:49                           ;
+; Analysis & Synthesis      ; 00:10:15     ; 1.0                     ; 2783 MB             ; 00:10:35                           ;
+; Fitter                    ; 00:27:51     ; 1.2                     ; 3566 MB             ; 00:55:09                           ;
+; Assembler                 ; 00:00:34     ; 1.0                     ; 1209 MB             ; 00:00:32                           ;
+; TimeQuest Timing Analyzer ; 00:02:52     ; 1.2                     ; 2015 MB             ; 00:02:24                           ;
+; EDA Netlist Writer        ; 00:01:29     ; 1.0                     ; 1497 MB             ; 00:01:27                           ;
+; Total                     ; 00:43:01     ; --                      ; --                  ; 01:10:07                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -167,11 +167,11 @@ agreement for further details.
 +---------------------------+------------------+-----------+------------+----------------+
 ; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
 +---------------------------+------------------+-----------+------------+----------------+
-; Analysis & Synthesis      ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; Fitter                    ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; Assembler                 ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; TimeQuest Timing Analyzer ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
-; EDA Netlist Writer        ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; Analysis & Synthesis      ; NSEE-H125-02     ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                    ; NSEE-H125-02     ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler                 ; NSEE-H125-02     ; Windows 7 ; 6.1        ; x86_64         ;
+; TimeQuest Timing Analyzer ; NSEE-H125-02     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer        ; NSEE-H125-02     ; Windows 7 ; 6.1        ; x86_64         ;
 +---------------------------+------------------+-----------+------------+----------------+
 
 
