@@ -182,8 +182,7 @@ begin
 			fee_clear_signal_i                   => fee_machine_clear_i,
 			fee_stop_signal_i                    => fee_machine_stop_i,
 			fee_start_signal_i                   => fee_machine_start_i,
-			sync_signal_i                        => s_data_manager_sync,
-			side_activated_i                     => fee_side_activated_i,
+			fee_manager_sync_i                   => s_data_manager_sync,
 			current_frame_number_i               => s_current_frame_number,
 			current_frame_counter_i              => s_current_frame_counter,
 			fee_logical_addr_i                   => s_registered_fee_logical_addr_i,
@@ -485,8 +484,8 @@ begin
 			s_data_manager_sync <= '0';
 		elsif rising_edge(clk_i) then
 			s_data_manager_sync <= '0';
-			-- check if a sync signal was received and the mode is valid
-			if ((fee_sync_signal_i = '1') and (data_pkt_fee_mode_i(3) = '1')) then
+			-- check if a sync signal was received and the side is active and the mode is valid
+			if ((fee_sync_signal_i = '1') and (fee_side_activated_i = '1') and (data_pkt_fee_mode_i(3) = '1')) then
 				s_data_manager_sync <= '1';
 			end if;
 		end if;
