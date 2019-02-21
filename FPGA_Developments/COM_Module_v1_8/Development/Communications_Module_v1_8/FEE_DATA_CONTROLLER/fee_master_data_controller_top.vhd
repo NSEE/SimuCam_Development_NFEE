@@ -12,8 +12,8 @@ entity fee_master_data_controller_top is
 		-- general inputs
 		fee_sync_signal_i                  : in  std_logic;
 		fee_current_timecode_i             : in  std_logic_vector(7 downto 0);
-		fee_clear_frame_i  : in  std_logic;
-		fee_side_activated_i  : in  std_logic;
+		fee_clear_frame_i                  : in  std_logic;
+		fee_side_activated_i               : in  std_logic;
 		-- fee data controller control
 		fee_machine_clear_i                : in  std_logic;
 		fee_machine_stop_i                 : in  std_logic;
@@ -34,12 +34,16 @@ entity fee_master_data_controller_top is
 		data_pkt_data_y_size_i             : in  std_logic_vector(15 downto 0);
 		data_pkt_overscan_y_size_i         : in  std_logic_vector(15 downto 0);
 		data_pkt_packet_length_i           : in  std_logic_vector(15 downto 0);
-		data_pkt_fee_mode_i                : in  std_logic_vector(2 downto 0);
+		data_pkt_fee_mode_i                : in  std_logic_vector(3 downto 0);
 		data_pkt_ccd_number_i              : in  std_logic_vector(1 downto 0);
+		data_pkt_protocol_id_i             : in  std_logic_vector(7 downto 0);
+		data_pkt_logical_addr_i            : in  std_logic_vector(7 downto 0);
 		-- data delays parameters
 		data_pkt_line_delay_i              : in  std_logic_vector(15 downto 0);
 		data_pkt_column_delay_i            : in  std_logic_vector(15 downto 0);
 		data_pkt_adc_delay_i               : in  std_logic_vector(15 downto 0);
+		-- fee machine status
+		fee_machine_busy_o                 : out std_logic;
 		-- fee slave data controller control
 		fee_slave_imgdata_start_o          : out std_logic;
 		fee_slave_frame_counter_o          : out std_logic_vector(15 downto 0);
@@ -74,8 +78,11 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_masking_buffer_almost_empty        : std_logic;
 	signal s_masking_buffer_empty               : std_logic;
 	signal s_masking_buffer_rddata              : std_logic_vector(7 downto 0);
+	-- data manager signals
+	signal s_data_manager_sync                  : std_logic;
 	-- header data signals
 	signal s_headerdata_logical_address         : std_logic_vector(7 downto 0);
+	signal s_headerdata_protocol_id             : std_logic_vector(7 downto 0);
 	signal s_headerdata_length_field            : std_logic_vector(15 downto 0);
 	signal s_headerdata_type_field_mode         : std_logic_vector(2 downto 0);
 	signal s_headerdata_type_field_last_packet  : std_logic;
@@ -126,6 +133,8 @@ architecture RTL of fee_master_data_controller_top is
 	--	signal s_data_transmitter_reset             : std_logic;
 	signal s_start_masking                      : std_logic;
 	-- registered data pkt config signals (for the entire read-out)
+	signal s_registered_fee_logical_addr_i      : std_logic_vector(7 downto 0);
+	signal s_registered_fee_protocol_id_i       : std_logic_vector(7 downto 0);
 	signal s_registered_fee_ccd_x_size_i        : std_logic_vector(15 downto 0);
 	signal s_registered_fee_ccd_y_size_i        : std_logic_vector(15 downto 0);
 	signal s_registered_fee_data_y_size_i       : std_logic_vector(15 downto 0);
@@ -141,7 +150,7 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
-			sync_signal_i                 => fee_sync_signal_i,
+			sync_signal_i                 => s_data_manager_sync,
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
@@ -173,10 +182,11 @@ begin
 			fee_clear_signal_i                   => fee_machine_clear_i,
 			fee_stop_signal_i                    => fee_machine_stop_i,
 			fee_start_signal_i                   => fee_machine_start_i,
-			sync_signal_i                        => fee_sync_signal_i,
-			side_activated_i => fee_side_activated_i,
+			fee_manager_sync_i                   => s_data_manager_sync,
 			current_frame_number_i               => s_current_frame_number,
 			current_frame_counter_i              => s_current_frame_counter,
+			fee_logical_addr_i                   => s_registered_fee_logical_addr_i,
+			fee_protocol_id_i                    => s_registered_fee_protocol_id_i,
 			fee_ccd_x_size_i                     => s_registered_fee_ccd_x_size_i,
 			fee_data_y_size_i                    => s_registered_fee_data_y_size_i,
 			fee_overscan_y_size_i                => s_registered_fee_overscan_y_size_i,
@@ -190,7 +200,9 @@ begin
 			data_transmitter_finished_i          => s_data_transmitter_finished,
 			imgdata_start_o                      => s_start_masking,
 			masking_machine_hold_o               => s_masking_machine_hold,
+			fee_data_manager_busy_o              => fee_machine_busy_o,
 			headerdata_logical_address_o         => s_headerdata_logical_address,
+			headerdata_protocol_id_o             => s_headerdata_protocol_id,
 			headerdata_length_field_o            => s_headerdata_length_field,
 			headerdata_type_field_mode_o         => s_headerdata_type_field_mode,
 			headerdata_type_field_last_packet_o  => s_headerdata_type_field_last_packet,
@@ -221,6 +233,7 @@ begin
 			header_gen_send_i                    => s_header_gen_send,
 			header_gen_reset_i                   => s_header_gen_reset,
 			headerdata_logical_address_i         => s_headerdata_logical_address,
+			headerdata_protocol_id_i             => s_headerdata_protocol_id,
 			headerdata_length_field_i            => s_headerdata_length_field,
 			headerdata_type_field_mode_i         => s_headerdata_type_field_mode,
 			headerdata_type_field_last_packet_i  => s_headerdata_type_field_last_packet,
@@ -360,42 +373,42 @@ begin
 			--   |  17 downto  2  |   1 downto  0  |
 			--
 
---			-- check if frame manager is stopped
---			if (v_stopped_flag = '1') then
---				-- frame manager stopped
---				-- check if a clear request was received
---				if (fee_machine_clear_i = '1') then
---					-- clear request received
---					-- clear counters
---					s_current_frame_counter <= (others => '0');
---					s_current_frame_number  <= (others => '0');
---					v_full_frame_cnt        := (others => '0');
---				end if;
---				-- check if a start request was received
---				if (fee_machine_start_i = '1') then
---					-- start request received
---					-- start frame manager
---					v_stopped_flag := '0';
---				end if;
---			else
-				-- frame manager not stopped
-				-- check if a sync signal was received
-				if (fee_sync_signal_i = '1') then
-					-- sync signal received
-					-- update counters
-					v_full_frame_cnt(17 downto 2) := s_current_frame_counter;
-					v_full_frame_cnt(1 downto 0)  := s_current_frame_number;
-					v_full_frame_cnt              := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
-					s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
-					s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
-				end if;
---				-- check if a stop request was received
---				if (fee_machine_stop_i = '1') then
---					-- stop request received
---					-- stop frame manager
---					v_stopped_flag := '1';
---				end if;
---			end if;
+			--			-- check if frame manager is stopped
+			--			if (v_stopped_flag = '1') then
+			--				-- frame manager stopped
+			--				-- check if a clear request was received
+			--				if (fee_machine_clear_i = '1') then
+			--					-- clear request received
+			--					-- clear counters
+			--					s_current_frame_counter <= (others => '0');
+			--					s_current_frame_number  <= (others => '0');
+			--					v_full_frame_cnt        := (others => '0');
+			--				end if;
+			--				-- check if a start request was received
+			--				if (fee_machine_start_i = '1') then
+			--					-- start request received
+			--					-- start frame manager
+			--					v_stopped_flag := '0';
+			--				end if;
+			--			else
+			-- frame manager not stopped
+			-- check if a sync signal was received
+			if (fee_sync_signal_i = '1') then
+				-- sync signal received
+				-- update counters
+				v_full_frame_cnt(17 downto 2) := s_current_frame_counter;
+				v_full_frame_cnt(1 downto 0)  := s_current_frame_number;
+				v_full_frame_cnt              := std_logic_vector(unsigned(v_full_frame_cnt) + 1);
+				s_current_frame_counter       <= v_full_frame_cnt(17 downto 2);
+				s_current_frame_number        <= v_full_frame_cnt(1 downto 0);
+			end if;
+			--				-- check if a stop request was received
+			--				if (fee_machine_stop_i = '1') then
+			--					-- stop request received
+			--					-- stop frame manager
+			--					v_stopped_flag := '1';
+			--				end if;
+			--			end if;
 
 			if (fee_clear_frame_i = '1') then
 				s_current_frame_counter <= (others => '0');
@@ -440,6 +453,8 @@ begin
 	p_register_data_pkt_config : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
+			s_registered_fee_logical_addr_i    <= x"50";
+			s_registered_fee_protocol_id_i     <= x"F0";
 			s_registered_fee_ccd_x_size_i      <= std_logic_vector(to_unsigned(2295, 16));
 			s_registered_fee_ccd_y_size_i      <= std_logic_vector(to_unsigned(4540, 16));
 			s_registered_fee_data_y_size_i     <= std_logic_vector(to_unsigned(4510, 16));
@@ -450,15 +465,30 @@ begin
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
+				s_registered_fee_logical_addr_i    <= data_pkt_logical_addr_i;
+				s_registered_fee_protocol_id_i     <= data_pkt_protocol_id_i;
 				s_registered_fee_ccd_x_size_i      <= data_pkt_ccd_x_size_i;
 				s_registered_fee_ccd_y_size_i      <= data_pkt_ccd_y_size_i;
 				s_registered_fee_data_y_size_i     <= data_pkt_data_y_size_i;
 				s_registered_fee_overscan_y_size_i <= data_pkt_overscan_y_size_i;
 				s_registered_fee_packet_length_i   <= data_pkt_packet_length_i;
-				s_registered_fee_fee_mode_i        <= data_pkt_fee_mode_i;
+				s_registered_fee_fee_mode_i        <= data_pkt_fee_mode_i(2 downto 0);
 				s_registered_fee_ccd_number_i      <= data_pkt_ccd_number_i;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;
+
+	p_data_manager_sync_gen : process(clk_i, rst_i) is
+	begin
+		if (rst_i = '1') then
+			s_data_manager_sync <= '0';
+		elsif rising_edge(clk_i) then
+			s_data_manager_sync <= '0';
+			-- check if a sync signal was received and the side is active and the mode is valid
+			if ((fee_sync_signal_i = '1') and (fee_side_activated_i = '1') and (data_pkt_fee_mode_i(3) = '1')) then
+				s_data_manager_sync <= '1';
+			end if;
+		end if;
+	end process p_data_manager_sync_gen;
 
 end architecture RTL;
