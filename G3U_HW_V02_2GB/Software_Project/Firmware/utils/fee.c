@@ -67,7 +67,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     //bLoadNFEEDefsSDCard(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     /* Set the default redout order [ 0, 1, 2, 3 ] */
     for ( ucIL = 0; ucIL < 4; ucIL++) 
-        pxNfeeL->xControl.ucROutOrder[ucIL] = ucIL;
+        pxNfeeL->xControl.ucROutOrder[ucIL] =  xDefaults.ucReadOutOrder[ucIL];
 
     /* Initialize the structs of the Channel, Double Buffer, RMAP and Data packet */
     if ( bCommInitCh(&pxNfeeL->xChannel, pxNfeeL->ucSPWId ) == FALSE ) {
