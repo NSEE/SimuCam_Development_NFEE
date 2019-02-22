@@ -6,10 +6,10 @@ use work.spw_codec_pkg.all;
 
 entity spw_clk_synchronization_ent is
 	generic(
-		g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_TX_TC_FIFO_MEMORY_BLOCK_TYPE  : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RX_TC_FIFO_MEMORY_BLOCK_TYPE  : in positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
+		g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_TX_TC_FIFO_MEMORY_BLOCK_TYPE  : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RX_TC_FIFO_MEMORY_BLOCK_TYPE  : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
 	);
 	port(
 		clk_100_i                          : in  std_logic;

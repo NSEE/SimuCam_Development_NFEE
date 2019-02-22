@@ -6,10 +6,10 @@ use work.windowing_fifo_pkg.all;
 
 entity windowing_buffer_ent is
 	generic(
-		g_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : in positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
 	);
 	port(
 		clk_i                   : in  std_logic;

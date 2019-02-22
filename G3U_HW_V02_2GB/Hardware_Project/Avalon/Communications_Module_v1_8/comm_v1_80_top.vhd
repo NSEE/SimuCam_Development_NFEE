@@ -20,6 +20,26 @@ use work.rmap_target_pkg.all;
 use work.rmap_mem_area_nfee_pkg.all;
 
 entity comm_v1_80_top is
+	generic(
+		g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE    : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE    : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE      : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE      : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
+	);
 	port(
 		reset_sink_reset                   : in  std_logic                     := '0'; --          --               reset_sink.a_reset
 		data_in                            : in  std_logic                     := '0'; --          --          spw_conduit_end.data_in_signal
@@ -309,6 +329,12 @@ begin
 
 	-- rigth windowing buffer instantiation
 	rigth_windowing_buffer_ent_inst : entity work.windowing_buffer_ent
+		generic map(
+			g_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE => g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE => g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE => g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE,
+			g_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE => g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
@@ -347,6 +373,12 @@ begin
 
 	-- left windowing buffer instantiation
 	left_windowing_buffer_ent_inst : entity work.windowing_buffer_ent
+		generic map(
+			g_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE => g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE => g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE => g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE,
+			g_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE => g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
@@ -499,7 +531,10 @@ begin
 	-- right fee master data controller instantiation
 	right_fee_master_data_controller_top_inst : entity work.fee_master_data_controller_top
 		generic map(
-			g_FEE_CCD_SIDE => c_CCD_RIGHT_SIDE
+			g_FEE_CCD_SIDE                   => c_CCD_RIGHT_SIDE,
+			g_MASKING_FIFO_MEMORY_BLOCK_TYPE => g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE,
+			g_SEND_FIFO_0_MEMORY_BLOCK_TYPE  => g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_SEND_FIFO_1_MEMORY_BLOCK_TYPE  => g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE
 		)
 		port map(
 			clk_i                              => a_avs_clock,
@@ -550,7 +585,10 @@ begin
 	-- left fee master data controller instantiation
 	left_fee_master_data_controller_top_inst : entity work.fee_master_data_controller_top
 		generic map(
-			g_FEE_CCD_SIDE => c_CCD_LEFT_SIDE
+			g_FEE_CCD_SIDE                   => c_CCD_LEFT_SIDE,
+			g_MASKING_FIFO_MEMORY_BLOCK_TYPE => g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE,
+			g_SEND_FIFO_0_MEMORY_BLOCK_TYPE  => g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_SEND_FIFO_1_MEMORY_BLOCK_TYPE  => g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE
 		)
 		port map(
 			clk_i                              => a_avs_clock,
@@ -713,6 +751,12 @@ begin
 
 	-- spw codec clock domain synchronization
 	spw_clk_synchronization_ent_inst : entity work.spw_clk_synchronization_ent
+		generic map(
+			g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE => g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE,
+			g_TX_TC_FIFO_MEMORY_BLOCK_TYPE  => g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE,
+			g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE => g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE,
+			g_RX_TC_FIFO_MEMORY_BLOCK_TYPE  => g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_100_i                                 => a_avs_clock,
 			clk_200_i                                 => a_spw_clock,

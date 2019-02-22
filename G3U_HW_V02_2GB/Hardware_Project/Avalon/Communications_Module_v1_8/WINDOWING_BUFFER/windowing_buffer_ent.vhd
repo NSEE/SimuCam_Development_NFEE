@@ -5,6 +5,12 @@ use ieee.numeric_std.all;
 use work.windowing_fifo_pkg.all;
 
 entity windowing_buffer_ent is
+	generic(
+		g_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
+	);
 	port(
 		clk_i                   : in  std_logic;
 		rst_i                   : in  std_logic;
@@ -82,6 +88,9 @@ begin
 
 	-- windowing data fifo 0 instantiation
 	windowing_data_fifo_0_ent_inst : entity work.windowing_data_fifo_ent
+		generic map(
+			g_FIFO_MEMORY_BLOCK_TYPE => g_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i          => clk_i,
 			rst_i          => rst_i,
@@ -93,6 +102,9 @@ begin
 
 	-- windowing mask fifo 0 instantiation
 	windowing_mask_fifo_0_ent_inst : entity work.windowing_mask_fifo_ent
+		generic map(
+			g_FIFO_MEMORY_BLOCK_TYPE => g_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i          => clk_i,
 			rst_i          => rst_i,
@@ -104,6 +116,9 @@ begin
 
 	-- windowing data fifo 1 instantiation
 	windowing_data_fifo_1_ent_inst : entity work.windowing_data_fifo_ent
+		generic map(
+			g_FIFO_MEMORY_BLOCK_TYPE => g_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i          => clk_i,
 			rst_i          => rst_i,
@@ -115,6 +130,9 @@ begin
 
 	-- windowing mask fifo 1 instantiation
 	windowing_mask_fifo_1_ent_inst : entity work.windowing_mask_fifo_ent
+		generic map(
+			g_FIFO_MEMORY_BLOCK_TYPE => g_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i          => clk_i,
 			rst_i          => rst_i,
