@@ -5,6 +5,9 @@ use ieee.numeric_std.all;
 use work.windowing_fifo_pkg.all;
 
 entity windowing_data_fifo_ent is
+	generic(
+		g_FIFO_MEMORY_BLOCK_TYPE : in positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
+	);
 	port(
 		clk_i          : in  std_logic;
 		rst_i          : in  std_logic;
@@ -24,19 +27,51 @@ architecture RTL of windowing_data_fifo_ent is
 begin
 
 	-- windowing data fifo instantiation
-	windowing_data_sc_fifo_inst : entity work.windowing_data_sc_fifo
-		port map(
-			aclr  => s_aclr,
-			clock => clk_i,
-			data  => fifo_wr_data.data,
-			rdreq => fifo_control_i.read.rdreq,
-			sclr  => s_sclr,
-			wrreq => fifo_control_i.write.wrreq,
-			empty => fifo_status_o.read.empty,
-			full  => fifo_status_o.write.full,
-			q     => fifo_rd_data.q,
-			usedw => s_usedw
-		);
+	mlab_windowing_data_sc_fifo_inst : if (g_FIFO_MEMORY_BLOCK_TYPE = 1) generate
+		windowing_data_sc_fifo_inst : entity work.mlab_windowing_data_sc_fifo
+			port map(
+				aclr  => s_aclr,
+				clock => clk_i,
+				data  => fifo_wr_data.data,
+				rdreq => fifo_control_i.read.rdreq,
+				sclr  => s_sclr,
+				wrreq => fifo_control_i.write.wrreq,
+				empty => fifo_status_o.read.empty,
+				full  => fifo_status_o.write.full,
+				q     => fifo_rd_data.q,
+				usedw => s_usedw
+			);
+	end generate mlab_windowing_data_sc_fifo_inst;
+	m9k_windowing_data_sc_fifo_inst : if (g_FIFO_MEMORY_BLOCK_TYPE = 2) generate
+		windowing_data_sc_fifo_inst : entity work.m9k_windowing_data_sc_fifo
+			port map(
+				aclr  => s_aclr,
+				clock => clk_i,
+				data  => fifo_wr_data.data,
+				rdreq => fifo_control_i.read.rdreq,
+				sclr  => s_sclr,
+				wrreq => fifo_control_i.write.wrreq,
+				empty => fifo_status_o.read.empty,
+				full  => fifo_status_o.write.full,
+				q     => fifo_rd_data.q,
+				usedw => s_usedw
+			);
+	end generate m9k_windowing_data_sc_fifo_inst;
+	m144k_windowing_data_sc_fifo_inst : if (g_FIFO_MEMORY_BLOCK_TYPE = 3) generate
+		windowing_data_sc_fifo_inst : entity work.m144k_windowing_data_sc_fifo
+			port map(
+				aclr  => s_aclr,
+				clock => clk_i,
+				data  => fifo_wr_data.data,
+				rdreq => fifo_control_i.read.rdreq,
+				sclr  => s_sclr,
+				wrreq => fifo_control_i.write.wrreq,
+				empty => fifo_status_o.read.empty,
+				full  => fifo_status_o.write.full,
+				q     => fifo_rd_data.q,
+				usedw => s_usedw
+			);
+	end generate m144k_windowing_data_sc_fifo_inst;
 
 	-- windowing data fifo clear signals
 	s_aclr <= rst_i;

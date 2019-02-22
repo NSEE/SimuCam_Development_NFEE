@@ -4,7 +4,10 @@ use ieee.numeric_std.all;
 
 entity fee_slave_data_controller_top is
 	generic(
-		g_FEE_CCD_SIDE : std_logic := '0'
+		g_FEE_CCD_SIDE                   : std_logic := '0';
+		g_MASKING_FIFO_MEMORY_BLOCK_TYPE : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SEND_FIFO_0_MEMORY_BLOCK_TYPE  : in positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SEND_FIFO_1_MEMORY_BLOCK_TYPE  : in positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
 	);
 	port(
 		clk_i                      : in  std_logic;
@@ -117,6 +120,9 @@ begin
 
 	-- masking machine instantiation
 	masking_machine_ent_inst : entity work.masking_machine_ent
+		generic map(
+			g_FIFO_MEMORY_BLOCK_TYPE => g_MASKING_FIFO_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
@@ -240,6 +246,10 @@ begin
 
 	-- send buffer instantiation
 	send_buffer_ent_inst : entity work.send_buffer_ent
+		generic map(
+			g_FIFO_0_MEMORY_BLOCK_TYPE => g_SEND_FIFO_0_MEMORY_BLOCK_TYPE,
+			g_FIFO_1_MEMORY_BLOCK_TYPE => g_SEND_FIFO_1_MEMORY_BLOCK_TYPE
+		)
 		port map(
 			clk_i                      => clk_i,
 			rst_i                      => rst_i,

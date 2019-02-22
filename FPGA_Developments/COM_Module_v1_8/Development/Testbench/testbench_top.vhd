@@ -126,6 +126,26 @@ begin
 		);
 
 	comm_v1_01_top_inst : entity work.comm_v1_80_top
+		generic map(
+			g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE => 1,
+			g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE => 1,
+			g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE => 1,
+			g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE => 1,
+			g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE => 1,
+			g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE => 1,
+			g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE => 1,
+			g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE => 1,
+			g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE    => 1,
+			g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE     => 1,
+			g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE     => 1,
+			g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE    => 1,
+			g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE     => 1,
+			g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE     => 1,
+			g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE     => 1,
+			g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE      => 1,
+			g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE     => 1,
+			g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE      => 1
+		)
 		port map(
 			reset_sink_reset                   => rst,
 			data_in                            => s_spw_codec_comm_di,
