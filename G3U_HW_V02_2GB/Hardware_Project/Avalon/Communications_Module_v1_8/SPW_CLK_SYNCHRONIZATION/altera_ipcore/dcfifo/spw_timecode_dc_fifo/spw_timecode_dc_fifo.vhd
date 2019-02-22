@@ -4,7 +4,7 @@
 -- MODULE: dcfifo 
 
 -- ============================================================
--- File Name: spw_timecode_sc_fifo.vhd
+-- File Name: spw_timecode_dc_fifo.vhd
 -- Megafunction Name(s):
 -- 			dcfifo
 --
@@ -40,7 +40,7 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY spw_timecode_sc_fifo IS
+ENTITY spw_timecode_dc_fifo IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';
@@ -55,10 +55,10 @@ ENTITY spw_timecode_sc_fifo IS
 		wrfull		: OUT STD_LOGIC ;
 		wrusedw		: OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
 	);
-END spw_timecode_sc_fifo;
+END spw_timecode_dc_fifo;
 
 
-ARCHITECTURE SYN OF spw_timecode_sc_fifo IS
+ARCHITECTURE SYN OF spw_timecode_dc_fifo IS
 
 	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (7 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
@@ -71,6 +71,7 @@ ARCHITECTURE SYN OF spw_timecode_sc_fifo IS
 	COMPONENT dcfifo
 	GENERIC (
 		intended_device_family		: STRING;
+		lpm_hint		: STRING;
 		lpm_numwords		: NATURAL;
 		lpm_showahead		: STRING;
 		lpm_type		: STRING;
@@ -109,6 +110,7 @@ BEGIN
 	dcfifo_component : dcfifo
 	GENERIC MAP (
 		intended_device_family => "Stratix IV",
+		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
 		lpm_numwords => 4,
 		lpm_showahead => "OFF",
 		lpm_type => "dcfifo",
@@ -158,7 +160,7 @@ END SYN;
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -177,6 +179,7 @@ END SYN;
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "4"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
@@ -211,10 +214,10 @@ END SYN;
 -- Retrieval info: CONNECT: rdusedw 0 0 2 0 @rdusedw 0 0 2 0
 -- Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
 -- Retrieval info: CONNECT: wrusedw 0 0 2 0 @wrusedw 0 0 2 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_sc_fifo.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_sc_fifo.inc TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_sc_fifo.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_sc_fifo.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_sc_fifo_inst.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_sc_fifo_syn.v TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_dc_fifo.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_dc_fifo.inc TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_dc_fifo.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_dc_fifo.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_dc_fifo_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_timecode_dc_fifo_syn.v TRUE
 -- Retrieval info: LIB_FILE: altera_mf

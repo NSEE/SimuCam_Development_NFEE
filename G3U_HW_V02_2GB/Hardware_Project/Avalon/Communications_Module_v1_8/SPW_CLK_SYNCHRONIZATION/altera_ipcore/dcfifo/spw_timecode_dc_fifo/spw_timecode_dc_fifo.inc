@@ -14,7 +14,7 @@
 --agreement for further details.
 
 
-FUNCTION spw_timecode_sc_fifo 
+FUNCTION spw_timecode_dc_fifo 
 (
 	aclr,
 	data[7..0],

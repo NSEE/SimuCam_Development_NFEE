@@ -70,6 +70,7 @@ ARCHITECTURE SYN OF masking_machine_sc_fifo IS
 	GENERIC (
 		add_ram_output_register		: STRING;
 		intended_device_family		: STRING;
+		lpm_hint		: STRING;
 		lpm_numwords		: NATURAL;
 		lpm_showahead		: STRING;
 		lpm_type		: STRING;
@@ -101,8 +102,9 @@ BEGIN
 
 	scfifo_component : scfifo
 	GENERIC MAP (
-		add_ram_output_register => "OFF",
+		add_ram_output_register => "ON",
 		intended_device_family => "Stratix IV",
+		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
 		lpm_numwords => 256,
 		lpm_showahead => "OFF",
 		lpm_type => "scfifo",
@@ -133,7 +135,7 @@ END SYN;
 -- CNX file retrieval info
 -- ============================================================
 -- Retrieval info: PRIVATE: AlmostEmpty NUMERIC "0"
--- Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "2"
+-- Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: AlmostFull NUMERIC "0"
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
@@ -147,7 +149,7 @@ END SYN;
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -165,8 +167,9 @@ END SYN;
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
+-- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "ON"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "256"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"

@@ -72,7 +72,7 @@ wire             wren;
            the_altsyncram.numwords_a = 256000,
            the_altsyncram.operation_mode = "SINGLE_PORT",
            the_altsyncram.outdata_reg_a = "UNREGISTERED",
-           the_altsyncram.ram_block_type = "M9K",
+           the_altsyncram.ram_block_type = "M144K",
            the_altsyncram.read_during_write_mode_mixed_ports = "DONT_CARE",
            the_altsyncram.read_during_write_mode_port_a = "DONT_CARE",
            the_altsyncram.width_a = 32,

@@ -14,7 +14,7 @@
 --agreement for further details.
 
 
-FUNCTION spw_data_sc_fifo 
+FUNCTION spw_data_dc_fifo 
 (
 	aclr,
 	data[8..0],
