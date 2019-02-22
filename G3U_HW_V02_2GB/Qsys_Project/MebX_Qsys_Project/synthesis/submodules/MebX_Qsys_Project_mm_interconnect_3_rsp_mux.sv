@@ -43,8 +43,8 @@
 //   ARBITRATION_SHARES:  1
 //   ARBITRATION_SCHEME   "no-arb"
 //   PIPELINE_ARB:        0
-//   PKT_TRANS_LOCK:      107 (arbitration locking enabled)
-//   ST_DATA_W:           147
+//   PKT_TRANS_LOCK:      323 (arbitration locking enabled)
+//   ST_DATA_W:           363
 //   ST_CHANNEL_W:        1
 // ------------------------------------------
 
@@ -54,7 +54,7 @@ module MebX_Qsys_Project_mm_interconnect_3_rsp_mux
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [147-1   : 0]  sink0_data,
+    input [363-1   : 0]  sink0_data,
     input [1-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
@@ -65,7 +65,7 @@ module MebX_Qsys_Project_mm_interconnect_3_rsp_mux
     // Source
     // ----------------------
     output                      src_valid,
-    output [147-1    : 0] src_data,
+    output [363-1    : 0] src_data,
     output [1-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
@@ -77,13 +77,13 @@ module MebX_Qsys_Project_mm_interconnect_3_rsp_mux
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 147 + 1 + 2;
+    localparam PAYLOAD_W        = 363 + 1 + 2;
     localparam NUM_INPUTS       = 1;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 0;
-    localparam ST_DATA_W        = 147;
+    localparam ST_DATA_W        = 363;
     localparam ST_CHANNEL_W     = 1;
-    localparam PKT_TRANS_LOCK   = 107;
+    localparam PKT_TRANS_LOCK   = 323;
 
     assign	src_valid			=  sink0_valid;
     assign	src_data			=  sink0_data;

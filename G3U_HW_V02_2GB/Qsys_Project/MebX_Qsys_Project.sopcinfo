@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.01.28.12:22:27 -->
+ <!-- 2019.02.22.20:44:29 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1548685346</value>
+  <value>1550879068</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -12061,7 +12061,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -12129,7 +12129,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TRANSFER_TYPE</name>
-   <value>Full Word Accesses Only</value>
+   <value>Aligned Accesses</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -12157,7 +12157,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12221,7 +12221,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TRANSFER_TYPE">
    <type>java.lang.String</type>
-   <value>Full Word Accesses Only</value>
+   <value>Aligned Accesses</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12788,13 +12788,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -13103,13 +13103,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -14098,7 +14098,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -14166,7 +14166,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TRANSFER_TYPE</name>
-   <value>Full Word Accesses Only</value>
+   <value>Aligned Accesses</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -14194,7 +14194,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14258,7 +14258,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TRANSFER_TYPE">
    <type>java.lang.String</type>
-   <value>Full Word Accesses Only</value>
+   <value>Aligned Accesses</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14825,13 +14825,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -15132,13 +15132,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -18060,7 +18060,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18707,7 +18707,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_readdata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -18725,7 +18725,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -18749,7 +18749,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_byteenable</name>
     <direction>Input</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
@@ -19030,7 +19030,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -19048,7 +19048,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -19072,7 +19072,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
@@ -66320,7 +66320,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1548685346</value>
+   <value>1550879068</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -66340,7 +66340,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1548685346</value>
+   <value>1550879068</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -66356,7 +66356,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1548685346</value>
+   <value>1550879068</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

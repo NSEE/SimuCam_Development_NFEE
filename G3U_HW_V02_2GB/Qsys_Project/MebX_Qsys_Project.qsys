@@ -1992,7 +1992,7 @@
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="64" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
@@ -2011,7 +2011,7 @@
   <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
+  <parameter name="TRANSFER_TYPE" value="Aligned Accesses" />
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module name="dma_DDR_M2" kind="altera_msgdma" version="16.1" enabled="1">
@@ -2035,7 +2035,7 @@
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="64" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
@@ -2054,7 +2054,7 @@
   <parameter name="PROGRAMMABLE_BURST_ENABLE" value="0" />
   <parameter name="RESPONSE_PORT" value="2" />
   <parameter name="STRIDE_ENABLE" value="0" />
-  <parameter name="TRANSFER_TYPE">Full Word Accesses Only</parameter>
+  <parameter name="TRANSFER_TYPE" value="Aligned Accesses" />
   <parameter name="USE_FIX_ADDRESS_WIDTH" value="0" />
  </module>
  <module
@@ -2140,7 +2140,7 @@
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="31" />
   <parameter name="COMMAND_FIFO_DEPTH" value="4" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="MASTER_SYNC_DEPTH" value="2" />
   <parameter name="MAX_BURST_SIZE" value="16" />
   <parameter name="RESPONSE_FIFO_DEPTH" value="64" />
