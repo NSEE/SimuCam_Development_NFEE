@@ -297,22 +297,55 @@ begin
 
 		end procedure p_writedata;
 
-		variable v_write_address : t_avalon_mm_windowing_address := 0;
+		variable v_write_address  : t_avalon_mm_windowing_address    := 0;
+		variable v_burstcount_cnt : t_avalon_mm_windowing_burstcount := 0;
+		variable v_burst_flag     : std_logic                        := '0';
 	begin
 		if (rst_i = '1') then
 			avalon_mm_windowing_o.waitrequest <= '1';
 			s_waitrequest                     <= '1';
 			v_write_address                   := 0;
+			v_burstcount_cnt                  := 0;
+			v_burst_flag                      := '0';
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
 			avalon_mm_windowing_o.waitrequest <= '1';
 			s_waitrequest                     <= '1';
 			p_control_triggers;
+			-- check if a write was requested
 			if (avalon_mm_windowing_i.write = '1') then
-				avalon_mm_windowing_o.waitrequest <= '0';
-				s_waitrequest                     <= '0';
-				v_write_address                   := to_integer(unsigned(avalon_mm_windowing_i.address));
-				p_writedata(v_write_address);
+				-- write requested
+				-- check if the writer is not in a burst
+				if (v_burst_flag = '0') then
+					-- the writer is not in a burst
+					-- execute the first write in a burst or a single write
+					avalon_mm_windowing_o.waitrequest <= '0';
+					s_waitrequest                     <= '0';
+					v_write_address                   := to_integer(unsigned(avalon_mm_windowing_i.address));
+					p_writedata(v_write_address);
+					-- check if the request is for a single write or a burst write
+					if (avalon_mm_windowing_i.burstcount = std_logic_vector(to_unsigned(0, avalon_mm_windowing_i.burstcount'length))) then
+						-- single write request
+						v_burstcount_cnt := 0;
+						v_burst_flag     := '0';
+					else
+						-- burst write request
+						v_burstcount_cnt := to_integer(unsigned(avalon_mm_windowing_i.burstcount));
+						v_burst_flag     := '1';
+					end if;
+				else
+					-- the writer is in a burst
+					avalon_mm_windowing_o.waitrequest <= '0';
+					s_waitrequest                     <= '0';
+					v_write_address                   := v_write_address + 1;
+					p_writedata(v_write_address);
+					v_burstcount_cnt                  := v_burstcount_cnt - 1;
+					if (v_burstcount_cnt = 0) then
+						v_burst_flag := '0';
+					else
+						v_burst_flag := '1';
+					end if;
+				end if;
 			end if;
 		end if;
 	end process p_avalon_mm_windowing_write;
