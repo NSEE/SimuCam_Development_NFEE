@@ -4,8 +4,9 @@ use ieee.numeric_std.all;
 
 entity avalon_buffer_R_stimuli is
 	generic(
-		g_ADDRESS_WIDTH : natural range 1 to 64;
-		g_DATA_WIDTH    : natural range 1 to 64
+		g_ADDRESS_WIDTH    : natural range 1 to 64;
+		g_DATA_WIDTH       : natural range 1 to 64;
+		g_BURSTCOUNT_WIDTH : natural range 1 to 64
 	);
 	port(
 		clk_i                   : in  std_logic;
@@ -13,7 +14,8 @@ entity avalon_buffer_R_stimuli is
 		avalon_mm_waitrequest_i : in  std_logic; --                                     -- avalon_mm.waitrequest
 		avalon_mm_address_o     : out std_logic_vector((g_ADDRESS_WIDTH - 1) downto 0); --          .address
 		avalon_mm_write_o       : out std_logic; --                                     --          .write
-		avalon_mm_writedata_o   : out std_logic_vector((g_DATA_WIDTH - 1) downto 0) --  --          .writedata
+		avalon_mm_writedata_o   : out std_logic_vector((g_DATA_WIDTH - 1) downto 0); -- --          .writedata
+		avalon_mm_burstcount_o  : out std_logic_vector((g_BURSTCOUNT_WIDTH - 1) downto 0) --  --    .burstcount
 	);
 end entity avalon_buffer_R_stimuli;
 
@@ -47,7 +49,7 @@ architecture RTL of avalon_buffer_R_stimuli is
 	end function f_next_data;
 
 	constant c_RESET_DATA : natural := 0;
---	constant c_FINAL_DATA : natural := 254;
+	--	constant c_FINAL_DATA : natural := 254;
 	constant c_FINAL_DATA : natural := 255;
 
 	signal s_counter     : natural                                     := 0;
@@ -63,23 +65,25 @@ begin
 	begin
 		if (rst_i = '1') then
 
-			avalon_mm_address_o   <= (others => '0');
-			avalon_mm_write_o     <= '0';
-			avalon_mm_writedata_o <= (others => '0');
-			s_counter             <= 0;
-			s_counter             <= 5000;
-			s_address_cnt         <= 0;
-			s_mask_cnt            <= 0;
-			s_times_cnt           <= 0;
-			v_data_cnt            := c_RESET_DATA;
-			v_registered_data     := (others => '0');
+			avalon_mm_address_o    <= (others => '0');
+			avalon_mm_write_o      <= '0';
+			avalon_mm_writedata_o  <= (others => '0');
+			avalon_mm_burstcount_o <= (others => '0');
+			s_counter              <= 0;
+			s_counter              <= 5000;
+			s_address_cnt          <= 0;
+			s_mask_cnt             <= 0;
+			s_times_cnt            <= 0;
+			v_data_cnt             := c_RESET_DATA;
+			v_registered_data      := (others => '0');
 
 		elsif rising_edge(clk_i) then
 
-			avalon_mm_address_o   <= (others => '0');
-			avalon_mm_write_o     <= '0';
-			avalon_mm_writedata_o <= (others => '0');
-			s_counter             <= s_counter + 1;
+			avalon_mm_address_o    <= (others => '0');
+			avalon_mm_write_o      <= '0';
+			avalon_mm_writedata_o  <= (others => '0');
+			avalon_mm_burstcount_o <= (others => '0');
+			s_counter              <= s_counter + 1;
 
 			case s_counter is
 
@@ -90,22 +94,22 @@ begin
 					v_registered_data     := (others => '0');
 					if (s_mask_cnt < 16) then
 						s_mask_cnt                      <= s_mask_cnt + 1;
---						v_registered_data(7 downto 0)   := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(15 downto 8)  := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(23 downto 16) := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(31 downto 24) := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(39 downto 32) := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(47 downto 40) := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(55 downto 48) := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
---						v_registered_data(63 downto 56) := std_logic_vector(to_unsigned(v_data_cnt, 8));
---						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(7 downto 0)   := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(15 downto 8)  := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(23 downto 16) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(31 downto 24) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(39 downto 32) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(47 downto 40) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(55 downto 48) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
+						--						v_registered_data(63 downto 56) := std_logic_vector(to_unsigned(v_data_cnt, 8));
+						--						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 2, '1');
 						v_registered_data(7 downto 0)   := std_logic_vector(to_unsigned(v_data_cnt, 8));
 						v_data_cnt                      := f_next_data(v_data_cnt, c_RESET_DATA, c_FINAL_DATA, 1, '1');
 						v_registered_data(15 downto 8)  := std_logic_vector(to_unsigned(v_data_cnt, 8));
@@ -125,7 +129,7 @@ begin
 					else
 						s_mask_cnt        <= 0;
 						--v_registered_data := (others => '1');
---						v_registered_data := x"5555555555555555";
+						--						v_registered_data := x"5555555555555555";
 						v_registered_data := x"FFFFFFFFFFFFFFFF";
 					end if;
 					avalon_mm_writedata_o <= v_registered_data;
@@ -139,7 +143,7 @@ begin
 					s_counter     <= 1500;
 					s_address_cnt <= s_address_cnt + 1;
 					--if (s_address_cnt = (2**g_ADDRESS_WIDTH - 2)) then
---					if (s_address_cnt = (1020 - 1)) then
+					--					if (s_address_cnt = (1020 - 1)) then
 					if (s_address_cnt = (272 - 1)) then
 						if (s_times_cnt < 1) then
 							s_counter     <= 1000;
