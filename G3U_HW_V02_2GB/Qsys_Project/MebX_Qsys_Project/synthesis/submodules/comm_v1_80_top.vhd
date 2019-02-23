@@ -21,24 +21,24 @@ use work.rmap_mem_area_nfee_pkg.all;
 
 entity comm_v1_80_top is
 	generic(
-		g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE    : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE    : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE      : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE     : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE      : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE    : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE     : positive range 1 to 3 := 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE     : positive range 1 to 3 := 2; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE    : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE     : positive range 1 to 3 := 3; -- 1=MLAB; 2=M9K; 3=M144K
+		g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE     : positive range 1 to 3 := 2; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE     : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE      : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE     : positive range 1 to 3 := 1; -- 1=MLAB; 2=M9K; 3=M144K
+		g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE      : positive range 1 to 3 := 1 -- 1=MLAB; 2=M9K; 3=M144K
 	);
 	port(
 		reset_sink_reset                   : in  std_logic                     := '0'; --          --               reset_sink.a_reset

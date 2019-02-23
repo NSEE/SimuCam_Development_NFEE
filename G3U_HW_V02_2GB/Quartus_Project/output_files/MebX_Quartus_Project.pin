@@ -1092,7 +1092,7 @@ M2_DDR2_dq[55]               : G29       : bidir  : SSTL-18 Class I   :         
 altera_reserved_tck          : G30       : input  : 2.5 V             :         : 1A        : N              
 SEVEN_SEG_HEX1[2]            : G31       : output : 2.5 V             :         : 1A        : Y              
 VCCIO1A                      : G32       : power  :                   : 2.5V    : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : G33       :        :                   :         : 1A        :                
+FSM_A[0]                     : G33       : output : 2.5 V             :         : 1A        : N              
 VCCIO1A                      : G34       : power  :                   : 2.5V    : 1A        :                
 FSM_A[11]                    : G35       : output : 2.5 V             :         : 1A        : Y              
 GND                          : G36       : gnd    :                   :         :           :                
@@ -1399,7 +1399,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :      
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
-FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                

@@ -1027,7 +1027,7 @@ agreement for further details.
 		(text "tcm_write_n_out" (rect 309 3275 708 6560)(font "Arial" (color 0 0 0)))
 		(text "tcm_data_out" (rect 309 3291 690 6592)(font "Arial" (color 0 0 0)))
 		(text "tcm_chipselect_n_out" (rect 309 3307 738 6624)(font "Arial" (color 0 0 0)))
-		(text " system " (rect 717 3328 1482 6666)(font "Arial" ))
+		(text " MebX_Qsys_Project " (rect 660 3328 1434 6666)(font "Arial" ))
 		(line (pt 304 32)(pt 448 32)(line_width 1))
 		(line (pt 448 32)(pt 448 3328)(line_width 1))
 		(line (pt 304 3328)(pt 448 3328)(line_width 1))
