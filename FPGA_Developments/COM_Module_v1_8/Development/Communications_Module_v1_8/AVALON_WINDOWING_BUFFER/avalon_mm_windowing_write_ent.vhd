@@ -227,31 +227,31 @@ begin
 
 				when 0 to 271 =>
 					-- check if the waitrequested is still active
-					if (s_waitrequest = '1') then
-						-- waitrequest active, execute write operation
-						-- check if it is the beggining of a new cicle
-						if (write_address_i = 0) then
-							-- address is zero, new cicle
+					--					if (s_waitrequest = '1') then
+					--						-- waitrequest active, execute write operation
+					-- check if it is the beggining of a new cicle
+					if (write_address_i = 0) then
+						-- address is zero, new cicle
+						window_data_write_o <= '1';
+						window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+						s_windown_data_ctn  <= 1;
+					else
+						-- address not zero, verify counter
+						if (s_windown_data_ctn < 16) then
+							-- counter at data address
 							window_data_write_o <= '1';
 							window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-							s_windown_data_ctn  <= 1;
+							-- increment counter
+							s_windown_data_ctn  <= s_windown_data_ctn + 1;
 						else
-							-- address not zero, verify counter
-							if (s_windown_data_ctn < 16) then
-								-- counter at data address
-								window_data_write_o <= '1';
-								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-								-- increment counter
-								s_windown_data_ctn  <= s_windown_data_ctn + 1;
-							else
-								-- counter at mask address
-								window_mask_write_o <= '1';
-								window_data_o       <= f_mask_conv(avalon_mm_windowing_i.writedata);
-								-- reset counter
-								s_windown_data_ctn  <= 0;
-							end if;
+							-- counter at mask address
+							window_mask_write_o <= '1';
+							window_data_o       <= f_mask_conv(avalon_mm_windowing_i.writedata);
+							-- reset counter
+							s_windown_data_ctn  <= 0;
 						end if;
 					end if;
+				--					end if;
 
 				when others =>
 					null;
@@ -300,6 +300,7 @@ begin
 		variable v_write_address  : t_avalon_mm_windowing_address    := 0;
 		variable v_burstcount_cnt : t_avalon_mm_windowing_burstcount := 0;
 		variable v_burst_flag     : std_logic                        := '0';
+		variable v_first_write    : std_logic                        := '0';
 	begin
 		if (rst_i = '1') then
 			avalon_mm_windowing_o.waitrequest <= '1';
@@ -307,6 +308,7 @@ begin
 			v_write_address                   := 0;
 			v_burstcount_cnt                  := 0;
 			v_burst_flag                      := '0';
+			v_first_write                     := '0';
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
 			avalon_mm_windowing_o.waitrequest <= '1';
@@ -322,29 +324,38 @@ begin
 					avalon_mm_windowing_o.waitrequest <= '0';
 					s_waitrequest                     <= '0';
 					v_write_address                   := to_integer(unsigned(avalon_mm_windowing_i.address));
-					p_writedata(v_write_address);
+					if (s_waitrequest = '1') then
+						-- waitrequest active, execute write operation
+						p_writedata(v_write_address);
+					end if;
 					-- check if the request is for a single write or a burst write
 					if (avalon_mm_windowing_i.burstcount = std_logic_vector(to_unsigned(0, avalon_mm_windowing_i.burstcount'length))) then
 						-- single write request
 						v_burstcount_cnt := 0;
 						v_burst_flag     := '0';
+						v_first_write    := '0';
 					else
 						-- burst write request
 						v_burstcount_cnt := to_integer(unsigned(avalon_mm_windowing_i.burstcount));
 						v_burst_flag     := '1';
+						v_first_write    := '1';
 					end if;
 				else
 					-- the writer is in a burst
 					avalon_mm_windowing_o.waitrequest <= '0';
 					s_waitrequest                     <= '0';
-					v_write_address                   := v_write_address + 1;
-					p_writedata(v_write_address);
-					v_burstcount_cnt                  := v_burstcount_cnt - 1;
-					if (v_burstcount_cnt = 0) then
-						v_burst_flag := '0';
-					else
-						v_burst_flag := '1';
+					if (v_first_write = '0') then
+						v_write_address := v_write_address + 1;
+						p_writedata(v_write_address);
+						if (v_burstcount_cnt = 0) then
+							v_burst_flag     := '0';
+							v_burstcount_cnt := 0;
+						else
+							v_burst_flag     := '1';
+							v_burstcount_cnt := v_burstcount_cnt - 1;
+						end if;
 					end if;
+					v_first_write                     := '0';
 				end if;
 			end if;
 		end if;

@@ -64,6 +64,8 @@ begin
 	p_avalon_buffer_L_stimuli : process(clk_i, rst_i) is
 		variable v_data_cnt        : natural range 0 to 255 := c_RESET_DATA;
 		variable v_registered_data : std_logic_vector(63 downto 0);
+		variable v_burst_flag      : std_logic              := '0';
+		variable v_burst_started   : std_logic              := '0';
 	begin
 		if (rst_i = '1') then
 
@@ -79,6 +81,8 @@ begin
 			s_times_cnt            <= 0;
 			v_data_cnt             := c_RESET_DATA;
 			v_registered_data      := (others => '0');
+			v_burst_flag           := '1';
+			v_burst_started        := '0';
 
 		elsif rising_edge(clk_i) then
 
@@ -92,8 +96,6 @@ begin
 
 				when 2500 =>
 					-- register write
-					avalon_mm_address_o   <= std_logic_vector(to_unsigned(s_address_cnt, g_ADDRESS_WIDTH));
-					avalon_mm_write_o     <= '1';
 					v_registered_data     := (others => '0');
 					if (s_mask_cnt < 16) then
 						s_mask_cnt <= s_mask_cnt + 1;
@@ -135,13 +137,40 @@ begin
 						v_registered_data := (others => '1');
 						--						v_registered_data := x"AAAAAAAAAAAAAAAA";
 					end if;
+					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= v_registered_data;
-					avalon_mm_writedata_o <= v_registered_data;
+					if (v_burst_flag = '1') then
+						if (v_burst_started = '1') then
+							avalon_mm_address_o    <= (others => '0');
+							avalon_mm_burstcount_o <= (others => '0');
+							s_address_cnt          <= s_address_cnt + 1;
+							if (s_address_cnt = 255) then
+								s_address_cnt  <= 255;
+								s_counter       <= 2502;
+								v_burst_started := '0';
+								v_burst_flag    := '0';
+							else
+								s_counter <= 2500;
+							end if;
+						else
+							avalon_mm_address_o    <= std_logic_vector(to_unsigned(s_address_cnt, g_ADDRESS_WIDTH));
+							avalon_mm_burstcount_o <= std_logic_vector(to_unsigned(255, avalon_mm_burstcount_o'length));
+							v_burst_started        := '1';
+						end if;
+					else
+						avalon_mm_address_o    <= std_logic_vector(to_unsigned(s_address_cnt, g_ADDRESS_WIDTH));
+						avalon_mm_burstcount_o <= (others => '0');
+					end if;
 
 				when 2501 =>
 					avalon_mm_address_o   <= std_logic_vector(to_unsigned(s_address_cnt, g_ADDRESS_WIDTH));
 					avalon_mm_write_o     <= '1';
 					avalon_mm_writedata_o <= v_registered_data;
+					if (v_burst_started = '1') then
+						avalon_mm_burstcount_o <= std_logic_vector(to_unsigned(255, avalon_mm_burstcount_o'length));
+						s_address_cnt <= s_address_cnt + 1;
+						s_counter     <= 2500;
+					end if;
 
 				when 2502 =>
 					s_counter     <= 2500;
