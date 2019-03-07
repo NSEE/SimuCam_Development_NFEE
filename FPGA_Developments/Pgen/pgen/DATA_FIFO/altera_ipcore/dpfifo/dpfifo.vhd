@@ -51,9 +51,7 @@ ENTITY dpfifo IS
 		wrreq		: IN STD_LOGIC ;
 		q		: OUT STD_LOGIC_VECTOR (63 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
-		rdusedw		: OUT STD_LOGIC_VECTOR (5 DOWNTO 0);
-		wrfull		: OUT STD_LOGIC ;
-		wrusedw		: OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
+		wrfull		: OUT STD_LOGIC 
 	);
 END dpfifo;
 
@@ -62,9 +60,7 @@ ARCHITECTURE SYN OF dpfifo IS
 
 	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (63 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
-	SIGNAL sub_wire2	: STD_LOGIC_VECTOR (5 DOWNTO 0);
-	SIGNAL sub_wire3	: STD_LOGIC ;
-	SIGNAL sub_wire4	: STD_LOGIC_VECTOR (7 DOWNTO 0);
+	SIGNAL sub_wire2	: STD_LOGIC ;
 
 
 
@@ -96,23 +92,19 @@ ARCHITECTURE SYN OF dpfifo IS
 			wrreq	: IN STD_LOGIC ;
 			q	: OUT STD_LOGIC_VECTOR (63 DOWNTO 0);
 			rdempty	: OUT STD_LOGIC ;
-			rdusedw	: OUT STD_LOGIC_VECTOR (5 DOWNTO 0);
-			wrfull	: OUT STD_LOGIC ;
-			wrusedw	: OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
+			wrfull	: OUT STD_LOGIC 
 	);
 	END COMPONENT;
 
 BEGIN
 	q    <= sub_wire0(63 DOWNTO 0);
 	rdempty    <= sub_wire1;
-	rdusedw    <= sub_wire2(5 DOWNTO 0);
-	wrfull    <= sub_wire3;
-	wrusedw    <= sub_wire4(7 DOWNTO 0);
+	wrfull    <= sub_wire2;
 
 	dcfifo_mixed_widths_component : dcfifo_mixed_widths
 	GENERIC MAP (
-		intended_device_family => "Cyclone V",
-		lpm_hint => "RAM_BLOCK_TYPE=M10K",
+		intended_device_family => "Stratix IV",
+		lpm_hint => "RAM_BLOCK_TYPE=M9K",
 		lpm_numwords => 256,
 		lpm_showahead => "OFF",
 		lpm_type => "dcfifo_mixed_widths",
@@ -137,9 +129,7 @@ BEGIN
 		wrreq => wrreq,
 		q => sub_wire0,
 		rdempty => sub_wire1,
-		rdusedw => sub_wire2,
-		wrfull => sub_wire3,
-		wrusedw => sub_wire4
+		wrfull => sub_wire2
 	);
 
 
@@ -158,7 +148,7 @@ END SYN;
 -- Retrieval info: PRIVATE: Depth NUMERIC "256"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
--- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
+-- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
 -- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
@@ -175,15 +165,15 @@ END SYN;
 -- Retrieval info: PRIVATE: output_width NUMERIC "64"
 -- Retrieval info: PRIVATE: rsEmpty NUMERIC "1"
 -- Retrieval info: PRIVATE: rsFull NUMERIC "0"
--- Retrieval info: PRIVATE: rsUsedW NUMERIC "1"
+-- Retrieval info: PRIVATE: rsUsedW NUMERIC "0"
 -- Retrieval info: PRIVATE: sc_aclr NUMERIC "0"
 -- Retrieval info: PRIVATE: sc_sclr NUMERIC "0"
 -- Retrieval info: PRIVATE: wsEmpty NUMERIC "0"
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
--- Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
+-- Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
--- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M10K"
+-- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "256"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo_mixed_widths"
@@ -204,11 +194,9 @@ END SYN;
 -- Retrieval info: USED_PORT: rdclk 0 0 0 0 INPUT NODEFVAL "rdclk"
 -- Retrieval info: USED_PORT: rdempty 0 0 0 0 OUTPUT NODEFVAL "rdempty"
 -- Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
--- Retrieval info: USED_PORT: rdusedw 0 0 6 0 OUTPUT NODEFVAL "rdusedw[5..0]"
 -- Retrieval info: USED_PORT: wrclk 0 0 0 0 INPUT NODEFVAL "wrclk"
 -- Retrieval info: USED_PORT: wrfull 0 0 0 0 OUTPUT NODEFVAL "wrfull"
 -- Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
--- Retrieval info: USED_PORT: wrusedw 0 0 8 0 OUTPUT NODEFVAL "wrusedw[7..0]"
 -- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 -- Retrieval info: CONNECT: @data 0 0 16 0 data 0 0 16 0
 -- Retrieval info: CONNECT: @rdclk 0 0 0 0 rdclk 0 0 0 0
@@ -217,9 +205,7 @@ END SYN;
 -- Retrieval info: CONNECT: @wrreq 0 0 0 0 wrreq 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 64 0 @q 0 0 64 0
 -- Retrieval info: CONNECT: rdempty 0 0 0 0 @rdempty 0 0 0 0
--- Retrieval info: CONNECT: rdusedw 0 0 6 0 @rdusedw 0 0 6 0
 -- Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
--- Retrieval info: CONNECT: wrusedw 0 0 8 0 @wrusedw 0 0 8 0
 -- Retrieval info: GEN_FILE: TYPE_NORMAL dpfifo.vhd TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL dpfifo.inc TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL dpfifo.cmp TRUE

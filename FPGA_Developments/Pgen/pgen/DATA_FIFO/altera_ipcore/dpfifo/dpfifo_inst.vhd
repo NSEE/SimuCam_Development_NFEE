@@ -7,7 +7,5 @@ dpfifo_inst : dpfifo PORT MAP (
 		wrreq	 => wrreq_sig,
 		q	 => q_sig,
 		rdempty	 => rdempty_sig,
-		rdusedw	 => rdusedw_sig,
-		wrfull	 => wrfull_sig,
-		wrusedw	 => wrusedw_sig
+		wrfull	 => wrfull_sig
 	);

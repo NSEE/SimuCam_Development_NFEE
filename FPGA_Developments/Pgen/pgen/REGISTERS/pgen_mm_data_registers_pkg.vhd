@@ -1,4 +1,4 @@
-library ieee;
+library ieee; 
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
@@ -10,9 +10,9 @@ package pgen_mm_data_registers_pkg is
 	--   31-16 : Pattern Pixel 1                       [R/-]
 	--   15- 0 : Pattern Pixel 0                       [R/-]
 
-	constant c_PGEN_MM_DATA_READ_REGISTERS_ADDRESS_OFFSET : natural := 16#0000000#;
+	constant c_PGEN_MM_DATA_READ_REGISTERS_ADDRESS_OFFSET : natural := 16#00000000#;
 
-	constant c_PGEN_PATTERN_DATA_REG_ADDRESS : natural := 16#0000000#;
+	constant c_PGEN_PATTERN_DATA_REG_ADDRESS : natural := 16#00000000#;
 
 	constant c_PGEN_PATTERN_DATA_LENGTH : natural := 16#3FFFFFF#;
 

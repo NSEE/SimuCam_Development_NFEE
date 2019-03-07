@@ -27,7 +27,5 @@ FUNCTION dpfifo
 RETURNS (
 	q[63..0],
 	rdempty,
-	rdusedw[5..0],
-	wrfull,
-	wrusedw[7..0]
+	wrfull
 );

@@ -7,12 +7,12 @@ use work.pgen_mm_data_registers_pkg.all;
 
 entity pgen_avalon_mm_data_read_ent is
 	port(
-		clk_i                    : in  std_logic;
-		rst_i                    : in  std_logic;
-		mm_read_registers_i      : in  t_pgen_mm_data_read_registers;
-		avalon_mm_read_inputs_i  : in  t_pgen_avalon_mm_read_inputs;
-		data_controller_read_status_i : in t_pgen_data_controller_read_status;
-		avalon_mm_read_outputs_o : out t_pgen_avalon_mm_data_read_outputs;
+		clk_i                          : in  std_logic;
+		rst_i                          : in  std_logic;
+		mm_read_registers_i            : in  t_pgen_mm_data_read_registers;
+		avalon_mm_read_inputs_i        : in  t_pgen_avalon_mm_read_inputs;
+		data_controller_read_status_i  : in  t_pgen_data_controller_read_status;
+		avalon_mm_read_outputs_o       : out t_pgen_avalon_mm_data_read_outputs;
 		data_controller_read_control_o : out t_pgen_data_controller_read_control
 	);
 end entity pgen_avalon_mm_read_ent;
