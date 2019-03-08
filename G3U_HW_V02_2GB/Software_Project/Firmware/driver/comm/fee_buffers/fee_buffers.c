@@ -8,7 +8,11 @@
 #include "fee_buffers.h"
 
 //! [private function prototypes]
-static void vFeebWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset, alt_u32 uliValue);
+static ALT_INLINE bool ALT_ALWAYS_INLINE bFeebGetChFlag(
+		alt_u32 uliCommChBaseAddr, alt_u32 uliCommRegOffset,
+		alt_u32 uliCommFlagMask);
+static void vFeebWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
+		alt_u32 uliValue);
 static alt_u32 uliFeebReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [private function prototypes]
 
@@ -47,7 +51,6 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 	vFeebCh1IrqFlagClrBufferEmpty();
 
-
 //
 //	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 //	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -67,8 +70,6 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	/* Make one requests for the Double buffer */
 	/* Address of the NFEE is hard coded */
 
-
-
 }
 
 void vFeebCh2HandleIrq(void* pvContext) {
@@ -81,17 +82,17 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 	/*
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 1;
-*/
-	 /*Sync the Meb task and tell that has a PUS command waiting*/
+	 uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	 uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	 uiCmdtoSend.ucByte[1] = 0;
+	 uiCmdtoSend.ucByte[0] = 1;
+	 */
+	/*Sync the Meb task and tell that has a PUS command waiting*/
 	/*error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailRequestDMAFromIRQ( 1 );
-	}
-*/
+	 if ( error_codel != OS_ERR_NONE ) {
+	 vFailRequestDMAFromIRQ( 1 );
+	 }
+	 */
 
 }
 
@@ -168,20 +169,17 @@ void vFeebCh6HandleIrq(void* pvContext) {
 //		vFailRequestDMAFromIRQ( 5 );
 //	}
 
-
 	vFeebCh6IrqFlagClrBufferEmpty();
 }
 
 void vFeebCh7HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 
-
 	vFeebCh7IrqFlagClrBufferEmpty();
 }
 
 void vFeebCh8HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
-
 
 	vFeebCh8IrqFlagClrBufferEmpty();
 }
@@ -764,7 +762,7 @@ bool bFeebGetBuffersStatus(TFeebChannel *pxFeebCh) {
 	return bStatus;
 }
 
-bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh){
+bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh) {
 	bool bFlag = FALSE;
 	volatile alt_u32 uliReg = 0;
 
@@ -783,7 +781,7 @@ bool bFeebGetLeftBufferEmpty(TFeebChannel *pxFeebCh){
 	return bFlag;
 }
 
-bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh){
+bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh) {
 	bool bFlag = FALSE;
 	volatile alt_u32 uliReg = 0;
 
@@ -802,140 +800,197 @@ bool bFeebGetRightBufferEmpty(TFeebChannel *pxFeebCh){
 	return bFlag;
 }
 
-bool bFeebGetCh1LeftBufferEmpty(void){
+bool bFeebGetCh1LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_LEFT_BUFF_EMPTY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_1_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh1RightBufferEmpty(void){
+bool bFeebGetCh1RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_RIGH_BUFF_EMPTY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_1_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh2LeftBufferEmpty(void){
+bool bFeebGetCh2LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_LEFT_BUFF_EMPTY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_2_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh2RightBufferEmpty(void){
+bool bFeebGetCh2RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_RIGH_BUFF_EMPTY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_2_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh1LeftFeeBusy(void){
+bool bFeebGetCh3LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_3_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh1RightFeeBusy(void){
+bool bFeebGetCh3RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_1_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_3_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh2LeftFeeBusy(void){
+bool bFeebGetCh4LeftBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
-
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
-
-		if (uliReg & COMM_WIND_LEFT_FEE_BUSY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
-
-	}
-
-		return bFlag;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_4_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
 }
 
-bool bFeebGetCh2RightFeeBusy(void){
+bool bFeebGetCh4RightBufferEmpty(void) {
 	bool bFlag = FALSE;
-	volatile alt_u32 uliReg = 0;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_4_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
+}
 
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
+bool bFeebGetCh5LeftBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_5_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
+}
 
-		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
-			bFlag = TRUE;
-		} else {
-			bFlag = FALSE;
+bool bFeebGetCh5RightBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_5_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
+}
 
-	}
+bool bFeebGetCh6LeftBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_6_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
+}
 
-		return bFlag;
+bool bFeebGetCh6RightBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_6_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh7LeftBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_7_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh7RightBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_7_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh8LeftBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_8_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_BUFF_EMPTY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh8RightBufferEmpty(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_8_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
+	return bFlag;
+}
+
+
+bool bFeebGetCh1LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_1_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh1RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_1_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh2LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_2_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh2RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_2_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh3LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_3_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh3RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_3_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh4LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_4_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh4RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_4_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh5LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_5_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh5RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_5_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh6LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_6_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh6RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_6_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh7LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_7_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh7RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_7_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh8LeftFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_8_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
+	return bFlag;
+}
+
+bool bFeebGetCh8RightFeeBusy(void) {
+	bool bFlag = FALSE;
+	bFlag = bFeebGetChFlag(COMM_CHANNEL_8_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_FEE_BUSY_MSK);
+	return bFlag;
 }
 
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
@@ -949,13 +1004,13 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg(pxFeebCh->puliFeebChAddr,
-					COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg(pxFeebCh->puliFeebChAddr,
-					COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
 			break;
 		default:
 			bStatus = FALSE;
@@ -1138,6 +1193,22 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 //! [public functions]
 
 //! [private functions]
+static ALT_INLINE bool ALT_ALWAYS_INLINE bFeebGetChFlag(alt_u32 uliCommChBaseAddr, alt_u32 uliCommRegOffset, alt_u32 uliCommFlagMask) {
+	bool bFlag = FALSE;
+	volatile alt_u32 uliReg = 0;
+
+	uliReg = uliFeebReadReg((alt_u32 *) uliCommChBaseAddr, uliCommRegOffset);
+
+	if (uliReg & uliCommFlagMask) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+
+	}
+
+	return bFlag;
+}
+
 static void vFeebWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 		alt_u32 uliValue) {
 	*(puliAddr + uliOffset) = uliValue;

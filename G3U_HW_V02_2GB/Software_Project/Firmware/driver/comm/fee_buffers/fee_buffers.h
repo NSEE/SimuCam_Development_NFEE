@@ -104,11 +104,35 @@ bool bFeebGetCh1LeftBufferEmpty(void);
 bool bFeebGetCh1RightBufferEmpty(void);
 bool bFeebGetCh2LeftBufferEmpty(void);
 bool bFeebGetCh2RightBufferEmpty(void);
+bool bFeebGetC3hLeftBufferEmpty(void);
+bool bFeebGetC3hRightBufferEmpty(void);
+bool bFeebGetC4hLeftBufferEmpty(void);
+bool bFeebGetC4hRightBufferEmpty(void);
+bool bFeebGetC5hLeftBufferEmpty(void);
+bool bFeebGetC5hRightBufferEmpty(void);
+bool bFeebGetCh6LeftBufferEmpty(void);
+bool bFeebGetCh6RightBufferEmpty(void);
+bool bFeebGetCh7LeftBufferEmpty(void);
+bool bFeebGetCh7RightBufferEmpty(void);
+bool bFeebGetCh8LeftBufferEmpty(void);
+bool bFeebGetCh8RightBufferEmpty(void);
 
 bool bFeebGetCh1LeftFeeBusy(void);
 bool bFeebGetCh1RightFeeBusy(void);
 bool bFeebGetCh2LeftFeeBusy(void);
 bool bFeebGetCh2RightFeeBusy(void);
+bool bFeebGetCh3LeftFeeBusy(void);
+bool bFeebGetCh3RightFeeBusy(void);
+bool bFeebGetCh4LeftFeeBusy(void);
+bool bFeebGetCh4RightFeeBusy(void);
+bool bFeebGetCh5LeftFeeBusy(void);
+bool bFeebGetCh5RightFeeBusy(void);
+bool bFeebGetCh6LeftFeeBusy(void);
+bool bFeebGetCh6RightFeeBusy(void);
+bool bFeebGetCh7LeftFeeBusy(void);
+bool bFeebGetCh7RightFeeBusy(void);
+bool bFeebGetCh8LeftFeeBusy(void);
+bool bFeebGetCh8RightFeeBusy(void);
 
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 
