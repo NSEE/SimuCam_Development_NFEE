@@ -2,7 +2,7 @@
   * @file   ctrl_io_lvds.c
   * @Author Cassio Berni (ccberni@hotmail.com)
   * @date   Outubro, 2018
-  * @brief  Source File para controle dos i/oÂ´s lvds (placa drivers_lvds e iso_simucam) via Avalon
+  * @brief  Source File para controle dos i/o´s lvds (placa drivers_lvds e iso_simucam) via Avalon
   *
   */
 
@@ -80,10 +80,10 @@ bool bSetPreEmphasys(alt_u8 ucPemLevel)
  * @brief
  * @ingroup ctrl_io_lvds
  *
- * Ativa ('1') ou desativa ('0') os i/oÂ´s de controle lvds
+ * Ativa ('1') ou desativa ('0') os i/o´s de controle lvds
  *
- * @param [in] on_off -> 0 = ioÂ´s off / 1 = i/oÂ´s on
- * @param [in] ulliMask   -> mascara de i/oÂ´s a serem alterados
+ * @param [in] on_off -> 0 = io´s off / 1 = i/o´s on
+ * @param [in] ulliMask   -> mascara de i/o´s a serem alterados
  *
  * @retval TRUE -> sucesso
  */

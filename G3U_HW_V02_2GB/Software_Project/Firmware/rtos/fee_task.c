@@ -460,7 +460,7 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bEnabled = TRUE;
-				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 				if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -530,7 +530,7 @@ void vFeeTask(void *task_data) {
 							if ( bFinal == TRUE ) {
 								pxNFee->xControl.eMode = sEndTransmission;
 							} else {
-								bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+								//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 							}
 
 						}

@@ -88,9 +88,9 @@ bool bCommInitCh(TCommChannel *pxCommCh, alt_u8 ucCommCh) {
 	if (!bSpwcInitCh(&(pxCommCh->xSpacewire), ucCommCh)) {
 		bInitFail = TRUE;
 	}
-//	if (!vFeebInitIrq(ucCommCh)) {
-//		bInitFail = TRUE;
-//	}
+	if (!vFeebInitIrq(ucCommCh)) {
+		bInitFail = TRUE;
+	}
 	if (!bFeebInitCh(&(pxCommCh->xFeeBuffer), ucCommCh)) {
 		bInitFail = TRUE;
 	}
