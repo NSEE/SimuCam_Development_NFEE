@@ -256,7 +256,31 @@ port(
 	
 	-- RS232 UART	 
 	I_RS232_UART_RXD : in  std_logic;
-   O_RS232_UART_TXD : out std_logic
+   O_RS232_UART_TXD : out std_logic;
+	
+	-- ISO TEST SIGNALS
+   SYNC_TEST_SIG_I      : in  std_logic; -- JP3, GPIO0_D34
+   SYNC_TEST_SIG_O      : out std_logic; -- JP3, GPIO0_D35
+   --
+   SPW_D_ALL_TEST_SIG_I : in  std_logic; -- JP3, GPIO0_D27
+   SPW_D_A_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D11
+   SPW_D_B_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D13
+   SPW_D_C_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D15
+   SPW_D_D_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D17
+   SPW_D_E_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D19
+   SPW_D_F_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D21
+   SPW_D_G_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D23
+   SPW_D_H_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D25
+   --
+   SPW_S_ALL_TEST_SIG_I : in  std_logic; -- JP3, GPIO0_D26
+   SPW_S_A_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D10
+   SPW_S_B_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D12
+   SPW_S_C_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D14
+   SPW_S_D_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D16
+   SPW_S_E_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D18
+   SPW_S_F_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D20
+   SPW_S_G_TEST_SIG_O   : out std_logic; -- JP3, GPIO0_D22
+   SPW_S_H_TEST_SIG_O   : out std_logic  -- JP3, GPIO0_D24
 
   );
 end entity;
@@ -354,11 +378,37 @@ signal spw_h_sync : std_logic;
 
 -----------------------------------------
 	-- Sync - test
-	-----------------------------------------
+-----------------------------------------
 	signal s_sync_out : std_logic := '0';
 	signal s_sync_in  : std_logic := '0';
 
-	-----------------------------------------
+-----------------------------------------
+	-- Iso - test
+-----------------------------------------
+   signal s_sync_test_sig_in      : std_logic;
+	signal s_sync_test_sig_out     : std_logic;
+	--
+   signal s_spw_d_all_test_sig_in : std_logic;
+	signal s_spw_d_a_test_sig_out  : std_logic;
+	signal s_spw_d_b_test_sig_out  : std_logic;
+	signal s_spw_d_c_test_sig_out  : std_logic;
+	signal s_spw_d_d_test_sig_out  : std_logic;
+	signal s_spw_d_e_test_sig_out  : std_logic;
+	signal s_spw_d_f_test_sig_out  : std_logic;
+	signal s_spw_d_g_test_sig_out  : std_logic;
+	signal s_spw_d_h_test_sig_out  : std_logic;
+	--
+   signal s_spw_s_all_test_sig_in : std_logic;
+	signal s_spw_s_a_test_sig_out  : std_logic;
+	signal s_spw_s_b_test_sig_out  : std_logic;
+	signal s_spw_s_c_test_sig_out  : std_logic;
+	signal s_spw_s_d_test_sig_out  : std_logic;
+	signal s_spw_s_e_test_sig_out  : std_logic;
+	signal s_spw_s_f_test_sig_out  : std_logic;
+	signal s_spw_s_g_test_sig_out  : std_logic;
+	signal s_spw_s_h_test_sig_out  : std_logic;
+	
+-----------------------------------------
 -- Component
 -----------------------------------------
   
@@ -426,14 +476,14 @@ signal spw_h_sync : std_logic;
             m2_ddr2_i2c_scl_export  : out   std_logic;                                 
             m2_ddr2_i2c_sda_export  : inout std_logic;    
 
-			comm_a_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_a_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_a_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
-			comm_a_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
-			comm_b_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
-			comm_b_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
-			comm_b_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
-			comm_b_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
+--			comm_a_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
+--			comm_a_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
+--			comm_a_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
+--			comm_a_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
+--			comm_b_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
+--			comm_b_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
+--			comm_b_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
+--			comm_b_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
 --			comm_c_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
 --			comm_c_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
 --			comm_c_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
@@ -459,8 +509,8 @@ signal spw_h_sync : std_logic;
 --			comm_h_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
 --			comm_h_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
 			
-            comm_a_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-            comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+--            comm_a_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+--            comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
  --           comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_e_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
@@ -595,14 +645,14 @@ SOPC_INST : MebX_Qsys_Project
     m2_ddr2_i2c_scl_export        => M2_DDR2_SCL,
     m2_ddr2_i2c_sda_export        => M2_DDR2_SDA,
     
-	comm_a_conduit_end_data_in_signal    => spw_a_di(0),
-	comm_a_conduit_end_strobe_in_signal  => spw_a_si(0),
-	comm_a_conduit_end_data_out_signal   => spw_a_do(0),
-	comm_a_conduit_end_strobe_out_signal => spw_a_so(0),
-	comm_b_conduit_end_data_in_signal    => spw_b_di(0),
-	comm_b_conduit_end_strobe_in_signal  => spw_b_si(0),
-	comm_b_conduit_end_data_out_signal   => spw_b_do(0),
-	comm_b_conduit_end_strobe_out_signal => spw_b_so(0),
+--	comm_a_conduit_end_data_in_signal    => spw_a_di(0),
+--	comm_a_conduit_end_strobe_in_signal  => spw_a_si(0),
+--	comm_a_conduit_end_data_out_signal   => spw_a_do(0),
+--	comm_a_conduit_end_strobe_out_signal => spw_a_so(0),
+--	comm_b_conduit_end_data_in_signal    => spw_b_di(0),
+--	comm_b_conduit_end_strobe_in_signal  => spw_b_si(0),
+--	comm_b_conduit_end_data_out_signal   => spw_b_do(0),
+--	comm_b_conduit_end_strobe_out_signal => spw_b_so(0),
 --	comm_c_conduit_end_data_in_signal    => spw_c_di(0),
 --	comm_c_conduit_end_strobe_in_signal  => spw_c_si(0),
 --	comm_c_conduit_end_data_out_signal   => spw_c_do(0),
@@ -628,8 +678,8 @@ SOPC_INST : MebX_Qsys_Project
 --	comm_h_conduit_end_data_out_signal   => spw_h_do(0),
 --	comm_h_conduit_end_strobe_out_signal => spw_h_so(0),
 	
-            comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
-            comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
+--            comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
+--            comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
 --            comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
 --            comm_d_sync_end_sync_channel_signal                  => spw_d_sync,                  --            comm_d_sync_end.sync_channel_signal
 --            comm_e_sync_end_sync_channel_signal                  => spw_e_sync,                  --            comm_e_sync_end.sync_channel_signal
@@ -683,11 +733,11 @@ rst <= CPU_RESET_n AND RESET_PAINEL_n;
 --==========--
 -- I/Os
 --==========--    
-	-- Routing sync i/o´s - test
-	SYNC_OUT     <= s_sync_out;
-	-- Observe that SYNC_IN is at high level state when there is no excitation input
-	-- For test purposes, don´t use isolator board.
-	s_sync_in    <= SYNC_IN;
+--	-- Routing sync i/o´s - test
+--	SYNC_OUT     <= s_sync_out;
+--	-- Observe that SYNC_IN is at high level state when there is no excitation input
+--	-- For test purposes, don´t use isolator board.
+--	s_sync_in    <= SYNC_IN;
 
 -- Ativa ventoinha
 FAN_CTRL <= '1';
@@ -704,27 +754,48 @@ LED_DE4(6) <= ('1') when (rst = '0') else (leds_b(6));
 LED_DE4(7) <= ('1') when (rst = '0') else (leds_b(7));
 
 				  
-LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
-LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
-LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
-LED_PAINEL_LED_2R    <= ('1') when (rst = '0') else (leds_p(3));
-LED_PAINEL_LED_3G    <= ('1') when (rst = '0') else (leds_p(4));
-LED_PAINEL_LED_3R    <= ('1') when (rst = '0') else (leds_p(5));
-LED_PAINEL_LED_4G    <= ('1') when (rst = '0') else (leds_p(6));
-LED_PAINEL_LED_4R    <= ('1') when (rst = '0') else (leds_p(7));
-LED_PAINEL_LED_5G    <= ('1') when (rst = '0') else (leds_p(8));
-LED_PAINEL_LED_5R    <= ('1') when (rst = '0') else (leds_p(9));
-LED_PAINEL_LED_6G    <= ('1') when (rst = '0') else (leds_p(10));
-LED_PAINEL_LED_6R    <= ('1') when (rst = '0') else (leds_p(11));
-LED_PAINEL_LED_7G    <= ('1') when (rst = '0') else (leds_p(12));
-LED_PAINEL_LED_7R    <= ('1') when (rst = '0') else (leds_p(13));
-LED_PAINEL_LED_8G    <= ('1') when (rst = '0') else (leds_p(14));
-LED_PAINEL_LED_8R    <= ('1') when (rst = '0') else (leds_p(15));
-LED_PAINEL_LED_POWER <= ('1') when (rst = '0') else (leds_p(16));
-LED_PAINEL_LED_ST1   <= ('1') when (rst = '0') else (leds_p(17));
-LED_PAINEL_LED_ST2   <= ('1') when (rst = '0') else (leds_p(18));
-LED_PAINEL_LED_ST3   <= ('1') when (rst = '0') else (leds_p(19));
-LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
+--LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
+--LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
+--LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
+--LED_PAINEL_LED_2R    <= ('1') when (rst = '0') else (leds_p(3));
+--LED_PAINEL_LED_3G    <= ('1') when (rst = '0') else (leds_p(4));
+--LED_PAINEL_LED_3R    <= ('1') when (rst = '0') else (leds_p(5));
+--LED_PAINEL_LED_4G    <= ('1') when (rst = '0') else (leds_p(6));
+--LED_PAINEL_LED_4R    <= ('1') when (rst = '0') else (leds_p(7));
+--LED_PAINEL_LED_5G    <= ('1') when (rst = '0') else (leds_p(8));
+--LED_PAINEL_LED_5R    <= ('1') when (rst = '0') else (leds_p(9));
+--LED_PAINEL_LED_6G    <= ('1') when (rst = '0') else (leds_p(10));
+--LED_PAINEL_LED_6R    <= ('1') when (rst = '0') else (leds_p(11));
+--LED_PAINEL_LED_7G    <= ('1') when (rst = '0') else (leds_p(12));
+--LED_PAINEL_LED_7R    <= ('1') when (rst = '0') else (leds_p(13));
+--LED_PAINEL_LED_8G    <= ('1') when (rst = '0') else (leds_p(14));
+--LED_PAINEL_LED_8R    <= ('1') when (rst = '0') else (leds_p(15));
+--LED_PAINEL_LED_POWER <= ('1') when (rst = '0') else (leds_p(16));
+--LED_PAINEL_LED_ST1   <= ('1') when (rst = '0') else (leds_p(17));
+--LED_PAINEL_LED_ST2   <= ('1') when (rst = '0') else (leds_p(18));
+--LED_PAINEL_LED_ST3   <= ('1') when (rst = '0') else (leds_p(19));
+--LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
+LED_PAINEL_LED_1G    <= ('1');
+LED_PAINEL_LED_1R    <= ('1');
+LED_PAINEL_LED_2G    <= ('1');
+LED_PAINEL_LED_2R    <= ('1');
+LED_PAINEL_LED_3G    <= ('1');
+LED_PAINEL_LED_3R    <= ('1');
+LED_PAINEL_LED_4G    <= ('1');
+LED_PAINEL_LED_4R    <= ('1');
+LED_PAINEL_LED_5G    <= ('1');
+LED_PAINEL_LED_5R    <= ('1');
+LED_PAINEL_LED_6G    <= ('1');
+LED_PAINEL_LED_6R    <= ('1');
+LED_PAINEL_LED_7G    <= ('1');
+LED_PAINEL_LED_7R    <= ('1');
+LED_PAINEL_LED_8G    <= ('1');
+LED_PAINEL_LED_8R    <= ('1');
+LED_PAINEL_LED_POWER <= ('1');
+LED_PAINEL_LED_ST1   <= ('1');
+LED_PAINEL_LED_ST2   <= ('1');
+LED_PAINEL_LED_ST3   <= ('1');
+LED_PAINEL_LED_ST4   <= ('1');
 				  
 --==========--
 -- eth
@@ -783,6 +854,87 @@ FLASH_ADV_n   <= '0';
 	HSMB_BUFFER_PEM1	<= ctrl_io_lvds(1);
 	HSMB_BUFFER_PEM0	<= ctrl_io_lvds(0);
 
+--==========--
+-- ISO Tests
+--==========--
+
+	-- Sync Signal Test --
+	
+	-- Signal Path: Sync Test Signal In -> Sync Out -> Sync Loopback Cable -> Sync In -> Sync Test Signal Out
+	
+   -- Sync Test Signal In -> Sync Out
+	s_sync_test_sig_in <= SYNC_TEST_SIG_I;
+	SYNC_OUT           <= s_sync_test_sig_in;
+	
+	-- Sync In -> Sync Test Signal Out
+	s_sync_test_sig_out <= SYNC_IN;
+	SYNC_TEST_SIG_O     <= s_sync_test_sig_out;
+	
+	
+	-- Spw Signal Test --
+	
+   -- Signal Path: SpW Data All Test Signal In -> SpW Data Channels Out -> SpW Loopback Cable ->  SpW Data Channel In -> SpW Data Channel Test Signal Out
+		
+	-- SpW Data All Test Signal In -> SpW Data Channels Out
+   s_spw_d_all_test_sig_in <= SPW_D_ALL_TEST_SIG_I;
+   spw_a_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_b_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_c_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_d_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_e_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_f_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_g_do(0)            <= s_spw_d_all_test_sig_in;
+   spw_h_do(0)            <= s_spw_d_all_test_sig_in;
+	
+	-- SpW Data Channel In -> SpW Data Channel Test Signal Out
+   s_spw_d_a_test_sig_out <= spw_a_di(0);
+   s_spw_d_b_test_sig_out <= spw_b_di(0);
+   s_spw_d_c_test_sig_out <= spw_c_di(0);
+   s_spw_d_d_test_sig_out <= spw_d_di(0);
+   s_spw_d_e_test_sig_out <= spw_e_di(0);
+   s_spw_d_f_test_sig_out <= spw_f_di(0);
+   s_spw_d_g_test_sig_out <= spw_g_di(0);
+   s_spw_d_h_test_sig_out <= spw_h_di(0);
+   SPW_D_A_TEST_SIG_O     <= s_spw_d_a_test_sig_out;
+   SPW_D_B_TEST_SIG_O     <= s_spw_d_b_test_sig_out;
+   SPW_D_C_TEST_SIG_O     <= s_spw_d_c_test_sig_out;
+   SPW_D_D_TEST_SIG_O     <= s_spw_d_d_test_sig_out;
+   SPW_D_E_TEST_SIG_O     <= s_spw_d_e_test_sig_out;
+   SPW_D_F_TEST_SIG_O     <= s_spw_d_f_test_sig_out;
+   SPW_D_G_TEST_SIG_O     <= s_spw_d_g_test_sig_out;
+   SPW_D_H_TEST_SIG_O     <= s_spw_d_h_test_sig_out;
+	
+	-- Signal Path: SpW Strobe All Test Signal In -> SpW Strobe Channels Out -> SpW Loopback Cable ->  SpW Strobe Channel In -> SpW Strobe Channel Test Signal Out
+	
+	-- SpW Strobe All Test Signal In -> SpW Strobe Channels Out
+   s_spw_s_all_test_sig_in <= SPW_S_ALL_TEST_SIG_I;
+   spw_a_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_b_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_c_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_d_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_e_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_f_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_g_so(0)            <= s_spw_s_all_test_sig_in;
+   spw_h_so(0)            <= s_spw_s_all_test_sig_in;
+	
+	-- SpW Strobe Channel In -> SpW Strobe Channel Test Signal Out
+   s_spw_s_a_test_sig_out <= spw_a_si(0);
+   s_spw_s_b_test_sig_out <= spw_b_si(0);
+   s_spw_s_c_test_sig_out <= spw_c_si(0);
+   s_spw_s_d_test_sig_out <= spw_d_si(0);
+   s_spw_s_e_test_sig_out <= spw_e_si(0);
+   s_spw_s_f_test_sig_out <= spw_f_si(0);
+   s_spw_s_g_test_sig_out <= spw_g_si(0);
+   s_spw_s_h_test_sig_out <= spw_h_si(0);
+   SPW_S_A_TEST_SIG_O     <= s_spw_s_a_test_sig_out;
+   SPW_S_B_TEST_SIG_O     <= s_spw_s_b_test_sig_out;
+   SPW_S_C_TEST_SIG_O     <= s_spw_s_c_test_sig_out;
+   SPW_S_D_TEST_SIG_O     <= s_spw_s_d_test_sig_out;
+   SPW_S_E_TEST_SIG_O     <= s_spw_s_e_test_sig_out;
+   SPW_S_F_TEST_SIG_O     <= s_spw_s_f_test_sig_out;
+   SPW_S_G_TEST_SIG_O     <= s_spw_s_g_test_sig_out;
+   SPW_S_H_TEST_SIG_O     <= s_spw_s_h_test_sig_out;
+		
 --==========--
 -- LVDS
 --==========--
