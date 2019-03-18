@@ -17,9 +17,17 @@ extern OS_EVENT *xNfeeSchedule;
 //! [constants definition]
 // address
 // bit masks
+const alt_u8 ucFeebIrqEmptyBufferFlagsQtd = 4;
 //! [constants definition]
 
 //! [public module structs definition]
+enum FeebIrqEmptyBufferFlags {
+	eFeebIrqRightEmptyBuffer0Flag = 0,
+	eFeebIrqRightEmptyBuffer1Flag,
+	eFeebIrqLeftEmptyBuffer0Flag,
+	eFeebIrqLeftEmptyBuffer1Flag
+} EFeebIrqEmptyBufferFlags;
+
 typedef struct FeebWindowingConfig {
 	bool bMasking;
 } TFeebWindowingConfig;
@@ -61,77 +69,23 @@ void vFeebCh6HandleIrq(void* pvContext);
 void vFeebCh7HandleIrq(void* pvContext);
 void vFeebCh8HandleIrq(void* pvContext);
 
-void vFeebCh1IrqFlagClrRBuff0Empty(void);
-void vFeebCh2IrqFlagClrRBuff0Empty(void);
-void vFeebCh3IrqFlagClrRBuff0Empty(void);
-void vFeebCh4IrqFlagClrRBuff0Empty(void);
-void vFeebCh5IrqFlagClrRBuff0Empty(void);
-void vFeebCh6IrqFlagClrRBuff0Empty(void);
-void vFeebCh7IrqFlagClrRBuff0Empty(void);
-void vFeebCh8IrqFlagClrRBuff0Empty(void);
+void vFeebCh1IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh2IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh3IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh4IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh5IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh6IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh7IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh8IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
 
-void vFeebCh1IrqFlagClrRBuff1Empty(void);
-void vFeebCh2IrqFlagClrRBuff1Empty(void);
-void vFeebCh3IrqFlagClrRBuff1Empty(void);
-void vFeebCh4IrqFlagClrRBuff1Empty(void);
-void vFeebCh5IrqFlagClrRBuff1Empty(void);
-void vFeebCh6IrqFlagClrRBuff1Empty(void);
-void vFeebCh7IrqFlagClrRBuff1Empty(void);
-void vFeebCh8IrqFlagClrRBuff1Empty(void);
-
-void vFeebCh1IrqFlagClrLBuff0Empty(void);
-void vFeebCh2IrqFlagClrLBuff0Empty(void);
-void vFeebCh3IrqFlagClrLBuff0Empty(void);
-void vFeebCh4IrqFlagClrLBuff0Empty(void);
-void vFeebCh5IrqFlagClrLBuff0Empty(void);
-void vFeebCh6IrqFlagClrLBuff0Empty(void);
-void vFeebCh7IrqFlagClrLBuff0Empty(void);
-void vFeebCh8IrqFlagClrLBuff0Empty(void);
-
-void vFeebCh1IrqFlagClrLBuff1Empty(void);
-void vFeebCh2IrqFlagClrLBuff1Empty(void);
-void vFeebCh3IrqFlagClrLBuff1Empty(void);
-void vFeebCh4IrqFlagClrLBuff1Empty(void);
-void vFeebCh5IrqFlagClrLBuff1Empty(void);
-void vFeebCh6IrqFlagClrLBuff1Empty(void);
-void vFeebCh7IrqFlagClrLBuff1Empty(void);
-void vFeebCh8IrqFlagClrLBuff1Empty(void);
-
-bool bFeebCh1IrqFlagRBuff0Empty(void);
-bool bFeebCh2IrqFlagRBuff0Empty(void);
-bool bFeebCh3IrqFlagRBuff0Empty(void);
-bool bFeebCh4IrqFlagRBuff0Empty(void);
-bool bFeebCh5IrqFlagRBuff0Empty(void);
-bool bFeebCh6IrqFlagRBuff0Empty(void);
-bool bFeebCh7IrqFlagRBuff0Empty(void);
-bool bFeebCh8IrqFlagRBuff0Empty(void);
-
-bool bFeebCh1IrqFlagRBuff1Empty(void);
-bool bFeebCh2IrqFlagRBuff1Empty(void);
-bool bFeebCh3IrqFlagRBuff1Empty(void);
-bool bFeebCh4IrqFlagRBuff1Empty(void);
-bool bFeebCh5IrqFlagRBuff1Empty(void);
-bool bFeebCh6IrqFlagRBuff1Empty(void);
-bool bFeebCh7IrqFlagRBuff1Empty(void);
-bool bFeebCh8IrqFlagRBuff1Empty(void);
-
-bool bFeebCh1IrqFlagLBuff0Empty(void);
-bool bFeebCh2IrqFlagLBuff0Empty(void);
-bool bFeebCh3IrqFlagLBuff0Empty(void);
-bool bFeebCh4IrqFlagLBuff0Empty(void);
-bool bFeebCh5IrqFlagLBuff0Empty(void);
-bool bFeebCh6IrqFlagLBuff0Empty(void);
-bool bFeebCh7IrqFlagLBuff0Empty(void);
-bool bFeebCh8IrqFlagLBuff0Empty(void);
-
-bool bFeebCh1IrqFlagLBuff1Empty(void);
-bool bFeebCh2IrqFlagLBuff1Empty(void);
-bool bFeebCh3IrqFlagLBuff1Empty(void);
-bool bFeebCh4IrqFlagLBuff1Empty(void);
-bool bFeebCh5IrqFlagLBuff1Empty(void);
-bool bFeebCh6IrqFlagLBuff1Empty(void);
-bool bFeebCh7IrqFlagLBuff1Empty(void);
-bool bFeebCh8IrqFlagLBuff1Empty(void);
+void vFeebCh1IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh2IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh3IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh4IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh5IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh6IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh7IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh8IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
