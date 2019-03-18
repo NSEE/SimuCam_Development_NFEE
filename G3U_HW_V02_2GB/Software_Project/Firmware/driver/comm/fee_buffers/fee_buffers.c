@@ -13,6 +13,7 @@ static alt_u32 uliFeebReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
+const alt_u8 ucFeebIrqEmptyBufferFlagsQtd = 4;
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -45,33 +46,62 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	vFeebCh1IrqFlagClrBufferEmpty();
-
-
-
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
 	uiCmdtoSend.ucByte[0] = 0;
 
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh1IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
 
-	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailRequestDMAFromIRQ( 0 );
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 0 );
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
 	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 0 );
+		}
 
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 0 );
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 0 );
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 		fprintf(fp,"IntF0\n");
 	}
 #endif
-
-	/* Make one requests for the Double buffer */
-	/* Address of the NFEE is hard coded */
-
-
 
 }
 
@@ -81,19 +111,55 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	vFeebCh2IrqFlagClrBufferEmpty();
-
-
-
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
 	uiCmdtoSend.ucByte[0] = 1;
 
-	 /*Sync the Meb task and tell that has a PUS command waiting*/
-	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailRequestDMAFromIRQ( 1 );
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh2IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		 /*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 1 );
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		 /*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 1 );
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		 /*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 1 );
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		 /*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailRequestDMAFromIRQ( 1 );
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
 	}
 
 #if DEBUG_ON
@@ -110,7 +176,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 
-	vFeebCh3IrqFlagClrBufferEmpty();
+//	vFeebCh3IrqFlagClrBufferEmpty();
 
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -137,7 +203,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	tQMask uiCmdtoSend;
 
 
-	vFeebCh4IrqFlagClrBufferEmpty();
+//	vFeebCh4IrqFlagClrBufferEmpty();
 
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -163,7 +229,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	vFeebCh5IrqFlagClrBufferEmpty();
+//	vFeebCh5IrqFlagClrBufferEmpty();
 
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -189,7 +255,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	vFeebCh6IrqFlagClrBufferEmpty();
+//	vFeebCh6IrqFlagClrBufferEmpty();
 
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -216,7 +282,7 @@ void vFeebCh7HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	vFeebCh7IrqFlagClrBufferEmpty();
+//	vFeebCh7IrqFlagClrBufferEmpty();
 
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -244,7 +310,7 @@ void vFeebCh8HandleIrq(void* pvContext) {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	vFeebCh8IrqFlagClrBufferEmpty();
+//	vFeebCh8IrqFlagClrBufferEmpty();
 
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
@@ -265,11 +331,11 @@ void vFeebCh8HandleIrq(void* pvContext) {
 
 }
 
-void vFeebCh1IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh1IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -286,16 +352,16 @@ void vFeebCh1IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh2IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh2IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -312,16 +378,16 @@ void vFeebCh2IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh3IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh3IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -338,16 +404,16 @@ void vFeebCh3IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh4IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh4IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -364,16 +430,16 @@ void vFeebCh4IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh5IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh5IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -390,16 +456,16 @@ void vFeebCh5IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh6IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh6IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -416,16 +482,16 @@ void vFeebCh6IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh7IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh7IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -442,16 +508,16 @@ void vFeebCh7IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh8IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
-	
+void vFeebCh8IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag){
+
 	alt_u32 uliEmptyFlagClearMask = 0;
-	
-	switch (xEmptyBufferFlag) {
+
+	switch (ucEmptyBufferFlag) {
 	case eFeebIrqRightEmptyBuffer0Flag:
 		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
 		break;
@@ -468,16 +534,16 @@ void vFeebCh8IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag){
 		uliEmptyFlagClearMask = 0;;
 		break;
 	}
-	
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
-	
+
 }
 
-void vFeebCh1IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh1IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -499,15 +565,15 @@ void vFeebCh1IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh2IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh2IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -529,15 +595,15 @@ void vFeebCh2IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh3IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh3IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -559,15 +625,15 @@ void vFeebCh3IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh4IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh4IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -589,15 +655,15 @@ void vFeebCh4IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh5IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh5IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -619,15 +685,15 @@ void vFeebCh5IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh6IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh6IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -649,15 +715,15 @@ void vFeebCh6IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh7IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh7IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -679,15 +745,15 @@ void vFeebCh7IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
-void vFeebCh8IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
+void vFeebCh8IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
 	alt_u32 uliIrqFlagsReg = 0;
-	
+
 	if (pbChEmptyBufferFlags != NULL) {
-	
+
 		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 		if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
@@ -709,7 +775,7 @@ void vFeebCh8IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags) {
 		} else {
 			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
 		}
-	
+
 	}
 }
 
@@ -956,6 +1022,10 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh1HandleIrq);
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh2:
@@ -965,6 +1035,10 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_2_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh2HandleIrq);
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh3:
@@ -1083,17 +1157,16 @@ bool bFeebGetIrqControl(TFeebChannel *pxFeebCh) {
 
 bool bFeebGetIrqFlags(TFeebChannel *pxFeebCh) {
 	bool bStatus = FALSE;
-	volatile alt_u32 uliReg = 0;
+//	volatile alt_u32 uliReg = 0;
 
 	if (pxFeebCh != NULL) {
-		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
-		COMM_IRQ_FLAGS_REG_OFST);
+//		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr, COMM_IRQ_FLAGS_REG_OFST);
 
-		if (uliReg & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-			pxFeebCh->xIrqFlag.bBufferEmptyFlag = TRUE;
-		} else {
+//		if (uliReg & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+//			pxFeebCh->xIrqFlag.bBufferEmptyFlag = TRUE;
+//		} else {
 			pxFeebCh->xIrqFlag.bBufferEmptyFlag = FALSE;
-		}
+//		}
 
 		bStatus = TRUE;
 	}

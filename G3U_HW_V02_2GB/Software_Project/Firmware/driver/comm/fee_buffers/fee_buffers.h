@@ -17,7 +17,7 @@ extern OS_EVENT *xNfeeSchedule;
 //! [constants definition]
 // address
 // bit masks
-const alt_u8 ucFeebIrqEmptyBufferFlagsQtd = 4;
+const alt_u8 ucFeebIrqEmptyBufferFlagsQtd;
 //! [constants definition]
 
 //! [public module structs definition]
@@ -69,23 +69,23 @@ void vFeebCh6HandleIrq(void* pvContext);
 void vFeebCh7HandleIrq(void* pvContext);
 void vFeebCh8HandleIrq(void* pvContext);
 
-void vFeebCh1IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh2IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh3IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh4IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh5IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh6IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh7IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
-void vFeebCh8IrqFlagClrRBufferEmpty(EFeebIrqEmptyBufferFlags xEmptyBufferFlag);
+void vFeebCh1IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh2IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh3IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh4IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh5IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh6IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh7IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh8IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
 
-void vFeebCh1IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh2IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh3IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh4IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh5IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh6IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh7IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh8IrqFlagRBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh1IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh2IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh3IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh4IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh5IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh6IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh7IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh8IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
