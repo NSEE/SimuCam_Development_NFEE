@@ -194,10 +194,16 @@
 #define COMM_IRQ_GLOBAL_EN_MSK           (1 << 16)
 
 #define COMM_IRQ_RMAP_WRCMD_FLG_MSK      (1 << 0)
-#define COMM_IRQ_BUFF_EPY_FLG_MSK        (1 << 8)
+#define COMM_IRQ_R_BUFF_0_EPY_FLG_MSK    (1 << 8)
+#define COMM_IRQ_R_BUFF_1_EPY_FLG_MSK    (1 << 9)
+#define COMM_IRQ_L_BUFF_0_EPY_FLG_MSK    (1 << 10)
+#define COMM_IRQ_L_BUFF_1_EPY_FLG_MSK    (1 << 11)
 
 #define COMM_IRQ_RMAP_WRCMD_FLG_CLR_MSK  (1 << 0)
-#define COMM_IRQ_BUFF_EPY_FLG_CLR_MSK    (1 << 8)
+#define COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK  (1 << 8)
+#define COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK  (1 << 9)
+#define COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK  (1 << 10)
+#define COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK  (1 << 11)
 
 #define COMM_RIGT_FEEBUFF_SIZE_MSK       (0xF << 0)
 #define COMM_LEFT_FEEBUFF_SIZE_MSK       (0xF << 0)

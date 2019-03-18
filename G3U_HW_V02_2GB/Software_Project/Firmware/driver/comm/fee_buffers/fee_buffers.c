@@ -186,147 +186,451 @@ void vFeebCh8HandleIrq(void* pvContext) {
 	vFeebCh8IrqFlagClrBufferEmpty();
 }
 
-void vFeebCh1IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh1IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh2IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh2IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh3IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh3IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh4IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh4IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh5IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh5IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh6IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh6IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh7IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh7IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-void vFeebCh8IrqFlagClrBufferEmpty(void) {
-	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+void vFeebCh8IrqFlagClrRBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK);
 }
 
-bool bFeebCh1IrqFlagBufferEmpty(void) {
+void vFeebCh1IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh2IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh3IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh4IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh5IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh6IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh7IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh8IrqFlagClrRBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh1IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh2IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh3IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh4IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh5IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh6IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh7IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh8IrqFlagClrLBuff0Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK);
+}
+
+void vFeebCh1IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh2IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh3IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh4IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh5IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh6IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh7IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+void vFeebCh8IrqFlagClrLBuff1Empty(void) {
+	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK);
+}
+
+bool bFeebCh1IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh2IrqFlagBufferEmpty(void) {
+bool bFeebCh2IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh3IrqFlagBufferEmpty(void) {
+bool bFeebCh3IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh4IrqFlagBufferEmpty(void) {
+bool bFeebCh4IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh5IrqFlagBufferEmpty(void) {
+bool bFeebCh5IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh6IrqFlagBufferEmpty(void) {
+bool bFeebCh6IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh7IrqFlagBufferEmpty(void) {
+bool bFeebCh7IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
-
 	return bFlag;
 }
 
-bool bFeebCh8IrqFlagBufferEmpty(void) {
+bool bFeebCh8IrqFlagRBuff0Empty(void) {
 	bool bFlag;
-
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 		bFlag = TRUE;
 	} else {
 		bFlag = FALSE;
 	}
+	return bFlag;
+}
 
+bool bFeebCh1IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh2IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh3IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh4IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh5IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh6IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh7IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh8IrqFlagRBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh1IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh2IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh3IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh4IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh5IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh6IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh7IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh8IrqFlagLBuff0Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh1IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh2IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh3IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh4IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh5IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh6IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh7IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
+	return bFlag;
+}
+
+bool bFeebCh8IrqFlagLBuff1Empty(void) {
+	bool bFlag;
+	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+		bFlag = TRUE;
+	} else {
+		bFlag = FALSE;
+	}
 	return bFlag;
 }
 
@@ -925,37 +1229,30 @@ bool bFeebGetCh2RightFeeBusy(void){
 	bool bFlag = FALSE;
 	volatile alt_u32 uliReg = 0;
 
-		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR,
-		COMM_FEE_BUFF_STAT_REG_OFST);
+		uliReg = uliFeebReadReg((alt_u32 *) COMM_CHANNEL_2_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST);
 
 		if (uliReg & COMM_WIND_RIGH_FEE_BUSY_MSK) {
 			bFlag = TRUE;
 		} else {
 			bFlag = FALSE;
-
-	}
+		}
 
 		return bFlag;
 }
 
-bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
-		alt_u8 ucBufferSide) {
+bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
 	bool bStatus = TRUE;
 	volatile alt_u32 uliReg = 0;
 
 	if ((0 < ucBufferSizeInBlocks) && (16 >= ucBufferSizeInBlocks)) {
 		switch (ucBufferSide) {
 		case eCommLeftBuffer:
-			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
-					& COMM_LEFT_FEEBUFF_SIZE_MSK);
-			vFeebWriteReg(pxFeebCh->puliFeebChAddr,
-					COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1) & COMM_LEFT_FEEBUFF_SIZE_MSK);
+			vFeebWriteReg(pxFeebCh->puliFeebChAddr, COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
 			break;
 		case eCommRightBuffer:
-			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
-					& COMM_RIGT_FEEBUFF_SIZE_MSK);
-			vFeebWriteReg(pxFeebCh->puliFeebChAddr,
-					COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1) & COMM_RIGT_FEEBUFF_SIZE_MSK);
+			vFeebWriteReg(pxFeebCh->puliFeebChAddr, COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
 			break;
 		default:
 			bStatus = FALSE;
