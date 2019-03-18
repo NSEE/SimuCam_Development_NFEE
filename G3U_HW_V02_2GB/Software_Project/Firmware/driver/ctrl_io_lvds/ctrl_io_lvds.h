@@ -2,9 +2,9 @@
  * @file   ctrl_io_lvds.h
  * @Author Cassio Berni (ccberni@hotmail.com)
  * @date   Outubro, 2018
- * @brief  Header File para controle dos i/oÂ´s lvds (placa drivers_lvds e iso_simucam) via Avalon
+ * @brief  Header File para controle dos i/o´s lvds (placa drivers_lvds e iso_simucam) via Avalon
  *
- * Exemplos de utilizaÃ§Ã£o em baixo nÃ­vel (nÃ£o Ã© para utilizar assim, existe uma api definida):
+ * Exemplos de utilização em baixo nível (não é para utilizar assim, existe uma api definida):
  * ctrl_io_lvds_drive(LVDS_IO_ON, LVDS_EN_ISO_DRIVERS_MSK | LVDS_PWDN_MSK | ...);
  * ctrl_io_lvds_drive(LVDS_IO_OFF, LVDS_PEM1_MSK | LVDS_PEM0_MSK | ...);
  */
