@@ -938,11 +938,13 @@ begin
 
 		end if;
 	end process p_fee_buffers_irq_manager;
-	buffers_interrupt_sender_irq <= (s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag) or (s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag) or (s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag) or (s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag);
+	buffers_interrupt_sender_irq <= ('0') when (a_reset = '1')
+		else ('1') when ((s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag = '1') or (s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag = '1') or (s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag = '1') or (s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag = '1'))
+		else ('0');
 
 	p_rmap_write_irq_manager : process(a_avs_clock, a_reset) is
 	begin
-		if (a_reset) = '1' then
+		if (a_reset = '1') then
 			s_spacewire_read_registers.comm_irq_flags_reg.comm_rmap_write_command_flag <= '0';
 			s_rmap_write_finished_delayed                                              <= '0';
 		elsif rising_edge(a_avs_clock) then

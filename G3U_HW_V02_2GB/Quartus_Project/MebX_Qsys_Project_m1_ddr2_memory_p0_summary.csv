@@ -1,29 +1,29 @@
 Core: MebX_Qsys_Project_m1_ddr2_memory_p0 - Instance: SOPC_INST|m1_ddr2_memory
 Path, Setup Margin, Hold Margin
-"Address Command (Slow 900mV 85C Model)",0.098,0.659
+"Address Command (Slow 900mV 85C Model)",0.097,0.66
 "Bus Turnaround Time (Slow 900mV 85C Model)",5.438,--
-"Core (Slow 900mV 85C Model)",0.24,0.085
-"Core Recovery/Removal (Slow 900mV 85C Model)",0.589,0.498
+"Core (Slow 900mV 85C Model)",0.243,0.099
+"Core Recovery/Removal (Slow 900mV 85C Model)",1.025,0.492
 "Read Capture (Slow 900mV 85C Model)",0.192,0.144
-"Read Resync (Slow 900mV 85C Model)",2.642,5.421
-"Write (Slow 900mV 85C Model)",-0.077,-0.077
+"Read Resync (Slow 900mV 85C Model)",2.786,5.274
+"Write (Slow 900mV 85C Model)",-0.078,-0.078
 "Write Leveling tDQSS (Slow 900mV 85C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 85C Model)",0.42,0.42
-"Address Command (Slow 900mV 0C Model)",0.09,0.709
+"Address Command (Slow 900mV 0C Model)",0.09,0.708
 "Bus Turnaround Time (Slow 900mV 0C Model)",5.464,--
-"Core (Slow 900mV 0C Model)",0.504,0.147
-"Core Recovery/Removal (Slow 900mV 0C Model)",0.868,0.477
+"Core (Slow 900mV 0C Model)",0.515,0.147
+"Core Recovery/Removal (Slow 900mV 0C Model)",1.232,0.473
 "Read Capture (Slow 900mV 0C Model)",0.195,0.147
-"Read Resync (Slow 900mV 0C Model)",2.693,5.468
+"Read Resync (Slow 900mV 0C Model)",2.787,5.403
 "Write (Slow 900mV 0C Model)",-0.064,-0.064
 "Write Leveling tDQSS (Slow 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Slow 900mV 0C Model)",0.42,0.42
 "Address Command (Fast 900mV 0C Model)",0.064,0.867
 "Bus Turnaround Time (Fast 900mV 0C Model)",5.517,--
-"Core (Fast 900mV 0C Model)",0.725,0.111
-"Core Recovery/Removal (Fast 900mV 0C Model)",2.056,0.271
+"Core (Fast 900mV 0C Model)",0.644,0.1
+"Core Recovery/Removal (Fast 900mV 0C Model)",2.489,0.268
 "Read Capture (Fast 900mV 0C Model)",0.222,0.174
-"Read Resync (Fast 900mV 0C Model)",3.126,5.829
+"Read Resync (Fast 900mV 0C Model)",3.226,5.745
 "Write (Fast 900mV 0C Model)",-0.068,-0.068
 "Write Leveling tDQSS (Fast 900mV 0C Model)",0.392,0.392
 "Write Leveling tDSS/tDSH (Fast 900mV 0C Model)",0.42,0.42
