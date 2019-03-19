@@ -51,11 +51,15 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[1] = 0;
 	uiCmdtoSend.ucByte[0] = 0;
 
+//	alt_u32 uliIrqFlagsReg = 0;
+//	uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
+
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
 	vFeebCh1IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
 
 	// Check Irq Buffer Empty Flags
+//	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -66,6 +70,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
 	}
+//	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -76,6 +81,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
 	}
+//	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -86,6 +92,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 
 		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
 	}
+//	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
 		/*Sync the Meb task and tell that has a PUS command waiting*/
@@ -117,11 +124,15 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[0] = 1;
 
 	// Get Irq Buffer Empty Flags
-	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
-	vFeebCh2IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+//	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+//	vFeebCh2IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	alt_u32 uliIrqFlagsReg = 0;
+	uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 
 	// Check Irq Buffer Empty Flags
-	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+//	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
 		 /*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
@@ -131,7 +142,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
 	}
-	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+//	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
 		 /*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
@@ -141,7 +153,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
 	}
-	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+//	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
 		 /*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
@@ -151,7 +164,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
 	}
-	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+	if (uliIrqFlagsReg & (alt_u32)COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+//	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
 		 /*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
@@ -161,6 +175,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 
 		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
 	}
+
+	uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR, COMM_IRQ_FLAGS_REG_OFST);
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
