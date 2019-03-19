@@ -858,6 +858,7 @@ begin
 	s_spacewire_read_registers.spw_timecode_reg.timecode_time    <= s_timecode_counter;
 
 	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
+		variable v_started : std_logic := '0';
 	begin
 		if (a_reset) = '1' then
 			s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag <= '0';
@@ -868,56 +869,73 @@ begin
 			s_R_buffer_1_empty_delayed                                                   <= '0';
 			s_L_buffer_0_empty_delayed                                                   <= '0';
 			s_L_buffer_1_empty_delayed                                                   <= '0';
+			v_started                                                                    := '0';
 		elsif rising_edge(a_avs_clock) then
-			-- clear flags --
-			-- check if a right buffer empty 0 flag clear command was received
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_right_buffer_0_empty_flag_clear = '1') then
+
+			if (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start = '1') then
+				v_started := '1';
+			elsif ((s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop = '1') or (s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear = '1')) then
+				v_started := '0';
+			end if;
+
+			if (v_started = '0') then
+				-- keep flags cleared
 				s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag <= '0';
-			end if;
-			-- check if a right buffer empty 1 flag clear command was received
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_right_buffer_1_empty_flag_clear = '1') then
 				s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag <= '0';
-			end if;
-			-- check if a left buffer empty 0 flag clear command was received
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_left_buffer_0_empty_flag_clear = '1') then
-				s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag <= '0';
-			end if;
-			-- check if a left buffer empty 1 flag clear command was received
-			if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear = '1') then
-				s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag <= '0';
-			end if;
-			-- set flags --
-			-- check if the global interrupt is enabled
-			if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
-				-- check if the right buffer empty interrupt is activated
-				if (s_spacewire_write_registers.comm_irq_control_reg.comm_right_buffer_empty_en = '1') then
-					-- detect a rising edge in right buffer 0 empty signal
-					if (((s_R_buffer_0_empty_delayed = '0') and (s_R_buffer_0_empty = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag <= '1';
+				s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag  <= '0';
+				s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag  <= '0';
+			else
+				-- clear flags --
+				-- check if a right buffer empty 0 flag clear command was received
+				if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_right_buffer_0_empty_flag_clear = '1') then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag <= '0';
+				end if;
+				-- check if a right buffer empty 1 flag clear command was received
+				if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_right_buffer_1_empty_flag_clear = '1') then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag <= '0';
+				end if;
+				-- check if a left buffer empty 0 flag clear command was received
+				if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_left_buffer_0_empty_flag_clear = '1') then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag <= '0';
+				end if;
+				-- check if a left buffer empty 1 flag clear command was received
+				if (s_spacewire_write_registers.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear = '1') then
+					s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag <= '0';
+				end if;
+				-- set flags --
+				-- check if the global interrupt is enabled
+				if (s_spacewire_write_registers.comm_irq_control_reg.comm_global_irq_en = '1') then
+					-- check if the right buffer empty interrupt is activated
+					if (s_spacewire_write_registers.comm_irq_control_reg.comm_right_buffer_empty_en = '1') then
+						-- detect a rising edge in right buffer 0 empty signal
+						if (((s_R_buffer_0_empty_delayed = '0') and (s_R_buffer_0_empty = '1'))) then
+							s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag <= '1';
+						end if;
+						-- detect a rising edge in right buffer 1 empty signal
+						if (((s_R_buffer_1_empty_delayed = '0') and (s_R_buffer_1_empty = '1'))) then
+							s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag <= '1';
+						end if;
 					end if;
-					-- detect a rising edge in right buffer 1 empty signal
-					if (((s_R_buffer_1_empty_delayed = '0') and (s_R_buffer_1_empty = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag <= '1';
+					-- check if the left buffer empty interrupt is activated
+					if (s_spacewire_write_registers.comm_irq_control_reg.comm_left_buffer_empty_en = '1') then
+						-- detect a rising edge in left buffer 0 empty signal
+						if (((s_L_buffer_0_empty_delayed = '0') and (s_L_buffer_0_empty = '1'))) then
+							s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag <= '1';
+						end if;
+						-- detect a rising edge in left buffer 1 empty signal
+						if (((s_L_buffer_1_empty_delayed = '0') and (s_L_buffer_1_empty = '1'))) then
+							s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag <= '1';
+						end if;
 					end if;
 				end if;
-				-- check if the left buffer empty interrupt is activated
-				if (s_spacewire_write_registers.comm_irq_control_reg.comm_left_buffer_empty_en = '1') then
-					-- detect a rising edge in left buffer 0 empty signal
-					if (((s_L_buffer_0_empty_delayed = '0') and (s_L_buffer_0_empty = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag <= '1';
-					end if;
-					-- detect a rising edge in left buffer 1 empty signal
-					if (((s_L_buffer_1_empty_delayed = '0') and (s_L_buffer_1_empty = '1'))) then
-						s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag <= '1';
-					end if;
-				end if;
 			end if;
-			-- edges detection --
+
 			-- delay signals
 			s_R_buffer_0_empty_delayed <= s_R_buffer_0_empty;
 			s_R_buffer_1_empty_delayed <= s_R_buffer_1_empty;
 			s_L_buffer_0_empty_delayed <= s_L_buffer_0_empty;
 			s_L_buffer_1_empty_delayed <= s_L_buffer_1_empty;
+
 		end if;
 	end process p_fee_buffers_irq_manager;
 	buffers_interrupt_sender_irq <= (s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_0_empty_flag) or (s_spacewire_read_registers.comm_irq_flags_reg.comm_right_buffer_1_empty_flag) or (s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_0_empty_flag) or (s_spacewire_read_registers.comm_irq_flags_reg.comm_left_buffer_1_empty_flag);
