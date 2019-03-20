@@ -27,7 +27,8 @@ entity send_buffer_ent is
 		buffer_stat_full_o         : out std_logic;
 		buffer_rddata_o            : out std_logic_vector(7 downto 0);
 		buffer_rdready_o           : out std_logic;
-		buffer_wrready_o           : out std_logic
+		buffer_wrready_o           : out std_logic;
+		double_buffer_empty_o      : out std_logic
 	);
 end entity send_buffer_ent;
 
@@ -452,5 +453,7 @@ begin
 	s_data_fifo_0_extended_usedw((s_data_fifo_0.usedw'length - 1) downto 0) <= s_data_fifo_0.usedw;
 	s_data_fifo_1_extended_usedw(s_data_fifo_1.usedw'length)                <= s_data_fifo_1.full;
 	s_data_fifo_1_extended_usedw((s_data_fifo_1.usedw'length - 1) downto 0) <= s_data_fifo_1.usedw;
+	-- double buffer empty generation
+	double_buffer_empty_o                                                   <= (s_data_fifo_0.empty) and (s_data_fifo_1.empty);
 
 end architecture RTL;

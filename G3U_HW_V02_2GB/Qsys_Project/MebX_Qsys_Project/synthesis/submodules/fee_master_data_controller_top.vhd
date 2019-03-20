@@ -130,6 +130,7 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_send_buffer_rddata                 : std_logic_vector(7 downto 0);
 	signal s_send_buffer_rdready                : std_logic;
 	signal s_send_buffer_wrready                : std_logic;
+	signal s_send_double_buffer_empty           : std_logic;
 	-- data transmitter signals
 	signal s_data_transmitter_busy              : std_logic;
 	signal s_data_transmitter_finished          : std_logic;
@@ -204,6 +205,7 @@ begin
 			housekeeping_wr_finished_i           => s_housekeeping_wr_finished,
 			data_wr_finished_i                   => s_data_wr_finished,
 			data_transmitter_finished_i          => s_data_transmitter_finished,
+			send_double_buffer_empty_i           => s_send_double_buffer_empty,
 			imgdata_start_o                      => s_start_masking,
 			masking_machine_hold_o               => s_masking_machine_hold,
 			fee_data_manager_busy_o              => fee_machine_busy_o,
@@ -328,7 +330,8 @@ begin
 			buffer_stat_full_o         => s_send_buffer_stat_full,
 			buffer_rddata_o            => s_send_buffer_rddata,
 			buffer_rdready_o           => s_send_buffer_rdready,
-			buffer_wrready_o           => s_send_buffer_wrready
+			buffer_wrready_o           => s_send_buffer_wrready,
+			double_buffer_empty_o      => s_send_double_buffer_empty
 		);
 	s_send_buffer_wrdata <= (s_send_buffer_header_gen_wrdata) or (s_send_buffer_housekeeping_wr_wrdata) or (s_send_buffer_data_wr_wrdata);
 	s_send_buffer_wrreq  <= (s_send_buffer_header_gen_wrreq) or (s_send_buffer_housekeeping_wr_wrreq) or (s_send_buffer_data_wr_wrreq);

@@ -53,12 +53,14 @@ architecture RTL of testbench_top is
 	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
 	signal s_avalon_buffer_R_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_R_stimuli_mm_writedata   : std_logic_vector(63 downto 0); -- --          .writedata
+	signal s_avalon_buffer_R_stimuli_mm_burstcount  : std_logic_vector(7 downto 0); -- --          .burstcount
 
 	-- avalon_buffer_L_stimuli signals
 	signal s_avalon_buffer_L_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
 	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
 	signal s_avalon_buffer_L_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(63 downto 0); -- --          .writedata
+	signal s_avalon_buffer_L_stimuli_mm_burstcount  : std_logic_vector(7 downto 0); -- --          .burstcount
 
 	--dummy
 	signal s_dummy_spw_tx_flag    : t_rmap_target_spw_tx_flag;
@@ -99,8 +101,9 @@ begin
 
 	avalon_buffer_R_stimuli_inst : entity work.avalon_buffer_R_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
-			g_DATA_WIDTH    => 64
+			g_ADDRESS_WIDTH    => 10,
+			g_DATA_WIDTH       => 64,
+			g_BURSTCOUNT_WIDTH => 8
 		)
 		port map(
 			clk_i                   => clk100,
@@ -108,13 +111,15 @@ begin
 			avalon_mm_waitrequest_i => s_avalon_buffer_R_stimuli_mm_waitrequest,
 			avalon_mm_address_o     => s_avalon_buffer_R_stimuli_mm_address,
 			avalon_mm_write_o       => s_avalon_buffer_R_stimuli_mm_write,
-			avalon_mm_writedata_o   => s_avalon_buffer_R_stimuli_mm_writedata
+			avalon_mm_writedata_o   => s_avalon_buffer_R_stimuli_mm_writedata,
+			avalon_mm_burstcount_o  => s_avalon_buffer_R_stimuli_mm_burstcount
 		);
 
 	avalon_buffer_L_stimuli_inst : entity work.avalon_buffer_L_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
-			g_DATA_WIDTH    => 64
+			g_ADDRESS_WIDTH    => 10,
+			g_DATA_WIDTH       => 64,
+			g_BURSTCOUNT_WIDTH => 8
 		)
 		port map(
 			clk_i                   => clk100,
@@ -122,7 +127,8 @@ begin
 			avalon_mm_waitrequest_i => s_avalon_buffer_L_stimuli_mm_waitrequest,
 			avalon_mm_address_o     => s_avalon_buffer_L_stimuli_mm_address,
 			avalon_mm_write_o       => s_avalon_buffer_L_stimuli_mm_write,
-			avalon_mm_writedata_o   => s_avalon_buffer_L_stimuli_mm_writedata
+			avalon_mm_writedata_o   => s_avalon_buffer_L_stimuli_mm_writedata,
+			avalon_mm_burstcount_o  => s_avalon_buffer_L_stimuli_mm_burstcount
 		);
 
 	comm_v1_01_top_inst : entity work.comm_v1_80_top
@@ -167,10 +173,12 @@ begin
 			avalon_slave_L_buffer_waitrequest  => s_avalon_buffer_L_stimuli_mm_waitrequest,
 			avalon_slave_L_buffer_write        => s_avalon_buffer_L_stimuli_mm_write,
 			avalon_slave_L_buffer_writedata    => s_avalon_buffer_L_stimuli_mm_writedata,
+			avalon_slave_L_buffer_burstcount   => s_avalon_buffer_L_stimuli_mm_burstcount,
 			avalon_slave_R_buffer_address      => s_avalon_buffer_R_stimuli_mm_address,
 			avalon_slave_R_buffer_write        => s_avalon_buffer_R_stimuli_mm_write,
 			avalon_slave_R_buffer_writedata    => s_avalon_buffer_R_stimuli_mm_writedata,
-			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest
+			avalon_slave_R_buffer_waitrequest  => s_avalon_buffer_R_stimuli_mm_waitrequest,
+			avalon_slave_R_buffer_burstcount   => s_avalon_buffer_R_stimuli_mm_burstcount
 		);
 
 	--	s_spw_codec_comm_di <= s_spw_codec_comm_do;

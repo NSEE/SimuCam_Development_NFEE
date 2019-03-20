@@ -125,13 +125,19 @@ package avalon_mm_spacewire_registers_pkg is
 	end record t_comm_comm_irq_control_wr_reg;
 
 	type t_comm_comm_irq_flags_rd_reg is record
-		comm_rmap_write_command_flag : std_logic;
-		comm_buffer_empty_flag       : std_logic;
+		comm_rmap_write_command_flag   : std_logic;
+		comm_right_buffer_0_empty_flag : std_logic;
+		comm_right_buffer_1_empty_flag : std_logic;
+		comm_left_buffer_0_empty_flag  : std_logic;
+		comm_left_buffer_1_empty_flag  : std_logic;
 	end record t_comm_comm_irq_flags_rd_reg;
 
 	type t_comm_comm_irq_flags_clear_wr_reg is record
-		comm_rmap_write_command_flag_clear : std_logic;
-		comm_buffer_empty_flag_clear       : std_logic;
+		comm_rmap_write_command_flag_clear   : std_logic;
+		comm_right_buffer_0_empty_flag_clear : std_logic;
+		comm_right_buffer_1_empty_flag_clear : std_logic;
+		comm_left_buffer_0_empty_flag_clear  : std_logic;
+		comm_left_buffer_1_empty_flag_clear  : std_logic;
 	end record t_comm_comm_irq_flags_clear_wr_reg;
 
 	type t_windowing_write_registers is record

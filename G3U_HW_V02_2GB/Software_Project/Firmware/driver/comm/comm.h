@@ -13,22 +13,22 @@
 
 //! [constants definition]
 // irq numbers
-#define COMM_CH_1_RMAP_IRQ              23
-#define COMM_CH_1_BUFFERS_IRQ           22
-#define COMM_CH_2_RMAP_IRQ              21
-#define COMM_CH_2_BUFFERS_IRQ           20
-#define COMM_CH_3_RMAP_IRQ              19
-#define COMM_CH_3_BUFFERS_IRQ           18
-#define COMM_CH_4_RMAP_IRQ              17
-#define COMM_CH_4_BUFFERS_IRQ           16
-#define COMM_CH_5_RMAP_IRQ              9
-#define COMM_CH_5_BUFFERS_IRQ           8
-#define COMM_CH_6_RMAP_IRQ              7
-#define COMM_CH_6_BUFFERS_IRQ           6
-#define COMM_CH_7_RMAP_IRQ              4
-#define COMM_CH_7_BUFFERS_IRQ           5
-#define COMM_CH_8_RMAP_IRQ              3
-#define COMM_CH_8_BUFFERS_IRQ           2
+#define COMM_CH_1_RMAP_IRQ              11
+#define COMM_CH_1_BUFFERS_IRQ           1
+#define COMM_CH_2_RMAP_IRQ              10
+#define COMM_CH_2_BUFFERS_IRQ           0
+#define COMM_CH_3_RMAP_IRQ              -1
+#define COMM_CH_3_BUFFERS_IRQ           -1
+#define COMM_CH_4_RMAP_IRQ              -1
+#define COMM_CH_4_BUFFERS_IRQ           -1
+#define COMM_CH_5_RMAP_IRQ              -1
+#define COMM_CH_5_BUFFERS_IRQ           -1
+#define COMM_CH_6_RMAP_IRQ              -1
+#define COMM_CH_6_BUFFERS_IRQ           -1
+#define COMM_CH_7_RMAP_IRQ              -1
+#define COMM_CH_7_BUFFERS_IRQ           -1
+#define COMM_CH_8_RMAP_IRQ              -1
+#define COMM_CH_8_BUFFERS_IRQ           -1
 // address
 #define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
@@ -194,10 +194,16 @@
 #define COMM_IRQ_GLOBAL_EN_MSK           (1 << 16)
 
 #define COMM_IRQ_RMAP_WRCMD_FLG_MSK      (1 << 0)
-#define COMM_IRQ_BUFF_EPY_FLG_MSK        (1 << 8)
+#define COMM_IRQ_R_BUFF_0_EPY_FLG_MSK    (1 << 8)
+#define COMM_IRQ_R_BUFF_1_EPY_FLG_MSK    (1 << 9)
+#define COMM_IRQ_L_BUFF_0_EPY_FLG_MSK    (1 << 10)
+#define COMM_IRQ_L_BUFF_1_EPY_FLG_MSK    (1 << 11)
 
 #define COMM_IRQ_RMAP_WRCMD_FLG_CLR_MSK  (1 << 0)
-#define COMM_IRQ_BUFF_EPY_FLG_CLR_MSK    (1 << 8)
+#define COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK  (1 << 8)
+#define COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK  (1 << 9)
+#define COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK  (1 << 10)
+#define COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK  (1 << 11)
 
 #define COMM_RIGT_FEEBUFF_SIZE_MSK       (0xF << 0)
 #define COMM_LEFT_FEEBUFF_SIZE_MSK       (0xF << 0)

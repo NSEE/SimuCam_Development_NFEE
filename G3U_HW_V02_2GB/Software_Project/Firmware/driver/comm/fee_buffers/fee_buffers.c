@@ -8,15 +8,18 @@
 #include "fee_buffers.h"
 
 //! [private function prototypes]
+
 static ALT_INLINE bool ALT_ALWAYS_INLINE bFeebGetChFlag(
 		alt_u32 uliCommChBaseAddr, alt_u32 uliCommRegOffset,
 		alt_u32 uliCommFlagMask);
+
 static void vFeebWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 		alt_u32 uliValue);
 static alt_u32 uliFeebReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [private function prototypes]
 
 //! [data memory public global variables]
+const alt_u8 ucFeebIrqEmptyBufferFlagsQtd = 4;
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -46,286 +49,992 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	//*pviHoldContext = ...;
 	// if (*pviHoldContext == '0') {}...
 	// App logic sequence...
-	//INT8U error_codel;
-	//tQMask uiCmdtoSend;
 
-	vFeebCh1IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
 
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	uiCmdtoSend.ucByte[0] = 0;
-//
-//
-//	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-//	if ( error_codel != OS_ERR_NONE ) {
-//		vFailRequestDMAFromIRQ( 0 );
-//	}
-//
-//#if DEBUG_ON
-//	fprintf(fp,"Interrupcao fee buffer\n");
-//#endif
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 0;
 
-	/* Make one requests for the Double buffer */
-	/* Address of the NFEE is hard coded */
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh1IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh1IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF0\n");
+	}
+#endif
 
 }
 
 void vFeebCh2HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 
-	//INT8U error_codel;
-	//tQMask uiCmdtoSend;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
 
-	vFeebCh2IrqFlagClrBufferEmpty();
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 1;
 
-	/*
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh2IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
 
-	 uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	 uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-	 uiCmdtoSend.ucByte[1] = 0;
-	 uiCmdtoSend.ucByte[0] = 1;
-	 */
-	/*Sync the Meb task and tell that has a PUS command waiting*/
-	/*error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-	 if ( error_codel != OS_ERR_NONE ) {
-	 vFailRequestDMAFromIRQ( 1 );
-	 }
-	 */
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh2IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF1\n");
+	}
+#endif
 
 }
 
 void vFeebCh3HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
-//	INT8U error_codel;
-//	tQMask uiCmdtoSend;
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	uiCmdtoSend.ucByte[0] = 2;
-//
-//	/* Sync the Meb task and tell that has a PUS command waiting */
-//	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-//	if ( error_codel != OS_ERR_NONE ) {
-//		vFailRequestDMAFromIRQ( 2 );
-//	}
 
-	vFeebCh3IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 2;
+
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh3IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh3IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh3IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh3IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh3IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF2\n");
+	}
+#endif
 }
 
 void vFeebCh4HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
-//	INT8U error_codel;
-//	tQMask uiCmdtoSend;
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	uiCmdtoSend.ucByte[0] = 3;
-//
-//	/* Sync the Meb task and tell that has a PUS command waiting */
-//	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-//	if ( error_codel != OS_ERR_NONE ) {
-//		vFailRequestDMAFromIRQ( 3 );
-//	}
 
-	vFeebCh4IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 3;
+
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh4IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh4IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh4IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh4IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh4IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF3\n");
+	}
+#endif
 }
 
 void vFeebCh5HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
-//	INT8U error_codel;
-//	tQMask uiCmdtoSend;
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	uiCmdtoSend.ucByte[0] = 4;
-//
-//	/* Sync the Meb task and tell that has a PUS command waiting */
-//	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-//	if ( error_codel != OS_ERR_NONE ) {
-//		vFailRequestDMAFromIRQ( 4 );
-//	}
 
-	vFeebCh5IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 4;
+
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh5IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh5IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh5IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh5IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh5IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF4\n");
+	}
+#endif
+
 }
 
 void vFeebCh6HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
-//	INT8U error_codel;
-//	tQMask uiCmdtoSend;
-//
-//	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-//	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
-//	uiCmdtoSend.ucByte[1] = 0;
-//	uiCmdtoSend.ucByte[0] = 5;
-//
-//	/* Sync the Meb task and tell that has a PUS command waiting */
-//	error_codel = OSQPost(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
-//	if ( error_codel != OS_ERR_NONE ) {
-//		vFailRequestDMAFromIRQ( 5 );
-//	}
 
-	vFeebCh6IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 5;
+
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh6IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh6IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh6IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh6IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh6IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF5\n");
+	}
+#endif
+
 }
 
 void vFeebCh7HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 
-	vFeebCh7IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 6;
+
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh7IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh7IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh7IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh7IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh7IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF6\n");
+	}
+#endif
+
 }
 
 void vFeebCh8HandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 
-	vFeebCh8IrqFlagClrBufferEmpty();
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
+	uiCmdtoSend.ucByte[1] = 0;
+	uiCmdtoSend.ucByte[0] = 7;
+
+	// Get Irq Buffer Empty Flags
+	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
+	vFeebCh8IrqFlagBufferEmpty(bIrqEmptyBufferFlags);
+
+	// Check Irq Buffer Empty Flags
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh8IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh8IrqFlagClrBufferEmpty(eFeebIrqLeftEmptyBuffer1Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(1);
+		}
+
+		vFeebCh8IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer0Flag);
+	}
+	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailRequestDMAFromIRQ(0);
+		}
+
+		vFeebCh8IrqFlagClrBufferEmpty(eFeebIrqRightEmptyBuffer1Flag);
+	}
+
+#if DEBUG_ON
+	if (xDefaults.usiDebugLevel <= dlMinorMessage) {
+		fprintf(fp, "IntF7\n");
+	}
+#endif
+
 }
 
-void vFeebCh1IrqFlagClrBufferEmpty(void) {
+void vFeebCh1IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh2IrqFlagClrBufferEmpty(void) {
+void vFeebCh2IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh3IrqFlagClrBufferEmpty(void) {
+void vFeebCh3IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh4IrqFlagClrBufferEmpty(void) {
+void vFeebCh4IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh5IrqFlagClrBufferEmpty(void) {
+void vFeebCh5IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh6IrqFlagClrBufferEmpty(void) {
+void vFeebCh6IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh7IrqFlagClrBufferEmpty(void) {
+void vFeebCh7IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-void vFeebCh8IrqFlagClrBufferEmpty(void) {
+void vFeebCh8IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag) {
+
+	alt_u32 uliEmptyFlagClearMask = 0;
+
+	switch (ucEmptyBufferFlag) {
+	case eFeebIrqLeftEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqLeftEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer0Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_0_E_FLG_CLR_MSK;
+		break;
+	case eFeebIrqRightEmptyBuffer1Flag:
+		uliEmptyFlagClearMask = (alt_u32) COMM_IRQ_R_BUFF_1_E_FLG_CLR_MSK;
+		break;
+	default:
+		uliEmptyFlagClearMask = 0;
+		;
+		break;
+	}
+
 	vFeebWriteReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
-	COMM_IRQ_FLAGS_CLR_REG_OFST, (alt_u32) COMM_IRQ_BUFF_EPY_FLG_CLR_MSK);
+			COMM_IRQ_FLAGS_CLR_REG_OFST, uliEmptyFlagClearMask);
+
 }
 
-bool bFeebCh1IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh1IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_1_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh2IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh2IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_2_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh3IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh3IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_3_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh4IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh4IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_4_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh5IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh5IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_5_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh6IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh6IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_6_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh7IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh7IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_7_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
-bool bFeebCh8IrqFlagBufferEmpty(void) {
-	bool bFlag;
+void vFeebCh8IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags) {
+	alt_u32 uliIrqFlagsReg = 0;
 
-	if (uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
-	COMM_IRQ_FLAGS_REG_OFST) & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-		bFlag = TRUE;
-	} else {
-		bFlag = FALSE;
+	if (pbChEmptyBufferFlags != NULL) {
+
+		uliIrqFlagsReg = uliFeebReadReg((alt_u32*) COMM_CHANNEL_8_BASE_ADDR,
+				COMM_IRQ_FLAGS_REG_OFST);
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag] = FALSE;
+		}
+		if (uliIrqFlagsReg & (alt_u32) COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = TRUE;
+		} else {
+			pbChEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag] = FALSE;
+		}
+
 	}
-
-	return bFlag;
 }
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide) {
@@ -571,6 +1280,7 @@ bool vFeebInitIrq(alt_u8 ucCommCh) {
 		// Register the interrupt handler
 		alt_irq_register(COMM_CH_1_BUFFERS_IRQ, pvHoldContext,
 				vFeebCh1HandleIrq);
+
 		bStatus = TRUE;
 		break;
 	case eCommSpwCh2:
@@ -702,12 +1412,30 @@ bool bFeebGetIrqFlags(TFeebChannel *pxFeebCh) {
 
 	if (pxFeebCh != NULL) {
 		uliReg = uliFeebReadReg(pxFeebCh->puliFeebChAddr,
-		COMM_IRQ_FLAGS_REG_OFST);
+				COMM_IRQ_FLAGS_REG_OFST);
 
-		if (uliReg & COMM_IRQ_BUFF_EPY_FLG_MSK) {
-			pxFeebCh->xIrqFlag.bBufferEmptyFlag = TRUE;
+		if (uliReg & COMM_IRQ_L_BUFF_0_EPY_FLG_MSK) {
+			pxFeebCh->xIrqFlag.bLeftBufferEmpty0Flag = TRUE;
 		} else {
-			pxFeebCh->xIrqFlag.bBufferEmptyFlag = FALSE;
+			pxFeebCh->xIrqFlag.bLeftBufferEmpty0Flag = FALSE;
+		}
+
+		if (uliReg & COMM_IRQ_L_BUFF_1_EPY_FLG_MSK) {
+			pxFeebCh->xIrqFlag.bLeftBufferEmpty1Flag = TRUE;
+		} else {
+			pxFeebCh->xIrqFlag.bLeftBufferEmpty1Flag = FALSE;
+		}
+
+		if (uliReg & COMM_IRQ_R_BUFF_0_EPY_FLG_MSK) {
+			pxFeebCh->xIrqFlag.bRightBufferEmpty0Flag = TRUE;
+		} else {
+			pxFeebCh->xIrqFlag.bRightBufferEmpty0Flag = FALSE;
+		}
+
+		if (uliReg & COMM_IRQ_R_BUFF_1_EPY_FLG_MSK) {
+			pxFeebCh->xIrqFlag.bRightBufferEmpty1Flag = TRUE;
+		} else {
+			pxFeebCh->xIrqFlag.bRightBufferEmpty1Flag = FALSE;
 		}
 
 		bStatus = TRUE;
@@ -895,7 +1623,6 @@ bool bFeebGetCh8RightBufferEmpty(void) {
 	bFlag = bFeebGetChFlag(COMM_CHANNEL_8_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_RIGH_BUFF_EMPTY_MSK);
 	return bFlag;
 }
-
 
 bool bFeebGetCh1LeftFeeBusy(void) {
 	bool bFlag = FALSE;
