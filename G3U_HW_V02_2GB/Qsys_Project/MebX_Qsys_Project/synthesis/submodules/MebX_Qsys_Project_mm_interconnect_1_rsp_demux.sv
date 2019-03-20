@@ -28,8 +28,8 @@
 // ------------------------------------------
 // Generation parameters:
 //   output_name:         MebX_Qsys_Project_mm_interconnect_1_rsp_demux
-//   ST_DATA_W:           371
-//   ST_CHANNEL_W:        10
+//   ST_DATA_W:           369
+//   ST_CHANNEL_W:        5
 //   NUM_OUTPUTS:         3
 //   VALID_WIDTH:         1
 // ------------------------------------------
@@ -46,8 +46,8 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_demux
     // Sink
     // -------------------
     input  [1-1      : 0]   sink_valid,
-    input  [371-1    : 0]   sink_data, // ST_DATA_W=371
-    input  [10-1 : 0]   sink_channel, // ST_CHANNEL_W=10
+    input  [369-1    : 0]   sink_data, // ST_DATA_W=369
+    input  [5-1 : 0]   sink_channel, // ST_CHANNEL_W=5
     input                         sink_startofpacket,
     input                         sink_endofpacket,
     output                        sink_ready,
@@ -56,22 +56,22 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_demux
     // Sources 
     // -------------------
     output reg                      src0_valid,
-    output reg [371-1    : 0] src0_data, // ST_DATA_W=371
-    output reg [10-1 : 0] src0_channel, // ST_CHANNEL_W=10
+    output reg [369-1    : 0] src0_data, // ST_DATA_W=369
+    output reg [5-1 : 0] src0_channel, // ST_CHANNEL_W=5
     output reg                      src0_startofpacket,
     output reg                      src0_endofpacket,
     input                           src0_ready,
 
     output reg                      src1_valid,
-    output reg [371-1    : 0] src1_data, // ST_DATA_W=371
-    output reg [10-1 : 0] src1_channel, // ST_CHANNEL_W=10
+    output reg [369-1    : 0] src1_data, // ST_DATA_W=369
+    output reg [5-1 : 0] src1_channel, // ST_CHANNEL_W=5
     output reg                      src1_startofpacket,
     output reg                      src1_endofpacket,
     input                           src1_ready,
 
     output reg                      src2_valid,
-    output reg [371-1    : 0] src2_data, // ST_DATA_W=371
-    output reg [10-1 : 0] src2_channel, // ST_CHANNEL_W=10
+    output reg [369-1    : 0] src2_data, // ST_DATA_W=369
+    output reg [5-1 : 0] src2_channel, // ST_CHANNEL_W=5
     output reg                      src2_startofpacket,
     output reg                      src2_endofpacket,
     input                           src2_ready,
@@ -124,7 +124,7 @@ module MebX_Qsys_Project_mm_interconnect_1_rsp_demux
     assign ready_vector[1] = src1_ready;
     assign ready_vector[2] = src2_ready;
 
-    assign sink_ready = |(sink_channel & {{7{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
+    assign sink_ready = |(sink_channel & {{2{1'b0}},{ready_vector[NUM_OUTPUTS - 1 : 0]}});
 
 endmodule
 
