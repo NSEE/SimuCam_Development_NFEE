@@ -22,10 +22,10 @@ const alt_u8 ucFeebIrqEmptyBufferFlagsQtd;
 
 //! [public module structs definition]
 enum FeebIrqEmptyBufferFlags {
-	eFeebIrqRightEmptyBuffer0Flag = 0,
-	eFeebIrqRightEmptyBuffer1Flag,
-	eFeebIrqLeftEmptyBuffer0Flag,
-	eFeebIrqLeftEmptyBuffer1Flag
+	eFeebIrqLeftEmptyBuffer0Flag = 0,
+	eFeebIrqLeftEmptyBuffer1Flag,
+	eFeebIrqRightEmptyBuffer0Flag,
+	eFeebIrqRightEmptyBuffer1Flag
 } EFeebIrqEmptyBufferFlags;
 
 typedef struct FeebWindowingConfig {
@@ -38,7 +38,10 @@ typedef struct FeebIrqControl {
 } TFeebIrqControl;
 
 typedef struct FeebIrqFlag {
-	bool bBufferEmptyFlag;
+	bool bLeftBufferEmpty0Flag;
+	bool bLeftBufferEmpty1Flag;
+	bool bRightBufferEmpty0Flag;
+	bool bRightBufferEmpty1Flag;
 } TFeebIrqFlag;
 
 typedef struct FeebBufferStatus {
@@ -118,7 +121,8 @@ bool bFeebGetCh1RightFeeBusy(void);
 bool bFeebGetCh2LeftFeeBusy(void);
 bool bFeebGetCh2RightFeeBusy(void);
 
-bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
+		alt_u8 ucBufferSide);
 
 bool bFeebSetWindowing(TFeebChannel *pxFeebCh);
 bool bFeebGetWindowing(TFeebChannel *pxFeebCh);

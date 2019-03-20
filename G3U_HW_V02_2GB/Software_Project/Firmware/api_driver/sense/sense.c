@@ -9,7 +9,8 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 	int i, c, nPortIndex = 0;
 	int szPortNum[] = { POWER_DEVICE0_PORT_NUM, POWER_DEVICE1_PORT_NUM };
 	alt_u32 Value32;
-	alt_u8 NextChannel, Channel, HEAD, SIGN, SGL, PARITY;
+//	alt_u8 NextChannel, Channel, HEAD, SIGN, SGL, PARITY;
+	alt_u8 NextChannel, Channel, HEAD, SIGN, SGL;
 	const bool bEN = TRUE; // alwasy update next conversion channel
 	const bool bSIGN = TRUE; // VolDrop = CH1-CH0
 	const bool bSGL = FALSE; // GSGL=FALSE: Diff
@@ -24,7 +25,7 @@ bool POWER_Read(alt_u32 szVol[POWER_PORT_NUM]) {
 				Channel = (Value32 >> 1) & 0x07;
 				SIGN = (Value32 >> 4) & 0x01;
 				SGL = (Value32 >> 5) & 0x01;
-				PARITY = Value32 & 0x01;
+//				PARITY = Value32 & 0x01;
 				if (HEAD != 0) {
 #if DEBUG_ON
 					sprintf(cDebugBuffer, "[%d]Unexpected HEAD\r\n", i);
