@@ -52,34 +52,42 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		output wire [9:0]   COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address,             //               COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer.address
 		output wire         COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address,             //               COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer.address
 		output wire         COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address,             //               COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer.address
 		output wire         COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address,             //               COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer.address
 		output wire         COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [30:0]  m1_clock_bridge_s0_address,                                      //                                        m1_clock_bridge_s0.address
 		output wire         m1_clock_bridge_s0_write,                                        //                                                          .write
@@ -246,7 +254,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rf_source_ready
@@ -276,7 +284,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rf_source_ready
@@ -306,7 +314,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_c_avalon_slave_l_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_agent:rf_source_ready
@@ -336,7 +344,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_d_avalon_slave_l_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_agent:rf_source_ready
@@ -366,7 +374,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rf_source_ready
@@ -396,7 +404,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rf_source_ready
@@ -426,7 +434,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_c_avalon_slave_r_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_agent:rf_source_ready
@@ -456,7 +464,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent_rsp_fifo:in_valid
 	wire  [155:0] comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_d_avalon_slave_r_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_agent:rf_source_ready
@@ -1558,11 +1566,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1597,12 +1605,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1622,11 +1630,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1661,12 +1669,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1686,11 +1694,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1725,12 +1733,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1750,11 +1758,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1789,12 +1797,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1814,11 +1822,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1853,12 +1861,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1878,11 +1886,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1917,12 +1925,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1942,11 +1950,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1981,12 +1989,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_C_avalon_slave_R_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -2006,11 +2014,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -2045,12 +2053,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_D_avalon_slave_R_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -2835,7 +2843,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -2931,13 +2939,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3001,7 +3009,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -3097,13 +3105,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3167,7 +3175,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -3263,13 +3271,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3333,7 +3341,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -3429,13 +3437,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3499,7 +3507,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -3595,13 +3603,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3665,7 +3673,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -3761,13 +3769,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3831,7 +3839,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -3927,13 +3935,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3997,7 +4005,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (10),
 		.ST_DATA_W                 (155),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
@@ -4093,13 +4101,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)

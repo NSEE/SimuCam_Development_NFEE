@@ -13,14 +13,14 @@
 
 //! [constants definition]
 // irq numbers
-#define COMM_CH_1_RMAP_IRQ              11
+#define COMM_CH_1_RMAP_IRQ              13
 #define COMM_CH_1_BUFFERS_IRQ           1
-#define COMM_CH_2_RMAP_IRQ              10
+#define COMM_CH_2_RMAP_IRQ              12
 #define COMM_CH_2_BUFFERS_IRQ           0
-#define COMM_CH_3_RMAP_IRQ              -1
-#define COMM_CH_3_BUFFERS_IRQ           -1
-#define COMM_CH_4_RMAP_IRQ              -1
-#define COMM_CH_4_BUFFERS_IRQ           -1
+#define COMM_CH_3_RMAP_IRQ              14
+#define COMM_CH_3_BUFFERS_IRQ           2
+#define COMM_CH_4_RMAP_IRQ              15
+#define COMM_CH_4_BUFFERS_IRQ           3
 #define COMM_CH_5_RMAP_IRQ              -1
 #define COMM_CH_5_BUFFERS_IRQ           -1
 #define COMM_CH_6_RMAP_IRQ              -1
