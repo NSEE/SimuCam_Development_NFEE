@@ -4,12 +4,16 @@ use ieee.numeric_std.all;
 
 package pgen_pattern_generator_pkg is
 
-	type t_pgen_pattern_generator_data is record
+	type t_pgen_pattern_generator_read_data is record
 		pattern_pixel_3 : std_logic_vector(15 downto 0);
 		pattern_pixel_2 : std_logic_vector(15 downto 0);
 		pattern_pixel_1 : std_logic_vector(15 downto 0);
 		pattern_pixel_0 : std_logic_vector(15 downto 0);
-	end record t_pgen_pattern_generator_data;
+	end record t_pgen_pattern_generator_read_data;
+
+	type t_pgen_pattern_generator_write_data is record
+		pattern_pixel   : std_logic_vector(15 downto 0);
+	end record t_pgen_pattern_generator_write_data;
 
 	type t_pgen_pattern_generator_control is record
 		start : std_logic;

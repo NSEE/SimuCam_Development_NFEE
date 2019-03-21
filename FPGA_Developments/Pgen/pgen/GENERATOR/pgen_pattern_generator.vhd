@@ -89,6 +89,7 @@ architecture rtl of pgen_pattern_generator_ent is
 begin
 	p_pgen_pattern_generator_FSM_state : process(clk_i, rst_i)
 		variable v_pattern_control_pointers : t_pattern_control_pointers;
+		variable v_pgen_pattern_generator_state : t_pgen_pattern_generator_state;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
@@ -102,6 +103,15 @@ begin
 			s_pattern_pixels.pattern_pixel_2            <= (others => '0');
 			s_pattern_pixels.pattern_pixel_3            <= (others => '0');
 			sf_write_pattern_data                       <= '0';
+			-- Outputs generation - reset
+			status_o.resetted                          <= '1';
+			status_o.stopped                           <= '0';
+			data_o.pattern_pixel_0                     <= (others => '0');
+			data_o.pattern_pixel_1                     <= (others => '0');
+			data_o.pattern_pixel_2                     <= (others => '0');
+			data_o.pattern_pixel_3                     <= (others => '0');
+			data_controller_write_control_o.data_erase <= '1';
+			data_controller_write_control_o.data_write <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_pgen_pattern_generator_state) is
@@ -111,6 +121,7 @@ begin
 					-- Reset all the values and go to stopped
 					-- default state transition
 					s_pgen_pattern_generator_state              <= STOPPED;
+					v_pgen_pattern_generator_state              := STOPPED;
 					-- default internal signal values
 					v_pattern_control_pointers.ccd_row          := (others => '0');
 					v_pattern_control_pointers.ccd_column       := (others => '0');
@@ -128,6 +139,7 @@ begin
 					-- Keep the pattern generator stopped and on hold
 					-- default state transition
 					s_pgen_pattern_generator_state <= STOPPED;
+					v_pgen_pattern_generator_state := STOPPED;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					sf_write_pattern_data          <= '0';
@@ -135,12 +147,14 @@ begin
 					if (control_i.reset = '1') then
 						-- command to reset received, go to resetting
 						s_pgen_pattern_generator_state <= RESETTING;
+						v_pgen_pattern_generator_state := RESETTING;
 					else
 						-- command to reset not received
 						-- check if a command to start was received
 						if (control_i.start = '1') then
 							-- command to start received, go to running
 							s_pgen_pattern_generator_state <= RUNNING;
+							v_pgen_pattern_generator_state := RUNNING;
 						end if;
 					end if;
 
@@ -149,6 +163,7 @@ begin
 					-- Pattern generator is running and generating pattern pixels
 					-- default state transition
 					s_pgen_pattern_generator_state <= RUNNING;
+					v_pgen_pattern_generator_state := RUNNING;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
 					-- check if a command to stop was received
@@ -156,12 +171,14 @@ begin
 					if (control_i.reset = '1') then
 						-- command to reset received, go to resetting
 						s_pgen_pattern_generator_state <= RESETTING;
+						v_pgen_pattern_generator_state := RESETTING;
 					else
 						-- command to reset not received
 						-- check if a command to start was received
 						if (control_i.start = '1') then
 							-- command to start received, go to running
 							s_pgen_pattern_generator_state <= RUNNING;
+							v_pgen_pattern_generator_state := RUNNING;
 						else
 							-- command to stop or reset not received, keep running
 							-- check if the data controller can receive data
@@ -188,26 +205,12 @@ begin
 				when others =>
 					-- jump to save state (ERROR?!)
 					s_pgen_pattern_generator_state <= RESETTING;
+					v_pgen_pattern_generator_state := RESETTING;
 
 			end case;
-		end if;
-	end process p_pgen_pattern_generator_FSM_state;
 
-	p_pgen_pattern_generator_FSM_output : process(s_pgen_pattern_generator_state, sf_write_pattern_data, rst_i)
-	begin
-		-- asynchronous reset
-		if (rst_i = '1') then
-			status_o.resetted                          <= '1';
-			status_o.stopped                           <= '0';
-			data_o.pattern_pixel_0                     <= (others => '0');
-			data_o.pattern_pixel_1                     <= (others => '0');
-			data_o.pattern_pixel_2                     <= (others => '0');
-			data_o.pattern_pixel_3                     <= (others => '0');
-			data_controller_write_control_o.data_erase <= '1';
-			data_controller_write_control_o.data_write <= '0';
-		-- output generation when s_pgen_pattern_generator_state changes
-		else
-			case (s_pgen_pattern_generator_state) is
+			-- Output generation
+			case (v_pgen_pattern_generator_state) is
 
 				-- state "RESETTING"
 				when RESETTING =>
@@ -255,6 +258,6 @@ begin
 
 			end case;
 		end if;
-	end process p_pgen_pattern_generator_FSM_output;
+	end process p_pgen_pattern_generator_FSM_state;
 
 end architecture rtl;

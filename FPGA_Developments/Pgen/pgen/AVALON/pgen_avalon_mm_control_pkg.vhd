@@ -31,3 +31,6 @@ package pgen_avalon_mm_control_pkg is
 	end record t_pgen_avalon_mm_control_write_outputs;
 
 end package pgen_avalon_mm_control_pkg;
+
+package body pgen_avalon_mm_control_pkg is
+end package body pgen_avalon_mm_control_pkg;

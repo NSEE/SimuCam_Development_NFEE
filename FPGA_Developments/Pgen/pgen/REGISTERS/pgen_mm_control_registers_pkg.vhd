@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-package pgen_mm_registers_pkg is
+package pgen_mm_control_registers_pkg is
 
 	-- Generator Control and Status Register         (32 bits):
 	--   31- 5 : Reserved                              [-/-]
@@ -58,4 +58,7 @@ package pgen_mm_registers_pkg is
 		generator_status_register : t_pgen_generator_status_register;
 	end record t_pgen_mm_control_read_registers;
 
-end package pgen_mm_registers_pkg;
+end package pgen_mm_control_registers_pkg;
+
+package body pgen_mm_control_registers_pkg is
+end package body pgen_mm_control_registers_pkg;

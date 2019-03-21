@@ -153,7 +153,7 @@ begin
 			pattern_generator_data_i => s_pattern_generator_data,
 			write_status_o           => s_data_controller_write_status,
 			read_status_o            => s_data_controller_read_status,
-			pattern_data_register_o  => s_mm_data_read_registers.pattern_data_register
+			pattern_data_register_o  => s_mm_data_read_registers
 		);
 
 	-- Pattern generator

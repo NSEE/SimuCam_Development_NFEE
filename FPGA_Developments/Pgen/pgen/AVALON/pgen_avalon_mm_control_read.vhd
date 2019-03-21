@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.pgen_avalon_mm_pkg.all;
-use work.pgen_mm_registers_pkg.all;
+use work.pgen_avalon_mm_control_pkg.all;
+use work.pgen_mm_control_registers_pkg.all;
 
-entity pgen_avalon_mm_read_ent is
+entity pgen_avalon_mm_control_read_ent is
 	port(
 		clk_i                    : in  std_logic;
 		rst_i                    : in  std_logic;
@@ -14,13 +14,13 @@ entity pgen_avalon_mm_read_ent is
 		avalon_mm_read_inputs_i  : in  t_pgen_avalon_mm_read_inputs;
 		avalon_mm_read_outputs_o : out t_pgen_avalon_mm_read_outputs
 	);
-end entity pgen_avalon_mm_read_ent;
+end entity pgen_avalon_mm_control_read_ent;
 
-architecture rtl of pgen_avalon_mm_read_ent is
+architecture rtl of pgen_avalon_mm_control_read_ent is
 
 begin
-	p_pgen_avalon_mm_read : process(clk_i, rst_i) is
-		procedure p_mm_readdata(mm_read_address_i : t_pgen_avalon_mm_address) is
+	p_pgen_avalon_mm_control_read : process(clk_i, rst_i) is
+		procedure p_mm_readdata(mm_read_address_i : t_pgen_avalon_mm_control_address) is
 		begin
 			-- Registers Data Read
 			case (mm_read_address_i) is
@@ -64,7 +64,7 @@ begin
 			end case;
 		end procedure p_mm_readdata;
 
-		variable v_mm_read_address : t_pgen_avalon_mm_address := 0;
+		variable v_mm_read_address : t_pgen_avalon_mm_control_address := 0;
 	begin
 		if (rst_i = '1') then
 			avalon_mm_read_outputs_o.readdata    <= (others => '0');
@@ -78,6 +78,6 @@ begin
 				p_mm_readdata(v_mm_read_address);
 			end if;
 		end if;
-	end process p_pgen_avalon_mm_read;
+	end process p_pgen_avalon_mm_control_read;
 
 end architecture rtl;

@@ -21,3 +21,6 @@ package pgen_avalon_mm_data_pkg is
 	end record t_pgen_avalon_mm_data_read_outputs;
 
 end package pgen_avalon_mm_data_pkg;
+
+package body pgen_avalon_mm_data_pkg is
+end package body pgen_avalon_mm_data_pkg;
