@@ -1133,7 +1133,7 @@ SEVEN_SEG_HEX0[3]            : H31       : output : 2.5 V             :         
 FSM_D[7]                     : H32       : bidir  : 2.5 V             :         : 1A        : Y              
 GND                          : H33       : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : H34       :        :                   :         : 1A        :                
-FSM_A[0]                     : H35       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : H35       :        :                   :         : 1A        :                
 GXB_NC                       : H36       :        :                   :         : QL2       :                
 GXB_NC                       : H37       :        :                   :         : QL2       :                
 GND                          : H38       : gnd    :                   :         :           :                
@@ -1246,7 +1246,7 @@ GND                          : L27       : gnd    :                   :         
 NC                           : L28       :        :                   :         :           :                
 FSM_D[3]                     : L29       : bidir  : 2.5 V             :         : 1A        : Y              
 GND                          : L30       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : L31       :        :                   :         : 1A        :                
+FSM_A[0]                     : L31       : output : 2.5 V             :         : 1A        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : L32       :        :                   :         : 1C        :                
 GND                          : L33       : gnd    :                   :         :           :                
 SEVEN_SEG_HEX0[0]            : L34       : output : 2.5 V             :         : 1C        : Y              

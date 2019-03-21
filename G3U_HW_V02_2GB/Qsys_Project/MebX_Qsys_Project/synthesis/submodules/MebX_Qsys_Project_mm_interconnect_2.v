@@ -10,6 +10,7 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		input  wire        clk_50_clk_clk,                                                         //                                                       clk_50_clk.clk
 		input  wire        Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset_reset, // Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset.reset
 		input  wire        clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset,               //               clock_bridge_afi_50_m0_reset_reset_bridge_in_reset.reset
+		input  wire        pio_LED_painel_reset_reset_bridge_in_reset_reset,                       //                       pio_LED_painel_reset_reset_bridge_in_reset.reset
 		input  wire        rs232_uart_reset_reset_bridge_in_reset_reset,                           //                           rs232_uart_reset_reset_bridge_in_reset.reset
 		input  wire        rst_controller_reset_sink_reset_bridge_in_reset_reset,                  //                  rst_controller_reset_sink_reset_bridge_in_reset.reset
 		input  wire        sync_reset_reset_bridge_in_reset_reset,                                 //                                 sync_reset_reset_bridge_in_reset.reset
@@ -3408,41 +3409,41 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
 	) pio_led_painel_s1_translator (
-		.clk                    (clk_50_clk_clk),                                           //                      clk.clk
-		.reset                  (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), //                    reset.reset
-		.uav_address            (pio_led_painel_s1_agent_m0_address),                       // avalon_universal_slave_0.address
-		.uav_burstcount         (pio_led_painel_s1_agent_m0_burstcount),                    //                         .burstcount
-		.uav_read               (pio_led_painel_s1_agent_m0_read),                          //                         .read
-		.uav_write              (pio_led_painel_s1_agent_m0_write),                         //                         .write
-		.uav_waitrequest        (pio_led_painel_s1_agent_m0_waitrequest),                   //                         .waitrequest
-		.uav_readdatavalid      (pio_led_painel_s1_agent_m0_readdatavalid),                 //                         .readdatavalid
-		.uav_byteenable         (pio_led_painel_s1_agent_m0_byteenable),                    //                         .byteenable
-		.uav_readdata           (pio_led_painel_s1_agent_m0_readdata),                      //                         .readdata
-		.uav_writedata          (pio_led_painel_s1_agent_m0_writedata),                     //                         .writedata
-		.uav_lock               (pio_led_painel_s1_agent_m0_lock),                          //                         .lock
-		.uav_debugaccess        (pio_led_painel_s1_agent_m0_debugaccess),                   //                         .debugaccess
-		.av_address             (pio_LED_painel_s1_address),                                //      avalon_anti_slave_0.address
-		.av_write               (pio_LED_painel_s1_write),                                  //                         .write
-		.av_readdata            (pio_LED_painel_s1_readdata),                               //                         .readdata
-		.av_writedata           (pio_LED_painel_s1_writedata),                              //                         .writedata
-		.av_chipselect          (pio_LED_painel_s1_chipselect),                             //                         .chipselect
-		.av_read                (),                                                         //              (terminated)
-		.av_begintransfer       (),                                                         //              (terminated)
-		.av_beginbursttransfer  (),                                                         //              (terminated)
-		.av_burstcount          (),                                                         //              (terminated)
-		.av_byteenable          (),                                                         //              (terminated)
-		.av_readdatavalid       (1'b0),                                                     //              (terminated)
-		.av_waitrequest         (1'b0),                                                     //              (terminated)
-		.av_writebyteenable     (),                                                         //              (terminated)
-		.av_lock                (),                                                         //              (terminated)
-		.av_clken               (),                                                         //              (terminated)
-		.uav_clken              (1'b0),                                                     //              (terminated)
-		.av_debugaccess         (),                                                         //              (terminated)
-		.av_outputenable        (),                                                         //              (terminated)
-		.uav_response           (),                                                         //              (terminated)
-		.av_response            (2'b00),                                                    //              (terminated)
-		.uav_writeresponsevalid (),                                                         //              (terminated)
-		.av_writeresponsevalid  (1'b0)                                                      //              (terminated)
+		.clk                    (clk_50_clk_clk),                                   //                      clk.clk
+		.reset                  (pio_LED_painel_reset_reset_bridge_in_reset_reset), //                    reset.reset
+		.uav_address            (pio_led_painel_s1_agent_m0_address),               // avalon_universal_slave_0.address
+		.uav_burstcount         (pio_led_painel_s1_agent_m0_burstcount),            //                         .burstcount
+		.uav_read               (pio_led_painel_s1_agent_m0_read),                  //                         .read
+		.uav_write              (pio_led_painel_s1_agent_m0_write),                 //                         .write
+		.uav_waitrequest        (pio_led_painel_s1_agent_m0_waitrequest),           //                         .waitrequest
+		.uav_readdatavalid      (pio_led_painel_s1_agent_m0_readdatavalid),         //                         .readdatavalid
+		.uav_byteenable         (pio_led_painel_s1_agent_m0_byteenable),            //                         .byteenable
+		.uav_readdata           (pio_led_painel_s1_agent_m0_readdata),              //                         .readdata
+		.uav_writedata          (pio_led_painel_s1_agent_m0_writedata),             //                         .writedata
+		.uav_lock               (pio_led_painel_s1_agent_m0_lock),                  //                         .lock
+		.uav_debugaccess        (pio_led_painel_s1_agent_m0_debugaccess),           //                         .debugaccess
+		.av_address             (pio_LED_painel_s1_address),                        //      avalon_anti_slave_0.address
+		.av_write               (pio_LED_painel_s1_write),                          //                         .write
+		.av_readdata            (pio_LED_painel_s1_readdata),                       //                         .readdata
+		.av_writedata           (pio_LED_painel_s1_writedata),                      //                         .writedata
+		.av_chipselect          (pio_LED_painel_s1_chipselect),                     //                         .chipselect
+		.av_read                (),                                                 //              (terminated)
+		.av_begintransfer       (),                                                 //              (terminated)
+		.av_beginbursttransfer  (),                                                 //              (terminated)
+		.av_burstcount          (),                                                 //              (terminated)
+		.av_byteenable          (),                                                 //              (terminated)
+		.av_readdatavalid       (1'b0),                                             //              (terminated)
+		.av_waitrequest         (1'b0),                                             //              (terminated)
+		.av_writebyteenable     (),                                                 //              (terminated)
+		.av_lock                (),                                                 //              (terminated)
+		.av_clken               (),                                                 //              (terminated)
+		.uav_clken              (1'b0),                                             //              (terminated)
+		.av_debugaccess         (),                                                 //              (terminated)
+		.av_outputenable        (),                                                 //              (terminated)
+		.uav_response           (),                                                 //              (terminated)
+		.av_response            (2'b00),                                            //              (terminated)
+		.uav_writeresponsevalid (),                                                 //              (terminated)
+		.av_writeresponsevalid  (1'b0)                                              //              (terminated)
 	);
 
 	altera_merlin_slave_translator #(
@@ -6763,49 +6764,49 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) pio_led_painel_s1_agent (
-		.clk                     (clk_50_clk_clk),                                           //             clk.clk
-		.reset                   (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), //       clk_reset.reset
-		.m0_address              (pio_led_painel_s1_agent_m0_address),                       //              m0.address
-		.m0_burstcount           (pio_led_painel_s1_agent_m0_burstcount),                    //                .burstcount
-		.m0_byteenable           (pio_led_painel_s1_agent_m0_byteenable),                    //                .byteenable
-		.m0_debugaccess          (pio_led_painel_s1_agent_m0_debugaccess),                   //                .debugaccess
-		.m0_lock                 (pio_led_painel_s1_agent_m0_lock),                          //                .lock
-		.m0_readdata             (pio_led_painel_s1_agent_m0_readdata),                      //                .readdata
-		.m0_readdatavalid        (pio_led_painel_s1_agent_m0_readdatavalid),                 //                .readdatavalid
-		.m0_read                 (pio_led_painel_s1_agent_m0_read),                          //                .read
-		.m0_waitrequest          (pio_led_painel_s1_agent_m0_waitrequest),                   //                .waitrequest
-		.m0_writedata            (pio_led_painel_s1_agent_m0_writedata),                     //                .writedata
-		.m0_write                (pio_led_painel_s1_agent_m0_write),                         //                .write
-		.rp_endofpacket          (pio_led_painel_s1_agent_rp_endofpacket),                   //              rp.endofpacket
-		.rp_ready                (pio_led_painel_s1_agent_rp_ready),                         //                .ready
-		.rp_valid                (pio_led_painel_s1_agent_rp_valid),                         //                .valid
-		.rp_data                 (pio_led_painel_s1_agent_rp_data),                          //                .data
-		.rp_startofpacket        (pio_led_painel_s1_agent_rp_startofpacket),                 //                .startofpacket
-		.cp_ready                (cmd_mux_022_src_ready),                                    //              cp.ready
-		.cp_valid                (cmd_mux_022_src_valid),                                    //                .valid
-		.cp_data                 (cmd_mux_022_src_data),                                     //                .data
-		.cp_startofpacket        (cmd_mux_022_src_startofpacket),                            //                .startofpacket
-		.cp_endofpacket          (cmd_mux_022_src_endofpacket),                              //                .endofpacket
-		.cp_channel              (cmd_mux_022_src_channel),                                  //                .channel
-		.rf_sink_ready           (pio_led_painel_s1_agent_rsp_fifo_out_ready),               //         rf_sink.ready
-		.rf_sink_valid           (pio_led_painel_s1_agent_rsp_fifo_out_valid),               //                .valid
-		.rf_sink_startofpacket   (pio_led_painel_s1_agent_rsp_fifo_out_startofpacket),       //                .startofpacket
-		.rf_sink_endofpacket     (pio_led_painel_s1_agent_rsp_fifo_out_endofpacket),         //                .endofpacket
-		.rf_sink_data            (pio_led_painel_s1_agent_rsp_fifo_out_data),                //                .data
-		.rf_source_ready         (pio_led_painel_s1_agent_rf_source_ready),                  //       rf_source.ready
-		.rf_source_valid         (pio_led_painel_s1_agent_rf_source_valid),                  //                .valid
-		.rf_source_startofpacket (pio_led_painel_s1_agent_rf_source_startofpacket),          //                .startofpacket
-		.rf_source_endofpacket   (pio_led_painel_s1_agent_rf_source_endofpacket),            //                .endofpacket
-		.rf_source_data          (pio_led_painel_s1_agent_rf_source_data),                   //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_022_out_0_ready),                        // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_022_out_0_valid),                        //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_022_out_0_data),                         //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_022_out_0_error),                        //                .error
-		.rdata_fifo_src_ready    (pio_led_painel_s1_agent_rdata_fifo_src_ready),             //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (pio_led_painel_s1_agent_rdata_fifo_src_valid),             //                .valid
-		.rdata_fifo_src_data     (pio_led_painel_s1_agent_rdata_fifo_src_data),              //                .data
-		.m0_response             (2'b00),                                                    //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                      //     (terminated)
+		.clk                     (clk_50_clk_clk),                                     //             clk.clk
+		.reset                   (pio_LED_painel_reset_reset_bridge_in_reset_reset),   //       clk_reset.reset
+		.m0_address              (pio_led_painel_s1_agent_m0_address),                 //              m0.address
+		.m0_burstcount           (pio_led_painel_s1_agent_m0_burstcount),              //                .burstcount
+		.m0_byteenable           (pio_led_painel_s1_agent_m0_byteenable),              //                .byteenable
+		.m0_debugaccess          (pio_led_painel_s1_agent_m0_debugaccess),             //                .debugaccess
+		.m0_lock                 (pio_led_painel_s1_agent_m0_lock),                    //                .lock
+		.m0_readdata             (pio_led_painel_s1_agent_m0_readdata),                //                .readdata
+		.m0_readdatavalid        (pio_led_painel_s1_agent_m0_readdatavalid),           //                .readdatavalid
+		.m0_read                 (pio_led_painel_s1_agent_m0_read),                    //                .read
+		.m0_waitrequest          (pio_led_painel_s1_agent_m0_waitrequest),             //                .waitrequest
+		.m0_writedata            (pio_led_painel_s1_agent_m0_writedata),               //                .writedata
+		.m0_write                (pio_led_painel_s1_agent_m0_write),                   //                .write
+		.rp_endofpacket          (pio_led_painel_s1_agent_rp_endofpacket),             //              rp.endofpacket
+		.rp_ready                (pio_led_painel_s1_agent_rp_ready),                   //                .ready
+		.rp_valid                (pio_led_painel_s1_agent_rp_valid),                   //                .valid
+		.rp_data                 (pio_led_painel_s1_agent_rp_data),                    //                .data
+		.rp_startofpacket        (pio_led_painel_s1_agent_rp_startofpacket),           //                .startofpacket
+		.cp_ready                (cmd_mux_022_src_ready),                              //              cp.ready
+		.cp_valid                (cmd_mux_022_src_valid),                              //                .valid
+		.cp_data                 (cmd_mux_022_src_data),                               //                .data
+		.cp_startofpacket        (cmd_mux_022_src_startofpacket),                      //                .startofpacket
+		.cp_endofpacket          (cmd_mux_022_src_endofpacket),                        //                .endofpacket
+		.cp_channel              (cmd_mux_022_src_channel),                            //                .channel
+		.rf_sink_ready           (pio_led_painel_s1_agent_rsp_fifo_out_ready),         //         rf_sink.ready
+		.rf_sink_valid           (pio_led_painel_s1_agent_rsp_fifo_out_valid),         //                .valid
+		.rf_sink_startofpacket   (pio_led_painel_s1_agent_rsp_fifo_out_startofpacket), //                .startofpacket
+		.rf_sink_endofpacket     (pio_led_painel_s1_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
+		.rf_sink_data            (pio_led_painel_s1_agent_rsp_fifo_out_data),          //                .data
+		.rf_source_ready         (pio_led_painel_s1_agent_rf_source_ready),            //       rf_source.ready
+		.rf_source_valid         (pio_led_painel_s1_agent_rf_source_valid),            //                .valid
+		.rf_source_startofpacket (pio_led_painel_s1_agent_rf_source_startofpacket),    //                .startofpacket
+		.rf_source_endofpacket   (pio_led_painel_s1_agent_rf_source_endofpacket),      //                .endofpacket
+		.rf_source_data          (pio_led_painel_s1_agent_rf_source_data),             //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_022_out_0_ready),                  // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_022_out_0_valid),                  //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_022_out_0_data),                   //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_022_out_0_error),                  //                .error
+		.rdata_fifo_src_ready    (pio_led_painel_s1_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (pio_led_painel_s1_agent_rdata_fifo_src_valid),       //                .valid
+		.rdata_fifo_src_data     (pio_led_painel_s1_agent_rdata_fifo_src_data),        //                .data
+		.m0_response             (2'b00),                                              //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -6822,31 +6823,31 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
 	) pio_led_painel_s1_agent_rsp_fifo (
-		.clk               (clk_50_clk_clk),                                           //       clk.clk
-		.reset             (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.in_data           (pio_led_painel_s1_agent_rf_source_data),                   //        in.data
-		.in_valid          (pio_led_painel_s1_agent_rf_source_valid),                  //          .valid
-		.in_ready          (pio_led_painel_s1_agent_rf_source_ready),                  //          .ready
-		.in_startofpacket  (pio_led_painel_s1_agent_rf_source_startofpacket),          //          .startofpacket
-		.in_endofpacket    (pio_led_painel_s1_agent_rf_source_endofpacket),            //          .endofpacket
-		.out_data          (pio_led_painel_s1_agent_rsp_fifo_out_data),                //       out.data
-		.out_valid         (pio_led_painel_s1_agent_rsp_fifo_out_valid),               //          .valid
-		.out_ready         (pio_led_painel_s1_agent_rsp_fifo_out_ready),               //          .ready
-		.out_startofpacket (pio_led_painel_s1_agent_rsp_fifo_out_startofpacket),       //          .startofpacket
-		.out_endofpacket   (pio_led_painel_s1_agent_rsp_fifo_out_endofpacket),         //          .endofpacket
-		.csr_address       (2'b00),                                                    // (terminated)
-		.csr_read          (1'b0),                                                     // (terminated)
-		.csr_write         (1'b0),                                                     // (terminated)
-		.csr_readdata      (),                                                         // (terminated)
-		.csr_writedata     (32'b00000000000000000000000000000000),                     // (terminated)
-		.almost_full_data  (),                                                         // (terminated)
-		.almost_empty_data (),                                                         // (terminated)
-		.in_empty          (1'b0),                                                     // (terminated)
-		.out_empty         (),                                                         // (terminated)
-		.in_error          (1'b0),                                                     // (terminated)
-		.out_error         (),                                                         // (terminated)
-		.in_channel        (1'b0),                                                     // (terminated)
-		.out_channel       ()                                                          // (terminated)
+		.clk               (clk_50_clk_clk),                                     //       clk.clk
+		.reset             (pio_LED_painel_reset_reset_bridge_in_reset_reset),   // clk_reset.reset
+		.in_data           (pio_led_painel_s1_agent_rf_source_data),             //        in.data
+		.in_valid          (pio_led_painel_s1_agent_rf_source_valid),            //          .valid
+		.in_ready          (pio_led_painel_s1_agent_rf_source_ready),            //          .ready
+		.in_startofpacket  (pio_led_painel_s1_agent_rf_source_startofpacket),    //          .startofpacket
+		.in_endofpacket    (pio_led_painel_s1_agent_rf_source_endofpacket),      //          .endofpacket
+		.out_data          (pio_led_painel_s1_agent_rsp_fifo_out_data),          //       out.data
+		.out_valid         (pio_led_painel_s1_agent_rsp_fifo_out_valid),         //          .valid
+		.out_ready         (pio_led_painel_s1_agent_rsp_fifo_out_ready),         //          .ready
+		.out_startofpacket (pio_led_painel_s1_agent_rsp_fifo_out_startofpacket), //          .startofpacket
+		.out_endofpacket   (pio_led_painel_s1_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
+		.csr_address       (2'b00),                                              // (terminated)
+		.csr_read          (1'b0),                                               // (terminated)
+		.csr_write         (1'b0),                                               // (terminated)
+		.csr_readdata      (),                                                   // (terminated)
+		.csr_writedata     (32'b00000000000000000000000000000000),               // (terminated)
+		.almost_full_data  (),                                                   // (terminated)
+		.almost_empty_data (),                                                   // (terminated)
+		.in_empty          (1'b0),                                               // (terminated)
+		.out_empty         (),                                                   // (terminated)
+		.in_error          (1'b0),                                               // (terminated)
+		.out_error         (),                                                   // (terminated)
+		.in_channel        (1'b0),                                               // (terminated)
+		.out_channel       ()                                                    // (terminated)
 	);
 
 	altera_merlin_slave_agent #(
@@ -8093,19 +8094,19 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_router_001 router_023 (
-		.sink_ready         (pio_led_painel_s1_agent_rp_ready),                         //      sink.ready
-		.sink_valid         (pio_led_painel_s1_agent_rp_valid),                         //          .valid
-		.sink_data          (pio_led_painel_s1_agent_rp_data),                          //          .data
-		.sink_startofpacket (pio_led_painel_s1_agent_rp_startofpacket),                 //          .startofpacket
-		.sink_endofpacket   (pio_led_painel_s1_agent_rp_endofpacket),                   //          .endofpacket
-		.clk                (clk_50_clk_clk),                                           //       clk.clk
-		.reset              (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready          (router_023_src_ready),                                     //       src.ready
-		.src_valid          (router_023_src_valid),                                     //          .valid
-		.src_data           (router_023_src_data),                                      //          .data
-		.src_channel        (router_023_src_channel),                                   //          .channel
-		.src_startofpacket  (router_023_src_startofpacket),                             //          .startofpacket
-		.src_endofpacket    (router_023_src_endofpacket)                                //          .endofpacket
+		.sink_ready         (pio_led_painel_s1_agent_rp_ready),                 //      sink.ready
+		.sink_valid         (pio_led_painel_s1_agent_rp_valid),                 //          .valid
+		.sink_data          (pio_led_painel_s1_agent_rp_data),                  //          .data
+		.sink_startofpacket (pio_led_painel_s1_agent_rp_startofpacket),         //          .startofpacket
+		.sink_endofpacket   (pio_led_painel_s1_agent_rp_endofpacket),           //          .endofpacket
+		.clk                (clk_50_clk_clk),                                   //       clk.clk
+		.reset              (pio_LED_painel_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready          (router_023_src_ready),                             //       src.ready
+		.src_valid          (router_023_src_valid),                             //          .valid
+		.src_data           (router_023_src_data),                              //          .data
+		.src_channel        (router_023_src_channel),                           //          .channel
+		.src_startofpacket  (router_023_src_startofpacket),                     //          .startofpacket
+		.src_endofpacket    (router_023_src_endofpacket)                        //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_router_001 router_024 (
@@ -8836,20 +8837,20 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_cmd_mux cmd_mux_022 (
-		.clk                 (clk_50_clk_clk),                                           //       clk.clk
-		.reset               (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.src_ready           (cmd_mux_022_src_ready),                                    //       src.ready
-		.src_valid           (cmd_mux_022_src_valid),                                    //          .valid
-		.src_data            (cmd_mux_022_src_data),                                     //          .data
-		.src_channel         (cmd_mux_022_src_channel),                                  //          .channel
-		.src_startofpacket   (cmd_mux_022_src_startofpacket),                            //          .startofpacket
-		.src_endofpacket     (cmd_mux_022_src_endofpacket),                              //          .endofpacket
-		.sink0_ready         (cmd_demux_src22_ready),                                    //     sink0.ready
-		.sink0_valid         (cmd_demux_src22_valid),                                    //          .valid
-		.sink0_channel       (cmd_demux_src22_channel),                                  //          .channel
-		.sink0_data          (cmd_demux_src22_data),                                     //          .data
-		.sink0_startofpacket (cmd_demux_src22_startofpacket),                            //          .startofpacket
-		.sink0_endofpacket   (cmd_demux_src22_endofpacket)                               //          .endofpacket
+		.clk                 (clk_50_clk_clk),                                   //       clk.clk
+		.reset               (pio_LED_painel_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.src_ready           (cmd_mux_022_src_ready),                            //       src.ready
+		.src_valid           (cmd_mux_022_src_valid),                            //          .valid
+		.src_data            (cmd_mux_022_src_data),                             //          .data
+		.src_channel         (cmd_mux_022_src_channel),                          //          .channel
+		.src_startofpacket   (cmd_mux_022_src_startofpacket),                    //          .startofpacket
+		.src_endofpacket     (cmd_mux_022_src_endofpacket),                      //          .endofpacket
+		.sink0_ready         (cmd_demux_src22_ready),                            //     sink0.ready
+		.sink0_valid         (cmd_demux_src22_valid),                            //          .valid
+		.sink0_channel       (cmd_demux_src22_channel),                          //          .channel
+		.sink0_data          (cmd_demux_src22_data),                             //          .data
+		.sink0_startofpacket (cmd_demux_src22_startofpacket),                    //          .startofpacket
+		.sink0_endofpacket   (cmd_demux_src22_endofpacket)                       //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_cmd_mux cmd_mux_023 (
@@ -9346,20 +9347,20 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_rsp_demux rsp_demux_022 (
-		.clk                (clk_50_clk_clk),                                           //       clk.clk
-		.reset              (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), // clk_reset.reset
-		.sink_ready         (router_023_src_ready),                                     //      sink.ready
-		.sink_channel       (router_023_src_channel),                                   //          .channel
-		.sink_data          (router_023_src_data),                                      //          .data
-		.sink_startofpacket (router_023_src_startofpacket),                             //          .startofpacket
-		.sink_endofpacket   (router_023_src_endofpacket),                               //          .endofpacket
-		.sink_valid         (router_023_src_valid),                                     //          .valid
-		.src0_ready         (rsp_demux_022_src0_ready),                                 //      src0.ready
-		.src0_valid         (rsp_demux_022_src0_valid),                                 //          .valid
-		.src0_data          (rsp_demux_022_src0_data),                                  //          .data
-		.src0_channel       (rsp_demux_022_src0_channel),                               //          .channel
-		.src0_startofpacket (rsp_demux_022_src0_startofpacket),                         //          .startofpacket
-		.src0_endofpacket   (rsp_demux_022_src0_endofpacket)                            //          .endofpacket
+		.clk                (clk_50_clk_clk),                                   //       clk.clk
+		.reset              (pio_LED_painel_reset_reset_bridge_in_reset_reset), // clk_reset.reset
+		.sink_ready         (router_023_src_ready),                             //      sink.ready
+		.sink_channel       (router_023_src_channel),                           //          .channel
+		.sink_data          (router_023_src_data),                              //          .data
+		.sink_startofpacket (router_023_src_startofpacket),                     //          .startofpacket
+		.sink_endofpacket   (router_023_src_endofpacket),                       //          .endofpacket
+		.sink_valid         (router_023_src_valid),                             //          .valid
+		.src0_ready         (rsp_demux_022_src0_ready),                         //      src0.ready
+		.src0_valid         (rsp_demux_022_src0_valid),                         //          .valid
+		.src0_data          (rsp_demux_022_src0_data),                          //          .data
+		.src0_channel       (rsp_demux_022_src0_channel),                       //          .channel
+		.src0_startofpacket (rsp_demux_022_src0_startofpacket),                 //          .startofpacket
+		.src0_endofpacket   (rsp_demux_022_src0_endofpacket)                    //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_2_rsp_demux rsp_demux_023 (
@@ -10328,15 +10329,15 @@ module MebX_Qsys_Project_mm_interconnect_2 (
 		.outUseReady     (1),
 		.outReadyLatency (0)
 	) avalon_st_adapter_022 (
-		.in_clk_0_clk   (clk_50_clk_clk),                                           // in_clk_0.clk
-		.in_rst_0_reset (clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset), // in_rst_0.reset
-		.in_0_data      (pio_led_painel_s1_agent_rdata_fifo_src_data),              //     in_0.data
-		.in_0_valid     (pio_led_painel_s1_agent_rdata_fifo_src_valid),             //         .valid
-		.in_0_ready     (pio_led_painel_s1_agent_rdata_fifo_src_ready),             //         .ready
-		.out_0_data     (avalon_st_adapter_022_out_0_data),                         //    out_0.data
-		.out_0_valid    (avalon_st_adapter_022_out_0_valid),                        //         .valid
-		.out_0_ready    (avalon_st_adapter_022_out_0_ready),                        //         .ready
-		.out_0_error    (avalon_st_adapter_022_out_0_error)                         //         .error
+		.in_clk_0_clk   (clk_50_clk_clk),                                   // in_clk_0.clk
+		.in_rst_0_reset (pio_LED_painel_reset_reset_bridge_in_reset_reset), // in_rst_0.reset
+		.in_0_data      (pio_led_painel_s1_agent_rdata_fifo_src_data),      //     in_0.data
+		.in_0_valid     (pio_led_painel_s1_agent_rdata_fifo_src_valid),     //         .valid
+		.in_0_ready     (pio_led_painel_s1_agent_rdata_fifo_src_ready),     //         .ready
+		.out_0_data     (avalon_st_adapter_022_out_0_data),                 //    out_0.data
+		.out_0_valid    (avalon_st_adapter_022_out_0_valid),                //         .valid
+		.out_0_ready    (avalon_st_adapter_022_out_0_ready),                //         .ready
+		.out_0_error    (avalon_st_adapter_022_out_0_error)                 //         .error
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter #(
