@@ -8,11 +8,9 @@
 #include "fee_buffers.h"
 
 //! [private function prototypes]
-
 static ALT_INLINE bool ALT_ALWAYS_INLINE bFeebGetChFlag(
 		alt_u32 uliCommChBaseAddr, alt_u32 uliCommRegOffset,
 		alt_u32 uliCommFlagMask);
-
 static void vFeebWriteReg(alt_u32 *puliAddr, alt_u32 uliOffset,
 		alt_u32 uliValue);
 static alt_u32 uliFeebReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
@@ -1624,6 +1622,7 @@ bool bFeebGetCh8RightBufferEmpty(void) {
 	return bFlag;
 }
 
+
 bool bFeebGetCh1LeftFeeBusy(void) {
 	bool bFlag = FALSE;
 	bFlag = bFeebGetChFlag(COMM_CHANNEL_1_BASE_ADDR, COMM_FEE_BUFF_STAT_REG_OFST, COMM_WIND_LEFT_FEE_BUSY_MSK);
@@ -1731,13 +1730,13 @@ bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_LEFT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg(pxFeebCh->puliFeebChAddr,
-			COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
+					COMM_LEFT_FEEBUFF_SIZE_REG_OFST, uliReg);
 			break;
 		case eCommRightBuffer:
 			uliReg = (alt_u32) ((ucBufferSizeInBlocks - 1)
 					& COMM_RIGT_FEEBUFF_SIZE_MSK);
 			vFeebWriteReg(pxFeebCh->puliFeebChAddr,
-			COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
+					COMM_RIGT_FEEBUFF_SIZE_REG_OFST, uliReg);
 			break;
 		default:
 			bStatus = FALSE;
