@@ -27,41 +27,49 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		input  wire [31:0]  ddr2_address_span_extender_expanded_master_writedata,            //                                                          .writedata
 		input  wire [30:0]  dma_DDR_M1_mm_read_address,                                      //                                        dma_DDR_M1_mm_read.address
 		output wire         dma_DDR_M1_mm_read_waitrequest,                                  //                                                          .waitrequest
+		input  wire [8:0]   dma_DDR_M1_mm_read_burstcount,                                   //                                                          .burstcount
 		input  wire [7:0]   dma_DDR_M1_mm_read_byteenable,                                   //                                                          .byteenable
 		input  wire         dma_DDR_M1_mm_read_read,                                         //                                                          .read
 		output wire [63:0]  dma_DDR_M1_mm_read_readdata,                                     //                                                          .readdata
 		output wire         dma_DDR_M1_mm_read_readdatavalid,                                //                                                          .readdatavalid
 		input  wire [32:0]  dma_DDR_M1_mm_write_address,                                     //                                       dma_DDR_M1_mm_write.address
 		output wire         dma_DDR_M1_mm_write_waitrequest,                                 //                                                          .waitrequest
+		input  wire [8:0]   dma_DDR_M1_mm_write_burstcount,                                  //                                                          .burstcount
 		input  wire [7:0]   dma_DDR_M1_mm_write_byteenable,                                  //                                                          .byteenable
 		input  wire         dma_DDR_M1_mm_write_write,                                       //                                                          .write
 		input  wire [63:0]  dma_DDR_M1_mm_write_writedata,                                   //                                                          .writedata
 		input  wire [31:0]  dma_DDR_M2_mm_read_address,                                      //                                        dma_DDR_M2_mm_read.address
 		output wire         dma_DDR_M2_mm_read_waitrequest,                                  //                                                          .waitrequest
+		input  wire [8:0]   dma_DDR_M2_mm_read_burstcount,                                   //                                                          .burstcount
 		input  wire [7:0]   dma_DDR_M2_mm_read_byteenable,                                   //                                                          .byteenable
 		input  wire         dma_DDR_M2_mm_read_read,                                         //                                                          .read
 		output wire [63:0]  dma_DDR_M2_mm_read_readdata,                                     //                                                          .readdata
 		output wire         dma_DDR_M2_mm_read_readdatavalid,                                //                                                          .readdatavalid
 		input  wire [32:0]  dma_DDR_M2_mm_write_address,                                     //                                       dma_DDR_M2_mm_write.address
 		output wire         dma_DDR_M2_mm_write_waitrequest,                                 //                                                          .waitrequest
+		input  wire [8:0]   dma_DDR_M2_mm_write_burstcount,                                  //                                                          .burstcount
 		input  wire [7:0]   dma_DDR_M2_mm_write_byteenable,                                  //                                                          .byteenable
 		input  wire         dma_DDR_M2_mm_write_write,                                       //                                                          .write
 		input  wire [63:0]  dma_DDR_M2_mm_write_writedata,                                   //                                                          .writedata
 		output wire [9:0]   COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address,             //               COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer.address
 		output wire         COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [9:0]   COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address,             //               COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer.address
 		output wire         COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write,               //                                                          .write
 		output wire [63:0]  COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata,           //                                                          .writedata
+		output wire [7:0]   COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burstcount,          //                                                          .burstcount
 		input  wire         COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest,         //                                                          .waitrequest
 		output wire [30:0]  m1_clock_bridge_s0_address,                                      //                                        m1_clock_bridge_s0.address
 		output wire         m1_clock_bridge_s0_write,                                        //                                                          .write
@@ -106,7 +114,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          dma_ddr_m2_mm_read_translator_avalon_universal_master_0_lock;                                         // dma_DDR_M2_mm_read_translator:uav_lock -> dma_DDR_M2_mm_read_agent:av_lock
 	wire          dma_ddr_m2_mm_read_translator_avalon_universal_master_0_write;                                        // dma_DDR_M2_mm_read_translator:uav_write -> dma_DDR_M2_mm_read_agent:av_write
 	wire   [63:0] dma_ddr_m2_mm_read_translator_avalon_universal_master_0_writedata;                                    // dma_DDR_M2_mm_read_translator:uav_writedata -> dma_DDR_M2_mm_read_agent:av_writedata
-	wire    [3:0] dma_ddr_m2_mm_read_translator_avalon_universal_master_0_burstcount;                                   // dma_DDR_M2_mm_read_translator:uav_burstcount -> dma_DDR_M2_mm_read_agent:av_burstcount
+	wire   [11:0] dma_ddr_m2_mm_read_translator_avalon_universal_master_0_burstcount;                                   // dma_DDR_M2_mm_read_translator:uav_burstcount -> dma_DDR_M2_mm_read_agent:av_burstcount
 	wire          rsp_mux_001_src_valid;                                                                                // rsp_mux_001:src_valid -> dma_DDR_M2_mm_read_agent:rp_valid
 	wire  [152:0] rsp_mux_001_src_data;                                                                                 // rsp_mux_001:src_data -> dma_DDR_M2_mm_read_agent:rp_data
 	wire          rsp_mux_001_src_ready;                                                                                // dma_DDR_M2_mm_read_agent:rp_ready -> rsp_mux_001:src_ready
@@ -123,7 +131,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          dma_ddr_m2_mm_write_translator_avalon_universal_master_0_lock;                                        // dma_DDR_M2_mm_write_translator:uav_lock -> dma_DDR_M2_mm_write_agent:av_lock
 	wire          dma_ddr_m2_mm_write_translator_avalon_universal_master_0_write;                                       // dma_DDR_M2_mm_write_translator:uav_write -> dma_DDR_M2_mm_write_agent:av_write
 	wire   [63:0] dma_ddr_m2_mm_write_translator_avalon_universal_master_0_writedata;                                   // dma_DDR_M2_mm_write_translator:uav_writedata -> dma_DDR_M2_mm_write_agent:av_writedata
-	wire    [3:0] dma_ddr_m2_mm_write_translator_avalon_universal_master_0_burstcount;                                  // dma_DDR_M2_mm_write_translator:uav_burstcount -> dma_DDR_M2_mm_write_agent:av_burstcount
+	wire   [11:0] dma_ddr_m2_mm_write_translator_avalon_universal_master_0_burstcount;                                  // dma_DDR_M2_mm_write_translator:uav_burstcount -> dma_DDR_M2_mm_write_agent:av_burstcount
 	wire          rsp_mux_002_src_valid;                                                                                // rsp_mux_002:src_valid -> dma_DDR_M2_mm_write_agent:rp_valid
 	wire  [152:0] rsp_mux_002_src_data;                                                                                 // rsp_mux_002:src_data -> dma_DDR_M2_mm_write_agent:rp_data
 	wire          rsp_mux_002_src_ready;                                                                                // dma_DDR_M2_mm_write_agent:rp_ready -> rsp_mux_002:src_ready
@@ -140,7 +148,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          dma_ddr_m1_mm_write_translator_avalon_universal_master_0_lock;                                        // dma_DDR_M1_mm_write_translator:uav_lock -> dma_DDR_M1_mm_write_agent:av_lock
 	wire          dma_ddr_m1_mm_write_translator_avalon_universal_master_0_write;                                       // dma_DDR_M1_mm_write_translator:uav_write -> dma_DDR_M1_mm_write_agent:av_write
 	wire   [63:0] dma_ddr_m1_mm_write_translator_avalon_universal_master_0_writedata;                                   // dma_DDR_M1_mm_write_translator:uav_writedata -> dma_DDR_M1_mm_write_agent:av_writedata
-	wire    [3:0] dma_ddr_m1_mm_write_translator_avalon_universal_master_0_burstcount;                                  // dma_DDR_M1_mm_write_translator:uav_burstcount -> dma_DDR_M1_mm_write_agent:av_burstcount
+	wire   [11:0] dma_ddr_m1_mm_write_translator_avalon_universal_master_0_burstcount;                                  // dma_DDR_M1_mm_write_translator:uav_burstcount -> dma_DDR_M1_mm_write_agent:av_burstcount
 	wire          rsp_mux_003_src_valid;                                                                                // rsp_mux_003:src_valid -> dma_DDR_M1_mm_write_agent:rp_valid
 	wire  [152:0] rsp_mux_003_src_data;                                                                                 // rsp_mux_003:src_data -> dma_DDR_M1_mm_write_agent:rp_data
 	wire          rsp_mux_003_src_ready;                                                                                // dma_DDR_M1_mm_write_agent:rp_ready -> rsp_mux_003:src_ready
@@ -157,7 +165,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          dma_ddr_m1_mm_read_translator_avalon_universal_master_0_lock;                                         // dma_DDR_M1_mm_read_translator:uav_lock -> dma_DDR_M1_mm_read_agent:av_lock
 	wire          dma_ddr_m1_mm_read_translator_avalon_universal_master_0_write;                                        // dma_DDR_M1_mm_read_translator:uav_write -> dma_DDR_M1_mm_read_agent:av_write
 	wire   [63:0] dma_ddr_m1_mm_read_translator_avalon_universal_master_0_writedata;                                    // dma_DDR_M1_mm_read_translator:uav_writedata -> dma_DDR_M1_mm_read_agent:av_writedata
-	wire    [3:0] dma_ddr_m1_mm_read_translator_avalon_universal_master_0_burstcount;                                   // dma_DDR_M1_mm_read_translator:uav_burstcount -> dma_DDR_M1_mm_read_agent:av_burstcount
+	wire   [11:0] dma_ddr_m1_mm_read_translator_avalon_universal_master_0_burstcount;                                   // dma_DDR_M1_mm_read_translator:uav_burstcount -> dma_DDR_M1_mm_read_agent:av_burstcount
 	wire          rsp_mux_004_src_valid;                                                                                // rsp_mux_004:src_valid -> dma_DDR_M1_mm_read_agent:rp_valid
 	wire  [152:0] rsp_mux_004_src_data;                                                                                 // rsp_mux_004:src_data -> dma_DDR_M1_mm_read_agent:rp_data
 	wire          rsp_mux_004_src_ready;                                                                                // dma_DDR_M1_mm_read_agent:rp_ready -> rsp_mux_004:src_ready
@@ -228,7 +236,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rsp_fifo:in_valid
 	wire  [153:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rf_source_ready
@@ -242,12 +250,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_valid;                               // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rdata_fifo_src_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rdata_fifo:in_valid
 	wire   [65:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_data;                                // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rdata_fifo_src_data -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rdata_fifo:in_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_ready;                               // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent_rdata_fifo:in_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:rdata_fifo_src_ready
-	wire          cmd_mux_002_src_valid;                                                                                // cmd_mux_002:src_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_valid
-	wire  [152:0] cmd_mux_002_src_data;                                                                                 // cmd_mux_002:src_data -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_data
-	wire          cmd_mux_002_src_ready;                                                                                // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_ready -> cmd_mux_002:src_ready
-	wire    [5:0] cmd_mux_002_src_channel;                                                                              // cmd_mux_002:src_channel -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_channel
-	wire          cmd_mux_002_src_startofpacket;                                                                        // cmd_mux_002:src_startofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_startofpacket
-	wire          cmd_mux_002_src_endofpacket;                                                                          // cmd_mux_002:src_endofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_endofpacket
 	wire   [63:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_readdata;                                        // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_readdata -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_readdata
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_waitrequest;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_waitrequest -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_waitrequest
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_debugaccess;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_debugaccess -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_debugaccess
@@ -258,7 +260,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rsp_fifo:in_valid
 	wire  [153:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rf_source_ready
@@ -272,12 +274,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_valid;                               // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rdata_fifo_src_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rdata_fifo:in_valid
 	wire   [65:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_data;                                // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rdata_fifo_src_data -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rdata_fifo:in_data
 	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_ready;                               // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent_rdata_fifo:in_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:rdata_fifo_src_ready
-	wire          cmd_mux_003_src_valid;                                                                                // cmd_mux_003:src_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_valid
-	wire  [152:0] cmd_mux_003_src_data;                                                                                 // cmd_mux_003:src_data -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_data
-	wire          cmd_mux_003_src_ready;                                                                                // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_ready -> cmd_mux_003:src_ready
-	wire    [5:0] cmd_mux_003_src_channel;                                                                              // cmd_mux_003:src_channel -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_channel
-	wire          cmd_mux_003_src_startofpacket;                                                                        // cmd_mux_003:src_startofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_startofpacket
-	wire          cmd_mux_003_src_endofpacket;                                                                          // cmd_mux_003:src_endofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_endofpacket
 	wire   [63:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_readdata;                                        // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_readdata -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_readdata
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_waitrequest;                                     // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_waitrequest -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_waitrequest
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_debugaccess;                                     // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_debugaccess -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_debugaccess
@@ -288,7 +284,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rsp_fifo:in_valid
 	wire  [153:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rf_source_ready
@@ -302,12 +298,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_valid;                               // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rdata_fifo_src_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rdata_fifo:in_valid
 	wire   [65:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_data;                                // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rdata_fifo_src_data -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rdata_fifo:in_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_ready;                               // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent_rdata_fifo:in_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:rdata_fifo_src_ready
-	wire          cmd_mux_004_src_valid;                                                                                // cmd_mux_004:src_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_valid
-	wire  [152:0] cmd_mux_004_src_data;                                                                                 // cmd_mux_004:src_data -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_data
-	wire          cmd_mux_004_src_ready;                                                                                // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_ready -> cmd_mux_004:src_ready
-	wire    [5:0] cmd_mux_004_src_channel;                                                                              // cmd_mux_004:src_channel -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_channel
-	wire          cmd_mux_004_src_startofpacket;                                                                        // cmd_mux_004:src_startofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_startofpacket
-	wire          cmd_mux_004_src_endofpacket;                                                                          // cmd_mux_004:src_endofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_endofpacket
 	wire   [63:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_readdata;                                        // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_readdata -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_readdata
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_waitrequest;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_waitrequest -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_waitrequest
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_debugaccess;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_debugaccess -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_debugaccess
@@ -318,7 +308,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_lock;                                            // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_lock -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_lock
 	wire   [63:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_writedata;                                       // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_writedata -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_writedata
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_write;                                           // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_write -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_write
-	wire    [3:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_burstcount
+	wire   [10:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_burstcount;                                      // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:m0_burstcount -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_translator:uav_burstcount
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_valid;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rf_source_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rsp_fifo:in_valid
 	wire  [153:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_data;                                     // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rf_source_data -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rsp_fifo:in_data
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_ready;                                    // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rsp_fifo:in_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rf_source_ready
@@ -332,12 +322,6 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_valid;                               // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rdata_fifo_src_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rdata_fifo:in_valid
 	wire   [65:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_data;                                // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rdata_fifo_src_data -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rdata_fifo:in_data
 	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_ready;                               // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent_rdata_fifo:in_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:rdata_fifo_src_ready
-	wire          cmd_mux_005_src_valid;                                                                                // cmd_mux_005:src_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_valid
-	wire  [152:0] cmd_mux_005_src_data;                                                                                 // cmd_mux_005:src_data -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_data
-	wire          cmd_mux_005_src_ready;                                                                                // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_ready -> cmd_mux_005:src_ready
-	wire    [5:0] cmd_mux_005_src_channel;                                                                              // cmd_mux_005:src_channel -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_channel
-	wire          cmd_mux_005_src_startofpacket;                                                                        // cmd_mux_005:src_startofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_startofpacket
-	wire          cmd_mux_005_src_endofpacket;                                                                          // cmd_mux_005:src_endofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_endofpacket
 	wire          ddr2_address_span_extender_expanded_master_agent_cp_valid;                                            // ddr2_address_span_extender_expanded_master_agent:cp_valid -> router:sink_valid
 	wire  [116:0] ddr2_address_span_extender_expanded_master_agent_cp_data;                                             // ddr2_address_span_extender_expanded_master_agent:cp_data -> router:sink_data
 	wire          ddr2_address_span_extender_expanded_master_agent_cp_ready;                                            // router:sink_ready -> ddr2_address_span_extender_expanded_master_agent:cp_ready
@@ -488,6 +472,54 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	wire    [5:0] m1_clock_bridge_s0_burst_adapter_source0_channel;                                                     // m1_clock_bridge_s0_burst_adapter:source0_channel -> m1_clock_bridge_s0_agent:cp_channel
 	wire          m1_clock_bridge_s0_burst_adapter_source0_startofpacket;                                               // m1_clock_bridge_s0_burst_adapter:source0_startofpacket -> m1_clock_bridge_s0_agent:cp_startofpacket
 	wire          m1_clock_bridge_s0_burst_adapter_source0_endofpacket;                                                 // m1_clock_bridge_s0_burst_adapter:source0_endofpacket -> m1_clock_bridge_s0_agent:cp_endofpacket
+	wire          cmd_mux_002_src_valid;                                                                                // cmd_mux_002:src_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:sink0_valid
+	wire  [152:0] cmd_mux_002_src_data;                                                                                 // cmd_mux_002:src_data -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:sink0_data
+	wire          cmd_mux_002_src_ready;                                                                                // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:sink0_ready -> cmd_mux_002:src_ready
+	wire    [5:0] cmd_mux_002_src_channel;                                                                              // cmd_mux_002:src_channel -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:sink0_channel
+	wire          cmd_mux_002_src_startofpacket;                                                                        // cmd_mux_002:src_startofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:sink0_startofpacket
+	wire          cmd_mux_002_src_endofpacket;                                                                          // cmd_mux_002:src_endofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:sink0_endofpacket
+	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_valid;                              // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:source0_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_valid
+	wire  [152:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_data;                               // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:source0_data -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_data
+	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_ready;                              // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:source0_ready
+	wire    [5:0] comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_channel;                            // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:source0_channel -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_channel
+	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_startofpacket;                      // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:source0_startofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_startofpacket
+	wire          comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_endofpacket;                        // COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burst_adapter:source0_endofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_agent:cp_endofpacket
+	wire          cmd_mux_003_src_valid;                                                                                // cmd_mux_003:src_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:sink0_valid
+	wire  [152:0] cmd_mux_003_src_data;                                                                                 // cmd_mux_003:src_data -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:sink0_data
+	wire          cmd_mux_003_src_ready;                                                                                // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:sink0_ready -> cmd_mux_003:src_ready
+	wire    [5:0] cmd_mux_003_src_channel;                                                                              // cmd_mux_003:src_channel -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:sink0_channel
+	wire          cmd_mux_003_src_startofpacket;                                                                        // cmd_mux_003:src_startofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:sink0_startofpacket
+	wire          cmd_mux_003_src_endofpacket;                                                                          // cmd_mux_003:src_endofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:sink0_endofpacket
+	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_valid;                              // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:source0_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_valid
+	wire  [152:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_data;                               // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:source0_data -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_data
+	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_ready;                              // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:source0_ready
+	wire    [5:0] comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_channel;                            // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:source0_channel -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_channel
+	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_startofpacket;                      // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:source0_startofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_startofpacket
+	wire          comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_endofpacket;                        // COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burst_adapter:source0_endofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_agent:cp_endofpacket
+	wire          cmd_mux_004_src_valid;                                                                                // cmd_mux_004:src_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:sink0_valid
+	wire  [152:0] cmd_mux_004_src_data;                                                                                 // cmd_mux_004:src_data -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:sink0_data
+	wire          cmd_mux_004_src_ready;                                                                                // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:sink0_ready -> cmd_mux_004:src_ready
+	wire    [5:0] cmd_mux_004_src_channel;                                                                              // cmd_mux_004:src_channel -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:sink0_channel
+	wire          cmd_mux_004_src_startofpacket;                                                                        // cmd_mux_004:src_startofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:sink0_startofpacket
+	wire          cmd_mux_004_src_endofpacket;                                                                          // cmd_mux_004:src_endofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:sink0_endofpacket
+	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_valid;                              // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:source0_valid -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_valid
+	wire  [152:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_data;                               // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:source0_data -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_data
+	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_ready;                              // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:source0_ready
+	wire    [5:0] comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_channel;                            // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:source0_channel -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_channel
+	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_startofpacket;                      // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:source0_startofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_startofpacket
+	wire          comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_endofpacket;                        // COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burst_adapter:source0_endofpacket -> COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_agent:cp_endofpacket
+	wire          cmd_mux_005_src_valid;                                                                                // cmd_mux_005:src_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:sink0_valid
+	wire  [152:0] cmd_mux_005_src_data;                                                                                 // cmd_mux_005:src_data -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:sink0_data
+	wire          cmd_mux_005_src_ready;                                                                                // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:sink0_ready -> cmd_mux_005:src_ready
+	wire    [5:0] cmd_mux_005_src_channel;                                                                              // cmd_mux_005:src_channel -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:sink0_channel
+	wire          cmd_mux_005_src_startofpacket;                                                                        // cmd_mux_005:src_startofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:sink0_startofpacket
+	wire          cmd_mux_005_src_endofpacket;                                                                          // cmd_mux_005:src_endofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:sink0_endofpacket
+	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_valid;                              // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:source0_valid -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_valid
+	wire  [152:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_data;                               // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:source0_data -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_data
+	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_ready;                              // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_ready -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:source0_ready
+	wire    [5:0] comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_channel;                            // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:source0_channel -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_channel
+	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_startofpacket;                      // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:source0_startofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_startofpacket
+	wire          comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_endofpacket;                        // COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burst_adapter:source0_endofpacket -> COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_agent:cp_endofpacket
 	wire          cmd_demux_002_src1_valid;                                                                             // cmd_demux_002:src1_valid -> cmd_mux_002:sink0_valid
 	wire  [152:0] cmd_demux_002_src1_data;                                                                              // cmd_demux_002:src1_data -> cmd_mux_002:sink0_data
 	wire          cmd_demux_002_src1_ready;                                                                             // cmd_mux_002:sink0_ready -> cmd_demux_002:src1_ready
@@ -883,16 +915,16 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (32),
 		.AV_DATA_W                   (64),
-		.AV_BURSTCOUNT_W             (1),
+		.AV_BURSTCOUNT_W             (9),
 		.AV_BYTEENABLE_W             (8),
 		.UAV_ADDRESS_W               (33),
-		.UAV_BURSTCOUNT_W            (4),
+		.UAV_BURSTCOUNT_W            (12),
 		.USE_READ                    (1),
 		.USE_WRITE                   (0),
 		.USE_BEGINBURSTTRANSFER      (0),
 		.USE_BEGINTRANSFER           (0),
 		.USE_CHIPSELECT              (0),
-		.USE_BURSTCOUNT              (0),
+		.USE_BURSTCOUNT              (1),
 		.USE_READDATAVALID           (1),
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
@@ -900,7 +932,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_SYMBOLS_PER_WORD         (8),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
-		.AV_CONSTANT_BURST_BEHAVIOR  (0),
+		.AV_CONSTANT_BURST_BEHAVIOR  (1),
 		.UAV_CONSTANT_BURST_BEHAVIOR (0),
 		.AV_LINEWRAPBURSTS           (0),
 		.AV_REGISTERINCOMINGSIGNALS  (0)
@@ -920,11 +952,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.uav_debugaccess        (dma_ddr_m2_mm_read_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
 		.av_address             (dma_DDR_M2_mm_read_address),                                            //      avalon_anti_master_0.address
 		.av_waitrequest         (dma_DDR_M2_mm_read_waitrequest),                                        //                          .waitrequest
+		.av_burstcount          (dma_DDR_M2_mm_read_burstcount),                                         //                          .burstcount
 		.av_byteenable          (dma_DDR_M2_mm_read_byteenable),                                         //                          .byteenable
 		.av_read                (dma_DDR_M2_mm_read_read),                                               //                          .read
 		.av_readdata            (dma_DDR_M2_mm_read_readdata),                                           //                          .readdata
 		.av_readdatavalid       (dma_DDR_M2_mm_read_readdatavalid),                                      //                          .readdatavalid
-		.av_burstcount          (1'b1),                                                                  //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                  //               (terminated)
 		.av_begintransfer       (1'b0),                                                                  //               (terminated)
 		.av_chipselect          (1'b0),                                                                  //               (terminated)
@@ -943,16 +975,16 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (33),
 		.AV_DATA_W                   (64),
-		.AV_BURSTCOUNT_W             (1),
+		.AV_BURSTCOUNT_W             (9),
 		.AV_BYTEENABLE_W             (8),
 		.UAV_ADDRESS_W               (33),
-		.UAV_BURSTCOUNT_W            (4),
+		.UAV_BURSTCOUNT_W            (12),
 		.USE_READ                    (0),
 		.USE_WRITE                   (1),
 		.USE_BEGINBURSTTRANSFER      (0),
 		.USE_BEGINTRANSFER           (0),
 		.USE_CHIPSELECT              (0),
-		.USE_BURSTCOUNT              (0),
+		.USE_BURSTCOUNT              (1),
 		.USE_READDATAVALID           (0),
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
@@ -960,7 +992,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_SYMBOLS_PER_WORD         (8),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
-		.AV_CONSTANT_BURST_BEHAVIOR  (0),
+		.AV_CONSTANT_BURST_BEHAVIOR  (1),
 		.UAV_CONSTANT_BURST_BEHAVIOR (0),
 		.AV_LINEWRAPBURSTS           (0),
 		.AV_REGISTERINCOMINGSIGNALS  (0)
@@ -980,10 +1012,10 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.uav_debugaccess        (dma_ddr_m2_mm_write_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
 		.av_address             (dma_DDR_M2_mm_write_address),                                            //      avalon_anti_master_0.address
 		.av_waitrequest         (dma_DDR_M2_mm_write_waitrequest),                                        //                          .waitrequest
+		.av_burstcount          (dma_DDR_M2_mm_write_burstcount),                                         //                          .burstcount
 		.av_byteenable          (dma_DDR_M2_mm_write_byteenable),                                         //                          .byteenable
 		.av_write               (dma_DDR_M2_mm_write_write),                                              //                          .write
 		.av_writedata           (dma_DDR_M2_mm_write_writedata),                                          //                          .writedata
-		.av_burstcount          (1'b1),                                                                   //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                   //               (terminated)
 		.av_begintransfer       (1'b0),                                                                   //               (terminated)
 		.av_chipselect          (1'b0),                                                                   //               (terminated)
@@ -1003,16 +1035,16 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (33),
 		.AV_DATA_W                   (64),
-		.AV_BURSTCOUNT_W             (1),
+		.AV_BURSTCOUNT_W             (9),
 		.AV_BYTEENABLE_W             (8),
 		.UAV_ADDRESS_W               (33),
-		.UAV_BURSTCOUNT_W            (4),
+		.UAV_BURSTCOUNT_W            (12),
 		.USE_READ                    (0),
 		.USE_WRITE                   (1),
 		.USE_BEGINBURSTTRANSFER      (0),
 		.USE_BEGINTRANSFER           (0),
 		.USE_CHIPSELECT              (0),
-		.USE_BURSTCOUNT              (0),
+		.USE_BURSTCOUNT              (1),
 		.USE_READDATAVALID           (0),
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
@@ -1020,7 +1052,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_SYMBOLS_PER_WORD         (8),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
-		.AV_CONSTANT_BURST_BEHAVIOR  (0),
+		.AV_CONSTANT_BURST_BEHAVIOR  (1),
 		.UAV_CONSTANT_BURST_BEHAVIOR (0),
 		.AV_LINEWRAPBURSTS           (0),
 		.AV_REGISTERINCOMINGSIGNALS  (0)
@@ -1040,10 +1072,10 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.uav_debugaccess        (dma_ddr_m1_mm_write_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
 		.av_address             (dma_DDR_M1_mm_write_address),                                            //      avalon_anti_master_0.address
 		.av_waitrequest         (dma_DDR_M1_mm_write_waitrequest),                                        //                          .waitrequest
+		.av_burstcount          (dma_DDR_M1_mm_write_burstcount),                                         //                          .burstcount
 		.av_byteenable          (dma_DDR_M1_mm_write_byteenable),                                         //                          .byteenable
 		.av_write               (dma_DDR_M1_mm_write_write),                                              //                          .write
 		.av_writedata           (dma_DDR_M1_mm_write_writedata),                                          //                          .writedata
-		.av_burstcount          (1'b1),                                                                   //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                   //               (terminated)
 		.av_begintransfer       (1'b0),                                                                   //               (terminated)
 		.av_chipselect          (1'b0),                                                                   //               (terminated)
@@ -1063,16 +1095,16 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_merlin_master_translator #(
 		.AV_ADDRESS_W                (31),
 		.AV_DATA_W                   (64),
-		.AV_BURSTCOUNT_W             (1),
+		.AV_BURSTCOUNT_W             (9),
 		.AV_BYTEENABLE_W             (8),
 		.UAV_ADDRESS_W               (33),
-		.UAV_BURSTCOUNT_W            (4),
+		.UAV_BURSTCOUNT_W            (12),
 		.USE_READ                    (1),
 		.USE_WRITE                   (0),
 		.USE_BEGINBURSTTRANSFER      (0),
 		.USE_BEGINTRANSFER           (0),
 		.USE_CHIPSELECT              (0),
-		.USE_BURSTCOUNT              (0),
+		.USE_BURSTCOUNT              (1),
 		.USE_READDATAVALID           (1),
 		.USE_WAITREQUEST             (1),
 		.USE_READRESPONSE            (0),
@@ -1080,7 +1112,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_SYMBOLS_PER_WORD         (8),
 		.AV_ADDRESS_SYMBOLS          (1),
 		.AV_BURSTCOUNT_SYMBOLS       (0),
-		.AV_CONSTANT_BURST_BEHAVIOR  (0),
+		.AV_CONSTANT_BURST_BEHAVIOR  (1),
 		.UAV_CONSTANT_BURST_BEHAVIOR (0),
 		.AV_LINEWRAPBURSTS           (0),
 		.AV_REGISTERINCOMINGSIGNALS  (0)
@@ -1100,11 +1132,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.uav_debugaccess        (dma_ddr_m1_mm_read_translator_avalon_universal_master_0_debugaccess),   //                          .debugaccess
 		.av_address             (dma_DDR_M1_mm_read_address),                                            //      avalon_anti_master_0.address
 		.av_waitrequest         (dma_DDR_M1_mm_read_waitrequest),                                        //                          .waitrequest
+		.av_burstcount          (dma_DDR_M1_mm_read_burstcount),                                         //                          .burstcount
 		.av_byteenable          (dma_DDR_M1_mm_read_byteenable),                                         //                          .byteenable
 		.av_read                (dma_DDR_M1_mm_read_read),                                               //                          .read
 		.av_readdata            (dma_DDR_M1_mm_read_readdata),                                           //                          .readdata
 		.av_readdatavalid       (dma_DDR_M1_mm_read_readdatavalid),                                      //                          .readdatavalid
-		.av_burstcount          (1'b1),                                                                  //               (terminated)
 		.av_beginbursttransfer  (1'b0),                                                                  //               (terminated)
 		.av_begintransfer       (1'b0),                                                                  //               (terminated)
 		.av_chipselect          (1'b0),                                                                  //               (terminated)
@@ -1252,11 +1284,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1291,12 +1323,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_A_avalon_slave_L_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1316,11 +1348,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1355,12 +1387,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1380,11 +1412,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1419,12 +1451,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_A_avalon_slave_R_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1444,11 +1476,11 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
-		.AV_BURSTCOUNT_W                (1),
+		.AV_BURSTCOUNT_W                (8),
 		.AV_BYTEENABLE_W                (8),
 		.UAV_BYTEENABLE_W               (8),
 		.UAV_ADDRESS_W                  (33),
-		.UAV_BURSTCOUNT_W               (4),
+		.UAV_BURSTCOUNT_W               (11),
 		.AV_READLATENCY                 (0),
 		.USE_READDATAVALID              (0),
 		.USE_WAITREQUEST                (1),
@@ -1483,12 +1515,12 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.av_address             (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_address),                  //      avalon_anti_slave_0.address
 		.av_write               (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_write),                    //                         .write
 		.av_writedata           (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_writedata),                //                         .writedata
+		.av_burstcount          (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_burstcount),               //                         .burstcount
 		.av_waitrequest         (COMM_Pedreiro_v1_01_B_avalon_slave_R_buffer_waitrequest),              //                         .waitrequest
 		.av_read                (),                                                                     //              (terminated)
 		.av_readdata            (64'b0000000000000000000000000000000011011110101011011101111010101101), //              (terminated)
 		.av_begintransfer       (),                                                                     //              (terminated)
 		.av_beginbursttransfer  (),                                                                     //              (terminated)
-		.av_burstcount          (),                                                                     //              (terminated)
 		.av_byteenable          (),                                                                     //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                 //              (terminated)
 		.av_writebyteenable     (),                                                                     //              (terminated)
@@ -1629,7 +1661,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_DEST_ID_L             (137),
 		.ST_DATA_W                 (153),
 		.ST_CHANNEL_W              (6),
-		.AV_BURSTCOUNT_W           (4),
+		.AV_BURSTCOUNT_W           (12),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (3),
 		.BURSTWRAP_VALUE           (1),
@@ -1710,7 +1742,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_DEST_ID_L             (137),
 		.ST_DATA_W                 (153),
 		.ST_CHANNEL_W              (6),
-		.AV_BURSTCOUNT_W           (4),
+		.AV_BURSTCOUNT_W           (12),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (4),
 		.BURSTWRAP_VALUE           (1),
@@ -1791,7 +1823,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_DEST_ID_L             (137),
 		.ST_DATA_W                 (153),
 		.ST_CHANNEL_W              (6),
-		.AV_BURSTCOUNT_W           (4),
+		.AV_BURSTCOUNT_W           (12),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (2),
 		.BURSTWRAP_VALUE           (1),
@@ -1872,7 +1904,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_DEST_ID_L             (137),
 		.ST_DATA_W                 (153),
 		.ST_CHANNEL_W              (6),
-		.AV_BURSTCOUNT_W           (4),
+		.AV_BURSTCOUNT_W           (12),
 		.SUPPRESS_0_BYTEEN_RSP     (1),
 		.ID                        (1),
 		.BURSTWRAP_VALUE           (1),
@@ -2037,7 +2069,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (258),
-		.FIFO_DEPTH          (1024),
+		.FIFO_DEPTH          (4096),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
@@ -2273,56 +2305,56 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (6),
 		.ST_DATA_W                 (153),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent (
-		.clk                     (clk_100_clk_clk),                                                              //             clk.clk
-		.reset                   (COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
-		.m0_address              (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_lock),                    //                .lock
-		.m0_readdata             (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_read),                    //                .read
-		.m0_waitrequest          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_writedata),               //                .writedata
-		.m0_write                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_write),                   //                .write
-		.rp_endofpacket          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_ready),                   //                .ready
-		.rp_valid                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_valid),                   //                .valid
-		.rp_data                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_data),                    //                .data
-		.rp_startofpacket        (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_002_src_ready),                                                        //              cp.ready
-		.cp_valid                (cmd_mux_002_src_valid),                                                        //                .valid
-		.cp_data                 (cmd_mux_002_src_data),                                                         //                .data
-		.cp_startofpacket        (cmd_mux_002_src_startofpacket),                                                //                .startofpacket
-		.cp_endofpacket          (cmd_mux_002_src_endofpacket),                                                  //                .endofpacket
-		.cp_channel              (cmd_mux_002_src_channel),                                                      //                .channel
-		.rf_sink_ready           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_002_out_0_ready),                                            // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_002_out_0_valid),                                            //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_002_out_0_data),                                             //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_002_out_0_error),                                            //                .error
-		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                                        //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                                          //     (terminated)
+		.clk                     (clk_100_clk_clk),                                                                 //             clk.clk
+		.reset                   (COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset),                    //       clk_reset.reset
+		.m0_address              (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_address),                    //              m0.address
+		.m0_burstcount           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_burstcount),                 //                .burstcount
+		.m0_byteenable           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_byteenable),                 //                .byteenable
+		.m0_debugaccess          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_debugaccess),                //                .debugaccess
+		.m0_lock                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_lock),                       //                .lock
+		.m0_readdata             (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_readdata),                   //                .readdata
+		.m0_readdatavalid        (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_readdatavalid),              //                .readdatavalid
+		.m0_read                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_read),                       //                .read
+		.m0_waitrequest          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_waitrequest),                //                .waitrequest
+		.m0_writedata            (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_writedata),                  //                .writedata
+		.m0_write                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_m0_write),                      //                .write
+		.rp_endofpacket          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_endofpacket),                //              rp.endofpacket
+		.rp_ready                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_ready),                      //                .ready
+		.rp_valid                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_valid),                      //                .valid
+		.rp_data                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_data),                       //                .data
+		.rp_startofpacket        (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rp_startofpacket),              //                .startofpacket
+		.cp_ready                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_ready),         //              cp.ready
+		.cp_valid                (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_valid),         //                .valid
+		.cp_data                 (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_data),          //                .data
+		.cp_startofpacket        (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_startofpacket), //                .startofpacket
+		.cp_endofpacket          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_endofpacket),   //                .endofpacket
+		.cp_channel              (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_channel),       //                .channel
+		.rf_sink_ready           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_ready),            //         rf_sink.ready
+		.rf_sink_valid           (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_valid),            //                .valid
+		.rf_sink_startofpacket   (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_startofpacket),    //                .startofpacket
+		.rf_sink_endofpacket     (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_endofpacket),      //                .endofpacket
+		.rf_sink_data            (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rsp_fifo_out_data),             //                .data
+		.rf_source_ready         (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_ready),               //       rf_source.ready
+		.rf_source_valid         (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_valid),               //                .valid
+		.rf_source_startofpacket (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_startofpacket),       //                .startofpacket
+		.rf_source_endofpacket   (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_endofpacket),         //                .endofpacket
+		.rf_source_data          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rf_source_data),                //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_002_out_0_ready),                                               // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_002_out_0_valid),                                               //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_002_out_0_data),                                                //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_002_out_0_error),                                               //                .error
+		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_ready),          //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_valid),          //                .valid
+		.rdata_fifo_src_data     (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_agent_rdata_fifo_src_data),           //                .data
+		.m0_response             (2'b00),                                                                           //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                                             //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -2369,13 +2401,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -2439,56 +2471,56 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (6),
 		.ST_DATA_W                 (153),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent (
-		.clk                     (clk_100_clk_clk),                                                              //             clk.clk
-		.reset                   (COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
-		.m0_address              (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_lock),                    //                .lock
-		.m0_readdata             (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_read),                    //                .read
-		.m0_waitrequest          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_writedata),               //                .writedata
-		.m0_write                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_write),                   //                .write
-		.rp_endofpacket          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_ready),                   //                .ready
-		.rp_valid                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_valid),                   //                .valid
-		.rp_data                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_data),                    //                .data
-		.rp_startofpacket        (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_003_src_ready),                                                        //              cp.ready
-		.cp_valid                (cmd_mux_003_src_valid),                                                        //                .valid
-		.cp_data                 (cmd_mux_003_src_data),                                                         //                .data
-		.cp_startofpacket        (cmd_mux_003_src_startofpacket),                                                //                .startofpacket
-		.cp_endofpacket          (cmd_mux_003_src_endofpacket),                                                  //                .endofpacket
-		.cp_channel              (cmd_mux_003_src_channel),                                                      //                .channel
-		.rf_sink_ready           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_003_out_0_ready),                                            // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_003_out_0_valid),                                            //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_003_out_0_data),                                             //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_003_out_0_error),                                            //                .error
-		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                                        //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                                          //     (terminated)
+		.clk                     (clk_100_clk_clk),                                                                 //             clk.clk
+		.reset                   (COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset),                    //       clk_reset.reset
+		.m0_address              (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_address),                    //              m0.address
+		.m0_burstcount           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_burstcount),                 //                .burstcount
+		.m0_byteenable           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_byteenable),                 //                .byteenable
+		.m0_debugaccess          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_debugaccess),                //                .debugaccess
+		.m0_lock                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_lock),                       //                .lock
+		.m0_readdata             (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_readdata),                   //                .readdata
+		.m0_readdatavalid        (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_readdatavalid),              //                .readdatavalid
+		.m0_read                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_read),                       //                .read
+		.m0_waitrequest          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_waitrequest),                //                .waitrequest
+		.m0_writedata            (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_writedata),                  //                .writedata
+		.m0_write                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_m0_write),                      //                .write
+		.rp_endofpacket          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_endofpacket),                //              rp.endofpacket
+		.rp_ready                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_ready),                      //                .ready
+		.rp_valid                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_valid),                      //                .valid
+		.rp_data                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_data),                       //                .data
+		.rp_startofpacket        (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rp_startofpacket),              //                .startofpacket
+		.cp_ready                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_ready),         //              cp.ready
+		.cp_valid                (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_valid),         //                .valid
+		.cp_data                 (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_data),          //                .data
+		.cp_startofpacket        (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_startofpacket), //                .startofpacket
+		.cp_endofpacket          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_endofpacket),   //                .endofpacket
+		.cp_channel              (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_channel),       //                .channel
+		.rf_sink_ready           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_ready),            //         rf_sink.ready
+		.rf_sink_valid           (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_valid),            //                .valid
+		.rf_sink_startofpacket   (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_startofpacket),    //                .startofpacket
+		.rf_sink_endofpacket     (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_endofpacket),      //                .endofpacket
+		.rf_sink_data            (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rsp_fifo_out_data),             //                .data
+		.rf_source_ready         (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_ready),               //       rf_source.ready
+		.rf_source_valid         (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_valid),               //                .valid
+		.rf_source_startofpacket (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_startofpacket),       //                .startofpacket
+		.rf_source_endofpacket   (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_endofpacket),         //                .endofpacket
+		.rf_source_data          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rf_source_data),                //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_003_out_0_ready),                                               // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_003_out_0_valid),                                               //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_003_out_0_data),                                                //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_003_out_0_error),                                               //                .error
+		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_ready),          //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_valid),          //                .valid
+		.rdata_fifo_src_data     (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_agent_rdata_fifo_src_data),           //                .data
+		.m0_response             (2'b00),                                                                           //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                                             //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -2535,13 +2567,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -2605,56 +2637,56 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (6),
 		.ST_DATA_W                 (153),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent (
-		.clk                     (clk_100_clk_clk),                                                              //             clk.clk
-		.reset                   (COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
-		.m0_address              (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_lock),                    //                .lock
-		.m0_readdata             (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_read),                    //                .read
-		.m0_waitrequest          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_writedata),               //                .writedata
-		.m0_write                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_write),                   //                .write
-		.rp_endofpacket          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_ready),                   //                .ready
-		.rp_valid                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_valid),                   //                .valid
-		.rp_data                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_data),                    //                .data
-		.rp_startofpacket        (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_004_src_ready),                                                        //              cp.ready
-		.cp_valid                (cmd_mux_004_src_valid),                                                        //                .valid
-		.cp_data                 (cmd_mux_004_src_data),                                                         //                .data
-		.cp_startofpacket        (cmd_mux_004_src_startofpacket),                                                //                .startofpacket
-		.cp_endofpacket          (cmd_mux_004_src_endofpacket),                                                  //                .endofpacket
-		.cp_channel              (cmd_mux_004_src_channel),                                                      //                .channel
-		.rf_sink_ready           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_004_out_0_ready),                                            // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_004_out_0_valid),                                            //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_004_out_0_data),                                             //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_004_out_0_error),                                            //                .error
-		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                                        //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                                          //     (terminated)
+		.clk                     (clk_100_clk_clk),                                                                 //             clk.clk
+		.reset                   (COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset),                    //       clk_reset.reset
+		.m0_address              (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_address),                    //              m0.address
+		.m0_burstcount           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_burstcount),                 //                .burstcount
+		.m0_byteenable           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_byteenable),                 //                .byteenable
+		.m0_debugaccess          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_debugaccess),                //                .debugaccess
+		.m0_lock                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_lock),                       //                .lock
+		.m0_readdata             (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_readdata),                   //                .readdata
+		.m0_readdatavalid        (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_readdatavalid),              //                .readdatavalid
+		.m0_read                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_read),                       //                .read
+		.m0_waitrequest          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_waitrequest),                //                .waitrequest
+		.m0_writedata            (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_writedata),                  //                .writedata
+		.m0_write                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_m0_write),                      //                .write
+		.rp_endofpacket          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_endofpacket),                //              rp.endofpacket
+		.rp_ready                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_ready),                      //                .ready
+		.rp_valid                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_valid),                      //                .valid
+		.rp_data                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_data),                       //                .data
+		.rp_startofpacket        (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rp_startofpacket),              //                .startofpacket
+		.cp_ready                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_ready),         //              cp.ready
+		.cp_valid                (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_valid),         //                .valid
+		.cp_data                 (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_data),          //                .data
+		.cp_startofpacket        (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_startofpacket), //                .startofpacket
+		.cp_endofpacket          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_endofpacket),   //                .endofpacket
+		.cp_channel              (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_channel),       //                .channel
+		.rf_sink_ready           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_ready),            //         rf_sink.ready
+		.rf_sink_valid           (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_valid),            //                .valid
+		.rf_sink_startofpacket   (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_startofpacket),    //                .startofpacket
+		.rf_sink_endofpacket     (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_endofpacket),      //                .endofpacket
+		.rf_sink_data            (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rsp_fifo_out_data),             //                .data
+		.rf_source_ready         (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_ready),               //       rf_source.ready
+		.rf_source_valid         (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_valid),               //                .valid
+		.rf_source_startofpacket (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_startofpacket),       //                .startofpacket
+		.rf_source_endofpacket   (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_endofpacket),         //                .endofpacket
+		.rf_source_data          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rf_source_data),                //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_004_out_0_ready),                                               // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_004_out_0_valid),                                               //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_004_out_0_data),                                                //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_004_out_0_error),                                               //                .error
+		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_ready),          //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_valid),          //                .valid
+		.rdata_fifo_src_data     (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_agent_rdata_fifo_src_data),           //                .data
+		.m0_response             (2'b00),                                                                           //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                                             //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -2701,13 +2733,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -2771,56 +2803,56 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_SYMBOL_W              (8),
 		.ST_CHANNEL_W              (6),
 		.ST_DATA_W                 (153),
-		.AVS_BURSTCOUNT_W          (4),
+		.AVS_BURSTCOUNT_W          (11),
 		.SUPPRESS_0_BYTEEN_CMD     (0),
 		.PREVENT_FIFO_OVERFLOW     (1),
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
 	) comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent (
-		.clk                     (clk_100_clk_clk),                                                              //             clk.clk
-		.reset                   (COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset),                 //       clk_reset.reset
-		.m0_address              (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_lock),                    //                .lock
-		.m0_readdata             (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_read),                    //                .read
-		.m0_waitrequest          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_writedata),               //                .writedata
-		.m0_write                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_write),                   //                .write
-		.rp_endofpacket          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_ready),                   //                .ready
-		.rp_valid                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_valid),                   //                .valid
-		.rp_data                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_data),                    //                .data
-		.rp_startofpacket        (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_005_src_ready),                                                        //              cp.ready
-		.cp_valid                (cmd_mux_005_src_valid),                                                        //                .valid
-		.cp_data                 (cmd_mux_005_src_data),                                                         //                .data
-		.cp_startofpacket        (cmd_mux_005_src_startofpacket),                                                //                .startofpacket
-		.cp_endofpacket          (cmd_mux_005_src_endofpacket),                                                  //                .endofpacket
-		.cp_channel              (cmd_mux_005_src_channel),                                                      //                .channel
-		.rf_sink_ready           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_005_out_0_ready),                                            // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_005_out_0_valid),                                            //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_005_out_0_data),                                             //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_005_out_0_error),                                            //                .error
-		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                                        //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                                          //     (terminated)
+		.clk                     (clk_100_clk_clk),                                                                 //             clk.clk
+		.reset                   (COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset),                    //       clk_reset.reset
+		.m0_address              (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_address),                    //              m0.address
+		.m0_burstcount           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_burstcount),                 //                .burstcount
+		.m0_byteenable           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_byteenable),                 //                .byteenable
+		.m0_debugaccess          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_debugaccess),                //                .debugaccess
+		.m0_lock                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_lock),                       //                .lock
+		.m0_readdata             (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_readdata),                   //                .readdata
+		.m0_readdatavalid        (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_readdatavalid),              //                .readdatavalid
+		.m0_read                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_read),                       //                .read
+		.m0_waitrequest          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_waitrequest),                //                .waitrequest
+		.m0_writedata            (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_writedata),                  //                .writedata
+		.m0_write                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_m0_write),                      //                .write
+		.rp_endofpacket          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_endofpacket),                //              rp.endofpacket
+		.rp_ready                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_ready),                      //                .ready
+		.rp_valid                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_valid),                      //                .valid
+		.rp_data                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_data),                       //                .data
+		.rp_startofpacket        (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rp_startofpacket),              //                .startofpacket
+		.cp_ready                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_ready),         //              cp.ready
+		.cp_valid                (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_valid),         //                .valid
+		.cp_data                 (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_data),          //                .data
+		.cp_startofpacket        (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_startofpacket), //                .startofpacket
+		.cp_endofpacket          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_endofpacket),   //                .endofpacket
+		.cp_channel              (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_channel),       //                .channel
+		.rf_sink_ready           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_ready),            //         rf_sink.ready
+		.rf_sink_valid           (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_valid),            //                .valid
+		.rf_sink_startofpacket   (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_startofpacket),    //                .startofpacket
+		.rf_sink_endofpacket     (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_endofpacket),      //                .endofpacket
+		.rf_sink_data            (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rsp_fifo_out_data),             //                .data
+		.rf_source_ready         (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_ready),               //       rf_source.ready
+		.rf_source_valid         (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_valid),               //                .valid
+		.rf_source_startofpacket (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_startofpacket),       //                .startofpacket
+		.rf_source_endofpacket   (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_endofpacket),         //                .endofpacket
+		.rf_source_data          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rf_source_data),                //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_005_out_0_ready),                                               // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_005_out_0_valid),                                               //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_005_out_0_data),                                                //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_005_out_0_error),                                               //                .error
+		.rdata_fifo_src_ready    (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_ready),          //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_valid),          //                .valid
+		.rdata_fifo_src_data     (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_agent_rdata_fifo_src_data),           //                .data
+		.m0_response             (2'b00),                                                                           //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                                             //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -2867,13 +2899,13 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (2),
+		.FIFO_DEPTH          (256),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
 		.USE_FILL_LEVEL      (0),
-		.EMPTY_LATENCY       (0),
-		.USE_MEMORY_BLOCKS   (0),
+		.EMPTY_LATENCY       (3),
+		.USE_MEMORY_BLOCKS   (1),
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
@@ -3179,6 +3211,206 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.source0_startofpacket (m1_clock_bridge_s0_burst_adapter_source0_startofpacket), //          .startofpacket
 		.source0_endofpacket   (m1_clock_bridge_s0_burst_adapter_source0_endofpacket),   //          .endofpacket
 		.source0_ready         (m1_clock_bridge_s0_burst_adapter_source0_ready)          //          .ready
+	);
+
+	altera_merlin_burst_adapter #(
+		.PKT_ADDR_H                (104),
+		.PKT_ADDR_L                (72),
+		.PKT_BEGIN_BURST           (132),
+		.PKT_BYTE_CNT_H            (123),
+		.PKT_BYTE_CNT_L            (111),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_BURST_SIZE_H          (127),
+		.PKT_BURST_SIZE_L          (125),
+		.PKT_BURST_TYPE_H          (129),
+		.PKT_BURST_TYPE_L          (128),
+		.PKT_BURSTWRAP_H           (124),
+		.PKT_BURSTWRAP_L           (124),
+		.PKT_TRANS_COMPRESSED_READ (105),
+		.PKT_TRANS_WRITE           (107),
+		.PKT_TRANS_READ            (108),
+		.OUT_NARROW_SIZE           (0),
+		.IN_NARROW_SIZE            (0),
+		.OUT_FIXED                 (0),
+		.OUT_COMPLETE_WRAP         (0),
+		.ST_DATA_W                 (153),
+		.ST_CHANNEL_W              (6),
+		.OUT_BYTE_CNT_H            (121),
+		.OUT_BURSTWRAP_H           (124),
+		.COMPRESSED_READ_SUPPORT   (1),
+		.BYTEENABLE_SYNTHESIS      (1),
+		.PIPE_INPUTS               (0),
+		.NO_WRAP_SUPPORT           (0),
+		.INCOMPLETE_WRAP_SUPPORT   (0),
+		.BURSTWRAP_CONST_MASK      (1),
+		.BURSTWRAP_CONST_VALUE     (1),
+		.ADAPTER_VERSION           ("13.1")
+	) comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter (
+		.clk                   (clk_100_clk_clk),                                                                 //       cr0.clk
+		.reset                 (COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset),                    // cr0_reset.reset
+		.sink0_valid           (cmd_mux_002_src_valid),                                                           //     sink0.valid
+		.sink0_data            (cmd_mux_002_src_data),                                                            //          .data
+		.sink0_channel         (cmd_mux_002_src_channel),                                                         //          .channel
+		.sink0_startofpacket   (cmd_mux_002_src_startofpacket),                                                   //          .startofpacket
+		.sink0_endofpacket     (cmd_mux_002_src_endofpacket),                                                     //          .endofpacket
+		.sink0_ready           (cmd_mux_002_src_ready),                                                           //          .ready
+		.source0_valid         (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_valid),         //   source0.valid
+		.source0_data          (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_data),          //          .data
+		.source0_channel       (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_channel),       //          .channel
+		.source0_startofpacket (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_startofpacket), //          .startofpacket
+		.source0_endofpacket   (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_endofpacket),   //          .endofpacket
+		.source0_ready         (comm_pedreiro_v1_01_a_avalon_slave_l_buffer_burst_adapter_source0_ready)          //          .ready
+	);
+
+	altera_merlin_burst_adapter #(
+		.PKT_ADDR_H                (104),
+		.PKT_ADDR_L                (72),
+		.PKT_BEGIN_BURST           (132),
+		.PKT_BYTE_CNT_H            (123),
+		.PKT_BYTE_CNT_L            (111),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_BURST_SIZE_H          (127),
+		.PKT_BURST_SIZE_L          (125),
+		.PKT_BURST_TYPE_H          (129),
+		.PKT_BURST_TYPE_L          (128),
+		.PKT_BURSTWRAP_H           (124),
+		.PKT_BURSTWRAP_L           (124),
+		.PKT_TRANS_COMPRESSED_READ (105),
+		.PKT_TRANS_WRITE           (107),
+		.PKT_TRANS_READ            (108),
+		.OUT_NARROW_SIZE           (0),
+		.IN_NARROW_SIZE            (0),
+		.OUT_FIXED                 (0),
+		.OUT_COMPLETE_WRAP         (0),
+		.ST_DATA_W                 (153),
+		.ST_CHANNEL_W              (6),
+		.OUT_BYTE_CNT_H            (121),
+		.OUT_BURSTWRAP_H           (124),
+		.COMPRESSED_READ_SUPPORT   (1),
+		.BYTEENABLE_SYNTHESIS      (1),
+		.PIPE_INPUTS               (0),
+		.NO_WRAP_SUPPORT           (0),
+		.INCOMPLETE_WRAP_SUPPORT   (0),
+		.BURSTWRAP_CONST_MASK      (1),
+		.BURSTWRAP_CONST_VALUE     (1),
+		.ADAPTER_VERSION           ("13.1")
+	) comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter (
+		.clk                   (clk_100_clk_clk),                                                                 //       cr0.clk
+		.reset                 (COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset),                    // cr0_reset.reset
+		.sink0_valid           (cmd_mux_003_src_valid),                                                           //     sink0.valid
+		.sink0_data            (cmd_mux_003_src_data),                                                            //          .data
+		.sink0_channel         (cmd_mux_003_src_channel),                                                         //          .channel
+		.sink0_startofpacket   (cmd_mux_003_src_startofpacket),                                                   //          .startofpacket
+		.sink0_endofpacket     (cmd_mux_003_src_endofpacket),                                                     //          .endofpacket
+		.sink0_ready           (cmd_mux_003_src_ready),                                                           //          .ready
+		.source0_valid         (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_valid),         //   source0.valid
+		.source0_data          (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_data),          //          .data
+		.source0_channel       (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_channel),       //          .channel
+		.source0_startofpacket (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_startofpacket), //          .startofpacket
+		.source0_endofpacket   (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_endofpacket),   //          .endofpacket
+		.source0_ready         (comm_pedreiro_v1_01_b_avalon_slave_l_buffer_burst_adapter_source0_ready)          //          .ready
+	);
+
+	altera_merlin_burst_adapter #(
+		.PKT_ADDR_H                (104),
+		.PKT_ADDR_L                (72),
+		.PKT_BEGIN_BURST           (132),
+		.PKT_BYTE_CNT_H            (123),
+		.PKT_BYTE_CNT_L            (111),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_BURST_SIZE_H          (127),
+		.PKT_BURST_SIZE_L          (125),
+		.PKT_BURST_TYPE_H          (129),
+		.PKT_BURST_TYPE_L          (128),
+		.PKT_BURSTWRAP_H           (124),
+		.PKT_BURSTWRAP_L           (124),
+		.PKT_TRANS_COMPRESSED_READ (105),
+		.PKT_TRANS_WRITE           (107),
+		.PKT_TRANS_READ            (108),
+		.OUT_NARROW_SIZE           (0),
+		.IN_NARROW_SIZE            (0),
+		.OUT_FIXED                 (0),
+		.OUT_COMPLETE_WRAP         (0),
+		.ST_DATA_W                 (153),
+		.ST_CHANNEL_W              (6),
+		.OUT_BYTE_CNT_H            (121),
+		.OUT_BURSTWRAP_H           (124),
+		.COMPRESSED_READ_SUPPORT   (1),
+		.BYTEENABLE_SYNTHESIS      (1),
+		.PIPE_INPUTS               (0),
+		.NO_WRAP_SUPPORT           (0),
+		.INCOMPLETE_WRAP_SUPPORT   (0),
+		.BURSTWRAP_CONST_MASK      (1),
+		.BURSTWRAP_CONST_VALUE     (1),
+		.ADAPTER_VERSION           ("13.1")
+	) comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter (
+		.clk                   (clk_100_clk_clk),                                                                 //       cr0.clk
+		.reset                 (COMM_Pedreiro_v1_01_A_reset_sink_reset_bridge_in_reset_reset),                    // cr0_reset.reset
+		.sink0_valid           (cmd_mux_004_src_valid),                                                           //     sink0.valid
+		.sink0_data            (cmd_mux_004_src_data),                                                            //          .data
+		.sink0_channel         (cmd_mux_004_src_channel),                                                         //          .channel
+		.sink0_startofpacket   (cmd_mux_004_src_startofpacket),                                                   //          .startofpacket
+		.sink0_endofpacket     (cmd_mux_004_src_endofpacket),                                                     //          .endofpacket
+		.sink0_ready           (cmd_mux_004_src_ready),                                                           //          .ready
+		.source0_valid         (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_valid),         //   source0.valid
+		.source0_data          (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_data),          //          .data
+		.source0_channel       (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_channel),       //          .channel
+		.source0_startofpacket (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_startofpacket), //          .startofpacket
+		.source0_endofpacket   (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_endofpacket),   //          .endofpacket
+		.source0_ready         (comm_pedreiro_v1_01_a_avalon_slave_r_buffer_burst_adapter_source0_ready)          //          .ready
+	);
+
+	altera_merlin_burst_adapter #(
+		.PKT_ADDR_H                (104),
+		.PKT_ADDR_L                (72),
+		.PKT_BEGIN_BURST           (132),
+		.PKT_BYTE_CNT_H            (123),
+		.PKT_BYTE_CNT_L            (111),
+		.PKT_BYTEEN_H              (71),
+		.PKT_BYTEEN_L              (64),
+		.PKT_BURST_SIZE_H          (127),
+		.PKT_BURST_SIZE_L          (125),
+		.PKT_BURST_TYPE_H          (129),
+		.PKT_BURST_TYPE_L          (128),
+		.PKT_BURSTWRAP_H           (124),
+		.PKT_BURSTWRAP_L           (124),
+		.PKT_TRANS_COMPRESSED_READ (105),
+		.PKT_TRANS_WRITE           (107),
+		.PKT_TRANS_READ            (108),
+		.OUT_NARROW_SIZE           (0),
+		.IN_NARROW_SIZE            (0),
+		.OUT_FIXED                 (0),
+		.OUT_COMPLETE_WRAP         (0),
+		.ST_DATA_W                 (153),
+		.ST_CHANNEL_W              (6),
+		.OUT_BYTE_CNT_H            (121),
+		.OUT_BURSTWRAP_H           (124),
+		.COMPRESSED_READ_SUPPORT   (1),
+		.BYTEENABLE_SYNTHESIS      (1),
+		.PIPE_INPUTS               (0),
+		.NO_WRAP_SUPPORT           (0),
+		.INCOMPLETE_WRAP_SUPPORT   (0),
+		.BURSTWRAP_CONST_MASK      (1),
+		.BURSTWRAP_CONST_VALUE     (1),
+		.ADAPTER_VERSION           ("13.1")
+	) comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter (
+		.clk                   (clk_100_clk_clk),                                                                 //       cr0.clk
+		.reset                 (COMM_Pedreiro_v1_01_B_reset_sink_reset_bridge_in_reset_reset),                    // cr0_reset.reset
+		.sink0_valid           (cmd_mux_005_src_valid),                                                           //     sink0.valid
+		.sink0_data            (cmd_mux_005_src_data),                                                            //          .data
+		.sink0_channel         (cmd_mux_005_src_channel),                                                         //          .channel
+		.sink0_startofpacket   (cmd_mux_005_src_startofpacket),                                                   //          .startofpacket
+		.sink0_endofpacket     (cmd_mux_005_src_endofpacket),                                                     //          .endofpacket
+		.sink0_ready           (cmd_mux_005_src_ready),                                                           //          .ready
+		.source0_valid         (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_valid),         //   source0.valid
+		.source0_data          (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_data),          //          .data
+		.source0_channel       (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_channel),       //          .channel
+		.source0_startofpacket (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_startofpacket), //          .startofpacket
+		.source0_endofpacket   (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_endofpacket),   //          .endofpacket
+		.source0_ready         (comm_pedreiro_v1_01_b_avalon_slave_r_buffer_burst_adapter_source0_ready)          //          .ready
 	);
 
 	MebX_Qsys_Project_mm_interconnect_1_cmd_demux cmd_demux (
@@ -4132,7 +4364,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.OUT_PKT_ORI_BURST_SIZE_H      (152),
 		.OUT_ST_DATA_W                 (153),
 		.ST_CHANNEL_W                  (6),
-		.OPTIMIZE_FOR_RSP              (1),
+		.OPTIMIZE_FOR_RSP              (0),
 		.RESPONSE_PATH                 (1),
 		.CONSTANT_BURST_SIZE           (1),
 		.PACKING                       (1),
@@ -4198,7 +4430,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.OUT_PKT_ORI_BURST_SIZE_H      (152),
 		.OUT_ST_DATA_W                 (153),
 		.ST_CHANNEL_W                  (6),
-		.OPTIMIZE_FOR_RSP              (1),
+		.OPTIMIZE_FOR_RSP              (0),
 		.RESPONSE_PATH                 (1),
 		.CONSTANT_BURST_SIZE           (1),
 		.PACKING                       (1),

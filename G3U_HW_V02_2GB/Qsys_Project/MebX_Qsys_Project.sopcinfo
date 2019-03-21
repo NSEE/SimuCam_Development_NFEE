@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.01.28.12:22:27 -->
+ <!-- 2019.03.20.19:40:59 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1548685346</value>
+  <value>1553121658</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1905,6 +1905,12 @@ parameters are a RESULT of the module parameters. -->
     <width>64</width>
     <role>writedata</role>
    </port>
+   <port>
+    <name>avalon_slave_L_buffer_burstcount</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>burstcount</role>
+   </port>
   </interface>
   <interface name="avalon_slave_R_buffer" kind="avalon_slave" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -2263,6 +2269,12 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>1</width>
     <role>waitrequest</role>
+   </port>
+   <port>
+    <name>avalon_slave_R_buffer_burstcount</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>burstcount</role>
    </port>
   </interface>
  </module>
@@ -3450,6 +3462,12 @@ parameters are a RESULT of the module parameters. -->
     <width>64</width>
     <role>writedata</role>
    </port>
+   <port>
+    <name>avalon_slave_L_buffer_burstcount</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>burstcount</role>
+   </port>
   </interface>
   <interface name="avalon_slave_R_buffer" kind="avalon_slave" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -3808,6 +3826,12 @@ parameters are a RESULT of the module parameters. -->
     <direction>Output</direction>
     <width>1</width>
     <role>waitrequest</role>
+   </port>
+   <port>
+    <name>avalon_slave_R_buffer_burstcount</name>
+    <direction>Input</direction>
+    <width>8</width>
+    <role>burstcount</role>
    </port>
   </interface>
  </module>
@@ -12037,7 +12061,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.BURST_ENABLE</name>
-   <value>0</value>
+   <value>1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BURST_WRAPPING_SUPPORT</name>
@@ -12057,7 +12081,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>64</value>
+   <value>1024</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
@@ -12089,7 +12113,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BURST_COUNT</name>
-   <value>16</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BYTE</name>
@@ -12189,7 +12213,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>1024</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12229,7 +12253,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURST_ENABLE">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12237,9 +12261,9 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_BURST_COUNT">
    <type>int</type>
-   <value>16</value>
+   <value>256</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -12247,7 +12271,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -12279,7 +12303,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -12809,6 +12833,12 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>readdatavalid</role>
    </port>
+   <port>
+    <name>mm_read_burstcount</name>
+    <direction>Output</direction>
+    <width>9</width>
+    <role>burstcount</role>
+   </port>
    <memoryBlock>
     <isBridge>true</isBridge>
     <moduleName>m1_clock_bridge</moduleName>
@@ -13117,6 +13147,12 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>waitrequest</role>
+   </port>
+   <port>
+    <name>mm_write_burstcount</name>
+    <direction>Output</direction>
+    <width>9</width>
+    <role>burstcount</role>
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -14074,7 +14110,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.BURST_ENABLE</name>
-   <value>0</value>
+   <value>1</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.BURST_WRAPPING_SUPPORT</name>
@@ -14094,7 +14130,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>64</value>
+   <value>1024</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
@@ -14126,7 +14162,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BURST_COUNT</name>
-   <value>16</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BYTE</name>
@@ -14226,7 +14262,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>1024</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14266,7 +14302,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURST_ENABLE">
    <type>int</type>
-   <value>0</value>
+   <value>1</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -14274,9 +14310,9 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_BURST_COUNT">
    <type>int</type>
-   <value>16</value>
+   <value>256</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -14284,7 +14320,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -14316,7 +14352,7 @@ the requested settings for a module instance. -->
    <type>int</type>
    <value>0</value>
    <derived>false</derived>
-   <enabled>false</enabled>
+   <enabled>true</enabled>
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
@@ -14846,6 +14882,12 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>readdatavalid</role>
    </port>
+   <port>
+    <name>mm_read_burstcount</name>
+    <direction>Output</direction>
+    <width>9</width>
+    <role>burstcount</role>
+   </port>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>m2_ddr2_memory</moduleName>
@@ -15146,6 +15188,12 @@ parameters are a RESULT of the module parameters. -->
     <direction>Input</direction>
     <width>1</width>
     <role>waitrequest</role>
+   </port>
+   <port>
+    <name>mm_write_burstcount</name>
+    <direction>Output</direction>
+    <width>9</width>
+    <role>burstcount</role>
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -66320,7 +66368,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1548685346</value>
+   <value>1553121658</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -66340,7 +66388,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1548685346</value>
+   <value>1553121658</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -66356,7 +66404,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1548685346</value>
+   <value>1553121658</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

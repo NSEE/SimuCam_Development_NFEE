@@ -1987,11 +1987,11 @@
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 31" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
+  <parameter name="BURST_ENABLE" value="1" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="64" />
+  <parameter name="DATA_FIFO_DEPTH" value="1024" />
   <parameter name="DATA_WIDTH" value="64" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
@@ -1999,7 +1999,7 @@
   <parameter name="ERROR_WIDTH" value="8" />
   <parameter name="EXPOSE_ST_PORT" value="0" />
   <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="16" />
+  <parameter name="MAX_BURST_COUNT" value="256" />
   <parameter name="MAX_BYTE" value="67108864" />
   <parameter name="MAX_STRIDE" value="1" />
   <parameter name="MODE" value="0" />
@@ -2030,11 +2030,11 @@
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
-  <parameter name="BURST_ENABLE" value="0" />
+  <parameter name="BURST_ENABLE" value="1" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="64" />
+  <parameter name="DATA_FIFO_DEPTH" value="1024" />
   <parameter name="DATA_WIDTH" value="64" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
@@ -2042,7 +2042,7 @@
   <parameter name="ERROR_WIDTH" value="8" />
   <parameter name="EXPOSE_ST_PORT" value="0" />
   <parameter name="FIX_ADDRESS_WIDTH" value="32" />
-  <parameter name="MAX_BURST_COUNT" value="16" />
+  <parameter name="MAX_BURST_COUNT" value="256" />
   <parameter name="MAX_BYTE" value="67108864" />
   <parameter name="MAX_STRIDE" value="1" />
   <parameter name="MODE" value="0" />
