@@ -61,12 +61,10 @@ entity comm_v1_80_top is
 		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                     --                         .waitrequest
 		avalon_slave_L_buffer_write        : in  std_logic                     := '0'; --          --                         .write
 		avalon_slave_L_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_L_buffer_burstcount   : in  std_logic_vector(7 downto 0)  := (others => '0'); --                         .burstcount
 		avalon_slave_R_buffer_address      : in  std_logic_vector(9 downto 0)  := (others => '0'); --    avalon_slave_R_buffer.address
 		avalon_slave_R_buffer_write        : in  std_logic                     := '0'; --          --                         .write
 		avalon_slave_R_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_waitrequest  : out std_logic; --                                     --                         .waitrequest
-		avalon_slave_R_buffer_burstcount   : in  std_logic_vector(7 downto 0)  := (others => '0') ---                         .burstcount
+		avalon_slave_R_buffer_waitrequest  : out std_logic --                                      --                         .waitrequest
 	);
 end entity comm_v1_80_top;
 
@@ -322,7 +320,6 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
-			avalon_mm_windowing_i.burstcount  => avalon_slave_R_buffer_burstcount,
 			mask_enable_i                     => '1',
 			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
 			window_data_write_o               => s_R_window_data_write,
@@ -367,7 +364,6 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
-			avalon_mm_windowing_i.burstcount  => avalon_slave_L_buffer_burstcount,
 			mask_enable_i                     => '1',
 			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
 			window_data_write_o               => s_L_window_data_write,

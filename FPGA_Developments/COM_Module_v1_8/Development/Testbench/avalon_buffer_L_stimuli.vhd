@@ -140,15 +140,13 @@ begin
 					avalon_mm_writedata_o <= v_registered_data;
 
 				when 2502 =>
---					s_counter     <= 2500;
-					s_counter     <= 2450;
+					s_counter     <= 2500;
 					s_address_cnt <= s_address_cnt + 1;
 					--if (s_address_cnt = (2**g_ADDRESS_WIDTH - 2)) then
 					if (s_address_cnt = (1020 - 1)) then
 --					if (s_address_cnt = (272 - 1)) then
 --					if (s_address_cnt = (68 - 1)) then
-						if (s_times_cnt < 1000) then
---						if (s_times_cnt < 1) then
+						if (s_times_cnt < 100) then
 --							s_counter     <= 2000;
 							s_address_cnt <= 0;
 							s_times_cnt   <= s_times_cnt + 1;
