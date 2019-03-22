@@ -17,9 +17,17 @@ extern OS_EVENT *xNfeeSchedule;
 //! [constants definition]
 // address
 // bit masks
+const alt_u8 ucFeebIrqEmptyBufferFlagsQtd;
 //! [constants definition]
 
 //! [public module structs definition]
+enum FeebIrqEmptyBufferFlags {
+	eFeebIrqLeftEmptyBuffer0Flag = 0,
+	eFeebIrqLeftEmptyBuffer1Flag,
+	eFeebIrqRightEmptyBuffer0Flag,
+	eFeebIrqRightEmptyBuffer1Flag
+} EFeebIrqEmptyBufferFlags;
+
 typedef struct FeebWindowingConfig {
 	bool bMasking;
 } TFeebWindowingConfig;
@@ -30,7 +38,10 @@ typedef struct FeebIrqControl {
 } TFeebIrqControl;
 
 typedef struct FeebIrqFlag {
-	bool bBufferEmptyFlag;
+	bool bLeftBufferEmpty0Flag;
+	bool bLeftBufferEmpty1Flag;
+	bool bRightBufferEmpty0Flag;
+	bool bRightBufferEmpty1Flag;
 } TFeebIrqFlag;
 
 typedef struct FeebBufferStatus {
@@ -61,23 +72,23 @@ void vFeebCh6HandleIrq(void* pvContext);
 void vFeebCh7HandleIrq(void* pvContext);
 void vFeebCh8HandleIrq(void* pvContext);
 
-void vFeebCh1IrqFlagClrBufferEmpty(void);
-void vFeebCh2IrqFlagClrBufferEmpty(void);
-void vFeebCh3IrqFlagClrBufferEmpty(void);
-void vFeebCh4IrqFlagClrBufferEmpty(void);
-void vFeebCh5IrqFlagClrBufferEmpty(void);
-void vFeebCh6IrqFlagClrBufferEmpty(void);
-void vFeebCh7IrqFlagClrBufferEmpty(void);
-void vFeebCh8IrqFlagClrBufferEmpty(void);
+void vFeebCh1IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh2IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh3IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh4IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh5IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh6IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh7IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
+void vFeebCh8IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
 
-bool bFeebCh1IrqFlagBufferEmpty(void);
-bool bFeebCh2IrqFlagBufferEmpty(void);
-bool bFeebCh3IrqFlagBufferEmpty(void);
-bool bFeebCh4IrqFlagBufferEmpty(void);
-bool bFeebCh5IrqFlagBufferEmpty(void);
-bool bFeebCh6IrqFlagBufferEmpty(void);
-bool bFeebCh7IrqFlagBufferEmpty(void);
-bool bFeebCh8IrqFlagBufferEmpty(void);
+void vFeebCh1IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh2IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh3IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh4IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh5IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh6IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh7IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
+void vFeebCh8IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
@@ -110,7 +121,8 @@ bool bFeebGetCh1RightFeeBusy(void);
 bool bFeebGetCh2LeftFeeBusy(void);
 bool bFeebGetCh2RightFeeBusy(void);
 
-bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
+bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
+		alt_u8 ucBufferSide);
 
 bool bFeebSetWindowing(TFeebChannel *pxFeebCh);
 bool bFeebGetWindowing(TFeebChannel *pxFeebCh);

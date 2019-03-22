@@ -77,6 +77,14 @@
          type = "String";
       }
    }
+   element COMM_Pedreiro_v1_01_A.buffers_interrupt_sender
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
    element COMM_Pedreiro_v1_01_B
    {
       datum _sortIndex
@@ -2927,7 +2935,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="15793155" />
+  <parameter name="internalIrqMaskSystemInfo" value="4095" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -4432,20 +4440,6 @@
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_B.buffers_interrupt_sender">
-  <parameter name="irqNumber" value="20" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
-   end="COMM_Pedreiro_v1_01_A.buffers_interrupt_sender">
-  <parameter name="irqNumber" value="22" />
- </connection>
- <connection
-   kind="interrupt"
-   version="16.1"
-   start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_H.buffers_interrupt_sender">
   <parameter name="irqNumber" value="2" />
  </connection>
@@ -4453,57 +4447,71 @@
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="dma_DDR_M1.csr_irq">
+   end="COMM_Pedreiro_v1_01_B.buffers_interrupt_sender">
   <parameter name="irqNumber" value="0" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
-   end="dma_DDR_M2.csr_irq">
+   end="COMM_Pedreiro_v1_01_A.buffers_interrupt_sender">
   <parameter name="irqNumber" value="1" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
+   end="dma_DDR_M1.csr_irq">
+  <parameter name="irqNumber" value="2" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
+   end="dma_DDR_M2.csr_irq">
+  <parameter name="irqNumber" value="3" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="16.1"
+   start="nios2_gen2_0.irq"
    end="sync.interrupt_sender">
-  <parameter name="irqNumber" value="10" />
+  <parameter name="irqNumber" value="4" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
    end="jtag_uart_0.irq">
-  <parameter name="irqNumber" value="11" />
+  <parameter name="irqNumber" value="5" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
    end="timer_1ms.irq">
-  <parameter name="irqNumber" value="12" />
+  <parameter name="irqNumber" value="6" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
    end="timer_1us.irq">
-  <parameter name="irqNumber" value="13" />
+  <parameter name="irqNumber" value="7" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
    end="pio_EXT.irq">
-  <parameter name="irqNumber" value="14" />
+  <parameter name="irqNumber" value="8" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
    end="rs232_uart.irq">
-  <parameter name="irqNumber" value="15" />
+  <parameter name="irqNumber" value="9" />
  </connection>
  <connection
    kind="interrupt"
@@ -4552,14 +4560,14 @@
    version="16.1"
    start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_B.rmap_interrupt_sender">
-  <parameter name="irqNumber" value="21" />
+  <parameter name="irqNumber" value="10" />
  </connection>
  <connection
    kind="interrupt"
    version="16.1"
    start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_A.rmap_interrupt_sender">
-  <parameter name="irqNumber" value="23" />
+  <parameter name="irqNumber" value="11" />
  </connection>
  <connection
    kind="reset"

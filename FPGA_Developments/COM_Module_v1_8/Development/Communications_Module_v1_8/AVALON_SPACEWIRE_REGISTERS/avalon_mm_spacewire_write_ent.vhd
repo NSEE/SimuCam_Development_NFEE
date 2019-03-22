@@ -28,51 +28,57 @@ begin
 		procedure p_reset_registers is
 		begin
 			-- comm registers
-			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_disconnect            <= '0';
-			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_linkstart             <= '0';
-			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_autostart             <= '0';
-			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_txdivcnt              <= x"01";
-			spacewire_write_registers_o.spw_timecode_reg.timecode_clear                             <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_clear          <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_stop           <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_start          <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_masking_en             <= '1';
-			spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_logical_addr              <= x"51";
-			spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_key                       <= x"D1";
-			spacewire_write_registers_o.data_packet_config_1_reg.data_pkt_ccd_x_size                <= std_logic_vector(to_unsigned(2295, 16));
-			spacewire_write_registers_o.data_packet_config_1_reg.data_pkt_ccd_y_size                <= std_logic_vector(to_unsigned(4540, 16));
-			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_data_y_size               <= std_logic_vector(to_unsigned(4510, 16));
-			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_overscan_y_size           <= std_logic_vector(to_unsigned(30, 16));
-			spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length             <= std_logic_vector(to_unsigned(32768, 16));
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                  <= std_logic_vector(to_unsigned(1, 4));
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                <= std_logic_vector(to_unsigned(0, 2));
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id               <= x"F0";
-			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_logical_addr              <= x"50";
-			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay           <= std_logic_vector(to_unsigned(900, 16));
-			spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay         <= x"0000";
+			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_disconnect              <= '0';
+			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_linkstart               <= '0';
+			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_autostart               <= '0';
+			spacewire_write_registers_o.spw_link_config_status_reg.spw_lnkcfg_txdivcnt                <= x"01";
+			spacewire_write_registers_o.spw_timecode_reg.timecode_clear                               <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_clear            <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_stop             <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_start            <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_masking_en               <= '1';
+			spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_logical_addr                <= x"51";
+			spacewire_write_registers_o.rmap_codec_config_reg.rmap_target_key                         <= x"D1";
+			spacewire_write_registers_o.data_packet_config_1_reg.data_pkt_ccd_x_size                  <= std_logic_vector(to_unsigned(2295, 16));
+			spacewire_write_registers_o.data_packet_config_1_reg.data_pkt_ccd_y_size                  <= std_logic_vector(to_unsigned(4540, 16));
+			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_data_y_size                 <= std_logic_vector(to_unsigned(4510, 16));
+			spacewire_write_registers_o.data_packet_config_2_reg.data_pkt_overscan_y_size             <= std_logic_vector(to_unsigned(30, 16));
+			spacewire_write_registers_o.data_packet_config_3_reg.data_pkt_packet_length               <= std_logic_vector(to_unsigned(32768, 16));
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_fee_mode                    <= std_logic_vector(to_unsigned(1, 4));
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_ccd_number                  <= std_logic_vector(to_unsigned(0, 2));
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_protocol_id                 <= x"F0";
+			spacewire_write_registers_o.data_packet_config_4_reg.data_pkt_logical_addr                <= x"50";
+			spacewire_write_registers_o.data_packet_pixel_delay_1_reg.data_pkt_line_delay             <= std_logic_vector(to_unsigned(900, 16));
+			spacewire_write_registers_o.data_packet_pixel_delay_2_reg.data_pkt_column_delay           <= x"0000";
 			-- PLATO-MSSL-PL-ICD-0002, Issue 3.0, page 16, Figure 3-3 : Video interface ADC operate at @ 2.941 Msps 
 			-- PTO-CCD-E2V-ICD-0019, Issue 3, page 27, Table 10:
 			--   Line transfer time = [82..90] us ==> @10Mhz --> 100 ns -->  delay = 900
 			--   Register clock period = 333 ns ==> @100MHz --> 10 ns --> delay = 33
-			spacewire_write_registers_o.data_packet_pixel_delay_3_reg.data_pkt_adc_delay            <= std_logic_vector(to_unsigned(33, 16));
-			spacewire_write_registers_o.comm_irq_control_reg.comm_rmap_write_command_en             <= '0';
-			spacewire_write_registers_o.comm_irq_control_reg.comm_right_buffer_empty_en             <= '0';
-			spacewire_write_registers_o.comm_irq_control_reg.comm_left_buffer_empty_en              <= '0';
-			spacewire_write_registers_o.comm_irq_control_reg.comm_global_irq_en                     <= '0';
-			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear <= '0';
-			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear       <= '0';
-			right_buffer_size_o                                                                     <= (others => '1');
-			left_buffer_size_o                                                                      <= (others => '1');
+			spacewire_write_registers_o.data_packet_pixel_delay_3_reg.data_pkt_adc_delay              <= std_logic_vector(to_unsigned(33, 16));
+			spacewire_write_registers_o.comm_irq_control_reg.comm_rmap_write_command_en               <= '0';
+			spacewire_write_registers_o.comm_irq_control_reg.comm_right_buffer_empty_en               <= '0';
+			spacewire_write_registers_o.comm_irq_control_reg.comm_left_buffer_empty_en                <= '0';
+			spacewire_write_registers_o.comm_irq_control_reg.comm_global_irq_en                       <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear   <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_right_buffer_0_empty_flag_clear <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_right_buffer_1_empty_flag_clear <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_0_empty_flag_clear  <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear  <= '0';
+			right_buffer_size_o                                                                       <= (others => '1');
+			left_buffer_size_o                                                                        <= (others => '1');
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
 		begin
-			spacewire_write_registers_o.spw_timecode_reg.timecode_clear                             <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_clear          <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_stop           <= '0';
-			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_start          <= '0';
-			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear <= '0';
-			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear       <= '0';
+			spacewire_write_registers_o.spw_timecode_reg.timecode_clear                               <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_clear            <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_stop             <= '0';
+			spacewire_write_registers_o.fee_windowing_buffers_config_reg.fee_machine_start            <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear   <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_right_buffer_0_empty_flag_clear <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_right_buffer_1_empty_flag_clear <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_0_empty_flag_clear  <= '0';
+			spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear  <= '0';
 		end procedure p_control_triggers;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_spacewire_address) is
@@ -136,8 +142,11 @@ begin
 				when (16#12#) =>
 					null;
 				when (16#13#) =>
-					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear <= avalon_mm_spacewire_i.writedata(0);
-					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_buffer_empty_flag_clear       <= avalon_mm_spacewire_i.writedata(8);
+					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear   <= avalon_mm_spacewire_i.writedata(0);
+					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_right_buffer_0_empty_flag_clear <= avalon_mm_spacewire_i.writedata(8);
+					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_right_buffer_1_empty_flag_clear <= avalon_mm_spacewire_i.writedata(9);
+					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_0_empty_flag_clear  <= avalon_mm_spacewire_i.writedata(10);
+					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear  <= avalon_mm_spacewire_i.writedata(11);
 				when (16#14#) =>
 					right_buffer_size_o <= avalon_mm_spacewire_i.writedata(3 downto 0);
 				when (16#15#) =>

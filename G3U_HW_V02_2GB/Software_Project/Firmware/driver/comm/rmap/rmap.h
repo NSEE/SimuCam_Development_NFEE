@@ -22,8 +22,6 @@
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
 extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
 
-
-
 //! [public module structs definition]
 typedef struct RmapCodecConfig {
 	alt_u8 ucKey;
@@ -220,6 +218,8 @@ bool bRmapSetRmapMemHKArea(TRmapChannel *pxRmapCh);
 bool bRmapGetRmapMemHKArea(TRmapChannel *pxRmapCh);
 
 bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh);
+
+alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]
