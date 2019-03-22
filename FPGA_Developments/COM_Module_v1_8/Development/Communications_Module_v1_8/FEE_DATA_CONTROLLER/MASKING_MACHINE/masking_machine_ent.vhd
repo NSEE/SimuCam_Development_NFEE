@@ -350,7 +350,7 @@ begin
 							-- middle of a line, go to column delay
 							s_masking_machine_state <= COLUMN_DELAY;
 							s_column_delay_trigger  <= '1';
-							s_column_delay_timer    <= fee_line_delay_i;
+							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 					else
