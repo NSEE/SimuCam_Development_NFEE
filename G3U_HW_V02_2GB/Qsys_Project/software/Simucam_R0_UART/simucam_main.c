@@ -6,6 +6,7 @@
 #include "utils/error_handler_simucam.h"
 #include "utils/communication_configs.h"
 #include "utils/configs_simucam.h"
+#include "utils/configs_bind_channel_FEEinst.h"
 #include "utils/test_module_simucam.h"
 #include "utils/meb.h"
 #include "utils/fee_controller.h"
@@ -465,9 +466,20 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDebugConfs();
+	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
+	bIniSimucamStatus = vCHConfs();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "Didn't load the bind configuration of the FEEs. \n");
+		}
+		#endif
+		return -1;
+	}
+
+	bIniSimucamStatus = vLoadDebugConfs();
+	if (bIniSimucamStatus == FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
@@ -478,10 +490,9 @@ int main(void)
 
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
-		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
+			debug(fp, "Didn't load ETH configuration from SDCard. \n");
 		}
 		#endif
 		return -1;
