@@ -328,21 +328,28 @@ void vFeeTask(void *task_data) {
 				vResetMemCCDFEE(pxNFee);
 
 				/* Wait until both buffers are empty  */
-				if (xDefaults.usiLinkNFEE0 == 0) {
+				vWaitUntilBufferEmpty( xDefaultsCH.ucFEEtoChanell[pxNFee->ucId] );
+
+				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
 				} else {
 					while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
 				}
+				*/
+
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiGuardNFEEDelay);
 
-				if (xDefaults.usiLinkNFEE0 == 0) {
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+
+				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				} else {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
-				}
+				}*/
 
 				/* Enable IRQ and clear the Double Buffer */
 				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
@@ -462,13 +469,16 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bEnabled = TRUE;
 				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
-				if (xDefaults.usiLinkNFEE0 == 0) {
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+
+				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				} else {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
-				}
+				}*/
 
 				break;
 
@@ -492,13 +502,17 @@ void vFeeTask(void *task_data) {
 								/*Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
 
+								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+
+								/*
 								if (xDefaults.usiLinkNFEE0 == 0) {
 									bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,0);
 									bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,1);
 								} else {
 									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,0);
 									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,1);
-								}
+								}*/
 
 								bFinal = TRUE;
 
@@ -1728,13 +1742,16 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	if (xDefaults.usiLinkNFEE0 == 0) {
+	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+
+	/*if (xDefaults.usiLinkNFEE0 == 0) {
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 	} else {
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
-	}
+	}*/
 
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
@@ -1759,13 +1776,16 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	if (xDefaults.usiLinkNFEE0 == 0) {
+	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+
+	/*if (xDefaults.usiLinkNFEE0 == 0) {
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 	} else {
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
-	}
+	}*/
 
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
@@ -1784,6 +1804,106 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}
 
 	return bDmaReturn;
+
+}
+
+
+void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId ) {
+
+	switch (ucId) {
+		case 0:
+			bFeebCh1SetBufferSize( ucLength, 1);
+			break;
+		case 1:
+			bFeebCh2SetBufferSize( ucLength, 1);
+			break;
+		case 2:
+			bFeebCh3SetBufferSize( ucLength, 1);
+			break;
+		case 3:
+			bFeebCh4SetBufferSize( ucLength, 1);
+			break;
+		case 4:
+			bFeebCh5SetBufferSize( ucLength, 1);
+			break;
+		case 5:
+			bFeebCh6SetBufferSize( ucLength, 1);
+			break;
+		case 6:
+			bFeebCh7SetBufferSize( ucLength, 1);
+			break;
+		case 7:
+			bFeebCh8SetBufferSize( ucLength, 1);
+			break;
+		default:
+			break;
+	}
+
+}
+
+void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
+
+	switch (ucId) {
+		case 0:
+			bFeebCh1SetBufferSize( ucLength, 0);
+			break;
+		case 1:
+			bFeebCh2SetBufferSize( ucLength, 0);
+			break;
+		case 2:
+			bFeebCh3SetBufferSize( ucLength, 0);
+			break;
+		case 3:
+			bFeebCh4SetBufferSize( ucLength, 0);
+			break;
+		case 4:
+			bFeebCh5SetBufferSize( ucLength, 0);
+			break;
+		case 5:
+			bFeebCh6SetBufferSize( ucLength, 0);
+			break;
+		case 6:
+			bFeebCh7SetBufferSize( ucLength, 0);
+			break;
+		case 7:
+			bFeebCh8SetBufferSize( ucLength, 0);
+			break;
+		default:
+			break;
+	}
+
+}
+
+void vWaitUntilBufferEmpty( unsigned char ucId ) {
+
+	switch (ucId) {
+		case 0:
+			while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 1:
+			while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 2:
+			//while ( (bFeebGetCh3LeftFeeBusy()== TRUE) || (bFeebGetCh3RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 3:
+			//while ( (bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 4:
+			//while ( (bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 5:
+			//while ( (bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 6:
+			//while ( (bFeebGetCh7LeftFeeBusy()== TRUE) || (bFeebGetCh7RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 7:
+			//while ( (bFeebGetCh8LeftFeeBusy()== TRUE) || (bFeebGetCh8RightFeeBusy()== TRUE)  ) {}
+			break;
+		default:
+			break;
+	}
 
 }
 
