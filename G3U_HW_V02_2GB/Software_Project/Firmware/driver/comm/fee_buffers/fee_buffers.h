@@ -11,6 +11,7 @@
 #include "../comm.h"
 #include "../../../utils/error_handler_simucam.h"
 #include "../../../utils/queue_commands_list.h"
+#include "../../../utils/configs_bind_channel_FEEinst.h"
 
 extern OS_EVENT *xNfeeSchedule;
 

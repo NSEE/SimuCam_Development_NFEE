@@ -47,20 +47,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.eMode = sFeeInit;
     pxNfeeL->xControl.eNextMode = sFeeInit;
 
-    switch (ucIdNFEE) {
-		case 0:
-			pxNfeeL->ucSPWId = (unsigned char)xDefaults.usiLinkNFEE0;
-			break;
-		default:
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "\n CRITICAL! Can't bind the SPW channel with the NFEE %i \n", pxNfeeL->ucId);
-			}
-			#endif
-			break;
-	}
-
-
+    pxNfeeL->ucSPWId = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIdNFEE ];
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */

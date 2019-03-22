@@ -51,7 +51,8 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 0;
+	//uiCmdtoSend.ucByte[0] = 0;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -116,7 +117,8 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 1;
+	//uiCmdtoSend.ucByte[0] = 1;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -181,7 +183,8 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 2;
+	//uiCmdtoSend.ucByte[0] = 2;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -245,7 +248,8 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 3;
+	//uiCmdtoSend.ucByte[0] = 3;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -309,7 +313,8 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 4;
+	//uiCmdtoSend.ucByte[0] = 4;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -374,7 +379,8 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 5;
+	//uiCmdtoSend.ucByte[0] = 5;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -439,7 +445,8 @@ void vFeebCh7HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 6;
+	//uiCmdtoSend.ucByte[0] = 6;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[6];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
@@ -504,7 +511,8 @@ void vFeebCh8HandleIrq(void* pvContext) {
 	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_NFC_DMA_REQUEST;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = 7;
+	//uiCmdtoSend.ucByte[0] = 7;
+	uiCmdtoSend.ucByte[0] = xDefaultsCH.ucChannelToFEE[7];
 
 	// Get Irq Buffer Empty Flags
 	bool bIrqEmptyBufferFlags[ucFeebIrqEmptyBufferFlagsQtd];
