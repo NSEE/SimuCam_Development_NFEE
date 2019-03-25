@@ -256,25 +256,29 @@ bool ucCheckAndApllySPWChannel( char cLetter, unsigned char *ucChannelNumber ) {
 	static char cChannelLists[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
 	static unsigned char ucIterator = 0;
 
-	/* Check if the char is between ASCII( 65 ) e ASCII( 72 ) */
+//	/* Check if the char is between ASCII( 65 ) e ASCII( 72 ) */
+//
+//	/* A ~ H */
+//	if ( (cLetter < 65) || (cLetter > 72) ) {
+//		return FALSE;
+//	}
+//
+//	/* Check the CHannel was already bind with another FEE instance */
+//	for (int i = 0; i < ucIterator; i++) {
+//		if ( cChannelLists[i] == cLetter ) {
+//			return FALSE;
+//		}
+//	}
+//
+//	/* A->0; B->1; ... H->7 */
+//	cChannelLists[ucIterator] = cLetter - 65;
+//	ucIterator++;
+//
+//	*ucChannelNumber = cChannelLists[ucIterator];
 
-	/* A ~ H */
-	if ( (cLetter < 65) || (cLetter > 72) ) {
-		return FALSE;
-	}
+	// The verification will be implemented later
 
-	/* Check the CHannel was already bind with another FEE instance */
-	for (int i = 0; i < ucIterator; i++) {
-		if ( cChannelLists[i] == cLetter ) {
-			return FALSE;
-		}
-	}
-
-	/* A->0; B->1; ... H->7 */
-	cChannelLists[ucIterator] = cLetter - 65;
-	ucIterator++;
-
-	*ucChannelNumber = cChannelLists[ucIterator];
+	*ucChannelNumber = (unsigned char) cLetter - 65;
 
 	return TRUE;
 }
