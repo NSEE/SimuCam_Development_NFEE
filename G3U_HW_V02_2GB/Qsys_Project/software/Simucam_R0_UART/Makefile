@@ -191,6 +191,7 @@ C_SRCS += utils/pattern.c
 C_SRCS += driver/comm/comm_channel.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/configs_bind_channel_FEEinst.c
+C_SRCS += rtos/fee_task1.c
 CXX_SRCS :=
 ASM_SRCS :=
 

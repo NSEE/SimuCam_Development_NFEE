@@ -21,7 +21,6 @@
 #include "../driver/comm/rmap/rmap.h"
 
 void vFeeTask(void *task_data);
-void vFeeTask0(void *task_data);
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
