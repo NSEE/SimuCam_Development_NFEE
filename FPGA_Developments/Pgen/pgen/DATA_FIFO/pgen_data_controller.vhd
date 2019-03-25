@@ -7,7 +7,7 @@ use work.pgen_pattern_generator_pkg.all;
 use work.pgen_mm_data_registers_pkg.all;
 use work.pgen_data_fifo_pkg.all;
 
-entity pgen_data_controller_ent is
+entity pgen_data_controller is
 	port(
 		clk_i                    : in  std_logic;
 		rst_i                    : in  std_logic;
@@ -16,23 +16,23 @@ entity pgen_data_controller_ent is
 		pattern_generator_data_i : in  t_pgen_pattern_generator_write_data;
 		write_status_o           : out t_pgen_data_controller_write_status;
 		read_status_o            : out t_pgen_data_controller_read_status;
-		pattern_data_register_o  : out t_pgen_pattern_data_read_registers
+		pattern_data_register_o  : out t_pgen_mm_data_read_registers
 	);
-end entity pgen_data_controller_ent;
+end entity pgen_data_controller;
 
-architecture rtl of pgen_data_controller_ent is
+architecture rtl of pgen_data_controller is
 	signal s_data_fifo_i : t_pgen_data_fifo_inputs;
 	signal s_data_fifo_o : t_pgen_data_fifo_outputs;
 
 begin
 	-- TODO - Regenerate dpfifo with sclr, in Quartus 16.1 - Stratix-IV
-	pgen_dpfifo_inst : entity work.dpfifo
+	dpfifo_inst : entity work.dpfifo
 		port map(
 			aclr    => rst_i,
-			data    => s_data_fifo_i.datag,
+			data    => s_data_fifo_i.data,
 			rdclk   => clk_i,
 			rdreq   => s_data_fifo_i.rdreq,
-			sclr    => s_data_fifo_i.sclr,
+			sclr    => s_data_fifo_i.clr,
 			wrclk   => clk_i,
 			wrreq   => s_data_fifo_i.wrreq,
 			q       => s_data_fifo_o.q,
@@ -40,11 +40,11 @@ begin
 			wrfull  => s_data_fifo_o.full
 		);
 
-	-- Signals assingments
+	-- Signals assignments
 
 	s_data_fifo_i.data <= pattern_generator_data_i.pattern_pixel;
 	s_data_fifo_i.rdreq <= read_control_i.data_fetch;
-	s_data_fifo_i.sclr <= write_control_i.data_erase;
+	s_data_fifo_i.clr <= write_control_i.data_erase;
 	s_data_fifo_i.wrreq <= write_control_i.data_write;
 
 	write_status_o.empty <= s_data_fifo_o.empty;

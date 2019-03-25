@@ -4,18 +4,21 @@ use ieee.numeric_std.all;
 
 use work.pgen_avalon_mm_data_pkg.all;
 use work.pgen_mm_data_registers_pkg.all;
+use work.pgen_data_controller_pkg.all;
 
-entity pgen_avalon_mm_data_read_ent is
+entity pgen_avalon_mm_data_read is
 	port(
 		clk_i                          : in  std_logic;
 		rst_i                          : in  std_logic;
 		mm_read_registers_i            : in  t_pgen_mm_data_read_registers;
 		avalon_mm_read_inputs_i        : in  t_pgen_avalon_mm_data_read_inputs;
-		avalon_mm_read_outputs_o       : out t_pgen_avalon_mm_data_read_outputs
+		data_controller_read_status_i  : in  t_pgen_data_controller_read_status;
+		avalon_mm_read_outputs_o       : out t_pgen_avalon_mm_data_read_outputs;
+		data_controller_read_control_o : out t_pgen_data_controller_read_control
 	);
-end entity pgen_avalon_mm_data_read_ent;
+end entity pgen_avalon_mm_data_read;
 
-architecture rtl of pgen_avalon_mm_data_read_ent is
+architecture rtl of pgen_avalon_mm_data_read is
 begin
 
 	p_pgen_avalon_mm_data_read : process(clk_i, rst_i) is
@@ -25,7 +28,10 @@ begin
 			case (mm_read_address_i) is
 				-- Case for access to all registers address
 				when others =>
-					avalon_mm_read_outputs_o.readdata <= mm_read_registers_i;
+					avalon_mm_read_outputs_o.readdata <= (mm_read_registers_i.pattern_pixel_3 &
+														  mm_read_registers_i.pattern_pixel_2 &
+														  mm_read_registers_i.pattern_pixel_1 &
+														  mm_read_registers_i.pattern_pixel_0);
 			end case;
 		end procedure p_mm_readdata;
 

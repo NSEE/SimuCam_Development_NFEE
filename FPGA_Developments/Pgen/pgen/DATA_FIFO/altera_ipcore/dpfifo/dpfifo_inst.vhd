@@ -3,6 +3,7 @@ dpfifo_inst : dpfifo PORT MAP (
 		data	 => data_sig,
 		rdclk	 => rdclk_sig,
 		rdreq	 => rdreq_sig,
+		sclr	 => sclr_sig,
 		wrclk	 => wrclk_sig,
 		wrreq	 => wrreq_sig,
 		q	 => q_sig,

@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 use work.pgen_avalon_mm_control_pkg.all;
 use work.pgen_mm_control_registers_pkg.all;
 
-entity pgen_avalon_mm_control_write_ent is
+entity pgen_avalon_mm_control_write is
 	port(
 		clk_i                     : in  std_logic;
 		rst_i                     : in  std_logic;
@@ -13,17 +13,17 @@ entity pgen_avalon_mm_control_write_ent is
 		mm_write_registers_o      : out t_pgen_mm_control_write_registers;
 		avalon_mm_write_outputs_o : out t_pgen_avalon_mm_control_write_outputs
 	);
-end entity pgen_avalon_mm_control_write_ent;
+end entity pgen_avalon_mm_control_write;
 
-architecture rtl of pgen_avalon_mm_control_write_ent is
+architecture rtl of pgen_avalon_mm_control_write is
 
 begin
 	p_pgen_avalon_mm_control_write : process(clk_i, rst_i) is
 		procedure p_mm_reset_registers is
 		begin
-			mm_write_registers_o.generator_control_register.start_bit <= '0';
-			mm_write_registers_o.generator_control_register.stop_bit  <= '0';
-			mm_write_registers_o.generator_control_register.reset_bit <= '0';
+			mm_write_registers_o.generator_control.start_bit <= '0';
+			mm_write_registers_o.generator_control.stop_bit  <= '0';
+			mm_write_registers_o.generator_control.reset_bit <= '0';
 			mm_write_registers_o.pattern_size.rows_quantity           <= (others => '0');
 			mm_write_registers_o.pattern_size.columns_quantity        <= (others => '0');
 			mm_write_registers_o.pattern_parameters.ccd_side          <= '0';
@@ -33,9 +33,9 @@ begin
 
 		procedure p_mm_control_triggers is
 		begin
-			mm_write_registers_o.generator_control_register.start_bit <= '0';
-			mm_write_registers_o.generator_control_register.stop_bit  <= '0';
-			mm_write_registers_o.generator_control_register.reset_bit <= '0';
+			mm_write_registers_o.generator_control.start_bit <= '0';
+			mm_write_registers_o.generator_control.stop_bit  <= '0';
+			mm_write_registers_o.generator_control.reset_bit <= '0';
 		end procedure p_mm_control_triggers;
 
 		procedure p_mm_writedata(mm_write_address_i : t_pgen_avalon_mm_control_address) is
@@ -48,11 +48,11 @@ begin
 				when (c_PGEN_GENERATOR_CONTROL_STATUS_MM_REG_ADDRESS + c_PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
 					--   31- 5 : Reserved                              [-/-]
 					--    4- 4 : Start control bit                     [R/W]
-					mm_write_registers_o.generator_control_register.start_bit <= avalon_mm_write_inputs_i.writedata(4);
+					mm_write_registers_o.generator_control.start_bit <= avalon_mm_write_inputs_i.writedata(4);
 					--    3- 3 : Stop control bit                      [R/W]
-					mm_write_registers_o.generator_control_register.stop_bit  <= avalon_mm_write_inputs_i.writedata(3);
+					mm_write_registers_o.generator_control.stop_bit  <= avalon_mm_write_inputs_i.writedata(3);
 					--    2- 2 : Reset control bit                     [R/W]
-					mm_write_registers_o.generator_control_register.reset_bit <= avalon_mm_write_inputs_i.writedata(2);
+					mm_write_registers_o.generator_control.reset_bit <= avalon_mm_write_inputs_i.writedata(2);
 				--    1- 1 : Reseted status bit                    [R/-]
 				--    0- 0 : Stopped status bit                    [R/-]
 

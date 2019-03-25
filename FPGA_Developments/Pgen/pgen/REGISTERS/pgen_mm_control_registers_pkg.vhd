@@ -49,13 +49,13 @@ package pgen_mm_control_registers_pkg is
 	end record t_pgen_pattern_parameters_register;
 
 	type t_pgen_mm_control_write_registers is record
-		generator_control_register  : t_pgen_generator_control_register;
-		pattern_size_register       : t_pgen_pattern_size_register;
-		pattern_parameters_register : t_pgen_pattern_parameters_register;
+		generator_control           : t_pgen_generator_control_register;
+		pattern_size                : t_pgen_pattern_size_register;
+		pattern_parameters          : t_pgen_pattern_parameters_register;
 	end record t_pgen_mm_control_write_registers;
 
 	type t_pgen_mm_control_read_registers is record
-		generator_status_register : t_pgen_generator_status_register;
+		generator_status            : t_pgen_generator_status_register;
 	end record t_pgen_mm_control_read_registers;
 
 end package pgen_mm_control_registers_pkg;

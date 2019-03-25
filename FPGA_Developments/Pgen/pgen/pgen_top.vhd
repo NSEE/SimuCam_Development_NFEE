@@ -98,7 +98,7 @@ architecture rtl of pgen_component_ent is
 	signal s_data_controller_read_control : t_pgen_data_controller_read_control;
 	signal s_data_controller_read_status  : t_pgen_data_controller_read_status;
 
-	signal s_pattern_generator_data : t_pgen_pattern_generator_data;
+	signal s_pattern_generator_data : t_pgen_pattern_generator_write_data;
 
 	--============================================================================
 	-- architecture begin
@@ -161,17 +161,17 @@ begin
 		port map(
 			clk_i                           => a_avalon_clock,
 			rst_i                           => a_reset,
-			control_i.start                 => s_mm_control_write_registers.generator_control_register.start_bit,
-			control_i.stop                  => s_mm_control_write_registers.generator_control_register.stop_bit,
-			control_i.reset                 => s_mm_control_write_registers.generator_control_register.reset_bit,
-			config_i.ccd_side               => s_mm_control_write_registers.pattern_parameters_register.ccd_side,
-			config_i.ccd_number             => s_mm_control_write_registers.pattern_parameters_register.ccd_number,
-			config_i.timecode               => s_mm_control_write_registers.pattern_parameters_register.timecode,
-			config_i.rows_quantity          => s_mm_control_write_registers.pattern_size_register.rows_quantity,
-			config_i.columns_quantity       => s_mm_control_write_registers.pattern_size_register.columns_quantity,
+			control_i.start                 => s_mm_control_write_registers.generator_control.start_bit,
+			control_i.stop                  => s_mm_control_write_registers.generator_control.stop_bit,
+			control_i.reset                 => s_mm_control_write_registers.generator_control.reset_bit,
+			config_i.ccd_side               => s_mm_control_write_registers.pattern_parameters.ccd_side,
+			config_i.ccd_number             => s_mm_control_write_registers.pattern_parameters.ccd_number,
+			config_i.timecode               => s_mm_control_write_registers.pattern_parameters.timecode,
+			config_i.rows_quantity          => s_mm_control_write_registers.pattern_size.rows_quantity,
+			config_i.columns_quantity       => s_mm_control_write_registers.pattern_size.columns_quantity,
 			data_controller_write_status_i  => s_data_controller_write_status,
-			status_o.stopped                => s_mm_control_read_registers.generator_status_register.stopped_bit,
-			status_o.resetted               => s_mm_control_read_registers.generator_status_register.reseted_bit,
+			status_o.stopped                => s_mm_control_read_registers.generator_status.stopped_bit,
+			status_o.resetted               => s_mm_control_read_registers.generator_status.reseted_bit,
 			data_o                          => s_pattern_generator_data,
 			data_controller_write_control_o => s_data_controller_write_control
 		);
