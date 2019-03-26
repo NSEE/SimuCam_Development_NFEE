@@ -60,7 +60,7 @@ entity pgen_component_ent is
 		clock_i                               : in  std_logic                     := '0';
 		reset_i                               : in  std_logic                     := '0';
 		-- data port 64-bit
-		avalon_mm_data_slave_address_i        : in  std_logic_vector(25 downto 0) := (others => '0');
+		avalon_mm_data_slave_address_i        : in  std_logic_vector(9 downto 0) := (others => '0');
 		avalon_mm_data_slave_read_i           : in  std_logic                     := '0';
 		avalon_mm_data_slave_readdata_o       : out std_logic_vector(63 downto 0);
 		avalon_mm_data_slave_waitrequest_o    : out std_logic;

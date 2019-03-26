@@ -42,12 +42,13 @@ begin
 			rdempty => s_data_fifo_rd_o.rdempty,
 			wrfull  => s_data_fifo_wr_o.wrfull
 		);
-	-- Clear signal assingment
-	s_data_fifo_clear <= ('1') when (rst_i = '1')
-		else ('1') when ((s_data_fifo_wr_i.clr = '1') or (s_data_fifo_rd_i.clr = '1'))
-		else ('0');
 
 	-- Signals assignments
+
+	-- Clear signal
+	s_data_fifo_clear <= ('1') when (rst_i = '1')
+						 else ('1') when ((s_data_fifo_wr_i.clr = '1') or (s_data_fifo_rd_i.clr = '1'))
+						 else ('0');
 
 	s_data_fifo_wr_i.data  <= pattern_generator_data_i.pattern_pixel;
 	s_data_fifo_rd_i.rdreq <= read_control_i.data_fetch;

@@ -24,7 +24,7 @@ package pgen_data_fifo_pkg is
 
 	type t_pgen_data_fifo_rd_outputs is record
 		rdempty : std_logic;
-		q     : std_logic_vector((c_DATA_FIFO_OUT_WIDTH - 1) downto 0);
+		q       : std_logic_vector((c_DATA_FIFO_OUT_WIDTH - 1) downto 0);
 	end record t_pgen_data_fifo_rd_outputs;
 
 end package pgen_data_fifo_pkg;
