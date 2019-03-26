@@ -21,39 +21,47 @@ entity pgen_data_controller is
 end entity pgen_data_controller;
 
 architecture rtl of pgen_data_controller is
-	signal s_data_fifo_i : t_pgen_data_fifo_inputs;
-	signal s_data_fifo_o : t_pgen_data_fifo_outputs;
+	signal s_data_fifo_wr_i : t_pgen_data_fifo_wr_inputs;
+	signal s_data_fifo_wr_o : t_pgen_data_fifo_wr_outputs;
+	signal s_data_fifo_rd_i : t_pgen_data_fifo_rd_inputs;
+	signal s_data_fifo_rd_o : t_pgen_data_fifo_rd_outputs;
+
+	signal s_data_fifo_clear : std_logic;
 
 begin
-	-- TODO - Regenerate dpfifo with sclr, in Quartus 16.1 - Stratix-IV
+
 	dpfifo_inst : entity work.dpfifo
 		port map(
-			aclr    => rst_i,
-			data    => s_data_fifo_i.data,
+			aclr    => s_data_fifo_clear,
+			data    => s_data_fifo_wr_i.data,
 			rdclk   => clk_i,
-			rdreq   => s_data_fifo_i.rdreq,
-			sclr    => s_data_fifo_i.clr,
+			rdreq   => s_data_fifo_rd_i.rdreq,
 			wrclk   => clk_i,
-			wrreq   => s_data_fifo_i.wrreq,
-			q       => s_data_fifo_o.q,
-			rdempty => s_data_fifo_o.empty,
-			wrfull  => s_data_fifo_o.full
+			wrreq   => s_data_fifo_wr_i.wrreq,
+			q       => s_data_fifo_rd_o.q,
+			rdempty => s_data_fifo_rd_o.rdempty,
+			wrfull  => s_data_fifo_wr_o.wrfull
 		);
+	-- Clear signal assingment
+	s_data_fifo_clear <= ('1') when (rst_i = '1')
+		else ('1') when ((s_data_fifo_wr_i.clr = '1') or (s_data_fifo_rd_i.clr = '1'))
+		else ('0');
 
 	-- Signals assignments
 
-	s_data_fifo_i.data <= pattern_generator_data_i.pattern_pixel;
-	s_data_fifo_i.rdreq <= read_control_i.data_fetch;
-	s_data_fifo_i.clr <= write_control_i.data_erase;
-	s_data_fifo_i.wrreq <= write_control_i.data_write;
+	s_data_fifo_wr_i.data  <= pattern_generator_data_i.pattern_pixel;
+	s_data_fifo_rd_i.rdreq <= read_control_i.data_fetch;
+	s_data_fifo_wr_i.clr   <= write_control_i.data_erase;
+	s_data_fifo_wr_i.wrreq <= write_control_i.data_write;
+	s_data_fifo_rd_i.clr   <= '0';
 
-	write_status_o.empty <= s_data_fifo_o.empty;
-	read_status_o.data_available <= not (s_data_fifo_o.empty);
-	write_status_o.full <= s_data_fifo_o.full;
-	read_status_o.full <= s_data_fifo_o.full;
-	pattern_data_register_o.pattern_pixel_3 <= s_data_fifo_o.q(63 downto 48);
-	pattern_data_register_o.pattern_pixel_2 <= s_data_fifo_o.q(47 downto 32);
-	pattern_data_register_o.pattern_pixel_1 <= s_data_fifo_o.q(31 downto 16);
-	pattern_data_register_o.pattern_pixel_0 <= s_data_fifo_o.q(15 downto 0);
+	write_status_o.empty                    <= s_data_fifo_rd_o.rdempty;
+	read_status_o.data_available            <= not (s_data_fifo_rd_o.rdempty);
+	write_status_o.full                     <= s_data_fifo_wr_o.wrfull;
+	read_status_o.full                      <= s_data_fifo_wr_o.wrfull;
+	pattern_data_register_o.pattern_pixel_3 <= s_data_fifo_rd_o.q(63 downto 48);
+	pattern_data_register_o.pattern_pixel_2 <= s_data_fifo_rd_o.q(47 downto 32);
+	pattern_data_register_o.pattern_pixel_1 <= s_data_fifo_rd_o.q(31 downto 16);
+	pattern_data_register_o.pattern_pixel_0 <= s_data_fifo_rd_o.q(15 downto 0);
 
 end architecture rtl;

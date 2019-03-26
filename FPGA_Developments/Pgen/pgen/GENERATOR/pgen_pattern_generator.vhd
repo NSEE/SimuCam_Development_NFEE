@@ -88,7 +88,7 @@ architecture rtl of pgen_pattern_generator is
 
 begin
 	p_pgen_pattern_generator_FSM_state : process(clk_i, rst_i)
-		variable v_pattern_control_pointers : t_pattern_control_pointers;
+		variable v_pattern_control_pointers     : t_pattern_control_pointers;
 		variable v_pgen_pattern_generator_state : t_pgen_pattern_generator_state;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
@@ -99,22 +99,22 @@ begin
 			v_pattern_control_pointers.pattern_finished := '0';
 			s_pattern_seed                              <= config_i;
 
---			s_pattern_pixels.pattern_pixel_0            <= (others => '0');
---			s_pattern_pixels.pattern_pixel_1            <= (others => '0');
---			s_pattern_pixels.pattern_pixel_2            <= (others => '0');
---			s_pattern_pixels.pattern_pixel_3            <= (others => '0');
-			s_pattern_pixels.pattern_pixel              <= (others => '0');
+			--			s_pattern_pixels.pattern_pixel_0            <= (others => '0');
+			--			s_pattern_pixels.pattern_pixel_1            <= (others => '0');
+			--			s_pattern_pixels.pattern_pixel_2            <= (others => '0');
+			--			s_pattern_pixels.pattern_pixel_3            <= (others => '0');
+			s_pattern_pixels.pattern_pixel <= (others => '0');
 
-			sf_write_pattern_data                       <= '0';
+			sf_write_pattern_data <= '0';
 			-- Outputs generation - reset
-			status_o.resetted                          <= '1';
-			status_o.stopped                           <= '0';
+			status_o.resetted     <= '1';
+			status_o.stopped      <= '0';
 
---			data_o.pattern_pixel_0                     <= (others => '0');
---			data_o.pattern_pixel_1                     <= (others => '0');
---			data_o.pattern_pixel_2                     <= (others => '0');
---			data_o.pattern_pixel_3                     <= (others => '0');
-			data_o.pattern_pixel                       <= (others => '0');
+			--			data_o.pattern_pixel_0                     <= (others => '0');
+			--			data_o.pattern_pixel_1                     <= (others => '0');
+			--			data_o.pattern_pixel_2                     <= (others => '0');
+			--			data_o.pattern_pixel_3                     <= (others => '0');
+			data_o.pattern_pixel <= (others => '0');
 
 			data_controller_write_control_o.data_erase <= '1';
 			data_controller_write_control_o.data_write <= '0';
@@ -133,14 +133,14 @@ begin
 					v_pattern_control_pointers.ccd_column       := (others => '0');
 					v_pattern_control_pointers.pattern_finished := '0';
 					s_pattern_seed                              <= config_i;
-					
---					s_pattern_pixels.pattern_pixel_0            <= (others => '0');
---					s_pattern_pixels.pattern_pixel_1            <= (others => '0');
---					s_pattern_pixels.pattern_pixel_2            <= (others => '0');
---   				s_pattern_pixels.pattern_pixel_3            <= (others => '0');
-					s_pattern_pixels.pattern_pixel              <= (others => '0');
 
-					sf_write_pattern_data                       <= '0';
+					--					s_pattern_pixels.pattern_pixel_0            <= (others => '0');
+					--					s_pattern_pixels.pattern_pixel_1            <= (others => '0');
+					--					s_pattern_pixels.pattern_pixel_2            <= (others => '0');
+					--   				s_pattern_pixels.pattern_pixel_3            <= (others => '0');
+					s_pattern_pixels.pattern_pixel <= (others => '0');
+
+					sf_write_pattern_data <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "STOPPED"
@@ -174,6 +174,7 @@ begin
 					s_pgen_pattern_generator_state <= RUNNING;
 					v_pgen_pattern_generator_state := RUNNING;
 					-- default internal signal values
+					sf_write_pattern_data          <= '0';
 					-- conditional state transition and internal signal values
 					-- check if a command to stop was received
 					-- check if a command to reset was received
@@ -183,35 +184,35 @@ begin
 						v_pgen_pattern_generator_state := RESETTING;
 					else
 						-- command to reset not received
-						-- check if a command to start was received
-						if (control_i.start = '1') then
-							-- command to start received, go to running
-							s_pgen_pattern_generator_state <= RUNNING;
-							v_pgen_pattern_generator_state := RUNNING;
+						-- check if a command to stop was received
+						if (control_i.stop = '1') then
+							-- command to stop received, go to stopped
+							s_pgen_pattern_generator_state <= STOPPED;
+							v_pgen_pattern_generator_state := STOPPED;
 						else
 							-- command to stop or reset not received, keep running
 							-- check if the data controller can receive data
 							if (data_controller_write_status_i.full = '0') then
 								-- data controller can receive data, generate next pattern data
-								
---								-- create pattern pixel 0 and update pointers for next pattern
---								s_pattern_pixels.pattern_pixel_0 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
---								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
---								-- create pattern pixel 1 and update pointers for next pattern
---								s_pattern_pixels.pattern_pixel_1 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
---								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
---								-- create pattern pixel 2 and update pointers for next pattern
---								s_pattern_pixels.pattern_pixel_2 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
---								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
---								-- create pattern pixel 3 and update pointers for next pattern
---								s_pattern_pixels.pattern_pixel_3 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
---								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-								
+
+								--								-- create pattern pixel 0 and update pointers for next pattern
+								--								s_pattern_pixels.pattern_pixel_0 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+								--								-- create pattern pixel 1 and update pointers for next pattern
+								--								s_pattern_pixels.pattern_pixel_1 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+								--								-- create pattern pixel 2 and update pointers for next pattern
+								--								s_pattern_pixels.pattern_pixel_2 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+								--								-- create pattern pixel 3 and update pointers for next pattern
+								--								s_pattern_pixels.pattern_pixel_3 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+
 								-- create pattern pixel and update pointers for next pattern
-								s_pattern_pixels.pattern_pixel   <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-								
-								sf_write_pattern_data            <= not (sf_write_pattern_data);
+								s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+								v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+
+								sf_write_pattern_data <= '1';
 							end if;
 						end if;
 					end if;
@@ -231,15 +232,15 @@ begin
 				when RESETTING =>
 					-- Reset all the values and go to stopped
 					-- default output signals
-					status_o.resetted                          <= '1';
-					status_o.stopped                           <= '0';
-					
---					data_o.pattern_pixel_0                     <= (others => '0');
---					data_o.pattern_pixel_1                     <= (others => '0');
---					data_o.pattern_pixel_2                     <= (others => '0');
---					data_o.pattern_pixel_3                     <= (others => '0');
-					data_o.pattern_pixel                       <= (others => '0');
-					
+					status_o.resetted <= '1';
+					status_o.stopped  <= '0';
+
+					--					data_o.pattern_pixel_0                     <= (others => '0');
+					--					data_o.pattern_pixel_1                     <= (others => '0');
+					--					data_o.pattern_pixel_2                     <= (others => '0');
+					--					data_o.pattern_pixel_3                     <= (others => '0');
+					data_o.pattern_pixel <= (others => '0');
+
 					data_controller_write_control_o.data_erase <= '1';
 					data_controller_write_control_o.data_write <= '0';
 				-- conditional output signals
@@ -266,7 +267,7 @@ begin
 					data_controller_write_control_o.data_write <= '0';
 					-- conditional output signals
 					-- check if the data controller can receive data
-					if (data_controller_write_status_i.full = '0') then
+					if (sf_write_pattern_data = '1') then
 						data_controller_write_control_o.data_write <= '1';
 					end if;
 

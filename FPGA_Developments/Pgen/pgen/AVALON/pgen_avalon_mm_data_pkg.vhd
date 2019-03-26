@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 package pgen_avalon_mm_data_pkg is
 
-	constant c_PGEN_AVALON_MM_DATA_ADDRESS_SIZE : natural := 26;
+	constant c_PGEN_AVALON_MM_DATA_ADDRESS_SIZE : natural := 10;
 	constant c_PGEN_AVALON_MM_DATA_DATA_SIZE    : natural := 64;
 	constant c_PGEN_AVALON_MM_DATA_SYMBOL_SIZE  : natural := 8;
 
