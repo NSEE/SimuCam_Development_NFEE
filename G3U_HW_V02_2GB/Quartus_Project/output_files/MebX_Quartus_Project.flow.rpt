@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project
-Thu Mar 21 15:50:34 2019
+Wed Mar 27 16:04:22 2019
 Quartus Prime Version 16.1.0 Build 196 10/24/2016 SJ Standard Edition
 
 
@@ -41,22 +41,22 @@ agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Thu Mar 21 15:50:34 2019           ;
+; Flow Status                       ; Successful - Wed Mar 27 16:04:22 2019           ;
 ; Quartus Prime Version             ; 16.1.0 Build 196 10/24/2016 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project                            ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
 ; Family                            ; Stratix IV                                      ;
 ; Device                            ; EP4SGX230KF40C2                                 ;
 ; Timing Models                     ; Final                                           ;
-; Logic utilization                 ; 33 %                                            ;
-;     Combinational ALUTs           ; 43,211 / 182,400 ( 24 % )                       ;
-;     Memory ALUTs                  ; 2,689 / 91,200 ( 3 % )                          ;
-;     Dedicated logic registers     ; 39,168 / 182,400 ( 21 % )                       ;
-; Total registers                   ; 40456                                           ;
+; Logic utilization                 ; 44 %                                            ;
+;     Combinational ALUTs           ; 58,106 / 182,400 ( 32 % )                       ;
+;     Memory ALUTs                  ; 4,045 / 91,200 ( 4 % )                          ;
+;     Dedicated logic registers     ; 49,634 / 182,400 ( 27 % )                       ;
+; Total registers                   ; 50922                                           ;
 ; Total pins                        ; 452 / 888 ( 51 % )                              ;
 ; Total virtual pins                ; 0                                               ;
-; Total block memory bits           ; 9,246,604 / 14,625,792 ( 63 % )                 ;
-; DSP block 18-bit elements         ; 14 / 1,288 ( 1 % )                              ;
+; Total block memory bits           ; 10,332,492 / 14,625,792 ( 71 % )                ;
+; DSP block 18-bit elements         ; 20 / 1,288 ( 2 % )                              ;
 ; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                  ;
 ; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                  ;
 ; Total GXB Transmitter Channel PCS ; 0 / 24 ( 0 % )                                  ;
@@ -71,7 +71,7 @@ agreement for further details.
 +-------------------+----------------------+
 ; Option            ; Setting              ;
 +-------------------+----------------------+
-; Start date & time ; 03/21/2019 14:58:03  ;
+; Start date & time ; 03/27/2019 14:48:21  ;
 ; Main task         ; Compilation          ;
 ; Revision Name     ; MebX_Quartus_Project ;
 +-------------------+----------------------+
@@ -83,7 +83,7 @@ agreement for further details.
 ; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name       ; Section Id     ;
 +---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                             ; 66485671440360.155319107711368                                                ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 66485671440360.155370889614440                                                ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -142,7 +142,7 @@ agreement for further details.
 ; SAVE_DISK_SPACE                                   ; Off                                                                           ; On                                   ; --                ; --             ;
 ; SLD_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.regmap          ; --                                   ; --                ; --             ;
 ; SLD_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.debuginfo       ; --                                   ; --                ; --             ;
-; SLD_INFO                                          ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1553178976           ; --                                   ; MebX_Qsys_Project ; --             ;
+; SLD_INFO                                          ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1553707984           ; --                                   ; MebX_Qsys_Project ; --             ;
 ; SOPCINFO_FILE                                     ; ../Qsys_Project/MebX_Qsys_Project/synthesis/../../MebX_Qsys_Project.sopcinfo  ; --                                   ; --                ; --             ;
 ; STATE_MACHINE_PROCESSING                          ; One-Hot                                                                       ; Auto                                 ; --                ; --             ;
 ; SYNTHESIS_ONLY_QIP                                ; On                                                                            ; --                                   ; --                ; --             ;
@@ -155,13 +155,13 @@ agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:08:18     ; 1.0                     ; 2748 MB             ; 00:08:21                           ;
-; I/O Assignment Analysis   ; 00:02:15     ; 1.0                     ; 1475 MB             ; 00:02:09                           ;
-; Fitter                    ; 00:37:20     ; 1.0                     ; 2918 MB             ; 00:37:13                           ;
-; Assembler                 ; 00:00:32     ; 1.0                     ; 1170 MB             ; 00:00:30                           ;
-; TimeQuest Timing Analyzer ; 00:02:02     ; 1.0                     ; 1792 MB             ; 00:02:00                           ;
-; EDA Netlist Writer        ; 00:01:17     ; 1.0                     ; 1401 MB             ; 00:01:15                           ;
-; Total                     ; 00:51:44     ; --                      ; --                  ; 00:51:28                           ;
+; Analysis & Synthesis      ; 00:10:26     ; 1.0                     ; 3028 MB             ; 00:10:20                           ;
+; I/O Assignment Analysis   ; 00:02:34     ; 1.0                     ; 1522 MB             ; 00:02:28                           ;
+; Fitter                    ; 00:56:08     ; 1.0                     ; 3256 MB             ; 00:55:40                           ;
+; Assembler                 ; 00:00:44     ; 1.0                     ; 1248 MB             ; 00:00:37                           ;
+; TimeQuest Timing Analyzer ; 00:02:42     ; 1.0                     ; 1989 MB             ; 00:02:37                           ;
+; EDA Netlist Writer        ; 00:02:08     ; 1.0                     ; 1559 MB             ; 00:01:41                           ;
+; Total                     ; 01:14:42     ; --                      ; --                  ; 01:13:23                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

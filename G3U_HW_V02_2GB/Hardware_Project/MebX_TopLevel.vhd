@@ -430,10 +430,10 @@ signal spw_h_sync : std_logic;
 			comm_a_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
 			comm_a_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
 			comm_a_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
---			comm_b_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
---			comm_b_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
---			comm_b_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
---			comm_b_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
+			comm_b_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_b_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_b_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
+			comm_b_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
 --			comm_c_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
 --			comm_c_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
 --			comm_c_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
@@ -460,7 +460,7 @@ signal spw_h_sync : std_logic;
 --			comm_h_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
 			
             comm_a_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
---            comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
  --           comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_e_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
@@ -599,10 +599,10 @@ SOPC_INST : MebX_Qsys_Project
 	comm_a_conduit_end_strobe_in_signal  => spw_a_si(0),
 	comm_a_conduit_end_data_out_signal   => spw_a_do(0),
 	comm_a_conduit_end_strobe_out_signal => spw_a_so(0),
---	comm_b_conduit_end_data_in_signal    => spw_b_di(0),
---	comm_b_conduit_end_strobe_in_signal  => spw_b_si(0),
---	comm_b_conduit_end_data_out_signal   => spw_b_do(0),
---	comm_b_conduit_end_strobe_out_signal => spw_b_so(0),
+	comm_b_conduit_end_data_in_signal    => spw_b_di(0),
+	comm_b_conduit_end_strobe_in_signal  => spw_b_si(0),
+	comm_b_conduit_end_data_out_signal   => spw_b_do(0),
+	comm_b_conduit_end_strobe_out_signal => spw_b_so(0),
 --	comm_c_conduit_end_data_in_signal    => spw_c_di(0),
 --	comm_c_conduit_end_strobe_in_signal  => spw_c_si(0),
 --	comm_c_conduit_end_data_out_signal   => spw_c_do(0),
@@ -629,7 +629,7 @@ SOPC_INST : MebX_Qsys_Project
 --	comm_h_conduit_end_strobe_out_signal => spw_h_so(0),
 	
             comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
---            comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
+            comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
 --            comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
 --            comm_d_sync_end_sync_channel_signal                  => spw_d_sync,                  --            comm_d_sync_end.sync_channel_signal
 --            comm_e_sync_end_sync_channel_signal                  => spw_e_sync,                  --            comm_e_sync_end.sync_channel_signal
