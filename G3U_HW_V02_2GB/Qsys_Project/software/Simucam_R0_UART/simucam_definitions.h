@@ -22,7 +22,7 @@
 #endif
 
 
-#define N_OF_NFEE       1	/* ONLY for tests */
+#define N_OF_NFEE       2	/* ONLY for tests */
 #define N_OF_FastFEE    2
 
 #define DATA_PACKET		TRUE	/* Using data packet or Transparent mode ( 0 ) */

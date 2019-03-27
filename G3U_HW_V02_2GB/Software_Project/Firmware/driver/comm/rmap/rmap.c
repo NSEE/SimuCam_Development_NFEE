@@ -99,7 +99,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	}
 #endif
 
-	error_codel = OSQPostFront(xFeeQ[0], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+	error_codel = OSQPostFront(xFeeQ[1], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendRMAPFromIRQ( 0 );
 	}
