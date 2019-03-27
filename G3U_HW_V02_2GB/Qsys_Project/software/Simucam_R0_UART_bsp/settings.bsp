@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>20/03/2019 17:08:26</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1553112506013</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>22/03/2019 14:28:31</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1553275711204</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -170,7 +170,7 @@
                 <SettingName>hal.linker.interrupt_stack_size</SettingName>
                 <Identifier>none</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>1024</Value>
+                <Value>2048</Value>
                 <DefaultValue>1024</DefaultValue>
                 <DestinationFile>none</DestinationFile>
                 <Description>Size of the interrupt stack in bytes.</Description>
@@ -1950,21 +1950,9 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811DFFFF</addressRange>
-                <addressSpan>917504</addressSpan>
+                <addressRange>0x81100000 - 0x811F9FFF</addressRange>
+                <addressSpan>1024000</addressSpan>
                 <attributes>memory</attributes>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_D</slaveDescriptor>
-                <addressRange>0x81202000 - 0x812023FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>COMM_Pedreiro_v1_01_C</slaveDescriptor>
-                <addressRange>0x81202400 - 0x812027FF</addressRange>
-                <addressSpan>1024</addressSpan>
-                <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_B</slaveDescriptor>

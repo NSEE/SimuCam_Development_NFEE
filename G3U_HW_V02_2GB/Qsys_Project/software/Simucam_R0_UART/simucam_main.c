@@ -6,6 +6,7 @@
 #include "utils/error_handler_simucam.h"
 #include "utils/communication_configs.h"
 #include "utils/configs_simucam.h"
+#include "utils/configs_bind_channel_FEEinst.h"
 #include "utils/test_module_simucam.h"
 #include "utils/meb.h"
 #include "utils/fee_controller.h"
@@ -288,13 +289,13 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 0 );
 		bSuccess = FALSE;		
 	}
-	/*
+
 	xFeeQ[1] = OSQCreate(&xFeeQueueTBL1[0], N_MSG_FEE);
 	if ( xFeeQ[1] == NULL ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
-
+	/*
 	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
 	if ( xFeeQ[2] == NULL ) {
 		vFailCreateNFEEQueue( 2 );
@@ -327,6 +328,11 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
+	xWaitSyncQFee[1] = OSQCreate(&SyncTBL0[1], N_MSG_SYNC);
+	if ( xWaitSyncQFee[1] == NULL ) {
+		vFailCreateNFEESyncQueue( 1 );
+		bSuccess = FALSE;
+	}
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
@@ -465,9 +471,20 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDebugConfs();
+	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
+	bIniSimucamStatus = vCHConfs();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "Didn't load the bind configuration of the FEEs. \n");
+		}
+		#endif
+		return -1;
+	}
+
+	bIniSimucamStatus = vLoadDebugConfs();
+	if (bIniSimucamStatus == FALSE) {
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
@@ -478,10 +495,9 @@ int main(void)
 
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
-		/* Default configuration for eth connection loaded */
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Didn't load ETH configuration from SDCard. Default configuration will be loaded. \n");
+			debug(fp, "Didn't load ETH configuration from SDCard. \n");
 		}
 		#endif
 		return -1;
@@ -514,6 +530,13 @@ int main(void)
 	vVariablesInitialization();
 
 	bInitSync();
+
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
+		fprintf(fp, "FEE 1 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[1]);
+		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
+		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
+	}
 
 	vFillMemmoryPattern( &xSimMeb );
 
@@ -581,7 +604,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 			fprintf(fp, "Memory %i\n",mem_number);
 		}
 		#endif
-		for( NFee_i = 0; NFee_i < n_of_NFEE_in_mem; NFee_i++ ) {
+		for( NFee_i = 0; NFee_i < N_OF_NFEE; NFee_i++ ) {
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				fprintf(fp, "--NFEE %i\n", NFee_i);

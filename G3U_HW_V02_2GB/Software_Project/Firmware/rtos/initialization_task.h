@@ -13,6 +13,7 @@
 #include "nfee_control_task.h"
 #include "data_control_task.h"
 #include "fee_task.h"
+#include "fee_task1.h"
 #include "sim_meb_task.h"
 #include "sender_com_task.h"
 #include "receiver_uart_task.h"

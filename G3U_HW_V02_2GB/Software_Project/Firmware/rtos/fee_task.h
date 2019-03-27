@@ -21,7 +21,6 @@
 #include "../driver/comm/rmap/rmap.h"
 
 void vFeeTask(void *task_data);
-void vFeeTask0(void *task_data);
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
@@ -39,6 +38,10 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
 void vLoadCtemp(void);
 bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee );
+void vWaitUntilBufferEmpty( unsigned char ucId );
+void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
+void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );
+
 
 #if DEBUG_ON
 	void vPrintConsoleNFee( TNFee *pxNFee );
