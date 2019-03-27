@@ -1,4 +1,3 @@
--- TODO: adicionar delays
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -83,8 +82,6 @@ architecture RTL of masking_machine_ent is
 	-- masking fifo signals
 	signal s_masking_fifo : t_masking_fifo;
 
-	-- TODO: adicionar delays
-
 	-- masking machine fsm type
 	type t_masking_machine_fsm is (
 		STOPPED,
@@ -119,19 +116,37 @@ architecture RTL of masking_machine_ent is
 	signal s_fee_remaining_data_bytes : std_logic_vector(24 downto 0);
 
 	-- delay signals
-	signal s_adc_delay_trigger   : std_logic;
-	signal s_adc_delay_timer     : std_logic_vector(15 downto 0);
-	signal s_adc_delay_busy      : std_logic;
-	signal s_adc_delay_finished  : std_logic;
-	signal s_line_delay_trigger  : std_logic;
-	signal s_line_delay_timer    : std_logic_vector(15 downto 0);
-	signal s_line_delay_busy     : std_logic;
-	signal s_line_delay_finished : std_logic;
+	signal s_adc_delay_trigger     : std_logic;
+	signal s_adc_delay_timer       : std_logic_vector(15 downto 0);
+	signal s_adc_delay_busy        : std_logic;
+	signal s_adc_delay_finished    : std_logic;
+	signal s_column_delay_trigger  : std_logic;
+	signal s_column_delay_timer    : std_logic_vector(15 downto 0);
+	signal s_column_delay_busy     : std_logic;
+	signal s_column_delay_finished : std_logic;
+	signal s_line_delay_trigger    : std_logic;
+	signal s_line_delay_timer      : std_logic_vector(15 downto 0);
+	signal s_line_delay_busy       : std_logic;
+	signal s_line_delay_finished   : std_logic;
 
 	-- column counter
 	signal s_ccd_column_cnt : std_logic_vector((fee_ccd_x_size_i'length - 1) downto 0);
-
+	
 begin
+
+	line_delay_block_ent_inst : entity work.delay_block_ent
+		generic map(
+			g_CLKDIV      => std_logic_vector(to_unsigned(9, 8)),
+			g_TIMER_WIDTH => s_line_delay_timer'length
+		)
+		port map(
+			clk_i            => clk_i,
+			rst_i            => rst_i,
+			delay_trigger_i  => s_line_delay_trigger,
+			delay_timer_i    => s_line_delay_timer,
+			delay_busy_o     => s_line_delay_busy,
+			delay_finished_o => s_line_delay_finished
+		);
 
 	adc_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
@@ -147,18 +162,18 @@ begin
 			delay_finished_o => s_adc_delay_finished
 		);
 
-	line_delay_block_ent_inst : entity work.delay_block_ent
+	column_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(9, 8)),
-			g_TIMER_WIDTH => s_line_delay_timer'length
+			g_CLKDIV      => std_logic_vector(to_unsigned(0, 8)),
+			g_TIMER_WIDTH => s_column_delay_timer'length
 		)
 		port map(
 			clk_i            => clk_i,
 			rst_i            => rst_i,
-			delay_trigger_i  => s_line_delay_trigger,
-			delay_timer_i    => s_line_delay_timer,
-			delay_busy_o     => s_line_delay_busy,
-			delay_finished_o => s_line_delay_finished
+			delay_trigger_i  => s_column_delay_trigger,
+			delay_timer_i    => s_column_delay_timer,
+			delay_busy_o     => s_column_delay_busy,
+			delay_finished_o => s_column_delay_finished
 		);
 
 	-- masking machine fifo instantiation
@@ -234,7 +249,6 @@ begin
 			s_masking_machine_state <= IDLE;
 			s_delay                 <= '0';
 
-			-- TODO: adicionar delays
 			case (s_masking_machine_state) is
 
 				when STOPPED =>
@@ -251,10 +265,12 @@ begin
 					s_delay                        <= '0';
 					s_fee_remaining_data_bytes     <= (others => '0');
 					s_ccd_column_cnt               <= (others => '0');
-					s_adc_delay_trigger            <= '0';
-					s_adc_delay_timer              <= (others => '0');
 					s_line_delay_trigger           <= '0';
 					s_line_delay_timer             <= (others => '0');
+					s_column_delay_trigger         <= '0';
+					s_column_delay_timer           <= (others => '0');
+					s_adc_delay_trigger            <= '0';
+					s_adc_delay_timer              <= (others => '0');
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -274,16 +290,21 @@ begin
 					s_delay                        <= '0';
 					s_fee_remaining_data_bytes     <= (others => '0');
 					s_ccd_column_cnt               <= (others => '0');
-					s_adc_delay_trigger            <= '0';
-					s_adc_delay_timer              <= (others => '0');
 					s_line_delay_trigger           <= '0';
 					s_line_delay_timer             <= (others => '0');
+					s_column_delay_trigger         <= '0';
+					s_column_delay_timer           <= (others => '0');
+					s_adc_delay_trigger            <= '0';
+					s_adc_delay_timer              <= (others => '0');
 					-- check if the fee requested the start of the masking
 					if (fee_start_masking_i = '1') then
+						-- set ccd column counter to execute the first ccd line delay
+						s_ccd_column_cnt <= std_logic_vector(unsigned(fee_ccd_x_size_i) - 1);
 						-- set the remaining data bytes counter to the ccd size 
 						s_fee_remaining_data_bytes <= std_logic_vector(resize((unsigned(fee_ccd_x_size_i) * unsigned(fee_ccd_y_size_i) * 2) - 1, s_fee_remaining_data_bytes'length));
 						-- go to idle
 						s_masking_machine_state    <= IDLE;
+						
 					end if;
 
 				when IDLE =>
@@ -296,10 +317,12 @@ begin
 					s_mask_counter                 <= 0;
 					s_registered_window_data       <= (others => '0');
 					s_registered_window_mask       <= (others => '0');
-					s_adc_delay_trigger            <= '0';
-					s_adc_delay_timer              <= (others => '0');
 					s_line_delay_trigger           <= '0';
 					s_line_delay_timer             <= (others => '0');
+					s_column_delay_trigger         <= '0';
+					s_column_delay_timer           <= (others => '0');
+					s_adc_delay_trigger            <= '0';
+					s_adc_delay_timer              <= (others => '0');
 					-- check if the windowing machine is released and the windowing buffer is ready
 					if ((masking_machine_hold_i = '0') and (window_data_ready_i = '1') and (window_mask_ready_i = '1')) then
 						-- fetch mask and data
@@ -309,14 +332,16 @@ begin
 
 				when MASK_FETCH =>
 					-- check if the delay for the data fetch already happened
-					window_data_read_o   <= '0';
-					window_mask_read_o   <= '0';
-					s_masking_fifo.data  <= (others => '0');
-					s_masking_fifo.wrreq <= '0';
-					s_adc_delay_trigger  <= '0';
-					s_adc_delay_timer    <= (others => '0');
-					s_line_delay_trigger <= '0';
-					s_line_delay_timer   <= (others => '0');
+					window_data_read_o     <= '0';
+					window_mask_read_o     <= '0';
+					s_masking_fifo.data    <= (others => '0');
+					s_masking_fifo.wrreq   <= '0';
+					s_line_delay_trigger   <= '0';
+					s_line_delay_timer     <= (others => '0');
+					s_column_delay_trigger <= '0';
+					s_column_delay_timer   <= (others => '0');
+					s_adc_delay_trigger    <= '0';
+					s_adc_delay_timer      <= (others => '0');
 					if (s_delay = '1') then
 						-- delay happened
 						s_delay                  <= '0';
@@ -332,14 +357,16 @@ begin
 
 				when DATA_FETCH =>
 					-- check if the delay for the data fetch already happened
-					window_data_read_o   <= '0';
-					window_mask_read_o   <= '0';
-					s_masking_fifo.data  <= (others => '0');
-					s_masking_fifo.wrreq <= '0';
-					s_adc_delay_trigger  <= '0';
-					s_adc_delay_timer    <= (others => '0');
-					s_line_delay_trigger <= '0';
-					s_line_delay_timer   <= (others => '0');
+					window_data_read_o     <= '0';
+					window_mask_read_o     <= '0';
+					s_masking_fifo.data    <= (others => '0');
+					s_masking_fifo.wrreq   <= '0';
+					s_line_delay_trigger   <= '0';
+					s_line_delay_timer     <= (others => '0');
+					s_column_delay_trigger <= '0';
+					s_column_delay_timer   <= (others => '0');
+					s_adc_delay_trigger    <= '0';
+					s_adc_delay_timer      <= (others => '0');
 					if (s_delay = '1') then
 						-- delay happened
 						s_delay                        <= '0';
@@ -351,17 +378,15 @@ begin
 						if (s_ccd_column_cnt = std_logic_vector(unsigned(fee_ccd_x_size_i) - 1)) then
 							-- full line processed, go to line delay
 							s_masking_machine_state <= LINE_DELAY;
+							s_line_delay_trigger    <= '1';
+							s_line_delay_timer      <= fee_line_delay_i;
 						else
 							-- middle of a line, go to column delay
 							s_masking_machine_state <= COLUMN_DELAY;
+							s_column_delay_trigger  <= '1';
+							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
-						if (s_masking_machine_return_state /= IDLE) then
-							s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
-						else
-							s_masking_machine_state <= LINE_DELAY;
-						end if;
-						s_line_delay_trigger           <= '1';
-						s_line_delay_timer             <= fee_line_delay_i;
+						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 					else
 						-- delay not happened yet
 						s_delay                 <= '1';
@@ -374,10 +399,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
-					s_adc_delay_trigger     <= '0';
-					s_adc_delay_timer       <= (others => '0');
 					s_line_delay_trigger    <= '0';
 					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -403,10 +430,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
-					s_adc_delay_trigger     <= '0';
-					s_adc_delay_timer       <= (others => '0');
 					s_line_delay_trigger    <= '0';
 					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -420,9 +449,9 @@ begin
 							s_line_delay_timer      <= fee_line_delay_i;
 						else
 							-- middle of a line, go to column delay
-							s_masking_machine_state <= ADC_DELAY;
-							s_adc_delay_trigger     <= '1';
-							s_adc_delay_timer       <= fee_adc_delay_i;
+							s_masking_machine_state <= COLUMN_DELAY;
+							s_column_delay_trigger  <= '1';
+							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						-- check if the bit is masked
@@ -452,10 +481,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
-					s_adc_delay_trigger     <= '0';
-					s_adc_delay_timer       <= (others => '0');
 					s_line_delay_trigger    <= '0';
 					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -481,6 +512,10 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
+					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
 					s_adc_delay_trigger     <= '0';
 					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
@@ -497,9 +532,9 @@ begin
 							s_line_delay_timer      <= fee_line_delay_i;
 						else
 							-- middle of a line, go to column delay
-							s_masking_machine_state <= ADC_DELAY;
-							s_adc_delay_trigger     <= '1';
-							s_adc_delay_timer       <= fee_adc_delay_i;
+							s_masking_machine_state <= COLUMN_DELAY;
+							s_column_delay_trigger  <= '1';
+							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						-- check if the bit is masked
@@ -528,6 +563,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
+					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -553,6 +594,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
+					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -567,9 +614,9 @@ begin
 							s_line_delay_timer      <= fee_line_delay_i;
 						else
 							-- middle of a line, go to column delay
-							s_masking_machine_state <= ADC_DELAY;
-							s_adc_delay_trigger     <= '1';
-							s_adc_delay_timer       <= fee_adc_delay_i;
+							s_masking_machine_state <= COLUMN_DELAY;
+							s_column_delay_trigger  <= '1';
+							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						-- check if the bit is masked
@@ -598,6 +645,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
+					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -623,6 +676,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
+					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if masking fifo is not almost full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
@@ -683,12 +742,18 @@ begin
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
 					s_ccd_column_cnt        <= (others => '0');
-					s_adc_delay_trigger     <= '1';
 					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if the delay finished
 					if (s_line_delay_finished = '1') then
 						-- delay finished
-						s_masking_machine_state <= ADC_DELAY;
+						s_masking_machine_state <= COLUMN_DELAY;
+						s_column_delay_trigger  <= '1';
+						s_column_delay_timer    <= fee_column_delay_i;
 					end if;
 
 				when COLUMN_DELAY =>
@@ -697,12 +762,18 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
-					s_adc_delay_trigger     <= '1';
 					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if the delay finished
-					if (s_adc_delay_finished = '1') then
+					if (s_column_delay_finished = '1') then
 						-- delay finished
 						s_masking_machine_state <= ADC_DELAY;
+						s_adc_delay_trigger     <= '1';
+						s_adc_delay_timer       <= fee_adc_delay_i;
 					end if;
 
 				when ADC_DELAY =>
@@ -711,8 +782,12 @@ begin
 					window_mask_read_o      <= '0';
 					s_masking_fifo.data     <= (others => '0');
 					s_masking_fifo.wrreq    <= '0';
-					s_adc_delay_trigger     <= '0';
 					s_line_delay_trigger    <= '0';
+					s_line_delay_timer      <= (others => '0');
+					s_column_delay_trigger  <= '0';
+					s_column_delay_timer    <= (others => '0');
+					s_adc_delay_trigger     <= '0';
+					s_adc_delay_timer       <= (others => '0');
 					-- check if the delay finished
 					if (s_adc_delay_finished = '1') then
 						-- delay finished
@@ -740,19 +815,5 @@ begin
 	masking_buffer_almost_empty_o <= ('0') when (rst_i = '1')
 		else ('1') when (s_masking_fifo.usedw = std_logic_vector(to_unsigned(1, s_masking_fifo.usedw'length)))
 		else ('0');
-
-	-- TODO: remove
-	-- testbench signal
-	p_testbench_spw_counter : process(clk_i, rst_i) is
-		variable v_tx_data_cnt : natural := 0;
-	begin
-		if (rst_i = '1') then
-			v_tx_data_cnt := 0;
-		elsif rising_edge(clk_i) then
-			if ((s_masking_fifo.wrreq = '1')) then
-				v_tx_data_cnt := v_tx_data_cnt + 1;
-			end if;
-		end if;
-	end process p_testbench_spw_counter;
 
 end architecture RTL;
