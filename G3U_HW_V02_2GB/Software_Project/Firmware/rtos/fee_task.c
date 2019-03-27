@@ -654,6 +654,17 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_FEE_STANDBY_FORCED:
 			case M_FEE_STANDBY:
 				pxNFeeP->xControl.bWatingSync = TRUE;
+
+				/* If a transition to Standby was requested when the FEE is waiting to go to Calibration,
+				 * configure the hardware to not send any data in the next sync */
+				if ( sFeeTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+				}
+
 				pxNFeeP->xControl.eMode = sFeeWaitingSync; /*sSIMTestFullPattern*/
 				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
 				break;

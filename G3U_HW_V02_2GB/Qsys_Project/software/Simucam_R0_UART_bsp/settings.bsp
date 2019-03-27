@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>22/03/2019 14:28:31</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1553275711204</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>27/03/2019 16:26:35</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1553714795734</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -1950,8 +1950,8 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811F9FFF</addressRange>
-                <addressSpan>1024000</addressSpan>
+                <addressRange>0x81100000 - 0x811DFFFF</addressRange>
+                <addressSpan>917504</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
