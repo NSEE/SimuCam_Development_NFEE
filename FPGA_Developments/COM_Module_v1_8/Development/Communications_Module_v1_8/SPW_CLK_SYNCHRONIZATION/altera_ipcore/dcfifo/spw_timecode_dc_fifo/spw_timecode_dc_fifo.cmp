@@ -14,7 +14,7 @@
 --agreement for further details.
 
 
-component spw_timecode_sc_fifo
+component spw_timecode_dc_fifo
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';

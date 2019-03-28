@@ -127,7 +127,7 @@ begin
 
 	-- clk100 tx_data to clk200 --
 	-- dc fifo
-	clk100_to_clk200_spw_data_sc_fifo_inst : entity work.spw_data_sc_fifo
+	clk100_to_clk200_spw_data_dc_fifo_inst : entity work.spw_data_dc_fifo
 		port map(
 			aclr             => rst_i,
 			data(8)          => s_clk100_tx_data_txflag,
@@ -192,7 +192,7 @@ begin
 
 	-- clk100 tx_timecode to clk200 --
 	-- dc fifo
-	clk100_to_clk200_spw_timecode_sc_fifo_inst : entity work.spw_timecode_sc_fifo
+	clk100_to_clk200_spw_timecode_dc_fifo_inst : entity work.spw_timecode_dc_fifo
 		port map(
 			aclr             => rst_i,
 			data(7 downto 6) => s_clk100_tx_timecode_ctrl_in,
@@ -296,7 +296,7 @@ begin
 
 	-- clk200 rx_data to clk100 --
 	-- dc fifo
-	clk200_to_clk100_spw_data_sc_fifo_inst : entity work.spw_data_sc_fifo
+	clk200_to_clk100_spw_data_dc_fifo_inst : entity work.spw_data_dc_fifo
 		port map(
 			aclr             => rst_i,
 			data(8)          => s_clk200_rx_data_rxflag,
@@ -370,7 +370,7 @@ begin
 
 	-- clk200 rx_timecode to clk100 --
 	-- dc fifo
-	clk200_to_clk100_spw_timecode_sc_fifo_inst : entity work.spw_timecode_sc_fifo
+	clk200_to_clk100_spw_timecode_dc_fifo_inst : entity work.spw_timecode_dc_fifo
 		port map(
 			aclr             => rst_i,
 			data(7 downto 6) => s_clk200_rx_timecode_ctrl_out,

@@ -1,4 +1,4 @@
-spw_data_sc_fifo_inst : spw_data_sc_fifo PORT MAP (
+spw_data_dc_fifo_inst : spw_data_dc_fifo PORT MAP (
 		aclr	 => aclr_sig,
 		data	 => data_sig,
 		rdclk	 => rdclk_sig,
