@@ -14,7 +14,7 @@
 --agreement for further details.
 
 
-component scfifo_data_buffer
+component send_buffer_0_sc_fifo
 	PORT
 	(
 		aclr		: IN STD_LOGIC ;

@@ -4,7 +4,7 @@
 -- MODULE: scfifo 
 
 -- ============================================================
--- File Name: scfifo_data_buffer.vhd
+-- File Name: send_buffer_1_sc_fifo.vhd
 -- Megafunction Name(s):
 -- 			scfifo
 --
@@ -40,7 +40,7 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY scfifo_data_buffer IS
+ENTITY send_buffer_1_sc_fifo IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC ;
@@ -56,10 +56,10 @@ ENTITY scfifo_data_buffer IS
 		q		: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 		usedw		: OUT STD_LOGIC_VECTOR (14 DOWNTO 0)
 	);
-END scfifo_data_buffer;
+END send_buffer_1_sc_fifo;
 
 
-ARCHITECTURE SYN OF scfifo_data_buffer IS
+ARCHITECTURE SYN OF send_buffer_1_sc_fifo IS
 
 	SIGNAL sub_wire0	: STD_LOGIC ;
 	SIGNAL sub_wire1	: STD_LOGIC ;
@@ -76,6 +76,7 @@ ARCHITECTURE SYN OF scfifo_data_buffer IS
 		almost_empty_value		: NATURAL;
 		almost_full_value		: NATURAL;
 		intended_device_family		: STRING;
+		lpm_hint		: STRING;
 		lpm_numwords		: NATURAL;
 		lpm_showahead		: STRING;
 		lpm_type		: STRING;
@@ -115,6 +116,7 @@ BEGIN
 		almost_empty_value => 2,
 		almost_full_value => 32766,
 		intended_device_family => "Stratix IV",
+		lpm_hint => "RAM_BLOCK_TYPE=M9K",
 		lpm_numwords => 32768,
 		lpm_showahead => "OFF",
 		lpm_type => "scfifo",
@@ -147,9 +149,9 @@ END SYN;
 -- CNX file retrieval info
 -- ============================================================
 -- Retrieval info: PRIVATE: AlmostEmpty NUMERIC "1"
--- Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "1"
+-- Retrieval info: PRIVATE: AlmostEmptyThr NUMERIC "2"
 -- Retrieval info: PRIVATE: AlmostFull NUMERIC "1"
--- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "32767"
+-- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "32766"
 -- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 -- Retrieval info: PRIVATE: Clock NUMERIC "0"
 -- Retrieval info: PRIVATE: Depth NUMERIC "32768"
@@ -161,7 +163,7 @@ END SYN;
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -180,9 +182,10 @@ END SYN;
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
--- Retrieval info: CONSTANT: ALMOST_EMPTY_VALUE NUMERIC "1"
--- Retrieval info: CONSTANT: ALMOST_FULL_VALUE NUMERIC "32767"
+-- Retrieval info: CONSTANT: ALMOST_EMPTY_VALUE NUMERIC "2"
+-- Retrieval info: CONSTANT: ALMOST_FULL_VALUE NUMERIC "32766"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "32768"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
@@ -215,10 +218,10 @@ END SYN;
 -- Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 8 0 @q 0 0 8 0
 -- Retrieval info: CONNECT: usedw 0 0 15 0 @usedw 0 0 15 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL scfifo_data_buffer.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL scfifo_data_buffer.inc TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL scfifo_data_buffer.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL scfifo_data_buffer.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL scfifo_data_buffer_inst.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL scfifo_data_buffer_syn.v TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL send_buffer_1_sc_fifo.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL send_buffer_1_sc_fifo.inc TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL send_buffer_1_sc_fifo.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL send_buffer_1_sc_fifo.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL send_buffer_1_sc_fifo_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL send_buffer_1_sc_fifo_syn.v TRUE
 -- Retrieval info: LIB_FILE: altera_mf

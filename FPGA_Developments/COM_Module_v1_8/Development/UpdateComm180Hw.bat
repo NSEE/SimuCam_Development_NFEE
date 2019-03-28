@@ -1,7 +1,7 @@
 @echo off
 PUSHD "%~dp0"
 REM Copia da pasta de projeto para o HW Project
-ROBOCOPY "Communications_Module_v1_8" "..\..\..\G3U_HW_V02_2GB\Hardware_Project\Avalon\Communications_Module_v1_8" /E /R:0 /W:0 /NJH /NJS
+ROBOCOPY "Communications_Module_v1_8" "..\..\..\G3U_HW_V02_2GB\Hardware_Project\Avalon\Communications_Module_v1_8" /MIR /E /R:0 /W:0 /NJH /NJS
 ROBOCOPY "..\Development" "..\..\..\G3U_HW_V02_2GB\Hardware_Project\Avalon" "COMM_Pedreiro_v1_01_hw.tcl" /R:0 /W:0 /NJH /NJS
 REM Copia dos arquivos individuais para o Qsys_Project >> MebX_Qsys_Project >> synthesis >> submodules
 ROBOCOPY "Communications_Module_v1_8/REGISTERS" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "avalon_mm_spacewire_registers_pkg.vhd" /R:0 /W:0 /NJH /NJS
@@ -46,12 +46,13 @@ ROBOCOPY "Communications_Module_v1_8/RMAP_TARGET" "..\..\..\G3U_HW_V02_2GB\Qsys_
 ROBOCOPY "Communications_Module_v1_8/RMAP_TARGET" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "rmap_target_user_ent.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/RMAP_TARGET" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "rmap_target_top.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "delay_block_ent.vhd" /R:0 /W:0 /NJH /NJS
-ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "masking_machine_sc_fifo.vhd" /R:0 /W:0 /NJH /NJS
+ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE/altera_ip/scfifo/masking_machine_sc_fifo" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "masking_machine_sc_fifo.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/MASKING_MACHINE" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "masking_machine_ent.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "data_packet_header_gen_ent.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "data_packet_hk_writer_ent.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_PACKET" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "data_packet_data_writer_ent.vhd" /R:0 /W:0 /NJH /NJS
-ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "scfifo_data_buffer.vhd" /R:0 /W:0 /NJH /NJS
+ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_0_sc_fifo" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "send_buffer_0_sc_fifo.vhd" /R:0 /W:0 /NJH /NJS
+ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER/altera_ip/scfifo/send_buffer_0_sc_fifo" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "send_buffer_1_sc_fifo.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/SEND_BUFFER" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "send_buffer_ent.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/DATA_TRANSMITTER" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "data_transmitter_ent.vhd" /R:0 /W:0 /NJH /NJS
 ROBOCOPY "Communications_Module_v1_8/FEE_DATA_CONTROLLER/FEE_DATA_MANAGER" "..\..\..\G3U_HW_V02_2GB\Qsys_Project\MebX_Qsys_Project\synthesis\submodules" "fee_master_data_manager_ent.vhd" /R:0 /W:0 /NJH /NJS

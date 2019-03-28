@@ -83,7 +83,7 @@ architecture RTL of send_buffer_ent is
 begin
 
 	-- data fifo 0 instantiation
-	scfifo_data_buffer_0_inst : entity work.scfifo_data_buffer
+	send_buffer_0_sc_fifo_inst : entity work.send_buffer_0_sc_fifo
 		port map(
 			aclr         => rst_i,
 			clock        => clk_i,
@@ -100,7 +100,7 @@ begin
 		);
 
 	-- data fifo 1 instantiation
-	scfifo_data_buffer_1_inst : entity work.scfifo_data_buffer
+	send_buffer_1_sc_fifo_inst : entity work.send_buffer_1_sc_fifo
 		port map(
 			aclr         => rst_i,
 			clock        => clk_i,

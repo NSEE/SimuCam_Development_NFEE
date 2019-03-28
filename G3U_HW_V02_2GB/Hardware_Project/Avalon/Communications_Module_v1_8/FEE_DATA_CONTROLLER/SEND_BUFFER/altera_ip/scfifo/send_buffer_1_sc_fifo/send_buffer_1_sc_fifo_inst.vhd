@@ -1,4 +1,4 @@
-scfifo_data_buffer_inst : scfifo_data_buffer PORT MAP (
+send_buffer_1_sc_fifo_inst : send_buffer_1_sc_fifo PORT MAP (
 		aclr	 => aclr_sig,
 		clock	 => clock_sig,
 		data	 => data_sig,

@@ -14,7 +14,7 @@
 --agreement for further details.
 
 
-FUNCTION scfifo_data_buffer 
+FUNCTION send_buffer_1_sc_fifo 
 (
 	aclr,
 	clock,
