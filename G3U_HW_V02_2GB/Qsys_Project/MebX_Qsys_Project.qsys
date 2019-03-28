@@ -1804,48 +1804,48 @@
    kind="COMM_Pedreiro_v1_01"
    version="1.8"
    enabled="1">
-  <parameter name="g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="1" />
+  <parameter name="g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="2" />
   <parameter name="g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE" value="3" />
-  <parameter name="g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
-  <parameter name="g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="1" />
+  <parameter name="g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="3" />
+  <parameter name="g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="2" />
   <parameter name="g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE" value="3" />
-  <parameter name="g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
-  <parameter name="g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE" value="1" />
+  <parameter name="g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="3" />
+  <parameter name="g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE" value="2" />
  </module>
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
    version="1.8"
    enabled="1">
-  <parameter name="g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="1" />
+  <parameter name="g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="2" />
   <parameter name="g_LEFT_SEND_FIFO_0_MEMORY_BLOCK_TYPE" value="3" />
-  <parameter name="g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
-  <parameter name="g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="1" />
+  <parameter name="g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="3" />
+  <parameter name="g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE" value="2" />
   <parameter name="g_RIGH_SEND_FIFO_0_MEMORY_BLOCK_TYPE" value="3" />
-  <parameter name="g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
-  <parameter name="g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="1" />
-  <parameter name="g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE" value="1" />
+  <parameter name="g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE" value="3" />
+  <parameter name="g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE" value="2" />
+  <parameter name="g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE" value="2" />
  </module>
  <module
    name="COMM_Pedreiro_v1_01_C"

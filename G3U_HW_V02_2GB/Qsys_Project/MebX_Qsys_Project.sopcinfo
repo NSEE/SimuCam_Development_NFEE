@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.03.27.14:33:04 -->
+ <!-- 2019.03.28.12:17:14 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1553707984</value>
+  <value>1553786234</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -730,7 +730,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -738,7 +738,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -746,7 +746,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -754,7 +754,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -762,7 +762,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -770,7 +770,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -778,7 +778,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -786,7 +786,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -794,7 +794,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -810,7 +810,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -818,7 +818,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -834,7 +834,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -842,7 +842,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -850,7 +850,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -858,7 +858,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -866,7 +866,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2431,7 +2431,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="g_RIGH_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2439,7 +2439,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2447,7 +2447,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2455,7 +2455,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2463,7 +2463,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDDATA_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2471,7 +2471,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDMASK_FIFO_0_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2479,7 +2479,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDDATA_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2487,7 +2487,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_WINDMASK_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2495,7 +2495,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_MASKING_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2511,7 +2511,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_RIGH_SEND_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2519,7 +2519,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_MASKING_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2535,7 +2535,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_LEFT_SEND_FIFO_1_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>2</value>
+   <value>3</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2543,7 +2543,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_TX_SPW_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2551,7 +2551,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_TX_TC_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2559,7 +2559,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_RX_SPW_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -2567,7 +2567,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="g_SYNC_RX_TC_FIFO_MEMORY_BLOCK_TYPE">
    <type>int</type>
-   <value>1</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -66632,7 +66632,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1553707984</value>
+   <value>1553786234</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -66652,7 +66652,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1553707984</value>
+   <value>1553786234</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -66668,7 +66668,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1553707984</value>
+   <value>1553786234</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
