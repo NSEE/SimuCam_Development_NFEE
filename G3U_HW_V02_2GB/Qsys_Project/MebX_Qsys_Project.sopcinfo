@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.03.28.18:41:39 -->
+ <!-- 2019.03.28.21:47:46 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1553809298</value>
+  <value>1553820465</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -55649,98 +55649,98 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>buffers_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_C.buffers_interrupt_sender</name>
-    <interruptNumber>13</interruptNumber>
+    <interruptNumber>2</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>buffers_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_D.buffers_interrupt_sender</name>
-    <interruptNumber>15</interruptNumber>
+    <interruptNumber>3</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>csr_irq</slaveName>
     <name>dma_DDR_M1.csr_irq</name>
-    <interruptNumber>2</interruptNumber>
+    <interruptNumber>4</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>dma_DDR_M2</moduleName>
     <slaveName>csr_irq</slaveName>
     <name>dma_DDR_M2.csr_irq</name>
-    <interruptNumber>3</interruptNumber>
+    <interruptNumber>5</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>sync</moduleName>
     <slaveName>interrupt_sender</slaveName>
     <name>sync.interrupt_sender</name>
-    <interruptNumber>4</interruptNumber>
+    <interruptNumber>6</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>irq</slaveName>
     <name>jtag_uart_0.irq</name>
-    <interruptNumber>5</interruptNumber>
+    <interruptNumber>7</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>timer_1ms</moduleName>
     <slaveName>irq</slaveName>
     <name>timer_1ms.irq</name>
-    <interruptNumber>6</interruptNumber>
+    <interruptNumber>8</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>timer_1us</moduleName>
     <slaveName>irq</slaveName>
     <name>timer_1us.irq</name>
-    <interruptNumber>7</interruptNumber>
+    <interruptNumber>9</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>pio_EXT</moduleName>
     <slaveName>irq</slaveName>
     <name>pio_EXT.irq</name>
-    <interruptNumber>8</interruptNumber>
+    <interruptNumber>10</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>rs232_uart</moduleName>
     <slaveName>irq</slaveName>
     <name>rs232_uart.irq</name>
-    <interruptNumber>9</interruptNumber>
+    <interruptNumber>11</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_B.rmap_interrupt_sender</name>
-    <interruptNumber>10</interruptNumber>
+    <interruptNumber>12</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_A.rmap_interrupt_sender</name>
-    <interruptNumber>11</interruptNumber>
+    <interruptNumber>13</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_C.rmap_interrupt_sender</name>
-    <interruptNumber>12</interruptNumber>
+    <interruptNumber>14</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_D.rmap_interrupt_sender</name>
-    <interruptNumber>14</interruptNumber>
+    <interruptNumber>15</interruptNumber>
    </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="16.1">
@@ -69566,7 +69566,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1553809298</value>
+   <value>1553820465</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -69586,7 +69586,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1553809298</value>
+   <value>1553820465</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -69602,7 +69602,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1553809298</value>
+   <value>1553820465</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -78747,7 +78747,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_C.buffers_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>13</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78782,7 +78782,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_D.buffers_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>15</value>
+   <value>3</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78817,7 +78817,7 @@ parameters are a RESULT of the module parameters. -->
    end="dma_DDR_M1.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>2</value>
+   <value>4</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78852,7 +78852,7 @@ parameters are a RESULT of the module parameters. -->
    end="dma_DDR_M2.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>3</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78887,7 +78887,7 @@ parameters are a RESULT of the module parameters. -->
    end="sync.interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>4</value>
+   <value>6</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78922,7 +78922,7 @@ parameters are a RESULT of the module parameters. -->
    end="jtag_uart_0.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>5</value>
+   <value>7</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78957,7 +78957,7 @@ parameters are a RESULT of the module parameters. -->
    end="timer_1ms.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>6</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78992,7 +78992,7 @@ parameters are a RESULT of the module parameters. -->
    end="timer_1us.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>7</value>
+   <value>9</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79027,7 +79027,7 @@ parameters are a RESULT of the module parameters. -->
    end="pio_EXT.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>8</value>
+   <value>10</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79062,7 +79062,7 @@ parameters are a RESULT of the module parameters. -->
    end="rs232_uart.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>9</value>
+   <value>11</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79097,7 +79097,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_B.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>10</value>
+   <value>12</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79132,7 +79132,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_A.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>11</value>
+   <value>13</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79167,7 +79167,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_C.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>12</value>
+   <value>14</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79202,7 +79202,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_D.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>14</value>
+   <value>15</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>

@@ -603,14 +603,14 @@ SOPC_INST : MebX_Qsys_Project
 	comm_b_conduit_end_strobe_in_signal  => spw_b_si(0),
 	comm_b_conduit_end_data_out_signal   => spw_b_do(0),
 	comm_b_conduit_end_strobe_out_signal => spw_b_so(0),
---	comm_c_conduit_end_data_in_signal    => spw_c_di(0),
---	comm_c_conduit_end_strobe_in_signal  => spw_c_si(0),
---	comm_c_conduit_end_data_out_signal   => spw_c_do(0),
---	comm_c_conduit_end_strobe_out_signal => spw_c_so(0),
---	comm_d_conduit_end_data_in_signal    => spw_d_di(0),
---	comm_d_conduit_end_strobe_in_signal  => spw_d_si(0),
---	comm_d_conduit_end_data_out_signal   => spw_d_do(0),
---	comm_d_conduit_end_strobe_out_signal => spw_d_so(0),
+	comm_c_conduit_end_data_in_signal    => spw_c_di(0),
+	comm_c_conduit_end_strobe_in_signal  => spw_c_si(0),
+	comm_c_conduit_end_data_out_signal   => spw_c_do(0),
+	comm_c_conduit_end_strobe_out_signal => spw_c_so(0),
+	comm_d_conduit_end_data_in_signal    => spw_d_di(0),
+	comm_d_conduit_end_strobe_in_signal  => spw_d_si(0),
+	comm_d_conduit_end_data_out_signal   => spw_d_do(0),
+	comm_d_conduit_end_strobe_out_signal => spw_d_so(0),
 --	comm_e_conduit_end_data_in_signal    => spw_e_di(0),
 --	comm_e_conduit_end_strobe_in_signal  => spw_e_si(0),
 --	comm_e_conduit_end_data_out_signal   => spw_e_do(0),
@@ -630,8 +630,8 @@ SOPC_INST : MebX_Qsys_Project
 	
             comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
             comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
---            comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
---            comm_d_sync_end_sync_channel_signal                  => spw_d_sync,                  --            comm_d_sync_end.sync_channel_signal
+            comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
+            comm_d_sync_end_sync_channel_signal                  => spw_d_sync,                  --            comm_d_sync_end.sync_channel_signal
 --            comm_e_sync_end_sync_channel_signal                  => spw_e_sync,                  --            comm_e_sync_end.sync_channel_signal
 --            comm_f_sync_end_sync_channel_signal                  => spw_f_sync,                  --            comm_f_sync_end.sync_channel_signal
 --            comm_g_sync_end_sync_channel_signal                  => spw_g_sync,                  --            comm_g_sync_end.sync_channel_signal
