@@ -295,7 +295,7 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
-	/*
+
 	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
 	if ( xFeeQ[2] == NULL ) {
 		vFailCreateNFEEQueue( 2 );
@@ -303,11 +303,11 @@ bool bResourcesInitRTOS( void ) {
 	}
 	
 	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
-	if ( xFeeQ[0] == NULL ) {
+	if ( xFeeQ[3] == NULL ) {
 		vFailCreateNFEEQueue( 3 );
 		bSuccess = FALSE;		
 	}
-
+/*
 	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
 	if ( xFeeQ[4] == NULL ) {
 		vFailCreateNFEEQueue( 4 );
@@ -328,9 +328,21 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
-	xWaitSyncQFee[1] = OSQCreate(&SyncTBL0[1], N_MSG_SYNC);
+	xWaitSyncQFee[0] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
 	if ( xWaitSyncQFee[1] == NULL ) {
 		vFailCreateNFEESyncQueue( 1 );
+		bSuccess = FALSE;
+	}
+
+	xWaitSyncQFee[2] = OSQCreate(&SyncTBL2[0], N_MSG_SYNC);
+	if ( xWaitSyncQFee[2] == NULL ) {
+		vFailCreateNFEESyncQueue( 2 );
+		bSuccess = FALSE;
+	}
+
+	xWaitSyncQFee[3] = OSQCreate(&SyncTBL3[0], N_MSG_SYNC);
+	if ( xWaitSyncQFee[3] == NULL ) {
+		vFailCreateNFEESyncQueue( 3 );
 		bSuccess = FALSE;
 	}
 
@@ -585,10 +597,8 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	alt_u8 ccd_side;
 	alt_u32 width_cols;
 	alt_u32 height_rows;
-	alt_u8 n_of_NFEE_in_mem;
 	alt_u8 NFee_i;
 
-	n_of_NFEE_in_mem = 1;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {

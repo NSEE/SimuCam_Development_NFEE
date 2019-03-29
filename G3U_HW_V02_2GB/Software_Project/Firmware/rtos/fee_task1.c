@@ -407,7 +407,7 @@ void vFeeTask1(void *task_data) {
 	                    if ( error_code == OS_ERR_NONE ) {
 	                    	pxNFee->xControl.bDMALocked = TRUE;
 
-							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee );
+							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee, ucIterationSide );
 							OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 							pxNFee->xControl.bDMALocked = FALSE;
 
@@ -631,7 +631,5 @@ void vFeeTask1(void *task_data) {
 				#endif
 				break;
 		}
-
 	}
-
 }
