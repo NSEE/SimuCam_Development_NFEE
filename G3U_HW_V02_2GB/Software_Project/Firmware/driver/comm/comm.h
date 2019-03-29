@@ -13,14 +13,14 @@
 
 //! [constants definition]
 // irq numbers
-#define COMM_CH_1_RMAP_IRQ              9
-#define COMM_CH_1_BUFFERS_IRQ           0
-#define COMM_CH_2_RMAP_IRQ              10
-#define COMM_CH_2_BUFFERS_IRQ           11
-#define COMM_CH_3_RMAP_IRQ              -1
-#define COMM_CH_3_BUFFERS_IRQ           -1
-#define COMM_CH_4_RMAP_IRQ              -1
-#define COMM_CH_4_BUFFERS_IRQ           -1
+#define COMM_CH_1_RMAP_IRQ              13
+#define COMM_CH_1_BUFFERS_IRQ           1
+#define COMM_CH_2_RMAP_IRQ              12
+#define COMM_CH_2_BUFFERS_IRQ           0
+#define COMM_CH_3_RMAP_IRQ              14
+#define COMM_CH_3_BUFFERS_IRQ           2
+#define COMM_CH_4_RMAP_IRQ              15
+#define COMM_CH_4_BUFFERS_IRQ           3
 #define COMM_CH_5_RMAP_IRQ              -1
 #define COMM_CH_5_BUFFERS_IRQ           -1
 #define COMM_CH_6_RMAP_IRQ              -1
@@ -32,12 +32,12 @@
 // address
 #define COMM_CHANNEL_1_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_2_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
-#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
-#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_3_BASE_ADDR        COMM_PEDREIRO_V1_01_C_BASE
+#define COMM_CHANNEL_4_BASE_ADDR        COMM_PEDREIRO_V1_01_D_BASE
 #define COMM_CHANNEL_5_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
-#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
-#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+#define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_C_BASE
+#define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_D_BASE
 // address offset
 #define COMM_LINK_CFG_STAT_REG_OFST      0x00
 #define COMM_TIMECODE_REG_OFST           0x01

@@ -135,12 +135,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh3RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh3LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -153,12 +153,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh4RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh4LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -171,12 +171,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh5RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh5LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -189,12 +189,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh6RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh6LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -207,12 +207,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh7RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh7LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -225,12 +225,12 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh8RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh8LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -332,12 +332,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_3_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh3RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_3_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh3LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -350,12 +350,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_4_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh4RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_4_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh4LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -368,12 +368,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_5_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh5RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_5_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh5LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -386,12 +386,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_6_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh6RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_6_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh6LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -404,12 +404,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_7_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh7RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_7_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh7LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;
@@ -422,12 +422,12 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		case eSdmaRightBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_8_R_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh8RightBufferEmpty();
 			break;
 		case eSdmaLeftBuffer:
 			uliDestAddrLow = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_LOW;
 			uliDestAddrHigh = (alt_u32) SDMA_CH_8_L_BUFF_BASE_ADDR_HIGH;
-			bBufferEmptyFlag = FALSE;
+			bBufferEmptyFlag = bFeebGetCh8LeftBufferEmpty();
 			break;
 		default:
 			bChannelFlag = FALSE;

@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>27/03/2019 16:26:35</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1553714795734</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>29/03/2019 10:47:07</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1553867227484</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1953,6 +1953,18 @@
                 <addressRange>0x81100000 - 0x811DFFFF</addressRange>
                 <addressSpan>917504</addressSpan>
                 <attributes>memory</attributes>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_D</slaveDescriptor>
+                <addressRange>0x81202000 - 0x812023FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>COMM_Pedreiro_v1_01_C</slaveDescriptor>
+                <addressRange>0x81202400 - 0x812027FF</addressRange>
+                <addressSpan>1024</addressSpan>
+                <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_B</slaveDescriptor>
