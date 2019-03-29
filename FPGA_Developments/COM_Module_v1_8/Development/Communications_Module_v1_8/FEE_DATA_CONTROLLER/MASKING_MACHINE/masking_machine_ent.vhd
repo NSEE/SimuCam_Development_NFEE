@@ -3,9 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity masking_machine_ent is
-	generic(
-		g_FIFO_MEMORY_BLOCK_TYPE : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
-	);
 	port(
 		clk_i                         : in  std_logic;
 		rst_i                         : in  std_logic;
@@ -175,53 +172,20 @@ begin
 			delay_busy_o     => s_column_delay_busy,
 			delay_finished_o => s_column_delay_finished
 		);
-
-	-- masking machine fifo instantiation
-	mlab_masking_machine_sc_fifo_inst : if (g_FIFO_MEMORY_BLOCK_TYPE = 1) generate
-		masking_machine_sc_fifo_inst : entity work.mlab_masking_machine_sc_fifo
-			port map(
-				aclr  => rst_i,
-				clock => clk_i,
-				data  => s_masking_fifo.data,
-				rdreq => masking_buffer_rdreq_i,
-				sclr  => s_masking_fifo.sclr,
-				wrreq => s_masking_fifo.wrreq,
-				empty => masking_buffer_empty_o,
-				full  => s_masking_fifo.full,
-				q     => masking_buffer_rddata_o,
-				usedw => s_masking_fifo.usedw
-			);
-	end generate mlab_masking_machine_sc_fifo_inst;
-	m9k_masking_machine_sc_fifo_inst : if (g_FIFO_MEMORY_BLOCK_TYPE = 2) generate
-		masking_machine_sc_fifo_inst : entity work.m9k_masking_machine_sc_fifo
-			port map(
-				aclr  => rst_i,
-				clock => clk_i,
-				data  => s_masking_fifo.data,
-				rdreq => masking_buffer_rdreq_i,
-				sclr  => s_masking_fifo.sclr,
-				wrreq => s_masking_fifo.wrreq,
-				empty => masking_buffer_empty_o,
-				full  => s_masking_fifo.full,
-				q     => masking_buffer_rddata_o,
-				usedw => s_masking_fifo.usedw
-			);
-	end generate m9k_masking_machine_sc_fifo_inst;
-	m144k_masking_machine_sc_fifo_inst : if (g_FIFO_MEMORY_BLOCK_TYPE = 3) generate
-		masking_machine_sc_fifo_inst : entity work.m144k_masking_machine_sc_fifo
-			port map(
-				aclr  => rst_i,
-				clock => clk_i,
-				data  => s_masking_fifo.data,
-				rdreq => masking_buffer_rdreq_i,
-				sclr  => s_masking_fifo.sclr,
-				wrreq => s_masking_fifo.wrreq,
-				empty => masking_buffer_empty_o,
-				full  => s_masking_fifo.full,
-				q     => masking_buffer_rddata_o,
-				usedw => s_masking_fifo.usedw
-			);
-	end generate m144k_masking_machine_sc_fifo_inst;
+	-- masking buffer instantiation
+	masking_machine_sc_fifo_inst : entity work.masking_machine_sc_fifo
+		port map(
+			aclr  => rst_i,
+			clock => clk_i,
+			data  => s_masking_fifo.data,
+			rdreq => masking_buffer_rdreq_i,
+			sclr  => s_masking_fifo.sclr,
+			wrreq => s_masking_fifo.wrreq,
+			empty => masking_buffer_empty_o,
+			full  => s_masking_fifo.full,
+			q     => masking_buffer_rddata_o,
+			usedw => s_masking_fifo.usedw
+		);
 
 	p_masking_machine : process(clk_i, rst_i) is
 	begin

@@ -102,7 +102,7 @@ BEGIN
 
 	scfifo_component : scfifo
 	GENERIC MAP (
-		add_ram_output_register => "ON",
+		add_ram_output_register => "OFF",
 		intended_device_family => "Stratix IV",
 		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
 		lpm_numwords => 256,
@@ -167,7 +167,7 @@ END SYN;
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "ON"
+-- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "256"
