@@ -3,10 +3,6 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity send_buffer_ent is
-	generic(
-		g_FIFO_0_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_FIFO_1_MEMORY_BLOCK_TYPE : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
-	);
 	port(
 		clk_i                      : in  std_logic;
 		rst_i                      : in  std_logic;
@@ -27,8 +23,7 @@ entity send_buffer_ent is
 		buffer_stat_full_o         : out std_logic;
 		buffer_rddata_o            : out std_logic_vector(7 downto 0);
 		buffer_rdready_o           : out std_logic;
-		buffer_wrready_o           : out std_logic;
-		double_buffer_empty_o      : out std_logic
+		buffer_wrready_o           : out std_logic
 	);
 end entity send_buffer_ent;
 
@@ -88,110 +83,38 @@ architecture RTL of send_buffer_ent is
 begin
 
 	-- data fifo 0 instantiation
-	mlab_scfifo_data_buffer_0_inst : if (g_FIFO_0_MEMORY_BLOCK_TYPE = 1) generate
-		scfifo_data_buffer_0_inst : entity work.mlab_scfifo_data_buffer
-			port map(
-				aclr         => rst_i,
-				clock        => clk_i,
-				data         => s_data_fifo_0.data,
-				rdreq        => s_data_fifo_0.rdreq,
-				sclr         => s_data_fifo_0.sclr,
-				wrreq        => s_data_fifo_0.wrreq,
-				almost_empty => s_data_fifo_0.almost_empty,
-				almost_full  => s_data_fifo_0.almost_full,
-				empty        => s_data_fifo_0.empty,
-				full         => s_data_fifo_0.full,
-				q            => s_data_fifo_0.q,
-				usedw        => s_data_fifo_0.usedw
-			);
-	end generate mlab_scfifo_data_buffer_0_inst;
-	m9k_scfifo_data_buffer_0_inst : if (g_FIFO_0_MEMORY_BLOCK_TYPE = 2) generate
-		scfifo_data_buffer_0_inst : entity work.m9k_scfifo_data_buffer
-			port map(
-				aclr         => rst_i,
-				clock        => clk_i,
-				data         => s_data_fifo_0.data,
-				rdreq        => s_data_fifo_0.rdreq,
-				sclr         => s_data_fifo_0.sclr,
-				wrreq        => s_data_fifo_0.wrreq,
-				almost_empty => s_data_fifo_0.almost_empty,
-				almost_full  => s_data_fifo_0.almost_full,
-				empty        => s_data_fifo_0.empty,
-				full         => s_data_fifo_0.full,
-				q            => s_data_fifo_0.q,
-				usedw        => s_data_fifo_0.usedw
-			);
-	end generate m9k_scfifo_data_buffer_0_inst;
-	m144k_scfifo_data_buffer_0_inst : if (g_FIFO_0_MEMORY_BLOCK_TYPE = 3) generate
-		scfifo_data_buffer_0_inst : entity work.m144k_scfifo_data_buffer
-			port map(
-				aclr         => rst_i,
-				clock        => clk_i,
-				data         => s_data_fifo_0.data,
-				rdreq        => s_data_fifo_0.rdreq,
-				sclr         => s_data_fifo_0.sclr,
-				wrreq        => s_data_fifo_0.wrreq,
-				almost_empty => s_data_fifo_0.almost_empty,
-				almost_full  => s_data_fifo_0.almost_full,
-				empty        => s_data_fifo_0.empty,
-				full         => s_data_fifo_0.full,
-				q            => s_data_fifo_0.q,
-				usedw        => s_data_fifo_0.usedw
-			);
-	end generate m144k_scfifo_data_buffer_0_inst;
+	send_buffer_0_sc_fifo_inst : entity work.send_buffer_0_sc_fifo
+		port map(
+			aclr         => rst_i,
+			clock        => clk_i,
+			data         => s_data_fifo_0.data,
+			rdreq        => s_data_fifo_0.rdreq,
+			sclr         => s_data_fifo_0.sclr,
+			wrreq        => s_data_fifo_0.wrreq,
+			almost_empty => s_data_fifo_0.almost_empty,
+			almost_full  => s_data_fifo_0.almost_full,
+			empty        => s_data_fifo_0.empty,
+			full         => s_data_fifo_0.full,
+			q            => s_data_fifo_0.q,
+			usedw        => s_data_fifo_0.usedw
+		);
 
-	-- data fifo 1 instantiation		
-	mlab_scfifo_data_buffer_1_inst : if (g_FIFO_1_MEMORY_BLOCK_TYPE = 1) generate
-		scfifo_data_buffer_1_inst : entity work.mlab_scfifo_data_buffer
-			port map(
-				aclr         => rst_i,
-				clock        => clk_i,
-				data         => s_data_fifo_1.data,
-				rdreq        => s_data_fifo_1.rdreq,
-				sclr         => s_data_fifo_1.sclr,
-				wrreq        => s_data_fifo_1.wrreq,
-				almost_empty => s_data_fifo_1.almost_empty,
-				almost_full  => s_data_fifo_1.almost_full,
-				empty        => s_data_fifo_1.empty,
-				full         => s_data_fifo_1.full,
-				q            => s_data_fifo_1.q,
-				usedw        => s_data_fifo_1.usedw
-			);
-	end generate mlab_scfifo_data_buffer_1_inst;
-	m9k_scfifo_data_buffer_1_inst : if (g_FIFO_1_MEMORY_BLOCK_TYPE = 2) generate
-		scfifo_data_buffer_1_inst : entity work.m9k_scfifo_data_buffer
-			port map(
-				aclr         => rst_i,
-				clock        => clk_i,
-				data         => s_data_fifo_1.data,
-				rdreq        => s_data_fifo_1.rdreq,
-				sclr         => s_data_fifo_1.sclr,
-				wrreq        => s_data_fifo_1.wrreq,
-				almost_empty => s_data_fifo_1.almost_empty,
-				almost_full  => s_data_fifo_1.almost_full,
-				empty        => s_data_fifo_1.empty,
-				full         => s_data_fifo_1.full,
-				q            => s_data_fifo_1.q,
-				usedw        => s_data_fifo_1.usedw
-			);
-	end generate m9k_scfifo_data_buffer_1_inst;
-	m144k_scfifo_data_buffer_1_inst : if (g_FIFO_1_MEMORY_BLOCK_TYPE = 3) generate
-		scfifo_data_buffer_1_inst : entity work.m144k_scfifo_data_buffer
-			port map(
-				aclr         => rst_i,
-				clock        => clk_i,
-				data         => s_data_fifo_1.data,
-				rdreq        => s_data_fifo_1.rdreq,
-				sclr         => s_data_fifo_1.sclr,
-				wrreq        => s_data_fifo_1.wrreq,
-				almost_empty => s_data_fifo_1.almost_empty,
-				almost_full  => s_data_fifo_1.almost_full,
-				empty        => s_data_fifo_1.empty,
-				full         => s_data_fifo_1.full,
-				q            => s_data_fifo_1.q,
-				usedw        => s_data_fifo_1.usedw
-			);
-	end generate m144k_scfifo_data_buffer_1_inst;
+	-- data fifo 1 instantiation
+	send_buffer_1_sc_fifo_inst : entity work.send_buffer_1_sc_fifo
+		port map(
+			aclr         => rst_i,
+			clock        => clk_i,
+			data         => s_data_fifo_1.data,
+			rdreq        => s_data_fifo_1.rdreq,
+			sclr         => s_data_fifo_1.sclr,
+			wrreq        => s_data_fifo_1.wrreq,
+			almost_empty => s_data_fifo_1.almost_empty,
+			almost_full  => s_data_fifo_1.almost_full,
+			empty        => s_data_fifo_1.empty,
+			full         => s_data_fifo_1.full,
+			q            => s_data_fifo_1.q,
+			usedw        => s_data_fifo_1.usedw
+		);
 
 	-- send buffer general process
 	p_send_buffer : process(clk_i, rst_i) is
@@ -453,7 +376,5 @@ begin
 	s_data_fifo_0_extended_usedw((s_data_fifo_0.usedw'length - 1) downto 0) <= s_data_fifo_0.usedw;
 	s_data_fifo_1_extended_usedw(s_data_fifo_1.usedw'length)                <= s_data_fifo_1.full;
 	s_data_fifo_1_extended_usedw((s_data_fifo_1.usedw'length - 1) downto 0) <= s_data_fifo_1.usedw;
-	-- double buffer empty generation
-	double_buffer_empty_o                                                   <= (s_data_fifo_0.empty) and (s_data_fifo_1.empty);
 
 end architecture RTL;

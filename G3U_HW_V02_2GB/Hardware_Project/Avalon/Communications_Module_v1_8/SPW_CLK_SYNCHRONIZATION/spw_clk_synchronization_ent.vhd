@@ -5,12 +5,6 @@ use ieee.numeric_std.all;
 use work.spw_codec_pkg.all;
 
 entity spw_clk_synchronization_ent is
-	generic(
-		g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_TX_TC_FIFO_MEMORY_BLOCK_TYPE  : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE : positive range 1 to 3; -- 1=MLAB; 2=M9K; 3=M144K
-		g_RX_TC_FIFO_MEMORY_BLOCK_TYPE  : positive range 1 to 3 -- 1=MLAB; 2=M9K; 3=M144K
-	);
 	port(
 		clk_100_i                          : in  std_logic;
 		clk_200_i                          : in  std_logic;
@@ -133,60 +127,22 @@ begin
 
 	-- clk100 tx_data to clk200 --
 	-- dc fifo
-	mlab_clk100_to_clk200_spw_data_dc_fifo_inst : if (g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE = 1) generate
-		clk100_to_clk200_spw_data_dc_fifo_inst : entity work.mlab_spw_data_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(8)          => s_clk100_tx_data_txflag,
-				data(7 downto 0) => s_clk100_tx_data_txdata,
-				rdclk            => clk_200_i,
-				rdreq            => s_clk200_tx_data_rdreq,
-				wrclk            => clk_100_i,
-				wrreq            => s_clk100_tx_data_wrreq,
-				q(8)             => s_clk200_tx_data_txflag,
-				q(7 downto 0)    => s_clk200_tx_data_txdata,
-				rdempty          => s_clk200_tx_data_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk100_tx_data_wrfull,
-				wrusedw          => s_clk100_tx_data_wrusedw
-			);
-	end generate mlab_clk100_to_clk200_spw_data_dc_fifo_inst;
-	m9k_clk100_to_clk200_spw_data_dc_fifo_inst : if (g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE = 2) generate
-		clk100_to_clk200_spw_data_dc_fifo_inst : entity work.m9k_spw_data_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(8)          => s_clk100_tx_data_txflag,
-				data(7 downto 0) => s_clk100_tx_data_txdata,
-				rdclk            => clk_200_i,
-				rdreq            => s_clk200_tx_data_rdreq,
-				wrclk            => clk_100_i,
-				wrreq            => s_clk100_tx_data_wrreq,
-				q(8)             => s_clk200_tx_data_txflag,
-				q(7 downto 0)    => s_clk200_tx_data_txdata,
-				rdempty          => s_clk200_tx_data_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk100_tx_data_wrfull,
-				wrusedw          => s_clk100_tx_data_wrusedw
-			);
-	end generate m9k_clk100_to_clk200_spw_data_dc_fifo_inst;
-	m144k_clk100_to_clk200_spw_data_dc_fifo_inst : if (g_TX_SPW_FIFO_MEMORY_BLOCK_TYPE = 3) generate
-		clk100_to_clk200_spw_data_dc_fifo_inst : entity work.m144k_spw_data_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(8)          => s_clk100_tx_data_txflag,
-				data(7 downto 0) => s_clk100_tx_data_txdata,
-				rdclk            => clk_200_i,
-				rdreq            => s_clk200_tx_data_rdreq,
-				wrclk            => clk_100_i,
-				wrreq            => s_clk100_tx_data_wrreq,
-				q(8)             => s_clk200_tx_data_txflag,
-				q(7 downto 0)    => s_clk200_tx_data_txdata,
-				rdempty          => s_clk200_tx_data_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk100_tx_data_wrfull,
-				wrusedw          => s_clk100_tx_data_wrusedw
-			);
-	end generate m144k_clk100_to_clk200_spw_data_dc_fifo_inst;
+	clk100_to_clk200_spw_data_dc_fifo_inst : entity work.spw_data_dc_fifo
+		port map(
+			aclr             => rst_i,
+			data(8)          => s_clk100_tx_data_txflag,
+			data(7 downto 0) => s_clk100_tx_data_txdata,
+			rdclk            => clk_200_i,
+			rdreq            => s_clk200_tx_data_rdreq,
+			wrclk            => clk_100_i,
+			wrreq            => s_clk100_tx_data_wrreq,
+			q(8)             => s_clk200_tx_data_txflag,
+			q(7 downto 0)    => s_clk200_tx_data_txdata,
+			rdempty          => s_clk200_tx_data_rdempty,
+			rdusedw          => open,
+			wrfull           => s_clk100_tx_data_wrfull,
+			wrusedw          => s_clk100_tx_data_wrusedw
+		);
 	p_clk200_clk100_tx_data_to_clk200 : process(clk_200_i, rst_i) is
 	begin
 		if (rst_i = '1') then
@@ -236,60 +192,22 @@ begin
 
 	-- clk100 tx_timecode to clk200 --
 	-- dc fifo
-	mlab_clk100_to_clk200_spw_timecode_dc_fifo_inst : if (g_TX_TC_FIFO_MEMORY_BLOCK_TYPE = 1) generate
-		clk100_to_clk200_spw_timecode_dc_fifo_inst : entity work.mlab_spw_timecode_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(7 downto 6) => s_clk100_tx_timecode_ctrl_in,
-				data(5 downto 0) => s_clk100_tx_timecode_time_in,
-				rdclk            => clk_200_i,
-				rdreq            => s_clk200_tx_timecode_rdreq,
-				wrclk            => clk_100_i,
-				wrreq            => s_clk100_tx_timecode_wrreq,
-				q(7 downto 6)    => s_clk200_tx_timecode_ctrl_in,
-				q(5 downto 0)    => s_clk200_tx_timecode_time_in,
-				rdempty          => s_clk200_tx_timecode_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk100_tx_timecode_wrfull,
-				wrusedw          => open
-			);
-	end generate mlab_clk100_to_clk200_spw_timecode_dc_fifo_inst;
-	m9k_clk100_to_clk200_spw_timecode_dc_fifo_inst : if (g_TX_TC_FIFO_MEMORY_BLOCK_TYPE = 2) generate
-		clk100_to_clk200_spw_timecode_dc_fifo_inst : entity work.m9k_spw_timecode_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(7 downto 6) => s_clk100_tx_timecode_ctrl_in,
-				data(5 downto 0) => s_clk100_tx_timecode_time_in,
-				rdclk            => clk_200_i,
-				rdreq            => s_clk200_tx_timecode_rdreq,
-				wrclk            => clk_100_i,
-				wrreq            => s_clk100_tx_timecode_wrreq,
-				q(7 downto 6)    => s_clk200_tx_timecode_ctrl_in,
-				q(5 downto 0)    => s_clk200_tx_timecode_time_in,
-				rdempty          => s_clk200_tx_timecode_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk100_tx_timecode_wrfull,
-				wrusedw          => open
-			);
-	end generate m9k_clk100_to_clk200_spw_timecode_dc_fifo_inst;
-	m144k_clk100_to_clk200_spw_timecode_dc_fifo_inst : if (g_TX_TC_FIFO_MEMORY_BLOCK_TYPE = 3) generate
-		clk100_to_clk200_spw_timecode_dc_fifo_inst : entity work.m144k_spw_timecode_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(7 downto 6) => s_clk100_tx_timecode_ctrl_in,
-				data(5 downto 0) => s_clk100_tx_timecode_time_in,
-				rdclk            => clk_200_i,
-				rdreq            => s_clk200_tx_timecode_rdreq,
-				wrclk            => clk_100_i,
-				wrreq            => s_clk100_tx_timecode_wrreq,
-				q(7 downto 6)    => s_clk200_tx_timecode_ctrl_in,
-				q(5 downto 0)    => s_clk200_tx_timecode_time_in,
-				rdempty          => s_clk200_tx_timecode_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk100_tx_timecode_wrfull,
-				wrusedw          => open
-			);
-	end generate m144k_clk100_to_clk200_spw_timecode_dc_fifo_inst;
+	clk100_to_clk200_spw_timecode_dc_fifo_inst : entity work.spw_timecode_dc_fifo
+		port map(
+			aclr             => rst_i,
+			data(7 downto 6) => s_clk100_tx_timecode_ctrl_in,
+			data(5 downto 0) => s_clk100_tx_timecode_time_in,
+			rdclk            => clk_200_i,
+			rdreq            => s_clk200_tx_timecode_rdreq,
+			wrclk            => clk_100_i,
+			wrreq            => s_clk100_tx_timecode_wrreq,
+			q(7 downto 6)    => s_clk200_tx_timecode_ctrl_in,
+			q(5 downto 0)    => s_clk200_tx_timecode_time_in,
+			rdempty          => s_clk200_tx_timecode_rdempty,
+			rdusedw          => open,
+			wrfull           => s_clk100_tx_timecode_wrfull,
+			wrusedw          => open
+		);
 	p_clk200_clk100_tx_timecode_to_clk200 : process(clk_200_i, rst_i) is
 	begin
 		if (rst_i = '1') then
@@ -378,60 +296,22 @@ begin
 
 	-- clk200 rx_data to clk100 --
 	-- dc fifo
-	mlab_clk200_to_clk100_spw_data_dc_fifo_inst : if (g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE = 1) generate
-		clk200_to_clk100_spw_data_dc_fifo_inst : entity work.mlab_spw_data_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(8)          => s_clk200_rx_data_rxflag,
-				data(7 downto 0) => s_clk200_rx_data_rxdata,
-				rdclk            => clk_100_i,
-				rdreq            => s_clk100_rx_data_rdreq,
-				wrclk            => clk_200_i,
-				wrreq            => s_clk200_rx_data_wrreq,
-				q(8)             => s_clk100_rx_data_rxflag,
-				q(7 downto 0)    => s_clk100_rx_data_rxdata,
-				rdempty          => s_clk100_rx_data_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk200_rx_data_wrfull,
-				wrusedw          => open
-			);
-	end generate mlab_clk200_to_clk100_spw_data_dc_fifo_inst;
-	m9k_clk200_to_clk100_spw_data_dc_fifo_inst : if (g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE = 2) generate
-		clk200_to_clk100_spw_data_dc_fifo_inst : entity work.m9k_spw_data_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(8)          => s_clk200_rx_data_rxflag,
-				data(7 downto 0) => s_clk200_rx_data_rxdata,
-				rdclk            => clk_100_i,
-				rdreq            => s_clk100_rx_data_rdreq,
-				wrclk            => clk_200_i,
-				wrreq            => s_clk200_rx_data_wrreq,
-				q(8)             => s_clk100_rx_data_rxflag,
-				q(7 downto 0)    => s_clk100_rx_data_rxdata,
-				rdempty          => s_clk100_rx_data_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk200_rx_data_wrfull,
-				wrusedw          => open
-			);
-	end generate m9k_clk200_to_clk100_spw_data_dc_fifo_inst;
-	m144k_clk200_to_clk100_spw_data_dc_fifo_inst : if (g_RX_SPW_FIFO_MEMORY_BLOCK_TYPE = 3) generate
-		clk200_to_clk100_spw_data_dc_fifo_inst : entity work.m144k_spw_data_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(8)          => s_clk200_rx_data_rxflag,
-				data(7 downto 0) => s_clk200_rx_data_rxdata,
-				rdclk            => clk_100_i,
-				rdreq            => s_clk100_rx_data_rdreq,
-				wrclk            => clk_200_i,
-				wrreq            => s_clk200_rx_data_wrreq,
-				q(8)             => s_clk100_rx_data_rxflag,
-				q(7 downto 0)    => s_clk100_rx_data_rxdata,
-				rdempty          => s_clk100_rx_data_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk200_rx_data_wrfull,
-				wrusedw          => open
-			);
-	end generate m144k_clk200_to_clk100_spw_data_dc_fifo_inst;
+	clk200_to_clk100_spw_data_dc_fifo_inst : entity work.spw_data_dc_fifo
+		port map(
+			aclr             => rst_i,
+			data(8)          => s_clk200_rx_data_rxflag,
+			data(7 downto 0) => s_clk200_rx_data_rxdata,
+			rdclk            => clk_100_i,
+			rdreq            => s_clk100_rx_data_rdreq,
+			wrclk            => clk_200_i,
+			wrreq            => s_clk200_rx_data_wrreq,
+			q(8)             => s_clk100_rx_data_rxflag,
+			q(7 downto 0)    => s_clk100_rx_data_rxdata,
+			rdempty          => s_clk100_rx_data_rdempty,
+			rdusedw          => open,
+			wrfull           => s_clk200_rx_data_wrfull,
+			wrusedw          => open
+		);
 	p_clk200_clk200_rx_data_to_clk100 : process(clk_200_i, rst_i) is
 	begin
 		if (rst_i = '1') then
@@ -490,60 +370,22 @@ begin
 
 	-- clk200 rx_timecode to clk100 --
 	-- dc fifo
-	mlab_clk200_to_clk100_spw_timecode_dc_fifo_inst : if (g_RX_TC_FIFO_MEMORY_BLOCK_TYPE = 1) generate
-		clk200_to_clk100_spw_timecode_dc_fifo_inst : entity work.mlab_spw_timecode_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(7 downto 6) => s_clk200_rx_timecode_ctrl_out,
-				data(5 downto 0) => s_clk200_rx_timecode_time_out,
-				rdclk            => clk_100_i,
-				rdreq            => s_clk100_rx_timecode_rdreq,
-				wrclk            => clk_200_i,
-				wrreq            => s_clk200_rx_timecode_wrreq,
-				q(7 downto 6)    => s_clk100_rx_timecode_ctrl_out,
-				q(5 downto 0)    => s_clk100_rx_timecode_time_out,
-				rdempty          => s_clk100_rx_timecode_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk200_rx_timecode_wrfull,
-				wrusedw          => open
-			);
-	end generate mlab_clk200_to_clk100_spw_timecode_dc_fifo_inst;
-	m9k_clk200_to_clk100_spw_timecode_dc_fifo_inst : if (g_RX_TC_FIFO_MEMORY_BLOCK_TYPE = 2) generate
-		clk200_to_clk100_spw_timecode_dc_fifo_inst : entity work.m9k_spw_timecode_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(7 downto 6) => s_clk200_rx_timecode_ctrl_out,
-				data(5 downto 0) => s_clk200_rx_timecode_time_out,
-				rdclk            => clk_100_i,
-				rdreq            => s_clk100_rx_timecode_rdreq,
-				wrclk            => clk_200_i,
-				wrreq            => s_clk200_rx_timecode_wrreq,
-				q(7 downto 6)    => s_clk100_rx_timecode_ctrl_out,
-				q(5 downto 0)    => s_clk100_rx_timecode_time_out,
-				rdempty          => s_clk100_rx_timecode_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk200_rx_timecode_wrfull,
-				wrusedw          => open
-			);
-	end generate m9k_clk200_to_clk100_spw_timecode_dc_fifo_inst;
-	m144k_clk200_to_clk100_spw_timecode_dc_fifo_inst : if (g_RX_TC_FIFO_MEMORY_BLOCK_TYPE = 3) generate
-		clk200_to_clk100_spw_timecode_dc_fifo_inst : entity work.m144k_spw_timecode_dc_fifo
-			port map(
-				aclr             => rst_i,
-				data(7 downto 6) => s_clk200_rx_timecode_ctrl_out,
-				data(5 downto 0) => s_clk200_rx_timecode_time_out,
-				rdclk            => clk_100_i,
-				rdreq            => s_clk100_rx_timecode_rdreq,
-				wrclk            => clk_200_i,
-				wrreq            => s_clk200_rx_timecode_wrreq,
-				q(7 downto 6)    => s_clk100_rx_timecode_ctrl_out,
-				q(5 downto 0)    => s_clk100_rx_timecode_time_out,
-				rdempty          => s_clk100_rx_timecode_rdempty,
-				rdusedw          => open,
-				wrfull           => s_clk200_rx_timecode_wrfull,
-				wrusedw          => open
-			);
-	end generate m144k_clk200_to_clk100_spw_timecode_dc_fifo_inst;
+	clk200_to_clk100_spw_timecode_dc_fifo_inst : entity work.spw_timecode_dc_fifo
+		port map(
+			aclr             => rst_i,
+			data(7 downto 6) => s_clk200_rx_timecode_ctrl_out,
+			data(5 downto 0) => s_clk200_rx_timecode_time_out,
+			rdclk            => clk_100_i,
+			rdreq            => s_clk100_rx_timecode_rdreq,
+			wrclk            => clk_200_i,
+			wrreq            => s_clk200_rx_timecode_wrreq,
+			q(7 downto 6)    => s_clk100_rx_timecode_ctrl_out,
+			q(5 downto 0)    => s_clk100_rx_timecode_time_out,
+			rdempty          => s_clk100_rx_timecode_rdempty,
+			rdusedw          => open,
+			wrfull           => s_clk200_rx_timecode_wrfull,
+			wrusedw          => open
+		);
 	p_clk200_clk200_rx_timecode_to_clk100 : process(clk_200_i, rst_i) is
 	begin
 		if (rst_i = '1') then

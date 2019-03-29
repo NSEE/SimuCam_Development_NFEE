@@ -4,7 +4,7 @@
 -- MODULE: dcfifo 
 
 -- ============================================================
--- File Name: m9k_spw_data_dc_fifo.vhd
+-- File Name: spw_data_dc_fifo.vhd
 -- Megafunction Name(s):
 -- 			dcfifo
 --
@@ -40,7 +40,7 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY m9k_spw_data_dc_fifo IS
+ENTITY spw_data_dc_fifo IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC  := '0';
@@ -55,10 +55,10 @@ ENTITY m9k_spw_data_dc_fifo IS
 		wrfull		: OUT STD_LOGIC ;
 		wrusedw		: OUT STD_LOGIC_VECTOR (3 DOWNTO 0)
 	);
-END m9k_spw_data_dc_fifo;
+END spw_data_dc_fifo;
 
 
-ARCHITECTURE SYN OF m9k_spw_data_dc_fifo IS
+ARCHITECTURE SYN OF spw_data_dc_fifo IS
 
 	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (8 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
@@ -109,8 +109,8 @@ BEGIN
 
 	dcfifo_component : dcfifo
 	GENERIC MAP (
-		intended_device_family => "Stratix IV",
-		lpm_hint => "RAM_BLOCK_TYPE=M9K",
+		intended_device_family => "Cyclone V",
+		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
 		lpm_numwords => 16,
 		lpm_showahead => "OFF",
 		lpm_type => "dcfifo",
@@ -154,13 +154,13 @@ END SYN;
 -- Retrieval info: PRIVATE: Depth NUMERIC "16"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
--- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 -- Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
 -- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -178,8 +178,8 @@ END SYN;
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
--- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
+-- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
@@ -214,10 +214,10 @@ END SYN;
 -- Retrieval info: CONNECT: rdusedw 0 0 4 0 @rdusedw 0 0 4 0
 -- Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
 -- Retrieval info: CONNECT: wrusedw 0 0 4 0 @wrusedw 0 0 4 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_spw_data_dc_fifo.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_spw_data_dc_fifo.inc FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_spw_data_dc_fifo.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_spw_data_dc_fifo.bsf FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_spw_data_dc_fifo_inst.vhd FALSE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_spw_data_dc_fifo_syn.v TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_data_dc_fifo.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_data_dc_fifo.inc TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_data_dc_fifo.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_data_dc_fifo.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_data_dc_fifo_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL spw_data_dc_fifo_syn.v TRUE
 -- Retrieval info: LIB_FILE: altera_mf

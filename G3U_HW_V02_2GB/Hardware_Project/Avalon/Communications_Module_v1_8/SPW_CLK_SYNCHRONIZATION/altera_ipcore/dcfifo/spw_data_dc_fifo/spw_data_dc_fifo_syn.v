@@ -34,14 +34,14 @@
 //agreement for further details.
 
 
-//dcfifo_mixed_widths DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="OFF" LPM_WIDTH=9 LPM_WIDTH_R=9 LPM_WIDTHU=4 LPM_WIDTHU_R=4 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="MLAB" RDSYNC_DELAYPIPE=4 READ_ACLR_SYNCH="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" WRITE_ACLR_SYNCH="ON" WRSYNC_DELAYPIPE=4 aclr data q rdclk rdempty rdreq rdusedw wrclk wrfull wrreq wrusedw INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
+//dcfifo_mixed_widths DEVICE_FAMILY="Cyclone V" LPM_NUMWORDS=16 LPM_SHOWAHEAD="OFF" LPM_WIDTH=9 LPM_WIDTH_R=9 LPM_WIDTHU=4 LPM_WIDTHU_R=4 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="MLAB" RDSYNC_DELAYPIPE=4 READ_ACLR_SYNCH="ON" UNDERFLOW_CHECKING="ON" USE_EAB="ON" WRITE_ACLR_SYNCH="ON" WRSYNC_DELAYPIPE=4 aclr data q rdclk rdempty rdreq rdusedw wrclk wrfull wrreq wrusedw INTENDED_DEVICE_FAMILY="Cyclone V" lpm_hint="RAM_BLOCK_TYPE=MLAB" ALTERA_INTERNAL_OPTIONS=AUTO_SHIFT_REGISTER_RECOGNITION=OFF
 //VERSION_BEGIN 16.1 cbx_a_gray2bin 2016:10:24:15:04:16:SJ cbx_a_graycounter 2016:10:24:15:04:16:SJ cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_counter 2016:10:24:15:04:16:SJ cbx_altera_gray_counter 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_dcfifo 2016:10:24:15:04:16:SJ cbx_fifo_common 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_scfifo 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
-//a_gray2bin device_family="Stratix IV" WIDTH=5 bin gray
+//a_gray2bin device_family="Cyclone V" WIDTH=5 bin gray
 //VERSION_BEGIN 16.1 cbx_a_gray2bin 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ  VERSION_END
 
 //synthesis_resources = 
@@ -69,7 +69,7 @@ module  spw_data_dc_fifo_a_gray2bin
 endmodule //spw_data_dc_fifo_a_gray2bin
 
 
-//a_graycounter DEVICE_FAMILY="Stratix IV" PVALUE=1 WIDTH=5 aclr clock cnt_en q
+//a_graycounter DEVICE_FAMILY="Cyclone V" PVALUE=1 WIDTH=5 aclr clock cnt_en q
 //VERSION_BEGIN 16.1 cbx_a_gray2bin 2016:10:24:15:04:16:SJ cbx_a_graycounter 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 //synthesis_resources = reg 6 
@@ -167,7 +167,7 @@ module  spw_data_dc_fifo_a_graycounter
 endmodule //spw_data_dc_fifo_a_graycounter
 
 
-//a_graycounter DEVICE_FAMILY="Stratix IV" PVALUE=1 WIDTH=5 aclr clock cnt_en q ALTERA_INTERNAL_OPTIONS=suppress_da_rule_internal=S102
+//a_graycounter DEVICE_FAMILY="Cyclone V" PVALUE=1 WIDTH=5 aclr clock cnt_en q ALTERA_INTERNAL_OPTIONS=suppress_da_rule_internal=S102
 //VERSION_BEGIN 16.1 cbx_a_gray2bin 2016:10:24:15:04:16:SJ cbx_a_graycounter 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 //synthesis_resources = reg 6 
@@ -265,14 +265,13 @@ module  spw_data_dc_fifo_a_graycounter1
 endmodule //spw_data_dc_fifo_a_graycounter1
 
 
-//altdpram DEVICE_FAMILY="Stratix IV" INDATA_ACLR="OFF" INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB" OUTDATA_ACLR="ON" OUTDATA_REG="OUTCLOCK" RAM_BLOCK_TYPE="MLAB" RDADDRESS_REG="UNREGISTERED" USE_EAB="ON" WIDTH=9 WIDTHAD=4 WRADDRESS_REG="INCLOCK" aclr data inclock outclock outclocken q rdaddress wraddress wren
+//altdpram DEVICE_FAMILY="Cyclone V" INDATA_ACLR="OFF" INTENDED_DEVICE_FAMILY="Cyclone V" lpm_hint="RAM_BLOCK_TYPE=MLAB" OUTDATA_ACLR="ON" OUTDATA_REG="OUTCLOCK" RAM_BLOCK_TYPE="MLAB" RDADDRESS_REG="UNREGISTERED" USE_EAB="ON" WIDTH=9 WIDTHAD=4 WRADDRESS_REG="INCLOCK" aclr data inclock outclock outclocken q rdaddress wraddress wren
 //VERSION_BEGIN 16.1 cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 
-//synthesis_resources = MLAB 1 reg 22 
+//synthesis_resources = MLAB 1 reg 9 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-(* ALTERA_ATTRIBUTE = {"ADV_NETLIST_OPT_ALLOWED=\"NEVER_ALLOW\""} *)
 module  spw_data_dc_fifo_dpram
 	( 
 	aclr,
@@ -304,11 +303,7 @@ module  spw_data_dc_fifo_dpram
 // synopsys translate_on
 `endif
 
-	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON;ALLOW_SYNCH_CTRL_USAGE=OFF;DONT_MERGE_REGISTER=ON"} *)
-	reg	[8:0]	datain_reg;
 	reg	[8:0]	dataout_reg;
-	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON;DONT_MERGE_REGISTER=ON"} *)
-	reg	[3:0]	wraddr_reg;
 	wire  [8:0]   wire_lutrama_portbdataout;
 	wire  [8:0]  datain_wire;
 	wire  [8:0]  dataout_wire;
@@ -318,24 +313,12 @@ module  spw_data_dc_fifo_dpram
 
 	// synopsys translate_off
 	initial
-		datain_reg = 0;
-	// synopsys translate_on
-	always @ ( posedge inclock)
-		  datain_reg <= data;
-	// synopsys translate_off
-	initial
 		dataout_reg = 0;
 	// synopsys translate_on
 	always @ ( posedge outclock or  posedge aclr)
 		if (aclr == 1'b1) dataout_reg <= 9'b0;
 		else if  (outclocken == 1'b1)   dataout_reg <= dataout_wire;
-	// synopsys translate_off
-	initial
-		wraddr_reg = 0;
-	// synopsys translate_on
-	always @ ( posedge inclock)
-		  wraddr_reg <= wraddress;
-	stratixiv_mlab_cell   lutrama_0
+	cyclonev_mlab_cell   lutrama_0
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -347,10 +330,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_0.address_width = 4,
@@ -361,9 +353,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_0.logical_ram_depth = 16,
 		lutrama_0.logical_ram_name = "altdpram_instance",
 		lutrama_0.logical_ram_width = 9,
-		lutrama_0.mixed_port_feed_through_mode = "dont_care",
-		lutrama_0.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_1
+		lutrama_0.mixed_port_feed_through_mode = "dont care",
+		lutrama_0.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_1
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -375,10 +367,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_1.address_width = 4,
@@ -389,9 +390,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_1.logical_ram_depth = 16,
 		lutrama_1.logical_ram_name = "altdpram_instance",
 		lutrama_1.logical_ram_width = 9,
-		lutrama_1.mixed_port_feed_through_mode = "dont_care",
-		lutrama_1.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_2
+		lutrama_1.mixed_port_feed_through_mode = "dont care",
+		lutrama_1.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_2
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -403,10 +404,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_2.address_width = 4,
@@ -417,9 +427,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_2.logical_ram_depth = 16,
 		lutrama_2.logical_ram_name = "altdpram_instance",
 		lutrama_2.logical_ram_width = 9,
-		lutrama_2.mixed_port_feed_through_mode = "dont_care",
-		lutrama_2.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_3
+		lutrama_2.mixed_port_feed_through_mode = "dont care",
+		lutrama_2.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_3
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -431,10 +441,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_3.address_width = 4,
@@ -445,9 +464,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_3.logical_ram_depth = 16,
 		lutrama_3.logical_ram_name = "altdpram_instance",
 		lutrama_3.logical_ram_width = 9,
-		lutrama_3.mixed_port_feed_through_mode = "dont_care",
-		lutrama_3.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_4
+		lutrama_3.mixed_port_feed_through_mode = "dont care",
+		lutrama_3.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_4
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -459,10 +478,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_4.address_width = 4,
@@ -473,9 +501,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_4.logical_ram_depth = 16,
 		lutrama_4.logical_ram_name = "altdpram_instance",
 		lutrama_4.logical_ram_width = 9,
-		lutrama_4.mixed_port_feed_through_mode = "dont_care",
-		lutrama_4.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_5
+		lutrama_4.mixed_port_feed_through_mode = "dont care",
+		lutrama_4.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_5
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -487,10 +515,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_5.address_width = 4,
@@ -501,9 +538,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_5.logical_ram_depth = 16,
 		lutrama_5.logical_ram_name = "altdpram_instance",
 		lutrama_5.logical_ram_width = 9,
-		lutrama_5.mixed_port_feed_through_mode = "dont_care",
-		lutrama_5.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_6
+		lutrama_5.mixed_port_feed_through_mode = "dont care",
+		lutrama_5.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_6
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -515,10 +552,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_6.address_width = 4,
@@ -529,9 +575,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_6.logical_ram_depth = 16,
 		lutrama_6.logical_ram_name = "altdpram_instance",
 		lutrama_6.logical_ram_width = 9,
-		lutrama_6.mixed_port_feed_through_mode = "dont_care",
-		lutrama_6.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_7
+		lutrama_6.mixed_port_feed_through_mode = "dont care",
+		lutrama_6.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_7
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -543,10 +589,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_7.address_width = 4,
@@ -557,9 +612,9 @@ module  spw_data_dc_fifo_dpram
 		lutrama_7.logical_ram_depth = 16,
 		lutrama_7.logical_ram_name = "altdpram_instance",
 		lutrama_7.logical_ram_width = 9,
-		lutrama_7.mixed_port_feed_through_mode = "dont_care",
-		lutrama_7.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_8
+		lutrama_7.mixed_port_feed_through_mode = "dont care",
+		lutrama_7.lpm_type = "cyclonev_mlab_cell";
+	cyclonev_mlab_cell   lutrama_8
 	( 
 	.clk0(inclock),
 	.ena0(wr_en),
@@ -571,10 +626,19 @@ module  spw_data_dc_fifo_dpram
 	// synopsys translate_off
 	`endif
 	,
+	.clk1(1'b0),
+	.clr(1'b0),
+	.ena1(1'b1),
+	.ena2(1'b1),
 	.portabyteenamasks({2{1'b1}})
 	`ifndef FORMAL_VERIFICATION
 	// synopsys translate_on
 	`endif
+	// synopsys translate_off
+	,
+	.devclrn(1'b1),
+	.devpor(1'b1)
+	// synopsys translate_on
 	);
 	defparam
 		lutrama_8.address_width = 4,
@@ -585,15 +649,15 @@ module  spw_data_dc_fifo_dpram
 		lutrama_8.logical_ram_depth = 16,
 		lutrama_8.logical_ram_name = "altdpram_instance",
 		lutrama_8.logical_ram_width = 9,
-		lutrama_8.mixed_port_feed_through_mode = "dont_care",
-		lutrama_8.lpm_type = "stratixiv_mlab_cell";
+		lutrama_8.mixed_port_feed_through_mode = "dont care",
+		lutrama_8.lpm_type = "cyclonev_mlab_cell";
 	assign
-		datain_wire = datain_reg,
+		datain_wire = data,
 		dataout_wire = wire_lutrama_portbdataout,
 		q = dataout_reg,
 		rdaddr_wire = rdaddress,
 		wr_en = wren,
-		wraddr_wire = wraddr_reg;
+		wraddr_wire = wraddress;
 endmodule //spw_data_dc_fifo_dpram
 
 
@@ -894,15 +958,15 @@ module  spw_data_dc_fifo_alt_synch_pipe1
 endmodule //spw_data_dc_fifo_alt_synch_pipe1
 
 
-//lpm_add_sub DEVICE_FAMILY="Stratix IV" LPM_DIRECTION="SUB" LPM_WIDTH=5 dataa datab result
+//lpm_add_sub DEVICE_FAMILY="Cyclone V" LPM_DIRECTION="SUB" LPM_WIDTH=5 dataa datab result
 //VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 
-//lpm_add_sub DEVICE_FAMILY="Stratix IV" LPM_DIRECTION="SUB" LPM_WIDTH=5 dataa datab result
+//lpm_add_sub DEVICE_FAMILY="Cyclone V" LPM_DIRECTION="SUB" LPM_WIDTH=5 dataa datab result
 //VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 
-//lpm_compare DEVICE_FAMILY="Stratix IV" LPM_WIDTH=5 aeb dataa datab
+//lpm_compare DEVICE_FAMILY="Cyclone V" LPM_WIDTH=5 aeb dataa datab
 //VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 //synthesis_resources = 
@@ -939,7 +1003,7 @@ module  spw_data_dc_fifo_cmpr
 		eq_wire = aeb_result_wire;
 endmodule //spw_data_dc_fifo_cmpr
 
-//synthesis_resources = lut 12 MLAB 1 reg 94 
+//synthesis_resources = lut 12 MLAB 1 reg 81 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -1239,7 +1303,7 @@ endmodule
 // Retrieval info: PRIVATE: Depth NUMERIC "16"
 // Retrieval info: PRIVATE: Empty NUMERIC "1"
 // Retrieval info: PRIVATE: Full NUMERIC "1"
-// Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+// Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 // Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
 // Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
@@ -1263,7 +1327,7 @@ endmodule
 // Retrieval info: PRIVATE: wsFull NUMERIC "1"
 // Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
-// Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+// Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 // Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"

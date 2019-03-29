@@ -20,9 +20,9 @@
 // Altera IRQ Mapper
 //
 // Parameters
-//   NUM_RCVRS        : 12
+//   NUM_RCVRS        : 16
 //   SENDER_IRW_WIDTH : 32
-//   IRQ_MAP          : 0:0,1:11,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8,10:9,11:10
+//   IRQ_MAP          : 0:0,1:1,2:13,3:15,4:2,5:3,6:4,7:5,8:6,9:7,10:8,11:9,12:10,13:11,14:12,15:14
 //
 // -------------------------------------------------------
 
@@ -51,6 +51,10 @@ module MebX_Qsys_Project_irq_mapper
     input                receiver9_irq,
     input                receiver10_irq,
     input                receiver11_irq,
+    input                receiver12_irq,
+    input                receiver13_irq,
+    input                receiver14_irq,
+    input                receiver15_irq,
 
     // -------------------
     // Command Source (Output)
@@ -63,17 +67,21 @@ module MebX_Qsys_Project_irq_mapper
 	sender_irq = 0;
 
         sender_irq[0] = receiver0_irq;
-        sender_irq[11] = receiver1_irq;
-        sender_irq[1] = receiver2_irq;
-        sender_irq[2] = receiver3_irq;
-        sender_irq[3] = receiver4_irq;
-        sender_irq[4] = receiver5_irq;
-        sender_irq[5] = receiver6_irq;
-        sender_irq[6] = receiver7_irq;
-        sender_irq[7] = receiver8_irq;
-        sender_irq[8] = receiver9_irq;
-        sender_irq[9] = receiver10_irq;
-        sender_irq[10] = receiver11_irq;
+        sender_irq[1] = receiver1_irq;
+        sender_irq[13] = receiver2_irq;
+        sender_irq[15] = receiver3_irq;
+        sender_irq[2] = receiver4_irq;
+        sender_irq[3] = receiver5_irq;
+        sender_irq[4] = receiver6_irq;
+        sender_irq[5] = receiver7_irq;
+        sender_irq[6] = receiver8_irq;
+        sender_irq[7] = receiver9_irq;
+        sender_irq[8] = receiver10_irq;
+        sender_irq[9] = receiver11_irq;
+        sender_irq[10] = receiver12_irq;
+        sender_irq[11] = receiver13_irq;
+        sender_irq[12] = receiver14_irq;
+        sender_irq[14] = receiver15_irq;
     end
 
 endmodule

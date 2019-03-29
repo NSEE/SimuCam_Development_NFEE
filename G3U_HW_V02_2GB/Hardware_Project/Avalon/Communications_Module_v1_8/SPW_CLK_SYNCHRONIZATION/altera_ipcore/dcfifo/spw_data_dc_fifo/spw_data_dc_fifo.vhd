@@ -109,7 +109,7 @@ BEGIN
 
 	dcfifo_component : dcfifo
 	GENERIC MAP (
-		intended_device_family => "Stratix IV",
+		intended_device_family => "Cyclone V",
 		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
 		lpm_numwords => 16,
 		lpm_showahead => "OFF",
@@ -154,7 +154,7 @@ END SYN;
 -- Retrieval info: PRIVATE: Depth NUMERIC "16"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
--- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 -- Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
 -- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
@@ -178,7 +178,7 @@ END SYN;
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
+-- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone V"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"

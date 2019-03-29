@@ -34,21 +34,21 @@
 //agreement for further details.
 
 
-//scfifo ADD_RAM_OUTPUT_REGISTER="ON" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="ON" LPM_WIDTH=64 LPM_WIDTHU=4 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="MLAB" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
+//scfifo ADD_RAM_OUTPUT_REGISTER="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="ON" LPM_WIDTH=64 LPM_WIDTHU=4 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="MLAB" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
 //VERSION_BEGIN 16.1 cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_counter 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_fifo_common 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_scfifo 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
-//a_dpfifo ADD_RAM_OUTPUT_REGISTER="ON" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="ON" lpm_width=64 lpm_widthu=4 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
+//a_dpfifo ADD_RAM_OUTPUT_REGISTER="OFF" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=16 LPM_SHOWAHEAD="ON" lpm_width=64 lpm_widthu=4 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
 //VERSION_BEGIN 16.1 cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_counter 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_fifo_common 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_scfifo 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 
 
-//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK1" CLOCK_ENABLE_INPUT_B="BYPASS" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=16 NUMWORDS_B=16 OPERATION_MODE="DUAL_PORT" OUTDATA_ACLR_B="NONE" OUTDATA_REG_B="CLOCK1" RAM_BLOCK_TYPE="MLAB" WIDTH_A=64 WIDTH_B=64 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=4 WIDTHAD_B=4 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 clock1 clocken1 data_a q_b wren_a
+//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK0" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=16 NUMWORDS_B=16 OPERATION_MODE="DUAL_PORT" OUTDATA_REG_B="UNREGISTERED" RAM_BLOCK_TYPE="MLAB" WIDTH_A=64 WIDTH_B=64 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=4 WIDTHAD_B=4 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 data_a q_b wren_a
 //VERSION_BEGIN 16.1 cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 
-//synthesis_resources = MLAB 4 reg 136 
+//synthesis_resources = MLAB 4 reg 72 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -58,16 +58,12 @@ module  windowing_mask_sc_fifo_altsyncram
 	address_a,
 	address_b,
 	clock0,
-	clock1,
-	clocken1,
 	data_a,
 	q_b,
 	wren_a) /* synthesis synthesis_clearbox=1 */;
 	input   [3:0]  address_a;
 	input   [3:0]  address_b;
 	input   clock0;
-	input   clock1;
-	input   clocken1;
 	input   [63:0]  data_a;
 	output   [63:0]  q_b;
 	input   wren_a;
@@ -76,8 +72,6 @@ module  windowing_mask_sc_fifo_altsyncram
 `endif
 	tri1   [3:0]  address_b;
 	tri1   clock0;
-	tri1   clock1;
-	tri1   clocken1;
 	tri1   [63:0]  data_a;
 	tri0   wren_a;
 `ifndef ALTERA_RESERVED_QIS
@@ -86,7 +80,6 @@ module  windowing_mask_sc_fifo_altsyncram
 
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON;ALLOW_SYNCH_CTRL_USAGE=OFF;DONT_MERGE_REGISTER=ON"} *)
 	reg	[63:0]	datain_reg;
-	reg	[63:0]	dataout_reg;
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON"} *)
 	reg	[3:0]	rdaddr_reg;
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON;DONT_MERGE_REGISTER=ON"} *)
@@ -106,15 +99,9 @@ module  windowing_mask_sc_fifo_altsyncram
 		  datain_reg <= data_a;
 	// synopsys translate_off
 	initial
-		dataout_reg = 0;
-	// synopsys translate_on
-	always @ ( posedge clock1)
-		if (clocken1 == 1'b1)   dataout_reg <= dataout_wire;
-	// synopsys translate_off
-	initial
 		rdaddr_reg = 0;
 	// synopsys translate_on
-	always @ ( posedge clock1)
+	always @ ( posedge clock0)
 		  rdaddr_reg <= address_b;
 	// synopsys translate_off
 	initial
@@ -1917,7 +1904,7 @@ module  windowing_mask_sc_fifo_altsyncram
 	assign
 		datain_wire = datain_reg,
 		dataout_wire = wire_lutrama_portbdataout,
-		q_b = dataout_reg,
+		q_b = dataout_wire,
 		rdaddr_wire = rdaddr_reg,
 		wr_en = wren_a,
 		wraddr_wire = wraddr_reg;
@@ -2534,7 +2521,7 @@ module  windowing_mask_sc_fifo_cntr12
 		updown_other_bits = ((~ external_cin) | updown_dir);
 endmodule //windowing_mask_sc_fifo_cntr12
 
-//synthesis_resources = lut 11 MLAB 4 reg 159 
+//synthesis_resources = lut 11 MLAB 4 reg 95 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -2606,8 +2593,6 @@ module  windowing_mask_sc_fifo_a_dpfifo
 	.address_a(wire_wr_ptr_q),
 	.address_b(ram_read_address),
 	.clock0(clock),
-	.clock1(clock),
-	.clocken1(pulse_ram_output),
 	.data_a(data),
 	.q_b(wire_FIFOram_q_b),
 	.wren_a(valid_wreq));
@@ -2714,7 +2699,7 @@ module  windowing_mask_sc_fifo_a_dpfifo
 		empty_out = (~ empty_dff),
 		full = full_out,
 		full_out = full_dff,
-		pulse_ram_output = ((((usedw_is_1 & wrreq_delaya0[0:0]) | ((usedw_is_2 & wrreq_delaya1[0:0]) & wrreq_delaya0[0:0])) | ((~ (usedw_is_1 | usedw_is_2)) & valid_rreq)) | ((usedw_is_2 & (~ wrreq_delaya1[0:0])) & valid_rreq)),
+		pulse_ram_output = valid_rreq,
 		q = wire_FIFOram_q_b,
 		ram_read_address = (({4{(~ asynch_read_counter_enable)}} & low_addressa) | ({4{asynch_read_counter_enable}} & rd_ptr)),
 		rd_ptr = {wire_rd_ptr_msb_q, (~ rd_ptr_lsb)},
@@ -2727,10 +2712,10 @@ module  windowing_mask_sc_fifo_a_dpfifo
 		usedw_will_be_2 = ((~ sclr) & (((usedw_is_2_dff & (~ (valid_wreq ^ valid_rreq))) | ((usedw_is_1 & valid_wreq) & (~ valid_rreq))) | ((wire_three_comparison_aeb & valid_rreq) & (~ valid_wreq)))),
 		valid_rreq = (rreq & (~ empty_out)),
 		valid_wreq = (wreq & (~ full_out)),
-		wait_state = ((usedw_will_be_1 & (valid_wreq ^ wrreq_delaya1[0:0])) | ((usedw_will_be_2 & valid_wreq) & wrreq_delaya1[0:0]));
+		wait_state = (usedw_will_be_1 & valid_wreq);
 endmodule //windowing_mask_sc_fifo_a_dpfifo
 
-//synthesis_resources = lut 11 MLAB 4 reg 159 
+//synthesis_resources = lut 11 MLAB 4 reg 95 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -2857,7 +2842,7 @@ endmodule
 // Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
-// Retrieval info: PRIVATE: Optimize NUMERIC "1"
+// Retrieval info: PRIVATE: Optimize NUMERIC "0"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
@@ -2876,7 +2861,7 @@ endmodule
 // Retrieval info: PRIVATE: wsFull NUMERIC "1"
 // Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 // Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
-// Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "ON"
+// Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 // Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 // Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16"

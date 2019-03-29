@@ -4,7 +4,7 @@
 -- MODULE: scfifo 
 
 -- ============================================================
--- File Name: m9k_windowing_data_sc_fifo.vhd
+-- File Name: windowing_data_sc_fifo.vhd
 -- Megafunction Name(s):
 -- 			scfifo
 --
@@ -40,7 +40,7 @@ USE ieee.std_logic_1164.all;
 LIBRARY altera_mf;
 USE altera_mf.all;
 
-ENTITY m9k_windowing_data_sc_fifo IS
+ENTITY windowing_data_sc_fifo IS
 	PORT
 	(
 		aclr		: IN STD_LOGIC ;
@@ -54,10 +54,10 @@ ENTITY m9k_windowing_data_sc_fifo IS
 		q		: OUT STD_LOGIC_VECTOR (63 DOWNTO 0);
 		usedw		: OUT STD_LOGIC_VECTOR (7 DOWNTO 0)
 	);
-END m9k_windowing_data_sc_fifo;
+END windowing_data_sc_fifo;
 
 
-ARCHITECTURE SYN OF m9k_windowing_data_sc_fifo IS
+ARCHITECTURE SYN OF windowing_data_sc_fifo IS
 
 	SIGNAL sub_wire0	: STD_LOGIC ;
 	SIGNAL sub_wire1	: STD_LOGIC ;
@@ -102,9 +102,9 @@ BEGIN
 
 	scfifo_component : scfifo
 	GENERIC MAP (
-		add_ram_output_register => "ON",
+		add_ram_output_register => "OFF",
 		intended_device_family => "Stratix IV",
-		lpm_hint => "RAM_BLOCK_TYPE=M9K",
+		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
 		lpm_numwords => 256,
 		lpm_showahead => "ON",
 		lpm_type => "scfifo",
@@ -148,8 +148,8 @@ END SYN;
 -- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
--- Retrieval info: PRIVATE: Optimize NUMERIC "1"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
+-- Retrieval info: PRIVATE: Optimize NUMERIC "2"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -167,9 +167,9 @@ END SYN;
 -- Retrieval info: PRIVATE: wsFull NUMERIC "1"
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "0"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
--- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "ON"
+-- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
--- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=M9K"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
 -- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "256"
 -- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
@@ -198,10 +198,10 @@ END SYN;
 -- Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 64 0 @q 0 0 64 0
 -- Retrieval info: CONNECT: usedw 0 0 8 0 @usedw 0 0 8 0
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_windowing_data_sc_fifo.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_windowing_data_sc_fifo.inc TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_windowing_data_sc_fifo.cmp TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_windowing_data_sc_fifo.bsf TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_windowing_data_sc_fifo_inst.vhd TRUE
--- Retrieval info: GEN_FILE: TYPE_NORMAL m9k_windowing_data_sc_fifo_syn.v TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.inc TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.cmp TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.bsf TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo_inst.vhd TRUE
+-- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo_syn.v TRUE
 -- Retrieval info: LIB_FILE: altera_mf

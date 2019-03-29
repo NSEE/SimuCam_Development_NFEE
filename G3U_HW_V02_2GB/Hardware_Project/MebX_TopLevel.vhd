@@ -434,14 +434,14 @@ signal spw_h_sync : std_logic;
 			comm_b_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
 			comm_b_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
 			comm_b_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
---			comm_c_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
---			comm_c_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
---			comm_c_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
---			comm_c_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
---			comm_d_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
---			comm_d_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
---			comm_d_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
---			comm_d_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
+			comm_c_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_c_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_c_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
+			comm_c_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
+			comm_d_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
+			comm_d_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
+			comm_d_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
+			comm_d_conduit_end_strobe_out_signal                      : out   std_logic;                                        -- spw_so_signal
 --			comm_e_conduit_end_data_in_signal                         : in    std_logic                     := 'X';             -- spw_di_signal
 --			comm_e_conduit_end_strobe_in_signal                       : in    std_logic                     := 'X';             -- spw_si_signal
 --			comm_e_conduit_end_data_out_signal                        : out   std_logic;                                        -- spw_do_signal
@@ -461,8 +461,8 @@ signal spw_h_sync : std_logic;
 			
             comm_a_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
             comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
- --           comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
---            comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+            comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_e_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_f_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_g_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
