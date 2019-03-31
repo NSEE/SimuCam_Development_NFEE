@@ -328,7 +328,7 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
-	xWaitSyncQFee[0] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
+	xWaitSyncQFee[1] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
 	if ( xWaitSyncQFee[1] == NULL ) {
 		vFailCreateNFEESyncQueue( 1 );
 		bSuccess = FALSE;

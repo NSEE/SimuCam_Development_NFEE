@@ -161,41 +161,41 @@ void vInitialTask(void *task_data)
 
 	OSTimeDlyHMSM(0, 0, 0, 1500);
 
-
-
-	/* Create the first NFEE 4 Task */
-	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vFeeTask,
-									&xSimMeb.xFeeControl.xNfee[4],
-									(void *)&vFeeTask4_stk[FEES_STACK_SIZE-1],
-									NFEE_TASK_BASE_PRIO+4,
-									NFEE_TASK_BASE_PRIO+4,
-									vFeeTask4_stk,
-									FEES_STACK_SIZE,
-									NULL,
-									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
-	#else
-		error_code = OSTaskCreateExt(vFeeTask,
-									&xSimMeb.xFeeControl.xNfee[4],
-									(void *)&vFeeTask4_stk[FEES_STACK_SIZE-1],
-									NFEE_TASK_BASE_PRIO+4,
-									NFEE_TASK_BASE_PRIO+4,
-									vFeeTask4_stk,
-									FEES_STACK_SIZE,
-									NULL,
-									0);
-	#endif
-
-	if ( error_code != OS_ERR_NONE) {
-		/* Can't create Task */
-		#if DEBUG_ON
-			printErrorTask( error_code );
-		#endif
-			vCoudlNotCreateNFee4Task();
-	}
-
-
-	OSTimeDlyHMSM(0, 0, 0, 1500);
+//
+//
+//	/* Create the first NFEE 4 Task */
+//	#if ( STACK_MONITOR == 1)
+//		error_code = OSTaskCreateExt(vFeeTask,
+//									&xSimMeb.xFeeControl.xNfee[4],
+//									(void *)&vFeeTask4_stk[FEES_STACK_SIZE-1],
+//									NFEE_TASK_BASE_PRIO+4,
+//									NFEE_TASK_BASE_PRIO+4,
+//									vFeeTask4_stk,
+//									FEES_STACK_SIZE,
+//									NULL,
+//									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+//	#else
+//		error_code = OSTaskCreateExt(vFeeTask,
+//									&xSimMeb.xFeeControl.xNfee[4],
+//									(void *)&vFeeTask4_stk[FEES_STACK_SIZE-1],
+//									NFEE_TASK_BASE_PRIO+4,
+//									NFEE_TASK_BASE_PRIO+4,
+//									vFeeTask4_stk,
+//									FEES_STACK_SIZE,
+//									NULL,
+//									0);
+//	#endif
+//
+//	if ( error_code != OS_ERR_NONE) {
+//		/* Can't create Task */
+//		#if DEBUG_ON
+//			printErrorTask( error_code );
+//		#endif
+//			vCoudlNotCreateNFee4Task();
+//	}
+//
+//
+//	OSTimeDlyHMSM(0, 0, 0, 1500);
 
 
 
