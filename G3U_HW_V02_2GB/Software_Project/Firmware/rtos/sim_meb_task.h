@@ -19,6 +19,7 @@
 #include "../driver/sync/sync.h"
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/comm/comm_channel.h"
+#include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
 
 
 void vSimMebTask(void *task_data);
@@ -50,7 +51,7 @@ void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal );
 void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 void vMebInit(TSimucam_MEB *pxMebCLocal);
-void vReleaseSyncMessages(void);
+//void vReleaseSyncMessages(void);
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal);
 
 

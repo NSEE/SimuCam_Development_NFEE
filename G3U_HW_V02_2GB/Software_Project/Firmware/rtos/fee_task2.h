@@ -21,6 +21,8 @@
 #include "../driver/comm/data_packet/data_packet.h"
 #include "../driver/comm/rmap/rmap.h"
 
+extern const char *cTemp[64];
+
 void vFeeTask2(void *task_data);
 
 #endif /* FEE_TASK2_H_ */

@@ -25,7 +25,4 @@ void vInitSimucamBasicHW(void)
 	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 
-	bEnableIsoDrivers();
-	bEnableLvdsBoard();
-
 }

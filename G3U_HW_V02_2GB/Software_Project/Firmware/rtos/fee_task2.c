@@ -8,8 +8,7 @@
 #include "fee_task2.h"
 
 
-const char *cTemp[64];
-unsigned char ucIterationSide;
+static unsigned char ucIterationSide;
 
 void vFeeTask2(void *task_data) {
 	static TNFee *pxNFee;
@@ -53,10 +52,12 @@ void vFeeTask2(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
@@ -203,10 +204,12 @@ void vFeeTask2(void *task_data) {
 
 				/* Cleaning other syncs that maybe in the queue */
 				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -275,10 +278,12 @@ void vFeeTask2(void *task_data) {
 
 				/* Cleaning other syncs that maybe in the queue */
 				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -316,10 +321,12 @@ void vFeeTask2(void *task_data) {
 			case sNextPatternIteration:
 
 
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
@@ -327,7 +334,7 @@ void vFeeTask2(void *task_data) {
 				vResetMemCCDFEE(pxNFee);
 
 				/* Wait until both buffers are empty  */
-				vWaitUntilBufferEmpty( xDefaultsCH.ucFEEtoChanell[pxNFee->ucId] );
+				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
@@ -339,8 +346,8 @@ void vFeeTask2(void *task_data) {
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiGuardNFEEDelay);
 
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -424,13 +431,20 @@ void vFeeTask2(void *task_data) {
 								pxNFee->xControl.eMode = sToTestFullPattern;
 							}
 							incrementador++;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+							}
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
+							}
+							#endif
 						}
 
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
-						}
-						#endif
+
 					} else {
 						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 					}
@@ -468,8 +482,8 @@ void vFeeTask2(void *task_data) {
 				pxNFee->xControl.bEnabled = TRUE;
 				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -501,8 +515,8 @@ void vFeeTask2(void *task_data) {
 								/*Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
 
-								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
+								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
 
 								/*
 								if (xDefaults.usiLinkNFEE0 == 0) {
