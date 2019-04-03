@@ -20,7 +20,6 @@ end entity pgen_avalon_mm_data_read;
 
 architecture rtl of pgen_avalon_mm_data_read is
 begin
-
 	p_pgen_avalon_mm_data_read : process(clk_i, rst_i) is
 		procedure p_mm_readdata(mm_read_address_i : t_pgen_avalon_mm_data_address) is
 		begin
@@ -44,9 +43,15 @@ begin
 		elsif (rising_edge(clk_i)) then
 			avalon_mm_read_outputs_o.waitrequest <= '1';
 			if (avalon_mm_read_inputs_i.read = '1') then
+				-- Avalon read requested, request wait to perform reading
 				avalon_mm_read_outputs_o.waitrequest <= '0';
-				v_mm_read_address                    := to_integer(unsigned(avalon_mm_read_inputs_i.address));
-				p_mm_readdata(v_mm_read_address);
+				-- Check if there is data available inside fifo memory
+				if (data_controller_read_status_i.empty = '0') then
+					v_mm_read_address                    := to_integer(unsigned(avalon_mm_read_inputs_i.address));
+					p_mm_readdata(v_mm_read_address);
+				else 
+				end if;
+				
 			end if;
 		end if;
 	end process p_pgen_avalon_mm_data_read;

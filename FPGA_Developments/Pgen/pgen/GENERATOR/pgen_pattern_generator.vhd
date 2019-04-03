@@ -26,6 +26,7 @@ architecture rtl of pgen_pattern_generator is
 		ccd_column       : std_logic_vector(15 downto 0);
 	end record t_pattern_control_pointers;
 
+	------------------------------------------------------------------------------------------------------------------------
 	function f_generate_pattern_pixel(
 		pattern_seed_i             : t_pgen_pattern_generator_config;
 		pattern_control_pointers_i : t_pattern_control_pointers
@@ -42,11 +43,14 @@ architecture rtl of pgen_pattern_generator is
 			v_pattern_pixel(4 downto 0)   := pattern_control_pointers_i.ccd_column(4 downto 0);
 		else
 			-- fixed data
-			v_pattern_pixel := x"F5F5";
+			v_pattern_pixel := c_PATTERN_DUMB_DATA;
 		end if;
+		-- Return pixel
 		return v_pattern_pixel;
 	end function f_generate_pattern_pixel;
+	------------------------------------------------------------------------------------------------------------------------
 
+	------------------------------------------------------------------------------------------------------------------------
 	function f_update_pattern_pointers(
 		pattern_seed_i             : t_pgen_pattern_generator_config;
 		pattern_control_pointers_i : t_pattern_control_pointers
@@ -74,13 +78,16 @@ architecture rtl of pgen_pattern_generator is
 		end if;
 		return v_pattern_control_pointers;
 	end function f_update_pattern_pointers;
+	------------------------------------------------------------------------------------------------------------------------
 
 	type t_pgen_pattern_generator_state is (
 		RESETTING,
 		STOPPED,
 		RUNNING
 	);
-	signal s_pgen_pattern_generator_state : t_pgen_pattern_generator_state; -- current state
+
+	-- current state
+	signal s_pgen_pattern_generator_state : t_pgen_pattern_generator_state;
 
 	signal s_pattern_seed        : t_pgen_pattern_generator_config;
 	signal s_pattern_pixels      : t_pgen_pattern_generator_write_data;
@@ -90,36 +97,30 @@ begin
 	p_pgen_pattern_generator_FSM_state : process(clk_i, rst_i)
 		variable v_pattern_control_pointers     : t_pattern_control_pointers;
 		variable v_pgen_pattern_generator_state : t_pgen_pattern_generator_state;
+		-- Counter to mask insertion mode
+		variable v_counter_mask                 : natural range 0 to 68 := 0;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
 			s_pgen_pattern_generator_state              <= RESETTING;
+			v_pgen_pattern_generator_state              := RESETTING;
 			v_pattern_control_pointers.ccd_row          := (others => '0');
 			v_pattern_control_pointers.ccd_column       := (others => '0');
 			v_pattern_control_pointers.pattern_finished := '0';
+			v_counter_mask                              := 0;
 			s_pattern_seed                              <= config_i;
-
-			--			s_pattern_pixels.pattern_pixel_0            <= (others => '0');
-			--			s_pattern_pixels.pattern_pixel_1            <= (others => '0');
-			--			s_pattern_pixels.pattern_pixel_2            <= (others => '0');
-			--			s_pattern_pixels.pattern_pixel_3            <= (others => '0');
-			s_pattern_pixels.pattern_pixel <= (others => '0');
-
-			sf_write_pattern_data <= '0';
+			s_pattern_pixels.pattern_pixel              <= (others => '0');
+			sf_write_pattern_data                       <= '0';
 			-- Outputs generation - reset
-			status_o.resetted     <= '1';
-			status_o.stopped      <= '0';
+			status_o.resetted                           <= '1';
+			status_o.stopped                            <= '0';
+			data_o.pattern_pixel                        <= (others => '0');
+			data_controller_write_control_o.data_erase  <= '1';
+			data_controller_write_control_o.data_write  <= '0';
 
-			--			data_o.pattern_pixel_0                     <= (others => '0');
-			--			data_o.pattern_pixel_1                     <= (others => '0');
-			--			data_o.pattern_pixel_2                     <= (others => '0');
-			--			data_o.pattern_pixel_3                     <= (others => '0');
-			data_o.pattern_pixel <= (others => '0');
-
-			data_controller_write_control_o.data_erase <= '1';
-			data_controller_write_control_o.data_write <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
+
 			case (s_pgen_pattern_generator_state) is
 
 				-- state "RESETTING"
@@ -132,15 +133,10 @@ begin
 					v_pattern_control_pointers.ccd_row          := (others => '0');
 					v_pattern_control_pointers.ccd_column       := (others => '0');
 					v_pattern_control_pointers.pattern_finished := '0';
+					v_counter_mask                              := 0;
 					s_pattern_seed                              <= config_i;
-
-					--					s_pattern_pixels.pattern_pixel_0            <= (others => '0');
-					--					s_pattern_pixels.pattern_pixel_1            <= (others => '0');
-					--					s_pattern_pixels.pattern_pixel_2            <= (others => '0');
-					--   				s_pattern_pixels.pattern_pixel_3            <= (others => '0');
-					s_pattern_pixels.pattern_pixel <= (others => '0');
-
-					sf_write_pattern_data <= '0';
+					s_pattern_pixels.pattern_pixel              <= (others => '0');
+					sf_write_pattern_data                       <= '0';
 				-- conditional state transition and internal signal values
 
 				-- state "STOPPED"
@@ -194,24 +190,32 @@ begin
 							-- check if the data controller can receive data
 							if (data_controller_write_status_i.full = '0') then
 								-- data controller can receive data, generate next pattern data
-
-								--								-- create pattern pixel 0 and update pointers for next pattern
-								--								s_pattern_pixels.pattern_pixel_0 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-								--								-- create pattern pixel 1 and update pointers for next pattern
-								--								s_pattern_pixels.pattern_pixel_1 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-								--								-- create pattern pixel 2 and update pointers for next pattern
-								--								s_pattern_pixels.pattern_pixel_2 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-								--								-- create pattern pixel 3 and update pointers for next pattern
-								--								s_pattern_pixels.pattern_pixel_3 <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-								--								v_pattern_control_pointers       := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-
-								-- create pattern pixel and update pointers for next pattern
-								s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-								v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-
+								-- Check if mask field bit is off/on
+								if (s_pattern_seed.mask_field = '0') then
+									-- No mask field (4 pixels = 0xffff) should be inserted ("free running mode")
+									-- Reset mask counter
+									v_counter_mask                 := 0;
+									-- create pattern pixel and update pointers for next pattern
+									s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+									v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+								else
+									-- After 64 pixels generated, it must insert 4 "mask" pixels = 0xffff
+									-- Inc mask counter
+									v_counter_mask := v_counter_mask + 1;
+									-- "Normal pixels" --> v_counter_mask = 1 to 64
+									if (v_counter_mask <= 64) then
+										-- create pattern pixel and update pointers for next pattern
+										s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+										v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+									-- "Mask pixels" --> v_counter_mask = 65 to 68
+									else
+										-- Four "mask" pixels
+										s_pattern_pixels.pattern_pixel <= x"ffff";
+										if (v_counter_mask = 68) then
+											v_counter_mask := 0;
+										end if;
+									end if;
+								end if;
 								sf_write_pattern_data <= '1';
 							end if;
 						end if;
@@ -219,7 +223,7 @@ begin
 
 				-- all the other states (not defined)
 				when others =>
-					-- jump to save state (ERROR?!)
+					-- jump to reset state (ERROR?!)
 					s_pgen_pattern_generator_state <= RESETTING;
 					v_pgen_pattern_generator_state := RESETTING;
 
@@ -235,10 +239,6 @@ begin
 					status_o.resetted <= '1';
 					status_o.stopped  <= '0';
 
-					--					data_o.pattern_pixel_0                     <= (others => '0');
-					--					data_o.pattern_pixel_1                     <= (others => '0');
-					--					data_o.pattern_pixel_2                     <= (others => '0');
-					--					data_o.pattern_pixel_3                     <= (others => '0');
 					data_o.pattern_pixel <= (others => '0');
 
 					data_controller_write_control_o.data_erase <= '1';

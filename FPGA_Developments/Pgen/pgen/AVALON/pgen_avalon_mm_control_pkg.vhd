@@ -1,12 +1,12 @@
-library ieee; 
+library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package pgen_avalon_mm_control_pkg is
 
 	constant c_PGEN_AVALON_MM_CONTROL_ADDRESS_SIZE : natural := 8;
-	constant c_PGEN_AVALON_MM_CONTROL_DATA_SIZE   : natural := 32;
-	constant c_PGEN_AVALON_MM_CONTROL_SYMBOL_SIZE : natural := 8;
+	constant c_PGEN_AVALON_MM_CONTROL_DATA_SIZE    : natural := 32;
+	constant c_PGEN_AVALON_MM_CONTROL_SYMBOL_SIZE  : natural := 8;
 
 	subtype t_pgen_avalon_mm_control_address is natural range 0 to ((2 ** c_PGEN_AVALON_MM_CONTROL_ADDRESS_SIZE) - 1);
 

@@ -50,8 +50,10 @@ begin
 
 				-- Pattern Parameters Register                   (32 bits):
 				when (c_PGEN_PATTERN_PARAMETERS_MM_REG_ADDRESS + c_PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--   31-11 : Reserved                              [-/-]
-					avalon_mm_read_outputs_o.readdata(31 downto 11) <= (others => '0');
+					--   31-12 : Reserved                              [-/-]
+					avalon_mm_read_outputs_o.readdata(31 downto 12) <= (others => '0');
+					--   11-11 : Mask field bit                        [R/W]
+					avalon_mm_read_outputs_o.readdata(11)           <= mm_write_registers_i.pattern_parameters.mask_field;
 					--   10-10 : CCD Side value                        [R/W]
 					avalon_mm_read_outputs_o.readdata(10)           <= mm_write_registers_i.pattern_parameters.ccd_side;
 					--    9- 8 : CCD Number value                      [R/W]

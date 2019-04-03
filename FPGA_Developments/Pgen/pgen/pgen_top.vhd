@@ -60,7 +60,7 @@ entity pgen_component_ent is
 		clock_i                               : in  std_logic                     := '0';
 		reset_i                               : in  std_logic                     := '0';
 		-- data port 64-bit
-		avalon_mm_data_slave_address_i        : in  std_logic_vector(9 downto 0) := (others => '0');
+		avalon_mm_data_slave_address_i        : in  std_logic_vector(9 downto 0)  := (others => '0');
 		avalon_mm_data_slave_read_i           : in  std_logic                     := '0';
 		avalon_mm_data_slave_readdata_o       : out std_logic_vector(63 downto 0);
 		avalon_mm_data_slave_waitrequest_o    : out std_logic;
@@ -164,6 +164,7 @@ begin
 			control_i.start                 => s_mm_control_write_registers.generator_control.start_bit,
 			control_i.stop                  => s_mm_control_write_registers.generator_control.stop_bit,
 			control_i.reset                 => s_mm_control_write_registers.generator_control.reset_bit,
+			config_i.mask_field             => s_mm_control_write_registers.pattern_parameters.mask_field,
 			config_i.ccd_side               => s_mm_control_write_registers.pattern_parameters.ccd_side,
 			config_i.ccd_number             => s_mm_control_write_registers.pattern_parameters.ccd_number,
 			config_i.timecode               => s_mm_control_write_registers.pattern_parameters.timecode,

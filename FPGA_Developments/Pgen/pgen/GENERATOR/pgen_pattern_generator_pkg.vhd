@@ -1,8 +1,10 @@
-library ieee; 
+library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 package pgen_pattern_generator_pkg is
+
+	constant c_PATTERN_DUMB_DATA : std_logic_vector(15 downto 0) := x"f5f5";
 
 	type t_pgen_pattern_generator_read_data is record
 		pattern_pixel_3 : std_logic_vector(15 downto 0);
@@ -12,7 +14,7 @@ package pgen_pattern_generator_pkg is
 	end record t_pgen_pattern_generator_read_data;
 
 	type t_pgen_pattern_generator_write_data is record
-		pattern_pixel   : std_logic_vector(15 downto 0);
+		pattern_pixel : std_logic_vector(15 downto 0);
 	end record t_pgen_pattern_generator_write_data;
 
 	type t_pgen_pattern_generator_control is record
@@ -32,6 +34,7 @@ package pgen_pattern_generator_pkg is
 		timecode         : std_logic_vector(7 downto 0);
 		rows_quantity    : std_logic_vector(15 downto 0);
 		columns_quantity : std_logic_vector(15 downto 0);
+		mask_field       : std_logic;
 	end record t_pgen_pattern_generator_config;
 
 end package pgen_pattern_generator_pkg;

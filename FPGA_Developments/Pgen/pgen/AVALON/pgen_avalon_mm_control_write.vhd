@@ -21,14 +21,15 @@ begin
 	p_pgen_avalon_mm_control_write : process(clk_i, rst_i) is
 		procedure p_mm_reset_registers is
 		begin
-			mm_write_registers_o.generator_control.start_bit <= '0';
-			mm_write_registers_o.generator_control.stop_bit  <= '0';
-			mm_write_registers_o.generator_control.reset_bit <= '0';
-			mm_write_registers_o.pattern_size.rows_quantity           <= (others => '0');
-			mm_write_registers_o.pattern_size.columns_quantity        <= (others => '0');
-			mm_write_registers_o.pattern_parameters.ccd_side          <= '0';
-			mm_write_registers_o.pattern_parameters.ccd_number        <= (others => '0');
-			mm_write_registers_o.pattern_parameters.timecode          <= (others => '0');
+			mm_write_registers_o.generator_control.start_bit   <= '0';
+			mm_write_registers_o.generator_control.stop_bit    <= '0';
+			mm_write_registers_o.generator_control.reset_bit   <= '0';
+			mm_write_registers_o.pattern_size.rows_quantity    <= (others => '0');
+			mm_write_registers_o.pattern_size.columns_quantity <= (others => '0');
+			mm_write_registers_o.pattern_parameters.mask_field <= '0';
+			mm_write_registers_o.pattern_parameters.ccd_side   <= '0';
+			mm_write_registers_o.pattern_parameters.ccd_number <= (others => '0');
+			mm_write_registers_o.pattern_parameters.timecode   <= (others => '0');
 		end procedure p_mm_reset_registers;
 
 		procedure p_mm_control_triggers is
@@ -53,8 +54,8 @@ begin
 					mm_write_registers_o.generator_control.stop_bit  <= avalon_mm_write_inputs_i.writedata(3);
 					--    2- 2 : Reset control bit                     [R/W]
 					mm_write_registers_o.generator_control.reset_bit <= avalon_mm_write_inputs_i.writedata(2);
-				--    1- 1 : Reseted status bit                    [R/-]
-				--    0- 0 : Stopped status bit                    [R/-]
+				--    1- 1 : Reseted status bit                        [R/-]
+				--    0- 0 : Stopped status bit                        [R/-]
 
 				-- Pattern Size Register                         (32 bits):
 				when (c_PGEN_PATTERN_SIZE_MM_REG_ADDRESS + c_PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
@@ -65,7 +66,9 @@ begin
 
 				-- Pattern Parameters Register                   (32 bits):
 				when (c_PGEN_PATTERN_PARAMETERS_MM_REG_ADDRESS + c_PGEN_MM_REGISTERS_ADDRESS_OFFSET) =>
-					--   31-11 : Reserved                              [-/-]
+					--   31-12 : Reserved                              [-/-]
+					--   11-11 : Mask field bit                        [R/W]
+					mm_write_registers_o.pattern_parameters.mask_field <= avalon_mm_write_inputs_i.writedata(11);
 					--   10-10 : CCD Side value                        [R/W]
 					mm_write_registers_o.pattern_parameters.ccd_side   <= avalon_mm_write_inputs_i.writedata(10);
 					--    9- 8 : CCD Number value                      [R/W]
