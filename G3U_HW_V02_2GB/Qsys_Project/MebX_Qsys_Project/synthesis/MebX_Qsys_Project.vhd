@@ -276,11 +276,13 @@ architecture rtl of MebX_Qsys_Project is
 			mm_read_readdata             : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- readdata
 			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
 			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_read_burstcount           : out std_logic_vector(7 downto 0);                      -- burstcount
 			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
 			mm_write_write               : out std_logic;                                         -- write
 			mm_write_byteenable          : out std_logic_vector(7 downto 0);                      -- byteenable
 			mm_write_writedata           : out std_logic_vector(63 downto 0);                     -- writedata
 			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			mm_write_burstcount          : out std_logic_vector(7 downto 0);                      -- burstcount
 			clock_clk                    : in  std_logic                      := 'X';             -- clk
 			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
 			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
@@ -305,11 +307,13 @@ architecture rtl of MebX_Qsys_Project is
 			mm_read_readdata             : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- readdata
 			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
 			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
+			mm_read_burstcount           : out std_logic_vector(7 downto 0);                      -- burstcount
 			mm_write_address             : out std_logic_vector(32 downto 0);                     -- address
 			mm_write_write               : out std_logic;                                         -- write
 			mm_write_byteenable          : out std_logic_vector(7 downto 0);                      -- byteenable
 			mm_write_writedata           : out std_logic_vector(63 downto 0);                     -- writedata
 			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
+			mm_write_burstcount          : out std_logic_vector(7 downto 0);                      -- burstcount
 			clock_clk                    : in  std_logic                      := 'X';             -- clk
 			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
 			csr_writedata                : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
@@ -909,23 +913,27 @@ architecture rtl of MebX_Qsys_Project is
 			ddr2_address_span_extender_expanded_master_writedata            : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			dma_DDR_M1_mm_read_address                                      : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M1_mm_read_waitrequest                                  : out std_logic;                                         -- waitrequest
+			dma_DDR_M1_mm_read_burstcount                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- burstcount
 			dma_DDR_M1_mm_read_byteenable                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
 			dma_DDR_M1_mm_read_read                                         : in  std_logic                      := 'X';             -- read
 			dma_DDR_M1_mm_read_readdata                                     : out std_logic_vector(63 downto 0);                     -- readdata
 			dma_DDR_M1_mm_read_readdatavalid                                : out std_logic;                                         -- readdatavalid
 			dma_DDR_M1_mm_write_address                                     : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M1_mm_write_waitrequest                                 : out std_logic;                                         -- waitrequest
+			dma_DDR_M1_mm_write_burstcount                                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- burstcount
 			dma_DDR_M1_mm_write_byteenable                                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
 			dma_DDR_M1_mm_write_write                                       : in  std_logic                      := 'X';             -- write
 			dma_DDR_M1_mm_write_writedata                                   : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- writedata
 			dma_DDR_M2_mm_read_address                                      : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M2_mm_read_waitrequest                                  : out std_logic;                                         -- waitrequest
+			dma_DDR_M2_mm_read_burstcount                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- burstcount
 			dma_DDR_M2_mm_read_byteenable                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
 			dma_DDR_M2_mm_read_read                                         : in  std_logic                      := 'X';             -- read
 			dma_DDR_M2_mm_read_readdata                                     : out std_logic_vector(63 downto 0);                     -- readdata
 			dma_DDR_M2_mm_read_readdatavalid                                : out std_logic;                                         -- readdatavalid
 			dma_DDR_M2_mm_write_address                                     : in  std_logic_vector(32 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M2_mm_write_waitrequest                                 : out std_logic;                                         -- waitrequest
+			dma_DDR_M2_mm_write_burstcount                                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- burstcount
 			dma_DDR_M2_mm_write_byteenable                                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
 			dma_DDR_M2_mm_write_write                                       : in  std_logic                      := 'X';             -- write
 			dma_DDR_M2_mm_write_writedata                                   : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- writedata
@@ -1696,22 +1704,26 @@ architecture rtl of MebX_Qsys_Project is
 	signal dma_ddr_m2_mm_read_read                                                                : std_logic;                      -- dma_DDR_M2:mm_read_read -> mm_interconnect_1:dma_DDR_M2_mm_read_read
 	signal dma_ddr_m2_mm_read_byteenable                                                          : std_logic_vector(7 downto 0);   -- dma_DDR_M2:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_read_byteenable
 	signal dma_ddr_m2_mm_read_readdatavalid                                                       : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_read_readdatavalid -> dma_DDR_M2:mm_read_readdatavalid
+	signal dma_ddr_m2_mm_read_burstcount                                                          : std_logic_vector(7 downto 0);   -- dma_DDR_M2:mm_read_burstcount -> mm_interconnect_1:dma_DDR_M2_mm_read_burstcount
 	signal dma_ddr_m2_mm_write_waitrequest                                                        : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_write_waitrequest -> dma_DDR_M2:mm_write_waitrequest
 	signal dma_ddr_m2_mm_write_address                                                            : std_logic_vector(32 downto 0);  -- dma_DDR_M2:mm_write_address -> mm_interconnect_1:dma_DDR_M2_mm_write_address
 	signal dma_ddr_m2_mm_write_byteenable                                                         : std_logic_vector(7 downto 0);   -- dma_DDR_M2:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_write_byteenable
 	signal dma_ddr_m2_mm_write_write                                                              : std_logic;                      -- dma_DDR_M2:mm_write_write -> mm_interconnect_1:dma_DDR_M2_mm_write_write
 	signal dma_ddr_m2_mm_write_writedata                                                          : std_logic_vector(63 downto 0);  -- dma_DDR_M2:mm_write_writedata -> mm_interconnect_1:dma_DDR_M2_mm_write_writedata
+	signal dma_ddr_m2_mm_write_burstcount                                                         : std_logic_vector(7 downto 0);   -- dma_DDR_M2:mm_write_burstcount -> mm_interconnect_1:dma_DDR_M2_mm_write_burstcount
 	signal dma_ddr_m1_mm_write_waitrequest                                                        : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_write_waitrequest -> dma_DDR_M1:mm_write_waitrequest
 	signal dma_ddr_m1_mm_write_address                                                            : std_logic_vector(32 downto 0);  -- dma_DDR_M1:mm_write_address -> mm_interconnect_1:dma_DDR_M1_mm_write_address
 	signal dma_ddr_m1_mm_write_byteenable                                                         : std_logic_vector(7 downto 0);   -- dma_DDR_M1:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_write_byteenable
 	signal dma_ddr_m1_mm_write_write                                                              : std_logic;                      -- dma_DDR_M1:mm_write_write -> mm_interconnect_1:dma_DDR_M1_mm_write_write
 	signal dma_ddr_m1_mm_write_writedata                                                          : std_logic_vector(63 downto 0);  -- dma_DDR_M1:mm_write_writedata -> mm_interconnect_1:dma_DDR_M1_mm_write_writedata
+	signal dma_ddr_m1_mm_write_burstcount                                                         : std_logic_vector(7 downto 0);   -- dma_DDR_M1:mm_write_burstcount -> mm_interconnect_1:dma_DDR_M1_mm_write_burstcount
 	signal dma_ddr_m1_mm_read_readdata                                                            : std_logic_vector(63 downto 0);  -- mm_interconnect_1:dma_DDR_M1_mm_read_readdata -> dma_DDR_M1:mm_read_readdata
 	signal dma_ddr_m1_mm_read_waitrequest                                                         : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_read_waitrequest -> dma_DDR_M1:mm_read_waitrequest
 	signal dma_ddr_m1_mm_read_address                                                             : std_logic_vector(30 downto 0);  -- dma_DDR_M1:mm_read_address -> mm_interconnect_1:dma_DDR_M1_mm_read_address
 	signal dma_ddr_m1_mm_read_read                                                                : std_logic;                      -- dma_DDR_M1:mm_read_read -> mm_interconnect_1:dma_DDR_M1_mm_read_read
 	signal dma_ddr_m1_mm_read_byteenable                                                          : std_logic_vector(7 downto 0);   -- dma_DDR_M1:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_read_byteenable
 	signal dma_ddr_m1_mm_read_readdatavalid                                                       : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_read_readdatavalid -> dma_DDR_M1:mm_read_readdatavalid
+	signal dma_ddr_m1_mm_read_burstcount                                                          : std_logic_vector(7 downto 0);   -- dma_DDR_M1:mm_read_burstcount -> mm_interconnect_1:dma_DDR_M1_mm_read_burstcount
 	signal mm_interconnect_1_m2_ddr2_memory_avl_beginbursttransfer                                : std_logic;                      -- mm_interconnect_1:m2_ddr2_memory_avl_beginbursttransfer -> m2_ddr2_memory:avl_burstbegin
 	signal mm_interconnect_1_m2_ddr2_memory_avl_readdata                                          : std_logic_vector(255 downto 0); -- m2_ddr2_memory:avl_rdata -> mm_interconnect_1:m2_ddr2_memory_avl_readdata
 	signal m2_ddr2_memory_avl_waitrequest                                                         : std_logic;                      -- m2_ddr2_memory:avl_ready -> m2_ddr2_memory_avl_waitrequest:in
@@ -2306,11 +2318,13 @@ begin
 			mm_read_readdata             => dma_ddr_m1_mm_read_readdata,                               --                 .readdata
 			mm_read_waitrequest          => dma_ddr_m1_mm_read_waitrequest,                            --                 .waitrequest
 			mm_read_readdatavalid        => dma_ddr_m1_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_read_burstcount           => dma_ddr_m1_mm_read_burstcount,                             --                 .burstcount
 			mm_write_address             => dma_ddr_m1_mm_write_address,                               --         mm_write.address
 			mm_write_write               => dma_ddr_m1_mm_write_write,                                 --                 .write
 			mm_write_byteenable          => dma_ddr_m1_mm_write_byteenable,                            --                 .byteenable
 			mm_write_writedata           => dma_ddr_m1_mm_write_writedata,                             --                 .writedata
 			mm_write_waitrequest         => dma_ddr_m1_mm_write_waitrequest,                           --                 .waitrequest
+			mm_write_burstcount          => dma_ddr_m1_mm_write_burstcount,                            --                 .burstcount
 			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                           --            clock.clk
 			reset_n_reset_n              => rst_controller_007_reset_out_reset_ports_inv,              --          reset_n.reset_n
 			csr_writedata                => mm_interconnect_0_dma_ddr_m1_csr_writedata,                --              csr.writedata
@@ -2334,11 +2348,13 @@ begin
 			mm_read_readdata             => dma_ddr_m2_mm_read_readdata,                               --                 .readdata
 			mm_read_waitrequest          => dma_ddr_m2_mm_read_waitrequest,                            --                 .waitrequest
 			mm_read_readdatavalid        => dma_ddr_m2_mm_read_readdatavalid,                          --                 .readdatavalid
+			mm_read_burstcount           => dma_ddr_m2_mm_read_burstcount,                             --                 .burstcount
 			mm_write_address             => dma_ddr_m2_mm_write_address,                               --         mm_write.address
 			mm_write_write               => dma_ddr_m2_mm_write_write,                                 --                 .write
 			mm_write_byteenable          => dma_ddr_m2_mm_write_byteenable,                            --                 .byteenable
 			mm_write_writedata           => dma_ddr_m2_mm_write_writedata,                             --                 .writedata
 			mm_write_waitrequest         => dma_ddr_m2_mm_write_waitrequest,                           --                 .waitrequest
+			mm_write_burstcount          => dma_ddr_m2_mm_write_burstcount,                            --                 .burstcount
 			clock_clk                    => m2_ddr2_memory_afi_half_clk_clk,                           --            clock.clk
 			reset_n_reset_n              => rst_controller_007_reset_out_reset_ports_inv,              --          reset_n.reset_n
 			csr_writedata                => mm_interconnect_0_dma_ddr_m2_csr_writedata,                --              csr.writedata
@@ -3077,23 +3093,27 @@ begin
 			ddr2_address_span_extender_expanded_master_writedata            => ddr2_address_span_extender_expanded_master_writedata,                      --                                                          .writedata
 			dma_DDR_M1_mm_read_address                                      => dma_ddr_m1_mm_read_address,                                                --                                        dma_DDR_M1_mm_read.address
 			dma_DDR_M1_mm_read_waitrequest                                  => dma_ddr_m1_mm_read_waitrequest,                                            --                                                          .waitrequest
+			dma_DDR_M1_mm_read_burstcount                                   => dma_ddr_m1_mm_read_burstcount,                                             --                                                          .burstcount
 			dma_DDR_M1_mm_read_byteenable                                   => dma_ddr_m1_mm_read_byteenable,                                             --                                                          .byteenable
 			dma_DDR_M1_mm_read_read                                         => dma_ddr_m1_mm_read_read,                                                   --                                                          .read
 			dma_DDR_M1_mm_read_readdata                                     => dma_ddr_m1_mm_read_readdata,                                               --                                                          .readdata
 			dma_DDR_M1_mm_read_readdatavalid                                => dma_ddr_m1_mm_read_readdatavalid,                                          --                                                          .readdatavalid
 			dma_DDR_M1_mm_write_address                                     => dma_ddr_m1_mm_write_address,                                               --                                       dma_DDR_M1_mm_write.address
 			dma_DDR_M1_mm_write_waitrequest                                 => dma_ddr_m1_mm_write_waitrequest,                                           --                                                          .waitrequest
+			dma_DDR_M1_mm_write_burstcount                                  => dma_ddr_m1_mm_write_burstcount,                                            --                                                          .burstcount
 			dma_DDR_M1_mm_write_byteenable                                  => dma_ddr_m1_mm_write_byteenable,                                            --                                                          .byteenable
 			dma_DDR_M1_mm_write_write                                       => dma_ddr_m1_mm_write_write,                                                 --                                                          .write
 			dma_DDR_M1_mm_write_writedata                                   => dma_ddr_m1_mm_write_writedata,                                             --                                                          .writedata
 			dma_DDR_M2_mm_read_address                                      => dma_ddr_m2_mm_read_address,                                                --                                        dma_DDR_M2_mm_read.address
 			dma_DDR_M2_mm_read_waitrequest                                  => dma_ddr_m2_mm_read_waitrequest,                                            --                                                          .waitrequest
+			dma_DDR_M2_mm_read_burstcount                                   => dma_ddr_m2_mm_read_burstcount,                                             --                                                          .burstcount
 			dma_DDR_M2_mm_read_byteenable                                   => dma_ddr_m2_mm_read_byteenable,                                             --                                                          .byteenable
 			dma_DDR_M2_mm_read_read                                         => dma_ddr_m2_mm_read_read,                                                   --                                                          .read
 			dma_DDR_M2_mm_read_readdata                                     => dma_ddr_m2_mm_read_readdata,                                               --                                                          .readdata
 			dma_DDR_M2_mm_read_readdatavalid                                => dma_ddr_m2_mm_read_readdatavalid,                                          --                                                          .readdatavalid
 			dma_DDR_M2_mm_write_address                                     => dma_ddr_m2_mm_write_address,                                               --                                       dma_DDR_M2_mm_write.address
 			dma_DDR_M2_mm_write_waitrequest                                 => dma_ddr_m2_mm_write_waitrequest,                                           --                                                          .waitrequest
+			dma_DDR_M2_mm_write_burstcount                                  => dma_ddr_m2_mm_write_burstcount,                                            --                                                          .burstcount
 			dma_DDR_M2_mm_write_byteenable                                  => dma_ddr_m2_mm_write_byteenable,                                            --                                                          .byteenable
 			dma_DDR_M2_mm_write_write                                       => dma_ddr_m2_mm_write_write,                                                 --                                                          .write
 			dma_DDR_M2_mm_write_writedata                                   => dma_ddr_m2_mm_write_writedata,                                             --                                                          .writedata
