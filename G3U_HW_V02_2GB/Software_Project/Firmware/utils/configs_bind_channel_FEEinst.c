@@ -17,9 +17,7 @@ bool vCHConfs( void ){
 	bool bSuccess = FALSE;
 	bool bEOF = FALSE;
 	bool close = FALSE;
-	unsigned char ucParser;
 	char c, cChannel;
-	char inteiro[8];
 
 
 	if ( (xSdHandle.connected == TRUE) && (bSDcardIsPresent()) && (bSDcardFAT16Check()) ){
@@ -253,8 +251,8 @@ bool vCHConfs( void ){
 
 
 bool ucCheckAndApllySPWChannel( char cLetter, unsigned char *ucChannelNumber ) {
-	static char cChannelLists[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
-	static unsigned char ucIterator = 0;
+//	static char cChannelLists[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
+//	static unsigned char ucIterator = 0;
 
 //	/* Check if the char is between ASCII( 65 ) e ASCII( 72 ) */
 //

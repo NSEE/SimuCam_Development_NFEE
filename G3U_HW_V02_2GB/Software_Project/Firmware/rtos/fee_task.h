@@ -37,7 +37,7 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
 void vLoadCtemp(void);
-bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee );
+bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee, unsigned char ucSide );
 void vWaitUntilBufferEmpty( unsigned char ucId );
 void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
 void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );

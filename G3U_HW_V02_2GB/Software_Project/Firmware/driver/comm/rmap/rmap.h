@@ -20,7 +20,7 @@
 //! [constants definition]
 
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
-extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
+//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
 
 //! [public module structs definition]
 typedef struct RmapCodecConfig {

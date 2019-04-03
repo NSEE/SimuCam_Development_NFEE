@@ -9,7 +9,7 @@
 #include "fee_task.h"
 
 const char *cTemp[64];
-unsigned char ucIterationSide;
+static unsigned char ucIterationSide;
 
 
 void vFeeTask(void *task_data) {
@@ -54,10 +54,12 @@ void vFeeTask(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
-				}				
+				}
+				*/
 
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
@@ -202,12 +204,12 @@ void vFeeTask(void *task_data) {
 					pxNFee->xControl.bDMALocked = FALSE;
 				}
 
-				/* Cleaning other syncs that maybe in the queue */
-				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -276,10 +278,12 @@ void vFeeTask(void *task_data) {
 
 				/* Cleaning other syncs that maybe in the queue */
 				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -316,11 +320,12 @@ void vFeeTask(void *task_data) {
 
 			case sNextPatternIteration:
 
-
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
@@ -328,7 +333,7 @@ void vFeeTask(void *task_data) {
 				vResetMemCCDFEE(pxNFee);
 
 				/* Wait until both buffers are empty  */
-				vWaitUntilBufferEmpty( xDefaultsCH.ucFEEtoChanell[pxNFee->ucId] );
+				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
@@ -340,8 +345,8 @@ void vFeeTask(void *task_data) {
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiGuardNFEEDelay);
 
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -408,7 +413,7 @@ void vFeeTask(void *task_data) {
 	                    if ( error_code == OS_ERR_NONE ) {
 	                    	pxNFee->xControl.bDMALocked = TRUE;
 
-							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee );
+							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee, ucIterationSide );
 							OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 							pxNFee->xControl.bDMALocked = FALSE;
 		
@@ -425,13 +430,18 @@ void vFeeTask(void *task_data) {
 								pxNFee->xControl.eMode = sToTestFullPattern;
 							}
 							incrementador++;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+							}
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
+							}
+							#endif
 						}
-
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
-						}
-						#endif
 					} else {
 						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 					}
@@ -469,8 +479,8 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bEnabled = TRUE;
 				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -502,8 +512,8 @@ void vFeeTask(void *task_data) {
 								/*Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
 
-								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
+								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
 
 								/*
 								if (xDefaults.usiLinkNFEE0 == 0) {
@@ -1738,7 +1748,7 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 #endif
 
 
-bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee ) {
+bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee, unsigned char ucSide ) {
 	bool  bDmaReturn;
 	unsigned long ulLengthBlocks;
 
@@ -1753,8 +1763,8 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId);
+	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
 	/*if (xDefaults.usiLinkNFEE0 == 0) {
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
@@ -1765,14 +1775,14 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}*/
 
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -1787,8 +1797,8 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
+	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
 	/*if (xDefaults.usiLinkNFEE0 == 0) {
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
@@ -1799,14 +1809,14 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	}*/
 
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -1895,10 +1905,10 @@ void vWaitUntilBufferEmpty( unsigned char ucId ) {
 			while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
 			break;
 		case 2:
-			//while ( (bFeebGetCh3LeftFeeBusy()== TRUE) || (bFeebGetCh3RightFeeBusy()== TRUE)  ) {}
+			while ( (bFeebGetCh3LeftFeeBusy()== TRUE) || (bFeebGetCh3RightFeeBusy()== TRUE)  ) {}
 			break;
 		case 3:
-			//while ( (bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)  ) {}
+			while ( (bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)  ) {}
 			break;
 		case 4:
 			//while ( (bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)  ) {}

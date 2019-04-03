@@ -49,7 +49,7 @@ void vSimMebTask(void *task_data) {
 				vSyncClearCounter();
 
 				/* If any Task is locked waiting Sync, should be released */
-				vReleaseSyncMessages();
+				//vReleaseSyncMessages();
 
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, 10);
@@ -62,11 +62,18 @@ void vSimMebTask(void *task_data) {
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, 250);
 
+				bDisableIsoDrivers();
+				bDisableLvdsBoard();
+
 				pxMebC->eMode = sMebConfig;
 				break;
 
 
 			case sMebToRun:
+
+				bEnableIsoDrivers();
+				bEnableLvdsBoard();
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					debug(fp,"MEB Task: Run Mode\n");
@@ -640,6 +647,7 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 }
 
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */
+/* Don't need this function anymore... for now
 void vReleaseSyncMessages(void) {
 	unsigned char ucIL;
 	unsigned char error_codel;
@@ -647,7 +655,6 @@ void vReleaseSyncMessages(void) {
 
 	uiCmdtoSend.ulWord = 0;
 	uiCmdtoSend.ucByte[2] = M_SYNC;
-	/* MasterSync? */
 
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
@@ -657,4 +664,4 @@ void vReleaseSyncMessages(void) {
 		}
 	}
 }
-
+*/

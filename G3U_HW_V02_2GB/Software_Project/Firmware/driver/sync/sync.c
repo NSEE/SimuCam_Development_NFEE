@@ -59,6 +59,8 @@ void vSyncHandleIrq(void* pvContext) {
 
 	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
 
+
+
 	/* Send Priority message to the Meb Task to indicate the Master Sync */
 	error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
@@ -66,10 +68,12 @@ void vSyncHandleIrq(void* pvContext) {
 	}
 
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-		error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgSync( ucIL );
+		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
 		}
 	}
 

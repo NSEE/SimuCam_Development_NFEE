@@ -1,0 +1,14 @@
+'Binding FEE instances with the SPW channels'
+'Ex. 0 = A => means that the Channel A of SPW should be binded with the instance 0 of the FEE'
+'    2 = H => means that the Channel H of SPW should be binded with the instance 2 of the FEE'
+'WARNNNG: DO NEVER BIND THE SAME CHANNEL FOR MORE THAN ONE INSTANCE!'
+0=A;
+1=B;
+2=C;
+3=D;
+4=E;
+5=F;
+6=G;
+7=H;
+<<
+'Keep the "less than" (<) caracter, this is used in the parser'
