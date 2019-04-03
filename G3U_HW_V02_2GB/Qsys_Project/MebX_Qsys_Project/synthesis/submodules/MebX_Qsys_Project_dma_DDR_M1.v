@@ -13,13 +13,11 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		input  wire [63:0]  mm_read_readdata,             //                 .readdata
 		input  wire         mm_read_waitrequest,          //                 .waitrequest
 		input  wire         mm_read_readdatavalid,        //                 .readdatavalid
-		output wire [7:0]   mm_read_burstcount,           //                 .burstcount
 		output wire [32:0]  mm_write_address,             //         mm_write.address
 		output wire         mm_write_write,               //                 .write
 		output wire [7:0]   mm_write_byteenable,          //                 .byteenable
 		output wire [63:0]  mm_write_writedata,           //                 .writedata
 		input  wire         mm_write_waitrequest,         //                 .waitrequest
-		output wire [7:0]   mm_write_burstcount,          //                 .burstcount
 		input  wire         clock_clk,                    //            clock.clk
 		input  wire         reset_n_reset_n,              //          reset_n.reset_n
 		input  wire [31:0]  csr_writedata,                //              csr.writedata
@@ -103,7 +101,7 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.LENGTH_WIDTH              (27),
 		.FIFO_DEPTH                (512),
 		.STRIDE_ENABLE             (0),
-		.BURST_ENABLE              (1),
+		.BURST_ENABLE              (0),
 		.PACKET_ENABLE             (0),
 		.ERROR_ENABLE              (0),
 		.ERROR_WIDTH               (8),
@@ -116,12 +114,12 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.SYMBOL_WIDTH              (8),
 		.NUMBER_OF_SYMBOLS         (8),
 		.NUMBER_OF_SYMBOLS_LOG2    (3),
-		.MAX_BURST_COUNT_WIDTH     (8),
+		.MAX_BURST_COUNT_WIDTH     (1),
 		.UNALIGNED_ACCESSES_ENABLE (0),
 		.ONLY_FULL_ACCESS_ENABLE   (1),
 		.BURST_WRAPPING_SUPPORT    (0),
 		.PROGRAMMABLE_BURST_ENABLE (0),
-		.MAX_BURST_COUNT           (128),
+		.MAX_BURST_COUNT           (1),
 		.FIFO_SPEED_OPTIMIZATION   (1),
 		.STRIDE_WIDTH              (1)
 	) read_mstr_internal (
@@ -133,7 +131,6 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.master_readdata      (mm_read_readdata),                              //                 .readdata
 		.master_waitrequest   (mm_read_waitrequest),                           //                 .waitrequest
 		.master_readdatavalid (mm_read_readdatavalid),                         //                 .readdatavalid
-		.master_burstcount    (mm_read_burstcount),                            //                 .burstcount
 		.src_data             (read_mstr_internal_data_source_data),           //      Data_Source.data
 		.src_valid            (read_mstr_internal_data_source_valid),          //                 .valid
 		.src_ready            (read_mstr_internal_data_source_ready),          //                 .ready
@@ -143,6 +140,7 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.src_response_data    (read_mstr_internal_response_source_data),       //  Response_Source.data
 		.src_response_valid   (read_mstr_internal_response_source_valid),      //                 .valid
 		.src_response_ready   (read_mstr_internal_response_source_ready),      //                 .ready
+		.master_burstcount    (),                                              //      (terminated)
 		.src_sop              (),                                              //      (terminated)
 		.src_eop              (),                                              //      (terminated)
 		.src_empty            (),                                              //      (terminated)
@@ -155,7 +153,7 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.LENGTH_WIDTH                   (27),
 		.FIFO_DEPTH                     (512),
 		.STRIDE_ENABLE                  (0),
-		.BURST_ENABLE                   (1),
+		.BURST_ENABLE                   (0),
 		.PACKET_ENABLE                  (0),
 		.ERROR_ENABLE                   (0),
 		.ERROR_WIDTH                    (8),
@@ -166,12 +164,12 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.SYMBOL_WIDTH                   (8),
 		.NUMBER_OF_SYMBOLS              (8),
 		.NUMBER_OF_SYMBOLS_LOG2         (3),
-		.MAX_BURST_COUNT_WIDTH          (8),
+		.MAX_BURST_COUNT_WIDTH          (1),
 		.UNALIGNED_ACCESSES_ENABLE      (0),
 		.ONLY_FULL_ACCESS_ENABLE        (1),
 		.BURST_WRAPPING_SUPPORT         (0),
 		.PROGRAMMABLE_BURST_ENABLE      (0),
-		.MAX_BURST_COUNT                (128),
+		.MAX_BURST_COUNT                (1),
 		.FIFO_SPEED_OPTIMIZATION        (1),
 		.STRIDE_WIDTH                   (1),
 		.ACTUAL_BYTES_TRANSFERRED_WIDTH (32)
@@ -183,7 +181,6 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.master_byteenable  (mm_write_byteenable),                            //                  .byteenable
 		.master_writedata   (mm_write_writedata),                             //                  .writedata
 		.master_waitrequest (mm_write_waitrequest),                           //                  .waitrequest
-		.master_burstcount  (mm_write_burstcount),                            //                  .burstcount
 		.snk_data           (read_mstr_internal_data_source_data),            //         Data_Sink.data
 		.snk_valid          (read_mstr_internal_data_source_valid),           //                  .valid
 		.snk_ready          (read_mstr_internal_data_source_ready),           //                  .ready
@@ -193,6 +190,7 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.src_response_data  (write_mstr_internal_response_source_data),       //   Response_Source.data
 		.src_response_valid (write_mstr_internal_response_source_valid),      //                  .valid
 		.src_response_ready (write_mstr_internal_response_source_ready),      //                  .ready
+		.master_burstcount  (),                                               //       (terminated)
 		.snk_sop            (1'b0),                                           //       (terminated)
 		.snk_eop            (1'b0),                                           //       (terminated)
 		.snk_empty          (3'b000),                                         //       (terminated)
