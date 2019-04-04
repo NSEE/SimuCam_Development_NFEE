@@ -1398,7 +1398,7 @@ VCCPD8B                      : R23       : power  :                   : 2.5V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :         : 8A        :                
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
-FSM_A[0]                     : R27       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
@@ -1553,7 +1553,7 @@ GND                          : W22       : gnd    :                   :         
 VCC                          : W23       : power  :                   : 0.9V    :           :                
 GND                          : W24       : gnd    :                   :         :           :                
 VCC                          : W25       : power  :                   : 0.9V    :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : W26       :        :                   :         : 1C        :                
+FSM_A[0]                     : W26       : output : 2.5 V             :         : 1C        : N              
 VCCPD1C                      : W27       : power  :                   : 2.5V    : 1C        :                
 LED_DE4[1]                   : W28       : output : 2.5 V             :         : 1C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : W29       :        :                   :         : 1C        :                

@@ -6265,7 +6265,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_error         ()                                                                                                      //   (terminated)
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_010 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter #(
 		.inBitsPerSymbol (258),
 		.inUsePackets    (0),
 		.inDataWidth     (258),
@@ -6294,7 +6294,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_out_0_error)                                    //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6323,7 +6323,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_001_out_0_error)                     //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6352,7 +6352,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_002_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6381,7 +6381,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_003_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6410,7 +6410,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_004_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6439,7 +6439,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_005_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6468,7 +6468,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_006_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6497,7 +6497,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_007_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
@@ -6526,7 +6526,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.out_0_error    (avalon_st_adapter_008_out_0_error)                                       //         .error
 	);
 
-	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_005 #(
+	MebX_Qsys_Project_mm_interconnect_1_avalon_st_adapter_001 #(
 		.inBitsPerSymbol (66),
 		.inUsePackets    (0),
 		.inDataWidth     (66),
