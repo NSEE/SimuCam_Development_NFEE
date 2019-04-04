@@ -502,6 +502,7 @@ int main(void)
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
 		}
 		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -537,6 +538,7 @@ int main(void)
 			debug(fp, "Didn't load the bind configuration of the FEEs. \n");
 		}
 		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -560,6 +562,7 @@ int main(void)
 			debug(fp, "Didn't load ETH configuration from SDCard. \n");
 		}
 		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -576,11 +579,12 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
-	}
-	#endif
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
+		}
+		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -624,6 +628,7 @@ int main(void)
 	} else {
 		/* Some error occurs in the creation of the Initialization Task */
 		vFailInitialization();
+		return -1;
 	}
   
 	return 0;
@@ -669,6 +674,9 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 					fprintf(fp, "-----CCD %i\n", ccd_number);
 				}
 				#endif
+
+				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ccd_number) );
 
 				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
 					if (ccd_side == 0){

@@ -25,6 +25,9 @@
 #define N_OF_NFEE       4	/* ONLY for tests */
 #define N_OF_FastFEE    2
 
+#define N_SEC_WAIT_SHUTDOWN 20   /*In seconds*/
+
+
 #define DATA_PACKET		TRUE	/* Using data packet or Transparent mode ( 0 ) */
 #define TRANSPARENT		FALSE
 
