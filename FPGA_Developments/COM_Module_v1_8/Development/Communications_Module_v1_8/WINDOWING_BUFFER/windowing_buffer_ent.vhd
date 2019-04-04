@@ -8,7 +8,7 @@ entity windowing_buffer_ent is
 	port(
 		clk_i                   : in  std_logic;
 		rst_i                   : in  std_logic;
-		window_buffer_size_i    : in  std_logic_vector(3 downto 0);
+		window_buffer_size_i    : in  std_logic_vector(4 downto 0);
 		fee_clear_signal_i      : in  std_logic;
 		fee_stop_signal_i       : in  std_logic;
 		fee_start_signal_i      : in  std_logic;
@@ -372,7 +372,7 @@ begin
 						s_windowing_data_fifo_0_control.read.rdreq <= '1';
 						window_data_o                              <= s_windowing_data_fifo_0_rd_data.q;
 						-- check if this is the last data for the buffer 0
-						if (s_windowing_data_fifo_0_status.read.usedw = "00000001") then
+						if (s_windowing_data_fifo_0_status.read.usedw = std_logic_vector(to_unsigned(1, s_windowing_data_fifo_0_status.read.usedw'length))) then
 							-- next data will be read from buffer 1
 							s_read_data_buffer_0_active <= '0';
 							-- clear the data ready flag
@@ -384,7 +384,7 @@ begin
 						s_windowing_data_fifo_1_control.read.rdreq <= '1';
 						window_data_o                              <= s_windowing_data_fifo_1_rd_data.q;
 						-- check if this is the last data for the buffer 1
-						if (s_windowing_data_fifo_1_status.read.usedw = "00000001") then
+						if (s_windowing_data_fifo_1_status.read.usedw = std_logic_vector(to_unsigned(1, s_windowing_data_fifo_1_status.read.usedw'length))) then
 							-- next data will be read from buffer 0
 							s_read_data_buffer_0_active <= '1';
 							-- clear the data ready flag
@@ -400,7 +400,7 @@ begin
 						s_windowing_mask_fifo_0_control.read.rdreq <= '1';
 						window_mask_o                              <= s_windowing_mask_fifo_0_rd_data.q;
 						-- check if this is the last mask for the buffer 0
-						if (s_windowing_mask_fifo_0_status.read.usedw = "0001") then
+						if (s_windowing_mask_fifo_0_status.read.usedw = std_logic_vector(to_unsigned(1, s_windowing_mask_fifo_0_status.read.usedw'length))) then
 							-- next data will be read from buffer 1
 							s_read_mask_buffer_0_active <= '0';
 							-- clear the mask ready flag
@@ -412,7 +412,7 @@ begin
 						s_windowing_mask_fifo_1_control.read.rdreq <= '1';
 						window_mask_o                              <= s_windowing_mask_fifo_1_rd_data.q;
 						-- check if this is the last mask for the buffer 1
-						if (s_windowing_mask_fifo_1_status.read.usedw = "0001") then
+						if (s_windowing_mask_fifo_1_status.read.usedw = std_logic_vector(to_unsigned(1, s_windowing_mask_fifo_1_status.read.usedw'length))) then
 							-- next data will be read from buffer 0
 							s_read_mask_buffer_0_active <= '1';
 							-- clear the mask ready flag
@@ -452,7 +452,7 @@ begin
 
 	-- signals assignments
 	s_window_mask_buffer_size             <= window_buffer_size_i;
-	s_window_data_buffer_size(7 downto 4) <= window_buffer_size_i;
+	s_window_data_buffer_size(8 downto 4) <= window_buffer_size_i;
 	s_window_data_buffer_size(3 downto 0) <= "1111";
 
 	-- output signals generation:
