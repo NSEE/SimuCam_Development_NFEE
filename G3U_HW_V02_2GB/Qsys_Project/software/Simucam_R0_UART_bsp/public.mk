@@ -368,8 +368,8 @@ ALT_CFLAGS += -mgpopt=global
 
 # Slave descriptor of STDERR character-mode device. This setting is used by the 
 # ALT_STDERR family of defines in system.h. none 
-# setting hal.stderr is jtag_uart_0
-ELF_PATCH_FLAG  += --stderr_dev jtag_uart_0
+# setting hal.stderr is none
+ELF_PATCH_FLAG  += --stderr_dev none
 
 # Slave descriptor of STDIN character-mode device. This setting is used by the 
 # ALT_STDIN family of defines in system.h. none 
