@@ -1,5 +1,7 @@
 	component MebX_Qsys_Project is
 		port (
+			altpll_300_areset_conduit_export                     : in    std_logic                     := 'X';             -- export
+			altpll_300_locked_conduit_export                     : out   std_logic;                                        -- export
 			button_export                                        : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                            : in    std_logic                     := 'X';             -- clk
 			comm_a_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
@@ -117,14 +119,14 @@
 			tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
-			altpll_300_areset_conduit_export                     : in    std_logic                     := 'X';             -- export
-			altpll_300_locked_conduit_export                     : out   std_logic                                         -- export
+			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
 		);
 	end component MebX_Qsys_Project;
 
 	u0 : component MebX_Qsys_Project
 		port map (
+			altpll_300_areset_conduit_export                     => CONNECTED_TO_altpll_300_areset_conduit_export,                     --  altpll_300_areset_conduit.export
+			altpll_300_locked_conduit_export                     => CONNECTED_TO_altpll_300_locked_conduit_export,                     --  altpll_300_locked_conduit.export
 			button_export                                        => CONNECTED_TO_button_export,                                        --                     button.export
 			clk50_clk                                            => CONNECTED_TO_clk50_clk,                                            --                      clk50.clk
 			comm_a_conduit_end_data_in_signal                    => CONNECTED_TO_comm_a_conduit_end_data_in_signal,                    --         comm_a_conduit_end.data_in_signal
@@ -242,8 +244,6 @@
 			tristate_conduit_tcm_read_n_out                      => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                      --                           .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                     --                           .tcm_write_n_out
 			tristate_conduit_tcm_data_out                        => CONNECTED_TO_tristate_conduit_tcm_data_out,                        --                           .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                --                           .tcm_chipselect_n_out
-			altpll_300_areset_conduit_export                     => CONNECTED_TO_altpll_300_areset_conduit_export,                     --  altpll_300_areset_conduit.export
-			altpll_300_locked_conduit_export                     => CONNECTED_TO_altpll_300_locked_conduit_export                      --  altpll_300_locked_conduit.export
+			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                 --                           .tcm_chipselect_n_out
 		);
 
