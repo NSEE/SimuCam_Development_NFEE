@@ -72,8 +72,8 @@ architecture RTL of windowing_buffer_ent is
 	signal s_mask_buffer_1_lock : std_logic;
 
 	-- windowing buffers size signals
-	signal s_window_mask_buffer_size : std_logic_vector(3 downto 0);
-	signal s_window_data_buffer_size : std_logic_vector(7 downto 0);
+	signal s_window_mask_buffer_size : std_logic_vector(4 downto 0);
+	signal s_window_data_buffer_size : std_logic_vector(8 downto 0);
 
 	-- stopped flag signal
 	signal s_stopped_flag : std_logic;
