@@ -13,9 +13,9 @@
 #define QUERY_STACK     0
 /**-----------------------------------------*/
 
-#define DEBUG_ON    	1
+#define DEBUG_ON    	0
 #if defined(STACK_MONITOR) || defined(QUERY_STACK)
-    #define DEBUG_ON    1 /* This value should always be 1 when one of the above options is defined */
+    #define DEBUG_ON    0 /* This value should always be 1 when one of the above options is defined */
 #endif
 #if DEBUG_ON
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }
@@ -25,7 +25,7 @@
 #define N_OF_NFEE       4	/* ONLY for tests */
 #define N_OF_FastFEE    2
 
-#define N_SEC_WAIT_SHUTDOWN 20   /*In seconds*/
+#define N_SEC_WAIT_SHUTDOWN 15   /*In seconds*/
 
 
 #define DATA_PACKET		TRUE	/* Using data packet or Transparent mode ( 0 ) */

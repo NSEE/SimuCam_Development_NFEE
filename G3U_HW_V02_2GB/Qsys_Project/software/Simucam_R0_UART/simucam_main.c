@@ -505,7 +505,7 @@ int main(void)
 		vCriticalErrorLedPanel();
 		return -1;
 	}
-
+#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
 		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
@@ -527,7 +527,7 @@ int main(void)
 		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
 		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
 	}
-
+#endif
 
 	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
 	bIniSimucamStatus = vCHConfs();
@@ -542,6 +542,7 @@ int main(void)
 		return -1;
 	}
 
+#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nFEE binding Loaded from SDCard \n");
 		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
@@ -553,7 +554,7 @@ int main(void)
 		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
 		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
 	}
-
+#endif
 
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
@@ -596,6 +597,7 @@ int main(void)
 	bInitSync();
 
 	vFillMemmoryPattern( &xSimMeb );
+	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
 
 	/* Creating the initialization task*/

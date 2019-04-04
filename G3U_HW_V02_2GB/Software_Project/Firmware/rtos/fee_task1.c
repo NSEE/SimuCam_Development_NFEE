@@ -271,6 +271,9 @@ void vFeeTask1(void *task_data) {
 				/* Disable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
