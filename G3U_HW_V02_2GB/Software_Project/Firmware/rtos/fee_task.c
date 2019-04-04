@@ -184,6 +184,8 @@ void vFeeTask(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -268,6 +270,9 @@ void vFeeTask(void *task_data) {
 				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -1953,6 +1958,77 @@ void vWaitUntilBufferEmpty( unsigned char ucId ) {
 			break;
 	}
 
+}
+
+inline unsigned long int uliReturnMaskR( unsigned char ucChannel ){
+	unsigned long int uliOut;
+
+	switch (ucChannel) {
+		case 0:
+			uliOut = LEDS_1R_MASK;
+			break;
+		case 1:
+			uliOut = LEDS_2R_MASK;
+			break;
+		case 2:
+			uliOut = LEDS_3R_MASK;
+			break;
+		case 3:
+			uliOut = LEDS_4R_MASK;
+			break;
+		case 4:
+			uliOut = LEDS_5R_MASK;
+			break;
+		case 5:
+			uliOut = LEDS_6R_MASK;
+			break;
+		case 6:
+			uliOut = LEDS_7R_MASK;
+			break;
+		case 7:
+			uliOut = LEDS_8R_MASK;
+			break;
+		default:
+			uliOut = LEDS_R_ALL_MASK;
+			break;
+	}
+	return uliOut;
+}
+
+
+inline unsigned long int uliReturnMaskG( unsigned char ucChannel ){
+	unsigned long int uliOut;
+
+	switch (ucChannel) {
+		case 0:
+			uliOut = LEDS_1G_MASK;
+			break;
+		case 1:
+			uliOut = LEDS_2G_MASK;
+			break;
+		case 2:
+			uliOut = LEDS_3G_MASK;
+			break;
+		case 3:
+			uliOut = LEDS_4G_MASK;
+			break;
+		case 4:
+			uliOut = LEDS_5G_MASK;
+			break;
+		case 5:
+			uliOut = LEDS_6G_MASK;
+			break;
+		case 6:
+			uliOut = LEDS_7G_MASK;
+			break;
+		case 7:
+			uliOut = LEDS_8G_MASK;
+			break;
+		default:
+			uliOut = LEDS_G_ALL_MASK;
+			break;
+	}
+	return uliOut;
 }
 
 

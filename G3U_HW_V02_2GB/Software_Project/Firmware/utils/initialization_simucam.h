@@ -11,6 +11,7 @@
 #include "../simucam_definitions.h"
 #include "../driver/reset/reset.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
+#include "../driver/leds/leds.h"
 
 void vInitSimucamBasicHW(void);
 

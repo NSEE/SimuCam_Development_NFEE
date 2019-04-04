@@ -44,26 +44,7 @@ void vSimMebTask(void *task_data) {
 				}
 				#endif
 
-				/* Stop the Sync (Stopping the simulation) */
-				bStopSync();
-				vSyncClearCounter();
-
-				/* If any Task is locked waiting Sync, should be released */
-				//vReleaseSyncMessages();
-
-				/* Give time to all tasks receive the command */
-				OSTimeDlyHMSM(0, 0, 0, 10);
-
-				/* Transition to Config Mode (Ending the simulation) */
-				/* Send a message to the NFEE Controller forcing the mode */
-				vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
-				vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
-
-				/* Give time to all tasks receive the command */
-				OSTimeDlyHMSM(0, 0, 0, 250);
-
-				bDisableIsoDrivers();
-				bDisableLvdsBoard();
+				vEnterConfigRoutine();
 
 				pxMebC->eMode = sMebConfig;
 				break;
@@ -283,6 +264,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
+	unsigned char ucShutDownI = 0;
+
 
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_RUN */
@@ -292,6 +275,19 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_TURNOFF */
 		case 62:
 			/*todo: Do nothing for now */
+			/* Animate LED */
+			/* Wait for N seconds */
+			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
+
+				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ( ucShutDownI % 4 )) );
+
+				OSTimeDlyHMSM(0,0,1,0);
+			}
+
+			/* Sinalize that can safely shutdown the Simucam */
+			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
+
 			break;
 		/* TC_SCAM_CONFIG */
 		case 60:
@@ -398,6 +394,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
+	unsigned char ucShutDownI=0;
+
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_CONFIG */
 		case 60:
@@ -406,6 +404,23 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_TURNOFF */
 		case 62:
 			/*todo: Do nothing for now */
+			/* Force all go to Config Mode */
+			vEnterConfigRoutine();
+
+			/* Animate LED */
+			/* Wait for N seconds */
+			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
+
+				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ( ucShutDownI % 4 )) );
+
+				OSTimeDlyHMSM(0,0,1,0);
+			}
+
+			/* Sinalize that can safely shutdown the Simucam */
+			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
+
+
 			break;
 		/* TC_SCAM_RUN */
 		case 61:
@@ -643,6 +658,29 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 
 	pxMebCLocal->ucActualDDR = (pxMebCLocal->ucActualDDR + 1) % 2 ;
 	pxMebCLocal->ucNextDDR = (pxMebCLocal->ucNextDDR + 1) % 2 ;
+
+}
+
+
+void vEnterConfigRoutine( void ) {
+
+	/* Stop the Sync (Stopping the simulation) */
+	bStopSync();
+	vSyncClearCounter();
+
+	/* Give time to all tasks receive the command */
+	OSTimeDlyHMSM(0, 0, 0, 5);
+
+	/* Transition to Config Mode (Ending the simulation) */
+	/* Send a message to the NFEE Controller forcing the mode */
+	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
+	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
+
+	/* Give time to all tasks receive the command */
+	OSTimeDlyHMSM(0, 0, 0, 250);
+
+	bDisableIsoDrivers();
+	bDisableLvdsBoard();
 
 }
 

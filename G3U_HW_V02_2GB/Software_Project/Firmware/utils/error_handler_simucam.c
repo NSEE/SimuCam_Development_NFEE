@@ -17,6 +17,12 @@
 	}
 #endif
 
+/* If some critical error ocours all LEDs in the panel will turn on */
+void vCriticalErrorLedPanel( void ) {
+
+	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
+}
+
 void vFailCreateMutexSResources( INT8U error_code )
 {
 	#if DEBUG_ON
@@ -67,6 +73,8 @@ void vFailTestCriticasParts( void )
 		debug(fp,"vFailTestCriticasParts. (exit)\n");
 	}
 	#endif
+
+	vCriticalErrorLedPanel();
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
@@ -223,6 +231,8 @@ void vFailInitialization( void )
 		debug(fp,"vFailInitialization\n");
 	}
 	#endif
+
+	vCriticalErrorLedPanel();
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
