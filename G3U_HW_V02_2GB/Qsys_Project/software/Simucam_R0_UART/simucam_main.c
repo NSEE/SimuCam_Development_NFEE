@@ -460,6 +460,7 @@ int main(void)
 	
 	OSInit();
 
+
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
@@ -501,9 +502,10 @@ int main(void)
 			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
 		}
 		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
-
+#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
 		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
@@ -525,7 +527,7 @@ int main(void)
 		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
 		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
 	}
-
+#endif
 
 	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
 	bIniSimucamStatus = vCHConfs();
@@ -536,9 +538,11 @@ int main(void)
 			debug(fp, "Didn't load the bind configuration of the FEEs. \n");
 		}
 		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
+#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nFEE binding Loaded from SDCard \n");
 		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
@@ -550,7 +554,7 @@ int main(void)
 		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
 		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
 	}
-
+#endif
 
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
@@ -559,6 +563,7 @@ int main(void)
 			debug(fp, "Didn't load ETH configuration from SDCard. \n");
 		}
 		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -575,11 +580,12 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
-	}
-	#endif
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
+		}
+		#endif
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -591,6 +597,7 @@ int main(void)
 	bInitSync();
 
 	vFillMemmoryPattern( &xSimMeb );
+	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
 
 	/* Creating the initialization task*/
@@ -623,6 +630,7 @@ int main(void)
 	} else {
 		/* Some error occurs in the creation of the Initialization Task */
 		vFailInitialization();
+		return -1;
 	}
   
 	return 0;
@@ -668,6 +676,9 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 					fprintf(fp, "-----CCD %i\n", ccd_number);
 				}
 				#endif
+
+				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ccd_number) );
 
 				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
 					if (ccd_side == 0){

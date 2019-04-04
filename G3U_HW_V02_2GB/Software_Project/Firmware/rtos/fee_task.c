@@ -184,6 +184,8 @@ void vFeeTask(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -265,9 +267,12 @@ void vFeeTask(void *task_data) {
 				/* Disable RMAP interrupts */
 				bEnableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
 
-				/* Disable the link SPW */
+				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -546,7 +551,11 @@ void vFeeTask(void *task_data) {
 								xCcdMapLocal->ulBlockI += usiLengthBlocks;
 							} else {
 								bFinal = FALSE;
+
+								/* Send the request for use the DMA, but to front of the QUEUE */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 							}
+
 
 							/* Send message telling to controller that is not using the DMA any more */
 							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -1633,6 +1642,29 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	return bSuccesL;
 }
 
+bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailRequestDMA( ucValue );
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+
+	return bSuccesL;
+}
 
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
@@ -1926,6 +1958,77 @@ void vWaitUntilBufferEmpty( unsigned char ucId ) {
 			break;
 	}
 
+}
+
+inline unsigned long int uliReturnMaskR( unsigned char ucChannel ){
+	unsigned long int uliOut;
+
+	switch (ucChannel) {
+		case 0:
+			uliOut = LEDS_1R_MASK;
+			break;
+		case 1:
+			uliOut = LEDS_2R_MASK;
+			break;
+		case 2:
+			uliOut = LEDS_3R_MASK;
+			break;
+		case 3:
+			uliOut = LEDS_4R_MASK;
+			break;
+		case 4:
+			uliOut = LEDS_5R_MASK;
+			break;
+		case 5:
+			uliOut = LEDS_6R_MASK;
+			break;
+		case 6:
+			uliOut = LEDS_7R_MASK;
+			break;
+		case 7:
+			uliOut = LEDS_8R_MASK;
+			break;
+		default:
+			uliOut = LEDS_R_ALL_MASK;
+			break;
+	}
+	return uliOut;
+}
+
+
+inline unsigned long int uliReturnMaskG( unsigned char ucChannel ){
+	unsigned long int uliOut;
+
+	switch (ucChannel) {
+		case 0:
+			uliOut = LEDS_1G_MASK;
+			break;
+		case 1:
+			uliOut = LEDS_2G_MASK;
+			break;
+		case 2:
+			uliOut = LEDS_3G_MASK;
+			break;
+		case 3:
+			uliOut = LEDS_4G_MASK;
+			break;
+		case 4:
+			uliOut = LEDS_5G_MASK;
+			break;
+		case 5:
+			uliOut = LEDS_6G_MASK;
+			break;
+		case 6:
+			uliOut = LEDS_7G_MASK;
+			break;
+		case 7:
+			uliOut = LEDS_8G_MASK;
+			break;
+		default:
+			uliOut = LEDS_G_ALL_MASK;
+			break;
+	}
+	return uliOut;
 }
 
 

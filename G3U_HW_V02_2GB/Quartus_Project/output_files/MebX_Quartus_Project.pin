@@ -1517,7 +1517,7 @@ GND                          : V25       : gnd    :                   :         
 VCC                          : V26       : power  :                   : 0.9V    :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V27       :        :                   :         : 1C        :                
 LED_DE4[0]                   : V28       : output : 2.5 V             :         : 1C        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : V29       :        :                   :         : 1C        :                
+FSM_A[0]                     : V29       : output : 2.5 V             :         : 1C        : N              
 RESERVED_INPUT_WITH_WEAK_PULLUP : V30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : V31       :        :                   :         : 1C        :                
 VCC                          : V32       : power  :                   : 0.9V    :           :                

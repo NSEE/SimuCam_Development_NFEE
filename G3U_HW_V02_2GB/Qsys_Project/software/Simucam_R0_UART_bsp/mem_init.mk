@@ -155,7 +155,7 @@ ACDS_VERSION := 16.1
 
 # This following BUILD_NUMBER comment indicates the build number of the tool 
 # used to generate this makefile. 
-# BUILD_NUMBER: 203
+# BUILD_NUMBER: 196
 
 # Optimize for simulation
 SIM_OPTIMIZE ?= 0
@@ -215,8 +215,8 @@ DAT_FILES += $(HDL_SIM_DIR)/$(MEM_1).dat
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_1).dat
 SYM_FILES += $(HDL_SIM_DIR)/$(MEM_1).sym
 HDL_SIM_INSTALL_FILES += $(HDL_SIM_INSTALL_DIR)/$(MEM_1).sym
-$(MEM_1)_START := 0x81100000
-$(MEM_1)_END := 0x811dffff
+$(MEM_1)_START := 0x80100000
+$(MEM_1)_END := 0x801dffff
 $(MEM_1)_SPAN := 0x000e0000
 $(MEM_1)_HIERARCHICAL_PATH := onchip_memory
 $(MEM_1)_WIDTH := 32
