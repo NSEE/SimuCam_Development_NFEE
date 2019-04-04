@@ -265,7 +265,7 @@ void vFeeTask(void *task_data) {
 				/* Disable RMAP interrupts */
 				bEnableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
 
-				/* Disable the link SPW */
+				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
 
@@ -547,6 +547,7 @@ void vFeeTask(void *task_data) {
 							} else {
 								bFinal = FALSE;
 							}
+
 
 							/* Send message telling to controller that is not using the DMA any more */
 							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);

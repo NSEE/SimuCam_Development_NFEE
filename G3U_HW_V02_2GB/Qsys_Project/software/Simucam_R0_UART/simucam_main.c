@@ -460,6 +460,7 @@ int main(void)
 	
 	OSInit();
 
+
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");

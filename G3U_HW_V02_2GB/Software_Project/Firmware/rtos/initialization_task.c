@@ -11,7 +11,8 @@
 
 void vInitialTask(void *task_data)
 {
-  INT8U error_code = OS_ERR_NONE;
+	INT8U error_code = OS_ERR_NONE;
+
 
 	#if ( STACK_MONITOR == 1)
 		OSStatInit();

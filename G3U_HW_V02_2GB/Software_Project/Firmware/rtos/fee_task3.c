@@ -68,7 +68,7 @@ void vFeeTask3(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr + 3;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
@@ -490,7 +490,6 @@ void vFeeTask3(void *task_data) {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				}*/
-
 				break;
 
 			case sFeeTestFullPattern: /* Real mode */

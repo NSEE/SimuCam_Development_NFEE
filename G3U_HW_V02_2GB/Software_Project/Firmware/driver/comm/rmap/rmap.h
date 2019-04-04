@@ -13,6 +13,7 @@
 #include "../../../utils/configs_simucam.h"
 #include "../../../utils/error_handler_simucam.h"
 #include "../../../simucam_definitions.h"
+#include "../../../utils/configs_bind_channel_FEEinst.h"
 
 //! [constants definition]
 // address
