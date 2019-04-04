@@ -13,9 +13,9 @@
 #define QUERY_STACK     0
 /**-----------------------------------------*/
 
-#define DEBUG_ON    	0
+#define DEBUG_ON    	1
 #if defined(STACK_MONITOR) || defined(QUERY_STACK)
-    #define DEBUG_ON    0 /* This value should always be 1 when one of the above options is defined */
+    #define DEBUG_ON    1 /* This value should always be 1 when one of the above options is defined */
 #endif
 #if DEBUG_ON
 	#define debug( fp, mensage )    if ( DEBUG_ON ) { fprintf( fp, mensage ); }

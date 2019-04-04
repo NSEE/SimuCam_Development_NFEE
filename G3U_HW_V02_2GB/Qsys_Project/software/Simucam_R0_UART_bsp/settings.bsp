@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>04/04/2019 15:32:58</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1554402778321</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Apr 4, 2019 3:50:25 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1554403825589</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -218,7 +218,7 @@
                 <SettingName>hal.stderr</SettingName>
                 <Identifier>none</Identifier>
                 <Type>UnquotedString</Type>
-                <Value>none</Value>
+                <Value>jtag_uart_0</Value>
                 <DefaultValue>none</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Slave descriptor of STDERR character-mode device. This setting is used by the ALT_STDERR family of defines in system.h.</Description>
@@ -1979,13 +1979,13 @@
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>dma_DDR_M2_csr</slaveDescriptor>
+                <slaveDescriptor>dma_DDR_M1_descriptor_slave</slaveDescriptor>
                 <addressRange>0x40401020 - 0x4040103F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>dma_DDR_M1_descriptor_slave</slaveDescriptor>
+                <slaveDescriptor>dma_DDR_M2_csr</slaveDescriptor>
                 <addressRange>0x40401040 - 0x4040105F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
@@ -2015,8 +2015,14 @@
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
+                <slaveDescriptor>altpll_240</slaveDescriptor>
+                <addressRange>0x80201000 - 0x8020100F</addressRange>
+                <addressSpan>16</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x80201000 - 0x80201007</addressRange>
+                <addressRange>0x80201010 - 0x80201017</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
