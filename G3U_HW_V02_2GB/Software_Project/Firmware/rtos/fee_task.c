@@ -546,6 +546,9 @@ void vFeeTask(void *task_data) {
 								xCcdMapLocal->ulBlockI += usiLengthBlocks;
 							} else {
 								bFinal = FALSE;
+
+								/* Send the request for use the DMA, but to front of the QUEUE */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 							}
 
 
@@ -1634,6 +1637,29 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	return bSuccesL;
 }
 
+bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailRequestDMA( ucValue );
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+
+	return bSuccesL;
+}
 
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {

@@ -548,6 +548,9 @@ void vFeeTask2(void *task_data) {
 								xCcdMapLocal->ulBlockI += usiLengthBlocks;
 							} else {
 								bFinal = FALSE;
+
+								/* Send the request for use the DMA, but to front of the QUEUE */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 							}
 
 							/* Send message telling to controller that is not using the DMA any more */
