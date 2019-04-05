@@ -260,7 +260,7 @@ void vFeeTask(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sFeeStandBy*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* Disable IRQ and clear the Double Buffer */
