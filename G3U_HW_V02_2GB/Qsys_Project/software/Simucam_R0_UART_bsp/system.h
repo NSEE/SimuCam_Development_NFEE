@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Fri Apr 05 10:36:18 BRT 2019
+ * Generated: Fri Apr 05 15:38:18 BRT 2019
  */
 
 /*
@@ -248,12 +248,10 @@
 #define ALT_DEVICE_FAMILY "Stratix IV"
 #define ALT_ENHANCED_INTERRUPT_API_PRESENT
 #define ALT_IRQ_BASE NULL
-#define ALT_LOG_PORT "/dev/jtag_uart_0"
-#define ALT_LOG_PORT_BASE 0x80201000
-#define ALT_LOG_PORT_DEV jtag_uart_0
-#define ALT_LOG_PORT_IS_JTAG_UART
-#define ALT_LOG_PORT_PRESENT
-#define ALT_LOG_PORT_TYPE ALTERA_AVALON_JTAG_UART
+#define ALT_LOG_PORT "/dev/null"
+#define ALT_LOG_PORT_BASE 0x0
+#define ALT_LOG_PORT_DEV null
+#define ALT_LOG_PORT_TYPE ""
 #define ALT_NUM_EXTERNAL_INTERRUPT_CONTROLLERS 0
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
@@ -638,7 +636,7 @@
 #define ALT_INCLUDE_INSTRUCTION_RELATED_EXCEPTION_API
 #define ALT_MAX_FD 32
 #define ALT_SYS_CLK TIMER_1MS
-#define ALT_TIMESTAMP_CLK none
+#define ALT_TIMESTAMP_CLK TIMER_1MS
 
 
 /*

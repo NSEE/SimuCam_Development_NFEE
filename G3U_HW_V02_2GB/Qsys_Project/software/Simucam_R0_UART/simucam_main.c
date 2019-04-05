@@ -14,6 +14,7 @@
 #include "utils/pattern.h"
 #include "rtos/tasks_configurations.h"
 #include "rtos/initialization_task.h"
+#include <sys/ioctl.h>
 
 
 #include "includes.h"
@@ -458,8 +459,6 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
-	OSInit();
-
 
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
@@ -469,6 +468,8 @@ int main(void)
 	#if DEBUG_ON
 		debug(fp, "Main entry point.\n");
 	#endif
+
+	OSInit();
 
 	/* Initialization of basic HW */
 	vInitSimucamBasicHW();
