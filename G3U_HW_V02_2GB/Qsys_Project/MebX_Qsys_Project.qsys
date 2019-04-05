@@ -13,7 +13,7 @@
    {
       datum _sortIndex
       {
-         value = "37";
+         value = "38";
          type = "int";
       }
       datum sopceditor_expanded
@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "15";
+         value = "16";
          type = "int";
       }
       datum sopceditor_expanded
@@ -89,7 +89,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
       }
       datum sopceditor_expanded
@@ -136,7 +136,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
       }
       datum sopceditor_expanded
@@ -183,7 +183,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "19";
          type = "int";
       }
       datum sopceditor_expanded
@@ -230,7 +230,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "20";
          type = "int";
       }
       datum sopceditor_expanded
@@ -277,7 +277,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
@@ -324,7 +324,7 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "22";
          type = "int";
       }
       datum sopceditor_expanded
@@ -371,7 +371,7 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "23";
          type = "int";
       }
       datum sopceditor_expanded
@@ -442,7 +442,7 @@
    {
       datum _sortIndex
       {
-         value = "45";
+         value = "46";
          type = "int";
       }
       datum sopceditor_expanded
@@ -463,7 +463,7 @@
    {
       datum _sortIndex
       {
-         value = "8";
+         value = "9";
          type = "int";
       }
    }
@@ -480,20 +480,23 @@
          type = "String";
       }
    }
-   element clk_100
+   element altpll_240
    {
       datum _sortIndex
       {
-         value = "1";
+         value = "0";
          type = "int";
       }
-      datum sopceditor_expanded
+   }
+   element altpll_240.pll_slave
+   {
+      datum baseAddress
       {
-         value = "1";
-         type = "boolean";
+         value = "2149584896";
+         type = "String";
       }
    }
-   element clk_200
+   element clk_100
    {
       datum _sortIndex
       {
@@ -506,11 +509,24 @@
          type = "boolean";
       }
    }
+   element clk_200
+   {
+      datum _sortIndex
+      {
+         value = "3";
+         type = "int";
+      }
+      datum sopceditor_expanded
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
    element clk_50
    {
       datum _sortIndex
       {
-         value = "0";
+         value = "1";
          type = "int";
       }
       datum sopceditor_expanded
@@ -531,7 +547,7 @@
    {
       datum _sortIndex
       {
-         value = "24";
+         value = "25";
          type = "int";
       }
       datum sopceditor_expanded
@@ -560,7 +576,7 @@
    {
       datum _sortIndex
       {
-         value = "40";
+         value = "41";
          type = "int";
       }
       datum sopceditor_expanded
@@ -581,7 +597,7 @@
    {
       datum _sortIndex
       {
-         value = "41";
+         value = "42";
          type = "int";
       }
       datum sopceditor_expanded
@@ -602,7 +618,7 @@
    {
       datum _sortIndex
       {
-         value = "42";
+         value = "43";
          type = "int";
       }
       datum sopceditor_expanded
@@ -623,7 +639,7 @@
    {
       datum _sortIndex
       {
-         value = "43";
+         value = "44";
          type = "int";
       }
       datum sopceditor_expanded
@@ -644,7 +660,7 @@
    {
       datum _sortIndex
       {
-         value = "44";
+         value = "45";
          type = "int";
       }
       datum sopceditor_expanded
@@ -665,7 +681,7 @@
    {
       datum _sortIndex
       {
-         value = "9";
+         value = "10";
          type = "int";
       }
       datum sopceditor_expanded
@@ -694,7 +710,7 @@
    {
       datum _sortIndex
       {
-         value = "13";
+         value = "14";
          type = "int";
       }
       datum sopceditor_expanded
@@ -715,7 +731,7 @@
    {
       datum baseAddress
       {
-         value = "1077940288";
+         value = "1077940256";
          type = "String";
       }
    }
@@ -723,7 +739,7 @@
    {
       datum _sortIndex
       {
-         value = "14";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
@@ -736,7 +752,7 @@
    {
       datum baseAddress
       {
-         value = "1077940256";
+         value = "1077940288";
          type = "String";
       }
    }
@@ -752,7 +768,7 @@
    {
       datum _sortIndex
       {
-         value = "4";
+         value = "5";
          type = "int";
       }
       datum sopceditor_expanded
@@ -778,7 +794,7 @@
    {
       datum _sortIndex
       {
-         value = "7";
+         value = "8";
          type = "int";
       }
       datum sopceditor_expanded
@@ -791,7 +807,7 @@
    {
       datum baseAddress
       {
-         value = "2149584896";
+         value = "2149584912";
          type = "String";
       }
    }
@@ -799,7 +815,7 @@
    {
       datum _sortIndex
       {
-         value = "10";
+         value = "11";
          type = "int";
       }
       datum sopceditor_expanded
@@ -825,7 +841,7 @@
    {
       datum _sortIndex
       {
-         value = "32";
+         value = "33";
          type = "int";
       }
       datum sopceditor_expanded
@@ -846,7 +862,7 @@
    {
       datum _sortIndex
       {
-         value = "33";
+         value = "34";
          type = "int";
       }
       datum sopceditor_expanded
@@ -867,7 +883,7 @@
    {
       datum _sortIndex
       {
-         value = "11";
+         value = "12";
          type = "int";
       }
       datum sopceditor_expanded
@@ -893,7 +909,7 @@
    {
       datum _sortIndex
       {
-         value = "34";
+         value = "35";
          type = "int";
       }
       datum sopceditor_expanded
@@ -914,7 +930,7 @@
    {
       datum _sortIndex
       {
-         value = "35";
+         value = "36";
          type = "int";
       }
       datum sopceditor_expanded
@@ -935,7 +951,7 @@
    {
       datum _sortIndex
       {
-         value = "12";
+         value = "13";
          type = "int";
       }
       datum sopceditor_expanded
@@ -993,7 +1009,7 @@
    {
       datum _sortIndex
       {
-         value = "3";
+         value = "4";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1078,7 +1094,7 @@
    {
       datum _sortIndex
       {
-         value = "6";
+         value = "7";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1099,7 +1115,7 @@
    {
       datum _sortIndex
       {
-         value = "27";
+         value = "28";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1120,7 +1136,7 @@
    {
       datum _sortIndex
       {
-         value = "28";
+         value = "29";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1141,7 +1157,7 @@
    {
       datum _sortIndex
       {
-         value = "29";
+         value = "30";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1162,7 +1178,7 @@
    {
       datum _sortIndex
       {
-         value = "30";
+         value = "31";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1183,7 +1199,7 @@
    {
       datum _sortIndex
       {
-         value = "31";
+         value = "32";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1204,7 +1220,7 @@
    {
       datum _sortIndex
       {
-         value = "52";
+         value = "53";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1225,7 +1241,7 @@
    {
       datum _sortIndex
       {
-         value = "51";
+         value = "52";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1246,7 +1262,7 @@
    {
       datum _sortIndex
       {
-         value = "54";
+         value = "55";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1267,7 +1283,7 @@
    {
       datum _sortIndex
       {
-         value = "46";
+         value = "47";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1288,7 +1304,7 @@
    {
       datum _sortIndex
       {
-         value = "47";
+         value = "48";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1309,7 +1325,7 @@
    {
       datum _sortIndex
       {
-         value = "48";
+         value = "49";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1330,7 +1346,7 @@
    {
       datum _sortIndex
       {
-         value = "49";
+         value = "50";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1351,7 +1367,7 @@
    {
       datum _sortIndex
       {
-         value = "50";
+         value = "51";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1372,7 +1388,7 @@
    {
       datum _sortIndex
       {
-         value = "36";
+         value = "37";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1406,7 +1422,7 @@
    {
       datum _sortIndex
       {
-         value = "53";
+         value = "54";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1427,7 +1443,7 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "24";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1448,7 +1464,7 @@
    {
       datum _sortIndex
       {
-         value = "38";
+         value = "39";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1469,7 +1485,7 @@
    {
       datum _sortIndex
       {
-         value = "39";
+         value = "40";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1490,7 +1506,7 @@
    {
       datum _sortIndex
       {
-         value = "25";
+         value = "26";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1511,7 +1527,7 @@
    {
       datum _sortIndex
       {
-         value = "26";
+         value = "27";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1532,7 +1548,7 @@
    {
       datum _sortIndex
       {
-         value = "5";
+         value = "6";
          type = "int";
       }
       datum sopceditor_expanded
@@ -1562,6 +1578,16 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
+ <interface
+   name="altpll_240_areset_conduit"
+   internal="altpll_240.areset_conduit"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="altpll_240_locked_conduit"
+   internal="altpll_240.locked_conduit"
+   type="conduit"
+   dir="end" />
  <interface
    name="button"
    internal="pio_BUTTON.external_connection"
@@ -1898,6 +1924,173 @@
   <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
  </module>
+ <module name="altpll_240" kind="altpll" version="16.1" enabled="1">
+  <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
+  <parameter name="AUTO_INCLK_INTERFACE_CLOCK_RATE" value="50000000" />
+  <parameter name="AVALON_USE_SEPARATE_SYSCLK" value="NO" />
+  <parameter name="BANDWIDTH" value="" />
+  <parameter name="BANDWIDTH_TYPE" value="AUTO" />
+  <parameter name="CLK0_DIVIDE_BY" value="5" />
+  <parameter name="CLK0_DUTY_CYCLE" value="50" />
+  <parameter name="CLK0_MULTIPLY_BY" value="24" />
+  <parameter name="CLK0_PHASE_SHIFT" value="0" />
+  <parameter name="CLK1_DIVIDE_BY" value="" />
+  <parameter name="CLK1_DUTY_CYCLE" value="" />
+  <parameter name="CLK1_MULTIPLY_BY" value="" />
+  <parameter name="CLK1_PHASE_SHIFT" value="" />
+  <parameter name="CLK2_DIVIDE_BY" value="" />
+  <parameter name="CLK2_DUTY_CYCLE" value="" />
+  <parameter name="CLK2_MULTIPLY_BY" value="" />
+  <parameter name="CLK2_PHASE_SHIFT" value="" />
+  <parameter name="CLK3_DIVIDE_BY" value="" />
+  <parameter name="CLK3_DUTY_CYCLE" value="" />
+  <parameter name="CLK3_MULTIPLY_BY" value="" />
+  <parameter name="CLK3_PHASE_SHIFT" value="" />
+  <parameter name="CLK4_DIVIDE_BY" value="" />
+  <parameter name="CLK4_DUTY_CYCLE" value="" />
+  <parameter name="CLK4_MULTIPLY_BY" value="" />
+  <parameter name="CLK4_PHASE_SHIFT" value="" />
+  <parameter name="CLK5_DIVIDE_BY" value="" />
+  <parameter name="CLK5_DUTY_CYCLE" value="" />
+  <parameter name="CLK5_MULTIPLY_BY" value="" />
+  <parameter name="CLK5_PHASE_SHIFT" value="" />
+  <parameter name="CLK6_DIVIDE_BY" value="" />
+  <parameter name="CLK6_DUTY_CYCLE" value="" />
+  <parameter name="CLK6_MULTIPLY_BY" value="" />
+  <parameter name="CLK6_PHASE_SHIFT" value="" />
+  <parameter name="CLK7_DIVIDE_BY" value="" />
+  <parameter name="CLK7_DUTY_CYCLE" value="" />
+  <parameter name="CLK7_MULTIPLY_BY" value="" />
+  <parameter name="CLK7_PHASE_SHIFT" value="" />
+  <parameter name="CLK8_DIVIDE_BY" value="" />
+  <parameter name="CLK8_DUTY_CYCLE" value="" />
+  <parameter name="CLK8_MULTIPLY_BY" value="" />
+  <parameter name="CLK8_PHASE_SHIFT" value="" />
+  <parameter name="CLK9_DIVIDE_BY" value="" />
+  <parameter name="CLK9_DUTY_CYCLE" value="" />
+  <parameter name="CLK9_MULTIPLY_BY" value="" />
+  <parameter name="CLK9_PHASE_SHIFT" value="" />
+  <parameter name="COMPENSATE_CLOCK" value="CLK0" />
+  <parameter name="DOWN_SPREAD" value="" />
+  <parameter name="DPA_DIVIDER" value="" />
+  <parameter name="DPA_DIVIDE_BY" value="" />
+  <parameter name="DPA_MULTIPLY_BY" value="" />
+  <parameter name="ENABLE_SWITCH_OVER_COUNTER" value="" />
+  <parameter name="EXTCLK0_DIVIDE_BY" value="" />
+  <parameter name="EXTCLK0_DUTY_CYCLE" value="" />
+  <parameter name="EXTCLK0_MULTIPLY_BY" value="" />
+  <parameter name="EXTCLK0_PHASE_SHIFT" value="" />
+  <parameter name="EXTCLK1_DIVIDE_BY" value="" />
+  <parameter name="EXTCLK1_DUTY_CYCLE" value="" />
+  <parameter name="EXTCLK1_MULTIPLY_BY" value="" />
+  <parameter name="EXTCLK1_PHASE_SHIFT" value="" />
+  <parameter name="EXTCLK2_DIVIDE_BY" value="" />
+  <parameter name="EXTCLK2_DUTY_CYCLE" value="" />
+  <parameter name="EXTCLK2_MULTIPLY_BY" value="" />
+  <parameter name="EXTCLK2_PHASE_SHIFT" value="" />
+  <parameter name="EXTCLK3_DIVIDE_BY" value="" />
+  <parameter name="EXTCLK3_DUTY_CYCLE" value="" />
+  <parameter name="EXTCLK3_MULTIPLY_BY" value="" />
+  <parameter name="EXTCLK3_PHASE_SHIFT" value="" />
+  <parameter name="FEEDBACK_SOURCE" value="" />
+  <parameter name="GATE_LOCK_COUNTER" value="" />
+  <parameter name="GATE_LOCK_SIGNAL" value="" />
+  <parameter name="HIDDEN_CONSTANTS">CT#PORT_clk9 PORT_UNUSED CT#PORT_clk8 PORT_UNUSED CT#PORT_clk7 PORT_UNUSED CT#PORT_clk6 PORT_UNUSED CT#PORT_clk5 PORT_UNUSED CT#PORT_clk4 PORT_UNUSED CT#PORT_clk3 PORT_UNUSED CT#PORT_clk2 PORT_UNUSED CT#PORT_clk1 PORT_UNUSED CT#PORT_clk0 PORT_USED CT#CLK0_MULTIPLY_BY 24 CT#PORT_SCANWRITE PORT_UNUSED CT#PORT_SCANACLR PORT_UNUSED CT#PORT_PFDENA PORT_UNUSED CT#PORT_PLLENA PORT_UNUSED CT#PORT_SCANDATA PORT_UNUSED CT#PORT_SCANCLKENA PORT_UNUSED CT#WIDTH_CLOCK 10 CT#PORT_SCANDATAOUT PORT_UNUSED CT#LPM_TYPE altpll CT#PLL_TYPE AUTO CT#CLK0_PHASE_SHIFT 0 CT#PORT_PHASEDONE PORT_UNUSED CT#OPERATION_MODE NORMAL CT#PORT_CONFIGUPDATE PORT_UNUSED CT#COMPENSATE_CLOCK CLK0 CT#PORT_CLKSWITCH PORT_UNUSED CT#INCLK0_INPUT_FREQUENCY 20000 CT#PORT_SCANDONE PORT_UNUSED CT#PORT_CLKLOSS PORT_UNUSED CT#PORT_INCLK1 PORT_UNUSED CT#AVALON_USE_SEPARATE_SYSCLK NO CT#PORT_INCLK0 PORT_USED CT#PORT_clkena5 PORT_UNUSED CT#PORT_clkena4 PORT_UNUSED CT#PORT_clkena3 PORT_UNUSED CT#PORT_clkena2 PORT_UNUSED CT#PORT_clkena1 PORT_UNUSED CT#PORT_FBOUT PORT_UNUSED CT#PORT_clkena0 PORT_UNUSED CT#PORT_ARESET PORT_USED CT#BANDWIDTH_TYPE AUTO CT#INTENDED_DEVICE_FAMILY {Stratix IV} CT#PORT_SCANREAD PORT_UNUSED CT#PORT_PHASESTEP PORT_UNUSED CT#PORT_SCANCLK PORT_UNUSED CT#PORT_CLKBAD1 PORT_UNUSED CT#PORT_CLKBAD0 PORT_UNUSED CT#PORT_FBIN PORT_UNUSED CT#PORT_PHASEUPDOWN PORT_UNUSED CT#PORT_PHASECOUNTERSELECT PORT_UNUSED CT#PORT_ACTIVECLOCK PORT_UNUSED CT#CLK0_DUTY_CYCLE 50 CT#CLK0_DIVIDE_BY 5 CT#USING_FBMIMICBIDIR_PORT OFF CT#PORT_LOCKED PORT_USED</parameter>
+  <parameter name="HIDDEN_CUSTOM_ELABORATION">altpll_avalon_elaboration</parameter>
+  <parameter name="HIDDEN_CUSTOM_POST_EDIT">altpll_avalon_post_edit</parameter>
+  <parameter name="HIDDEN_IF_PORTS">IF#phasecounterselect {input 4} IF#locked {output 0} IF#reset {input 0} IF#clk {input 0} IF#phaseupdown {input 0} IF#scandone {output 0} IF#readdata {output 32} IF#write {input 0} IF#scanclk {input 0} IF#phasedone {output 0} IF#address {input 2} IF#c0 {output 0} IF#writedata {input 32} IF#read {input 0} IF#areset {input 0} IF#scanclkena {input 0} IF#scandataout {output 0} IF#configupdate {input 0} IF#phasestep {input 0} IF#scandata {input 0}</parameter>
+  <parameter name="HIDDEN_IS_FIRST_EDIT" value="0" />
+  <parameter name="HIDDEN_IS_NUMERIC">IN#WIDTH_CLOCK 1 IN#CLK0_DUTY_CYCLE 1 IN#PLL_TARGET_HARCOPY_CHECK 1 IN#SWITCHOVER_COUNT_EDIT 1 IN#INCLK0_INPUT_FREQUENCY 1 IN#PLL_LVDS_PLL_CHECK 1 IN#PLL_AUTOPLL_CHECK 1 IN#PLL_FASTPLL_CHECK 1 IN#PLL_ENHPLL_CHECK 1 IN#DIV_FACTOR0 1 IN#LVDS_MODE_DATA_RATE_DIRTY 1 IN#GLOCK_COUNTER_EDIT 1 IN#CLK0_DIVIDE_BY 1 IN#MULT_FACTOR0 1 IN#CLK0_MULTIPLY_BY 1 IN#USE_MIL_SPEED_GRADE 1</parameter>
+  <parameter name="HIDDEN_MF_PORTS">MF#areset 1 MF#clk 1 MF#locked 1 MF#inclk 1</parameter>
+  <parameter name="HIDDEN_PRIVATES">PT#GLOCKED_FEATURE_ENABLED 0 PT#SPREAD_FEATURE_ENABLED 0 PT#BANDWIDTH_FREQ_UNIT MHz PT#CUR_DEDICATED_CLK c0 PT#INCLK0_FREQ_EDIT 50.000 PT#BANDWIDTH_PRESET Low PT#PLL_LVDS_PLL_CHECK 0 PT#BANDWIDTH_USE_PRESET 0 PT#AVALON_USE_SEPARATE_SYSCLK NO PT#PLL_ENHPLL_CHECK 0 PT#OUTPUT_FREQ_UNIT0 MHz PT#PHASE_RECONFIG_FEATURE_ENABLED 1 PT#CREATE_CLKBAD_CHECK 0 PT#CLKSWITCH_CHECK 0 PT#INCLK1_FREQ_EDIT 100.000 PT#NORMAL_MODE_RADIO 1 PT#SRC_SYNCH_COMP_RADIO 0 PT#PLL_ARESET_CHECK 1 PT#LONG_SCAN_RADIO 1 PT#SCAN_FEATURE_ENABLED 1 PT#PHASE_RECONFIG_INPUTS_CHECK 0 PT#USE_CLK0 1 PT#PRIMARY_CLK_COMBO inclk0 PT#BANDWIDTH 1.000 PT#GLOCKED_COUNTER_EDIT_CHANGED 1 PT#PLL_FASTPLL_CHECK 0 PT#SPREAD_FREQ_UNIT KHz PT#PLL_AUTOPLL_CHECK 1 PT#LVDS_PHASE_SHIFT_UNIT0 deg PT#SWITCHOVER_FEATURE_ENABLED 0 PT#MIG_DEVICE_SPEED_GRADE Any PT#OUTPUT_FREQ_MODE0 1 PT#BANDWIDTH_FEATURE_ENABLED 1 PT#INCLK0_FREQ_UNIT_COMBO MHz PT#ZERO_DELAY_RADIO 0 PT#OUTPUT_FREQ0 240.00000000 PT#SHORT_SCAN_RADIO 0 PT#LVDS_MODE_DATA_RATE_DIRTY 0 PT#CUR_FBIN_CLK c0 PT#PLL_ADVANCED_PARAM_CHECK 0 PT#CLKBAD_SWITCHOVER_CHECK 0 PT#PHASE_SHIFT_STEP_ENABLED_CHECK 0 PT#DEVICE_SPEED_GRADE Any PT#PLL_FBMIMIC_CHECK 0 PT#LVDS_MODE_DATA_RATE {Not Available} PT#LOCKED_OUTPUT_CHECK 1 PT#SPREAD_PERCENT 0.500 PT#PHASE_SHIFT0 0.00000000 PT#DIV_FACTOR0 1 PT#CNX_NO_COMPENSATE_RADIO 0 PT#CREATE_INCLK1_CHECK 0 PT#GLOCK_COUNTER_EDIT 1048575 PT#INCLK1_FREQ_UNIT_COMBO MHz PT#EFF_OUTPUT_FREQ_VALUE0 240.000000 PT#SPREAD_FREQ 50.000 PT#USE_MIL_SPEED_GRADE 0 PT#EXPLICIT_SWITCHOVER_COUNTER 0 PT#STICKY_CLK0 1 PT#EXT_FEEDBACK_RADIO 0 PT#SWITCHOVER_COUNT_EDIT 1 PT#SELF_RESET_LOCK_LOSS 0 PT#PLL_PFDENA_CHECK 0 PT#INT_FEEDBACK__MODE_RADIO 1 PT#INCLK1_FREQ_EDIT_CHANGED 1 PT#CLKLOSS_CHECK 0 PT#SYNTH_WRAPPER_GEN_POSTFIX 0 PT#PHASE_SHIFT_UNIT0 deg PT#BANDWIDTH_USE_AUTO 1 PT#HAS_MANUAL_SWITCHOVER 1 PT#MULT_FACTOR0 1 PT#SPREAD_USE 0 PT#GLOCKED_MODE_CHECK 0 PT#SACN_INPUTS_CHECK 0 PT#DUTY_CYCLE0 50.00000000 PT#INTENDED_DEVICE_FAMILY {Stratix IV} PT#PLL_TARGET_HARCOPY_CHECK 0 PT#INCLK1_FREQ_UNIT_CHANGED 1 PT#RECONFIG_FILE ALTPLL1554440063870532.mif PT#ACTIVECLK_CHECK 0</parameter>
+  <parameter name="HIDDEN_USED_PORTS">UP#locked used UP#c0 used UP#areset used UP#inclk0 used</parameter>
+  <parameter name="INCLK0_INPUT_FREQUENCY" value="20000" />
+  <parameter name="INCLK1_INPUT_FREQUENCY" value="" />
+  <parameter name="INTENDED_DEVICE_FAMILY" value="Stratix IV" />
+  <parameter name="INVALID_LOCK_MULTIPLIER" value="" />
+  <parameter name="LOCK_HIGH" value="" />
+  <parameter name="LOCK_LOW" value="" />
+  <parameter name="OPERATION_MODE" value="NORMAL" />
+  <parameter name="PLL_TYPE" value="AUTO" />
+  <parameter name="PORT_ACTIVECLOCK" value="PORT_UNUSED" />
+  <parameter name="PORT_ARESET" value="PORT_USED" />
+  <parameter name="PORT_CLKBAD0" value="PORT_UNUSED" />
+  <parameter name="PORT_CLKBAD1" value="PORT_UNUSED" />
+  <parameter name="PORT_CLKLOSS" value="PORT_UNUSED" />
+  <parameter name="PORT_CLKSWITCH" value="PORT_UNUSED" />
+  <parameter name="PORT_CONFIGUPDATE" value="PORT_UNUSED" />
+  <parameter name="PORT_ENABLE0" value="" />
+  <parameter name="PORT_ENABLE1" value="" />
+  <parameter name="PORT_FBIN" value="PORT_UNUSED" />
+  <parameter name="PORT_FBOUT" value="PORT_UNUSED" />
+  <parameter name="PORT_INCLK0" value="PORT_USED" />
+  <parameter name="PORT_INCLK1" value="PORT_UNUSED" />
+  <parameter name="PORT_LOCKED" value="PORT_USED" />
+  <parameter name="PORT_PFDENA" value="PORT_UNUSED" />
+  <parameter name="PORT_PHASECOUNTERSELECT" value="PORT_UNUSED" />
+  <parameter name="PORT_PHASEDONE" value="PORT_UNUSED" />
+  <parameter name="PORT_PHASESTEP" value="PORT_UNUSED" />
+  <parameter name="PORT_PHASEUPDOWN" value="PORT_UNUSED" />
+  <parameter name="PORT_PLLENA" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANACLR" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANCLK" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANCLKENA" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANDATA" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANDATAOUT" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANDONE" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANREAD" value="PORT_UNUSED" />
+  <parameter name="PORT_SCANWRITE" value="PORT_UNUSED" />
+  <parameter name="PORT_SCLKOUT0" value="" />
+  <parameter name="PORT_SCLKOUT1" value="" />
+  <parameter name="PORT_VCOOVERRANGE" value="" />
+  <parameter name="PORT_VCOUNDERRANGE" value="" />
+  <parameter name="PORT_clk0" value="PORT_USED" />
+  <parameter name="PORT_clk1" value="PORT_UNUSED" />
+  <parameter name="PORT_clk2" value="PORT_UNUSED" />
+  <parameter name="PORT_clk3" value="PORT_UNUSED" />
+  <parameter name="PORT_clk4" value="PORT_UNUSED" />
+  <parameter name="PORT_clk5" value="PORT_UNUSED" />
+  <parameter name="PORT_clk6" value="PORT_UNUSED" />
+  <parameter name="PORT_clk7" value="PORT_UNUSED" />
+  <parameter name="PORT_clk8" value="PORT_UNUSED" />
+  <parameter name="PORT_clk9" value="PORT_UNUSED" />
+  <parameter name="PORT_clkena0" value="PORT_UNUSED" />
+  <parameter name="PORT_clkena1" value="PORT_UNUSED" />
+  <parameter name="PORT_clkena2" value="PORT_UNUSED" />
+  <parameter name="PORT_clkena3" value="PORT_UNUSED" />
+  <parameter name="PORT_clkena4" value="PORT_UNUSED" />
+  <parameter name="PORT_clkena5" value="PORT_UNUSED" />
+  <parameter name="PORT_extclk0" value="" />
+  <parameter name="PORT_extclk1" value="" />
+  <parameter name="PORT_extclk2" value="" />
+  <parameter name="PORT_extclk3" value="" />
+  <parameter name="PORT_extclkena0" value="" />
+  <parameter name="PORT_extclkena1" value="" />
+  <parameter name="PORT_extclkena2" value="" />
+  <parameter name="PORT_extclkena3" value="" />
+  <parameter name="PRIMARY_CLOCK" value="" />
+  <parameter name="QUALIFY_CONF_DONE" value="" />
+  <parameter name="SCAN_CHAIN" value="" />
+  <parameter name="SCAN_CHAIN_MIF_FILE" value="" />
+  <parameter name="SCLKOUT0_PHASE_SHIFT" value="" />
+  <parameter name="SCLKOUT1_PHASE_SHIFT" value="" />
+  <parameter name="SELF_RESET_ON_GATED_LOSS_LOCK" value="" />
+  <parameter name="SELF_RESET_ON_LOSS_LOCK" value="" />
+  <parameter name="SKIP_VCO" value="" />
+  <parameter name="SPREAD_FREQUENCY" value="" />
+  <parameter name="SWITCH_OVER_COUNTER" value="" />
+  <parameter name="SWITCH_OVER_ON_GATED_LOCK" value="" />
+  <parameter name="SWITCH_OVER_ON_LOSSCLK" value="" />
+  <parameter name="SWITCH_OVER_TYPE" value="" />
+  <parameter name="USING_FBMIMICBIDIR_PORT" value="OFF" />
+  <parameter name="VALID_LOCK_MULTIPLIER" value="" />
+  <parameter name="VCO_DIVIDE_BY" value="" />
+  <parameter name="VCO_FREQUENCY_CONTROL" value="" />
+  <parameter name="VCO_MULTIPLY_BY" value="" />
+  <parameter name="VCO_PHASE_SHIFT_STEP" value="" />
+  <parameter name="WIDTH_CLOCK" value="10" />
+  <parameter name="WIDTH_PHASECOUNTERSELECT" value="" />
+ </module>
  <module name="clk_100" kind="clock_source" version="16.1" enabled="1">
   <parameter name="clockFrequency" value="100000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -2047,7 +2240,7 @@
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="512" />
   <parameter name="DATA_WIDTH" value="64" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
+  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
   <parameter name="ERROR_WIDTH" value="8" />
@@ -2090,7 +2283,7 @@
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="512" />
   <parameter name="DATA_WIDTH" value="64" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
+  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
   <parameter name="ERROR_WIDTH" value="8" />
@@ -2174,7 +2367,7 @@
    enabled="1">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clkFreq" value="200000000" />
+  <parameter name="clkFreq" value="240000000" />
   <parameter name="hubInstanceID" value="0" />
   <parameter name="readBufferDepth" value="64" />
   <parameter name="readIRQThreshold" value="8" />
@@ -2924,7 +3117,7 @@
   <parameter name="breakOffset" value="32" />
   <parameter name="breakSlave" value="None" />
   <parameter name="cdx_enabled" value="false" />
-  <parameter name="clockFrequency" value="200000000" />
+  <parameter name="clockFrequency" value="240000000" />
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
@@ -2935,7 +3128,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x40000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x40000800' end='0x40000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x40000840' end='0x40000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000860' end='0x40000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000880' end='0x400008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x400009D0' end='0x400009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009E0' end='0x400009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009F0' end='0x40000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x40000A00' end='0x40000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x40000A10' end='0x40000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x40400000' end='0x40400400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x40400400' end='0x40400800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x40400800' end='0x40400C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x40400C00' end='0x40401000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x40401000' end='0x40401020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x40401020' end='0x40401040' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.descriptor_slave' start='0x40401040' end='0x40401060' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.csr' start='0x40401060' end='0x40401080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x40401080' end='0x40401088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x40401088' end='0x40401090' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x80100000' end='0x801E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80200800' end='0x80201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80201000' end='0x80201008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x40000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x40000800' end='0x40000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x40000840' end='0x40000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000860' end='0x40000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000880' end='0x400008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x400009D0' end='0x400009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009E0' end='0x400009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009F0' end='0x40000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x40000A00' end='0x40000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x40000A10' end='0x40000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x40400000' end='0x40400400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x40400400' end='0x40400800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x40400800' end='0x40400C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x40400C00' end='0x40401000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x40401000' end='0x40401020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x40401020' end='0x40401040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x40401040' end='0x40401060' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x40401060' end='0x40401080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x40401080' end='0x40401088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x40401088' end='0x40401090' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x80100000' end='0x801E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80200800' end='0x80201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='altpll_240.pll_slave' start='0x80201000' end='0x80201010' type='altpll.pll_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80201010' end='0x80201018' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -3407,7 +3600,7 @@
    start="nios2_gen2_0.data_master"
    end="jtag_uart_0.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x80201000" />
+  <parameter name="baseAddress" value="0x80201010" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3453,6 +3646,15 @@
    end="nios2_gen2_0.debug_mem_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80200800" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="nios2_gen2_0.data_master"
+   end="altpll_240.pll_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x80201000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3641,7 +3843,7 @@
    start="af_100i_mm_clock_crossing_bridge.m0"
    end="dma_DDR_M2.csr">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x40401020" />
+  <parameter name="baseAddress" value="0x40401040" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3650,7 +3852,7 @@
    start="af_100i_mm_clock_crossing_bridge.m0"
    end="dma_DDR_M1.descriptor_slave">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x40401040" />
+  <parameter name="baseAddress" value="0x40401020" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4261,6 +4463,32 @@
  <connection
    kind="clock"
    version="16.1"
+   start="altpll_240.c0"
+   end="nios2_gen2_0.clk" />
+ <connection kind="clock" version="16.1" start="altpll_240.c0" end="ext_flash.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="altpll_240.c0"
+   end="tristate_conduit_bridge_0.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="altpll_240.c0"
+   end="jtag_uart_0.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="altpll_240.c0"
+   end="onchip_memory.clk1" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="altpll_240.c0"
+   end="af_100i_mm_clock_crossing_bridge.s0_clk" />
+ <connection
+   kind="clock"
+   version="16.1"
    start="clk_50.clk"
    end="SEVEN_SEGMENT_CONTROLLER_0.SSDP_CLK" />
  <connection
@@ -4322,24 +4550,7 @@
    version="16.1"
    start="clk_50.clk"
    end="pio_ctrl_io_lvds.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
-   end="nios2_gen2_0.clk" />
- <connection kind="clock" version="16.1" start="clk_200.clk" end="ext_flash.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
-   end="tristate_conduit_bridge_0.clk" />
- <connection kind="clock" version="16.1" start="clk_200.clk" end="jtag_uart_0.clk" />
  <connection kind="clock" version="16.1" start="clk_200.clk" end="sysid_qsys.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
-   end="onchip_memory.clk1" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="sync.clock" />
  <connection
    kind="clock"
@@ -4445,6 +4656,11 @@
    kind="clock"
    version="16.1"
    start="clk_50.clk"
+   end="altpll_240.inclk_interface" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_50.clk"
    end="clock_bridge_afi_50.m0_clk" />
  <connection
    kind="clock"
@@ -4456,11 +4672,6 @@
    version="16.1"
    start="clk_50.clk"
    end="m2_ddr2_memory.pll_ref_clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_200.clk"
-   end="af_100i_mm_clock_crossing_bridge.s0_clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -4659,6 +4870,11 @@
    version="16.1"
    start="clk_50.clk_reset"
    end="m1_ddr2_memory.global_reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="clk_50.clk_reset"
+   end="altpll_240.inclk_interface_reset" />
  <connection
    kind="reset"
    version="16.1"
@@ -4995,6 +5211,11 @@
    version="16.1"
    start="rst_controller.reset_source_simucam"
    end="m1_ddr2_memory.global_reset" />
+ <connection
+   kind="reset"
+   version="16.1"
+   start="rst_controller.reset_source_simucam"
+   end="altpll_240.inclk_interface_reset" />
  <connection
    kind="reset"
    version="16.1"
