@@ -85,7 +85,6 @@ void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
 OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
-/*
 void *SyncTBL0[N_MSG_SYNC];
 void *SyncTBL1[N_MSG_SYNC];
 void *SyncTBL2[N_MSG_SYNC];
@@ -93,8 +92,6 @@ void *SyncTBL3[N_MSG_SYNC];
 void *SyncTBL4[N_MSG_SYNC];
 void *SyncTBL5[N_MSG_SYNC];
 OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
-*/
-
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
 void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
@@ -298,7 +295,7 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 1 );
 		bSuccess = FALSE;		
 	}
-
+	/*
 	xFeeQ[2] = OSQCreate(&xFeeQueueTBL2[0], N_MSG_FEE);
 	if ( xFeeQ[2] == NULL ) {
 		vFailCreateNFEEQueue( 2 );
@@ -306,11 +303,11 @@ bool bResourcesInitRTOS( void ) {
 	}
 	
 	xFeeQ[3] = OSQCreate(&xFeeQueueTBL3[0], N_MSG_FEE);
-	if ( xFeeQ[3] == NULL ) {
+	if ( xFeeQ[0] == NULL ) {
 		vFailCreateNFEEQueue( 3 );
 		bSuccess = FALSE;		
 	}
-/*
+
 	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
 	if ( xFeeQ[4] == NULL ) {
 		vFailCreateNFEEQueue( 4 );
@@ -324,31 +321,18 @@ bool bResourcesInitRTOS( void ) {
 	}
 */
 
-/*
+
 	xWaitSyncQFee[0] = OSQCreate(&SyncTBL0[0], N_MSG_SYNC);
 	if ( xWaitSyncQFee[0] == NULL ) {
 		vFailCreateNFEESyncQueue( 0 );
 		bSuccess = FALSE;
 	}
 
-	xWaitSyncQFee[1] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
+	xWaitSyncQFee[1] = OSQCreate(&SyncTBL0[1], N_MSG_SYNC);
 	if ( xWaitSyncQFee[1] == NULL ) {
 		vFailCreateNFEESyncQueue( 1 );
 		bSuccess = FALSE;
 	}
-
-	xWaitSyncQFee[2] = OSQCreate(&SyncTBL2[0], N_MSG_SYNC);
-	if ( xWaitSyncQFee[2] == NULL ) {
-		vFailCreateNFEESyncQueue( 2 );
-		bSuccess = FALSE;
-	}
-
-	xWaitSyncQFee[3] = OSQCreate(&SyncTBL3[0], N_MSG_SYNC);
-	if ( xWaitSyncQFee[3] == NULL ) {
-		vFailCreateNFEESyncQueue( 3 );
-		bSuccess = FALSE;
-	}
-	*/
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
@@ -460,7 +444,6 @@ int main(void)
 	
 	OSInit();
 
-
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
@@ -488,47 +471,6 @@ int main(void)
 		return -1;
 	}
 
-	bIniSimucamStatus = vLoadDebugConfs();
-	/*Check if the debug level was loaded */
-	if ( (xDefaults.usiDebugLevel < 0) || (xDefaults.usiDebugLevel > 8) ) {
-		#if DEBUG_ON
-			debug(fp, "Didn't load Debug level from SDCard, setting to 4, Main messages and Main Progress.\n");
-		#endif
-		xDefaults.usiDebugLevel = 4;
-	}
-	if (bIniSimucamStatus == FALSE) {
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
-		}
-		#endif
-		vCriticalErrorLedPanel();
-		return -1;
-	}
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
-		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
-		fprintf(fp, "xDefaults.bDataPacket %u \n", xDefaults.bDataPacket);
-		fprintf(fp, "xDefaults.bOneShot %u \n", xDefaults.bOneShot);
-		fprintf(fp, "xDefaults.ucLogicalAddr %u \n", xDefaults.ucLogicalAddr);
-		fprintf(fp, "xDefaults.ucReadOutOrder %hhu %hhu %hhu %hhu \n", xDefaults.ucReadOutOrder[0], xDefaults.ucReadOutOrder[1], xDefaults.ucReadOutOrder[2], xDefaults.ucReadOutOrder[3]);
-		fprintf(fp, "xDefaults.ucRmapKey %u \n", xDefaults.ucRmapKey);
-		fprintf(fp, "xDefaults.ulADCPixelDelay %lu \n", xDefaults.ulADCPixelDelay);
-		fprintf(fp, "xDefaults.ulColDelay %lu \n", xDefaults.ulColDelay);
-		fprintf(fp, "xDefaults.ulLineDelay %lu \n", xDefaults.ulLineDelay);
-		fprintf(fp, "xDefaults.usiCols %u \n", xDefaults.usiCols);
-		fprintf(fp, "xDefaults.usiRows %u \n", xDefaults.usiRows);
-		fprintf(fp, "xDefaults.usiOLN %u \n", xDefaults.usiOLN);
-		fprintf(fp, "xDefaults.usiOverScanSerial %u \n", xDefaults.usiOverScanSerial);
-		fprintf(fp, "xDefaults.usiPreScanSerial %u \n", xDefaults.usiPreScanSerial);
-		fprintf(fp, "xDefaults.usiDataProtId %u \n", xDefaults.usiDataProtId);
-		fprintf(fp, "xDefaults.usiDebugLevel %u \n", xDefaults.usiDebugLevel);
-		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
-		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
-	}
-#endif
-
 	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
 	bIniSimucamStatus = vCHConfs();
 	if (bIniSimucamStatus == FALSE) {
@@ -538,23 +480,18 @@ int main(void)
 			debug(fp, "Didn't load the bind configuration of the FEEs. \n");
 		}
 		#endif
-		vCriticalErrorLedPanel();
 		return -1;
 	}
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		fprintf(fp, "\nFEE binding Loaded from SDCard \n");
-		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
-		fprintf(fp, "FEE 1 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[1]);
-		fprintf(fp, "FEE 2 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[2]);
-		fprintf(fp, "FEE 3 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[3]);
-		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
-		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
-		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
-		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
+	bIniSimucamStatus = vLoadDebugConfs();
+	if (bIniSimucamStatus == FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "Didn't load DEBUG configuration from SDCard. Default configuration will be loaded. \n");
+		}
+		#endif
+		return -1;
 	}
-#endif
 
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {
@@ -563,7 +500,6 @@ int main(void)
 			debug(fp, "Didn't load ETH configuration from SDCard. \n");
 		}
 		#endif
-		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -580,24 +516,30 @@ int main(void)
 	bIniSimucamStatus = bResourcesInitRTOS();
 	if (bIniSimucamStatus == FALSE) {
 		/* Default configuration for eth connection loaded */
-		#if DEBUG_ON
-		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
-		}
-		#endif
-		vCriticalErrorLedPanel();
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp, "Can't allocate resources for RTOS. (exit) \n");
+	}
+	#endif
 		return -1;
 	}
-
-	vVariablesInitialization();
 
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
 	vSimucamStructureInit( &xSimMeb );
 
+	vVariablesInitialization();
+
 	bInitSync();
 
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
+		fprintf(fp, "FEE 1 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[1]);
+		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
+		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
+	}
+
 	vFillMemmoryPattern( &xSimMeb );
-	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+
 
 
 	/* Creating the initialization task*/
@@ -630,7 +572,6 @@ int main(void)
 	} else {
 		/* Some error occurs in the creation of the Initialization Task */
 		vFailInitialization();
-		return -1;
 	}
   
 	return 0;
@@ -644,8 +585,10 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	alt_u8 ccd_side;
 	alt_u32 width_cols;
 	alt_u32 height_rows;
+	alt_u8 n_of_NFEE_in_mem;
 	alt_u8 NFee_i;
 
+	n_of_NFEE_in_mem = 1;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -676,9 +619,6 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 					fprintf(fp, "-----CCD %i\n", ccd_number);
 				}
 				#endif
-
-				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
-				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ccd_number) );
 
 				for( ccd_side = 0; ccd_side < 2; ccd_side++ ) {
 					if (ccd_side == 0){
