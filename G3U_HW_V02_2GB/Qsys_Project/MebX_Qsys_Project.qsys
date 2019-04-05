@@ -2128,8 +2128,8 @@
   <parameter name="ACTIVE_LOW_WAITREQUEST" value="0" />
   <parameter name="ACTIVE_LOW_WRITE" value="1" />
   <parameter name="ACTIVE_LOW_WRITEBYTEENABLE" value="0" />
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="5" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="5" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="4" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="4" />
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
@@ -2916,8 +2916,8 @@
    kind="altera_nios2_gen2"
    version="16.1"
    enabled="1">
-  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="5" />
-  <parameter name="AUTO_CLK_RESET_DOMAIN" value="5" />
+  <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="4" />
+  <parameter name="AUTO_CLK_RESET_DOMAIN" value="4" />
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <parameter name="bht_ramBlockType" value="Automatic" />
@@ -4306,7 +4306,6 @@
    version="16.1"
    start="clk_50.clk"
    end="pio_LED_painel.clk" />
- <connection kind="clock" version="16.1" start="clk_100.clk" end="sysid_qsys.clk" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="rtcc_alarm.clk" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="rtcc_cs_n.clk" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="rtcc_sck.clk" />
@@ -4335,27 +4334,28 @@
    start="clk_200.clk"
    end="tristate_conduit_bridge_0.clk" />
  <connection kind="clock" version="16.1" start="clk_200.clk" end="jtag_uart_0.clk" />
+ <connection kind="clock" version="16.1" start="clk_200.clk" end="sysid_qsys.clk" />
  <connection
    kind="clock"
    version="16.1"
    start="clk_200.clk"
    end="onchip_memory.clk1" />
+ <connection kind="clock" version="16.1" start="clk_50.clk" end="sync.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
-   end="dma_DDR_M1.clock" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="ddr2_address_span_extender.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="dma_DDR_M1.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="dma_DDR_M2.clock" />
- <connection kind="clock" version="16.1" start="clk_50.clk" end="sync.clock" />
  <connection
    kind="clock"
    version="16.1"
@@ -4384,22 +4384,22 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_B.clock_sink_100" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_A.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="COMM_Pedreiro_v1_01_B.clock_sink_100" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_C.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_D.clock_sink_100" />
  <connection
    kind="clock"
@@ -4449,7 +4449,7 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="af_100i_mm_clock_crossing_bridge.m0_clk" />
  <connection
    kind="clock"
@@ -4464,7 +4464,7 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="clock_bridge_afi_50.s0_clk" />
  <connection
    kind="interrupt"
