@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Thu Apr 04 22:22:18 BRT 2019
+ * Generated: Fri Apr 05 10:36:18 BRT 2019
  */
 
 /*
@@ -257,12 +257,10 @@
 #define ALT_NUM_EXTERNAL_INTERRUPT_CONTROLLERS 0
 #define ALT_NUM_INTERNAL_INTERRUPT_CONTROLLERS 1
 #define ALT_NUM_INTERRUPT_CONTROLLERS 1
-#define ALT_STDERR "/dev/jtag_uart_0"
-#define ALT_STDERR_BASE 0x80201000
-#define ALT_STDERR_DEV jtag_uart_0
-#define ALT_STDERR_IS_JTAG_UART
-#define ALT_STDERR_PRESENT
-#define ALT_STDERR_TYPE "altera_avalon_jtag_uart"
+#define ALT_STDERR "/dev/null"
+#define ALT_STDERR_BASE 0x0
+#define ALT_STDERR_DEV null
+#define ALT_STDERR_TYPE ""
 #define ALT_STDIN "/dev/rs232_uart"
 #define ALT_STDIN_BASE 0x40000840
 #define ALT_STDIN_DEV rs232_uart

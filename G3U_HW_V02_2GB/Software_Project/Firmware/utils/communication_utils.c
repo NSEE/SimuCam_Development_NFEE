@@ -525,7 +525,7 @@ hp-pck-type		hp-pid		hp-pcat		hp-srv-type		hp-srv-subtype
 0				112			0			17				2
 */
 void vTMPusTestConnection( unsigned short int usiPusId ) {
-	tTMPus xTmPusL;
+	volatile tTMPus xTmPusL;
 
 	/* For now is hardcoded after full release of the pus I will create defines */
 	xTmPusL.usiPusId = usiPusId;
