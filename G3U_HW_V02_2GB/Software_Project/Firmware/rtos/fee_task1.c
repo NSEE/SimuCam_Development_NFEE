@@ -8,19 +8,19 @@
 
 #include "fee_task1.h"
 
-const char *cTemp[64];
-unsigned char ucIterationSide;
+
+static unsigned char ucIterationSide;
 
 void vFeeTask1(void *task_data) {
 	static TNFee *pxNFee;
 	INT8U error_code;
-	unsigned char ucMemUsing;
+	static unsigned char ucMemUsing;
 	static alt_u32 tCodFeeTask;
 	alt_u32 tCodeNext;
 	static unsigned long incrementador; /* remover*/
 	tQMask uiCmdFEE;
-	TCcdMemMap *xCcdMapLocal;
-	unsigned char ucReadout;
+	static TCcdMemMap *xCcdMapLocal;
+	volatile unsigned char ucReadout;
 	unsigned long usiLengthBlocks;
 	bool bDmaReturn;
 	bool bFinal;
@@ -53,10 +53,12 @@ void vFeeTask1(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
@@ -173,6 +175,8 @@ void vFeeTask1(void *task_data) {
 				break;
 			case sToFeeConfig: /* Transition */
 
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem );
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /*Off*/
@@ -181,6 +185,8 @@ void vFeeTask1(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -203,10 +209,12 @@ void vFeeTask1(void *task_data) {
 
 				/* Cleaning other syncs that maybe in the queue */
 				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -265,6 +273,9 @@ void vFeeTask1(void *task_data) {
 				/* Disable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -275,10 +286,12 @@ void vFeeTask1(void *task_data) {
 
 				/* Cleaning other syncs that maybe in the queue */
 				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -316,10 +329,12 @@ void vFeeTask1(void *task_data) {
 			case sNextPatternIteration:
 
 
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
@@ -327,7 +342,7 @@ void vFeeTask1(void *task_data) {
 				vResetMemCCDFEE(pxNFee);
 
 				/* Wait until both buffers are empty  */
-				vWaitUntilBufferEmpty( xDefaultsCH.ucFEEtoChanell[pxNFee->ucId] );
+				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
@@ -339,8 +354,8 @@ void vFeeTask1(void *task_data) {
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiGuardNFEEDelay);
 
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -359,6 +374,8 @@ void vFeeTask1(void *task_data) {
 				if ( tCodeNext == 0 ) {
 					/* Should get Data from the another memory, because is a cicle start */
 					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
+				} else {
+					ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				}
 
 				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext];
@@ -407,7 +424,7 @@ void vFeeTask1(void *task_data) {
 	                    if ( error_code == OS_ERR_NONE ) {
 	                    	pxNFee->xControl.bDMALocked = TRUE;
 
-							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee );
+							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee, ucIterationSide );
 							OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 							pxNFee->xControl.bDMALocked = FALSE;
 
@@ -424,13 +441,18 @@ void vFeeTask1(void *task_data) {
 								pxNFee->xControl.eMode = sToTestFullPattern;
 							}
 							incrementador++;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+							}
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
+							}
+							#endif
 						}
-
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
-						}
-						#endif
 					} else {
 						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 					}
@@ -468,8 +490,8 @@ void vFeeTask1(void *task_data) {
 				pxNFee->xControl.bEnabled = TRUE;
 				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
@@ -478,7 +500,7 @@ void vFeeTask1(void *task_data) {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				}*/
-
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				break;
 
 			case sFeeTestFullPattern: /* Real mode */
@@ -501,8 +523,8 @@ void vFeeTask1(void *task_data) {
 								/*Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
 
-								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
-								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, xDefaultsCH.ucFEEtoChanell[ pxNFee->ucId ] );
+								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
+								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
 
 								/*
 								if (xDefaults.usiLinkNFEE0 == 0) {
@@ -535,6 +557,9 @@ void vFeeTask1(void *task_data) {
 								xCcdMapLocal->ulBlockI += usiLengthBlocks;
 							} else {
 								bFinal = FALSE;
+
+								/* Send the request for use the DMA, but to front of the QUEUE */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 							}
 
 							/* Send message telling to controller that is not using the DMA any more */
@@ -631,7 +656,5 @@ void vFeeTask1(void *task_data) {
 				#endif
 				break;
 		}
-
 	}
-
 }

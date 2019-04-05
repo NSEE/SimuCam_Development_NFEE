@@ -113,7 +113,7 @@ extern OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
 /* -------------- Definition of Queues--------------------*/
 /* This Queue will sync any FEE instance that needs to receive any command, including access to DMA */
 extern OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
-extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];		    /* Sync from Sync signal */
+//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];		    /* Sync from Sync signal */
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
 extern void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];

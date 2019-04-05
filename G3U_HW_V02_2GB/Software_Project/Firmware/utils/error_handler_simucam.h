@@ -10,6 +10,7 @@
 
 #include "../simucam_definitions.h"
 #include "configs_simucam.h"
+#include "../driver/leds/leds.h"
 
 #if DEBUG_ON
     void printErrorTask( INT8U error_code );
@@ -100,5 +101,6 @@ void vFailRequestDMAFromIRQ( unsigned char ucTemp);
 void vFailSendRMAPFromIRQ( unsigned char ucTemp);
 void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp);
 
+void vCriticalErrorLedPanel( void );
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */
