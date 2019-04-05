@@ -30,7 +30,7 @@ void vInitSimucamBasicHW(void)
 
 	/* Turn on all Panel Leds */
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
-	usleep(5000000);
+	//usleep(5000000);
 	/* initial values for the Leds */
 	bSetPainelLeds( LEDS_OFF, LEDS_PAINEL_ALL_MASK );
 

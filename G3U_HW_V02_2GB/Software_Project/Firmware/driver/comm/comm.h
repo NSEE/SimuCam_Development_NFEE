@@ -205,8 +205,8 @@
 #define COMM_IRQ_L_BUFF_0_E_FLG_CLR_MSK  (1 << 10)
 #define COMM_IRQ_L_BUFF_1_E_FLG_CLR_MSK  (1 << 11)
 
-#define COMM_RIGT_FEEBUFF_SIZE_MSK       (0b11111 << 0)
-#define COMM_LEFT_FEEBUFF_SIZE_MSK       (0b11111 << 0)
+#define COMM_RIGT_FEEBUFF_SIZE_MSK       (0xF << 0)
+#define COMM_LEFT_FEEBUFF_SIZE_MSK       (0xF << 0)
 
 // rmap config bit masks
 #define COMM_RMAP_TRI_LV_CLK_CTRL_MSK    (1 << 1)
