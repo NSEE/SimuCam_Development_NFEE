@@ -676,7 +676,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 				/* If a transition to Standby was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
-				if ( sFeeTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+				if ( sToTestFullPattern == pxNFeeP->xControl.eNextMode ) {
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
@@ -1442,6 +1442,14 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					fprintf(fp,"- to Stand-By\n");
 				}
 			#endif
+
+				if ( sToTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+				}
 
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;
