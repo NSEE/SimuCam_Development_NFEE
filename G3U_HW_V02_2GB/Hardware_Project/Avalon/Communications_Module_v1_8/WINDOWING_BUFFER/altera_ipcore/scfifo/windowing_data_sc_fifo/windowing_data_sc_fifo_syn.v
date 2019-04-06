@@ -34,25 +34,25 @@
 //agreement for further details.
 
 
-//scfifo ADD_RAM_OUTPUT_REGISTER="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=512 LPM_SHOWAHEAD="ON" LPM_WIDTH=64 LPM_WIDTHU=9 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="MLAB" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
+//scfifo ADD_RAM_OUTPUT_REGISTER="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=256 LPM_SHOWAHEAD="ON" LPM_WIDTH=64 LPM_WIDTHU=8 OVERFLOW_CHECKING="ON" RAM_BLOCK_TYPE="MLAB" UNDERFLOW_CHECKING="ON" USE_EAB="ON" aclr clock data empty full q rdreq sclr usedw wrreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
 //VERSION_BEGIN 16.1 cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_counter 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_fifo_common 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_scfifo 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 // synthesis VERILOG_INPUT_VERSION VERILOG_2001
 // altera message_off 10463
 
 
 
-//a_dpfifo ADD_RAM_OUTPUT_REGISTER="OFF" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=512 LPM_SHOWAHEAD="ON" lpm_width=64 lpm_widthu=9 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
+//a_dpfifo ADD_RAM_OUTPUT_REGISTER="OFF" ALLOW_RWCYCLE_WHEN_FULL="OFF" DEVICE_FAMILY="Stratix IV" LPM_NUMWORDS=256 LPM_SHOWAHEAD="ON" lpm_width=64 lpm_widthu=8 OVERFLOW_CHECKING="ON" UNDERFLOW_CHECKING="ON" aclr clock data empty full q rreq sclr usedw wreq INTENDED_DEVICE_FAMILY="Stratix IV" lpm_hint="RAM_BLOCK_TYPE=MLAB"
 //VERSION_BEGIN 16.1 cbx_altdpram 2016:10:24:15:04:16:SJ cbx_altera_counter 2016:10:24:15:04:16:SJ cbx_altera_syncram 2016:10:24:15:04:16:SJ cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_fifo_common 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_scfifo 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 
 
-//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK0" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=512 NUMWORDS_B=512 OPERATION_MODE="DUAL_PORT" OUTDATA_REG_B="UNREGISTERED" RAM_BLOCK_TYPE="MLAB" WIDTH_A=64 WIDTH_B=64 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=9 WIDTHAD_B=9 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 data_a q_b wren_a
+//altsyncram ADDRESS_ACLR_A="NONE" ADDRESS_ACLR_B="NONE" ADDRESS_REG_B="CLOCK0" DEVICE_FAMILY="Stratix IV" ENABLE_ECC="FALSE" INDATA_ACLR_A="NONE" NUMWORDS_A=256 NUMWORDS_B=256 OPERATION_MODE="DUAL_PORT" OUTDATA_REG_B="UNREGISTERED" RAM_BLOCK_TYPE="MLAB" WIDTH_A=64 WIDTH_B=64 WIDTH_BYTEENA_A=1 WIDTH_ECCSTATUS=2 WIDTHAD_A=8 WIDTHAD_B=8 WRCONTROL_ACLR_A="NONE" address_a address_b clock0 data_a q_b wren_a
 //VERSION_BEGIN 16.1 cbx_altera_syncram_nd_impl 2016:10:24:15:04:16:SJ cbx_altsyncram 2016:10:24:15:04:16:SJ cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ cbx_stratixiii 2016:10:24:15:04:16:SJ cbx_stratixv 2016:10:24:15:04:16:SJ cbx_util_mgl 2016:10:24:15:04:16:SJ  VERSION_END
 
 
-//lpm_decode DEVICE_FAMILY="Stratix IV" LPM_DECODES=8 LPM_WIDTH=3 data enable eq
+//lpm_decode DEVICE_FAMILY="Stratix IV" LPM_DECODES=4 LPM_WIDTH=2 data enable eq
 //VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
-//synthesis_resources = lut 8 
+//synthesis_resources = lut 4 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -61,52 +61,44 @@ module  windowing_data_sc_fifo_decode
 	data,
 	enable,
 	eq) /* synthesis synthesis_clearbox=1 */;
-	input   [2:0]  data;
+	input   [1:0]  data;
 	input   enable;
-	output   [7:0]  eq;
+	output   [3:0]  eq;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-	tri0   [2:0]  data;
+	tri0   [1:0]  data;
 	tri1   enable;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
 
-	wire  [2:0]  data_wire;
+	wire  [1:0]  data_wire;
 	wire  enable_wire;
-	wire  [7:0]  eq_node;
-	wire  [7:0]  eq_wire;
-	wire  [3:0]  w_anode650w;
-	wire  [3:0]  w_anode667w;
-	wire  [3:0]  w_anode677w;
-	wire  [3:0]  w_anode687w;
-	wire  [3:0]  w_anode697w;
-	wire  [3:0]  w_anode707w;
-	wire  [3:0]  w_anode717w;
-	wire  [3:0]  w_anode727w;
+	wire  [3:0]  eq_node;
+	wire  [3:0]  eq_wire;
+	wire  [2:0]  w_anode390w;
+	wire  [2:0]  w_anode403w;
+	wire  [2:0]  w_anode411w;
+	wire  [2:0]  w_anode419w;
 
 	assign
 		data_wire = data,
 		enable_wire = enable,
 		eq = eq_node,
-		eq_node = eq_wire[7:0],
-		eq_wire = {w_anode727w[3], w_anode717w[3], w_anode707w[3], w_anode697w[3], w_anode687w[3], w_anode677w[3], w_anode667w[3], w_anode650w[3]},
-		w_anode650w = {(w_anode650w[2] & (~ data_wire[2])), (w_anode650w[1] & (~ data_wire[1])), (w_anode650w[0] & (~ data_wire[0])), enable_wire},
-		w_anode667w = {(w_anode667w[2] & (~ data_wire[2])), (w_anode667w[1] & (~ data_wire[1])), (w_anode667w[0] & data_wire[0]), enable_wire},
-		w_anode677w = {(w_anode677w[2] & (~ data_wire[2])), (w_anode677w[1] & data_wire[1]), (w_anode677w[0] & (~ data_wire[0])), enable_wire},
-		w_anode687w = {(w_anode687w[2] & (~ data_wire[2])), (w_anode687w[1] & data_wire[1]), (w_anode687w[0] & data_wire[0]), enable_wire},
-		w_anode697w = {(w_anode697w[2] & data_wire[2]), (w_anode697w[1] & (~ data_wire[1])), (w_anode697w[0] & (~ data_wire[0])), enable_wire},
-		w_anode707w = {(w_anode707w[2] & data_wire[2]), (w_anode707w[1] & (~ data_wire[1])), (w_anode707w[0] & data_wire[0]), enable_wire},
-		w_anode717w = {(w_anode717w[2] & data_wire[2]), (w_anode717w[1] & data_wire[1]), (w_anode717w[0] & (~ data_wire[0])), enable_wire},
-		w_anode727w = {(w_anode727w[2] & data_wire[2]), (w_anode727w[1] & data_wire[1]), (w_anode727w[0] & data_wire[0]), enable_wire};
+		eq_node = eq_wire[3:0],
+		eq_wire = {w_anode419w[2], w_anode411w[2], w_anode403w[2], w_anode390w[2]},
+		w_anode390w = {(w_anode390w[1] & (~ data_wire[1])), (w_anode390w[0] & (~ data_wire[0])), enable_wire},
+		w_anode403w = {(w_anode403w[1] & (~ data_wire[1])), (w_anode403w[0] & data_wire[0]), enable_wire},
+		w_anode411w = {(w_anode411w[1] & data_wire[1]), (w_anode411w[0] & (~ data_wire[0])), enable_wire},
+		w_anode419w = {(w_anode419w[1] & data_wire[1]), (w_anode419w[0] & data_wire[0]), enable_wire};
 endmodule //windowing_data_sc_fifo_decode
 
 
-//lpm_mux DEVICE_FAMILY="Stratix IV" LPM_SIZE=8 LPM_WIDTH=64 LPM_WIDTHS=3 data result sel
+//lpm_mux DEVICE_FAMILY="Stratix IV" LPM_SIZE=4 LPM_WIDTH=64 LPM_WIDTHS=2 data result sel
 //VERSION_BEGIN 16.1 cbx_lpm_mux 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ  VERSION_END
 
-//synthesis_resources = lut 150 
+//synthesis_resources = lut 64 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -115,931 +107,415 @@ module  windowing_data_sc_fifo_mux
 	data,
 	result,
 	sel) /* synthesis synthesis_clearbox=1 */;
-	input   [511:0]  data;
+	input   [255:0]  data;
 	output   [63:0]  result;
-	input   [2:0]  sel;
+	input   [1:0]  sel;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-	tri0   [511:0]  data;
-	tri0   [2:0]  sel;
+	tri0   [255:0]  data;
+	tri0   [1:0]  sel;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
 
 	wire	wire_l1_w0_n0_mux_dataout;
 	wire	wire_l1_w0_n1_mux_dataout;
-	wire	wire_l1_w0_n2_mux_dataout;
-	wire	wire_l1_w0_n3_mux_dataout;
 	wire	wire_l1_w10_n0_mux_dataout;
 	wire	wire_l1_w10_n1_mux_dataout;
-	wire	wire_l1_w10_n2_mux_dataout;
-	wire	wire_l1_w10_n3_mux_dataout;
 	wire	wire_l1_w11_n0_mux_dataout;
 	wire	wire_l1_w11_n1_mux_dataout;
-	wire	wire_l1_w11_n2_mux_dataout;
-	wire	wire_l1_w11_n3_mux_dataout;
 	wire	wire_l1_w12_n0_mux_dataout;
 	wire	wire_l1_w12_n1_mux_dataout;
-	wire	wire_l1_w12_n2_mux_dataout;
-	wire	wire_l1_w12_n3_mux_dataout;
 	wire	wire_l1_w13_n0_mux_dataout;
 	wire	wire_l1_w13_n1_mux_dataout;
-	wire	wire_l1_w13_n2_mux_dataout;
-	wire	wire_l1_w13_n3_mux_dataout;
 	wire	wire_l1_w14_n0_mux_dataout;
 	wire	wire_l1_w14_n1_mux_dataout;
-	wire	wire_l1_w14_n2_mux_dataout;
-	wire	wire_l1_w14_n3_mux_dataout;
 	wire	wire_l1_w15_n0_mux_dataout;
 	wire	wire_l1_w15_n1_mux_dataout;
-	wire	wire_l1_w15_n2_mux_dataout;
-	wire	wire_l1_w15_n3_mux_dataout;
 	wire	wire_l1_w16_n0_mux_dataout;
 	wire	wire_l1_w16_n1_mux_dataout;
-	wire	wire_l1_w16_n2_mux_dataout;
-	wire	wire_l1_w16_n3_mux_dataout;
 	wire	wire_l1_w17_n0_mux_dataout;
 	wire	wire_l1_w17_n1_mux_dataout;
-	wire	wire_l1_w17_n2_mux_dataout;
-	wire	wire_l1_w17_n3_mux_dataout;
 	wire	wire_l1_w18_n0_mux_dataout;
 	wire	wire_l1_w18_n1_mux_dataout;
-	wire	wire_l1_w18_n2_mux_dataout;
-	wire	wire_l1_w18_n3_mux_dataout;
 	wire	wire_l1_w19_n0_mux_dataout;
 	wire	wire_l1_w19_n1_mux_dataout;
-	wire	wire_l1_w19_n2_mux_dataout;
-	wire	wire_l1_w19_n3_mux_dataout;
 	wire	wire_l1_w1_n0_mux_dataout;
 	wire	wire_l1_w1_n1_mux_dataout;
-	wire	wire_l1_w1_n2_mux_dataout;
-	wire	wire_l1_w1_n3_mux_dataout;
 	wire	wire_l1_w20_n0_mux_dataout;
 	wire	wire_l1_w20_n1_mux_dataout;
-	wire	wire_l1_w20_n2_mux_dataout;
-	wire	wire_l1_w20_n3_mux_dataout;
 	wire	wire_l1_w21_n0_mux_dataout;
 	wire	wire_l1_w21_n1_mux_dataout;
-	wire	wire_l1_w21_n2_mux_dataout;
-	wire	wire_l1_w21_n3_mux_dataout;
 	wire	wire_l1_w22_n0_mux_dataout;
 	wire	wire_l1_w22_n1_mux_dataout;
-	wire	wire_l1_w22_n2_mux_dataout;
-	wire	wire_l1_w22_n3_mux_dataout;
 	wire	wire_l1_w23_n0_mux_dataout;
 	wire	wire_l1_w23_n1_mux_dataout;
-	wire	wire_l1_w23_n2_mux_dataout;
-	wire	wire_l1_w23_n3_mux_dataout;
 	wire	wire_l1_w24_n0_mux_dataout;
 	wire	wire_l1_w24_n1_mux_dataout;
-	wire	wire_l1_w24_n2_mux_dataout;
-	wire	wire_l1_w24_n3_mux_dataout;
 	wire	wire_l1_w25_n0_mux_dataout;
 	wire	wire_l1_w25_n1_mux_dataout;
-	wire	wire_l1_w25_n2_mux_dataout;
-	wire	wire_l1_w25_n3_mux_dataout;
 	wire	wire_l1_w26_n0_mux_dataout;
 	wire	wire_l1_w26_n1_mux_dataout;
-	wire	wire_l1_w26_n2_mux_dataout;
-	wire	wire_l1_w26_n3_mux_dataout;
 	wire	wire_l1_w27_n0_mux_dataout;
 	wire	wire_l1_w27_n1_mux_dataout;
-	wire	wire_l1_w27_n2_mux_dataout;
-	wire	wire_l1_w27_n3_mux_dataout;
 	wire	wire_l1_w28_n0_mux_dataout;
 	wire	wire_l1_w28_n1_mux_dataout;
-	wire	wire_l1_w28_n2_mux_dataout;
-	wire	wire_l1_w28_n3_mux_dataout;
 	wire	wire_l1_w29_n0_mux_dataout;
 	wire	wire_l1_w29_n1_mux_dataout;
-	wire	wire_l1_w29_n2_mux_dataout;
-	wire	wire_l1_w29_n3_mux_dataout;
 	wire	wire_l1_w2_n0_mux_dataout;
 	wire	wire_l1_w2_n1_mux_dataout;
-	wire	wire_l1_w2_n2_mux_dataout;
-	wire	wire_l1_w2_n3_mux_dataout;
 	wire	wire_l1_w30_n0_mux_dataout;
 	wire	wire_l1_w30_n1_mux_dataout;
-	wire	wire_l1_w30_n2_mux_dataout;
-	wire	wire_l1_w30_n3_mux_dataout;
 	wire	wire_l1_w31_n0_mux_dataout;
 	wire	wire_l1_w31_n1_mux_dataout;
-	wire	wire_l1_w31_n2_mux_dataout;
-	wire	wire_l1_w31_n3_mux_dataout;
 	wire	wire_l1_w32_n0_mux_dataout;
 	wire	wire_l1_w32_n1_mux_dataout;
-	wire	wire_l1_w32_n2_mux_dataout;
-	wire	wire_l1_w32_n3_mux_dataout;
 	wire	wire_l1_w33_n0_mux_dataout;
 	wire	wire_l1_w33_n1_mux_dataout;
-	wire	wire_l1_w33_n2_mux_dataout;
-	wire	wire_l1_w33_n3_mux_dataout;
 	wire	wire_l1_w34_n0_mux_dataout;
 	wire	wire_l1_w34_n1_mux_dataout;
-	wire	wire_l1_w34_n2_mux_dataout;
-	wire	wire_l1_w34_n3_mux_dataout;
 	wire	wire_l1_w35_n0_mux_dataout;
 	wire	wire_l1_w35_n1_mux_dataout;
-	wire	wire_l1_w35_n2_mux_dataout;
-	wire	wire_l1_w35_n3_mux_dataout;
 	wire	wire_l1_w36_n0_mux_dataout;
 	wire	wire_l1_w36_n1_mux_dataout;
-	wire	wire_l1_w36_n2_mux_dataout;
-	wire	wire_l1_w36_n3_mux_dataout;
 	wire	wire_l1_w37_n0_mux_dataout;
 	wire	wire_l1_w37_n1_mux_dataout;
-	wire	wire_l1_w37_n2_mux_dataout;
-	wire	wire_l1_w37_n3_mux_dataout;
 	wire	wire_l1_w38_n0_mux_dataout;
 	wire	wire_l1_w38_n1_mux_dataout;
-	wire	wire_l1_w38_n2_mux_dataout;
-	wire	wire_l1_w38_n3_mux_dataout;
 	wire	wire_l1_w39_n0_mux_dataout;
 	wire	wire_l1_w39_n1_mux_dataout;
-	wire	wire_l1_w39_n2_mux_dataout;
-	wire	wire_l1_w39_n3_mux_dataout;
 	wire	wire_l1_w3_n0_mux_dataout;
 	wire	wire_l1_w3_n1_mux_dataout;
-	wire	wire_l1_w3_n2_mux_dataout;
-	wire	wire_l1_w3_n3_mux_dataout;
 	wire	wire_l1_w40_n0_mux_dataout;
 	wire	wire_l1_w40_n1_mux_dataout;
-	wire	wire_l1_w40_n2_mux_dataout;
-	wire	wire_l1_w40_n3_mux_dataout;
 	wire	wire_l1_w41_n0_mux_dataout;
 	wire	wire_l1_w41_n1_mux_dataout;
-	wire	wire_l1_w41_n2_mux_dataout;
-	wire	wire_l1_w41_n3_mux_dataout;
 	wire	wire_l1_w42_n0_mux_dataout;
 	wire	wire_l1_w42_n1_mux_dataout;
-	wire	wire_l1_w42_n2_mux_dataout;
-	wire	wire_l1_w42_n3_mux_dataout;
 	wire	wire_l1_w43_n0_mux_dataout;
 	wire	wire_l1_w43_n1_mux_dataout;
-	wire	wire_l1_w43_n2_mux_dataout;
-	wire	wire_l1_w43_n3_mux_dataout;
 	wire	wire_l1_w44_n0_mux_dataout;
 	wire	wire_l1_w44_n1_mux_dataout;
-	wire	wire_l1_w44_n2_mux_dataout;
-	wire	wire_l1_w44_n3_mux_dataout;
 	wire	wire_l1_w45_n0_mux_dataout;
 	wire	wire_l1_w45_n1_mux_dataout;
-	wire	wire_l1_w45_n2_mux_dataout;
-	wire	wire_l1_w45_n3_mux_dataout;
 	wire	wire_l1_w46_n0_mux_dataout;
 	wire	wire_l1_w46_n1_mux_dataout;
-	wire	wire_l1_w46_n2_mux_dataout;
-	wire	wire_l1_w46_n3_mux_dataout;
 	wire	wire_l1_w47_n0_mux_dataout;
 	wire	wire_l1_w47_n1_mux_dataout;
-	wire	wire_l1_w47_n2_mux_dataout;
-	wire	wire_l1_w47_n3_mux_dataout;
 	wire	wire_l1_w48_n0_mux_dataout;
 	wire	wire_l1_w48_n1_mux_dataout;
-	wire	wire_l1_w48_n2_mux_dataout;
-	wire	wire_l1_w48_n3_mux_dataout;
 	wire	wire_l1_w49_n0_mux_dataout;
 	wire	wire_l1_w49_n1_mux_dataout;
-	wire	wire_l1_w49_n2_mux_dataout;
-	wire	wire_l1_w49_n3_mux_dataout;
 	wire	wire_l1_w4_n0_mux_dataout;
 	wire	wire_l1_w4_n1_mux_dataout;
-	wire	wire_l1_w4_n2_mux_dataout;
-	wire	wire_l1_w4_n3_mux_dataout;
 	wire	wire_l1_w50_n0_mux_dataout;
 	wire	wire_l1_w50_n1_mux_dataout;
-	wire	wire_l1_w50_n2_mux_dataout;
-	wire	wire_l1_w50_n3_mux_dataout;
 	wire	wire_l1_w51_n0_mux_dataout;
 	wire	wire_l1_w51_n1_mux_dataout;
-	wire	wire_l1_w51_n2_mux_dataout;
-	wire	wire_l1_w51_n3_mux_dataout;
 	wire	wire_l1_w52_n0_mux_dataout;
 	wire	wire_l1_w52_n1_mux_dataout;
-	wire	wire_l1_w52_n2_mux_dataout;
-	wire	wire_l1_w52_n3_mux_dataout;
 	wire	wire_l1_w53_n0_mux_dataout;
 	wire	wire_l1_w53_n1_mux_dataout;
-	wire	wire_l1_w53_n2_mux_dataout;
-	wire	wire_l1_w53_n3_mux_dataout;
 	wire	wire_l1_w54_n0_mux_dataout;
 	wire	wire_l1_w54_n1_mux_dataout;
-	wire	wire_l1_w54_n2_mux_dataout;
-	wire	wire_l1_w54_n3_mux_dataout;
 	wire	wire_l1_w55_n0_mux_dataout;
 	wire	wire_l1_w55_n1_mux_dataout;
-	wire	wire_l1_w55_n2_mux_dataout;
-	wire	wire_l1_w55_n3_mux_dataout;
 	wire	wire_l1_w56_n0_mux_dataout;
 	wire	wire_l1_w56_n1_mux_dataout;
-	wire	wire_l1_w56_n2_mux_dataout;
-	wire	wire_l1_w56_n3_mux_dataout;
 	wire	wire_l1_w57_n0_mux_dataout;
 	wire	wire_l1_w57_n1_mux_dataout;
-	wire	wire_l1_w57_n2_mux_dataout;
-	wire	wire_l1_w57_n3_mux_dataout;
 	wire	wire_l1_w58_n0_mux_dataout;
 	wire	wire_l1_w58_n1_mux_dataout;
-	wire	wire_l1_w58_n2_mux_dataout;
-	wire	wire_l1_w58_n3_mux_dataout;
 	wire	wire_l1_w59_n0_mux_dataout;
 	wire	wire_l1_w59_n1_mux_dataout;
-	wire	wire_l1_w59_n2_mux_dataout;
-	wire	wire_l1_w59_n3_mux_dataout;
 	wire	wire_l1_w5_n0_mux_dataout;
 	wire	wire_l1_w5_n1_mux_dataout;
-	wire	wire_l1_w5_n2_mux_dataout;
-	wire	wire_l1_w5_n3_mux_dataout;
 	wire	wire_l1_w60_n0_mux_dataout;
 	wire	wire_l1_w60_n1_mux_dataout;
-	wire	wire_l1_w60_n2_mux_dataout;
-	wire	wire_l1_w60_n3_mux_dataout;
 	wire	wire_l1_w61_n0_mux_dataout;
 	wire	wire_l1_w61_n1_mux_dataout;
-	wire	wire_l1_w61_n2_mux_dataout;
-	wire	wire_l1_w61_n3_mux_dataout;
 	wire	wire_l1_w62_n0_mux_dataout;
 	wire	wire_l1_w62_n1_mux_dataout;
-	wire	wire_l1_w62_n2_mux_dataout;
-	wire	wire_l1_w62_n3_mux_dataout;
 	wire	wire_l1_w63_n0_mux_dataout;
 	wire	wire_l1_w63_n1_mux_dataout;
-	wire	wire_l1_w63_n2_mux_dataout;
-	wire	wire_l1_w63_n3_mux_dataout;
 	wire	wire_l1_w6_n0_mux_dataout;
 	wire	wire_l1_w6_n1_mux_dataout;
-	wire	wire_l1_w6_n2_mux_dataout;
-	wire	wire_l1_w6_n3_mux_dataout;
 	wire	wire_l1_w7_n0_mux_dataout;
 	wire	wire_l1_w7_n1_mux_dataout;
-	wire	wire_l1_w7_n2_mux_dataout;
-	wire	wire_l1_w7_n3_mux_dataout;
 	wire	wire_l1_w8_n0_mux_dataout;
 	wire	wire_l1_w8_n1_mux_dataout;
-	wire	wire_l1_w8_n2_mux_dataout;
-	wire	wire_l1_w8_n3_mux_dataout;
 	wire	wire_l1_w9_n0_mux_dataout;
 	wire	wire_l1_w9_n1_mux_dataout;
-	wire	wire_l1_w9_n2_mux_dataout;
-	wire	wire_l1_w9_n3_mux_dataout;
 	wire	wire_l2_w0_n0_mux_dataout;
-	wire	wire_l2_w0_n1_mux_dataout;
 	wire	wire_l2_w10_n0_mux_dataout;
-	wire	wire_l2_w10_n1_mux_dataout;
 	wire	wire_l2_w11_n0_mux_dataout;
-	wire	wire_l2_w11_n1_mux_dataout;
 	wire	wire_l2_w12_n0_mux_dataout;
-	wire	wire_l2_w12_n1_mux_dataout;
 	wire	wire_l2_w13_n0_mux_dataout;
-	wire	wire_l2_w13_n1_mux_dataout;
 	wire	wire_l2_w14_n0_mux_dataout;
-	wire	wire_l2_w14_n1_mux_dataout;
 	wire	wire_l2_w15_n0_mux_dataout;
-	wire	wire_l2_w15_n1_mux_dataout;
 	wire	wire_l2_w16_n0_mux_dataout;
-	wire	wire_l2_w16_n1_mux_dataout;
 	wire	wire_l2_w17_n0_mux_dataout;
-	wire	wire_l2_w17_n1_mux_dataout;
 	wire	wire_l2_w18_n0_mux_dataout;
-	wire	wire_l2_w18_n1_mux_dataout;
 	wire	wire_l2_w19_n0_mux_dataout;
-	wire	wire_l2_w19_n1_mux_dataout;
 	wire	wire_l2_w1_n0_mux_dataout;
-	wire	wire_l2_w1_n1_mux_dataout;
 	wire	wire_l2_w20_n0_mux_dataout;
-	wire	wire_l2_w20_n1_mux_dataout;
 	wire	wire_l2_w21_n0_mux_dataout;
-	wire	wire_l2_w21_n1_mux_dataout;
 	wire	wire_l2_w22_n0_mux_dataout;
-	wire	wire_l2_w22_n1_mux_dataout;
 	wire	wire_l2_w23_n0_mux_dataout;
-	wire	wire_l2_w23_n1_mux_dataout;
 	wire	wire_l2_w24_n0_mux_dataout;
-	wire	wire_l2_w24_n1_mux_dataout;
 	wire	wire_l2_w25_n0_mux_dataout;
-	wire	wire_l2_w25_n1_mux_dataout;
 	wire	wire_l2_w26_n0_mux_dataout;
-	wire	wire_l2_w26_n1_mux_dataout;
 	wire	wire_l2_w27_n0_mux_dataout;
-	wire	wire_l2_w27_n1_mux_dataout;
 	wire	wire_l2_w28_n0_mux_dataout;
-	wire	wire_l2_w28_n1_mux_dataout;
 	wire	wire_l2_w29_n0_mux_dataout;
-	wire	wire_l2_w29_n1_mux_dataout;
 	wire	wire_l2_w2_n0_mux_dataout;
-	wire	wire_l2_w2_n1_mux_dataout;
 	wire	wire_l2_w30_n0_mux_dataout;
-	wire	wire_l2_w30_n1_mux_dataout;
 	wire	wire_l2_w31_n0_mux_dataout;
-	wire	wire_l2_w31_n1_mux_dataout;
 	wire	wire_l2_w32_n0_mux_dataout;
-	wire	wire_l2_w32_n1_mux_dataout;
 	wire	wire_l2_w33_n0_mux_dataout;
-	wire	wire_l2_w33_n1_mux_dataout;
 	wire	wire_l2_w34_n0_mux_dataout;
-	wire	wire_l2_w34_n1_mux_dataout;
 	wire	wire_l2_w35_n0_mux_dataout;
-	wire	wire_l2_w35_n1_mux_dataout;
 	wire	wire_l2_w36_n0_mux_dataout;
-	wire	wire_l2_w36_n1_mux_dataout;
 	wire	wire_l2_w37_n0_mux_dataout;
-	wire	wire_l2_w37_n1_mux_dataout;
 	wire	wire_l2_w38_n0_mux_dataout;
-	wire	wire_l2_w38_n1_mux_dataout;
 	wire	wire_l2_w39_n0_mux_dataout;
-	wire	wire_l2_w39_n1_mux_dataout;
 	wire	wire_l2_w3_n0_mux_dataout;
-	wire	wire_l2_w3_n1_mux_dataout;
 	wire	wire_l2_w40_n0_mux_dataout;
-	wire	wire_l2_w40_n1_mux_dataout;
 	wire	wire_l2_w41_n0_mux_dataout;
-	wire	wire_l2_w41_n1_mux_dataout;
 	wire	wire_l2_w42_n0_mux_dataout;
-	wire	wire_l2_w42_n1_mux_dataout;
 	wire	wire_l2_w43_n0_mux_dataout;
-	wire	wire_l2_w43_n1_mux_dataout;
 	wire	wire_l2_w44_n0_mux_dataout;
-	wire	wire_l2_w44_n1_mux_dataout;
 	wire	wire_l2_w45_n0_mux_dataout;
-	wire	wire_l2_w45_n1_mux_dataout;
 	wire	wire_l2_w46_n0_mux_dataout;
-	wire	wire_l2_w46_n1_mux_dataout;
 	wire	wire_l2_w47_n0_mux_dataout;
-	wire	wire_l2_w47_n1_mux_dataout;
 	wire	wire_l2_w48_n0_mux_dataout;
-	wire	wire_l2_w48_n1_mux_dataout;
 	wire	wire_l2_w49_n0_mux_dataout;
-	wire	wire_l2_w49_n1_mux_dataout;
 	wire	wire_l2_w4_n0_mux_dataout;
-	wire	wire_l2_w4_n1_mux_dataout;
 	wire	wire_l2_w50_n0_mux_dataout;
-	wire	wire_l2_w50_n1_mux_dataout;
 	wire	wire_l2_w51_n0_mux_dataout;
-	wire	wire_l2_w51_n1_mux_dataout;
 	wire	wire_l2_w52_n0_mux_dataout;
-	wire	wire_l2_w52_n1_mux_dataout;
 	wire	wire_l2_w53_n0_mux_dataout;
-	wire	wire_l2_w53_n1_mux_dataout;
 	wire	wire_l2_w54_n0_mux_dataout;
-	wire	wire_l2_w54_n1_mux_dataout;
 	wire	wire_l2_w55_n0_mux_dataout;
-	wire	wire_l2_w55_n1_mux_dataout;
 	wire	wire_l2_w56_n0_mux_dataout;
-	wire	wire_l2_w56_n1_mux_dataout;
 	wire	wire_l2_w57_n0_mux_dataout;
-	wire	wire_l2_w57_n1_mux_dataout;
 	wire	wire_l2_w58_n0_mux_dataout;
-	wire	wire_l2_w58_n1_mux_dataout;
 	wire	wire_l2_w59_n0_mux_dataout;
-	wire	wire_l2_w59_n1_mux_dataout;
 	wire	wire_l2_w5_n0_mux_dataout;
-	wire	wire_l2_w5_n1_mux_dataout;
 	wire	wire_l2_w60_n0_mux_dataout;
-	wire	wire_l2_w60_n1_mux_dataout;
 	wire	wire_l2_w61_n0_mux_dataout;
-	wire	wire_l2_w61_n1_mux_dataout;
 	wire	wire_l2_w62_n0_mux_dataout;
-	wire	wire_l2_w62_n1_mux_dataout;
 	wire	wire_l2_w63_n0_mux_dataout;
-	wire	wire_l2_w63_n1_mux_dataout;
 	wire	wire_l2_w6_n0_mux_dataout;
-	wire	wire_l2_w6_n1_mux_dataout;
 	wire	wire_l2_w7_n0_mux_dataout;
-	wire	wire_l2_w7_n1_mux_dataout;
 	wire	wire_l2_w8_n0_mux_dataout;
-	wire	wire_l2_w8_n1_mux_dataout;
 	wire	wire_l2_w9_n0_mux_dataout;
-	wire	wire_l2_w9_n1_mux_dataout;
-	wire	wire_l3_w0_n0_mux_dataout;
-	wire	wire_l3_w10_n0_mux_dataout;
-	wire	wire_l3_w11_n0_mux_dataout;
-	wire	wire_l3_w12_n0_mux_dataout;
-	wire	wire_l3_w13_n0_mux_dataout;
-	wire	wire_l3_w14_n0_mux_dataout;
-	wire	wire_l3_w15_n0_mux_dataout;
-	wire	wire_l3_w16_n0_mux_dataout;
-	wire	wire_l3_w17_n0_mux_dataout;
-	wire	wire_l3_w18_n0_mux_dataout;
-	wire	wire_l3_w19_n0_mux_dataout;
-	wire	wire_l3_w1_n0_mux_dataout;
-	wire	wire_l3_w20_n0_mux_dataout;
-	wire	wire_l3_w21_n0_mux_dataout;
-	wire	wire_l3_w22_n0_mux_dataout;
-	wire	wire_l3_w23_n0_mux_dataout;
-	wire	wire_l3_w24_n0_mux_dataout;
-	wire	wire_l3_w25_n0_mux_dataout;
-	wire	wire_l3_w26_n0_mux_dataout;
-	wire	wire_l3_w27_n0_mux_dataout;
-	wire	wire_l3_w28_n0_mux_dataout;
-	wire	wire_l3_w29_n0_mux_dataout;
-	wire	wire_l3_w2_n0_mux_dataout;
-	wire	wire_l3_w30_n0_mux_dataout;
-	wire	wire_l3_w31_n0_mux_dataout;
-	wire	wire_l3_w32_n0_mux_dataout;
-	wire	wire_l3_w33_n0_mux_dataout;
-	wire	wire_l3_w34_n0_mux_dataout;
-	wire	wire_l3_w35_n0_mux_dataout;
-	wire	wire_l3_w36_n0_mux_dataout;
-	wire	wire_l3_w37_n0_mux_dataout;
-	wire	wire_l3_w38_n0_mux_dataout;
-	wire	wire_l3_w39_n0_mux_dataout;
-	wire	wire_l3_w3_n0_mux_dataout;
-	wire	wire_l3_w40_n0_mux_dataout;
-	wire	wire_l3_w41_n0_mux_dataout;
-	wire	wire_l3_w42_n0_mux_dataout;
-	wire	wire_l3_w43_n0_mux_dataout;
-	wire	wire_l3_w44_n0_mux_dataout;
-	wire	wire_l3_w45_n0_mux_dataout;
-	wire	wire_l3_w46_n0_mux_dataout;
-	wire	wire_l3_w47_n0_mux_dataout;
-	wire	wire_l3_w48_n0_mux_dataout;
-	wire	wire_l3_w49_n0_mux_dataout;
-	wire	wire_l3_w4_n0_mux_dataout;
-	wire	wire_l3_w50_n0_mux_dataout;
-	wire	wire_l3_w51_n0_mux_dataout;
-	wire	wire_l3_w52_n0_mux_dataout;
-	wire	wire_l3_w53_n0_mux_dataout;
-	wire	wire_l3_w54_n0_mux_dataout;
-	wire	wire_l3_w55_n0_mux_dataout;
-	wire	wire_l3_w56_n0_mux_dataout;
-	wire	wire_l3_w57_n0_mux_dataout;
-	wire	wire_l3_w58_n0_mux_dataout;
-	wire	wire_l3_w59_n0_mux_dataout;
-	wire	wire_l3_w5_n0_mux_dataout;
-	wire	wire_l3_w60_n0_mux_dataout;
-	wire	wire_l3_w61_n0_mux_dataout;
-	wire	wire_l3_w62_n0_mux_dataout;
-	wire	wire_l3_w63_n0_mux_dataout;
-	wire	wire_l3_w6_n0_mux_dataout;
-	wire	wire_l3_w7_n0_mux_dataout;
-	wire	wire_l3_w8_n0_mux_dataout;
-	wire	wire_l3_w9_n0_mux_dataout;
-	wire  [895:0]  data_wire;
+	wire  [383:0]  data_wire;
 	wire  [63:0]  result_wire_ext;
-	wire  [8:0]  sel_wire;
+	wire  [3:0]  sel_wire;
 
 	assign		wire_l1_w0_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[64] : data_wire[0];
 	assign		wire_l1_w0_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[192] : data_wire[128];
-	assign		wire_l1_w0_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[320] : data_wire[256];
-	assign		wire_l1_w0_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[448] : data_wire[384];
 	assign		wire_l1_w10_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[74] : data_wire[10];
 	assign		wire_l1_w10_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[202] : data_wire[138];
-	assign		wire_l1_w10_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[330] : data_wire[266];
-	assign		wire_l1_w10_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[458] : data_wire[394];
 	assign		wire_l1_w11_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[75] : data_wire[11];
 	assign		wire_l1_w11_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[203] : data_wire[139];
-	assign		wire_l1_w11_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[331] : data_wire[267];
-	assign		wire_l1_w11_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[459] : data_wire[395];
 	assign		wire_l1_w12_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[76] : data_wire[12];
 	assign		wire_l1_w12_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[204] : data_wire[140];
-	assign		wire_l1_w12_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[332] : data_wire[268];
-	assign		wire_l1_w12_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[460] : data_wire[396];
 	assign		wire_l1_w13_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[77] : data_wire[13];
 	assign		wire_l1_w13_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[205] : data_wire[141];
-	assign		wire_l1_w13_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[333] : data_wire[269];
-	assign		wire_l1_w13_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[461] : data_wire[397];
 	assign		wire_l1_w14_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[78] : data_wire[14];
 	assign		wire_l1_w14_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[206] : data_wire[142];
-	assign		wire_l1_w14_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[334] : data_wire[270];
-	assign		wire_l1_w14_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[462] : data_wire[398];
 	assign		wire_l1_w15_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[79] : data_wire[15];
 	assign		wire_l1_w15_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[207] : data_wire[143];
-	assign		wire_l1_w15_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[335] : data_wire[271];
-	assign		wire_l1_w15_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[463] : data_wire[399];
 	assign		wire_l1_w16_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[80] : data_wire[16];
 	assign		wire_l1_w16_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[208] : data_wire[144];
-	assign		wire_l1_w16_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[336] : data_wire[272];
-	assign		wire_l1_w16_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[464] : data_wire[400];
 	assign		wire_l1_w17_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[81] : data_wire[17];
 	assign		wire_l1_w17_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[209] : data_wire[145];
-	assign		wire_l1_w17_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[337] : data_wire[273];
-	assign		wire_l1_w17_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[465] : data_wire[401];
 	assign		wire_l1_w18_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[82] : data_wire[18];
 	assign		wire_l1_w18_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[210] : data_wire[146];
-	assign		wire_l1_w18_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[338] : data_wire[274];
-	assign		wire_l1_w18_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[466] : data_wire[402];
 	assign		wire_l1_w19_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[83] : data_wire[19];
 	assign		wire_l1_w19_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[211] : data_wire[147];
-	assign		wire_l1_w19_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[339] : data_wire[275];
-	assign		wire_l1_w19_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[467] : data_wire[403];
 	assign		wire_l1_w1_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[65] : data_wire[1];
 	assign		wire_l1_w1_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[193] : data_wire[129];
-	assign		wire_l1_w1_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[321] : data_wire[257];
-	assign		wire_l1_w1_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[449] : data_wire[385];
 	assign		wire_l1_w20_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[84] : data_wire[20];
 	assign		wire_l1_w20_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[212] : data_wire[148];
-	assign		wire_l1_w20_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[340] : data_wire[276];
-	assign		wire_l1_w20_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[468] : data_wire[404];
 	assign		wire_l1_w21_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[85] : data_wire[21];
 	assign		wire_l1_w21_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[213] : data_wire[149];
-	assign		wire_l1_w21_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[341] : data_wire[277];
-	assign		wire_l1_w21_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[469] : data_wire[405];
 	assign		wire_l1_w22_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[86] : data_wire[22];
 	assign		wire_l1_w22_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[214] : data_wire[150];
-	assign		wire_l1_w22_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[342] : data_wire[278];
-	assign		wire_l1_w22_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[470] : data_wire[406];
 	assign		wire_l1_w23_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[87] : data_wire[23];
 	assign		wire_l1_w23_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[215] : data_wire[151];
-	assign		wire_l1_w23_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[343] : data_wire[279];
-	assign		wire_l1_w23_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[471] : data_wire[407];
 	assign		wire_l1_w24_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[88] : data_wire[24];
 	assign		wire_l1_w24_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[216] : data_wire[152];
-	assign		wire_l1_w24_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[344] : data_wire[280];
-	assign		wire_l1_w24_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[472] : data_wire[408];
 	assign		wire_l1_w25_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[89] : data_wire[25];
 	assign		wire_l1_w25_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[217] : data_wire[153];
-	assign		wire_l1_w25_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[345] : data_wire[281];
-	assign		wire_l1_w25_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[473] : data_wire[409];
 	assign		wire_l1_w26_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[90] : data_wire[26];
 	assign		wire_l1_w26_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[218] : data_wire[154];
-	assign		wire_l1_w26_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[346] : data_wire[282];
-	assign		wire_l1_w26_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[474] : data_wire[410];
 	assign		wire_l1_w27_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[91] : data_wire[27];
 	assign		wire_l1_w27_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[219] : data_wire[155];
-	assign		wire_l1_w27_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[347] : data_wire[283];
-	assign		wire_l1_w27_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[475] : data_wire[411];
 	assign		wire_l1_w28_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[92] : data_wire[28];
 	assign		wire_l1_w28_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[220] : data_wire[156];
-	assign		wire_l1_w28_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[348] : data_wire[284];
-	assign		wire_l1_w28_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[476] : data_wire[412];
 	assign		wire_l1_w29_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[93] : data_wire[29];
 	assign		wire_l1_w29_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[221] : data_wire[157];
-	assign		wire_l1_w29_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[349] : data_wire[285];
-	assign		wire_l1_w29_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[477] : data_wire[413];
 	assign		wire_l1_w2_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[66] : data_wire[2];
 	assign		wire_l1_w2_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[194] : data_wire[130];
-	assign		wire_l1_w2_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[322] : data_wire[258];
-	assign		wire_l1_w2_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[450] : data_wire[386];
 	assign		wire_l1_w30_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[94] : data_wire[30];
 	assign		wire_l1_w30_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[222] : data_wire[158];
-	assign		wire_l1_w30_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[350] : data_wire[286];
-	assign		wire_l1_w30_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[478] : data_wire[414];
 	assign		wire_l1_w31_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[95] : data_wire[31];
 	assign		wire_l1_w31_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[223] : data_wire[159];
-	assign		wire_l1_w31_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[351] : data_wire[287];
-	assign		wire_l1_w31_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[479] : data_wire[415];
 	assign		wire_l1_w32_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[96] : data_wire[32];
 	assign		wire_l1_w32_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[224] : data_wire[160];
-	assign		wire_l1_w32_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[352] : data_wire[288];
-	assign		wire_l1_w32_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[480] : data_wire[416];
 	assign		wire_l1_w33_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[97] : data_wire[33];
 	assign		wire_l1_w33_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[225] : data_wire[161];
-	assign		wire_l1_w33_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[353] : data_wire[289];
-	assign		wire_l1_w33_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[481] : data_wire[417];
 	assign		wire_l1_w34_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[98] : data_wire[34];
 	assign		wire_l1_w34_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[226] : data_wire[162];
-	assign		wire_l1_w34_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[354] : data_wire[290];
-	assign		wire_l1_w34_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[482] : data_wire[418];
 	assign		wire_l1_w35_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[99] : data_wire[35];
 	assign		wire_l1_w35_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[227] : data_wire[163];
-	assign		wire_l1_w35_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[355] : data_wire[291];
-	assign		wire_l1_w35_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[483] : data_wire[419];
 	assign		wire_l1_w36_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[100] : data_wire[36];
 	assign		wire_l1_w36_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[228] : data_wire[164];
-	assign		wire_l1_w36_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[356] : data_wire[292];
-	assign		wire_l1_w36_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[484] : data_wire[420];
 	assign		wire_l1_w37_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[101] : data_wire[37];
 	assign		wire_l1_w37_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[229] : data_wire[165];
-	assign		wire_l1_w37_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[357] : data_wire[293];
-	assign		wire_l1_w37_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[485] : data_wire[421];
 	assign		wire_l1_w38_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[102] : data_wire[38];
 	assign		wire_l1_w38_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[230] : data_wire[166];
-	assign		wire_l1_w38_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[358] : data_wire[294];
-	assign		wire_l1_w38_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[486] : data_wire[422];
 	assign		wire_l1_w39_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[103] : data_wire[39];
 	assign		wire_l1_w39_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[231] : data_wire[167];
-	assign		wire_l1_w39_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[359] : data_wire[295];
-	assign		wire_l1_w39_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[487] : data_wire[423];
 	assign		wire_l1_w3_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[67] : data_wire[3];
 	assign		wire_l1_w3_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[195] : data_wire[131];
-	assign		wire_l1_w3_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[323] : data_wire[259];
-	assign		wire_l1_w3_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[451] : data_wire[387];
 	assign		wire_l1_w40_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[104] : data_wire[40];
 	assign		wire_l1_w40_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[232] : data_wire[168];
-	assign		wire_l1_w40_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[360] : data_wire[296];
-	assign		wire_l1_w40_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[488] : data_wire[424];
 	assign		wire_l1_w41_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[105] : data_wire[41];
 	assign		wire_l1_w41_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[233] : data_wire[169];
-	assign		wire_l1_w41_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[361] : data_wire[297];
-	assign		wire_l1_w41_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[489] : data_wire[425];
 	assign		wire_l1_w42_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[106] : data_wire[42];
 	assign		wire_l1_w42_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[234] : data_wire[170];
-	assign		wire_l1_w42_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[362] : data_wire[298];
-	assign		wire_l1_w42_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[490] : data_wire[426];
 	assign		wire_l1_w43_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[107] : data_wire[43];
 	assign		wire_l1_w43_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[235] : data_wire[171];
-	assign		wire_l1_w43_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[363] : data_wire[299];
-	assign		wire_l1_w43_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[491] : data_wire[427];
 	assign		wire_l1_w44_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[108] : data_wire[44];
 	assign		wire_l1_w44_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[236] : data_wire[172];
-	assign		wire_l1_w44_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[364] : data_wire[300];
-	assign		wire_l1_w44_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[492] : data_wire[428];
 	assign		wire_l1_w45_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[109] : data_wire[45];
 	assign		wire_l1_w45_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[237] : data_wire[173];
-	assign		wire_l1_w45_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[365] : data_wire[301];
-	assign		wire_l1_w45_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[493] : data_wire[429];
 	assign		wire_l1_w46_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[110] : data_wire[46];
 	assign		wire_l1_w46_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[238] : data_wire[174];
-	assign		wire_l1_w46_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[366] : data_wire[302];
-	assign		wire_l1_w46_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[494] : data_wire[430];
 	assign		wire_l1_w47_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[111] : data_wire[47];
 	assign		wire_l1_w47_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[239] : data_wire[175];
-	assign		wire_l1_w47_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[367] : data_wire[303];
-	assign		wire_l1_w47_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[495] : data_wire[431];
 	assign		wire_l1_w48_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[112] : data_wire[48];
 	assign		wire_l1_w48_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[240] : data_wire[176];
-	assign		wire_l1_w48_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[368] : data_wire[304];
-	assign		wire_l1_w48_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[496] : data_wire[432];
 	assign		wire_l1_w49_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[113] : data_wire[49];
 	assign		wire_l1_w49_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[241] : data_wire[177];
-	assign		wire_l1_w49_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[369] : data_wire[305];
-	assign		wire_l1_w49_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[497] : data_wire[433];
 	assign		wire_l1_w4_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[68] : data_wire[4];
 	assign		wire_l1_w4_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[196] : data_wire[132];
-	assign		wire_l1_w4_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[324] : data_wire[260];
-	assign		wire_l1_w4_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[452] : data_wire[388];
 	assign		wire_l1_w50_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[114] : data_wire[50];
 	assign		wire_l1_w50_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[242] : data_wire[178];
-	assign		wire_l1_w50_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[370] : data_wire[306];
-	assign		wire_l1_w50_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[498] : data_wire[434];
 	assign		wire_l1_w51_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[115] : data_wire[51];
 	assign		wire_l1_w51_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[243] : data_wire[179];
-	assign		wire_l1_w51_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[371] : data_wire[307];
-	assign		wire_l1_w51_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[499] : data_wire[435];
 	assign		wire_l1_w52_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[116] : data_wire[52];
 	assign		wire_l1_w52_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[244] : data_wire[180];
-	assign		wire_l1_w52_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[372] : data_wire[308];
-	assign		wire_l1_w52_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[500] : data_wire[436];
 	assign		wire_l1_w53_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[117] : data_wire[53];
 	assign		wire_l1_w53_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[245] : data_wire[181];
-	assign		wire_l1_w53_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[373] : data_wire[309];
-	assign		wire_l1_w53_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[501] : data_wire[437];
 	assign		wire_l1_w54_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[118] : data_wire[54];
 	assign		wire_l1_w54_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[246] : data_wire[182];
-	assign		wire_l1_w54_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[374] : data_wire[310];
-	assign		wire_l1_w54_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[502] : data_wire[438];
 	assign		wire_l1_w55_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[119] : data_wire[55];
 	assign		wire_l1_w55_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[247] : data_wire[183];
-	assign		wire_l1_w55_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[375] : data_wire[311];
-	assign		wire_l1_w55_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[503] : data_wire[439];
 	assign		wire_l1_w56_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[120] : data_wire[56];
 	assign		wire_l1_w56_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[248] : data_wire[184];
-	assign		wire_l1_w56_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[376] : data_wire[312];
-	assign		wire_l1_w56_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[504] : data_wire[440];
 	assign		wire_l1_w57_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[121] : data_wire[57];
 	assign		wire_l1_w57_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[249] : data_wire[185];
-	assign		wire_l1_w57_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[377] : data_wire[313];
-	assign		wire_l1_w57_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[505] : data_wire[441];
 	assign		wire_l1_w58_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[122] : data_wire[58];
 	assign		wire_l1_w58_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[250] : data_wire[186];
-	assign		wire_l1_w58_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[378] : data_wire[314];
-	assign		wire_l1_w58_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[506] : data_wire[442];
 	assign		wire_l1_w59_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[123] : data_wire[59];
 	assign		wire_l1_w59_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[251] : data_wire[187];
-	assign		wire_l1_w59_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[379] : data_wire[315];
-	assign		wire_l1_w59_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[507] : data_wire[443];
 	assign		wire_l1_w5_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[69] : data_wire[5];
 	assign		wire_l1_w5_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[197] : data_wire[133];
-	assign		wire_l1_w5_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[325] : data_wire[261];
-	assign		wire_l1_w5_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[453] : data_wire[389];
 	assign		wire_l1_w60_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[124] : data_wire[60];
 	assign		wire_l1_w60_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[252] : data_wire[188];
-	assign		wire_l1_w60_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[380] : data_wire[316];
-	assign		wire_l1_w60_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[508] : data_wire[444];
 	assign		wire_l1_w61_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[125] : data_wire[61];
 	assign		wire_l1_w61_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[253] : data_wire[189];
-	assign		wire_l1_w61_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[381] : data_wire[317];
-	assign		wire_l1_w61_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[509] : data_wire[445];
 	assign		wire_l1_w62_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[126] : data_wire[62];
 	assign		wire_l1_w62_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[254] : data_wire[190];
-	assign		wire_l1_w62_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[382] : data_wire[318];
-	assign		wire_l1_w62_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[510] : data_wire[446];
 	assign		wire_l1_w63_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[127] : data_wire[63];
 	assign		wire_l1_w63_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[255] : data_wire[191];
-	assign		wire_l1_w63_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[383] : data_wire[319];
-	assign		wire_l1_w63_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[511] : data_wire[447];
 	assign		wire_l1_w6_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[70] : data_wire[6];
 	assign		wire_l1_w6_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[198] : data_wire[134];
-	assign		wire_l1_w6_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[326] : data_wire[262];
-	assign		wire_l1_w6_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[454] : data_wire[390];
 	assign		wire_l1_w7_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[71] : data_wire[7];
 	assign		wire_l1_w7_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[199] : data_wire[135];
-	assign		wire_l1_w7_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[327] : data_wire[263];
-	assign		wire_l1_w7_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[455] : data_wire[391];
 	assign		wire_l1_w8_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[72] : data_wire[8];
 	assign		wire_l1_w8_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[200] : data_wire[136];
-	assign		wire_l1_w8_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[328] : data_wire[264];
-	assign		wire_l1_w8_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[456] : data_wire[392];
 	assign		wire_l1_w9_n0_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[73] : data_wire[9];
 	assign		wire_l1_w9_n1_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[201] : data_wire[137];
-	assign		wire_l1_w9_n2_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[329] : data_wire[265];
-	assign		wire_l1_w9_n3_mux_dataout = (sel_wire[0] === 1'b1) ? data_wire[457] : data_wire[393];
-	assign		wire_l2_w0_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[513] : data_wire[512];
-	assign		wire_l2_w0_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[515] : data_wire[514];
-	assign		wire_l2_w10_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[553] : data_wire[552];
-	assign		wire_l2_w10_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[555] : data_wire[554];
-	assign		wire_l2_w11_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[557] : data_wire[556];
-	assign		wire_l2_w11_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[559] : data_wire[558];
-	assign		wire_l2_w12_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[561] : data_wire[560];
-	assign		wire_l2_w12_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[563] : data_wire[562];
-	assign		wire_l2_w13_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[565] : data_wire[564];
-	assign		wire_l2_w13_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[567] : data_wire[566];
-	assign		wire_l2_w14_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[569] : data_wire[568];
-	assign		wire_l2_w14_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[571] : data_wire[570];
-	assign		wire_l2_w15_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[573] : data_wire[572];
-	assign		wire_l2_w15_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[575] : data_wire[574];
-	assign		wire_l2_w16_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[577] : data_wire[576];
-	assign		wire_l2_w16_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[579] : data_wire[578];
-	assign		wire_l2_w17_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[581] : data_wire[580];
-	assign		wire_l2_w17_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[583] : data_wire[582];
-	assign		wire_l2_w18_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[585] : data_wire[584];
-	assign		wire_l2_w18_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[587] : data_wire[586];
-	assign		wire_l2_w19_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[589] : data_wire[588];
-	assign		wire_l2_w19_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[591] : data_wire[590];
-	assign		wire_l2_w1_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[517] : data_wire[516];
-	assign		wire_l2_w1_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[519] : data_wire[518];
-	assign		wire_l2_w20_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[593] : data_wire[592];
-	assign		wire_l2_w20_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[595] : data_wire[594];
-	assign		wire_l2_w21_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[597] : data_wire[596];
-	assign		wire_l2_w21_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[599] : data_wire[598];
-	assign		wire_l2_w22_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[601] : data_wire[600];
-	assign		wire_l2_w22_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[603] : data_wire[602];
-	assign		wire_l2_w23_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[605] : data_wire[604];
-	assign		wire_l2_w23_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[607] : data_wire[606];
-	assign		wire_l2_w24_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[609] : data_wire[608];
-	assign		wire_l2_w24_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[611] : data_wire[610];
-	assign		wire_l2_w25_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[613] : data_wire[612];
-	assign		wire_l2_w25_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[615] : data_wire[614];
-	assign		wire_l2_w26_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[617] : data_wire[616];
-	assign		wire_l2_w26_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[619] : data_wire[618];
-	assign		wire_l2_w27_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[621] : data_wire[620];
-	assign		wire_l2_w27_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[623] : data_wire[622];
-	assign		wire_l2_w28_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[625] : data_wire[624];
-	assign		wire_l2_w28_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[627] : data_wire[626];
-	assign		wire_l2_w29_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[629] : data_wire[628];
-	assign		wire_l2_w29_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[631] : data_wire[630];
-	assign		wire_l2_w2_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[521] : data_wire[520];
-	assign		wire_l2_w2_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[523] : data_wire[522];
-	assign		wire_l2_w30_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[633] : data_wire[632];
-	assign		wire_l2_w30_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[635] : data_wire[634];
-	assign		wire_l2_w31_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[637] : data_wire[636];
-	assign		wire_l2_w31_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[639] : data_wire[638];
-	assign		wire_l2_w32_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[641] : data_wire[640];
-	assign		wire_l2_w32_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[643] : data_wire[642];
-	assign		wire_l2_w33_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[645] : data_wire[644];
-	assign		wire_l2_w33_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[647] : data_wire[646];
-	assign		wire_l2_w34_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[649] : data_wire[648];
-	assign		wire_l2_w34_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[651] : data_wire[650];
-	assign		wire_l2_w35_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[653] : data_wire[652];
-	assign		wire_l2_w35_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[655] : data_wire[654];
-	assign		wire_l2_w36_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[657] : data_wire[656];
-	assign		wire_l2_w36_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[659] : data_wire[658];
-	assign		wire_l2_w37_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[661] : data_wire[660];
-	assign		wire_l2_w37_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[663] : data_wire[662];
-	assign		wire_l2_w38_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[665] : data_wire[664];
-	assign		wire_l2_w38_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[667] : data_wire[666];
-	assign		wire_l2_w39_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[669] : data_wire[668];
-	assign		wire_l2_w39_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[671] : data_wire[670];
-	assign		wire_l2_w3_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[525] : data_wire[524];
-	assign		wire_l2_w3_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[527] : data_wire[526];
-	assign		wire_l2_w40_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[673] : data_wire[672];
-	assign		wire_l2_w40_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[675] : data_wire[674];
-	assign		wire_l2_w41_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[677] : data_wire[676];
-	assign		wire_l2_w41_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[679] : data_wire[678];
-	assign		wire_l2_w42_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[681] : data_wire[680];
-	assign		wire_l2_w42_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[683] : data_wire[682];
-	assign		wire_l2_w43_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[685] : data_wire[684];
-	assign		wire_l2_w43_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[687] : data_wire[686];
-	assign		wire_l2_w44_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[689] : data_wire[688];
-	assign		wire_l2_w44_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[691] : data_wire[690];
-	assign		wire_l2_w45_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[693] : data_wire[692];
-	assign		wire_l2_w45_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[695] : data_wire[694];
-	assign		wire_l2_w46_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[697] : data_wire[696];
-	assign		wire_l2_w46_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[699] : data_wire[698];
-	assign		wire_l2_w47_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[701] : data_wire[700];
-	assign		wire_l2_w47_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[703] : data_wire[702];
-	assign		wire_l2_w48_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[705] : data_wire[704];
-	assign		wire_l2_w48_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[707] : data_wire[706];
-	assign		wire_l2_w49_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[709] : data_wire[708];
-	assign		wire_l2_w49_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[711] : data_wire[710];
-	assign		wire_l2_w4_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[529] : data_wire[528];
-	assign		wire_l2_w4_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[531] : data_wire[530];
-	assign		wire_l2_w50_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[713] : data_wire[712];
-	assign		wire_l2_w50_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[715] : data_wire[714];
-	assign		wire_l2_w51_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[717] : data_wire[716];
-	assign		wire_l2_w51_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[719] : data_wire[718];
-	assign		wire_l2_w52_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[721] : data_wire[720];
-	assign		wire_l2_w52_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[723] : data_wire[722];
-	assign		wire_l2_w53_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[725] : data_wire[724];
-	assign		wire_l2_w53_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[727] : data_wire[726];
-	assign		wire_l2_w54_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[729] : data_wire[728];
-	assign		wire_l2_w54_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[731] : data_wire[730];
-	assign		wire_l2_w55_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[733] : data_wire[732];
-	assign		wire_l2_w55_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[735] : data_wire[734];
-	assign		wire_l2_w56_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[737] : data_wire[736];
-	assign		wire_l2_w56_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[739] : data_wire[738];
-	assign		wire_l2_w57_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[741] : data_wire[740];
-	assign		wire_l2_w57_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[743] : data_wire[742];
-	assign		wire_l2_w58_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[745] : data_wire[744];
-	assign		wire_l2_w58_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[747] : data_wire[746];
-	assign		wire_l2_w59_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[749] : data_wire[748];
-	assign		wire_l2_w59_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[751] : data_wire[750];
-	assign		wire_l2_w5_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[533] : data_wire[532];
-	assign		wire_l2_w5_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[535] : data_wire[534];
-	assign		wire_l2_w60_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[753] : data_wire[752];
-	assign		wire_l2_w60_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[755] : data_wire[754];
-	assign		wire_l2_w61_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[757] : data_wire[756];
-	assign		wire_l2_w61_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[759] : data_wire[758];
-	assign		wire_l2_w62_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[761] : data_wire[760];
-	assign		wire_l2_w62_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[763] : data_wire[762];
-	assign		wire_l2_w63_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[765] : data_wire[764];
-	assign		wire_l2_w63_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[767] : data_wire[766];
-	assign		wire_l2_w6_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[537] : data_wire[536];
-	assign		wire_l2_w6_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[539] : data_wire[538];
-	assign		wire_l2_w7_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[541] : data_wire[540];
-	assign		wire_l2_w7_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[543] : data_wire[542];
-	assign		wire_l2_w8_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[545] : data_wire[544];
-	assign		wire_l2_w8_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[547] : data_wire[546];
-	assign		wire_l2_w9_n0_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[549] : data_wire[548];
-	assign		wire_l2_w9_n1_mux_dataout = (sel_wire[4] === 1'b1) ? data_wire[551] : data_wire[550];
-	assign		wire_l3_w0_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[769] : data_wire[768];
-	assign		wire_l3_w10_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[789] : data_wire[788];
-	assign		wire_l3_w11_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[791] : data_wire[790];
-	assign		wire_l3_w12_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[793] : data_wire[792];
-	assign		wire_l3_w13_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[795] : data_wire[794];
-	assign		wire_l3_w14_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[797] : data_wire[796];
-	assign		wire_l3_w15_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[799] : data_wire[798];
-	assign		wire_l3_w16_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[801] : data_wire[800];
-	assign		wire_l3_w17_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[803] : data_wire[802];
-	assign		wire_l3_w18_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[805] : data_wire[804];
-	assign		wire_l3_w19_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[807] : data_wire[806];
-	assign		wire_l3_w1_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[771] : data_wire[770];
-	assign		wire_l3_w20_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[809] : data_wire[808];
-	assign		wire_l3_w21_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[811] : data_wire[810];
-	assign		wire_l3_w22_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[813] : data_wire[812];
-	assign		wire_l3_w23_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[815] : data_wire[814];
-	assign		wire_l3_w24_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[817] : data_wire[816];
-	assign		wire_l3_w25_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[819] : data_wire[818];
-	assign		wire_l3_w26_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[821] : data_wire[820];
-	assign		wire_l3_w27_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[823] : data_wire[822];
-	assign		wire_l3_w28_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[825] : data_wire[824];
-	assign		wire_l3_w29_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[827] : data_wire[826];
-	assign		wire_l3_w2_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[773] : data_wire[772];
-	assign		wire_l3_w30_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[829] : data_wire[828];
-	assign		wire_l3_w31_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[831] : data_wire[830];
-	assign		wire_l3_w32_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[833] : data_wire[832];
-	assign		wire_l3_w33_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[835] : data_wire[834];
-	assign		wire_l3_w34_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[837] : data_wire[836];
-	assign		wire_l3_w35_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[839] : data_wire[838];
-	assign		wire_l3_w36_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[841] : data_wire[840];
-	assign		wire_l3_w37_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[843] : data_wire[842];
-	assign		wire_l3_w38_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[845] : data_wire[844];
-	assign		wire_l3_w39_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[847] : data_wire[846];
-	assign		wire_l3_w3_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[775] : data_wire[774];
-	assign		wire_l3_w40_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[849] : data_wire[848];
-	assign		wire_l3_w41_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[851] : data_wire[850];
-	assign		wire_l3_w42_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[853] : data_wire[852];
-	assign		wire_l3_w43_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[855] : data_wire[854];
-	assign		wire_l3_w44_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[857] : data_wire[856];
-	assign		wire_l3_w45_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[859] : data_wire[858];
-	assign		wire_l3_w46_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[861] : data_wire[860];
-	assign		wire_l3_w47_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[863] : data_wire[862];
-	assign		wire_l3_w48_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[865] : data_wire[864];
-	assign		wire_l3_w49_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[867] : data_wire[866];
-	assign		wire_l3_w4_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[777] : data_wire[776];
-	assign		wire_l3_w50_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[869] : data_wire[868];
-	assign		wire_l3_w51_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[871] : data_wire[870];
-	assign		wire_l3_w52_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[873] : data_wire[872];
-	assign		wire_l3_w53_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[875] : data_wire[874];
-	assign		wire_l3_w54_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[877] : data_wire[876];
-	assign		wire_l3_w55_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[879] : data_wire[878];
-	assign		wire_l3_w56_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[881] : data_wire[880];
-	assign		wire_l3_w57_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[883] : data_wire[882];
-	assign		wire_l3_w58_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[885] : data_wire[884];
-	assign		wire_l3_w59_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[887] : data_wire[886];
-	assign		wire_l3_w5_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[779] : data_wire[778];
-	assign		wire_l3_w60_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[889] : data_wire[888];
-	assign		wire_l3_w61_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[891] : data_wire[890];
-	assign		wire_l3_w62_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[893] : data_wire[892];
-	assign		wire_l3_w63_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[895] : data_wire[894];
-	assign		wire_l3_w6_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[781] : data_wire[780];
-	assign		wire_l3_w7_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[783] : data_wire[782];
-	assign		wire_l3_w8_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[785] : data_wire[784];
-	assign		wire_l3_w9_n0_mux_dataout = (sel_wire[8] === 1'b1) ? data_wire[787] : data_wire[786];
+	assign		wire_l2_w0_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[257] : data_wire[256];
+	assign		wire_l2_w10_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[277] : data_wire[276];
+	assign		wire_l2_w11_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[279] : data_wire[278];
+	assign		wire_l2_w12_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[281] : data_wire[280];
+	assign		wire_l2_w13_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[283] : data_wire[282];
+	assign		wire_l2_w14_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[285] : data_wire[284];
+	assign		wire_l2_w15_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[287] : data_wire[286];
+	assign		wire_l2_w16_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[289] : data_wire[288];
+	assign		wire_l2_w17_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[291] : data_wire[290];
+	assign		wire_l2_w18_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[293] : data_wire[292];
+	assign		wire_l2_w19_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[295] : data_wire[294];
+	assign		wire_l2_w1_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[259] : data_wire[258];
+	assign		wire_l2_w20_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[297] : data_wire[296];
+	assign		wire_l2_w21_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[299] : data_wire[298];
+	assign		wire_l2_w22_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[301] : data_wire[300];
+	assign		wire_l2_w23_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[303] : data_wire[302];
+	assign		wire_l2_w24_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[305] : data_wire[304];
+	assign		wire_l2_w25_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[307] : data_wire[306];
+	assign		wire_l2_w26_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[309] : data_wire[308];
+	assign		wire_l2_w27_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[311] : data_wire[310];
+	assign		wire_l2_w28_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[313] : data_wire[312];
+	assign		wire_l2_w29_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[315] : data_wire[314];
+	assign		wire_l2_w2_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[261] : data_wire[260];
+	assign		wire_l2_w30_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[317] : data_wire[316];
+	assign		wire_l2_w31_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[319] : data_wire[318];
+	assign		wire_l2_w32_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[321] : data_wire[320];
+	assign		wire_l2_w33_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[323] : data_wire[322];
+	assign		wire_l2_w34_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[325] : data_wire[324];
+	assign		wire_l2_w35_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[327] : data_wire[326];
+	assign		wire_l2_w36_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[329] : data_wire[328];
+	assign		wire_l2_w37_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[331] : data_wire[330];
+	assign		wire_l2_w38_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[333] : data_wire[332];
+	assign		wire_l2_w39_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[335] : data_wire[334];
+	assign		wire_l2_w3_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[263] : data_wire[262];
+	assign		wire_l2_w40_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[337] : data_wire[336];
+	assign		wire_l2_w41_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[339] : data_wire[338];
+	assign		wire_l2_w42_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[341] : data_wire[340];
+	assign		wire_l2_w43_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[343] : data_wire[342];
+	assign		wire_l2_w44_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[345] : data_wire[344];
+	assign		wire_l2_w45_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[347] : data_wire[346];
+	assign		wire_l2_w46_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[349] : data_wire[348];
+	assign		wire_l2_w47_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[351] : data_wire[350];
+	assign		wire_l2_w48_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[353] : data_wire[352];
+	assign		wire_l2_w49_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[355] : data_wire[354];
+	assign		wire_l2_w4_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[265] : data_wire[264];
+	assign		wire_l2_w50_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[357] : data_wire[356];
+	assign		wire_l2_w51_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[359] : data_wire[358];
+	assign		wire_l2_w52_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[361] : data_wire[360];
+	assign		wire_l2_w53_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[363] : data_wire[362];
+	assign		wire_l2_w54_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[365] : data_wire[364];
+	assign		wire_l2_w55_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[367] : data_wire[366];
+	assign		wire_l2_w56_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[369] : data_wire[368];
+	assign		wire_l2_w57_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[371] : data_wire[370];
+	assign		wire_l2_w58_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[373] : data_wire[372];
+	assign		wire_l2_w59_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[375] : data_wire[374];
+	assign		wire_l2_w5_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[267] : data_wire[266];
+	assign		wire_l2_w60_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[377] : data_wire[376];
+	assign		wire_l2_w61_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[379] : data_wire[378];
+	assign		wire_l2_w62_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[381] : data_wire[380];
+	assign		wire_l2_w63_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[383] : data_wire[382];
+	assign		wire_l2_w6_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[269] : data_wire[268];
+	assign		wire_l2_w7_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[271] : data_wire[270];
+	assign		wire_l2_w8_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[273] : data_wire[272];
+	assign		wire_l2_w9_n0_mux_dataout = (sel_wire[3] === 1'b1) ? data_wire[275] : data_wire[274];
 	assign
-		data_wire = {wire_l2_w63_n1_mux_dataout, wire_l2_w63_n0_mux_dataout, wire_l2_w62_n1_mux_dataout, wire_l2_w62_n0_mux_dataout, wire_l2_w61_n1_mux_dataout, wire_l2_w61_n0_mux_dataout, wire_l2_w60_n1_mux_dataout, wire_l2_w60_n0_mux_dataout, wire_l2_w59_n1_mux_dataout, wire_l2_w59_n0_mux_dataout, wire_l2_w58_n1_mux_dataout, wire_l2_w58_n0_mux_dataout, wire_l2_w57_n1_mux_dataout, wire_l2_w57_n0_mux_dataout, wire_l2_w56_n1_mux_dataout, wire_l2_w56_n0_mux_dataout, wire_l2_w55_n1_mux_dataout, wire_l2_w55_n0_mux_dataout, wire_l2_w54_n1_mux_dataout, wire_l2_w54_n0_mux_dataout, wire_l2_w53_n1_mux_dataout, wire_l2_w53_n0_mux_dataout, wire_l2_w52_n1_mux_dataout, wire_l2_w52_n0_mux_dataout, wire_l2_w51_n1_mux_dataout, wire_l2_w51_n0_mux_dataout, wire_l2_w50_n1_mux_dataout, wire_l2_w50_n0_mux_dataout, wire_l2_w49_n1_mux_dataout, wire_l2_w49_n0_mux_dataout, wire_l2_w48_n1_mux_dataout, wire_l2_w48_n0_mux_dataout, wire_l2_w47_n1_mux_dataout, wire_l2_w47_n0_mux_dataout, wire_l2_w46_n1_mux_dataout, wire_l2_w46_n0_mux_dataout, wire_l2_w45_n1_mux_dataout, wire_l2_w45_n0_mux_dataout, wire_l2_w44_n1_mux_dataout, wire_l2_w44_n0_mux_dataout, wire_l2_w43_n1_mux_dataout, wire_l2_w43_n0_mux_dataout, wire_l2_w42_n1_mux_dataout, wire_l2_w42_n0_mux_dataout, wire_l2_w41_n1_mux_dataout, wire_l2_w41_n0_mux_dataout, wire_l2_w40_n1_mux_dataout, wire_l2_w40_n0_mux_dataout, wire_l2_w39_n1_mux_dataout, wire_l2_w39_n0_mux_dataout, wire_l2_w38_n1_mux_dataout, wire_l2_w38_n0_mux_dataout, wire_l2_w37_n1_mux_dataout, wire_l2_w37_n0_mux_dataout, wire_l2_w36_n1_mux_dataout, wire_l2_w36_n0_mux_dataout, wire_l2_w35_n1_mux_dataout, wire_l2_w35_n0_mux_dataout, wire_l2_w34_n1_mux_dataout, wire_l2_w34_n0_mux_dataout, wire_l2_w33_n1_mux_dataout, wire_l2_w33_n0_mux_dataout, wire_l2_w32_n1_mux_dataout, wire_l2_w32_n0_mux_dataout, wire_l2_w31_n1_mux_dataout, wire_l2_w31_n0_mux_dataout, wire_l2_w30_n1_mux_dataout, wire_l2_w30_n0_mux_dataout, wire_l2_w29_n1_mux_dataout, wire_l2_w29_n0_mux_dataout, wire_l2_w28_n1_mux_dataout, wire_l2_w28_n0_mux_dataout, wire_l2_w27_n1_mux_dataout
-, wire_l2_w27_n0_mux_dataout, wire_l2_w26_n1_mux_dataout, wire_l2_w26_n0_mux_dataout, wire_l2_w25_n1_mux_dataout, wire_l2_w25_n0_mux_dataout, wire_l2_w24_n1_mux_dataout, wire_l2_w24_n0_mux_dataout, wire_l2_w23_n1_mux_dataout, wire_l2_w23_n0_mux_dataout, wire_l2_w22_n1_mux_dataout, wire_l2_w22_n0_mux_dataout, wire_l2_w21_n1_mux_dataout, wire_l2_w21_n0_mux_dataout, wire_l2_w20_n1_mux_dataout, wire_l2_w20_n0_mux_dataout, wire_l2_w19_n1_mux_dataout, wire_l2_w19_n0_mux_dataout, wire_l2_w18_n1_mux_dataout, wire_l2_w18_n0_mux_dataout, wire_l2_w17_n1_mux_dataout, wire_l2_w17_n0_mux_dataout, wire_l2_w16_n1_mux_dataout, wire_l2_w16_n0_mux_dataout, wire_l2_w15_n1_mux_dataout, wire_l2_w15_n0_mux_dataout, wire_l2_w14_n1_mux_dataout, wire_l2_w14_n0_mux_dataout, wire_l2_w13_n1_mux_dataout, wire_l2_w13_n0_mux_dataout, wire_l2_w12_n1_mux_dataout, wire_l2_w12_n0_mux_dataout, wire_l2_w11_n1_mux_dataout, wire_l2_w11_n0_mux_dataout, wire_l2_w10_n1_mux_dataout, wire_l2_w10_n0_mux_dataout, wire_l2_w9_n1_mux_dataout, wire_l2_w9_n0_mux_dataout, wire_l2_w8_n1_mux_dataout, wire_l2_w8_n0_mux_dataout, wire_l2_w7_n1_mux_dataout, wire_l2_w7_n0_mux_dataout, wire_l2_w6_n1_mux_dataout, wire_l2_w6_n0_mux_dataout, wire_l2_w5_n1_mux_dataout, wire_l2_w5_n0_mux_dataout, wire_l2_w4_n1_mux_dataout, wire_l2_w4_n0_mux_dataout, wire_l2_w3_n1_mux_dataout, wire_l2_w3_n0_mux_dataout, wire_l2_w2_n1_mux_dataout, wire_l2_w2_n0_mux_dataout, wire_l2_w1_n1_mux_dataout, wire_l2_w1_n0_mux_dataout, wire_l2_w0_n1_mux_dataout, wire_l2_w0_n0_mux_dataout, wire_l1_w63_n3_mux_dataout, wire_l1_w63_n2_mux_dataout, wire_l1_w63_n1_mux_dataout, wire_l1_w63_n0_mux_dataout, wire_l1_w62_n3_mux_dataout, wire_l1_w62_n2_mux_dataout, wire_l1_w62_n1_mux_dataout, wire_l1_w62_n0_mux_dataout, wire_l1_w61_n3_mux_dataout, wire_l1_w61_n2_mux_dataout, wire_l1_w61_n1_mux_dataout, wire_l1_w61_n0_mux_dataout, wire_l1_w60_n3_mux_dataout, wire_l1_w60_n2_mux_dataout, wire_l1_w60_n1_mux_dataout, wire_l1_w60_n0_mux_dataout, wire_l1_w59_n3_mux_dataout, wire_l1_w59_n2_mux_dataout, wire_l1_w59_n1_mux_dataout
-, wire_l1_w59_n0_mux_dataout, wire_l1_w58_n3_mux_dataout, wire_l1_w58_n2_mux_dataout, wire_l1_w58_n1_mux_dataout, wire_l1_w58_n0_mux_dataout, wire_l1_w57_n3_mux_dataout, wire_l1_w57_n2_mux_dataout, wire_l1_w57_n1_mux_dataout, wire_l1_w57_n0_mux_dataout, wire_l1_w56_n3_mux_dataout, wire_l1_w56_n2_mux_dataout, wire_l1_w56_n1_mux_dataout, wire_l1_w56_n0_mux_dataout, wire_l1_w55_n3_mux_dataout, wire_l1_w55_n2_mux_dataout, wire_l1_w55_n1_mux_dataout, wire_l1_w55_n0_mux_dataout, wire_l1_w54_n3_mux_dataout, wire_l1_w54_n2_mux_dataout, wire_l1_w54_n1_mux_dataout, wire_l1_w54_n0_mux_dataout, wire_l1_w53_n3_mux_dataout, wire_l1_w53_n2_mux_dataout, wire_l1_w53_n1_mux_dataout, wire_l1_w53_n0_mux_dataout, wire_l1_w52_n3_mux_dataout, wire_l1_w52_n2_mux_dataout, wire_l1_w52_n1_mux_dataout, wire_l1_w52_n0_mux_dataout, wire_l1_w51_n3_mux_dataout, wire_l1_w51_n2_mux_dataout, wire_l1_w51_n1_mux_dataout, wire_l1_w51_n0_mux_dataout, wire_l1_w50_n3_mux_dataout, wire_l1_w50_n2_mux_dataout, wire_l1_w50_n1_mux_dataout, wire_l1_w50_n0_mux_dataout, wire_l1_w49_n3_mux_dataout, wire_l1_w49_n2_mux_dataout, wire_l1_w49_n1_mux_dataout, wire_l1_w49_n0_mux_dataout, wire_l1_w48_n3_mux_dataout, wire_l1_w48_n2_mux_dataout, wire_l1_w48_n1_mux_dataout, wire_l1_w48_n0_mux_dataout, wire_l1_w47_n3_mux_dataout, wire_l1_w47_n2_mux_dataout, wire_l1_w47_n1_mux_dataout, wire_l1_w47_n0_mux_dataout, wire_l1_w46_n3_mux_dataout, wire_l1_w46_n2_mux_dataout, wire_l1_w46_n1_mux_dataout, wire_l1_w46_n0_mux_dataout, wire_l1_w45_n3_mux_dataout, wire_l1_w45_n2_mux_dataout, wire_l1_w45_n1_mux_dataout, wire_l1_w45_n0_mux_dataout, wire_l1_w44_n3_mux_dataout, wire_l1_w44_n2_mux_dataout, wire_l1_w44_n1_mux_dataout, wire_l1_w44_n0_mux_dataout, wire_l1_w43_n3_mux_dataout, wire_l1_w43_n2_mux_dataout, wire_l1_w43_n1_mux_dataout, wire_l1_w43_n0_mux_dataout, wire_l1_w42_n3_mux_dataout, wire_l1_w42_n2_mux_dataout, wire_l1_w42_n1_mux_dataout, wire_l1_w42_n0_mux_dataout, wire_l1_w41_n3_mux_dataout, wire_l1_w41_n2_mux_dataout, wire_l1_w41_n1_mux_dataout, wire_l1_w41_n0_mux_dataout, wire_l1_w40_n3_mux_dataout
-, wire_l1_w40_n2_mux_dataout, wire_l1_w40_n1_mux_dataout, wire_l1_w40_n0_mux_dataout, wire_l1_w39_n3_mux_dataout, wire_l1_w39_n2_mux_dataout, wire_l1_w39_n1_mux_dataout, wire_l1_w39_n0_mux_dataout, wire_l1_w38_n3_mux_dataout, wire_l1_w38_n2_mux_dataout, wire_l1_w38_n1_mux_dataout, wire_l1_w38_n0_mux_dataout, wire_l1_w37_n3_mux_dataout, wire_l1_w37_n2_mux_dataout, wire_l1_w37_n1_mux_dataout, wire_l1_w37_n0_mux_dataout, wire_l1_w36_n3_mux_dataout, wire_l1_w36_n2_mux_dataout, wire_l1_w36_n1_mux_dataout, wire_l1_w36_n0_mux_dataout, wire_l1_w35_n3_mux_dataout, wire_l1_w35_n2_mux_dataout, wire_l1_w35_n1_mux_dataout, wire_l1_w35_n0_mux_dataout, wire_l1_w34_n3_mux_dataout, wire_l1_w34_n2_mux_dataout, wire_l1_w34_n1_mux_dataout, wire_l1_w34_n0_mux_dataout, wire_l1_w33_n3_mux_dataout, wire_l1_w33_n2_mux_dataout, wire_l1_w33_n1_mux_dataout, wire_l1_w33_n0_mux_dataout, wire_l1_w32_n3_mux_dataout, wire_l1_w32_n2_mux_dataout, wire_l1_w32_n1_mux_dataout, wire_l1_w32_n0_mux_dataout, wire_l1_w31_n3_mux_dataout, wire_l1_w31_n2_mux_dataout, wire_l1_w31_n1_mux_dataout, wire_l1_w31_n0_mux_dataout, wire_l1_w30_n3_mux_dataout, wire_l1_w30_n2_mux_dataout, wire_l1_w30_n1_mux_dataout, wire_l1_w30_n0_mux_dataout, wire_l1_w29_n3_mux_dataout, wire_l1_w29_n2_mux_dataout, wire_l1_w29_n1_mux_dataout, wire_l1_w29_n0_mux_dataout, wire_l1_w28_n3_mux_dataout, wire_l1_w28_n2_mux_dataout, wire_l1_w28_n1_mux_dataout, wire_l1_w28_n0_mux_dataout, wire_l1_w27_n3_mux_dataout, wire_l1_w27_n2_mux_dataout, wire_l1_w27_n1_mux_dataout, wire_l1_w27_n0_mux_dataout, wire_l1_w26_n3_mux_dataout, wire_l1_w26_n2_mux_dataout, wire_l1_w26_n1_mux_dataout, wire_l1_w26_n0_mux_dataout, wire_l1_w25_n3_mux_dataout, wire_l1_w25_n2_mux_dataout, wire_l1_w25_n1_mux_dataout, wire_l1_w25_n0_mux_dataout, wire_l1_w24_n3_mux_dataout, wire_l1_w24_n2_mux_dataout, wire_l1_w24_n1_mux_dataout, wire_l1_w24_n0_mux_dataout, wire_l1_w23_n3_mux_dataout, wire_l1_w23_n2_mux_dataout, wire_l1_w23_n1_mux_dataout, wire_l1_w23_n0_mux_dataout, wire_l1_w22_n3_mux_dataout, wire_l1_w22_n2_mux_dataout, wire_l1_w22_n1_mux_dataout
-, wire_l1_w22_n0_mux_dataout, wire_l1_w21_n3_mux_dataout, wire_l1_w21_n2_mux_dataout, wire_l1_w21_n1_mux_dataout, wire_l1_w21_n0_mux_dataout, wire_l1_w20_n3_mux_dataout, wire_l1_w20_n2_mux_dataout, wire_l1_w20_n1_mux_dataout, wire_l1_w20_n0_mux_dataout, wire_l1_w19_n3_mux_dataout, wire_l1_w19_n2_mux_dataout, wire_l1_w19_n1_mux_dataout, wire_l1_w19_n0_mux_dataout, wire_l1_w18_n3_mux_dataout, wire_l1_w18_n2_mux_dataout, wire_l1_w18_n1_mux_dataout, wire_l1_w18_n0_mux_dataout, wire_l1_w17_n3_mux_dataout, wire_l1_w17_n2_mux_dataout, wire_l1_w17_n1_mux_dataout, wire_l1_w17_n0_mux_dataout, wire_l1_w16_n3_mux_dataout, wire_l1_w16_n2_mux_dataout, wire_l1_w16_n1_mux_dataout, wire_l1_w16_n0_mux_dataout, wire_l1_w15_n3_mux_dataout, wire_l1_w15_n2_mux_dataout, wire_l1_w15_n1_mux_dataout, wire_l1_w15_n0_mux_dataout, wire_l1_w14_n3_mux_dataout, wire_l1_w14_n2_mux_dataout, wire_l1_w14_n1_mux_dataout, wire_l1_w14_n0_mux_dataout, wire_l1_w13_n3_mux_dataout, wire_l1_w13_n2_mux_dataout, wire_l1_w13_n1_mux_dataout, wire_l1_w13_n0_mux_dataout, wire_l1_w12_n3_mux_dataout, wire_l1_w12_n2_mux_dataout, wire_l1_w12_n1_mux_dataout, wire_l1_w12_n0_mux_dataout, wire_l1_w11_n3_mux_dataout, wire_l1_w11_n2_mux_dataout, wire_l1_w11_n1_mux_dataout, wire_l1_w11_n0_mux_dataout, wire_l1_w10_n3_mux_dataout, wire_l1_w10_n2_mux_dataout, wire_l1_w10_n1_mux_dataout, wire_l1_w10_n0_mux_dataout, wire_l1_w9_n3_mux_dataout, wire_l1_w9_n2_mux_dataout, wire_l1_w9_n1_mux_dataout, wire_l1_w9_n0_mux_dataout, wire_l1_w8_n3_mux_dataout, wire_l1_w8_n2_mux_dataout, wire_l1_w8_n1_mux_dataout, wire_l1_w8_n0_mux_dataout, wire_l1_w7_n3_mux_dataout, wire_l1_w7_n2_mux_dataout, wire_l1_w7_n1_mux_dataout, wire_l1_w7_n0_mux_dataout, wire_l1_w6_n3_mux_dataout, wire_l1_w6_n2_mux_dataout, wire_l1_w6_n1_mux_dataout, wire_l1_w6_n0_mux_dataout, wire_l1_w5_n3_mux_dataout, wire_l1_w5_n2_mux_dataout, wire_l1_w5_n1_mux_dataout, wire_l1_w5_n0_mux_dataout, wire_l1_w4_n3_mux_dataout, wire_l1_w4_n2_mux_dataout, wire_l1_w4_n1_mux_dataout, wire_l1_w4_n0_mux_dataout, wire_l1_w3_n3_mux_dataout,
- wire_l1_w3_n2_mux_dataout, wire_l1_w3_n1_mux_dataout, wire_l1_w3_n0_mux_dataout, wire_l1_w2_n3_mux_dataout, wire_l1_w2_n2_mux_dataout, wire_l1_w2_n1_mux_dataout, wire_l1_w2_n0_mux_dataout, wire_l1_w1_n3_mux_dataout, wire_l1_w1_n2_mux_dataout, wire_l1_w1_n1_mux_dataout, wire_l1_w1_n0_mux_dataout, wire_l1_w0_n3_mux_dataout, wire_l1_w0_n2_mux_dataout, wire_l1_w0_n1_mux_dataout, wire_l1_w0_n0_mux_dataout, data},
+		data_wire = {wire_l1_w63_n1_mux_dataout, wire_l1_w63_n0_mux_dataout, wire_l1_w62_n1_mux_dataout, wire_l1_w62_n0_mux_dataout, wire_l1_w61_n1_mux_dataout, wire_l1_w61_n0_mux_dataout, wire_l1_w60_n1_mux_dataout, wire_l1_w60_n0_mux_dataout, wire_l1_w59_n1_mux_dataout, wire_l1_w59_n0_mux_dataout, wire_l1_w58_n1_mux_dataout, wire_l1_w58_n0_mux_dataout, wire_l1_w57_n1_mux_dataout, wire_l1_w57_n0_mux_dataout, wire_l1_w56_n1_mux_dataout, wire_l1_w56_n0_mux_dataout, wire_l1_w55_n1_mux_dataout, wire_l1_w55_n0_mux_dataout, wire_l1_w54_n1_mux_dataout, wire_l1_w54_n0_mux_dataout, wire_l1_w53_n1_mux_dataout, wire_l1_w53_n0_mux_dataout, wire_l1_w52_n1_mux_dataout, wire_l1_w52_n0_mux_dataout, wire_l1_w51_n1_mux_dataout, wire_l1_w51_n0_mux_dataout, wire_l1_w50_n1_mux_dataout, wire_l1_w50_n0_mux_dataout, wire_l1_w49_n1_mux_dataout, wire_l1_w49_n0_mux_dataout, wire_l1_w48_n1_mux_dataout, wire_l1_w48_n0_mux_dataout, wire_l1_w47_n1_mux_dataout, wire_l1_w47_n0_mux_dataout, wire_l1_w46_n1_mux_dataout, wire_l1_w46_n0_mux_dataout, wire_l1_w45_n1_mux_dataout, wire_l1_w45_n0_mux_dataout, wire_l1_w44_n1_mux_dataout, wire_l1_w44_n0_mux_dataout, wire_l1_w43_n1_mux_dataout, wire_l1_w43_n0_mux_dataout, wire_l1_w42_n1_mux_dataout, wire_l1_w42_n0_mux_dataout, wire_l1_w41_n1_mux_dataout, wire_l1_w41_n0_mux_dataout, wire_l1_w40_n1_mux_dataout, wire_l1_w40_n0_mux_dataout, wire_l1_w39_n1_mux_dataout, wire_l1_w39_n0_mux_dataout, wire_l1_w38_n1_mux_dataout, wire_l1_w38_n0_mux_dataout, wire_l1_w37_n1_mux_dataout, wire_l1_w37_n0_mux_dataout, wire_l1_w36_n1_mux_dataout, wire_l1_w36_n0_mux_dataout, wire_l1_w35_n1_mux_dataout, wire_l1_w35_n0_mux_dataout, wire_l1_w34_n1_mux_dataout, wire_l1_w34_n0_mux_dataout, wire_l1_w33_n1_mux_dataout, wire_l1_w33_n0_mux_dataout, wire_l1_w32_n1_mux_dataout, wire_l1_w32_n0_mux_dataout, wire_l1_w31_n1_mux_dataout, wire_l1_w31_n0_mux_dataout, wire_l1_w30_n1_mux_dataout, wire_l1_w30_n0_mux_dataout, wire_l1_w29_n1_mux_dataout, wire_l1_w29_n0_mux_dataout, wire_l1_w28_n1_mux_dataout, wire_l1_w28_n0_mux_dataout, wire_l1_w27_n1_mux_dataout
+, wire_l1_w27_n0_mux_dataout, wire_l1_w26_n1_mux_dataout, wire_l1_w26_n0_mux_dataout, wire_l1_w25_n1_mux_dataout, wire_l1_w25_n0_mux_dataout, wire_l1_w24_n1_mux_dataout, wire_l1_w24_n0_mux_dataout, wire_l1_w23_n1_mux_dataout, wire_l1_w23_n0_mux_dataout, wire_l1_w22_n1_mux_dataout, wire_l1_w22_n0_mux_dataout, wire_l1_w21_n1_mux_dataout, wire_l1_w21_n0_mux_dataout, wire_l1_w20_n1_mux_dataout, wire_l1_w20_n0_mux_dataout, wire_l1_w19_n1_mux_dataout, wire_l1_w19_n0_mux_dataout, wire_l1_w18_n1_mux_dataout, wire_l1_w18_n0_mux_dataout, wire_l1_w17_n1_mux_dataout, wire_l1_w17_n0_mux_dataout, wire_l1_w16_n1_mux_dataout, wire_l1_w16_n0_mux_dataout, wire_l1_w15_n1_mux_dataout, wire_l1_w15_n0_mux_dataout, wire_l1_w14_n1_mux_dataout, wire_l1_w14_n0_mux_dataout, wire_l1_w13_n1_mux_dataout, wire_l1_w13_n0_mux_dataout, wire_l1_w12_n1_mux_dataout, wire_l1_w12_n0_mux_dataout, wire_l1_w11_n1_mux_dataout, wire_l1_w11_n0_mux_dataout, wire_l1_w10_n1_mux_dataout, wire_l1_w10_n0_mux_dataout, wire_l1_w9_n1_mux_dataout, wire_l1_w9_n0_mux_dataout, wire_l1_w8_n1_mux_dataout, wire_l1_w8_n0_mux_dataout, wire_l1_w7_n1_mux_dataout, wire_l1_w7_n0_mux_dataout, wire_l1_w6_n1_mux_dataout, wire_l1_w6_n0_mux_dataout, wire_l1_w5_n1_mux_dataout, wire_l1_w5_n0_mux_dataout, wire_l1_w4_n1_mux_dataout, wire_l1_w4_n0_mux_dataout, wire_l1_w3_n1_mux_dataout, wire_l1_w3_n0_mux_dataout, wire_l1_w2_n1_mux_dataout, wire_l1_w2_n0_mux_dataout, wire_l1_w1_n1_mux_dataout, wire_l1_w1_n0_mux_dataout, wire_l1_w0_n1_mux_dataout, wire_l1_w0_n0_mux_dataout, data},
 		result = result_wire_ext,
-		result_wire_ext = {wire_l3_w63_n0_mux_dataout, wire_l3_w62_n0_mux_dataout, wire_l3_w61_n0_mux_dataout, wire_l3_w60_n0_mux_dataout, wire_l3_w59_n0_mux_dataout, wire_l3_w58_n0_mux_dataout, wire_l3_w57_n0_mux_dataout, wire_l3_w56_n0_mux_dataout, wire_l3_w55_n0_mux_dataout, wire_l3_w54_n0_mux_dataout, wire_l3_w53_n0_mux_dataout, wire_l3_w52_n0_mux_dataout, wire_l3_w51_n0_mux_dataout, wire_l3_w50_n0_mux_dataout, wire_l3_w49_n0_mux_dataout, wire_l3_w48_n0_mux_dataout, wire_l3_w47_n0_mux_dataout, wire_l3_w46_n0_mux_dataout, wire_l3_w45_n0_mux_dataout, wire_l3_w44_n0_mux_dataout, wire_l3_w43_n0_mux_dataout, wire_l3_w42_n0_mux_dataout, wire_l3_w41_n0_mux_dataout, wire_l3_w40_n0_mux_dataout, wire_l3_w39_n0_mux_dataout, wire_l3_w38_n0_mux_dataout, wire_l3_w37_n0_mux_dataout, wire_l3_w36_n0_mux_dataout, wire_l3_w35_n0_mux_dataout, wire_l3_w34_n0_mux_dataout, wire_l3_w33_n0_mux_dataout, wire_l3_w32_n0_mux_dataout, wire_l3_w31_n0_mux_dataout, wire_l3_w30_n0_mux_dataout, wire_l3_w29_n0_mux_dataout, wire_l3_w28_n0_mux_dataout, wire_l3_w27_n0_mux_dataout, wire_l3_w26_n0_mux_dataout, wire_l3_w25_n0_mux_dataout, wire_l3_w24_n0_mux_dataout, wire_l3_w23_n0_mux_dataout, wire_l3_w22_n0_mux_dataout, wire_l3_w21_n0_mux_dataout, wire_l3_w20_n0_mux_dataout, wire_l3_w19_n0_mux_dataout, wire_l3_w18_n0_mux_dataout, wire_l3_w17_n0_mux_dataout, wire_l3_w16_n0_mux_dataout, wire_l3_w15_n0_mux_dataout, wire_l3_w14_n0_mux_dataout, wire_l3_w13_n0_mux_dataout, wire_l3_w12_n0_mux_dataout, wire_l3_w11_n0_mux_dataout, wire_l3_w10_n0_mux_dataout, wire_l3_w9_n0_mux_dataout, wire_l3_w8_n0_mux_dataout, wire_l3_w7_n0_mux_dataout, wire_l3_w6_n0_mux_dataout, wire_l3_w5_n0_mux_dataout, wire_l3_w4_n0_mux_dataout, wire_l3_w3_n0_mux_dataout, wire_l3_w2_n0_mux_dataout, wire_l3_w1_n0_mux_dataout, wire_l3_w0_n0_mux_dataout},
-		sel_wire = {sel[2], {3{1'b0}}, sel[1], {3{1'b0}}, sel[0]};
+		result_wire_ext = {wire_l2_w63_n0_mux_dataout, wire_l2_w62_n0_mux_dataout, wire_l2_w61_n0_mux_dataout, wire_l2_w60_n0_mux_dataout, wire_l2_w59_n0_mux_dataout, wire_l2_w58_n0_mux_dataout, wire_l2_w57_n0_mux_dataout, wire_l2_w56_n0_mux_dataout, wire_l2_w55_n0_mux_dataout, wire_l2_w54_n0_mux_dataout, wire_l2_w53_n0_mux_dataout, wire_l2_w52_n0_mux_dataout, wire_l2_w51_n0_mux_dataout, wire_l2_w50_n0_mux_dataout, wire_l2_w49_n0_mux_dataout, wire_l2_w48_n0_mux_dataout, wire_l2_w47_n0_mux_dataout, wire_l2_w46_n0_mux_dataout, wire_l2_w45_n0_mux_dataout, wire_l2_w44_n0_mux_dataout, wire_l2_w43_n0_mux_dataout, wire_l2_w42_n0_mux_dataout, wire_l2_w41_n0_mux_dataout, wire_l2_w40_n0_mux_dataout, wire_l2_w39_n0_mux_dataout, wire_l2_w38_n0_mux_dataout, wire_l2_w37_n0_mux_dataout, wire_l2_w36_n0_mux_dataout, wire_l2_w35_n0_mux_dataout, wire_l2_w34_n0_mux_dataout, wire_l2_w33_n0_mux_dataout, wire_l2_w32_n0_mux_dataout, wire_l2_w31_n0_mux_dataout, wire_l2_w30_n0_mux_dataout, wire_l2_w29_n0_mux_dataout, wire_l2_w28_n0_mux_dataout, wire_l2_w27_n0_mux_dataout, wire_l2_w26_n0_mux_dataout, wire_l2_w25_n0_mux_dataout, wire_l2_w24_n0_mux_dataout, wire_l2_w23_n0_mux_dataout, wire_l2_w22_n0_mux_dataout, wire_l2_w21_n0_mux_dataout, wire_l2_w20_n0_mux_dataout, wire_l2_w19_n0_mux_dataout, wire_l2_w18_n0_mux_dataout, wire_l2_w17_n0_mux_dataout, wire_l2_w16_n0_mux_dataout, wire_l2_w15_n0_mux_dataout, wire_l2_w14_n0_mux_dataout, wire_l2_w13_n0_mux_dataout, wire_l2_w12_n0_mux_dataout, wire_l2_w11_n0_mux_dataout, wire_l2_w10_n0_mux_dataout, wire_l2_w9_n0_mux_dataout, wire_l2_w8_n0_mux_dataout, wire_l2_w7_n0_mux_dataout, wire_l2_w6_n0_mux_dataout, wire_l2_w5_n0_mux_dataout, wire_l2_w4_n0_mux_dataout, wire_l2_w3_n0_mux_dataout, wire_l2_w2_n0_mux_dataout, wire_l2_w1_n0_mux_dataout, wire_l2_w0_n0_mux_dataout},
+		sel_wire = {sel[1], {2{1'b0}}, sel[0]};
 endmodule //windowing_data_sc_fifo_mux
 
-//synthesis_resources = lut 158 MLAB 52 reg 82 
+//synthesis_resources = lut 68 MLAB 26 reg 80 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -1052,8 +528,8 @@ module  windowing_data_sc_fifo_altsyncram
 	data_a,
 	q_b,
 	wren_a) /* synthesis synthesis_clearbox=1 */;
-	input   [8:0]  address_a;
-	input   [8:0]  address_b;
+	input   [7:0]  address_a;
+	input   [7:0]  address_b;
 	input   clock0;
 	input   [63:0]  data_a;
 	output   [63:0]  q_b;
@@ -1061,7 +537,7 @@ module  windowing_data_sc_fifo_altsyncram
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-	tri1   [8:0]  address_b;
+	tri1   [7:0]  address_b;
 	tri1   clock0;
 	tri1   [63:0]  data_a;
 	tri0   wren_a;
@@ -1072,10 +548,10 @@ module  windowing_data_sc_fifo_altsyncram
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON;ALLOW_SYNCH_CTRL_USAGE=OFF;DONT_MERGE_REGISTER=ON"} *)
 	reg	[63:0]	datain_reg;
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON"} *)
-	reg	[8:0]	rdaddr_reg;
+	reg	[7:0]	rdaddr_reg;
 	(* ALTERA_ATTRIBUTE = {"PRESERVE_REGISTER=ON;DONT_MERGE_REGISTER=ON"} *)
-	reg	[8:0]	wraddr_reg;
-	wire  [7:0]   wire_wr_decode_eq;
+	reg	[7:0]	wraddr_reg;
+	wire  [3:0]   wire_wr_decode_eq;
 	wire  [63:0]   wire_rd_mux_result;
 	wire  [0:0]   wire_lutrama_0portbdataout;
 	wire  [0:0]   wire_lutrama_1portbdataout;
@@ -1333,267 +809,11 @@ module  windowing_data_sc_fifo_altsyncram
 	wire  [0:0]   wire_lutrama_253portbdataout;
 	wire  [0:0]   wire_lutrama_254portbdataout;
 	wire  [0:0]   wire_lutrama_255portbdataout;
-	wire  [0:0]   wire_lutrama_256portbdataout;
-	wire  [0:0]   wire_lutrama_257portbdataout;
-	wire  [0:0]   wire_lutrama_258portbdataout;
-	wire  [0:0]   wire_lutrama_259portbdataout;
-	wire  [0:0]   wire_lutrama_260portbdataout;
-	wire  [0:0]   wire_lutrama_261portbdataout;
-	wire  [0:0]   wire_lutrama_262portbdataout;
-	wire  [0:0]   wire_lutrama_263portbdataout;
-	wire  [0:0]   wire_lutrama_264portbdataout;
-	wire  [0:0]   wire_lutrama_265portbdataout;
-	wire  [0:0]   wire_lutrama_266portbdataout;
-	wire  [0:0]   wire_lutrama_267portbdataout;
-	wire  [0:0]   wire_lutrama_268portbdataout;
-	wire  [0:0]   wire_lutrama_269portbdataout;
-	wire  [0:0]   wire_lutrama_270portbdataout;
-	wire  [0:0]   wire_lutrama_271portbdataout;
-	wire  [0:0]   wire_lutrama_272portbdataout;
-	wire  [0:0]   wire_lutrama_273portbdataout;
-	wire  [0:0]   wire_lutrama_274portbdataout;
-	wire  [0:0]   wire_lutrama_275portbdataout;
-	wire  [0:0]   wire_lutrama_276portbdataout;
-	wire  [0:0]   wire_lutrama_277portbdataout;
-	wire  [0:0]   wire_lutrama_278portbdataout;
-	wire  [0:0]   wire_lutrama_279portbdataout;
-	wire  [0:0]   wire_lutrama_280portbdataout;
-	wire  [0:0]   wire_lutrama_281portbdataout;
-	wire  [0:0]   wire_lutrama_282portbdataout;
-	wire  [0:0]   wire_lutrama_283portbdataout;
-	wire  [0:0]   wire_lutrama_284portbdataout;
-	wire  [0:0]   wire_lutrama_285portbdataout;
-	wire  [0:0]   wire_lutrama_286portbdataout;
-	wire  [0:0]   wire_lutrama_287portbdataout;
-	wire  [0:0]   wire_lutrama_288portbdataout;
-	wire  [0:0]   wire_lutrama_289portbdataout;
-	wire  [0:0]   wire_lutrama_290portbdataout;
-	wire  [0:0]   wire_lutrama_291portbdataout;
-	wire  [0:0]   wire_lutrama_292portbdataout;
-	wire  [0:0]   wire_lutrama_293portbdataout;
-	wire  [0:0]   wire_lutrama_294portbdataout;
-	wire  [0:0]   wire_lutrama_295portbdataout;
-	wire  [0:0]   wire_lutrama_296portbdataout;
-	wire  [0:0]   wire_lutrama_297portbdataout;
-	wire  [0:0]   wire_lutrama_298portbdataout;
-	wire  [0:0]   wire_lutrama_299portbdataout;
-	wire  [0:0]   wire_lutrama_300portbdataout;
-	wire  [0:0]   wire_lutrama_301portbdataout;
-	wire  [0:0]   wire_lutrama_302portbdataout;
-	wire  [0:0]   wire_lutrama_303portbdataout;
-	wire  [0:0]   wire_lutrama_304portbdataout;
-	wire  [0:0]   wire_lutrama_305portbdataout;
-	wire  [0:0]   wire_lutrama_306portbdataout;
-	wire  [0:0]   wire_lutrama_307portbdataout;
-	wire  [0:0]   wire_lutrama_308portbdataout;
-	wire  [0:0]   wire_lutrama_309portbdataout;
-	wire  [0:0]   wire_lutrama_310portbdataout;
-	wire  [0:0]   wire_lutrama_311portbdataout;
-	wire  [0:0]   wire_lutrama_312portbdataout;
-	wire  [0:0]   wire_lutrama_313portbdataout;
-	wire  [0:0]   wire_lutrama_314portbdataout;
-	wire  [0:0]   wire_lutrama_315portbdataout;
-	wire  [0:0]   wire_lutrama_316portbdataout;
-	wire  [0:0]   wire_lutrama_317portbdataout;
-	wire  [0:0]   wire_lutrama_318portbdataout;
-	wire  [0:0]   wire_lutrama_319portbdataout;
-	wire  [0:0]   wire_lutrama_320portbdataout;
-	wire  [0:0]   wire_lutrama_321portbdataout;
-	wire  [0:0]   wire_lutrama_322portbdataout;
-	wire  [0:0]   wire_lutrama_323portbdataout;
-	wire  [0:0]   wire_lutrama_324portbdataout;
-	wire  [0:0]   wire_lutrama_325portbdataout;
-	wire  [0:0]   wire_lutrama_326portbdataout;
-	wire  [0:0]   wire_lutrama_327portbdataout;
-	wire  [0:0]   wire_lutrama_328portbdataout;
-	wire  [0:0]   wire_lutrama_329portbdataout;
-	wire  [0:0]   wire_lutrama_330portbdataout;
-	wire  [0:0]   wire_lutrama_331portbdataout;
-	wire  [0:0]   wire_lutrama_332portbdataout;
-	wire  [0:0]   wire_lutrama_333portbdataout;
-	wire  [0:0]   wire_lutrama_334portbdataout;
-	wire  [0:0]   wire_lutrama_335portbdataout;
-	wire  [0:0]   wire_lutrama_336portbdataout;
-	wire  [0:0]   wire_lutrama_337portbdataout;
-	wire  [0:0]   wire_lutrama_338portbdataout;
-	wire  [0:0]   wire_lutrama_339portbdataout;
-	wire  [0:0]   wire_lutrama_340portbdataout;
-	wire  [0:0]   wire_lutrama_341portbdataout;
-	wire  [0:0]   wire_lutrama_342portbdataout;
-	wire  [0:0]   wire_lutrama_343portbdataout;
-	wire  [0:0]   wire_lutrama_344portbdataout;
-	wire  [0:0]   wire_lutrama_345portbdataout;
-	wire  [0:0]   wire_lutrama_346portbdataout;
-	wire  [0:0]   wire_lutrama_347portbdataout;
-	wire  [0:0]   wire_lutrama_348portbdataout;
-	wire  [0:0]   wire_lutrama_349portbdataout;
-	wire  [0:0]   wire_lutrama_350portbdataout;
-	wire  [0:0]   wire_lutrama_351portbdataout;
-	wire  [0:0]   wire_lutrama_352portbdataout;
-	wire  [0:0]   wire_lutrama_353portbdataout;
-	wire  [0:0]   wire_lutrama_354portbdataout;
-	wire  [0:0]   wire_lutrama_355portbdataout;
-	wire  [0:0]   wire_lutrama_356portbdataout;
-	wire  [0:0]   wire_lutrama_357portbdataout;
-	wire  [0:0]   wire_lutrama_358portbdataout;
-	wire  [0:0]   wire_lutrama_359portbdataout;
-	wire  [0:0]   wire_lutrama_360portbdataout;
-	wire  [0:0]   wire_lutrama_361portbdataout;
-	wire  [0:0]   wire_lutrama_362portbdataout;
-	wire  [0:0]   wire_lutrama_363portbdataout;
-	wire  [0:0]   wire_lutrama_364portbdataout;
-	wire  [0:0]   wire_lutrama_365portbdataout;
-	wire  [0:0]   wire_lutrama_366portbdataout;
-	wire  [0:0]   wire_lutrama_367portbdataout;
-	wire  [0:0]   wire_lutrama_368portbdataout;
-	wire  [0:0]   wire_lutrama_369portbdataout;
-	wire  [0:0]   wire_lutrama_370portbdataout;
-	wire  [0:0]   wire_lutrama_371portbdataout;
-	wire  [0:0]   wire_lutrama_372portbdataout;
-	wire  [0:0]   wire_lutrama_373portbdataout;
-	wire  [0:0]   wire_lutrama_374portbdataout;
-	wire  [0:0]   wire_lutrama_375portbdataout;
-	wire  [0:0]   wire_lutrama_376portbdataout;
-	wire  [0:0]   wire_lutrama_377portbdataout;
-	wire  [0:0]   wire_lutrama_378portbdataout;
-	wire  [0:0]   wire_lutrama_379portbdataout;
-	wire  [0:0]   wire_lutrama_380portbdataout;
-	wire  [0:0]   wire_lutrama_381portbdataout;
-	wire  [0:0]   wire_lutrama_382portbdataout;
-	wire  [0:0]   wire_lutrama_383portbdataout;
-	wire  [0:0]   wire_lutrama_384portbdataout;
-	wire  [0:0]   wire_lutrama_385portbdataout;
-	wire  [0:0]   wire_lutrama_386portbdataout;
-	wire  [0:0]   wire_lutrama_387portbdataout;
-	wire  [0:0]   wire_lutrama_388portbdataout;
-	wire  [0:0]   wire_lutrama_389portbdataout;
-	wire  [0:0]   wire_lutrama_390portbdataout;
-	wire  [0:0]   wire_lutrama_391portbdataout;
-	wire  [0:0]   wire_lutrama_392portbdataout;
-	wire  [0:0]   wire_lutrama_393portbdataout;
-	wire  [0:0]   wire_lutrama_394portbdataout;
-	wire  [0:0]   wire_lutrama_395portbdataout;
-	wire  [0:0]   wire_lutrama_396portbdataout;
-	wire  [0:0]   wire_lutrama_397portbdataout;
-	wire  [0:0]   wire_lutrama_398portbdataout;
-	wire  [0:0]   wire_lutrama_399portbdataout;
-	wire  [0:0]   wire_lutrama_400portbdataout;
-	wire  [0:0]   wire_lutrama_401portbdataout;
-	wire  [0:0]   wire_lutrama_402portbdataout;
-	wire  [0:0]   wire_lutrama_403portbdataout;
-	wire  [0:0]   wire_lutrama_404portbdataout;
-	wire  [0:0]   wire_lutrama_405portbdataout;
-	wire  [0:0]   wire_lutrama_406portbdataout;
-	wire  [0:0]   wire_lutrama_407portbdataout;
-	wire  [0:0]   wire_lutrama_408portbdataout;
-	wire  [0:0]   wire_lutrama_409portbdataout;
-	wire  [0:0]   wire_lutrama_410portbdataout;
-	wire  [0:0]   wire_lutrama_411portbdataout;
-	wire  [0:0]   wire_lutrama_412portbdataout;
-	wire  [0:0]   wire_lutrama_413portbdataout;
-	wire  [0:0]   wire_lutrama_414portbdataout;
-	wire  [0:0]   wire_lutrama_415portbdataout;
-	wire  [0:0]   wire_lutrama_416portbdataout;
-	wire  [0:0]   wire_lutrama_417portbdataout;
-	wire  [0:0]   wire_lutrama_418portbdataout;
-	wire  [0:0]   wire_lutrama_419portbdataout;
-	wire  [0:0]   wire_lutrama_420portbdataout;
-	wire  [0:0]   wire_lutrama_421portbdataout;
-	wire  [0:0]   wire_lutrama_422portbdataout;
-	wire  [0:0]   wire_lutrama_423portbdataout;
-	wire  [0:0]   wire_lutrama_424portbdataout;
-	wire  [0:0]   wire_lutrama_425portbdataout;
-	wire  [0:0]   wire_lutrama_426portbdataout;
-	wire  [0:0]   wire_lutrama_427portbdataout;
-	wire  [0:0]   wire_lutrama_428portbdataout;
-	wire  [0:0]   wire_lutrama_429portbdataout;
-	wire  [0:0]   wire_lutrama_430portbdataout;
-	wire  [0:0]   wire_lutrama_431portbdataout;
-	wire  [0:0]   wire_lutrama_432portbdataout;
-	wire  [0:0]   wire_lutrama_433portbdataout;
-	wire  [0:0]   wire_lutrama_434portbdataout;
-	wire  [0:0]   wire_lutrama_435portbdataout;
-	wire  [0:0]   wire_lutrama_436portbdataout;
-	wire  [0:0]   wire_lutrama_437portbdataout;
-	wire  [0:0]   wire_lutrama_438portbdataout;
-	wire  [0:0]   wire_lutrama_439portbdataout;
-	wire  [0:0]   wire_lutrama_440portbdataout;
-	wire  [0:0]   wire_lutrama_441portbdataout;
-	wire  [0:0]   wire_lutrama_442portbdataout;
-	wire  [0:0]   wire_lutrama_443portbdataout;
-	wire  [0:0]   wire_lutrama_444portbdataout;
-	wire  [0:0]   wire_lutrama_445portbdataout;
-	wire  [0:0]   wire_lutrama_446portbdataout;
-	wire  [0:0]   wire_lutrama_447portbdataout;
-	wire  [0:0]   wire_lutrama_448portbdataout;
-	wire  [0:0]   wire_lutrama_449portbdataout;
-	wire  [0:0]   wire_lutrama_450portbdataout;
-	wire  [0:0]   wire_lutrama_451portbdataout;
-	wire  [0:0]   wire_lutrama_452portbdataout;
-	wire  [0:0]   wire_lutrama_453portbdataout;
-	wire  [0:0]   wire_lutrama_454portbdataout;
-	wire  [0:0]   wire_lutrama_455portbdataout;
-	wire  [0:0]   wire_lutrama_456portbdataout;
-	wire  [0:0]   wire_lutrama_457portbdataout;
-	wire  [0:0]   wire_lutrama_458portbdataout;
-	wire  [0:0]   wire_lutrama_459portbdataout;
-	wire  [0:0]   wire_lutrama_460portbdataout;
-	wire  [0:0]   wire_lutrama_461portbdataout;
-	wire  [0:0]   wire_lutrama_462portbdataout;
-	wire  [0:0]   wire_lutrama_463portbdataout;
-	wire  [0:0]   wire_lutrama_464portbdataout;
-	wire  [0:0]   wire_lutrama_465portbdataout;
-	wire  [0:0]   wire_lutrama_466portbdataout;
-	wire  [0:0]   wire_lutrama_467portbdataout;
-	wire  [0:0]   wire_lutrama_468portbdataout;
-	wire  [0:0]   wire_lutrama_469portbdataout;
-	wire  [0:0]   wire_lutrama_470portbdataout;
-	wire  [0:0]   wire_lutrama_471portbdataout;
-	wire  [0:0]   wire_lutrama_472portbdataout;
-	wire  [0:0]   wire_lutrama_473portbdataout;
-	wire  [0:0]   wire_lutrama_474portbdataout;
-	wire  [0:0]   wire_lutrama_475portbdataout;
-	wire  [0:0]   wire_lutrama_476portbdataout;
-	wire  [0:0]   wire_lutrama_477portbdataout;
-	wire  [0:0]   wire_lutrama_478portbdataout;
-	wire  [0:0]   wire_lutrama_479portbdataout;
-	wire  [0:0]   wire_lutrama_480portbdataout;
-	wire  [0:0]   wire_lutrama_481portbdataout;
-	wire  [0:0]   wire_lutrama_482portbdataout;
-	wire  [0:0]   wire_lutrama_483portbdataout;
-	wire  [0:0]   wire_lutrama_484portbdataout;
-	wire  [0:0]   wire_lutrama_485portbdataout;
-	wire  [0:0]   wire_lutrama_486portbdataout;
-	wire  [0:0]   wire_lutrama_487portbdataout;
-	wire  [0:0]   wire_lutrama_488portbdataout;
-	wire  [0:0]   wire_lutrama_489portbdataout;
-	wire  [0:0]   wire_lutrama_490portbdataout;
-	wire  [0:0]   wire_lutrama_491portbdataout;
-	wire  [0:0]   wire_lutrama_492portbdataout;
-	wire  [0:0]   wire_lutrama_493portbdataout;
-	wire  [0:0]   wire_lutrama_494portbdataout;
-	wire  [0:0]   wire_lutrama_495portbdataout;
-	wire  [0:0]   wire_lutrama_496portbdataout;
-	wire  [0:0]   wire_lutrama_497portbdataout;
-	wire  [0:0]   wire_lutrama_498portbdataout;
-	wire  [0:0]   wire_lutrama_499portbdataout;
-	wire  [0:0]   wire_lutrama_500portbdataout;
-	wire  [0:0]   wire_lutrama_501portbdataout;
-	wire  [0:0]   wire_lutrama_502portbdataout;
-	wire  [0:0]   wire_lutrama_503portbdataout;
-	wire  [0:0]   wire_lutrama_504portbdataout;
-	wire  [0:0]   wire_lutrama_505portbdataout;
-	wire  [0:0]   wire_lutrama_506portbdataout;
-	wire  [0:0]   wire_lutrama_507portbdataout;
-	wire  [0:0]   wire_lutrama_508portbdataout;
-	wire  [0:0]   wire_lutrama_509portbdataout;
-	wire  [0:0]   wire_lutrama_510portbdataout;
-	wire  [0:0]   wire_lutrama_511portbdataout;
 	wire  [63:0]  datain_wire;
 	wire  [63:0]  dataout_wire;
-	wire  [8:0]  rdaddr_wire;
+	wire  [7:0]  rdaddr_wire;
 	wire  wr_en;
-	wire  [8:0]  wraddr_wire;
+	wire  [7:0]  wraddr_wire;
 
 	// synopsys translate_off
 	initial
@@ -1615,22 +835,18 @@ module  windowing_data_sc_fifo_altsyncram
 		  wraddr_reg <= address_a;
 	windowing_data_sc_fifo_decode   wr_decode
 	( 
-	.data(address_a[8:6]),
+	.data(address_a[7:6]),
 	.enable(wr_en),
 	.eq(wire_wr_decode_eq));
 	windowing_data_sc_fifo_mux   rd_mux
 	( 
-	.data({wire_lutrama_511portbdataout[0:0], wire_lutrama_510portbdataout[0:0], wire_lutrama_509portbdataout[0:0], wire_lutrama_508portbdataout[0:0], wire_lutrama_507portbdataout[0:0], wire_lutrama_506portbdataout[0:0], wire_lutrama_505portbdataout[0:0], wire_lutrama_504portbdataout[0:0], wire_lutrama_503portbdataout[0:0], wire_lutrama_502portbdataout[0:0], wire_lutrama_501portbdataout[0:0], wire_lutrama_500portbdataout[0:0], wire_lutrama_499portbdataout[0:0], wire_lutrama_498portbdataout[0:0], wire_lutrama_497portbdataout[0:0], wire_lutrama_496portbdataout[0:0], wire_lutrama_495portbdataout[0:0], wire_lutrama_494portbdataout[0:0], wire_lutrama_493portbdataout[0:0], wire_lutrama_492portbdataout[0:0], wire_lutrama_491portbdataout[0:0], wire_lutrama_490portbdataout[0:0], wire_lutrama_489portbdataout[0:0], wire_lutrama_488portbdataout[0:0], wire_lutrama_487portbdataout[0:0], wire_lutrama_486portbdataout[0:0], wire_lutrama_485portbdataout[0:0], wire_lutrama_484portbdataout[0:0], wire_lutrama_483portbdataout[0:0], wire_lutrama_482portbdataout[0:0], wire_lutrama_481portbdataout[0:0], wire_lutrama_480portbdataout[0:0], wire_lutrama_479portbdataout[0:0], wire_lutrama_478portbdataout[0:0], wire_lutrama_477portbdataout[0:0], wire_lutrama_476portbdataout[0:0], wire_lutrama_475portbdataout[0:0], wire_lutrama_474portbdataout[0:0], wire_lutrama_473portbdataout[0:0], wire_lutrama_472portbdataout[0:0], wire_lutrama_471portbdataout[0:0], wire_lutrama_470portbdataout[0:0], wire_lutrama_469portbdataout[0:0], wire_lutrama_468portbdataout[0:0], wire_lutrama_467portbdataout[0:0], wire_lutrama_466portbdataout[0:0], wire_lutrama_465portbdataout[0:0], wire_lutrama_464portbdataout[0:0], wire_lutrama_463portbdataout[0:0], wire_lutrama_462portbdataout[0:0], wire_lutrama_461portbdataout[0:0], wire_lutrama_460portbdataout[0:0], wire_lutrama_459portbdataout[0:0], wire_lutrama_458portbdataout[0:0], wire_lutrama_457portbdataout[0:0], wire_lutrama_456portbdataout[0:0], wire_lutrama_455portbdataout[0:0], wire_lutrama_454portbdataout[0:0], wire_lutrama_453portbdataout[0:0]
-, wire_lutrama_452portbdataout[0:0], wire_lutrama_451portbdataout[0:0], wire_lutrama_450portbdataout[0:0], wire_lutrama_449portbdataout[0:0], wire_lutrama_448portbdataout[0:0], wire_lutrama_447portbdataout[0:0], wire_lutrama_446portbdataout[0:0], wire_lutrama_445portbdataout[0:0], wire_lutrama_444portbdataout[0:0], wire_lutrama_443portbdataout[0:0], wire_lutrama_442portbdataout[0:0], wire_lutrama_441portbdataout[0:0], wire_lutrama_440portbdataout[0:0], wire_lutrama_439portbdataout[0:0], wire_lutrama_438portbdataout[0:0], wire_lutrama_437portbdataout[0:0], wire_lutrama_436portbdataout[0:0], wire_lutrama_435portbdataout[0:0], wire_lutrama_434portbdataout[0:0], wire_lutrama_433portbdataout[0:0], wire_lutrama_432portbdataout[0:0], wire_lutrama_431portbdataout[0:0], wire_lutrama_430portbdataout[0:0], wire_lutrama_429portbdataout[0:0], wire_lutrama_428portbdataout[0:0], wire_lutrama_427portbdataout[0:0], wire_lutrama_426portbdataout[0:0], wire_lutrama_425portbdataout[0:0], wire_lutrama_424portbdataout[0:0], wire_lutrama_423portbdataout[0:0], wire_lutrama_422portbdataout[0:0], wire_lutrama_421portbdataout[0:0], wire_lutrama_420portbdataout[0:0], wire_lutrama_419portbdataout[0:0], wire_lutrama_418portbdataout[0:0], wire_lutrama_417portbdataout[0:0], wire_lutrama_416portbdataout[0:0], wire_lutrama_415portbdataout[0:0], wire_lutrama_414portbdataout[0:0], wire_lutrama_413portbdataout[0:0], wire_lutrama_412portbdataout[0:0], wire_lutrama_411portbdataout[0:0], wire_lutrama_410portbdataout[0:0], wire_lutrama_409portbdataout[0:0], wire_lutrama_408portbdataout[0:0], wire_lutrama_407portbdataout[0:0], wire_lutrama_406portbdataout[0:0], wire_lutrama_405portbdataout[0:0], wire_lutrama_404portbdataout[0:0], wire_lutrama_403portbdataout[0:0], wire_lutrama_402portbdataout[0:0], wire_lutrama_401portbdataout[0:0], wire_lutrama_400portbdataout[0:0], wire_lutrama_399portbdataout[0:0], wire_lutrama_398portbdataout[0:0], wire_lutrama_397portbdataout[0:0], wire_lutrama_396portbdataout[0:0], wire_lutrama_395portbdataout[0:0], wire_lutrama_394portbdataout[0:0]
-, wire_lutrama_393portbdataout[0:0], wire_lutrama_392portbdataout[0:0], wire_lutrama_391portbdataout[0:0], wire_lutrama_390portbdataout[0:0], wire_lutrama_389portbdataout[0:0], wire_lutrama_388portbdataout[0:0], wire_lutrama_387portbdataout[0:0], wire_lutrama_386portbdataout[0:0], wire_lutrama_385portbdataout[0:0], wire_lutrama_384portbdataout[0:0], wire_lutrama_383portbdataout[0:0], wire_lutrama_382portbdataout[0:0], wire_lutrama_381portbdataout[0:0], wire_lutrama_380portbdataout[0:0], wire_lutrama_379portbdataout[0:0], wire_lutrama_378portbdataout[0:0], wire_lutrama_377portbdataout[0:0], wire_lutrama_376portbdataout[0:0], wire_lutrama_375portbdataout[0:0], wire_lutrama_374portbdataout[0:0], wire_lutrama_373portbdataout[0:0], wire_lutrama_372portbdataout[0:0], wire_lutrama_371portbdataout[0:0], wire_lutrama_370portbdataout[0:0], wire_lutrama_369portbdataout[0:0], wire_lutrama_368portbdataout[0:0], wire_lutrama_367portbdataout[0:0], wire_lutrama_366portbdataout[0:0], wire_lutrama_365portbdataout[0:0], wire_lutrama_364portbdataout[0:0], wire_lutrama_363portbdataout[0:0], wire_lutrama_362portbdataout[0:0], wire_lutrama_361portbdataout[0:0], wire_lutrama_360portbdataout[0:0], wire_lutrama_359portbdataout[0:0], wire_lutrama_358portbdataout[0:0], wire_lutrama_357portbdataout[0:0], wire_lutrama_356portbdataout[0:0], wire_lutrama_355portbdataout[0:0], wire_lutrama_354portbdataout[0:0], wire_lutrama_353portbdataout[0:0], wire_lutrama_352portbdataout[0:0], wire_lutrama_351portbdataout[0:0], wire_lutrama_350portbdataout[0:0], wire_lutrama_349portbdataout[0:0], wire_lutrama_348portbdataout[0:0], wire_lutrama_347portbdataout[0:0], wire_lutrama_346portbdataout[0:0], wire_lutrama_345portbdataout[0:0], wire_lutrama_344portbdataout[0:0], wire_lutrama_343portbdataout[0:0], wire_lutrama_342portbdataout[0:0], wire_lutrama_341portbdataout[0:0], wire_lutrama_340portbdataout[0:0], wire_lutrama_339portbdataout[0:0], wire_lutrama_338portbdataout[0:0], wire_lutrama_337portbdataout[0:0], wire_lutrama_336portbdataout[0:0], wire_lutrama_335portbdataout[0:0]
-, wire_lutrama_334portbdataout[0:0], wire_lutrama_333portbdataout[0:0], wire_lutrama_332portbdataout[0:0], wire_lutrama_331portbdataout[0:0], wire_lutrama_330portbdataout[0:0], wire_lutrama_329portbdataout[0:0], wire_lutrama_328portbdataout[0:0], wire_lutrama_327portbdataout[0:0], wire_lutrama_326portbdataout[0:0], wire_lutrama_325portbdataout[0:0], wire_lutrama_324portbdataout[0:0], wire_lutrama_323portbdataout[0:0], wire_lutrama_322portbdataout[0:0], wire_lutrama_321portbdataout[0:0], wire_lutrama_320portbdataout[0:0], wire_lutrama_319portbdataout[0:0], wire_lutrama_318portbdataout[0:0], wire_lutrama_317portbdataout[0:0], wire_lutrama_316portbdataout[0:0], wire_lutrama_315portbdataout[0:0], wire_lutrama_314portbdataout[0:0], wire_lutrama_313portbdataout[0:0], wire_lutrama_312portbdataout[0:0], wire_lutrama_311portbdataout[0:0], wire_lutrama_310portbdataout[0:0], wire_lutrama_309portbdataout[0:0], wire_lutrama_308portbdataout[0:0], wire_lutrama_307portbdataout[0:0], wire_lutrama_306portbdataout[0:0], wire_lutrama_305portbdataout[0:0], wire_lutrama_304portbdataout[0:0], wire_lutrama_303portbdataout[0:0], wire_lutrama_302portbdataout[0:0], wire_lutrama_301portbdataout[0:0], wire_lutrama_300portbdataout[0:0], wire_lutrama_299portbdataout[0:0], wire_lutrama_298portbdataout[0:0], wire_lutrama_297portbdataout[0:0], wire_lutrama_296portbdataout[0:0], wire_lutrama_295portbdataout[0:0], wire_lutrama_294portbdataout[0:0], wire_lutrama_293portbdataout[0:0], wire_lutrama_292portbdataout[0:0], wire_lutrama_291portbdataout[0:0], wire_lutrama_290portbdataout[0:0], wire_lutrama_289portbdataout[0:0], wire_lutrama_288portbdataout[0:0], wire_lutrama_287portbdataout[0:0], wire_lutrama_286portbdataout[0:0], wire_lutrama_285portbdataout[0:0], wire_lutrama_284portbdataout[0:0], wire_lutrama_283portbdataout[0:0], wire_lutrama_282portbdataout[0:0], wire_lutrama_281portbdataout[0:0], wire_lutrama_280portbdataout[0:0], wire_lutrama_279portbdataout[0:0], wire_lutrama_278portbdataout[0:0], wire_lutrama_277portbdataout[0:0], wire_lutrama_276portbdataout[0:0]
-, wire_lutrama_275portbdataout[0:0], wire_lutrama_274portbdataout[0:0], wire_lutrama_273portbdataout[0:0], wire_lutrama_272portbdataout[0:0], wire_lutrama_271portbdataout[0:0], wire_lutrama_270portbdataout[0:0], wire_lutrama_269portbdataout[0:0], wire_lutrama_268portbdataout[0:0], wire_lutrama_267portbdataout[0:0], wire_lutrama_266portbdataout[0:0], wire_lutrama_265portbdataout[0:0], wire_lutrama_264portbdataout[0:0], wire_lutrama_263portbdataout[0:0], wire_lutrama_262portbdataout[0:0], wire_lutrama_261portbdataout[0:0], wire_lutrama_260portbdataout[0:0], wire_lutrama_259portbdataout[0:0], wire_lutrama_258portbdataout[0:0], wire_lutrama_257portbdataout[0:0], wire_lutrama_256portbdataout[0:0], wire_lutrama_255portbdataout[0:0], wire_lutrama_254portbdataout[0:0], wire_lutrama_253portbdataout[0:0], wire_lutrama_252portbdataout[0:0], wire_lutrama_251portbdataout[0:0], wire_lutrama_250portbdataout[0:0], wire_lutrama_249portbdataout[0:0], wire_lutrama_248portbdataout[0:0], wire_lutrama_247portbdataout[0:0], wire_lutrama_246portbdataout[0:0], wire_lutrama_245portbdataout[0:0], wire_lutrama_244portbdataout[0:0], wire_lutrama_243portbdataout[0:0], wire_lutrama_242portbdataout[0:0], wire_lutrama_241portbdataout[0:0], wire_lutrama_240portbdataout[0:0], wire_lutrama_239portbdataout[0:0], wire_lutrama_238portbdataout[0:0], wire_lutrama_237portbdataout[0:0], wire_lutrama_236portbdataout[0:0], wire_lutrama_235portbdataout[0:0], wire_lutrama_234portbdataout[0:0], wire_lutrama_233portbdataout[0:0], wire_lutrama_232portbdataout[0:0], wire_lutrama_231portbdataout[0:0], wire_lutrama_230portbdataout[0:0], wire_lutrama_229portbdataout[0:0], wire_lutrama_228portbdataout[0:0], wire_lutrama_227portbdataout[0:0], wire_lutrama_226portbdataout[0:0], wire_lutrama_225portbdataout[0:0], wire_lutrama_224portbdataout[0:0], wire_lutrama_223portbdataout[0:0], wire_lutrama_222portbdataout[0:0], wire_lutrama_221portbdataout[0:0], wire_lutrama_220portbdataout[0:0], wire_lutrama_219portbdataout[0:0], wire_lutrama_218portbdataout[0:0], wire_lutrama_217portbdataout[0:0]
-, wire_lutrama_216portbdataout[0:0], wire_lutrama_215portbdataout[0:0], wire_lutrama_214portbdataout[0:0], wire_lutrama_213portbdataout[0:0], wire_lutrama_212portbdataout[0:0], wire_lutrama_211portbdataout[0:0], wire_lutrama_210portbdataout[0:0], wire_lutrama_209portbdataout[0:0], wire_lutrama_208portbdataout[0:0], wire_lutrama_207portbdataout[0:0], wire_lutrama_206portbdataout[0:0], wire_lutrama_205portbdataout[0:0], wire_lutrama_204portbdataout[0:0], wire_lutrama_203portbdataout[0:0], wire_lutrama_202portbdataout[0:0], wire_lutrama_201portbdataout[0:0], wire_lutrama_200portbdataout[0:0], wire_lutrama_199portbdataout[0:0], wire_lutrama_198portbdataout[0:0], wire_lutrama_197portbdataout[0:0], wire_lutrama_196portbdataout[0:0], wire_lutrama_195portbdataout[0:0], wire_lutrama_194portbdataout[0:0], wire_lutrama_193portbdataout[0:0], wire_lutrama_192portbdataout[0:0], wire_lutrama_191portbdataout[0:0], wire_lutrama_190portbdataout[0:0], wire_lutrama_189portbdataout[0:0], wire_lutrama_188portbdataout[0:0], wire_lutrama_187portbdataout[0:0], wire_lutrama_186portbdataout[0:0], wire_lutrama_185portbdataout[0:0], wire_lutrama_184portbdataout[0:0], wire_lutrama_183portbdataout[0:0], wire_lutrama_182portbdataout[0:0], wire_lutrama_181portbdataout[0:0], wire_lutrama_180portbdataout[0:0], wire_lutrama_179portbdataout[0:0], wire_lutrama_178portbdataout[0:0], wire_lutrama_177portbdataout[0:0], wire_lutrama_176portbdataout[0:0], wire_lutrama_175portbdataout[0:0], wire_lutrama_174portbdataout[0:0], wire_lutrama_173portbdataout[0:0], wire_lutrama_172portbdataout[0:0], wire_lutrama_171portbdataout[0:0], wire_lutrama_170portbdataout[0:0], wire_lutrama_169portbdataout[0:0], wire_lutrama_168portbdataout[0:0], wire_lutrama_167portbdataout[0:0], wire_lutrama_166portbdataout[0:0], wire_lutrama_165portbdataout[0:0], wire_lutrama_164portbdataout[0:0], wire_lutrama_163portbdataout[0:0], wire_lutrama_162portbdataout[0:0], wire_lutrama_161portbdataout[0:0], wire_lutrama_160portbdataout[0:0], wire_lutrama_159portbdataout[0:0], wire_lutrama_158portbdataout[0:0]
-, wire_lutrama_157portbdataout[0:0], wire_lutrama_156portbdataout[0:0], wire_lutrama_155portbdataout[0:0], wire_lutrama_154portbdataout[0:0], wire_lutrama_153portbdataout[0:0], wire_lutrama_152portbdataout[0:0], wire_lutrama_151portbdataout[0:0], wire_lutrama_150portbdataout[0:0], wire_lutrama_149portbdataout[0:0], wire_lutrama_148portbdataout[0:0], wire_lutrama_147portbdataout[0:0], wire_lutrama_146portbdataout[0:0], wire_lutrama_145portbdataout[0:0], wire_lutrama_144portbdataout[0:0], wire_lutrama_143portbdataout[0:0], wire_lutrama_142portbdataout[0:0], wire_lutrama_141portbdataout[0:0], wire_lutrama_140portbdataout[0:0], wire_lutrama_139portbdataout[0:0], wire_lutrama_138portbdataout[0:0], wire_lutrama_137portbdataout[0:0], wire_lutrama_136portbdataout[0:0], wire_lutrama_135portbdataout[0:0], wire_lutrama_134portbdataout[0:0], wire_lutrama_133portbdataout[0:0], wire_lutrama_132portbdataout[0:0], wire_lutrama_131portbdataout[0:0], wire_lutrama_130portbdataout[0:0], wire_lutrama_129portbdataout[0:0], wire_lutrama_128portbdataout[0:0], wire_lutrama_127portbdataout[0:0], wire_lutrama_126portbdataout[0:0], wire_lutrama_125portbdataout[0:0], wire_lutrama_124portbdataout[0:0], wire_lutrama_123portbdataout[0:0], wire_lutrama_122portbdataout[0:0], wire_lutrama_121portbdataout[0:0], wire_lutrama_120portbdataout[0:0], wire_lutrama_119portbdataout[0:0], wire_lutrama_118portbdataout[0:0], wire_lutrama_117portbdataout[0:0], wire_lutrama_116portbdataout[0:0], wire_lutrama_115portbdataout[0:0], wire_lutrama_114portbdataout[0:0], wire_lutrama_113portbdataout[0:0], wire_lutrama_112portbdataout[0:0], wire_lutrama_111portbdataout[0:0], wire_lutrama_110portbdataout[0:0], wire_lutrama_109portbdataout[0:0], wire_lutrama_108portbdataout[0:0], wire_lutrama_107portbdataout[0:0], wire_lutrama_106portbdataout[0:0], wire_lutrama_105portbdataout[0:0], wire_lutrama_104portbdataout[0:0], wire_lutrama_103portbdataout[0:0], wire_lutrama_102portbdataout[0:0], wire_lutrama_101portbdataout[0:0], wire_lutrama_100portbdataout[0:0], wire_lutrama_99portbdataout[0:0]
-, wire_lutrama_98portbdataout[0:0], wire_lutrama_97portbdataout[0:0], wire_lutrama_96portbdataout[0:0], wire_lutrama_95portbdataout[0:0], wire_lutrama_94portbdataout[0:0], wire_lutrama_93portbdataout[0:0], wire_lutrama_92portbdataout[0:0], wire_lutrama_91portbdataout[0:0], wire_lutrama_90portbdataout[0:0], wire_lutrama_89portbdataout[0:0], wire_lutrama_88portbdataout[0:0], wire_lutrama_87portbdataout[0:0], wire_lutrama_86portbdataout[0:0], wire_lutrama_85portbdataout[0:0], wire_lutrama_84portbdataout[0:0], wire_lutrama_83portbdataout[0:0], wire_lutrama_82portbdataout[0:0], wire_lutrama_81portbdataout[0:0], wire_lutrama_80portbdataout[0:0], wire_lutrama_79portbdataout[0:0], wire_lutrama_78portbdataout[0:0], wire_lutrama_77portbdataout[0:0], wire_lutrama_76portbdataout[0:0], wire_lutrama_75portbdataout[0:0], wire_lutrama_74portbdataout[0:0], wire_lutrama_73portbdataout[0:0], wire_lutrama_72portbdataout[0:0], wire_lutrama_71portbdataout[0:0], wire_lutrama_70portbdataout[0:0], wire_lutrama_69portbdataout[0:0], wire_lutrama_68portbdataout[0:0], wire_lutrama_67portbdataout[0:0], wire_lutrama_66portbdataout[0:0], wire_lutrama_65portbdataout[0:0], wire_lutrama_64portbdataout[0:0], wire_lutrama_63portbdataout[0:0], wire_lutrama_62portbdataout[0:0], wire_lutrama_61portbdataout[0:0], wire_lutrama_60portbdataout[0:0], wire_lutrama_59portbdataout[0:0], wire_lutrama_58portbdataout[0:0], wire_lutrama_57portbdataout[0:0], wire_lutrama_56portbdataout[0:0], wire_lutrama_55portbdataout[0:0], wire_lutrama_54portbdataout[0:0], wire_lutrama_53portbdataout[0:0], wire_lutrama_52portbdataout[0:0], wire_lutrama_51portbdataout[0:0], wire_lutrama_50portbdataout[0:0], wire_lutrama_49portbdataout[0:0], wire_lutrama_48portbdataout[0:0], wire_lutrama_47portbdataout[0:0], wire_lutrama_46portbdataout[0:0], wire_lutrama_45portbdataout[0:0], wire_lutrama_44portbdataout[0:0], wire_lutrama_43portbdataout[0:0], wire_lutrama_42portbdataout[0:0], wire_lutrama_41portbdataout[0:0], wire_lutrama_40portbdataout[0:0], wire_lutrama_39portbdataout[0:0], wire_lutrama_38portbdataout[0:0]
-, wire_lutrama_37portbdataout[0:0], wire_lutrama_36portbdataout[0:0], wire_lutrama_35portbdataout[0:0], wire_lutrama_34portbdataout[0:0], wire_lutrama_33portbdataout[0:0], wire_lutrama_32portbdataout[0:0], wire_lutrama_31portbdataout[0:0], wire_lutrama_30portbdataout[0:0], wire_lutrama_29portbdataout[0:0], wire_lutrama_28portbdataout[0:0], wire_lutrama_27portbdataout[0:0], wire_lutrama_26portbdataout[0:0], wire_lutrama_25portbdataout[0:0], wire_lutrama_24portbdataout[0:0], wire_lutrama_23portbdataout[0:0], wire_lutrama_22portbdataout[0:0], wire_lutrama_21portbdataout[0:0], wire_lutrama_20portbdataout[0:0], wire_lutrama_19portbdataout[0:0], wire_lutrama_18portbdataout[0:0], wire_lutrama_17portbdataout[0:0], wire_lutrama_16portbdataout[0:0], wire_lutrama_15portbdataout[0:0], wire_lutrama_14portbdataout[0:0], wire_lutrama_13portbdataout[0:0], wire_lutrama_12portbdataout[0:0], wire_lutrama_11portbdataout[0:0], wire_lutrama_10portbdataout[0:0], wire_lutrama_9portbdataout[0:0], wire_lutrama_8portbdataout[0:0], wire_lutrama_7portbdataout[0:0], wire_lutrama_6portbdataout[0:0], wire_lutrama_5portbdataout[0:0], wire_lutrama_4portbdataout[0:0], wire_lutrama_3portbdataout[0:0], wire_lutrama_2portbdataout[0:0], wire_lutrama_1portbdataout[0:0], wire_lutrama_0portbdataout[0:0]}),
+	.data({wire_lutrama_255portbdataout[0:0], wire_lutrama_254portbdataout[0:0], wire_lutrama_253portbdataout[0:0], wire_lutrama_252portbdataout[0:0], wire_lutrama_251portbdataout[0:0], wire_lutrama_250portbdataout[0:0], wire_lutrama_249portbdataout[0:0], wire_lutrama_248portbdataout[0:0], wire_lutrama_247portbdataout[0:0], wire_lutrama_246portbdataout[0:0], wire_lutrama_245portbdataout[0:0], wire_lutrama_244portbdataout[0:0], wire_lutrama_243portbdataout[0:0], wire_lutrama_242portbdataout[0:0], wire_lutrama_241portbdataout[0:0], wire_lutrama_240portbdataout[0:0], wire_lutrama_239portbdataout[0:0], wire_lutrama_238portbdataout[0:0], wire_lutrama_237portbdataout[0:0], wire_lutrama_236portbdataout[0:0], wire_lutrama_235portbdataout[0:0], wire_lutrama_234portbdataout[0:0], wire_lutrama_233portbdataout[0:0], wire_lutrama_232portbdataout[0:0], wire_lutrama_231portbdataout[0:0], wire_lutrama_230portbdataout[0:0], wire_lutrama_229portbdataout[0:0], wire_lutrama_228portbdataout[0:0], wire_lutrama_227portbdataout[0:0], wire_lutrama_226portbdataout[0:0], wire_lutrama_225portbdataout[0:0], wire_lutrama_224portbdataout[0:0], wire_lutrama_223portbdataout[0:0], wire_lutrama_222portbdataout[0:0], wire_lutrama_221portbdataout[0:0], wire_lutrama_220portbdataout[0:0], wire_lutrama_219portbdataout[0:0], wire_lutrama_218portbdataout[0:0], wire_lutrama_217portbdataout[0:0], wire_lutrama_216portbdataout[0:0], wire_lutrama_215portbdataout[0:0], wire_lutrama_214portbdataout[0:0], wire_lutrama_213portbdataout[0:0], wire_lutrama_212portbdataout[0:0], wire_lutrama_211portbdataout[0:0], wire_lutrama_210portbdataout[0:0], wire_lutrama_209portbdataout[0:0], wire_lutrama_208portbdataout[0:0], wire_lutrama_207portbdataout[0:0], wire_lutrama_206portbdataout[0:0], wire_lutrama_205portbdataout[0:0], wire_lutrama_204portbdataout[0:0], wire_lutrama_203portbdataout[0:0], wire_lutrama_202portbdataout[0:0], wire_lutrama_201portbdataout[0:0], wire_lutrama_200portbdataout[0:0], wire_lutrama_199portbdataout[0:0], wire_lutrama_198portbdataout[0:0], wire_lutrama_197portbdataout[0:0]
+, wire_lutrama_196portbdataout[0:0], wire_lutrama_195portbdataout[0:0], wire_lutrama_194portbdataout[0:0], wire_lutrama_193portbdataout[0:0], wire_lutrama_192portbdataout[0:0], wire_lutrama_191portbdataout[0:0], wire_lutrama_190portbdataout[0:0], wire_lutrama_189portbdataout[0:0], wire_lutrama_188portbdataout[0:0], wire_lutrama_187portbdataout[0:0], wire_lutrama_186portbdataout[0:0], wire_lutrama_185portbdataout[0:0], wire_lutrama_184portbdataout[0:0], wire_lutrama_183portbdataout[0:0], wire_lutrama_182portbdataout[0:0], wire_lutrama_181portbdataout[0:0], wire_lutrama_180portbdataout[0:0], wire_lutrama_179portbdataout[0:0], wire_lutrama_178portbdataout[0:0], wire_lutrama_177portbdataout[0:0], wire_lutrama_176portbdataout[0:0], wire_lutrama_175portbdataout[0:0], wire_lutrama_174portbdataout[0:0], wire_lutrama_173portbdataout[0:0], wire_lutrama_172portbdataout[0:0], wire_lutrama_171portbdataout[0:0], wire_lutrama_170portbdataout[0:0], wire_lutrama_169portbdataout[0:0], wire_lutrama_168portbdataout[0:0], wire_lutrama_167portbdataout[0:0], wire_lutrama_166portbdataout[0:0], wire_lutrama_165portbdataout[0:0], wire_lutrama_164portbdataout[0:0], wire_lutrama_163portbdataout[0:0], wire_lutrama_162portbdataout[0:0], wire_lutrama_161portbdataout[0:0], wire_lutrama_160portbdataout[0:0], wire_lutrama_159portbdataout[0:0], wire_lutrama_158portbdataout[0:0], wire_lutrama_157portbdataout[0:0], wire_lutrama_156portbdataout[0:0], wire_lutrama_155portbdataout[0:0], wire_lutrama_154portbdataout[0:0], wire_lutrama_153portbdataout[0:0], wire_lutrama_152portbdataout[0:0], wire_lutrama_151portbdataout[0:0], wire_lutrama_150portbdataout[0:0], wire_lutrama_149portbdataout[0:0], wire_lutrama_148portbdataout[0:0], wire_lutrama_147portbdataout[0:0], wire_lutrama_146portbdataout[0:0], wire_lutrama_145portbdataout[0:0], wire_lutrama_144portbdataout[0:0], wire_lutrama_143portbdataout[0:0], wire_lutrama_142portbdataout[0:0], wire_lutrama_141portbdataout[0:0], wire_lutrama_140portbdataout[0:0], wire_lutrama_139portbdataout[0:0], wire_lutrama_138portbdataout[0:0]
+, wire_lutrama_137portbdataout[0:0], wire_lutrama_136portbdataout[0:0], wire_lutrama_135portbdataout[0:0], wire_lutrama_134portbdataout[0:0], wire_lutrama_133portbdataout[0:0], wire_lutrama_132portbdataout[0:0], wire_lutrama_131portbdataout[0:0], wire_lutrama_130portbdataout[0:0], wire_lutrama_129portbdataout[0:0], wire_lutrama_128portbdataout[0:0], wire_lutrama_127portbdataout[0:0], wire_lutrama_126portbdataout[0:0], wire_lutrama_125portbdataout[0:0], wire_lutrama_124portbdataout[0:0], wire_lutrama_123portbdataout[0:0], wire_lutrama_122portbdataout[0:0], wire_lutrama_121portbdataout[0:0], wire_lutrama_120portbdataout[0:0], wire_lutrama_119portbdataout[0:0], wire_lutrama_118portbdataout[0:0], wire_lutrama_117portbdataout[0:0], wire_lutrama_116portbdataout[0:0], wire_lutrama_115portbdataout[0:0], wire_lutrama_114portbdataout[0:0], wire_lutrama_113portbdataout[0:0], wire_lutrama_112portbdataout[0:0], wire_lutrama_111portbdataout[0:0], wire_lutrama_110portbdataout[0:0], wire_lutrama_109portbdataout[0:0], wire_lutrama_108portbdataout[0:0], wire_lutrama_107portbdataout[0:0], wire_lutrama_106portbdataout[0:0], wire_lutrama_105portbdataout[0:0], wire_lutrama_104portbdataout[0:0], wire_lutrama_103portbdataout[0:0], wire_lutrama_102portbdataout[0:0], wire_lutrama_101portbdataout[0:0], wire_lutrama_100portbdataout[0:0], wire_lutrama_99portbdataout[0:0], wire_lutrama_98portbdataout[0:0], wire_lutrama_97portbdataout[0:0], wire_lutrama_96portbdataout[0:0], wire_lutrama_95portbdataout[0:0], wire_lutrama_94portbdataout[0:0], wire_lutrama_93portbdataout[0:0], wire_lutrama_92portbdataout[0:0], wire_lutrama_91portbdataout[0:0], wire_lutrama_90portbdataout[0:0], wire_lutrama_89portbdataout[0:0], wire_lutrama_88portbdataout[0:0], wire_lutrama_87portbdataout[0:0], wire_lutrama_86portbdataout[0:0], wire_lutrama_85portbdataout[0:0], wire_lutrama_84portbdataout[0:0], wire_lutrama_83portbdataout[0:0], wire_lutrama_82portbdataout[0:0], wire_lutrama_81portbdataout[0:0], wire_lutrama_80portbdataout[0:0], wire_lutrama_79portbdataout[0:0], wire_lutrama_78portbdataout[0:0]
+, wire_lutrama_77portbdataout[0:0], wire_lutrama_76portbdataout[0:0], wire_lutrama_75portbdataout[0:0], wire_lutrama_74portbdataout[0:0], wire_lutrama_73portbdataout[0:0], wire_lutrama_72portbdataout[0:0], wire_lutrama_71portbdataout[0:0], wire_lutrama_70portbdataout[0:0], wire_lutrama_69portbdataout[0:0], wire_lutrama_68portbdataout[0:0], wire_lutrama_67portbdataout[0:0], wire_lutrama_66portbdataout[0:0], wire_lutrama_65portbdataout[0:0], wire_lutrama_64portbdataout[0:0], wire_lutrama_63portbdataout[0:0], wire_lutrama_62portbdataout[0:0], wire_lutrama_61portbdataout[0:0], wire_lutrama_60portbdataout[0:0], wire_lutrama_59portbdataout[0:0], wire_lutrama_58portbdataout[0:0], wire_lutrama_57portbdataout[0:0], wire_lutrama_56portbdataout[0:0], wire_lutrama_55portbdataout[0:0], wire_lutrama_54portbdataout[0:0], wire_lutrama_53portbdataout[0:0], wire_lutrama_52portbdataout[0:0], wire_lutrama_51portbdataout[0:0], wire_lutrama_50portbdataout[0:0], wire_lutrama_49portbdataout[0:0], wire_lutrama_48portbdataout[0:0], wire_lutrama_47portbdataout[0:0], wire_lutrama_46portbdataout[0:0], wire_lutrama_45portbdataout[0:0], wire_lutrama_44portbdataout[0:0], wire_lutrama_43portbdataout[0:0], wire_lutrama_42portbdataout[0:0], wire_lutrama_41portbdataout[0:0], wire_lutrama_40portbdataout[0:0], wire_lutrama_39portbdataout[0:0], wire_lutrama_38portbdataout[0:0], wire_lutrama_37portbdataout[0:0], wire_lutrama_36portbdataout[0:0], wire_lutrama_35portbdataout[0:0], wire_lutrama_34portbdataout[0:0], wire_lutrama_33portbdataout[0:0], wire_lutrama_32portbdataout[0:0], wire_lutrama_31portbdataout[0:0], wire_lutrama_30portbdataout[0:0], wire_lutrama_29portbdataout[0:0], wire_lutrama_28portbdataout[0:0], wire_lutrama_27portbdataout[0:0], wire_lutrama_26portbdataout[0:0], wire_lutrama_25portbdataout[0:0], wire_lutrama_24portbdataout[0:0], wire_lutrama_23portbdataout[0:0], wire_lutrama_22portbdataout[0:0], wire_lutrama_21portbdataout[0:0], wire_lutrama_20portbdataout[0:0], wire_lutrama_19portbdataout[0:0], wire_lutrama_18portbdataout[0:0], wire_lutrama_17portbdataout[0:0]
+, wire_lutrama_16portbdataout[0:0], wire_lutrama_15portbdataout[0:0], wire_lutrama_14portbdataout[0:0], wire_lutrama_13portbdataout[0:0], wire_lutrama_12portbdataout[0:0], wire_lutrama_11portbdataout[0:0], wire_lutrama_10portbdataout[0:0], wire_lutrama_9portbdataout[0:0], wire_lutrama_8portbdataout[0:0], wire_lutrama_7portbdataout[0:0], wire_lutrama_6portbdataout[0:0], wire_lutrama_5portbdataout[0:0], wire_lutrama_4portbdataout[0:0], wire_lutrama_3portbdataout[0:0], wire_lutrama_2portbdataout[0:0], wire_lutrama_1portbdataout[0:0], wire_lutrama_0portbdataout[0:0]}),
 	.result(wire_rd_mux_result),
-	.sel(rdaddr_wire[8:6]));
+	.sel(rdaddr_wire[7:6]));
 	stratixiv_mlab_cell   lutrama_0
 	( 
 	.clk0(clock0),
@@ -1654,7 +870,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_0.first_address = 0,
 		lutrama_0.first_bit_number = 0,
 		lutrama_0.last_address = 63,
-		lutrama_0.logical_ram_depth = 512,
+		lutrama_0.logical_ram_depth = 256,
 		lutrama_0.logical_ram_name = "altdpram_instance",
 		lutrama_0.logical_ram_width = 64,
 		lutrama_0.mixed_port_feed_through_mode = "dont_care",
@@ -1682,7 +898,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_1.first_address = 0,
 		lutrama_1.first_bit_number = 1,
 		lutrama_1.last_address = 63,
-		lutrama_1.logical_ram_depth = 512,
+		lutrama_1.logical_ram_depth = 256,
 		lutrama_1.logical_ram_name = "altdpram_instance",
 		lutrama_1.logical_ram_width = 64,
 		lutrama_1.mixed_port_feed_through_mode = "dont_care",
@@ -1710,7 +926,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_2.first_address = 0,
 		lutrama_2.first_bit_number = 2,
 		lutrama_2.last_address = 63,
-		lutrama_2.logical_ram_depth = 512,
+		lutrama_2.logical_ram_depth = 256,
 		lutrama_2.logical_ram_name = "altdpram_instance",
 		lutrama_2.logical_ram_width = 64,
 		lutrama_2.mixed_port_feed_through_mode = "dont_care",
@@ -1738,7 +954,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_3.first_address = 0,
 		lutrama_3.first_bit_number = 3,
 		lutrama_3.last_address = 63,
-		lutrama_3.logical_ram_depth = 512,
+		lutrama_3.logical_ram_depth = 256,
 		lutrama_3.logical_ram_name = "altdpram_instance",
 		lutrama_3.logical_ram_width = 64,
 		lutrama_3.mixed_port_feed_through_mode = "dont_care",
@@ -1766,7 +982,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_4.first_address = 0,
 		lutrama_4.first_bit_number = 4,
 		lutrama_4.last_address = 63,
-		lutrama_4.logical_ram_depth = 512,
+		lutrama_4.logical_ram_depth = 256,
 		lutrama_4.logical_ram_name = "altdpram_instance",
 		lutrama_4.logical_ram_width = 64,
 		lutrama_4.mixed_port_feed_through_mode = "dont_care",
@@ -1794,7 +1010,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_5.first_address = 0,
 		lutrama_5.first_bit_number = 5,
 		lutrama_5.last_address = 63,
-		lutrama_5.logical_ram_depth = 512,
+		lutrama_5.logical_ram_depth = 256,
 		lutrama_5.logical_ram_name = "altdpram_instance",
 		lutrama_5.logical_ram_width = 64,
 		lutrama_5.mixed_port_feed_through_mode = "dont_care",
@@ -1822,7 +1038,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_6.first_address = 0,
 		lutrama_6.first_bit_number = 6,
 		lutrama_6.last_address = 63,
-		lutrama_6.logical_ram_depth = 512,
+		lutrama_6.logical_ram_depth = 256,
 		lutrama_6.logical_ram_name = "altdpram_instance",
 		lutrama_6.logical_ram_width = 64,
 		lutrama_6.mixed_port_feed_through_mode = "dont_care",
@@ -1850,7 +1066,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_7.first_address = 0,
 		lutrama_7.first_bit_number = 7,
 		lutrama_7.last_address = 63,
-		lutrama_7.logical_ram_depth = 512,
+		lutrama_7.logical_ram_depth = 256,
 		lutrama_7.logical_ram_name = "altdpram_instance",
 		lutrama_7.logical_ram_width = 64,
 		lutrama_7.mixed_port_feed_through_mode = "dont_care",
@@ -1878,7 +1094,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_8.first_address = 0,
 		lutrama_8.first_bit_number = 8,
 		lutrama_8.last_address = 63,
-		lutrama_8.logical_ram_depth = 512,
+		lutrama_8.logical_ram_depth = 256,
 		lutrama_8.logical_ram_name = "altdpram_instance",
 		lutrama_8.logical_ram_width = 64,
 		lutrama_8.mixed_port_feed_through_mode = "dont_care",
@@ -1906,7 +1122,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_9.first_address = 0,
 		lutrama_9.first_bit_number = 9,
 		lutrama_9.last_address = 63,
-		lutrama_9.logical_ram_depth = 512,
+		lutrama_9.logical_ram_depth = 256,
 		lutrama_9.logical_ram_name = "altdpram_instance",
 		lutrama_9.logical_ram_width = 64,
 		lutrama_9.mixed_port_feed_through_mode = "dont_care",
@@ -1934,7 +1150,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_10.first_address = 0,
 		lutrama_10.first_bit_number = 10,
 		lutrama_10.last_address = 63,
-		lutrama_10.logical_ram_depth = 512,
+		lutrama_10.logical_ram_depth = 256,
 		lutrama_10.logical_ram_name = "altdpram_instance",
 		lutrama_10.logical_ram_width = 64,
 		lutrama_10.mixed_port_feed_through_mode = "dont_care",
@@ -1962,7 +1178,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_11.first_address = 0,
 		lutrama_11.first_bit_number = 11,
 		lutrama_11.last_address = 63,
-		lutrama_11.logical_ram_depth = 512,
+		lutrama_11.logical_ram_depth = 256,
 		lutrama_11.logical_ram_name = "altdpram_instance",
 		lutrama_11.logical_ram_width = 64,
 		lutrama_11.mixed_port_feed_through_mode = "dont_care",
@@ -1990,7 +1206,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_12.first_address = 0,
 		lutrama_12.first_bit_number = 12,
 		lutrama_12.last_address = 63,
-		lutrama_12.logical_ram_depth = 512,
+		lutrama_12.logical_ram_depth = 256,
 		lutrama_12.logical_ram_name = "altdpram_instance",
 		lutrama_12.logical_ram_width = 64,
 		lutrama_12.mixed_port_feed_through_mode = "dont_care",
@@ -2018,7 +1234,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_13.first_address = 0,
 		lutrama_13.first_bit_number = 13,
 		lutrama_13.last_address = 63,
-		lutrama_13.logical_ram_depth = 512,
+		lutrama_13.logical_ram_depth = 256,
 		lutrama_13.logical_ram_name = "altdpram_instance",
 		lutrama_13.logical_ram_width = 64,
 		lutrama_13.mixed_port_feed_through_mode = "dont_care",
@@ -2046,7 +1262,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_14.first_address = 0,
 		lutrama_14.first_bit_number = 14,
 		lutrama_14.last_address = 63,
-		lutrama_14.logical_ram_depth = 512,
+		lutrama_14.logical_ram_depth = 256,
 		lutrama_14.logical_ram_name = "altdpram_instance",
 		lutrama_14.logical_ram_width = 64,
 		lutrama_14.mixed_port_feed_through_mode = "dont_care",
@@ -2074,7 +1290,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_15.first_address = 0,
 		lutrama_15.first_bit_number = 15,
 		lutrama_15.last_address = 63,
-		lutrama_15.logical_ram_depth = 512,
+		lutrama_15.logical_ram_depth = 256,
 		lutrama_15.logical_ram_name = "altdpram_instance",
 		lutrama_15.logical_ram_width = 64,
 		lutrama_15.mixed_port_feed_through_mode = "dont_care",
@@ -2102,7 +1318,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_16.first_address = 0,
 		lutrama_16.first_bit_number = 16,
 		lutrama_16.last_address = 63,
-		lutrama_16.logical_ram_depth = 512,
+		lutrama_16.logical_ram_depth = 256,
 		lutrama_16.logical_ram_name = "altdpram_instance",
 		lutrama_16.logical_ram_width = 64,
 		lutrama_16.mixed_port_feed_through_mode = "dont_care",
@@ -2130,7 +1346,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_17.first_address = 0,
 		lutrama_17.first_bit_number = 17,
 		lutrama_17.last_address = 63,
-		lutrama_17.logical_ram_depth = 512,
+		lutrama_17.logical_ram_depth = 256,
 		lutrama_17.logical_ram_name = "altdpram_instance",
 		lutrama_17.logical_ram_width = 64,
 		lutrama_17.mixed_port_feed_through_mode = "dont_care",
@@ -2158,7 +1374,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_18.first_address = 0,
 		lutrama_18.first_bit_number = 18,
 		lutrama_18.last_address = 63,
-		lutrama_18.logical_ram_depth = 512,
+		lutrama_18.logical_ram_depth = 256,
 		lutrama_18.logical_ram_name = "altdpram_instance",
 		lutrama_18.logical_ram_width = 64,
 		lutrama_18.mixed_port_feed_through_mode = "dont_care",
@@ -2186,7 +1402,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_19.first_address = 0,
 		lutrama_19.first_bit_number = 19,
 		lutrama_19.last_address = 63,
-		lutrama_19.logical_ram_depth = 512,
+		lutrama_19.logical_ram_depth = 256,
 		lutrama_19.logical_ram_name = "altdpram_instance",
 		lutrama_19.logical_ram_width = 64,
 		lutrama_19.mixed_port_feed_through_mode = "dont_care",
@@ -2214,7 +1430,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_20.first_address = 0,
 		lutrama_20.first_bit_number = 20,
 		lutrama_20.last_address = 63,
-		lutrama_20.logical_ram_depth = 512,
+		lutrama_20.logical_ram_depth = 256,
 		lutrama_20.logical_ram_name = "altdpram_instance",
 		lutrama_20.logical_ram_width = 64,
 		lutrama_20.mixed_port_feed_through_mode = "dont_care",
@@ -2242,7 +1458,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_21.first_address = 0,
 		lutrama_21.first_bit_number = 21,
 		lutrama_21.last_address = 63,
-		lutrama_21.logical_ram_depth = 512,
+		lutrama_21.logical_ram_depth = 256,
 		lutrama_21.logical_ram_name = "altdpram_instance",
 		lutrama_21.logical_ram_width = 64,
 		lutrama_21.mixed_port_feed_through_mode = "dont_care",
@@ -2270,7 +1486,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_22.first_address = 0,
 		lutrama_22.first_bit_number = 22,
 		lutrama_22.last_address = 63,
-		lutrama_22.logical_ram_depth = 512,
+		lutrama_22.logical_ram_depth = 256,
 		lutrama_22.logical_ram_name = "altdpram_instance",
 		lutrama_22.logical_ram_width = 64,
 		lutrama_22.mixed_port_feed_through_mode = "dont_care",
@@ -2298,7 +1514,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_23.first_address = 0,
 		lutrama_23.first_bit_number = 23,
 		lutrama_23.last_address = 63,
-		lutrama_23.logical_ram_depth = 512,
+		lutrama_23.logical_ram_depth = 256,
 		lutrama_23.logical_ram_name = "altdpram_instance",
 		lutrama_23.logical_ram_width = 64,
 		lutrama_23.mixed_port_feed_through_mode = "dont_care",
@@ -2326,7 +1542,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_24.first_address = 0,
 		lutrama_24.first_bit_number = 24,
 		lutrama_24.last_address = 63,
-		lutrama_24.logical_ram_depth = 512,
+		lutrama_24.logical_ram_depth = 256,
 		lutrama_24.logical_ram_name = "altdpram_instance",
 		lutrama_24.logical_ram_width = 64,
 		lutrama_24.mixed_port_feed_through_mode = "dont_care",
@@ -2354,7 +1570,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_25.first_address = 0,
 		lutrama_25.first_bit_number = 25,
 		lutrama_25.last_address = 63,
-		lutrama_25.logical_ram_depth = 512,
+		lutrama_25.logical_ram_depth = 256,
 		lutrama_25.logical_ram_name = "altdpram_instance",
 		lutrama_25.logical_ram_width = 64,
 		lutrama_25.mixed_port_feed_through_mode = "dont_care",
@@ -2382,7 +1598,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_26.first_address = 0,
 		lutrama_26.first_bit_number = 26,
 		lutrama_26.last_address = 63,
-		lutrama_26.logical_ram_depth = 512,
+		lutrama_26.logical_ram_depth = 256,
 		lutrama_26.logical_ram_name = "altdpram_instance",
 		lutrama_26.logical_ram_width = 64,
 		lutrama_26.mixed_port_feed_through_mode = "dont_care",
@@ -2410,7 +1626,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_27.first_address = 0,
 		lutrama_27.first_bit_number = 27,
 		lutrama_27.last_address = 63,
-		lutrama_27.logical_ram_depth = 512,
+		lutrama_27.logical_ram_depth = 256,
 		lutrama_27.logical_ram_name = "altdpram_instance",
 		lutrama_27.logical_ram_width = 64,
 		lutrama_27.mixed_port_feed_through_mode = "dont_care",
@@ -2438,7 +1654,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_28.first_address = 0,
 		lutrama_28.first_bit_number = 28,
 		lutrama_28.last_address = 63,
-		lutrama_28.logical_ram_depth = 512,
+		lutrama_28.logical_ram_depth = 256,
 		lutrama_28.logical_ram_name = "altdpram_instance",
 		lutrama_28.logical_ram_width = 64,
 		lutrama_28.mixed_port_feed_through_mode = "dont_care",
@@ -2466,7 +1682,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_29.first_address = 0,
 		lutrama_29.first_bit_number = 29,
 		lutrama_29.last_address = 63,
-		lutrama_29.logical_ram_depth = 512,
+		lutrama_29.logical_ram_depth = 256,
 		lutrama_29.logical_ram_name = "altdpram_instance",
 		lutrama_29.logical_ram_width = 64,
 		lutrama_29.mixed_port_feed_through_mode = "dont_care",
@@ -2494,7 +1710,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_30.first_address = 0,
 		lutrama_30.first_bit_number = 30,
 		lutrama_30.last_address = 63,
-		lutrama_30.logical_ram_depth = 512,
+		lutrama_30.logical_ram_depth = 256,
 		lutrama_30.logical_ram_name = "altdpram_instance",
 		lutrama_30.logical_ram_width = 64,
 		lutrama_30.mixed_port_feed_through_mode = "dont_care",
@@ -2522,7 +1738,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_31.first_address = 0,
 		lutrama_31.first_bit_number = 31,
 		lutrama_31.last_address = 63,
-		lutrama_31.logical_ram_depth = 512,
+		lutrama_31.logical_ram_depth = 256,
 		lutrama_31.logical_ram_name = "altdpram_instance",
 		lutrama_31.logical_ram_width = 64,
 		lutrama_31.mixed_port_feed_through_mode = "dont_care",
@@ -2550,7 +1766,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_32.first_address = 0,
 		lutrama_32.first_bit_number = 32,
 		lutrama_32.last_address = 63,
-		lutrama_32.logical_ram_depth = 512,
+		lutrama_32.logical_ram_depth = 256,
 		lutrama_32.logical_ram_name = "altdpram_instance",
 		lutrama_32.logical_ram_width = 64,
 		lutrama_32.mixed_port_feed_through_mode = "dont_care",
@@ -2578,7 +1794,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_33.first_address = 0,
 		lutrama_33.first_bit_number = 33,
 		lutrama_33.last_address = 63,
-		lutrama_33.logical_ram_depth = 512,
+		lutrama_33.logical_ram_depth = 256,
 		lutrama_33.logical_ram_name = "altdpram_instance",
 		lutrama_33.logical_ram_width = 64,
 		lutrama_33.mixed_port_feed_through_mode = "dont_care",
@@ -2606,7 +1822,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_34.first_address = 0,
 		lutrama_34.first_bit_number = 34,
 		lutrama_34.last_address = 63,
-		lutrama_34.logical_ram_depth = 512,
+		lutrama_34.logical_ram_depth = 256,
 		lutrama_34.logical_ram_name = "altdpram_instance",
 		lutrama_34.logical_ram_width = 64,
 		lutrama_34.mixed_port_feed_through_mode = "dont_care",
@@ -2634,7 +1850,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_35.first_address = 0,
 		lutrama_35.first_bit_number = 35,
 		lutrama_35.last_address = 63,
-		lutrama_35.logical_ram_depth = 512,
+		lutrama_35.logical_ram_depth = 256,
 		lutrama_35.logical_ram_name = "altdpram_instance",
 		lutrama_35.logical_ram_width = 64,
 		lutrama_35.mixed_port_feed_through_mode = "dont_care",
@@ -2662,7 +1878,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_36.first_address = 0,
 		lutrama_36.first_bit_number = 36,
 		lutrama_36.last_address = 63,
-		lutrama_36.logical_ram_depth = 512,
+		lutrama_36.logical_ram_depth = 256,
 		lutrama_36.logical_ram_name = "altdpram_instance",
 		lutrama_36.logical_ram_width = 64,
 		lutrama_36.mixed_port_feed_through_mode = "dont_care",
@@ -2690,7 +1906,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_37.first_address = 0,
 		lutrama_37.first_bit_number = 37,
 		lutrama_37.last_address = 63,
-		lutrama_37.logical_ram_depth = 512,
+		lutrama_37.logical_ram_depth = 256,
 		lutrama_37.logical_ram_name = "altdpram_instance",
 		lutrama_37.logical_ram_width = 64,
 		lutrama_37.mixed_port_feed_through_mode = "dont_care",
@@ -2718,7 +1934,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_38.first_address = 0,
 		lutrama_38.first_bit_number = 38,
 		lutrama_38.last_address = 63,
-		lutrama_38.logical_ram_depth = 512,
+		lutrama_38.logical_ram_depth = 256,
 		lutrama_38.logical_ram_name = "altdpram_instance",
 		lutrama_38.logical_ram_width = 64,
 		lutrama_38.mixed_port_feed_through_mode = "dont_care",
@@ -2746,7 +1962,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_39.first_address = 0,
 		lutrama_39.first_bit_number = 39,
 		lutrama_39.last_address = 63,
-		lutrama_39.logical_ram_depth = 512,
+		lutrama_39.logical_ram_depth = 256,
 		lutrama_39.logical_ram_name = "altdpram_instance",
 		lutrama_39.logical_ram_width = 64,
 		lutrama_39.mixed_port_feed_through_mode = "dont_care",
@@ -2774,7 +1990,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_40.first_address = 0,
 		lutrama_40.first_bit_number = 40,
 		lutrama_40.last_address = 63,
-		lutrama_40.logical_ram_depth = 512,
+		lutrama_40.logical_ram_depth = 256,
 		lutrama_40.logical_ram_name = "altdpram_instance",
 		lutrama_40.logical_ram_width = 64,
 		lutrama_40.mixed_port_feed_through_mode = "dont_care",
@@ -2802,7 +2018,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_41.first_address = 0,
 		lutrama_41.first_bit_number = 41,
 		lutrama_41.last_address = 63,
-		lutrama_41.logical_ram_depth = 512,
+		lutrama_41.logical_ram_depth = 256,
 		lutrama_41.logical_ram_name = "altdpram_instance",
 		lutrama_41.logical_ram_width = 64,
 		lutrama_41.mixed_port_feed_through_mode = "dont_care",
@@ -2830,7 +2046,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_42.first_address = 0,
 		lutrama_42.first_bit_number = 42,
 		lutrama_42.last_address = 63,
-		lutrama_42.logical_ram_depth = 512,
+		lutrama_42.logical_ram_depth = 256,
 		lutrama_42.logical_ram_name = "altdpram_instance",
 		lutrama_42.logical_ram_width = 64,
 		lutrama_42.mixed_port_feed_through_mode = "dont_care",
@@ -2858,7 +2074,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_43.first_address = 0,
 		lutrama_43.first_bit_number = 43,
 		lutrama_43.last_address = 63,
-		lutrama_43.logical_ram_depth = 512,
+		lutrama_43.logical_ram_depth = 256,
 		lutrama_43.logical_ram_name = "altdpram_instance",
 		lutrama_43.logical_ram_width = 64,
 		lutrama_43.mixed_port_feed_through_mode = "dont_care",
@@ -2886,7 +2102,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_44.first_address = 0,
 		lutrama_44.first_bit_number = 44,
 		lutrama_44.last_address = 63,
-		lutrama_44.logical_ram_depth = 512,
+		lutrama_44.logical_ram_depth = 256,
 		lutrama_44.logical_ram_name = "altdpram_instance",
 		lutrama_44.logical_ram_width = 64,
 		lutrama_44.mixed_port_feed_through_mode = "dont_care",
@@ -2914,7 +2130,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_45.first_address = 0,
 		lutrama_45.first_bit_number = 45,
 		lutrama_45.last_address = 63,
-		lutrama_45.logical_ram_depth = 512,
+		lutrama_45.logical_ram_depth = 256,
 		lutrama_45.logical_ram_name = "altdpram_instance",
 		lutrama_45.logical_ram_width = 64,
 		lutrama_45.mixed_port_feed_through_mode = "dont_care",
@@ -2942,7 +2158,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_46.first_address = 0,
 		lutrama_46.first_bit_number = 46,
 		lutrama_46.last_address = 63,
-		lutrama_46.logical_ram_depth = 512,
+		lutrama_46.logical_ram_depth = 256,
 		lutrama_46.logical_ram_name = "altdpram_instance",
 		lutrama_46.logical_ram_width = 64,
 		lutrama_46.mixed_port_feed_through_mode = "dont_care",
@@ -2970,7 +2186,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_47.first_address = 0,
 		lutrama_47.first_bit_number = 47,
 		lutrama_47.last_address = 63,
-		lutrama_47.logical_ram_depth = 512,
+		lutrama_47.logical_ram_depth = 256,
 		lutrama_47.logical_ram_name = "altdpram_instance",
 		lutrama_47.logical_ram_width = 64,
 		lutrama_47.mixed_port_feed_through_mode = "dont_care",
@@ -2998,7 +2214,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_48.first_address = 0,
 		lutrama_48.first_bit_number = 48,
 		lutrama_48.last_address = 63,
-		lutrama_48.logical_ram_depth = 512,
+		lutrama_48.logical_ram_depth = 256,
 		lutrama_48.logical_ram_name = "altdpram_instance",
 		lutrama_48.logical_ram_width = 64,
 		lutrama_48.mixed_port_feed_through_mode = "dont_care",
@@ -3026,7 +2242,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_49.first_address = 0,
 		lutrama_49.first_bit_number = 49,
 		lutrama_49.last_address = 63,
-		lutrama_49.logical_ram_depth = 512,
+		lutrama_49.logical_ram_depth = 256,
 		lutrama_49.logical_ram_name = "altdpram_instance",
 		lutrama_49.logical_ram_width = 64,
 		lutrama_49.mixed_port_feed_through_mode = "dont_care",
@@ -3054,7 +2270,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_50.first_address = 0,
 		lutrama_50.first_bit_number = 50,
 		lutrama_50.last_address = 63,
-		lutrama_50.logical_ram_depth = 512,
+		lutrama_50.logical_ram_depth = 256,
 		lutrama_50.logical_ram_name = "altdpram_instance",
 		lutrama_50.logical_ram_width = 64,
 		lutrama_50.mixed_port_feed_through_mode = "dont_care",
@@ -3082,7 +2298,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_51.first_address = 0,
 		lutrama_51.first_bit_number = 51,
 		lutrama_51.last_address = 63,
-		lutrama_51.logical_ram_depth = 512,
+		lutrama_51.logical_ram_depth = 256,
 		lutrama_51.logical_ram_name = "altdpram_instance",
 		lutrama_51.logical_ram_width = 64,
 		lutrama_51.mixed_port_feed_through_mode = "dont_care",
@@ -3110,7 +2326,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_52.first_address = 0,
 		lutrama_52.first_bit_number = 52,
 		lutrama_52.last_address = 63,
-		lutrama_52.logical_ram_depth = 512,
+		lutrama_52.logical_ram_depth = 256,
 		lutrama_52.logical_ram_name = "altdpram_instance",
 		lutrama_52.logical_ram_width = 64,
 		lutrama_52.mixed_port_feed_through_mode = "dont_care",
@@ -3138,7 +2354,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_53.first_address = 0,
 		lutrama_53.first_bit_number = 53,
 		lutrama_53.last_address = 63,
-		lutrama_53.logical_ram_depth = 512,
+		lutrama_53.logical_ram_depth = 256,
 		lutrama_53.logical_ram_name = "altdpram_instance",
 		lutrama_53.logical_ram_width = 64,
 		lutrama_53.mixed_port_feed_through_mode = "dont_care",
@@ -3166,7 +2382,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_54.first_address = 0,
 		lutrama_54.first_bit_number = 54,
 		lutrama_54.last_address = 63,
-		lutrama_54.logical_ram_depth = 512,
+		lutrama_54.logical_ram_depth = 256,
 		lutrama_54.logical_ram_name = "altdpram_instance",
 		lutrama_54.logical_ram_width = 64,
 		lutrama_54.mixed_port_feed_through_mode = "dont_care",
@@ -3194,7 +2410,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_55.first_address = 0,
 		lutrama_55.first_bit_number = 55,
 		lutrama_55.last_address = 63,
-		lutrama_55.logical_ram_depth = 512,
+		lutrama_55.logical_ram_depth = 256,
 		lutrama_55.logical_ram_name = "altdpram_instance",
 		lutrama_55.logical_ram_width = 64,
 		lutrama_55.mixed_port_feed_through_mode = "dont_care",
@@ -3222,7 +2438,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_56.first_address = 0,
 		lutrama_56.first_bit_number = 56,
 		lutrama_56.last_address = 63,
-		lutrama_56.logical_ram_depth = 512,
+		lutrama_56.logical_ram_depth = 256,
 		lutrama_56.logical_ram_name = "altdpram_instance",
 		lutrama_56.logical_ram_width = 64,
 		lutrama_56.mixed_port_feed_through_mode = "dont_care",
@@ -3250,7 +2466,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_57.first_address = 0,
 		lutrama_57.first_bit_number = 57,
 		lutrama_57.last_address = 63,
-		lutrama_57.logical_ram_depth = 512,
+		lutrama_57.logical_ram_depth = 256,
 		lutrama_57.logical_ram_name = "altdpram_instance",
 		lutrama_57.logical_ram_width = 64,
 		lutrama_57.mixed_port_feed_through_mode = "dont_care",
@@ -3278,7 +2494,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_58.first_address = 0,
 		lutrama_58.first_bit_number = 58,
 		lutrama_58.last_address = 63,
-		lutrama_58.logical_ram_depth = 512,
+		lutrama_58.logical_ram_depth = 256,
 		lutrama_58.logical_ram_name = "altdpram_instance",
 		lutrama_58.logical_ram_width = 64,
 		lutrama_58.mixed_port_feed_through_mode = "dont_care",
@@ -3306,7 +2522,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_59.first_address = 0,
 		lutrama_59.first_bit_number = 59,
 		lutrama_59.last_address = 63,
-		lutrama_59.logical_ram_depth = 512,
+		lutrama_59.logical_ram_depth = 256,
 		lutrama_59.logical_ram_name = "altdpram_instance",
 		lutrama_59.logical_ram_width = 64,
 		lutrama_59.mixed_port_feed_through_mode = "dont_care",
@@ -3334,7 +2550,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_60.first_address = 0,
 		lutrama_60.first_bit_number = 60,
 		lutrama_60.last_address = 63,
-		lutrama_60.logical_ram_depth = 512,
+		lutrama_60.logical_ram_depth = 256,
 		lutrama_60.logical_ram_name = "altdpram_instance",
 		lutrama_60.logical_ram_width = 64,
 		lutrama_60.mixed_port_feed_through_mode = "dont_care",
@@ -3362,7 +2578,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_61.first_address = 0,
 		lutrama_61.first_bit_number = 61,
 		lutrama_61.last_address = 63,
-		lutrama_61.logical_ram_depth = 512,
+		lutrama_61.logical_ram_depth = 256,
 		lutrama_61.logical_ram_name = "altdpram_instance",
 		lutrama_61.logical_ram_width = 64,
 		lutrama_61.mixed_port_feed_through_mode = "dont_care",
@@ -3390,7 +2606,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_62.first_address = 0,
 		lutrama_62.first_bit_number = 62,
 		lutrama_62.last_address = 63,
-		lutrama_62.logical_ram_depth = 512,
+		lutrama_62.logical_ram_depth = 256,
 		lutrama_62.logical_ram_name = "altdpram_instance",
 		lutrama_62.logical_ram_width = 64,
 		lutrama_62.mixed_port_feed_through_mode = "dont_care",
@@ -3418,7 +2634,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_63.first_address = 0,
 		lutrama_63.first_bit_number = 63,
 		lutrama_63.last_address = 63,
-		lutrama_63.logical_ram_depth = 512,
+		lutrama_63.logical_ram_depth = 256,
 		lutrama_63.logical_ram_name = "altdpram_instance",
 		lutrama_63.logical_ram_width = 64,
 		lutrama_63.mixed_port_feed_through_mode = "dont_care",
@@ -3446,7 +2662,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_64.first_address = 64,
 		lutrama_64.first_bit_number = 0,
 		lutrama_64.last_address = 127,
-		lutrama_64.logical_ram_depth = 512,
+		lutrama_64.logical_ram_depth = 256,
 		lutrama_64.logical_ram_name = "altdpram_instance",
 		lutrama_64.logical_ram_width = 64,
 		lutrama_64.mixed_port_feed_through_mode = "dont_care",
@@ -3474,7 +2690,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_65.first_address = 64,
 		lutrama_65.first_bit_number = 1,
 		lutrama_65.last_address = 127,
-		lutrama_65.logical_ram_depth = 512,
+		lutrama_65.logical_ram_depth = 256,
 		lutrama_65.logical_ram_name = "altdpram_instance",
 		lutrama_65.logical_ram_width = 64,
 		lutrama_65.mixed_port_feed_through_mode = "dont_care",
@@ -3502,7 +2718,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_66.first_address = 64,
 		lutrama_66.first_bit_number = 2,
 		lutrama_66.last_address = 127,
-		lutrama_66.logical_ram_depth = 512,
+		lutrama_66.logical_ram_depth = 256,
 		lutrama_66.logical_ram_name = "altdpram_instance",
 		lutrama_66.logical_ram_width = 64,
 		lutrama_66.mixed_port_feed_through_mode = "dont_care",
@@ -3530,7 +2746,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_67.first_address = 64,
 		lutrama_67.first_bit_number = 3,
 		lutrama_67.last_address = 127,
-		lutrama_67.logical_ram_depth = 512,
+		lutrama_67.logical_ram_depth = 256,
 		lutrama_67.logical_ram_name = "altdpram_instance",
 		lutrama_67.logical_ram_width = 64,
 		lutrama_67.mixed_port_feed_through_mode = "dont_care",
@@ -3558,7 +2774,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_68.first_address = 64,
 		lutrama_68.first_bit_number = 4,
 		lutrama_68.last_address = 127,
-		lutrama_68.logical_ram_depth = 512,
+		lutrama_68.logical_ram_depth = 256,
 		lutrama_68.logical_ram_name = "altdpram_instance",
 		lutrama_68.logical_ram_width = 64,
 		lutrama_68.mixed_port_feed_through_mode = "dont_care",
@@ -3586,7 +2802,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_69.first_address = 64,
 		lutrama_69.first_bit_number = 5,
 		lutrama_69.last_address = 127,
-		lutrama_69.logical_ram_depth = 512,
+		lutrama_69.logical_ram_depth = 256,
 		lutrama_69.logical_ram_name = "altdpram_instance",
 		lutrama_69.logical_ram_width = 64,
 		lutrama_69.mixed_port_feed_through_mode = "dont_care",
@@ -3614,7 +2830,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_70.first_address = 64,
 		lutrama_70.first_bit_number = 6,
 		lutrama_70.last_address = 127,
-		lutrama_70.logical_ram_depth = 512,
+		lutrama_70.logical_ram_depth = 256,
 		lutrama_70.logical_ram_name = "altdpram_instance",
 		lutrama_70.logical_ram_width = 64,
 		lutrama_70.mixed_port_feed_through_mode = "dont_care",
@@ -3642,7 +2858,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_71.first_address = 64,
 		lutrama_71.first_bit_number = 7,
 		lutrama_71.last_address = 127,
-		lutrama_71.logical_ram_depth = 512,
+		lutrama_71.logical_ram_depth = 256,
 		lutrama_71.logical_ram_name = "altdpram_instance",
 		lutrama_71.logical_ram_width = 64,
 		lutrama_71.mixed_port_feed_through_mode = "dont_care",
@@ -3670,7 +2886,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_72.first_address = 64,
 		lutrama_72.first_bit_number = 8,
 		lutrama_72.last_address = 127,
-		lutrama_72.logical_ram_depth = 512,
+		lutrama_72.logical_ram_depth = 256,
 		lutrama_72.logical_ram_name = "altdpram_instance",
 		lutrama_72.logical_ram_width = 64,
 		lutrama_72.mixed_port_feed_through_mode = "dont_care",
@@ -3698,7 +2914,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_73.first_address = 64,
 		lutrama_73.first_bit_number = 9,
 		lutrama_73.last_address = 127,
-		lutrama_73.logical_ram_depth = 512,
+		lutrama_73.logical_ram_depth = 256,
 		lutrama_73.logical_ram_name = "altdpram_instance",
 		lutrama_73.logical_ram_width = 64,
 		lutrama_73.mixed_port_feed_through_mode = "dont_care",
@@ -3726,7 +2942,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_74.first_address = 64,
 		lutrama_74.first_bit_number = 10,
 		lutrama_74.last_address = 127,
-		lutrama_74.logical_ram_depth = 512,
+		lutrama_74.logical_ram_depth = 256,
 		lutrama_74.logical_ram_name = "altdpram_instance",
 		lutrama_74.logical_ram_width = 64,
 		lutrama_74.mixed_port_feed_through_mode = "dont_care",
@@ -3754,7 +2970,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_75.first_address = 64,
 		lutrama_75.first_bit_number = 11,
 		lutrama_75.last_address = 127,
-		lutrama_75.logical_ram_depth = 512,
+		lutrama_75.logical_ram_depth = 256,
 		lutrama_75.logical_ram_name = "altdpram_instance",
 		lutrama_75.logical_ram_width = 64,
 		lutrama_75.mixed_port_feed_through_mode = "dont_care",
@@ -3782,7 +2998,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_76.first_address = 64,
 		lutrama_76.first_bit_number = 12,
 		lutrama_76.last_address = 127,
-		lutrama_76.logical_ram_depth = 512,
+		lutrama_76.logical_ram_depth = 256,
 		lutrama_76.logical_ram_name = "altdpram_instance",
 		lutrama_76.logical_ram_width = 64,
 		lutrama_76.mixed_port_feed_through_mode = "dont_care",
@@ -3810,7 +3026,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_77.first_address = 64,
 		lutrama_77.first_bit_number = 13,
 		lutrama_77.last_address = 127,
-		lutrama_77.logical_ram_depth = 512,
+		lutrama_77.logical_ram_depth = 256,
 		lutrama_77.logical_ram_name = "altdpram_instance",
 		lutrama_77.logical_ram_width = 64,
 		lutrama_77.mixed_port_feed_through_mode = "dont_care",
@@ -3838,7 +3054,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_78.first_address = 64,
 		lutrama_78.first_bit_number = 14,
 		lutrama_78.last_address = 127,
-		lutrama_78.logical_ram_depth = 512,
+		lutrama_78.logical_ram_depth = 256,
 		lutrama_78.logical_ram_name = "altdpram_instance",
 		lutrama_78.logical_ram_width = 64,
 		lutrama_78.mixed_port_feed_through_mode = "dont_care",
@@ -3866,7 +3082,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_79.first_address = 64,
 		lutrama_79.first_bit_number = 15,
 		lutrama_79.last_address = 127,
-		lutrama_79.logical_ram_depth = 512,
+		lutrama_79.logical_ram_depth = 256,
 		lutrama_79.logical_ram_name = "altdpram_instance",
 		lutrama_79.logical_ram_width = 64,
 		lutrama_79.mixed_port_feed_through_mode = "dont_care",
@@ -3894,7 +3110,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_80.first_address = 64,
 		lutrama_80.first_bit_number = 16,
 		lutrama_80.last_address = 127,
-		lutrama_80.logical_ram_depth = 512,
+		lutrama_80.logical_ram_depth = 256,
 		lutrama_80.logical_ram_name = "altdpram_instance",
 		lutrama_80.logical_ram_width = 64,
 		lutrama_80.mixed_port_feed_through_mode = "dont_care",
@@ -3922,7 +3138,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_81.first_address = 64,
 		lutrama_81.first_bit_number = 17,
 		lutrama_81.last_address = 127,
-		lutrama_81.logical_ram_depth = 512,
+		lutrama_81.logical_ram_depth = 256,
 		lutrama_81.logical_ram_name = "altdpram_instance",
 		lutrama_81.logical_ram_width = 64,
 		lutrama_81.mixed_port_feed_through_mode = "dont_care",
@@ -3950,7 +3166,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_82.first_address = 64,
 		lutrama_82.first_bit_number = 18,
 		lutrama_82.last_address = 127,
-		lutrama_82.logical_ram_depth = 512,
+		lutrama_82.logical_ram_depth = 256,
 		lutrama_82.logical_ram_name = "altdpram_instance",
 		lutrama_82.logical_ram_width = 64,
 		lutrama_82.mixed_port_feed_through_mode = "dont_care",
@@ -3978,7 +3194,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_83.first_address = 64,
 		lutrama_83.first_bit_number = 19,
 		lutrama_83.last_address = 127,
-		lutrama_83.logical_ram_depth = 512,
+		lutrama_83.logical_ram_depth = 256,
 		lutrama_83.logical_ram_name = "altdpram_instance",
 		lutrama_83.logical_ram_width = 64,
 		lutrama_83.mixed_port_feed_through_mode = "dont_care",
@@ -4006,7 +3222,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_84.first_address = 64,
 		lutrama_84.first_bit_number = 20,
 		lutrama_84.last_address = 127,
-		lutrama_84.logical_ram_depth = 512,
+		lutrama_84.logical_ram_depth = 256,
 		lutrama_84.logical_ram_name = "altdpram_instance",
 		lutrama_84.logical_ram_width = 64,
 		lutrama_84.mixed_port_feed_through_mode = "dont_care",
@@ -4034,7 +3250,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_85.first_address = 64,
 		lutrama_85.first_bit_number = 21,
 		lutrama_85.last_address = 127,
-		lutrama_85.logical_ram_depth = 512,
+		lutrama_85.logical_ram_depth = 256,
 		lutrama_85.logical_ram_name = "altdpram_instance",
 		lutrama_85.logical_ram_width = 64,
 		lutrama_85.mixed_port_feed_through_mode = "dont_care",
@@ -4062,7 +3278,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_86.first_address = 64,
 		lutrama_86.first_bit_number = 22,
 		lutrama_86.last_address = 127,
-		lutrama_86.logical_ram_depth = 512,
+		lutrama_86.logical_ram_depth = 256,
 		lutrama_86.logical_ram_name = "altdpram_instance",
 		lutrama_86.logical_ram_width = 64,
 		lutrama_86.mixed_port_feed_through_mode = "dont_care",
@@ -4090,7 +3306,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_87.first_address = 64,
 		lutrama_87.first_bit_number = 23,
 		lutrama_87.last_address = 127,
-		lutrama_87.logical_ram_depth = 512,
+		lutrama_87.logical_ram_depth = 256,
 		lutrama_87.logical_ram_name = "altdpram_instance",
 		lutrama_87.logical_ram_width = 64,
 		lutrama_87.mixed_port_feed_through_mode = "dont_care",
@@ -4118,7 +3334,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_88.first_address = 64,
 		lutrama_88.first_bit_number = 24,
 		lutrama_88.last_address = 127,
-		lutrama_88.logical_ram_depth = 512,
+		lutrama_88.logical_ram_depth = 256,
 		lutrama_88.logical_ram_name = "altdpram_instance",
 		lutrama_88.logical_ram_width = 64,
 		lutrama_88.mixed_port_feed_through_mode = "dont_care",
@@ -4146,7 +3362,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_89.first_address = 64,
 		lutrama_89.first_bit_number = 25,
 		lutrama_89.last_address = 127,
-		lutrama_89.logical_ram_depth = 512,
+		lutrama_89.logical_ram_depth = 256,
 		lutrama_89.logical_ram_name = "altdpram_instance",
 		lutrama_89.logical_ram_width = 64,
 		lutrama_89.mixed_port_feed_through_mode = "dont_care",
@@ -4174,7 +3390,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_90.first_address = 64,
 		lutrama_90.first_bit_number = 26,
 		lutrama_90.last_address = 127,
-		lutrama_90.logical_ram_depth = 512,
+		lutrama_90.logical_ram_depth = 256,
 		lutrama_90.logical_ram_name = "altdpram_instance",
 		lutrama_90.logical_ram_width = 64,
 		lutrama_90.mixed_port_feed_through_mode = "dont_care",
@@ -4202,7 +3418,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_91.first_address = 64,
 		lutrama_91.first_bit_number = 27,
 		lutrama_91.last_address = 127,
-		lutrama_91.logical_ram_depth = 512,
+		lutrama_91.logical_ram_depth = 256,
 		lutrama_91.logical_ram_name = "altdpram_instance",
 		lutrama_91.logical_ram_width = 64,
 		lutrama_91.mixed_port_feed_through_mode = "dont_care",
@@ -4230,7 +3446,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_92.first_address = 64,
 		lutrama_92.first_bit_number = 28,
 		lutrama_92.last_address = 127,
-		lutrama_92.logical_ram_depth = 512,
+		lutrama_92.logical_ram_depth = 256,
 		lutrama_92.logical_ram_name = "altdpram_instance",
 		lutrama_92.logical_ram_width = 64,
 		lutrama_92.mixed_port_feed_through_mode = "dont_care",
@@ -4258,7 +3474,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_93.first_address = 64,
 		lutrama_93.first_bit_number = 29,
 		lutrama_93.last_address = 127,
-		lutrama_93.logical_ram_depth = 512,
+		lutrama_93.logical_ram_depth = 256,
 		lutrama_93.logical_ram_name = "altdpram_instance",
 		lutrama_93.logical_ram_width = 64,
 		lutrama_93.mixed_port_feed_through_mode = "dont_care",
@@ -4286,7 +3502,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_94.first_address = 64,
 		lutrama_94.first_bit_number = 30,
 		lutrama_94.last_address = 127,
-		lutrama_94.logical_ram_depth = 512,
+		lutrama_94.logical_ram_depth = 256,
 		lutrama_94.logical_ram_name = "altdpram_instance",
 		lutrama_94.logical_ram_width = 64,
 		lutrama_94.mixed_port_feed_through_mode = "dont_care",
@@ -4314,7 +3530,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_95.first_address = 64,
 		lutrama_95.first_bit_number = 31,
 		lutrama_95.last_address = 127,
-		lutrama_95.logical_ram_depth = 512,
+		lutrama_95.logical_ram_depth = 256,
 		lutrama_95.logical_ram_name = "altdpram_instance",
 		lutrama_95.logical_ram_width = 64,
 		lutrama_95.mixed_port_feed_through_mode = "dont_care",
@@ -4342,7 +3558,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_96.first_address = 64,
 		lutrama_96.first_bit_number = 32,
 		lutrama_96.last_address = 127,
-		lutrama_96.logical_ram_depth = 512,
+		lutrama_96.logical_ram_depth = 256,
 		lutrama_96.logical_ram_name = "altdpram_instance",
 		lutrama_96.logical_ram_width = 64,
 		lutrama_96.mixed_port_feed_through_mode = "dont_care",
@@ -4370,7 +3586,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_97.first_address = 64,
 		lutrama_97.first_bit_number = 33,
 		lutrama_97.last_address = 127,
-		lutrama_97.logical_ram_depth = 512,
+		lutrama_97.logical_ram_depth = 256,
 		lutrama_97.logical_ram_name = "altdpram_instance",
 		lutrama_97.logical_ram_width = 64,
 		lutrama_97.mixed_port_feed_through_mode = "dont_care",
@@ -4398,7 +3614,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_98.first_address = 64,
 		lutrama_98.first_bit_number = 34,
 		lutrama_98.last_address = 127,
-		lutrama_98.logical_ram_depth = 512,
+		lutrama_98.logical_ram_depth = 256,
 		lutrama_98.logical_ram_name = "altdpram_instance",
 		lutrama_98.logical_ram_width = 64,
 		lutrama_98.mixed_port_feed_through_mode = "dont_care",
@@ -4426,7 +3642,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_99.first_address = 64,
 		lutrama_99.first_bit_number = 35,
 		lutrama_99.last_address = 127,
-		lutrama_99.logical_ram_depth = 512,
+		lutrama_99.logical_ram_depth = 256,
 		lutrama_99.logical_ram_name = "altdpram_instance",
 		lutrama_99.logical_ram_width = 64,
 		lutrama_99.mixed_port_feed_through_mode = "dont_care",
@@ -4454,7 +3670,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_100.first_address = 64,
 		lutrama_100.first_bit_number = 36,
 		lutrama_100.last_address = 127,
-		lutrama_100.logical_ram_depth = 512,
+		lutrama_100.logical_ram_depth = 256,
 		lutrama_100.logical_ram_name = "altdpram_instance",
 		lutrama_100.logical_ram_width = 64,
 		lutrama_100.mixed_port_feed_through_mode = "dont_care",
@@ -4482,7 +3698,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_101.first_address = 64,
 		lutrama_101.first_bit_number = 37,
 		lutrama_101.last_address = 127,
-		lutrama_101.logical_ram_depth = 512,
+		lutrama_101.logical_ram_depth = 256,
 		lutrama_101.logical_ram_name = "altdpram_instance",
 		lutrama_101.logical_ram_width = 64,
 		lutrama_101.mixed_port_feed_through_mode = "dont_care",
@@ -4510,7 +3726,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_102.first_address = 64,
 		lutrama_102.first_bit_number = 38,
 		lutrama_102.last_address = 127,
-		lutrama_102.logical_ram_depth = 512,
+		lutrama_102.logical_ram_depth = 256,
 		lutrama_102.logical_ram_name = "altdpram_instance",
 		lutrama_102.logical_ram_width = 64,
 		lutrama_102.mixed_port_feed_through_mode = "dont_care",
@@ -4538,7 +3754,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_103.first_address = 64,
 		lutrama_103.first_bit_number = 39,
 		lutrama_103.last_address = 127,
-		lutrama_103.logical_ram_depth = 512,
+		lutrama_103.logical_ram_depth = 256,
 		lutrama_103.logical_ram_name = "altdpram_instance",
 		lutrama_103.logical_ram_width = 64,
 		lutrama_103.mixed_port_feed_through_mode = "dont_care",
@@ -4566,7 +3782,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_104.first_address = 64,
 		lutrama_104.first_bit_number = 40,
 		lutrama_104.last_address = 127,
-		lutrama_104.logical_ram_depth = 512,
+		lutrama_104.logical_ram_depth = 256,
 		lutrama_104.logical_ram_name = "altdpram_instance",
 		lutrama_104.logical_ram_width = 64,
 		lutrama_104.mixed_port_feed_through_mode = "dont_care",
@@ -4594,7 +3810,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_105.first_address = 64,
 		lutrama_105.first_bit_number = 41,
 		lutrama_105.last_address = 127,
-		lutrama_105.logical_ram_depth = 512,
+		lutrama_105.logical_ram_depth = 256,
 		lutrama_105.logical_ram_name = "altdpram_instance",
 		lutrama_105.logical_ram_width = 64,
 		lutrama_105.mixed_port_feed_through_mode = "dont_care",
@@ -4622,7 +3838,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_106.first_address = 64,
 		lutrama_106.first_bit_number = 42,
 		lutrama_106.last_address = 127,
-		lutrama_106.logical_ram_depth = 512,
+		lutrama_106.logical_ram_depth = 256,
 		lutrama_106.logical_ram_name = "altdpram_instance",
 		lutrama_106.logical_ram_width = 64,
 		lutrama_106.mixed_port_feed_through_mode = "dont_care",
@@ -4650,7 +3866,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_107.first_address = 64,
 		lutrama_107.first_bit_number = 43,
 		lutrama_107.last_address = 127,
-		lutrama_107.logical_ram_depth = 512,
+		lutrama_107.logical_ram_depth = 256,
 		lutrama_107.logical_ram_name = "altdpram_instance",
 		lutrama_107.logical_ram_width = 64,
 		lutrama_107.mixed_port_feed_through_mode = "dont_care",
@@ -4678,7 +3894,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_108.first_address = 64,
 		lutrama_108.first_bit_number = 44,
 		lutrama_108.last_address = 127,
-		lutrama_108.logical_ram_depth = 512,
+		lutrama_108.logical_ram_depth = 256,
 		lutrama_108.logical_ram_name = "altdpram_instance",
 		lutrama_108.logical_ram_width = 64,
 		lutrama_108.mixed_port_feed_through_mode = "dont_care",
@@ -4706,7 +3922,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_109.first_address = 64,
 		lutrama_109.first_bit_number = 45,
 		lutrama_109.last_address = 127,
-		lutrama_109.logical_ram_depth = 512,
+		lutrama_109.logical_ram_depth = 256,
 		lutrama_109.logical_ram_name = "altdpram_instance",
 		lutrama_109.logical_ram_width = 64,
 		lutrama_109.mixed_port_feed_through_mode = "dont_care",
@@ -4734,7 +3950,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_110.first_address = 64,
 		lutrama_110.first_bit_number = 46,
 		lutrama_110.last_address = 127,
-		lutrama_110.logical_ram_depth = 512,
+		lutrama_110.logical_ram_depth = 256,
 		lutrama_110.logical_ram_name = "altdpram_instance",
 		lutrama_110.logical_ram_width = 64,
 		lutrama_110.mixed_port_feed_through_mode = "dont_care",
@@ -4762,7 +3978,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_111.first_address = 64,
 		lutrama_111.first_bit_number = 47,
 		lutrama_111.last_address = 127,
-		lutrama_111.logical_ram_depth = 512,
+		lutrama_111.logical_ram_depth = 256,
 		lutrama_111.logical_ram_name = "altdpram_instance",
 		lutrama_111.logical_ram_width = 64,
 		lutrama_111.mixed_port_feed_through_mode = "dont_care",
@@ -4790,7 +4006,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_112.first_address = 64,
 		lutrama_112.first_bit_number = 48,
 		lutrama_112.last_address = 127,
-		lutrama_112.logical_ram_depth = 512,
+		lutrama_112.logical_ram_depth = 256,
 		lutrama_112.logical_ram_name = "altdpram_instance",
 		lutrama_112.logical_ram_width = 64,
 		lutrama_112.mixed_port_feed_through_mode = "dont_care",
@@ -4818,7 +4034,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_113.first_address = 64,
 		lutrama_113.first_bit_number = 49,
 		lutrama_113.last_address = 127,
-		lutrama_113.logical_ram_depth = 512,
+		lutrama_113.logical_ram_depth = 256,
 		lutrama_113.logical_ram_name = "altdpram_instance",
 		lutrama_113.logical_ram_width = 64,
 		lutrama_113.mixed_port_feed_through_mode = "dont_care",
@@ -4846,7 +4062,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_114.first_address = 64,
 		lutrama_114.first_bit_number = 50,
 		lutrama_114.last_address = 127,
-		lutrama_114.logical_ram_depth = 512,
+		lutrama_114.logical_ram_depth = 256,
 		lutrama_114.logical_ram_name = "altdpram_instance",
 		lutrama_114.logical_ram_width = 64,
 		lutrama_114.mixed_port_feed_through_mode = "dont_care",
@@ -4874,7 +4090,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_115.first_address = 64,
 		lutrama_115.first_bit_number = 51,
 		lutrama_115.last_address = 127,
-		lutrama_115.logical_ram_depth = 512,
+		lutrama_115.logical_ram_depth = 256,
 		lutrama_115.logical_ram_name = "altdpram_instance",
 		lutrama_115.logical_ram_width = 64,
 		lutrama_115.mixed_port_feed_through_mode = "dont_care",
@@ -4902,7 +4118,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_116.first_address = 64,
 		lutrama_116.first_bit_number = 52,
 		lutrama_116.last_address = 127,
-		lutrama_116.logical_ram_depth = 512,
+		lutrama_116.logical_ram_depth = 256,
 		lutrama_116.logical_ram_name = "altdpram_instance",
 		lutrama_116.logical_ram_width = 64,
 		lutrama_116.mixed_port_feed_through_mode = "dont_care",
@@ -4930,7 +4146,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_117.first_address = 64,
 		lutrama_117.first_bit_number = 53,
 		lutrama_117.last_address = 127,
-		lutrama_117.logical_ram_depth = 512,
+		lutrama_117.logical_ram_depth = 256,
 		lutrama_117.logical_ram_name = "altdpram_instance",
 		lutrama_117.logical_ram_width = 64,
 		lutrama_117.mixed_port_feed_through_mode = "dont_care",
@@ -4958,7 +4174,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_118.first_address = 64,
 		lutrama_118.first_bit_number = 54,
 		lutrama_118.last_address = 127,
-		lutrama_118.logical_ram_depth = 512,
+		lutrama_118.logical_ram_depth = 256,
 		lutrama_118.logical_ram_name = "altdpram_instance",
 		lutrama_118.logical_ram_width = 64,
 		lutrama_118.mixed_port_feed_through_mode = "dont_care",
@@ -4986,7 +4202,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_119.first_address = 64,
 		lutrama_119.first_bit_number = 55,
 		lutrama_119.last_address = 127,
-		lutrama_119.logical_ram_depth = 512,
+		lutrama_119.logical_ram_depth = 256,
 		lutrama_119.logical_ram_name = "altdpram_instance",
 		lutrama_119.logical_ram_width = 64,
 		lutrama_119.mixed_port_feed_through_mode = "dont_care",
@@ -5014,7 +4230,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_120.first_address = 64,
 		lutrama_120.first_bit_number = 56,
 		lutrama_120.last_address = 127,
-		lutrama_120.logical_ram_depth = 512,
+		lutrama_120.logical_ram_depth = 256,
 		lutrama_120.logical_ram_name = "altdpram_instance",
 		lutrama_120.logical_ram_width = 64,
 		lutrama_120.mixed_port_feed_through_mode = "dont_care",
@@ -5042,7 +4258,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_121.first_address = 64,
 		lutrama_121.first_bit_number = 57,
 		lutrama_121.last_address = 127,
-		lutrama_121.logical_ram_depth = 512,
+		lutrama_121.logical_ram_depth = 256,
 		lutrama_121.logical_ram_name = "altdpram_instance",
 		lutrama_121.logical_ram_width = 64,
 		lutrama_121.mixed_port_feed_through_mode = "dont_care",
@@ -5070,7 +4286,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_122.first_address = 64,
 		lutrama_122.first_bit_number = 58,
 		lutrama_122.last_address = 127,
-		lutrama_122.logical_ram_depth = 512,
+		lutrama_122.logical_ram_depth = 256,
 		lutrama_122.logical_ram_name = "altdpram_instance",
 		lutrama_122.logical_ram_width = 64,
 		lutrama_122.mixed_port_feed_through_mode = "dont_care",
@@ -5098,7 +4314,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_123.first_address = 64,
 		lutrama_123.first_bit_number = 59,
 		lutrama_123.last_address = 127,
-		lutrama_123.logical_ram_depth = 512,
+		lutrama_123.logical_ram_depth = 256,
 		lutrama_123.logical_ram_name = "altdpram_instance",
 		lutrama_123.logical_ram_width = 64,
 		lutrama_123.mixed_port_feed_through_mode = "dont_care",
@@ -5126,7 +4342,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_124.first_address = 64,
 		lutrama_124.first_bit_number = 60,
 		lutrama_124.last_address = 127,
-		lutrama_124.logical_ram_depth = 512,
+		lutrama_124.logical_ram_depth = 256,
 		lutrama_124.logical_ram_name = "altdpram_instance",
 		lutrama_124.logical_ram_width = 64,
 		lutrama_124.mixed_port_feed_through_mode = "dont_care",
@@ -5154,7 +4370,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_125.first_address = 64,
 		lutrama_125.first_bit_number = 61,
 		lutrama_125.last_address = 127,
-		lutrama_125.logical_ram_depth = 512,
+		lutrama_125.logical_ram_depth = 256,
 		lutrama_125.logical_ram_name = "altdpram_instance",
 		lutrama_125.logical_ram_width = 64,
 		lutrama_125.mixed_port_feed_through_mode = "dont_care",
@@ -5182,7 +4398,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_126.first_address = 64,
 		lutrama_126.first_bit_number = 62,
 		lutrama_126.last_address = 127,
-		lutrama_126.logical_ram_depth = 512,
+		lutrama_126.logical_ram_depth = 256,
 		lutrama_126.logical_ram_name = "altdpram_instance",
 		lutrama_126.logical_ram_width = 64,
 		lutrama_126.mixed_port_feed_through_mode = "dont_care",
@@ -5210,7 +4426,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_127.first_address = 64,
 		lutrama_127.first_bit_number = 63,
 		lutrama_127.last_address = 127,
-		lutrama_127.logical_ram_depth = 512,
+		lutrama_127.logical_ram_depth = 256,
 		lutrama_127.logical_ram_name = "altdpram_instance",
 		lutrama_127.logical_ram_width = 64,
 		lutrama_127.mixed_port_feed_through_mode = "dont_care",
@@ -5238,7 +4454,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_128.first_address = 128,
 		lutrama_128.first_bit_number = 0,
 		lutrama_128.last_address = 191,
-		lutrama_128.logical_ram_depth = 512,
+		lutrama_128.logical_ram_depth = 256,
 		lutrama_128.logical_ram_name = "altdpram_instance",
 		lutrama_128.logical_ram_width = 64,
 		lutrama_128.mixed_port_feed_through_mode = "dont_care",
@@ -5266,7 +4482,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_129.first_address = 128,
 		lutrama_129.first_bit_number = 1,
 		lutrama_129.last_address = 191,
-		lutrama_129.logical_ram_depth = 512,
+		lutrama_129.logical_ram_depth = 256,
 		lutrama_129.logical_ram_name = "altdpram_instance",
 		lutrama_129.logical_ram_width = 64,
 		lutrama_129.mixed_port_feed_through_mode = "dont_care",
@@ -5294,7 +4510,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_130.first_address = 128,
 		lutrama_130.first_bit_number = 2,
 		lutrama_130.last_address = 191,
-		lutrama_130.logical_ram_depth = 512,
+		lutrama_130.logical_ram_depth = 256,
 		lutrama_130.logical_ram_name = "altdpram_instance",
 		lutrama_130.logical_ram_width = 64,
 		lutrama_130.mixed_port_feed_through_mode = "dont_care",
@@ -5322,7 +4538,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_131.first_address = 128,
 		lutrama_131.first_bit_number = 3,
 		lutrama_131.last_address = 191,
-		lutrama_131.logical_ram_depth = 512,
+		lutrama_131.logical_ram_depth = 256,
 		lutrama_131.logical_ram_name = "altdpram_instance",
 		lutrama_131.logical_ram_width = 64,
 		lutrama_131.mixed_port_feed_through_mode = "dont_care",
@@ -5350,7 +4566,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_132.first_address = 128,
 		lutrama_132.first_bit_number = 4,
 		lutrama_132.last_address = 191,
-		lutrama_132.logical_ram_depth = 512,
+		lutrama_132.logical_ram_depth = 256,
 		lutrama_132.logical_ram_name = "altdpram_instance",
 		lutrama_132.logical_ram_width = 64,
 		lutrama_132.mixed_port_feed_through_mode = "dont_care",
@@ -5378,7 +4594,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_133.first_address = 128,
 		lutrama_133.first_bit_number = 5,
 		lutrama_133.last_address = 191,
-		lutrama_133.logical_ram_depth = 512,
+		lutrama_133.logical_ram_depth = 256,
 		lutrama_133.logical_ram_name = "altdpram_instance",
 		lutrama_133.logical_ram_width = 64,
 		lutrama_133.mixed_port_feed_through_mode = "dont_care",
@@ -5406,7 +4622,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_134.first_address = 128,
 		lutrama_134.first_bit_number = 6,
 		lutrama_134.last_address = 191,
-		lutrama_134.logical_ram_depth = 512,
+		lutrama_134.logical_ram_depth = 256,
 		lutrama_134.logical_ram_name = "altdpram_instance",
 		lutrama_134.logical_ram_width = 64,
 		lutrama_134.mixed_port_feed_through_mode = "dont_care",
@@ -5434,7 +4650,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_135.first_address = 128,
 		lutrama_135.first_bit_number = 7,
 		lutrama_135.last_address = 191,
-		lutrama_135.logical_ram_depth = 512,
+		lutrama_135.logical_ram_depth = 256,
 		lutrama_135.logical_ram_name = "altdpram_instance",
 		lutrama_135.logical_ram_width = 64,
 		lutrama_135.mixed_port_feed_through_mode = "dont_care",
@@ -5462,7 +4678,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_136.first_address = 128,
 		lutrama_136.first_bit_number = 8,
 		lutrama_136.last_address = 191,
-		lutrama_136.logical_ram_depth = 512,
+		lutrama_136.logical_ram_depth = 256,
 		lutrama_136.logical_ram_name = "altdpram_instance",
 		lutrama_136.logical_ram_width = 64,
 		lutrama_136.mixed_port_feed_through_mode = "dont_care",
@@ -5490,7 +4706,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_137.first_address = 128,
 		lutrama_137.first_bit_number = 9,
 		lutrama_137.last_address = 191,
-		lutrama_137.logical_ram_depth = 512,
+		lutrama_137.logical_ram_depth = 256,
 		lutrama_137.logical_ram_name = "altdpram_instance",
 		lutrama_137.logical_ram_width = 64,
 		lutrama_137.mixed_port_feed_through_mode = "dont_care",
@@ -5518,7 +4734,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_138.first_address = 128,
 		lutrama_138.first_bit_number = 10,
 		lutrama_138.last_address = 191,
-		lutrama_138.logical_ram_depth = 512,
+		lutrama_138.logical_ram_depth = 256,
 		lutrama_138.logical_ram_name = "altdpram_instance",
 		lutrama_138.logical_ram_width = 64,
 		lutrama_138.mixed_port_feed_through_mode = "dont_care",
@@ -5546,7 +4762,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_139.first_address = 128,
 		lutrama_139.first_bit_number = 11,
 		lutrama_139.last_address = 191,
-		lutrama_139.logical_ram_depth = 512,
+		lutrama_139.logical_ram_depth = 256,
 		lutrama_139.logical_ram_name = "altdpram_instance",
 		lutrama_139.logical_ram_width = 64,
 		lutrama_139.mixed_port_feed_through_mode = "dont_care",
@@ -5574,7 +4790,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_140.first_address = 128,
 		lutrama_140.first_bit_number = 12,
 		lutrama_140.last_address = 191,
-		lutrama_140.logical_ram_depth = 512,
+		lutrama_140.logical_ram_depth = 256,
 		lutrama_140.logical_ram_name = "altdpram_instance",
 		lutrama_140.logical_ram_width = 64,
 		lutrama_140.mixed_port_feed_through_mode = "dont_care",
@@ -5602,7 +4818,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_141.first_address = 128,
 		lutrama_141.first_bit_number = 13,
 		lutrama_141.last_address = 191,
-		lutrama_141.logical_ram_depth = 512,
+		lutrama_141.logical_ram_depth = 256,
 		lutrama_141.logical_ram_name = "altdpram_instance",
 		lutrama_141.logical_ram_width = 64,
 		lutrama_141.mixed_port_feed_through_mode = "dont_care",
@@ -5630,7 +4846,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_142.first_address = 128,
 		lutrama_142.first_bit_number = 14,
 		lutrama_142.last_address = 191,
-		lutrama_142.logical_ram_depth = 512,
+		lutrama_142.logical_ram_depth = 256,
 		lutrama_142.logical_ram_name = "altdpram_instance",
 		lutrama_142.logical_ram_width = 64,
 		lutrama_142.mixed_port_feed_through_mode = "dont_care",
@@ -5658,7 +4874,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_143.first_address = 128,
 		lutrama_143.first_bit_number = 15,
 		lutrama_143.last_address = 191,
-		lutrama_143.logical_ram_depth = 512,
+		lutrama_143.logical_ram_depth = 256,
 		lutrama_143.logical_ram_name = "altdpram_instance",
 		lutrama_143.logical_ram_width = 64,
 		lutrama_143.mixed_port_feed_through_mode = "dont_care",
@@ -5686,7 +4902,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_144.first_address = 128,
 		lutrama_144.first_bit_number = 16,
 		lutrama_144.last_address = 191,
-		lutrama_144.logical_ram_depth = 512,
+		lutrama_144.logical_ram_depth = 256,
 		lutrama_144.logical_ram_name = "altdpram_instance",
 		lutrama_144.logical_ram_width = 64,
 		lutrama_144.mixed_port_feed_through_mode = "dont_care",
@@ -5714,7 +4930,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_145.first_address = 128,
 		lutrama_145.first_bit_number = 17,
 		lutrama_145.last_address = 191,
-		lutrama_145.logical_ram_depth = 512,
+		lutrama_145.logical_ram_depth = 256,
 		lutrama_145.logical_ram_name = "altdpram_instance",
 		lutrama_145.logical_ram_width = 64,
 		lutrama_145.mixed_port_feed_through_mode = "dont_care",
@@ -5742,7 +4958,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_146.first_address = 128,
 		lutrama_146.first_bit_number = 18,
 		lutrama_146.last_address = 191,
-		lutrama_146.logical_ram_depth = 512,
+		lutrama_146.logical_ram_depth = 256,
 		lutrama_146.logical_ram_name = "altdpram_instance",
 		lutrama_146.logical_ram_width = 64,
 		lutrama_146.mixed_port_feed_through_mode = "dont_care",
@@ -5770,7 +4986,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_147.first_address = 128,
 		lutrama_147.first_bit_number = 19,
 		lutrama_147.last_address = 191,
-		lutrama_147.logical_ram_depth = 512,
+		lutrama_147.logical_ram_depth = 256,
 		lutrama_147.logical_ram_name = "altdpram_instance",
 		lutrama_147.logical_ram_width = 64,
 		lutrama_147.mixed_port_feed_through_mode = "dont_care",
@@ -5798,7 +5014,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_148.first_address = 128,
 		lutrama_148.first_bit_number = 20,
 		lutrama_148.last_address = 191,
-		lutrama_148.logical_ram_depth = 512,
+		lutrama_148.logical_ram_depth = 256,
 		lutrama_148.logical_ram_name = "altdpram_instance",
 		lutrama_148.logical_ram_width = 64,
 		lutrama_148.mixed_port_feed_through_mode = "dont_care",
@@ -5826,7 +5042,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_149.first_address = 128,
 		lutrama_149.first_bit_number = 21,
 		lutrama_149.last_address = 191,
-		lutrama_149.logical_ram_depth = 512,
+		lutrama_149.logical_ram_depth = 256,
 		lutrama_149.logical_ram_name = "altdpram_instance",
 		lutrama_149.logical_ram_width = 64,
 		lutrama_149.mixed_port_feed_through_mode = "dont_care",
@@ -5854,7 +5070,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_150.first_address = 128,
 		lutrama_150.first_bit_number = 22,
 		lutrama_150.last_address = 191,
-		lutrama_150.logical_ram_depth = 512,
+		lutrama_150.logical_ram_depth = 256,
 		lutrama_150.logical_ram_name = "altdpram_instance",
 		lutrama_150.logical_ram_width = 64,
 		lutrama_150.mixed_port_feed_through_mode = "dont_care",
@@ -5882,7 +5098,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_151.first_address = 128,
 		lutrama_151.first_bit_number = 23,
 		lutrama_151.last_address = 191,
-		lutrama_151.logical_ram_depth = 512,
+		lutrama_151.logical_ram_depth = 256,
 		lutrama_151.logical_ram_name = "altdpram_instance",
 		lutrama_151.logical_ram_width = 64,
 		lutrama_151.mixed_port_feed_through_mode = "dont_care",
@@ -5910,7 +5126,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_152.first_address = 128,
 		lutrama_152.first_bit_number = 24,
 		lutrama_152.last_address = 191,
-		lutrama_152.logical_ram_depth = 512,
+		lutrama_152.logical_ram_depth = 256,
 		lutrama_152.logical_ram_name = "altdpram_instance",
 		lutrama_152.logical_ram_width = 64,
 		lutrama_152.mixed_port_feed_through_mode = "dont_care",
@@ -5938,7 +5154,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_153.first_address = 128,
 		lutrama_153.first_bit_number = 25,
 		lutrama_153.last_address = 191,
-		lutrama_153.logical_ram_depth = 512,
+		lutrama_153.logical_ram_depth = 256,
 		lutrama_153.logical_ram_name = "altdpram_instance",
 		lutrama_153.logical_ram_width = 64,
 		lutrama_153.mixed_port_feed_through_mode = "dont_care",
@@ -5966,7 +5182,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_154.first_address = 128,
 		lutrama_154.first_bit_number = 26,
 		lutrama_154.last_address = 191,
-		lutrama_154.logical_ram_depth = 512,
+		lutrama_154.logical_ram_depth = 256,
 		lutrama_154.logical_ram_name = "altdpram_instance",
 		lutrama_154.logical_ram_width = 64,
 		lutrama_154.mixed_port_feed_through_mode = "dont_care",
@@ -5994,7 +5210,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_155.first_address = 128,
 		lutrama_155.first_bit_number = 27,
 		lutrama_155.last_address = 191,
-		lutrama_155.logical_ram_depth = 512,
+		lutrama_155.logical_ram_depth = 256,
 		lutrama_155.logical_ram_name = "altdpram_instance",
 		lutrama_155.logical_ram_width = 64,
 		lutrama_155.mixed_port_feed_through_mode = "dont_care",
@@ -6022,7 +5238,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_156.first_address = 128,
 		lutrama_156.first_bit_number = 28,
 		lutrama_156.last_address = 191,
-		lutrama_156.logical_ram_depth = 512,
+		lutrama_156.logical_ram_depth = 256,
 		lutrama_156.logical_ram_name = "altdpram_instance",
 		lutrama_156.logical_ram_width = 64,
 		lutrama_156.mixed_port_feed_through_mode = "dont_care",
@@ -6050,7 +5266,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_157.first_address = 128,
 		lutrama_157.first_bit_number = 29,
 		lutrama_157.last_address = 191,
-		lutrama_157.logical_ram_depth = 512,
+		lutrama_157.logical_ram_depth = 256,
 		lutrama_157.logical_ram_name = "altdpram_instance",
 		lutrama_157.logical_ram_width = 64,
 		lutrama_157.mixed_port_feed_through_mode = "dont_care",
@@ -6078,7 +5294,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_158.first_address = 128,
 		lutrama_158.first_bit_number = 30,
 		lutrama_158.last_address = 191,
-		lutrama_158.logical_ram_depth = 512,
+		lutrama_158.logical_ram_depth = 256,
 		lutrama_158.logical_ram_name = "altdpram_instance",
 		lutrama_158.logical_ram_width = 64,
 		lutrama_158.mixed_port_feed_through_mode = "dont_care",
@@ -6106,7 +5322,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_159.first_address = 128,
 		lutrama_159.first_bit_number = 31,
 		lutrama_159.last_address = 191,
-		lutrama_159.logical_ram_depth = 512,
+		lutrama_159.logical_ram_depth = 256,
 		lutrama_159.logical_ram_name = "altdpram_instance",
 		lutrama_159.logical_ram_width = 64,
 		lutrama_159.mixed_port_feed_through_mode = "dont_care",
@@ -6134,7 +5350,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_160.first_address = 128,
 		lutrama_160.first_bit_number = 32,
 		lutrama_160.last_address = 191,
-		lutrama_160.logical_ram_depth = 512,
+		lutrama_160.logical_ram_depth = 256,
 		lutrama_160.logical_ram_name = "altdpram_instance",
 		lutrama_160.logical_ram_width = 64,
 		lutrama_160.mixed_port_feed_through_mode = "dont_care",
@@ -6162,7 +5378,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_161.first_address = 128,
 		lutrama_161.first_bit_number = 33,
 		lutrama_161.last_address = 191,
-		lutrama_161.logical_ram_depth = 512,
+		lutrama_161.logical_ram_depth = 256,
 		lutrama_161.logical_ram_name = "altdpram_instance",
 		lutrama_161.logical_ram_width = 64,
 		lutrama_161.mixed_port_feed_through_mode = "dont_care",
@@ -6190,7 +5406,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_162.first_address = 128,
 		lutrama_162.first_bit_number = 34,
 		lutrama_162.last_address = 191,
-		lutrama_162.logical_ram_depth = 512,
+		lutrama_162.logical_ram_depth = 256,
 		lutrama_162.logical_ram_name = "altdpram_instance",
 		lutrama_162.logical_ram_width = 64,
 		lutrama_162.mixed_port_feed_through_mode = "dont_care",
@@ -6218,7 +5434,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_163.first_address = 128,
 		lutrama_163.first_bit_number = 35,
 		lutrama_163.last_address = 191,
-		lutrama_163.logical_ram_depth = 512,
+		lutrama_163.logical_ram_depth = 256,
 		lutrama_163.logical_ram_name = "altdpram_instance",
 		lutrama_163.logical_ram_width = 64,
 		lutrama_163.mixed_port_feed_through_mode = "dont_care",
@@ -6246,7 +5462,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_164.first_address = 128,
 		lutrama_164.first_bit_number = 36,
 		lutrama_164.last_address = 191,
-		lutrama_164.logical_ram_depth = 512,
+		lutrama_164.logical_ram_depth = 256,
 		lutrama_164.logical_ram_name = "altdpram_instance",
 		lutrama_164.logical_ram_width = 64,
 		lutrama_164.mixed_port_feed_through_mode = "dont_care",
@@ -6274,7 +5490,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_165.first_address = 128,
 		lutrama_165.first_bit_number = 37,
 		lutrama_165.last_address = 191,
-		lutrama_165.logical_ram_depth = 512,
+		lutrama_165.logical_ram_depth = 256,
 		lutrama_165.logical_ram_name = "altdpram_instance",
 		lutrama_165.logical_ram_width = 64,
 		lutrama_165.mixed_port_feed_through_mode = "dont_care",
@@ -6302,7 +5518,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_166.first_address = 128,
 		lutrama_166.first_bit_number = 38,
 		lutrama_166.last_address = 191,
-		lutrama_166.logical_ram_depth = 512,
+		lutrama_166.logical_ram_depth = 256,
 		lutrama_166.logical_ram_name = "altdpram_instance",
 		lutrama_166.logical_ram_width = 64,
 		lutrama_166.mixed_port_feed_through_mode = "dont_care",
@@ -6330,7 +5546,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_167.first_address = 128,
 		lutrama_167.first_bit_number = 39,
 		lutrama_167.last_address = 191,
-		lutrama_167.logical_ram_depth = 512,
+		lutrama_167.logical_ram_depth = 256,
 		lutrama_167.logical_ram_name = "altdpram_instance",
 		lutrama_167.logical_ram_width = 64,
 		lutrama_167.mixed_port_feed_through_mode = "dont_care",
@@ -6358,7 +5574,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_168.first_address = 128,
 		lutrama_168.first_bit_number = 40,
 		lutrama_168.last_address = 191,
-		lutrama_168.logical_ram_depth = 512,
+		lutrama_168.logical_ram_depth = 256,
 		lutrama_168.logical_ram_name = "altdpram_instance",
 		lutrama_168.logical_ram_width = 64,
 		lutrama_168.mixed_port_feed_through_mode = "dont_care",
@@ -6386,7 +5602,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_169.first_address = 128,
 		lutrama_169.first_bit_number = 41,
 		lutrama_169.last_address = 191,
-		lutrama_169.logical_ram_depth = 512,
+		lutrama_169.logical_ram_depth = 256,
 		lutrama_169.logical_ram_name = "altdpram_instance",
 		lutrama_169.logical_ram_width = 64,
 		lutrama_169.mixed_port_feed_through_mode = "dont_care",
@@ -6414,7 +5630,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_170.first_address = 128,
 		lutrama_170.first_bit_number = 42,
 		lutrama_170.last_address = 191,
-		lutrama_170.logical_ram_depth = 512,
+		lutrama_170.logical_ram_depth = 256,
 		lutrama_170.logical_ram_name = "altdpram_instance",
 		lutrama_170.logical_ram_width = 64,
 		lutrama_170.mixed_port_feed_through_mode = "dont_care",
@@ -6442,7 +5658,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_171.first_address = 128,
 		lutrama_171.first_bit_number = 43,
 		lutrama_171.last_address = 191,
-		lutrama_171.logical_ram_depth = 512,
+		lutrama_171.logical_ram_depth = 256,
 		lutrama_171.logical_ram_name = "altdpram_instance",
 		lutrama_171.logical_ram_width = 64,
 		lutrama_171.mixed_port_feed_through_mode = "dont_care",
@@ -6470,7 +5686,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_172.first_address = 128,
 		lutrama_172.first_bit_number = 44,
 		lutrama_172.last_address = 191,
-		lutrama_172.logical_ram_depth = 512,
+		lutrama_172.logical_ram_depth = 256,
 		lutrama_172.logical_ram_name = "altdpram_instance",
 		lutrama_172.logical_ram_width = 64,
 		lutrama_172.mixed_port_feed_through_mode = "dont_care",
@@ -6498,7 +5714,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_173.first_address = 128,
 		lutrama_173.first_bit_number = 45,
 		lutrama_173.last_address = 191,
-		lutrama_173.logical_ram_depth = 512,
+		lutrama_173.logical_ram_depth = 256,
 		lutrama_173.logical_ram_name = "altdpram_instance",
 		lutrama_173.logical_ram_width = 64,
 		lutrama_173.mixed_port_feed_through_mode = "dont_care",
@@ -6526,7 +5742,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_174.first_address = 128,
 		lutrama_174.first_bit_number = 46,
 		lutrama_174.last_address = 191,
-		lutrama_174.logical_ram_depth = 512,
+		lutrama_174.logical_ram_depth = 256,
 		lutrama_174.logical_ram_name = "altdpram_instance",
 		lutrama_174.logical_ram_width = 64,
 		lutrama_174.mixed_port_feed_through_mode = "dont_care",
@@ -6554,7 +5770,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_175.first_address = 128,
 		lutrama_175.first_bit_number = 47,
 		lutrama_175.last_address = 191,
-		lutrama_175.logical_ram_depth = 512,
+		lutrama_175.logical_ram_depth = 256,
 		lutrama_175.logical_ram_name = "altdpram_instance",
 		lutrama_175.logical_ram_width = 64,
 		lutrama_175.mixed_port_feed_through_mode = "dont_care",
@@ -6582,7 +5798,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_176.first_address = 128,
 		lutrama_176.first_bit_number = 48,
 		lutrama_176.last_address = 191,
-		lutrama_176.logical_ram_depth = 512,
+		lutrama_176.logical_ram_depth = 256,
 		lutrama_176.logical_ram_name = "altdpram_instance",
 		lutrama_176.logical_ram_width = 64,
 		lutrama_176.mixed_port_feed_through_mode = "dont_care",
@@ -6610,7 +5826,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_177.first_address = 128,
 		lutrama_177.first_bit_number = 49,
 		lutrama_177.last_address = 191,
-		lutrama_177.logical_ram_depth = 512,
+		lutrama_177.logical_ram_depth = 256,
 		lutrama_177.logical_ram_name = "altdpram_instance",
 		lutrama_177.logical_ram_width = 64,
 		lutrama_177.mixed_port_feed_through_mode = "dont_care",
@@ -6638,7 +5854,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_178.first_address = 128,
 		lutrama_178.first_bit_number = 50,
 		lutrama_178.last_address = 191,
-		lutrama_178.logical_ram_depth = 512,
+		lutrama_178.logical_ram_depth = 256,
 		lutrama_178.logical_ram_name = "altdpram_instance",
 		lutrama_178.logical_ram_width = 64,
 		lutrama_178.mixed_port_feed_through_mode = "dont_care",
@@ -6666,7 +5882,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_179.first_address = 128,
 		lutrama_179.first_bit_number = 51,
 		lutrama_179.last_address = 191,
-		lutrama_179.logical_ram_depth = 512,
+		lutrama_179.logical_ram_depth = 256,
 		lutrama_179.logical_ram_name = "altdpram_instance",
 		lutrama_179.logical_ram_width = 64,
 		lutrama_179.mixed_port_feed_through_mode = "dont_care",
@@ -6694,7 +5910,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_180.first_address = 128,
 		lutrama_180.first_bit_number = 52,
 		lutrama_180.last_address = 191,
-		lutrama_180.logical_ram_depth = 512,
+		lutrama_180.logical_ram_depth = 256,
 		lutrama_180.logical_ram_name = "altdpram_instance",
 		lutrama_180.logical_ram_width = 64,
 		lutrama_180.mixed_port_feed_through_mode = "dont_care",
@@ -6722,7 +5938,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_181.first_address = 128,
 		lutrama_181.first_bit_number = 53,
 		lutrama_181.last_address = 191,
-		lutrama_181.logical_ram_depth = 512,
+		lutrama_181.logical_ram_depth = 256,
 		lutrama_181.logical_ram_name = "altdpram_instance",
 		lutrama_181.logical_ram_width = 64,
 		lutrama_181.mixed_port_feed_through_mode = "dont_care",
@@ -6750,7 +5966,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_182.first_address = 128,
 		lutrama_182.first_bit_number = 54,
 		lutrama_182.last_address = 191,
-		lutrama_182.logical_ram_depth = 512,
+		lutrama_182.logical_ram_depth = 256,
 		lutrama_182.logical_ram_name = "altdpram_instance",
 		lutrama_182.logical_ram_width = 64,
 		lutrama_182.mixed_port_feed_through_mode = "dont_care",
@@ -6778,7 +5994,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_183.first_address = 128,
 		lutrama_183.first_bit_number = 55,
 		lutrama_183.last_address = 191,
-		lutrama_183.logical_ram_depth = 512,
+		lutrama_183.logical_ram_depth = 256,
 		lutrama_183.logical_ram_name = "altdpram_instance",
 		lutrama_183.logical_ram_width = 64,
 		lutrama_183.mixed_port_feed_through_mode = "dont_care",
@@ -6806,7 +6022,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_184.first_address = 128,
 		lutrama_184.first_bit_number = 56,
 		lutrama_184.last_address = 191,
-		lutrama_184.logical_ram_depth = 512,
+		lutrama_184.logical_ram_depth = 256,
 		lutrama_184.logical_ram_name = "altdpram_instance",
 		lutrama_184.logical_ram_width = 64,
 		lutrama_184.mixed_port_feed_through_mode = "dont_care",
@@ -6834,7 +6050,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_185.first_address = 128,
 		lutrama_185.first_bit_number = 57,
 		lutrama_185.last_address = 191,
-		lutrama_185.logical_ram_depth = 512,
+		lutrama_185.logical_ram_depth = 256,
 		lutrama_185.logical_ram_name = "altdpram_instance",
 		lutrama_185.logical_ram_width = 64,
 		lutrama_185.mixed_port_feed_through_mode = "dont_care",
@@ -6862,7 +6078,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_186.first_address = 128,
 		lutrama_186.first_bit_number = 58,
 		lutrama_186.last_address = 191,
-		lutrama_186.logical_ram_depth = 512,
+		lutrama_186.logical_ram_depth = 256,
 		lutrama_186.logical_ram_name = "altdpram_instance",
 		lutrama_186.logical_ram_width = 64,
 		lutrama_186.mixed_port_feed_through_mode = "dont_care",
@@ -6890,7 +6106,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_187.first_address = 128,
 		lutrama_187.first_bit_number = 59,
 		lutrama_187.last_address = 191,
-		lutrama_187.logical_ram_depth = 512,
+		lutrama_187.logical_ram_depth = 256,
 		lutrama_187.logical_ram_name = "altdpram_instance",
 		lutrama_187.logical_ram_width = 64,
 		lutrama_187.mixed_port_feed_through_mode = "dont_care",
@@ -6918,7 +6134,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_188.first_address = 128,
 		lutrama_188.first_bit_number = 60,
 		lutrama_188.last_address = 191,
-		lutrama_188.logical_ram_depth = 512,
+		lutrama_188.logical_ram_depth = 256,
 		lutrama_188.logical_ram_name = "altdpram_instance",
 		lutrama_188.logical_ram_width = 64,
 		lutrama_188.mixed_port_feed_through_mode = "dont_care",
@@ -6946,7 +6162,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_189.first_address = 128,
 		lutrama_189.first_bit_number = 61,
 		lutrama_189.last_address = 191,
-		lutrama_189.logical_ram_depth = 512,
+		lutrama_189.logical_ram_depth = 256,
 		lutrama_189.logical_ram_name = "altdpram_instance",
 		lutrama_189.logical_ram_width = 64,
 		lutrama_189.mixed_port_feed_through_mode = "dont_care",
@@ -6974,7 +6190,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_190.first_address = 128,
 		lutrama_190.first_bit_number = 62,
 		lutrama_190.last_address = 191,
-		lutrama_190.logical_ram_depth = 512,
+		lutrama_190.logical_ram_depth = 256,
 		lutrama_190.logical_ram_name = "altdpram_instance",
 		lutrama_190.logical_ram_width = 64,
 		lutrama_190.mixed_port_feed_through_mode = "dont_care",
@@ -7002,7 +6218,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_191.first_address = 128,
 		lutrama_191.first_bit_number = 63,
 		lutrama_191.last_address = 191,
-		lutrama_191.logical_ram_depth = 512,
+		lutrama_191.logical_ram_depth = 256,
 		lutrama_191.logical_ram_name = "altdpram_instance",
 		lutrama_191.logical_ram_width = 64,
 		lutrama_191.mixed_port_feed_through_mode = "dont_care",
@@ -7030,7 +6246,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_192.first_address = 192,
 		lutrama_192.first_bit_number = 0,
 		lutrama_192.last_address = 255,
-		lutrama_192.logical_ram_depth = 512,
+		lutrama_192.logical_ram_depth = 256,
 		lutrama_192.logical_ram_name = "altdpram_instance",
 		lutrama_192.logical_ram_width = 64,
 		lutrama_192.mixed_port_feed_through_mode = "dont_care",
@@ -7058,7 +6274,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_193.first_address = 192,
 		lutrama_193.first_bit_number = 1,
 		lutrama_193.last_address = 255,
-		lutrama_193.logical_ram_depth = 512,
+		lutrama_193.logical_ram_depth = 256,
 		lutrama_193.logical_ram_name = "altdpram_instance",
 		lutrama_193.logical_ram_width = 64,
 		lutrama_193.mixed_port_feed_through_mode = "dont_care",
@@ -7086,7 +6302,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_194.first_address = 192,
 		lutrama_194.first_bit_number = 2,
 		lutrama_194.last_address = 255,
-		lutrama_194.logical_ram_depth = 512,
+		lutrama_194.logical_ram_depth = 256,
 		lutrama_194.logical_ram_name = "altdpram_instance",
 		lutrama_194.logical_ram_width = 64,
 		lutrama_194.mixed_port_feed_through_mode = "dont_care",
@@ -7114,7 +6330,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_195.first_address = 192,
 		lutrama_195.first_bit_number = 3,
 		lutrama_195.last_address = 255,
-		lutrama_195.logical_ram_depth = 512,
+		lutrama_195.logical_ram_depth = 256,
 		lutrama_195.logical_ram_name = "altdpram_instance",
 		lutrama_195.logical_ram_width = 64,
 		lutrama_195.mixed_port_feed_through_mode = "dont_care",
@@ -7142,7 +6358,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_196.first_address = 192,
 		lutrama_196.first_bit_number = 4,
 		lutrama_196.last_address = 255,
-		lutrama_196.logical_ram_depth = 512,
+		lutrama_196.logical_ram_depth = 256,
 		lutrama_196.logical_ram_name = "altdpram_instance",
 		lutrama_196.logical_ram_width = 64,
 		lutrama_196.mixed_port_feed_through_mode = "dont_care",
@@ -7170,7 +6386,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_197.first_address = 192,
 		lutrama_197.first_bit_number = 5,
 		lutrama_197.last_address = 255,
-		lutrama_197.logical_ram_depth = 512,
+		lutrama_197.logical_ram_depth = 256,
 		lutrama_197.logical_ram_name = "altdpram_instance",
 		lutrama_197.logical_ram_width = 64,
 		lutrama_197.mixed_port_feed_through_mode = "dont_care",
@@ -7198,7 +6414,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_198.first_address = 192,
 		lutrama_198.first_bit_number = 6,
 		lutrama_198.last_address = 255,
-		lutrama_198.logical_ram_depth = 512,
+		lutrama_198.logical_ram_depth = 256,
 		lutrama_198.logical_ram_name = "altdpram_instance",
 		lutrama_198.logical_ram_width = 64,
 		lutrama_198.mixed_port_feed_through_mode = "dont_care",
@@ -7226,7 +6442,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_199.first_address = 192,
 		lutrama_199.first_bit_number = 7,
 		lutrama_199.last_address = 255,
-		lutrama_199.logical_ram_depth = 512,
+		lutrama_199.logical_ram_depth = 256,
 		lutrama_199.logical_ram_name = "altdpram_instance",
 		lutrama_199.logical_ram_width = 64,
 		lutrama_199.mixed_port_feed_through_mode = "dont_care",
@@ -7254,7 +6470,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_200.first_address = 192,
 		lutrama_200.first_bit_number = 8,
 		lutrama_200.last_address = 255,
-		lutrama_200.logical_ram_depth = 512,
+		lutrama_200.logical_ram_depth = 256,
 		lutrama_200.logical_ram_name = "altdpram_instance",
 		lutrama_200.logical_ram_width = 64,
 		lutrama_200.mixed_port_feed_through_mode = "dont_care",
@@ -7282,7 +6498,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_201.first_address = 192,
 		lutrama_201.first_bit_number = 9,
 		lutrama_201.last_address = 255,
-		lutrama_201.logical_ram_depth = 512,
+		lutrama_201.logical_ram_depth = 256,
 		lutrama_201.logical_ram_name = "altdpram_instance",
 		lutrama_201.logical_ram_width = 64,
 		lutrama_201.mixed_port_feed_through_mode = "dont_care",
@@ -7310,7 +6526,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_202.first_address = 192,
 		lutrama_202.first_bit_number = 10,
 		lutrama_202.last_address = 255,
-		lutrama_202.logical_ram_depth = 512,
+		lutrama_202.logical_ram_depth = 256,
 		lutrama_202.logical_ram_name = "altdpram_instance",
 		lutrama_202.logical_ram_width = 64,
 		lutrama_202.mixed_port_feed_through_mode = "dont_care",
@@ -7338,7 +6554,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_203.first_address = 192,
 		lutrama_203.first_bit_number = 11,
 		lutrama_203.last_address = 255,
-		lutrama_203.logical_ram_depth = 512,
+		lutrama_203.logical_ram_depth = 256,
 		lutrama_203.logical_ram_name = "altdpram_instance",
 		lutrama_203.logical_ram_width = 64,
 		lutrama_203.mixed_port_feed_through_mode = "dont_care",
@@ -7366,7 +6582,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_204.first_address = 192,
 		lutrama_204.first_bit_number = 12,
 		lutrama_204.last_address = 255,
-		lutrama_204.logical_ram_depth = 512,
+		lutrama_204.logical_ram_depth = 256,
 		lutrama_204.logical_ram_name = "altdpram_instance",
 		lutrama_204.logical_ram_width = 64,
 		lutrama_204.mixed_port_feed_through_mode = "dont_care",
@@ -7394,7 +6610,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_205.first_address = 192,
 		lutrama_205.first_bit_number = 13,
 		lutrama_205.last_address = 255,
-		lutrama_205.logical_ram_depth = 512,
+		lutrama_205.logical_ram_depth = 256,
 		lutrama_205.logical_ram_name = "altdpram_instance",
 		lutrama_205.logical_ram_width = 64,
 		lutrama_205.mixed_port_feed_through_mode = "dont_care",
@@ -7422,7 +6638,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_206.first_address = 192,
 		lutrama_206.first_bit_number = 14,
 		lutrama_206.last_address = 255,
-		lutrama_206.logical_ram_depth = 512,
+		lutrama_206.logical_ram_depth = 256,
 		lutrama_206.logical_ram_name = "altdpram_instance",
 		lutrama_206.logical_ram_width = 64,
 		lutrama_206.mixed_port_feed_through_mode = "dont_care",
@@ -7450,7 +6666,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_207.first_address = 192,
 		lutrama_207.first_bit_number = 15,
 		lutrama_207.last_address = 255,
-		lutrama_207.logical_ram_depth = 512,
+		lutrama_207.logical_ram_depth = 256,
 		lutrama_207.logical_ram_name = "altdpram_instance",
 		lutrama_207.logical_ram_width = 64,
 		lutrama_207.mixed_port_feed_through_mode = "dont_care",
@@ -7478,7 +6694,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_208.first_address = 192,
 		lutrama_208.first_bit_number = 16,
 		lutrama_208.last_address = 255,
-		lutrama_208.logical_ram_depth = 512,
+		lutrama_208.logical_ram_depth = 256,
 		lutrama_208.logical_ram_name = "altdpram_instance",
 		lutrama_208.logical_ram_width = 64,
 		lutrama_208.mixed_port_feed_through_mode = "dont_care",
@@ -7506,7 +6722,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_209.first_address = 192,
 		lutrama_209.first_bit_number = 17,
 		lutrama_209.last_address = 255,
-		lutrama_209.logical_ram_depth = 512,
+		lutrama_209.logical_ram_depth = 256,
 		lutrama_209.logical_ram_name = "altdpram_instance",
 		lutrama_209.logical_ram_width = 64,
 		lutrama_209.mixed_port_feed_through_mode = "dont_care",
@@ -7534,7 +6750,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_210.first_address = 192,
 		lutrama_210.first_bit_number = 18,
 		lutrama_210.last_address = 255,
-		lutrama_210.logical_ram_depth = 512,
+		lutrama_210.logical_ram_depth = 256,
 		lutrama_210.logical_ram_name = "altdpram_instance",
 		lutrama_210.logical_ram_width = 64,
 		lutrama_210.mixed_port_feed_through_mode = "dont_care",
@@ -7562,7 +6778,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_211.first_address = 192,
 		lutrama_211.first_bit_number = 19,
 		lutrama_211.last_address = 255,
-		lutrama_211.logical_ram_depth = 512,
+		lutrama_211.logical_ram_depth = 256,
 		lutrama_211.logical_ram_name = "altdpram_instance",
 		lutrama_211.logical_ram_width = 64,
 		lutrama_211.mixed_port_feed_through_mode = "dont_care",
@@ -7590,7 +6806,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_212.first_address = 192,
 		lutrama_212.first_bit_number = 20,
 		lutrama_212.last_address = 255,
-		lutrama_212.logical_ram_depth = 512,
+		lutrama_212.logical_ram_depth = 256,
 		lutrama_212.logical_ram_name = "altdpram_instance",
 		lutrama_212.logical_ram_width = 64,
 		lutrama_212.mixed_port_feed_through_mode = "dont_care",
@@ -7618,7 +6834,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_213.first_address = 192,
 		lutrama_213.first_bit_number = 21,
 		lutrama_213.last_address = 255,
-		lutrama_213.logical_ram_depth = 512,
+		lutrama_213.logical_ram_depth = 256,
 		lutrama_213.logical_ram_name = "altdpram_instance",
 		lutrama_213.logical_ram_width = 64,
 		lutrama_213.mixed_port_feed_through_mode = "dont_care",
@@ -7646,7 +6862,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_214.first_address = 192,
 		lutrama_214.first_bit_number = 22,
 		lutrama_214.last_address = 255,
-		lutrama_214.logical_ram_depth = 512,
+		lutrama_214.logical_ram_depth = 256,
 		lutrama_214.logical_ram_name = "altdpram_instance",
 		lutrama_214.logical_ram_width = 64,
 		lutrama_214.mixed_port_feed_through_mode = "dont_care",
@@ -7674,7 +6890,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_215.first_address = 192,
 		lutrama_215.first_bit_number = 23,
 		lutrama_215.last_address = 255,
-		lutrama_215.logical_ram_depth = 512,
+		lutrama_215.logical_ram_depth = 256,
 		lutrama_215.logical_ram_name = "altdpram_instance",
 		lutrama_215.logical_ram_width = 64,
 		lutrama_215.mixed_port_feed_through_mode = "dont_care",
@@ -7702,7 +6918,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_216.first_address = 192,
 		lutrama_216.first_bit_number = 24,
 		lutrama_216.last_address = 255,
-		lutrama_216.logical_ram_depth = 512,
+		lutrama_216.logical_ram_depth = 256,
 		lutrama_216.logical_ram_name = "altdpram_instance",
 		lutrama_216.logical_ram_width = 64,
 		lutrama_216.mixed_port_feed_through_mode = "dont_care",
@@ -7730,7 +6946,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_217.first_address = 192,
 		lutrama_217.first_bit_number = 25,
 		lutrama_217.last_address = 255,
-		lutrama_217.logical_ram_depth = 512,
+		lutrama_217.logical_ram_depth = 256,
 		lutrama_217.logical_ram_name = "altdpram_instance",
 		lutrama_217.logical_ram_width = 64,
 		lutrama_217.mixed_port_feed_through_mode = "dont_care",
@@ -7758,7 +6974,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_218.first_address = 192,
 		lutrama_218.first_bit_number = 26,
 		lutrama_218.last_address = 255,
-		lutrama_218.logical_ram_depth = 512,
+		lutrama_218.logical_ram_depth = 256,
 		lutrama_218.logical_ram_name = "altdpram_instance",
 		lutrama_218.logical_ram_width = 64,
 		lutrama_218.mixed_port_feed_through_mode = "dont_care",
@@ -7786,7 +7002,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_219.first_address = 192,
 		lutrama_219.first_bit_number = 27,
 		lutrama_219.last_address = 255,
-		lutrama_219.logical_ram_depth = 512,
+		lutrama_219.logical_ram_depth = 256,
 		lutrama_219.logical_ram_name = "altdpram_instance",
 		lutrama_219.logical_ram_width = 64,
 		lutrama_219.mixed_port_feed_through_mode = "dont_care",
@@ -7814,7 +7030,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_220.first_address = 192,
 		lutrama_220.first_bit_number = 28,
 		lutrama_220.last_address = 255,
-		lutrama_220.logical_ram_depth = 512,
+		lutrama_220.logical_ram_depth = 256,
 		lutrama_220.logical_ram_name = "altdpram_instance",
 		lutrama_220.logical_ram_width = 64,
 		lutrama_220.mixed_port_feed_through_mode = "dont_care",
@@ -7842,7 +7058,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_221.first_address = 192,
 		lutrama_221.first_bit_number = 29,
 		lutrama_221.last_address = 255,
-		lutrama_221.logical_ram_depth = 512,
+		lutrama_221.logical_ram_depth = 256,
 		lutrama_221.logical_ram_name = "altdpram_instance",
 		lutrama_221.logical_ram_width = 64,
 		lutrama_221.mixed_port_feed_through_mode = "dont_care",
@@ -7870,7 +7086,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_222.first_address = 192,
 		lutrama_222.first_bit_number = 30,
 		lutrama_222.last_address = 255,
-		lutrama_222.logical_ram_depth = 512,
+		lutrama_222.logical_ram_depth = 256,
 		lutrama_222.logical_ram_name = "altdpram_instance",
 		lutrama_222.logical_ram_width = 64,
 		lutrama_222.mixed_port_feed_through_mode = "dont_care",
@@ -7898,7 +7114,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_223.first_address = 192,
 		lutrama_223.first_bit_number = 31,
 		lutrama_223.last_address = 255,
-		lutrama_223.logical_ram_depth = 512,
+		lutrama_223.logical_ram_depth = 256,
 		lutrama_223.logical_ram_name = "altdpram_instance",
 		lutrama_223.logical_ram_width = 64,
 		lutrama_223.mixed_port_feed_through_mode = "dont_care",
@@ -7926,7 +7142,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_224.first_address = 192,
 		lutrama_224.first_bit_number = 32,
 		lutrama_224.last_address = 255,
-		lutrama_224.logical_ram_depth = 512,
+		lutrama_224.logical_ram_depth = 256,
 		lutrama_224.logical_ram_name = "altdpram_instance",
 		lutrama_224.logical_ram_width = 64,
 		lutrama_224.mixed_port_feed_through_mode = "dont_care",
@@ -7954,7 +7170,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_225.first_address = 192,
 		lutrama_225.first_bit_number = 33,
 		lutrama_225.last_address = 255,
-		lutrama_225.logical_ram_depth = 512,
+		lutrama_225.logical_ram_depth = 256,
 		lutrama_225.logical_ram_name = "altdpram_instance",
 		lutrama_225.logical_ram_width = 64,
 		lutrama_225.mixed_port_feed_through_mode = "dont_care",
@@ -7982,7 +7198,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_226.first_address = 192,
 		lutrama_226.first_bit_number = 34,
 		lutrama_226.last_address = 255,
-		lutrama_226.logical_ram_depth = 512,
+		lutrama_226.logical_ram_depth = 256,
 		lutrama_226.logical_ram_name = "altdpram_instance",
 		lutrama_226.logical_ram_width = 64,
 		lutrama_226.mixed_port_feed_through_mode = "dont_care",
@@ -8010,7 +7226,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_227.first_address = 192,
 		lutrama_227.first_bit_number = 35,
 		lutrama_227.last_address = 255,
-		lutrama_227.logical_ram_depth = 512,
+		lutrama_227.logical_ram_depth = 256,
 		lutrama_227.logical_ram_name = "altdpram_instance",
 		lutrama_227.logical_ram_width = 64,
 		lutrama_227.mixed_port_feed_through_mode = "dont_care",
@@ -8038,7 +7254,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_228.first_address = 192,
 		lutrama_228.first_bit_number = 36,
 		lutrama_228.last_address = 255,
-		lutrama_228.logical_ram_depth = 512,
+		lutrama_228.logical_ram_depth = 256,
 		lutrama_228.logical_ram_name = "altdpram_instance",
 		lutrama_228.logical_ram_width = 64,
 		lutrama_228.mixed_port_feed_through_mode = "dont_care",
@@ -8066,7 +7282,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_229.first_address = 192,
 		lutrama_229.first_bit_number = 37,
 		lutrama_229.last_address = 255,
-		lutrama_229.logical_ram_depth = 512,
+		lutrama_229.logical_ram_depth = 256,
 		lutrama_229.logical_ram_name = "altdpram_instance",
 		lutrama_229.logical_ram_width = 64,
 		lutrama_229.mixed_port_feed_through_mode = "dont_care",
@@ -8094,7 +7310,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_230.first_address = 192,
 		lutrama_230.first_bit_number = 38,
 		lutrama_230.last_address = 255,
-		lutrama_230.logical_ram_depth = 512,
+		lutrama_230.logical_ram_depth = 256,
 		lutrama_230.logical_ram_name = "altdpram_instance",
 		lutrama_230.logical_ram_width = 64,
 		lutrama_230.mixed_port_feed_through_mode = "dont_care",
@@ -8122,7 +7338,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_231.first_address = 192,
 		lutrama_231.first_bit_number = 39,
 		lutrama_231.last_address = 255,
-		lutrama_231.logical_ram_depth = 512,
+		lutrama_231.logical_ram_depth = 256,
 		lutrama_231.logical_ram_name = "altdpram_instance",
 		lutrama_231.logical_ram_width = 64,
 		lutrama_231.mixed_port_feed_through_mode = "dont_care",
@@ -8150,7 +7366,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_232.first_address = 192,
 		lutrama_232.first_bit_number = 40,
 		lutrama_232.last_address = 255,
-		lutrama_232.logical_ram_depth = 512,
+		lutrama_232.logical_ram_depth = 256,
 		lutrama_232.logical_ram_name = "altdpram_instance",
 		lutrama_232.logical_ram_width = 64,
 		lutrama_232.mixed_port_feed_through_mode = "dont_care",
@@ -8178,7 +7394,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_233.first_address = 192,
 		lutrama_233.first_bit_number = 41,
 		lutrama_233.last_address = 255,
-		lutrama_233.logical_ram_depth = 512,
+		lutrama_233.logical_ram_depth = 256,
 		lutrama_233.logical_ram_name = "altdpram_instance",
 		lutrama_233.logical_ram_width = 64,
 		lutrama_233.mixed_port_feed_through_mode = "dont_care",
@@ -8206,7 +7422,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_234.first_address = 192,
 		lutrama_234.first_bit_number = 42,
 		lutrama_234.last_address = 255,
-		lutrama_234.logical_ram_depth = 512,
+		lutrama_234.logical_ram_depth = 256,
 		lutrama_234.logical_ram_name = "altdpram_instance",
 		lutrama_234.logical_ram_width = 64,
 		lutrama_234.mixed_port_feed_through_mode = "dont_care",
@@ -8234,7 +7450,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_235.first_address = 192,
 		lutrama_235.first_bit_number = 43,
 		lutrama_235.last_address = 255,
-		lutrama_235.logical_ram_depth = 512,
+		lutrama_235.logical_ram_depth = 256,
 		lutrama_235.logical_ram_name = "altdpram_instance",
 		lutrama_235.logical_ram_width = 64,
 		lutrama_235.mixed_port_feed_through_mode = "dont_care",
@@ -8262,7 +7478,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_236.first_address = 192,
 		lutrama_236.first_bit_number = 44,
 		lutrama_236.last_address = 255,
-		lutrama_236.logical_ram_depth = 512,
+		lutrama_236.logical_ram_depth = 256,
 		lutrama_236.logical_ram_name = "altdpram_instance",
 		lutrama_236.logical_ram_width = 64,
 		lutrama_236.mixed_port_feed_through_mode = "dont_care",
@@ -8290,7 +7506,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_237.first_address = 192,
 		lutrama_237.first_bit_number = 45,
 		lutrama_237.last_address = 255,
-		lutrama_237.logical_ram_depth = 512,
+		lutrama_237.logical_ram_depth = 256,
 		lutrama_237.logical_ram_name = "altdpram_instance",
 		lutrama_237.logical_ram_width = 64,
 		lutrama_237.mixed_port_feed_through_mode = "dont_care",
@@ -8318,7 +7534,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_238.first_address = 192,
 		lutrama_238.first_bit_number = 46,
 		lutrama_238.last_address = 255,
-		lutrama_238.logical_ram_depth = 512,
+		lutrama_238.logical_ram_depth = 256,
 		lutrama_238.logical_ram_name = "altdpram_instance",
 		lutrama_238.logical_ram_width = 64,
 		lutrama_238.mixed_port_feed_through_mode = "dont_care",
@@ -8346,7 +7562,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_239.first_address = 192,
 		lutrama_239.first_bit_number = 47,
 		lutrama_239.last_address = 255,
-		lutrama_239.logical_ram_depth = 512,
+		lutrama_239.logical_ram_depth = 256,
 		lutrama_239.logical_ram_name = "altdpram_instance",
 		lutrama_239.logical_ram_width = 64,
 		lutrama_239.mixed_port_feed_through_mode = "dont_care",
@@ -8374,7 +7590,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_240.first_address = 192,
 		lutrama_240.first_bit_number = 48,
 		lutrama_240.last_address = 255,
-		lutrama_240.logical_ram_depth = 512,
+		lutrama_240.logical_ram_depth = 256,
 		lutrama_240.logical_ram_name = "altdpram_instance",
 		lutrama_240.logical_ram_width = 64,
 		lutrama_240.mixed_port_feed_through_mode = "dont_care",
@@ -8402,7 +7618,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_241.first_address = 192,
 		lutrama_241.first_bit_number = 49,
 		lutrama_241.last_address = 255,
-		lutrama_241.logical_ram_depth = 512,
+		lutrama_241.logical_ram_depth = 256,
 		lutrama_241.logical_ram_name = "altdpram_instance",
 		lutrama_241.logical_ram_width = 64,
 		lutrama_241.mixed_port_feed_through_mode = "dont_care",
@@ -8430,7 +7646,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_242.first_address = 192,
 		lutrama_242.first_bit_number = 50,
 		lutrama_242.last_address = 255,
-		lutrama_242.logical_ram_depth = 512,
+		lutrama_242.logical_ram_depth = 256,
 		lutrama_242.logical_ram_name = "altdpram_instance",
 		lutrama_242.logical_ram_width = 64,
 		lutrama_242.mixed_port_feed_through_mode = "dont_care",
@@ -8458,7 +7674,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_243.first_address = 192,
 		lutrama_243.first_bit_number = 51,
 		lutrama_243.last_address = 255,
-		lutrama_243.logical_ram_depth = 512,
+		lutrama_243.logical_ram_depth = 256,
 		lutrama_243.logical_ram_name = "altdpram_instance",
 		lutrama_243.logical_ram_width = 64,
 		lutrama_243.mixed_port_feed_through_mode = "dont_care",
@@ -8486,7 +7702,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_244.first_address = 192,
 		lutrama_244.first_bit_number = 52,
 		lutrama_244.last_address = 255,
-		lutrama_244.logical_ram_depth = 512,
+		lutrama_244.logical_ram_depth = 256,
 		lutrama_244.logical_ram_name = "altdpram_instance",
 		lutrama_244.logical_ram_width = 64,
 		lutrama_244.mixed_port_feed_through_mode = "dont_care",
@@ -8514,7 +7730,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_245.first_address = 192,
 		lutrama_245.first_bit_number = 53,
 		lutrama_245.last_address = 255,
-		lutrama_245.logical_ram_depth = 512,
+		lutrama_245.logical_ram_depth = 256,
 		lutrama_245.logical_ram_name = "altdpram_instance",
 		lutrama_245.logical_ram_width = 64,
 		lutrama_245.mixed_port_feed_through_mode = "dont_care",
@@ -8542,7 +7758,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_246.first_address = 192,
 		lutrama_246.first_bit_number = 54,
 		lutrama_246.last_address = 255,
-		lutrama_246.logical_ram_depth = 512,
+		lutrama_246.logical_ram_depth = 256,
 		lutrama_246.logical_ram_name = "altdpram_instance",
 		lutrama_246.logical_ram_width = 64,
 		lutrama_246.mixed_port_feed_through_mode = "dont_care",
@@ -8570,7 +7786,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_247.first_address = 192,
 		lutrama_247.first_bit_number = 55,
 		lutrama_247.last_address = 255,
-		lutrama_247.logical_ram_depth = 512,
+		lutrama_247.logical_ram_depth = 256,
 		lutrama_247.logical_ram_name = "altdpram_instance",
 		lutrama_247.logical_ram_width = 64,
 		lutrama_247.mixed_port_feed_through_mode = "dont_care",
@@ -8598,7 +7814,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_248.first_address = 192,
 		lutrama_248.first_bit_number = 56,
 		lutrama_248.last_address = 255,
-		lutrama_248.logical_ram_depth = 512,
+		lutrama_248.logical_ram_depth = 256,
 		lutrama_248.logical_ram_name = "altdpram_instance",
 		lutrama_248.logical_ram_width = 64,
 		lutrama_248.mixed_port_feed_through_mode = "dont_care",
@@ -8626,7 +7842,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_249.first_address = 192,
 		lutrama_249.first_bit_number = 57,
 		lutrama_249.last_address = 255,
-		lutrama_249.logical_ram_depth = 512,
+		lutrama_249.logical_ram_depth = 256,
 		lutrama_249.logical_ram_name = "altdpram_instance",
 		lutrama_249.logical_ram_width = 64,
 		lutrama_249.mixed_port_feed_through_mode = "dont_care",
@@ -8654,7 +7870,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_250.first_address = 192,
 		lutrama_250.first_bit_number = 58,
 		lutrama_250.last_address = 255,
-		lutrama_250.logical_ram_depth = 512,
+		lutrama_250.logical_ram_depth = 256,
 		lutrama_250.logical_ram_name = "altdpram_instance",
 		lutrama_250.logical_ram_width = 64,
 		lutrama_250.mixed_port_feed_through_mode = "dont_care",
@@ -8682,7 +7898,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_251.first_address = 192,
 		lutrama_251.first_bit_number = 59,
 		lutrama_251.last_address = 255,
-		lutrama_251.logical_ram_depth = 512,
+		lutrama_251.logical_ram_depth = 256,
 		lutrama_251.logical_ram_name = "altdpram_instance",
 		lutrama_251.logical_ram_width = 64,
 		lutrama_251.mixed_port_feed_through_mode = "dont_care",
@@ -8710,7 +7926,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_252.first_address = 192,
 		lutrama_252.first_bit_number = 60,
 		lutrama_252.last_address = 255,
-		lutrama_252.logical_ram_depth = 512,
+		lutrama_252.logical_ram_depth = 256,
 		lutrama_252.logical_ram_name = "altdpram_instance",
 		lutrama_252.logical_ram_width = 64,
 		lutrama_252.mixed_port_feed_through_mode = "dont_care",
@@ -8738,7 +7954,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_253.first_address = 192,
 		lutrama_253.first_bit_number = 61,
 		lutrama_253.last_address = 255,
-		lutrama_253.logical_ram_depth = 512,
+		lutrama_253.logical_ram_depth = 256,
 		lutrama_253.logical_ram_name = "altdpram_instance",
 		lutrama_253.logical_ram_width = 64,
 		lutrama_253.mixed_port_feed_through_mode = "dont_care",
@@ -8766,7 +7982,7 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_254.first_address = 192,
 		lutrama_254.first_bit_number = 62,
 		lutrama_254.last_address = 255,
-		lutrama_254.logical_ram_depth = 512,
+		lutrama_254.logical_ram_depth = 256,
 		lutrama_254.logical_ram_name = "altdpram_instance",
 		lutrama_254.logical_ram_width = 64,
 		lutrama_254.mixed_port_feed_through_mode = "dont_care",
@@ -8794,7179 +8010,11 @@ module  windowing_data_sc_fifo_altsyncram
 		lutrama_255.first_address = 192,
 		lutrama_255.first_bit_number = 63,
 		lutrama_255.last_address = 255,
-		lutrama_255.logical_ram_depth = 512,
+		lutrama_255.logical_ram_depth = 256,
 		lutrama_255.logical_ram_name = "altdpram_instance",
 		lutrama_255.logical_ram_width = 64,
 		lutrama_255.mixed_port_feed_through_mode = "dont_care",
 		lutrama_255.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_256
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[0]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_256portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_256.address_width = 6,
-		lutrama_256.data_width = 1,
-		lutrama_256.first_address = 256,
-		lutrama_256.first_bit_number = 0,
-		lutrama_256.last_address = 319,
-		lutrama_256.logical_ram_depth = 512,
-		lutrama_256.logical_ram_name = "altdpram_instance",
-		lutrama_256.logical_ram_width = 64,
-		lutrama_256.mixed_port_feed_through_mode = "dont_care",
-		lutrama_256.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_257
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[1]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_257portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_257.address_width = 6,
-		lutrama_257.data_width = 1,
-		lutrama_257.first_address = 256,
-		lutrama_257.first_bit_number = 1,
-		lutrama_257.last_address = 319,
-		lutrama_257.logical_ram_depth = 512,
-		lutrama_257.logical_ram_name = "altdpram_instance",
-		lutrama_257.logical_ram_width = 64,
-		lutrama_257.mixed_port_feed_through_mode = "dont_care",
-		lutrama_257.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_258
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[2]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_258portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_258.address_width = 6,
-		lutrama_258.data_width = 1,
-		lutrama_258.first_address = 256,
-		lutrama_258.first_bit_number = 2,
-		lutrama_258.last_address = 319,
-		lutrama_258.logical_ram_depth = 512,
-		lutrama_258.logical_ram_name = "altdpram_instance",
-		lutrama_258.logical_ram_width = 64,
-		lutrama_258.mixed_port_feed_through_mode = "dont_care",
-		lutrama_258.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_259
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[3]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_259portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_259.address_width = 6,
-		lutrama_259.data_width = 1,
-		lutrama_259.first_address = 256,
-		lutrama_259.first_bit_number = 3,
-		lutrama_259.last_address = 319,
-		lutrama_259.logical_ram_depth = 512,
-		lutrama_259.logical_ram_name = "altdpram_instance",
-		lutrama_259.logical_ram_width = 64,
-		lutrama_259.mixed_port_feed_through_mode = "dont_care",
-		lutrama_259.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_260
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[4]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_260portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_260.address_width = 6,
-		lutrama_260.data_width = 1,
-		lutrama_260.first_address = 256,
-		lutrama_260.first_bit_number = 4,
-		lutrama_260.last_address = 319,
-		lutrama_260.logical_ram_depth = 512,
-		lutrama_260.logical_ram_name = "altdpram_instance",
-		lutrama_260.logical_ram_width = 64,
-		lutrama_260.mixed_port_feed_through_mode = "dont_care",
-		lutrama_260.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_261
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[5]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_261portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_261.address_width = 6,
-		lutrama_261.data_width = 1,
-		lutrama_261.first_address = 256,
-		lutrama_261.first_bit_number = 5,
-		lutrama_261.last_address = 319,
-		lutrama_261.logical_ram_depth = 512,
-		lutrama_261.logical_ram_name = "altdpram_instance",
-		lutrama_261.logical_ram_width = 64,
-		lutrama_261.mixed_port_feed_through_mode = "dont_care",
-		lutrama_261.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_262
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[6]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_262portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_262.address_width = 6,
-		lutrama_262.data_width = 1,
-		lutrama_262.first_address = 256,
-		lutrama_262.first_bit_number = 6,
-		lutrama_262.last_address = 319,
-		lutrama_262.logical_ram_depth = 512,
-		lutrama_262.logical_ram_name = "altdpram_instance",
-		lutrama_262.logical_ram_width = 64,
-		lutrama_262.mixed_port_feed_through_mode = "dont_care",
-		lutrama_262.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_263
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[7]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_263portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_263.address_width = 6,
-		lutrama_263.data_width = 1,
-		lutrama_263.first_address = 256,
-		lutrama_263.first_bit_number = 7,
-		lutrama_263.last_address = 319,
-		lutrama_263.logical_ram_depth = 512,
-		lutrama_263.logical_ram_name = "altdpram_instance",
-		lutrama_263.logical_ram_width = 64,
-		lutrama_263.mixed_port_feed_through_mode = "dont_care",
-		lutrama_263.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_264
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[8]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_264portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_264.address_width = 6,
-		lutrama_264.data_width = 1,
-		lutrama_264.first_address = 256,
-		lutrama_264.first_bit_number = 8,
-		lutrama_264.last_address = 319,
-		lutrama_264.logical_ram_depth = 512,
-		lutrama_264.logical_ram_name = "altdpram_instance",
-		lutrama_264.logical_ram_width = 64,
-		lutrama_264.mixed_port_feed_through_mode = "dont_care",
-		lutrama_264.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_265
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[9]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_265portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_265.address_width = 6,
-		lutrama_265.data_width = 1,
-		lutrama_265.first_address = 256,
-		lutrama_265.first_bit_number = 9,
-		lutrama_265.last_address = 319,
-		lutrama_265.logical_ram_depth = 512,
-		lutrama_265.logical_ram_name = "altdpram_instance",
-		lutrama_265.logical_ram_width = 64,
-		lutrama_265.mixed_port_feed_through_mode = "dont_care",
-		lutrama_265.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_266
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[10]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_266portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_266.address_width = 6,
-		lutrama_266.data_width = 1,
-		lutrama_266.first_address = 256,
-		lutrama_266.first_bit_number = 10,
-		lutrama_266.last_address = 319,
-		lutrama_266.logical_ram_depth = 512,
-		lutrama_266.logical_ram_name = "altdpram_instance",
-		lutrama_266.logical_ram_width = 64,
-		lutrama_266.mixed_port_feed_through_mode = "dont_care",
-		lutrama_266.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_267
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[11]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_267portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_267.address_width = 6,
-		lutrama_267.data_width = 1,
-		lutrama_267.first_address = 256,
-		lutrama_267.first_bit_number = 11,
-		lutrama_267.last_address = 319,
-		lutrama_267.logical_ram_depth = 512,
-		lutrama_267.logical_ram_name = "altdpram_instance",
-		lutrama_267.logical_ram_width = 64,
-		lutrama_267.mixed_port_feed_through_mode = "dont_care",
-		lutrama_267.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_268
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[12]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_268portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_268.address_width = 6,
-		lutrama_268.data_width = 1,
-		lutrama_268.first_address = 256,
-		lutrama_268.first_bit_number = 12,
-		lutrama_268.last_address = 319,
-		lutrama_268.logical_ram_depth = 512,
-		lutrama_268.logical_ram_name = "altdpram_instance",
-		lutrama_268.logical_ram_width = 64,
-		lutrama_268.mixed_port_feed_through_mode = "dont_care",
-		lutrama_268.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_269
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[13]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_269portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_269.address_width = 6,
-		lutrama_269.data_width = 1,
-		lutrama_269.first_address = 256,
-		lutrama_269.first_bit_number = 13,
-		lutrama_269.last_address = 319,
-		lutrama_269.logical_ram_depth = 512,
-		lutrama_269.logical_ram_name = "altdpram_instance",
-		lutrama_269.logical_ram_width = 64,
-		lutrama_269.mixed_port_feed_through_mode = "dont_care",
-		lutrama_269.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_270
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[14]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_270portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_270.address_width = 6,
-		lutrama_270.data_width = 1,
-		lutrama_270.first_address = 256,
-		lutrama_270.first_bit_number = 14,
-		lutrama_270.last_address = 319,
-		lutrama_270.logical_ram_depth = 512,
-		lutrama_270.logical_ram_name = "altdpram_instance",
-		lutrama_270.logical_ram_width = 64,
-		lutrama_270.mixed_port_feed_through_mode = "dont_care",
-		lutrama_270.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_271
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[15]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_271portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_271.address_width = 6,
-		lutrama_271.data_width = 1,
-		lutrama_271.first_address = 256,
-		lutrama_271.first_bit_number = 15,
-		lutrama_271.last_address = 319,
-		lutrama_271.logical_ram_depth = 512,
-		lutrama_271.logical_ram_name = "altdpram_instance",
-		lutrama_271.logical_ram_width = 64,
-		lutrama_271.mixed_port_feed_through_mode = "dont_care",
-		lutrama_271.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_272
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[16]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_272portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_272.address_width = 6,
-		lutrama_272.data_width = 1,
-		lutrama_272.first_address = 256,
-		lutrama_272.first_bit_number = 16,
-		lutrama_272.last_address = 319,
-		lutrama_272.logical_ram_depth = 512,
-		lutrama_272.logical_ram_name = "altdpram_instance",
-		lutrama_272.logical_ram_width = 64,
-		lutrama_272.mixed_port_feed_through_mode = "dont_care",
-		lutrama_272.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_273
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[17]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_273portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_273.address_width = 6,
-		lutrama_273.data_width = 1,
-		lutrama_273.first_address = 256,
-		lutrama_273.first_bit_number = 17,
-		lutrama_273.last_address = 319,
-		lutrama_273.logical_ram_depth = 512,
-		lutrama_273.logical_ram_name = "altdpram_instance",
-		lutrama_273.logical_ram_width = 64,
-		lutrama_273.mixed_port_feed_through_mode = "dont_care",
-		lutrama_273.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_274
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[18]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_274portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_274.address_width = 6,
-		lutrama_274.data_width = 1,
-		lutrama_274.first_address = 256,
-		lutrama_274.first_bit_number = 18,
-		lutrama_274.last_address = 319,
-		lutrama_274.logical_ram_depth = 512,
-		lutrama_274.logical_ram_name = "altdpram_instance",
-		lutrama_274.logical_ram_width = 64,
-		lutrama_274.mixed_port_feed_through_mode = "dont_care",
-		lutrama_274.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_275
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[19]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_275portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_275.address_width = 6,
-		lutrama_275.data_width = 1,
-		lutrama_275.first_address = 256,
-		lutrama_275.first_bit_number = 19,
-		lutrama_275.last_address = 319,
-		lutrama_275.logical_ram_depth = 512,
-		lutrama_275.logical_ram_name = "altdpram_instance",
-		lutrama_275.logical_ram_width = 64,
-		lutrama_275.mixed_port_feed_through_mode = "dont_care",
-		lutrama_275.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_276
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[20]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_276portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_276.address_width = 6,
-		lutrama_276.data_width = 1,
-		lutrama_276.first_address = 256,
-		lutrama_276.first_bit_number = 20,
-		lutrama_276.last_address = 319,
-		lutrama_276.logical_ram_depth = 512,
-		lutrama_276.logical_ram_name = "altdpram_instance",
-		lutrama_276.logical_ram_width = 64,
-		lutrama_276.mixed_port_feed_through_mode = "dont_care",
-		lutrama_276.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_277
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[21]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_277portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_277.address_width = 6,
-		lutrama_277.data_width = 1,
-		lutrama_277.first_address = 256,
-		lutrama_277.first_bit_number = 21,
-		lutrama_277.last_address = 319,
-		lutrama_277.logical_ram_depth = 512,
-		lutrama_277.logical_ram_name = "altdpram_instance",
-		lutrama_277.logical_ram_width = 64,
-		lutrama_277.mixed_port_feed_through_mode = "dont_care",
-		lutrama_277.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_278
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[22]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_278portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_278.address_width = 6,
-		lutrama_278.data_width = 1,
-		lutrama_278.first_address = 256,
-		lutrama_278.first_bit_number = 22,
-		lutrama_278.last_address = 319,
-		lutrama_278.logical_ram_depth = 512,
-		lutrama_278.logical_ram_name = "altdpram_instance",
-		lutrama_278.logical_ram_width = 64,
-		lutrama_278.mixed_port_feed_through_mode = "dont_care",
-		lutrama_278.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_279
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[23]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_279portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_279.address_width = 6,
-		lutrama_279.data_width = 1,
-		lutrama_279.first_address = 256,
-		lutrama_279.first_bit_number = 23,
-		lutrama_279.last_address = 319,
-		lutrama_279.logical_ram_depth = 512,
-		lutrama_279.logical_ram_name = "altdpram_instance",
-		lutrama_279.logical_ram_width = 64,
-		lutrama_279.mixed_port_feed_through_mode = "dont_care",
-		lutrama_279.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_280
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[24]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_280portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_280.address_width = 6,
-		lutrama_280.data_width = 1,
-		lutrama_280.first_address = 256,
-		lutrama_280.first_bit_number = 24,
-		lutrama_280.last_address = 319,
-		lutrama_280.logical_ram_depth = 512,
-		lutrama_280.logical_ram_name = "altdpram_instance",
-		lutrama_280.logical_ram_width = 64,
-		lutrama_280.mixed_port_feed_through_mode = "dont_care",
-		lutrama_280.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_281
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[25]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_281portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_281.address_width = 6,
-		lutrama_281.data_width = 1,
-		lutrama_281.first_address = 256,
-		lutrama_281.first_bit_number = 25,
-		lutrama_281.last_address = 319,
-		lutrama_281.logical_ram_depth = 512,
-		lutrama_281.logical_ram_name = "altdpram_instance",
-		lutrama_281.logical_ram_width = 64,
-		lutrama_281.mixed_port_feed_through_mode = "dont_care",
-		lutrama_281.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_282
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[26]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_282portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_282.address_width = 6,
-		lutrama_282.data_width = 1,
-		lutrama_282.first_address = 256,
-		lutrama_282.first_bit_number = 26,
-		lutrama_282.last_address = 319,
-		lutrama_282.logical_ram_depth = 512,
-		lutrama_282.logical_ram_name = "altdpram_instance",
-		lutrama_282.logical_ram_width = 64,
-		lutrama_282.mixed_port_feed_through_mode = "dont_care",
-		lutrama_282.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_283
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[27]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_283portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_283.address_width = 6,
-		lutrama_283.data_width = 1,
-		lutrama_283.first_address = 256,
-		lutrama_283.first_bit_number = 27,
-		lutrama_283.last_address = 319,
-		lutrama_283.logical_ram_depth = 512,
-		lutrama_283.logical_ram_name = "altdpram_instance",
-		lutrama_283.logical_ram_width = 64,
-		lutrama_283.mixed_port_feed_through_mode = "dont_care",
-		lutrama_283.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_284
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[28]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_284portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_284.address_width = 6,
-		lutrama_284.data_width = 1,
-		lutrama_284.first_address = 256,
-		lutrama_284.first_bit_number = 28,
-		lutrama_284.last_address = 319,
-		lutrama_284.logical_ram_depth = 512,
-		lutrama_284.logical_ram_name = "altdpram_instance",
-		lutrama_284.logical_ram_width = 64,
-		lutrama_284.mixed_port_feed_through_mode = "dont_care",
-		lutrama_284.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_285
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[29]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_285portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_285.address_width = 6,
-		lutrama_285.data_width = 1,
-		lutrama_285.first_address = 256,
-		lutrama_285.first_bit_number = 29,
-		lutrama_285.last_address = 319,
-		lutrama_285.logical_ram_depth = 512,
-		lutrama_285.logical_ram_name = "altdpram_instance",
-		lutrama_285.logical_ram_width = 64,
-		lutrama_285.mixed_port_feed_through_mode = "dont_care",
-		lutrama_285.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_286
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[30]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_286portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_286.address_width = 6,
-		lutrama_286.data_width = 1,
-		lutrama_286.first_address = 256,
-		lutrama_286.first_bit_number = 30,
-		lutrama_286.last_address = 319,
-		lutrama_286.logical_ram_depth = 512,
-		lutrama_286.logical_ram_name = "altdpram_instance",
-		lutrama_286.logical_ram_width = 64,
-		lutrama_286.mixed_port_feed_through_mode = "dont_care",
-		lutrama_286.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_287
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[31]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_287portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_287.address_width = 6,
-		lutrama_287.data_width = 1,
-		lutrama_287.first_address = 256,
-		lutrama_287.first_bit_number = 31,
-		lutrama_287.last_address = 319,
-		lutrama_287.logical_ram_depth = 512,
-		lutrama_287.logical_ram_name = "altdpram_instance",
-		lutrama_287.logical_ram_width = 64,
-		lutrama_287.mixed_port_feed_through_mode = "dont_care",
-		lutrama_287.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_288
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[32]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_288portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_288.address_width = 6,
-		lutrama_288.data_width = 1,
-		lutrama_288.first_address = 256,
-		lutrama_288.first_bit_number = 32,
-		lutrama_288.last_address = 319,
-		lutrama_288.logical_ram_depth = 512,
-		lutrama_288.logical_ram_name = "altdpram_instance",
-		lutrama_288.logical_ram_width = 64,
-		lutrama_288.mixed_port_feed_through_mode = "dont_care",
-		lutrama_288.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_289
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[33]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_289portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_289.address_width = 6,
-		lutrama_289.data_width = 1,
-		lutrama_289.first_address = 256,
-		lutrama_289.first_bit_number = 33,
-		lutrama_289.last_address = 319,
-		lutrama_289.logical_ram_depth = 512,
-		lutrama_289.logical_ram_name = "altdpram_instance",
-		lutrama_289.logical_ram_width = 64,
-		lutrama_289.mixed_port_feed_through_mode = "dont_care",
-		lutrama_289.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_290
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[34]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_290portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_290.address_width = 6,
-		lutrama_290.data_width = 1,
-		lutrama_290.first_address = 256,
-		lutrama_290.first_bit_number = 34,
-		lutrama_290.last_address = 319,
-		lutrama_290.logical_ram_depth = 512,
-		lutrama_290.logical_ram_name = "altdpram_instance",
-		lutrama_290.logical_ram_width = 64,
-		lutrama_290.mixed_port_feed_through_mode = "dont_care",
-		lutrama_290.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_291
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[35]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_291portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_291.address_width = 6,
-		lutrama_291.data_width = 1,
-		lutrama_291.first_address = 256,
-		lutrama_291.first_bit_number = 35,
-		lutrama_291.last_address = 319,
-		lutrama_291.logical_ram_depth = 512,
-		lutrama_291.logical_ram_name = "altdpram_instance",
-		lutrama_291.logical_ram_width = 64,
-		lutrama_291.mixed_port_feed_through_mode = "dont_care",
-		lutrama_291.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_292
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[36]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_292portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_292.address_width = 6,
-		lutrama_292.data_width = 1,
-		lutrama_292.first_address = 256,
-		lutrama_292.first_bit_number = 36,
-		lutrama_292.last_address = 319,
-		lutrama_292.logical_ram_depth = 512,
-		lutrama_292.logical_ram_name = "altdpram_instance",
-		lutrama_292.logical_ram_width = 64,
-		lutrama_292.mixed_port_feed_through_mode = "dont_care",
-		lutrama_292.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_293
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[37]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_293portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_293.address_width = 6,
-		lutrama_293.data_width = 1,
-		lutrama_293.first_address = 256,
-		lutrama_293.first_bit_number = 37,
-		lutrama_293.last_address = 319,
-		lutrama_293.logical_ram_depth = 512,
-		lutrama_293.logical_ram_name = "altdpram_instance",
-		lutrama_293.logical_ram_width = 64,
-		lutrama_293.mixed_port_feed_through_mode = "dont_care",
-		lutrama_293.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_294
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[38]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_294portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_294.address_width = 6,
-		lutrama_294.data_width = 1,
-		lutrama_294.first_address = 256,
-		lutrama_294.first_bit_number = 38,
-		lutrama_294.last_address = 319,
-		lutrama_294.logical_ram_depth = 512,
-		lutrama_294.logical_ram_name = "altdpram_instance",
-		lutrama_294.logical_ram_width = 64,
-		lutrama_294.mixed_port_feed_through_mode = "dont_care",
-		lutrama_294.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_295
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[39]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_295portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_295.address_width = 6,
-		lutrama_295.data_width = 1,
-		lutrama_295.first_address = 256,
-		lutrama_295.first_bit_number = 39,
-		lutrama_295.last_address = 319,
-		lutrama_295.logical_ram_depth = 512,
-		lutrama_295.logical_ram_name = "altdpram_instance",
-		lutrama_295.logical_ram_width = 64,
-		lutrama_295.mixed_port_feed_through_mode = "dont_care",
-		lutrama_295.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_296
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[40]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_296portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_296.address_width = 6,
-		lutrama_296.data_width = 1,
-		lutrama_296.first_address = 256,
-		lutrama_296.first_bit_number = 40,
-		lutrama_296.last_address = 319,
-		lutrama_296.logical_ram_depth = 512,
-		lutrama_296.logical_ram_name = "altdpram_instance",
-		lutrama_296.logical_ram_width = 64,
-		lutrama_296.mixed_port_feed_through_mode = "dont_care",
-		lutrama_296.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_297
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[41]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_297portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_297.address_width = 6,
-		lutrama_297.data_width = 1,
-		lutrama_297.first_address = 256,
-		lutrama_297.first_bit_number = 41,
-		lutrama_297.last_address = 319,
-		lutrama_297.logical_ram_depth = 512,
-		lutrama_297.logical_ram_name = "altdpram_instance",
-		lutrama_297.logical_ram_width = 64,
-		lutrama_297.mixed_port_feed_through_mode = "dont_care",
-		lutrama_297.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_298
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[42]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_298portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_298.address_width = 6,
-		lutrama_298.data_width = 1,
-		lutrama_298.first_address = 256,
-		lutrama_298.first_bit_number = 42,
-		lutrama_298.last_address = 319,
-		lutrama_298.logical_ram_depth = 512,
-		lutrama_298.logical_ram_name = "altdpram_instance",
-		lutrama_298.logical_ram_width = 64,
-		lutrama_298.mixed_port_feed_through_mode = "dont_care",
-		lutrama_298.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_299
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[43]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_299portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_299.address_width = 6,
-		lutrama_299.data_width = 1,
-		lutrama_299.first_address = 256,
-		lutrama_299.first_bit_number = 43,
-		lutrama_299.last_address = 319,
-		lutrama_299.logical_ram_depth = 512,
-		lutrama_299.logical_ram_name = "altdpram_instance",
-		lutrama_299.logical_ram_width = 64,
-		lutrama_299.mixed_port_feed_through_mode = "dont_care",
-		lutrama_299.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_300
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[44]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_300portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_300.address_width = 6,
-		lutrama_300.data_width = 1,
-		lutrama_300.first_address = 256,
-		lutrama_300.first_bit_number = 44,
-		lutrama_300.last_address = 319,
-		lutrama_300.logical_ram_depth = 512,
-		lutrama_300.logical_ram_name = "altdpram_instance",
-		lutrama_300.logical_ram_width = 64,
-		lutrama_300.mixed_port_feed_through_mode = "dont_care",
-		lutrama_300.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_301
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[45]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_301portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_301.address_width = 6,
-		lutrama_301.data_width = 1,
-		lutrama_301.first_address = 256,
-		lutrama_301.first_bit_number = 45,
-		lutrama_301.last_address = 319,
-		lutrama_301.logical_ram_depth = 512,
-		lutrama_301.logical_ram_name = "altdpram_instance",
-		lutrama_301.logical_ram_width = 64,
-		lutrama_301.mixed_port_feed_through_mode = "dont_care",
-		lutrama_301.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_302
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[46]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_302portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_302.address_width = 6,
-		lutrama_302.data_width = 1,
-		lutrama_302.first_address = 256,
-		lutrama_302.first_bit_number = 46,
-		lutrama_302.last_address = 319,
-		lutrama_302.logical_ram_depth = 512,
-		lutrama_302.logical_ram_name = "altdpram_instance",
-		lutrama_302.logical_ram_width = 64,
-		lutrama_302.mixed_port_feed_through_mode = "dont_care",
-		lutrama_302.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_303
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[47]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_303portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_303.address_width = 6,
-		lutrama_303.data_width = 1,
-		lutrama_303.first_address = 256,
-		lutrama_303.first_bit_number = 47,
-		lutrama_303.last_address = 319,
-		lutrama_303.logical_ram_depth = 512,
-		lutrama_303.logical_ram_name = "altdpram_instance",
-		lutrama_303.logical_ram_width = 64,
-		lutrama_303.mixed_port_feed_through_mode = "dont_care",
-		lutrama_303.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_304
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[48]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_304portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_304.address_width = 6,
-		lutrama_304.data_width = 1,
-		lutrama_304.first_address = 256,
-		lutrama_304.first_bit_number = 48,
-		lutrama_304.last_address = 319,
-		lutrama_304.logical_ram_depth = 512,
-		lutrama_304.logical_ram_name = "altdpram_instance",
-		lutrama_304.logical_ram_width = 64,
-		lutrama_304.mixed_port_feed_through_mode = "dont_care",
-		lutrama_304.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_305
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[49]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_305portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_305.address_width = 6,
-		lutrama_305.data_width = 1,
-		lutrama_305.first_address = 256,
-		lutrama_305.first_bit_number = 49,
-		lutrama_305.last_address = 319,
-		lutrama_305.logical_ram_depth = 512,
-		lutrama_305.logical_ram_name = "altdpram_instance",
-		lutrama_305.logical_ram_width = 64,
-		lutrama_305.mixed_port_feed_through_mode = "dont_care",
-		lutrama_305.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_306
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[50]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_306portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_306.address_width = 6,
-		lutrama_306.data_width = 1,
-		lutrama_306.first_address = 256,
-		lutrama_306.first_bit_number = 50,
-		lutrama_306.last_address = 319,
-		lutrama_306.logical_ram_depth = 512,
-		lutrama_306.logical_ram_name = "altdpram_instance",
-		lutrama_306.logical_ram_width = 64,
-		lutrama_306.mixed_port_feed_through_mode = "dont_care",
-		lutrama_306.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_307
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[51]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_307portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_307.address_width = 6,
-		lutrama_307.data_width = 1,
-		lutrama_307.first_address = 256,
-		lutrama_307.first_bit_number = 51,
-		lutrama_307.last_address = 319,
-		lutrama_307.logical_ram_depth = 512,
-		lutrama_307.logical_ram_name = "altdpram_instance",
-		lutrama_307.logical_ram_width = 64,
-		lutrama_307.mixed_port_feed_through_mode = "dont_care",
-		lutrama_307.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_308
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[52]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_308portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_308.address_width = 6,
-		lutrama_308.data_width = 1,
-		lutrama_308.first_address = 256,
-		lutrama_308.first_bit_number = 52,
-		lutrama_308.last_address = 319,
-		lutrama_308.logical_ram_depth = 512,
-		lutrama_308.logical_ram_name = "altdpram_instance",
-		lutrama_308.logical_ram_width = 64,
-		lutrama_308.mixed_port_feed_through_mode = "dont_care",
-		lutrama_308.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_309
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[53]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_309portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_309.address_width = 6,
-		lutrama_309.data_width = 1,
-		lutrama_309.first_address = 256,
-		lutrama_309.first_bit_number = 53,
-		lutrama_309.last_address = 319,
-		lutrama_309.logical_ram_depth = 512,
-		lutrama_309.logical_ram_name = "altdpram_instance",
-		lutrama_309.logical_ram_width = 64,
-		lutrama_309.mixed_port_feed_through_mode = "dont_care",
-		lutrama_309.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_310
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[54]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_310portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_310.address_width = 6,
-		lutrama_310.data_width = 1,
-		lutrama_310.first_address = 256,
-		lutrama_310.first_bit_number = 54,
-		lutrama_310.last_address = 319,
-		lutrama_310.logical_ram_depth = 512,
-		lutrama_310.logical_ram_name = "altdpram_instance",
-		lutrama_310.logical_ram_width = 64,
-		lutrama_310.mixed_port_feed_through_mode = "dont_care",
-		lutrama_310.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_311
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[55]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_311portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_311.address_width = 6,
-		lutrama_311.data_width = 1,
-		lutrama_311.first_address = 256,
-		lutrama_311.first_bit_number = 55,
-		lutrama_311.last_address = 319,
-		lutrama_311.logical_ram_depth = 512,
-		lutrama_311.logical_ram_name = "altdpram_instance",
-		lutrama_311.logical_ram_width = 64,
-		lutrama_311.mixed_port_feed_through_mode = "dont_care",
-		lutrama_311.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_312
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[56]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_312portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_312.address_width = 6,
-		lutrama_312.data_width = 1,
-		lutrama_312.first_address = 256,
-		lutrama_312.first_bit_number = 56,
-		lutrama_312.last_address = 319,
-		lutrama_312.logical_ram_depth = 512,
-		lutrama_312.logical_ram_name = "altdpram_instance",
-		lutrama_312.logical_ram_width = 64,
-		lutrama_312.mixed_port_feed_through_mode = "dont_care",
-		lutrama_312.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_313
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[57]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_313portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_313.address_width = 6,
-		lutrama_313.data_width = 1,
-		lutrama_313.first_address = 256,
-		lutrama_313.first_bit_number = 57,
-		lutrama_313.last_address = 319,
-		lutrama_313.logical_ram_depth = 512,
-		lutrama_313.logical_ram_name = "altdpram_instance",
-		lutrama_313.logical_ram_width = 64,
-		lutrama_313.mixed_port_feed_through_mode = "dont_care",
-		lutrama_313.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_314
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[58]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_314portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_314.address_width = 6,
-		lutrama_314.data_width = 1,
-		lutrama_314.first_address = 256,
-		lutrama_314.first_bit_number = 58,
-		lutrama_314.last_address = 319,
-		lutrama_314.logical_ram_depth = 512,
-		lutrama_314.logical_ram_name = "altdpram_instance",
-		lutrama_314.logical_ram_width = 64,
-		lutrama_314.mixed_port_feed_through_mode = "dont_care",
-		lutrama_314.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_315
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[59]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_315portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_315.address_width = 6,
-		lutrama_315.data_width = 1,
-		lutrama_315.first_address = 256,
-		lutrama_315.first_bit_number = 59,
-		lutrama_315.last_address = 319,
-		lutrama_315.logical_ram_depth = 512,
-		lutrama_315.logical_ram_name = "altdpram_instance",
-		lutrama_315.logical_ram_width = 64,
-		lutrama_315.mixed_port_feed_through_mode = "dont_care",
-		lutrama_315.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_316
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[60]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_316portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_316.address_width = 6,
-		lutrama_316.data_width = 1,
-		lutrama_316.first_address = 256,
-		lutrama_316.first_bit_number = 60,
-		lutrama_316.last_address = 319,
-		lutrama_316.logical_ram_depth = 512,
-		lutrama_316.logical_ram_name = "altdpram_instance",
-		lutrama_316.logical_ram_width = 64,
-		lutrama_316.mixed_port_feed_through_mode = "dont_care",
-		lutrama_316.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_317
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[61]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_317portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_317.address_width = 6,
-		lutrama_317.data_width = 1,
-		lutrama_317.first_address = 256,
-		lutrama_317.first_bit_number = 61,
-		lutrama_317.last_address = 319,
-		lutrama_317.logical_ram_depth = 512,
-		lutrama_317.logical_ram_name = "altdpram_instance",
-		lutrama_317.logical_ram_width = 64,
-		lutrama_317.mixed_port_feed_through_mode = "dont_care",
-		lutrama_317.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_318
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[62]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_318portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_318.address_width = 6,
-		lutrama_318.data_width = 1,
-		lutrama_318.first_address = 256,
-		lutrama_318.first_bit_number = 62,
-		lutrama_318.last_address = 319,
-		lutrama_318.logical_ram_depth = 512,
-		lutrama_318.logical_ram_name = "altdpram_instance",
-		lutrama_318.logical_ram_width = 64,
-		lutrama_318.mixed_port_feed_through_mode = "dont_care",
-		lutrama_318.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_319
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[4]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[63]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_319portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_319.address_width = 6,
-		lutrama_319.data_width = 1,
-		lutrama_319.first_address = 256,
-		lutrama_319.first_bit_number = 63,
-		lutrama_319.last_address = 319,
-		lutrama_319.logical_ram_depth = 512,
-		lutrama_319.logical_ram_name = "altdpram_instance",
-		lutrama_319.logical_ram_width = 64,
-		lutrama_319.mixed_port_feed_through_mode = "dont_care",
-		lutrama_319.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_320
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[0]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_320portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_320.address_width = 6,
-		lutrama_320.data_width = 1,
-		lutrama_320.first_address = 320,
-		lutrama_320.first_bit_number = 0,
-		lutrama_320.last_address = 383,
-		lutrama_320.logical_ram_depth = 512,
-		lutrama_320.logical_ram_name = "altdpram_instance",
-		lutrama_320.logical_ram_width = 64,
-		lutrama_320.mixed_port_feed_through_mode = "dont_care",
-		lutrama_320.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_321
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[1]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_321portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_321.address_width = 6,
-		lutrama_321.data_width = 1,
-		lutrama_321.first_address = 320,
-		lutrama_321.first_bit_number = 1,
-		lutrama_321.last_address = 383,
-		lutrama_321.logical_ram_depth = 512,
-		lutrama_321.logical_ram_name = "altdpram_instance",
-		lutrama_321.logical_ram_width = 64,
-		lutrama_321.mixed_port_feed_through_mode = "dont_care",
-		lutrama_321.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_322
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[2]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_322portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_322.address_width = 6,
-		lutrama_322.data_width = 1,
-		lutrama_322.first_address = 320,
-		lutrama_322.first_bit_number = 2,
-		lutrama_322.last_address = 383,
-		lutrama_322.logical_ram_depth = 512,
-		lutrama_322.logical_ram_name = "altdpram_instance",
-		lutrama_322.logical_ram_width = 64,
-		lutrama_322.mixed_port_feed_through_mode = "dont_care",
-		lutrama_322.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_323
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[3]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_323portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_323.address_width = 6,
-		lutrama_323.data_width = 1,
-		lutrama_323.first_address = 320,
-		lutrama_323.first_bit_number = 3,
-		lutrama_323.last_address = 383,
-		lutrama_323.logical_ram_depth = 512,
-		lutrama_323.logical_ram_name = "altdpram_instance",
-		lutrama_323.logical_ram_width = 64,
-		lutrama_323.mixed_port_feed_through_mode = "dont_care",
-		lutrama_323.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_324
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[4]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_324portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_324.address_width = 6,
-		lutrama_324.data_width = 1,
-		lutrama_324.first_address = 320,
-		lutrama_324.first_bit_number = 4,
-		lutrama_324.last_address = 383,
-		lutrama_324.logical_ram_depth = 512,
-		lutrama_324.logical_ram_name = "altdpram_instance",
-		lutrama_324.logical_ram_width = 64,
-		lutrama_324.mixed_port_feed_through_mode = "dont_care",
-		lutrama_324.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_325
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[5]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_325portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_325.address_width = 6,
-		lutrama_325.data_width = 1,
-		lutrama_325.first_address = 320,
-		lutrama_325.first_bit_number = 5,
-		lutrama_325.last_address = 383,
-		lutrama_325.logical_ram_depth = 512,
-		lutrama_325.logical_ram_name = "altdpram_instance",
-		lutrama_325.logical_ram_width = 64,
-		lutrama_325.mixed_port_feed_through_mode = "dont_care",
-		lutrama_325.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_326
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[6]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_326portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_326.address_width = 6,
-		lutrama_326.data_width = 1,
-		lutrama_326.first_address = 320,
-		lutrama_326.first_bit_number = 6,
-		lutrama_326.last_address = 383,
-		lutrama_326.logical_ram_depth = 512,
-		lutrama_326.logical_ram_name = "altdpram_instance",
-		lutrama_326.logical_ram_width = 64,
-		lutrama_326.mixed_port_feed_through_mode = "dont_care",
-		lutrama_326.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_327
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[7]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_327portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_327.address_width = 6,
-		lutrama_327.data_width = 1,
-		lutrama_327.first_address = 320,
-		lutrama_327.first_bit_number = 7,
-		lutrama_327.last_address = 383,
-		lutrama_327.logical_ram_depth = 512,
-		lutrama_327.logical_ram_name = "altdpram_instance",
-		lutrama_327.logical_ram_width = 64,
-		lutrama_327.mixed_port_feed_through_mode = "dont_care",
-		lutrama_327.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_328
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[8]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_328portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_328.address_width = 6,
-		lutrama_328.data_width = 1,
-		lutrama_328.first_address = 320,
-		lutrama_328.first_bit_number = 8,
-		lutrama_328.last_address = 383,
-		lutrama_328.logical_ram_depth = 512,
-		lutrama_328.logical_ram_name = "altdpram_instance",
-		lutrama_328.logical_ram_width = 64,
-		lutrama_328.mixed_port_feed_through_mode = "dont_care",
-		lutrama_328.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_329
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[9]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_329portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_329.address_width = 6,
-		lutrama_329.data_width = 1,
-		lutrama_329.first_address = 320,
-		lutrama_329.first_bit_number = 9,
-		lutrama_329.last_address = 383,
-		lutrama_329.logical_ram_depth = 512,
-		lutrama_329.logical_ram_name = "altdpram_instance",
-		lutrama_329.logical_ram_width = 64,
-		lutrama_329.mixed_port_feed_through_mode = "dont_care",
-		lutrama_329.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_330
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[10]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_330portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_330.address_width = 6,
-		lutrama_330.data_width = 1,
-		lutrama_330.first_address = 320,
-		lutrama_330.first_bit_number = 10,
-		lutrama_330.last_address = 383,
-		lutrama_330.logical_ram_depth = 512,
-		lutrama_330.logical_ram_name = "altdpram_instance",
-		lutrama_330.logical_ram_width = 64,
-		lutrama_330.mixed_port_feed_through_mode = "dont_care",
-		lutrama_330.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_331
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[11]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_331portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_331.address_width = 6,
-		lutrama_331.data_width = 1,
-		lutrama_331.first_address = 320,
-		lutrama_331.first_bit_number = 11,
-		lutrama_331.last_address = 383,
-		lutrama_331.logical_ram_depth = 512,
-		lutrama_331.logical_ram_name = "altdpram_instance",
-		lutrama_331.logical_ram_width = 64,
-		lutrama_331.mixed_port_feed_through_mode = "dont_care",
-		lutrama_331.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_332
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[12]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_332portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_332.address_width = 6,
-		lutrama_332.data_width = 1,
-		lutrama_332.first_address = 320,
-		lutrama_332.first_bit_number = 12,
-		lutrama_332.last_address = 383,
-		lutrama_332.logical_ram_depth = 512,
-		lutrama_332.logical_ram_name = "altdpram_instance",
-		lutrama_332.logical_ram_width = 64,
-		lutrama_332.mixed_port_feed_through_mode = "dont_care",
-		lutrama_332.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_333
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[13]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_333portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_333.address_width = 6,
-		lutrama_333.data_width = 1,
-		lutrama_333.first_address = 320,
-		lutrama_333.first_bit_number = 13,
-		lutrama_333.last_address = 383,
-		lutrama_333.logical_ram_depth = 512,
-		lutrama_333.logical_ram_name = "altdpram_instance",
-		lutrama_333.logical_ram_width = 64,
-		lutrama_333.mixed_port_feed_through_mode = "dont_care",
-		lutrama_333.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_334
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[14]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_334portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_334.address_width = 6,
-		lutrama_334.data_width = 1,
-		lutrama_334.first_address = 320,
-		lutrama_334.first_bit_number = 14,
-		lutrama_334.last_address = 383,
-		lutrama_334.logical_ram_depth = 512,
-		lutrama_334.logical_ram_name = "altdpram_instance",
-		lutrama_334.logical_ram_width = 64,
-		lutrama_334.mixed_port_feed_through_mode = "dont_care",
-		lutrama_334.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_335
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[15]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_335portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_335.address_width = 6,
-		lutrama_335.data_width = 1,
-		lutrama_335.first_address = 320,
-		lutrama_335.first_bit_number = 15,
-		lutrama_335.last_address = 383,
-		lutrama_335.logical_ram_depth = 512,
-		lutrama_335.logical_ram_name = "altdpram_instance",
-		lutrama_335.logical_ram_width = 64,
-		lutrama_335.mixed_port_feed_through_mode = "dont_care",
-		lutrama_335.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_336
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[16]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_336portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_336.address_width = 6,
-		lutrama_336.data_width = 1,
-		lutrama_336.first_address = 320,
-		lutrama_336.first_bit_number = 16,
-		lutrama_336.last_address = 383,
-		lutrama_336.logical_ram_depth = 512,
-		lutrama_336.logical_ram_name = "altdpram_instance",
-		lutrama_336.logical_ram_width = 64,
-		lutrama_336.mixed_port_feed_through_mode = "dont_care",
-		lutrama_336.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_337
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[17]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_337portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_337.address_width = 6,
-		lutrama_337.data_width = 1,
-		lutrama_337.first_address = 320,
-		lutrama_337.first_bit_number = 17,
-		lutrama_337.last_address = 383,
-		lutrama_337.logical_ram_depth = 512,
-		lutrama_337.logical_ram_name = "altdpram_instance",
-		lutrama_337.logical_ram_width = 64,
-		lutrama_337.mixed_port_feed_through_mode = "dont_care",
-		lutrama_337.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_338
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[18]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_338portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_338.address_width = 6,
-		lutrama_338.data_width = 1,
-		lutrama_338.first_address = 320,
-		lutrama_338.first_bit_number = 18,
-		lutrama_338.last_address = 383,
-		lutrama_338.logical_ram_depth = 512,
-		lutrama_338.logical_ram_name = "altdpram_instance",
-		lutrama_338.logical_ram_width = 64,
-		lutrama_338.mixed_port_feed_through_mode = "dont_care",
-		lutrama_338.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_339
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[19]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_339portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_339.address_width = 6,
-		lutrama_339.data_width = 1,
-		lutrama_339.first_address = 320,
-		lutrama_339.first_bit_number = 19,
-		lutrama_339.last_address = 383,
-		lutrama_339.logical_ram_depth = 512,
-		lutrama_339.logical_ram_name = "altdpram_instance",
-		lutrama_339.logical_ram_width = 64,
-		lutrama_339.mixed_port_feed_through_mode = "dont_care",
-		lutrama_339.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_340
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[20]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_340portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_340.address_width = 6,
-		lutrama_340.data_width = 1,
-		lutrama_340.first_address = 320,
-		lutrama_340.first_bit_number = 20,
-		lutrama_340.last_address = 383,
-		lutrama_340.logical_ram_depth = 512,
-		lutrama_340.logical_ram_name = "altdpram_instance",
-		lutrama_340.logical_ram_width = 64,
-		lutrama_340.mixed_port_feed_through_mode = "dont_care",
-		lutrama_340.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_341
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[21]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_341portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_341.address_width = 6,
-		lutrama_341.data_width = 1,
-		lutrama_341.first_address = 320,
-		lutrama_341.first_bit_number = 21,
-		lutrama_341.last_address = 383,
-		lutrama_341.logical_ram_depth = 512,
-		lutrama_341.logical_ram_name = "altdpram_instance",
-		lutrama_341.logical_ram_width = 64,
-		lutrama_341.mixed_port_feed_through_mode = "dont_care",
-		lutrama_341.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_342
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[22]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_342portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_342.address_width = 6,
-		lutrama_342.data_width = 1,
-		lutrama_342.first_address = 320,
-		lutrama_342.first_bit_number = 22,
-		lutrama_342.last_address = 383,
-		lutrama_342.logical_ram_depth = 512,
-		lutrama_342.logical_ram_name = "altdpram_instance",
-		lutrama_342.logical_ram_width = 64,
-		lutrama_342.mixed_port_feed_through_mode = "dont_care",
-		lutrama_342.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_343
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[23]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_343portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_343.address_width = 6,
-		lutrama_343.data_width = 1,
-		lutrama_343.first_address = 320,
-		lutrama_343.first_bit_number = 23,
-		lutrama_343.last_address = 383,
-		lutrama_343.logical_ram_depth = 512,
-		lutrama_343.logical_ram_name = "altdpram_instance",
-		lutrama_343.logical_ram_width = 64,
-		lutrama_343.mixed_port_feed_through_mode = "dont_care",
-		lutrama_343.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_344
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[24]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_344portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_344.address_width = 6,
-		lutrama_344.data_width = 1,
-		lutrama_344.first_address = 320,
-		lutrama_344.first_bit_number = 24,
-		lutrama_344.last_address = 383,
-		lutrama_344.logical_ram_depth = 512,
-		lutrama_344.logical_ram_name = "altdpram_instance",
-		lutrama_344.logical_ram_width = 64,
-		lutrama_344.mixed_port_feed_through_mode = "dont_care",
-		lutrama_344.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_345
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[25]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_345portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_345.address_width = 6,
-		lutrama_345.data_width = 1,
-		lutrama_345.first_address = 320,
-		lutrama_345.first_bit_number = 25,
-		lutrama_345.last_address = 383,
-		lutrama_345.logical_ram_depth = 512,
-		lutrama_345.logical_ram_name = "altdpram_instance",
-		lutrama_345.logical_ram_width = 64,
-		lutrama_345.mixed_port_feed_through_mode = "dont_care",
-		lutrama_345.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_346
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[26]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_346portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_346.address_width = 6,
-		lutrama_346.data_width = 1,
-		lutrama_346.first_address = 320,
-		lutrama_346.first_bit_number = 26,
-		lutrama_346.last_address = 383,
-		lutrama_346.logical_ram_depth = 512,
-		lutrama_346.logical_ram_name = "altdpram_instance",
-		lutrama_346.logical_ram_width = 64,
-		lutrama_346.mixed_port_feed_through_mode = "dont_care",
-		lutrama_346.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_347
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[27]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_347portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_347.address_width = 6,
-		lutrama_347.data_width = 1,
-		lutrama_347.first_address = 320,
-		lutrama_347.first_bit_number = 27,
-		lutrama_347.last_address = 383,
-		lutrama_347.logical_ram_depth = 512,
-		lutrama_347.logical_ram_name = "altdpram_instance",
-		lutrama_347.logical_ram_width = 64,
-		lutrama_347.mixed_port_feed_through_mode = "dont_care",
-		lutrama_347.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_348
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[28]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_348portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_348.address_width = 6,
-		lutrama_348.data_width = 1,
-		lutrama_348.first_address = 320,
-		lutrama_348.first_bit_number = 28,
-		lutrama_348.last_address = 383,
-		lutrama_348.logical_ram_depth = 512,
-		lutrama_348.logical_ram_name = "altdpram_instance",
-		lutrama_348.logical_ram_width = 64,
-		lutrama_348.mixed_port_feed_through_mode = "dont_care",
-		lutrama_348.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_349
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[29]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_349portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_349.address_width = 6,
-		lutrama_349.data_width = 1,
-		lutrama_349.first_address = 320,
-		lutrama_349.first_bit_number = 29,
-		lutrama_349.last_address = 383,
-		lutrama_349.logical_ram_depth = 512,
-		lutrama_349.logical_ram_name = "altdpram_instance",
-		lutrama_349.logical_ram_width = 64,
-		lutrama_349.mixed_port_feed_through_mode = "dont_care",
-		lutrama_349.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_350
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[30]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_350portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_350.address_width = 6,
-		lutrama_350.data_width = 1,
-		lutrama_350.first_address = 320,
-		lutrama_350.first_bit_number = 30,
-		lutrama_350.last_address = 383,
-		lutrama_350.logical_ram_depth = 512,
-		lutrama_350.logical_ram_name = "altdpram_instance",
-		lutrama_350.logical_ram_width = 64,
-		lutrama_350.mixed_port_feed_through_mode = "dont_care",
-		lutrama_350.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_351
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[31]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_351portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_351.address_width = 6,
-		lutrama_351.data_width = 1,
-		lutrama_351.first_address = 320,
-		lutrama_351.first_bit_number = 31,
-		lutrama_351.last_address = 383,
-		lutrama_351.logical_ram_depth = 512,
-		lutrama_351.logical_ram_name = "altdpram_instance",
-		lutrama_351.logical_ram_width = 64,
-		lutrama_351.mixed_port_feed_through_mode = "dont_care",
-		lutrama_351.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_352
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[32]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_352portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_352.address_width = 6,
-		lutrama_352.data_width = 1,
-		lutrama_352.first_address = 320,
-		lutrama_352.first_bit_number = 32,
-		lutrama_352.last_address = 383,
-		lutrama_352.logical_ram_depth = 512,
-		lutrama_352.logical_ram_name = "altdpram_instance",
-		lutrama_352.logical_ram_width = 64,
-		lutrama_352.mixed_port_feed_through_mode = "dont_care",
-		lutrama_352.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_353
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[33]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_353portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_353.address_width = 6,
-		lutrama_353.data_width = 1,
-		lutrama_353.first_address = 320,
-		lutrama_353.first_bit_number = 33,
-		lutrama_353.last_address = 383,
-		lutrama_353.logical_ram_depth = 512,
-		lutrama_353.logical_ram_name = "altdpram_instance",
-		lutrama_353.logical_ram_width = 64,
-		lutrama_353.mixed_port_feed_through_mode = "dont_care",
-		lutrama_353.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_354
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[34]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_354portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_354.address_width = 6,
-		lutrama_354.data_width = 1,
-		lutrama_354.first_address = 320,
-		lutrama_354.first_bit_number = 34,
-		lutrama_354.last_address = 383,
-		lutrama_354.logical_ram_depth = 512,
-		lutrama_354.logical_ram_name = "altdpram_instance",
-		lutrama_354.logical_ram_width = 64,
-		lutrama_354.mixed_port_feed_through_mode = "dont_care",
-		lutrama_354.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_355
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[35]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_355portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_355.address_width = 6,
-		lutrama_355.data_width = 1,
-		lutrama_355.first_address = 320,
-		lutrama_355.first_bit_number = 35,
-		lutrama_355.last_address = 383,
-		lutrama_355.logical_ram_depth = 512,
-		lutrama_355.logical_ram_name = "altdpram_instance",
-		lutrama_355.logical_ram_width = 64,
-		lutrama_355.mixed_port_feed_through_mode = "dont_care",
-		lutrama_355.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_356
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[36]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_356portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_356.address_width = 6,
-		lutrama_356.data_width = 1,
-		lutrama_356.first_address = 320,
-		lutrama_356.first_bit_number = 36,
-		lutrama_356.last_address = 383,
-		lutrama_356.logical_ram_depth = 512,
-		lutrama_356.logical_ram_name = "altdpram_instance",
-		lutrama_356.logical_ram_width = 64,
-		lutrama_356.mixed_port_feed_through_mode = "dont_care",
-		lutrama_356.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_357
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[37]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_357portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_357.address_width = 6,
-		lutrama_357.data_width = 1,
-		lutrama_357.first_address = 320,
-		lutrama_357.first_bit_number = 37,
-		lutrama_357.last_address = 383,
-		lutrama_357.logical_ram_depth = 512,
-		lutrama_357.logical_ram_name = "altdpram_instance",
-		lutrama_357.logical_ram_width = 64,
-		lutrama_357.mixed_port_feed_through_mode = "dont_care",
-		lutrama_357.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_358
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[38]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_358portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_358.address_width = 6,
-		lutrama_358.data_width = 1,
-		lutrama_358.first_address = 320,
-		lutrama_358.first_bit_number = 38,
-		lutrama_358.last_address = 383,
-		lutrama_358.logical_ram_depth = 512,
-		lutrama_358.logical_ram_name = "altdpram_instance",
-		lutrama_358.logical_ram_width = 64,
-		lutrama_358.mixed_port_feed_through_mode = "dont_care",
-		lutrama_358.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_359
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[39]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_359portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_359.address_width = 6,
-		lutrama_359.data_width = 1,
-		lutrama_359.first_address = 320,
-		lutrama_359.first_bit_number = 39,
-		lutrama_359.last_address = 383,
-		lutrama_359.logical_ram_depth = 512,
-		lutrama_359.logical_ram_name = "altdpram_instance",
-		lutrama_359.logical_ram_width = 64,
-		lutrama_359.mixed_port_feed_through_mode = "dont_care",
-		lutrama_359.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_360
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[40]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_360portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_360.address_width = 6,
-		lutrama_360.data_width = 1,
-		lutrama_360.first_address = 320,
-		lutrama_360.first_bit_number = 40,
-		lutrama_360.last_address = 383,
-		lutrama_360.logical_ram_depth = 512,
-		lutrama_360.logical_ram_name = "altdpram_instance",
-		lutrama_360.logical_ram_width = 64,
-		lutrama_360.mixed_port_feed_through_mode = "dont_care",
-		lutrama_360.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_361
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[41]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_361portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_361.address_width = 6,
-		lutrama_361.data_width = 1,
-		lutrama_361.first_address = 320,
-		lutrama_361.first_bit_number = 41,
-		lutrama_361.last_address = 383,
-		lutrama_361.logical_ram_depth = 512,
-		lutrama_361.logical_ram_name = "altdpram_instance",
-		lutrama_361.logical_ram_width = 64,
-		lutrama_361.mixed_port_feed_through_mode = "dont_care",
-		lutrama_361.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_362
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[42]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_362portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_362.address_width = 6,
-		lutrama_362.data_width = 1,
-		lutrama_362.first_address = 320,
-		lutrama_362.first_bit_number = 42,
-		lutrama_362.last_address = 383,
-		lutrama_362.logical_ram_depth = 512,
-		lutrama_362.logical_ram_name = "altdpram_instance",
-		lutrama_362.logical_ram_width = 64,
-		lutrama_362.mixed_port_feed_through_mode = "dont_care",
-		lutrama_362.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_363
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[43]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_363portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_363.address_width = 6,
-		lutrama_363.data_width = 1,
-		lutrama_363.first_address = 320,
-		lutrama_363.first_bit_number = 43,
-		lutrama_363.last_address = 383,
-		lutrama_363.logical_ram_depth = 512,
-		lutrama_363.logical_ram_name = "altdpram_instance",
-		lutrama_363.logical_ram_width = 64,
-		lutrama_363.mixed_port_feed_through_mode = "dont_care",
-		lutrama_363.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_364
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[44]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_364portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_364.address_width = 6,
-		lutrama_364.data_width = 1,
-		lutrama_364.first_address = 320,
-		lutrama_364.first_bit_number = 44,
-		lutrama_364.last_address = 383,
-		lutrama_364.logical_ram_depth = 512,
-		lutrama_364.logical_ram_name = "altdpram_instance",
-		lutrama_364.logical_ram_width = 64,
-		lutrama_364.mixed_port_feed_through_mode = "dont_care",
-		lutrama_364.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_365
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[45]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_365portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_365.address_width = 6,
-		lutrama_365.data_width = 1,
-		lutrama_365.first_address = 320,
-		lutrama_365.first_bit_number = 45,
-		lutrama_365.last_address = 383,
-		lutrama_365.logical_ram_depth = 512,
-		lutrama_365.logical_ram_name = "altdpram_instance",
-		lutrama_365.logical_ram_width = 64,
-		lutrama_365.mixed_port_feed_through_mode = "dont_care",
-		lutrama_365.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_366
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[46]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_366portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_366.address_width = 6,
-		lutrama_366.data_width = 1,
-		lutrama_366.first_address = 320,
-		lutrama_366.first_bit_number = 46,
-		lutrama_366.last_address = 383,
-		lutrama_366.logical_ram_depth = 512,
-		lutrama_366.logical_ram_name = "altdpram_instance",
-		lutrama_366.logical_ram_width = 64,
-		lutrama_366.mixed_port_feed_through_mode = "dont_care",
-		lutrama_366.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_367
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[47]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_367portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_367.address_width = 6,
-		lutrama_367.data_width = 1,
-		lutrama_367.first_address = 320,
-		lutrama_367.first_bit_number = 47,
-		lutrama_367.last_address = 383,
-		lutrama_367.logical_ram_depth = 512,
-		lutrama_367.logical_ram_name = "altdpram_instance",
-		lutrama_367.logical_ram_width = 64,
-		lutrama_367.mixed_port_feed_through_mode = "dont_care",
-		lutrama_367.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_368
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[48]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_368portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_368.address_width = 6,
-		lutrama_368.data_width = 1,
-		lutrama_368.first_address = 320,
-		lutrama_368.first_bit_number = 48,
-		lutrama_368.last_address = 383,
-		lutrama_368.logical_ram_depth = 512,
-		lutrama_368.logical_ram_name = "altdpram_instance",
-		lutrama_368.logical_ram_width = 64,
-		lutrama_368.mixed_port_feed_through_mode = "dont_care",
-		lutrama_368.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_369
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[49]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_369portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_369.address_width = 6,
-		lutrama_369.data_width = 1,
-		lutrama_369.first_address = 320,
-		lutrama_369.first_bit_number = 49,
-		lutrama_369.last_address = 383,
-		lutrama_369.logical_ram_depth = 512,
-		lutrama_369.logical_ram_name = "altdpram_instance",
-		lutrama_369.logical_ram_width = 64,
-		lutrama_369.mixed_port_feed_through_mode = "dont_care",
-		lutrama_369.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_370
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[50]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_370portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_370.address_width = 6,
-		lutrama_370.data_width = 1,
-		lutrama_370.first_address = 320,
-		lutrama_370.first_bit_number = 50,
-		lutrama_370.last_address = 383,
-		lutrama_370.logical_ram_depth = 512,
-		lutrama_370.logical_ram_name = "altdpram_instance",
-		lutrama_370.logical_ram_width = 64,
-		lutrama_370.mixed_port_feed_through_mode = "dont_care",
-		lutrama_370.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_371
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[51]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_371portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_371.address_width = 6,
-		lutrama_371.data_width = 1,
-		lutrama_371.first_address = 320,
-		lutrama_371.first_bit_number = 51,
-		lutrama_371.last_address = 383,
-		lutrama_371.logical_ram_depth = 512,
-		lutrama_371.logical_ram_name = "altdpram_instance",
-		lutrama_371.logical_ram_width = 64,
-		lutrama_371.mixed_port_feed_through_mode = "dont_care",
-		lutrama_371.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_372
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[52]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_372portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_372.address_width = 6,
-		lutrama_372.data_width = 1,
-		lutrama_372.first_address = 320,
-		lutrama_372.first_bit_number = 52,
-		lutrama_372.last_address = 383,
-		lutrama_372.logical_ram_depth = 512,
-		lutrama_372.logical_ram_name = "altdpram_instance",
-		lutrama_372.logical_ram_width = 64,
-		lutrama_372.mixed_port_feed_through_mode = "dont_care",
-		lutrama_372.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_373
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[53]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_373portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_373.address_width = 6,
-		lutrama_373.data_width = 1,
-		lutrama_373.first_address = 320,
-		lutrama_373.first_bit_number = 53,
-		lutrama_373.last_address = 383,
-		lutrama_373.logical_ram_depth = 512,
-		lutrama_373.logical_ram_name = "altdpram_instance",
-		lutrama_373.logical_ram_width = 64,
-		lutrama_373.mixed_port_feed_through_mode = "dont_care",
-		lutrama_373.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_374
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[54]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_374portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_374.address_width = 6,
-		lutrama_374.data_width = 1,
-		lutrama_374.first_address = 320,
-		lutrama_374.first_bit_number = 54,
-		lutrama_374.last_address = 383,
-		lutrama_374.logical_ram_depth = 512,
-		lutrama_374.logical_ram_name = "altdpram_instance",
-		lutrama_374.logical_ram_width = 64,
-		lutrama_374.mixed_port_feed_through_mode = "dont_care",
-		lutrama_374.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_375
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[55]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_375portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_375.address_width = 6,
-		lutrama_375.data_width = 1,
-		lutrama_375.first_address = 320,
-		lutrama_375.first_bit_number = 55,
-		lutrama_375.last_address = 383,
-		lutrama_375.logical_ram_depth = 512,
-		lutrama_375.logical_ram_name = "altdpram_instance",
-		lutrama_375.logical_ram_width = 64,
-		lutrama_375.mixed_port_feed_through_mode = "dont_care",
-		lutrama_375.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_376
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[56]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_376portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_376.address_width = 6,
-		lutrama_376.data_width = 1,
-		lutrama_376.first_address = 320,
-		lutrama_376.first_bit_number = 56,
-		lutrama_376.last_address = 383,
-		lutrama_376.logical_ram_depth = 512,
-		lutrama_376.logical_ram_name = "altdpram_instance",
-		lutrama_376.logical_ram_width = 64,
-		lutrama_376.mixed_port_feed_through_mode = "dont_care",
-		lutrama_376.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_377
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[57]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_377portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_377.address_width = 6,
-		lutrama_377.data_width = 1,
-		lutrama_377.first_address = 320,
-		lutrama_377.first_bit_number = 57,
-		lutrama_377.last_address = 383,
-		lutrama_377.logical_ram_depth = 512,
-		lutrama_377.logical_ram_name = "altdpram_instance",
-		lutrama_377.logical_ram_width = 64,
-		lutrama_377.mixed_port_feed_through_mode = "dont_care",
-		lutrama_377.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_378
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[58]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_378portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_378.address_width = 6,
-		lutrama_378.data_width = 1,
-		lutrama_378.first_address = 320,
-		lutrama_378.first_bit_number = 58,
-		lutrama_378.last_address = 383,
-		lutrama_378.logical_ram_depth = 512,
-		lutrama_378.logical_ram_name = "altdpram_instance",
-		lutrama_378.logical_ram_width = 64,
-		lutrama_378.mixed_port_feed_through_mode = "dont_care",
-		lutrama_378.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_379
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[59]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_379portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_379.address_width = 6,
-		lutrama_379.data_width = 1,
-		lutrama_379.first_address = 320,
-		lutrama_379.first_bit_number = 59,
-		lutrama_379.last_address = 383,
-		lutrama_379.logical_ram_depth = 512,
-		lutrama_379.logical_ram_name = "altdpram_instance",
-		lutrama_379.logical_ram_width = 64,
-		lutrama_379.mixed_port_feed_through_mode = "dont_care",
-		lutrama_379.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_380
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[60]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_380portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_380.address_width = 6,
-		lutrama_380.data_width = 1,
-		lutrama_380.first_address = 320,
-		lutrama_380.first_bit_number = 60,
-		lutrama_380.last_address = 383,
-		lutrama_380.logical_ram_depth = 512,
-		lutrama_380.logical_ram_name = "altdpram_instance",
-		lutrama_380.logical_ram_width = 64,
-		lutrama_380.mixed_port_feed_through_mode = "dont_care",
-		lutrama_380.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_381
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[61]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_381portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_381.address_width = 6,
-		lutrama_381.data_width = 1,
-		lutrama_381.first_address = 320,
-		lutrama_381.first_bit_number = 61,
-		lutrama_381.last_address = 383,
-		lutrama_381.logical_ram_depth = 512,
-		lutrama_381.logical_ram_name = "altdpram_instance",
-		lutrama_381.logical_ram_width = 64,
-		lutrama_381.mixed_port_feed_through_mode = "dont_care",
-		lutrama_381.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_382
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[62]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_382portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_382.address_width = 6,
-		lutrama_382.data_width = 1,
-		lutrama_382.first_address = 320,
-		lutrama_382.first_bit_number = 62,
-		lutrama_382.last_address = 383,
-		lutrama_382.logical_ram_depth = 512,
-		lutrama_382.logical_ram_name = "altdpram_instance",
-		lutrama_382.logical_ram_width = 64,
-		lutrama_382.mixed_port_feed_through_mode = "dont_care",
-		lutrama_382.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_383
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[5]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[63]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_383portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_383.address_width = 6,
-		lutrama_383.data_width = 1,
-		lutrama_383.first_address = 320,
-		lutrama_383.first_bit_number = 63,
-		lutrama_383.last_address = 383,
-		lutrama_383.logical_ram_depth = 512,
-		lutrama_383.logical_ram_name = "altdpram_instance",
-		lutrama_383.logical_ram_width = 64,
-		lutrama_383.mixed_port_feed_through_mode = "dont_care",
-		lutrama_383.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_384
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[0]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_384portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_384.address_width = 6,
-		lutrama_384.data_width = 1,
-		lutrama_384.first_address = 384,
-		lutrama_384.first_bit_number = 0,
-		lutrama_384.last_address = 447,
-		lutrama_384.logical_ram_depth = 512,
-		lutrama_384.logical_ram_name = "altdpram_instance",
-		lutrama_384.logical_ram_width = 64,
-		lutrama_384.mixed_port_feed_through_mode = "dont_care",
-		lutrama_384.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_385
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[1]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_385portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_385.address_width = 6,
-		lutrama_385.data_width = 1,
-		lutrama_385.first_address = 384,
-		lutrama_385.first_bit_number = 1,
-		lutrama_385.last_address = 447,
-		lutrama_385.logical_ram_depth = 512,
-		lutrama_385.logical_ram_name = "altdpram_instance",
-		lutrama_385.logical_ram_width = 64,
-		lutrama_385.mixed_port_feed_through_mode = "dont_care",
-		lutrama_385.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_386
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[2]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_386portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_386.address_width = 6,
-		lutrama_386.data_width = 1,
-		lutrama_386.first_address = 384,
-		lutrama_386.first_bit_number = 2,
-		lutrama_386.last_address = 447,
-		lutrama_386.logical_ram_depth = 512,
-		lutrama_386.logical_ram_name = "altdpram_instance",
-		lutrama_386.logical_ram_width = 64,
-		lutrama_386.mixed_port_feed_through_mode = "dont_care",
-		lutrama_386.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_387
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[3]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_387portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_387.address_width = 6,
-		lutrama_387.data_width = 1,
-		lutrama_387.first_address = 384,
-		lutrama_387.first_bit_number = 3,
-		lutrama_387.last_address = 447,
-		lutrama_387.logical_ram_depth = 512,
-		lutrama_387.logical_ram_name = "altdpram_instance",
-		lutrama_387.logical_ram_width = 64,
-		lutrama_387.mixed_port_feed_through_mode = "dont_care",
-		lutrama_387.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_388
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[4]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_388portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_388.address_width = 6,
-		lutrama_388.data_width = 1,
-		lutrama_388.first_address = 384,
-		lutrama_388.first_bit_number = 4,
-		lutrama_388.last_address = 447,
-		lutrama_388.logical_ram_depth = 512,
-		lutrama_388.logical_ram_name = "altdpram_instance",
-		lutrama_388.logical_ram_width = 64,
-		lutrama_388.mixed_port_feed_through_mode = "dont_care",
-		lutrama_388.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_389
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[5]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_389portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_389.address_width = 6,
-		lutrama_389.data_width = 1,
-		lutrama_389.first_address = 384,
-		lutrama_389.first_bit_number = 5,
-		lutrama_389.last_address = 447,
-		lutrama_389.logical_ram_depth = 512,
-		lutrama_389.logical_ram_name = "altdpram_instance",
-		lutrama_389.logical_ram_width = 64,
-		lutrama_389.mixed_port_feed_through_mode = "dont_care",
-		lutrama_389.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_390
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[6]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_390portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_390.address_width = 6,
-		lutrama_390.data_width = 1,
-		lutrama_390.first_address = 384,
-		lutrama_390.first_bit_number = 6,
-		lutrama_390.last_address = 447,
-		lutrama_390.logical_ram_depth = 512,
-		lutrama_390.logical_ram_name = "altdpram_instance",
-		lutrama_390.logical_ram_width = 64,
-		lutrama_390.mixed_port_feed_through_mode = "dont_care",
-		lutrama_390.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_391
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[7]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_391portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_391.address_width = 6,
-		lutrama_391.data_width = 1,
-		lutrama_391.first_address = 384,
-		lutrama_391.first_bit_number = 7,
-		lutrama_391.last_address = 447,
-		lutrama_391.logical_ram_depth = 512,
-		lutrama_391.logical_ram_name = "altdpram_instance",
-		lutrama_391.logical_ram_width = 64,
-		lutrama_391.mixed_port_feed_through_mode = "dont_care",
-		lutrama_391.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_392
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[8]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_392portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_392.address_width = 6,
-		lutrama_392.data_width = 1,
-		lutrama_392.first_address = 384,
-		lutrama_392.first_bit_number = 8,
-		lutrama_392.last_address = 447,
-		lutrama_392.logical_ram_depth = 512,
-		lutrama_392.logical_ram_name = "altdpram_instance",
-		lutrama_392.logical_ram_width = 64,
-		lutrama_392.mixed_port_feed_through_mode = "dont_care",
-		lutrama_392.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_393
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[9]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_393portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_393.address_width = 6,
-		lutrama_393.data_width = 1,
-		lutrama_393.first_address = 384,
-		lutrama_393.first_bit_number = 9,
-		lutrama_393.last_address = 447,
-		lutrama_393.logical_ram_depth = 512,
-		lutrama_393.logical_ram_name = "altdpram_instance",
-		lutrama_393.logical_ram_width = 64,
-		lutrama_393.mixed_port_feed_through_mode = "dont_care",
-		lutrama_393.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_394
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[10]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_394portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_394.address_width = 6,
-		lutrama_394.data_width = 1,
-		lutrama_394.first_address = 384,
-		lutrama_394.first_bit_number = 10,
-		lutrama_394.last_address = 447,
-		lutrama_394.logical_ram_depth = 512,
-		lutrama_394.logical_ram_name = "altdpram_instance",
-		lutrama_394.logical_ram_width = 64,
-		lutrama_394.mixed_port_feed_through_mode = "dont_care",
-		lutrama_394.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_395
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[11]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_395portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_395.address_width = 6,
-		lutrama_395.data_width = 1,
-		lutrama_395.first_address = 384,
-		lutrama_395.first_bit_number = 11,
-		lutrama_395.last_address = 447,
-		lutrama_395.logical_ram_depth = 512,
-		lutrama_395.logical_ram_name = "altdpram_instance",
-		lutrama_395.logical_ram_width = 64,
-		lutrama_395.mixed_port_feed_through_mode = "dont_care",
-		lutrama_395.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_396
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[12]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_396portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_396.address_width = 6,
-		lutrama_396.data_width = 1,
-		lutrama_396.first_address = 384,
-		lutrama_396.first_bit_number = 12,
-		lutrama_396.last_address = 447,
-		lutrama_396.logical_ram_depth = 512,
-		lutrama_396.logical_ram_name = "altdpram_instance",
-		lutrama_396.logical_ram_width = 64,
-		lutrama_396.mixed_port_feed_through_mode = "dont_care",
-		lutrama_396.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_397
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[13]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_397portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_397.address_width = 6,
-		lutrama_397.data_width = 1,
-		lutrama_397.first_address = 384,
-		lutrama_397.first_bit_number = 13,
-		lutrama_397.last_address = 447,
-		lutrama_397.logical_ram_depth = 512,
-		lutrama_397.logical_ram_name = "altdpram_instance",
-		lutrama_397.logical_ram_width = 64,
-		lutrama_397.mixed_port_feed_through_mode = "dont_care",
-		lutrama_397.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_398
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[14]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_398portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_398.address_width = 6,
-		lutrama_398.data_width = 1,
-		lutrama_398.first_address = 384,
-		lutrama_398.first_bit_number = 14,
-		lutrama_398.last_address = 447,
-		lutrama_398.logical_ram_depth = 512,
-		lutrama_398.logical_ram_name = "altdpram_instance",
-		lutrama_398.logical_ram_width = 64,
-		lutrama_398.mixed_port_feed_through_mode = "dont_care",
-		lutrama_398.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_399
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[15]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_399portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_399.address_width = 6,
-		lutrama_399.data_width = 1,
-		lutrama_399.first_address = 384,
-		lutrama_399.first_bit_number = 15,
-		lutrama_399.last_address = 447,
-		lutrama_399.logical_ram_depth = 512,
-		lutrama_399.logical_ram_name = "altdpram_instance",
-		lutrama_399.logical_ram_width = 64,
-		lutrama_399.mixed_port_feed_through_mode = "dont_care",
-		lutrama_399.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_400
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[16]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_400portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_400.address_width = 6,
-		lutrama_400.data_width = 1,
-		lutrama_400.first_address = 384,
-		lutrama_400.first_bit_number = 16,
-		lutrama_400.last_address = 447,
-		lutrama_400.logical_ram_depth = 512,
-		lutrama_400.logical_ram_name = "altdpram_instance",
-		lutrama_400.logical_ram_width = 64,
-		lutrama_400.mixed_port_feed_through_mode = "dont_care",
-		lutrama_400.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_401
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[17]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_401portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_401.address_width = 6,
-		lutrama_401.data_width = 1,
-		lutrama_401.first_address = 384,
-		lutrama_401.first_bit_number = 17,
-		lutrama_401.last_address = 447,
-		lutrama_401.logical_ram_depth = 512,
-		lutrama_401.logical_ram_name = "altdpram_instance",
-		lutrama_401.logical_ram_width = 64,
-		lutrama_401.mixed_port_feed_through_mode = "dont_care",
-		lutrama_401.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_402
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[18]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_402portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_402.address_width = 6,
-		lutrama_402.data_width = 1,
-		lutrama_402.first_address = 384,
-		lutrama_402.first_bit_number = 18,
-		lutrama_402.last_address = 447,
-		lutrama_402.logical_ram_depth = 512,
-		lutrama_402.logical_ram_name = "altdpram_instance",
-		lutrama_402.logical_ram_width = 64,
-		lutrama_402.mixed_port_feed_through_mode = "dont_care",
-		lutrama_402.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_403
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[19]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_403portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_403.address_width = 6,
-		lutrama_403.data_width = 1,
-		lutrama_403.first_address = 384,
-		lutrama_403.first_bit_number = 19,
-		lutrama_403.last_address = 447,
-		lutrama_403.logical_ram_depth = 512,
-		lutrama_403.logical_ram_name = "altdpram_instance",
-		lutrama_403.logical_ram_width = 64,
-		lutrama_403.mixed_port_feed_through_mode = "dont_care",
-		lutrama_403.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_404
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[20]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_404portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_404.address_width = 6,
-		lutrama_404.data_width = 1,
-		lutrama_404.first_address = 384,
-		lutrama_404.first_bit_number = 20,
-		lutrama_404.last_address = 447,
-		lutrama_404.logical_ram_depth = 512,
-		lutrama_404.logical_ram_name = "altdpram_instance",
-		lutrama_404.logical_ram_width = 64,
-		lutrama_404.mixed_port_feed_through_mode = "dont_care",
-		lutrama_404.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_405
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[21]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_405portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_405.address_width = 6,
-		lutrama_405.data_width = 1,
-		lutrama_405.first_address = 384,
-		lutrama_405.first_bit_number = 21,
-		lutrama_405.last_address = 447,
-		lutrama_405.logical_ram_depth = 512,
-		lutrama_405.logical_ram_name = "altdpram_instance",
-		lutrama_405.logical_ram_width = 64,
-		lutrama_405.mixed_port_feed_through_mode = "dont_care",
-		lutrama_405.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_406
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[22]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_406portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_406.address_width = 6,
-		lutrama_406.data_width = 1,
-		lutrama_406.first_address = 384,
-		lutrama_406.first_bit_number = 22,
-		lutrama_406.last_address = 447,
-		lutrama_406.logical_ram_depth = 512,
-		lutrama_406.logical_ram_name = "altdpram_instance",
-		lutrama_406.logical_ram_width = 64,
-		lutrama_406.mixed_port_feed_through_mode = "dont_care",
-		lutrama_406.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_407
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[23]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_407portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_407.address_width = 6,
-		lutrama_407.data_width = 1,
-		lutrama_407.first_address = 384,
-		lutrama_407.first_bit_number = 23,
-		lutrama_407.last_address = 447,
-		lutrama_407.logical_ram_depth = 512,
-		lutrama_407.logical_ram_name = "altdpram_instance",
-		lutrama_407.logical_ram_width = 64,
-		lutrama_407.mixed_port_feed_through_mode = "dont_care",
-		lutrama_407.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_408
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[24]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_408portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_408.address_width = 6,
-		lutrama_408.data_width = 1,
-		lutrama_408.first_address = 384,
-		lutrama_408.first_bit_number = 24,
-		lutrama_408.last_address = 447,
-		lutrama_408.logical_ram_depth = 512,
-		lutrama_408.logical_ram_name = "altdpram_instance",
-		lutrama_408.logical_ram_width = 64,
-		lutrama_408.mixed_port_feed_through_mode = "dont_care",
-		lutrama_408.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_409
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[25]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_409portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_409.address_width = 6,
-		lutrama_409.data_width = 1,
-		lutrama_409.first_address = 384,
-		lutrama_409.first_bit_number = 25,
-		lutrama_409.last_address = 447,
-		lutrama_409.logical_ram_depth = 512,
-		lutrama_409.logical_ram_name = "altdpram_instance",
-		lutrama_409.logical_ram_width = 64,
-		lutrama_409.mixed_port_feed_through_mode = "dont_care",
-		lutrama_409.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_410
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[26]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_410portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_410.address_width = 6,
-		lutrama_410.data_width = 1,
-		lutrama_410.first_address = 384,
-		lutrama_410.first_bit_number = 26,
-		lutrama_410.last_address = 447,
-		lutrama_410.logical_ram_depth = 512,
-		lutrama_410.logical_ram_name = "altdpram_instance",
-		lutrama_410.logical_ram_width = 64,
-		lutrama_410.mixed_port_feed_through_mode = "dont_care",
-		lutrama_410.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_411
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[27]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_411portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_411.address_width = 6,
-		lutrama_411.data_width = 1,
-		lutrama_411.first_address = 384,
-		lutrama_411.first_bit_number = 27,
-		lutrama_411.last_address = 447,
-		lutrama_411.logical_ram_depth = 512,
-		lutrama_411.logical_ram_name = "altdpram_instance",
-		lutrama_411.logical_ram_width = 64,
-		lutrama_411.mixed_port_feed_through_mode = "dont_care",
-		lutrama_411.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_412
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[28]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_412portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_412.address_width = 6,
-		lutrama_412.data_width = 1,
-		lutrama_412.first_address = 384,
-		lutrama_412.first_bit_number = 28,
-		lutrama_412.last_address = 447,
-		lutrama_412.logical_ram_depth = 512,
-		lutrama_412.logical_ram_name = "altdpram_instance",
-		lutrama_412.logical_ram_width = 64,
-		lutrama_412.mixed_port_feed_through_mode = "dont_care",
-		lutrama_412.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_413
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[29]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_413portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_413.address_width = 6,
-		lutrama_413.data_width = 1,
-		lutrama_413.first_address = 384,
-		lutrama_413.first_bit_number = 29,
-		lutrama_413.last_address = 447,
-		lutrama_413.logical_ram_depth = 512,
-		lutrama_413.logical_ram_name = "altdpram_instance",
-		lutrama_413.logical_ram_width = 64,
-		lutrama_413.mixed_port_feed_through_mode = "dont_care",
-		lutrama_413.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_414
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[30]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_414portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_414.address_width = 6,
-		lutrama_414.data_width = 1,
-		lutrama_414.first_address = 384,
-		lutrama_414.first_bit_number = 30,
-		lutrama_414.last_address = 447,
-		lutrama_414.logical_ram_depth = 512,
-		lutrama_414.logical_ram_name = "altdpram_instance",
-		lutrama_414.logical_ram_width = 64,
-		lutrama_414.mixed_port_feed_through_mode = "dont_care",
-		lutrama_414.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_415
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[31]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_415portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_415.address_width = 6,
-		lutrama_415.data_width = 1,
-		lutrama_415.first_address = 384,
-		lutrama_415.first_bit_number = 31,
-		lutrama_415.last_address = 447,
-		lutrama_415.logical_ram_depth = 512,
-		lutrama_415.logical_ram_name = "altdpram_instance",
-		lutrama_415.logical_ram_width = 64,
-		lutrama_415.mixed_port_feed_through_mode = "dont_care",
-		lutrama_415.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_416
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[32]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_416portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_416.address_width = 6,
-		lutrama_416.data_width = 1,
-		lutrama_416.first_address = 384,
-		lutrama_416.first_bit_number = 32,
-		lutrama_416.last_address = 447,
-		lutrama_416.logical_ram_depth = 512,
-		lutrama_416.logical_ram_name = "altdpram_instance",
-		lutrama_416.logical_ram_width = 64,
-		lutrama_416.mixed_port_feed_through_mode = "dont_care",
-		lutrama_416.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_417
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[33]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_417portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_417.address_width = 6,
-		lutrama_417.data_width = 1,
-		lutrama_417.first_address = 384,
-		lutrama_417.first_bit_number = 33,
-		lutrama_417.last_address = 447,
-		lutrama_417.logical_ram_depth = 512,
-		lutrama_417.logical_ram_name = "altdpram_instance",
-		lutrama_417.logical_ram_width = 64,
-		lutrama_417.mixed_port_feed_through_mode = "dont_care",
-		lutrama_417.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_418
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[34]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_418portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_418.address_width = 6,
-		lutrama_418.data_width = 1,
-		lutrama_418.first_address = 384,
-		lutrama_418.first_bit_number = 34,
-		lutrama_418.last_address = 447,
-		lutrama_418.logical_ram_depth = 512,
-		lutrama_418.logical_ram_name = "altdpram_instance",
-		lutrama_418.logical_ram_width = 64,
-		lutrama_418.mixed_port_feed_through_mode = "dont_care",
-		lutrama_418.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_419
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[35]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_419portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_419.address_width = 6,
-		lutrama_419.data_width = 1,
-		lutrama_419.first_address = 384,
-		lutrama_419.first_bit_number = 35,
-		lutrama_419.last_address = 447,
-		lutrama_419.logical_ram_depth = 512,
-		lutrama_419.logical_ram_name = "altdpram_instance",
-		lutrama_419.logical_ram_width = 64,
-		lutrama_419.mixed_port_feed_through_mode = "dont_care",
-		lutrama_419.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_420
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[36]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_420portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_420.address_width = 6,
-		lutrama_420.data_width = 1,
-		lutrama_420.first_address = 384,
-		lutrama_420.first_bit_number = 36,
-		lutrama_420.last_address = 447,
-		lutrama_420.logical_ram_depth = 512,
-		lutrama_420.logical_ram_name = "altdpram_instance",
-		lutrama_420.logical_ram_width = 64,
-		lutrama_420.mixed_port_feed_through_mode = "dont_care",
-		lutrama_420.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_421
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[37]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_421portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_421.address_width = 6,
-		lutrama_421.data_width = 1,
-		lutrama_421.first_address = 384,
-		lutrama_421.first_bit_number = 37,
-		lutrama_421.last_address = 447,
-		lutrama_421.logical_ram_depth = 512,
-		lutrama_421.logical_ram_name = "altdpram_instance",
-		lutrama_421.logical_ram_width = 64,
-		lutrama_421.mixed_port_feed_through_mode = "dont_care",
-		lutrama_421.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_422
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[38]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_422portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_422.address_width = 6,
-		lutrama_422.data_width = 1,
-		lutrama_422.first_address = 384,
-		lutrama_422.first_bit_number = 38,
-		lutrama_422.last_address = 447,
-		lutrama_422.logical_ram_depth = 512,
-		lutrama_422.logical_ram_name = "altdpram_instance",
-		lutrama_422.logical_ram_width = 64,
-		lutrama_422.mixed_port_feed_through_mode = "dont_care",
-		lutrama_422.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_423
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[39]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_423portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_423.address_width = 6,
-		lutrama_423.data_width = 1,
-		lutrama_423.first_address = 384,
-		lutrama_423.first_bit_number = 39,
-		lutrama_423.last_address = 447,
-		lutrama_423.logical_ram_depth = 512,
-		lutrama_423.logical_ram_name = "altdpram_instance",
-		lutrama_423.logical_ram_width = 64,
-		lutrama_423.mixed_port_feed_through_mode = "dont_care",
-		lutrama_423.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_424
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[40]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_424portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_424.address_width = 6,
-		lutrama_424.data_width = 1,
-		lutrama_424.first_address = 384,
-		lutrama_424.first_bit_number = 40,
-		lutrama_424.last_address = 447,
-		lutrama_424.logical_ram_depth = 512,
-		lutrama_424.logical_ram_name = "altdpram_instance",
-		lutrama_424.logical_ram_width = 64,
-		lutrama_424.mixed_port_feed_through_mode = "dont_care",
-		lutrama_424.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_425
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[41]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_425portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_425.address_width = 6,
-		lutrama_425.data_width = 1,
-		lutrama_425.first_address = 384,
-		lutrama_425.first_bit_number = 41,
-		lutrama_425.last_address = 447,
-		lutrama_425.logical_ram_depth = 512,
-		lutrama_425.logical_ram_name = "altdpram_instance",
-		lutrama_425.logical_ram_width = 64,
-		lutrama_425.mixed_port_feed_through_mode = "dont_care",
-		lutrama_425.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_426
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[42]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_426portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_426.address_width = 6,
-		lutrama_426.data_width = 1,
-		lutrama_426.first_address = 384,
-		lutrama_426.first_bit_number = 42,
-		lutrama_426.last_address = 447,
-		lutrama_426.logical_ram_depth = 512,
-		lutrama_426.logical_ram_name = "altdpram_instance",
-		lutrama_426.logical_ram_width = 64,
-		lutrama_426.mixed_port_feed_through_mode = "dont_care",
-		lutrama_426.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_427
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[43]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_427portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_427.address_width = 6,
-		lutrama_427.data_width = 1,
-		lutrama_427.first_address = 384,
-		lutrama_427.first_bit_number = 43,
-		lutrama_427.last_address = 447,
-		lutrama_427.logical_ram_depth = 512,
-		lutrama_427.logical_ram_name = "altdpram_instance",
-		lutrama_427.logical_ram_width = 64,
-		lutrama_427.mixed_port_feed_through_mode = "dont_care",
-		lutrama_427.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_428
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[44]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_428portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_428.address_width = 6,
-		lutrama_428.data_width = 1,
-		lutrama_428.first_address = 384,
-		lutrama_428.first_bit_number = 44,
-		lutrama_428.last_address = 447,
-		lutrama_428.logical_ram_depth = 512,
-		lutrama_428.logical_ram_name = "altdpram_instance",
-		lutrama_428.logical_ram_width = 64,
-		lutrama_428.mixed_port_feed_through_mode = "dont_care",
-		lutrama_428.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_429
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[45]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_429portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_429.address_width = 6,
-		lutrama_429.data_width = 1,
-		lutrama_429.first_address = 384,
-		lutrama_429.first_bit_number = 45,
-		lutrama_429.last_address = 447,
-		lutrama_429.logical_ram_depth = 512,
-		lutrama_429.logical_ram_name = "altdpram_instance",
-		lutrama_429.logical_ram_width = 64,
-		lutrama_429.mixed_port_feed_through_mode = "dont_care",
-		lutrama_429.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_430
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[46]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_430portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_430.address_width = 6,
-		lutrama_430.data_width = 1,
-		lutrama_430.first_address = 384,
-		lutrama_430.first_bit_number = 46,
-		lutrama_430.last_address = 447,
-		lutrama_430.logical_ram_depth = 512,
-		lutrama_430.logical_ram_name = "altdpram_instance",
-		lutrama_430.logical_ram_width = 64,
-		lutrama_430.mixed_port_feed_through_mode = "dont_care",
-		lutrama_430.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_431
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[47]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_431portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_431.address_width = 6,
-		lutrama_431.data_width = 1,
-		lutrama_431.first_address = 384,
-		lutrama_431.first_bit_number = 47,
-		lutrama_431.last_address = 447,
-		lutrama_431.logical_ram_depth = 512,
-		lutrama_431.logical_ram_name = "altdpram_instance",
-		lutrama_431.logical_ram_width = 64,
-		lutrama_431.mixed_port_feed_through_mode = "dont_care",
-		lutrama_431.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_432
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[48]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_432portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_432.address_width = 6,
-		lutrama_432.data_width = 1,
-		lutrama_432.first_address = 384,
-		lutrama_432.first_bit_number = 48,
-		lutrama_432.last_address = 447,
-		lutrama_432.logical_ram_depth = 512,
-		lutrama_432.logical_ram_name = "altdpram_instance",
-		lutrama_432.logical_ram_width = 64,
-		lutrama_432.mixed_port_feed_through_mode = "dont_care",
-		lutrama_432.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_433
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[49]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_433portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_433.address_width = 6,
-		lutrama_433.data_width = 1,
-		lutrama_433.first_address = 384,
-		lutrama_433.first_bit_number = 49,
-		lutrama_433.last_address = 447,
-		lutrama_433.logical_ram_depth = 512,
-		lutrama_433.logical_ram_name = "altdpram_instance",
-		lutrama_433.logical_ram_width = 64,
-		lutrama_433.mixed_port_feed_through_mode = "dont_care",
-		lutrama_433.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_434
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[50]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_434portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_434.address_width = 6,
-		lutrama_434.data_width = 1,
-		lutrama_434.first_address = 384,
-		lutrama_434.first_bit_number = 50,
-		lutrama_434.last_address = 447,
-		lutrama_434.logical_ram_depth = 512,
-		lutrama_434.logical_ram_name = "altdpram_instance",
-		lutrama_434.logical_ram_width = 64,
-		lutrama_434.mixed_port_feed_through_mode = "dont_care",
-		lutrama_434.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_435
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[51]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_435portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_435.address_width = 6,
-		lutrama_435.data_width = 1,
-		lutrama_435.first_address = 384,
-		lutrama_435.first_bit_number = 51,
-		lutrama_435.last_address = 447,
-		lutrama_435.logical_ram_depth = 512,
-		lutrama_435.logical_ram_name = "altdpram_instance",
-		lutrama_435.logical_ram_width = 64,
-		lutrama_435.mixed_port_feed_through_mode = "dont_care",
-		lutrama_435.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_436
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[52]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_436portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_436.address_width = 6,
-		lutrama_436.data_width = 1,
-		lutrama_436.first_address = 384,
-		lutrama_436.first_bit_number = 52,
-		lutrama_436.last_address = 447,
-		lutrama_436.logical_ram_depth = 512,
-		lutrama_436.logical_ram_name = "altdpram_instance",
-		lutrama_436.logical_ram_width = 64,
-		lutrama_436.mixed_port_feed_through_mode = "dont_care",
-		lutrama_436.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_437
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[53]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_437portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_437.address_width = 6,
-		lutrama_437.data_width = 1,
-		lutrama_437.first_address = 384,
-		lutrama_437.first_bit_number = 53,
-		lutrama_437.last_address = 447,
-		lutrama_437.logical_ram_depth = 512,
-		lutrama_437.logical_ram_name = "altdpram_instance",
-		lutrama_437.logical_ram_width = 64,
-		lutrama_437.mixed_port_feed_through_mode = "dont_care",
-		lutrama_437.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_438
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[54]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_438portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_438.address_width = 6,
-		lutrama_438.data_width = 1,
-		lutrama_438.first_address = 384,
-		lutrama_438.first_bit_number = 54,
-		lutrama_438.last_address = 447,
-		lutrama_438.logical_ram_depth = 512,
-		lutrama_438.logical_ram_name = "altdpram_instance",
-		lutrama_438.logical_ram_width = 64,
-		lutrama_438.mixed_port_feed_through_mode = "dont_care",
-		lutrama_438.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_439
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[55]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_439portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_439.address_width = 6,
-		lutrama_439.data_width = 1,
-		lutrama_439.first_address = 384,
-		lutrama_439.first_bit_number = 55,
-		lutrama_439.last_address = 447,
-		lutrama_439.logical_ram_depth = 512,
-		lutrama_439.logical_ram_name = "altdpram_instance",
-		lutrama_439.logical_ram_width = 64,
-		lutrama_439.mixed_port_feed_through_mode = "dont_care",
-		lutrama_439.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_440
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[56]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_440portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_440.address_width = 6,
-		lutrama_440.data_width = 1,
-		lutrama_440.first_address = 384,
-		lutrama_440.first_bit_number = 56,
-		lutrama_440.last_address = 447,
-		lutrama_440.logical_ram_depth = 512,
-		lutrama_440.logical_ram_name = "altdpram_instance",
-		lutrama_440.logical_ram_width = 64,
-		lutrama_440.mixed_port_feed_through_mode = "dont_care",
-		lutrama_440.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_441
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[57]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_441portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_441.address_width = 6,
-		lutrama_441.data_width = 1,
-		lutrama_441.first_address = 384,
-		lutrama_441.first_bit_number = 57,
-		lutrama_441.last_address = 447,
-		lutrama_441.logical_ram_depth = 512,
-		lutrama_441.logical_ram_name = "altdpram_instance",
-		lutrama_441.logical_ram_width = 64,
-		lutrama_441.mixed_port_feed_through_mode = "dont_care",
-		lutrama_441.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_442
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[58]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_442portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_442.address_width = 6,
-		lutrama_442.data_width = 1,
-		lutrama_442.first_address = 384,
-		lutrama_442.first_bit_number = 58,
-		lutrama_442.last_address = 447,
-		lutrama_442.logical_ram_depth = 512,
-		lutrama_442.logical_ram_name = "altdpram_instance",
-		lutrama_442.logical_ram_width = 64,
-		lutrama_442.mixed_port_feed_through_mode = "dont_care",
-		lutrama_442.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_443
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[59]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_443portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_443.address_width = 6,
-		lutrama_443.data_width = 1,
-		lutrama_443.first_address = 384,
-		lutrama_443.first_bit_number = 59,
-		lutrama_443.last_address = 447,
-		lutrama_443.logical_ram_depth = 512,
-		lutrama_443.logical_ram_name = "altdpram_instance",
-		lutrama_443.logical_ram_width = 64,
-		lutrama_443.mixed_port_feed_through_mode = "dont_care",
-		lutrama_443.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_444
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[60]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_444portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_444.address_width = 6,
-		lutrama_444.data_width = 1,
-		lutrama_444.first_address = 384,
-		lutrama_444.first_bit_number = 60,
-		lutrama_444.last_address = 447,
-		lutrama_444.logical_ram_depth = 512,
-		lutrama_444.logical_ram_name = "altdpram_instance",
-		lutrama_444.logical_ram_width = 64,
-		lutrama_444.mixed_port_feed_through_mode = "dont_care",
-		lutrama_444.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_445
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[61]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_445portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_445.address_width = 6,
-		lutrama_445.data_width = 1,
-		lutrama_445.first_address = 384,
-		lutrama_445.first_bit_number = 61,
-		lutrama_445.last_address = 447,
-		lutrama_445.logical_ram_depth = 512,
-		lutrama_445.logical_ram_name = "altdpram_instance",
-		lutrama_445.logical_ram_width = 64,
-		lutrama_445.mixed_port_feed_through_mode = "dont_care",
-		lutrama_445.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_446
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[62]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_446portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_446.address_width = 6,
-		lutrama_446.data_width = 1,
-		lutrama_446.first_address = 384,
-		lutrama_446.first_bit_number = 62,
-		lutrama_446.last_address = 447,
-		lutrama_446.logical_ram_depth = 512,
-		lutrama_446.logical_ram_name = "altdpram_instance",
-		lutrama_446.logical_ram_width = 64,
-		lutrama_446.mixed_port_feed_through_mode = "dont_care",
-		lutrama_446.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_447
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[6]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[63]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_447portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_447.address_width = 6,
-		lutrama_447.data_width = 1,
-		lutrama_447.first_address = 384,
-		lutrama_447.first_bit_number = 63,
-		lutrama_447.last_address = 447,
-		lutrama_447.logical_ram_depth = 512,
-		lutrama_447.logical_ram_name = "altdpram_instance",
-		lutrama_447.logical_ram_width = 64,
-		lutrama_447.mixed_port_feed_through_mode = "dont_care",
-		lutrama_447.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_448
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[0]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_448portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_448.address_width = 6,
-		lutrama_448.data_width = 1,
-		lutrama_448.first_address = 448,
-		lutrama_448.first_bit_number = 0,
-		lutrama_448.last_address = 511,
-		lutrama_448.logical_ram_depth = 512,
-		lutrama_448.logical_ram_name = "altdpram_instance",
-		lutrama_448.logical_ram_width = 64,
-		lutrama_448.mixed_port_feed_through_mode = "dont_care",
-		lutrama_448.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_449
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[1]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_449portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_449.address_width = 6,
-		lutrama_449.data_width = 1,
-		lutrama_449.first_address = 448,
-		lutrama_449.first_bit_number = 1,
-		lutrama_449.last_address = 511,
-		lutrama_449.logical_ram_depth = 512,
-		lutrama_449.logical_ram_name = "altdpram_instance",
-		lutrama_449.logical_ram_width = 64,
-		lutrama_449.mixed_port_feed_through_mode = "dont_care",
-		lutrama_449.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_450
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[2]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_450portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_450.address_width = 6,
-		lutrama_450.data_width = 1,
-		lutrama_450.first_address = 448,
-		lutrama_450.first_bit_number = 2,
-		lutrama_450.last_address = 511,
-		lutrama_450.logical_ram_depth = 512,
-		lutrama_450.logical_ram_name = "altdpram_instance",
-		lutrama_450.logical_ram_width = 64,
-		lutrama_450.mixed_port_feed_through_mode = "dont_care",
-		lutrama_450.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_451
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[3]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_451portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_451.address_width = 6,
-		lutrama_451.data_width = 1,
-		lutrama_451.first_address = 448,
-		lutrama_451.first_bit_number = 3,
-		lutrama_451.last_address = 511,
-		lutrama_451.logical_ram_depth = 512,
-		lutrama_451.logical_ram_name = "altdpram_instance",
-		lutrama_451.logical_ram_width = 64,
-		lutrama_451.mixed_port_feed_through_mode = "dont_care",
-		lutrama_451.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_452
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[4]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_452portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_452.address_width = 6,
-		lutrama_452.data_width = 1,
-		lutrama_452.first_address = 448,
-		lutrama_452.first_bit_number = 4,
-		lutrama_452.last_address = 511,
-		lutrama_452.logical_ram_depth = 512,
-		lutrama_452.logical_ram_name = "altdpram_instance",
-		lutrama_452.logical_ram_width = 64,
-		lutrama_452.mixed_port_feed_through_mode = "dont_care",
-		lutrama_452.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_453
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[5]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_453portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_453.address_width = 6,
-		lutrama_453.data_width = 1,
-		lutrama_453.first_address = 448,
-		lutrama_453.first_bit_number = 5,
-		lutrama_453.last_address = 511,
-		lutrama_453.logical_ram_depth = 512,
-		lutrama_453.logical_ram_name = "altdpram_instance",
-		lutrama_453.logical_ram_width = 64,
-		lutrama_453.mixed_port_feed_through_mode = "dont_care",
-		lutrama_453.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_454
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[6]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_454portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_454.address_width = 6,
-		lutrama_454.data_width = 1,
-		lutrama_454.first_address = 448,
-		lutrama_454.first_bit_number = 6,
-		lutrama_454.last_address = 511,
-		lutrama_454.logical_ram_depth = 512,
-		lutrama_454.logical_ram_name = "altdpram_instance",
-		lutrama_454.logical_ram_width = 64,
-		lutrama_454.mixed_port_feed_through_mode = "dont_care",
-		lutrama_454.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_455
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[7]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_455portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_455.address_width = 6,
-		lutrama_455.data_width = 1,
-		lutrama_455.first_address = 448,
-		lutrama_455.first_bit_number = 7,
-		lutrama_455.last_address = 511,
-		lutrama_455.logical_ram_depth = 512,
-		lutrama_455.logical_ram_name = "altdpram_instance",
-		lutrama_455.logical_ram_width = 64,
-		lutrama_455.mixed_port_feed_through_mode = "dont_care",
-		lutrama_455.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_456
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[8]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_456portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_456.address_width = 6,
-		lutrama_456.data_width = 1,
-		lutrama_456.first_address = 448,
-		lutrama_456.first_bit_number = 8,
-		lutrama_456.last_address = 511,
-		lutrama_456.logical_ram_depth = 512,
-		lutrama_456.logical_ram_name = "altdpram_instance",
-		lutrama_456.logical_ram_width = 64,
-		lutrama_456.mixed_port_feed_through_mode = "dont_care",
-		lutrama_456.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_457
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[9]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_457portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_457.address_width = 6,
-		lutrama_457.data_width = 1,
-		lutrama_457.first_address = 448,
-		lutrama_457.first_bit_number = 9,
-		lutrama_457.last_address = 511,
-		lutrama_457.logical_ram_depth = 512,
-		lutrama_457.logical_ram_name = "altdpram_instance",
-		lutrama_457.logical_ram_width = 64,
-		lutrama_457.mixed_port_feed_through_mode = "dont_care",
-		lutrama_457.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_458
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[10]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_458portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_458.address_width = 6,
-		lutrama_458.data_width = 1,
-		lutrama_458.first_address = 448,
-		lutrama_458.first_bit_number = 10,
-		lutrama_458.last_address = 511,
-		lutrama_458.logical_ram_depth = 512,
-		lutrama_458.logical_ram_name = "altdpram_instance",
-		lutrama_458.logical_ram_width = 64,
-		lutrama_458.mixed_port_feed_through_mode = "dont_care",
-		lutrama_458.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_459
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[11]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_459portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_459.address_width = 6,
-		lutrama_459.data_width = 1,
-		lutrama_459.first_address = 448,
-		lutrama_459.first_bit_number = 11,
-		lutrama_459.last_address = 511,
-		lutrama_459.logical_ram_depth = 512,
-		lutrama_459.logical_ram_name = "altdpram_instance",
-		lutrama_459.logical_ram_width = 64,
-		lutrama_459.mixed_port_feed_through_mode = "dont_care",
-		lutrama_459.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_460
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[12]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_460portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_460.address_width = 6,
-		lutrama_460.data_width = 1,
-		lutrama_460.first_address = 448,
-		lutrama_460.first_bit_number = 12,
-		lutrama_460.last_address = 511,
-		lutrama_460.logical_ram_depth = 512,
-		lutrama_460.logical_ram_name = "altdpram_instance",
-		lutrama_460.logical_ram_width = 64,
-		lutrama_460.mixed_port_feed_through_mode = "dont_care",
-		lutrama_460.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_461
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[13]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_461portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_461.address_width = 6,
-		lutrama_461.data_width = 1,
-		lutrama_461.first_address = 448,
-		lutrama_461.first_bit_number = 13,
-		lutrama_461.last_address = 511,
-		lutrama_461.logical_ram_depth = 512,
-		lutrama_461.logical_ram_name = "altdpram_instance",
-		lutrama_461.logical_ram_width = 64,
-		lutrama_461.mixed_port_feed_through_mode = "dont_care",
-		lutrama_461.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_462
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[14]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_462portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_462.address_width = 6,
-		lutrama_462.data_width = 1,
-		lutrama_462.first_address = 448,
-		lutrama_462.first_bit_number = 14,
-		lutrama_462.last_address = 511,
-		lutrama_462.logical_ram_depth = 512,
-		lutrama_462.logical_ram_name = "altdpram_instance",
-		lutrama_462.logical_ram_width = 64,
-		lutrama_462.mixed_port_feed_through_mode = "dont_care",
-		lutrama_462.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_463
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[15]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_463portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_463.address_width = 6,
-		lutrama_463.data_width = 1,
-		lutrama_463.first_address = 448,
-		lutrama_463.first_bit_number = 15,
-		lutrama_463.last_address = 511,
-		lutrama_463.logical_ram_depth = 512,
-		lutrama_463.logical_ram_name = "altdpram_instance",
-		lutrama_463.logical_ram_width = 64,
-		lutrama_463.mixed_port_feed_through_mode = "dont_care",
-		lutrama_463.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_464
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[16]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_464portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_464.address_width = 6,
-		lutrama_464.data_width = 1,
-		lutrama_464.first_address = 448,
-		lutrama_464.first_bit_number = 16,
-		lutrama_464.last_address = 511,
-		lutrama_464.logical_ram_depth = 512,
-		lutrama_464.logical_ram_name = "altdpram_instance",
-		lutrama_464.logical_ram_width = 64,
-		lutrama_464.mixed_port_feed_through_mode = "dont_care",
-		lutrama_464.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_465
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[17]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_465portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_465.address_width = 6,
-		lutrama_465.data_width = 1,
-		lutrama_465.first_address = 448,
-		lutrama_465.first_bit_number = 17,
-		lutrama_465.last_address = 511,
-		lutrama_465.logical_ram_depth = 512,
-		lutrama_465.logical_ram_name = "altdpram_instance",
-		lutrama_465.logical_ram_width = 64,
-		lutrama_465.mixed_port_feed_through_mode = "dont_care",
-		lutrama_465.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_466
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[18]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_466portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_466.address_width = 6,
-		lutrama_466.data_width = 1,
-		lutrama_466.first_address = 448,
-		lutrama_466.first_bit_number = 18,
-		lutrama_466.last_address = 511,
-		lutrama_466.logical_ram_depth = 512,
-		lutrama_466.logical_ram_name = "altdpram_instance",
-		lutrama_466.logical_ram_width = 64,
-		lutrama_466.mixed_port_feed_through_mode = "dont_care",
-		lutrama_466.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_467
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[19]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_467portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_467.address_width = 6,
-		lutrama_467.data_width = 1,
-		lutrama_467.first_address = 448,
-		lutrama_467.first_bit_number = 19,
-		lutrama_467.last_address = 511,
-		lutrama_467.logical_ram_depth = 512,
-		lutrama_467.logical_ram_name = "altdpram_instance",
-		lutrama_467.logical_ram_width = 64,
-		lutrama_467.mixed_port_feed_through_mode = "dont_care",
-		lutrama_467.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_468
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[20]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_468portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_468.address_width = 6,
-		lutrama_468.data_width = 1,
-		lutrama_468.first_address = 448,
-		lutrama_468.first_bit_number = 20,
-		lutrama_468.last_address = 511,
-		lutrama_468.logical_ram_depth = 512,
-		lutrama_468.logical_ram_name = "altdpram_instance",
-		lutrama_468.logical_ram_width = 64,
-		lutrama_468.mixed_port_feed_through_mode = "dont_care",
-		lutrama_468.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_469
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[21]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_469portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_469.address_width = 6,
-		lutrama_469.data_width = 1,
-		lutrama_469.first_address = 448,
-		lutrama_469.first_bit_number = 21,
-		lutrama_469.last_address = 511,
-		lutrama_469.logical_ram_depth = 512,
-		lutrama_469.logical_ram_name = "altdpram_instance",
-		lutrama_469.logical_ram_width = 64,
-		lutrama_469.mixed_port_feed_through_mode = "dont_care",
-		lutrama_469.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_470
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[22]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_470portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_470.address_width = 6,
-		lutrama_470.data_width = 1,
-		lutrama_470.first_address = 448,
-		lutrama_470.first_bit_number = 22,
-		lutrama_470.last_address = 511,
-		lutrama_470.logical_ram_depth = 512,
-		lutrama_470.logical_ram_name = "altdpram_instance",
-		lutrama_470.logical_ram_width = 64,
-		lutrama_470.mixed_port_feed_through_mode = "dont_care",
-		lutrama_470.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_471
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[23]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_471portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_471.address_width = 6,
-		lutrama_471.data_width = 1,
-		lutrama_471.first_address = 448,
-		lutrama_471.first_bit_number = 23,
-		lutrama_471.last_address = 511,
-		lutrama_471.logical_ram_depth = 512,
-		lutrama_471.logical_ram_name = "altdpram_instance",
-		lutrama_471.logical_ram_width = 64,
-		lutrama_471.mixed_port_feed_through_mode = "dont_care",
-		lutrama_471.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_472
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[24]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_472portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_472.address_width = 6,
-		lutrama_472.data_width = 1,
-		lutrama_472.first_address = 448,
-		lutrama_472.first_bit_number = 24,
-		lutrama_472.last_address = 511,
-		lutrama_472.logical_ram_depth = 512,
-		lutrama_472.logical_ram_name = "altdpram_instance",
-		lutrama_472.logical_ram_width = 64,
-		lutrama_472.mixed_port_feed_through_mode = "dont_care",
-		lutrama_472.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_473
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[25]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_473portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_473.address_width = 6,
-		lutrama_473.data_width = 1,
-		lutrama_473.first_address = 448,
-		lutrama_473.first_bit_number = 25,
-		lutrama_473.last_address = 511,
-		lutrama_473.logical_ram_depth = 512,
-		lutrama_473.logical_ram_name = "altdpram_instance",
-		lutrama_473.logical_ram_width = 64,
-		lutrama_473.mixed_port_feed_through_mode = "dont_care",
-		lutrama_473.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_474
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[26]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_474portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_474.address_width = 6,
-		lutrama_474.data_width = 1,
-		lutrama_474.first_address = 448,
-		lutrama_474.first_bit_number = 26,
-		lutrama_474.last_address = 511,
-		lutrama_474.logical_ram_depth = 512,
-		lutrama_474.logical_ram_name = "altdpram_instance",
-		lutrama_474.logical_ram_width = 64,
-		lutrama_474.mixed_port_feed_through_mode = "dont_care",
-		lutrama_474.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_475
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[27]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_475portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_475.address_width = 6,
-		lutrama_475.data_width = 1,
-		lutrama_475.first_address = 448,
-		lutrama_475.first_bit_number = 27,
-		lutrama_475.last_address = 511,
-		lutrama_475.logical_ram_depth = 512,
-		lutrama_475.logical_ram_name = "altdpram_instance",
-		lutrama_475.logical_ram_width = 64,
-		lutrama_475.mixed_port_feed_through_mode = "dont_care",
-		lutrama_475.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_476
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[28]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_476portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_476.address_width = 6,
-		lutrama_476.data_width = 1,
-		lutrama_476.first_address = 448,
-		lutrama_476.first_bit_number = 28,
-		lutrama_476.last_address = 511,
-		lutrama_476.logical_ram_depth = 512,
-		lutrama_476.logical_ram_name = "altdpram_instance",
-		lutrama_476.logical_ram_width = 64,
-		lutrama_476.mixed_port_feed_through_mode = "dont_care",
-		lutrama_476.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_477
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[29]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_477portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_477.address_width = 6,
-		lutrama_477.data_width = 1,
-		lutrama_477.first_address = 448,
-		lutrama_477.first_bit_number = 29,
-		lutrama_477.last_address = 511,
-		lutrama_477.logical_ram_depth = 512,
-		lutrama_477.logical_ram_name = "altdpram_instance",
-		lutrama_477.logical_ram_width = 64,
-		lutrama_477.mixed_port_feed_through_mode = "dont_care",
-		lutrama_477.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_478
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[30]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_478portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_478.address_width = 6,
-		lutrama_478.data_width = 1,
-		lutrama_478.first_address = 448,
-		lutrama_478.first_bit_number = 30,
-		lutrama_478.last_address = 511,
-		lutrama_478.logical_ram_depth = 512,
-		lutrama_478.logical_ram_name = "altdpram_instance",
-		lutrama_478.logical_ram_width = 64,
-		lutrama_478.mixed_port_feed_through_mode = "dont_care",
-		lutrama_478.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_479
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[31]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_479portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_479.address_width = 6,
-		lutrama_479.data_width = 1,
-		lutrama_479.first_address = 448,
-		lutrama_479.first_bit_number = 31,
-		lutrama_479.last_address = 511,
-		lutrama_479.logical_ram_depth = 512,
-		lutrama_479.logical_ram_name = "altdpram_instance",
-		lutrama_479.logical_ram_width = 64,
-		lutrama_479.mixed_port_feed_through_mode = "dont_care",
-		lutrama_479.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_480
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[32]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_480portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_480.address_width = 6,
-		lutrama_480.data_width = 1,
-		lutrama_480.first_address = 448,
-		lutrama_480.first_bit_number = 32,
-		lutrama_480.last_address = 511,
-		lutrama_480.logical_ram_depth = 512,
-		lutrama_480.logical_ram_name = "altdpram_instance",
-		lutrama_480.logical_ram_width = 64,
-		lutrama_480.mixed_port_feed_through_mode = "dont_care",
-		lutrama_480.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_481
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[33]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_481portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_481.address_width = 6,
-		lutrama_481.data_width = 1,
-		lutrama_481.first_address = 448,
-		lutrama_481.first_bit_number = 33,
-		lutrama_481.last_address = 511,
-		lutrama_481.logical_ram_depth = 512,
-		lutrama_481.logical_ram_name = "altdpram_instance",
-		lutrama_481.logical_ram_width = 64,
-		lutrama_481.mixed_port_feed_through_mode = "dont_care",
-		lutrama_481.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_482
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[34]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_482portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_482.address_width = 6,
-		lutrama_482.data_width = 1,
-		lutrama_482.first_address = 448,
-		lutrama_482.first_bit_number = 34,
-		lutrama_482.last_address = 511,
-		lutrama_482.logical_ram_depth = 512,
-		lutrama_482.logical_ram_name = "altdpram_instance",
-		lutrama_482.logical_ram_width = 64,
-		lutrama_482.mixed_port_feed_through_mode = "dont_care",
-		lutrama_482.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_483
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[35]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_483portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_483.address_width = 6,
-		lutrama_483.data_width = 1,
-		lutrama_483.first_address = 448,
-		lutrama_483.first_bit_number = 35,
-		lutrama_483.last_address = 511,
-		lutrama_483.logical_ram_depth = 512,
-		lutrama_483.logical_ram_name = "altdpram_instance",
-		lutrama_483.logical_ram_width = 64,
-		lutrama_483.mixed_port_feed_through_mode = "dont_care",
-		lutrama_483.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_484
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[36]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_484portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_484.address_width = 6,
-		lutrama_484.data_width = 1,
-		lutrama_484.first_address = 448,
-		lutrama_484.first_bit_number = 36,
-		lutrama_484.last_address = 511,
-		lutrama_484.logical_ram_depth = 512,
-		lutrama_484.logical_ram_name = "altdpram_instance",
-		lutrama_484.logical_ram_width = 64,
-		lutrama_484.mixed_port_feed_through_mode = "dont_care",
-		lutrama_484.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_485
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[37]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_485portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_485.address_width = 6,
-		lutrama_485.data_width = 1,
-		lutrama_485.first_address = 448,
-		lutrama_485.first_bit_number = 37,
-		lutrama_485.last_address = 511,
-		lutrama_485.logical_ram_depth = 512,
-		lutrama_485.logical_ram_name = "altdpram_instance",
-		lutrama_485.logical_ram_width = 64,
-		lutrama_485.mixed_port_feed_through_mode = "dont_care",
-		lutrama_485.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_486
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[38]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_486portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_486.address_width = 6,
-		lutrama_486.data_width = 1,
-		lutrama_486.first_address = 448,
-		lutrama_486.first_bit_number = 38,
-		lutrama_486.last_address = 511,
-		lutrama_486.logical_ram_depth = 512,
-		lutrama_486.logical_ram_name = "altdpram_instance",
-		lutrama_486.logical_ram_width = 64,
-		lutrama_486.mixed_port_feed_through_mode = "dont_care",
-		lutrama_486.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_487
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[39]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_487portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_487.address_width = 6,
-		lutrama_487.data_width = 1,
-		lutrama_487.first_address = 448,
-		lutrama_487.first_bit_number = 39,
-		lutrama_487.last_address = 511,
-		lutrama_487.logical_ram_depth = 512,
-		lutrama_487.logical_ram_name = "altdpram_instance",
-		lutrama_487.logical_ram_width = 64,
-		lutrama_487.mixed_port_feed_through_mode = "dont_care",
-		lutrama_487.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_488
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[40]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_488portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_488.address_width = 6,
-		lutrama_488.data_width = 1,
-		lutrama_488.first_address = 448,
-		lutrama_488.first_bit_number = 40,
-		lutrama_488.last_address = 511,
-		lutrama_488.logical_ram_depth = 512,
-		lutrama_488.logical_ram_name = "altdpram_instance",
-		lutrama_488.logical_ram_width = 64,
-		lutrama_488.mixed_port_feed_through_mode = "dont_care",
-		lutrama_488.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_489
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[41]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_489portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_489.address_width = 6,
-		lutrama_489.data_width = 1,
-		lutrama_489.first_address = 448,
-		lutrama_489.first_bit_number = 41,
-		lutrama_489.last_address = 511,
-		lutrama_489.logical_ram_depth = 512,
-		lutrama_489.logical_ram_name = "altdpram_instance",
-		lutrama_489.logical_ram_width = 64,
-		lutrama_489.mixed_port_feed_through_mode = "dont_care",
-		lutrama_489.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_490
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[42]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_490portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_490.address_width = 6,
-		lutrama_490.data_width = 1,
-		lutrama_490.first_address = 448,
-		lutrama_490.first_bit_number = 42,
-		lutrama_490.last_address = 511,
-		lutrama_490.logical_ram_depth = 512,
-		lutrama_490.logical_ram_name = "altdpram_instance",
-		lutrama_490.logical_ram_width = 64,
-		lutrama_490.mixed_port_feed_through_mode = "dont_care",
-		lutrama_490.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_491
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[43]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_491portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_491.address_width = 6,
-		lutrama_491.data_width = 1,
-		lutrama_491.first_address = 448,
-		lutrama_491.first_bit_number = 43,
-		lutrama_491.last_address = 511,
-		lutrama_491.logical_ram_depth = 512,
-		lutrama_491.logical_ram_name = "altdpram_instance",
-		lutrama_491.logical_ram_width = 64,
-		lutrama_491.mixed_port_feed_through_mode = "dont_care",
-		lutrama_491.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_492
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[44]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_492portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_492.address_width = 6,
-		lutrama_492.data_width = 1,
-		lutrama_492.first_address = 448,
-		lutrama_492.first_bit_number = 44,
-		lutrama_492.last_address = 511,
-		lutrama_492.logical_ram_depth = 512,
-		lutrama_492.logical_ram_name = "altdpram_instance",
-		lutrama_492.logical_ram_width = 64,
-		lutrama_492.mixed_port_feed_through_mode = "dont_care",
-		lutrama_492.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_493
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[45]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_493portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_493.address_width = 6,
-		lutrama_493.data_width = 1,
-		lutrama_493.first_address = 448,
-		lutrama_493.first_bit_number = 45,
-		lutrama_493.last_address = 511,
-		lutrama_493.logical_ram_depth = 512,
-		lutrama_493.logical_ram_name = "altdpram_instance",
-		lutrama_493.logical_ram_width = 64,
-		lutrama_493.mixed_port_feed_through_mode = "dont_care",
-		lutrama_493.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_494
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[46]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_494portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_494.address_width = 6,
-		lutrama_494.data_width = 1,
-		lutrama_494.first_address = 448,
-		lutrama_494.first_bit_number = 46,
-		lutrama_494.last_address = 511,
-		lutrama_494.logical_ram_depth = 512,
-		lutrama_494.logical_ram_name = "altdpram_instance",
-		lutrama_494.logical_ram_width = 64,
-		lutrama_494.mixed_port_feed_through_mode = "dont_care",
-		lutrama_494.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_495
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[47]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_495portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_495.address_width = 6,
-		lutrama_495.data_width = 1,
-		lutrama_495.first_address = 448,
-		lutrama_495.first_bit_number = 47,
-		lutrama_495.last_address = 511,
-		lutrama_495.logical_ram_depth = 512,
-		lutrama_495.logical_ram_name = "altdpram_instance",
-		lutrama_495.logical_ram_width = 64,
-		lutrama_495.mixed_port_feed_through_mode = "dont_care",
-		lutrama_495.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_496
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[48]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_496portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_496.address_width = 6,
-		lutrama_496.data_width = 1,
-		lutrama_496.first_address = 448,
-		lutrama_496.first_bit_number = 48,
-		lutrama_496.last_address = 511,
-		lutrama_496.logical_ram_depth = 512,
-		lutrama_496.logical_ram_name = "altdpram_instance",
-		lutrama_496.logical_ram_width = 64,
-		lutrama_496.mixed_port_feed_through_mode = "dont_care",
-		lutrama_496.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_497
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[49]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_497portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_497.address_width = 6,
-		lutrama_497.data_width = 1,
-		lutrama_497.first_address = 448,
-		lutrama_497.first_bit_number = 49,
-		lutrama_497.last_address = 511,
-		lutrama_497.logical_ram_depth = 512,
-		lutrama_497.logical_ram_name = "altdpram_instance",
-		lutrama_497.logical_ram_width = 64,
-		lutrama_497.mixed_port_feed_through_mode = "dont_care",
-		lutrama_497.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_498
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[50]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_498portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_498.address_width = 6,
-		lutrama_498.data_width = 1,
-		lutrama_498.first_address = 448,
-		lutrama_498.first_bit_number = 50,
-		lutrama_498.last_address = 511,
-		lutrama_498.logical_ram_depth = 512,
-		lutrama_498.logical_ram_name = "altdpram_instance",
-		lutrama_498.logical_ram_width = 64,
-		lutrama_498.mixed_port_feed_through_mode = "dont_care",
-		lutrama_498.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_499
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[51]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_499portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_499.address_width = 6,
-		lutrama_499.data_width = 1,
-		lutrama_499.first_address = 448,
-		lutrama_499.first_bit_number = 51,
-		lutrama_499.last_address = 511,
-		lutrama_499.logical_ram_depth = 512,
-		lutrama_499.logical_ram_name = "altdpram_instance",
-		lutrama_499.logical_ram_width = 64,
-		lutrama_499.mixed_port_feed_through_mode = "dont_care",
-		lutrama_499.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_500
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[52]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_500portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_500.address_width = 6,
-		lutrama_500.data_width = 1,
-		lutrama_500.first_address = 448,
-		lutrama_500.first_bit_number = 52,
-		lutrama_500.last_address = 511,
-		lutrama_500.logical_ram_depth = 512,
-		lutrama_500.logical_ram_name = "altdpram_instance",
-		lutrama_500.logical_ram_width = 64,
-		lutrama_500.mixed_port_feed_through_mode = "dont_care",
-		lutrama_500.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_501
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[53]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_501portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_501.address_width = 6,
-		lutrama_501.data_width = 1,
-		lutrama_501.first_address = 448,
-		lutrama_501.first_bit_number = 53,
-		lutrama_501.last_address = 511,
-		lutrama_501.logical_ram_depth = 512,
-		lutrama_501.logical_ram_name = "altdpram_instance",
-		lutrama_501.logical_ram_width = 64,
-		lutrama_501.mixed_port_feed_through_mode = "dont_care",
-		lutrama_501.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_502
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[54]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_502portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_502.address_width = 6,
-		lutrama_502.data_width = 1,
-		lutrama_502.first_address = 448,
-		lutrama_502.first_bit_number = 54,
-		lutrama_502.last_address = 511,
-		lutrama_502.logical_ram_depth = 512,
-		lutrama_502.logical_ram_name = "altdpram_instance",
-		lutrama_502.logical_ram_width = 64,
-		lutrama_502.mixed_port_feed_through_mode = "dont_care",
-		lutrama_502.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_503
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[55]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_503portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_503.address_width = 6,
-		lutrama_503.data_width = 1,
-		lutrama_503.first_address = 448,
-		lutrama_503.first_bit_number = 55,
-		lutrama_503.last_address = 511,
-		lutrama_503.logical_ram_depth = 512,
-		lutrama_503.logical_ram_name = "altdpram_instance",
-		lutrama_503.logical_ram_width = 64,
-		lutrama_503.mixed_port_feed_through_mode = "dont_care",
-		lutrama_503.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_504
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[56]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_504portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_504.address_width = 6,
-		lutrama_504.data_width = 1,
-		lutrama_504.first_address = 448,
-		lutrama_504.first_bit_number = 56,
-		lutrama_504.last_address = 511,
-		lutrama_504.logical_ram_depth = 512,
-		lutrama_504.logical_ram_name = "altdpram_instance",
-		lutrama_504.logical_ram_width = 64,
-		lutrama_504.mixed_port_feed_through_mode = "dont_care",
-		lutrama_504.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_505
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[57]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_505portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_505.address_width = 6,
-		lutrama_505.data_width = 1,
-		lutrama_505.first_address = 448,
-		lutrama_505.first_bit_number = 57,
-		lutrama_505.last_address = 511,
-		lutrama_505.logical_ram_depth = 512,
-		lutrama_505.logical_ram_name = "altdpram_instance",
-		lutrama_505.logical_ram_width = 64,
-		lutrama_505.mixed_port_feed_through_mode = "dont_care",
-		lutrama_505.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_506
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[58]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_506portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_506.address_width = 6,
-		lutrama_506.data_width = 1,
-		lutrama_506.first_address = 448,
-		lutrama_506.first_bit_number = 58,
-		lutrama_506.last_address = 511,
-		lutrama_506.logical_ram_depth = 512,
-		lutrama_506.logical_ram_name = "altdpram_instance",
-		lutrama_506.logical_ram_width = 64,
-		lutrama_506.mixed_port_feed_through_mode = "dont_care",
-		lutrama_506.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_507
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[59]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_507portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_507.address_width = 6,
-		lutrama_507.data_width = 1,
-		lutrama_507.first_address = 448,
-		lutrama_507.first_bit_number = 59,
-		lutrama_507.last_address = 511,
-		lutrama_507.logical_ram_depth = 512,
-		lutrama_507.logical_ram_name = "altdpram_instance",
-		lutrama_507.logical_ram_width = 64,
-		lutrama_507.mixed_port_feed_through_mode = "dont_care",
-		lutrama_507.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_508
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[60]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_508portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_508.address_width = 6,
-		lutrama_508.data_width = 1,
-		lutrama_508.first_address = 448,
-		lutrama_508.first_bit_number = 60,
-		lutrama_508.last_address = 511,
-		lutrama_508.logical_ram_depth = 512,
-		lutrama_508.logical_ram_name = "altdpram_instance",
-		lutrama_508.logical_ram_width = 64,
-		lutrama_508.mixed_port_feed_through_mode = "dont_care",
-		lutrama_508.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_509
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[61]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_509portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_509.address_width = 6,
-		lutrama_509.data_width = 1,
-		lutrama_509.first_address = 448,
-		lutrama_509.first_bit_number = 61,
-		lutrama_509.last_address = 511,
-		lutrama_509.logical_ram_depth = 512,
-		lutrama_509.logical_ram_name = "altdpram_instance",
-		lutrama_509.logical_ram_width = 64,
-		lutrama_509.mixed_port_feed_through_mode = "dont_care",
-		lutrama_509.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_510
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[62]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_510portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_510.address_width = 6,
-		lutrama_510.data_width = 1,
-		lutrama_510.first_address = 448,
-		lutrama_510.first_bit_number = 62,
-		lutrama_510.last_address = 511,
-		lutrama_510.logical_ram_depth = 512,
-		lutrama_510.logical_ram_name = "altdpram_instance",
-		lutrama_510.logical_ram_width = 64,
-		lutrama_510.mixed_port_feed_through_mode = "dont_care",
-		lutrama_510.lpm_type = "stratixiv_mlab_cell";
-	stratixiv_mlab_cell   lutrama_511
-	( 
-	.clk0(clock0),
-	.ena0(wire_wr_decode_eq[7]),
-	.portaaddr(wraddr_wire[5:0]),
-	.portadatain(datain_wire[63]),
-	.portbaddr(rdaddr_wire[5:0]),
-	.portbdataout(wire_lutrama_511portbdataout[0:0])
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_off
-	`endif
-	,
-	.portabyteenamasks({2{1'b1}})
-	`ifndef FORMAL_VERIFICATION
-	// synopsys translate_on
-	`endif
-	);
-	defparam
-		lutrama_511.address_width = 6,
-		lutrama_511.data_width = 1,
-		lutrama_511.first_address = 448,
-		lutrama_511.first_bit_number = 63,
-		lutrama_511.last_address = 511,
-		lutrama_511.logical_ram_depth = 512,
-		lutrama_511.logical_ram_name = "altdpram_instance",
-		lutrama_511.logical_ram_width = 64,
-		lutrama_511.mixed_port_feed_through_mode = "dont_care",
-		lutrama_511.lpm_type = "stratixiv_mlab_cell";
 	assign
 		datain_wire = datain_reg,
 		dataout_wire = wire_rd_mux_result,
@@ -15977,7 +8025,7 @@ module  windowing_data_sc_fifo_altsyncram
 endmodule //windowing_data_sc_fifo_altsyncram
 
 
-//lpm_compare DEVICE_FAMILY="Stratix IV" LPM_WIDTH=9 ONE_INPUT_IS_CONSTANT="YES" aeb dataa datab
+//lpm_compare DEVICE_FAMILY="Stratix IV" LPM_WIDTH=8 ONE_INPUT_IS_CONSTANT="YES" aeb dataa datab
 //VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
 
 //synthesis_resources = 
@@ -15990,29 +8038,665 @@ module  windowing_data_sc_fifo_cmpr
 	dataa,
 	datab) /* synthesis synthesis_clearbox=1 */;
 	output   aeb;
-	input   [8:0]  dataa;
-	input   [8:0]  datab;
+	input   [7:0]  dataa;
+	input   [7:0]  datab;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
 `endif
-	tri0   [8:0]  dataa;
-	tri0   [8:0]  datab;
+	tri0   [7:0]  dataa;
+	tri0   [7:0]  datab;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_on
 `endif
 
 	wire  [0:0]  aeb_result_wire;
 	wire  [0:0]  aneb_result_wire;
-	wire  [24:0]  data_wire;
+	wire  [19:0]  data_wire;
 	wire  eq_wire;
 
 	assign
 		aeb = eq_wire,
 		aeb_result_wire = (~ aneb_result_wire),
-		aneb_result_wire = (data_wire[0] | data_wire[1]),
-		data_wire = {datab[8], dataa[8], datab[7], dataa[7], datab[6], dataa[6], datab[5], dataa[5], datab[4], dataa[4], datab[3], dataa[3], datab[2], dataa[2], datab[1], dataa[1], datab[0], dataa[0], (data_wire[23] ^ data_wire[24]), ((data_wire[19] ^ data_wire[20]) | (data_wire[21] ^ data_wire[22])), ((data_wire[15] ^ data_wire[16]) | (data_wire[17] ^ data_wire[18])), ((data_wire[11] ^ data_wire[12]) | (data_wire[13] ^ data_wire[14])), ((data_wire[7] ^ data_wire[8]) | (data_wire[9] ^ data_wire[10])), data_wire[6], (((data_wire[2] | data_wire[3]) | data_wire[4]) | data_wire[5])},
+		aneb_result_wire = (((data_wire[0] | data_wire[1]) | data_wire[2]) | data_wire[3]),
+		data_wire = {datab[7], dataa[7], datab[6], dataa[6], datab[5], dataa[5], datab[4], dataa[4], datab[3], dataa[3], datab[2], dataa[2], datab[1], dataa[1], datab[0], dataa[0], ((data_wire[16] ^ data_wire[17]) | (data_wire[18] ^ data_wire[19])), ((data_wire[12] ^ data_wire[13]) | (data_wire[14] ^ data_wire[15])), ((data_wire[8] ^ data_wire[9]) | (data_wire[10] ^ data_wire[11])), ((data_wire[4] ^ data_wire[5]) | (data_wire[6] ^ data_wire[7]))},
 		eq_wire = aeb_result_wire;
 endmodule //windowing_data_sc_fifo_cmpr
+
+
+//lpm_counter DEVICE_FAMILY="Stratix IV" lpm_direction="UP" lpm_port_updown="PORT_UNUSED" lpm_width=7 aclr clock cnt_en q sclr
+//VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
+
+//synthesis_resources = lut 7 reg 7 
+//synopsys translate_off
+`timescale 1 ps / 1 ps
+//synopsys translate_on
+module  windowing_data_sc_fifo_cntr
+	( 
+	aclr,
+	clock,
+	cnt_en,
+	q,
+	sclr) /* synthesis synthesis_clearbox=1 */;
+	input   aclr;
+	input   clock;
+	input   cnt_en;
+	output   [6:0]  q;
+	input   sclr;
+`ifndef ALTERA_RESERVED_QIS
+// synopsys translate_off
+`endif
+	tri0   aclr;
+	tri1   cnt_en;
+	tri0   sclr;
+`ifndef ALTERA_RESERVED_QIS
+// synopsys translate_on
+`endif
+
+	wire	[6:0]	wire_counter_reg_bit_d;
+	wire	[6:0]	wire_counter_reg_bit_asdata;
+	reg	[6:0]	counter_reg_bit;
+	wire	[6:0]	wire_counter_reg_bit_ena;
+	wire	[6:0]	wire_counter_reg_bit_sload;
+	wire  [0:0]   wire_counter_comb_bita_0cout;
+	wire  [0:0]   wire_counter_comb_bita_1cout;
+	wire  [0:0]   wire_counter_comb_bita_2cout;
+	wire  [0:0]   wire_counter_comb_bita_3cout;
+	wire  [0:0]   wire_counter_comb_bita_4cout;
+	wire  [0:0]   wire_counter_comb_bita_5cout;
+	wire  [0:0]   wire_counter_comb_bita_0sumout;
+	wire  [0:0]   wire_counter_comb_bita_1sumout;
+	wire  [0:0]   wire_counter_comb_bita_2sumout;
+	wire  [0:0]   wire_counter_comb_bita_3sumout;
+	wire  [0:0]   wire_counter_comb_bita_4sumout;
+	wire  [0:0]   wire_counter_comb_bita_5sumout;
+	wire  [0:0]   wire_counter_comb_bita_6sumout;
+	wire  aclr_actual;
+	wire clk_en;
+	wire [6:0]  data;
+	wire  external_cin;
+	wire  lsb_cin;
+	wire  [6:0]  s_val;
+	wire  [6:0]  safe_q;
+	wire sload;
+	wire sset;
+	wire  updown_dir;
+	wire  updown_lsb;
+	wire  updown_other_bits;
+
+	// synopsys translate_off
+	initial
+		counter_reg_bit[0:0] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[0:0] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[0:0] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[0:0] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[0:0] == 1'b1) counter_reg_bit[0:0] <= wire_counter_reg_bit_asdata[0:0];
+			else  counter_reg_bit[0:0] <= wire_counter_reg_bit_d[0:0];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[1:1] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[1:1] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[1:1] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[1:1] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[1:1] == 1'b1) counter_reg_bit[1:1] <= wire_counter_reg_bit_asdata[1:1];
+			else  counter_reg_bit[1:1] <= wire_counter_reg_bit_d[1:1];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[2:2] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[2:2] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[2:2] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[2:2] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[2:2] == 1'b1) counter_reg_bit[2:2] <= wire_counter_reg_bit_asdata[2:2];
+			else  counter_reg_bit[2:2] <= wire_counter_reg_bit_d[2:2];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[3:3] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[3:3] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[3:3] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[3:3] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[3:3] == 1'b1) counter_reg_bit[3:3] <= wire_counter_reg_bit_asdata[3:3];
+			else  counter_reg_bit[3:3] <= wire_counter_reg_bit_d[3:3];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[4:4] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[4:4] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[4:4] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[4:4] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[4:4] == 1'b1) counter_reg_bit[4:4] <= wire_counter_reg_bit_asdata[4:4];
+			else  counter_reg_bit[4:4] <= wire_counter_reg_bit_d[4:4];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[5:5] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[5:5] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[5:5] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[5:5] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[5:5] == 1'b1) counter_reg_bit[5:5] <= wire_counter_reg_bit_asdata[5:5];
+			else  counter_reg_bit[5:5] <= wire_counter_reg_bit_d[5:5];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[6:6] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[6:6] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[6:6] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[6:6] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[6:6] == 1'b1) counter_reg_bit[6:6] <= wire_counter_reg_bit_asdata[6:6];
+			else  counter_reg_bit[6:6] <= wire_counter_reg_bit_d[6:6];
+	assign
+		wire_counter_reg_bit_asdata = (({7{sset}} & s_val) | ({7{(~ sset)}} & data)),
+		wire_counter_reg_bit_d = {wire_counter_comb_bita_6sumout[0:0], wire_counter_comb_bita_5sumout[0:0], wire_counter_comb_bita_4sumout[0:0], wire_counter_comb_bita_3sumout[0:0], wire_counter_comb_bita_2sumout[0:0], wire_counter_comb_bita_1sumout[0:0], wire_counter_comb_bita_0sumout[0:0]};
+	assign
+		wire_counter_reg_bit_ena = {7{(clk_en & (((cnt_en | sclr) | sset) | sload))}},
+		wire_counter_reg_bit_sload = {7{(sset | sload)}};
+	stratixiv_lcell_comb   counter_comb_bita_0
+	( 
+	.cin(lsb_cin),
+	.combout(),
+	.cout(wire_counter_comb_bita_0cout[0:0]),
+	.datad(counter_reg_bit[0]),
+	.dataf(updown_lsb),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_0sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_0.extended_lut = "off",
+		counter_comb_bita_0.lut_mask = 64'h000000000000FF00,
+		counter_comb_bita_0.shared_arith = "off",
+		counter_comb_bita_0.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_1
+	( 
+	.cin(wire_counter_comb_bita_0cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_1cout[0:0]),
+	.datad(counter_reg_bit[1]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_1sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_1.extended_lut = "off",
+		counter_comb_bita_1.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_1.shared_arith = "off",
+		counter_comb_bita_1.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_2
+	( 
+	.cin(wire_counter_comb_bita_1cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_2cout[0:0]),
+	.datad(counter_reg_bit[2]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_2sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_2.extended_lut = "off",
+		counter_comb_bita_2.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_2.shared_arith = "off",
+		counter_comb_bita_2.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_3
+	( 
+	.cin(wire_counter_comb_bita_2cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_3cout[0:0]),
+	.datad(counter_reg_bit[3]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_3sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_3.extended_lut = "off",
+		counter_comb_bita_3.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_3.shared_arith = "off",
+		counter_comb_bita_3.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_4
+	( 
+	.cin(wire_counter_comb_bita_3cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_4cout[0:0]),
+	.datad(counter_reg_bit[4]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_4sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_4.extended_lut = "off",
+		counter_comb_bita_4.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_4.shared_arith = "off",
+		counter_comb_bita_4.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_5
+	( 
+	.cin(wire_counter_comb_bita_4cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_5cout[0:0]),
+	.datad(counter_reg_bit[5]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_5sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_5.extended_lut = "off",
+		counter_comb_bita_5.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_5.shared_arith = "off",
+		counter_comb_bita_5.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_6
+	( 
+	.cin(wire_counter_comb_bita_5cout[0:0]),
+	.combout(),
+	.cout(),
+	.datad(counter_reg_bit[6]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_6sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_6.extended_lut = "off",
+		counter_comb_bita_6.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_6.shared_arith = "off",
+		counter_comb_bita_6.lpm_type = "stratixiv_lcell_comb";
+	assign
+		aclr_actual = aclr,
+		clk_en = 1'b1,
+		data = {7{1'b0}},
+		external_cin = 1'b1,
+		lsb_cin = 1'b0,
+		q = safe_q,
+		s_val = {7{1'b1}},
+		safe_q = counter_reg_bit,
+		sload = 1'b0,
+		sset = 1'b0,
+		updown_dir = 1'b1,
+		updown_lsb = updown_dir,
+		updown_other_bits = ((~ external_cin) | updown_dir);
+endmodule //windowing_data_sc_fifo_cntr
+
+
+//lpm_counter DEVICE_FAMILY="Stratix IV" lpm_width=8 aclr clock cnt_en q sclr updown
+//VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
+
+//synthesis_resources = lut 8 reg 8 
+//synopsys translate_off
+`timescale 1 ps / 1 ps
+//synopsys translate_on
+module  windowing_data_sc_fifo_cntr1
+	( 
+	aclr,
+	clock,
+	cnt_en,
+	q,
+	sclr,
+	updown) /* synthesis synthesis_clearbox=1 */;
+	input   aclr;
+	input   clock;
+	input   cnt_en;
+	output   [7:0]  q;
+	input   sclr;
+	input   updown;
+`ifndef ALTERA_RESERVED_QIS
+// synopsys translate_off
+`endif
+	tri0   aclr;
+	tri1   cnt_en;
+	tri0   sclr;
+	tri1   updown;
+`ifndef ALTERA_RESERVED_QIS
+// synopsys translate_on
+`endif
+
+	wire	[7:0]	wire_counter_reg_bit_d;
+	wire	[7:0]	wire_counter_reg_bit_asdata;
+	reg	[7:0]	counter_reg_bit;
+	wire	[7:0]	wire_counter_reg_bit_ena;
+	wire	[7:0]	wire_counter_reg_bit_sload;
+	wire  [0:0]   wire_counter_comb_bita_0cout;
+	wire  [0:0]   wire_counter_comb_bita_1cout;
+	wire  [0:0]   wire_counter_comb_bita_2cout;
+	wire  [0:0]   wire_counter_comb_bita_3cout;
+	wire  [0:0]   wire_counter_comb_bita_4cout;
+	wire  [0:0]   wire_counter_comb_bita_5cout;
+	wire  [0:0]   wire_counter_comb_bita_6cout;
+	wire  [0:0]   wire_counter_comb_bita_0sumout;
+	wire  [0:0]   wire_counter_comb_bita_1sumout;
+	wire  [0:0]   wire_counter_comb_bita_2sumout;
+	wire  [0:0]   wire_counter_comb_bita_3sumout;
+	wire  [0:0]   wire_counter_comb_bita_4sumout;
+	wire  [0:0]   wire_counter_comb_bita_5sumout;
+	wire  [0:0]   wire_counter_comb_bita_6sumout;
+	wire  [0:0]   wire_counter_comb_bita_7sumout;
+	wire  aclr_actual;
+	wire clk_en;
+	wire [7:0]  data;
+	wire  external_cin;
+	wire  lsb_cin;
+	wire  [7:0]  s_val;
+	wire  [7:0]  safe_q;
+	wire sload;
+	wire sset;
+	wire  updown_dir;
+	wire  updown_lsb;
+	wire  updown_other_bits;
+
+	// synopsys translate_off
+	initial
+		counter_reg_bit[0:0] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[0:0] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[0:0] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[0:0] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[0:0] == 1'b1) counter_reg_bit[0:0] <= wire_counter_reg_bit_asdata[0:0];
+			else  counter_reg_bit[0:0] <= wire_counter_reg_bit_d[0:0];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[1:1] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[1:1] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[1:1] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[1:1] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[1:1] == 1'b1) counter_reg_bit[1:1] <= wire_counter_reg_bit_asdata[1:1];
+			else  counter_reg_bit[1:1] <= wire_counter_reg_bit_d[1:1];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[2:2] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[2:2] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[2:2] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[2:2] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[2:2] == 1'b1) counter_reg_bit[2:2] <= wire_counter_reg_bit_asdata[2:2];
+			else  counter_reg_bit[2:2] <= wire_counter_reg_bit_d[2:2];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[3:3] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[3:3] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[3:3] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[3:3] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[3:3] == 1'b1) counter_reg_bit[3:3] <= wire_counter_reg_bit_asdata[3:3];
+			else  counter_reg_bit[3:3] <= wire_counter_reg_bit_d[3:3];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[4:4] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[4:4] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[4:4] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[4:4] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[4:4] == 1'b1) counter_reg_bit[4:4] <= wire_counter_reg_bit_asdata[4:4];
+			else  counter_reg_bit[4:4] <= wire_counter_reg_bit_d[4:4];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[5:5] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[5:5] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[5:5] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[5:5] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[5:5] == 1'b1) counter_reg_bit[5:5] <= wire_counter_reg_bit_asdata[5:5];
+			else  counter_reg_bit[5:5] <= wire_counter_reg_bit_d[5:5];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[6:6] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[6:6] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[6:6] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[6:6] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[6:6] == 1'b1) counter_reg_bit[6:6] <= wire_counter_reg_bit_asdata[6:6];
+			else  counter_reg_bit[6:6] <= wire_counter_reg_bit_d[6:6];
+	// synopsys translate_off
+	initial
+		counter_reg_bit[7:7] = 0;
+	// synopsys translate_on
+	always @ ( posedge clock or  posedge aclr_actual)
+		if (aclr_actual == 1'b1) counter_reg_bit[7:7] <= 1'b0;
+		else if  (wire_counter_reg_bit_ena[7:7] == 1'b1) 
+			if (sclr == 1'b1) counter_reg_bit[7:7] <= 1'b0;
+			else if (wire_counter_reg_bit_sload[7:7] == 1'b1) counter_reg_bit[7:7] <= wire_counter_reg_bit_asdata[7:7];
+			else  counter_reg_bit[7:7] <= wire_counter_reg_bit_d[7:7];
+	assign
+		wire_counter_reg_bit_asdata = (({8{sset}} & s_val) | ({8{(~ sset)}} & data)),
+		wire_counter_reg_bit_d = {wire_counter_comb_bita_7sumout[0:0], wire_counter_comb_bita_6sumout[0:0], wire_counter_comb_bita_5sumout[0:0], wire_counter_comb_bita_4sumout[0:0], wire_counter_comb_bita_3sumout[0:0], wire_counter_comb_bita_2sumout[0:0], wire_counter_comb_bita_1sumout[0:0], wire_counter_comb_bita_0sumout[0:0]};
+	assign
+		wire_counter_reg_bit_ena = {8{(clk_en & (((cnt_en | sclr) | sset) | sload))}},
+		wire_counter_reg_bit_sload = {8{(sset | sload)}};
+	stratixiv_lcell_comb   counter_comb_bita_0
+	( 
+	.cin(lsb_cin),
+	.combout(),
+	.cout(wire_counter_comb_bita_0cout[0:0]),
+	.datad(counter_reg_bit[0]),
+	.dataf(updown_lsb),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_0sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_0.extended_lut = "off",
+		counter_comb_bita_0.lut_mask = 64'h000000000000FF00,
+		counter_comb_bita_0.shared_arith = "off",
+		counter_comb_bita_0.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_1
+	( 
+	.cin(wire_counter_comb_bita_0cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_1cout[0:0]),
+	.datad(counter_reg_bit[1]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_1sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_1.extended_lut = "off",
+		counter_comb_bita_1.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_1.shared_arith = "off",
+		counter_comb_bita_1.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_2
+	( 
+	.cin(wire_counter_comb_bita_1cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_2cout[0:0]),
+	.datad(counter_reg_bit[2]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_2sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_2.extended_lut = "off",
+		counter_comb_bita_2.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_2.shared_arith = "off",
+		counter_comb_bita_2.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_3
+	( 
+	.cin(wire_counter_comb_bita_2cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_3cout[0:0]),
+	.datad(counter_reg_bit[3]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_3sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_3.extended_lut = "off",
+		counter_comb_bita_3.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_3.shared_arith = "off",
+		counter_comb_bita_3.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_4
+	( 
+	.cin(wire_counter_comb_bita_3cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_4cout[0:0]),
+	.datad(counter_reg_bit[4]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_4sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_4.extended_lut = "off",
+		counter_comb_bita_4.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_4.shared_arith = "off",
+		counter_comb_bita_4.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_5
+	( 
+	.cin(wire_counter_comb_bita_4cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_5cout[0:0]),
+	.datad(counter_reg_bit[5]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_5sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_5.extended_lut = "off",
+		counter_comb_bita_5.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_5.shared_arith = "off",
+		counter_comb_bita_5.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_6
+	( 
+	.cin(wire_counter_comb_bita_5cout[0:0]),
+	.combout(),
+	.cout(wire_counter_comb_bita_6cout[0:0]),
+	.datad(counter_reg_bit[6]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_6sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_6.extended_lut = "off",
+		counter_comb_bita_6.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_6.shared_arith = "off",
+		counter_comb_bita_6.lpm_type = "stratixiv_lcell_comb";
+	stratixiv_lcell_comb   counter_comb_bita_7
+	( 
+	.cin(wire_counter_comb_bita_6cout[0:0]),
+	.combout(),
+	.cout(),
+	.datad(counter_reg_bit[7]),
+	.dataf(updown_other_bits),
+	.shareout(),
+	.sumout(wire_counter_comb_bita_7sumout[0:0]),
+	.dataa(1'b0),
+	.datab(1'b0),
+	.datac(1'b0),
+	.datae(1'b0),
+	.datag(1'b0),
+	.sharein(1'b0)
+	);
+	defparam
+		counter_comb_bita_7.extended_lut = "off",
+		counter_comb_bita_7.lut_mask = 64'h0000FF000000FF00,
+		counter_comb_bita_7.shared_arith = "off",
+		counter_comb_bita_7.lpm_type = "stratixiv_lcell_comb";
+	assign
+		aclr_actual = aclr,
+		clk_en = 1'b1,
+		data = {8{1'b0}},
+		external_cin = 1'b1,
+		lsb_cin = 1'b0,
+		q = safe_q,
+		s_val = {8{1'b1}},
+		safe_q = counter_reg_bit,
+		sload = 1'b0,
+		sset = 1'b0,
+		updown_dir = updown,
+		updown_lsb = updown_dir,
+		updown_other_bits = ((~ external_cin) | updown_dir);
+endmodule //windowing_data_sc_fifo_cntr1
 
 
 //lpm_counter DEVICE_FAMILY="Stratix IV" lpm_direction="UP" lpm_port_updown="PORT_UNUSED" lpm_width=8 aclr clock cnt_en q sclr
@@ -16022,7 +8706,7 @@ endmodule //windowing_data_sc_fifo_cmpr
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
-module  windowing_data_sc_fifo_cntr
+module  windowing_data_sc_fifo_cntr12
 	( 
 	aclr,
 	clock,
@@ -16345,744 +9029,9 @@ module  windowing_data_sc_fifo_cntr
 		updown_dir = 1'b1,
 		updown_lsb = updown_dir,
 		updown_other_bits = ((~ external_cin) | updown_dir);
-endmodule //windowing_data_sc_fifo_cntr
-
-
-//lpm_counter DEVICE_FAMILY="Stratix IV" lpm_width=9 aclr clock cnt_en q sclr updown
-//VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
-
-//synthesis_resources = lut 9 reg 9 
-//synopsys translate_off
-`timescale 1 ps / 1 ps
-//synopsys translate_on
-module  windowing_data_sc_fifo_cntr1
-	( 
-	aclr,
-	clock,
-	cnt_en,
-	q,
-	sclr,
-	updown) /* synthesis synthesis_clearbox=1 */;
-	input   aclr;
-	input   clock;
-	input   cnt_en;
-	output   [8:0]  q;
-	input   sclr;
-	input   updown;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-	tri0   aclr;
-	tri1   cnt_en;
-	tri0   sclr;
-	tri1   updown;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
-
-	wire	[8:0]	wire_counter_reg_bit_d;
-	wire	[8:0]	wire_counter_reg_bit_asdata;
-	reg	[8:0]	counter_reg_bit;
-	wire	[8:0]	wire_counter_reg_bit_ena;
-	wire	[8:0]	wire_counter_reg_bit_sload;
-	wire  [0:0]   wire_counter_comb_bita_0cout;
-	wire  [0:0]   wire_counter_comb_bita_1cout;
-	wire  [0:0]   wire_counter_comb_bita_2cout;
-	wire  [0:0]   wire_counter_comb_bita_3cout;
-	wire  [0:0]   wire_counter_comb_bita_4cout;
-	wire  [0:0]   wire_counter_comb_bita_5cout;
-	wire  [0:0]   wire_counter_comb_bita_6cout;
-	wire  [0:0]   wire_counter_comb_bita_7cout;
-	wire  [0:0]   wire_counter_comb_bita_0sumout;
-	wire  [0:0]   wire_counter_comb_bita_1sumout;
-	wire  [0:0]   wire_counter_comb_bita_2sumout;
-	wire  [0:0]   wire_counter_comb_bita_3sumout;
-	wire  [0:0]   wire_counter_comb_bita_4sumout;
-	wire  [0:0]   wire_counter_comb_bita_5sumout;
-	wire  [0:0]   wire_counter_comb_bita_6sumout;
-	wire  [0:0]   wire_counter_comb_bita_7sumout;
-	wire  [0:0]   wire_counter_comb_bita_8sumout;
-	wire  aclr_actual;
-	wire clk_en;
-	wire [8:0]  data;
-	wire  external_cin;
-	wire  lsb_cin;
-	wire  [8:0]  s_val;
-	wire  [8:0]  safe_q;
-	wire sload;
-	wire sset;
-	wire  updown_dir;
-	wire  updown_lsb;
-	wire  updown_other_bits;
-
-	// synopsys translate_off
-	initial
-		counter_reg_bit[0:0] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[0:0] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[0:0] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[0:0] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[0:0] == 1'b1) counter_reg_bit[0:0] <= wire_counter_reg_bit_asdata[0:0];
-			else  counter_reg_bit[0:0] <= wire_counter_reg_bit_d[0:0];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[1:1] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[1:1] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[1:1] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[1:1] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[1:1] == 1'b1) counter_reg_bit[1:1] <= wire_counter_reg_bit_asdata[1:1];
-			else  counter_reg_bit[1:1] <= wire_counter_reg_bit_d[1:1];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[2:2] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[2:2] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[2:2] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[2:2] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[2:2] == 1'b1) counter_reg_bit[2:2] <= wire_counter_reg_bit_asdata[2:2];
-			else  counter_reg_bit[2:2] <= wire_counter_reg_bit_d[2:2];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[3:3] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[3:3] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[3:3] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[3:3] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[3:3] == 1'b1) counter_reg_bit[3:3] <= wire_counter_reg_bit_asdata[3:3];
-			else  counter_reg_bit[3:3] <= wire_counter_reg_bit_d[3:3];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[4:4] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[4:4] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[4:4] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[4:4] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[4:4] == 1'b1) counter_reg_bit[4:4] <= wire_counter_reg_bit_asdata[4:4];
-			else  counter_reg_bit[4:4] <= wire_counter_reg_bit_d[4:4];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[5:5] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[5:5] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[5:5] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[5:5] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[5:5] == 1'b1) counter_reg_bit[5:5] <= wire_counter_reg_bit_asdata[5:5];
-			else  counter_reg_bit[5:5] <= wire_counter_reg_bit_d[5:5];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[6:6] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[6:6] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[6:6] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[6:6] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[6:6] == 1'b1) counter_reg_bit[6:6] <= wire_counter_reg_bit_asdata[6:6];
-			else  counter_reg_bit[6:6] <= wire_counter_reg_bit_d[6:6];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[7:7] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[7:7] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[7:7] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[7:7] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[7:7] == 1'b1) counter_reg_bit[7:7] <= wire_counter_reg_bit_asdata[7:7];
-			else  counter_reg_bit[7:7] <= wire_counter_reg_bit_d[7:7];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[8:8] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[8:8] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[8:8] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[8:8] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[8:8] == 1'b1) counter_reg_bit[8:8] <= wire_counter_reg_bit_asdata[8:8];
-			else  counter_reg_bit[8:8] <= wire_counter_reg_bit_d[8:8];
-	assign
-		wire_counter_reg_bit_asdata = (({9{sset}} & s_val) | ({9{(~ sset)}} & data)),
-		wire_counter_reg_bit_d = {wire_counter_comb_bita_8sumout[0:0], wire_counter_comb_bita_7sumout[0:0], wire_counter_comb_bita_6sumout[0:0], wire_counter_comb_bita_5sumout[0:0], wire_counter_comb_bita_4sumout[0:0], wire_counter_comb_bita_3sumout[0:0], wire_counter_comb_bita_2sumout[0:0], wire_counter_comb_bita_1sumout[0:0], wire_counter_comb_bita_0sumout[0:0]};
-	assign
-		wire_counter_reg_bit_ena = {9{(clk_en & (((cnt_en | sclr) | sset) | sload))}},
-		wire_counter_reg_bit_sload = {9{(sset | sload)}};
-	stratixiv_lcell_comb   counter_comb_bita_0
-	( 
-	.cin(lsb_cin),
-	.combout(),
-	.cout(wire_counter_comb_bita_0cout[0:0]),
-	.datad(counter_reg_bit[0]),
-	.dataf(updown_lsb),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_0sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_0.extended_lut = "off",
-		counter_comb_bita_0.lut_mask = 64'h000000000000FF00,
-		counter_comb_bita_0.shared_arith = "off",
-		counter_comb_bita_0.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_1
-	( 
-	.cin(wire_counter_comb_bita_0cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_1cout[0:0]),
-	.datad(counter_reg_bit[1]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_1sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_1.extended_lut = "off",
-		counter_comb_bita_1.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_1.shared_arith = "off",
-		counter_comb_bita_1.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_2
-	( 
-	.cin(wire_counter_comb_bita_1cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_2cout[0:0]),
-	.datad(counter_reg_bit[2]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_2sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_2.extended_lut = "off",
-		counter_comb_bita_2.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_2.shared_arith = "off",
-		counter_comb_bita_2.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_3
-	( 
-	.cin(wire_counter_comb_bita_2cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_3cout[0:0]),
-	.datad(counter_reg_bit[3]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_3sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_3.extended_lut = "off",
-		counter_comb_bita_3.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_3.shared_arith = "off",
-		counter_comb_bita_3.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_4
-	( 
-	.cin(wire_counter_comb_bita_3cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_4cout[0:0]),
-	.datad(counter_reg_bit[4]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_4sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_4.extended_lut = "off",
-		counter_comb_bita_4.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_4.shared_arith = "off",
-		counter_comb_bita_4.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_5
-	( 
-	.cin(wire_counter_comb_bita_4cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_5cout[0:0]),
-	.datad(counter_reg_bit[5]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_5sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_5.extended_lut = "off",
-		counter_comb_bita_5.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_5.shared_arith = "off",
-		counter_comb_bita_5.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_6
-	( 
-	.cin(wire_counter_comb_bita_5cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_6cout[0:0]),
-	.datad(counter_reg_bit[6]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_6sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_6.extended_lut = "off",
-		counter_comb_bita_6.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_6.shared_arith = "off",
-		counter_comb_bita_6.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_7
-	( 
-	.cin(wire_counter_comb_bita_6cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_7cout[0:0]),
-	.datad(counter_reg_bit[7]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_7sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_7.extended_lut = "off",
-		counter_comb_bita_7.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_7.shared_arith = "off",
-		counter_comb_bita_7.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_8
-	( 
-	.cin(wire_counter_comb_bita_7cout[0:0]),
-	.combout(),
-	.cout(),
-	.datad(counter_reg_bit[8]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_8sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_8.extended_lut = "off",
-		counter_comb_bita_8.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_8.shared_arith = "off",
-		counter_comb_bita_8.lpm_type = "stratixiv_lcell_comb";
-	assign
-		aclr_actual = aclr,
-		clk_en = 1'b1,
-		data = {9{1'b0}},
-		external_cin = 1'b1,
-		lsb_cin = 1'b0,
-		q = safe_q,
-		s_val = {9{1'b1}},
-		safe_q = counter_reg_bit,
-		sload = 1'b0,
-		sset = 1'b0,
-		updown_dir = updown,
-		updown_lsb = updown_dir,
-		updown_other_bits = ((~ external_cin) | updown_dir);
-endmodule //windowing_data_sc_fifo_cntr1
-
-
-//lpm_counter DEVICE_FAMILY="Stratix IV" lpm_direction="UP" lpm_port_updown="PORT_UNUSED" lpm_width=9 aclr clock cnt_en q sclr
-//VERSION_BEGIN 16.1 cbx_cycloneii 2016:10:24:15:04:16:SJ cbx_lpm_add_sub 2016:10:24:15:04:16:SJ cbx_lpm_compare 2016:10:24:15:04:16:SJ cbx_lpm_counter 2016:10:24:15:04:16:SJ cbx_lpm_decode 2016:10:24:15:04:16:SJ cbx_mgl 2016:10:24:15:05:03:SJ cbx_nadder 2016:10:24:15:04:16:SJ cbx_stratix 2016:10:24:15:04:16:SJ cbx_stratixii 2016:10:24:15:04:16:SJ  VERSION_END
-
-//synthesis_resources = lut 9 reg 9 
-//synopsys translate_off
-`timescale 1 ps / 1 ps
-//synopsys translate_on
-module  windowing_data_sc_fifo_cntr12
-	( 
-	aclr,
-	clock,
-	cnt_en,
-	q,
-	sclr) /* synthesis synthesis_clearbox=1 */;
-	input   aclr;
-	input   clock;
-	input   cnt_en;
-	output   [8:0]  q;
-	input   sclr;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_off
-`endif
-	tri0   aclr;
-	tri1   cnt_en;
-	tri0   sclr;
-`ifndef ALTERA_RESERVED_QIS
-// synopsys translate_on
-`endif
-
-	wire	[8:0]	wire_counter_reg_bit_d;
-	wire	[8:0]	wire_counter_reg_bit_asdata;
-	reg	[8:0]	counter_reg_bit;
-	wire	[8:0]	wire_counter_reg_bit_ena;
-	wire	[8:0]	wire_counter_reg_bit_sload;
-	wire  [0:0]   wire_counter_comb_bita_0cout;
-	wire  [0:0]   wire_counter_comb_bita_1cout;
-	wire  [0:0]   wire_counter_comb_bita_2cout;
-	wire  [0:0]   wire_counter_comb_bita_3cout;
-	wire  [0:0]   wire_counter_comb_bita_4cout;
-	wire  [0:0]   wire_counter_comb_bita_5cout;
-	wire  [0:0]   wire_counter_comb_bita_6cout;
-	wire  [0:0]   wire_counter_comb_bita_7cout;
-	wire  [0:0]   wire_counter_comb_bita_0sumout;
-	wire  [0:0]   wire_counter_comb_bita_1sumout;
-	wire  [0:0]   wire_counter_comb_bita_2sumout;
-	wire  [0:0]   wire_counter_comb_bita_3sumout;
-	wire  [0:0]   wire_counter_comb_bita_4sumout;
-	wire  [0:0]   wire_counter_comb_bita_5sumout;
-	wire  [0:0]   wire_counter_comb_bita_6sumout;
-	wire  [0:0]   wire_counter_comb_bita_7sumout;
-	wire  [0:0]   wire_counter_comb_bita_8sumout;
-	wire  aclr_actual;
-	wire clk_en;
-	wire [8:0]  data;
-	wire  external_cin;
-	wire  lsb_cin;
-	wire  [8:0]  s_val;
-	wire  [8:0]  safe_q;
-	wire sload;
-	wire sset;
-	wire  updown_dir;
-	wire  updown_lsb;
-	wire  updown_other_bits;
-
-	// synopsys translate_off
-	initial
-		counter_reg_bit[0:0] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[0:0] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[0:0] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[0:0] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[0:0] == 1'b1) counter_reg_bit[0:0] <= wire_counter_reg_bit_asdata[0:0];
-			else  counter_reg_bit[0:0] <= wire_counter_reg_bit_d[0:0];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[1:1] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[1:1] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[1:1] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[1:1] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[1:1] == 1'b1) counter_reg_bit[1:1] <= wire_counter_reg_bit_asdata[1:1];
-			else  counter_reg_bit[1:1] <= wire_counter_reg_bit_d[1:1];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[2:2] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[2:2] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[2:2] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[2:2] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[2:2] == 1'b1) counter_reg_bit[2:2] <= wire_counter_reg_bit_asdata[2:2];
-			else  counter_reg_bit[2:2] <= wire_counter_reg_bit_d[2:2];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[3:3] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[3:3] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[3:3] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[3:3] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[3:3] == 1'b1) counter_reg_bit[3:3] <= wire_counter_reg_bit_asdata[3:3];
-			else  counter_reg_bit[3:3] <= wire_counter_reg_bit_d[3:3];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[4:4] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[4:4] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[4:4] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[4:4] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[4:4] == 1'b1) counter_reg_bit[4:4] <= wire_counter_reg_bit_asdata[4:4];
-			else  counter_reg_bit[4:4] <= wire_counter_reg_bit_d[4:4];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[5:5] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[5:5] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[5:5] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[5:5] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[5:5] == 1'b1) counter_reg_bit[5:5] <= wire_counter_reg_bit_asdata[5:5];
-			else  counter_reg_bit[5:5] <= wire_counter_reg_bit_d[5:5];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[6:6] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[6:6] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[6:6] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[6:6] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[6:6] == 1'b1) counter_reg_bit[6:6] <= wire_counter_reg_bit_asdata[6:6];
-			else  counter_reg_bit[6:6] <= wire_counter_reg_bit_d[6:6];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[7:7] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[7:7] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[7:7] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[7:7] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[7:7] == 1'b1) counter_reg_bit[7:7] <= wire_counter_reg_bit_asdata[7:7];
-			else  counter_reg_bit[7:7] <= wire_counter_reg_bit_d[7:7];
-	// synopsys translate_off
-	initial
-		counter_reg_bit[8:8] = 0;
-	// synopsys translate_on
-	always @ ( posedge clock or  posedge aclr_actual)
-		if (aclr_actual == 1'b1) counter_reg_bit[8:8] <= 1'b0;
-		else if  (wire_counter_reg_bit_ena[8:8] == 1'b1) 
-			if (sclr == 1'b1) counter_reg_bit[8:8] <= 1'b0;
-			else if (wire_counter_reg_bit_sload[8:8] == 1'b1) counter_reg_bit[8:8] <= wire_counter_reg_bit_asdata[8:8];
-			else  counter_reg_bit[8:8] <= wire_counter_reg_bit_d[8:8];
-	assign
-		wire_counter_reg_bit_asdata = (({9{sset}} & s_val) | ({9{(~ sset)}} & data)),
-		wire_counter_reg_bit_d = {wire_counter_comb_bita_8sumout[0:0], wire_counter_comb_bita_7sumout[0:0], wire_counter_comb_bita_6sumout[0:0], wire_counter_comb_bita_5sumout[0:0], wire_counter_comb_bita_4sumout[0:0], wire_counter_comb_bita_3sumout[0:0], wire_counter_comb_bita_2sumout[0:0], wire_counter_comb_bita_1sumout[0:0], wire_counter_comb_bita_0sumout[0:0]};
-	assign
-		wire_counter_reg_bit_ena = {9{(clk_en & (((cnt_en | sclr) | sset) | sload))}},
-		wire_counter_reg_bit_sload = {9{(sset | sload)}};
-	stratixiv_lcell_comb   counter_comb_bita_0
-	( 
-	.cin(lsb_cin),
-	.combout(),
-	.cout(wire_counter_comb_bita_0cout[0:0]),
-	.datad(counter_reg_bit[0]),
-	.dataf(updown_lsb),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_0sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_0.extended_lut = "off",
-		counter_comb_bita_0.lut_mask = 64'h000000000000FF00,
-		counter_comb_bita_0.shared_arith = "off",
-		counter_comb_bita_0.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_1
-	( 
-	.cin(wire_counter_comb_bita_0cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_1cout[0:0]),
-	.datad(counter_reg_bit[1]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_1sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_1.extended_lut = "off",
-		counter_comb_bita_1.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_1.shared_arith = "off",
-		counter_comb_bita_1.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_2
-	( 
-	.cin(wire_counter_comb_bita_1cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_2cout[0:0]),
-	.datad(counter_reg_bit[2]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_2sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_2.extended_lut = "off",
-		counter_comb_bita_2.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_2.shared_arith = "off",
-		counter_comb_bita_2.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_3
-	( 
-	.cin(wire_counter_comb_bita_2cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_3cout[0:0]),
-	.datad(counter_reg_bit[3]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_3sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_3.extended_lut = "off",
-		counter_comb_bita_3.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_3.shared_arith = "off",
-		counter_comb_bita_3.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_4
-	( 
-	.cin(wire_counter_comb_bita_3cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_4cout[0:0]),
-	.datad(counter_reg_bit[4]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_4sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_4.extended_lut = "off",
-		counter_comb_bita_4.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_4.shared_arith = "off",
-		counter_comb_bita_4.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_5
-	( 
-	.cin(wire_counter_comb_bita_4cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_5cout[0:0]),
-	.datad(counter_reg_bit[5]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_5sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_5.extended_lut = "off",
-		counter_comb_bita_5.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_5.shared_arith = "off",
-		counter_comb_bita_5.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_6
-	( 
-	.cin(wire_counter_comb_bita_5cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_6cout[0:0]),
-	.datad(counter_reg_bit[6]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_6sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_6.extended_lut = "off",
-		counter_comb_bita_6.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_6.shared_arith = "off",
-		counter_comb_bita_6.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_7
-	( 
-	.cin(wire_counter_comb_bita_6cout[0:0]),
-	.combout(),
-	.cout(wire_counter_comb_bita_7cout[0:0]),
-	.datad(counter_reg_bit[7]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_7sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_7.extended_lut = "off",
-		counter_comb_bita_7.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_7.shared_arith = "off",
-		counter_comb_bita_7.lpm_type = "stratixiv_lcell_comb";
-	stratixiv_lcell_comb   counter_comb_bita_8
-	( 
-	.cin(wire_counter_comb_bita_7cout[0:0]),
-	.combout(),
-	.cout(),
-	.datad(counter_reg_bit[8]),
-	.dataf(updown_other_bits),
-	.shareout(),
-	.sumout(wire_counter_comb_bita_8sumout[0:0]),
-	.dataa(1'b0),
-	.datab(1'b0),
-	.datac(1'b0),
-	.datae(1'b0),
-	.datag(1'b0),
-	.sharein(1'b0)
-	);
-	defparam
-		counter_comb_bita_8.extended_lut = "off",
-		counter_comb_bita_8.lut_mask = 64'h0000FF000000FF00,
-		counter_comb_bita_8.shared_arith = "off",
-		counter_comb_bita_8.lpm_type = "stratixiv_lcell_comb";
-	assign
-		aclr_actual = aclr,
-		clk_en = 1'b1,
-		data = {9{1'b0}},
-		external_cin = 1'b1,
-		lsb_cin = 1'b0,
-		q = safe_q,
-		s_val = {9{1'b1}},
-		safe_q = counter_reg_bit,
-		sload = 1'b0,
-		sset = 1'b0,
-		updown_dir = 1'b1,
-		updown_lsb = updown_dir,
-		updown_other_bits = ((~ external_cin) | updown_dir);
 endmodule //windowing_data_sc_fifo_cntr12
 
-//synthesis_resources = lut 184 MLAB 52 reg 125 
+//synthesis_resources = lut 91 MLAB 26 reg 119 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -17106,7 +9055,7 @@ module  windowing_data_sc_fifo_a_dpfifo
 	output   [63:0]  q;
 	input   rreq;
 	input   sclr;
-	output   [8:0]  usedw;
+	output   [7:0]  usedw;
 	input   wreq;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
@@ -17120,7 +9069,7 @@ module  windowing_data_sc_fifo_a_dpfifo
 	wire  [63:0]   wire_FIFOram_q_b;
 	reg	empty_dff;
 	reg	full_dff;
-	reg	[8:0]	low_addressa;
+	reg	[7:0]	low_addressa;
 	reg	rd_ptr_lsb;
 	wire	wire_rd_ptr_lsb_ena;
 	reg	usedw_is_0_dff;
@@ -17130,15 +9079,15 @@ module  windowing_data_sc_fifo_a_dpfifo
 	reg	[0:0]	wrreq_delaya1;
 	wire  wire_almost_full_comparer_aeb;
 	wire  wire_three_comparison_aeb;
-	wire  [7:0]   wire_rd_ptr_msb_q;
-	wire  [8:0]   wire_usedw_counter_q;
-	wire  [8:0]   wire_wr_ptr_q;
+	wire  [6:0]   wire_rd_ptr_msb_q;
+	wire  [7:0]   wire_usedw_counter_q;
+	wire  [7:0]   wire_wr_ptr_q;
 	wire  asynch_read_counter_enable;
 	wire  empty_out;
 	wire  full_out;
 	wire  pulse_ram_output;
-	wire  [8:0]  ram_read_address;
-	wire  [8:0]  rd_ptr;
+	wire  [7:0]  ram_read_address;
+	wire  [7:0]  rd_ptr;
 	wire  usedw_is_0;
 	wire  usedw_is_1;
 	wire  usedw_is_2;
@@ -17176,8 +9125,8 @@ module  windowing_data_sc_fifo_a_dpfifo
 		low_addressa = 0;
 	// synopsys translate_on
 	always @ ( posedge clock or  posedge aclr)
-		if (aclr == 1'b1) low_addressa <= 9'b0;
-		else  low_addressa <= ({9{(~ sclr)}} & (({9{asynch_read_counter_enable}} & rd_ptr) | ({9{(~ asynch_read_counter_enable)}} & low_addressa)));
+		if (aclr == 1'b1) low_addressa <= 8'b0;
+		else  low_addressa <= ({8{(~ sclr)}} & (({8{asynch_read_counter_enable}} & rd_ptr) | ({8{(~ asynch_read_counter_enable)}} & low_addressa)));
 	// synopsys translate_off
 	initial
 		rd_ptr_lsb = 0;
@@ -17225,13 +9174,13 @@ module  windowing_data_sc_fifo_a_dpfifo
 	windowing_data_sc_fifo_cmpr   almost_full_comparer
 	( 
 	.aeb(wire_almost_full_comparer_aeb),
-	.dataa({9{1'b1}}),
+	.dataa({8{1'b1}}),
 	.datab(wire_usedw_counter_q));
 	windowing_data_sc_fifo_cmpr   three_comparison
 	( 
 	.aeb(wire_three_comparison_aeb),
 	.dataa(wire_usedw_counter_q),
-	.datab(9'b000000011));
+	.datab(8'b00000011));
 	windowing_data_sc_fifo_cntr   rd_ptr_msb
 	( 
 	.aclr(aclr),
@@ -17262,7 +9211,7 @@ module  windowing_data_sc_fifo_a_dpfifo
 		full_out = full_dff,
 		pulse_ram_output = valid_rreq,
 		q = wire_FIFOram_q_b,
-		ram_read_address = (({9{(~ asynch_read_counter_enable)}} & low_addressa) | ({9{asynch_read_counter_enable}} & rd_ptr)),
+		ram_read_address = (({8{(~ asynch_read_counter_enable)}} & low_addressa) | ({8{asynch_read_counter_enable}} & rd_ptr)),
 		rd_ptr = {wire_rd_ptr_msb_q, (~ rd_ptr_lsb)},
 		usedw = wire_usedw_counter_q,
 		usedw_is_0 = (~ usedw_is_0_dff),
@@ -17276,7 +9225,7 @@ module  windowing_data_sc_fifo_a_dpfifo
 		wait_state = (usedw_will_be_1 & valid_wreq);
 endmodule //windowing_data_sc_fifo_a_dpfifo
 
-//synthesis_resources = lut 184 MLAB 52 reg 125 
+//synthesis_resources = lut 91 MLAB 26 reg 119 
 //synopsys translate_off
 `timescale 1 ps / 1 ps
 //synopsys translate_on
@@ -17300,7 +9249,7 @@ module  windowing_data_sc_fifo_scfifo
 	output   [63:0]  q;
 	input   rdreq;
 	input   sclr;
-	output   [8:0]  usedw;
+	output   [7:0]  usedw;
 	input   wrreq;
 `ifndef ALTERA_RESERVED_QIS
 // synopsys translate_off
@@ -17314,7 +9263,7 @@ module  windowing_data_sc_fifo_scfifo
 	wire  wire_dpfifo_empty;
 	wire  wire_dpfifo_full;
 	wire  [63:0]   wire_dpfifo_q;
-	wire  [8:0]   wire_dpfifo_usedw;
+	wire  [7:0]   wire_dpfifo_usedw;
 
 	windowing_data_sc_fifo_a_dpfifo   dpfifo
 	( 
@@ -17361,16 +9310,16 @@ module windowing_data_sc_fifo (
 	output	  empty;
 	output	  full;
 	output	[63:0]  q;
-	output	[8:0]  usedw;
+	output	[7:0]  usedw;
 
 	wire  sub_wire0;
 	wire  sub_wire1;
 	wire [63:0] sub_wire2;
-	wire [8:0] sub_wire3;
+	wire [7:0] sub_wire3;
 	wire  empty = sub_wire0;
 	wire  full = sub_wire1;
 	wire [63:0] q = sub_wire2[63:0];
-	wire [8:0] usedw = sub_wire3[8:0];
+	wire [7:0] usedw = sub_wire3[7:0];
 
 	windowing_data_sc_fifo_scfifo	windowing_data_sc_fifo_scfifo_component (
 				.aclr (aclr),
@@ -17395,7 +9344,7 @@ endmodule
 // Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
 // Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 // Retrieval info: PRIVATE: Clock NUMERIC "0"
-// Retrieval info: PRIVATE: Depth NUMERIC "512"
+// Retrieval info: PRIVATE: Depth NUMERIC "256"
 // Retrieval info: PRIVATE: Empty NUMERIC "1"
 // Retrieval info: PRIVATE: Full NUMERIC "1"
 // Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
@@ -17403,7 +9352,7 @@ endmodule
 // Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 // Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 // Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
-// Retrieval info: PRIVATE: Optimize NUMERIC "0"
+// Retrieval info: PRIVATE: Optimize NUMERIC "2"
 // Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 // Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 // Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
@@ -17425,11 +9374,11 @@ endmodule
 // Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
 // Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 // Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
-// Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "512"
+// Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "256"
 // Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
 // Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
 // Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "64"
-// Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "9"
+// Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "8"
 // Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 // Retrieval info: CONSTANT: USE_EAB STRING "ON"
@@ -17441,7 +9390,7 @@ endmodule
 // Retrieval info: USED_PORT: q 0 0 64 0 OUTPUT NODEFVAL "q[63..0]"
 // Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
 // Retrieval info: USED_PORT: sclr 0 0 0 0 INPUT NODEFVAL "sclr"
-// Retrieval info: USED_PORT: usedw 0 0 9 0 OUTPUT NODEFVAL "usedw[8..0]"
+// Retrieval info: USED_PORT: usedw 0 0 8 0 OUTPUT NODEFVAL "usedw[7..0]"
 // Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
 // Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 // Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
@@ -17452,7 +9401,7 @@ endmodule
 // Retrieval info: CONNECT: empty 0 0 0 0 @empty 0 0 0 0
 // Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
 // Retrieval info: CONNECT: q 0 0 64 0 @q 0 0 64 0
-// Retrieval info: CONNECT: usedw 0 0 9 0 @usedw 0 0 9 0
+// Retrieval info: CONNECT: usedw 0 0 8 0 @usedw 0 0 8 0
 // Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.vhd TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.inc TRUE
 // Retrieval info: GEN_FILE: TYPE_NORMAL windowing_data_sc_fifo.cmp TRUE

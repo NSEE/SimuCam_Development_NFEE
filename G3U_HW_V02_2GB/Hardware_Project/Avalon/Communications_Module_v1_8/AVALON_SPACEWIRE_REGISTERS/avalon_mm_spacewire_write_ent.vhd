@@ -13,8 +13,8 @@ entity avalon_mm_spacewire_write_ent is
 		avalon_mm_spacewire_i       : in  t_avalon_mm_spacewire_write_in;
 		avalon_mm_spacewire_o       : out t_avalon_mm_spacewire_write_out;
 		spacewire_write_registers_o : out t_windowing_write_registers;
-		right_buffer_size_o         : out std_logic_vector(4 downto 0);
-		left_buffer_size_o          : out std_logic_vector(4 downto 0)
+		right_buffer_size_o         : out std_logic_vector(3 downto 0);
+		left_buffer_size_o          : out std_logic_vector(3 downto 0)
 	);
 end entity avalon_mm_spacewire_write_ent;
 
@@ -148,9 +148,9 @@ begin
 					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_0_empty_flag_clear  <= avalon_mm_spacewire_i.writedata(10);
 					spacewire_write_registers_o.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear  <= avalon_mm_spacewire_i.writedata(11);
 				when (16#14#) =>
-					right_buffer_size_o <= avalon_mm_spacewire_i.writedata(4 downto 0);
+					right_buffer_size_o <= avalon_mm_spacewire_i.writedata(3 downto 0);
 				when (16#15#) =>
-					left_buffer_size_o <= avalon_mm_spacewire_i.writedata(4 downto 0);
+					left_buffer_size_o <= avalon_mm_spacewire_i.writedata(3 downto 0);
 				when others =>
 					null;
 
