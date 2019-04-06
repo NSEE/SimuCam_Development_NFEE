@@ -13,6 +13,7 @@
 #include "../../../utils/configs_simucam.h"
 #include "../../../utils/error_handler_simucam.h"
 #include "../../../simucam_definitions.h"
+#include "../../../utils/configs_bind_channel_FEEinst.h"
 
 //! [constants definition]
 // address
@@ -20,7 +21,7 @@
 //! [constants definition]
 
 extern OS_EVENT *xFeeQ[N_OF_NFEE];
-extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
+//extern OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
 
 //! [public module structs definition]
 typedef struct RmapCodecConfig {

@@ -1,4 +1,6 @@
 	MebX_Qsys_Project u0 (
+		.altpll_300_areset_conduit_export                     (<connected-to-altpll_300_areset_conduit_export>),                     //  altpll_300_areset_conduit.export
+		.altpll_300_locked_conduit_export                     (<connected-to-altpll_300_locked_conduit_export>),                     //  altpll_300_locked_conduit.export
 		.button_export                                        (<connected-to-button_export>),                                        //                     button.export
 		.clk50_clk                                            (<connected-to-clk50_clk>),                                            //                      clk50.clk
 		.comm_a_conduit_end_data_in_signal                    (<connected-to-comm_a_conduit_end_data_in_signal>),                    //         comm_a_conduit_end.data_in_signal

@@ -15,7 +15,7 @@ void vSimMebTask(void *task_data) {
 	unsigned char tCode;
 	unsigned char tCodeNext;
 	unsigned char ucIL;
-	tQMask uiCmdMeb;
+	volatile tQMask uiCmdMeb;
 	INT8U error_code;
 	INT8U ucFrameNumber;
 
@@ -44,29 +44,17 @@ void vSimMebTask(void *task_data) {
 				}
 				#endif
 
-				/* Stop the Sync (Stopping the simulation) */
-				bStopSync();
-				vSyncClearCounter();
-
-				/* If any Task is locked waiting Sync, should be released */
-				vReleaseSyncMessages();
-
-				/* Give time to all tasks receive the command */
-				OSTimeDlyHMSM(0, 0, 0, 10);
-
-				/* Transition to Config Mode (Ending the simulation) */
-				/* Send a message to the NFEE Controller forcing the mode */
-				vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
-				vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
-
-				/* Give time to all tasks receive the command */
-				OSTimeDlyHMSM(0, 0, 0, 250);
+				vEnterConfigRoutine();
 
 				pxMebC->eMode = sMebConfig;
 				break;
 
 
 			case sMebToRun:
+
+				bEnableIsoDrivers();
+				bEnableLvdsBoard();
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					debug(fp,"MEB Task: Run Mode\n");
@@ -276,6 +264,8 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
+	unsigned char ucShutDownI = 0;
+
 
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_RUN */
@@ -285,6 +275,19 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_TURNOFF */
 		case 62:
 			/*todo: Do nothing for now */
+			/* Animate LED */
+			/* Wait for N seconds */
+			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
+
+				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ( ucShutDownI % 4 )) );
+
+				OSTimeDlyHMSM(0,0,1,0);
+			}
+
+			/* Sinalize that can safely shutdown the Simucam */
+			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
+
 			break;
 		/* TC_SCAM_CONFIG */
 		case 60:
@@ -391,6 +394,8 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
+	unsigned char ucShutDownI=0;
+
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_CONFIG */
 		case 60:
@@ -399,6 +404,23 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_TURNOFF */
 		case 62:
 			/*todo: Do nothing for now */
+			/* Force all go to Config Mode */
+			vEnterConfigRoutine();
+
+			/* Animate LED */
+			/* Wait for N seconds */
+			for (ucShutDownI = 0; ucShutDownI < N_SEC_WAIT_SHUTDOWN; ucShutDownI++) {
+
+				bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
+				bSetPainelLeds( LEDS_ON , (LEDS_ST_1_MASK << ( ucShutDownI % 4 )) );
+
+				OSTimeDlyHMSM(0,0,1,0);
+			}
+
+			/* Sinalize that can safely shutdown the Simucam */
+			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
+
+
 			break;
 		/* TC_SCAM_RUN */
 		case 61:
@@ -639,7 +661,31 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 
 }
 
+
+void vEnterConfigRoutine( void ) {
+
+	/* Stop the Sync (Stopping the simulation) */
+	bStopSync();
+	vSyncClearCounter();
+
+	/* Give time to all tasks receive the command */
+	OSTimeDlyHMSM(0, 0, 0, 5);
+
+	/* Transition to Config Mode (Ending the simulation) */
+	/* Send a message to the NFEE Controller forcing the mode */
+	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
+	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
+
+	/* Give time to all tasks receive the command */
+	OSTimeDlyHMSM(0, 0, 0, 250);
+
+	bDisableIsoDrivers();
+	bDisableLvdsBoard();
+
+}
+
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */
+/* Don't need this function anymore... for now
 void vReleaseSyncMessages(void) {
 	unsigned char ucIL;
 	unsigned char error_codel;
@@ -647,7 +693,6 @@ void vReleaseSyncMessages(void) {
 
 	uiCmdtoSend.ulWord = 0;
 	uiCmdtoSend.ucByte[2] = M_SYNC;
-	/* MasterSync? */
 
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 		uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
@@ -657,4 +702,4 @@ void vReleaseSyncMessages(void) {
 		}
 	}
 }
-
+*/

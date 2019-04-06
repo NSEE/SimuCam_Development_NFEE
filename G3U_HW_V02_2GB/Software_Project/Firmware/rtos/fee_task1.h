@@ -20,6 +20,9 @@
 #include "../api_driver/simucam_dma/simucam_dma.h"
 #include "../driver/comm/data_packet/data_packet.h"
 #include "../driver/comm/rmap/rmap.h"
+#include "../driver/leds/leds.h"
+
+extern const char *cTemp[64];
 
 void vFeeTask1(void *task_data);
 

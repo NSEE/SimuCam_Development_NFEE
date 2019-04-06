@@ -472,10 +472,10 @@ module MebX_Qsys_Project_ext_flash #(
 		.UAV_CONSTANT_BURST_BEHAVIOR    (0),
 		.AV_REQUIRE_UNALIGNED_ADDRESSES (0),
 		.CHIPSELECT_THROUGH_READLATENCY (0),
-		.AV_READ_WAIT_CYCLES            (20),
-		.AV_WRITE_WAIT_CYCLES           (20),
-		.AV_SETUP_WAIT_CYCLES           (5),
-		.AV_DATA_HOLD_CYCLES            (4)
+		.AV_READ_WAIT_CYCLES            (24),
+		.AV_WRITE_WAIT_CYCLES           (24),
+		.AV_SETUP_WAIT_CYCLES           (6),
+		.AV_DATA_HOLD_CYCLES            (5)
 	) slave_translator (
 		.clk                    (clk_clk),                                         //                      clk.clk
 		.reset                  (reset_reset),                                     //                    reset.reset
