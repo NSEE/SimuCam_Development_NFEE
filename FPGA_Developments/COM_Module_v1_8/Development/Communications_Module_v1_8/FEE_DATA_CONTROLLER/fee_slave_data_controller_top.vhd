@@ -236,8 +236,7 @@ begin
 			data_wr_finished_o             => s_data_wr_finished,
 			masking_buffer_rdreq_o         => s_masking_buffer_rdreq,
 			send_buffer_wrdata_o           => s_send_buffer_data_wr_wrdata,
-			send_buffer_wrreq_o            => s_send_buffer_data_wr_wrreq,
-			send_buffer_change_o           => s_send_buffer_change
+			send_buffer_wrreq_o            => s_send_buffer_data_wr_wrreq
 		);
 
 	-- send buffer instantiation
@@ -284,7 +283,8 @@ begin
 			send_buffer_rdreq_o             => s_send_buffer_rdreq,
 			spw_tx_write_o                  => fee_spw_tx_write_o,
 			spw_tx_flag_o                   => fee_spw_tx_flag_o,
-			spw_tx_data_o                   => fee_spw_tx_data_o
+			spw_tx_data_o                   => fee_spw_tx_data_o,
+			send_buffer_change_o            => s_send_buffer_change
 		);
 	p_register_data_pkt_config : process(clk_i, rst_i) is
 	begin
