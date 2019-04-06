@@ -2128,7 +2128,7 @@
    enabled="1">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clkFreq" value="100000000" />
+  <parameter name="clkFreq" value="200000000" />
   <parameter name="hubInstanceID" value="0" />
   <parameter name="readBufferDepth" value="64" />
   <parameter name="readIRQThreshold" value="8" />
@@ -2878,7 +2878,7 @@
   <parameter name="breakOffset" value="32" />
   <parameter name="breakSlave" value="None" />
   <parameter name="cdx_enabled" value="false" />
-  <parameter name="clockFrequency" value="100000000" />
+  <parameter name="clockFrequency" value="200000000" />
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
@@ -4251,19 +4251,6 @@
    version="16.1"
    start="clk_50.clk"
    end="pio_LED_painel.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="nios2_gen2_0.clk" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="tristate_conduit_bridge_0.clk" />
- <connection kind="clock" version="16.1" start="clk_100.clk" end="jtag_uart_0.clk" />
- <connection kind="clock" version="16.1" start="clk_100.clk" end="sysid_qsys.clk" />
- <connection kind="clock" version="16.1" start="clk_100.clk" end="ext_flash.clk" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="rtcc_alarm.clk" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="rtcc_cs_n.clk" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="rtcc_sck.clk" />
@@ -4283,24 +4270,37 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="nios2_gen2_0.clk" />
+ <connection kind="clock" version="16.1" start="clk_200.clk" end="ext_flash.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="tristate_conduit_bridge_0.clk" />
+ <connection kind="clock" version="16.1" start="clk_200.clk" end="jtag_uart_0.clk" />
+ <connection kind="clock" version="16.1" start="clk_200.clk" end="sysid_qsys.clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="onchip_memory.clk1" />
+ <connection kind="clock" version="16.1" start="clk_50.clk" end="sync.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
-   end="dma_DDR_M1.clock" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="ddr2_address_span_extender.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="dma_DDR_M1.clock" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="dma_DDR_M2.clock" />
- <connection kind="clock" version="16.1" start="clk_50.clk" end="sync.clock" />
  <connection
    kind="clock"
    version="16.1"
@@ -4329,22 +4329,22 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_B.clock_sink_100" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_A.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="COMM_Pedreiro_v1_01_B.clock_sink_100" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_C.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_D.clock_sink_100" />
  <connection
    kind="clock"
@@ -4399,7 +4399,7 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="clock_bridge_afi_50.s0_clk" />
  <connection
    kind="interrupt"

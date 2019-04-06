@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.04.06.02:01:44 -->
+ <!-- 2019.04.06.02:15:52 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1554526903</value>
+  <value>1554527751</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -7654,90 +7654,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>nios2_gen2_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>tristate_conduit_bridge_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>tristate_conduit_bridge_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>jtag_uart_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>jtag_uart_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>sysid_qsys</moduleName>
-    <slaveName>clk</slaveName>
-    <name>sysid_qsys.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ext_flash</moduleName>
-    <slaveName>clk</slaveName>
-    <name>ext_flash.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>onchip_memory</moduleName>
-    <slaveName>clk1</slaveName>
-    <name>onchip_memory.clk1</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M1</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M1.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ddr2_address_span_extender</moduleName>
-    <slaveName>clock</slaveName>
-    <name>ddr2_address_span_extender.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M2</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M2.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_B.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_A.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_C.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_D.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>clock_bridge_afi_50</moduleName>
-    <slaveName>s0_clk</slaveName>
-    <name>clock_bridge_afi_50.s0_clk</name>
-   </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -8038,6 +7954,84 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>nios2_gen2_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>nios2_gen2_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>ext_flash</moduleName>
+    <slaveName>clk</slaveName>
+    <name>ext_flash.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>tristate_conduit_bridge_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>tristate_conduit_bridge_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>jtag_uart_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>jtag_uart_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>sysid_qsys</moduleName>
+    <slaveName>clk</slaveName>
+    <name>sysid_qsys.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>onchip_memory</moduleName>
+    <slaveName>clk1</slaveName>
+    <name>onchip_memory.clk1</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>ddr2_address_span_extender</moduleName>
+    <slaveName>clock</slaveName>
+    <name>ddr2_address_span_extender.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M1</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M1.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M2</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M2.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_A.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_B.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_C.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_D.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_B.clock_sink_200</name>
@@ -8059,6 +8053,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_D.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>clock_bridge_afi_50</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>clock_bridge_afi_50.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
@@ -19821,7 +19821,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="CLOCK_RATE">
    <type>long</type>
-   <value>100000000</value>
+   <value>200000000</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -19939,7 +19939,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>java.lang.Long</type>
-    <value>100000000</value>
+    <value>200000000</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -20611,7 +20611,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="clkFreq">
    <type>long</type>
-   <value>100000000</value>
+   <value>200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -20714,7 +20714,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>java.lang.Long</type>
-    <value>100000000</value>
+    <value>200000000</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -51488,6 +51488,84 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>nios2_gen2_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>nios2_gen2_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>ext_flash</moduleName>
+    <slaveName>clk</slaveName>
+    <name>ext_flash.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>tristate_conduit_bridge_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>tristate_conduit_bridge_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>jtag_uart_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>jtag_uart_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>sysid_qsys</moduleName>
+    <slaveName>clk</slaveName>
+    <name>sysid_qsys.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>onchip_memory</moduleName>
+    <slaveName>clk1</slaveName>
+    <name>onchip_memory.clk1</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>ddr2_address_span_extender</moduleName>
+    <slaveName>clock</slaveName>
+    <name>ddr2_address_span_extender.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M1</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M1.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>dma_DDR_M2</moduleName>
+    <slaveName>clock</slaveName>
+    <name>dma_DDR_M2.clock</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_A.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_B.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_C.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
+    <slaveName>clock_sink_100</slaveName>
+    <name>COMM_Pedreiro_v1_01_D.clock_sink_100</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_B.clock_sink_200</name>
@@ -51509,6 +51587,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_D.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>clock_bridge_afi_50</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>clock_bridge_afi_50.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="16.1">
@@ -51584,90 +51668,6 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>clk_100</moduleName>
     <slaveName>clk_in</slaveName>
     <name>clk_100.clk_in</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>nios2_gen2_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>tristate_conduit_bridge_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>tristate_conduit_bridge_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>jtag_uart_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>jtag_uart_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>sysid_qsys</moduleName>
-    <slaveName>clk</slaveName>
-    <name>sysid_qsys.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ext_flash</moduleName>
-    <slaveName>clk</slaveName>
-    <name>ext_flash.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>onchip_memory</moduleName>
-    <slaveName>clk1</slaveName>
-    <name>onchip_memory.clk1</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M1</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M1.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ddr2_address_span_extender</moduleName>
-    <slaveName>clock</slaveName>
-    <name>ddr2_address_span_extender.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>dma_DDR_M2</moduleName>
-    <slaveName>clock</slaveName>
-    <name>dma_DDR_M2.clock</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_B.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_A.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_C.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
-    <slaveName>clock_sink_100</slaveName>
-    <name>COMM_Pedreiro_v1_01_D.clock_sink_100</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>clock_bridge_afi_50</moduleName>
-    <slaveName>s0_clk</slaveName>
-    <name>clock_bridge_afi_50.s0_clk</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -52590,7 +52590,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CPU_FREQ</name>
-   <value>100000000u</value>
+   <value>200000000u</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CPU_ID_SIZE</name>
@@ -52774,7 +52774,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.clock-frequency</name>
-   <value>100000000u</value>
+   <value>200000000u</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.dcache-line-size</name>
@@ -54314,7 +54314,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="clockFrequency">
    <type>long</type>
-   <value>100000000</value>
+   <value>200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -54490,7 +54490,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>java.lang.Long</type>
-    <value>100000000</value>
+    <value>200000000</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -69566,7 +69566,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1554526903</value>
+   <value>1554527751</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -69586,7 +69586,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1554526903</value>
+   <value>1554527751</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -69602,7 +69602,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1554526903</value>
+   <value>1554527751</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -77860,141 +77860,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/nios2_gen2_0.clk"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="nios2_gen2_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/tristate_conduit_bridge_0.clk"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="tristate_conduit_bridge_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>tristate_conduit_bridge_0</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/jtag_uart_0.clk"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="jtag_uart_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>jtag_uart_0</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/sysid_qsys.clk"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="sysid_qsys.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>sysid_qsys</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/ext_flash.clk"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="ext_flash.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>ext_flash</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
    name="clk_50.clk/rtcc_alarm.clk"
    kind="clock"
    version="16.1"
@@ -78211,10 +78076,145 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/onchip_memory.clk1"
+   name="clk_200.clk/nios2_gen2_0.clk"
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="nios2_gen2_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>nios2_gen2_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/ext_flash.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="ext_flash.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>ext_flash</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/tristate_conduit_bridge_0.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="tristate_conduit_bridge_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>tristate_conduit_bridge_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/jtag_uart_0.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="jtag_uart_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>jtag_uart_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/sysid_qsys.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="sysid_qsys.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>sysid_qsys</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/onchip_memory.clk1"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="onchip_memory.clk1">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -78232,91 +78232,10 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_100</startModule>
+  <startModule>clk_200</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>onchip_memory</endModule>
   <endConnectionPoint>clk1</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/dma_DDR_M1.clock"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="dma_DDR_M1.clock">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>dma_DDR_M1</endModule>
-  <endConnectionPoint>clock</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/ddr2_address_span_extender.clock"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="ddr2_address_span_extender.clock">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>ddr2_address_span_extender</endModule>
-  <endConnectionPoint>clock</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/dma_DDR_M2.clock"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
-   end="dma_DDR_M2.clock">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>dma_DDR_M2</endModule>
-  <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
    name="clk_50.clk/sync.clock"
@@ -78343,6 +78262,87 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clk_50</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>sync</endModule>
+  <endConnectionPoint>clock</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/ddr2_address_span_extender.clock"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="ddr2_address_span_extender.clock">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>ddr2_address_span_extender</endModule>
+  <endConnectionPoint>clock</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/dma_DDR_M1.clock"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="dma_DDR_M1.clock">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>dma_DDR_M1</endModule>
+  <endConnectionPoint>clock</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/dma_DDR_M2.clock"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="dma_DDR_M2.clock">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>dma_DDR_M2</endModule>
   <endConnectionPoint>clock</endConnectionPoint>
  </connection>
  <connection
@@ -78373,37 +78373,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock_sink</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/COMM_Pedreiro_v1_01_B.clock_sink_100"
+   name="clk_200.clk/COMM_Pedreiro_v1_01_A.clock_sink_100"
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
-   end="COMM_Pedreiro_v1_01_B.clock_sink_100">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_100</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_B</endModule>
-  <endConnectionPoint>clock_sink_100</endConnectionPoint>
- </connection>
- <connection
-   name="clk_100.clk/COMM_Pedreiro_v1_01_A.clock_sink_100"
-   kind="clock"
-   version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_A.clock_sink_100">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -78421,16 +78394,43 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_100</startModule>
+  <startModule>clk_200</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_A</endModule>
   <endConnectionPoint>clock_sink_100</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/COMM_Pedreiro_v1_01_C.clock_sink_100"
+   name="clk_200.clk/COMM_Pedreiro_v1_01_B.clock_sink_100"
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
+   end="COMM_Pedreiro_v1_01_B.clock_sink_100">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_B</endModule>
+  <endConnectionPoint>clock_sink_100</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/COMM_Pedreiro_v1_01_C.clock_sink_100"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_C.clock_sink_100">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -78448,16 +78448,16 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_100</startModule>
+  <startModule>clk_200</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_C</endModule>
   <endConnectionPoint>clock_sink_100</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/COMM_Pedreiro_v1_01_D.clock_sink_100"
+   name="clk_200.clk/COMM_Pedreiro_v1_01_D.clock_sink_100"
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="COMM_Pedreiro_v1_01_D.clock_sink_100">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -78475,7 +78475,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_100</startModule>
+  <startModule>clk_200</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_D</endModule>
   <endConnectionPoint>clock_sink_100</endConnectionPoint>
@@ -78643,10 +78643,10 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>pll_ref_clk</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/clock_bridge_afi_50.s0_clk"
+   name="clk_200.clk/clock_bridge_afi_50.s0_clk"
    kind="clock"
    version="16.1"
-   start="clk_100.clk"
+   start="clk_200.clk"
    end="clock_bridge_afi_50.s0_clk">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
@@ -78664,7 +78664,7 @@ parameters are a RESULT of the module parameters. -->
    <visible>true</visible>
    <valid>true</valid>
   </parameter>
-  <startModule>clk_100</startModule>
+  <startModule>clk_200</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>clock_bridge_afi_50</endModule>
   <endConnectionPoint>s0_clk</endConnectionPoint>
