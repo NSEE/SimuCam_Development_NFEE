@@ -35,8 +35,10 @@ entity fee_master_data_manager_ent is
 		--		data_wr_busy_i                       : in  std_logic;
 		data_wr_finished_i                   : in  std_logic;
 		-- data transmitter status
-		--		data_transmitter_busy_i              : in  std_logic;
+		--				data_transmitter_busy_i              : in  std_logic;
 		data_transmitter_finished_i          : in  std_logic;
+		-- send buffer status
+		send_double_buffer_empty_i           : in  std_logic;
 		-- fee data manager outputs --
 		-- general outputs
 		-- masking machine control
@@ -111,6 +113,8 @@ architecture RTL of fee_master_data_manager_ent is
 		WAITING_OVER_HEADER_FINISH,
 		OVER_DATA_START,
 		WAITING_OVER_DATA_FINISH,
+		WAITING_DATA_TRANSMITTER_FINISH,
+		WAITING_SEND_DOUBLE_BUFFER_EMPTY,
 		FINISH_FEE_OPERATION
 	);
 
@@ -768,7 +772,7 @@ begin
 							-- clear the remaining data bytes counter 
 							s_fee_remaining_data_bytes <= (others => '0');
 							-- go to finish fee operation
-							s_fee_data_manager_state   <= FINISH_FEE_OPERATION;
+							s_fee_data_manager_state   <= WAITING_DATA_TRANSMITTER_FINISH;
 						else
 							-- not last packet, continue operation
 							-- keep the last packet flag cleared
@@ -778,6 +782,70 @@ begin
 							-- go to over header start
 							s_fee_data_manager_state   <= OVER_HEADER_START;
 						end if;
+					end if;
+
+				when WAITING_DATA_TRANSMITTER_FINISH =>
+					-- wait for the data transmitter to finish
+					s_fee_data_manager_state             <= WAITING_DATA_TRANSMITTER_FINISH;
+					fee_data_manager_busy_o              <= '1';
+					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
+					headerdata_length_field_o            <= (others => '0');
+					headerdata_type_field_mode_o         <= (others => '0');
+					headerdata_type_field_last_packet_o  <= '0';
+					headerdata_type_field_ccd_side_o     <= '0';
+					headerdata_type_field_ccd_number_o   <= (others => '0');
+					headerdata_type_field_frame_number_o <= (others => '0');
+					headerdata_type_field_packet_type_o  <= (others => '0');
+					headerdata_frame_counter_o           <= (others => '0');
+					headerdata_sequence_counter_o        <= (others => '0');
+					header_gen_send_o                    <= '0';
+					header_gen_reset_o                   <= '0';
+					housekeeping_wr_start_o              <= '0';
+					housekeeping_wr_reset_o              <= '0';
+					data_wr_start_o                      <= '0';
+					data_wr_reset_o                      <= '0';
+					data_wr_length_o                     <= (others => '0');
+					send_buffer_fee_data_loaded_o        <= '0';
+					imgdata_start_o                      <= '0';
+					-- keep the masking machine released
+					masking_machine_hold_o               <= '0';
+					-- check if the data transmitter if finished
+					if (data_transmitter_finished_i = '1') then
+						-- go to waiting send double buffer empty
+						s_fee_data_manager_state <= WAITING_SEND_DOUBLE_BUFFER_EMPTY;
+					end if;
+
+				when WAITING_SEND_DOUBLE_BUFFER_EMPTY =>
+					-- wait the send double buffer to become empty (ensure the transmission of all the data)
+					s_fee_data_manager_state             <= WAITING_SEND_DOUBLE_BUFFER_EMPTY;
+					fee_data_manager_busy_o              <= '1';
+					headerdata_logical_address_o         <= (others => '0');
+					headerdata_protocol_id_o             <= (others => '0');
+					headerdata_length_field_o            <= (others => '0');
+					headerdata_type_field_mode_o         <= (others => '0');
+					headerdata_type_field_last_packet_o  <= '0';
+					headerdata_type_field_ccd_side_o     <= '0';
+					headerdata_type_field_ccd_number_o   <= (others => '0');
+					headerdata_type_field_frame_number_o <= (others => '0');
+					headerdata_type_field_packet_type_o  <= (others => '0');
+					headerdata_frame_counter_o           <= (others => '0');
+					headerdata_sequence_counter_o        <= (others => '0');
+					header_gen_send_o                    <= '0';
+					header_gen_reset_o                   <= '0';
+					housekeeping_wr_start_o              <= '0';
+					housekeeping_wr_reset_o              <= '0';
+					data_wr_start_o                      <= '0';
+					data_wr_reset_o                      <= '0';
+					data_wr_length_o                     <= (others => '0');
+					send_buffer_fee_data_loaded_o        <= '0';
+					imgdata_start_o                      <= '0';
+					-- keep the masking machine released
+					masking_machine_hold_o               <= '0';
+					-- check if the double buffer is completely empty (all data transmitted)
+					if (send_double_buffer_empty_i = '1') then
+						-- go to finish fee operation
+						s_fee_data_manager_state <= FINISH_FEE_OPERATION;
 					end if;
 
 				when FINISH_FEE_OPERATION =>

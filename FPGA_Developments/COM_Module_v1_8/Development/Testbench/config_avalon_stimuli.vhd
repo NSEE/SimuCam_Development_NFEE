@@ -100,8 +100,8 @@ begin
 					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#08#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(10, 16)); -- data_pkt_ccd_x_size
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(25, 16)); -- data_pkt_ccd_y_size
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(100, 16)); -- data_pkt_ccd_x_size
+					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(250, 16)); -- data_pkt_ccd_y_size
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_2_reg
@@ -110,8 +110,8 @@ begin
 					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#09#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(20, 16)); -- data_pkt_data_y_size
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(5, 16)); -- data_pkt_overscan_y_size
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(200, 16)); -- data_pkt_data_y_size
+					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(50, 16)); -- data_pkt_overscan_y_size
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_3_reg
@@ -162,30 +162,60 @@ begin
 --					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(10, 16)); -- data_pkt_adc_delay
 --					avalon_mm_read_o                   <= '0';
 
+				-- data_packet_pixel_delay_1_reg
+				when 1210 to 1211 =>
+					-- register write
+					avalon_mm_address_o                <= std_logic_vector(to_unsigned(16#0E#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                  <= '1';
+					avalon_mm_writedata_o              <= (others => '0');
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(2, 16)); -- data_pkt_line_delay
+					avalon_mm_read_o                   <= '0';
+					
+				-- data_packet_pixel_delay_2_reg
+				when 1220 to 1221 =>
+					-- register write
+					avalon_mm_address_o                <= std_logic_vector(to_unsigned(16#0F#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                  <= '1';
+					avalon_mm_writedata_o              <= (others => '0');
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(2, 16)); -- data_pkt_column_delay
+					avalon_mm_read_o                   <= '0';
+					
+				-- data_packet_pixel_delay_3_reg
+				when 1230 to 1231 =>
+					-- register write
+					avalon_mm_address_o                <= std_logic_vector(to_unsigned(16#10#, g_ADDRESS_WIDTH));
+					avalon_mm_write_o                  <= '1';
+					avalon_mm_writedata_o              <= (others => '0');
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(2, 16)); -- data_pkt_adc_delay
+					avalon_mm_read_o                   <= '0';
+
 				--					
 				--			    -- teste de fee buffers flags
 				--
-				--				-- comm_irq_control_reg
-				--				when 1200 to 1201 =>
-				--					-- register write
-				--					avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#11#, g_ADDRESS_WIDTH));
-				--					avalon_mm_write_o                 <= '1';
-				--					avalon_mm_writedata_o             <= (others => '0');
-				--					avalon_mm_writedata_o(0) <= '1'; -- comm_rmap_write_command_en
-				--					avalon_mm_writedata_o(8) <= '1'; -- comm_right_buffer_empty_en
-				--					avalon_mm_writedata_o(9) <= '1'; -- comm_left_buffer_empty_en
-				--					avalon_mm_writedata_o(16) <= '1'; -- comm_global_irq_en
-				--					avalon_mm_read_o                  <= '0';
+								-- comm_irq_control_reg
+								when 1500 to 1501 =>
+									-- register write
+									avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#11#, g_ADDRESS_WIDTH));
+									avalon_mm_write_o                 <= '1';
+									avalon_mm_writedata_o             <= (others => '0');
+									avalon_mm_writedata_o(0) <= '1'; -- comm_rmap_write_command_en
+									avalon_mm_writedata_o(8) <= '1'; -- comm_right_buffer_empty_en
+									avalon_mm_writedata_o(9) <= '1'; -- comm_left_buffer_empty_en
+									avalon_mm_writedata_o(16) <= '1'; -- comm_global_irq_en
+									avalon_mm_read_o                  <= '0';
 				--		
 				--				-- comm_irq_flags_clear_reg
-				--				when 6000 to 6001 =>
-				--					-- register write
-				--					avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#13#, g_ADDRESS_WIDTH));
-				--					avalon_mm_write_o                 <= '1';
-				--					avalon_mm_writedata_o             <= (others => '0');
-				--					avalon_mm_writedata_o(0) <= '1'; -- comm_rmap_write_command_flag_clear
-				--					avalon_mm_writedata_o(8) <= '1'; -- comm_buffer_empty_flag_clear
-				--					avalon_mm_read_o                  <= '0';
+								when 120000 to 120001 =>
+									-- register write
+									avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#13#, g_ADDRESS_WIDTH));
+									avalon_mm_write_o                 <= '1';
+									avalon_mm_writedata_o             <= (others => '0');
+									avalon_mm_writedata_o(0) <= '1'; -- comm_rmap_write_command_flag_clear
+									avalon_mm_writedata_o(8) <= '1'; -- comm_buffer_empty_flag_clear
+									avalon_mm_writedata_o(9) <= '1'; -- comm_buffer_empty_flag_clear
+									avalon_mm_writedata_o(10) <= '1'; -- comm_buffer_empty_flag_clear
+									avalon_mm_writedata_o(11) <= '1'; -- comm_buffer_empty_flag_clear
+									avalon_mm_read_o                  <= '0';
 				--					
 				--				-- comm_irq_flags_clear_reg
 				--				when 6050 to 6051 =>

@@ -9,19 +9,19 @@
 #include "fee_task.h"
 
 const char *cTemp[64];
-unsigned char ucIterationSide;
+static unsigned char ucIterationSide;
 
 
 void vFeeTask(void *task_data) {
 	static TNFee *pxNFee;
 	INT8U error_code;
-	unsigned char ucMemUsing;
+	static unsigned char ucMemUsing;
 	static alt_u32 tCodFeeTask;
 	alt_u32 tCodeNext;
 	static unsigned long incrementador; /* remover*/
 	tQMask uiCmdFEE;
-	TCcdMemMap *xCcdMapLocal;
-	unsigned char ucReadout;
+	static TCcdMemMap *xCcdMapLocal;
+	volatile unsigned char ucReadout;
 	unsigned long usiLengthBlocks;
 	bool bDmaReturn;
 	bool bFinal;
@@ -54,10 +54,12 @@ void vFeeTask(void *task_data) {
 					vFailFlushNFEEQueue();
 				}
 
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
-				}				
+				}
+				*/
 
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdXSize = pxNFee->xCcdInfo.usiHalfWidth + pxNFee->xCcdInfo.usiSPrescanN + pxNFee->xCcdInfo.usiSOverscanN;
@@ -174,6 +176,8 @@ void vFeeTask(void *task_data) {
 				break;
 			case sToFeeConfig: /* Transition */
 
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem );
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /*Off*/
@@ -182,6 +186,8 @@ void vFeeTask(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -202,12 +208,12 @@ void vFeeTask(void *task_data) {
 					pxNFee->xControl.bDMALocked = FALSE;
 				}
 
-				/* Cleaning other syncs that maybe in the queue */
-				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -254,7 +260,7 @@ void vFeeTask(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sFeeStandBy*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* Disable IRQ and clear the Double Buffer */
@@ -263,9 +269,12 @@ void vFeeTask(void *task_data) {
 				/* Disable RMAP interrupts */
 				bEnableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
 
-				/* Disable the link SPW */
+				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
+
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -276,10 +285,12 @@ void vFeeTask(void *task_data) {
 
 				/* Cleaning other syncs that maybe in the queue */
 				pxNFee->xControl.bWatingSync = FALSE;
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -316,11 +327,12 @@ void vFeeTask(void *task_data) {
 
 			case sNextPatternIteration:
 
-
+				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+				*/
 
 				pxNFee->xControl.bUsingDMA = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
@@ -328,21 +340,28 @@ void vFeeTask(void *task_data) {
 				vResetMemCCDFEE(pxNFee);
 
 				/* Wait until both buffers are empty  */
-				if (xDefaults.usiLinkNFEE0 == 0) {
+				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
+
+				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
 				} else {
 					while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
 				}
+				*/
+
 
 				OSTimeDlyHMSM(0,0,0,xDefaults.usiGuardNFEEDelay);
 
-				if (xDefaults.usiLinkNFEE0 == 0) {
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+
+				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				} else {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
-				}
+				}*/
 
 				/* Enable IRQ and clear the Double Buffer */
 				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
@@ -353,6 +372,8 @@ void vFeeTask(void *task_data) {
 				if ( tCodeNext == 0 ) {
 					/* Should get Data from the another memory, because is a cicle start */
 					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
+				} else {
+					ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				}
 
 				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext];
@@ -401,7 +422,7 @@ void vFeeTask(void *task_data) {
 	                    if ( error_code == OS_ERR_NONE ) {
 	                    	pxNFee->xControl.bDMALocked = TRUE;
 
-							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee );
+							bDmaReturn = bPrepareDoubleBuffer( xCcdMapLocal, ucMemUsing, pxNFee->ucId, pxNFee, ucIterationSide );
 							OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 							pxNFee->xControl.bDMALocked = FALSE;
 		
@@ -418,13 +439,18 @@ void vFeeTask(void *task_data) {
 								pxNFee->xControl.eMode = sToTestFullPattern;
 							}
 							incrementador++;
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+							}
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
+							}
+							#endif
 						}
-
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
-						}
-						#endif
 					} else {
 						vQCmdFEEinFullPattern( pxNFee, uiCmdFEE.ulWord );
 					}
@@ -460,16 +486,19 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bWatingSync = TRUE;
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bEnabled = TRUE;
-				bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+				//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
-				if (xDefaults.usiLinkNFEE0 == 0) {
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+
+				/*if (xDefaults.usiLinkNFEE0 == 0) {
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh1SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				} else {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
-				}
-
+				}*/
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				break;
 
 			case sFeeTestFullPattern: /* Real mode */
@@ -492,13 +521,17 @@ void vFeeTask(void *task_data) {
 								/*Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLengthBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks - xCcdMapLocal->ulBlockI;
 
+								vSetDoubleBufferLeftSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
+								vSetDoubleBufferRightSize( (unsigned char)usiLengthBlocks, pxNFee->ucSPWId );
+
+								/*
 								if (xDefaults.usiLinkNFEE0 == 0) {
 									bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,0);
 									bFeebCh1SetBufferSize((unsigned char)usiLengthBlocks,1);
 								} else {
 									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,0);
 									bFeebCh2SetBufferSize((unsigned char)usiLengthBlocks,1);
-								}
+								}*/
 
 								bFinal = TRUE;
 
@@ -522,7 +555,11 @@ void vFeeTask(void *task_data) {
 								xCcdMapLocal->ulBlockI += usiLengthBlocks;
 							} else {
 								bFinal = FALSE;
+
+								/* Send the request for use the DMA, but to front of the QUEUE */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 							}
+
 
 							/* Send message telling to controller that is not using the DMA any more */
 							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
@@ -530,7 +567,7 @@ void vFeeTask(void *task_data) {
 							if ( bFinal == TRUE ) {
 								pxNFee->xControl.eMode = sEndTransmission;
 							} else {
-								bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+								//bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*todo:REMOVER!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 							}
 
 						}
@@ -640,6 +677,17 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_FEE_STANDBY_FORCED:
 			case M_FEE_STANDBY:
 				pxNFeeP->xControl.bWatingSync = TRUE;
+
+				/* If a transition to Standby was requested when the FEE is waiting to go to Calibration,
+				 * configure the hardware to not send any data in the next sync */
+				if ( sToTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+				}
+
 				pxNFeeP->xControl.eMode = sFeeWaitingSync; /*sSIMTestFullPattern*/
 				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
 				break;
@@ -1399,6 +1447,14 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				}
 			#endif
 
+				if ( sToTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+				}
+
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;
 				pxNFeeP->xControl.eNextMode = sToFeeStandBy;
@@ -1598,6 +1654,29 @@ bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigne
 	return bSuccesL;
 }
 
+bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailRequestDMA( ucValue );
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+
+	return bSuccesL;
+}
 
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
@@ -1713,7 +1792,7 @@ bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsign
 #endif
 
 
-bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee ) {
+bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee, unsigned char ucSide ) {
 	bool  bDmaReturn;
 	unsigned long ulLengthBlocks;
 
@@ -1728,23 +1807,26 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	if (xDefaults.usiLinkNFEE0 == 0) {
+	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId);
+	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
+
+	/*if (xDefaults.usiLinkNFEE0 == 0) {
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 	} else {
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
-	}
+	}*/
 
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -1759,23 +1841,26 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		ulLengthBlocks = SDMA_MAX_BLOCKS;
 	}
 
-	if (xDefaults.usiLinkNFEE0 == 0) {
+	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
+	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
+
+	/*if (xDefaults.usiLinkNFEE0 == 0) {
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh1SetBufferSize((unsigned char)ulLengthBlocks,1);
 	} else {
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,0);
 		bFeebCh2SetBufferSize((unsigned char)ulLengthBlocks,1);
-	}
+	}*/
 
 	if (  ucMem == 0  ) {
-		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
 		} else
 			return bDmaReturn;
 	} else {
-		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucIterationSide, pxNFee->ucSPWId);
+		bDmaReturn = bSdmaDmaM2Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
 			xCcdMapLocal->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*ulLengthBlocks;
 			xCcdMapLocal->ulBlockI += ulLengthBlocks;
@@ -1785,6 +1870,177 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 
 	return bDmaReturn;
 
+}
+
+
+void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId ) {
+
+	switch (ucId) {
+		case 0:
+			bFeebCh1SetBufferSize( ucLength, 1);
+			break;
+		case 1:
+			bFeebCh2SetBufferSize( ucLength, 1);
+			break;
+		case 2:
+			bFeebCh3SetBufferSize( ucLength, 1);
+			break;
+		case 3:
+			bFeebCh4SetBufferSize( ucLength, 1);
+			break;
+		case 4:
+			bFeebCh5SetBufferSize( ucLength, 1);
+			break;
+		case 5:
+			bFeebCh6SetBufferSize( ucLength, 1);
+			break;
+		case 6:
+			bFeebCh7SetBufferSize( ucLength, 1);
+			break;
+		case 7:
+			bFeebCh8SetBufferSize( ucLength, 1);
+			break;
+		default:
+			break;
+	}
+
+}
+
+void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
+
+	switch (ucId) {
+		case 0:
+			bFeebCh1SetBufferSize( ucLength, 0);
+			break;
+		case 1:
+			bFeebCh2SetBufferSize( ucLength, 0);
+			break;
+		case 2:
+			bFeebCh3SetBufferSize( ucLength, 0);
+			break;
+		case 3:
+			bFeebCh4SetBufferSize( ucLength, 0);
+			break;
+		case 4:
+			bFeebCh5SetBufferSize( ucLength, 0);
+			break;
+		case 5:
+			bFeebCh6SetBufferSize( ucLength, 0);
+			break;
+		case 6:
+			bFeebCh7SetBufferSize( ucLength, 0);
+			break;
+		case 7:
+			bFeebCh8SetBufferSize( ucLength, 0);
+			break;
+		default:
+			break;
+	}
+
+}
+
+void vWaitUntilBufferEmpty( unsigned char ucId ) {
+
+	switch (ucId) {
+		case 0:
+			while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 1:
+			while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 2:
+			while ( (bFeebGetCh3LeftFeeBusy()== TRUE) || (bFeebGetCh3RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 3:
+			while ( (bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 4:
+			//while ( (bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 5:
+			//while ( (bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 6:
+			//while ( (bFeebGetCh7LeftFeeBusy()== TRUE) || (bFeebGetCh7RightFeeBusy()== TRUE)  ) {}
+			break;
+		case 7:
+			//while ( (bFeebGetCh8LeftFeeBusy()== TRUE) || (bFeebGetCh8RightFeeBusy()== TRUE)  ) {}
+			break;
+		default:
+			break;
+	}
+
+}
+
+inline unsigned long int uliReturnMaskR( unsigned char ucChannel ){
+	unsigned long int uliOut;
+
+	switch (ucChannel) {
+		case 0:
+			uliOut = LEDS_1R_MASK;
+			break;
+		case 1:
+			uliOut = LEDS_2R_MASK;
+			break;
+		case 2:
+			uliOut = LEDS_3R_MASK;
+			break;
+		case 3:
+			uliOut = LEDS_4R_MASK;
+			break;
+		case 4:
+			uliOut = LEDS_5R_MASK;
+			break;
+		case 5:
+			uliOut = LEDS_6R_MASK;
+			break;
+		case 6:
+			uliOut = LEDS_7R_MASK;
+			break;
+		case 7:
+			uliOut = LEDS_8R_MASK;
+			break;
+		default:
+			uliOut = LEDS_R_ALL_MASK;
+			break;
+	}
+	return uliOut;
+}
+
+
+inline unsigned long int uliReturnMaskG( unsigned char ucChannel ){
+	unsigned long int uliOut;
+
+	switch (ucChannel) {
+		case 0:
+			uliOut = LEDS_1G_MASK;
+			break;
+		case 1:
+			uliOut = LEDS_2G_MASK;
+			break;
+		case 2:
+			uliOut = LEDS_3G_MASK;
+			break;
+		case 3:
+			uliOut = LEDS_4G_MASK;
+			break;
+		case 4:
+			uliOut = LEDS_5G_MASK;
+			break;
+		case 5:
+			uliOut = LEDS_6G_MASK;
+			break;
+		case 6:
+			uliOut = LEDS_7G_MASK;
+			break;
+		case 7:
+			uliOut = LEDS_8G_MASK;
+			break;
+		default:
+			uliOut = LEDS_G_ALL_MASK;
+			break;
+	}
+	return uliOut;
 }
 
 

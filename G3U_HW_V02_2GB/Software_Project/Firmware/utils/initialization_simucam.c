@@ -25,4 +25,15 @@ void vInitSimucamBasicHW(void)
 	vRstcHoldDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 	vRstcReleaseDeviceReset(RSTC_DEV_RS232_RST_CTRL_MSK);
 
+	bDisableIsoDrivers();
+	bDisableLvdsBoard();
+
+	/* Turn on all Panel Leds */
+	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
+	usleep(5000000);
+	/* initial values for the Leds */
+	bSetPainelLeds( LEDS_OFF, LEDS_PAINEL_ALL_MASK );
+
+	bSetPainelLeds( LEDS_ON, LEDS_R_ALL_MASK | LEDS_POWER_MASK );
+
 }

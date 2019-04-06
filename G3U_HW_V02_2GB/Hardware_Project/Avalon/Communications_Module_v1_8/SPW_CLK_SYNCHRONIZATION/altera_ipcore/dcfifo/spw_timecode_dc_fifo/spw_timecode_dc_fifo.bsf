@@ -22,7 +22,7 @@ agreement for further details.
 (header "symbol" (version "1.2"))
 (symbol
 	(rect 0 0 176 224)
-	(text "spw_timecode_sc_fifo" (rect 25 0 174 16)(font "Arial" (font_size 10)))
+	(text "spw_timecode_dc_fifo" (rect 25 0 174 16)(font "Arial" (font_size 10)))
 	(text "inst" (rect 8 208 25 220)(font "Arial" ))
 	(port
 		(pt 0 48)

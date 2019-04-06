@@ -69,7 +69,7 @@ typedef struct FeeControl{
     unsigned char *pActualMem;				/* Point to the actual memory in simulation */
     unsigned char ucTimeCode;               /* Timecode [NFEESIM-UR-488]*/
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
-    tFEEStates eMode;                   /* Mode of NFEE */
+    volatile tFEEStates eMode;                   /* Mode of NFEE */
     tFEEStates eNextMode;
     tNFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */
 } TFeeControl;

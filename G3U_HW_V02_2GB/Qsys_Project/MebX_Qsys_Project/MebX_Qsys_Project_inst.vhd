@@ -12,6 +12,16 @@
 			comm_b_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_b_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
 			comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+			comm_c_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
+			comm_c_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
+			comm_c_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
+			comm_c_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
+			comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+			comm_d_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
+			comm_d_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
+			comm_d_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
+			comm_d_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
+			comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 			csense_adc_fo_export                                 : out   std_logic;                                        -- export
 			csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     -- export
 			csense_sck_export                                    : out   std_logic;                                        -- export
@@ -125,6 +135,16 @@
 			comm_b_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_b_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
 			comm_b_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_b_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
 			comm_b_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_b_sync_end_sync_channel_signal,                  --            comm_b_sync_end.sync_channel_signal
+			comm_c_conduit_end_data_in_signal                    => CONNECTED_TO_comm_c_conduit_end_data_in_signal,                    --         comm_c_conduit_end.data_in_signal
+			comm_c_conduit_end_data_out_signal                   => CONNECTED_TO_comm_c_conduit_end_data_out_signal,                   --                           .data_out_signal
+			comm_c_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_c_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
+			comm_c_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_c_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
+			comm_c_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_c_sync_end_sync_channel_signal,                  --            comm_c_sync_end.sync_channel_signal
+			comm_d_conduit_end_data_in_signal                    => CONNECTED_TO_comm_d_conduit_end_data_in_signal,                    --         comm_d_conduit_end.data_in_signal
+			comm_d_conduit_end_data_out_signal                   => CONNECTED_TO_comm_d_conduit_end_data_out_signal,                   --                           .data_out_signal
+			comm_d_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_d_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
+			comm_d_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_d_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
+			comm_d_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_d_sync_end_sync_channel_signal,                  --            comm_d_sync_end.sync_channel_signal
 			csense_adc_fo_export                                 => CONNECTED_TO_csense_adc_fo_export,                                 --              csense_adc_fo.export
 			csense_cs_n_export                                   => CONNECTED_TO_csense_cs_n_export,                                   --                csense_cs_n.export
 			csense_sck_export                                    => CONNECTED_TO_csense_sck_export,                                    --                 csense_sck.export

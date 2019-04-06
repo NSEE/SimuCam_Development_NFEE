@@ -52,7 +52,7 @@ ENTITY windowing_mask_sc_fifo IS
 		empty		: OUT STD_LOGIC ;
 		full		: OUT STD_LOGIC ;
 		q		: OUT STD_LOGIC_VECTOR (63 DOWNTO 0);
-		usedw		: OUT STD_LOGIC_VECTOR (3 DOWNTO 0)
+		usedw		: OUT STD_LOGIC_VECTOR (4 DOWNTO 0)
 	);
 END windowing_mask_sc_fifo;
 
@@ -62,7 +62,7 @@ ARCHITECTURE SYN OF windowing_mask_sc_fifo IS
 	SIGNAL sub_wire0	: STD_LOGIC ;
 	SIGNAL sub_wire1	: STD_LOGIC ;
 	SIGNAL sub_wire2	: STD_LOGIC_VECTOR (63 DOWNTO 0);
-	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (3 DOWNTO 0);
+	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (4 DOWNTO 0);
 
 
 
@@ -70,6 +70,7 @@ ARCHITECTURE SYN OF windowing_mask_sc_fifo IS
 	GENERIC (
 		add_ram_output_register		: STRING;
 		intended_device_family		: STRING;
+		lpm_hint		: STRING;
 		lpm_numwords		: NATURAL;
 		lpm_showahead		: STRING;
 		lpm_type		: STRING;
@@ -89,7 +90,7 @@ ARCHITECTURE SYN OF windowing_mask_sc_fifo IS
 			empty	: OUT STD_LOGIC ;
 			full	: OUT STD_LOGIC ;
 			q	: OUT STD_LOGIC_VECTOR (63 DOWNTO 0);
-			usedw	: OUT STD_LOGIC_VECTOR (3 DOWNTO 0)
+			usedw	: OUT STD_LOGIC_VECTOR (4 DOWNTO 0)
 	);
 	END COMPONENT;
 
@@ -97,17 +98,18 @@ BEGIN
 	empty    <= sub_wire0;
 	full    <= sub_wire1;
 	q    <= sub_wire2(63 DOWNTO 0);
-	usedw    <= sub_wire3(3 DOWNTO 0);
+	usedw    <= sub_wire3(4 DOWNTO 0);
 
 	scfifo_component : scfifo
 	GENERIC MAP (
 		add_ram_output_register => "OFF",
 		intended_device_family => "Stratix IV",
-		lpm_numwords => 16,
+		lpm_hint => "RAM_BLOCK_TYPE=MLAB",
+		lpm_numwords => 32,
 		lpm_showahead => "ON",
 		lpm_type => "scfifo",
 		lpm_width => 64,
-		lpm_widthu => 4,
+		lpm_widthu => 5,
 		overflow_checking => "ON",
 		underflow_checking => "ON",
 		use_eab => "ON"
@@ -138,16 +140,16 @@ END SYN;
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 -- Retrieval info: PRIVATE: Clock NUMERIC "0"
--- Retrieval info: PRIVATE: Depth NUMERIC "16"
+-- Retrieval info: PRIVATE: Depth NUMERIC "32"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
--- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
+-- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "1"
 -- Retrieval info: PRIVATE: SYNTH_WRAPPER_GEN_POSTFIX STRING "1"
 -- Retrieval info: PRIVATE: UNDERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: UsedW NUMERIC "1"
@@ -167,11 +169,12 @@ END SYN;
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: ADD_RAM_OUTPUT_REGISTER STRING "OFF"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
--- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "16"
--- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
+-- Retrieval info: CONSTANT: LPM_HINT STRING "RAM_BLOCK_TYPE=MLAB"
+-- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "32"
+-- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "scfifo"
 -- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "64"
--- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "4"
+-- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "5"
 -- Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: UNDERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: USE_EAB STRING "ON"
@@ -183,7 +186,7 @@ END SYN;
 -- Retrieval info: USED_PORT: q 0 0 64 0 OUTPUT NODEFVAL "q[63..0]"
 -- Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
 -- Retrieval info: USED_PORT: sclr 0 0 0 0 INPUT NODEFVAL "sclr"
--- Retrieval info: USED_PORT: usedw 0 0 4 0 OUTPUT NODEFVAL "usedw[3..0]"
+-- Retrieval info: USED_PORT: usedw 0 0 5 0 OUTPUT NODEFVAL "usedw[4..0]"
 -- Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
 -- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 -- Retrieval info: CONNECT: @clock 0 0 0 0 clock 0 0 0 0
@@ -194,7 +197,7 @@ END SYN;
 -- Retrieval info: CONNECT: empty 0 0 0 0 @empty 0 0 0 0
 -- Retrieval info: CONNECT: full 0 0 0 0 @full 0 0 0 0
 -- Retrieval info: CONNECT: q 0 0 64 0 @q 0 0 64 0
--- Retrieval info: CONNECT: usedw 0 0 4 0 @usedw 0 0 4 0
+-- Retrieval info: CONNECT: usedw 0 0 5 0 @usedw 0 0 5 0
 -- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_mask_sc_fifo.vhd TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_mask_sc_fifo.inc TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL windowing_mask_sc_fifo.cmp TRUE

@@ -17,13 +17,15 @@ entity send_buffer_ent is
 		buffer_wrdata_i            : in  std_logic_vector(7 downto 0);
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
+		buffer_change_i            : in  std_logic;
 		buffer_stat_almost_empty_o : out std_logic;
 		buffer_stat_almost_full_o  : out std_logic;
 		buffer_stat_empty_o        : out std_logic;
 		buffer_stat_full_o         : out std_logic;
 		buffer_rddata_o            : out std_logic_vector(7 downto 0);
 		buffer_rdready_o           : out std_logic;
-		buffer_wrready_o           : out std_logic
+		buffer_wrready_o           : out std_logic;
+		double_buffer_empty_o      : out std_logic
 	);
 end entity send_buffer_ent;
 
@@ -83,7 +85,7 @@ architecture RTL of send_buffer_ent is
 begin
 
 	-- data fifo 0 instantiation
-	scfifo_data_buffer_0_inst : entity work.scfifo_data_buffer
+	send_buffer_0_sc_fifo_inst : entity work.send_buffer_0_sc_fifo
 		port map(
 			aclr         => rst_i,
 			clock        => clk_i,
@@ -100,7 +102,7 @@ begin
 		);
 
 	-- data fifo 1 instantiation
-	scfifo_data_buffer_1_inst : entity work.scfifo_data_buffer
+	send_buffer_1_sc_fifo_inst : entity work.send_buffer_1_sc_fifo
 		port map(
 			aclr         => rst_i,
 			clock        => clk_i,
@@ -256,7 +258,7 @@ begin
 					s_data_fifo_0_rdhold       <= '0';
 					buffer_rdready_o           <= '1';
 					-- check if the data fifo 0 is empty (start using data fifo 1 and hold data fifo 0 for read)
-					if (s_data_fifo_0.empty = '1') then
+					if ((s_data_fifo_0.empty = '1') and (buffer_change_i = '1')) then
 						-- data fifo 0 is empty, go to waiting data fifo 1
 						s_rd_data_buffer_selection <= 2;
 						s_send_buffer_read_state   <= WAIT_RD_DFIFO_1;
@@ -289,7 +291,7 @@ begin
 					s_data_fifo_1_rdhold       <= '0';
 					buffer_rdready_o           <= '1';
 					-- check if the data fifo 1 is empty (start using data fifo 0 and hold data fifo 1 for read)
-					if (s_data_fifo_1.empty = '1') then
+					if ((s_data_fifo_1.empty = '1') and (buffer_change_i = '1')) then
 						-- data fifo 1 is empty, go to waiting data fifo 0
 						s_rd_data_buffer_selection <= 2;
 						s_send_buffer_read_state   <= WAIT_RD_DFIFO_0;
@@ -376,5 +378,7 @@ begin
 	s_data_fifo_0_extended_usedw((s_data_fifo_0.usedw'length - 1) downto 0) <= s_data_fifo_0.usedw;
 	s_data_fifo_1_extended_usedw(s_data_fifo_1.usedw'length)                <= s_data_fifo_1.full;
 	s_data_fifo_1_extended_usedw((s_data_fifo_1.usedw'length - 1) downto 0) <= s_data_fifo_1.usedw;
+	-- double buffer empty generation
+	double_buffer_empty_o                                                   <= (s_data_fifo_0.empty) and (s_data_fifo_1.empty);
 
 end architecture RTL;
