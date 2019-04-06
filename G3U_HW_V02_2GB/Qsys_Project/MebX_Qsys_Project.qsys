@@ -4191,18 +4191,18 @@
  <connection
    kind="clock"
    version="16.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="clk_100.clk_in" />
- <connection
-   kind="clock"
-   version="16.1"
-   start="m1_ddr2_memory.afi_half_clk"
+   start="m1_ddr2_memory.afi_clk"
    end="m1_clock_bridge.m0_clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="m2_ddr2_memory.afi_half_clk"
+   start="m2_ddr2_memory.afi_clk"
    end="m1_clock_bridge.s0_clk" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="m2_ddr2_memory.afi_half_clk"
+   end="clk_100.clk_in" />
  <connection
    kind="clock"
    version="16.1"

@@ -28,5 +28,5 @@ RETURNS (
 	empty,
 	full,
 	q[63..0],
-	usedw[8..0]
+	usedw[7..0]
 );

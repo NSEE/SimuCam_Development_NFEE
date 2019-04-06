@@ -240,8 +240,8 @@ architecture rtl of comm_v1_80_top is
 	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
 
 	-- buffer size
-	signal s_right_buffer_size : std_logic_vector(4 downto 0);
-	signal s_left_buffer_size  : std_logic_vector(4 downto 0);
+	signal s_right_buffer_size : std_logic_vector(3 downto 0);
+	signal s_left_buffer_size  : std_logic_vector(3 downto 0);
 
 	-- dummy
 	signal s_dummy_spw_mux_tx0_txhalff  : std_logic;

@@ -19,25 +19,25 @@ package windowing_fifo_pkg is
 	-- windowing data fifo read status [out]
 	type t_windowing_data_fifo_rd_status is record
 		empty : std_logic;
-		usedw : std_logic_vector(8 downto 0);
+		usedw : std_logic_vector(7 downto 0);
 	end record t_windowing_data_fifo_rd_status;
 
 	-- windowing data fifo write status [out]
 	type t_windowing_data_fifo_wr_status is record
 		full  : std_logic;
-		usedw : std_logic_vector(8 downto 0);
+		usedw : std_logic_vector(7 downto 0);
 	end record t_windowing_data_fifo_wr_status;
 
 	-- windowing mask fifo read status [out]
 	type t_windowing_mask_fifo_rd_status is record
 		empty : std_logic;
-		usedw : std_logic_vector(4 downto 0);
+		usedw : std_logic_vector(3 downto 0);
 	end record t_windowing_mask_fifo_rd_status;
 
 	-- windowing mask fifo write status [out]
 	type t_windowing_mask_fifo_wr_status is record
 		full  : std_logic;
-		usedw : std_logic_vector(4 downto 0);
+		usedw : std_logic_vector(3 downto 0);
 	end record t_windowing_mask_fifo_wr_status;
 
 	-- windowing fifo read data [out]

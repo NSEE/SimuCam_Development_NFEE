@@ -19,7 +19,7 @@ architecture RTL of windowing_data_fifo_ent is
 
 	signal s_aclr  : std_logic;
 	signal s_sclr  : std_logic;
-	signal s_usedw : std_logic_vector(8 downto 0);
+	signal s_usedw : std_logic_vector(7 downto 0);
 
 begin
 

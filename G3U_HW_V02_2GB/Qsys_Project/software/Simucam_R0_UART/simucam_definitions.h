@@ -22,8 +22,11 @@
 #endif
 
 
-#define N_OF_NFEE       1	/* ONLY for tests */
+#define N_OF_NFEE       4	/* ONLY for tests */
 #define N_OF_FastFEE    2
+
+#define N_SEC_WAIT_SHUTDOWN 15   /*In seconds*/
+
 
 #define DATA_PACKET		TRUE	/* Using data packet or Transparent mode ( 0 ) */
 #define TRANSPARENT		FALSE

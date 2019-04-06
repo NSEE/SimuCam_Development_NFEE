@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.04.06.02:15:52 -->
+ <!-- 2019.04.06.03:31:33 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1554527751</value>
+  <value>1554532293</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -36458,6 +36458,12 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>m1_clock_bridge</moduleName>
+    <slaveName>m0_clk</slaveName>
+    <name>m1_clock_bridge.m0_clk</name>
+   </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -36527,12 +36533,6 @@ parameters are a RESULT of the module parameters. -->
     <width>1</width>
     <role>clk</role>
    </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>m1_clock_bridge</moduleName>
-    <slaveName>m0_clk</slaveName>
-    <name>m1_clock_bridge.m0_clk</name>
-   </clockDomainMember>
   </interface>
   <interface name="afi_reset" kind="reset_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -51594,6 +51594,12 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>s0_clk</slaveName>
     <name>clock_bridge_afi_50.s0_clk</name>
    </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>m1_clock_bridge</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>m1_clock_bridge.s0_clk</name>
+   </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="16.1">
    <!-- The connection points exposed by a module instance for the
@@ -51668,12 +51674,6 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>clk_100</moduleName>
     <slaveName>clk_in</slaveName>
     <name>clk_100.clk_in</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>m1_clock_bridge</moduleName>
-    <slaveName>s0_clk</slaveName>
-    <name>m1_clock_bridge.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="afi_reset" kind="reset_source" version="16.1">
@@ -69566,7 +69566,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1554527751</value>
+   <value>1554532293</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -69586,7 +69586,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1554527751</value>
+   <value>1554532293</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -69602,7 +69602,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1554527751</value>
+   <value>1554532293</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -77239,6 +77239,60 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk_in</endConnectionPoint>
  </connection>
  <connection
+   name="m1_ddr2_memory.afi_clk/m1_clock_bridge.m0_clk"
+   kind="clock"
+   version="16.1"
+   start="m1_ddr2_memory.afi_clk"
+   end="m1_clock_bridge.m0_clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>m1_ddr2_memory</startModule>
+  <startConnectionPoint>afi_clk</startConnectionPoint>
+  <endModule>m1_clock_bridge</endModule>
+  <endConnectionPoint>m0_clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="m2_ddr2_memory.afi_clk/m1_clock_bridge.s0_clk"
+   kind="clock"
+   version="16.1"
+   start="m2_ddr2_memory.afi_clk"
+   end="m1_clock_bridge.s0_clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>m2_ddr2_memory</startModule>
+  <startConnectionPoint>afi_clk</startConnectionPoint>
+  <endModule>m1_clock_bridge</endModule>
+  <endConnectionPoint>s0_clk</endConnectionPoint>
+ </connection>
+ <connection
    name="m2_ddr2_memory.afi_half_clk/clk_100.clk_in"
    kind="clock"
    version="16.1"
@@ -77264,60 +77318,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>afi_half_clk</startConnectionPoint>
   <endModule>clk_100</endModule>
   <endConnectionPoint>clk_in</endConnectionPoint>
- </connection>
- <connection
-   name="m1_ddr2_memory.afi_half_clk/m1_clock_bridge.m0_clk"
-   kind="clock"
-   version="16.1"
-   start="m1_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge.m0_clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>m1_ddr2_memory</startModule>
-  <startConnectionPoint>afi_half_clk</startConnectionPoint>
-  <endModule>m1_clock_bridge</endModule>
-  <endConnectionPoint>m0_clk</endConnectionPoint>
- </connection>
- <connection
-   name="m2_ddr2_memory.afi_half_clk/m1_clock_bridge.s0_clk"
-   kind="clock"
-   version="16.1"
-   start="m2_ddr2_memory.afi_half_clk"
-   end="m1_clock_bridge.s0_clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>m2_ddr2_memory</startModule>
-  <startConnectionPoint>afi_half_clk</startConnectionPoint>
-  <endModule>m1_clock_bridge</endModule>
-  <endConnectionPoint>s0_clk</endConnectionPoint>
  </connection>
  <connection
    name="clk_50.clk/SEVEN_SEGMENT_CONTROLLER_0.SSDP_CLK"
