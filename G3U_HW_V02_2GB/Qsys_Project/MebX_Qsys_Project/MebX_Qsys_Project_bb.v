@@ -117,7 +117,9 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_read_n_out,
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out);	
+	tristate_conduit_tcm_chipselect_n_out,
+	altpll_300_areset_conduit_export,
+	altpll_300_locked_conduit_export);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -237,4 +239,6 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
+	input		altpll_300_areset_conduit_export;
+	output		altpll_300_locked_conduit_export;
 endmodule

@@ -117,7 +117,9 @@
 			tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
+			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
+			altpll_300_areset_conduit_export                     : in    std_logic                     := 'X';             -- export
+			altpll_300_locked_conduit_export                     : out   std_logic                                         -- export
 		);
 	end component MebX_Qsys_Project;
 
@@ -240,6 +242,8 @@
 			tristate_conduit_tcm_read_n_out                      => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                      --                           .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                     --                           .tcm_write_n_out
 			tristate_conduit_tcm_data_out                        => CONNECTED_TO_tristate_conduit_tcm_data_out,                        --                           .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                 --                           .tcm_chipselect_n_out
+			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                --                           .tcm_chipselect_n_out
+			altpll_300_areset_conduit_export                     => CONNECTED_TO_altpll_300_areset_conduit_export,                     --  altpll_300_areset_conduit.export
+			altpll_300_locked_conduit_export                     => CONNECTED_TO_altpll_300_locked_conduit_export                      --  altpll_300_locked_conduit.export
 		);
 

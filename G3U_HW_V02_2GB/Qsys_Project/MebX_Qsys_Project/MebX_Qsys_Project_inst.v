@@ -116,6 +116,8 @@
 		.tristate_conduit_tcm_read_n_out                      (<connected-to-tristate_conduit_tcm_read_n_out>),                      //                           .tcm_read_n_out
 		.tristate_conduit_tcm_write_n_out                     (<connected-to-tristate_conduit_tcm_write_n_out>),                     //                           .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                        (<connected-to-tristate_conduit_tcm_data_out>),                        //                           .tcm_data_out
-		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>)                 //                           .tcm_chipselect_n_out
+		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                //                           .tcm_chipselect_n_out
+		.altpll_300_areset_conduit_export                     (<connected-to-altpll_300_areset_conduit_export>),                     //  altpll_300_areset_conduit.export
+		.altpll_300_locked_conduit_export                     (<connected-to-altpll_300_locked_conduit_export>)                      //  altpll_300_locked_conduit.export
 	);
 
