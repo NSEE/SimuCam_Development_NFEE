@@ -21,7 +21,8 @@ entity data_transmitter_ent is
 		send_buffer_rdreq_o             : out std_logic;
 		spw_tx_write_o                  : out std_logic;
 		spw_tx_flag_o                   : out std_logic;
-		spw_tx_data_o                   : out std_logic_vector(7 downto 0)
+		spw_tx_data_o                   : out std_logic_vector(7 downto 0);
+		send_buffer_change_o            : out std_logic
 	);
 end entity data_transmitter_ent;
 
@@ -58,6 +59,7 @@ begin
 			spw_tx_write_o              <= '0';
 			spw_tx_flag_o               <= '0';
 			spw_tx_data_o               <= x"00";
+			send_buffer_change_o        <= '0';
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
 			case (s_data_transmitter_state) is
@@ -73,6 +75,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 					-- check if a start was issued
 					if (fee_start_signal_i = '1') then
 						-- start issued, go to idle
@@ -110,6 +113,11 @@ begin
 						-- go to transmit data
 						s_data_transmitter_state <= FETCH_DATA;
 						v_data_transmitter_state := FETCH_DATA;
+					-- check if the send buffer is empty
+					elsif (send_buffer_stat_empty_i = '1') then
+						-- send buffer empty, go to waiting eop buffer space
+						s_data_transmitter_state <= WAITING_EOP_BUFFER_SPACE;
+						v_data_transmitter_state := WAITING_EOP_BUFFER_SPACE;
 					end if;
 
 				-- state "FETCH_DATA"
@@ -137,12 +145,7 @@ begin
 					v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
-					-- check if the send buffer is empty
-					if (send_buffer_stat_empty_i = '1') then
-						-- send buffer empty, go to waiting eop buffer space
-						s_data_transmitter_state <= WAITING_EOP_BUFFER_SPACE;
-						v_data_transmitter_state := WAITING_EOP_BUFFER_SPACE;
-					end if;
+
 
 				-- state "WAITING_EOP_BUFFER_SPACE"
 				when WAITING_EOP_BUFFER_SPACE =>
@@ -228,6 +231,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_DATA_BUFFER_SPACE"
@@ -241,6 +245,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "FETCH_DATA"
@@ -255,6 +260,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "DELAY"
@@ -267,6 +273,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 				-- default internal signal values
 				-- conditional state transition
 
@@ -283,6 +290,7 @@ begin
 					spw_tx_data_o               <= send_buffer_rddata_i;
 					-- write the spw data
 					spw_tx_write_o              <= '1';
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "WAITING_EOP_BUFFER_SPACE"
@@ -296,6 +304,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "TRANSMIT_EOP"
@@ -311,6 +320,7 @@ begin
 					spw_tx_data_o               <= x"00";
 					-- write the spw data
 					spw_tx_write_o              <= '1';
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "DATA_TRANSMITTER_FINISH"
@@ -324,6 +334,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '1';
 				-- conditional output signals
 
 				-- state "WAITING_EEP_BUFFER_SPACE"
@@ -337,6 +348,7 @@ begin
 					spw_tx_write_o              <= '0';
 					spw_tx_flag_o               <= '0';
 					spw_tx_data_o               <= x"00";
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- state "TRANSMIT_EEP"
@@ -352,6 +364,7 @@ begin
 					spw_tx_data_o               <= x"01";
 					-- write the spw data
 					spw_tx_write_o              <= '1';
+					send_buffer_change_o        <= '0';
 				-- conditional output signals
 
 				-- all the other states (not defined)

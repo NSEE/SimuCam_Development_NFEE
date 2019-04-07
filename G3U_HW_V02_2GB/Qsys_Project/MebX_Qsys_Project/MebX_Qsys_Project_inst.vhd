@@ -1,7 +1,5 @@
 	component MebX_Qsys_Project is
 		port (
-			altpll_300_areset_conduit_export                     : in    std_logic                     := 'X';             -- export
-			altpll_300_locked_conduit_export                     : out   std_logic;                                        -- export
 			button_export                                        : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                            : in    std_logic                     := 'X';             -- clk
 			comm_a_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
@@ -125,8 +123,6 @@
 
 	u0 : component MebX_Qsys_Project
 		port map (
-			altpll_300_areset_conduit_export                     => CONNECTED_TO_altpll_300_areset_conduit_export,                     --  altpll_300_areset_conduit.export
-			altpll_300_locked_conduit_export                     => CONNECTED_TO_altpll_300_locked_conduit_export,                     --  altpll_300_locked_conduit.export
 			button_export                                        => CONNECTED_TO_button_export,                                        --                     button.export
 			clk50_clk                                            => CONNECTED_TO_clk50_clk,                                            --                      clk50.clk
 			comm_a_conduit_end_data_in_signal                    => CONNECTED_TO_comm_a_conduit_end_data_in_signal,                    --         comm_a_conduit_end.data_in_signal
