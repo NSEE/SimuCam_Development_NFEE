@@ -132,7 +132,7 @@ extern OS_EVENT *xQMaskDataCtrl;
 
 
 /*---------------Semaphore and Mutex ---------------------*/
-extern OS_EVENT *xTxUARTMutex;
+extern  OS_EVENT *xTxUARTMutex;
 
 
 /*  Before access the any buffer for transmission the task should check in the Count Semaphore if has resource available
@@ -170,7 +170,7 @@ extern tDmaSim xDma[2];
 /*---------------Semaphore and Mutex ---------------------*/
 
 /* --------------- Timers ------------------ */
-extern OS_TMR  *xTimerRetransmission;
+extern OS_TMR *xTimerRetransmission;
 /* --------------- Timers ------------------ */
 
 

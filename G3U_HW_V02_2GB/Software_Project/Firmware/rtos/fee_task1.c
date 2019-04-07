@@ -205,6 +205,8 @@ void vFeeTask1(void *task_data) {
 					/* If is with the Mutex, should release */
 					OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 					pxNFee->xControl.bDMALocked = FALSE;
+					/* Send message telling to controller that is not using the DMA any more */
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 				}
 
 				/* Cleaning other syncs that maybe in the queue */
@@ -216,8 +218,6 @@ void vFeeTask1(void *task_data) {
 				}
 				*/
 
-				/* Send message telling to controller that is not using the DMA any more */
-				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
 				/* End of simulation! Clear everything that is possible */
 				pxNFee->xControl.bWatingSync = FALSE;

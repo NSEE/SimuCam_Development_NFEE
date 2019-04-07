@@ -61,7 +61,7 @@ typedef enum { eNoError = 0, eBadFormatInit, eCRCErrorInit, eSemErrorInit, eBadF
 /*Semaphore that Receiver inform Sender that receive the initialization packet*/
 extern OS_EVENT *xSemCommInit;
 
-extern unsigned short int usiIdCMD;
+extern volatile unsigned short int usiIdCMD;
 
 /*================================== Reader UART ================================*/
 
@@ -85,7 +85,7 @@ typedef struct {
 extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 extern OS_EVENT *xMebQ;	
 extern OS_EVENT *xMutexPus;
-extern tTMPus xPus[N_PUS_PIPE];
+extern volatile tTMPus xPus[N_PUS_PIPE];
 
 
 /*Struct used to parse the received command through UART*/
@@ -102,8 +102,8 @@ typedef struct {
 
 extern OS_EVENT *xSemCountPreParsed;
 extern OS_EVENT *xMutexPreParsed;
-extern tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
-extern tPreParsed xPreParsedReader;
+extern volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
+extern volatile tPreParsed xPreParsedReader;
 
 #define N_ACKS_RECEIVED        6
 typedef struct {
@@ -114,7 +114,7 @@ typedef struct {
 
 extern OS_EVENT *xSemCountReceivedACK;
 extern OS_EVENT *xMutexReceivedACK;
-extern txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
+extern volatile txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
 
 
 #define N_ACKS_SENDER        N_PREPARSED_ENTRIES
@@ -126,7 +126,7 @@ typedef struct {
 
 extern OS_EVENT *xSemCountSenderACK;
 extern OS_EVENT *xMutexSenderACK;
-extern txSenderACKs xSenderACK[N_ACKS_SENDER];
+extern volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 
 
 /*================================== Reader UART ================================*/
@@ -184,23 +184,23 @@ typedef struct {
 
 /*  Before access the any buffer for transmission the task should check in the Count Semaphore if has resource available
     if there is buffer free, the task should try to get the mutex in order to protect the integrity of the buffer */
-extern unsigned char SemCount128;
+extern volatile unsigned char SemCount128;
 extern OS_EVENT *xSemCountBuffer128;
 extern OS_EVENT *xMutexBuffer128;
 extern txBuffer128 xBuffer128[N_128];
 
-extern unsigned char SemCount64;
+extern volatile unsigned char SemCount64;
 extern OS_EVENT *xSemCountBuffer64;
 extern OS_EVENT *xMutexBuffer64;
 extern txBuffer64 xBuffer64[N_64];
 
-extern unsigned char SemCount32;
+extern volatile unsigned char SemCount32;
 extern OS_EVENT *xSemCountBuffer32;
 extern OS_EVENT *xMutexBuffer32;
 extern txBuffer32 xBuffer32[N_32];
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
-extern tInUseRetransBuffer xInUseRetrans;
+extern volatile tInUseRetransBuffer xInUseRetrans;
 
 
 
