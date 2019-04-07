@@ -17,6 +17,7 @@ entity send_buffer_ent is
 		buffer_wrdata_i            : in  std_logic_vector(7 downto 0);
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
+		buffer_change_i            : in  std_logic;
 		buffer_stat_almost_empty_o : out std_logic;
 		buffer_stat_almost_full_o  : out std_logic;
 		buffer_stat_empty_o        : out std_logic;
@@ -257,7 +258,7 @@ begin
 					s_data_fifo_0_rdhold       <= '0';
 					buffer_rdready_o           <= '1';
 					-- check if the data fifo 0 is empty (start using data fifo 1 and hold data fifo 0 for read)
-					if (s_data_fifo_0.empty = '1') then
+					if ((s_data_fifo_0.empty = '1') and (buffer_change_i = '1')) then
 						-- data fifo 0 is empty, go to waiting data fifo 1
 						s_rd_data_buffer_selection <= 2;
 						s_send_buffer_read_state   <= WAIT_RD_DFIFO_1;
@@ -290,7 +291,7 @@ begin
 					s_data_fifo_1_rdhold       <= '0';
 					buffer_rdready_o           <= '1';
 					-- check if the data fifo 1 is empty (start using data fifo 0 and hold data fifo 1 for read)
-					if (s_data_fifo_1.empty = '1') then
+					if ((s_data_fifo_1.empty = '1') and (buffer_change_i = '1')) then
 						-- data fifo 1 is empty, go to waiting data fifo 0
 						s_rd_data_buffer_selection <= 2;
 						s_send_buffer_read_state   <= WAIT_RD_DFIFO_0;

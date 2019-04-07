@@ -100,6 +100,7 @@ architecture RTL of fee_slave_data_controller_top is
 	signal s_send_buffer_rddata                 : std_logic_vector(7 downto 0);
 	signal s_send_buffer_rdready                : std_logic;
 	signal s_send_buffer_wrready                : std_logic;
+	signal s_send_buffer_change                 : std_logic;
 	-- data transmitter signals
 	signal s_data_transmitter_busy              : std_logic;
 	signal s_data_transmitter_finished          : std_logic;
@@ -251,6 +252,7 @@ begin
 			buffer_wrdata_i            => s_send_buffer_wrdata,
 			buffer_wrreq_i             => s_send_buffer_wrreq,
 			buffer_rdreq_i             => s_send_buffer_rdreq,
+			buffer_change_i            => s_send_buffer_change,
 			buffer_stat_almost_empty_o => s_send_buffer_stat_almost_empty,
 			buffer_stat_almost_full_o  => s_send_buffer_stat_almost_full,
 			buffer_stat_empty_o        => s_send_buffer_stat_empty,
@@ -281,7 +283,8 @@ begin
 			send_buffer_rdreq_o             => s_send_buffer_rdreq,
 			spw_tx_write_o                  => fee_spw_tx_write_o,
 			spw_tx_flag_o                   => fee_spw_tx_flag_o,
-			spw_tx_data_o                   => fee_spw_tx_data_o
+			spw_tx_data_o                   => fee_spw_tx_data_o,
+			send_buffer_change_o           => s_send_buffer_change
 		);
 	p_register_data_pkt_config : process(clk_i, rst_i) is
 	begin

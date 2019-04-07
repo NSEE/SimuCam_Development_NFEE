@@ -152,14 +152,14 @@ SOPC_SYSID_FLAG += --id=0
 ELF_PATCH_FLAG  += --id 0
 
 # The SOPC System ID Base Address 
-# setting SOPC_SYSID_BASE_ADDRESS is 0x81203080
-SOPC_SYSID_FLAG += --sidp=0x81203080
-ELF_PATCH_FLAG  += --sidp 0x81203080
+# setting SOPC_SYSID_BASE_ADDRESS is 0x40401080
+SOPC_SYSID_FLAG += --sidp=0x40401080
+ELF_PATCH_FLAG  += --sidp 0x40401080
 
 # The SOPC Timestamp 
-# setting SOPC_TIMESTAMP is 1553820465
-SOPC_SYSID_FLAG += --timestamp=1553820465
-ELF_PATCH_FLAG  += --timestamp 1553820465
+# setting SOPC_TIMESTAMP is 1554418479
+SOPC_SYSID_FLAG += --timestamp=1554418479
+ELF_PATCH_FLAG  += --timestamp 1554418479
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 
@@ -239,9 +239,7 @@ ALT_CPPFLAGS += -DALT_NO_INSTRUCTION_EMULATION
 # exception if a stack collision occurs with the heap or statically allocated 
 # data. If true, adds -DALT_STACK_CHECK and -fstack-limit-register=et to 
 # ALT_CPPFLAGS in public.mk. none 
-# setting hal.enable_runtime_stack_checking is true
-ALT_LDFLAGS += -fstack-limit-register=et
-ALT_CPPFLAGS += -DALT_STACK_CHECK -fstack-limit-register=et
+# setting hal.enable_runtime_stack_checking is false
 
 # The BSP is compiled with optimizations to speedup HDL simulation such as 
 # initializing the cache, clearing the .bss section, and skipping long delay 
@@ -267,18 +265,6 @@ ALT_CPPFLAGS += -DALT_STACK_CHECK -fstack-limit-register=et
 # hardware design on the target. If false, adds --accept-bad-sysid to 
 # SOPC_SYSID_FLAG in public.mk. none 
 # setting hal.enable_sopc_sysid_check is true
-
-# The value is assigned to ALT_LOG_FLAGS in the generated public.mk. See 
-# hal.log_port setting description. Values can be -1 through 3. hal.log_port 
-# must be set for this to be used. 
-# setting hal.log_flags is 0
-ALT_CPPFLAGS += -DALT_LOG_FLAGS=0
-
-# Slave descriptor of debug logging character-mode device. If defined, it 
-# enables extra debug messages in the HAL source. This setting is used by the 
-# ALT_LOG_PORT family of defines in system.h. none 
-# setting hal.log_port is jtag_uart_0
-ALT_CPPFLAGS += -DALT_LOG_ENABLE
 
 # C/C++ compiler to generate (do not generate) GP-relative accesses. 'none' 
 # tells the compilter not to generate GP-relative accesses. 'local' will 
@@ -368,8 +354,8 @@ ALT_CFLAGS += -mgpopt=global
 
 # Slave descriptor of STDERR character-mode device. This setting is used by the 
 # ALT_STDERR family of defines in system.h. none 
-# setting hal.stderr is jtag_uart_0
-ELF_PATCH_FLAG  += --stderr_dev jtag_uart_0
+# setting hal.stderr is none
+ELF_PATCH_FLAG  += --stderr_dev none
 
 # Slave descriptor of STDIN character-mode device. This setting is used by the 
 # ALT_STDIN family of defines in system.h. none 

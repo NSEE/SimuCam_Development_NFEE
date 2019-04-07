@@ -15,13 +15,13 @@ static unsigned char ucIterationSide;
 void vFeeTask(void *task_data) {
 	static TNFee *pxNFee;
 	INT8U error_code;
-	unsigned char ucMemUsing;
+	static unsigned char ucMemUsing;
 	static alt_u32 tCodFeeTask;
 	alt_u32 tCodeNext;
 	static unsigned long incrementador; /* remover*/
 	tQMask uiCmdFEE;
-	TCcdMemMap *xCcdMapLocal;
-	unsigned char ucReadout;
+	static TCcdMemMap *xCcdMapLocal;
+	volatile unsigned char ucReadout;
 	unsigned long usiLengthBlocks;
 	bool bDmaReturn;
 	bool bFinal;
@@ -176,6 +176,8 @@ void vFeeTask(void *task_data) {
 				break;
 			case sToFeeConfig: /* Transition */
 
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem );
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x06; /*Off*/
@@ -258,7 +260,7 @@ void vFeeTask(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sFeeStandBy*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* Disable IRQ and clear the Double Buffer */
@@ -370,6 +372,8 @@ void vFeeTask(void *task_data) {
 				if ( tCodeNext == 0 ) {
 					/* Should get Data from the another memory, because is a cicle start */
 					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
+				} else {
+					ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				}
 
 				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext];
@@ -494,7 +498,7 @@ void vFeeTask(void *task_data) {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				}*/
-
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				break;
 
 			case sFeeTestFullPattern: /* Real mode */
@@ -676,7 +680,7 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 				/* If a transition to Standby was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
-				if ( sFeeTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+				if ( sToTestFullPattern == pxNFeeP->xControl.eNextMode ) {
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
@@ -1442,6 +1446,14 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					fprintf(fp,"- to Stand-By\n");
 				}
 			#endif
+
+				if ( sToTestFullPattern == pxNFeeP->xControl.eNextMode ) {
+
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+				}
 
 				pxNFeeP->xControl.bWatingSync = TRUE;
 				pxNFeeP->xControl.eMode = sFeeWaitingSync;

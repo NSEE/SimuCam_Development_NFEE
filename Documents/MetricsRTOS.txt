@@ -1,0 +1,15 @@
+Simucam Code - Application layer only (BSP layer not included)
+- Ansi C
+- 19K+ lines of code (commentary and blank lines not included)
+- 106 proprietary files ( 57 .h and 49 .c files ) - BSP layer not included
+
+Simucam Real Time Kernel [uC/OS II (NIOS II)]
+- Resources used:
+    - 16 Tasks
+    - 10 Mutex
+    - 8 Queues
+    - 6 Count Semaphore
+    - 1 Binary Semaphore
+- Preemptive Scheduler
+
+Binary size = 420 KBytes

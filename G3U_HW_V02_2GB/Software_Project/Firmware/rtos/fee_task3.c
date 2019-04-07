@@ -13,13 +13,13 @@ static unsigned char ucIterationSide;
 void vFeeTask3(void *task_data) {
 	static TNFee *pxNFee;
 	INT8U error_code;
-	unsigned char ucMemUsing;
+	static unsigned char ucMemUsing;
 	static alt_u32 tCodFeeTask;
 	alt_u32 tCodeNext;
 	static unsigned long incrementador; /* remover*/
 	tQMask uiCmdFEE;
-	TCcdMemMap *xCcdMapLocal;
-	unsigned char ucReadout;
+	static TCcdMemMap *xCcdMapLocal;
+	volatile unsigned char ucReadout;
 	unsigned long usiLengthBlocks;
 	bool bDmaReturn;
 	bool bFinal;
@@ -68,7 +68,7 @@ void vFeeTask3(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr + 3;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
@@ -173,6 +173,8 @@ void vFeeTask3(void *task_data) {
 
 				break;
 			case sToFeeConfig: /* Transition */
+
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem );
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
@@ -370,6 +372,8 @@ void vFeeTask3(void *task_data) {
 				if ( tCodeNext == 0 ) {
 					/* Should get Data from the another memory, because is a cicle start */
 					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
+				} else {
+					ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				}
 
 				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext];
@@ -494,6 +498,7 @@ void vFeeTask3(void *task_data) {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				}*/
+				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
 				break;
 
 			case sFeeTestFullPattern: /* Real mode */
