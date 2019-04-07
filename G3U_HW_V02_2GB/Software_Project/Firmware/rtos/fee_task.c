@@ -998,8 +998,8 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-				fprintf(fp,"- Pckt Length: %lu\n", ucValueMasked);
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"Pkt L:%lu\n", ucValueMasked);
 			}
 			#endif
 
