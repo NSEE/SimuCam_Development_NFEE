@@ -225,7 +225,7 @@ begin
 			case (write_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 271 =>
+				when 0 to ((17*32) - 1) =>
 					-- check if the waitrequested is still active
 					if (s_waitrequest = '1') then
 						-- waitrequest active, execute write operation
