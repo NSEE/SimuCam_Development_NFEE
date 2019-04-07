@@ -133,7 +133,7 @@ begin
 
 	line_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(9, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(19, 8)),
 			g_TIMER_WIDTH => s_line_delay_timer'length
 		)
 		port map(
@@ -147,7 +147,7 @@ begin
 
 	adc_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(0, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
 			g_TIMER_WIDTH => s_adc_delay_timer'length
 		)
 		port map(
@@ -161,7 +161,7 @@ begin
 
 	column_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(0, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
 			g_TIMER_WIDTH => s_column_delay_timer'length
 		)
 		port map(
