@@ -12,7 +12,7 @@ entity mebx_qsys_project_m1_clock_bridge is
 		SYMBOL_WIDTH        : integer := 8;
 		HDL_ADDR_WIDTH      : integer := 31;
 		BURSTCOUNT_WIDTH    : integer := 5;
-		COMMAND_FIFO_DEPTH  : integer := 4;
+		COMMAND_FIFO_DEPTH  : integer := 64;
 		RESPONSE_FIFO_DEPTH : integer := 64;
 		MASTER_SYNC_DEPTH   : integer := 2;
 		SLAVE_SYNC_DEPTH    : integer := 2
