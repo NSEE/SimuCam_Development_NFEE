@@ -527,6 +527,8 @@ int main(void)
 		fprintf(fp, "xDefaults.usiDebugLevel %u \n", xDefaults.usiDebugLevel);
 		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
 		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
+		fprintf(fp, "xDefaults.usiSpwPLength %u \n", xDefaults.usiSpwPLength);
+
 	}
 #endif
 

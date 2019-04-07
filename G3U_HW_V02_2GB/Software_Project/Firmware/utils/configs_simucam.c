@@ -711,6 +711,25 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
+					case 'Z': /*SPW Packet length*/
+						ucParser = 0;
+						do {
+							do {
+								c = cGetNextChar(siFile);
+								if ( isdigit( c ) ) {
+									(*p_inteiro) = c;
+									p_inteiro++;
+								}
+							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
+							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
+							/*Tiago: Proteger com mutex*/
+							xDefaults.usiSpwPLength = (unsigned short int)atoi( inteiro );
+							/*Tiago: Proteger com mutex*/
+							p_inteiro = inteiro;
+							ucParser++;
+						} while ( (c !=59) );
+
+						break;
 					case 0x3C: //"<"
 						close = siCloseFile(siFile);
 						if (close == FALSE){

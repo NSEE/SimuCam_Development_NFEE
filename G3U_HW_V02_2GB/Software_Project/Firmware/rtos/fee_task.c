@@ -66,8 +66,8 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize = pxNFee->xCcdInfo.usiHeight;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFee->xCcdInfo.usiOLN;
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = 32768;
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = xDefaults.usiSpwPLength;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = pxNFee->xControl.ucROutOrder[0];
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
@@ -606,7 +606,6 @@ void vFeeTask(void *task_data) {
 					if ( pxNFee->xControl.eNextMode == sToFeeStandBy ) {
 
 						bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = ucReadout;
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 						bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
