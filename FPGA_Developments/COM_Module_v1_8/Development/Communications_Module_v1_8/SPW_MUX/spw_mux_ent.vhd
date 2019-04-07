@@ -457,7 +457,8 @@ begin
 			end case;
 
 			-- check if a stop was issued
-			if (fee_stop_signal_i = '1') then
+--			if (fee_stop_signal_i = '1') then
+			if (fee_clear_signal_i = '1') then
 				-- stop issued, go to stopped
 				s_spw_mux_state <= STOPPED;
 			end if;
