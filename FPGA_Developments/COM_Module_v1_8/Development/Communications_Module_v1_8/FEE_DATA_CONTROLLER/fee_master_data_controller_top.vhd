@@ -348,7 +348,7 @@ begin
 			spw_tx_write_o                  => fee_spw_tx_write_o,
 			spw_tx_flag_o                   => fee_spw_tx_flag_o,
 			spw_tx_data_o                   => fee_spw_tx_data_o,
-			send_buffer_change_o           => s_send_buffer_change
+			send_buffer_change_o            => s_send_buffer_change
 		);
 
 	-- fee frame manager

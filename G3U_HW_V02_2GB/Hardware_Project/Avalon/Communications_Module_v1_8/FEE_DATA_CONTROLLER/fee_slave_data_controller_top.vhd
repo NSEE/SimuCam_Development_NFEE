@@ -284,7 +284,7 @@ begin
 			spw_tx_write_o                  => fee_spw_tx_write_o,
 			spw_tx_flag_o                   => fee_spw_tx_flag_o,
 			spw_tx_data_o                   => fee_spw_tx_data_o,
-			send_buffer_change_o           => s_send_buffer_change
+			send_buffer_change_o            => s_send_buffer_change
 		);
 	p_register_data_pkt_config : process(clk_i, rst_i) is
 	begin

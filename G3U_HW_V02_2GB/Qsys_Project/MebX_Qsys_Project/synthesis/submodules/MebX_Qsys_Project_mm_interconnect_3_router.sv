@@ -249,15 +249,15 @@ module MebX_Qsys_Project_mm_interconnect_3_router
     end
 
     // ( 0x40401020 .. 0x40401040 )
-    if ( {address[RG:PAD7],{PAD7{1'b0}}} == 31'h40401020  && write_transaction  ) begin
-            src_channel = 12'b000100000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
+    if ( {address[RG:PAD7],{PAD7{1'b0}}} == 31'h40401020   ) begin
+            src_channel = 12'b000010000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
     end
 
     // ( 0x40401040 .. 0x40401060 )
-    if ( {address[RG:PAD8],{PAD8{1'b0}}} == 31'h40401040   ) begin
-            src_channel = 12'b000010000000;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 9;
+    if ( {address[RG:PAD8],{PAD8{1'b0}}} == 31'h40401040  && write_transaction  ) begin
+            src_channel = 12'b000100000000;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 8;
     end
 
     // ( 0x40401060 .. 0x40401080 )

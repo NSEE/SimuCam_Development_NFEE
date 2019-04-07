@@ -691,6 +691,9 @@ begin
 		port map(
 			clk_i                          => a_avs_clock,
 			rst_i                          => a_reset,
+			fee_clear_signal_i             => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_stop_signal_i              => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_start_signal_i             => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
 			spw_codec_rx_status_i          => s_mux_rx_channel_status,
 			spw_codec_tx_status_i          => s_mux_tx_channel_status,
 			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,
