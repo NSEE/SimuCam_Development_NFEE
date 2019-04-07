@@ -950,10 +950,10 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 
 void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
-	INT8U ucADDRReg;
-	INT32U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
+	INT8U ucADDRReg= 0u;
+	INT32U ucValueReg = 0u;
+	INT32U ucValueMasked = 0u;
+	INT32U ucValueMasked2 = 0u;
 
 
 #if DEBUG_ON
@@ -991,13 +991,14 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 		case 0x042://0x00000008:spw_packet_1_config
 
-			ucValueMasked = (ucValueReg & COMM_RMAP_PACKET_SIZE_CTRL_MSK) >> 4;
+			ucValueMasked = (ucValueReg & (INT32U)COMM_RMAP_PACKET_SIZE_CTRL_MSK) >> 4;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = ucValueMasked;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"REG :%lu\n", ucValueReg);
 				fprintf(fp,"Pkt L:%lu\n", ucValueMasked);
 			}
 			#endif
@@ -1064,7 +1065,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 		case 0x0000004C://0x00000038:operation_mode_config
 			/* Mode Selection */
-			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >>4;
+			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >> 4;
 
 			switch (ucValueMasked) {
 				case 0: /* Standby */
