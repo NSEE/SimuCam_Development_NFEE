@@ -276,23 +276,20 @@ Info: MebX_Qsys_Project.sysid_qsys: System ID is not assigned automatically. Edi
 Info: MebX_Qsys_Project.sysid_qsys: Time stamp will be automatically updated when this component is generated.
 Info: MebX_Qsys_Project.temp_sda: PIO inputs are not hardwired in test bench. Undefined values will be read from PIO inputs during simulation.
 Info: MebX_Qsys_Project: Generating MebX_Qsys_Project "MebX_Qsys_Project" for QUARTUS_SYNTH
+Info: Inserting clock-crossing logic between cmd_demux_001.src0 and cmd_mux.sink1
+Info: Inserting clock-crossing logic between cmd_demux_002.src0 and cmd_mux.sink2
 Info: Inserting clock-crossing logic between cmd_demux_003.src0 and cmd_mux_001.sink1
 Info: Inserting clock-crossing logic between cmd_demux_004.src0 and cmd_mux_001.sink2
+Info: Inserting clock-crossing logic between rsp_demux.src1 and rsp_mux_001.sink0
+Info: Inserting clock-crossing logic between rsp_demux.src2 and rsp_mux_002.sink0
 Info: Inserting clock-crossing logic between rsp_demux_001.src1 and rsp_mux_003.sink0
 Info: Inserting clock-crossing logic between rsp_demux_001.src2 and rsp_mux_004.sink0
 Info: Inserting clock-crossing logic between ddr2_address_span_extender_expanded_master_to_m2_ddr2_memory_avl_cmd_width_adapter.src and cmd_mux.sink0
 Info: Inserting clock-crossing logic between ddr2_address_span_extender_expanded_master_to_m1_clock_bridge_s0_cmd_width_adapter.src and cmd_mux_001.sink0
-Info: Inserting clock-crossing logic between dma_DDR_M2_mm_read_to_m2_ddr2_memory_avl_cmd_width_adapter.src and cmd_mux.sink1
-Info: Inserting clock-crossing logic between dma_DDR_M2_mm_write_to_m2_ddr2_memory_avl_cmd_width_adapter.src and cmd_mux.sink2
 Info: Inserting clock-crossing logic between m2_ddr2_memory_avl_to_ddr2_address_span_extender_expanded_master_rsp_width_adapter.src and rsp_mux.sink0
-Info: Inserting clock-crossing logic between m2_ddr2_memory_avl_to_dma_DDR_M2_mm_read_rsp_width_adapter.src and rsp_mux_001.sink0
-Info: Inserting clock-crossing logic between m2_ddr2_memory_avl_to_dma_DDR_M2_mm_write_rsp_width_adapter.src and rsp_mux_002.sink0
 Info: Inserting clock-crossing logic between m1_clock_bridge_s0_to_ddr2_address_span_extender_expanded_master_rsp_width_adapter.src and rsp_mux.sink1
-Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has readdata signal 64 bit wide, but the slave is 256 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has burstcount signal 5 bit wide, but the slave is 8 bit wide.
-Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has writedata signal 64 bit wide, but the slave is 256 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has address signal 31 bit wide, but the slave is 26 bit wide.
-Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has byteenable signal 8 bit wide, but the slave is 32 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because the master has debugaccess signal 1 bit wide, but the slave is 0 bit wide.
 Info: Interconnect is inserted between master m1_clock_bridge.m0 and slave m1_ddr2_memory.avl because they have different clock source.
 Info: Inserting clock-crossing logic between cmd_demux.src0 and cmd_mux.sink0
@@ -594,8 +591,6 @@ Info: cmd_demux: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "c
 Info: cmd_demux_001: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux_001"
 Info: cmd_demux_002: "mm_interconnect_1" instantiated altera_merlin_demultiplexer "cmd_demux_002"
 Info: cmd_mux: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux"
-Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
-Info: cmd_mux_001: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux_001"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
 Info: cmd_mux_002: "mm_interconnect_1" instantiated altera_merlin_multiplexer "cmd_mux_002"
 Info: Reusing file C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Qsys_Project/MebX_Qsys_Project/synthesis/submodules/altera_merlin_arbitrator.sv
