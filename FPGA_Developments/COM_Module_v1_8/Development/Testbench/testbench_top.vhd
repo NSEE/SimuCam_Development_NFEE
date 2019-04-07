@@ -87,7 +87,7 @@ begin
 			g_DATA_WIDTH    => 32
 		)
 		port map(
-			clk_i                   => clk100,
+			clk_i                   => clk200,
 			rst_i                   => rst,
 			avalon_mm_readdata_i    => s_config_avalon_stimuli_mm_readdata,
 			avalon_mm_waitrequest_i => s_config_avalon_stimuli_mm_waitrequest,
@@ -103,7 +103,7 @@ begin
 			g_DATA_WIDTH    => 64
 		)
 		port map(
-			clk_i                   => clk100,
+			clk_i                   => clk200,
 			rst_i                   => rst,
 			avalon_mm_waitrequest_i => s_avalon_buffer_R_stimuli_mm_waitrequest,
 			avalon_mm_address_o     => s_avalon_buffer_R_stimuli_mm_address,
@@ -117,7 +117,7 @@ begin
 			g_DATA_WIDTH    => 64
 		)
 		port map(
-			clk_i                   => clk100,
+			clk_i                   => clk200,
 			rst_i                   => rst,
 			avalon_mm_waitrequest_i => s_avalon_buffer_L_stimuli_mm_waitrequest,
 			avalon_mm_address_o     => s_avalon_buffer_L_stimuli_mm_address,
@@ -136,7 +136,7 @@ begin
 			rmap_interrupt_sender_irq          => s_irq_rmap,
 			buffers_interrupt_sender_irq       => s_irq_buffers,
 			clock_sink_200_clk                 => clk200,
-			clock_sink_100_clk                 => clk100,
+			clock_sink_100_clk                 => clk200,
 			avalon_slave_windowing_address     => s_config_avalon_stimuli_mm_address,
 			avalon_slave_windowing_write       => s_config_avalon_stimuli_mm_write,
 			avalon_slave_windowing_read        => s_config_avalon_stimuli_mm_read,
@@ -158,7 +158,7 @@ begin
 
 	s_spw_clock <= (s_spw_codec_comm_so) xor (s_spw_codec_comm_do);
 
-	p_sync_generator : process(clk100, rst) is
+	p_sync_generator : process(clk200, rst) is
 		variable v_sync_div_cnt : natural := 0;
 	begin
 		if (rst = '1') then
@@ -182,7 +182,7 @@ begin
 	-- SpaceWire Light Codec Component 
 	spw_stimuli_spwstream_inst : entity work.spwstream
 		generic map(
-			sysfreq         => 100000000.0,
+			sysfreq         => 200000000.0,
 			txclkfreq       => 0.0,
 			rximpl          => impl_generic,
 			rxchunk         => 1,
@@ -191,9 +191,9 @@ begin
 			txfifosize_bits => 11
 		)
 		port map(
-			clk        => clk100,
-			rxclk      => clk100,
-			txclk      => clk100,
+			clk        => clk200,
+			rxclk      => clk200,
+			txclk      => clk200,
 			rst        => rst,
 			autostart  => '1',
 			linkstart  => '1',
@@ -228,7 +228,7 @@ begin
 			spw_so     => s_spw_codec_dummy_so
 		);
 
-	p_codec_dummy_read : process(clk100, rst) is
+	p_codec_dummy_read : process(clk200, rst) is
 		variable v_time_counter : natural := 0;
 		variable v_data_counter : natural := 0;
 	begin
@@ -273,7 +273,7 @@ begin
 			g_TIMER_WIDTH => s_delay_timer'length
 		)
 		port map(
-			clk_i            => clk100,
+			clk_i            => clk200,
 			rst_i            => rst,
 			delay_trigger_i  => s_delay_trigger,
 			delay_timer_i    => s_delay_timer,

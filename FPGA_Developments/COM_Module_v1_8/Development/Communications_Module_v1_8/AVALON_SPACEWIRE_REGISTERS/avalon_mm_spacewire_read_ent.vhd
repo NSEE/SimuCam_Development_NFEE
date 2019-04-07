@@ -14,8 +14,8 @@ entity avalon_mm_spacewire_read_ent is
 		avalon_mm_spacewire_o       : out t_avalon_mm_spacewire_read_out;
 		spacewire_write_registers_i : in  t_windowing_write_registers;
 		spacewire_read_registers_i  : in  t_windowing_read_registers;
-		right_buffer_size_i         : in  std_logic_vector(4 downto 0);
-		left_buffer_size_i          : in  std_logic_vector(4 downto 0)
+		right_buffer_size_i         : in  std_logic_vector(3 downto 0);
+		left_buffer_size_i          : in  std_logic_vector(3 downto 0)
 	);
 end entity avalon_mm_spacewire_read_ent;
 
@@ -139,12 +139,12 @@ begin
 					avalon_mm_spacewire_o.readdata(16)           <= spacewire_write_registers_i.comm_irq_control_reg.comm_global_irq_en;
 					avalon_mm_spacewire_o.readdata(31 downto 17) <= (others => '0');
 				when (16#12#) =>
-					avalon_mm_spacewire_o.readdata(0)            <= spacewire_read_registers_i.comm_irq_flags_reg.comm_rmap_write_command_flag;
-					avalon_mm_spacewire_o.readdata(7 downto 1)   <= (others => '0');
-					avalon_mm_spacewire_o.readdata(8)            <= spacewire_read_registers_i.comm_irq_flags_reg.comm_right_buffer_0_empty_flag;
-					avalon_mm_spacewire_o.readdata(9)            <= spacewire_read_registers_i.comm_irq_flags_reg.comm_right_buffer_1_empty_flag;
-					avalon_mm_spacewire_o.readdata(10)           <= spacewire_read_registers_i.comm_irq_flags_reg.comm_left_buffer_0_empty_flag;
-					avalon_mm_spacewire_o.readdata(11)           <= spacewire_read_registers_i.comm_irq_flags_reg.comm_left_buffer_1_empty_flag;
+					avalon_mm_spacewire_o.readdata(0)           <= spacewire_read_registers_i.comm_irq_flags_reg.comm_rmap_write_command_flag;
+					avalon_mm_spacewire_o.readdata(7 downto 1)  <= (others => '0');
+					avalon_mm_spacewire_o.readdata(8)           <= spacewire_read_registers_i.comm_irq_flags_reg.comm_right_buffer_0_empty_flag;
+					avalon_mm_spacewire_o.readdata(9)           <= spacewire_read_registers_i.comm_irq_flags_reg.comm_right_buffer_1_empty_flag;
+					avalon_mm_spacewire_o.readdata(10)          <= spacewire_read_registers_i.comm_irq_flags_reg.comm_left_buffer_0_empty_flag;
+					avalon_mm_spacewire_o.readdata(11)          <= spacewire_read_registers_i.comm_irq_flags_reg.comm_left_buffer_1_empty_flag;
 					avalon_mm_spacewire_o.readdata(31 downto 12) <= (others => '0');
 				when (16#13#) =>
 					avalon_mm_spacewire_o.readdata(0)            <= spacewire_write_registers_i.comm_irq_flags_clear_reg.comm_rmap_write_command_flag_clear;
@@ -155,11 +155,11 @@ begin
 					avalon_mm_spacewire_o.readdata(11)           <= spacewire_write_registers_i.comm_irq_flags_clear_reg.comm_left_buffer_1_empty_flag_clear;
 					avalon_mm_spacewire_o.readdata(31 downto 12) <= (others => '0');
 				when (16#14#) =>
-					avalon_mm_spacewire_o.readdata(4 downto 0)  <= right_buffer_size_i;
-					avalon_mm_spacewire_o.readdata(31 downto 5) <= (others => '0');
+					avalon_mm_spacewire_o.readdata(3 downto 0)  <= right_buffer_size_i;
+					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
 				when (16#15#) =>
-					avalon_mm_spacewire_o.readdata(4 downto 0)  <= left_buffer_size_i;
-					avalon_mm_spacewire_o.readdata(31 downto 5) <= (others => '0');
+					avalon_mm_spacewire_o.readdata(3 downto 0)  <= left_buffer_size_i;
+					avalon_mm_spacewire_o.readdata(31 downto 4) <= (others => '0');
 				when others =>
 					avalon_mm_spacewire_o.readdata <= (others => '0');
 

@@ -8,6 +8,9 @@ entity spw_mux_ent is
 	port(
 		clk_i                  : in  std_logic;
 		rst_i                  : in  std_logic;
+		fee_clear_signal_i     : in  std_logic;
+		fee_stop_signal_i      : in  std_logic;
+		fee_start_signal_i     : in  std_logic;
 		spw_codec_rx_status_i  : in  t_spw_codec_data_rx_status;
 		spw_codec_tx_status_i  : in  t_spw_codec_data_tx_status;
 		spw_mux_rx_0_command_i : in  t_spw_codec_data_rx_command;
@@ -48,6 +51,7 @@ architecture RTL of spw_mux_ent is
 	signal s_mux_tx_selection : natural range 0 to 7 := 7;
 
 	type t_spw_mux_fsm is (
+		STOPPED,
 		IDLE,
 		SPW_TX_0_NOT_READY,
 		SPW_TX_0_WAITING_EOP,
@@ -83,7 +87,7 @@ begin
 			s_mux_tx_selection   <= 7;
 			s_spw_tx_fsm_command <= c_SPW_RESET_TX_COMMAND;
 
-			s_spw_mux_state <= IDLE;
+			s_spw_mux_state <= STOPPED;
 
 			s_tx_flag_buffer   <= (others => '0');
 			s_tx_data_buffer   <= (others => x"00");
@@ -141,6 +145,28 @@ begin
 			end if;
 
 			case (s_spw_mux_state) is
+
+				when STOPPED =>
+					-- stopped state. do nothing and reset
+					s_mux_rx_selection   <= 0;
+					s_mux_tx_selection   <= 7;
+					s_spw_tx_fsm_command <= c_SPW_RESET_TX_COMMAND;
+
+					s_spw_mux_state <= STOPPED;
+
+					s_tx_flag_buffer   <= (others => '0');
+					s_tx_data_buffer   <= (others => x"00");
+					s_tx_pending_write <= (others => '0');
+					s_tx_channel_lock  <= (others => '0');
+
+					v_tx_channel_queue(0) := 7;
+					v_tx_channel_queue(1) := 7;
+					v_tx_channel_queue(2) := 7;
+					-- check if a start was issued
+					if (fee_start_signal_i = '1') then
+						-- start issued, go to idle
+						s_spw_mux_state <= IDLE;
+					end if;
 
 				when IDLE =>
 					-- availabe to all spw tx channels
@@ -429,6 +455,13 @@ begin
 					end if;
 
 			end case;
+
+			-- check if a stop was issued
+--			if (fee_stop_signal_i = '1') then
+			if (fee_clear_signal_i = '1') then
+				-- stop issued, go to stopped
+				s_spw_mux_state <= STOPPED;
+			end if;
 
 		end if;
 	end process p_spw_mux;

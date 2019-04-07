@@ -207,7 +207,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 			break;
 		case M_NFC_DMA_GIVEBACK:
 		case M_NFC_DMA_REQUEST:
-
+			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

@@ -240,8 +240,8 @@ architecture rtl of comm_v1_80_top is
 	signal s_mux_tx_2_status        : t_spw_codec_data_tx_status;
 
 	-- buffer size
-	signal s_right_buffer_size : std_logic_vector(4 downto 0);
-	signal s_left_buffer_size  : std_logic_vector(4 downto 0);
+	signal s_right_buffer_size : std_logic_vector(3 downto 0);
+	signal s_left_buffer_size  : std_logic_vector(3 downto 0);
 
 	-- dummy
 	signal s_dummy_spw_mux_tx0_txhalff  : std_logic;
@@ -691,6 +691,9 @@ begin
 		port map(
 			clk_i                          => a_avs_clock,
 			rst_i                          => a_reset,
+			fee_clear_signal_i             => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			fee_stop_signal_i              => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
+			fee_start_signal_i             => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
 			spw_codec_rx_status_i          => s_mux_rx_channel_status,
 			spw_codec_tx_status_i          => s_mux_tx_channel_status,
 			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,

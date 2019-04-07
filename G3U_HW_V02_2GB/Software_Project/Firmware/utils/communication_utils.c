@@ -533,6 +533,7 @@ void vTMPusTestConnection( unsigned short int usiPusId ) {
 	xTmPusL.usiCat = 0;
 	xTmPusL.usiType = 17;
 	xTmPusL.usiSubType = 2;
+	xTmPusL.ucNofValues = 0;
 
 	vSendPusTM64( xTmPusL );
 }
