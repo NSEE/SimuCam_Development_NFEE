@@ -155,7 +155,7 @@ void vParserCommTask(void *task_data) {
 								vSendReset();
 								/*Just Reset the Simucam, what do with the NUC?*/
 								OSTimeDlyHMSM(0,0,3,0);
-								vRstcSimucamReset( 5000 );
+								//vRstcSimucamReset( 5000 );
 
 								break;
 							case 60: /* TC_SCAM_CONFIG */
