@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.04.06.03:31:33 -->
+ <!-- 2019.04.07.02:15:00 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1554532293</value>
+  <value>1554614099</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -15171,7 +15171,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>256</value>
+   <value>512</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
@@ -15179,7 +15179,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
-   <value>64</value>
+   <value>32</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DMA_MODE</name>
@@ -15203,7 +15203,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BURST_COUNT</name>
-   <value>16</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BYTE</name>
@@ -15303,7 +15303,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>256</value>
+   <value>512</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15311,7 +15311,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DESCRIPTOR_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>32</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -15351,7 +15351,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_BURST_COUNT">
    <type>int</type>
-   <value>16</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>false</enabled>
    <visible>true</visible>
@@ -17240,7 +17240,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>256</value>
+   <value>512</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
@@ -17248,7 +17248,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
-   <value>64</value>
+   <value>32</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DMA_MODE</name>
@@ -17272,7 +17272,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BURST_COUNT</name>
-   <value>16</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.MAX_BYTE</name>
@@ -17372,7 +17372,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>256</value>
+   <value>512</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -17380,7 +17380,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DESCRIPTOR_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>32</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -17420,7 +17420,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_BURST_COUNT">
    <type>int</type>
-   <value>16</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>false</enabled>
    <visible>true</visible>
@@ -21320,7 +21320,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="COMMAND_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>4</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -21732,7 +21732,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="maximumPendingReadTransactions">
     <type>int</type>
-    <value>128</value>
+    <value>68</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -54184,7 +54184,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="instSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x81100000' end='0x811DE792' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='onchip_memory.s1' start='0x81100000' end='0x811E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -54204,7 +54204,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='onchip_memory.s1' start='0x81100000' end='0x811DE792' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x81202000' end='0x81202400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x81202400' end='0x81202800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x81202800' end='0x81202C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x81202C00' end='0x81203000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x81203000' end='0x81203020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x81203020' end='0x81203040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x81203040' end='0x81203060' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x81203060' end='0x81203080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x81203080' end='0x81203088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x81203088' end='0x81203090' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x81203090' end='0x81203098' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x80000000' end='0x80000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x80000400' end='0x80000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x80000800' end='0x80000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x80000840' end='0x80000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x80000860' end='0x80000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x80000880' end='0x800008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x800008A0' end='0x800008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x800008B0' end='0x800008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x800008C0' end='0x800008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x800008D0' end='0x800008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x800008E0' end='0x800008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x800008F0' end='0x80000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x80000900' end='0x80000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x80000910' end='0x80000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x80000920' end='0x80000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x80000930' end='0x80000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x80000940' end='0x80000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x80000950' end='0x80000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x80000960' end='0x80000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x80000970' end='0x80000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x80000980' end='0x80000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x80000990' end='0x800009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x800009A0' end='0x800009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x800009B0' end='0x800009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x800009C0' end='0x800009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x800009D0' end='0x800009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x800009E0' end='0x800009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x800009F0' end='0x80000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x80000A00' end='0x80000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x80000A10' end='0x80000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='onchip_memory.s1' start='0x81100000' end='0x811E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x81201000' end='0x81201400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x81201400' end='0x81201800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x81201800' end='0x81201C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x81201C00' end='0x81202000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x81202000' end='0x81202020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x81202020' end='0x81202040' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.descriptor_slave' start='0x81202040' end='0x81202060' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.csr' start='0x81202060' end='0x81202080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x81202080' end='0x81202088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x81202088' end='0x81202090' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x81202090' end='0x81202098' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -54875,7 +54875,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>avalon_jtag_slave</slaveName>
     <name>jtag_uart_0.avalon_jtag_slave</name>
-    <baseAddress>2166370448</baseAddress>
+    <baseAddress>2166366352</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -54883,7 +54883,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_A.avalon_slave_windowing</name>
-    <baseAddress>2166369280</baseAddress>
+    <baseAddress>2166365184</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -54891,7 +54891,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_B.avalon_slave_windowing</name>
-    <baseAddress>2166368256</baseAddress>
+    <baseAddress>2166364160</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -54899,7 +54899,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_C.avalon_slave_windowing</name>
-    <baseAddress>2166367232</baseAddress>
+    <baseAddress>2166363136</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -54907,7 +54907,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>avalon_slave_windowing</slaveName>
     <name>COMM_Pedreiro_v1_01_D.avalon_slave_windowing</name>
-    <baseAddress>2166366208</baseAddress>
+    <baseAddress>2166362112</baseAddress>
     <span>1024</span>
    </memoryBlock>
    <memoryBlock>
@@ -54915,7 +54915,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>ddr2_address_span_extender</moduleName>
     <slaveName>cntl</slaveName>
     <name>ddr2_address_span_extender.cntl</name>
-    <baseAddress>2166370440</baseAddress>
+    <baseAddress>2166366344</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -54923,7 +54923,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>sysid_qsys</moduleName>
     <slaveName>control_slave</slaveName>
     <name>sysid_qsys.control_slave</name>
-    <baseAddress>2166370432</baseAddress>
+    <baseAddress>2166366336</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -54931,7 +54931,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M1.csr</name>
-    <baseAddress>2166370400</baseAddress>
+    <baseAddress>2166366304</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -54939,7 +54939,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M2</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M2.csr</name>
-    <baseAddress>2166370368</baseAddress>
+    <baseAddress>2166366240</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -54955,7 +54955,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M1.descriptor_slave</name>
-    <baseAddress>2166370336</baseAddress>
+    <baseAddress>2166366272</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -54963,7 +54963,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M2</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M2.descriptor_slave</name>
-    <baseAddress>2166370304</baseAddress>
+    <baseAddress>2166366208</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -55220,7 +55220,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>s1</slaveName>
     <name>onchip_memory.s1</name>
     <baseAddress>2165309440</baseAddress>
-    <span>911250</span>
+    <span>917504</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -55551,7 +55551,7 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>s1</slaveName>
     <name>onchip_memory.s1</name>
     <baseAddress>2165309440</baseAddress>
-    <span>911250</span>
+    <span>917504</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -55649,98 +55649,98 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>buffers_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_C.buffers_interrupt_sender</name>
-    <interruptNumber>13</interruptNumber>
+    <interruptNumber>2</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>buffers_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_D.buffers_interrupt_sender</name>
-    <interruptNumber>15</interruptNumber>
+    <interruptNumber>3</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>csr_irq</slaveName>
     <name>dma_DDR_M1.csr_irq</name>
-    <interruptNumber>2</interruptNumber>
+    <interruptNumber>4</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>dma_DDR_M2</moduleName>
     <slaveName>csr_irq</slaveName>
     <name>dma_DDR_M2.csr_irq</name>
-    <interruptNumber>3</interruptNumber>
+    <interruptNumber>5</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>sync</moduleName>
     <slaveName>interrupt_sender</slaveName>
     <name>sync.interrupt_sender</name>
-    <interruptNumber>4</interruptNumber>
+    <interruptNumber>6</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>irq</slaveName>
     <name>jtag_uart_0.irq</name>
-    <interruptNumber>5</interruptNumber>
+    <interruptNumber>7</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>timer_1ms</moduleName>
     <slaveName>irq</slaveName>
     <name>timer_1ms.irq</name>
-    <interruptNumber>6</interruptNumber>
+    <interruptNumber>8</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>timer_1us</moduleName>
     <slaveName>irq</slaveName>
     <name>timer_1us.irq</name>
-    <interruptNumber>7</interruptNumber>
+    <interruptNumber>9</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>pio_EXT</moduleName>
     <slaveName>irq</slaveName>
     <name>pio_EXT.irq</name>
-    <interruptNumber>8</interruptNumber>
+    <interruptNumber>10</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>rs232_uart</moduleName>
     <slaveName>irq</slaveName>
     <name>rs232_uart.irq</name>
-    <interruptNumber>9</interruptNumber>
+    <interruptNumber>11</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_B.rmap_interrupt_sender</name>
-    <interruptNumber>10</interruptNumber>
+    <interruptNumber>12</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_A.rmap_interrupt_sender</name>
-    <interruptNumber>11</interruptNumber>
+    <interruptNumber>13</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_C.rmap_interrupt_sender</name>
-    <interruptNumber>12</interruptNumber>
+    <interruptNumber>14</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_D.rmap_interrupt_sender</name>
-    <interruptNumber>14</interruptNumber>
+    <interruptNumber>15</interruptNumber>
    </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="16.1">
@@ -56329,7 +56329,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.SIZE_VALUE</name>
-   <value>911250</value>
+   <value>917504</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.WRITABLE</name>
@@ -56461,7 +56461,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="memorySize">
    <type>long</type>
-   <value>911250</value>
+   <value>917504</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -56745,7 +56745,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>911250</value>
+    <value>917504</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -56833,7 +56833,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="explicitAddressSpan">
     <type>java.math.BigInteger</type>
-    <value>911250</value>
+    <value>917504</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -69562,11 +69562,11 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <assignment>
    <name>embeddedsw.CMacro.ID</name>
-   <value>0</value>
+   <value>113</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1554532293</value>
+   <value>1554614099</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -69582,11 +69582,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.id</name>
-   <value>0</value>
+   <value>113</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1554532293</value>
+   <value>1554614099</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -69594,7 +69594,7 @@ the requested settings for a module instance. -->
   </assignment>
   <parameter name="id">
    <type>int</type>
-   <value>0</value>
+   <value>113</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -69602,7 +69602,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1554532293</value>
+   <value>1554614099</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -73555,7 +73555,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203090</value>
+   <value>0x81202090</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73606,7 +73606,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81202c00</value>
+   <value>0x81201c00</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73657,7 +73657,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81202800</value>
+   <value>0x81201800</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73708,7 +73708,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81202400</value>
+   <value>0x81201400</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73759,7 +73759,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81202000</value>
+   <value>0x81201000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73810,7 +73810,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203088</value>
+   <value>0x81202088</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73861,7 +73861,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203080</value>
+   <value>0x81202080</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73912,7 +73912,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203060</value>
+   <value>0x81202060</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -73963,7 +73963,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203040</value>
+   <value>0x81202020</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -74065,7 +74065,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203020</value>
+   <value>0x81202040</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -74116,7 +74116,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x81203000</value>
+   <value>0x81202000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78747,7 +78747,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_C.buffers_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>13</value>
+   <value>2</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78782,7 +78782,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_D.buffers_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>15</value>
+   <value>3</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78817,7 +78817,7 @@ parameters are a RESULT of the module parameters. -->
    end="dma_DDR_M1.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>2</value>
+   <value>4</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78852,7 +78852,7 @@ parameters are a RESULT of the module parameters. -->
    end="dma_DDR_M2.csr_irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>3</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78887,7 +78887,7 @@ parameters are a RESULT of the module parameters. -->
    end="sync.interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>4</value>
+   <value>6</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78922,7 +78922,7 @@ parameters are a RESULT of the module parameters. -->
    end="jtag_uart_0.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>5</value>
+   <value>7</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78957,7 +78957,7 @@ parameters are a RESULT of the module parameters. -->
    end="timer_1ms.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>6</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78992,7 +78992,7 @@ parameters are a RESULT of the module parameters. -->
    end="timer_1us.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>7</value>
+   <value>9</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79027,7 +79027,7 @@ parameters are a RESULT of the module parameters. -->
    end="pio_EXT.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>8</value>
+   <value>10</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79062,7 +79062,7 @@ parameters are a RESULT of the module parameters. -->
    end="rs232_uart.irq">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>9</value>
+   <value>11</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79097,7 +79097,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_B.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>10</value>
+   <value>12</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79132,7 +79132,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_A.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>11</value>
+   <value>13</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79167,7 +79167,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_C.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>12</value>
+   <value>14</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79202,7 +79202,7 @@ parameters are a RESULT of the module parameters. -->
    end="COMM_Pedreiro_v1_01_D.rmap_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>14</value>
+   <value>15</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80499,60 +80499,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
-   name="clk_50.clk_reset/COMM_Pedreiro_v1_01_A.reset_sink"
-   kind="reset"
-   version="16.1"
-   start="clk_50.clk_reset"
-   end="COMM_Pedreiro_v1_01_A.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_50</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>COMM_Pedreiro_v1_01_A</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
-   name="clk_50.clk_reset/rst_controller.reset_sink"
-   kind="reset"
-   version="16.1"
-   start="clk_50.clk_reset"
-   end="rst_controller.reset_sink">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_50</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>rst_controller</endModule>
-  <endConnectionPoint>reset_sink</endConnectionPoint>
- </connection>
- <connection
    name="clk_50.clk_reset/COMM_Pedreiro_v1_01_C.reset_sink"
    kind="reset"
    version="16.1"
@@ -80604,6 +80550,60 @@ parameters are a RESULT of the module parameters. -->
   <startModule>clk_50</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_D</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_50.clk_reset/COMM_Pedreiro_v1_01_A.reset_sink"
+   kind="reset"
+   version="16.1"
+   start="clk_50.clk_reset"
+   end="COMM_Pedreiro_v1_01_A.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_50</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>COMM_Pedreiro_v1_01_A</endModule>
+  <endConnectionPoint>reset_sink</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_50.clk_reset/rst_controller.reset_sink"
+   kind="reset"
+   version="16.1"
+   start="clk_50.clk_reset"
+   end="rst_controller.reset_sink">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_50</startModule>
+  <startConnectionPoint>clk_reset</startConnectionPoint>
+  <endModule>rst_controller</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection

@@ -37,7 +37,6 @@ architecture RTL of data_packet_data_writer_ent is
 		FETCH_DATA,
 		DELAY,
 		WRITE_DATA,
-		DELAY_2,
 		DATA_WRITER_FINISH
 	);
 	signal s_data_writer_state : t_data_writer_fsm; -- current state
@@ -138,12 +137,12 @@ begin
 				when WRITE_DATA =>
 					-- write data to send buffer
 					-- default state transition
-					s_data_writer_state <= DELAY_2;
-					v_data_writer_state := DELAY_2;
+					s_data_writer_state <= WAITING_SEND_BUFFER_SPACE;
+					v_data_writer_state := WAITING_SEND_BUFFER_SPACE;
 					-- default internal signal values
 					s_data_cnt          <= std_logic_vector(to_unsigned(0, s_data_cnt'length));
 					-- conditional state transition and internal signal values
-					-- check if all the data was written
+					-- check if all the sata was written
 					if (s_data_cnt = std_logic_vector(to_unsigned(0, s_data_cnt'length))) then
 						-- all data written
 						-- go to data writter finish
@@ -153,14 +152,6 @@ begin
 						-- decrement data counter
 						s_data_cnt <= std_logic_vector(unsigned(s_data_cnt) - 1);
 					end if;
-					
-				-- state "DELAY_2"
-				when DELAY_2 =>
-					-- default state transition
-					s_data_writer_state <= WAITING_SEND_BUFFER_SPACE;
-					v_data_writer_state := WAITING_SEND_BUFFER_SPACE;
-				-- default internal signal values
-				-- conditional state transition
 
 				-- state "DATA_WRITER_FINISH"
 				when DATA_WRITER_FINISH =>
@@ -250,17 +241,6 @@ begin
 					-- write the send buffer data
 					send_buffer_wrreq_o    <= '1';
 				-- conditional output signals
-
-				-- state "DELAY_2"
-				when DELAY_2 =>
-					-- default state transition
-					-- default output signals
-					data_wr_busy_o         <= '1';
-					data_wr_finished_o     <= '0';
-					-- fetch data from masking buffer
-					masking_buffer_rdreq_o <= '0';
-					send_buffer_wrdata_o   <= x"00";
-					send_buffer_wrreq_o    <= '0';
 
 				-- state "DATA_WRITER_FINISH"
 				when DATA_WRITER_FINISH =>

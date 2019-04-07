@@ -2722,7 +2722,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (156),
-		.FIFO_DEPTH          (129),
+		.FIFO_DEPTH          (69),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (1),
@@ -2763,7 +2763,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 	altera_avalon_sc_fifo #(
 		.SYMBOLS_PER_BEAT    (1),
 		.BITS_PER_SYMBOL     (66),
-		.FIFO_DEPTH          (4096),
+		.FIFO_DEPTH          (2048),
 		.CHANNEL_WIDTH       (0),
 		.ERROR_WIDTH         (0),
 		.USE_PACKETS         (0),
@@ -4380,7 +4380,7 @@ module MebX_Qsys_Project_mm_interconnect_1 (
 		.PKT_BYTEEN_L              (32),
 		.PKT_TRANS_POSTED          (70),
 		.PKT_TRANS_WRITE           (71),
-		.MAX_OUTSTANDING_RESPONSES (134),
+		.MAX_OUTSTANDING_RESPONSES (74),
 		.PIPELINED                 (0),
 		.ST_DATA_W                 (119),
 		.ST_CHANNEL_W              (10),

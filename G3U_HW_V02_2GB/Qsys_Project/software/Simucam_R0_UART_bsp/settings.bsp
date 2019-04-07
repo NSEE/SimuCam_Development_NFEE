@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>16.1</BspVersion>
-        <BspGeneratedTimeStamp>06/04/2019 09:00:07</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1554552007047</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Apr 7, 2019 2:26:53 AM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1554614813279</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -1950,73 +1950,73 @@
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>onchip_memory</slaveDescriptor>
-                <addressRange>0x81100000 - 0x811DE791</addressRange>
-                <addressSpan>911250</addressSpan>
+                <addressRange>0x81100000 - 0x811DFFFF</addressRange>
+                <addressSpan>917504</addressSpan>
                 <attributes>memory</attributes>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_D</slaveDescriptor>
-                <addressRange>0x81202000 - 0x812023FF</addressRange>
+                <addressRange>0x81201000 - 0x812013FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_C</slaveDescriptor>
-                <addressRange>0x81202400 - 0x812027FF</addressRange>
+                <addressRange>0x81201400 - 0x812017FF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_B</slaveDescriptor>
-                <addressRange>0x81202800 - 0x81202BFF</addressRange>
+                <addressRange>0x81201800 - 0x81201BFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>COMM_Pedreiro_v1_01_A</slaveDescriptor>
-                <addressRange>0x81202C00 - 0x81202FFF</addressRange>
+                <addressRange>0x81201C00 - 0x81201FFF</addressRange>
                 <addressSpan>1024</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dma_DDR_M2_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81203000 - 0x8120301F</addressRange>
-                <addressSpan>32</addressSpan>
-                <attributes/>
-        </MemoryMap>
-        <MemoryMap>
-                <slaveDescriptor>dma_DDR_M1_descriptor_slave</slaveDescriptor>
-                <addressRange>0x81203020 - 0x8120303F</addressRange>
+                <addressRange>0x81202000 - 0x8120201F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dma_DDR_M2_csr</slaveDescriptor>
-                <addressRange>0x81203040 - 0x8120305F</addressRange>
+                <addressRange>0x81202020 - 0x8120203F</addressRange>
+                <addressSpan>32</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>dma_DDR_M1_descriptor_slave</slaveDescriptor>
+                <addressRange>0x81202040 - 0x8120205F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>dma_DDR_M1_csr</slaveDescriptor>
-                <addressRange>0x81203060 - 0x8120307F</addressRange>
+                <addressRange>0x81202060 - 0x8120207F</addressRange>
                 <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>sysid_qsys</slaveDescriptor>
-                <addressRange>0x81203080 - 0x81203087</addressRange>
+                <addressRange>0x81202080 - 0x81202087</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>ddr2_address_span_extender_cntl</slaveDescriptor>
-                <addressRange>0x81203088 - 0x8120308F</addressRange>
+                <addressRange>0x81202088 - 0x8120208F</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>
                 <slaveDescriptor>jtag_uart_0</slaveDescriptor>
-                <addressRange>0x81203090 - 0x81203097</addressRange>
+                <addressRange>0x81202090 - 0x81202097</addressRange>
                 <addressSpan>8</addressSpan>
                 <attributes>printable</attributes>
         </MemoryMap>
