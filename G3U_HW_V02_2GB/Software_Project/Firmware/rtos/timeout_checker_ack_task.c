@@ -20,6 +20,7 @@ void vTimeoutCheckerTaskv2(void *task_data) {
 
     for (;;) {
         OSSemPend(xSemTimeoutChecker, 0, &ucErrorCode);
+
         if ( ucErrorCode == OS_NO_ERR ) {
             /* Just check the restransmission buffer */
             vCheck();

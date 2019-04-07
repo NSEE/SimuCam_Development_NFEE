@@ -82,7 +82,7 @@
 #define SDMA_DMA_M2_NAME                DMA_DDR_M2_CSR_NAME
 //
 #define SDMA_PIXEL_BLOCK_SIZE_BYTES     (unsigned long)136u
-#define SDMA_MAX_BLOCKS					(unsigned long)16u
+#define SDMA_MAX_BLOCKS					(unsigned long)32u
 
 #define SDMA_BUFFER_SIZE_BYTES          (unsigned long)(SDMA_PIXEL_BLOCK_SIZE_BYTES * SDMA_MAX_BLOCKS)
 

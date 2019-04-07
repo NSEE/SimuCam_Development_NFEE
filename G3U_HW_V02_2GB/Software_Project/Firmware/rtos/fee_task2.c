@@ -68,7 +68,7 @@ void vFeeTask2(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr + 2;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
@@ -182,6 +182,8 @@ void vFeeTask2(void *task_data) {
 				/* Disable the link SPW */
 				bDisableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = FALSE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskG( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskR( pxNFee->ucSPWId ) );
 
 				/* Disable RMAP interrupts */
 				bDisableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucSPWId);
@@ -268,6 +270,8 @@ void vFeeTask2(void *task_data) {
 				/* Disable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
+				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );
+				bSetPainelLeds( LEDS_ON , uliReturnMaskG( pxNFee->ucSPWId ) );
 
 				pxNFee->xControl.bSimulating = TRUE;
 				pxNFee->xControl.bUsingDMA = FALSE;
@@ -492,7 +496,6 @@ void vFeeTask2(void *task_data) {
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,0);
 					bFeebCh2SetBufferSize((unsigned char)SDMA_MAX_BLOCKS,1);
 				}*/
-
 				break;
 
 			case sFeeTestFullPattern: /* Real mode */
@@ -549,6 +552,9 @@ void vFeeTask2(void *task_data) {
 								xCcdMapLocal->ulBlockI += usiLengthBlocks;
 							} else {
 								bFinal = FALSE;
+
+								/* Send the request for use the DMA, but to front of the QUEUE */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, 0, pxNFee->ucId);
 							}
 
 							/* Send message telling to controller that is not using the DMA any more */

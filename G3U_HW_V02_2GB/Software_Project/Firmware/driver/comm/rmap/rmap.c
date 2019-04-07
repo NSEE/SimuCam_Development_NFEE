@@ -58,7 +58,7 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 0;
 	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
 	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];;
+	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[0];
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -91,7 +91,7 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 1;
 	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
 	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];;
+	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[1];
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -125,7 +125,7 @@ void vRmapCh3HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 2;
 	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
 	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];;
+	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[2];
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -159,7 +159,7 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 3;
 	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
 	uiCmdRmap.ucByte[1] = ucADDRReg;
-	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];;
+	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[3];
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {

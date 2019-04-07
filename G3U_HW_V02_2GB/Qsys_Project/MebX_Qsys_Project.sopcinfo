@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.04.04.12:54:22 -->
+ <!-- 2019.04.04.18:54:08 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1554393261</value>
+  <value>1554414847</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -8510,7 +8510,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M2</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M2.csr</name>
-    <baseAddress>1077940288</baseAddress>
+    <baseAddress>1077940256</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -8518,7 +8518,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M1.descriptor_slave</name>
-    <baseAddress>1077940256</baseAddress>
+    <baseAddress>1077940288</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -8785,2012 +8785,6 @@ parameters are a RESULT of the module parameters. -->
     <baseAddress>0</baseAddress>
     <span>1073741824</span>
    </memoryBlock>
-  </interface>
- </module>
- <module name="altpll_240" kind="altpll" version="16.1" path="altpll_240">
-  <!-- Describes a single module. Module parameters are
-the requested settings for a module instance. -->
-  <parameter name="HIDDEN_CUSTOM_ELABORATION">
-   <type>java.lang.String</type>
-   <value>altpll_avalon_elaboration</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_CUSTOM_POST_EDIT">
-   <type>java.lang.String</type>
-   <value>altpll_avalon_post_edit</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="INTENDED_DEVICE_FAMILY">
-   <type>java.lang.String</type>
-   <value>Stratix IV</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="WIDTH_CLOCK">
-   <type>java.lang.String</type>
-   <value>10</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="WIDTH_PHASECOUNTERSELECT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PRIMARY_CLOCK">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="INCLK0_INPUT_FREQUENCY">
-   <type>java.lang.String</type>
-   <value>20000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="INCLK1_INPUT_FREQUENCY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="OPERATION_MODE">
-   <type>java.lang.String</type>
-   <value>NORMAL</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PLL_TYPE">
-   <type>java.lang.String</type>
-   <value>AUTO</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="QUALIFY_CONF_DONE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="COMPENSATE_CLOCK">
-   <type>java.lang.String</type>
-   <value>CLK0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SCAN_CHAIN">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="GATE_LOCK_SIGNAL">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="GATE_LOCK_COUNTER">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="LOCK_HIGH">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="LOCK_LOW">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="VALID_LOCK_MULTIPLIER">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="INVALID_LOCK_MULTIPLIER">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SWITCH_OVER_ON_LOSSCLK">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SWITCH_OVER_ON_GATED_LOCK">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="ENABLE_SWITCH_OVER_COUNTER">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SKIP_VCO">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SWITCH_OVER_COUNTER">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SWITCH_OVER_TYPE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="FEEDBACK_SOURCE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="BANDWIDTH">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="BANDWIDTH_TYPE">
-   <type>java.lang.String</type>
-   <value>AUTO</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SPREAD_FREQUENCY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="DOWN_SPREAD">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SELF_RESET_ON_GATED_LOSS_LOCK">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SELF_RESET_ON_LOSS_LOCK">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK0_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value>24</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK1_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK2_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK3_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK4_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK5_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK6_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK7_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK8_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK9_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK0_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK1_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK2_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK3_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK0_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value>5</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK1_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK2_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK3_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK4_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK5_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK6_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK7_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK8_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK9_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK0_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK1_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK2_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK3_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK0_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value>0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK1_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK2_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK3_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK4_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK5_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK6_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK7_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK8_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK9_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK0_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK1_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK2_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK3_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK0_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value>50</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK1_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK2_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK3_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK4_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK5_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK6_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK7_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK8_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="CLK9_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK0_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK1_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK2_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="EXTCLK3_DUTY_CYCLE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clkena0">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clkena1">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clkena2">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clkena3">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clkena4">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clkena5">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclkena0">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclkena1">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclkena2">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclkena3">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclk0">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclk1">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclk2">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_extclk3">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_CLKBAD0">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_CLKBAD1">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk0">
-   <type>java.lang.String</type>
-   <value>PORT_USED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk1">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk2">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk3">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk4">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk5">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk6">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk7">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk8">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_clk9">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANDATA">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANDATAOUT">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANDONE">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCLKOUT1">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCLKOUT0">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_ACTIVECLOCK">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_CLKLOSS">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_INCLK1">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_INCLK0">
-   <type>java.lang.String</type>
-   <value>PORT_USED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_FBIN">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_PLLENA">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_CLKSWITCH">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_ARESET">
-   <type>java.lang.String</type>
-   <value>PORT_USED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_PFDENA">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANCLK">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANACLR">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANREAD">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANWRITE">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_ENABLE0">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_ENABLE1">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_LOCKED">
-   <type>java.lang.String</type>
-   <value>PORT_USED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_CONFIGUPDATE">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_FBOUT">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_PHASEDONE">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_PHASESTEP">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_PHASEUPDOWN">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_SCANCLKENA">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_PHASECOUNTERSELECT">
-   <type>java.lang.String</type>
-   <value>PORT_UNUSED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_VCOOVERRANGE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="PORT_VCOUNDERRANGE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="DPA_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="DPA_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="DPA_DIVIDER">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="VCO_MULTIPLY_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="VCO_DIVIDE_BY">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SCLKOUT0_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SCLKOUT1_PHASE_SHIFT">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="VCO_FREQUENCY_CONTROL">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="VCO_PHASE_SHIFT_STEP">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="USING_FBMIMICBIDIR_PORT">
-   <type>java.lang.String</type>
-   <value>OFF</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="SCAN_CHAIN_MIF_FILE">
-   <type>java.lang.String</type>
-   <value></value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="AVALON_USE_SEPARATE_SYSCLK">
-   <type>java.lang.String</type>
-   <value>NO</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_CONSTANTS">
-   <type>java.lang.String</type>
-   <value>CT#PORT_clk9 PORT_UNUSED CT#PORT_clk8 PORT_UNUSED CT#PORT_clk7 PORT_UNUSED CT#PORT_clk6 PORT_UNUSED CT#PORT_clk5 PORT_UNUSED CT#PORT_clk4 PORT_UNUSED CT#PORT_clk3 PORT_UNUSED CT#PORT_clk2 PORT_UNUSED CT#PORT_clk1 PORT_UNUSED CT#PORT_clk0 PORT_USED CT#CLK0_MULTIPLY_BY 24 CT#PORT_SCANWRITE PORT_UNUSED CT#PORT_SCANACLR PORT_UNUSED CT#PORT_PFDENA PORT_UNUSED CT#PORT_PLLENA PORT_UNUSED CT#PORT_SCANDATA PORT_UNUSED CT#PORT_SCANCLKENA PORT_UNUSED CT#WIDTH_CLOCK 10 CT#PORT_SCANDATAOUT PORT_UNUSED CT#LPM_TYPE altpll CT#PLL_TYPE AUTO CT#CLK0_PHASE_SHIFT 0 CT#PORT_PHASEDONE PORT_UNUSED CT#OPERATION_MODE NORMAL CT#PORT_CONFIGUPDATE PORT_UNUSED CT#COMPENSATE_CLOCK CLK0 CT#PORT_CLKSWITCH PORT_UNUSED CT#INCLK0_INPUT_FREQUENCY 20000 CT#PORT_SCANDONE PORT_UNUSED CT#PORT_CLKLOSS PORT_UNUSED CT#PORT_INCLK1 PORT_UNUSED CT#AVALON_USE_SEPARATE_SYSCLK NO CT#PORT_INCLK0 PORT_USED CT#PORT_clkena5 PORT_UNUSED CT#PORT_clkena4 PORT_UNUSED CT#PORT_clkena3 PORT_UNUSED CT#PORT_clkena2 PORT_UNUSED CT#PORT_clkena1 PORT_UNUSED CT#PORT_FBOUT PORT_UNUSED CT#PORT_clkena0 PORT_UNUSED CT#PORT_ARESET PORT_USED CT#BANDWIDTH_TYPE AUTO CT#INTENDED_DEVICE_FAMILY {Stratix IV} CT#PORT_SCANREAD PORT_UNUSED CT#PORT_PHASESTEP PORT_UNUSED CT#PORT_SCANCLK PORT_UNUSED CT#PORT_CLKBAD1 PORT_UNUSED CT#PORT_CLKBAD0 PORT_UNUSED CT#PORT_FBIN PORT_UNUSED CT#PORT_PHASEUPDOWN PORT_UNUSED CT#PORT_PHASECOUNTERSELECT PORT_UNUSED CT#PORT_ACTIVECLOCK PORT_UNUSED CT#CLK0_DUTY_CYCLE 50 CT#CLK0_DIVIDE_BY 5 CT#USING_FBMIMICBIDIR_PORT OFF CT#PORT_LOCKED PORT_USED</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_PRIVATES">
-   <type>java.lang.String</type>
-   <value>PT#GLOCKED_FEATURE_ENABLED 0 PT#SPREAD_FEATURE_ENABLED 0 PT#BANDWIDTH_FREQ_UNIT MHz PT#CUR_DEDICATED_CLK c0 PT#INCLK0_FREQ_EDIT 50.000 PT#BANDWIDTH_PRESET Low PT#PLL_LVDS_PLL_CHECK 0 PT#BANDWIDTH_USE_PRESET 0 PT#AVALON_USE_SEPARATE_SYSCLK NO PT#PLL_ENHPLL_CHECK 0 PT#OUTPUT_FREQ_UNIT0 MHz PT#PHASE_RECONFIG_FEATURE_ENABLED 1 PT#CREATE_CLKBAD_CHECK 0 PT#CLKSWITCH_CHECK 0 PT#INCLK1_FREQ_EDIT 100.000 PT#NORMAL_MODE_RADIO 1 PT#SRC_SYNCH_COMP_RADIO 0 PT#PLL_ARESET_CHECK 1 PT#LONG_SCAN_RADIO 1 PT#SCAN_FEATURE_ENABLED 1 PT#PHASE_RECONFIG_INPUTS_CHECK 0 PT#USE_CLK0 1 PT#PRIMARY_CLK_COMBO inclk0 PT#BANDWIDTH 1.000 PT#GLOCKED_COUNTER_EDIT_CHANGED 1 PT#PLL_FASTPLL_CHECK 0 PT#SPREAD_FREQ_UNIT KHz PT#PLL_AUTOPLL_CHECK 1 PT#LVDS_PHASE_SHIFT_UNIT0 deg PT#SWITCHOVER_FEATURE_ENABLED 0 PT#MIG_DEVICE_SPEED_GRADE Any PT#OUTPUT_FREQ_MODE0 1 PT#BANDWIDTH_FEATURE_ENABLED 1 PT#INCLK0_FREQ_UNIT_COMBO MHz PT#ZERO_DELAY_RADIO 0 PT#OUTPUT_FREQ0 240.00000000 PT#SHORT_SCAN_RADIO 0 PT#LVDS_MODE_DATA_RATE_DIRTY 0 PT#CUR_FBIN_CLK c0 PT#PLL_ADVANCED_PARAM_CHECK 0 PT#CLKBAD_SWITCHOVER_CHECK 0 PT#PHASE_SHIFT_STEP_ENABLED_CHECK 0 PT#DEVICE_SPEED_GRADE Any PT#PLL_FBMIMIC_CHECK 0 PT#LVDS_MODE_DATA_RATE {Not Available} PT#LOCKED_OUTPUT_CHECK 1 PT#SPREAD_PERCENT 0.500 PT#PHASE_SHIFT0 0.00000000 PT#DIV_FACTOR0 1 PT#CNX_NO_COMPENSATE_RADIO 0 PT#CREATE_INCLK1_CHECK 0 PT#GLOCK_COUNTER_EDIT 1048575 PT#INCLK1_FREQ_UNIT_COMBO MHz PT#EFF_OUTPUT_FREQ_VALUE0 240.000000 PT#SPREAD_FREQ 50.000 PT#USE_MIL_SPEED_GRADE 0 PT#EXPLICIT_SWITCHOVER_COUNTER 0 PT#STICKY_CLK0 1 PT#EXT_FEEDBACK_RADIO 0 PT#SWITCHOVER_COUNT_EDIT 1 PT#SELF_RESET_LOCK_LOSS 0 PT#PLL_PFDENA_CHECK 0 PT#INT_FEEDBACK__MODE_RADIO 1 PT#INCLK1_FREQ_EDIT_CHANGED 1 PT#CLKLOSS_CHECK 0 PT#SYNTH_WRAPPER_GEN_POSTFIX 0 PT#PHASE_SHIFT_UNIT0 deg PT#BANDWIDTH_USE_AUTO 1 PT#HAS_MANUAL_SWITCHOVER 1 PT#MULT_FACTOR0 1 PT#SPREAD_USE 0 PT#GLOCKED_MODE_CHECK 0 PT#SACN_INPUTS_CHECK 0 PT#DUTY_CYCLE0 50.00000000 PT#INTENDED_DEVICE_FAMILY {Stratix IV} PT#PLL_TARGET_HARCOPY_CHECK 0 PT#INCLK1_FREQ_UNIT_CHANGED 1 PT#RECONFIG_FILE ALTPLL1554341202008963.mif PT#ACTIVECLK_CHECK 0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_USED_PORTS">
-   <type>java.lang.String</type>
-   <value>UP#locked used UP#c0 used UP#areset used UP#inclk0 used</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_IS_NUMERIC">
-   <type>java.lang.String</type>
-   <value>IN#WIDTH_CLOCK 1 IN#CLK0_DUTY_CYCLE 1 IN#PLL_TARGET_HARCOPY_CHECK 1 IN#SWITCHOVER_COUNT_EDIT 1 IN#INCLK0_INPUT_FREQUENCY 1 IN#PLL_LVDS_PLL_CHECK 1 IN#PLL_AUTOPLL_CHECK 1 IN#PLL_FASTPLL_CHECK 1 IN#PLL_ENHPLL_CHECK 1 IN#DIV_FACTOR0 1 IN#LVDS_MODE_DATA_RATE_DIRTY 1 IN#GLOCK_COUNTER_EDIT 1 IN#CLK0_DIVIDE_BY 1 IN#MULT_FACTOR0 1 IN#CLK0_MULTIPLY_BY 1 IN#USE_MIL_SPEED_GRADE 1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_MF_PORTS">
-   <type>java.lang.String</type>
-   <value>MF#areset 1 MF#clk 1 MF#locked 1 MF#inclk 1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_IF_PORTS">
-   <type>java.lang.String</type>
-   <value>IF#phasecounterselect {input 4} IF#locked {output 0} IF#reset {input 0} IF#clk {input 0} IF#phaseupdown {input 0} IF#scandone {output 0} IF#readdata {output 32} IF#write {input 0} IF#scanclk {input 0} IF#phasedone {output 0} IF#address {input 2} IF#c0 {output 0} IF#writedata {input 32} IF#read {input 0} IF#areset {input 0} IF#scanclkena {input 0} IF#scandataout {output 0} IF#configupdate {input 0} IF#phasestep {input 0} IF#scandata {input 0}</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="HIDDEN_IS_FIRST_EDIT">
-   <type>java.lang.String</type>
-   <value>0</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="AUTO_DEVICE_FAMILY">
-   <type>java.lang.String</type>
-   <value>STRATIXIV</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-   <sysinfo_type>DEVICE_FAMILY</sysinfo_type>
-  </parameter>
-  <parameter name="AUTO_INCLK_INTERFACE_CLOCK_RATE">
-   <type>java.lang.Long</type>
-   <value>50000000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-   <sysinfo_type>CLOCK_RATE</sysinfo_type>
-   <sysinfo_arg>inclk_interface</sysinfo_arg>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>Stratix IV</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>false</visible>
-   <valid>true</valid>
-   <sysinfo_type>DEVICE_FAMILY</sysinfo_type>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <interface name="inclk_interface" kind="clock_sink" version="16.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRateKnown">
-    <type>java.lang.Boolean</type>
-    <value>true</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRate">
-    <type>java.lang.Long</type>
-    <value>50000000</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
-   <isStart>false</isStart>
-   <port>
-    <name>clk</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>clk</role>
-   </port>
-  </interface>
-  <interface name="inclk_interface_reset" kind="reset_sink" version="16.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>inclk_interface</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="synchronousEdges">
-    <type>com.altera.sopcmodel.reset.Reset$Edges</type>
-    <value>DEASSERT</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>reset</type>
-   <isStart>false</isStart>
-   <port>
-    <name>reset</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>reset</role>
-   </port>
-  </interface>
-  <interface name="pll_slave" kind="avalon_slave" version="16.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <assignment>
-    <name>embeddedsw.configuration.isMemoryDevice</name>
-    <value>false</value>
-   </assignment>
-   <assignment>
-    <name>embeddedsw.configuration.isNonVolatileStorage</name>
-    <value>false</value>
-   </assignment>
-   <assignment>
-    <name>embeddedsw.configuration.isPrintableDevice</name>
-    <value>false</value>
-   </assignment>
-   <parameter name="addressAlignment">
-    <type>com.altera.sopcmodel.avalon.AvalonConnectionPoint$AddressAlignment</type>
-    <value>DYNAMIC</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="addressGroup">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="addressSpan">
-    <type>java.math.BigInteger</type>
-    <value>16</value>
-    <derived>true</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="addressUnits">
-    <type>com.altera.sopcmodel.avalon.EAddrBurstUnits</type>
-    <value>WORDS</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="alwaysBurstMaxBurst">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>inclk_interface</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value>inclk_interface_reset</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="bitsPerSymbol">
-    <type>int</type>
-    <value>8</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="bridgedAddressOffset">
-    <type>java.math.BigInteger</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="bridgesToMaster">
-    <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="burstOnBurstBoundariesOnly">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="burstcountUnits">
-    <type>com.altera.sopcmodel.avalon.EAddrBurstUnits</type>
-    <value>WORDS</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="constantBurstBehavior">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="explicitAddressSpan">
-    <type>java.math.BigInteger</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="holdTime">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="interleaveBursts">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="isBigEndian">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="isFlash">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="isMemoryDevice">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="isNonVolatileStorage">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="linewrapBursts">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="maximumPendingReadTransactions">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>false</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="maximumPendingWriteTransactions">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>false</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="minimumUninterruptedRunLength">
-    <type>int</type>
-    <value>1</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="printableDevice">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="readLatency">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="readWaitStates">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="readWaitTime">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="registerIncomingSignals">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="registerOutgoingSignals">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="setupTime">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="timingUnits">
-    <type>com.altera.sopcmodel.avalon.TimingUnits</type>
-    <value>Cycles</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="transparentBridge">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="wellBehavedWaitrequest">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="writeLatency">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="writeWaitStates">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="writeWaitTime">
-    <type>int</type>
-    <value>0</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>avalon</type>
-   <isStart>false</isStart>
-   <port>
-    <name>read</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>read</role>
-   </port>
-   <port>
-    <name>write</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>write</role>
-   </port>
-   <port>
-    <name>address</name>
-    <direction>Input</direction>
-    <width>2</width>
-    <role>address</role>
-   </port>
-   <port>
-    <name>readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
-    <name>writedata</name>
-    <direction>Input</direction>
-    <width>32</width>
-    <role>writedata</role>
-   </port>
-  </interface>
-  <interface name="c0" kind="clock_source" version="16.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedDirectClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRate">
-    <type>long</type>
-    <value>240000000</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="clockRateKnown">
-    <type>boolean</type>
-    <value>true</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="externallyDriven">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="ptfSchematicName">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>clock</type>
-   <isStart>true</isStart>
-   <port>
-    <name>c0</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>clk</role>
-   </port>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>ext_flash</moduleName>
-    <slaveName>clk</slaveName>
-    <name>ext_flash.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>tristate_conduit_bridge_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>tristate_conduit_bridge_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>jtag_uart_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>jtag_uart_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>nios2_gen2_0</moduleName>
-    <slaveName>clk</slaveName>
-    <name>nios2_gen2_0.clk</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>onchip_memory</moduleName>
-    <slaveName>clk1</slaveName>
-    <name>onchip_memory.clk1</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>af_100i_mm_clock_crossing_bridge</moduleName>
-    <slaveName>s0_clk</slaveName>
-    <name>af_100i_mm_clock_crossing_bridge.s0_clk</name>
-   </clockDomainMember>
-  </interface>
-  <interface name="areset_conduit" kind="conduit_end" version="16.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>conduit</type>
-   <isStart>false</isStart>
-   <port>
-    <name>areset</name>
-    <direction>Input</direction>
-    <width>1</width>
-    <role>export</role>
-   </port>
-  </interface>
-  <interface name="locked_conduit" kind="conduit_end" version="16.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>conduit</type>
-   <isStart>false</isStart>
-   <port>
-    <name>locked</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>export</role>
-   </port>
   </interface>
  </module>
  <module name="clk_100" kind="clock_source" version="16.1" path="clk_100">
@@ -11388,6 +9382,36 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>nios2_gen2_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>nios2_gen2_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>ext_flash</moduleName>
+    <slaveName>clk</slaveName>
+    <name>ext_flash.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>tristate_conduit_bridge_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>tristate_conduit_bridge_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>jtag_uart_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>jtag_uart_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>onchip_memory</moduleName>
+    <slaveName>clk1</slaveName>
+    <name>onchip_memory.clk1</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_B.clock_sink_200</name>
@@ -11409,6 +9433,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_D.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>af_100i_mm_clock_crossing_bridge</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>af_100i_mm_clock_crossing_bridge.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="clk_reset" kind="reset_source" version="16.1">
@@ -11887,12 +9917,6 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>rst_controller</moduleName>
     <slaveName>clock_sink</slaveName>
     <name>rst_controller.clock_sink</name>
-   </clockDomainMember>
-   <clockDomainMember>
-    <isBridge>false</isBridge>
-    <moduleName>altpll_240</moduleName>
-    <slaveName>inclk_interface</slaveName>
-    <name>altpll_240.inclk_interface</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -18527,7 +16551,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>64</value>
+   <value>512</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
@@ -18659,7 +16683,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>512</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -20596,7 +18620,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>64</value>
+   <value>512</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
@@ -20728,7 +18752,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>512</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -23177,7 +21201,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="CLOCK_RATE">
    <type>long</type>
-   <value>240000000</value>
+   <value>200000000</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -23214,7 +21238,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_CLK_CLOCK_DOMAIN">
    <type>java.lang.Integer</type>
-   <value>4</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -23224,7 +21248,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_CLK_RESET_DOMAIN">
    <type>java.lang.Integer</type>
-   <value>4</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -23295,7 +21319,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>java.lang.Long</type>
-    <value>240000000</value>
+    <value>200000000</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -23967,7 +21991,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="clkFreq">
    <type>long</type>
-   <value>240000000</value>
+   <value>200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -24070,7 +22094,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>java.lang.Long</type>
-    <value>240000000</value>
+    <value>200000000</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -54844,6 +52868,36 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
+    <moduleName>nios2_gen2_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>nios2_gen2_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>ext_flash</moduleName>
+    <slaveName>clk</slaveName>
+    <name>ext_flash.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>tristate_conduit_bridge_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>tristate_conduit_bridge_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>jtag_uart_0</moduleName>
+    <slaveName>clk</slaveName>
+    <name>jtag_uart_0.clk</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>onchip_memory</moduleName>
+    <slaveName>clk1</slaveName>
+    <name>onchip_memory.clk1</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_B.clock_sink_200</name>
@@ -54865,6 +52919,12 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>clock_sink_200</slaveName>
     <name>COMM_Pedreiro_v1_01_D.clock_sink_200</name>
+   </clockDomainMember>
+   <clockDomainMember>
+    <isBridge>false</isBridge>
+    <moduleName>af_100i_mm_clock_crossing_bridge</moduleName>
+    <slaveName>s0_clk</slaveName>
+    <name>af_100i_mm_clock_crossing_bridge.s0_clk</name>
    </clockDomainMember>
   </interface>
   <interface name="afi_half_clk" kind="clock_source" version="16.1">
@@ -55922,7 +53982,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CPU_FREQ</name>
-   <value>240000000u</value>
+   <value>200000000u</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.CPU_ID_SIZE</name>
@@ -56106,7 +54166,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.clock-frequency</name>
-   <value>240000000u</value>
+   <value>200000000u</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.dcache-line-size</name>
@@ -57536,7 +55596,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x40000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x40000800' end='0x40000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x40000840' end='0x40000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000860' end='0x40000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000880' end='0x400008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x400009D0' end='0x400009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009E0' end='0x400009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009F0' end='0x40000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x40000A00' end='0x40000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x40000A10' end='0x40000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x40400000' end='0x40400400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x40400400' end='0x40400800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x40400800' end='0x40400C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x40400C00' end='0x40401000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x40401000' end='0x40401020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x40401020' end='0x40401040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x40401040' end='0x40401060' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x40401060' end='0x40401080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x40401080' end='0x40401088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x40401088' end='0x40401090' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x80100000' end='0x801E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80200800' end='0x80201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='altpll_240.pll_slave' start='0x80201000' end='0x80201010' type='altpll.pll_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80201010' end='0x80201018' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x40000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x40000800' end='0x40000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x40000840' end='0x40000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000860' end='0x40000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000880' end='0x400008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x400009D0' end='0x400009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009E0' end='0x400009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009F0' end='0x40000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x40000A00' end='0x40000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x40000A10' end='0x40000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x40400000' end='0x40400400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x40400400' end='0x40400800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x40400800' end='0x40400C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x40400C00' end='0x40401000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x40401000' end='0x40401020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x40401020' end='0x40401040' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.descriptor_slave' start='0x40401040' end='0x40401060' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.csr' start='0x40401060' end='0x40401080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x40401080' end='0x40401088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x40401088' end='0x40401090' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x80100000' end='0x801E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80200800' end='0x80201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80201000' end='0x80201008' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -57646,7 +55706,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="clockFrequency">
    <type>long</type>
-   <value>240000000</value>
+   <value>200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -57742,7 +55802,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_CLK_CLOCK_DOMAIN">
    <type>java.lang.Integer</type>
-   <value>4</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -57752,7 +55812,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_CLK_RESET_DOMAIN">
    <type>java.lang.Integer</type>
-   <value>4</value>
+   <value>5</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -57822,7 +55882,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="clockRate">
     <type>java.lang.Long</type>
-    <value>240000000</value>
+    <value>200000000</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -58207,7 +56267,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>avalon_jtag_slave</slaveName>
     <name>jtag_uart_0.avalon_jtag_slave</name>
-    <baseAddress>2149584912</baseAddress>
+    <baseAddress>2149584896</baseAddress>
     <span>8</span>
    </memoryBlock>
    <memoryBlock>
@@ -58217,14 +56277,6 @@ parameters are a RESULT of the module parameters. -->
     <name>nios2_gen2_0.debug_mem_slave</name>
     <baseAddress>2149582848</baseAddress>
     <span>2048</span>
-   </memoryBlock>
-   <memoryBlock>
-    <isBridge>false</isBridge>
-    <moduleName>altpll_240</moduleName>
-    <slaveName>pll_slave</slaveName>
-    <name>altpll_240.pll_slave</name>
-    <baseAddress>2149584896</baseAddress>
-    <span>16</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
@@ -58295,7 +56347,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M2</moduleName>
     <slaveName>csr</slaveName>
     <name>dma_DDR_M2.csr</name>
-    <baseAddress>1077940288</baseAddress>
+    <baseAddress>1077940256</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -58303,7 +56355,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>dma_DDR_M1</moduleName>
     <slaveName>descriptor_slave</slaveName>
     <name>dma_DDR_M1.descriptor_slave</name>
-    <baseAddress>1077940256</baseAddress>
+    <baseAddress>1077940288</baseAddress>
     <span>32</span>
    </memoryBlock>
    <memoryBlock>
@@ -72914,7 +70966,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1554393261</value>
+   <value>1554414847</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -72934,7 +70986,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1554393261</value>
+   <value>1554414847</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -72950,7 +71002,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1554393261</value>
+   <value>1554414847</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -76903,7 +74955,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x80201010</value>
+   <value>0x80201000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -76988,57 +75040,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>data_master</startConnectionPoint>
   <endModule>nios2_gen2_0</endModule>
   <endConnectionPoint>debug_mem_slave</endConnectionPoint>
- </connection>
- <connection
-   name="nios2_gen2_0.data_master/altpll_240.pll_slave"
-   kind="avalon"
-   version="16.1"
-   start="nios2_gen2_0.data_master"
-   end="altpll_240.pll_slave">
-  <parameter name="arbitrationPriority">
-   <type>int</type>
-   <value>1</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="baseAddress">
-   <type>java.math.BigInteger</type>
-   <value>0x80201000</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="defaultConnection">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>altpll_240</endModule>
-  <endConnectionPoint>pll_slave</endConnectionPoint>
  </connection>
  <connection
    name="nios2_gen2_0.data_master/af_100i_mm_clock_crossing_bridge.s0"
@@ -78076,7 +76077,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x40401040</value>
+   <value>0x40401020</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -78127,7 +76128,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x40401020</value>
+   <value>0x40401040</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80770,168 +78771,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s0_clk</endConnectionPoint>
  </connection>
  <connection
-   name="altpll_240.c0/ext_flash.clk"
-   kind="clock"
-   version="16.1"
-   start="altpll_240.c0"
-   end="ext_flash.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>altpll_240</startModule>
-  <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>ext_flash</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="altpll_240.c0/tristate_conduit_bridge_0.clk"
-   kind="clock"
-   version="16.1"
-   start="altpll_240.c0"
-   end="tristate_conduit_bridge_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>altpll_240</startModule>
-  <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>tristate_conduit_bridge_0</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="altpll_240.c0/jtag_uart_0.clk"
-   kind="clock"
-   version="16.1"
-   start="altpll_240.c0"
-   end="jtag_uart_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>altpll_240</startModule>
-  <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>jtag_uart_0</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="altpll_240.c0/nios2_gen2_0.clk"
-   kind="clock"
-   version="16.1"
-   start="altpll_240.c0"
-   end="nios2_gen2_0.clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>altpll_240</startModule>
-  <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>nios2_gen2_0</endModule>
-  <endConnectionPoint>clk</endConnectionPoint>
- </connection>
- <connection
-   name="altpll_240.c0/onchip_memory.clk1"
-   kind="clock"
-   version="16.1"
-   start="altpll_240.c0"
-   end="onchip_memory.clk1">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>altpll_240</startModule>
-  <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>onchip_memory</endModule>
-  <endConnectionPoint>clk1</endConnectionPoint>
- </connection>
- <connection
-   name="altpll_240.c0/af_100i_mm_clock_crossing_bridge.s0_clk"
-   kind="clock"
-   version="16.1"
-   start="altpll_240.c0"
-   end="af_100i_mm_clock_crossing_bridge.s0_clk">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>altpll_240</startModule>
-  <startConnectionPoint>c0</startConnectionPoint>
-  <endModule>af_100i_mm_clock_crossing_bridge</endModule>
-  <endConnectionPoint>s0_clk</endConnectionPoint>
- </connection>
- <connection
    name="clk_50.clk/SEVEN_SEGMENT_CONTROLLER_0.SSDP_CLK"
    kind="clock"
    version="16.1"
@@ -81715,6 +79554,141 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clk</endConnectionPoint>
  </connection>
  <connection
+   name="clk_200.clk/nios2_gen2_0.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="nios2_gen2_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>nios2_gen2_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/ext_flash.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="ext_flash.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>ext_flash</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/tristate_conduit_bridge_0.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="tristate_conduit_bridge_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>tristate_conduit_bridge_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/jtag_uart_0.clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="jtag_uart_0.clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>jtag_uart_0</endModule>
+  <endConnectionPoint>clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/onchip_memory.clk1"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="onchip_memory.clk1">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>onchip_memory</endModule>
+  <endConnectionPoint>clk1</endConnectionPoint>
+ </connection>
+ <connection
    name="clk_100.clk/dma_DDR_M1.clock"
    kind="clock"
    version="16.1"
@@ -82066,33 +80040,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock_sink_200</endConnectionPoint>
  </connection>
  <connection
-   name="clk_50.clk/altpll_240.inclk_interface"
-   kind="clock"
-   version="16.1"
-   start="clk_50.clk"
-   end="altpll_240.inclk_interface">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_50</startModule>
-  <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>altpll_240</endModule>
-  <endConnectionPoint>inclk_interface</endConnectionPoint>
- </connection>
- <connection
    name="clk_50.clk/clock_bridge_afi_50.m0_clk"
    kind="clock"
    version="16.1"
@@ -82172,6 +80119,33 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk</startConnectionPoint>
   <endModule>m2_ddr2_memory</endModule>
   <endConnectionPoint>pll_ref_clk</endConnectionPoint>
+ </connection>
+ <connection
+   name="clk_200.clk/af_100i_mm_clock_crossing_bridge.s0_clk"
+   kind="clock"
+   version="16.1"
+   start="clk_200.clk"
+   end="af_100i_mm_clock_crossing_bridge.s0_clk">
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>clk_200</startModule>
+  <startConnectionPoint>clk</startConnectionPoint>
+  <endModule>af_100i_mm_clock_crossing_bridge</endModule>
+  <endConnectionPoint>s0_clk</endConnectionPoint>
  </connection>
  <connection
    name="clk_100.clk/clock_bridge_afi_50.s0_clk"
@@ -82894,33 +80868,6 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>clk_reset</startConnectionPoint>
   <endModule>m1_ddr2_memory</endModule>
   <endConnectionPoint>global_reset</endConnectionPoint>
- </connection>
- <connection
-   name="clk_50.clk_reset/altpll_240.inclk_interface_reset"
-   kind="reset"
-   version="16.1"
-   start="clk_50.clk_reset"
-   end="altpll_240.inclk_interface_reset">
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>clk_50</startModule>
-  <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>altpll_240</endModule>
-  <endConnectionPoint>inclk_interface_reset</endConnectionPoint>
  </connection>
  <connection
    name="clk_50.clk_reset/clock_bridge_afi_50.m0_reset"
@@ -85901,7 +83848,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>59</instanceCount>
+  <instanceCount>58</instanceCount>
   <name>avalon_slave</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -85909,7 +83856,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>56</instanceCount>
+  <instanceCount>55</instanceCount>
   <name>clock_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -85917,7 +83864,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>54</instanceCount>
+  <instanceCount>53</instanceCount>
   <name>reset_sink</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -85925,7 +83872,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>57</instanceCount>
+  <instanceCount>55</instanceCount>
   <name>conduit_end</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -85970,22 +83917,6 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
   <displayName>Avalon Memory Mapped Master</displayName>
-  <version>16.1</version>
- </plugin>
- <plugin>
-  <instanceCount>1</instanceCount>
-  <name>altpll</name>
-  <type>com.altera.entityinterfaces.IElementClass</type>
-  <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>Avalon ALTPLL</displayName>
-  <version>16.1</version>
- </plugin>
- <plugin>
-  <instanceCount>5</instanceCount>
-  <name>clock_source</name>
-  <type>com.altera.entityinterfaces.IElementClass</type>
-  <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
-  <displayName>Clock Output</displayName>
   <version>16.1</version>
  </plugin>
  <plugin>
@@ -86085,6 +84016,14 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
+  <instanceCount>4</instanceCount>
+  <name>clock_source</name>
+  <type>com.altera.entityinterfaces.IElementClass</type>
+  <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
+  <displayName>Clock Output</displayName>
+  <version>16.1</version>
+ </plugin>
+ <plugin>
   <instanceCount>17</instanceCount>
   <name>reset_source</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
@@ -86181,7 +84120,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>74</instanceCount>
+  <instanceCount>73</instanceCount>
   <name>avalon</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -86189,7 +84128,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>57</instanceCount>
+  <instanceCount>56</instanceCount>
   <name>clock</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
@@ -86205,7 +84144,7 @@ parameters are a RESULT of the module parameters. -->
   <version>16.1</version>
  </plugin>
  <plugin>
-  <instanceCount>115</instanceCount>
+  <instanceCount>114</instanceCount>
   <name>reset</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>
