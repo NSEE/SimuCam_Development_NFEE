@@ -9,9 +9,8 @@
    <inputclock preferredWidth="108" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/University Program/Clock,Project,Library/Interface Protocols,Library/Interface Protocols/Transceiver PLL,Library/Basic Functions/Clocks; PLLs and Resets/PLL,Library/University Program,Library,Library/Basic Functions,Library/Basic Functions/Clocks; PLLs and Resets" />
- <window width="1936" height="1056" x="-8" y="-8" />
+ <library expandedCategories="Project,Library" />
+ <window width="1920" height="1040" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />
 </preferences>

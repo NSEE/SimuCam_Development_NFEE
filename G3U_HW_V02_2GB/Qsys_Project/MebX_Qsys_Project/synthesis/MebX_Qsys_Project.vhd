@@ -192,7 +192,7 @@ architecture rtl of MebX_Qsys_Project is
 		);
 	end component SEVEN_SEG_TOP;
 
-	component MebX_Qsys_Project_altpll_300 is
+	component MebX_Qsys_Project_altpll_240 is
 		port (
 			clk                : in  std_logic                     := 'X';             -- clk
 			reset              : in  std_logic                     := 'X';             -- reset
@@ -215,7 +215,7 @@ architecture rtl of MebX_Qsys_Project is
 			scandata           : in  std_logic                     := 'X';             -- export
 			configupdate       : in  std_logic                     := 'X'              -- export
 		);
-	end component MebX_Qsys_Project_altpll_300;
+	end component MebX_Qsys_Project_altpll_240;
 
 	component MebX_Qsys_Project_csense_adc_fo is
 		port (
@@ -784,10 +784,10 @@ architecture rtl of MebX_Qsys_Project is
 
 	component MebX_Qsys_Project_mm_interconnect_0 is
 		port (
-			altpll_300_c0_clk                                                     : in  std_logic                     := 'X';             -- clk
+			altpll_240_c0_clk                                                     : in  std_logic                     := 'X';             -- clk
 			clk_50_clk_clk                                                        : in  std_logic                     := 'X';             -- clk
 			af_100i_mm_clock_crossing_bridge_s0_reset_reset_bridge_in_reset_reset : in  std_logic                     := 'X';             -- reset
-			altpll_300_inclk_interface_reset_reset_bridge_in_reset_reset          : in  std_logic                     := 'X';             -- reset
+			altpll_240_inclk_interface_reset_reset_bridge_in_reset_reset          : in  std_logic                     := 'X';             -- reset
 			ext_flash_reset_reset_bridge_in_reset_reset                           : in  std_logic                     := 'X';             -- reset
 			jtag_uart_0_reset_reset_bridge_in_reset_reset                         : in  std_logic                     := 'X';             -- reset
 			nios2_gen2_0_reset_reset_bridge_in_reset_reset                        : in  std_logic                     := 'X';             -- reset
@@ -815,11 +815,11 @@ architecture rtl of MebX_Qsys_Project is
 			af_100i_mm_clock_crossing_bridge_s0_readdatavalid                     : in  std_logic                     := 'X';             -- readdatavalid
 			af_100i_mm_clock_crossing_bridge_s0_waitrequest                       : in  std_logic                     := 'X';             -- waitrequest
 			af_100i_mm_clock_crossing_bridge_s0_debugaccess                       : out std_logic;                                        -- debugaccess
-			altpll_300_pll_slave_address                                          : out std_logic_vector(1 downto 0);                     -- address
-			altpll_300_pll_slave_write                                            : out std_logic;                                        -- write
-			altpll_300_pll_slave_read                                             : out std_logic;                                        -- read
-			altpll_300_pll_slave_readdata                                         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
-			altpll_300_pll_slave_writedata                                        : out std_logic_vector(31 downto 0);                    -- writedata
+			altpll_240_pll_slave_address                                          : out std_logic_vector(1 downto 0);                     -- address
+			altpll_240_pll_slave_write                                            : out std_logic;                                        -- write
+			altpll_240_pll_slave_read                                             : out std_logic;                                        -- read
+			altpll_240_pll_slave_readdata                                         : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
+			altpll_240_pll_slave_writedata                                        : out std_logic_vector(31 downto 0);                    -- writedata
 			ext_flash_uas_address                                                 : out std_logic_vector(25 downto 0);                    -- address
 			ext_flash_uas_write                                                   : out std_logic;                                        -- write
 			ext_flash_uas_read                                                    : out std_logic;                                        -- read
@@ -1657,7 +1657,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal m2_ddr2_memory_afi_clk_clk                                                             : std_logic;                      -- m2_ddr2_memory:afi_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_200_clk, COMM_Pedreiro_v1_01_B:clock_sink_200_clk, COMM_Pedreiro_v1_01_C:clock_sink_200_clk, COMM_Pedreiro_v1_01_D:clock_sink_200_clk, mm_interconnect_1:m2_ddr2_memory_afi_clk_clk, rst_controller_021:clk]
 	signal m2_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_100_clk, COMM_Pedreiro_v1_01_B:clock_sink_100_clk, COMM_Pedreiro_v1_01_C:clock_sink_100_clk, COMM_Pedreiro_v1_01_D:clock_sink_100_clk, af_100i_mm_clock_crossing_bridge:m0_clk, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, dma_DDR_M1:clock_clk, dma_DDR_M2:clock_clk, irq_synchronizer:receiver_clk, irq_synchronizer_001:receiver_clk, irq_synchronizer_002:receiver_clk, irq_synchronizer_003:receiver_clk, irq_synchronizer_004:receiver_clk, irq_synchronizer_005:receiver_clk, irq_synchronizer_011:receiver_clk, irq_synchronizer_012:receiver_clk, irq_synchronizer_013:receiver_clk, irq_synchronizer_014:receiver_clk, m1_clock_bridge:s0_clk, mm_interconnect_1:clk_100_clk_clk, mm_interconnect_1:m2_ddr2_memory_afi_half_clk_clk, mm_interconnect_3:clk_100_clk_clk, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_007:clk, rst_controller_010:clk, sysid_qsys:clock]
 	signal m1_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m1_ddr2_memory:afi_half_clk -> [m1_clock_bridge:m0_clk, mm_interconnect_4:m1_ddr2_memory_afi_half_clk_clk, rst_controller_013:clk]
-	signal altpll_300_c0_clk                                                                      : std_logic;                      -- altpll_300:c0 -> [af_100i_mm_clock_crossing_bridge:s0_clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, irq_synchronizer_005:sender_clk, irq_synchronizer_006:sender_clk, irq_synchronizer_007:sender_clk, irq_synchronizer_008:sender_clk, irq_synchronizer_009:sender_clk, irq_synchronizer_010:sender_clk, irq_synchronizer_011:sender_clk, irq_synchronizer_012:sender_clk, irq_synchronizer_013:sender_clk, irq_synchronizer_014:sender_clk, jtag_uart_0:clk, mm_interconnect_0:altpll_300_c0_clk, nios2_gen2_0:clk, onchip_memory:clk, rst_controller_008:clk, rst_controller_011:clk, rst_controller_012:clk, rst_controller_018:clk, tristate_conduit_bridge_0:clk]
+	signal altpll_240_c0_clk                                                                      : std_logic;                      -- altpll_240:c0 -> [af_100i_mm_clock_crossing_bridge:s0_clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, irq_synchronizer_005:sender_clk, irq_synchronizer_006:sender_clk, irq_synchronizer_007:sender_clk, irq_synchronizer_008:sender_clk, irq_synchronizer_009:sender_clk, irq_synchronizer_010:sender_clk, irq_synchronizer_011:sender_clk, irq_synchronizer_012:sender_clk, irq_synchronizer_013:sender_clk, irq_synchronizer_014:sender_clk, jtag_uart_0:clk, mm_interconnect_0:altpll_240_c0_clk, nios2_gen2_0:clk, onchip_memory:clk, rst_controller_008:clk, rst_controller_011:clk, rst_controller_012:clk, rst_controller_018:clk, tristate_conduit_bridge_0:clk]
 	signal ext_flash_tcm_data_outen                                                               : std_logic;                      -- ext_flash:tcm_data_outen -> tristate_conduit_bridge_0:tcs_tcm_data_outen
 	signal ext_flash_tcm_request                                                                  : std_logic;                      -- ext_flash:tcm_request -> tristate_conduit_bridge_0:request
 	signal ext_flash_tcm_write_n_out                                                              : std_logic;                      -- ext_flash:tcm_write_n_out -> tristate_conduit_bridge_0:tcs_tcm_write_n_out
@@ -1696,11 +1696,11 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_byteenable                              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_byteenable -> nios2_gen2_0:debug_mem_slave_byteenable
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_write                                   : std_logic;                      -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_write -> nios2_gen2_0:debug_mem_slave_write
 	signal mm_interconnect_0_nios2_gen2_0_debug_mem_slave_writedata                               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:nios2_gen2_0_debug_mem_slave_writedata -> nios2_gen2_0:debug_mem_slave_writedata
-	signal mm_interconnect_0_altpll_300_pll_slave_readdata                                        : std_logic_vector(31 downto 0);  -- altpll_300:readdata -> mm_interconnect_0:altpll_300_pll_slave_readdata
-	signal mm_interconnect_0_altpll_300_pll_slave_address                                         : std_logic_vector(1 downto 0);   -- mm_interconnect_0:altpll_300_pll_slave_address -> altpll_300:address
-	signal mm_interconnect_0_altpll_300_pll_slave_read                                            : std_logic;                      -- mm_interconnect_0:altpll_300_pll_slave_read -> altpll_300:read
-	signal mm_interconnect_0_altpll_300_pll_slave_write                                           : std_logic;                      -- mm_interconnect_0:altpll_300_pll_slave_write -> altpll_300:write
-	signal mm_interconnect_0_altpll_300_pll_slave_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:altpll_300_pll_slave_writedata -> altpll_300:writedata
+	signal mm_interconnect_0_altpll_240_pll_slave_readdata                                        : std_logic_vector(31 downto 0);  -- altpll_240:readdata -> mm_interconnect_0:altpll_240_pll_slave_readdata
+	signal mm_interconnect_0_altpll_240_pll_slave_address                                         : std_logic_vector(1 downto 0);   -- mm_interconnect_0:altpll_240_pll_slave_address -> altpll_240:address
+	signal mm_interconnect_0_altpll_240_pll_slave_read                                            : std_logic;                      -- mm_interconnect_0:altpll_240_pll_slave_read -> altpll_240:read
+	signal mm_interconnect_0_altpll_240_pll_slave_write                                           : std_logic;                      -- mm_interconnect_0:altpll_240_pll_slave_write -> altpll_240:write
+	signal mm_interconnect_0_altpll_240_pll_slave_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_0:altpll_240_pll_slave_writedata -> altpll_240:writedata
 	signal mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_readdata                         : std_logic_vector(31 downto 0);  -- af_100i_mm_clock_crossing_bridge:s0_readdata -> mm_interconnect_0:af_100i_mm_clock_crossing_bridge_s0_readdata
 	signal mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_waitrequest                      : std_logic;                      -- af_100i_mm_clock_crossing_bridge:s0_waitrequest -> mm_interconnect_0:af_100i_mm_clock_crossing_bridge_s0_waitrequest
 	signal mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_debugaccess                      : std_logic;                      -- mm_interconnect_0:af_100i_mm_clock_crossing_bridge_s0_debugaccess -> af_100i_mm_clock_crossing_bridge:s0_debugaccess
@@ -2106,7 +2106,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal rst_controller_006_reset_out_reset                                                     : std_logic;                      -- rst_controller_006:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer_007:receiver_reset, irq_synchronizer_008:receiver_reset, irq_synchronizer_009:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller_006_reset_out_reset:in]
 	signal rst_controller_007_reset_out_reset                                                     : std_logic;                      -- rst_controller_007:reset_out -> [af_100i_mm_clock_crossing_bridge:m0_reset, mm_interconnect_3:af_100i_mm_clock_crossing_bridge_m0_reset_reset_bridge_in_reset_reset]
 	signal rst_controller_008_reset_out_reset                                                     : std_logic;                      -- rst_controller_008:reset_out -> [af_100i_mm_clock_crossing_bridge:s0_reset, mm_interconnect_0:af_100i_mm_clock_crossing_bridge_s0_reset_reset_bridge_in_reset_reset]
-	signal rst_controller_009_reset_out_reset                                                     : std_logic;                      -- rst_controller_009:reset_out -> [altpll_300:reset, mm_interconnect_0:altpll_300_inclk_interface_reset_reset_bridge_in_reset_reset, mm_interconnect_2:rst_controller_reset_sink_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset]
+	signal rst_controller_009_reset_out_reset                                                     : std_logic;                      -- rst_controller_009:reset_out -> [altpll_240:reset, mm_interconnect_0:altpll_240_inclk_interface_reset_reset_bridge_in_reset_reset, mm_interconnect_2:rst_controller_reset_sink_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset]
 	signal rst_controller_010_reset_out_reset                                                     : std_logic;                      -- rst_controller_010:reset_out -> [clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, irq_synchronizer_004:receiver_reset, irq_synchronizer_005:receiver_reset, m1_clock_bridge:s0_reset, mm_interconnect_1:ddr2_address_span_extender_reset_reset_bridge_in_reset_reset, mm_interconnect_1:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, mm_interconnect_3:ddr2_address_span_extender_reset_reset_bridge_in_reset_reset, rst_controller_010_reset_out_reset:in]
 	signal rst_controller_011_reset_out_reset                                                     : std_logic;                      -- rst_controller_011:reset_out -> [ext_flash:reset_reset, mm_interconnect_0:ext_flash_reset_reset_bridge_in_reset_reset, tristate_conduit_bridge_0:reset]
 	signal rst_controller_012_reset_out_reset                                                     : std_logic;                      -- rst_controller_012:reset_out -> [mm_interconnect_0:jtag_uart_0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_controller_012_reset_out_reset:in]
@@ -2318,7 +2318,7 @@ begin
 		port map (
 			m0_clk           => m2_ddr2_memory_afi_half_clk_clk,                                     --   m0_clk.clk
 			m0_reset         => rst_controller_007_reset_out_reset,                                  -- m0_reset.reset
-			s0_clk           => altpll_300_c0_clk,                                                   --   s0_clk.clk
+			s0_clk           => altpll_240_c0_clk,                                                   --   s0_clk.clk
 			s0_reset         => rst_controller_008_reset_out_reset,                                  -- s0_reset.reset
 			s0_waitrequest   => mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_waitrequest,   --       s0.waitrequest
 			s0_readdata      => mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_readdata,      --         .readdata
@@ -2342,16 +2342,16 @@ begin
 			m0_debugaccess   => af_100i_mm_clock_crossing_bridge_m0_debugaccess                      --         .debugaccess
 		);
 
-	altpll_300 : component MebX_Qsys_Project_altpll_300
+	altpll_240 : component MebX_Qsys_Project_altpll_240
 		port map (
 			clk                => clk50_clk,                                        --       inclk_interface.clk
 			reset              => rst_controller_009_reset_out_reset,               -- inclk_interface_reset.reset
-			read               => mm_interconnect_0_altpll_300_pll_slave_read,      --             pll_slave.read
-			write              => mm_interconnect_0_altpll_300_pll_slave_write,     --                      .write
-			address            => mm_interconnect_0_altpll_300_pll_slave_address,   --                      .address
-			readdata           => mm_interconnect_0_altpll_300_pll_slave_readdata,  --                      .readdata
-			writedata          => mm_interconnect_0_altpll_300_pll_slave_writedata, --                      .writedata
-			c0                 => altpll_300_c0_clk,                                --                    c0.clk
+			read               => mm_interconnect_0_altpll_240_pll_slave_read,      --             pll_slave.read
+			write              => mm_interconnect_0_altpll_240_pll_slave_write,     --                      .write
+			address            => mm_interconnect_0_altpll_240_pll_slave_address,   --                      .address
+			readdata           => mm_interconnect_0_altpll_240_pll_slave_readdata,  --                      .readdata
+			writedata          => mm_interconnect_0_altpll_240_pll_slave_writedata, --                      .writedata
+			c0                 => altpll_240_c0_clk,                                --                    c0.clk
 			areset             => altpll_300_areset_conduit_export,                 --        areset_conduit.export
 			locked             => altpll_300_locked_conduit_export,                 --        locked_conduit.export
 			scandone           => open,                                             --           (terminated)
@@ -2597,7 +2597,7 @@ begin
 			CHIPSELECT_THROUGH_READLATENCY => 0
 		)
 		port map (
-			clk_clk              => altpll_300_c0_clk,                             --   clk.clk
+			clk_clk              => altpll_240_c0_clk,                             --   clk.clk
 			reset_reset          => rst_controller_011_reset_out_reset,            -- reset.reset
 			uas_address          => mm_interconnect_0_ext_flash_uas_address,       --   uas.address
 			uas_burstcount       => mm_interconnect_0_ext_flash_uas_burstcount,    --      .burstcount
@@ -2623,7 +2623,7 @@ begin
 
 	jtag_uart_0 : component MebX_Qsys_Project_jtag_uart_0
 		port map (
-			clk            => altpll_300_c0_clk,                                               --               clk.clk
+			clk            => altpll_240_c0_clk,                                               --               clk.clk
 			rst_n          => rst_controller_012_reset_out_reset_ports_inv,                    --             reset.reset_n
 			av_chipselect  => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_chipselect,      -- avalon_jtag_slave.chipselect
 			av_address     => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_address(0),      --                  .address
@@ -2812,7 +2812,7 @@ begin
 
 	nios2_gen2_0 : component MebX_Qsys_Project_nios2_gen2_0
 		port map (
-			clk                                 => altpll_300_c0_clk,                                          --                       clk.clk
+			clk                                 => altpll_240_c0_clk,                                          --                       clk.clk
 			reset_n                             => rst_controller_018_reset_out_reset_ports_inv,               --                     reset.reset_n
 			reset_req                           => rst_controller_018_reset_out_reset_req,                     --                          .reset_req
 			d_address                           => nios2_gen2_0_data_master_address,                           --               data_master.address
@@ -2844,7 +2844,7 @@ begin
 
 	onchip_memory : component MebX_Qsys_Project_onchip_memory
 		port map (
-			clk        => altpll_300_c0_clk,                             --   clk1.clk
+			clk        => altpll_240_c0_clk,                             --   clk1.clk
 			address    => mm_interconnect_0_onchip_memory_s1_address,    --     s1.address
 			clken      => mm_interconnect_0_onchip_memory_s1_clken,      --       .clken
 			chipselect => mm_interconnect_0_onchip_memory_s1_chipselect, --       .chipselect
@@ -3110,7 +3110,7 @@ begin
 
 	tristate_conduit_bridge_0 : component MebX_Qsys_Project_tristate_conduit_bridge_0
 		port map (
-			clk                         => altpll_300_c0_clk,                     --   clk.clk
+			clk                         => altpll_240_c0_clk,                     --   clk.clk
 			reset                       => rst_controller_011_reset_out_reset,    -- reset.reset
 			request                     => ext_flash_tcm_request,                 --   tcs.request
 			grant                       => ext_flash_tcm_grant,                   --      .grant
@@ -3130,10 +3130,10 @@ begin
 
 	mm_interconnect_0 : component MebX_Qsys_Project_mm_interconnect_0
 		port map (
-			altpll_300_c0_clk                                                     => altpll_300_c0_clk,                                                   --                                                   altpll_300_c0.clk
+			altpll_240_c0_clk                                                     => altpll_240_c0_clk,                                                   --                                                   altpll_240_c0.clk
 			clk_50_clk_clk                                                        => clk50_clk,                                                           --                                                      clk_50_clk.clk
 			af_100i_mm_clock_crossing_bridge_s0_reset_reset_bridge_in_reset_reset => rst_controller_008_reset_out_reset,                                  -- af_100i_mm_clock_crossing_bridge_s0_reset_reset_bridge_in_reset.reset
-			altpll_300_inclk_interface_reset_reset_bridge_in_reset_reset          => rst_controller_009_reset_out_reset,                                  --          altpll_300_inclk_interface_reset_reset_bridge_in_reset.reset
+			altpll_240_inclk_interface_reset_reset_bridge_in_reset_reset          => rst_controller_009_reset_out_reset,                                  --          altpll_240_inclk_interface_reset_reset_bridge_in_reset.reset
 			ext_flash_reset_reset_bridge_in_reset_reset                           => rst_controller_011_reset_out_reset,                                  --                           ext_flash_reset_reset_bridge_in_reset.reset
 			jtag_uart_0_reset_reset_bridge_in_reset_reset                         => rst_controller_012_reset_out_reset,                                  --                         jtag_uart_0_reset_reset_bridge_in_reset.reset
 			nios2_gen2_0_reset_reset_bridge_in_reset_reset                        => rst_controller_018_reset_out_reset,                                  --                        nios2_gen2_0_reset_reset_bridge_in_reset.reset
@@ -3161,11 +3161,11 @@ begin
 			af_100i_mm_clock_crossing_bridge_s0_readdatavalid                     => mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_readdatavalid, --                                                                .readdatavalid
 			af_100i_mm_clock_crossing_bridge_s0_waitrequest                       => mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_waitrequest,   --                                                                .waitrequest
 			af_100i_mm_clock_crossing_bridge_s0_debugaccess                       => mm_interconnect_0_af_100i_mm_clock_crossing_bridge_s0_debugaccess,   --                                                                .debugaccess
-			altpll_300_pll_slave_address                                          => mm_interconnect_0_altpll_300_pll_slave_address,                      --                                            altpll_300_pll_slave.address
-			altpll_300_pll_slave_write                                            => mm_interconnect_0_altpll_300_pll_slave_write,                        --                                                                .write
-			altpll_300_pll_slave_read                                             => mm_interconnect_0_altpll_300_pll_slave_read,                         --                                                                .read
-			altpll_300_pll_slave_readdata                                         => mm_interconnect_0_altpll_300_pll_slave_readdata,                     --                                                                .readdata
-			altpll_300_pll_slave_writedata                                        => mm_interconnect_0_altpll_300_pll_slave_writedata,                    --                                                                .writedata
+			altpll_240_pll_slave_address                                          => mm_interconnect_0_altpll_240_pll_slave_address,                      --                                            altpll_240_pll_slave.address
+			altpll_240_pll_slave_write                                            => mm_interconnect_0_altpll_240_pll_slave_write,                        --                                                                .write
+			altpll_240_pll_slave_read                                             => mm_interconnect_0_altpll_240_pll_slave_read,                         --                                                                .read
+			altpll_240_pll_slave_readdata                                         => mm_interconnect_0_altpll_240_pll_slave_readdata,                     --                                                                .readdata
+			altpll_240_pll_slave_writedata                                        => mm_interconnect_0_altpll_240_pll_slave_writedata,                    --                                                                .writedata
 			ext_flash_uas_address                                                 => mm_interconnect_0_ext_flash_uas_address,                             --                                                   ext_flash_uas.address
 			ext_flash_uas_write                                                   => mm_interconnect_0_ext_flash_uas_write,                               --                                                                .write
 			ext_flash_uas_read                                                    => mm_interconnect_0_ext_flash_uas_read,                                --                                                                .read
@@ -3578,7 +3578,7 @@ begin
 
 	irq_mapper : component MebX_Qsys_Project_irq_mapper
 		port map (
-			clk            => altpll_300_c0_clk,                  --        clk.clk
+			clk            => altpll_240_c0_clk,                  --        clk.clk
 			reset          => rst_controller_018_reset_out_reset, --  clk_reset.reset
 			receiver0_irq  => irq_mapper_receiver0_irq,           --  receiver0.irq
 			receiver1_irq  => irq_mapper_receiver1_irq,           --  receiver1.irq
@@ -3605,7 +3605,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_003_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_receiver_irq,      --           receiver.irq
@@ -3618,7 +3618,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_002_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_001_receiver_irq,  --           receiver.irq
@@ -3631,7 +3631,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_004_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_002_receiver_irq,  --           receiver.irq
@@ -3644,7 +3644,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_005_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_003_receiver_irq,  --           receiver.irq
@@ -3657,7 +3657,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_010_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_004_receiver_irq,  --           receiver.irq
@@ -3670,7 +3670,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_010_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_005_receiver_irq,  --           receiver.irq
@@ -3683,7 +3683,7 @@ begin
 		)
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_020_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_006_receiver_irq,  --           receiver.irq
@@ -3696,7 +3696,7 @@ begin
 		)
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_006_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_007_receiver_irq,  --           receiver.irq
@@ -3709,7 +3709,7 @@ begin
 		)
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_006_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_008_receiver_irq,  --           receiver.irq
@@ -3722,7 +3722,7 @@ begin
 		)
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_006_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_009_receiver_irq,  --           receiver.irq
@@ -3735,7 +3735,7 @@ begin
 		)
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_019_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_010_receiver_irq,  --           receiver.irq
@@ -3748,7 +3748,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_003_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_011_receiver_irq,  --           receiver.irq
@@ -3761,7 +3761,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_002_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_012_receiver_irq,  --           receiver.irq
@@ -3774,7 +3774,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_004_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_013_receiver_irq,  --           receiver.irq
@@ -3787,7 +3787,7 @@ begin
 		)
 		port map (
 			receiver_clk   => m2_ddr2_memory_afi_half_clk_clk,    --       receiver_clk.clk
-			sender_clk     => altpll_300_c0_clk,                  --         sender_clk.clk
+			sender_clk     => altpll_240_c0_clk,                  --         sender_clk.clk
 			receiver_reset => rst_controller_005_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_018_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_014_receiver_irq,  --           receiver.irq
@@ -4278,7 +4278,7 @@ begin
 		)
 		port map (
 			reset_in0      => rst_reset_n_ports_inv,              -- reset_in0.reset
-			clk            => altpll_300_c0_clk,                  --       clk.clk
+			clk            => altpll_240_c0_clk,                  --       clk.clk
 			reset_out      => rst_controller_008_reset_out_reset, -- reset_out.reset
 			reset_req      => open,                               -- (terminated)
 			reset_req_in0  => '0',                                -- (terminated)
@@ -4475,7 +4475,7 @@ begin
 			reset_in0      => rst_reset_n_ports_inv,                     -- reset_in0.reset
 			reset_in1      => rst_reset_n_ports_inv,                     -- reset_in1.reset
 			reset_in2      => rst_controller_reset_source_simucam_reset, -- reset_in2.reset
-			clk            => altpll_300_c0_clk,                         --       clk.clk
+			clk            => altpll_240_c0_clk,                         --       clk.clk
 			reset_out      => rst_controller_011_reset_out_reset,        -- reset_out.reset
 			reset_req      => open,                                      -- (terminated)
 			reset_req_in0  => '0',                                       -- (terminated)
@@ -4539,7 +4539,7 @@ begin
 		port map (
 			reset_in0      => rst_reset_n_ports_inv,                     -- reset_in0.reset
 			reset_in1      => rst_controller_reset_source_simucam_reset, -- reset_in1.reset
-			clk            => altpll_300_c0_clk,                         --       clk.clk
+			clk            => altpll_240_c0_clk,                         --       clk.clk
 			reset_out      => rst_controller_012_reset_out_reset,        -- reset_out.reset
 			reset_req      => rst_controller_012_reset_out_reset_req,    --          .reset_req
 			reset_req_in0  => '0',                                       -- (terminated)
@@ -4929,7 +4929,7 @@ begin
 		port map (
 			reset_in0      => rst_reset_n_ports_inv,                     -- reset_in0.reset
 			reset_in1      => rst_controller_reset_source_simucam_reset, -- reset_in1.reset
-			clk            => altpll_300_c0_clk,                         --       clk.clk
+			clk            => altpll_240_c0_clk,                         --       clk.clk
 			reset_out      => rst_controller_018_reset_out_reset,        -- reset_out.reset
 			reset_req      => rst_controller_018_reset_out_reset_req,    --          .reset_req
 			reset_req_in0  => '0',                                       -- (terminated)

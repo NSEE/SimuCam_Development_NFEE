@@ -480,7 +480,7 @@
          type = "String";
       }
    }
-   element altpll_300
+   element altpll_240
    {
       datum _sortIndex
       {
@@ -488,7 +488,7 @@
          type = "int";
       }
    }
-   element altpll_300.pll_slave
+   element altpll_240.pll_slave
    {
       datum baseAddress
       {
@@ -1580,12 +1580,12 @@
  <instanceScript></instanceScript>
  <interface
    name="altpll_300_areset_conduit"
-   internal="altpll_300.areset_conduit"
+   internal="altpll_240.areset_conduit"
    type="conduit"
    dir="end" />
  <interface
    name="altpll_300_locked_conduit"
-   internal="altpll_300.locked_conduit"
+   internal="altpll_240.locked_conduit"
    type="conduit"
    dir="end" />
  <interface
@@ -1924,15 +1924,15 @@
   <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
  </module>
- <module name="altpll_300" kind="altpll" version="16.1" enabled="1">
+ <module name="altpll_240" kind="altpll" version="16.1" enabled="1">
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_INCLK_INTERFACE_CLOCK_RATE" value="50000000" />
   <parameter name="AVALON_USE_SEPARATE_SYSCLK" value="NO" />
   <parameter name="BANDWIDTH" value="" />
   <parameter name="BANDWIDTH_TYPE" value="AUTO" />
-  <parameter name="CLK0_DIVIDE_BY" value="1" />
+  <parameter name="CLK0_DIVIDE_BY" value="5" />
   <parameter name="CLK0_DUTY_CYCLE" value="50" />
-  <parameter name="CLK0_MULTIPLY_BY" value="6" />
+  <parameter name="CLK0_MULTIPLY_BY" value="24" />
   <parameter name="CLK0_PHASE_SHIFT" value="0" />
   <parameter name="CLK1_DIVIDE_BY" value="" />
   <parameter name="CLK1_DUTY_CYCLE" value="" />
@@ -1995,14 +1995,14 @@
   <parameter name="FEEDBACK_SOURCE" value="" />
   <parameter name="GATE_LOCK_COUNTER" value="" />
   <parameter name="GATE_LOCK_SIGNAL" value="" />
-  <parameter name="HIDDEN_CONSTANTS">CT#PORT_clk9 PORT_UNUSED CT#PORT_clk8 PORT_UNUSED CT#PORT_clk7 PORT_UNUSED CT#PORT_clk6 PORT_UNUSED CT#PORT_clk5 PORT_UNUSED CT#PORT_clk4 PORT_UNUSED CT#PORT_clk3 PORT_UNUSED CT#PORT_clk2 PORT_UNUSED CT#PORT_clk1 PORT_UNUSED CT#PORT_clk0 PORT_USED CT#CLK0_MULTIPLY_BY 6 CT#PORT_SCANWRITE PORT_UNUSED CT#PORT_SCANACLR PORT_UNUSED CT#PORT_PFDENA PORT_UNUSED CT#PORT_PLLENA PORT_UNUSED CT#PORT_SCANDATA PORT_UNUSED CT#PORT_SCANCLKENA PORT_UNUSED CT#WIDTH_CLOCK 10 CT#PORT_SCANDATAOUT PORT_UNUSED CT#LPM_TYPE altpll CT#PLL_TYPE AUTO CT#CLK0_PHASE_SHIFT 0 CT#PORT_PHASEDONE PORT_UNUSED CT#OPERATION_MODE NORMAL CT#PORT_CONFIGUPDATE PORT_UNUSED CT#COMPENSATE_CLOCK CLK0 CT#PORT_CLKSWITCH PORT_UNUSED CT#INCLK0_INPUT_FREQUENCY 20000 CT#PORT_SCANDONE PORT_UNUSED CT#PORT_CLKLOSS PORT_UNUSED CT#PORT_INCLK1 PORT_UNUSED CT#AVALON_USE_SEPARATE_SYSCLK NO CT#PORT_INCLK0 PORT_USED CT#PORT_clkena5 PORT_UNUSED CT#PORT_clkena4 PORT_UNUSED CT#PORT_clkena3 PORT_UNUSED CT#PORT_clkena2 PORT_UNUSED CT#PORT_clkena1 PORT_UNUSED CT#PORT_FBOUT PORT_UNUSED CT#PORT_clkena0 PORT_UNUSED CT#PORT_ARESET PORT_USED CT#BANDWIDTH_TYPE AUTO CT#INTENDED_DEVICE_FAMILY {Stratix IV} CT#PORT_SCANREAD PORT_UNUSED CT#PORT_PHASESTEP PORT_UNUSED CT#PORT_SCANCLK PORT_UNUSED CT#PORT_CLKBAD1 PORT_UNUSED CT#PORT_CLKBAD0 PORT_UNUSED CT#PORT_FBIN PORT_UNUSED CT#PORT_PHASEUPDOWN PORT_UNUSED CT#PORT_PHASECOUNTERSELECT PORT_UNUSED CT#PORT_ACTIVECLOCK PORT_UNUSED CT#CLK0_DUTY_CYCLE 50 CT#CLK0_DIVIDE_BY 1 CT#USING_FBMIMICBIDIR_PORT OFF CT#PORT_LOCKED PORT_USED</parameter>
+  <parameter name="HIDDEN_CONSTANTS">CT#PORT_clk9 PORT_UNUSED CT#PORT_clk8 PORT_UNUSED CT#PORT_clk7 PORT_UNUSED CT#PORT_clk6 PORT_UNUSED CT#PORT_clk5 PORT_UNUSED CT#PORT_clk4 PORT_UNUSED CT#PORT_clk3 PORT_UNUSED CT#PORT_clk2 PORT_UNUSED CT#PORT_clk1 PORT_UNUSED CT#PORT_clk0 PORT_USED CT#CLK0_MULTIPLY_BY 24 CT#PORT_SCANWRITE PORT_UNUSED CT#PORT_SCANACLR PORT_UNUSED CT#PORT_PFDENA PORT_UNUSED CT#PORT_PLLENA PORT_UNUSED CT#PORT_SCANDATA PORT_UNUSED CT#PORT_SCANCLKENA PORT_UNUSED CT#WIDTH_CLOCK 10 CT#PORT_SCANDATAOUT PORT_UNUSED CT#LPM_TYPE altpll CT#PLL_TYPE AUTO CT#CLK0_PHASE_SHIFT 0 CT#PORT_PHASEDONE PORT_UNUSED CT#OPERATION_MODE NORMAL CT#PORT_CONFIGUPDATE PORT_UNUSED CT#COMPENSATE_CLOCK CLK0 CT#PORT_CLKSWITCH PORT_UNUSED CT#INCLK0_INPUT_FREQUENCY 20000 CT#PORT_SCANDONE PORT_UNUSED CT#PORT_CLKLOSS PORT_UNUSED CT#PORT_INCLK1 PORT_UNUSED CT#AVALON_USE_SEPARATE_SYSCLK NO CT#PORT_INCLK0 PORT_USED CT#PORT_clkena5 PORT_UNUSED CT#PORT_clkena4 PORT_UNUSED CT#PORT_clkena3 PORT_UNUSED CT#PORT_clkena2 PORT_UNUSED CT#PORT_clkena1 PORT_UNUSED CT#PORT_FBOUT PORT_UNUSED CT#PORT_clkena0 PORT_UNUSED CT#PORT_ARESET PORT_USED CT#BANDWIDTH_TYPE AUTO CT#INTENDED_DEVICE_FAMILY {Stratix IV} CT#PORT_SCANREAD PORT_UNUSED CT#PORT_PHASESTEP PORT_UNUSED CT#PORT_SCANCLK PORT_UNUSED CT#PORT_CLKBAD1 PORT_UNUSED CT#PORT_CLKBAD0 PORT_UNUSED CT#PORT_FBIN PORT_UNUSED CT#PORT_PHASEUPDOWN PORT_UNUSED CT#PORT_PHASECOUNTERSELECT PORT_UNUSED CT#PORT_ACTIVECLOCK PORT_UNUSED CT#CLK0_DUTY_CYCLE 50 CT#CLK0_DIVIDE_BY 5 CT#USING_FBMIMICBIDIR_PORT OFF CT#PORT_LOCKED PORT_USED</parameter>
   <parameter name="HIDDEN_CUSTOM_ELABORATION">altpll_avalon_elaboration</parameter>
   <parameter name="HIDDEN_CUSTOM_POST_EDIT">altpll_avalon_post_edit</parameter>
   <parameter name="HIDDEN_IF_PORTS">IF#phasecounterselect {input 4} IF#locked {output 0} IF#reset {input 0} IF#clk {input 0} IF#phaseupdown {input 0} IF#scandone {output 0} IF#readdata {output 32} IF#write {input 0} IF#scanclk {input 0} IF#phasedone {output 0} IF#address {input 2} IF#c0 {output 0} IF#writedata {input 32} IF#read {input 0} IF#areset {input 0} IF#scanclkena {input 0} IF#scandataout {output 0} IF#configupdate {input 0} IF#phasestep {input 0} IF#scandata {input 0}</parameter>
   <parameter name="HIDDEN_IS_FIRST_EDIT" value="0" />
   <parameter name="HIDDEN_IS_NUMERIC">IN#WIDTH_CLOCK 1 IN#CLK0_DUTY_CYCLE 1 IN#PLL_TARGET_HARCOPY_CHECK 1 IN#SWITCHOVER_COUNT_EDIT 1 IN#INCLK0_INPUT_FREQUENCY 1 IN#PLL_LVDS_PLL_CHECK 1 IN#PLL_AUTOPLL_CHECK 1 IN#PLL_FASTPLL_CHECK 1 IN#PLL_ENHPLL_CHECK 1 IN#DIV_FACTOR0 1 IN#LVDS_MODE_DATA_RATE_DIRTY 1 IN#GLOCK_COUNTER_EDIT 1 IN#CLK0_DIVIDE_BY 1 IN#MULT_FACTOR0 1 IN#CLK0_MULTIPLY_BY 1 IN#USE_MIL_SPEED_GRADE 1</parameter>
   <parameter name="HIDDEN_MF_PORTS">MF#areset 1 MF#clk 1 MF#locked 1 MF#inclk 1</parameter>
-  <parameter name="HIDDEN_PRIVATES">PT#GLOCKED_FEATURE_ENABLED 0 PT#SPREAD_FEATURE_ENABLED 0 PT#BANDWIDTH_FREQ_UNIT MHz PT#CUR_DEDICATED_CLK c0 PT#INCLK0_FREQ_EDIT 50.000 PT#BANDWIDTH_PRESET Low PT#PLL_LVDS_PLL_CHECK 0 PT#BANDWIDTH_USE_PRESET 0 PT#AVALON_USE_SEPARATE_SYSCLK NO PT#PLL_ENHPLL_CHECK 0 PT#OUTPUT_FREQ_UNIT0 MHz PT#PHASE_RECONFIG_FEATURE_ENABLED 1 PT#CREATE_CLKBAD_CHECK 0 PT#CLKSWITCH_CHECK 0 PT#INCLK1_FREQ_EDIT 100.000 PT#NORMAL_MODE_RADIO 1 PT#SRC_SYNCH_COMP_RADIO 0 PT#PLL_ARESET_CHECK 1 PT#LONG_SCAN_RADIO 1 PT#SCAN_FEATURE_ENABLED 1 PT#PHASE_RECONFIG_INPUTS_CHECK 0 PT#USE_CLK0 1 PT#PRIMARY_CLK_COMBO inclk0 PT#BANDWIDTH 1.000 PT#GLOCKED_COUNTER_EDIT_CHANGED 1 PT#PLL_FASTPLL_CHECK 0 PT#SPREAD_FREQ_UNIT KHz PT#PLL_AUTOPLL_CHECK 1 PT#LVDS_PHASE_SHIFT_UNIT0 deg PT#SWITCHOVER_FEATURE_ENABLED 0 PT#MIG_DEVICE_SPEED_GRADE Any PT#OUTPUT_FREQ_MODE0 1 PT#BANDWIDTH_FEATURE_ENABLED 1 PT#INCLK0_FREQ_UNIT_COMBO MHz PT#ZERO_DELAY_RADIO 0 PT#OUTPUT_FREQ0 300.00000000 PT#SHORT_SCAN_RADIO 0 PT#LVDS_MODE_DATA_RATE_DIRTY 0 PT#CUR_FBIN_CLK c0 PT#PLL_ADVANCED_PARAM_CHECK 0 PT#CLKBAD_SWITCHOVER_CHECK 0 PT#PHASE_SHIFT_STEP_ENABLED_CHECK 0 PT#DEVICE_SPEED_GRADE Any PT#PLL_FBMIMIC_CHECK 0 PT#LVDS_MODE_DATA_RATE {Not Available} PT#LOCKED_OUTPUT_CHECK 1 PT#SPREAD_PERCENT 0.500 PT#PHASE_SHIFT0 0.00000000 PT#DIV_FACTOR0 1 PT#CNX_NO_COMPENSATE_RADIO 0 PT#CREATE_INCLK1_CHECK 0 PT#GLOCK_COUNTER_EDIT 1048575 PT#INCLK1_FREQ_UNIT_COMBO MHz PT#EFF_OUTPUT_FREQ_VALUE0 300.000000 PT#SPREAD_FREQ 50.000 PT#USE_MIL_SPEED_GRADE 0 PT#EXPLICIT_SWITCHOVER_COUNTER 0 PT#STICKY_CLK0 1 PT#EXT_FEEDBACK_RADIO 0 PT#SWITCHOVER_COUNT_EDIT 1 PT#SELF_RESET_LOCK_LOSS 0 PT#PLL_PFDENA_CHECK 0 PT#INT_FEEDBACK__MODE_RADIO 1 PT#INCLK1_FREQ_EDIT_CHANGED 1 PT#CLKLOSS_CHECK 0 PT#SYNTH_WRAPPER_GEN_POSTFIX 0 PT#PHASE_SHIFT_UNIT0 deg PT#BANDWIDTH_USE_AUTO 1 PT#HAS_MANUAL_SWITCHOVER 1 PT#MULT_FACTOR0 1 PT#SPREAD_USE 0 PT#GLOCKED_MODE_CHECK 0 PT#SACN_INPUTS_CHECK 0 PT#DUTY_CYCLE0 50.00000000 PT#INTENDED_DEVICE_FAMILY {Stratix IV} PT#PLL_TARGET_HARCOPY_CHECK 0 PT#INCLK1_FREQ_UNIT_CHANGED 1 PT#RECONFIG_FILE ALTPLL1554341202008963.mif PT#ACTIVECLK_CHECK 0</parameter>
+  <parameter name="HIDDEN_PRIVATES">PT#GLOCKED_FEATURE_ENABLED 0 PT#SPREAD_FEATURE_ENABLED 0 PT#BANDWIDTH_FREQ_UNIT MHz PT#CUR_DEDICATED_CLK c0 PT#INCLK0_FREQ_EDIT 50.000 PT#BANDWIDTH_PRESET Low PT#PLL_LVDS_PLL_CHECK 0 PT#BANDWIDTH_USE_PRESET 0 PT#AVALON_USE_SEPARATE_SYSCLK NO PT#PLL_ENHPLL_CHECK 0 PT#OUTPUT_FREQ_UNIT0 MHz PT#PHASE_RECONFIG_FEATURE_ENABLED 1 PT#CREATE_CLKBAD_CHECK 0 PT#CLKSWITCH_CHECK 0 PT#INCLK1_FREQ_EDIT 100.000 PT#NORMAL_MODE_RADIO 1 PT#SRC_SYNCH_COMP_RADIO 0 PT#PLL_ARESET_CHECK 1 PT#LONG_SCAN_RADIO 1 PT#SCAN_FEATURE_ENABLED 1 PT#PHASE_RECONFIG_INPUTS_CHECK 0 PT#USE_CLK0 1 PT#PRIMARY_CLK_COMBO inclk0 PT#BANDWIDTH 1.000 PT#GLOCKED_COUNTER_EDIT_CHANGED 1 PT#PLL_FASTPLL_CHECK 0 PT#SPREAD_FREQ_UNIT KHz PT#PLL_AUTOPLL_CHECK 1 PT#LVDS_PHASE_SHIFT_UNIT0 deg PT#SWITCHOVER_FEATURE_ENABLED 0 PT#MIG_DEVICE_SPEED_GRADE Any PT#OUTPUT_FREQ_MODE0 1 PT#BANDWIDTH_FEATURE_ENABLED 1 PT#INCLK0_FREQ_UNIT_COMBO MHz PT#ZERO_DELAY_RADIO 0 PT#OUTPUT_FREQ0 240.00000000 PT#SHORT_SCAN_RADIO 0 PT#LVDS_MODE_DATA_RATE_DIRTY 0 PT#CUR_FBIN_CLK c0 PT#PLL_ADVANCED_PARAM_CHECK 0 PT#CLKBAD_SWITCHOVER_CHECK 0 PT#PHASE_SHIFT_STEP_ENABLED_CHECK 0 PT#DEVICE_SPEED_GRADE Any PT#PLL_FBMIMIC_CHECK 0 PT#LVDS_MODE_DATA_RATE {Not Available} PT#LOCKED_OUTPUT_CHECK 1 PT#SPREAD_PERCENT 0.500 PT#PHASE_SHIFT0 0.00000000 PT#DIV_FACTOR0 1 PT#CNX_NO_COMPENSATE_RADIO 0 PT#CREATE_INCLK1_CHECK 0 PT#GLOCK_COUNTER_EDIT 1048575 PT#INCLK1_FREQ_UNIT_COMBO MHz PT#EFF_OUTPUT_FREQ_VALUE0 240.000000 PT#SPREAD_FREQ 50.000 PT#USE_MIL_SPEED_GRADE 0 PT#EXPLICIT_SWITCHOVER_COUNTER 0 PT#STICKY_CLK0 1 PT#EXT_FEEDBACK_RADIO 0 PT#SWITCHOVER_COUNT_EDIT 1 PT#SELF_RESET_LOCK_LOSS 0 PT#PLL_PFDENA_CHECK 0 PT#INT_FEEDBACK__MODE_RADIO 1 PT#INCLK1_FREQ_EDIT_CHANGED 1 PT#CLKLOSS_CHECK 0 PT#SYNTH_WRAPPER_GEN_POSTFIX 0 PT#PHASE_SHIFT_UNIT0 deg PT#BANDWIDTH_USE_AUTO 1 PT#HAS_MANUAL_SWITCHOVER 1 PT#MULT_FACTOR0 1 PT#SPREAD_USE 0 PT#GLOCKED_MODE_CHECK 0 PT#SACN_INPUTS_CHECK 0 PT#DUTY_CYCLE0 50.00000000 PT#INTENDED_DEVICE_FAMILY {Stratix IV} PT#PLL_TARGET_HARCOPY_CHECK 0 PT#INCLK1_FREQ_UNIT_CHANGED 1 PT#RECONFIG_FILE ALTPLL1554341202008963.mif PT#ACTIVECLK_CHECK 0</parameter>
   <parameter name="HIDDEN_USED_PORTS">UP#locked used UP#c0 used UP#areset used UP#inclk0 used</parameter>
   <parameter name="INCLK0_INPUT_FREQUENCY" value="20000" />
   <parameter name="INCLK1_INPUT_FREQUENCY" value="" />
@@ -2367,7 +2367,7 @@
    enabled="1">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clkFreq" value="300000000" />
+  <parameter name="clkFreq" value="240000000" />
   <parameter name="hubInstanceID" value="0" />
   <parameter name="readBufferDepth" value="64" />
   <parameter name="readIRQThreshold" value="8" />
@@ -3117,7 +3117,7 @@
   <parameter name="breakOffset" value="32" />
   <parameter name="breakSlave" value="None" />
   <parameter name="cdx_enabled" value="false" />
-  <parameter name="clockFrequency" value="300000000" />
+  <parameter name="clockFrequency" value="240000000" />
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
@@ -3128,7 +3128,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x40000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x40000800' end='0x40000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x40000840' end='0x40000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000860' end='0x40000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000880' end='0x400008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x400009D0' end='0x400009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009E0' end='0x400009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009F0' end='0x40000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x40000A00' end='0x40000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x40000A10' end='0x40000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x40400000' end='0x40400400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x40400400' end='0x40400800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x40400800' end='0x40400C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x40400C00' end='0x40401000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x40401000' end='0x40401020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x40401020' end='0x40401040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x40401040' end='0x40401060' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x40401060' end='0x40401080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x40401080' end='0x40401088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x40401088' end='0x40401090' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x80100000' end='0x801E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80200800' end='0x80201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='altpll_300.pll_slave' start='0x80201000' end='0x80201010' type='altpll.pll_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80201010' end='0x80201018' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x40000000' type='altera_address_span_extender.windowed_slave' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x40000000' end='0x40000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x40000400' end='0x40000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x40000800' end='0x40000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x40000840' end='0x40000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x40000860' end='0x40000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x40000880' end='0x400008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x400008A0' end='0x400008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x400008B0' end='0x400008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x400008C0' end='0x400008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x400008D0' end='0x400008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x400008E0' end='0x400008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x400008F0' end='0x40000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x40000900' end='0x40000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x40000910' end='0x40000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x40000920' end='0x40000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x40000930' end='0x40000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x40000940' end='0x40000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x40000950' end='0x40000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x40000960' end='0x40000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x40000970' end='0x40000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x40000980' end='0x40000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x40000990' end='0x400009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x400009A0' end='0x400009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x400009B0' end='0x400009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x400009C0' end='0x400009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x400009D0' end='0x400009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x400009E0' end='0x400009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x400009F0' end='0x40000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x40000A00' end='0x40000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x40000A10' end='0x40000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x40400000' end='0x40400400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x40400400' end='0x40400800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x40400800' end='0x40400C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x40400C00' end='0x40401000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x40401000' end='0x40401020' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x40401020' end='0x40401040' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x40401040' end='0x40401060' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x40401060' end='0x40401080' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x40401080' end='0x40401088' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x40401088' end='0x40401090' type='altera_address_span_extender.cntl' /><slave name='onchip_memory.s1' start='0x80100000' end='0x801E0000' type='altera_avalon_onchip_memory2.s1' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80200800' end='0x80201000' type='altera_nios2_gen2.debug_mem_slave' /><slave name='altpll_240.pll_slave' start='0x80201000' end='0x80201010' type='altpll.pll_slave' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80201010' end='0x80201018' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -3652,7 +3652,7 @@
    kind="avalon"
    version="16.1"
    start="nios2_gen2_0.data_master"
-   end="altpll_300.pll_slave">
+   end="altpll_240.pll_slave">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80201000" />
   <parameter name="defaultConnection" value="false" />
@@ -4460,31 +4460,31 @@
    version="16.1"
    start="m2_ddr2_memory.afi_half_clk"
    end="m1_clock_bridge.s0_clk" />
- <connection kind="clock" version="16.1" start="altpll_300.c0" end="ext_flash.clk" />
+ <connection kind="clock" version="16.1" start="altpll_240.c0" end="ext_flash.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="altpll_300.c0"
+   start="altpll_240.c0"
    end="tristate_conduit_bridge_0.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="altpll_300.c0"
+   start="altpll_240.c0"
    end="jtag_uart_0.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="altpll_300.c0"
+   start="altpll_240.c0"
    end="nios2_gen2_0.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="altpll_300.c0"
+   start="altpll_240.c0"
    end="onchip_memory.clk1" />
  <connection
    kind="clock"
    version="16.1"
-   start="altpll_300.c0"
+   start="altpll_240.c0"
    end="af_100i_mm_clock_crossing_bridge.s0_clk" />
  <connection
    kind="clock"
@@ -4656,7 +4656,7 @@
    kind="clock"
    version="16.1"
    start="clk_50.clk"
-   end="altpll_300.inclk_interface" />
+   end="altpll_240.inclk_interface" />
  <connection
    kind="clock"
    version="16.1"
@@ -4874,7 +4874,7 @@
    kind="reset"
    version="16.1"
    start="clk_50.clk_reset"
-   end="altpll_300.inclk_interface_reset" />
+   end="altpll_240.inclk_interface_reset" />
  <connection
    kind="reset"
    version="16.1"
