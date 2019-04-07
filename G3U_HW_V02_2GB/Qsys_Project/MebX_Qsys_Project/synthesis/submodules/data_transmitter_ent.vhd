@@ -113,6 +113,11 @@ begin
 						-- go to transmit data
 						s_data_transmitter_state <= FETCH_DATA;
 						v_data_transmitter_state := FETCH_DATA;
+					-- check if the send buffer is empty
+					elsif (send_buffer_stat_empty_i = '1') then
+						-- send buffer empty, go to waiting eop buffer space
+						s_data_transmitter_state <= WAITING_EOP_BUFFER_SPACE;
+						v_data_transmitter_state := WAITING_EOP_BUFFER_SPACE;
 					end if;
 
 				-- state "FETCH_DATA"
@@ -140,12 +145,7 @@ begin
 					v_data_transmitter_state := WAITING_DATA_BUFFER_SPACE;
 					-- default internal signal values
 					-- conditional state transition and internal signal values
-					-- check if the send buffer is empty
-					if (send_buffer_stat_empty_i = '1') then
-						-- send buffer empty, go to waiting eop buffer space
-						s_data_transmitter_state <= WAITING_EOP_BUFFER_SPACE;
-						v_data_transmitter_state := WAITING_EOP_BUFFER_SPACE;
-					end if;
+
 
 				-- state "WAITING_EOP_BUFFER_SPACE"
 				when WAITING_EOP_BUFFER_SPACE =>
