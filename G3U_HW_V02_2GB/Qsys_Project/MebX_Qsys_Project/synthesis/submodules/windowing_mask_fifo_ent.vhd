@@ -19,7 +19,7 @@ architecture RTL of windowing_mask_fifo_ent is
 
 	signal s_aclr  : std_logic;
 	signal s_sclr  : std_logic;
-	signal s_usedw : std_logic_vector(4 downto 0);
+	signal s_usedw : std_logic_vector(3 downto 0);
 
 begin
 
