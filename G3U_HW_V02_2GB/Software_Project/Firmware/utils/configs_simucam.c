@@ -711,7 +711,7 @@ bool vLoadDebugConfs( void ){
 						p_inteiro = inteiro;
 
 						break;
-					case 'Z': /*SPW Packet length*/
+					case 'I': /*SPW Packet length*/
 						ucParser = 0;
 						do {
 							do {

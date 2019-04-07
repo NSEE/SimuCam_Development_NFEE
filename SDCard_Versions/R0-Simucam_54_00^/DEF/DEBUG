@@ -49,6 +49,6 @@ H=80;
 'Sequence of CCD Redout'
 E=1.1.1.1;
 'Initial SPW Packet Lenght'
-Z=32140;
+I=32140;
 <<
 'Keep the "less than" (<) caracter, this is used in the parser'
