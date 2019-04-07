@@ -192,6 +192,8 @@ C_SRCS += driver/comm/comm_channel.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/configs_bind_channel_FEEinst.c
 C_SRCS += rtos/fee_task1.c
+C_SRCS += rtos/fee_task2.c
+C_SRCS += rtos/fee_task3.c
 CXX_SRCS :=
 ASM_SRCS :=
 
@@ -211,7 +213,7 @@ CREATE_LINKER_MAP := 1
 # Common arguments for ALT_CFLAGSs
 APP_CFLAGS_DEFINED_SYMBOLS :=
 APP_CFLAGS_UNDEFINED_SYMBOLS :=
-APP_CFLAGS_OPTIMIZATION := -O0
+APP_CFLAGS_OPTIMIZATION := -O3
 APP_CFLAGS_DEBUG_LEVEL :=
 APP_CFLAGS_WARNINGS := -Wall
 APP_CFLAGS_USER_FLAGS :=
