@@ -151,6 +151,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body pgen_pattern_generator_pkg
 -- Loading package pgen_pattern_generator_pkg
 
+} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_avalon_mm_data_pkg
+-- Compiling package body pgen_avalon_mm_data_pkg
+-- Loading package pgen_avalon_mm_data_pkg
+
 } {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -165,67 +175,13 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture rtl of pgen_data_controller
 -- Loading entity dpfifo
 
-} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_control_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_control_registers_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package pgen_avalon_mm_data_pkg
--- Compiling package body pgen_avalon_mm_data_pkg
--- Loading package pgen_avalon_mm_data_pkg
-
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package pgen_pattern_generator_pkg
--- Loading package pgen_data_controller_pkg
--- Compiling entity pgen_pattern_generator
--- Compiling architecture rtl of pgen_pattern_generator
-
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_data_controller_pkg
--- Compiling package body pgen_data_controller_pkg
--- Loading package pgen_data_controller_pkg
-
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_data_fifo_pkg
--- Compiling package body pgen_data_fifo_pkg
--- Loading package pgen_data_fifo_pkg
-
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_mm_data_registers_pkg
--- Compiling package body pgen_mm_data_registers_pkg
--- Loading package pgen_mm_data_registers_pkg
-
-} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package pgen_avalon_mm_control_pkg
--- Loading package pgen_mm_control_registers_pkg
--- Compiling entity pgen_avalon_mm_control_read
--- Compiling architecture rtl of pgen_avalon_mm_control_read
+-- Compiling package pgen_mm_registers_pkg
 
 } {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller.vhd {0 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -257,41 +213,96 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 ** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller.vhd(58): (vcom-1312) Unknown record element "q" for selected name prefix "s_data_fifo_o" of record type "work.pgen_data_fifo_pkg.t_pgen_data_fifo_inputs".
 ** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller.vhd(60): VHDL Compiler exiting
 
-} {14.0 30.0} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_control_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_control_registers_pkg.vhd
+} {14.0 30.0} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package pgen_mm_registers_pkg
-
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_pattern_generator_pkg
--- Compiling package body pgen_pattern_generator_pkg
--- Loading package pgen_pattern_generator_pkg
-
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_avalon_mm_control_pkg
--- Compiling package body pgen_avalon_mm_control_pkg
 -- Loading package pgen_avalon_mm_control_pkg
+-- Loading package pgen_mm_control_registers_pkg
+-- Compiling entity pgen_avalon_mm_control_read
+-- Compiling architecture rtl of pgen_avalon_mm_control_read
 
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity dpfifo
--- Compiling architecture SYN of dpfifo
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_mm_data_registers_pkg
+-- Compiling package body pgen_mm_data_registers_pkg
+-- Loading package pgen_mm_data_registers_pkg
+
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_data_fifo_pkg
+-- Compiling package body pgen_data_fifo_pkg
+-- Loading package pgen_data_fifo_pkg
+
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_data_controller_pkg
+-- Compiling package body pgen_data_controller_pkg
+-- Loading package pgen_data_controller_pkg
+
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package pgen_pattern_generator_pkg
+-- Loading package pgen_data_controller_pkg
+-- Compiling entity pgen_pattern_generator
+-- Compiling architecture rtl of pgen_pattern_generator
+
+} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_read.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_read.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package pgen_avalon_mm_data_pkg
+-- Loading package pgen_mm_data_registers_pkg
+-- Loading package pgen_data_controller_pkg
+-- Loading package pgen_pattern_generator_pkg
+-- Compiling entity pgen_avalon_mm_data_read
+-- Compiling architecture rtl of pgen_avalon_mm_data_read
+
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_data_controller_pkg
+-- Compiling package body pgen_data_controller_pkg
+-- Loading package pgen_data_controller_pkg
+
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_data_fifo_pkg
+
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_mm_data_registers_pkg
 
 } {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd {0 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -309,31 +320,53 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 	This facility is enabled by compiling with -2008.
 ** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator.vhd(260): VHDL Compiler exiting
 
-} {11.0 13.0 15.0 16.0} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_data_registers_pkg.vhd
+} {11.0 13.0 15.0 16.0} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_mm_data_registers_pkg
+-- Compiling entity dpfifo
+-- Compiling architecture SYN of dpfifo
 
-} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_fifo_pkg.vhd
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package pgen_data_fifo_pkg
+-- Compiling package pgen_avalon_mm_control_pkg
+-- Compiling package body pgen_avalon_mm_control_pkg
+-- Loading package pgen_avalon_mm_control_pkg
 
-} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/pgen_data_controller_pkg.vhd
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package pgen_data_controller_pkg
--- Compiling package body pgen_data_controller_pkg
--- Loading package pgen_data_controller_pkg
+-- Compiling package pgen_pattern_generator_pkg
+-- Compiling package body pgen_pattern_generator_pkg
+-- Loading package pgen_pattern_generator_pkg
+
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_pattern_generator_pkg
+-- Compiling package body pgen_pattern_generator_pkg
+-- Loading package pgen_pattern_generator_pkg
+
+} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_avalon_mm_data_pkg
+-- Compiling package body pgen_avalon_mm_data_pkg
+-- Loading package pgen_avalon_mm_data_pkg
 
 } {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_write.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_write.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -346,25 +379,13 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity pgen_avalon_mm_control_write
 -- Compiling architecture rtl of pgen_avalon_mm_control_write
 
-} {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
 -- Compiling package pgen_avalon_mm_data_pkg
--- Compiling package body pgen_avalon_mm_data_pkg
--- Loading package pgen_avalon_mm_data_pkg
-
-} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/GENERATOR/pgen_pattern_generator_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_pattern_generator_pkg
--- Compiling package body pgen_pattern_generator_pkg
--- Loading package pgen_pattern_generator_pkg
 
 } {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -376,14 +397,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package pgen_mm_control_registers_pkg
 -- Compiling entity pgen_avalon_mm_control_read
 -- Compiling architecture rtl of pgen_avalon_mm_control_read
-
-} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_pkg.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling package pgen_avalon_mm_data_pkg
 
 } {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd {0 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_read.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -412,7 +425,25 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 ** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_read.vhd(18): Labels do not match: 'pgen_avalon_mm_data_read_ent' and 'pgen_avalon_mm_read_ent'.
 ** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_data_read.vhd(18): VHDL Compiler exiting
 
-} {10.0 15.0} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/pgen_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/pgen_top.vhd
+} {10.0 15.0} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity dpfifo
+-- Compiling architecture SYN of dpfifo
+
+} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling package pgen_avalon_mm_control_pkg
+-- Compiling package body pgen_avalon_mm_control_pkg
+-- Loading package pgen_avalon_mm_control_pkg
+
+} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/pgen_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/pgen_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -433,23 +464,21 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity pgen_data_controller
 -- Loading entity pgen_pattern_generator
 
-} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_pkg.vhd
+} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo_inst.vhd {0 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo_inst.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo_inst.vhd(1): near "dpfifo_inst": syntax error
+
+} {4.0 5.0} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_write.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_write.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package pgen_avalon_mm_control_pkg
--- Compiling package body pgen_avalon_mm_control_pkg
 -- Loading package pgen_avalon_mm_control_pkg
-
-} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity dpfifo
--- Compiling architecture SYN of dpfifo
+-- Loading package pgen_mm_control_registers_pkg
+-- Compiling entity pgen_avalon_mm_control_write
+-- Compiling architecture rtl of pgen_avalon_mm_control_write
 
 } {} {}} {E:\cassio\repo_simucam\SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_control_registers_pkg.vhd} {1 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/REGISTERS/pgen_mm_control_registers_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -461,20 +490,4 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling package body pgen_mm_control_registers_pkg
 -- Loading package pgen_mm_control_registers_pkg
 
-} {} {}} C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_write.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/projetos/nsee/simucam_fpga/FPGA_Developments/Pgen/pgen/AVALON/pgen_avalon_mm_control_write.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package pgen_avalon_mm_control_pkg
--- Loading package pgen_mm_control_registers_pkg
--- Compiling entity pgen_avalon_mm_control_write
--- Compiling architecture rtl of pgen_avalon_mm_control_write
-
-} {} {}} E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo_inst.vhd {0 {vcom -work work -2002 -explicit -stats=none E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo_inst.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
-** Error: E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Pgen/pgen/DATA_FIFO/altera_ipcore/dpfifo/dpfifo_inst.vhd(1): near "dpfifo_inst": syntax error
-
-} {4.0 5.0} {}}
+} {} {}}

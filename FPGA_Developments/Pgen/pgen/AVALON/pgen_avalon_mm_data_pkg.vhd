@@ -7,6 +7,11 @@ package pgen_avalon_mm_data_pkg is
 	constant c_PGEN_AVALON_MM_DATA_ADDRESS_SIZE : natural := 10;
 	constant c_PGEN_AVALON_MM_DATA_DATA_SIZE    : natural := 64;
 	constant c_PGEN_AVALON_MM_DATA_SYMBOL_SIZE  : natural := 8;
+	
+	-- Timeout of data reading, x clock cycles
+	-- If data reading unavailable for c_TIMEOUT_DATA_READING clock cycles,
+	-- Fifo access is aborted and it´s provided a set of 4 x dumb data pixels
+	constant c_TIMEOUT_DATA_READING				: natural := 20;
 
 	subtype t_pgen_avalon_mm_data_address is natural range 0 to ((2 ** c_PGEN_AVALON_MM_DATA_ADDRESS_SIZE) - 1);
 

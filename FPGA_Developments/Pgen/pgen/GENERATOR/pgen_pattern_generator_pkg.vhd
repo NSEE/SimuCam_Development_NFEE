@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 package pgen_pattern_generator_pkg is
 
-	constant c_PATTERN_DUMB_DATA : std_logic_vector(15 downto 0) := x"f5f5";
+	constant c_PATTERN_DUMB_DATA : std_logic_vector(15 downto 0) := x"ffff";
 
 	type t_pgen_pattern_generator_read_data is record
 		pattern_pixel_3 : std_logic_vector(15 downto 0);
