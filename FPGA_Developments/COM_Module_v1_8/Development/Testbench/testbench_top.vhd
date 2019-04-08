@@ -168,10 +168,12 @@ begin
 			if (v_sync_div_cnt = 10000) then
 				if (s_sync = '0') then
 					s_sync <= '1';
+					v_sync_div_cnt := 0;
 				else
 					s_sync <= '0';
+					v_sync_div_cnt := 10001;
 				end if;
-				v_sync_div_cnt := 0;
+--				v_sync_div_cnt := 0;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;
 			--			s_sync         <= '0';
