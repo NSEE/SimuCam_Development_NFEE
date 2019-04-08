@@ -168,8 +168,8 @@ begin
 						s_send_buffer_write_state  <= WRITE_DFIFO_0;
 						-- hold the data fifo 0 for read
 						s_data_fifo_0_rdhold       <= '1';
-						-- keep the data fifo 0 released for write
-						s_data_fifo_0_wrhold       <= '0';
+--						-- keep the data fifo 0 released for write
+--						s_data_fifo_0_wrhold       <= '0';
 						-- set the send buffer as ready for write
 						buffer_wrready_o           <= '1';
 					end if;
@@ -179,7 +179,7 @@ begin
 					s_wr_data_buffer_selection <= 0;
 					s_send_buffer_write_state  <= WRITE_DFIFO_0;
 					s_data_fifo_0_rdhold       <= '1';
-					s_data_fifo_0_wrhold       <= '0';
+--					s_data_fifo_0_wrhold       <= '0';
 					buffer_wrready_o           <= '1';
 					-- check if the data fifo 0 is full or the fee data is loaded  (start using data fifo 1 and release data fifo 0 for read)
 					if ((s_data_fifo_0_extended_usedw = buffer_cfg_length_i) or (fee_data_loaded_i = '1')) then
@@ -188,8 +188,8 @@ begin
 						s_send_buffer_write_state  <= WAIT_WR_DFIFO_1;
 						-- release data fifo 0 for read
 						s_data_fifo_0_rdhold       <= '0';
-						-- hold data fifo 0 for write
-						s_data_fifo_0_wrhold       <= '1';
+--						-- hold data fifo 0 for write
+--						s_data_fifo_0_wrhold       <= '1';
 						-- set the send buffer as not ready for write
 						buffer_wrready_o           <= '0';
 					end if;
@@ -206,8 +206,8 @@ begin
 						s_send_buffer_write_state  <= WRITE_DFIFO_1;
 						-- hold the data fifo 1 for read
 						s_data_fifo_1_rdhold       <= '1';
-						-- keep the data fifo 1 released for write
-						s_data_fifo_1_wrhold       <= '0';
+--						-- keep the data fifo 1 released for write
+--						s_data_fifo_1_wrhold       <= '0';
 						-- set the send buffer as ready for write
 						buffer_wrready_o           <= '1';
 					end if;
@@ -217,7 +217,7 @@ begin
 					s_wr_data_buffer_selection <= 1;
 					s_send_buffer_write_state  <= WRITE_DFIFO_1;
 					s_data_fifo_1_rdhold       <= '1';
-					s_data_fifo_1_wrhold       <= '0';
+--					s_data_fifo_1_wrhold       <= '0';
 					buffer_wrready_o           <= '1';
 					-- check if the data fifo 1 is full or the fee data is loaded  (start using data fifo 0 and release data fifo 1 for read)
 					if ((s_data_fifo_1_extended_usedw = buffer_cfg_length_i) or (fee_data_loaded_i = '1')) then
@@ -226,8 +226,8 @@ begin
 						s_send_buffer_write_state  <= WAIT_WR_DFIFO_0;
 						-- release data fifo 1 for read
 						s_data_fifo_1_rdhold       <= '0';
-						-- hold data fifo 1 for write
-						s_data_fifo_1_wrhold       <= '1';
+--						-- hold data fifo 1 for write
+--						s_data_fifo_1_wrhold       <= '1';
 						-- set the send buffer as not ready for write
 						buffer_wrready_o           <= '0';
 					end if;
@@ -262,8 +262,8 @@ begin
 						-- data fifo 0 released for read, go to read data fifo 0
 						s_rd_data_buffer_selection <= 0;
 						s_send_buffer_read_state   <= READ_DFIFO_0;
-						-- keep the data fifo 0 released for read
-						s_data_fifo_0_rdhold       <= '0';
+--						-- keep the data fifo 0 released for read
+--						s_data_fifo_0_rdhold       <= '0';
 						-- hold the data fifo 0 for write
 						s_data_fifo_0_wrhold       <= '1';
 						-- set the send buffer as ready for read
@@ -274,7 +274,7 @@ begin
 					-- all data read happens in data fifo 0
 					s_rd_data_buffer_selection <= 0;
 					s_send_buffer_read_state   <= READ_DFIFO_0;
-					s_data_fifo_0_rdhold       <= '0';
+--					s_data_fifo_0_rdhold       <= '0';
 					s_data_fifo_0_wrhold       <= '1';
 					buffer_rdready_o           <= '1';
 					-- check if the data fifo 0 is empty (start using data fifo 1 and hold data fifo 0 for read)
@@ -282,8 +282,8 @@ begin
 						-- data fifo 0 is empty, go to waiting data fifo 1
 						s_rd_data_buffer_selection <= 2;
 						s_send_buffer_read_state   <= WAIT_RD_DFIFO_1;
-						-- hold data fifo 0 for read
-						s_data_fifo_0_rdhold       <= '1';
+--						-- hold data fifo 0 for read
+--						s_data_fifo_0_rdhold       <= '1';
 						-- release the data fifo 0 for write
 						s_data_fifo_0_wrhold       <= '0';
 						-- set the send buffer as not ready for read
@@ -300,8 +300,8 @@ begin
 						-- data fifo 1 released for read, go to read data fifo 1
 						s_rd_data_buffer_selection <= 1;
 						s_send_buffer_read_state   <= READ_DFIFO_1;
-						-- keep the data fifo 1 released for read
-						s_data_fifo_1_rdhold       <= '0';
+--						-- keep the data fifo 1 released for read
+--						s_data_fifo_1_rdhold       <= '0';
 						-- hold the data fifo 1 for write
 						s_data_fifo_1_wrhold       <= '1';
 						-- set the send buffer as ready for read
@@ -312,7 +312,7 @@ begin
 					-- all data read happens in data fifo 1
 					s_rd_data_buffer_selection <= 1;
 					s_send_buffer_read_state   <= READ_DFIFO_1;
-					s_data_fifo_1_rdhold       <= '0';
+--					s_data_fifo_1_rdhold       <= '0';
 					s_data_fifo_1_wrhold       <= '1';
 					buffer_rdready_o           <= '1';
 					-- check if the data fifo 1 is empty (start using data fifo 0 and hold data fifo 1 for read)
@@ -320,8 +320,8 @@ begin
 						-- data fifo 1 is empty, go to waiting data fifo 0
 						s_rd_data_buffer_selection <= 2;
 						s_send_buffer_read_state   <= WAIT_RD_DFIFO_0;
-						-- hold data fifo 1 for read
-						s_data_fifo_1_rdhold       <= '1';
+--						-- hold data fifo 1 for read
+--						s_data_fifo_1_rdhold       <= '1';
 						-- release the data fifo 1 for write
 						s_data_fifo_1_wrhold       <= '0';
 						-- set the send buffer as not ready for read
