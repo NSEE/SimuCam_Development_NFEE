@@ -66,8 +66,8 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiCcdYSize = pxNFee->xCcdInfo.usiHeight + pxNFee->xCcdInfo.usiOLN;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiDataYSize = pxNFee->xCcdInfo.usiHeight;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFee->xCcdInfo.usiOLN;
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = 32768;
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0; /* 32 KB */
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = xDefaults.usiSpwPLength;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = pxNFee->xControl.ucROutOrder[0];
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
@@ -206,6 +206,8 @@ void vFeeTask(void *task_data) {
 					/* If is with the Mutex, should release */
 					OSMutexPost(xDma[ucMemUsing].xMutexDMA);
 					pxNFee->xControl.bDMALocked = FALSE;
+					/* Send message telling to controller that is not using the DMA any more */
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 				}
 
 				/*
@@ -215,8 +217,6 @@ void vFeeTask(void *task_data) {
 				}
 				*/
 
-				/* Send message telling to controller that is not using the DMA any more */
-				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
 				/* End of simulation! Clear everything that is possible */
 				pxNFee->xControl.bWatingSync = FALSE;
@@ -428,7 +428,7 @@ void vFeeTask(void *task_data) {
 		
 						}
 						/* Send message telling to controller that is not using the DMA any more */
-						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);							
+						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
 						if ( bDmaReturn == TRUE ) {
 							if (pxNFee->xControl.bWatingSync==TRUE) {
@@ -460,7 +460,7 @@ void vFeeTask(void *task_data) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					}
 					#endif
-				}	
+				}
 				break;
 
 
@@ -606,7 +606,6 @@ void vFeeTask(void *task_data) {
 					if ( pxNFee->xControl.eNextMode == sToFeeStandBy ) {
 
 						bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = ucReadout;
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
 						bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
@@ -951,10 +950,10 @@ void vQCmdFEEinFullPattern( TNFee *pxNFeeP, unsigned int cmd ){
 
 void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
-	INT8U ucADDRReg;
-	INT32U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
+	INT8U ucADDRReg= 0u;
+	INT32U ucValueReg = 0u;
+	INT32U ucValueMasked = 0u;
+	INT32U ucValueMasked2 = 0u;
 
 
 #if DEBUG_ON
@@ -992,13 +991,14 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 			break;
 		case 0x042://0x00000008:spw_packet_1_config
 
-			ucValueMasked = (ucValueReg & COMM_RMAP_PACKET_SIZE_CTRL_MSK) >> 4;
+			ucValueMasked = (ucValueReg & (INT32U)COMM_RMAP_PACKET_SIZE_CTRL_MSK) >> 4;
 			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = ucValueMasked;
 			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"REG :%lu\n", ucValueReg);
 				fprintf(fp,"Pkt L:%lu\n", ucValueMasked);
 			}
 			#endif
@@ -1065,7 +1065,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 		case 0x0000004C://0x00000038:operation_mode_config
 			/* Mode Selection */
-			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >>4;
+			ucValueMasked = (COMM_RMAP_MODE_SEL_CTRL_MSK & ucValueReg) >> 4;
 
 			switch (ucValueMasked) {
 				case 0: /* Standby */

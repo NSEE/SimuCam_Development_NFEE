@@ -24,7 +24,7 @@
 #endif
 
 /*===== Global system variables ===========*/
-unsigned short int usiIdCMD; /* Used in the communication with NUC*/
+volatile unsigned short int usiIdCMD; /* Used in the communication with NUC*/
 
 /* Indicates if there's free slots in the buffer of retransmission: xBuffer128, xBuffer64, xBuffer32 */
 tInUseRetransBuffer xInUseRetrans;
@@ -33,12 +33,12 @@ txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
 
-tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
-txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
+volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
+volatile txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
 
-txSenderACKs xSenderACK[N_ACKS_SENDER];
+volatile txSenderACKs xSenderACK[N_ACKS_SENDER];
 
-tTMPus xPus[N_PUS_PIPE];
+volatile tTMPus xPus[N_PUS_PIPE];
 /*===== Global system variables ===========*/
 
 /*== Definition of some resources of RTOS - Semaphores - Stacks - Queues - Flags etc ==============*/
@@ -59,9 +59,9 @@ OS_EVENT *xMutexBuffer32;
 OS_EVENT *xMutexPus;
 
 /* For performance porpuses in the Time Out CHecker task */
-unsigned char SemCount128;
-unsigned char SemCount64;
-unsigned char SemCount32;
+volatile unsigned char SemCount128;
+volatile unsigned char SemCount64;
+volatile unsigned char SemCount32;
 
 OS_EVENT *xSemCountReceivedACK;
 OS_EVENT *xSemCountPreParsed;
@@ -143,7 +143,7 @@ OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
 
 
 /* --------------- Timers ------------------ */
-OS_TMR  *xTimerRetransmission;
+OS_TMR *xTimerRetransmission;
 /* --------------- Timers ------------------ */
 
 /*==================================================================================================*/
@@ -401,13 +401,13 @@ void vVariablesInitialization ( void ) {
 
 	usiIdCMD = 2;
 
-	memset( xInUseRetrans.b128 , FALSE , sizeof(xInUseRetrans.b128));
-	memset( xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
-	memset( xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
+	memset( (void *)xInUseRetrans.b128 , FALSE , sizeof(xInUseRetrans.b128));
+	memset( (void *)xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
+	memset( (void *)xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
 	
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
-		memset( xBuffer128[ucIL].buffer, 0, 128);
+		memset( (void *)xBuffer128[ucIL].buffer, 0, 128);
 		xBuffer128[ucIL].bSent = FALSE;
 		xBuffer128[ucIL].usiId = 0;
 		xBuffer128[ucIL].usiTimeOut = 0;
@@ -416,7 +416,7 @@ void vVariablesInitialization ( void ) {
 
 	for( ucIL = 0; ucIL < N_64; ucIL++)
 	{
-		memset( xBuffer64[ucIL].buffer, 0, 64);
+		memset( (void *)xBuffer64[ucIL].buffer, 0, 64);
 		xBuffer64[ucIL].bSent = FALSE;
 		xBuffer64[ucIL].usiId = 0;
 		xBuffer64[ucIL].usiTimeOut = 0;
@@ -425,7 +425,7 @@ void vVariablesInitialization ( void ) {
 
 	for( ucIL = 0; ucIL < N_32; ucIL++)
 	{
-		memset( xBuffer32[ucIL].buffer, 0, 32);
+		memset( (void *)xBuffer32[ucIL].buffer, 0, 32);
 		xBuffer32[ucIL].bSent = FALSE;
 		xBuffer32[ucIL].usiId = 0;
 		xBuffer32[ucIL].usiTimeOut = 0;
@@ -437,7 +437,7 @@ void vVariablesInitialization ( void ) {
 	{
 		xPus[ucIL].bInUse = FALSE;
 		xPus[ucIL].ucNofValues = 0;
-		memset( xPus[ucIL].usiValues, 0, sizeof(xPus[ucIL].usiValues));
+		memset( (void *)xPus[ucIL].usiValues, 0, sizeof(xPus[ucIL].usiValues));
 	}
 
 /* todo: Need start this variable also, but not now
@@ -527,6 +527,8 @@ int main(void)
 		fprintf(fp, "xDefaults.usiDebugLevel %u \n", xDefaults.usiDebugLevel);
 		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
 		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
+		fprintf(fp, "xDefaults.usiSpwPLength %u \n", xDefaults.usiSpwPLength);
+
 	}
 #endif
 

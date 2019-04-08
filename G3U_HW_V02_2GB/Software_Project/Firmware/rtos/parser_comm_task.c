@@ -121,7 +121,7 @@ void vParserCommTask(void *task_data) {
 							case 1: /* TC_SCAM_TEST_CONNECTION */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-									debug(fp,"Parser Task: TC_SCAM_TEST_CONNECTION\n");
+									fprintf(fp,"Parser Task: TC_SCAM_TEST_CONNECTION\n");
 								}
 								#endif
 
@@ -134,7 +134,7 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif
 								eParserMode = sWaitingMessage;
@@ -149,7 +149,7 @@ void vParserCommTask(void *task_data) {
 							case 59: /* TC_SCAM_RESET */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-									debug(fp,"Parser Task: TC_SCAM_RESET\n");
+									fprintf(fp,"Parser Task: TC_SCAM_RESET\n");
 								}
 								#endif
 								vSendReset();
@@ -161,7 +161,7 @@ void vParserCommTask(void *task_data) {
 							case 60: /* TC_SCAM_CONFIG */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-									debug(fp,"Parser Task: TC_SCAM_CONFIG\n");
+									fprintf(fp,"Parser Task: TC_SCAM_CONFIG\n");
 								}
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -170,7 +170,7 @@ void vParserCommTask(void *task_data) {
 							case 61: /* TC_SCAM_RUN */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-									debug(fp,"Parser Task: TC_SCAM_RUN\n");
+									fprintf(fp,"Parser Task: TC_SCAM_RUN\n");
 								}
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -179,7 +179,7 @@ void vParserCommTask(void *task_data) {
 							case 62: /* TC_SCAM_TURNOFF */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-									debug(fp,"Parser Task: TC_SCAM_TURNOFF\n");
+									fprintf(fp,"Parser Task: TC_SCAM_TURNOFF\n");
 								}
 								#endif
 								vSendTurnOff();
@@ -193,7 +193,7 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif							
 								eParserMode = sWaitingMessage;
@@ -210,7 +210,7 @@ void vParserCommTask(void *task_data) {
 							if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 								memset(cPUSDebug,0,128);
 								sprintf(cPUSDebug, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
-								debug(fp, cPUSDebug );
+								fprintf(fp, cPUSDebug );
 							}
 							#endif
 							/* todo: Enviar mensagem de erro se aplicavel */
@@ -225,7 +225,7 @@ void vParserCommTask(void *task_data) {
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: TC_SCAM_FEE_CONFIG_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
-										debug(fp, cPUSDebug );
+										fprintf(fp, cPUSDebug );
 									}
 									#endif							
 									bSendMessagePUStoMebTask(&xTcPusL);
@@ -236,7 +236,7 @@ void vParserCommTask(void *task_data) {
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: TC_SCAM_FEE_STANDBY_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
-										debug(fp, cPUSDebug );
+										fprintf(fp, cPUSDebug );
 									}
 									#endif
 									bSendMessagePUStoMebTask(&xTcPusL);
@@ -247,7 +247,7 @@ void vParserCommTask(void *task_data) {
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: TC_SCAM_FEE_CALIBRATION_TEST_ENTER (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
-										debug(fp, cPUSDebug );
+										fprintf(fp, cPUSDebug );
 									}
 									#endif
 									bSendMessagePUStoMebTask(&xTcPusL);
@@ -258,7 +258,7 @@ void vParserCommTask(void *task_data) {
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 										memset(cPUSDebug,0,128);
 										sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-										debug(fp, cPUSDebug );
+										fprintf(fp, cPUSDebug );
 									}
 									#endif							
 									eParserMode = sWaitingMessage;
@@ -280,7 +280,7 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_LINK_ENABLE (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -291,7 +291,7 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_LINK_DISABLE (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -302,7 +302,7 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_LINK_RESET (FEESIM_INSTANCE: %hu)\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif
 								bSendMessagePUStoMebTask(&xTcPusL);
@@ -327,21 +327,21 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: TC_SCAM_SPW_RMAP_CONFIG_UPDATE:\n");
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- FEESIM_INSTANCE: %hu;\n", usiFeeInstL );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- MODE: %hu;\n", PreParsedLocal.usiValues[7] );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- LINK_SPEED: %hu;\n", PreParsedLocal.usiValues[8] );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- LOGICAL_ADDR: 0x%02X;\n", PreParsedLocal.usiValues[9] );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- DEST_NODE_ADDR: 0x%02X;\n", PreParsedLocal.usiValues[10] );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- TIME_CODE_GEN: %hu;\n", PreParsedLocal.usiValues[11] );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 									sprintf(cPUSDebug, "- RMAP_KEY: 0x%02X;\n", PreParsedLocal.usiValues[12] );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif
 
@@ -351,7 +351,7 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 									memset(cPUSDebug,0,128);
 									sprintf(cPUSDebug, "Parser Task: Default - TC-> srv-type: %hu; srv-subtype: %hu; pus-id: %hu;\n", xTcPusL.usiType, xTcPusL.usiSubType, xTcPusL.usiPusId );
-									debug(fp, cPUSDebug );
+									fprintf(fp, cPUSDebug );
 								}
 								#endif							
 								eParserMode = sWaitingMessage;
