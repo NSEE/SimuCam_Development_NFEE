@@ -100,8 +100,8 @@ begin
 					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#08#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(1000, 16)); -- data_pkt_ccd_x_size
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(2500, 16)); -- data_pkt_ccd_y_size
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(50, 16)); -- data_pkt_ccd_x_size
+					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(100, 16)); -- data_pkt_ccd_y_size
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_2_reg
@@ -110,8 +110,8 @@ begin
 					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#09#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                   <= '1';
 					avalon_mm_writedata_o               <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(2000, 16)); -- data_pkt_data_y_size
-					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(500, 16)); -- data_pkt_overscan_y_size
+					avalon_mm_writedata_o(15 downto 0)  <= std_logic_vector(to_unsigned(75, 16)); -- data_pkt_data_y_size
+					avalon_mm_writedata_o(31 downto 16) <= std_logic_vector(to_unsigned(25, 16)); -- data_pkt_overscan_y_size
 					avalon_mm_read_o                    <= '0';
 
 				-- data_packet_config_3_reg
@@ -120,7 +120,7 @@ begin
 					avalon_mm_address_o                <= std_logic_vector(to_unsigned(16#0A#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o                  <= '1';
 					avalon_mm_writedata_o              <= (others => '0');
-					avalon_mm_writedata_o(15 downto 0) <= std_logic_vector(to_unsigned(1024*8, 16)); -- data_pkt_packet_length
+					avalon_mm_writedata_o(15 downto 0) <= std_logic_vector(to_unsigned(1024,16)); -- data_pkt_packet_length
 					avalon_mm_read_o                   <= '0';
 
 				-- data_packet_config_4_reg
