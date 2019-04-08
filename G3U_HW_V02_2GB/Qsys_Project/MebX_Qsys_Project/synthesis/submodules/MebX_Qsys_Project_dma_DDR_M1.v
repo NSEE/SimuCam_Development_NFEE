@@ -7,7 +7,7 @@
 
 `timescale 1 ps / 1 ps
 module MebX_Qsys_Project_dma_DDR_M1 (
-		output wire [30:0]  mm_read_address,              //          mm_read.address
+		output wire [31:0]  mm_read_address,              //          mm_read.address
 		output wire         mm_read_read,                 //                 .read
 		output wire [7:0]   mm_read_byteenable,           //                 .byteenable
 		input  wire [63:0]  mm_read_readdata,             //                 .readdata
@@ -109,7 +109,7 @@ module MebX_Qsys_Project_dma_DDR_M1 (
 		.CHANNEL_WIDTH             (8),
 		.BYTE_ENABLE_WIDTH         (8),
 		.BYTE_ENABLE_WIDTH_LOG2    (3),
-		.ADDRESS_WIDTH             (31),
+		.ADDRESS_WIDTH             (32),
 		.FIFO_DEPTH_LOG2           (9),
 		.SYMBOL_WIDTH              (8),
 		.NUMBER_OF_SYMBOLS         (8),

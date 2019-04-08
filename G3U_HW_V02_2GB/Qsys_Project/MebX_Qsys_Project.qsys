@@ -2004,8 +2004,8 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 31" />
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
   <parameter name="BURST_ENABLE" value="0" />
@@ -2141,7 +2141,7 @@
    enabled="1">
   <parameter name="allowMultipleConnections" value="false" />
   <parameter name="avalonSpec" value="2.0" />
-  <parameter name="clkFreq" value="200000000" />
+  <parameter name="clkFreq" value="100000000" />
   <parameter name="hubInstanceID" value="0" />
   <parameter name="readBufferDepth" value="64" />
   <parameter name="readIRQThreshold" value="8" />
@@ -2891,7 +2891,7 @@
   <parameter name="breakOffset" value="32" />
   <parameter name="breakSlave" value="None" />
   <parameter name="cdx_enabled" value="false" />
-  <parameter name="clockFrequency" value="200000000" />
+  <parameter name="clockFrequency" value="100000000" />
   <parameter name="cpuArchRev" value="1" />
   <parameter name="cpuID" value="0" />
   <parameter name="cpuReset" value="false" />
@@ -3885,6 +3885,15 @@
    kind="avalon"
    version="16.1"
    start="dma_DDR_M1.mm_read"
+   end="nios2_gen2_0.debug_mem_slave">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x81200800" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="16.1"
+   start="dma_DDR_M1.mm_read"
    end="m1_clock_bridge.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
@@ -4204,18 +4213,18 @@
  <connection
    kind="clock"
    version="16.1"
-   start="m1_ddr2_memory.afi_clk"
+   start="m2_ddr2_memory.afi_half_clk"
+   end="clk_100.clk_in" />
+ <connection
+   kind="clock"
+   version="16.1"
+   start="m1_ddr2_memory.afi_half_clk"
    end="m1_clock_bridge.m0_clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="m2_ddr2_memory.afi_clk"
-   end="m1_clock_bridge.s0_clk" />
- <connection
-   kind="clock"
-   version="16.1"
    start="m2_ddr2_memory.afi_half_clk"
-   end="clk_100.clk_in" />
+   end="m1_clock_bridge.s0_clk" />
  <connection
    kind="clock"
    version="16.1"
@@ -4283,36 +4292,36 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="nios2_gen2_0.clk" />
- <connection kind="clock" version="16.1" start="clk_200.clk" end="ext_flash.clk" />
+ <connection kind="clock" version="16.1" start="clk_100.clk" end="ext_flash.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="tristate_conduit_bridge_0.clk" />
- <connection kind="clock" version="16.1" start="clk_200.clk" end="jtag_uart_0.clk" />
- <connection kind="clock" version="16.1" start="clk_200.clk" end="sysid_qsys.clk" />
+ <connection kind="clock" version="16.1" start="clk_100.clk" end="sysid_qsys.clk" />
+ <connection kind="clock" version="16.1" start="clk_100.clk" end="jtag_uart_0.clk" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="onchip_memory.clk1" />
  <connection kind="clock" version="16.1" start="clk_50.clk" end="sync.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="ddr2_address_span_extender.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="dma_DDR_M1.clock" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="dma_DDR_M2.clock" />
  <connection
    kind="clock"
@@ -4342,22 +4351,22 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_A.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_B.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_C.clock_sink_100" />
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="COMM_Pedreiro_v1_01_D.clock_sink_100" />
  <connection
    kind="clock"
@@ -4412,7 +4421,7 @@
  <connection
    kind="clock"
    version="16.1"
-   start="clk_200.clk"
+   start="clk_100.clk"
    end="clock_bridge_afi_50.s0_clk" />
  <connection
    kind="interrupt"
