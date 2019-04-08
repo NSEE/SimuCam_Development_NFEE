@@ -428,7 +428,7 @@ void vFeeTask(void *task_data) {
 		
 						}
 						/* Send message telling to controller that is not using the DMA any more */
-						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);							
+						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
 						if ( bDmaReturn == TRUE ) {
 							if (pxNFee->xControl.bWatingSync==TRUE) {
@@ -460,7 +460,7 @@ void vFeeTask(void *task_data) {
 						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
 					}
 					#endif
-				}	
+				}
 				break;
 
 

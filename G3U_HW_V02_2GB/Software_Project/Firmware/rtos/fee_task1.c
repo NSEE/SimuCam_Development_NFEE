@@ -209,8 +209,6 @@ void vFeeTask1(void *task_data) {
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 				}
 
-				/* Cleaning other syncs that maybe in the queue */
-				pxNFee->xControl.bWatingSync = FALSE;
 				/*
 				error_code = OSQFlush( xWaitSyncQFee[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
@@ -261,7 +259,7 @@ void vFeeTask1(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sToFeeStandBy*/
+				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*sFeeStandBy*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* Disable IRQ and clear the Double Buffer */
@@ -270,7 +268,7 @@ void vFeeTask1(void *task_data) {
 				/* Disable RMAP interrupts */
 				bEnableRmapIRQ(&pxNFee->xChannel.xRmap, pxNFee->ucId);
 
-				/* Disable the link SPW */
+				/* Enable the link SPW */
 				bEnableSPWChannel( &pxNFee->xChannel.xSpacewire );
 				pxNFee->xControl.bChannelEnable = TRUE;
 				bSetPainelLeds( LEDS_OFF , uliReturnMaskR( pxNFee->ucSPWId ) );

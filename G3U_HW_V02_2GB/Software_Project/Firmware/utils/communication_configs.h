@@ -203,7 +203,7 @@ extern OS_EVENT *xMutexBuffer32;
 extern txBuffer32 xBuffer32[N_32];
 
 /* ============ Session to save the messages waiting for ack or for (re)transmiting ================ */
-extern volatile tInUseRetransBuffer xInUseRetrans;
+extern tInUseRetransBuffer xInUseRetrans;
 
 
 

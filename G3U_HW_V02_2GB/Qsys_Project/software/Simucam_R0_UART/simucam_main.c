@@ -27,7 +27,7 @@
 volatile unsigned short int usiIdCMD; /* Used in the communication with NUC*/
 
 /* Indicates if there's free slots in the buffer of retransmission: xBuffer128, xBuffer64, xBuffer32 */
-volatile tInUseRetransBuffer xInUseRetrans;
+tInUseRetransBuffer xInUseRetrans;
 
 txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
