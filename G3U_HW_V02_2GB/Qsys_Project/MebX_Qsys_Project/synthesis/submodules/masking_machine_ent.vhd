@@ -3,6 +3,11 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity masking_machine_ent is
+	generic(
+		g_DELAY_LINE_CLKDIV   : natural range 0 to 255 := 9; -- 9 for 100 MHz, 19 for 200 MHz  
+		g_DELAY_ADC_CLKDIV    : natural range 0 to 255 := 0; -- 0 for 100 MHz,  1 for 200 MHz
+		g_DELAY_COLUMN_CLKDIV : natural range 0 to 255 := 0 --- 0 for 100 MHz,  1 for 200 MHz
+	);
 	port(
 		clk_i                         : in  std_logic;
 		rst_i                         : in  std_logic;
@@ -128,12 +133,12 @@ architecture RTL of masking_machine_ent is
 
 	-- column counter
 	signal s_ccd_column_cnt : std_logic_vector((fee_ccd_x_size_i'length - 1) downto 0);
-	
+
 begin
 
 	line_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(19, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(g_DELAY_LINE_CLKDIV, 8)),
 			g_TIMER_WIDTH => s_line_delay_timer'length
 		)
 		port map(
@@ -147,7 +152,7 @@ begin
 
 	adc_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(g_DELAY_ADC_CLKDIV, 8)),
 			g_TIMER_WIDTH => s_adc_delay_timer'length
 		)
 		port map(
@@ -161,7 +166,7 @@ begin
 
 	column_delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(g_DELAY_COLUMN_CLKDIV, 8)),
 			g_TIMER_WIDTH => s_column_delay_timer'length
 		)
 		port map(
@@ -263,12 +268,12 @@ begin
 					-- check if the fee requested the start of the masking
 					if (fee_start_masking_i = '1') then
 						-- set ccd column counter to execute the first ccd line delay
-						s_ccd_column_cnt <= std_logic_vector(unsigned(fee_ccd_x_size_i) - 1);
+						s_ccd_column_cnt           <= std_logic_vector(unsigned(fee_ccd_x_size_i) - 1);
 						-- set the remaining data bytes counter to the ccd size 
 						s_fee_remaining_data_bytes <= std_logic_vector(resize((unsigned(fee_ccd_x_size_i) * unsigned(fee_ccd_y_size_i) * 2) - 1, s_fee_remaining_data_bytes'length));
 						-- go to idle
 						s_masking_machine_state    <= IDLE;
-						
+
 					end if;
 
 				when IDLE =>
@@ -350,7 +355,7 @@ begin
 							s_column_delay_trigger  <= '1';
 							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
-						s_ccd_column_cnt <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
+						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 					else
 						-- delay not happened yet
 						s_delay                 <= '1';

@@ -118,6 +118,11 @@ begin
 
 	-- masking machine instantiation
 	masking_machine_ent_inst : entity work.masking_machine_ent
+		generic map(
+			g_DELAY_LINE_CLKDIV   => 9, -- 9 for 100 MHz, 19 for 200 MHz
+			g_DELAY_ADC_CLKDIV    => 0, -- 0 for 100 MHz,  1 for 200 MHz
+			g_DELAY_COLUMN_CLKDIV => 0  -- 0 for 100 MHz,  1 for 200 MHz
+		)
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
