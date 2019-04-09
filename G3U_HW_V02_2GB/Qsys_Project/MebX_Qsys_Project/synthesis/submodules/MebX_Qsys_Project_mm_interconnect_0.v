@@ -183,7 +183,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire [31:0]  jtag_uart_0_avalon_jtag_slave_writedata,                         //                                                          .writedata
 		input  wire         jtag_uart_0_avalon_jtag_slave_waitrequest,                       //                                                          .waitrequest
 		output wire         jtag_uart_0_avalon_jtag_slave_chipselect,                        //                                                          .chipselect
-		output wire [30:0]  m1_clock_bridge_s0_address,                                      //                                        m1_clock_bridge_s0.address
+		output wire [29:0]  m1_clock_bridge_s0_address,                                      //                                        m1_clock_bridge_s0.address
 		output wire         m1_clock_bridge_s0_write,                                        //                                                          .write
 		output wire         m1_clock_bridge_s0_read,                                         //                                                          .read
 		input  wire [63:0]  m1_clock_bridge_s0_readdata,                                     //                                                          .readdata
@@ -193,7 +193,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		input  wire         m1_clock_bridge_s0_readdatavalid,                                //                                                          .readdatavalid
 		input  wire         m1_clock_bridge_s0_waitrequest,                                  //                                                          .waitrequest
 		output wire         m1_clock_bridge_s0_debugaccess,                                  //                                                          .debugaccess
-		output wire [25:0]  m2_ddr2_memory_avl_address,                                      //                                        m2_ddr2_memory_avl.address
+		output wire [24:0]  m2_ddr2_memory_avl_address,                                      //                                        m2_ddr2_memory_avl.address
 		output wire         m2_ddr2_memory_avl_write,                                        //                                                          .write
 		output wire         m2_ddr2_memory_avl_read,                                         //                                                          .read
 		input  wire [255:0] m2_ddr2_memory_avl_readdata,                                     //                                                          .readdata
@@ -3838,7 +3838,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (31),
+		.AV_ADDRESS_W                   (30),
 		.AV_DATA_W                      (64),
 		.UAV_DATA_W                     (64),
 		.AV_BURSTCOUNT_W                (5),
@@ -4414,7 +4414,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (26),
+		.AV_ADDRESS_W                   (25),
 		.AV_DATA_W                      (256),
 		.UAV_DATA_W                     (256),
 		.AV_BURSTCOUNT_W                (8),

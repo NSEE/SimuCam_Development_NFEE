@@ -46,8 +46,8 @@ entity MebX_Qsys_Project is
 		m1_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                           .mem_ba
 		m1_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                           .mem_ck
 		m1_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_ck_n
-		m1_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                           .mem_cke
-		m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_cs_n
+		m1_ddr2_memory_mem_cke                               : out   std_logic_vector(0 downto 0);                     --                           .mem_cke
+		m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(0 downto 0);                     --                           .mem_cs_n
 		m1_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                           .mem_dm
 		m1_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_ras_n
 		m1_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_cas_n
@@ -55,7 +55,7 @@ entity MebX_Qsys_Project is
 		m1_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                           .mem_dq
 		m1_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs
 		m1_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs_n
-		m1_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                           .mem_odt
+		m1_ddr2_memory_mem_odt                               : out   std_logic_vector(0 downto 0);                     --                           .mem_odt
 		m1_ddr2_memory_pll_ref_clk_clk                       : in    std_logic                     := '0';             -- m1_ddr2_memory_pll_ref_clk.clk
 		m1_ddr2_memory_status_local_init_done                : out   std_logic;                                        --      m1_ddr2_memory_status.local_init_done
 		m1_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                           .local_cal_success
@@ -68,8 +68,8 @@ entity MebX_Qsys_Project is
 		m2_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                           .mem_ba
 		m2_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                           .mem_ck
 		m2_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_ck_n
-		m2_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                           .mem_cke
-		m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_cs_n
+		m2_ddr2_memory_mem_cke                               : out   std_logic_vector(0 downto 0);                     --                           .mem_cke
+		m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(0 downto 0);                     --                           .mem_cs_n
 		m2_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                           .mem_dm
 		m2_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_ras_n
 		m2_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_cas_n
@@ -77,7 +77,7 @@ entity MebX_Qsys_Project is
 		m2_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                           .mem_dq
 		m2_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs
 		m2_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs_n
-		m2_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                           .mem_odt
+		m2_ddr2_memory_mem_odt                               : out   std_logic_vector(0 downto 0);                     --                           .mem_odt
 		m2_ddr2_memory_dll_sharing_dll_pll_locked            : in    std_logic                     := '0';             -- m2_ddr2_memory_dll_sharing.dll_pll_locked
 		m2_ddr2_memory_dll_sharing_dll_delayctrl             : out   std_logic_vector(5 downto 0);                     --                           .dll_delayctrl
 		m2_ddr2_memory_pll_sharing_pll_mem_clk               : out   std_logic;                                        -- m2_ddr2_memory_pll_sharing.pll_mem_clk
@@ -431,8 +431,8 @@ architecture rtl of MebX_Qsys_Project is
 			mem_ba             : out   std_logic_vector(2 downto 0);                      -- mem_ba
 			mem_ck             : out   std_logic_vector(1 downto 0);                      -- mem_ck
 			mem_ck_n           : out   std_logic_vector(1 downto 0);                      -- mem_ck_n
-			mem_cke            : out   std_logic_vector(1 downto 0);                      -- mem_cke
-			mem_cs_n           : out   std_logic_vector(1 downto 0);                      -- mem_cs_n
+			mem_cke            : out   std_logic_vector(0 downto 0);                      -- mem_cke
+			mem_cs_n           : out   std_logic_vector(0 downto 0);                      -- mem_cs_n
 			mem_dm             : out   std_logic_vector(7 downto 0);                      -- mem_dm
 			mem_ras_n          : out   std_logic_vector(0 downto 0);                      -- mem_ras_n
 			mem_cas_n          : out   std_logic_vector(0 downto 0);                      -- mem_cas_n
@@ -440,10 +440,10 @@ architecture rtl of MebX_Qsys_Project is
 			mem_dq             : inout std_logic_vector(63 downto 0)  := (others => 'X'); -- mem_dq
 			mem_dqs            : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs
 			mem_dqs_n          : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs_n
-			mem_odt            : out   std_logic_vector(1 downto 0);                      -- mem_odt
+			mem_odt            : out   std_logic_vector(0 downto 0);                      -- mem_odt
 			avl_ready          : out   std_logic;                                         -- waitrequest_n
 			avl_burstbegin     : in    std_logic                      := 'X';             -- beginbursttransfer
-			avl_addr           : in    std_logic_vector(25 downto 0)  := (others => 'X'); -- address
+			avl_addr           : in    std_logic_vector(24 downto 0)  := (others => 'X'); -- address
 			avl_rdata_valid    : out   std_logic;                                         -- readdatavalid
 			avl_rdata          : out   std_logic_vector(255 downto 0);                    -- readdata
 			avl_wdata          : in    std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
@@ -472,8 +472,8 @@ architecture rtl of MebX_Qsys_Project is
 			mem_ba                    : out   std_logic_vector(2 downto 0);                      -- mem_ba
 			mem_ck                    : out   std_logic_vector(1 downto 0);                      -- mem_ck
 			mem_ck_n                  : out   std_logic_vector(1 downto 0);                      -- mem_ck_n
-			mem_cke                   : out   std_logic_vector(1 downto 0);                      -- mem_cke
-			mem_cs_n                  : out   std_logic_vector(1 downto 0);                      -- mem_cs_n
+			mem_cke                   : out   std_logic_vector(0 downto 0);                      -- mem_cke
+			mem_cs_n                  : out   std_logic_vector(0 downto 0);                      -- mem_cs_n
 			mem_dm                    : out   std_logic_vector(7 downto 0);                      -- mem_dm
 			mem_ras_n                 : out   std_logic_vector(0 downto 0);                      -- mem_ras_n
 			mem_cas_n                 : out   std_logic_vector(0 downto 0);                      -- mem_cas_n
@@ -481,10 +481,10 @@ architecture rtl of MebX_Qsys_Project is
 			mem_dq                    : inout std_logic_vector(63 downto 0)  := (others => 'X'); -- mem_dq
 			mem_dqs                   : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs
 			mem_dqs_n                 : inout std_logic_vector(7 downto 0)   := (others => 'X'); -- mem_dqs_n
-			mem_odt                   : out   std_logic_vector(1 downto 0);                      -- mem_odt
+			mem_odt                   : out   std_logic_vector(0 downto 0);                      -- mem_odt
 			avl_ready                 : out   std_logic;                                         -- waitrequest_n
 			avl_burstbegin            : in    std_logic                      := 'X';             -- beginbursttransfer
-			avl_addr                  : in    std_logic_vector(25 downto 0)  := (others => 'X'); -- address
+			avl_addr                  : in    std_logic_vector(24 downto 0)  := (others => 'X'); -- address
 			avl_rdata_valid           : out   std_logic;                                         -- readdatavalid
 			avl_rdata                 : out   std_logic_vector(255 downto 0);                    -- readdata
 			avl_wdata                 : in    std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
@@ -933,7 +933,7 @@ architecture rtl of MebX_Qsys_Project is
 			jtag_uart_0_avalon_jtag_slave_writedata                         : out std_logic_vector(31 downto 0);                     -- writedata
 			jtag_uart_0_avalon_jtag_slave_waitrequest                       : in  std_logic                      := 'X';             -- waitrequest
 			jtag_uart_0_avalon_jtag_slave_chipselect                        : out std_logic;                                         -- chipselect
-			m1_clock_bridge_s0_address                                      : out std_logic_vector(30 downto 0);                     -- address
+			m1_clock_bridge_s0_address                                      : out std_logic_vector(29 downto 0);                     -- address
 			m1_clock_bridge_s0_write                                        : out std_logic;                                         -- write
 			m1_clock_bridge_s0_read                                         : out std_logic;                                         -- read
 			m1_clock_bridge_s0_readdata                                     : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- readdata
@@ -943,7 +943,7 @@ architecture rtl of MebX_Qsys_Project is
 			m1_clock_bridge_s0_readdatavalid                                : in  std_logic                      := 'X';             -- readdatavalid
 			m1_clock_bridge_s0_waitrequest                                  : in  std_logic                      := 'X';             -- waitrequest
 			m1_clock_bridge_s0_debugaccess                                  : out std_logic;                                         -- debugaccess
-			m2_ddr2_memory_avl_address                                      : out std_logic_vector(25 downto 0);                     -- address
+			m2_ddr2_memory_avl_address                                      : out std_logic_vector(24 downto 0);                     -- address
 			m2_ddr2_memory_avl_write                                        : out std_logic;                                         -- write
 			m2_ddr2_memory_avl_read                                         : out std_logic;                                         -- read
 			m2_ddr2_memory_avl_readdata                                     : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
@@ -1138,7 +1138,7 @@ architecture rtl of MebX_Qsys_Project is
 			m1_clock_bridge_m0_reset_reset_bridge_in_reset_reset            : in  std_logic                      := 'X';             -- reset
 			m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset : in  std_logic                      := 'X';             -- reset
 			m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset           : in  std_logic                      := 'X';             -- reset
-			m1_clock_bridge_m0_address                                      : in  std_logic_vector(30 downto 0)  := (others => 'X'); -- address
+			m1_clock_bridge_m0_address                                      : in  std_logic_vector(29 downto 0)  := (others => 'X'); -- address
 			m1_clock_bridge_m0_waitrequest                                  : out std_logic;                                         -- waitrequest
 			m1_clock_bridge_m0_burstcount                                   : in  std_logic_vector(4 downto 0)   := (others => 'X'); -- burstcount
 			m1_clock_bridge_m0_byteenable                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
@@ -1148,7 +1148,7 @@ architecture rtl of MebX_Qsys_Project is
 			m1_clock_bridge_m0_write                                        : in  std_logic                      := 'X';             -- write
 			m1_clock_bridge_m0_writedata                                    : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- writedata
 			m1_clock_bridge_m0_debugaccess                                  : in  std_logic                      := 'X';             -- debugaccess
-			m1_ddr2_memory_avl_address                                      : out std_logic_vector(25 downto 0);                     -- address
+			m1_ddr2_memory_avl_address                                      : out std_logic_vector(24 downto 0);                     -- address
 			m1_ddr2_memory_avl_write                                        : out std_logic;                                         -- write
 			m1_ddr2_memory_avl_read                                         : out std_logic;                                         -- read
 			m1_ddr2_memory_avl_readdata                                     : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
@@ -1523,7 +1523,7 @@ architecture rtl of MebX_Qsys_Project is
 			s0_readdatavalid : out std_logic;                                        -- readdatavalid
 			s0_burstcount    : in  std_logic_vector(4 downto 0)  := (others => 'X'); -- burstcount
 			s0_writedata     : in  std_logic_vector(63 downto 0) := (others => 'X'); -- writedata
-			s0_address       : in  std_logic_vector(30 downto 0) := (others => 'X'); -- address
+			s0_address       : in  std_logic_vector(29 downto 0) := (others => 'X'); -- address
 			s0_write         : in  std_logic                     := 'X';             -- write
 			s0_read          : in  std_logic                     := 'X';             -- read
 			s0_byteenable    : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- byteenable
@@ -1533,7 +1533,7 @@ architecture rtl of MebX_Qsys_Project is
 			m0_readdatavalid : in  std_logic                     := 'X';             -- readdatavalid
 			m0_burstcount    : out std_logic_vector(4 downto 0);                     -- burstcount
 			m0_writedata     : out std_logic_vector(63 downto 0);                    -- writedata
-			m0_address       : out std_logic_vector(30 downto 0);                    -- address
+			m0_address       : out std_logic_vector(29 downto 0);                    -- address
 			m0_write         : out std_logic;                                        -- write
 			m0_read          : out std_logic;                                        -- read
 			m0_byteenable    : out std_logic_vector(7 downto 0);                     -- byteenable
@@ -1704,7 +1704,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_m1_clock_bridge_s0_readdata                                          : std_logic_vector(63 downto 0);  -- m1_clock_bridge:s0_readdata -> mm_interconnect_0:m1_clock_bridge_s0_readdata
 	signal mm_interconnect_0_m1_clock_bridge_s0_waitrequest                                       : std_logic;                      -- m1_clock_bridge:s0_waitrequest -> mm_interconnect_0:m1_clock_bridge_s0_waitrequest
 	signal mm_interconnect_0_m1_clock_bridge_s0_debugaccess                                       : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_s0_debugaccess -> m1_clock_bridge:s0_debugaccess
-	signal mm_interconnect_0_m1_clock_bridge_s0_address                                           : std_logic_vector(30 downto 0);  -- mm_interconnect_0:m1_clock_bridge_s0_address -> m1_clock_bridge:s0_address
+	signal mm_interconnect_0_m1_clock_bridge_s0_address                                           : std_logic_vector(29 downto 0);  -- mm_interconnect_0:m1_clock_bridge_s0_address -> m1_clock_bridge:s0_address
 	signal mm_interconnect_0_m1_clock_bridge_s0_read                                              : std_logic;                      -- mm_interconnect_0:m1_clock_bridge_s0_read -> m1_clock_bridge:s0_read
 	signal mm_interconnect_0_m1_clock_bridge_s0_byteenable                                        : std_logic_vector(7 downto 0);   -- mm_interconnect_0:m1_clock_bridge_s0_byteenable -> m1_clock_bridge:s0_byteenable
 	signal mm_interconnect_0_m1_clock_bridge_s0_readdatavalid                                     : std_logic;                      -- m1_clock_bridge:s0_readdatavalid -> mm_interconnect_0:m1_clock_bridge_s0_readdatavalid
@@ -1746,7 +1746,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_m2_ddr2_memory_avl_beginbursttransfer                                : std_logic;                      -- mm_interconnect_0:m2_ddr2_memory_avl_beginbursttransfer -> m2_ddr2_memory:avl_burstbegin
 	signal mm_interconnect_0_m2_ddr2_memory_avl_readdata                                          : std_logic_vector(255 downto 0); -- m2_ddr2_memory:avl_rdata -> mm_interconnect_0:m2_ddr2_memory_avl_readdata
 	signal m2_ddr2_memory_avl_waitrequest                                                         : std_logic;                      -- m2_ddr2_memory:avl_ready -> m2_ddr2_memory_avl_waitrequest:in
-	signal mm_interconnect_0_m2_ddr2_memory_avl_address                                           : std_logic_vector(25 downto 0);  -- mm_interconnect_0:m2_ddr2_memory_avl_address -> m2_ddr2_memory:avl_addr
+	signal mm_interconnect_0_m2_ddr2_memory_avl_address                                           : std_logic_vector(24 downto 0);  -- mm_interconnect_0:m2_ddr2_memory_avl_address -> m2_ddr2_memory:avl_addr
 	signal mm_interconnect_0_m2_ddr2_memory_avl_read                                              : std_logic;                      -- mm_interconnect_0:m2_ddr2_memory_avl_read -> m2_ddr2_memory:avl_read_req
 	signal mm_interconnect_0_m2_ddr2_memory_avl_byteenable                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_0:m2_ddr2_memory_avl_byteenable -> m2_ddr2_memory:avl_be
 	signal mm_interconnect_0_m2_ddr2_memory_avl_readdatavalid                                     : std_logic;                      -- m2_ddr2_memory:avl_rdata_valid -> mm_interconnect_0:m2_ddr2_memory_avl_readdatavalid
@@ -1903,7 +1903,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal m1_clock_bridge_m0_waitrequest                                                         : std_logic;                      -- mm_interconnect_2:m1_clock_bridge_m0_waitrequest -> m1_clock_bridge:m0_waitrequest
 	signal m1_clock_bridge_m0_readdata                                                            : std_logic_vector(63 downto 0);  -- mm_interconnect_2:m1_clock_bridge_m0_readdata -> m1_clock_bridge:m0_readdata
 	signal m1_clock_bridge_m0_debugaccess                                                         : std_logic;                      -- m1_clock_bridge:m0_debugaccess -> mm_interconnect_2:m1_clock_bridge_m0_debugaccess
-	signal m1_clock_bridge_m0_address                                                             : std_logic_vector(30 downto 0);  -- m1_clock_bridge:m0_address -> mm_interconnect_2:m1_clock_bridge_m0_address
+	signal m1_clock_bridge_m0_address                                                             : std_logic_vector(29 downto 0);  -- m1_clock_bridge:m0_address -> mm_interconnect_2:m1_clock_bridge_m0_address
 	signal m1_clock_bridge_m0_read                                                                : std_logic;                      -- m1_clock_bridge:m0_read -> mm_interconnect_2:m1_clock_bridge_m0_read
 	signal m1_clock_bridge_m0_byteenable                                                          : std_logic_vector(7 downto 0);   -- m1_clock_bridge:m0_byteenable -> mm_interconnect_2:m1_clock_bridge_m0_byteenable
 	signal m1_clock_bridge_m0_readdatavalid                                                       : std_logic;                      -- mm_interconnect_2:m1_clock_bridge_m0_readdatavalid -> m1_clock_bridge:m0_readdatavalid
@@ -1913,7 +1913,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_2_m1_ddr2_memory_avl_beginbursttransfer                                : std_logic;                      -- mm_interconnect_2:m1_ddr2_memory_avl_beginbursttransfer -> m1_ddr2_memory:avl_burstbegin
 	signal mm_interconnect_2_m1_ddr2_memory_avl_readdata                                          : std_logic_vector(255 downto 0); -- m1_ddr2_memory:avl_rdata -> mm_interconnect_2:m1_ddr2_memory_avl_readdata
 	signal m1_ddr2_memory_avl_waitrequest                                                         : std_logic;                      -- m1_ddr2_memory:avl_ready -> m1_ddr2_memory_avl_waitrequest:in
-	signal mm_interconnect_2_m1_ddr2_memory_avl_address                                           : std_logic_vector(25 downto 0);  -- mm_interconnect_2:m1_ddr2_memory_avl_address -> m1_ddr2_memory:avl_addr
+	signal mm_interconnect_2_m1_ddr2_memory_avl_address                                           : std_logic_vector(24 downto 0);  -- mm_interconnect_2:m1_ddr2_memory_avl_address -> m1_ddr2_memory:avl_addr
 	signal mm_interconnect_2_m1_ddr2_memory_avl_read                                              : std_logic;                      -- mm_interconnect_2:m1_ddr2_memory_avl_read -> m1_ddr2_memory:avl_read_req
 	signal mm_interconnect_2_m1_ddr2_memory_avl_byteenable                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_2:m1_ddr2_memory_avl_byteenable -> m1_ddr2_memory:avl_be
 	signal mm_interconnect_2_m1_ddr2_memory_avl_readdatavalid                                     : std_logic;                      -- m1_ddr2_memory:avl_rdata_valid -> mm_interconnect_2:m1_ddr2_memory_avl_readdatavalid
@@ -2424,7 +2424,7 @@ begin
 		generic map (
 			DATA_WIDTH          => 64,
 			SYMBOL_WIDTH        => 8,
-			HDL_ADDR_WIDTH      => 31,
+			HDL_ADDR_WIDTH      => 30,
 			BURSTCOUNT_WIDTH    => 5,
 			COMMAND_FIFO_DEPTH  => 4,
 			RESPONSE_FIFO_DEPTH => 64,

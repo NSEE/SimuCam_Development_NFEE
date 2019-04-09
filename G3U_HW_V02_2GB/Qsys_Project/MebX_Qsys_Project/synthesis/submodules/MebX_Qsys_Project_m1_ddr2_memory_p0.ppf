@@ -59,21 +59,15 @@
       <pin name="afi_cas_n[1..0]" direction="input" scope="internal" />
       <pin name="afi_cas_n[0]" direction="input" scope="internal" />
       <pin name="afi_cas_n[1]" direction="input" scope="internal" />
-      <pin name="afi_odt[3..0]" direction="input" scope="internal" />
+      <pin name="afi_odt[1..0]" direction="input" scope="internal" />
       <pin name="afi_odt[0]" direction="input" scope="internal" />
       <pin name="afi_odt[1]" direction="input" scope="internal" />
-      <pin name="afi_odt[2]" direction="input" scope="internal" />
-      <pin name="afi_odt[3]" direction="input" scope="internal" />
-      <pin name="afi_cke[3..0]" direction="input" scope="internal" />
+      <pin name="afi_cke[1..0]" direction="input" scope="internal" />
       <pin name="afi_cke[0]" direction="input" scope="internal" />
       <pin name="afi_cke[1]" direction="input" scope="internal" />
-      <pin name="afi_cke[2]" direction="input" scope="internal" />
-      <pin name="afi_cke[3]" direction="input" scope="internal" />
-      <pin name="afi_cs_n[3..0]" direction="input" scope="internal" />
+      <pin name="afi_cs_n[1..0]" direction="input" scope="internal" />
       <pin name="afi_cs_n[0]" direction="input" scope="internal" />
       <pin name="afi_cs_n[1]" direction="input" scope="internal" />
-      <pin name="afi_cs_n[2]" direction="input" scope="internal" />
-      <pin name="afi_cs_n[3]" direction="input" scope="internal" />
       <pin name="afi_dqs_burst[15..0]" direction="input" scope="internal" />
       <pin name="afi_dqs_burst[0]" direction="input" scope="internal" />
       <pin name="afi_dqs_burst[1]" direction="input" scope="internal" />
@@ -1226,12 +1220,10 @@
       <pin name="mem_ck_n[1..0]" direction="output" scope="external" />
       <pin name="mem_ck_n[0]" direction="output" scope="external" />
       <pin name="mem_ck_n[1]" direction="output" scope="external" />
-      <pin name="mem_cke[1..0]" direction="output" scope="external" />
+      <pin name="mem_cke[0..0]" direction="output" scope="external" />
       <pin name="mem_cke[0]" direction="output" scope="external" />
-      <pin name="mem_cke[1]" direction="output" scope="external" />
-      <pin name="mem_cs_n[1..0]" direction="output" scope="external" />
+      <pin name="mem_cs_n[0..0]" direction="output" scope="external" />
       <pin name="mem_cs_n[0]" direction="output" scope="external" />
-      <pin name="mem_cs_n[1]" direction="output" scope="external" />
       <pin name="mem_dm[7..0]" direction="output" scope="external" />
       <pin name="mem_dm[0]" direction="output" scope="external" />
       <pin name="mem_dm[1]" direction="output" scope="external" />
@@ -1330,8 +1322,7 @@
       <pin name="mem_dqs_n[5]" direction="bidir" scope="external" />
       <pin name="mem_dqs_n[6]" direction="bidir" scope="external" />
       <pin name="mem_dqs_n[7]" direction="bidir" scope="external" />
-      <pin name="mem_odt[1..0]" direction="output" scope="external" />
+      <pin name="mem_odt[0..0]" direction="output" scope="external" />
       <pin name="mem_odt[0]" direction="output" scope="external" />
-      <pin name="mem_odt[1]" direction="output" scope="external" />
    </global>
 </pinplan>

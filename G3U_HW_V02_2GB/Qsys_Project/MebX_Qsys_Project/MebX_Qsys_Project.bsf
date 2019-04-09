@@ -370,16 +370,16 @@ agreement for further details.
 	(port
 		(pt 0 1208)
 		(output)
-		(text "m1_ddr2_memory_mem_cke[1..0]" (rect 0 0 142 12)(font "Arial" (font_size 8)))
-		(text "m1_ddr2_memory_mem_cke[1..0]" (rect 4 1197 172 1208)(font "Arial" (font_size 8)))
-		(line (pt 0 1208)(pt 304 1208)(line_width 3))
+		(text "m1_ddr2_memory_mem_cke" (rect 0 0 123 12)(font "Arial" (font_size 8)))
+		(text "m1_ddr2_memory_mem_cke" (rect 4 1197 136 1208)(font "Arial" (font_size 8)))
+		(line (pt 0 1208)(pt 304 1208)(line_width 1))
 	)
 	(port
 		(pt 0 1224)
 		(output)
-		(text "m1_ddr2_memory_mem_cs_n[1..0]" (rect 0 0 148 12)(font "Arial" (font_size 8)))
-		(text "m1_ddr2_memory_mem_cs_n[1..0]" (rect 4 1213 178 1224)(font "Arial" (font_size 8)))
-		(line (pt 0 1224)(pt 304 1224)(line_width 3))
+		(text "m1_ddr2_memory_mem_cs_n" (rect 0 0 129 12)(font "Arial" (font_size 8)))
+		(text "m1_ddr2_memory_mem_cs_n" (rect 4 1213 142 1224)(font "Arial" (font_size 8)))
+		(line (pt 0 1224)(pt 304 1224)(line_width 1))
 	)
 	(port
 		(pt 0 1240)
@@ -412,9 +412,9 @@ agreement for further details.
 	(port
 		(pt 0 1352)
 		(output)
-		(text "m1_ddr2_memory_mem_odt[1..0]" (rect 0 0 140 12)(font "Arial" (font_size 8)))
-		(text "m1_ddr2_memory_mem_odt[1..0]" (rect 4 1341 172 1352)(font "Arial" (font_size 8)))
-		(line (pt 0 1352)(pt 304 1352)(line_width 3))
+		(text "m1_ddr2_memory_mem_odt" (rect 0 0 121 12)(font "Arial" (font_size 8)))
+		(text "m1_ddr2_memory_mem_odt" (rect 4 1341 136 1352)(font "Arial" (font_size 8)))
+		(line (pt 0 1352)(pt 304 1352)(line_width 1))
 	)
 	(port
 		(pt 0 1432)
@@ -475,16 +475,16 @@ agreement for further details.
 	(port
 		(pt 0 1704)
 		(output)
-		(text "m2_ddr2_memory_mem_cke[1..0]" (rect 0 0 143 12)(font "Arial" (font_size 8)))
-		(text "m2_ddr2_memory_mem_cke[1..0]" (rect 4 1693 172 1704)(font "Arial" (font_size 8)))
-		(line (pt 0 1704)(pt 304 1704)(line_width 3))
+		(text "m2_ddr2_memory_mem_cke" (rect 0 0 125 12)(font "Arial" (font_size 8)))
+		(text "m2_ddr2_memory_mem_cke" (rect 4 1693 136 1704)(font "Arial" (font_size 8)))
+		(line (pt 0 1704)(pt 304 1704)(line_width 1))
 	)
 	(port
 		(pt 0 1720)
 		(output)
-		(text "m2_ddr2_memory_mem_cs_n[1..0]" (rect 0 0 149 12)(font "Arial" (font_size 8)))
-		(text "m2_ddr2_memory_mem_cs_n[1..0]" (rect 4 1709 178 1720)(font "Arial" (font_size 8)))
-		(line (pt 0 1720)(pt 304 1720)(line_width 3))
+		(text "m2_ddr2_memory_mem_cs_n" (rect 0 0 130 12)(font "Arial" (font_size 8)))
+		(text "m2_ddr2_memory_mem_cs_n" (rect 4 1709 142 1720)(font "Arial" (font_size 8)))
+		(line (pt 0 1720)(pt 304 1720)(line_width 1))
 	)
 	(port
 		(pt 0 1736)
@@ -517,9 +517,9 @@ agreement for further details.
 	(port
 		(pt 0 1848)
 		(output)
-		(text "m2_ddr2_memory_mem_odt[1..0]" (rect 0 0 141 12)(font "Arial" (font_size 8)))
-		(text "m2_ddr2_memory_mem_odt[1..0]" (rect 4 1837 172 1848)(font "Arial" (font_size 8)))
-		(line (pt 0 1848)(pt 304 1848)(line_width 3))
+		(text "m2_ddr2_memory_mem_odt" (rect 0 0 122 12)(font "Arial" (font_size 8)))
+		(text "m2_ddr2_memory_mem_odt" (rect 4 1837 136 1848)(font "Arial" (font_size 8)))
+		(line (pt 0 1848)(pt 304 1848)(line_width 1))
 	)
 	(port
 		(pt 0 1904)
