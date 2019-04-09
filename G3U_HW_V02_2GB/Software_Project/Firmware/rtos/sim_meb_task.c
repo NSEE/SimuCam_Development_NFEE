@@ -15,7 +15,6 @@ void vSimMebTask(void *task_data) {
 	unsigned char tCode;
 	unsigned char tCodeNext;
 	unsigned char ucIL;
-	unsigned char ucI;
 	volatile tQMask uiCmdMeb;
 	INT8U error_code;
 	INT8U ucFrameNumber;

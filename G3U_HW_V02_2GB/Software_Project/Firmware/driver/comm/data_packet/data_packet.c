@@ -337,8 +337,8 @@ alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
 
     alt_u16 usiAdcPxDelay;
     usiAdcPxDelay = (alt_u16) ((float) uliPeriodNs * 1e-1);
-    if (3 < usiAdcPxDelay) {
-        usiAdcPxDelay -= 3;
+    if (6 < usiAdcPxDelay) {
+        usiAdcPxDelay -= 6;
     } else {
         usiAdcPxDelay = 0;
     }

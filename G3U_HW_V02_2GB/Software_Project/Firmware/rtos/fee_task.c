@@ -968,11 +968,6 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	ucADDRReg = uiCmdFEEL.ucByte[1];
 	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
 
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		fprintf(fp,"ucADDRReg= %hhu; ucValueReg=%lu \n", ucADDRReg, ucValueReg);
-	}
-#endif
 
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
@@ -1166,12 +1161,6 @@ void vQCmdFeeRMAPinFullPattern( TNFee *pxNFeeP, unsigned int cmd ) {
 	ucADDRReg = uiCmdFEEL.ucByte[1];
 	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
 
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		fprintf(fp,"ucADDRReg= %hhu; ucValueReg=%lu \n", ucADDRReg, ucValueReg);
-	}
-#endif
 
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
@@ -1369,13 +1358,6 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 
 	ucADDRReg = uiCmdFEEL.ucByte[1];
 	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
-
-
-#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		fprintf(fp,"ucADDRReg= %hhu; ucValueReg=%lu \n", ucADDRReg, ucValueReg);
-	}
-#endif
 
 
 	switch (ucADDRReg) {
