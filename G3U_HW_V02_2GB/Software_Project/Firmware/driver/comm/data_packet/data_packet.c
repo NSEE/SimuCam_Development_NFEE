@@ -323,27 +323,27 @@ static alt_u32 uliDpktReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
  * Return the necessary delay value for a
  * ADC Pixel Delay period in uliPeriodNs ns.
  */
-alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs) {
+alt_u16 usiAdcPxDelayCalcPeriodNs(alt_u32 uliPeriodNs){
 
-	/*
-	 * Delay = AdcPxDelay * ClkCycles@100MHz
-	 * AdcPxDelay = Delay / ClkCycles@100MHz
-	 *
-	 * ClkCycles@100MHz = 10 ns
-	 *
-	 * Delay[ns] / 10 = Delay[ns] * 1e-1
-	 * AdcPxDelay = Delay[ns] * 1e-1
-	 */
+    /*
+     * Delay = AdcPxDelay * ClkCycles@100MHz
+     * AdcPxDelay = Delay / ClkCycles@100MHz
+     *
+     * ClkCycles@100MHz = 10 ns
+     *
+     * Delay[ns] / 10 = Delay[ns] * 1e-1
+     * AdcPxDelay = Delay[ns] * 1e-1
+     */
 
-	alt_u16 usiAdcPxDelay;
-	usiAdcPxDelay = (alt_u16) ((float) uliPeriodNs * 1e-1);
-	if (3 < usiAdcPxDelay) {
-		usiAdcPxDelay -= 3;
-	} else {
-		usiAdcPxDelay = 0;
-	}
+    alt_u16 usiAdcPxDelay;
+    usiAdcPxDelay = (alt_u16) ((float) uliPeriodNs * 1e-1);
+    if (3 < usiAdcPxDelay) {
+        usiAdcPxDelay -= 3;
+    } else {
+        usiAdcPxDelay = 0;
+    }
 
-	return usiAdcPxDelay;
+    return usiAdcPxDelay;
 }
 
 /*
