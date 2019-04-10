@@ -97,46 +97,46 @@ port(
 --		ETH_TX_p               : out   std_logic_vector(3 downto 0);
 	 
     -- DDR2 DIM2
-    M2_DDR2_addr    : out   std_logic_vector(13 downto 0);      
+    M2_DDR2_addr    : out   std_logic_vector(15 downto 0);      
     M2_DDR2_ba      : out   std_logic_vector(2  downto 0);
+    M2_DDR2_cas_n   : out   std_logic_vector(0 downto 0);  
+    M2_DDR2_cke     : out   std_logic_vector(1  downto 0);
     M2_DDR2_clk     : inout std_logic_vector(1  downto 0);    
     M2_DDR2_clk_n   : inout std_logic_vector(1  downto 0);
-    M2_DDR2_cke     : out   std_logic_vector(1  downto 0);
     M2_DDR2_cs_n    : out   std_logic_vector(1  downto 0);
-	 M2_DDR2_dm      : out   std_logic_vector(7  downto 0); 
-	 M2_DDR2_ras_n   : out   std_logic_vector(0 downto 0);  
-    M2_DDR2_cas_n   : out   std_logic_vector(0 downto 0);  
-	 M2_DDR2_we_n    : out   std_logic_vector(0 downto 0);  
+    M2_DDR2_dm      : out   std_logic_vector(7  downto 0); 
     M2_DDR2_dq      : inout std_logic_vector(63 downto 0); 
     M2_DDR2_dqs     : inout std_logic_vector(7  downto 0);
     M2_DDR2_dqsn    : inout std_logic_vector(7  downto 0);
     M2_DDR2_odt     : out   std_logic_vector(1  downto 0);
+    M2_DDR2_ras_n   : out   std_logic_vector(0 downto 0);  
+    M2_DDR2_SA      : out   std_logic_vector(1  downto 0);
+    M2_DDR2_we_n    : out   std_logic_vector(0 downto 0);  
+    M2_DDR2_SCL     : out   std_logic;
+    M2_DDR2_SDA     : inout std_logic;
     M2_DDR2_oct_rdn : in    std_logic;
     M2_DDR2_oct_rup : in    std_logic;
-    M2_DDR2_SCL     : out   std_logic;
-    M2_DDR2_SDA     : inout std_logic;    
-    M2_DDR2_SA      : out   std_logic_vector(1  downto 0);
-
+	 
 	 -- DDR2 DIM2
-    M1_DDR2_addr    : out   std_logic_vector(13 downto 0);      
+    M1_DDR2_addr    : out   std_logic_vector(15 downto 0);      
     M1_DDR2_ba      : out   std_logic_vector(2  downto 0);
+    M1_DDR2_cas_n   : out   std_logic_vector(0 downto 0);  
+    M1_DDR2_cke     : out   std_logic_vector(1  downto 0);
     M1_DDR2_clk     : inout std_logic_vector(1  downto 0);    
     M1_DDR2_clk_n   : inout std_logic_vector(1  downto 0);
-    M1_DDR2_cke     : out   std_logic_vector(1  downto 0);
     M1_DDR2_cs_n    : out   std_logic_vector(1  downto 0);
-    M1_DDR2_dm      : out   std_logic_vector(7  downto 0); 	 
-	 M1_DDR2_ras_n   : out   std_logic_vector(0 downto 0);  
-    M1_DDR2_cas_n   : out   std_logic_vector(0 downto 0);  
-	 M1_DDR2_we_n    : out   std_logic_vector(0 downto 0);  
+    M1_DDR2_dm      : out   std_logic_vector(7  downto 0); 
     M1_DDR2_dq      : inout std_logic_vector(63 downto 0); 
     M1_DDR2_dqs     : inout std_logic_vector(7  downto 0);
     M1_DDR2_dqsn    : inout std_logic_vector(7  downto 0);
     M1_DDR2_odt     : out   std_logic_vector(1  downto 0);
-    M1_DDR2_oct_rdn : in    std_logic;
-    M1_DDR2_oct_rup : in    std_logic;    
+    M1_DDR2_ras_n   : out   std_logic_vector(0 downto 0);  
+    M1_DDR2_SA      : out   std_logic_vector(1  downto 0);
+    M1_DDR2_we_n    : out   std_logic_vector(0 downto 0);  
     M1_DDR2_SCL     : out   std_logic;
     M1_DDR2_SDA     : inout std_logic;
-	 M1_DDR2_SA      : out   std_logic_vector(1  downto 0);
+    M1_DDR2_oct_rdn : in    std_logic;
+    M1_DDR2_oct_rup : in    std_logic;
 
     -- Memory acess
     FSM_A : out std_logic_vector(25 downto 0);
@@ -371,8 +371,8 @@ signal spw_h_sync : std_logic;
             m2_ddr2_memory_mem_ba            : out   std_logic_vector(2 downto 0);                     
             m2_ddr2_memory_mem_ck            : out   std_logic_vector(1 downto 0);                     
             m2_ddr2_memory_mem_ck_n          : out   std_logic_vector(1 downto 0);                     
-            m2_ddr2_memory_mem_cke           : out   std_logic_vector(1 downto 0);                     
-            m2_ddr2_memory_mem_cs_n          : out   std_logic_vector(1 downto 0);                     
+            m2_ddr2_memory_mem_cke           : out   std_logic_vector(0 downto 0);                     
+            m2_ddr2_memory_mem_cs_n          : out   std_logic_vector(0 downto 0);                     
             m2_ddr2_memory_mem_dm            : out   std_logic_vector(7 downto 0);                     
             m2_ddr2_memory_mem_ras_n         : out   std_logic_vector(0 downto 0);                     
             m2_ddr2_memory_mem_cas_n         : out   std_logic_vector(0 downto 0);                     
@@ -380,7 +380,7 @@ signal spw_h_sync : std_logic;
             m2_ddr2_memory_mem_dq            : inout std_logic_vector(63 downto 0) := (others => 'X'); 
             m2_ddr2_memory_mem_dqs           : inout std_logic_vector(7 downto 0)  := (others => 'X'); 
             m2_ddr2_memory_mem_dqs_n         : inout std_logic_vector(7 downto 0)  := (others => 'X'); 
-            m2_ddr2_memory_mem_odt           : out   std_logic_vector(1 downto 0);                     
+            m2_ddr2_memory_mem_odt           : out   std_logic_vector(0 downto 0);                     
             m2_ddr2_oct_rdn                  : in    std_logic                     := 'X';             
             m2_ddr2_oct_rup                  : in    std_logic                     := 'X';             
 
@@ -389,8 +389,8 @@ signal spw_h_sync : std_logic;
             m1_ddr2_memory_mem_ba            : out   std_logic_vector(2 downto 0);                     
             m1_ddr2_memory_mem_ck            : out   std_logic_vector(1 downto 0);                     
             m1_ddr2_memory_mem_ck_n          : out   std_logic_vector(1 downto 0);                     
-            m1_ddr2_memory_mem_cke           : out   std_logic_vector(1 downto 0);                     
-            m1_ddr2_memory_mem_cs_n          : out   std_logic_vector(1 downto 0);                     
+            m1_ddr2_memory_mem_cke           : out   std_logic_vector(0 downto 0);                     
+            m1_ddr2_memory_mem_cs_n          : out   std_logic_vector(0 downto 0);                     
             m1_ddr2_memory_mem_dm            : out   std_logic_vector(7 downto 0);                     
             m1_ddr2_memory_mem_ras_n         : out   std_logic_vector(0 downto 0);                     
             m1_ddr2_memory_mem_cas_n         : out   std_logic_vector(0 downto 0);                     
@@ -398,7 +398,7 @@ signal spw_h_sync : std_logic;
             m1_ddr2_memory_mem_dq            : inout std_logic_vector(63 downto 0) := (others => 'X'); 
             m1_ddr2_memory_mem_dqs           : inout std_logic_vector(7 downto 0)  := (others => 'X'); 
             m1_ddr2_memory_mem_dqs_n         : inout std_logic_vector(7 downto 0)  := (others => 'X'); 
-            m1_ddr2_memory_mem_odt           : out   std_logic_vector(1 downto 0);                     
+            m1_ddr2_memory_mem_odt           : out   std_logic_vector(0 downto 0);                     
             m1_ddr2_oct_rdn                  : in    std_logic                     := 'X';             
             m1_ddr2_oct_rup                  : in    std_logic                     := 'X';             
             
@@ -557,12 +557,12 @@ SOPC_INST : MebX_Qsys_Project
     
     m1_ddr2_memory_pll_ref_clk_clk=> OSC_50_Bank3,
 	 
-    m1_ddr2_memory_mem_a          => M1_DDR2_addr,
+    m1_ddr2_memory_mem_a          => M1_DDR2_addr(13 DOWNTO 0),
     m1_ddr2_memory_mem_ba         => M1_DDR2_ba,
     m1_ddr2_memory_mem_ck         => M1_DDR2_clk, 
     m1_ddr2_memory_mem_ck_n       => M1_DDR2_clk_n,
-    m1_ddr2_memory_mem_cke        => M1_DDR2_cke,
-    m1_ddr2_memory_mem_cs_n       => M1_DDR2_cs_n,
+    m1_ddr2_memory_mem_cke        => M1_DDR2_cke(0 downto 0),
+    m1_ddr2_memory_mem_cs_n       => M1_DDR2_cs_n(0 downto 0),
     m1_ddr2_memory_mem_dm         => M1_DDR2_dm, 
     m1_ddr2_memory_mem_ras_n      => M1_DDR2_ras_n,
     m1_ddr2_memory_mem_cas_n      => M1_DDR2_cas_n,
@@ -570,18 +570,18 @@ SOPC_INST : MebX_Qsys_Project
     m1_ddr2_memory_mem_dq         => M1_DDR2_dq, 
     m1_ddr2_memory_mem_dqs        => M1_DDR2_dqs,
     m1_ddr2_memory_mem_dqs_n      => M1_DDR2_dqsn,
-    m1_ddr2_memory_mem_odt        => M1_DDR2_odt, 
+    m1_ddr2_memory_mem_odt        => M1_DDR2_odt(0 downto 0), 
     m1_ddr2_oct_rdn               => M1_DDR2_oct_rdn,
     m1_ddr2_oct_rup               => M1_DDR2_oct_rup,
     m1_ddr2_i2c_scl_export        => M1_DDR2_SCL,
     m1_ddr2_i2c_sda_export        => M1_DDR2_SDA,
 
-    m2_ddr2_memory_mem_a          => M2_DDR2_addr,
+    m2_ddr2_memory_mem_a          => M2_DDR2_addr(13 DOWNTO 0),
     m2_ddr2_memory_mem_ba         => M2_DDR2_ba,
     m2_ddr2_memory_mem_ck         => M2_DDR2_clk, 
     m2_ddr2_memory_mem_ck_n       => M2_DDR2_clk_n,
-    m2_ddr2_memory_mem_cke        => M2_DDR2_cke,
-    m2_ddr2_memory_mem_cs_n       => M2_DDR2_cs_n,
+    m2_ddr2_memory_mem_cke        => M2_DDR2_cke(0 downto 0),
+    m2_ddr2_memory_mem_cs_n       => M2_DDR2_cs_n(0 downto 0),
     m2_ddr2_memory_mem_dm         => M2_DDR2_dm, 
     m2_ddr2_memory_mem_ras_n      => M2_DDR2_ras_n,
     m2_ddr2_memory_mem_cas_n      => M2_DDR2_cas_n,
@@ -589,7 +589,7 @@ SOPC_INST : MebX_Qsys_Project
     m2_ddr2_memory_mem_dq         => M2_DDR2_dq, 
     m2_ddr2_memory_mem_dqs        => M2_DDR2_dqs,
     m2_ddr2_memory_mem_dqs_n      => M2_DDR2_dqsn,
-    m2_ddr2_memory_mem_odt        => M2_DDR2_odt, 
+    m2_ddr2_memory_mem_odt        => M2_DDR2_odt(0 downto 0), 
     m2_ddr2_oct_rdn               => M2_DDR2_oct_rdn,
     m2_ddr2_oct_rup               => M2_DDR2_oct_rup,
     m2_ddr2_i2c_scl_export        => M2_DDR2_SCL,

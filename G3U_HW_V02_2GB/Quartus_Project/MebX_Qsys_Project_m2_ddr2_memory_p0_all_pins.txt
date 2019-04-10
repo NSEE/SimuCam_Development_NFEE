@@ -13,7 +13,7 @@ DM {M2_DDR2_dm[0]} {M2_DDR2_dm[1]} {M2_DDR2_dm[2]} {M2_DDR2_dm[3]} {M2_DDR2_dm[4
 CK: {M2_DDR2_clk[0]} {M2_DDR2_clk[1]}
 CKn: {M2_DDR2_clk_n[0]} {M2_DDR2_clk_n[1]}
 ADD: {M2_DDR2_addr[0]} {M2_DDR2_addr[10]} {M2_DDR2_addr[11]} {M2_DDR2_addr[12]} {M2_DDR2_addr[13]} {M2_DDR2_addr[1]} {M2_DDR2_addr[2]} {M2_DDR2_addr[3]} {M2_DDR2_addr[4]} {M2_DDR2_addr[5]} {M2_DDR2_addr[6]} {M2_DDR2_addr[7]} {M2_DDR2_addr[8]} {M2_DDR2_addr[9]}
-CMD: {M2_DDR2_cs_n[0]} {M2_DDR2_cs_n[1]} {M2_DDR2_we_n[0]} {M2_DDR2_ras_n[0]} {M2_DDR2_cas_n[0]} {M2_DDR2_odt[0]} {M2_DDR2_odt[1]} {M2_DDR2_cke[0]} {M2_DDR2_cke[1]}
+CMD: {M2_DDR2_cs_n[0]} {M2_DDR2_we_n[0]} {M2_DDR2_ras_n[0]} {M2_DDR2_cas_n[0]} {M2_DDR2_odt[0]} {M2_DDR2_cke[0]}
 BA: {M2_DDR2_ba[0]} {M2_DDR2_ba[1]} {M2_DDR2_ba[2]}
 REF CLK: OSC_50_BANK4
 PLL AFI: SOPC_INST|m2_ddr2_memory|pll0|upll_memphy|auto_generated|pll1|clk[0]

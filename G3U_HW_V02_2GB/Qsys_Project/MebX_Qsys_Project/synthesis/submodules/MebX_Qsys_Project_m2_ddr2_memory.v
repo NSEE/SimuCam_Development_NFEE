@@ -18,8 +18,8 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 		output wire [2:0]   mem_ba,                    //                 .mem_ba
 		output wire [1:0]   mem_ck,                    //                 .mem_ck
 		output wire [1:0]   mem_ck_n,                  //                 .mem_ck_n
-		output wire [1:0]   mem_cke,                   //                 .mem_cke
-		output wire [1:0]   mem_cs_n,                  //                 .mem_cs_n
+		output wire [0:0]   mem_cke,                   //                 .mem_cke
+		output wire [0:0]   mem_cs_n,                  //                 .mem_cs_n
 		output wire [7:0]   mem_dm,                    //                 .mem_dm
 		output wire [0:0]   mem_ras_n,                 //                 .mem_ras_n
 		output wire [0:0]   mem_cas_n,                 //                 .mem_cas_n
@@ -27,10 +27,10 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 		inout  wire [63:0]  mem_dq,                    //                 .mem_dq
 		inout  wire [7:0]   mem_dqs,                   //                 .mem_dqs
 		inout  wire [7:0]   mem_dqs_n,                 //                 .mem_dqs_n
-		output wire [1:0]   mem_odt,                   //                 .mem_odt
+		output wire [0:0]   mem_odt,                   //                 .mem_odt
 		output wire         avl_ready,                 //              avl.waitrequest_n
 		input  wire         avl_burstbegin,            //                 .beginbursttransfer
-		input  wire [25:0]  avl_addr,                  //                 .address
+		input  wire [24:0]  avl_addr,                  //                 .address
 		output wire         avl_rdata_valid,           //                 .readdatavalid
 		output wire [255:0] avl_rdata,                 //                 .readdata
 		input  wire [255:0] avl_wdata,                 //                 .writedata
@@ -70,11 +70,11 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 	wire    [1:0] p0_afi_afi_rdata_valid;                      // p0:afi_rdata_valid -> m0:phy_mux_rdata_valid
 	wire    [1:0] m0_phy_mux_afi_we_n;                         // m0:phy_mux_we_n -> p0:afi_we_n
 	wire    [1:0] m0_phy_mux_afi_cas_n;                        // m0:phy_mux_cas_n -> p0:afi_cas_n
-	wire    [3:0] m0_phy_mux_afi_cs_n;                         // m0:phy_mux_cs_n -> p0:afi_cs_n
+	wire    [1:0] m0_phy_mux_afi_cs_n;                         // m0:phy_mux_cs_n -> p0:afi_cs_n
 	wire    [1:0] m0_phy_mux_afi_rdata_en;                     // m0:phy_mux_rdata_en -> p0:afi_rdata_en
-	wire    [3:0] m0_phy_mux_afi_odt;                          // m0:phy_mux_odt -> p0:afi_odt
+	wire    [1:0] m0_phy_mux_afi_odt;                          // m0:phy_mux_odt -> p0:afi_odt
 	wire    [1:0] m0_phy_mux_afi_ras_n;                        // m0:phy_mux_ras_n -> p0:afi_ras_n
-	wire    [3:0] m0_phy_mux_afi_cke;                          // m0:phy_mux_cke -> p0:afi_cke
+	wire    [1:0] m0_phy_mux_afi_cke;                          // m0:phy_mux_cke -> p0:afi_cke
 	wire    [5:0] m0_afi_afi_rlat;                             // m0:afi_rlat -> c0:afi_rlat
 	wire          m0_afi_afi_cal_success;                      // m0:afi_cal_success -> c0:afi_cal_success
 	wire  [255:0] m0_afi_afi_rdata;                            // m0:afi_rdata -> c0:afi_rdata
@@ -103,11 +103,11 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 	wire    [1:0] m0_seq_mux_afi_rdata_valid;                  // m0:seq_mux_rdata_valid -> s0:afi_rdata_valid
 	wire    [1:0] s0_afi_afi_we_n;                             // s0:afi_we_n -> m0:seq_mux_we_n
 	wire    [1:0] s0_afi_afi_cas_n;                            // s0:afi_cas_n -> m0:seq_mux_cas_n
-	wire    [3:0] s0_afi_afi_cs_n;                             // s0:afi_cs_n -> m0:seq_mux_cs_n
+	wire    [1:0] s0_afi_afi_cs_n;                             // s0:afi_cs_n -> m0:seq_mux_cs_n
 	wire    [1:0] s0_afi_afi_rdata_en;                         // s0:afi_rdata_en -> m0:seq_mux_rdata_en
-	wire    [3:0] s0_afi_afi_odt;                              // s0:afi_odt -> m0:seq_mux_odt
+	wire    [1:0] s0_afi_afi_odt;                              // s0:afi_odt -> m0:seq_mux_odt
 	wire    [1:0] s0_afi_afi_ras_n;                            // s0:afi_ras_n -> m0:seq_mux_ras_n
-	wire    [3:0] s0_afi_afi_cke;                              // s0:afi_cke -> m0:seq_mux_cke
+	wire    [1:0] s0_afi_afi_cke;                              // s0:afi_cke -> m0:seq_mux_cke
 	wire          s0_mux_sel_mux_sel;                          // s0:phy_mux_sel -> m0:mux_sel
 	wire    [5:0] s0_phy_phy_afi_rlat;                         // s0:phy_afi_rlat -> p0:phy_afi_rlat
 	wire          p0_phy_phy_clk;                              // p0:phy_clk -> s0:phy_clk
@@ -137,11 +137,11 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 	wire          c0_afi_afi_init_req;                         // c0:afi_init_req -> s0:afi_init_req
 	wire    [1:0] c0_afi_afi_we_n;                             // c0:afi_we_n -> m0:afi_we_n
 	wire    [1:0] c0_afi_afi_cas_n;                            // c0:afi_cas_n -> m0:afi_cas_n
-	wire    [3:0] c0_afi_afi_cs_n;                             // c0:afi_cs_n -> m0:afi_cs_n
+	wire    [1:0] c0_afi_afi_cs_n;                             // c0:afi_cs_n -> m0:afi_cs_n
 	wire    [1:0] c0_afi_afi_rdata_en;                         // c0:afi_rdata_en -> m0:afi_rdata_en
-	wire    [3:0] c0_afi_afi_odt;                              // c0:afi_odt -> m0:afi_odt
+	wire    [1:0] c0_afi_afi_odt;                              // c0:afi_odt -> m0:afi_odt
 	wire    [1:0] c0_afi_afi_ras_n;                            // c0:afi_ras_n -> m0:afi_ras_n
-	wire    [3:0] c0_afi_afi_cke;                              // c0:afi_cke -> m0:afi_cke
+	wire    [1:0] c0_afi_afi_cke;                              // c0:afi_cke -> m0:afi_cke
 	wire   [13:0] oct0_oct_sharing_parallelterminationcontrol; // oct0:parallelterminationcontrol -> p0:parallelterminationcontrol
 	wire   [13:0] oct0_oct_sharing_seriesterminationcontrol;   // oct0:seriesterminationcontrol -> p0:seriesterminationcontrol
 	wire          p0_dll_clk_clk;                              // p0:dll_clk -> dll0:clk
@@ -251,11 +251,11 @@ module MebX_Qsys_Project_m2_ddr2_memory (
 		.AFI_ADDR_WIDTH      (28),
 		.AFI_BANKADDR_WIDTH  (6),
 		.AFI_CONTROL_WIDTH   (2),
-		.AFI_CS_WIDTH        (4),
-		.AFI_CLK_EN_WIDTH    (4),
+		.AFI_CS_WIDTH        (2),
+		.AFI_CLK_EN_WIDTH    (2),
 		.AFI_DM_WIDTH        (32),
 		.AFI_DQ_WIDTH        (256),
-		.AFI_ODT_WIDTH       (4),
+		.AFI_ODT_WIDTH       (2),
 		.AFI_WRITE_DQS_WIDTH (16),
 		.AFI_RLAT_WIDTH      (6),
 		.AFI_WLAT_WIDTH      (6)

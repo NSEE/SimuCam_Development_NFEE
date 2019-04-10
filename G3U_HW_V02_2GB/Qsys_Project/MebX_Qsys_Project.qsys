@@ -2004,9 +2004,9 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x40000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x81200800' end='0x81201000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x40000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
@@ -2047,9 +2047,9 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0xC0000000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0xC0000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
@@ -2167,7 +2167,7 @@
   <parameter name="RESPONSE_FIFO_DEPTH" value="64" />
   <parameter name="SLAVE_SYNC_DEPTH" value="2" />
   <parameter name="SYMBOL_WIDTH" value="8" />
-  <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
+  <parameter name="SYSINFO_ADDR_WIDTH" value="30" />
   <parameter name="USE_AUTO_ADDRESS_WIDTH" value="1" />
  </module>
  <module
@@ -2338,7 +2338,7 @@
   <parameter name="MEM_MIRROR_ADDRESSING" value="0" />
   <parameter name="MEM_NUMBER_OF_DIMMS" value="1" />
   <parameter name="MEM_NUMBER_OF_RANKS_PER_DEVICE" value="1" />
-  <parameter name="MEM_NUMBER_OF_RANKS_PER_DIMM" value="2" />
+  <parameter name="MEM_NUMBER_OF_RANKS_PER_DIMM" value="1" />
   <parameter name="MEM_PD" value="Fast exit" />
   <parameter name="MEM_RANK_MULTIPLICATION_FACTOR" value="1" />
   <parameter name="MEM_ROW_ADDR_WIDTH" value="14" />
@@ -2692,7 +2692,7 @@
   <parameter name="MEM_MIRROR_ADDRESSING" value="0" />
   <parameter name="MEM_NUMBER_OF_DIMMS" value="1" />
   <parameter name="MEM_NUMBER_OF_RANKS_PER_DEVICE" value="1" />
-  <parameter name="MEM_NUMBER_OF_RANKS_PER_DIMM" value="2" />
+  <parameter name="MEM_NUMBER_OF_RANKS_PER_DIMM" value="1" />
   <parameter name="MEM_PD" value="Fast exit" />
   <parameter name="MEM_RANK_MULTIPLICATION_FACTOR" value="1" />
   <parameter name="MEM_ROW_ADDR_WIDTH" value="14" />
