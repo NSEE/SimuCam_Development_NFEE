@@ -22,18 +22,22 @@ int main()
   printf("Memory EEPROM dumper application\n\n");
 
   printf("Memory M1 EEPROM Test:\n");
-  bDdr2EepromTest(DDR2_M1_ID);
+  if (bDdr2EepromTest(DDR2_M1_ID)){
+	  printf("Memory M1 EEPROM Dump:\n");
+	  bDdr2EepromDump(DDR2_M1_ID);
+  } else {
+	  printf("Memory M1 EEPROM Test failed, not possible to dump\n");
+  }
 
   printf("Memory M2 EEPROM Test:\n");
-  bDdr2EepromTest(DDR2_M2_ID);
+  if (bDdr2EepromTest(DDR2_M2_ID)){
+	  printf("Memory M2 EEPROM Dump:\n");
+	  bDdr2EepromDump(DDR2_M2_ID);
+  } else {
+	  printf("Memory M2 EEPROM Test failed, not possible to dump\n");
+  }
 
-  printf("Memory M1 EEPROM Dump:\n");
-  bDdr2EepromDump(DDR2_M1_ID);
-
-  printf("Memory M2 EEPROM Dump:\n");
-  bDdr2EepromDump(DDR2_M2_ID);
-
-  printf("EEPROM Dump complete!\n");
+  printf("EEPROM Test and Dump complete!\n");
 
   while (1) {}
 

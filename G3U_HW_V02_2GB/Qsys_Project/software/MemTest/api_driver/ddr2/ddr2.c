@@ -1,8 +1,8 @@
 /**
  * @file   ddr2.c
- * @Author Rodrigo FranÃ§a (rodrigo.franca@maua.br | rodmarfra@gmail.com)
+ * @Author Rodrigo França (rodrigo.franca@maua.br | rodmarfra@gmail.com)
  * @date   Maio, 2017
- * @brief  Source File para testes e acesso as memÃ³rias DDR2 da DE4
+ * @brief  Source File para testes e acesso as memórias DDR2 da DE4
  *
  */
 
@@ -22,9 +22,9 @@ char cDebugBuffer[256];
  * @brief
  * @ingroup DDR2
  *
- * Realiza teste de leitura e escrita da EEPROM da memÃ³ria escolhida.
+ * Realiza teste de leitura e escrita da EEPROM da memória escolhida.
  *
- * @param [in] MemoryId  ID da mÃ©moria a ser testada
+ * @param [in] MemoryId  ID da mémoria a ser testada
  *
  * @retval TRUE : Sucesso
  *
@@ -109,7 +109,7 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
 			if (ucReadData != ucWriteData) {
 				bSuccess = FALSE;
 
-				sprintf(cDebugBuffer,
+				printf(
 						"Verify EEPROM write fail, ReadData=%02Xh, WriteData=%02Xh\n",
 						ucReadData, ucWriteData);
 
@@ -136,9 +136,9 @@ bool bDdr2EepromTest(alt_u8 ucMemoryId) {
  * @brief
  * @ingroup DDR2
  *
- * Realiza o dump das informaÃ§Ãµes da EEPROM da memÃ³ria escolhida, com os nomes das informaÃ§Ãµes.
+ * Realiza o dump das informações da EEPROM da memória escolhida, com os nomes das informações.
  *
- * @param [in] MemoryId  ID da mÃ©moria a ser testada
+ * @param [in] MemoryId  ID da mémoria a ser testada
  *
  * @retval TRUE : Sucesso
  *
@@ -177,14 +177,16 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 			ucSZData, sizeof(ucSZData));
 	if (bSuccess) {
 		for (iI = 0; iI < 256 && bSuccess; iI++) {
+
+			printf("EEPROM[%03d]=%02Xh ", iI, ucSZData[iI]);
+
 			if (iI == 0) {
 
-				printf("(Number of SPD Bytes Used)\n" "EEPROM[%03d]=%02Xh ", iI, ucSZData[iI]);
+				printf("(Number of SPD Bytes Used)\n");
 
 			} else if (iI == 1) {
 
-				sprintf(cDebugBuffer,
-						"(Total Number of Bytes in SPD Device, Log2(N))\n");
+				printf("(Total Number of Bytes in SPD Device, Log2(N))\n");
 
 			} else if (iI == 2) {
 
@@ -192,18 +194,15 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 3) {
 
-				sprintf(cDebugBuffer,
-						"(Number of Row Addresses on Assembly)\n");
+				printf("(Number of Row Addresses on Assembly)\n");
 
 			} else if (iI == 4) {
 
-				sprintf(cDebugBuffer,
-						"(Number of Column Addresses on Assembly)\n");
+				printf("(Number of Column Addresses on Assembly)\n");
 
 			} else if (iI == 5) {
 
-				sprintf(cDebugBuffer,
-						"(DIMM Height and Module Rank Number[b2b1b0+1])\n");
+				printf("(DIMM Height and Module Rank Number[b2b1b0+1])\n");
 
 			} else if (iI == 6) {
 
@@ -215,8 +214,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 16) {
 
-				sprintf(cDebugBuffer,
-						"(Burst Lengths Supported[bitmap: x x x x 8 4 x x])\n");
+				printf("(Burst Lengths Supported[bitmap: x x x x 8 4 x x])\n");
 
 			} else if (iI == 13) {
 
@@ -232,12 +230,11 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 18) {
 
-				sprintf(cDebugBuffer,
-						"(CAS lantencies supported[bitmap: x x 5 4 3 2 x x])\n");
+				printf("(CAS lantencies supported[bitmap: x x 5 4 3 2 x x])\n");
 
 			} else if (iI == 20) {
 
-				sprintf(cDebugBuffer,
+				printf(
 						"(DIMM Type: x x Mini-UDIMM Mini-RDIMM Micro-DIMM SO-DIMM UDIMMM RDIMM)\n");
 
 			} else if (iI == 22) {
@@ -246,53 +243,45 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 27) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun row precharge time[tRP;nsx4])\n");
+				printf("(Minimun row precharge time[tRP;nsx4])\n");
 
 			} else if (iI == 28) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun row active-row activce delay[tRRD;nsx4])\n");
+				printf("(Minimun row active-row activce delay[tRRD;nsx4])\n");
 
 			} else if (iI == 29) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun RAS to CAS delay[tRCD;nsx4])\n");
+				printf("(Minimun RAS to CAS delay[tRCD;nsx4])\n");
 
 			} else if (iI == 30) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun acive to precharge time[tRAS;ns])\n");
+				printf("(Minimun acive to precharge time[tRAS;ns])\n");
 
 			} else if (iI == 31) {
 
-				sprintf(cDebugBuffer,
+				printf(
 						"(Size of each rank[bitmap:512MB,256MB,128MB,16GB,8GB,4GB,2GB,1GB)\n");
 
 			} else if (iI == 36) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun write receovery time[tWR;nsx4])\n");
+				printf("(Minimun write receovery time[tWR;nsx4])\n");
 
 			} else if (iI == 37) {
 
-				sprintf(cDebugBuffer,
-						"(Internal write to read command delay[tWTR;nsx4])\n");
+				printf("(Internal write to read command delay[tWTR;nsx4])\n");
 
 			} else if (iI == 38) {
 
-				sprintf(cDebugBuffer,
+				printf(
 						"(Internal read to precharge command delay[tRTP;nsx4])\n");
 
 			} else if (iI == 41) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun activce to active/refresh time[tRC;ns])\n");
+				printf("(Minimun activce to active/refresh time[tRC;ns])\n");
 
 			} else if (iI == 42) {
 
-				sprintf(cDebugBuffer,
-						"(Minimun refresh to active/refresh time[tRFC;ns])\n");
+				printf("(Minimun refresh to active/refresh time[tRFC;ns])\n");
 
 			} else if (iI == 62) {
 
@@ -308,7 +297,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 72) {
 
-				sprintf(cDebugBuffer,
+				printf(
 						"(Module manufacturing location[Vendor-specific code])\n");
 
 			} else if (iI == 73) {
@@ -321,8 +310,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 93) {
 
-				sprintf(cDebugBuffer,
-						"(Manufacture Years since 2000[0-255])\n");
+				printf("(Manufacture Years since 2000[0-255])\n");
 
 			} else if (iI == 94) {
 
@@ -330,8 +318,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 
 			} else if (iI == 95) {
 
-				sprintf(cDebugBuffer,
-						"(95~98[4-bytes]: Module serial number)\n");
+				printf("(95~98[4-bytes]: Module serial number)\n");
 
 			} else if (iI == 99) {
 
@@ -383,9 +370,9 @@ bool bDdr2SwitchMemory(alt_u8 ucMemoryId) {
  * @brief
  * @ingroup DDR2
  *
- * Teste de escrita na memÃ³ria, baseados em um vetor de dados aleatÃ³rios.
+ * Teste de escrita na memória, baseados em um vetor de dados aleatórios.
  *
- * @param [in] MemoryId  ID da mÃ©moria a ser testada
+ * @param [in] MemoryId  ID da mémoria a ser testada
  *
  * @retval TRUE : Sucesso
  *
@@ -414,7 +401,7 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 
-		printf(	"DR2 Memory ID not identified!! Aborting Test \n");
+		printf("DR2 Memory ID not identified!! Aborting Test \n");
 
 		return bSuccess;
 	}
@@ -478,8 +465,7 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId) {
 	iTimeElapsed = alt_nticks() - iTimeStart;
 	if (bSuccess) {
 
-		sprintf(cDebugBuffer,
-				"DDR2 write test pass, size=%lu bytes, %.3f sec\n", uliByteLen,
+		printf("DDR2 write test pass, size=%lu bytes, %.3f sec\n", uliByteLen,
 				(float) iTimeElapsed / (float) alt_ticks_per_second());
 
 	} else {
@@ -498,9 +484,9 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId) {
  * @brief
  * @ingroup DDR2
  *
- * Teste de escrita na memÃ³ria, baseados em um vetor de dados aleatÃ³rios.
+ * Teste de escrita na memória, baseados em um vetor de dados aleatórios.
  *
- * @param [in] MemoryId  ID da mÃ©moria a ser testada
+ * @param [in] MemoryId  ID da mémoria a ser testada
  *
  * @retval TRUE : Sucesso
  *
@@ -529,8 +515,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 	default:
 		bSuccess = FALSE;
 
-		printf(
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		printf("DR2 Memory ID not identified!! Aborting Test \n");
 
 		return bSuccess;
 	}
@@ -571,8 +556,7 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
 		for (iI = 0; iI < iNItemNum && bSuccess; iI++) {
 			if (*pxSrc++ != *pxDes++) {
 
-				sprintf(cDebugBuffer,
-						"verify ng, read=%08Xh, expected=%08Xh, WordIndex=%Xh\n",
+				printf("verify ng, read=%08Xh, expected=%08Xh, WordIndex=%Xh\n",
 						(int) *(pxSrc - 1), (int) xSZData[iI],
 						(iNPos / ciMyDataSize) + iI);
 
@@ -612,11 +596,11 @@ bool bDdr2MemoryReadTest(alt_u8 ucMemoryId) {
  * @brief
  * @ingroup DDR2
  *
- * Teste de escrita na memÃ³ria, baseados nos valores gerados por um RNG.
+ * Teste de escrita na memória, baseados nos valores gerados por um RNG.
  *
- * @param [in] MemoryId  ID da mÃ©moria a ser testada
- * @param [in] bVerbose  Controle o modo verbose da funÃ§Ã£o
- * @param [in] bTime  Controla se a duraÃ§Ã£o da funÃ§Ã£o serÃ¡ medida
+ * @param [in] MemoryId  ID da mémoria a ser testada
+ * @param [in] bVerbose  Controle o modo verbose da função
+ * @param [in] bTime  Controla se a duração da função será medida
  *
  * @retval TRUE : Sucesso
  *
@@ -645,8 +629,7 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	default:
 		bSuccess = FALSE;
 
-		printf(
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		printf("DR2 Memory ID not identified!! Aborting Test \n");
 
 		return bSuccess;
 	}
@@ -699,8 +682,7 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 		if (bTime == TRUE) {
 			TimeElapsed = alt_nticks() - TimeStart;
 
-			sprintf(cDebugBuffer,
-					"DDR2 write test pass, size=%ld bytes, %.3f sec\n",
+			printf("DDR2 write test pass, size=%ld bytes, %.3f sec\n",
 					uliByteLen,
 					(float) TimeElapsed / (float) alt_ticks_per_second());
 
@@ -725,11 +707,11 @@ bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
  * @brief
  * @ingroup DDR2
  *
- * Teste de leitura da memÃ³ria, baseados nos valores gerados por um RNG.
+ * Teste de leitura da memória, baseados nos valores gerados por um RNG.
  *
- * @param [in] MemoryId  ID da mÃ©moria a ser testada
- * @param [in] bVerbose  Controle o modo verbose da funÃ§Ã£o
- * @param [in] bTime  Controla se a duraÃ§Ã£o da funÃ§Ã£o serÃ¡ medida
+ * @param [in] MemoryId  ID da mémoria a ser testada
+ * @param [in] bVerbose  Controle o modo verbose da função
+ * @param [in] bTime  Controla se a duração da função será medida
  *
  * @retval TRUE : Sucesso
  *
@@ -758,8 +740,7 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 	default:
 		bSuccess = FALSE;
 
-		printf(
-				"DR2 Memory ID not identified!! Aborting Test \n");
+		printf("DR2 Memory ID not identified!! Aborting Test \n");
 
 		return bSuccess;
 	}
@@ -817,8 +798,7 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
 		if (bTime == TRUE) {
 			TimeElapsed = alt_nticks() - TimeStart;
 
-			sprintf(cDebugBuffer,
-					"DDR2 read test pass, size=%lu bytes, %.3f sec\n",
+			printf("DDR2 read test pass, size=%lu bytes, %.3f sec\n",
 					uliByteLen,
 					(float) TimeElapsed / (float) alt_ticks_per_second());
 
@@ -843,11 +823,11 @@ bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime) {
  * @brief
  * @ingroup DDR2
  *
- * Helper function para gerar valores aleatÃ³rios para teste de memÃ³ria (RNG)
+ * Helper function para gerar valores aleatórios para teste de memória (RNG)
  *
  * @param [in] bDRIVE  Estado atual do RNG
  *
- * @retval NÃºmero aleatÃ³rio resultate do RNG
+ * @retval Número aleatório resultate do RNG
  *
  */
 alt_u32 uliXorshift32(alt_u32 *puliState) {
