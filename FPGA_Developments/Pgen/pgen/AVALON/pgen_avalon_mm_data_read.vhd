@@ -24,23 +24,37 @@ architecture rtl of pgen_avalon_mm_data_read is
 	type t_read_state is (
 		EMPTY_CHECK,
 		FETCH,
-		READ,
-		FINISH
+		READ_A,
+		READ_B
 	);
 
 begin
-	p_pgen_avalon_mm_data_read : process(clk_i, rst_i) is
-		procedure p_mm_readdata(mm_read_address_i : t_pgen_avalon_mm_data_address) is
-		begin
-			-- Registers Data Read
-			case (mm_read_address_i) is
-				-- Case for access to all registers address
-				when others =>
-					avalon_mm_read_outputs_o.readdata <= (mm_read_registers_i.pattern_pixel_3 & mm_read_registers_i.pattern_pixel_2 & mm_read_registers_i.pattern_pixel_1 & mm_read_registers_i.pattern_pixel_0);
-			end case;
-		end procedure p_mm_readdata;
+-- Explanations about reading process:
+-- Create a sub state machine for fifo reading task
+-- State a) Check if there is data available inside fifo memory
+--if (data_controller_read_status_i.empty = '0') then
+-- Ok, data available, go to perform reading -> state b)
+-- State b) fetch = '1'
+--data_controller_read_control_o.data_fetch <= '1';
+-- State c) Read data
+--v_mm_read_address := to_integer(unsigned(avalon_mm_read_inputs_i.address));
+--p_mm_readdata(v_mm_read_address);
+-- State d) fetch = '0'
+--data_controller_read_control_o.data_fetch <= '0';
+-- ...and deassert waitrequest to inform reading ok: nios will deassert read signal
+--avalon_mm_read_outputs_o.waitrequest <= '0';
+-- ...and return to initial sub state
 
-		variable v_mm_read_address : t_pgen_avalon_mm_data_address := 0;
+-- Why fifo empty check must be performed inside the sub state machine?
+-- Because after a successful reading, fifo can become empty! The empty check
+-- can´t be performed outside sub state machine.
+
+-- If, at state a), fifo is empty (data unavailable),
+-- keep checking until fifo has data!!!
+-- Two possible logics: Check if generator is running, and wait;
+-- Or: provide a timeout of n clock cycles; if occurs, send dumbdata!
+	
+	p_pgen_avalon_mm_data_read : process(clk_i, rst_i) is
 		variable v_read_state      : t_read_state                  := EMPTY_CHECK;
 		variable v_rd_tout_cnt     : natural                       := c_TIMEOUT_DATA_READING;
 	begin
@@ -48,7 +62,6 @@ begin
 			avalon_mm_read_outputs_o.readdata         <= (others => '0');
 			-- Keep waitrequest asserted - bus locked
 			avalon_mm_read_outputs_o.waitrequest      <= '1';
-			v_mm_read_address                         := 0;
 			-- Keep data fetch deasserted
 			data_controller_read_control_o.data_fetch <= '0';
 			-- Default reading state
@@ -76,56 +89,37 @@ begin
 								v_rd_tout_cnt := c_TIMEOUT_DATA_READING;
 								-- Provide dumb data
 								avalon_mm_read_outputs_o.readdata <= x"ffff_ffff_ffff_ffff";
-								-- Finish
-								v_read_state := FINISH;
+								-- And deassert waitrequest to inform reading ok: nios will deassert read signal
+								avalon_mm_read_outputs_o.waitrequest <= '0';					
 							end if;
 						end if;
 					when FETCH =>
 						-- Rise fetch
 						data_controller_read_control_o.data_fetch <= '1';
-						-- Go to read
-						v_read_state := READ;
-					when READ =>
-						-- Data reading
-						v_mm_read_address := to_integer(unsigned(avalon_mm_read_inputs_i.address));
-						p_mm_readdata(v_mm_read_address);
-						-- Go to finish												
-						v_read_state := FINISH;
-					when FINISH =>
+						-- Go to read A phase
+						v_read_state := READ_A;
+					when READ_A =>
 						-- Deassert fetch
 						data_controller_read_control_o.data_fetch <= '0';
+						-- Go to read B phase
+						v_read_state := READ_B;
+					when READ_B =>
+						-- Data reading
+						avalon_mm_read_outputs_o.readdata <= mm_read_registers_i.pattern_pixel_3 &
+															 mm_read_registers_i.pattern_pixel_2 &
+															 mm_read_registers_i.pattern_pixel_1 &
+															 mm_read_registers_i.pattern_pixel_0;
 						-- And deassert waitrequest to inform reading ok: nios will deassert read signal
-						avalon_mm_read_outputs_o.waitrequest <= '0';						
+						avalon_mm_read_outputs_o.waitrequest <= '0';
 						-- ...and return to initial sub state
 						v_read_state := EMPTY_CHECK;
 					when others =>
 						null;
-
 				end case;
-				-- Explanations about reading process:
-				-- Create a sub state machine for fifo reading task
-				-- State a) Check if there is data available inside fifo memory
-				--if (data_controller_read_status_i.empty = '0') then
-				-- Ok, data available, go to perform reading -> state b)
-				-- State b) fetch = '1'
-				--data_controller_read_control_o.data_fetch <= '1';
-				-- State c) Read data
-				--v_mm_read_address := to_integer(unsigned(avalon_mm_read_inputs_i.address));
-				--p_mm_readdata(v_mm_read_address);
-				-- State d) fetch = '0'
-				--data_controller_read_control_o.data_fetch <= '0';
-				-- ...and deassert waitrequest to inform reading ok: nios will deassert read signal
-				--avalon_mm_read_outputs_o.waitrequest <= '0';
-				-- ...and return to initial sub state
-
-				-- Why fifo empty check must be performed inside the sub state machine?
-				-- Because after a successful reading, fifo can become empty! The empty check
-				-- can´t be performed outside sub state machine.
-
-				-- If, at state a), fifo is empty (data unavailable),
-				-- keep checking until fifo has data!!!
-				-- Two possible logics: Check if generator is running, and wait;
-				-- Or: provide a timeout of n clock cycles; if occurs, send dumbdata!
+			-- In any situation of read input = '0', force fetch = '0' and reset state machine
+			else
+				data_controller_read_control_o.data_fetch <= '0';
+				v_read_state := EMPTY_CHECK;
 			end if;
 		end if;
 	end process p_pgen_avalon_mm_data_read;

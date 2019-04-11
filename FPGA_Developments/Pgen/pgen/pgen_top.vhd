@@ -40,10 +40,11 @@ use work.pgen_data_fifo_pkg.all;
 --! <b>References:</b>\n
 --!
 --! <b>Modified by:</b>\n
---! Author: Rodrigo França
+--! Author: Cassio Berni
 -------------------------------------------------------------------------------
 --! \n\n<b>Last changes:</b>\n
 --! 21\02\2019 RF File Creation\n
+--! 11\04\2019 CB Updates\n
 --!
 --
 -------------------------------------------------------------------------------
