@@ -29,12 +29,6 @@ end entity avs_stimuli;
 
 architecture rtl of avs_stimuli is
 
-	type t_read_st is (
-		READ_PH1,
-		READ_PH2,
-		READ_PH3
-	);
-
 	-- Timeline offset	
 	constant c_TIME_OFFSET : natural range 0 to 30000 := 100;
 
@@ -66,9 +60,7 @@ begin
 		variable v_address : natural                  := 0;
 		-- Aux reg value
 		variable v_value   : natural                  := 0;
-		-- Reading state
-		variable v_read_state      : t_read_st  := READ_PH1;
-		
+
 	begin
 		if (rst_i = '1') then
 			-- Control port
@@ -81,8 +73,6 @@ begin
 			avalon_mm_d_read_o      <= '0';
 			-- Timeline
 			v_counter               := 0;
-			-- Read state
-			v_read_state := READ_PH1;
 
 		elsif rising_edge(clk_i) then
 			-- Control port - outputs default level
@@ -95,69 +85,17 @@ begin
 
 			case v_counter is
 				when (c_TIME_OFFSET + 500) to (c_TIME_OFFSET + 501) =>
-					-- Generator config
-					-- Control write: Pattern Size Register (address: 1)
-					v_address             := 1;
-					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
-					-- 200 rows and 200 columns
-					v_value               := 200;
-					a_c_rows              <= std_logic_vector(to_unsigned(v_value, 16));
-					a_c_columns           <= std_logic_vector(to_unsigned(v_value, 16));
-					avalon_mm_c_write_o   <= '1';
-
-				when (c_TIME_OFFSET + 1000) to (c_TIME_OFFSET + 1001) =>
-					-- Generator config
-					-- Control write: Pattern Parameters Register (address: 2)
-					v_address             := 2;
-					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
-					-- Timecode = 0
-					v_value               := 0;
-					a_c_timecode          <= std_logic_vector(to_unsigned(v_value, 8));
-					-- Ccd number = 2
-					a_c_ccd_number        <= "10";
-					-- Ccd side = 0 (left)
-					a_c_ccd_side          <= '0';
-					-- Mask field = 0 (without mask)
-					a_c_mask_field        <= '0'; 
-					avalon_mm_c_write_o   <= '1';
-
-				when (c_TIME_OFFSET + 1500) to (c_TIME_OFFSET + 1501) =>
-					-- Generator reset -> update current configuration
-					-- Control write: Control and Status Register (address: 0)
-					v_address             := 0;
-					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
-					a_c_reset 			  <= '1'; 
-					avalon_mm_c_write_o   <= '1';
-
-				when (c_TIME_OFFSET + 2000) to (c_TIME_OFFSET + 2001) =>
-					-- Generator start
-					-- Control write: Control and Status Register (address: 0)
-					v_address             := 0;
-					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
-					a_c_start 			  <= '1'; 
-					avalon_mm_c_write_o   <= '1';
-
-				when (c_TIME_OFFSET + 3000) to (c_TIME_OFFSET + 4500) =>
+					-- Data read - phase 1
+					-- Firt four pixels from fifo memory
 					v_address             := 0;
 					avalon_mm_d_address_o <= std_logic_vector(to_unsigned(v_address, 10));
+					avalon_mm_d_read_o    <= '1';
 
-					case (v_read_state) is
-						when READ_PH1 => 
-							avalon_mm_d_read_o    <= '1';
-							v_read_state := READ_PH2;
-
-						when READ_PH2 => 
-							if (avalon_mm_d_waitrequest_i = '0') then
-								avalon_mm_d_read_o    <= '0';
-								v_read_state := READ_PH3;	
-							end if;
-
-						when READ_PH3 => 
-							v_read_state := READ_PH1;
-	
-						when others =>
-							null;
-					end case;
+				when (c_TIME_OFFSET + 502) to (c_TIME_OFFSET + 550) =>
+					-- Data read - phase 2
+					if (avalon_mm_d_waitrequest_i = '0') then
+						avalon_mm_d_read_o    <= '0';
+					end if;
 
 				when others =>
 					null;

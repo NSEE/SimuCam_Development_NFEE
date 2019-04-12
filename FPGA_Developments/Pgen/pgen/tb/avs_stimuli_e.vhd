@@ -137,7 +137,56 @@ begin
 					a_c_start 			  <= '1'; 
 					avalon_mm_c_write_o   <= '1';
 
-				when (c_TIME_OFFSET + 3000) to (c_TIME_OFFSET + 4500) =>
+				when (c_TIME_OFFSET + 3000) to (c_TIME_OFFSET + 3001) =>
+					-- Generator stop
+					-- Control write: Control and Status Register (address: 0)
+					v_address             := 0;
+					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
+					a_c_stop 			  <= '1'; 
+					avalon_mm_c_write_o   <= '1';
+
+				when (c_TIME_OFFSET + 3100) to (c_TIME_OFFSET + 3800) =>
+					v_address             := 0;
+					avalon_mm_d_address_o <= std_logic_vector(to_unsigned(v_address, 10));
+
+					case (v_read_state) is
+						when READ_PH1 => 
+							avalon_mm_d_read_o    <= '1';
+							v_read_state := READ_PH2;
+
+						when READ_PH2 => 
+							if (avalon_mm_d_waitrequest_i = '0') then
+								avalon_mm_d_read_o    <= '0';
+								v_read_state := READ_PH3;	
+							end if;
+
+						when READ_PH3 => 
+							v_read_state := READ_PH1;
+	
+						when others =>
+							null;
+					end case;
+
+				when (c_TIME_OFFSET + 3801) to (c_TIME_OFFSET + 4800) =>
+					-- Make sure read request is off!
+					avalon_mm_d_read_o    <= '0';
+					v_read_state := READ_PH1;
+					-- Generator start
+					-- Control write: Control and Status Register (address: 0)
+					v_address             := 0;
+					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
+					a_c_start 			  <= '1'; 
+					avalon_mm_c_write_o   <= '1';
+
+				when (c_TIME_OFFSET + 4801) to (c_TIME_OFFSET + 4802) =>
+					-- Generator stop
+					-- Control write: Control and Status Register (address: 0)
+					v_address             := 0;
+					avalon_mm_c_address_o <= std_logic_vector(to_unsigned(v_address, 8));
+					a_c_stop 			  <= '1'; 
+					avalon_mm_c_write_o   <= '1';
+
+				when (c_TIME_OFFSET + 5000) to (c_TIME_OFFSET + 5700) =>
 					v_address             := 0;
 					avalon_mm_d_address_o <= std_logic_vector(to_unsigned(v_address, 10));
 

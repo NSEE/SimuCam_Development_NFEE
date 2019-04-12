@@ -86,6 +86,12 @@ architecture rtl of pgen_pattern_generator is
 		RUNNING
 	);
 
+	type t_pgen_run_state is (
+		RUN_PH1,
+		RUN_PH2,
+		RUN_PH3
+	);
+
 	-- current state
 	signal s_pgen_pattern_generator_state : t_pgen_pattern_generator_state;
 
@@ -99,6 +105,8 @@ begin
 		variable v_pgen_pattern_generator_state : t_pgen_pattern_generator_state;
 		-- Counter to mask insertion mode
 		variable v_counter_mask                 : natural range 0 to 68 := 0;
+		-- Run substate machine
+		variable v_pgen_run_state : t_pgen_run_state;
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
@@ -117,6 +125,8 @@ begin
 			data_o.pattern_pixel                        <= (others => '0');
 			data_controller_write_control_o.data_erase  <= '1';
 			data_controller_write_control_o.data_write  <= '0';
+			-- Run substate machine default
+			v_pgen_run_state := RUN_PH1;
 
 		-- state transitions are always synchronous to the clock
 		elsif (rising_edge(clk_i)) then
@@ -137,6 +147,8 @@ begin
 					s_pattern_seed                              <= config_i;
 					s_pattern_pixels.pattern_pixel              <= (others => '0');
 					sf_write_pattern_data                       <= '0';
+					-- Run substate machine default
+					v_pgen_run_state := RUN_PH1;
 				-- conditional state transition and internal signal values
 
 				-- state "STOPPED"
@@ -146,8 +158,10 @@ begin
 					s_pgen_pattern_generator_state <= STOPPED;
 					v_pgen_pattern_generator_state := STOPPED;
 					-- default internal signal values
-					-- conditional state transition and internal signal values
 					sf_write_pattern_data          <= '0';
+					-- Run substate machine default
+					v_pgen_run_state := RUN_PH1;
+					-- conditional state transition and internal signal values
 					-- check if a command to reset was received
 					if (control_i.reset = '1') then
 						-- command to reset received, go to resetting
@@ -187,37 +201,59 @@ begin
 							v_pgen_pattern_generator_state := STOPPED;
 						else
 							-- command to stop or reset not received, keep running
-							-- check if the data controller can receive data
-							if (data_controller_write_status_i.full = '0') then
-								-- data controller can receive data, generate next pattern data
-								-- Check if mask field bit is off/on
-								if (s_pattern_seed.mask_field = '0') then
-									-- No mask field (4 pixels = 0xffff) should be inserted ("free running mode")
-									-- Reset mask counter
-									v_counter_mask                 := 0;
-									-- create pattern pixel and update pointers for next pattern
-									s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-									v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-								else
-									-- After 64 pixels generated, it must insert 4 "mask" pixels = 0xffff
-									-- Inc mask counter
-									v_counter_mask := v_counter_mask + 1;
-									-- "Normal pixels" --> v_counter_mask = 1 to 64
-									if (v_counter_mask <= 64) then
-										-- create pattern pixel and update pointers for next pattern
-										s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
-										v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
-									-- "Mask pixels" --> v_counter_mask = 65 to 68
-									else
-										-- Four "mask" pixels
-										s_pattern_pixels.pattern_pixel <= x"ffff";
-										if (v_counter_mask = 68) then
-											v_counter_mask := 0;
+							-- Running substate machine: double check of fifo full condition!!!
+							case (v_pgen_run_state) is
+							
+								when RUN_PH1 =>
+									-- check if the data controller can receive data
+									if (data_controller_write_status_i.full = '0') then
+										v_pgen_run_state := RUN_PH2;
+								 	end if;
+
+								when RUN_PH2 =>
+									-- check if the data controller can receive data
+									if (data_controller_write_status_i.full = '0') then
+										v_pgen_run_state := RUN_PH3;
+								 	end if;
+	
+								when RUN_PH3 => 
+									-- check if the data controller can receive data
+									if (data_controller_write_status_i.full = '0') then
+										-- data controller can receive data, generate next pattern data
+										-- Check if mask field bit is off/on
+										if (s_pattern_seed.mask_field = '0') then
+											-- No mask field (4 pixels = 0xffff) should be inserted ("free running mode")
+											-- Reset mask counter
+											v_counter_mask                 := 0;
+											-- create pattern pixel and update pointers for next pattern
+											s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+											v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+										else
+											-- After 64 pixels generated, it must insert 4 "mask" pixels = 0xffff
+											-- Inc mask counter
+											v_counter_mask := v_counter_mask + 1;
+											-- "Normal pixels" --> v_counter_mask = 1 to 64
+											if (v_counter_mask <= 64) then
+												-- create pattern pixel and update pointers for next pattern
+												s_pattern_pixels.pattern_pixel <= f_generate_pattern_pixel(s_pattern_seed, v_pattern_control_pointers);
+												v_pattern_control_pointers     := f_update_pattern_pointers(s_pattern_seed, v_pattern_control_pointers);
+											-- "Mask pixels" --> v_counter_mask = 65 to 68
+											else
+												-- Four "mask" pixels
+												s_pattern_pixels.pattern_pixel <= x"ffff";
+												if (v_counter_mask = 68) then
+													v_counter_mask := 0;
+												end if;
+											end if;
 										end if;
+										sf_write_pattern_data <= '1';
+										v_pgen_run_state := RUN_PH1;
 									end if;
-								end if;
-								sf_write_pattern_data <= '1';
-							end if;
+								
+								when others =>
+									null;
+							
+							end case;
 						end if;
 					end if;
 

@@ -29,12 +29,6 @@ end entity avs_stimuli;
 
 architecture rtl of avs_stimuli is
 
-	type t_read_st is (
-		READ_PH1,
-		READ_PH2,
-		READ_PH3
-	);
-
 	-- Timeline offset	
 	constant c_TIME_OFFSET : natural range 0 to 30000 := 100;
 
@@ -66,9 +60,7 @@ begin
 		variable v_address : natural                  := 0;
 		-- Aux reg value
 		variable v_value   : natural                  := 0;
-		-- Reading state
-		variable v_read_state      : t_read_st  := READ_PH1;
-		
+
 	begin
 		if (rst_i = '1') then
 			-- Control port
@@ -81,8 +73,6 @@ begin
 			avalon_mm_d_read_o      <= '0';
 			-- Timeline
 			v_counter               := 0;
-			-- Read state
-			v_read_state := READ_PH1;
 
 		elsif rising_edge(clk_i) then
 			-- Control port - outputs default level
@@ -113,12 +103,12 @@ begin
 					-- Timecode = 0
 					v_value               := 0;
 					a_c_timecode          <= std_logic_vector(to_unsigned(v_value, 8));
-					-- Ccd number = 2
-					a_c_ccd_number        <= "10";
+					-- Ccd number = 0
+					a_c_ccd_number        <= "00";
 					-- Ccd side = 0 (left)
 					a_c_ccd_side          <= '0';
-					-- Mask field = 0 (without mask)
-					a_c_mask_field        <= '0'; 
+					-- Mask field = 1 (with mask)
+					a_c_mask_field        <= '1'; 
 					avalon_mm_c_write_o   <= '1';
 
 				when (c_TIME_OFFSET + 1500) to (c_TIME_OFFSET + 1501) =>
@@ -137,27 +127,44 @@ begin
 					a_c_start 			  <= '1'; 
 					avalon_mm_c_write_o   <= '1';
 
-				when (c_TIME_OFFSET + 3000) to (c_TIME_OFFSET + 4500) =>
+				when (c_TIME_OFFSET + 3000) to (c_TIME_OFFSET + 3001) =>
+					-- Data read n.1 - phase 1
+					-- Firt block of four pixels from fifo memory
 					v_address             := 0;
 					avalon_mm_d_address_o <= std_logic_vector(to_unsigned(v_address, 10));
+					avalon_mm_d_read_o    <= '1';
 
-					case (v_read_state) is
-						when READ_PH1 => 
-							avalon_mm_d_read_o    <= '1';
-							v_read_state := READ_PH2;
+				when (c_TIME_OFFSET + 3002) to (c_TIME_OFFSET + 3005) =>
+					-- Data read n.1 - phase 2
+					if (avalon_mm_d_waitrequest_i = '0') then
+						avalon_mm_d_read_o    <= '0';
+					end if;
 
-						when READ_PH2 => 
-							if (avalon_mm_d_waitrequest_i = '0') then
-								avalon_mm_d_read_o    <= '0';
-								v_read_state := READ_PH3;	
-							end if;
+				when (c_TIME_OFFSET + 3006) to (c_TIME_OFFSET + 3007) =>
+					-- Data read n.2 - phase 1
+					-- Second block of four pixels from fifo memory
+					v_address             := 0;
+					avalon_mm_d_address_o <= std_logic_vector(to_unsigned(v_address, 10));
+					avalon_mm_d_read_o    <= '1';
 
-						when READ_PH3 => 
-							v_read_state := READ_PH1;
-	
-						when others =>
-							null;
-					end case;
+				when (c_TIME_OFFSET + 3008) to (c_TIME_OFFSET + 3011) =>
+					-- Data read n.2 - phase 2
+					if (avalon_mm_d_waitrequest_i = '0') then
+						avalon_mm_d_read_o    <= '0';
+					end if;
+
+				when (c_TIME_OFFSET + 3012) to (c_TIME_OFFSET + 3013) =>
+					-- Data read n.3 - phase 1
+					-- Third block of four pixels from fifo memory
+					v_address             := 0;
+					avalon_mm_d_address_o <= std_logic_vector(to_unsigned(v_address, 10));
+					avalon_mm_d_read_o    <= '1';
+
+				when (c_TIME_OFFSET + 3014) to (c_TIME_OFFSET + 3017) =>
+					-- Data read n.3 - phase 2
+					if (avalon_mm_d_waitrequest_i = '0') then
+						avalon_mm_d_read_o    <= '0';
+					end if;
 
 				when others =>
 					null;
