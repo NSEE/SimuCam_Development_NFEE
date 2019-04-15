@@ -71,14 +71,14 @@
 #define SDMA_CH_8_L_BUFF_BASE_ADDR_HIGH 0x00000001
 #define SDMA_CH_8_L_BUFF_SPAN           0x1FFF
 // ddr mem
-#define SDMA_M1_BASE_ADDR_LOW           0x00000000
+#define SDMA_M1_BASE_ADDR_LOW           0x80000000
 #define SDMA_M1_BASE_ADDR_HIGH          0x00000000
 #define SDMA_M1_SPAN                    0x7FFFFFFF
 #define SDMA_M2_BASE_ADDR_LOW           0x80000000
 #define SDMA_M2_BASE_ADDR_HIGH          0x00000000
 #define SDMA_M2_SPAN                    0x7FFFFFFF
 //
-#define SDMA_DMA_M1_NAME                DMA_DDR_M1_CSR_NAME
+#define SDMA_DMA_M1_NAME                DMA_DDR_M2_CSR_NAME
 #define SDMA_DMA_M2_NAME                DMA_DDR_M2_CSR_NAME
 //
 #define SDMA_PIXEL_BLOCK_SIZE_BYTES     (unsigned long)136u
