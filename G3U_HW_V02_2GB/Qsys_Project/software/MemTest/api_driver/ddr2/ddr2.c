@@ -151,7 +151,7 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 	bool bSuccess = FALSE;
 	alt_u32 uliI2cSclBase;
 	alt_u32 uliI2cSdaBase;
-	int iI;
+	int iByteCounter;
 
 	switch (ucMemoryId) {
 	case DDR2_M1_ID:
@@ -172,161 +172,1565 @@ bool bDdr2EepromDump(alt_u8 ucMemoryId) {
 		return bSuccess;
 	}
 
-	alt_u8 ucSZData[256];
+	alt_u8 ucEepromData[256];
 	bSuccess = I2C_MultipleRead(uliI2cSclBase, uliI2cSdaBase, cucDeviceAddr,
-			ucSZData, sizeof(ucSZData));
+			ucEepromData, sizeof(ucEepromData));
 	if (bSuccess) {
-		for (iI = 0; iI < 256 && bSuccess; iI++) {
 
-			printf("EEPROM[%03d]=%02Xh ", iI, ucSZData[iI]);
+		printf(
+				"\n For more information, check the Annex J: Serial Presence Detects for DDR2 SDRAM (Revision 1.3), of the JEDEC Standard No. 21-C \n\n");
 
-			if (iI == 0) {
+		for (iByteCounter = 0; iByteCounter < 256 && bSuccess; iByteCounter++) {
 
-				printf("(Number of SPD Bytes Used)\n");
+//			printf("DDR2 EEPROM[%03d] = %02Xh ", iByteCounter, ucEepromData[iByteCounter]);
 
-			} else if (iI == 1) {
-
-				printf("(Total Number of Bytes in SPD Device, Log2(N))\n");
-
-			} else if (iI == 2) {
-
-				printf("(Basic Memory Type[08h:DDR2])\n");
-
-			} else if (iI == 3) {
-
-				printf("(Number of Row Addresses on Assembly)\n");
-
-			} else if (iI == 4) {
-
-				printf("(Number of Column Addresses on Assembly)\n");
-
-			} else if (iI == 5) {
-
-				printf("(DIMM Height and Module Rank Number[b2b1b0+1])\n");
-
-			} else if (iI == 6) {
-
-				printf("(Module Data Width)\n");
-
-			} else if (iI == 7) {
-
-				printf("(Module Data Width, Continued)\n");
-
-			} else if (iI == 16) {
-
-				printf("(Burst Lengths Supported[bitmap: x x x x 8 4 x x])\n");
-
-			} else if (iI == 13) {
-
-				printf("(Primary SDRAM width)\n");
-
-			} else if (iI == 14) {
-
-				printf("(ECC SDRAM width)\n");
-
-			} else if (iI == 17) {
-
-				printf("(Banks per SDRAM device)\n");
-
-			} else if (iI == 18) {
-
-				printf("(CAS lantencies supported[bitmap: x x 5 4 3 2 x x])\n");
-
-			} else if (iI == 20) {
+			if (iByteCounter == 0) {
 
 				printf(
-						"(DIMM Type: x x Mini-UDIMM Mini-RDIMM Micro-DIMM SO-DIMM UDIMMM RDIMM)\n");
+						"Byte 0: Number of Bytes Utilized by Module Manufacturer [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf("\n");
 
-			} else if (iI == 22) {
-
-				printf("(Memory Chip feature bitmap)\n");
-
-			} else if (iI == 27) {
-
-				printf("(Minimun row precharge time[tRP;nsx4])\n");
-
-			} else if (iI == 28) {
-
-				printf("(Minimun row active-row activce delay[tRRD;nsx4])\n");
-
-			} else if (iI == 29) {
-
-				printf("(Minimun RAS to CAS delay[tRCD;nsx4])\n");
-
-			} else if (iI == 30) {
-
-				printf("(Minimun acive to precharge time[tRAS;ns])\n");
-
-			} else if (iI == 31) {
+			} else if (iByteCounter == 1) {
 
 				printf(
-						"(Size of each rank[bitmap:512MB,256MB,128MB,16GB,8GB,4GB,2GB,1GB)\n");
+						"Byte 1: Total Number of Bytes in Serial PD Device [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else if (0x0E >= ucEepromData[iByteCounter]) {
+					printf("%u Bytes",
+							(alt_u16) (0x0001 << ucEepromData[iByteCounter]));
+				} else {
+					printf("-");
+				}
+				printf("\n");
 
-			} else if (iI == 36) {
+			} else if (iByteCounter == 2) {
 
-				printf("(Minimun write receovery time[tWR;nsx4])\n");
+				printf("Byte 2: Memory Type [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter]) {
+				case 0x00:
+					printf("Reserved");
+					break;
+				case 0x01:
+					printf("Standard FPM DRAM");
+					break;
+				case 0x02:
+					printf("EDO");
+					break;
+				case 0x03:
+					printf("Pipelined Nibble");
+					break;
+				case 0x04:
+					printf("SDRAM");
+					break;
+				case 0x05:
+					printf("ROM");
+					break;
+				case 0x06:
+					printf("DDR SGRAM");
+					break;
+				case 0x07:
+					printf("DDR SDRAM");
+					break;
+				case 0x08:
+					printf("DDR2 SDRAM");
+					break;
+				default:
+					printf("TBD");
+					break;
+				}
+				printf("\n");
 
-			} else if (iI == 37) {
+			} else if (iByteCounter == 3) {
 
-				printf("(Internal write to read command delay[tWTR;nsx4])\n");
+				printf("Byte 3: Number of Row Addresses [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else if (0x0F >= ucEepromData[iByteCounter]) {
+					printf("%u", ucEepromData[iByteCounter]);
+				} else {
+					printf("Undefined");
+				}
+				printf("\n");
 
-			} else if (iI == 38) {
+			} else if (iByteCounter == 4) {
+
+				printf("Byte 4: Number of Column Addresses [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else if (0x1F >= ucEepromData[iByteCounter]) {
+					printf("%u", ucEepromData[iByteCounter]);
+				} else {
+					printf("Undefined");
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 5) {
 
 				printf(
-						"(Internal read to precharge command delay[tRTP;nsx4])\n");
+						"Byte 5: Module Attributes - Number of Ranks, Package and Height [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
 
-			} else if (iI == 41) {
+				printf("\n  -- Module Height : ");
+				switch (ucEepromData[iByteCounter] & 0xE0) {
+				case 0x00:
+					printf("less than 25.4 mm");
+					break;
+				case 0x20:
+					printf("25.4 mm");
+					break;
+				case 0x40:
+					printf("greater than 25.4 mm and less than 30 mm");
+					break;
+				case 0x60:
+					printf("30.0 mm");
+					break;
+				case 0x80:
+					printf("30.5 mm");
+					break;
+				case 0xA0:
+					printf("greater than 30.5 mm");
+					break;
+				default:
+					printf("Undefined");
+					break;
+				}
+				printf("\n  -- DRAM Package : ");
+				if (ucEepromData[iByteCounter] & 0x10) {
+					printf("stack");
+				} else {
+					printf("planar");
+				}
+				printf("\n  -- Card on Card : ");
+				if (ucEepromData[iByteCounter] & 0x08) {
+					printf("yes");
+				} else {
+					printf("no");
+				}
+				printf("\n  -- # of Ranks : ");
+				printf("%u", (ucEepromData[iByteCounter] & 0x07) + 1);
+				printf("\n");
 
-				printf("(Minimun activce to active/refresh time[tRC;ns])\n");
+			} else if (iByteCounter == 6) {
 
-			} else if (iI == 42) {
+				printf("Byte 6: Module Data Width [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf("\n");
 
-				printf("(Minimun refresh to active/refresh time[tRFC;ns])\n");
+			} else if (iByteCounter == 7) {
 
-			} else if (iI == 62) {
+				printf("Byte 7: Reserved [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("Undefined");
+				printf("\n");
 
-				printf("(SPD Revision)\n");
-
-			} else if (iI == 63) {
-
-				printf("(Checksum)\n");
-
-			} else if (iI == 64) {
-
-				printf("(64~71: Manufacturer JEDEC ID)\n");
-
-			} else if (iI == 72) {
+			} else if (iByteCounter == 8) {
 
 				printf(
-						"(Module manufacturing location[Vendor-specific code])\n");
+						"Byte 8: Voltage Interface Level of this assembly [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter]) {
+				case 0x00:
+					printf("TTL/5 V tolerant");
+					break;
+				case 0x01:
+					printf("LVTTL (not 5 V tolerant)");
+					break;
+				case 0x02:
+					printf("HSTL 1.5 V");
+					break;
+				case 0x03:
+					printf("SSTL 3.3 V");
+					break;
+				case 0x04:
+					printf("SSTL 2.5 V");
+					break;
+				case 0x05:
+					printf("SSTL 1.8 V");
+					break;
+				default:
+					printf("TBD");
+					break;
+				}
+				printf("\n");
 
-			} else if (iI == 73) {
+			} else if (iByteCounter == 9) {
 
-				printf("(73~90: Moduloe part number)\n");
+				printf("Byte 9: SDRAM Cycle Time [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
 
-			} else if (iI == 91) {
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+				case 0x00:
+					printf("01");
+					break;
+				case 0x10:
+					printf("02");
+					break;
+				case 0x20:
+					printf("03");
+					break;
+				case 0x30:
+					printf("04");
+					break;
+				case 0x40:
+					printf("05");
+					break;
+				case 0x50:
+					printf("06");
+					break;
+				case 0x60:
+					printf("07");
+					break;
+				case 0x70:
+					printf("08");
+					break;
+				case 0x80:
+					printf("09");
+					break;
+				case 0x90:
+					printf("10");
+					break;
+				case 0xA0:
+					printf("11");
+					break;
+				case 0xB0:
+					printf("12");
+					break;
+				case 0xC0:
+					printf("13");
+					break;
+				case 0xD0:
+					printf("14");
+					break;
+				case 0xE0:
+					printf("15");
+					break;
+				default:
+					printf("Undefined");
+					break;
+				}
+				printf(".");
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+				case 0x00:
+					printf("00");
+					break;
+				case 0x01:
+					printf("10");
+					break;
+				case 0x02:
+					printf("20");
+					break;
+				case 0x03:
+					printf("30");
+					break;
+				case 0x04:
+					printf("40");
+					break;
+				case 0x05:
+					printf("50");
+					break;
+				case 0x06:
+					printf("60");
+					break;
+				case 0x07:
+					printf("70");
+					break;
+				case 0x08:
+					printf("80");
+					break;
+				case 0x09:
+					printf("90");
+					break;
+				case 0x0A:
+					printf("25");
+					break;
+				case 0x0B:
+					printf("33");
+					break;
+				case 0x0C:
+					printf("66");
+					break;
+				case 0x0D:
+					printf("75");
+					break;
+				default:
+					printf("Undefined");
+					break;
+				}
+				printf(" ns");
+				printf("\n");
 
-				printf("(91~92: Moduloe revision code)\n");
+			}			else if (iByteCounter == 10) {
 
-			} else if (iI == 93) {
+				printf("Byte 10: SDRAM Access from Clock (tAC) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
 
-				printf("(Manufacture Years since 2000[0-255])\n");
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+				case 0x00:
+					printf("Undefined");
+					break;
+				case 0x10:
+					printf("0.1");
+					break;
+				case 0x20:
+					printf("0.2");
+					break;
+				case 0x30:
+					printf("0.3");
+					break;
+				case 0x40:
+					printf("0.4");
+					break;
+				case 0x50:
+					printf("0.5");
+					break;
+				case 0x60:
+					printf("0.6");
+					break;
+				case 0x70:
+					printf("0.7");
+					break;
+				case 0x80:
+					printf("0.8");
+					break;
+				case 0x90:
+					printf("0.9");
+					break;
+				case 0xA0:
+					printf("RFU");
+					break;
+				default:
+					printf("Undefined");
+					break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+				case 0x00:
+					printf("0");
+					break;
+				case 0x01:
+					printf("1");
+					break;
+				case 0x02:
+					printf("2");
+					break;
+				case 0x03:
+					printf("3");
+					break;
+				case 0x04:
+					printf("4");
+					break;
+				case 0x05:
+					printf("5");
+					break;
+				case 0x06:
+					printf("6");
+					break;
+				case 0x07:
+					printf("7");
+					break;
+				case 0x08:
+					printf("8");
+					break;
+				case 0x09:
+					printf("9");
+					break;
+				case 0x0A:
+					printf(".RFU");
+					break;
+				default:
+					printf("Undefined");
+					break;
+				}
+				printf(" ns");
+				printf("\n");
 
-			} else if (iI == 94) {
+			} else if (iByteCounter == 11) {
 
-				printf("(Manufacture Weeks[1-52])\n");
+				printf("Byte 11: DIMM Configuration Type [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- Address/Command Parity : ");
+				if (0x04 & ucEepromData[iByteCounter]) {
+					printf("Supported on this assembly");
+				} else {
+					printf("Not supported on this assembly");
+				}
+				printf("\n  -- Data ECC : ");
+				if (0x02 & ucEepromData[iByteCounter]) {
+					printf("Supported on this assembly");
+				} else {
+					printf("Not supported on this assembly");
+				}
+				printf("\n  -- Data Parity : ");
+				if (0x01 & ucEepromData[iByteCounter]) {
+					printf("Supported on this assembly");
+				} else {
+					printf("Not supported on this assembly");
+				}
+				printf("\n");
 
-			} else if (iI == 95) {
+			} else if (iByteCounter == 12) {
 
-				printf("(95~98[4-bytes]: Module serial number)\n");
+				printf("Byte 12: Refresh Rate [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter]) {
+					case 0x80: printf("Normal (15.625 us)"); break;
+					case 0x81: printf("Reduced (.25x)...3.9 us"); break;
+					case 0x82: printf("Reduced (.5x)...7.8 us"); break;
+					case 0x83: printf("Extended (2x)...31.3 us"); break;
+					case 0x84: printf("Extended (4x)...62.5 us"); break;
+					case 0x85: printf("Extended (8x)...125 us"); break;
+					case 0x86: printf("TBD"); break;
+					case 0x87: printf("TBD"); break;
+					default: printf("Undefined"); break;
+				}
+				printf("\n");
 
-			} else if (iI == 99) {
+			} else if (iByteCounter == 13) {
 
-				printf("(99~128: Manufacturer-specific data)\n");
+				printf("Byte 13: Primary SDRAM Width [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 14) {
+
+				printf("Byte 14: Error Checking SDRAM Width [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 15) {
+
+				printf("Byte 15: Reserved [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+					printf("Undefined");
+				printf("\n");
+
+			} else if (iByteCounter == 16) {
+
+				printf("Byte 16: SDRAM Device Attributes – Burst Lengths Supported [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- Burst Length = 8 : ");
+				if (0x08 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- Burst Length = 4 : ");
+				if (0x04 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n");
+
+			} else if (iByteCounter == 17) {
+
+				printf("Byte 17: SDRAM Device Attributes – Number of Banks on SDRAM Device [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 18) {
+
+				printf("Byte 18: SDRAM Device Attributes – CASn Latency [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- CASn Latency = 7 : "); if (0x80 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- CASn Latency = 6 : "); if (0x40 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- CASn Latency = 5 : "); if (0x20 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- CASn Latency = 4 : "); if (0x10 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- CASn Latency = 3 : "); if (0x08 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- CASn Latency = 2 : "); if (0x04 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n");
+
+			} else if (iByteCounter == 19) {
+
+				printf("Byte 19: DIMM Mechanical Characteristics [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0x07) {
+					case 0x00:
+						printf("Undefined");
+						break;
+					case 0x01:
+						switch (ucEepromData[iByteCounter+1]) {
+							case 0x01: printf("x <= 4.10"); break;
+							case 0x02: printf("x <= 4.10"); break;
+							case 0x04: printf("x <= 3.80"); break;
+							case 0x08: printf("x <= 3.80"); break;
+							case 0x10: printf("x <= 3.85"); break;
+							case 0x20: printf("x <= 3.85"); break;
+							case 0x07: printf("x <= 3.80"); break;
+							case 0x06: printf("x <= 3.80"); break;
+							default: printf("Reserved"); break;
+						}
+						break;
+					case 0x02:
+						switch (ucEepromData[iByteCounter+1]) {
+							case 0x01: printf("4.10 < x <= 6.75"); break;
+							case 0x02: printf("4.10 < x <= 6.75"); break;
+							case 0x04: printf("3.80 < x <= TBD"); break;
+							case 0x08: printf("3.80 < x <= TBD"); break;
+							case 0x10: printf("3.85 < x <= 6.45"); break;
+							case 0x20: printf("3.85 < x <= 6.45"); break;
+							case 0x07: printf("3.80 < x <= 7.10"); break;
+							case 0x06: printf("3.80 < x <= 7.10"); break;
+							default: printf("Reserved"); break;
+						}
+						break;
+					case 0x03:
+						switch (ucEepromData[iByteCounter+1]) {
+							case 0x01: printf("6.75 < x <= 7.55"); break;
+							case 0x02: printf("6.75 < x <= 7.55"); break;
+							case 0x04: printf("TBD < x <= TBD"); break;
+							case 0x08: printf("TBD < x <= TBD"); break;
+							case 0x10: printf("6.45 < x <= 7.25"); break;
+							case 0x20: printf("6.45 < x <= 7.25"); break;
+							case 0x07: printf("7.10 < x"); break;
+							case 0x06: printf("7.10 < x"); break;
+							default: printf("Reserved"); break;
+						}
+						break;
+					case 0x04:
+						switch (ucEepromData[iByteCounter+1]) {
+							case 0x01: printf("7.55 < x"); break;
+							case 0x02: printf("7.55 < x"); break;
+							case 0x04: printf("TBD < x"); break;
+							case 0x08: printf("TBD < x"); break;
+							case 0x10: printf("7.25 < x"); break;
+							case 0x20: printf("7.25 < x"); break;
+							default: printf("Reserved"); break;
+						}
+						break;
+					default:
+						printf("Reserved");
+						break;
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 20) {
+
+				printf("Byte 20: DIMM type information [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter]) {
+					case 0x00: printf("Undefined"); break;
+					case 0x01: printf("RDIMM (width = 133.35 mm nom)"); break;
+					case 0x02: printf("UDIMM (width = 1333.35 mm nom)"); break;
+					case 0x04: printf("SO-DIMM (width = 67.60 mm nom)"); break;
+					case 0x06: printf("72b-SO-CDIMM (width = 67.60 mm nom)"); break;
+					case 0x07: printf("72b-SO-RDIMM (width = 67.60 mm nom)"); break;
+					case 0x08: printf("Micro-DIMM (width = 54.00 mm nom)"); break;
+					case 0x10: printf("Mini-RDIMM (width = 82.00 mm nom)"); break;
+					case 0x20: printf("Mini-UDIMM (width = 82.00 mm nom)"); break;
+					default: printf("Reserved"); break;
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 21) {
+
+				printf("Byte 21: SDRAM Modules Attributes [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- Analysis probe installed : "); if (0x40 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- FET Switch External Enable : "); if (0x10 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- Number of PLLs on the DIMM : "); if (0x0C & ucEepromData[iByteCounter]) { printf("Reserved for future use"); } else { printf("%u", (0x0C & ucEepromData[iByteCounter]) >> 2); }
+				printf("\n  -- Number of Active Registers on the DIMM : "); printf("%u", (0x03 & ucEepromData[iByteCounter]));
+				printf("\n");
+
+			} else if (iByteCounter == 22) {
+
+				printf("Byte 22: SDRAM Device Attributes – General [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- Supports PASR (Partial Array Self Refresh) : "); if (0x04 & ucEepromData[iByteCounter]) { printf("TRUE"); } else { printf("FALSE"); }
+				printf("\n  -- Supports 50 ohm ODT : "); if (0x02 & ucEepromData[iByteCounter]) { printf("TRUE"); } else { printf("FALSE"); }
+				printf("\n  -- Supports Weak Driver : "); if (0x01 & ucEepromData[iByteCounter]) { printf("TRUE"); } else { printf("FALSE"); }
+				printf("\n");
+
+			} else if (iByteCounter == 23) {
+
+				printf("Byte 23: Minimum Clock Cycle Time at Reduced CAS Latency, X-1 [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("1/16"); break;
+					case 0x20: printf("2/17"); break;
+					case 0x30: printf("3"); break;
+					case 0x40: printf("4"); break;
+					case 0x50: printf("5"); break;
+					case 0x60: printf("6"); break;
+					case 0x70: printf("7"); break;
+					case 0x80: printf("8"); break;
+					case 0x90: printf("9"); break;
+					case 0xA0: printf("10"); break;
+					case 0xB0: printf("11"); break;
+					case 0xC0: printf("12"); break;
+					case 0xD0: printf("13"); break;
+					case 0xE0: printf("14"); break;
+					case 0xF0: printf("15"); break;
+				}
+				printf(".");
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("10"); break;
+					case 0x02: printf("20"); break;
+					case 0x03: printf("30"); break;
+					case 0x04: printf("40"); break;
+					case 0x05: printf("50"); break;
+					case 0x06: printf("60"); break;
+					case 0x07: printf("70"); break;
+					case 0x08: printf("80"); break;
+					case 0x09: printf("90"); break;
+					case 0x0A: printf("25"); break;
+					case 0x0B: printf("33"); break;
+					case 0x0C: printf("66"); break;
+					case 0x0D: printf("75"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 24) {
+
+				printf("Byte 24: Maximum Data Access Time (tAC) from Clock at CL X-1 [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("0.1"); break;
+					case 0x20: printf("0.2"); break;
+					case 0x30: printf("0.3"); break;
+					case 0x40: printf("0.4"); break;
+					case 0x50: printf("0.5"); break;
+					case 0x60: printf("0.6"); break;
+					case 0x70: printf("0.7"); break;
+					case 0x80: printf("0.8"); break;
+					case 0x90: printf("0.9"); break;
+					case 0xA0: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0"); break;
+					case 0x01: printf("1"); break;
+					case 0x02: printf("2"); break;
+					case 0x03: printf("3"); break;
+					case 0x04: printf("4"); break;
+					case 0x05: printf("5"); break;
+					case 0x06: printf("6"); break;
+					case 0x07: printf("7"); break;
+					case 0x08: printf("8"); break;
+					case 0x09: printf("9"); break;
+					case 0x0A: printf(".RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 25) {
+
+				printf("Byte 25: Minimum Clock Cycle Time at CL X-2 [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+									case 0x00: printf("Undefined"); break;
+									case 0x10: printf("1/16"); break;
+									case 0x20: printf("2/17"); break;
+									case 0x30: printf("3"); break;
+									case 0x40: printf("4"); break;
+									case 0x50: printf("5"); break;
+									case 0x60: printf("6"); break;
+									case 0x70: printf("7"); break;
+									case 0x80: printf("8"); break;
+									case 0x90: printf("9"); break;
+									case 0xA0: printf("10"); break;
+									case 0xB0: printf("11"); break;
+									case 0xC0: printf("12"); break;
+									case 0xD0: printf("13"); break;
+									case 0xE0: printf("14"); break;
+									case 0xF0: printf("15"); break;
+								}
+								printf(".");
+								switch (ucEepromData[iByteCounter] & 0x0F) {
+									case 0x00: printf("00"); break;
+									case 0x01: printf("10"); break;
+									case 0x02: printf("20"); break;
+									case 0x03: printf("30"); break;
+									case 0x04: printf("40"); break;
+									case 0x05: printf("50"); break;
+									case 0x06: printf("60"); break;
+									case 0x07: printf("70"); break;
+									case 0x08: printf("80"); break;
+									case 0x09: printf("90"); break;
+									case 0x0A: printf("25"); break;
+									case 0x0B: printf("33"); break;
+									case 0x0C: printf("66"); break;
+									case 0x0D: printf("75"); break;
+									default: printf("Undefined"); break;
+								}
+								printf(" ns");
+								printf("\n");
+
+			} else if (iByteCounter == 26) {
+
+				printf("Byte 26: Maximum Data Access Time (tAC) from Clock at CL X-2 [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("0.1"); break;
+					case 0x20: printf("0.2"); break;
+					case 0x30: printf("0.3"); break;
+					case 0x40: printf("0.4"); break;
+					case 0x50: printf("0.5"); break;
+					case 0x60: printf("0.6"); break;
+					case 0x70: printf("0.7"); break;
+					case 0x80: printf("0.8"); break;
+					case 0x90: printf("0.9"); break;
+					case 0xA0: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0"); break;
+					case 0x01: printf("1"); break;
+					case 0x02: printf("2"); break;
+					case 0x03: printf("3"); break;
+					case 0x04: printf("4"); break;
+					case 0x05: printf("5"); break;
+					case 0x06: printf("6"); break;
+					case 0x07: printf("7"); break;
+					case 0x08: printf("8"); break;
+					case 0x09: printf("9"); break;
+					case 0x0A: printf(".RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 27) {
+
+				printf("Byte 27: Minimum Row Precharge Time (tRP) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0xFC & ucEepromData[iByteCounter]) {
+					printf("%02u", (0xFC & ucEepromData[iByteCounter]) >> 2);
+				} else {
+					printf("Undefined");
+				}
+				printf(".");
+				switch (0x03 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("25"); break;
+					case 0x02: printf("50"); break;
+					case 0x03: printf("75"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 28) {
+
+				printf("Byte 28: Minimum Row Active to Row Active Delay (tRRD) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0xFC & ucEepromData[iByteCounter]) {
+					printf("%02u", (0xFC & ucEepromData[iByteCounter]) >> 2);
+				} else {
+					printf("Undefined");
+				}
+				printf(".");
+				switch (0x03 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("25"); break;
+					case 0x02: printf("50"); break;
+					case 0x03: printf("75"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 29) {
+
+				printf("Byte 29: Minimum RASn to CASn Delay (tRCD) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0xFC & ucEepromData[iByteCounter]) {
+					printf("%02u", (0xFC & ucEepromData[iByteCounter]) >> 2);
+				} else {
+					printf("Undefined");
+				}
+				printf(".");
+				switch (0x03 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("25"); break;
+					case 0x02: printf("50"); break;
+					case 0x03: printf("75"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 30) {
+
+				printf("Byte 30: Minimum Active to Precharge Time (tRAS) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%03u", ucEepromData[iByteCounter]);
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 31) {
+
+				printf("Byte 31: Module Rank Density [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- 512 MB : "); if (0x80 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 256 MB : "); if (0x40 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 128 MB : "); if (0x20 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 16 GB : "); if (0x10 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 8 GB : "); if (0x08 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 4 GB : "); if (0x04 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 2 GB : "); if (0x02 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n  -- 1 GB : "); if (0x01 & ucEepromData[iByteCounter]) { printf("Supported on this assembly"); } else { printf("Not supported on this assembly"); }
+				printf("\n");
+
+			} else if (iByteCounter == 32) {
+
+				printf("Byte 32: Address and Command Setup Time Before Clock (tIS) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("0.1"); break;
+					case 0x20: printf("0.2"); break;
+					case 0x30: printf("0.3"); break;
+					case 0x40: printf("0.4"); break;
+					case 0x50: printf("0.5"); break;
+					case 0x60: printf("0.6"); break;
+					case 0x70: printf("0.7"); break;
+					case 0x80: printf("0.8"); break;
+					case 0x90: printf("0.9"); break;
+					case 0xA0: printf("1.0"); break;
+					case 0xB0: printf("1.1"); break;
+					case 0xC0: printf("1.2"); break;
+					case 0xD0: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0"); break;
+					case 0x01: printf("1"); break;
+					case 0x02: printf("2"); break;
+					case 0x03: printf("3"); break;
+					case 0x04: printf("4"); break;
+					case 0x05: printf("5"); break;
+					case 0x06: printf("6"); break;
+					case 0x07: printf("7"); break;
+					case 0x08: printf("8"); break;
+					case 0x09: printf("9"); break;
+					case 0x0A: printf(".RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 33) {
+
+				printf("Byte 33: Address and Command Hold Time After Clock (tIH) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("0.1"); break;
+					case 0x20: printf("0.2"); break;
+					case 0x30: printf("0.3"); break;
+					case 0x40: printf("0.4"); break;
+					case 0x50: printf("0.5"); break;
+					case 0x60: printf("0.6"); break;
+					case 0x70: printf("0.7"); break;
+					case 0x80: printf("0.8"); break;
+					case 0x90: printf("0.9"); break;
+					case 0xA0: printf("1.0"); break;
+					case 0xB0: printf("1.1"); break;
+					case 0xC0: printf("1.2"); break;
+					case 0xD0: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0"); break;
+					case 0x01: printf("1"); break;
+					case 0x02: printf("2"); break;
+					case 0x03: printf("3"); break;
+					case 0x04: printf("4"); break;
+					case 0x05: printf("5"); break;
+					case 0x06: printf("6"); break;
+					case 0x07: printf("7"); break;
+					case 0x08: printf("8"); break;
+					case 0x09: printf("9"); break;
+					case 0x0A: printf(".RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 34) {
+
+				printf("Byte 34: Data Input Setup Time Before Strobe (tDS) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("0.1"); break;
+					case 0x20: printf("0.2"); break;
+					case 0x30: printf("0.3"); break;
+					case 0x40: printf("0.4"); break;
+					case 0x50: printf("0.5"); break;
+					case 0x60: printf("0.6"); break;
+					case 0x70: printf("0.7"); break;
+					case 0x80: printf("0.8"); break;
+					case 0x90: printf("0.9"); break;
+					case 0xA0: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0"); break;
+					case 0x01: printf("1"); break;
+					case 0x02: printf("2"); break;
+					case 0x03: printf("3"); break;
+					case 0x04: printf("4"); break;
+					case 0x05: printf("5"); break;
+					case 0x06: printf("6"); break;
+					case 0x07: printf("7"); break;
+					case 0x08: printf("8"); break;
+					case 0x09: printf("9"); break;
+					case 0x0A: printf(".RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 35) {
+
+				printf("Byte 35: Data Input Hold Time After Strobe (tDH) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("0.1"); break;
+					case 0x20: printf("0.2"); break;
+					case 0x30: printf("0.3"); break;
+					case 0x40: printf("0.4"); break;
+					case 0x50: printf("0.5"); break;
+					case 0x60: printf("0.6"); break;
+					case 0x70: printf("0.7"); break;
+					case 0x80: printf("0.8"); break;
+					case 0x90: printf("0.9"); break;
+					case 0xA0: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0"); break;
+					case 0x01: printf("1"); break;
+					case 0x02: printf("2"); break;
+					case 0x03: printf("3"); break;
+					case 0x04: printf("4"); break;
+					case 0x05: printf("5"); break;
+					case 0x06: printf("6"); break;
+					case 0x07: printf("7"); break;
+					case 0x08: printf("8"); break;
+					case 0x09: printf("9"); break;
+					case 0x0A: printf(".RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 36) {
+
+				printf("Byte 36: Write Recovery Time (tWR) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0xFC & ucEepromData[iByteCounter]) {
+					printf("%02u", (0xFC & ucEepromData[iByteCounter]) >> 2);
+				} else {
+					printf("Undefined");
+				}
+				printf(".");
+				switch (0x03 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("25"); break;
+					case 0x02: printf("50"); break;
+					case 0x03: printf("75"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 37) {
+
+				printf("Byte 37: Internal write to read command delay (tWTR) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0xFC & ucEepromData[iByteCounter]) {
+					printf("%02u", (0xFC & ucEepromData[iByteCounter]) >> 2);
+				} else {
+					printf("Undefined");
+				}
+				printf(".");
+				switch (0x03 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("25"); break;
+					case 0x02: printf("50"); break;
+					case 0x03: printf("75"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 38) {
+
+				printf("Byte 38: Internal read to precharge command delay (tRTP) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0xFC & ucEepromData[iByteCounter]) {
+					printf("%02u", (0xFC & ucEepromData[iByteCounter]) >> 2);
+				} else {
+					printf("Undefined");
+				}
+				printf(".");
+				switch (0x03 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("25"); break;
+					case 0x02: printf("50"); break;
+					case 0x03: printf("75"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 39) {
+
+				printf("Byte 39: Memory Analysis Probe Characteristics [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 40) {
+
+				printf("Byte 40: Extension of Byte 41 tRC and Byte 42 tRFC [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n");
+
+			} else if (iByteCounter == 41) {
+
+				printf("Byte 41: SDRAM Device Minimum Activate to Activate/Refresh Time (tRC) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else if (0xFF == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%03u", ucEepromData[iByteCounter]);
+				}
+				printf(".");
+				switch (0xF0 & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x10: printf("25"); break;
+					case 0x20: printf("33"); break;
+					case 0x30: printf("50"); break;
+					case 0x40: printf("66"); break;
+					case 0x50: printf("75"); break;
+					case 0x60: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 42) {
+
+				printf("Byte 42: SDRAM Device Minimum Refresh to Activate/Refresh Command Period (tRFC) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+
+					if (0x00 == (ucEepromData[iByteCounter-2] & 0x01)) {
+						printf("%03u", (alt_u16)ucEepromData[iByteCounter] + 256);
+					} else {
+						printf("%03u", ucEepromData[iByteCounter]);
+					}
+				}
+				printf(".");
+				switch (0x0E & ucEepromData[iByteCounter]) {
+					case 0x00: printf("00"); break;
+					case 0x02: printf("25"); break;
+					case 0x04: printf("33"); break;
+					case 0x06: printf("50"); break;
+					case 0x08: printf("66"); break;
+					case 0x0A: printf("75"); break;
+					case 0x0C: printf("RFU"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 43) {
+
+				printf("Byte 43: SDRAM Device Maximum Device Cycle Time (tCK max) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("Undefined"); break;
+					case 0x10: printf("1"); break;
+					case 0x20: printf("2"); break;
+					case 0x30: printf("3"); break;
+					case 0x40: printf("4"); break;
+					case 0x50: printf("5"); break;
+					case 0x60: printf("6"); break;
+					case 0x70: printf("7"); break;
+					case 0x80: printf("8"); break;
+					case 0x90: printf("9"); break;
+					case 0xA0: printf("10"); break;
+					case 0xB0: printf("11"); break;
+					case 0xC0: printf("12"); break;
+					case 0xD0: printf("13"); break;
+					case 0xE0: printf("14"); break;
+					case 0xF0: printf("15"); break;
+				}
+				printf(".");
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("00"); break;
+					case 0x01: printf("10"); break;
+					case 0x02: printf("20"); break;
+					case 0x03: printf("30"); break;
+					case 0x04: printf("40"); break;
+					case 0x05: printf("50"); break;
+					case 0x06: printf("60"); break;
+					case 0x07: printf("70"); break;
+					case 0x08: printf("80"); break;
+					case 0x09: printf("90"); break;
+					case 0x0A: printf("25"); break;
+					case 0x0B: printf("33"); break;
+					case 0x0C: printf("66"); break;
+					case 0x0D: printf("75"); break;
+					default: printf("Undefined"); break;
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 44) {
+
+				printf("Byte 44: SDRAM Device DQS-DQ Skew for DQS and associated DQ signals (tDQSQ max) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%.2f", (float)ucEepromData[iByteCounter] * 0.01);
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 45) {
+
+				printf("Byte 45: SDRAM Device Read Data Hold Skew Factor (tQHS) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%.2f", (float)ucEepromData[iByteCounter] * 0.01);
+				}
+				printf(" ns");
+				printf("\n");
+
+			} else if (iByteCounter == 46) {
+
+				printf("Byte 46: PLL Relock Time [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Undefined");
+				} else {
+					printf("%u", ucEepromData[iByteCounter]);
+				}
+				printf(" us");
+				printf("\n");
+
+			} else if (iByteCounter == 47) {
+
+				printf("Byte 47: Tcasemax [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- Tcasemax : ");
+				switch (ucEepromData[iByteCounter] & 0xF0) {
+					case 0x00: printf("00"); break;
+					case 0x10: printf("02"); break;
+					case 0x20: printf("04"); break;
+					case 0x30: printf("06"); break;
+					case 0x40: printf("08"); break;
+					case 0x50: printf("10"); break;
+					case 0x60: printf("12"); break;
+					case 0x70: printf("14"); break;
+					case 0x80: printf("16"); break;
+					case 0x90: printf("18"); break;
+					case 0xA0: printf("20"); break;
+					case 0xB0: printf("22"); break;
+					case 0xC0: printf("24"); break;
+					case 0xD0: printf("26"); break;
+					case 0xE0: printf("28"); break;
+					case 0xF0: printf("Exceed 30"); break;
+				}
+				printf(" 0C");
+				printf("\n  -- DT4R4W Delta : ");
+				switch (ucEepromData[iByteCounter] & 0x0F) {
+					case 0x00: printf("0.0"); break;
+					case 0x01: printf("0.4"); break;
+					case 0x02: printf("0.8"); break;
+					case 0x03: printf("1.2"); break;
+					case 0x04: printf("1.6"); break;
+					case 0x05: printf("2.0"); break;
+					case 0x06: printf("2.4"); break;
+					case 0x07: printf("2.8"); break;
+					case 0x08: printf("3.2"); break;
+					case 0x09: printf("3.6"); break;
+					case 0x0A: printf("4.0"); break;
+					case 0x0B: printf("4.4"); break;
+					case 0x0C: printf("4.8"); break;
+					case 0x0D: printf("5.2"); break;
+					case 0x0E: printf("5.6"); break;
+					case 0x0F: printf("Exceed 6.0"); break;
+				}
+				printf(" 0C");
+				printf("\n");
+
+			} else if (iByteCounter == 48) {
+
+				printf("Byte 48: Thermal Resistance of DRAM Package from Top (Case) to Ambient ( Psi T-A DRAM ) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Defined");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 127.5");
+				} else {
+					printf("%.1f", (float)ucEepromData[iByteCounter] * 0.5);
+				}
+				printf(" 0C/W");
+				printf("\n");
+
+			} else if (iByteCounter == 49) {
+
+				printf("Byte 49: DRAM Case Temperature Rise from Ambient due to Activate-Precharge/Mode Bits (DT0/Mode Bits) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- DT0 : ");
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Defined");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 18.9");
+				} else {
+					printf("%.1f", (float)ucEepromData[iByteCounter] * 0.3);
+				}
+				printf(" 0C");
+				printf("\n  -- Subfield B : ");
+				if (0x02 & ucEepromData[iByteCounter]) {
+					printf("Requires double refresh rate for the proper operation at the DRAM maximum case temperature above 85 0C. The DRAM maximum case temperature is specified at Byte 47.");
+				} else {
+					printf("Do not need double refresh rate for the proper operation at the DRAM maximum case temperature above 85 0C. The DRAM maximum case temperature is specified at Byte 47.");
+				}
+				printf("\n  -- Subfield A : ");
+				if (0x01 & ucEepromData[iByteCounter]) {
+					printf("DRAM high temperature self-refresh entry supported. When needed, controller may set DRAM in high temperature self-refresh mode via EMRS(2) [A7] and be able to enter self-refresh above 85 0C Tcase temperature");
+				} else {
+					printf("DRAM does not support high temperature self-refresh entry. Controller must ensure DRAM cools down to Tcase < 85 0C before entering self-refresh");
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 50) {
+
+				printf("Byte 50: DRAM Case Temperature Rise from Ambient due to Precharge/Quiet Standby (DT2N/DT2Q) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 25.5 oC");
+				} else {
+					printf("%.1f oC", (float)ucEepromData[iByteCounter] * 0.1);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 51) {
+
+				printf("Byte 51: DRAM Case Temperature Rise from Ambient due to Precharge Power-Down (DT2P) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 3.825 oC");
+				} else {
+					printf("%.3f oC", (float)ucEepromData[iByteCounter] * 0.015);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 52) {
+
+				printf("Byte 52: DRAM Case Temperature Rise from Ambient due to Active Standby (DT3N) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 38.25 oC");
+				} else {
+					printf("%.2f oC", (float)ucEepromData[iByteCounter] * 0.15);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 53) {
+
+				printf("Byte 53: DRAM Case temperature Rise from Ambient due to Active Power-Down with Fast PDN Exit (DT3Pfast) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 12.75 oC");
+				} else {
+					printf("%.2f oC", (float)ucEepromData[iByteCounter] * 0.05);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 54) {
+
+				printf("Byte 54: DRAM Case temperature Rise from Ambient due to Active Power-Down with Slow PDN Exit (DT3Pslow) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 6.375 oC");
+				} else {
+					printf("%.3f oC", (float)ucEepromData[iByteCounter] * 0.025);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 55) {
+
+				printf("Byte 55: DRAM Case Temperature Rise from Ambient due to Page Open Burst Read/DT4R4W Mode Bit (DT4R/DT4R4W Mode Bit) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- DT4R : ");
+				if (0x00 == ((ucEepromData[iByteCounter] & 0xFE) >> 1)) {
+					printf("Not Supported");
+				} else if (0x7F == ucEepromData[iByteCounter]){
+					printf("Exceed 50.8 oC");
+				} else {
+					printf("%.1f oC", (float)ucEepromData[iByteCounter] * 0.4);
+				}
+				printf("\n  -- DT4R4W Mode Bit : ");
+				if (ucEepromData[iByteCounter] & 0x01) {
+					printf("DT4W is less than DT4R");
+				} else {
+					printf("DT4W is greater than or equal to DT4R");
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 56) {
+
+				printf("Byte 56: DRAM Case Temperature Rise from Ambient due to Burst Refresh (DT5B) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 127.5 oC");
+				} else {
+					printf("%.1f oC", (float)ucEepromData[iByteCounter] * 0.5);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 57) {
+
+				printf("Byte 57: DRAM Case Temperature Rise from Ambient due to Bank Interleave Reads with Auto-Precharge (DT7) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 127.5 oC");
+				} else {
+					printf("%.1f oC", (float)ucEepromData[iByteCounter] * 0.5);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 58) {
+
+				printf("Byte 58: Thermal Resistance of PLL Package from Top (Case) to Ambient ( Psi T-A PLL ) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 127.5 oC");
+				} else {
+					printf("%.1f oC", (float)ucEepromData[iByteCounter] * 0.5);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 59) {
+
+				printf("Byte 59: Thermal Resistance of Register Package from Top (Case) to Ambient ( Psi T-A Register) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 127.5 oC");
+				} else {
+					printf("%.1f oC", (float)ucEepromData[iByteCounter] * 0.5);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 60) {
+
+				printf("Byte 60: PLL Case Temperature Rise from Ambient due to PLL Active (DT PLL Active) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				if (0x00 == ucEepromData[iByteCounter]) {
+					printf("Not Supported");
+				} else if (0xFF == ucEepromData[iByteCounter]){
+					printf("Exceed 63.75 oC");
+				} else {
+					printf("%.2f oC", (float)ucEepromData[iByteCounter] * 0.25);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 61) {
+
+				printf("Byte 61: Register Case Temperature Rise from Ambient due to Register Active/Mode Bit (DT Register Active/Mode Bit) [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n  -- Subfield A : ");
+				if (0x01 & ucEepromData[iByteCounter]) {
+					printf("100p register data output toggle");
+					printf("\n  -- Subfield B : ");
+					if (0x00 == ucEepromData[iByteCounter]) {
+						printf("Not Supported");
+					} else if (0xFF == ucEepromData[iByteCounter]){
+						printf("Exceed 78.75 oC");
+					} else {
+						printf("%.2f oC", (float)ucEepromData[iByteCounter] * 1.25);
+					}
+				} else {
+					printf("50p register data output toggle");
+					printf("\n  -- Subfield B : ");
+					if (0x00 == ucEepromData[iByteCounter]) {
+						printf("Not Supported");
+					} else if (0xFF == ucEepromData[iByteCounter]){
+						printf("Exceed 47.25 oC");
+					} else {
+						printf("%.2f oC", (float)ucEepromData[iByteCounter] * 0.75);
+					}
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 62) {
+
+				printf("Byte 62: SPD Revision [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				switch (ucEepromData[iByteCounter]) {
+					case 0x00: printf("Revision 0.0"); break;
+					case 0x10: printf("Revision 1.0"); break;
+					case 0x11: printf("Revision 1.1"); break;
+					case 0x12: printf("Revision 1.2"); break;
+					case 0x13: printf("Revision 1.3"); break;
+					default: printf("Undefined"); break;
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 63) {
+
+				printf("Byte 63: Checksum for Bytes 0-62 [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				alt_u16 uiCRC = 0;
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 0; uiCnt < 63; uiCnt++) {
+					uiCRC += ucEepromData[iByteCounter];
+				}
+				printf("Calculated CRC = 0x%02X", (alt_u8)(uiCRC & 0x00FF));
+				printf("\n");
+
+			} else if (iByteCounter == 64) {
+
+				printf("Bytes 64-71: Module Manufacturer’s JEDEC ID Code [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 64; uiCnt < 72; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+				}
+				printf("] : ");
+				printf("\n");
+
+			} else if (iByteCounter == 72) {
+
+				printf("Byte 72: Module Manufacturing Location [0x%02Xh] : ",
+						ucEepromData[iByteCounter]);
+				printf("\n");
+
+			} else if (iByteCounter == 73) {
+
+				printf("Bytes 73-90: Module Part Number [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 73; uiCnt < 91; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+				}
+				printf("] : ");
+				for (uiCnt = 73; uiCnt < 91; uiCnt++) {
+					printf("%c", (char)ucEepromData[uiCnt]);
+				}
+				printf("\n");
+
+			} else if (iByteCounter == 91) {
+
+				printf("Bytes 91-92: Module Revision Code [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 91; uiCnt < 93; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+				}
+				printf("] : ");
+				printf("\n");
+
+			} else if (iByteCounter == 93) {
+
+				printf("Bytes 93-94: Module Manufacturing Date [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 93; uiCnt < 95; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+				}
+				printf("] : ");
+				printf("year 20%02u, week %02u", ucEepromData[iByteCounter], ucEepromData[iByteCounter+1]);
+				printf("\n");
+
+			} else if (iByteCounter == 95) {
+
+				printf("Bytes 95-98: Module Serial Numb [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 95; uiCnt < 99; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+				}
+				printf("] : ");
+				printf("\n");
+
+			} else if (iByteCounter == 99) {
+
+				printf("Bytes 99-127: Manufacturer’s Specific Data [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 99; uiCnt < 128; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+				}
+				printf("] : ");
+				printf("\n");
+
+			} else if (iByteCounter == 128) {
+
+				printf("Bytes 128-255: Open for Customer Use [0x");
+				alt_u16 uiCnt = 0;
+				for (uiCnt = 128; uiCnt < 256; uiCnt++) {
+					printf("%02X", ucEepromData[uiCnt]);
+					if ((159 == uiCnt) || (191 == uiCnt) || (223 == uiCnt)) {
+						printf("\n");
+					}
+				}
+				printf("] : ");
+				printf("\n");
 
 			} else {
 
-				printf("\n");
+//				printf("\n");
 
 			}
 		}
