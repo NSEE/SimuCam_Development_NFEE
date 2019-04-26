@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 16.1 196 (Future versions may contain additional information.) -->
- <!-- 2019.04.08.23:00:42 -->
+ <!-- 2019.04.24.14:42:41 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1554775241</value>
+  <value>1556127760</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -24410,15 +24410,15 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRAS</name>
-   <value>16</value>
+   <value>18</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRAS_NS</name>
-   <value>40.0</value>
+   <value>45.0</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRC</name>
-   <value>22</value>
+   <value>24</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRCD</name>
@@ -24438,11 +24438,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRFC</name>
-   <value>51</value>
+   <value>154</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRFC_NS</name>
-   <value>127.5</value>
+   <value>383.0</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRP</name>
@@ -24678,7 +24678,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TIMING_TDQSQ</name>
-   <value>200</value>
+   <value>240</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TIMING_TDQSS</name>
@@ -24706,7 +24706,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TIMING_TQHS</name>
-   <value>300</value>
+   <value>340</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TRK_PARALLEL_SCC_LOAD</name>
@@ -25462,7 +25462,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRC">
    <type>int</type>
-   <value>22</value>
+   <value>24</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -25470,7 +25470,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRAS">
    <type>int</type>
-   <value>16</value>
+   <value>18</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -25502,7 +25502,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRFC">
    <type>int</type>
-   <value>51</value>
+   <value>154</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -26134,7 +26134,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TIMING_TDQSQ">
    <type>int</type>
-   <value>200</value>
+   <value>240</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -26142,7 +26142,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TIMING_TQHS">
    <type>int</type>
-   <value>300</value>
+   <value>340</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -26246,7 +26246,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRAS_NS">
    <type>double</type>
-   <value>40.0</value>
+   <value>45.0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -26278,7 +26278,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRFC_NS">
    <type>double</type>
-   <value>127.5</value>
+   <value>383.0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -39432,15 +39432,15 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRAS</name>
-   <value>16</value>
+   <value>18</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRAS_NS</name>
-   <value>40.0</value>
+   <value>45.0</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRC</name>
-   <value>22</value>
+   <value>24</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRCD</name>
@@ -39460,11 +39460,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRFC</name>
-   <value>51</value>
+   <value>154</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRFC_NS</name>
-   <value>127.5</value>
+   <value>383.0</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.MEM_TRP</name>
@@ -39700,7 +39700,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TIMING_TDQSQ</name>
-   <value>200</value>
+   <value>240</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TIMING_TDQSS</name>
@@ -39728,7 +39728,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TIMING_TQHS</name>
-   <value>300</value>
+   <value>340</value>
   </assignment>
   <assignment>
    <name>testbench.partner.mem_model.parameter.TRK_PARALLEL_SCC_LOAD</name>
@@ -40484,7 +40484,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRC">
    <type>int</type>
-   <value>22</value>
+   <value>24</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -40492,7 +40492,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRAS">
    <type>int</type>
-   <value>16</value>
+   <value>18</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -40524,7 +40524,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRFC">
    <type>int</type>
-   <value>51</value>
+   <value>154</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -41156,7 +41156,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TIMING_TDQSQ">
    <type>int</type>
-   <value>200</value>
+   <value>240</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -41164,7 +41164,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="TIMING_TQHS">
    <type>int</type>
-   <value>300</value>
+   <value>340</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -41268,7 +41268,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRAS_NS">
    <type>double</type>
-   <value>40.0</value>
+   <value>45.0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -41300,7 +41300,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MEM_TRFC_NS">
    <type>double</type>
-   <value>127.5</value>
+   <value>383.0</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -69574,7 +69574,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1554775241</value>
+   <value>1556127760</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -69594,7 +69594,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1554775241</value>
+   <value>1556127760</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -69610,7 +69610,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1554775241</value>
+   <value>1556127760</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>

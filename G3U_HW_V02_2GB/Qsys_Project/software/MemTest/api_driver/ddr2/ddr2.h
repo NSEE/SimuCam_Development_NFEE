@@ -69,10 +69,10 @@
 /* prototype */
 bool bDdr2EepromTest(alt_u8 ucMemoryId);
 bool bDdr2EepromDump(alt_u8 ucMemoryId);
-//bool bDdr2SwitchMemory(alt_u8 ucMemoryId);
-//bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId);
-//bool bDdr2MemoryReadTest(alt_u8 ucMemoryId);
-//bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime);
-//bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime);
+bool bDdr2SwitchMemory(alt_u8 ucMemoryId);
+bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId);
+bool bDdr2MemoryReadTest(alt_u8 ucMemoryId);
+bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime);
+bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime);
 
 #endif /* DDR2_H_ */

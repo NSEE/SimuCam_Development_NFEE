@@ -54,8 +54,8 @@ set t(DS) 0.453
 set t(DH) 0.362
 
 # DQS clock edge to DQ data edge (in same group)
-set t(DQSQ) [expr { 200 / 1000.0 }]
-set t(QHS) [expr { 300 / 1000.0 }]
+set t(DQSQ) [expr { 240 / 1000.0 }]
+set t(QHS) [expr { 340 / 1000.0 }]
 
 # Convert QH into time unit so that it's consistent with DQSQ
 set t(QH_time) [expr 0.5 * $t(CK) - $t(QHS) ]

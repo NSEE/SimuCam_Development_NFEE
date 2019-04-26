@@ -24,20 +24,24 @@ int main()
 //  printf("Memory M1 EEPROM Test:\n");
 //  if (bDdr2EepromTest(DDR2_M1_ID)){
 //	  printf("Memory M1 EEPROM Dump:\n");
-	  bDdr2EepromDump(DDR2_M1_ID);
-//  } else {
-//	  printf("Memory M1 EEPROM Test failed, not possible to dump\n");
-//  }
-
-//  printf("Memory M2 EEPROM Test:\n");
-//  if (bDdr2EepromTest(DDR2_M2_ID)){
-//	  printf("Memory M2 EEPROM Dump:\n");
-	  bDdr2EepromDump(DDR2_M2_ID);
-//  } else {
-//	  printf("Memory M2 EEPROM Test failed, not possible to dump\n");
-//  }
+//	  bDdr2EepromDump(DDR2_M1_ID);
+////  } else {
+////	  printf("Memory M1 EEPROM Test failed, not possible to dump\n");
+////  }
 //
-  printf("EEPROM Test and Dump complete!\n");
+////  printf("Memory M2 EEPROM Test:\n");
+////  if (bDdr2EepromTest(DDR2_M2_ID)){
+////	  printf("Memory M2 EEPROM Dump:\n");
+//	  bDdr2EepromDump(DDR2_M2_ID);
+////  } else {
+////	  printf("Memory M2 EEPROM Test failed, not possible to dump\n");
+////  }
+////
+//  printf("EEPROM Test and Dump complete!\n");
+
+
+  bDdr2MemoryRandomWriteTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
+  bDdr2MemoryRandomReadTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
 
   while (1) {}
 
