@@ -968,6 +968,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	ucADDRReg = uiCmdFEEL.ucByte[1];
 	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
 
+
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			ucValueMasked = (COMM_RMAP_IMGCLK_TRCNT_CTRL_MSK & ucValueReg) >> 4; /* Number of rows */

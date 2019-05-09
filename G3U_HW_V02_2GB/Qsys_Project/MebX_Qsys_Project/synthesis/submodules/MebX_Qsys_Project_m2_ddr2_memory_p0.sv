@@ -157,7 +157,7 @@ parameter SCC_DATA_WIDTH            = 1;
 
 parameter NUM_SUBGROUP_PER_READ_DQS        = 1;
 parameter QVLD_EXTRA_FLOP_STAGES		   = 0;
-parameter QVLD_WR_ADDRESS_OFFSET		   = 2;
+parameter QVLD_WR_ADDRESS_OFFSET		   = 4;
 	
 // Read Datapath parameters, the values should not be changed unless the intention is to change the architecture.
 // Read valid prediction FIFO
@@ -180,7 +180,7 @@ parameter NUM_WRITE_FR_CYCLE_SHIFTS = 0;
 parameter REGISTER_C2P = "false";
 
 // Address/Command Datapath
-parameter NUM_AC_FR_CYCLE_SHIFTS = 0;
+parameter NUM_AC_FR_CYCLE_SHIFTS = 1;
 
 // MemCk clock phase select setting
 parameter LDC_MEM_CK_CPS_PHASE = 0;
@@ -188,9 +188,9 @@ parameter LDC_MEM_CK_CPS_PHASE = 0;
 
 parameter MR1_ODS								= 0;
 parameter MR1_RTT								= 3;
-parameter MEM_T_WL								= 1;
+parameter MEM_T_WL								= 2;
 
-localparam MEM_T_RL								= 4;
+localparam MEM_T_RL								= 5;
 
 // The sequencer issues back-to-back reads during calibration, NOPs may need to be inserted depending on the burst length
 parameter SEQ_BURST_COUNT_WIDTH = 1;

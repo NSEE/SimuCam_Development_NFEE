@@ -78,6 +78,7 @@ void vSimMebTask(void *task_data) {
 				vSyncClearCounter();
 				bStartSync();
 
+
 				vEvtChangeMebMode();
 				pxMebC->eMode = sMebRun;
 				break;

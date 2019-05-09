@@ -40,6 +40,9 @@ int main()
 //  printf("EEPROM Test and Dump complete!\n");
 
 
+  bDdr2MemoryRandomWriteTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+  bDdr2MemoryRandomReadTest(DDR2_M1_ID, DDR2_VERBOSE, DDR2_TIME);
+
   bDdr2MemoryRandomWriteTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
   bDdr2MemoryRandomReadTest(DDR2_M2_ID, DDR2_VERBOSE, DDR2_TIME);
 

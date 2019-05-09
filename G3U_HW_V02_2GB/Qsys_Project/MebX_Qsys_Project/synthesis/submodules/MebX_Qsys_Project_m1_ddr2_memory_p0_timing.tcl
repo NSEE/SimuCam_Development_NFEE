@@ -85,8 +85,8 @@ set t(DCD) 0.0
 # Controller parameters
 #######################
 
-set t(RL) 4
-set t(WL) 3
+set t(RL) 5
+set t(WL) 4
 set t(DWIDTH_RATIO) [expr { 2 * 2 }]
 set t(rd_to_wr_turnaround_oct) 3
 

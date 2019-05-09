@@ -2344,14 +2344,14 @@
   <parameter name="MEM_ROW_ADDR_WIDTH" value="14" />
   <parameter name="MEM_RTT_NOM" value="50" />
   <parameter name="MEM_SRT" value="2x refresh rate" />
-  <parameter name="MEM_TCL" value="4" />
+  <parameter name="MEM_TCL" value="5" />
   <parameter name="MEM_TFAW_NS" value="37.5" />
   <parameter name="MEM_TINIT_US" value="200" />
   <parameter name="MEM_TMRD_CK" value="5" />
   <parameter name="MEM_TRAS_NS" value="45.0" />
   <parameter name="MEM_TRCD_NS" value="15.0" />
   <parameter name="MEM_TREFI_US" value="7.8" />
-  <parameter name="MEM_TRFC_NS" value="383.0" />
+  <parameter name="MEM_TRFC_NS" value="127.5" />
   <parameter name="MEM_TRP_NS" value="15.0" />
   <parameter name="MEM_TRRD_NS" value="7.5" />
   <parameter name="MEM_TRTP_NS" value="7.5" />
@@ -2698,14 +2698,14 @@
   <parameter name="MEM_ROW_ADDR_WIDTH" value="14" />
   <parameter name="MEM_RTT_NOM" value="50" />
   <parameter name="MEM_SRT" value="2x refresh rate" />
-  <parameter name="MEM_TCL" value="4" />
+  <parameter name="MEM_TCL" value="5" />
   <parameter name="MEM_TFAW_NS" value="37.5" />
   <parameter name="MEM_TINIT_US" value="200" />
   <parameter name="MEM_TMRD_CK" value="5" />
   <parameter name="MEM_TRAS_NS" value="45.0" />
   <parameter name="MEM_TRCD_NS" value="15.0" />
   <parameter name="MEM_TREFI_US" value="7.8" />
-  <parameter name="MEM_TRFC_NS" value="383.0" />
+  <parameter name="MEM_TRFC_NS" value="127.5" />
   <parameter name="MEM_TRP_NS" value="15.0" />
   <parameter name="MEM_TRRD_NS" value="7.5" />
   <parameter name="MEM_TRTP_NS" value="7.5" />
