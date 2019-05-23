@@ -1,0 +1,7 @@
+scfifo -> original, single clock, read/write de 64 bits;
+
+dpfifo -> dual clock, read: 64 bits, write: 16 bits, normal fifo (não é show ahead), sem uso dos signals "used";
+
+dpfifo_2 -> dual clock, read: 64 bits, write: 16 bits, normal fifo (não é show ahead), com uso dos signals "used";
+
+dpfifo_3 -> dual clock, read: 64 bits, write: 16 bits, show ahead fifo, com uso dos signals "used";
