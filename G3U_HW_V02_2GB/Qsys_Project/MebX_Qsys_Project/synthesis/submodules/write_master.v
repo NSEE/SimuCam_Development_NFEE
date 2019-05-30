@@ -1,10 +1,10 @@
-// (C) 2001-2016 Intel Corporation. All rights reserved.
+// (C) 2001-2018 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
-// files any of the foregoing (including device programming or simulation 
+// files from any of the foregoing (including device programming or simulation 
 // files), and any associated documentation or information are expressly subject 
 // to the terms and conditions of the Intel Program License Subscription 
-// Agreement, Intel MegaCore Function License Agreement, or other applicable 
+// Agreement, Intel FPGA IP License Agreement, or other applicable 
 // license agreement, including, without limitation, that your use is for the 
 // sole purpose of programming logic devices manufactured by Intel and sold by 
 // Intel or its authorized distributors.  Please refer to the applicable 
@@ -461,7 +461,7 @@ module write_master (
       begin
         snk_command_ready <= 0;
       end
-      else if (((done == 1) & (src_response_valid == 0)) | (reset_taken == 1))  // need to make sure the response is popped before accepting more commands
+      else if (((src_response_ready == 1) & (src_response_valid == 1)) | (reset_taken == 1))  // need to make sure the response is popped before accepting more commands
       begin
         snk_command_ready <= 1;
       end
@@ -893,7 +893,7 @@ module write_master (
   assign first_word_boundary_not_reached = (descriptor_length < BYTE_ENABLE_WIDTH) &  // length is less than the word size
                                            (((descriptor_length & LSB_MASK) + (descriptor_address & LSB_MASK)) < BYTE_ENABLE_WIDTH);  // start address + length doesn't reach the next word boundary (not used for packet transfers)
   
-  assign write = ((fifo_empty == 0) | (extra_write == 1)) & (done == 0) & (stopped == 0);
+  assign write = ((fifo_empty == 0) | (extra_write == 1)) & (done == 0) & (stopped == 0) & (early_termination_d1 == 0);
   assign st_to_mm_adapter_enable = (done == 0) & (extra_write == 0);
 
   assign write_complete = (write == 1) & (master_waitrequest == 0) & (write_stall_from_byte_enable_generator == 0) & (write_stall_from_write_burst_control == 0);  // writing still occuring and no reasons to prevent the write cycle from completing
@@ -908,7 +908,9 @@ module write_master (
 
   assign fifo_write = (snk_ready == 1) & (snk_valid == 1);
 
-  assign early_termination = (eop_enable == 1) & (write_complete == 1) & (length_counter < bytes_to_transfer);  // packet transfer and the length counter is about to roll over so stop transfering
+  assign early_termination = (eop_enable == 1) & 
+                             (   ((write_complete == 1) & (length_counter < bytes_to_transfer)) |  // packet transfer and the length counter is about to roll over so stop transfering
+                                 ((length_counter == 0) & (eop_seen == 0) & (go == 0))   );        // length counter hit zero and eop beat still hasn't been written to memory   
   
   assign stop_state = stopped;
   assign reset_delayed = (reset_taken == 0) & (sw_reset_in == 1);

@@ -3,6 +3,7 @@
 	<name>Simucam_R0_UART</name>
 	<comment></comment>
 	<projects>
+		<project>Simucam_R0_UART_bsp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

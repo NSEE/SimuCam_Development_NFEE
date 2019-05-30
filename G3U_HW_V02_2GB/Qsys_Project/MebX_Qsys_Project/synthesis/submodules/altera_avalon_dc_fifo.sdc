@@ -1,7 +1,7 @@
-# $File: //acds/rel/16.1/ip/sopc/components/altera_avalon_dc_fifo/altera_avalon_dc_fifo.sdc $
-# $Revision: #2 $
-# $Date: 2016/10/03 $
-# $Author: jyeap $
+# $File: //acds/rel/18.1std/ip/sopc/components/altera_avalon_dc_fifo/altera_avalon_dc_fifo.sdc $
+# $Revision: #1 $
+# $Date: 2018/07/18 $
+# $Author: psgswbuild $
 
 #-------------------------------------------------------------------------------
 # TimeQuest constraints to constrain the timing across asynchronous clock domain crossings.
