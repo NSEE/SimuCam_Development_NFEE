@@ -13,8 +13,6 @@
 #include "configs_simucam.h"
 
 
-
-
 unsigned short int usiGetIdCMD ( void );
 short int siPosStr( char *buffer, char cValue);
 void vTimeoutCheck (void *p_arg);

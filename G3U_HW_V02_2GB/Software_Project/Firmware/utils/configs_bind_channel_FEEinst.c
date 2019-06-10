@@ -249,7 +249,7 @@ bool vCHConfs( void ){
 	return bSuccess;
 }
 
-
+/* todo: Should verify if the sequence is valid and if any number is repeated*/
 bool ucCheckAndApllySPWChannel( char cLetter, unsigned char *ucChannelNumber ) {
 //	static char cChannelLists[8] = {-1, -1, -1, -1, -1, -1, -1, -1};
 //	static unsigned char ucIterator = 0;

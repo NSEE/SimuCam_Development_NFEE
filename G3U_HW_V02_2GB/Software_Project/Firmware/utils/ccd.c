@@ -10,16 +10,6 @@
 
 void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
 
-    /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
-        hard coded values */
-    //bLoadCcdDefsSDCard();
-/*
-	ccdDef->usiHeight = 4510;
-	ccdDef->usiOLN = 30;
-	ccdDef->usiHalfWidth = 2255;
-	ccdDef->usiSOverscanN = 15;
-	ccdDef->usiSPrescanN = 25;
-*/
 	ccdDef->usiHeight = xDefaults.usiRows;
 	ccdDef->usiOLN = xDefaults.usiOLN;
 	ccdDef->usiHalfWidth = xDefaults.usiCols;
@@ -39,7 +29,7 @@ void vCCDLoadDefaultValues( TCcdInfos *ccdDef ) {
 }
 
 /* Only in NFEE_CONFIG of NFEE_STAND_BY */
-/* Used to change de values of the CCD definitions from any source */
+/* Will be used to change de values of the CCD definitions from any source */
 void vCCDChangeValues( TCcdInfos *ccdDef, unsigned short int usiHeight, unsigned short int usiOLN, unsigned short int usiHalfWidth,
                                 unsigned short int usiSOverscanN, unsigned short int usiSPrescanN  ) {
 

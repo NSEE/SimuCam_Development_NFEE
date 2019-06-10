@@ -349,17 +349,6 @@ void vInitialTask(void *task_data)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 	/* Create the task that is responsible to send the ack to NUC of the incomming messages */
 	#if ( STACK_MONITOR == 1)
 		error_code = OSTaskCreateExt(vTimeoutCheckerTaskv2,
@@ -606,7 +595,7 @@ void vInitialTask(void *task_data)
 	}
 
 
-	OSTimeDlyHMSM(0, 0, 30, 2); /* todo:debug REMOVER*/
+	OSTimeDlyHMSM(0, 0, 1, 0);
 
 
 	/* Delete the Initialization Task  */

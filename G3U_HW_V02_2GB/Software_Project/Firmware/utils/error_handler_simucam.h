@@ -23,6 +23,7 @@ void vFailReceiverCreate( void );
 void vFailSenderCreate( void );
 void vFailDeleteInitialization( void );
 void vFailCreateMutexDMA( void );
+void vFailReadETHConf( void );
 void vFailCreateMutexSResources( INT8U error_code );
 void vFailCreateSemaphoreResources( void );
 void vFailSendxSemCommInit( void );
@@ -100,7 +101,7 @@ void vFailSendMsgMasterSyncMeb( void );
 void vFailRequestDMAFromIRQ( unsigned char ucTemp);
 void vFailSendRMAPFromIRQ( unsigned char ucTemp);
 void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp);
-
+void vFailSDCard( void );
 void vCriticalErrorLedPanel( void );
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

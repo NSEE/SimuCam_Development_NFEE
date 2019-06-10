@@ -10,7 +10,6 @@
 
 bool bLogWriteSDCard ( const char * cDataIn, const char * cFilename )
 {
-
 	return TRUE;
 }
 

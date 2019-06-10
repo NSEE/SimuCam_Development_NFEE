@@ -51,6 +51,20 @@ void vFailCreateMutexDMA( void )
 	 */
 }
 
+void vFailReadETHConf( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailReadETHConf. (exit)\n");
+	}
+	#endif
+
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
 void vFailCreateSemaphoreResources( void )
 {
 	#if DEBUG_ON
@@ -81,6 +95,20 @@ void vFailTestCriticasParts( void )
 	 */
 }
 
+void vFailSDCard( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailTestCriticasParts. (exit)\n");
+	}
+	#endif
+
+	vCriticalErrorLedPanel();
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
 
 void vFailSendxSemCommInit( void )
 {

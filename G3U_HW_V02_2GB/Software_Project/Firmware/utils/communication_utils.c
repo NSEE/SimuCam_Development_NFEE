@@ -15,9 +15,6 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
 	
-
-	bSuccessL = FALSE;
-
 	OSSemPend(xSemCountBuffer128, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
 	if ( ucErrorCode != OS_NO_ERR ) {
@@ -124,9 +121,7 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 	INT8U ucErrorCode = 0;
 	unsigned char ucIL = 0;
 	bool bSuccessL = FALSE;
-	
 
-	bSuccessL = FALSE;
 
 	OSSemPend(xSemCountBuffer64, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
@@ -235,8 +230,6 @@ bool bSendUART32v2 ( char *cBuffer, short int siIdMessage ) {
 	bool bSuccessL = FALSE;
 	
 
-	bSuccessL = FALSE;
-	
 	OSSemPend(xSemCountBuffer32, TICKS_WAITING_FOR_SPACE, &ucErrorCode);
 	/* Check if gets The semaphore, if yes means that are some space in the (re)transmission buffer */
 	if ( ucErrorCode != OS_NO_ERR ) {

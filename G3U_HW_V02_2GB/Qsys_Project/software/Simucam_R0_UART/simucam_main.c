@@ -325,31 +325,6 @@ bool bResourcesInitRTOS( void ) {
 	}
 */
 
-/*
-	xWaitSyncQFee[0] = OSQCreate(&SyncTBL0[0], N_MSG_SYNC);
-	if ( xWaitSyncQFee[0] == NULL ) {
-		vFailCreateNFEESyncQueue( 0 );
-		bSuccess = FALSE;
-	}
-
-	xWaitSyncQFee[1] = OSQCreate(&SyncTBL1[0], N_MSG_SYNC);
-	if ( xWaitSyncQFee[1] == NULL ) {
-		vFailCreateNFEESyncQueue( 1 );
-		bSuccess = FALSE;
-	}
-
-	xWaitSyncQFee[2] = OSQCreate(&SyncTBL2[0], N_MSG_SYNC);
-	if ( xWaitSyncQFee[2] == NULL ) {
-		vFailCreateNFEESyncQueue( 2 );
-		bSuccess = FALSE;
-	}
-
-	xWaitSyncQFee[3] = OSQCreate(&SyncTBL3[0], N_MSG_SYNC);
-	if ( xWaitSyncQFee[3] == NULL ) {
-		vFailCreateNFEESyncQueue( 3 );
-		bSuccess = FALSE;
-	}
-	*/
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
 	xMebQ = OSQCreate(&xMebQTBL[0], N_OF_MEB_MSG_QUEUE);
@@ -395,7 +370,7 @@ bool bResourcesInitRTOS( void ) {
 	return bSuccess;
 }
 
-/* Global variables already initialized with zero. But better safe than I'm sorry. */
+/* Global variables already initialized with zero. But better safe than sorry. */
 void vVariablesInitialization ( void ) {
 	unsigned char ucIL = 0;
 
@@ -440,16 +415,32 @@ void vVariablesInitialization ( void ) {
 		memset( (void *)xPus[ucIL].usiValues, 0, sizeof(xPus[ucIL].usiValues));
 	}
 
-/* todo: Need start this variable also, but not now
+	for( ucIL = 0; ucIL < N_PREPARSED_ENTRIES; ucIL++)
+	{
+		xPreParsed[ucIL].cCommand = 0;
+		xPreParsed[ucIL].cType = 0;
+		xPreParsed[ucIL].ucCalculatedCRC8 = 0;
+		xPreParsed[ucIL].ucErrorFlag = eNoError;
+		xPreParsed[ucIL].ucMessageCRC8 = 0;
+		xPreParsed[ucIL].ucNofBytes = 0;
+		memset( (void *)xPreParsed[ucIL].usiValues, 0, sizeof(xPreParsed[ucIL].usiValues));
+	}
 
-tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
-txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
+	for( ucIL = 0; ucIL < N_ACKS_RECEIVED; ucIL++)
+	{
+		xReceivedACK[ucIL].cCommand = 0;
+		xReceivedACK[ucIL].cType = 0;
+		xReceivedACK[ucIL].usiId = 0;
+	}
 
-txSenderACKs xSenderACK[N_ACKS_SENDER];
-
-*/
-
+	for( ucIL = 0; ucIL < N_ACKS_SENDER; ucIL++)
+	{
+		xSenderACK[ucIL].cCommand = 0;
+		xSenderACK[ucIL].cType = 0;
+		xSenderACK[ucIL].usiId = 0;
+	}
 }
+
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
 
 
@@ -485,7 +476,7 @@ int main(void)
 	/* Log file Initialization in the SDCard */
 	bIniSimucamStatus = bInitializeSDCard();
 	if (bIniSimucamStatus == FALSE) {
-		vFailTestCriticasParts();
+		vFailSDCard();
 		return -1;
 	}
 
@@ -566,7 +557,7 @@ int main(void)
 			debug(fp, "Didn't load ETH configuration from SDCard. \n");
 		}
 		#endif
-		vCriticalErrorLedPanel();
+		vFailReadETHConf();
 		return -1;
 	}
 

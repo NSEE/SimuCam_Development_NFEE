@@ -60,7 +60,6 @@ extern TConfEth xConfEth;
 extern TDefaults xDefaults;
 
 
-
 /*Functions*/
 bool vLoadDefaultETHConf( void );
 bool vLoadDebugConfs( void );

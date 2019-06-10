@@ -51,7 +51,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
 
     /*  todo: This function supposed to load the values from a SD Card in the future, for now it will load
         hard coded values */
-    //bLoadNFEEDefsSDCard(); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
     /* Set the default redout order [ 0, 1, 2, 3 ] */
     for ( ucIL = 0; ucIL < 4; ucIL++) 
         pxNfeeL->xControl.ucROutOrder[ucIL] =  xDefaults.ucReadOutOrder[ucIL];
@@ -148,11 +148,8 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     /* 16 * 4 = 64 - (number of pixels in the last block)) */
     ucShiftsL = ( BLOCK_MEM_SIZE * PIXEL_PER_MEM_LINE ) - ucPixelsInLastBlockL;
 
-    /* WARNING: Verify the memory alocation (endianess) */
-    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF >> ucShiftsL);
+    /* WARNING: Verify the memory allocation (endianess) */
     pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF << ucShiftsL);
-    //pxNfeeL->xMemMap.xCommon.ucPaddingMask.ullWord = (unsigned long long)(0xFFFFFFFFFFFFFFFF);
-
 
     /* Number of block is te same as the number of line masks in the memory */
     pxNfeeL->xMemMap.xCommon.usiNTotalBlocks = ulMaskMemLinesL;
