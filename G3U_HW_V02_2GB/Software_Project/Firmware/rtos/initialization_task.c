@@ -70,7 +70,7 @@ void vInitialTask(void *task_data)
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
-		error_code = OSTaskCreateExt(vFeeTask1,
+		error_code = OSTaskCreateExt(vFeeTask,
 									&xSimMeb.xFeeControl.xNfee[1],
 									(void *)&vFeeTask1_stk[FEES_STACK_SIZE-1],
 									NFEE_TASK_BASE_PRIO+1,
@@ -105,7 +105,7 @@ void vInitialTask(void *task_data)
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
-		error_code = OSTaskCreateExt(vFeeTask2,
+		error_code = OSTaskCreateExt(vFeeTask,
 									&xSimMeb.xFeeControl.xNfee[2],
 									(void *)&vFeeTask2_stk[FEES_STACK_SIZE-1],
 									NFEE_TASK_BASE_PRIO+2,
@@ -140,7 +140,7 @@ void vInitialTask(void *task_data)
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
-		error_code = OSTaskCreateExt(vFeeTask3,
+		error_code = OSTaskCreateExt(vFeeTask,
 									&xSimMeb.xFeeControl.xNfee[3],
 									(void *)&vFeeTask3_stk[FEES_STACK_SIZE-1],
 									NFEE_TASK_BASE_PRIO+3,

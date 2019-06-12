@@ -67,7 +67,7 @@ extern volatile unsigned short int usiIdCMD;
 
 /* This structure will be used to send TM PUS packets through UART */
 #define SIZE_TM_PUS_VALUES     32
-#define N_PUS_PIPE     4
+#define N_PUS_PIPE     16
 typedef struct {
     tErrorReceiver ucErrorFlag;
     bool bInUse;
@@ -92,7 +92,7 @@ extern volatile tTMPus xPus[N_PUS_PIPE];
 
 
 /*Struct used to parse the received command through UART*/
-#define N_PREPARSED_ENTRIES     8
+#define N_PREPARSED_ENTRIES     16
 typedef struct {
     tErrorReceiver ucErrorFlag;
     char cType; /* ?(request):0 or !(reply):1*/
@@ -108,7 +108,7 @@ extern OS_EVENT *xMutexPreParsed;
 extern volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 extern volatile tPreParsed xPreParsedReader;
 
-#define N_ACKS_RECEIVED        6
+#define N_ACKS_RECEIVED        8
 typedef struct {
     char cType; /* If Zero is empty and available*/
     char cCommand;

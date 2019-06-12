@@ -5,29 +5,31 @@
  *      Author: Tiago-Low
  */
 
-
 #include "fee_task.h"
 
 const char *cTemp[64];
-static unsigned char ucIterationSide;
 
 void vFeeTask(void *task_data) {
-	static TNFee *pxNFee;
+	TNFee *pxNFee;
 	INT8U error_code;
-	static unsigned char ucMemUsing;
-	static alt_u32 tCodFeeTask;
+	unsigned char ucMemUsing;
+	alt_u32 tCodFeeTask;
 	alt_u32 tCodeNext;
 	tQMask uiCmdFEE;
-	static TCcdMemMap *xCcdMapLocal;
+	TCcdMemMap *xCcdMapLocal;
 	volatile unsigned char ucReadout;
 	unsigned long usiLengthBlocks;
 	bool bDmaReturn;
 	bool bFinal;
 	alt_u16 *pusiHK;
 	unsigned char ucIL;
-
+	unsigned char ucIterationSide;
 
 	pxNFee = ( TNFee * ) task_data;
+
+	ucIterationSide = 0;
+	xCcdMapLocal = 0;
+	ucMemUsing = 0;
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -65,7 +67,7 @@ void vFeeTask(void *task_data) {
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
-				/*Initializing the the values of the HK memory area*/
+				/*Initializing the the values of the HK memory area, only during dev*/
 				bRmapGetRmapMemHKArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE = 0xFF00;
 				pxNFee->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodF = 0xFF01;
