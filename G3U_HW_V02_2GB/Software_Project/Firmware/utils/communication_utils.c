@@ -113,8 +113,6 @@ bool bSendUART128v2 ( char *cBuffer, short int siIdMessage ) {
 
 
 
-
-
 /* Make sure that there is only 63 characters to send */
 /* Always, ALWAYS send only an char[64] that you first did a memset(cBuffer,0,64), before put some string on it. */
 bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
@@ -134,7 +132,6 @@ bool bSendUART64v2 ( char *cBuffer, short int siIdMessage ) {
 
 	/* ---> At this point we know that there is some space in the buffer */
 
-	
 	
 	/* Need to get the Mutex that protects xBuffer64 */
 	OSMutexPend(xMutexBuffer64, TICKS_WAITING_MUTEX_RETRANS, &ucErrorCode); /* Wait X ticks = X ms */

@@ -8,7 +8,8 @@
 
 #include "sim_meb_task.h"
 
-/* All commands should pass through the MEB, it is the instance that hould know everything, and also know the self state and what is allowed to be performed or not */
+/* All commands should pass through the MEB, it is the instance that hould know everything, 
+and also know the self state and what is allowed to be performed or not */
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
@@ -22,9 +23,8 @@ void vSimMebTask(void *task_data) {
 	pxMebC = (TSimucam_MEB *) task_data;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-        debug(fp,"Sim-Meb Controller Task. (Task on)\n");
-	}
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+        fprintf(fp,"Sim-Meb Controller Task. (Task on)\n");
     #endif
 
 
@@ -36,19 +36,15 @@ void vSimMebTask(void *task_data) {
 				pxMebC->eMode = sMebToConfig;
 				break;
 
-
 			case sMebToConfig:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					debug(fp,"MEB Task: Config Mode\n");
-				}
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+					fprintf(fp,"MEB Task: Config Mode\n");
 				#endif
 
 				vEnterConfigRoutine();
-
 				pxMebC->eMode = sMebConfig;
 				break;
-
 
 			case sMebToRun:
 
@@ -56,17 +52,14 @@ void vSimMebTask(void *task_data) {
 				bEnableLvdsBoard();
 
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					debug(fp,"MEB Task: Run Mode\n");
-				}
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+					fprintf(fp,"MEB Task: Run Mode\n");
 				#endif
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
-
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
-
 
 				/* Clear the timecode of the channel SPW (for now is for spw channel) */
 				for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
@@ -74,15 +67,14 @@ void vSimMebTask(void *task_data) {
 					pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
 				}
 
+				/*This sequence start the HW sync module*/
 				bSyncCtrReset();
 				vSyncClearCounter();
 				bStartSync();
 
-
 				vEvtChangeMebMode();
 				pxMebC->eMode = sMebRun;
 				break;
-
 
 			case sMebConfig:
 
@@ -97,33 +89,30 @@ void vSimMebTask(void *task_data) {
 							case Q_MEB_PUS:
 								vPusMebTask( pxMebC );
 								break;
+
 							case M_MASTER_SYNC:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 									fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
-								}
 								#endif
 								break;
+
 							default:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 									fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdMeb.ucByte[2]);
-								}
 								#endif
-								break;
 						}
 					} else {
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 							fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdMeb.ucByte[3]);
-						}
 						#endif
 					}
 				} else {
 					/* Should never get here (blocking operation), critical fail */
 					vCouldNotGetCmdQueueMeb();
 				}
-
 				break;
 
 			case sMebRun:
@@ -138,12 +127,12 @@ void vSimMebTask(void *task_data) {
 							case Q_MEB_PUS:
 								vPusMebTask( pxMebC );
 								break;
+
 							case M_MASTER_SYNC:
 								/* Perform memory SWAP */
 								vSwapMemmory(pxMebC);
 							case M_SYNC:
 								#if DEBUG_ON
-
 								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 									fprintf(fp,"\n\nSync\n");
 									if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -157,21 +146,18 @@ void vSimMebTask(void *task_data) {
 									}
 								}
 								#endif
-
 								break;
+
 							default:
 								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 									fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdMeb.ucByte[2]);
-								}
 								#endif
-								break;
 						}
 					} else {
 						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 							fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdMeb.ucByte[3]);
-						}
 						#endif
 					}
 
@@ -183,14 +169,11 @@ void vSimMebTask(void *task_data) {
 
 			default:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 					debug(fp,"MEB Task: Unknown state, backing to Config Mode\n");
-				}
 				#endif
-				
 				/* todo:Aplicar toda logica de mudança de esteado aqui */
 				pxMebC->eMode = sMebToConfig;
-				break;
 		}
 	}
 }
@@ -204,7 +187,6 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	bSuccess = FALSE;
 	OSMutexPend(xMutexPus, 2, &error_code);
 	if ( error_code == OS_ERR_NONE ) {
-
 	    /*Search for the PUS command*/
 	    for(ucIL = 0; ucIL < N_PUS_PIPE; ucIL++)
 	    {
@@ -217,12 +199,10 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
             }
 	    }
 	    OSMutexPost(xMutexPus);
-	} else {
+	} else
 		vCouldNotGetMutexMebPus();
-	}
 
 	if ( bSuccess ) {
-
 		switch (pxMebCLocal->eMode) {
 			case sMebConfig:
 				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
@@ -256,17 +236,14 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (CONFIG)\n\n" );
-			}
 			#endif
-			break;
 	}
 }
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
-
 
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_RUN */
@@ -288,8 +265,8 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Sinalize that can safely shutdown the Simucam */
 			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
-
 			break;
+
 		/* TC_SCAM_CONFIG */
 		case 60:
 		default:
@@ -298,15 +275,13 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
 			}
 			#endif
-			break;
 	}
 }
 
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 		fprintf(fp, "MEB Task: Can't change the mode of the NFEE while MEB is Config mode\n\n" );
-	}
 	#endif
 }
 
@@ -319,11 +294,9 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
 		case 5: /* TC_SCAM_SPW_LINK_RESET */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 				fprintf(fp,"MEB Task: Can't perform this operation in the Link while Meb is Config mode \n\n");
-			}
 			#endif
-			break;
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
@@ -347,19 +320,16 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
-			}
 			#endif
-
 			break;
+
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode\n\n" );
-			}
 			#endif
-			break;
 	}
 }
 
@@ -384,11 +354,9 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Srv-Type not allowed in this mode (RUN)\n\n" );
-			}
 			#endif
-			break;
 	}
 }
 
@@ -420,18 +388,15 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Sinalize that can safely shutdown the Simucam */
 			bSetPainelLeds( LEDS_ON , LEDS_ST_ALL_MASK );
-
-
 			break;
+
 		/* TC_SCAM_RUN */
 		case 61:
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
-			}
 			#endif
-			break;
 	}
 }
 
@@ -461,11 +426,9 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 6:
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp, "MEB Task: Command not implemented yet (SubType:%hu)\n\n",xPusL->usiSubType );
-			}
 			#endif
-			break;
 	}
 }
 
@@ -481,11 +444,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: Link enable (NFEE-%hu)\n\n", usiFeeInstL);
-			}
 			#endif
-
 			break;
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
@@ -495,11 +456,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: Link disable (NFEE-%hu)\n\n", usiFeeInstL);
-			}
 			#endif
-
 			break;
 
 		case 5: /* TC_SCAM_SPW_LINK_RESET */
@@ -528,29 +487,26 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			} else {
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"MEB Task: NFEE-%hu is not in the Config Mode ( Changes not performed )\n\n", usiFeeInstL);
-				}
 				#endif
 			}
 
 			/* todo: Need to treat all the returns */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 				fprintf(fp,"MEB Task: RMAP KEY: %hu     L. ADDR: %hu (Change performed) \n\n", xPusL->usiValues[12] , xPusL->usiValues[9]);
-			}
 			#endif
 			break;
+
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 				fprintf(fp, "MEB Task: Command not allowed in this mode (RUN)\n\n" );
-			}
 			#endif
 			break;
 	}
 }
-
 
 
 void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
@@ -662,7 +618,7 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 
 }
 
-
+/*This sequence is used more than one place, so it becomes a function*/
 void vEnterConfigRoutine( void ) {
 
 	/* Stop the Sync (Stopping the simulation) */
@@ -682,7 +638,6 @@ void vEnterConfigRoutine( void ) {
 
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
-
 }
 
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */

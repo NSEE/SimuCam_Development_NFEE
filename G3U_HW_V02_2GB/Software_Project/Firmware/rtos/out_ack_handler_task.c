@@ -16,13 +16,11 @@ void vOutAckHandlerTask(void *task_data) {
     unsigned char crc = 0;
 
 	#if DEBUG_ON
-    if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		debug(fp,"Out Ack Handler Task. (Task on)\n");
-    }
+    if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+		fprintf(fp,"Out Ack Handler Task. (Task on)\n");
 	#endif
 
 	eSenderAckState = sSAConfiguring;
-
 	for(;;){
 
 		switch (eSenderAckState) {
@@ -30,6 +28,7 @@ void vOutAckHandlerTask(void *task_data) {
                 /*For future implementations*/
                 eSenderAckState = sSAGettingACK;
 				break;
+
             case sSAGettingACK:
                 /* Waits the semaphore that indicates there are some ack message to send*/
                 eSenderAckState = sSAGettingACK;
@@ -40,7 +39,6 @@ void vOutAckHandlerTask(void *task_data) {
                     if ( error_code == OS_ERR_NONE ) {
                         /*Search for the ack*/
                         for(unsigned char i = 0; i < N_ACKS_SENDER; i++)
-                        {
                             if ( xSenderACK[i].cType != 0 ) {
                                 /* Locate the message, copy for the local variable in order to free the mutex. */
                                 xSAckLocal = xSenderACK[i];
@@ -48,7 +46,6 @@ void vOutAckHandlerTask(void *task_data) {
                                 xSenderACK[i].cType = 0; /* indicates that this position now can be used by other message*/
                                 break;
                             }
-                        }
                         OSMutexPost(xMutexSenderACK);
                     } else {
                         /*  Should never get here, will wait without timeout for the semaphore.
@@ -61,10 +58,9 @@ void vOutAckHandlerTask(void *task_data) {
                         But if some error accours we will do nothing but print in the console */
                     vFailGetCountSemaphoreSenderTask();
                 }
-
                 break;
+
 			case sSASending:
-                
                 /* First check if is an NACK packet that should be sent */
                 if ( xSAckLocal.cType != '#' ) {
                     /* In this state has a parsed ack packet in the variable xSAckLocal
@@ -77,7 +73,6 @@ void vOutAckHandlerTask(void *task_data) {
                     sprintf(cBufferAck, "%s", NACK_SEQUENCE);
                 }
 
-
                 OSMutexPend(xTxUARTMutex, 100, &error_code); /* Wait max 100 ticks = 100 ms */
                 if ( error_code == OS_NO_ERR ) {
                     puts(cBufferAck);
@@ -86,16 +81,15 @@ void vOutAckHandlerTask(void *task_data) {
                     vFailGetMutexTxUARTSenderTask(); /* Could not use the uart tx buffer to send the ack*/
 
                 eSenderAckState = sSAGettingACK;
-                
 				break;
+
 			default:
             	#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		            debug(fp,"Critical: Default State. Should never get here.(vOutAckHandlerTask)\n");
-				}
+		            fprintf(fp,"Critical: Default State. Should never get here.(vOutAckHandlerTask)\n");
 	            #endif
                 eSenderAckState = sSAGettingACK;
-				break;
+				}
 		}
 	}
 }

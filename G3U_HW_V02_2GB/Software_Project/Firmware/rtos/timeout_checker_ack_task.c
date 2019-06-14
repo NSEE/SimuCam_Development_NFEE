@@ -8,19 +8,16 @@
 #include "timeout_checker_ack_task.h"
 
 
-
 void vTimeoutCheckerTaskv2(void *task_data) {
 	INT8U ucErrorCode = 0;
 
     #if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-        debug(fp,"vTimeoutCheckerTask, enter task.\n");
-	}
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+        fprintf(fp,"vTimeoutCheckerTask, enter task.\n");
     #endif   
 
     for (;;) {
         OSSemPend(xSemTimeoutChecker, 0, &ucErrorCode);
-
         if ( ucErrorCode == OS_NO_ERR ) {
             /* Just check the restransmission buffer */
             vCheck();
@@ -48,9 +45,8 @@ void vCheck( void ) {
     if ( ucErrorCode != OS_NO_ERR ) {
         /* Should never get here, is a blocking operation */
 		#if DEBUG_ON
-    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-			debug(fp,"Should never get here. Trying to get xTxUARTMutex. (vCheck)\n");
-    	}
+    	if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			fprintf(fp,"Should never get here. Trying to get xTxUARTMutex. (vCheck)\n");
 		#endif
         return;
     }
@@ -140,7 +136,6 @@ inline void vCheckRetransmission64( void ) {
         return;
     }
     
-
     /* ---> At this point we have access to the xBuffer64*/
 
     /* Search the one that if in use */

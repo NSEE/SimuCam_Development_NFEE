@@ -86,16 +86,6 @@ void *xFeeQueueTBL4[N_MSG_FEE];
 void *xFeeQueueTBL5[N_MSG_FEE];
 OS_EVENT *xFeeQ[N_OF_NFEE];		            /* Give access to the DMA by sincronization to a NFEE[i], and other commands */
 
-/*
-void *SyncTBL0[N_MSG_SYNC];
-void *SyncTBL1[N_MSG_SYNC];
-void *SyncTBL2[N_MSG_SYNC];
-void *SyncTBL3[N_MSG_SYNC];
-void *SyncTBL4[N_MSG_SYNC];
-void *SyncTBL5[N_MSG_SYNC];
-OS_EVENT *xWaitSyncQFee[N_OF_NFEE];
-*/
-
 
 /* This Queue will be used to Schadule the access of the DMA, The ISR of "empty Buffer" will send message to this Queue with the Number of FEE that rises the IRQ */
 void *xNfeeScheduleTBL[N_OF_MSG_QUEUE];
@@ -497,7 +487,7 @@ int main(void)
 		vCriticalErrorLedPanel();
 		return -1;
 	}
-#if DEBUG_ON
+	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nDebug configuration loaded from SDCard \n");
 		fprintf(fp, "xDefaults.usiSyncPeriod %u \n", xDefaults.usiSyncPeriod);
@@ -519,9 +509,8 @@ int main(void)
 		fprintf(fp, "xDefaults.usiDpuLogicalAddr %u \n", xDefaults.usiDpuLogicalAddr);
 		fprintf(fp, "xDefaults.usiGuardNFEEDelay %u \n", xDefaults.usiGuardNFEEDelay);
 		fprintf(fp, "xDefaults.usiSpwPLength %u \n", xDefaults.usiSpwPLength);
-
 	}
-#endif
+	#endif
 
 	/* Load the Binding configuration ( FEE instance <-> SPWChannel ) */
 	bIniSimucamStatus = vCHConfs();
@@ -536,7 +525,7 @@ int main(void)
 		return -1;
 	}
 
-#if DEBUG_ON
+	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp, "\nFEE binding Loaded from SDCard \n");
 		fprintf(fp, "FEE 0 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[0]);
@@ -548,7 +537,7 @@ int main(void)
 		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
 		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
 	}
-#endif
+	#endif
 
 	bIniSimucamStatus = vLoadDefaultETHConf();
 	if (bIniSimucamStatus == FALSE) {

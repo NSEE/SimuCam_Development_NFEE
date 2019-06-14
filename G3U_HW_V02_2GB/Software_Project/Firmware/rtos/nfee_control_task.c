@@ -5,10 +5,7 @@
  *      Author: Tiago-note
  */
 
-
-
 #include "nfee_control_task.h"
-
 
 void vNFeeControlTask(void *task_data) {
 	TNFee_Control * pxFeeC;
@@ -30,8 +27,7 @@ void vNFeeControlTask(void *task_data) {
 
 	for (;;) {
 
-		switch (pxFeeC->sMode)
-		{
+		switch (pxFeeC->sMode) {
 			case sMebInit:
 				/* Starting the NFEE Controller */
 
@@ -44,13 +40,11 @@ void vNFeeControlTask(void *task_data) {
 				pxFeeC->sMode = sMebToConfig;
 				break;
 
-
 			case sMebToConfig:
 				/* Transition state */
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-					debug(fp,"NFEE Controller Task: Config Mode\n");
-				}
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+					fprintf(fp,"NFEE Controller Task: Config Mode\n");
 				#endif
 
 				/* Clear Queue that is responsible to schedule the DMA access */
@@ -65,14 +59,12 @@ void vNFeeControlTask(void *task_data) {
 				pxFeeC->sMode = sMebConfig;
 				break;
 
-
 			case sMebToRun:
 				/* Transition state */
 				vEvtChangeFeeControllerMode();
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-					debug(fp,"NFEE Controller Task: RUN Mode\n");
-				}
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+					fprintf(fp,"NFEE Controller Task: RUN Mode\n");
 				#endif
 
 				/* Clear Queue that is responsible to schedule the DMA access */
@@ -101,7 +93,6 @@ void vNFeeControlTask(void *task_data) {
 				
 				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
 				if ( error_codeCtrl == OS_ERR_NONE ) {
-
 					/* Check if the command is for NFEE Controller */
 					if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
 						vPerformActionNFCConfig(uiCmdNFC.ulWord, pxFeeC);
@@ -157,9 +148,7 @@ void vNFeeControlTask(void *task_data) {
 
 						/* Check if the command is for NFEE Controller */
 						if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
-							
 							vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
-
 						} else {
 							/* Check if the message if for any one of the instances of NFEE */
 							if ( (uiCmdNFC.ucByte[3] >= M_NFEE_BASE_ADDR) && ( uiCmdNFC.ucByte[3] <= (M_NFEE_BASE_ADDR+N_OF_NFEE) ) ) {
@@ -179,7 +168,6 @@ void vNFeeControlTask(void *task_data) {
 				#endif
 				
 				pxFeeC->sMode = sMebConfig;
-				break;
 		}
 	}
 }

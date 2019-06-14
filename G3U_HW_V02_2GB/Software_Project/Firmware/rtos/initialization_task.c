@@ -8,16 +8,13 @@
 
 #include "initialization_task.h"
 
-
 void vInitialTask(void *task_data)
 {
 	INT8U error_code = OS_ERR_NONE;
 
-
 	#if ( STACK_MONITOR == 1)
 		OSStatInit();
 	#endif
-
 
 /* ================== All the task that need syncronization should be started first ========================= */
 

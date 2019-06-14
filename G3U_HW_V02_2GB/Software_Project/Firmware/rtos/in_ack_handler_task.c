@@ -23,9 +23,8 @@ void vInAckHandlerTaskV2(void *task_data) {
     unsigned char i = 0;
 
     #if DEBUG_ON
-    if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+    if ( xDefaults.usiDebugLevel <= dlMajorMessage )
         debug(fp,"In Ack Handler Task. (Task on)\n");
-    }
     #endif
 
 	eReceiverAckState = sRAConfiguring;
@@ -37,6 +36,7 @@ void vInAckHandlerTaskV2(void *task_data) {
                 /*For future implementations*/
                 eReceiverAckState = sRAGettingACK;
 				break;
+
             case sRAGettingACK:
                 eReceiverAckState = sRAGettingACK;
                 /* Waits the semaphore that indicates there are some ack message was received*/
@@ -72,10 +72,10 @@ void vInAckHandlerTaskV2(void *task_data) {
                     vFailGetCountSemaphoreReceiverTask();
                 }
                 break;
+
 			case sRACleanningBuffer:
                 /* Now a search will be performed in the three output buffer in order to find
                    the (re)transmission buffer identified by the id and erase it. */
-                
                 ucHashVerification = 0;
                 ucHashVerification |= (( SemCount32 == N_32 ) << 2) | ( ( SemCount64 == N_64 ) << 1 ) | (( SemCount128 == N_128 ) << 0);
 
@@ -115,14 +115,13 @@ void vInAckHandlerTaskV2(void *task_data) {
 
                 eReceiverAckState = sRAGettingACK;
 				break;
+
 			default:
                 #if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlCriticalOnly) {
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly)
 		            debug(fp,"Critical: Default State. Should never get here.(vInAckHandlerTaskV2)\n");
-				}
 	            #endif
                 eReceiverAckState = sRAGettingACK;
-				break;
 		}
 	}
 }

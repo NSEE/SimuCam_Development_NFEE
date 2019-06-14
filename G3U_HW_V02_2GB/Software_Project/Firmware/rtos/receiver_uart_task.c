@@ -50,9 +50,8 @@ void vReceiverUartTask(void *task_data) {
                         if ( xPreParsedReader.cType == NACK_CHAR ) {
                             eReaderRXMode = sGetRxUart;
                             #if DEBUG_ON
-                            if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+                            if ( xDefaults.usiDebugLevel <= dlMinorMessage )
                                 debug(fp,"Nack Received. Do nothing!\n");
-                            }
                             #endif
                         } else
                             eReaderRXMode = sSendToACKReceiver;
@@ -87,9 +86,9 @@ void vReceiverUartTask(void *task_data) {
                            should sent an error message for the NUC and maye to the SGSE*/
                         vFailSetPreParsedBuffer();
                     }
-                } else {
+                } else
                     vFailSetPreAckSenderBuffer();
-                }
+
                 /* If is not possible to send the ACK for this command then we don't process the command,
                    because it will be sent again by the NUC and we won't wast processing performing the command twice.*/
                 eReaderRXMode = sGetRxUart;
