@@ -46,7 +46,7 @@
 #define PCP_MUTEX_DMA_1                 6
 #define PCP_MUTEX_DMA_0                 4
 
-#define STACK_MONITOR_TASK_PRIO			16   /* Very High*/
+#define STACK_MONITOR_TASK_PRIO			16   /* High*/
 
 /* --------------- Timers ------------------ */
 #define PERIOD_TIMER        4   /* In the BSP the Hz of the timer is 500 milli, period = 2 give me 2 sec */
