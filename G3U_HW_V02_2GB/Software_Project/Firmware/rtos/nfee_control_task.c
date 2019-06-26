@@ -20,9 +20,8 @@ void vNFeeControlTask(void *task_data) {
 	pxFeeC = (TNFee_Control *) task_data;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
         debug(fp,"NFee Controller Task. (Task on)\n");
-	}
     #endif
 
 	for (;;) {
@@ -59,6 +58,21 @@ void vNFeeControlTask(void *task_data) {
 				pxFeeC->sMode = sMebConfig;
 				break;
 
+			case sMebConfig:
+				
+				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
+				if ( error_codeCtrl == OS_ERR_NONE ) {
+					/* Check if the command is for NFEE Controller */
+					if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
+						vPerformActionNFCConfig(uiCmdNFC.ulWord, pxFeeC);
+					}
+				} else {
+					/* Should never get here (blocking operation), critical fail */
+					vCouldNotGetQueueMaskNfeeCtrl();
+				}
+				break;
+
+
 			case sMebToRun:
 				/* Transition state */
 				vEvtChangeFeeControllerMode();
@@ -87,24 +101,6 @@ void vNFeeControlTask(void *task_data) {
 				ucWhoGetDMA = 255;
 				pxFeeC->sMode = sMebRun;
 				break;
-
-
-			case sMebConfig:
-				
-				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
-				if ( error_codeCtrl == OS_ERR_NONE ) {
-					/* Check if the command is for NFEE Controller */
-					if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
-						vPerformActionNFCConfig(uiCmdNFC.ulWord, pxFeeC);
-					}
-					bCmdSent = FALSE;
-					bDmaBack = TRUE;
-				} else {
-					/* Should never get here (blocking operation), critical fail */
-					vCouldNotGetQueueMaskNfeeCtrl();
-				}
-				break;
-
 
 			case sMebRun:
 				/* 	We have 2 importantes Queues here.  
@@ -167,7 +163,7 @@ void vNFeeControlTask(void *task_data) {
 				}
 				#endif
 				
-				pxFeeC->sMode = sMebConfig;
+				pxFeeC->sMode = sMebToConfig;
 		}
 	}
 }
@@ -198,13 +194,10 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
-			}
-			#endif	
-			break;
+			#endif
 	}
-
 }
 
 void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) {

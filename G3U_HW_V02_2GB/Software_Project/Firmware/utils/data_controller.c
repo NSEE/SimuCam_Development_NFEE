@@ -17,6 +17,8 @@ void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOn
 	for ( ucIL = 0 ; ucIL < N_OF_NFEE; ucIL++ ) {
 		xDataControlL->xReadOnlyFeeControl.xNfee[ucIL] = &xNfeeCOntrolL->xNfee[ucIL];
 		xDataControlL->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL] = xNfeeCOntrolL->pbEnabledNFEEs[ucIL];
+		xDataControlL->bInsgestionSchedule[ucIL] = FALSE;
+		xDataControlL->ucMoreThan2MSyncWithoutUpdate[ucIL] = FALSE;
 	}
 	
 	xDataControlL->xReadOnlyFeeControl.ucTimeCode = &xNfeeCOntrolL->ucTimeCode;

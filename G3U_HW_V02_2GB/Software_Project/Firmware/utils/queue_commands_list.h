@@ -95,7 +95,6 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_DATA_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_DATA_RUN 		    0x02 /* Indicates that should go to Run Mode */
-
 #define M_DATA_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_DATA_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
 /*=====================================================================================================================*/
