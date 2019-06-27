@@ -366,6 +366,11 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
+		/* TC_SCAMxx_SYNCH_RST */
+		case 31:
+			/* Send the wait time info to the sync reset function*/
+			vSyncReset( xPusL->usiValues[0] );
+		break;
 		/* TC_SCAM_CONFIG */
 		case 60:
 			pxMebCLocal->eMode = sMebToConfig;

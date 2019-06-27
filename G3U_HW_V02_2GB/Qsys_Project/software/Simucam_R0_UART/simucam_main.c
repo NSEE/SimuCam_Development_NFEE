@@ -72,6 +72,8 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
+
+OS_EVENT *xSemSyncReset;	/* bndky */
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -258,7 +260,6 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
-
 	/* Create the timer that will be used to count the timeout for the retransmission*/
 	xTimerRetransmission = OSTmrCreate(	(INT32U         )DLY_TIMER,  /* 200 ticks = 200 millisec */
 										(INT32U         )PERIOD_TIMER,
@@ -356,6 +357,13 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateMutexDMA();
 		bSuccess = FALSE;
 	}	
+
+	/* Create the sync reset control binary semaphore [bndky] */
+	xSemSyncReset = OSSemCreate(0);
+	if (!xSemSyncReset) {
+		vFailCreateSemaphoreResources();
+		bSuccess = FALSE;
+	}
 
 	return bSuccess;
 }

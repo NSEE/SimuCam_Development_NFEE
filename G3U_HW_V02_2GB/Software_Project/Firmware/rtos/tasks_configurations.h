@@ -35,6 +35,9 @@
 #define PCP_MUTEX_SENDER_ACK            18   /* MUTEX Reader -> Ack receiver control*/
 #define PCP_MUTEX_TX_UART_PRIO          17   /* MUTEX TX UART*/
 
+#define SYNC_RESET_HIGH_PRIO            5   /* [bndky] */
+#define SYNC_RESET_LOW_PRIO             31
+
 
 /* Main application priority */
 /* FEE 11 .. 16 */

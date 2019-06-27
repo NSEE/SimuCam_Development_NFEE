@@ -134,20 +134,13 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 
 
 /* Any mode */
-/* Synchronization Reset */
-void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay ) {
+/* Synchronization Reset */ //change float
+void vSyncReset( unsigned short int ufSynchDelay ) {
     
-    // Stop all transmission
+    //Increase task PRIO
 
-    // Put all NFEE in Stand-by mode, if not in Config mode
+    //Send message to task queue
 
-    // Reset the time code
-    vResetTimeCode(&xMeb->xFeeControl);
-
-    // Wait ufSynchDelay milliseconds
-
-    // Release a synchronization signal
-
-    // Start new cycle
+    //Send
 
 }
