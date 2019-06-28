@@ -135,12 +135,12 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 
 /* Any mode */
 /* Synchronization Reset */ //change float
-void vSyncReset( unsigned short int ufSynchDelay ) {
+void vSyncReset( unsigned short int ufSynchDelayL ) {
     
     //Increase task PRIO
 
     //Send message to task queue
-
-    //Send
+    
+    // Put all NFEE in Stand-by mode, if not in Config mode
 
 }

@@ -73,7 +73,8 @@ OS_EVENT *xSemTimeoutChecker;
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
 
-OS_EVENT *xSemSyncReset;	/* bndky */
+void *xQueueSyncResetTBL[1];	//todo Change to define
+OS_EVENT *xQueueSyncReset;		/* bndky */
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -358,10 +359,10 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}	
 
-	/* Create the sync reset control binary semaphore [bndky] */
-	xSemSyncReset = OSSemCreate(0);
-	if (!xSemSyncReset) {
-		vFailCreateSemaphoreResources();
+	/* Create the sync reset control comm queue [bndky] */
+	xQueueSyncReset = OSQCreate(&xQueueSyncResetTBL[0], 1);		//TODO Change to define
+	if (!xQueueSyncReset) {
+		//vFailCreateSemaphoreResources(); TODO create error msg
 		bSuccess = FALSE;
 	}
 

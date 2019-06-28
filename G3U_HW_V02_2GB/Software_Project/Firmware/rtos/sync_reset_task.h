@@ -23,6 +23,7 @@
 *                                        INCLUDE FILES
 ************************************************************************************************
 */
+#include "../utils/configs_simucam.h"
 
 /*$PAGE*/
 
@@ -34,6 +35,6 @@
 
 extern xSemSyncReset;
 
-
+/*$PAGE*/
 
 #endif /* RTOS_SYNC_RESET_TASK_H_ */

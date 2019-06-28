@@ -18,30 +18,31 @@
 
 
 void vSyncResetTask( void ){
-
+    unsigned short int usiResetDelayL = 0;
+    INT8U iErrorCodeL = 0;
 
     for(;;){
 
-
-    // Stop all transmission
-
-    // Put all NFEE in Stand-by mode, if not in Config mode
-
-    // Reset the time code
-    //vResetTimeCode(&xMeb->xFeeControl);
-
-    // Wait ufSynchDelay milliseconds
-
-    // Release a synchronization signal
-
-    // Start new cycle
-
-
         //receive delay time via qck
-        OSPend(xSemSyncReset);
+        usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 0, &iErrorCodeL);
 
+        // Reset the time code
         vResetTimeCode(&xMeb->xFeeControl);
-        OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+
+        //Disable Sync
+        bStopSync();
+
+        // Reset the time code
+        vResetTimeCode(&xMeb->xFeeControl);
+
+        // Wait ufSynchDelay milliseconds
+        OSTimeDlyHMSM(0, 0, 0, usiResetDelayL);
+        
+        //Enable Sync
+        bStartSync();
+
+        // Decrease Self Priority
+        iErrorCodeL = OSTaskChangePrio(OS_PRIO_SELF, SYNC_RESET_LOW_PRIO);
     }
 }
 

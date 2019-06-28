@@ -9,7 +9,8 @@
 	],
 	"settings": {
 		"files.associations": {
-			"stdio.h": "c"
+			"stdio.h": "c",
+			"sync_reset_task.h": "c"
 		}
 	}
 }
