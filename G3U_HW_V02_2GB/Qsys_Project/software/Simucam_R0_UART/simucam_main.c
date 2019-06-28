@@ -568,7 +568,7 @@ int main(void)
 			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		}
 		#endif
-		vCriticalErrorLedPanel();
+		vFailInitRTOSResources();
 		return -1;
 	}
 
@@ -576,6 +576,7 @@ int main(void)
 
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
 	vSimucamStructureInit( &xSimMeb );
+
 
 	bInitSync();
 

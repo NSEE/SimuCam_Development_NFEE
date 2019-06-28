@@ -18,5 +18,7 @@ void vDataControlTask(void *task_data);
 
 void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP );
 void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP );
+void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFeeCP );
+
 
 #endif /* DATA_CONTROL_TASK_H_ */

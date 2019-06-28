@@ -34,6 +34,8 @@ typedef struct NData_Control {
 	tSimucamStates sMode;
 	tDTCSubStates sRunMode;
 	unsigned char *pNextMem;				/* Point to the actual memory in simulation */
+	TNFee   xCopyNfee[N_OF_NFEE];           /* All instances of control for the NFEE */
+	unsigned short int usiEPn;
 } TNData_Control; /* Read Only Structure */
 
 void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOntrolL );

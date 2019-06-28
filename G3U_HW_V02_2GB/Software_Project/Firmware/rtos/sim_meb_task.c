@@ -42,7 +42,7 @@ void vSimMebTask(void *task_data) {
 					fprintf(fp,"MEB Task: Config Mode\n");
 				#endif
 
-				vEnterConfigRoutine();
+				vEnterConfigRoutine( pxMebC );
 				pxMebC->eMode = sMebConfig;
 				break;
 
@@ -131,6 +131,7 @@ void vSimMebTask(void *task_data) {
 							case M_MASTER_SYNC:
 								/* Perform memory SWAP */
 								vSwapMemmory(pxMebC);
+								pxMebC->xDataControl.usiEPn++;
 							case M_SYNC:
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -374,7 +375,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 62:
 			/*todo: Do nothing for now */
 			/* Force all go to Config Mode */
-			vEnterConfigRoutine();
+			vEnterConfigRoutine(pxMebCLocal);
 
 			/* Animate LED */
 			/* Wait for N seconds */
@@ -619,7 +620,7 @@ void vSwapMemmory(TSimucam_MEB *pxMebCLocal) {
 }
 
 /*This sequence is used more than one place, so it becomes a function*/
-void vEnterConfigRoutine( void ) {
+void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 
 	/* Stop the Sync (Stopping the simulation) */
 	bStopSync();
@@ -628,6 +629,9 @@ void vEnterConfigRoutine( void ) {
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 5);
 
+	pxMebCLocal->xDataControl.usiEPn = 0;
+	pxMebCLocal->ucActualDDR = 0;
+	pxMebCLocal->ucNextDDR = 1;
 	/* Transition to Config Mode (Ending the simulation) */
 	/* Send a message to the NFEE Controller forcing the mode */
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );

@@ -80,7 +80,6 @@ typedef union qMask{
 #define M_NFC_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_NFC_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
 
-
 #define M_NFC_DMA_GIVEBACK  0x81
 #define M_NFC_DMA_REQUEST   0x80 /* DO NOT ATTRIBUTE 0x80 TO ANY OTHER COMMAND */
 /*=====================================================================================================================*/
@@ -97,6 +96,12 @@ typedef union qMask{
 #define M_DATA_RUN 		    0x02 /* Indicates that should go to Run Mode */
 #define M_DATA_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_DATA_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
+
+#define M_DATA_FTDI_BUFFER_FULL    0xB1 /* Indicates IRQ ftdi buffer full */
+#define M_DATA_FTDI_BUFFER_LAST    0xB2 /* Indicates IRQ last packet */
+#define M_DATA_FTDI_BUFFER_EMPTY   0xB4 /* Indicates IRQ buffer empty */
+
+#define M_DATA_FTDI_ERROR   0xC1 	/* Indicates IRQ Communication error */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
