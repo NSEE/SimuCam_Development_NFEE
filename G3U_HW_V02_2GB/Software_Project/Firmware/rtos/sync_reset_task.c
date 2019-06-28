@@ -23,26 +23,38 @@ void vSyncResetTask( void ){
 
     for(;;){
 
-        //receive delay time via qck
+        /* receive delay time via qck */
         usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 0, &iErrorCodeL);
-
-        // Reset the time code
-        vResetTimeCode(&xMeb->xFeeControl);
-
-        //Disable Sync
-        bStopSync();
-
-        // Reset the time code
-        vResetTimeCode(&xMeb->xFeeControl);
-
-        // Wait ufSynchDelay milliseconds
-        OSTimeDlyHMSM(0, 0, 0, usiResetDelayL);
         
-        //Enable Sync
-        bStartSync();
+        if (iErrorCodeL == OS_ERR_NONE) {
+            /* Reset the time code */ 
+            vResetTimeCode(&xMeb->xFeeControl);
 
-        // Decrease Self Priority
-        iErrorCodeL = OSTaskChangePrio(OS_PRIO_SELF, SYNC_RESET_LOW_PRIO);
+            /* Disable Sync */
+            bStopSync();
+
+            /* Reset the time code */ 
+            vResetTimeCode(&xMeb->xFeeControl);
+
+            /* Wait ufSynchDelay milliseconds */ 
+            OSTimeDlyHMSM(0, 0, 0, usiResetDelayL);
+
+            /* TODO
+                No reset isso tem que resetar junto
+                xMeb->ucActualDDR = 0;
+                xMeb->ucNextDDR = 1;
+                xMeb->xDataControl.usiEPn = 0;
+            */
+            
+            /* Enable Sync */
+            bStartSync();
+
+            /* Decrease Self Priority */
+            iErrorCodeL = OSTaskChangePrio(OS_PRIO_SELF, SYNC_RESET_LOW_PRIO);
+        } else{
+            //TODO error statement
+        }
+        
     }
 }
 
