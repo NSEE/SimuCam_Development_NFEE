@@ -14,7 +14,7 @@
 #include "fee.h"
 #include "ccd.h"
 
-typedef enum { sSubInit  = 0, sSubMemUpdated, sSubSetupEpoch, sSubRequest, sSubFillingMem, sSubLastPckt } tDTCSubStates;
+typedef enum { sSubInit  = 0, sSubMemUpdated, sSubSetupEpoch, sSubRequest, sSubWaitIRQBuffer, sSubScheduleDMA, sSubLastPckt, sWaitForEmptyBufferIRQ } tDTCSubStates;
 
 typedef struct NFee_CtrlReadOnly {
 	TNFee   *xNfee[N_OF_NFEE];               /* All instances of control for the NFEE */

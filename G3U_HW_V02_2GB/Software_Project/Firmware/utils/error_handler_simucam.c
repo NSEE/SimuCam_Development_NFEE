@@ -75,6 +75,18 @@ void vFailSendRequestDTController( void )
 	 */
 }
 
+void vFailFTDIDMASchedule( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailFTDIDMASchedule. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
 
 
 void vFailCreateMutexSResources( INT8U error_code )
@@ -1153,6 +1165,39 @@ void vFailRequestDMA( unsigned char ucTemp)
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+void vFailSendBufferFullIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailSendBufferLastIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailFtdiErrorIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailSendBufferEmptyIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
 
 void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 {
