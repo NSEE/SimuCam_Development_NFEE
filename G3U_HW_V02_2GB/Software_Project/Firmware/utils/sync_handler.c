@@ -78,20 +78,32 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
-	// Habilita sync_out_ch1 enable (libera sync para o Ch 2)
+	// Habilita sync_out_ch2 enable (libera sync para o Ch 2)
 	bSuccess = bSyncCtrCh2OutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
 
-	// Habilita sync_out_ch1 enable (libera sync para o Ch 3)
+	// Habilita sync_out_ch3 enable (libera sync para o Ch 3)
 	bSuccess = bSyncCtrCh3OutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
 
-	// Habilita sync_out_ch1 enable (libera sync para o Ch 4)
+	// Habilita sync_out_ch4 enable (libera sync para o Ch 4)
 	bSuccess = bSyncCtrCh4OutEnable(TRUE);
+	if ( bSuccess == FALSE ) {
+		return bSuccess;
+	}
+
+	// Habilita sync_out_ch5 enable (libera sync para o Ch 5)
+	bSuccess = bSyncCtrCh5OutEnable(TRUE);
+	if ( bSuccess == FALSE ) {
+		return bSuccess;
+	}
+
+	// Habilita sync_out_ch6 enable (libera sync para o Ch 6)
+	bSuccess = bSyncCtrCh6OutEnable(TRUE);
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
