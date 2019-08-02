@@ -23,7 +23,8 @@ entity windowing_buffer_ent is
 		window_mask_ready_o     : out std_logic;
 		window_buffer_empty_o   : out std_logic;
 		window_buffer_0_empty_o : out std_logic;
-		window_buffer_1_empty_o : out std_logic
+		window_buffer_1_empty_o : out std_logic;
+		window_buffer_change_o  : out std_logic
 	);
 end entity windowing_buffer_ent;
 
@@ -162,6 +163,7 @@ begin
 			s_mask_buffer_0_lock                        <= '0';
 			s_mask_buffer_1_lock                        <= '0';
 			s_stopped_flag                              <= '1';
+			window_buffer_change_o                      <= '0';
 		elsif rising_edge(clk_i) then
 
 			-- check if the windowing buffer is stopped
@@ -201,6 +203,7 @@ begin
 				s_data_buffer_0_lock                        <= '0';
 				s_data_buffer_1_lock                        <= '0';
 				s_mask_buffer_0_lock                        <= '0';
+				window_buffer_change_o                      <= '0';
 				-- check if a clear request was received
 				if (fee_clear_signal_i = '1') then
 					-- clear request received
@@ -252,6 +255,7 @@ begin
 				s_windowing_mask_fifo_1_control.write.wrreq <= '0';
 				s_windowing_mask_fifo_1_control.write.sclr  <= '0';
 				s_windowing_mask_fifo_1_wr_data.data        <= (others => '0');
+				window_buffer_change_o                      <= '0';
 
 				----------------------------------------------------------------------------------------
 
@@ -329,6 +333,8 @@ begin
 									s_mask_buffer_0_ready        <= '1';
 									-- lock the data buffer 0
 									s_mask_buffer_0_lock         <= '1';
+									-- indicate a change in buffer
+									window_buffer_change_o       <= '1';
 								end if;
 							end if;
 						end if;
@@ -353,6 +359,8 @@ begin
 										s_mask_buffer_1_ready        <= '1';
 										-- lock the data buffer 1
 										s_mask_buffer_1_lock         <= '1';
+										-- indicate a change in buffer
+										window_buffer_change_o       <= '1';
 									end if;
 								end if;
 							end if;

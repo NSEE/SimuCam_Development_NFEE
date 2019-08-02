@@ -40,10 +40,10 @@ entity comm_v1_80_top is
 		avalon_slave_L_buffer_address      : in  std_logic_vector(9 downto 0)  := (others => '0'); --    avalon_slave_L_buffer.address
 		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                     --                         .waitrequest
 		avalon_slave_L_buffer_write        : in  std_logic                     := '0'; --          --                         .write
-		avalon_slave_L_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
+		avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
 		avalon_slave_R_buffer_address      : in  std_logic_vector(9 downto 0)  := (others => '0'); --    avalon_slave_R_buffer.address
 		avalon_slave_R_buffer_write        : in  std_logic                     := '0'; --          --                         .write
-		avalon_slave_R_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
+		avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
 		avalon_slave_R_buffer_waitrequest  : out std_logic --                                      --                         .waitrequest
 	);
 end entity comm_v1_80_top;
@@ -255,6 +255,10 @@ architecture rtl of comm_v1_80_top is
 	-- sync_in polarity fix (timing issues, need to be improved!!!)
 	signal s_sync_channel_n : std_logic;
 
+	-- window buffer change signal
+	signal s_right_window_buffer_change : std_logic;
+	signal s_left_window_buffer_change  : std_logic;
+
 begin
 
 	-- reset_n creation
@@ -301,6 +305,8 @@ begin
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
 			mask_enable_i                     => '1',
+			fee_clear_signal_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			window_buffer_change_i            => s_right_window_buffer_change,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
 			window_data_write_o               => s_R_window_data_write,
 			window_mask_write_o               => s_R_window_mask_write,
@@ -327,7 +333,8 @@ begin
 			window_mask_ready_o     => s_R_window_mask_ready,
 			window_buffer_empty_o   => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty,
 			window_buffer_0_empty_o => s_R_buffer_0_empty,
-			window_buffer_1_empty_o => s_R_buffer_1_empty
+			window_buffer_1_empty_o => s_R_buffer_1_empty,
+			window_buffer_change_o  => s_right_window_buffer_change
 		);
 
 	-- left avalon mm windowing write instantiation
@@ -339,6 +346,8 @@ begin
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
 			mask_enable_i                     => '1',
+			fee_clear_signal_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			window_buffer_change_i            => s_left_window_buffer_change,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
 			window_data_write_o               => s_L_window_data_write,
 			window_mask_write_o               => s_L_window_mask_write,
@@ -365,7 +374,8 @@ begin
 			window_mask_ready_o     => s_L_window_mask_ready,
 			window_buffer_empty_o   => s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty,
 			window_buffer_0_empty_o => s_L_buffer_0_empty,
-			window_buffer_1_empty_o => s_L_buffer_1_empty
+			window_buffer_1_empty_o => s_L_buffer_1_empty,
+			window_buffer_change_o  => s_left_window_buffer_change
 		);
 
 	-- signals muxing for "fee data controller" and "data controller"
