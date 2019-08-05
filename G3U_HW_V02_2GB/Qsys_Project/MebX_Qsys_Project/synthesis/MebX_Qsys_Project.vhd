@@ -8,106 +8,114 @@ use IEEE.numeric_std.all;
 
 entity MebX_Qsys_Project is
 	port (
-		button_export                                        : in    std_logic_vector(3 downto 0)  := (others => '0'); --                     button.export
-		clk50_clk                                            : in    std_logic                     := '0';             --                      clk50.clk
-		csense_adc_fo_export                                 : out   std_logic;                                        --              csense_adc_fo.export
-		csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     --                csense_cs_n.export
-		csense_sck_export                                    : out   std_logic;                                        --                 csense_sck.export
-		csense_sdi_export                                    : out   std_logic;                                        --                 csense_sdi.export
-		csense_sdo_export                                    : in    std_logic                     := '0';             --                 csense_sdo.export
-		ctrl_io_lvds_export                                  : out   std_logic_vector(3 downto 0);                     --               ctrl_io_lvds.export
-		dip_export                                           : in    std_logic_vector(7 downto 0)  := (others => '0'); --                        dip.export
-		ext_export                                           : in    std_logic                     := '0';             --                        ext.export
-		ftdi_0_conduit_umft_pins_umft_data_signal            : inout std_logic_vector(31 downto 0) := (others => '0'); --   ftdi_0_conduit_umft_pins.umft_data_signal
-		ftdi_0_conduit_umft_pins_umft_reset_n_signal         : out   std_logic;                                        --                           .umft_reset_n_signal
-		ftdi_0_conduit_umft_pins_umft_rxf_n_signal           : in    std_logic                     := '0';             --                           .umft_rxf_n_signal
-		ftdi_0_conduit_umft_pins_umft_clock_signal           : in    std_logic                     := '0';             --                           .umft_clock_signal
-		ftdi_0_conduit_umft_pins_umft_wakeup_n_signal        : inout std_logic                     := '0';             --                           .umft_wakeup_n_signal
-		ftdi_0_conduit_umft_pins_umft_be_signal              : inout std_logic_vector(3 downto 0)  := (others => '0'); --                           .umft_be_signal
-		ftdi_0_conduit_umft_pins_umft_txe_n_signal           : in    std_logic                     := '0';             --                           .umft_txe_n_signal
-		ftdi_0_conduit_umft_pins_umft_gpio_bus_signal        : inout std_logic_vector(1 downto 0)  := (others => '0'); --                           .umft_gpio_bus_signal
-		ftdi_0_conduit_umft_pins_umft_wr_n_signal            : out   std_logic;                                        --                           .umft_wr_n_signal
-		ftdi_0_conduit_umft_pins_umft_rd_n_signal            : out   std_logic;                                        --                           .umft_rd_n_signal
-		ftdi_0_conduit_umft_pins_umft_oe_n_signal            : out   std_logic;                                        --                           .umft_oe_n_signal
-		ftdi_0_conduit_umft_pins_umft_siwu_n_signal          : out   std_logic;                                        --                           .umft_siwu_n_signal
-		led_de4_export                                       : out   std_logic_vector(7 downto 0);                     --                    led_de4.export
-		led_painel_export                                    : out   std_logic_vector(20 downto 0);                    --                 led_painel.export
-		m1_ddr2_i2c_scl_export                               : out   std_logic;                                        --            m1_ddr2_i2c_scl.export
-		m1_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --            m1_ddr2_i2c_sda.export
-		m1_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --             m1_ddr2_memory.mem_a
-		m1_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                           .mem_ba
-		m1_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                           .mem_ck
-		m1_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_ck_n
-		m1_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                           .mem_cke
-		m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_cs_n
-		m1_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                           .mem_dm
-		m1_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_ras_n
-		m1_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_cas_n
-		m1_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                           .mem_we_n
-		m1_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                           .mem_dq
-		m1_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs
-		m1_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs_n
-		m1_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                           .mem_odt
-		m1_ddr2_memory_pll_ref_clk_clk                       : in    std_logic                     := '0';             -- m1_ddr2_memory_pll_ref_clk.clk
-		m1_ddr2_memory_status_local_init_done                : out   std_logic;                                        --      m1_ddr2_memory_status.local_init_done
-		m1_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                           .local_cal_success
-		m1_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                           .local_cal_fail
-		m1_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                m1_ddr2_oct.rdn
-		m1_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                           .rup
-		m2_ddr2_i2c_scl_export                               : out   std_logic;                                        --            m2_ddr2_i2c_scl.export
-		m2_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --            m2_ddr2_i2c_sda.export
-		m2_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --             m2_ddr2_memory.mem_a
-		m2_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                           .mem_ba
-		m2_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                           .mem_ck
-		m2_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_ck_n
-		m2_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                           .mem_cke
-		m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                           .mem_cs_n
-		m2_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                           .mem_dm
-		m2_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_ras_n
-		m2_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                           .mem_cas_n
-		m2_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                           .mem_we_n
-		m2_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                           .mem_dq
-		m2_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs
-		m2_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                           .mem_dqs_n
-		m2_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                           .mem_odt
-		m2_ddr2_memory_dll_sharing_dll_pll_locked            : in    std_logic                     := '0';             -- m2_ddr2_memory_dll_sharing.dll_pll_locked
-		m2_ddr2_memory_dll_sharing_dll_delayctrl             : out   std_logic_vector(5 downto 0);                     --                           .dll_delayctrl
-		m2_ddr2_memory_pll_sharing_pll_mem_clk               : out   std_logic;                                        -- m2_ddr2_memory_pll_sharing.pll_mem_clk
-		m2_ddr2_memory_pll_sharing_pll_write_clk             : out   std_logic;                                        --                           .pll_write_clk
-		m2_ddr2_memory_pll_sharing_pll_locked                : out   std_logic;                                        --                           .pll_locked
-		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk : out   std_logic;                                        --                           .pll_write_clk_pre_phy_clk
-		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk          : out   std_logic;                                        --                           .pll_addr_cmd_clk
-		m2_ddr2_memory_pll_sharing_pll_avl_clk               : out   std_logic;                                        --                           .pll_avl_clk
-		m2_ddr2_memory_pll_sharing_pll_config_clk            : out   std_logic;                                        --                           .pll_config_clk
-		m2_ddr2_memory_status_local_init_done                : out   std_logic;                                        --      m2_ddr2_memory_status.local_init_done
-		m2_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                           .local_cal_success
-		m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                           .local_cal_fail
-		m2_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                m2_ddr2_oct.rdn
-		m2_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                           .rup
-		rs232_uart_rxd                                       : in    std_logic                     := '0';             --                 rs232_uart.rxd
-		rs232_uart_txd                                       : out   std_logic;                                        --                           .txd
-		rst_reset_n                                          : in    std_logic                     := '0';             --                        rst.reset_n
-		rtcc_alarm_export                                    : in    std_logic                     := '0';             --                 rtcc_alarm.export
-		rtcc_cs_n_export                                     : out   std_logic;                                        --                  rtcc_cs_n.export
-		rtcc_sck_export                                      : out   std_logic;                                        --                   rtcc_sck.export
-		rtcc_sdi_export                                      : out   std_logic;                                        --                   rtcc_sdi.export
-		rtcc_sdo_export                                      : in    std_logic                     := '0';             --                   rtcc_sdo.export
-		sd_card_ip_b_SD_cmd                                  : inout std_logic                     := '0';             --                 sd_card_ip.b_SD_cmd
-		sd_card_ip_b_SD_dat                                  : inout std_logic                     := '0';             --                           .b_SD_dat
-		sd_card_ip_b_SD_dat3                                 : inout std_logic                     := '0';             --                           .b_SD_dat3
-		sd_card_ip_o_SD_clock                                : out   std_logic;                                        --                           .o_SD_clock
-		sd_card_wp_n_io_export                               : in    std_logic                     := '0';             --            sd_card_wp_n_io.export
-		ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     --                       ssdp.ssdp0
-		ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     --                           .ssdp1
-		temp_scl_export                                      : out   std_logic;                                        --                   temp_scl.export
-		temp_sda_export                                      : inout std_logic                     := '0';             --                   temp_sda.export
-		timer_1ms_external_port_export                       : out   std_logic;                                        --    timer_1ms_external_port.export
-		timer_1us_external_port_export                       : out   std_logic;                                        --    timer_1us_external_port.export
-		tristate_conduit_tcm_address_out                     : out   std_logic_vector(25 downto 0);                    --           tristate_conduit.tcm_address_out
-		tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     --                           .tcm_read_n_out
-		tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     --                           .tcm_write_n_out
-		tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => '0'); --                           .tcm_data_out
-		tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0)                      --                           .tcm_chipselect_n_out
+		altpll_clk400_areset_conduit_export                  : in    std_logic                     := '0';             -- altpll_clk400_areset_conduit.export
+		altpll_clk400_c0_clk                                 : out   std_logic;                                        --             altpll_clk400_c0.clk
+		altpll_clk400_locked_conduit_export                  : out   std_logic;                                        -- altpll_clk400_locked_conduit.export
+		altpll_clk400_pll_slave_read                         : in    std_logic                     := '0';             --      altpll_clk400_pll_slave.read
+		altpll_clk400_pll_slave_write                        : in    std_logic                     := '0';             --                             .write
+		altpll_clk400_pll_slave_address                      : in    std_logic_vector(1 downto 0)  := (others => '0'); --                             .address
+		altpll_clk400_pll_slave_readdata                     : out   std_logic_vector(31 downto 0);                    --                             .readdata
+		altpll_clk400_pll_slave_writedata                    : in    std_logic_vector(31 downto 0) := (others => '0'); --                             .writedata
+		button_export                                        : in    std_logic_vector(3 downto 0)  := (others => '0'); --                       button.export
+		clk50_clk                                            : in    std_logic                     := '0';             --                        clk50.clk
+		csense_adc_fo_export                                 : out   std_logic;                                        --                csense_adc_fo.export
+		csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     --                  csense_cs_n.export
+		csense_sck_export                                    : out   std_logic;                                        --                   csense_sck.export
+		csense_sdi_export                                    : out   std_logic;                                        --                   csense_sdi.export
+		csense_sdo_export                                    : in    std_logic                     := '0';             --                   csense_sdo.export
+		ctrl_io_lvds_export                                  : out   std_logic_vector(3 downto 0);                     --                 ctrl_io_lvds.export
+		dip_export                                           : in    std_logic_vector(7 downto 0)  := (others => '0'); --                          dip.export
+		ext_export                                           : in    std_logic                     := '0';             --                          ext.export
+		ftdi_0_conduit_umft_pins_umft_data_signal            : inout std_logic_vector(31 downto 0) := (others => '0'); --     ftdi_0_conduit_umft_pins.umft_data_signal
+		ftdi_0_conduit_umft_pins_umft_reset_n_signal         : out   std_logic;                                        --                             .umft_reset_n_signal
+		ftdi_0_conduit_umft_pins_umft_rxf_n_signal           : in    std_logic                     := '0';             --                             .umft_rxf_n_signal
+		ftdi_0_conduit_umft_pins_umft_clock_signal           : in    std_logic                     := '0';             --                             .umft_clock_signal
+		ftdi_0_conduit_umft_pins_umft_wakeup_n_signal        : inout std_logic                     := '0';             --                             .umft_wakeup_n_signal
+		ftdi_0_conduit_umft_pins_umft_be_signal              : inout std_logic_vector(3 downto 0)  := (others => '0'); --                             .umft_be_signal
+		ftdi_0_conduit_umft_pins_umft_txe_n_signal           : in    std_logic                     := '0';             --                             .umft_txe_n_signal
+		ftdi_0_conduit_umft_pins_umft_gpio_bus_signal        : inout std_logic_vector(1 downto 0)  := (others => '0'); --                             .umft_gpio_bus_signal
+		ftdi_0_conduit_umft_pins_umft_wr_n_signal            : out   std_logic;                                        --                             .umft_wr_n_signal
+		ftdi_0_conduit_umft_pins_umft_rd_n_signal            : out   std_logic;                                        --                             .umft_rd_n_signal
+		ftdi_0_conduit_umft_pins_umft_oe_n_signal            : out   std_logic;                                        --                             .umft_oe_n_signal
+		ftdi_0_conduit_umft_pins_umft_siwu_n_signal          : out   std_logic;                                        --                             .umft_siwu_n_signal
+		led_de4_export                                       : out   std_logic_vector(7 downto 0);                     --                      led_de4.export
+		led_painel_export                                    : out   std_logic_vector(20 downto 0);                    --                   led_painel.export
+		m1_ddr2_i2c_scl_export                               : out   std_logic;                                        --              m1_ddr2_i2c_scl.export
+		m1_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --              m1_ddr2_i2c_sda.export
+		m1_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --               m1_ddr2_memory.mem_a
+		m1_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                             .mem_ba
+		m1_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                             .mem_ck
+		m1_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                             .mem_ck_n
+		m1_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                             .mem_cke
+		m1_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                             .mem_cs_n
+		m1_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                             .mem_dm
+		m1_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                             .mem_ras_n
+		m1_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                             .mem_cas_n
+		m1_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                             .mem_we_n
+		m1_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                             .mem_dq
+		m1_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                             .mem_dqs
+		m1_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                             .mem_dqs_n
+		m1_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                             .mem_odt
+		m1_ddr2_memory_pll_ref_clk_clk                       : in    std_logic                     := '0';             --   m1_ddr2_memory_pll_ref_clk.clk
+		m1_ddr2_memory_status_local_init_done                : out   std_logic;                                        --        m1_ddr2_memory_status.local_init_done
+		m1_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                             .local_cal_success
+		m1_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                             .local_cal_fail
+		m1_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                  m1_ddr2_oct.rdn
+		m1_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                             .rup
+		m2_ddr2_i2c_scl_export                               : out   std_logic;                                        --              m2_ddr2_i2c_scl.export
+		m2_ddr2_i2c_sda_export                               : inout std_logic                     := '0';             --              m2_ddr2_i2c_sda.export
+		m2_ddr2_memory_mem_a                                 : out   std_logic_vector(13 downto 0);                    --               m2_ddr2_memory.mem_a
+		m2_ddr2_memory_mem_ba                                : out   std_logic_vector(2 downto 0);                     --                             .mem_ba
+		m2_ddr2_memory_mem_ck                                : out   std_logic_vector(1 downto 0);                     --                             .mem_ck
+		m2_ddr2_memory_mem_ck_n                              : out   std_logic_vector(1 downto 0);                     --                             .mem_ck_n
+		m2_ddr2_memory_mem_cke                               : out   std_logic_vector(1 downto 0);                     --                             .mem_cke
+		m2_ddr2_memory_mem_cs_n                              : out   std_logic_vector(1 downto 0);                     --                             .mem_cs_n
+		m2_ddr2_memory_mem_dm                                : out   std_logic_vector(7 downto 0);                     --                             .mem_dm
+		m2_ddr2_memory_mem_ras_n                             : out   std_logic_vector(0 downto 0);                     --                             .mem_ras_n
+		m2_ddr2_memory_mem_cas_n                             : out   std_logic_vector(0 downto 0);                     --                             .mem_cas_n
+		m2_ddr2_memory_mem_we_n                              : out   std_logic_vector(0 downto 0);                     --                             .mem_we_n
+		m2_ddr2_memory_mem_dq                                : inout std_logic_vector(63 downto 0) := (others => '0'); --                             .mem_dq
+		m2_ddr2_memory_mem_dqs                               : inout std_logic_vector(7 downto 0)  := (others => '0'); --                             .mem_dqs
+		m2_ddr2_memory_mem_dqs_n                             : inout std_logic_vector(7 downto 0)  := (others => '0'); --                             .mem_dqs_n
+		m2_ddr2_memory_mem_odt                               : out   std_logic_vector(1 downto 0);                     --                             .mem_odt
+		m2_ddr2_memory_dll_sharing_dll_pll_locked            : in    std_logic                     := '0';             --   m2_ddr2_memory_dll_sharing.dll_pll_locked
+		m2_ddr2_memory_dll_sharing_dll_delayctrl             : out   std_logic_vector(5 downto 0);                     --                             .dll_delayctrl
+		m2_ddr2_memory_pll_sharing_pll_mem_clk               : out   std_logic;                                        --   m2_ddr2_memory_pll_sharing.pll_mem_clk
+		m2_ddr2_memory_pll_sharing_pll_write_clk             : out   std_logic;                                        --                             .pll_write_clk
+		m2_ddr2_memory_pll_sharing_pll_locked                : out   std_logic;                                        --                             .pll_locked
+		m2_ddr2_memory_pll_sharing_pll_write_clk_pre_phy_clk : out   std_logic;                                        --                             .pll_write_clk_pre_phy_clk
+		m2_ddr2_memory_pll_sharing_pll_addr_cmd_clk          : out   std_logic;                                        --                             .pll_addr_cmd_clk
+		m2_ddr2_memory_pll_sharing_pll_avl_clk               : out   std_logic;                                        --                             .pll_avl_clk
+		m2_ddr2_memory_pll_sharing_pll_config_clk            : out   std_logic;                                        --                             .pll_config_clk
+		m2_ddr2_memory_status_local_init_done                : out   std_logic;                                        --        m2_ddr2_memory_status.local_init_done
+		m2_ddr2_memory_status_local_cal_success              : out   std_logic;                                        --                             .local_cal_success
+		m2_ddr2_memory_status_local_cal_fail                 : out   std_logic;                                        --                             .local_cal_fail
+		m2_ddr2_oct_rdn                                      : in    std_logic                     := '0';             --                  m2_ddr2_oct.rdn
+		m2_ddr2_oct_rup                                      : in    std_logic                     := '0';             --                             .rup
+		rs232_uart_rxd                                       : in    std_logic                     := '0';             --                   rs232_uart.rxd
+		rs232_uart_txd                                       : out   std_logic;                                        --                             .txd
+		rst_reset_n                                          : in    std_logic                     := '0';             --                          rst.reset_n
+		rtcc_alarm_export                                    : in    std_logic                     := '0';             --                   rtcc_alarm.export
+		rtcc_cs_n_export                                     : out   std_logic;                                        --                    rtcc_cs_n.export
+		rtcc_sck_export                                      : out   std_logic;                                        --                     rtcc_sck.export
+		rtcc_sdi_export                                      : out   std_logic;                                        --                     rtcc_sdi.export
+		rtcc_sdo_export                                      : in    std_logic                     := '0';             --                     rtcc_sdo.export
+		sd_card_ip_b_SD_cmd                                  : inout std_logic                     := '0';             --                   sd_card_ip.b_SD_cmd
+		sd_card_ip_b_SD_dat                                  : inout std_logic                     := '0';             --                             .b_SD_dat
+		sd_card_ip_b_SD_dat3                                 : inout std_logic                     := '0';             --                             .b_SD_dat3
+		sd_card_ip_o_SD_clock                                : out   std_logic;                                        --                             .o_SD_clock
+		sd_card_wp_n_io_export                               : in    std_logic                     := '0';             --              sd_card_wp_n_io.export
+		ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     --                         ssdp.ssdp0
+		ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     --                             .ssdp1
+		temp_scl_export                                      : out   std_logic;                                        --                     temp_scl.export
+		temp_sda_export                                      : inout std_logic                     := '0';             --                     temp_sda.export
+		timer_1ms_external_port_export                       : out   std_logic;                                        --      timer_1ms_external_port.export
+		timer_1us_external_port_export                       : out   std_logic;                                        --      timer_1us_external_port.export
+		tristate_conduit_tcm_address_out                     : out   std_logic_vector(25 downto 0);                    --             tristate_conduit.tcm_address_out
+		tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     --                             .tcm_read_n_out
+		tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     --                             .tcm_write_n_out
+		tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => '0'); --                             .tcm_data_out
+		tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0)                      --                             .tcm_chipselect_n_out
 	);
 end entity MebX_Qsys_Project;
 
@@ -170,6 +178,31 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_burst_slave_writedata     : in    std_logic_vector(31 downto 0) := (others => 'X')  -- writedata
 		);
 	end component USB_3_FTDI_top;
+
+	component MebX_Qsys_Project_altpll_clk400 is
+		port (
+			clk                : in  std_logic                     := 'X';             -- clk
+			reset              : in  std_logic                     := 'X';             -- reset
+			read               : in  std_logic                     := 'X';             -- read
+			write              : in  std_logic                     := 'X';             -- write
+			address            : in  std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			readdata           : out std_logic_vector(31 downto 0);                    -- readdata
+			writedata          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			c0                 : out std_logic;                                        -- clk
+			areset             : in  std_logic                     := 'X';             -- export
+			locked             : out std_logic;                                        -- export
+			scandone           : out std_logic;                                        -- export
+			scandataout        : out std_logic;                                        -- export
+			phasedone          : out std_logic;                                        -- export
+			phasecounterselect : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- export
+			phaseupdown        : in  std_logic                     := 'X';             -- export
+			phasestep          : in  std_logic                     := 'X';             -- export
+			scanclk            : in  std_logic                     := 'X';             -- export
+			scanclkena         : in  std_logic                     := 'X';             -- export
+			scandata           : in  std_logic                     := 'X';             -- export
+			configupdate       : in  std_logic                     := 'X'              -- export
+		);
+	end component MebX_Qsys_Project_altpll_clk400;
 
 	component MebX_Qsys_Project_csense_adc_fo is
 		port (
@@ -1664,7 +1697,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal irq_synchronizer_002_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- pio_EXT:irq -> irq_synchronizer_002:receiver_irq
 	signal irq_mapper_receiver6_irq                                                               : std_logic;                      -- irq_synchronizer_003:sender_irq -> irq_mapper:receiver6_irq
 	signal irq_synchronizer_003_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- rs232_uart:irq -> irq_synchronizer_003:receiver_irq
-	signal rst_controller_reset_out_reset                                                         : std_logic;                      -- rst_controller:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_002:receiver_reset, irq_synchronizer_003:receiver_reset, mm_interconnect_1:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
+	signal rst_controller_reset_out_reset                                                         : std_logic;                      -- rst_controller:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, altpll_clk400:reset, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_002:receiver_reset, irq_synchronizer_003:receiver_reset, mm_interconnect_1:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                                                     : std_logic;                      -- rst_controller_001:reset_out -> [USB_3_FTDI_0:reset_sink_reset, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge:s0_reset, mm_interconnect_0:dma_DDR_M1_reset_n_reset_bridge_in_reset_reset, mm_interconnect_0:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_controller_001_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_001_reset_out_reset_req                                                 : std_logic;                      -- rst_controller_001:reset_req -> [onchip_memory:reset_req, rst_translator:reset_req_in]
 	signal rst_controller_002_reset_out_reset                                                     : std_logic;                      -- rst_controller_002:reset_out -> [ext_flash:reset_reset, mm_interconnect_0:ext_flash_reset_reset_bridge_in_reset_reset, tristate_conduit_bridge_0:reset]
@@ -1759,6 +1792,30 @@ begin
 			avalon_burst_slave_readdatavalid => mm_interconnect_0_usb_3_ftdi_0_avalon_burst_slave_readdatavalid, --                   .readdatavalid
 			avalon_burst_slave_write         => mm_interconnect_0_usb_3_ftdi_0_avalon_burst_slave_write,         --                   .write
 			avalon_burst_slave_writedata     => mm_interconnect_0_usb_3_ftdi_0_avalon_burst_slave_writedata      --                   .writedata
+		);
+
+	altpll_clk400 : component MebX_Qsys_Project_altpll_clk400
+		port map (
+			clk                => clk50_clk,                           --       inclk_interface.clk
+			reset              => rst_controller_reset_out_reset,      -- inclk_interface_reset.reset
+			read               => altpll_clk400_pll_slave_read,        --             pll_slave.read
+			write              => altpll_clk400_pll_slave_write,       --                      .write
+			address            => altpll_clk400_pll_slave_address,     --                      .address
+			readdata           => altpll_clk400_pll_slave_readdata,    --                      .readdata
+			writedata          => altpll_clk400_pll_slave_writedata,   --                      .writedata
+			c0                 => altpll_clk400_c0_clk,                --                    c0.clk
+			areset             => altpll_clk400_areset_conduit_export, --        areset_conduit.export
+			locked             => altpll_clk400_locked_conduit_export, --        locked_conduit.export
+			scandone           => open,                                --           (terminated)
+			scandataout        => open,                                --           (terminated)
+			phasedone          => open,                                --           (terminated)
+			phasecounterselect => "0000",                              --           (terminated)
+			phaseupdown        => '0',                                 --           (terminated)
+			phasestep          => '0',                                 --           (terminated)
+			scanclk            => '0',                                 --           (terminated)
+			scanclkena         => '0',                                 --           (terminated)
+			scandata           => '0',                                 --           (terminated)
+			configupdate       => '0'                                  --           (terminated)
 		);
 
 	clock_bridge_afi_50 : component mebx_qsys_project_clock_bridge_afi_50

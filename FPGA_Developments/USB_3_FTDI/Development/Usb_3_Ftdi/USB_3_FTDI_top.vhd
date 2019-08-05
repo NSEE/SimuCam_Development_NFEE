@@ -80,8 +80,9 @@ begin
 		port map(
 			clk_i                         => a_avs_clock,
 			rst_i                         => a_reset,
+			clk_base_i                    => umft_clock_pin,
 			umft_rxf_n_pin_i              => umft_rxf_n_pin,
-			umft_clock_pin_i              => umft_clock_pin,
+			umft_clock_pin_i              => '1',
 			umft_txe_n_pin_i              => umft_txe_n_pin,
 			tx_dc_data_fifo_wrdata_data_i => s_tx_dc_data_fifo_wrdata_data,
 			tx_dc_data_fifo_wrdata_be_i   => s_tx_dc_data_fifo_wrdata_be,

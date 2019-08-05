@@ -372,6 +372,11 @@ signal spw_h_sync : std_logic;
 	signal s_sync_out : std_logic := '0';
 	signal s_sync_in  : std_logic := '0';
 
+-----------------------------------------
+	-- CLK Test
+-----------------------------------------
+	signal s_clk_400 : std_logic := '0';
+	
 	-----------------------------------------
 -- Component
 -----------------------------------------
@@ -515,6 +520,8 @@ signal spw_h_sync : std_logic;
 				
             rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
             rs232_uart_txd                                       : out   std_logic;                                        -- txd
+				
+				altpll_clk400_c0_clk                                 : out   std_logic;                                        -- clk
 				
             ftdi_0_conduit_umft_pins_umft_data_signal            : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
             ftdi_0_conduit_umft_pins_umft_reset_n_signal         : out   std_logic;                                        -- umft_reset_n_signal
@@ -699,10 +706,13 @@ SOPC_INST : MebX_Qsys_Project
 	rs232_uart_rxd => I_RS232_UART_RXD, -- rs232_uart.rxd
 	rs232_uart_txd => O_RS232_UART_TXD,  --           .txd
 	
+	altpll_clk400_c0_clk                                 => s_clk_400,                                 --             altpll_clk400_c0.clk
+	
     ftdi_0_conduit_umft_pins_umft_data_signal            => FTDI_DATA,            --          ftdi_0_conduit_umft_pins.umft_data_signal
-    ftdi_0_conduit_umft_pins_umft_reset_n_signal         => FTDI_RESET_N,         --                                  .umft_reset_n_signal
+--    ftdi_0_conduit_umft_pins_umft_reset_n_signal         => FTDI_RESET_N,         --                                  .umft_reset_n_signal
     ftdi_0_conduit_umft_pins_umft_rxf_n_signal           => FTDI_RXF_N,           --                                  .umft_rxf_n_signal
-    ftdi_0_conduit_umft_pins_umft_clock_signal           => FTDI_CLOCK,           --                                  .umft_clock_signal
+--    ftdi_0_conduit_umft_pins_umft_clock_signal           => s_clk_400,           --                                  .umft_clock_signal
+	 ftdi_0_conduit_umft_pins_umft_clock_signal           => FTDI_CLOCK,           --                                  .umft_clock_signal
     ftdi_0_conduit_umft_pins_umft_wakeup_n_signal        => FTDI_WAKEUP_N,        --                                  .umft_wakeup_n_signal
     ftdi_0_conduit_umft_pins_umft_be_signal              => FTDI_BE,              --                                  .umft_be_signal
     ftdi_0_conduit_umft_pins_umft_txe_n_signal           => FTDI_TXE_N,           --                                  .umft_txe_n_signal
@@ -719,6 +729,7 @@ SOPC_INST : MebX_Qsys_Project
 --==========--
 
 rst <= CPU_RESET_n AND RESET_PAINEL_n;
+FTDI_RESET_N <= rst;
  
 --==========--
 -- I/Os
@@ -734,14 +745,15 @@ FAN_CTRL <= '1';
 
 -- LEDs assumem estado diferente no rst.
 
-LED_DE4(0) <= ('1') when (rst = '0') else (leds_b(0));
-LED_DE4(1) <= ('1') when (rst = '0') else (leds_b(1));
-LED_DE4(2) <= ('1') when (rst = '0') else (leds_b(2));
-LED_DE4(3) <= ('1') when (rst = '0') else (leds_b(3));
-LED_DE4(4) <= ('1') when (rst = '0') else (leds_b(4));
-LED_DE4(5) <= ('1') when (rst = '0') else (leds_b(5));
-LED_DE4(6) <= ('1') when (rst = '0') else (leds_b(6));
-LED_DE4(7) <= ('1') when (rst = '0') else (leds_b(7));
+--LED_DE4(0) <= ('1') when (rst = '0') else (leds_b(0));
+LED_DE4(0) <= ('1') when (rst = '0') else (not FTDI_CLOCK);
+LED_DE4(1) <= ('1') when (rst = '0') else (not FTDI_RXF_N);
+LED_DE4(2) <= ('1') when (rst = '0') else (not FTDI_TXE_N);
+LED_DE4(3) <= ('1') when (rst = '0') else (not leds_b(3));
+LED_DE4(4) <= ('1') when (rst = '0') else (not leds_b(4));
+LED_DE4(5) <= ('1') when (rst = '0') else (not leds_b(5));
+LED_DE4(6) <= ('1') when (rst = '0') else (not leds_b(6));
+LED_DE4(7) <= ('1') when (rst = '0') else (not leds_b(7));
 
 				  
 LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));

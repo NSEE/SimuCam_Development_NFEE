@@ -10,6 +10,18 @@ module MebX_Qsys_Project (
 	ctrl_io_lvds_export,
 	dip_export,
 	ext_export,
+	ftdi_0_conduit_umft_pins_umft_data_signal,
+	ftdi_0_conduit_umft_pins_umft_reset_n_signal,
+	ftdi_0_conduit_umft_pins_umft_rxf_n_signal,
+	ftdi_0_conduit_umft_pins_umft_clock_signal,
+	ftdi_0_conduit_umft_pins_umft_wakeup_n_signal,
+	ftdi_0_conduit_umft_pins_umft_be_signal,
+	ftdi_0_conduit_umft_pins_umft_txe_n_signal,
+	ftdi_0_conduit_umft_pins_umft_gpio_bus_signal,
+	ftdi_0_conduit_umft_pins_umft_wr_n_signal,
+	ftdi_0_conduit_umft_pins_umft_rd_n_signal,
+	ftdi_0_conduit_umft_pins_umft_oe_n_signal,
+	ftdi_0_conduit_umft_pins_umft_siwu_n_signal,
 	led_de4_export,
 	led_painel_export,
 	m1_ddr2_i2c_scl_export,
@@ -88,18 +100,14 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
 	tristate_conduit_tcm_chipselect_n_out,
-	ftdi_0_conduit_umft_pins_umft_data_signal,
-	ftdi_0_conduit_umft_pins_umft_reset_n_signal,
-	ftdi_0_conduit_umft_pins_umft_rxf_n_signal,
-	ftdi_0_conduit_umft_pins_umft_clock_signal,
-	ftdi_0_conduit_umft_pins_umft_wakeup_n_signal,
-	ftdi_0_conduit_umft_pins_umft_be_signal,
-	ftdi_0_conduit_umft_pins_umft_txe_n_signal,
-	ftdi_0_conduit_umft_pins_umft_gpio_bus_signal,
-	ftdi_0_conduit_umft_pins_umft_wr_n_signal,
-	ftdi_0_conduit_umft_pins_umft_rd_n_signal,
-	ftdi_0_conduit_umft_pins_umft_oe_n_signal,
-	ftdi_0_conduit_umft_pins_umft_siwu_n_signal);	
+	altpll_clk400_c0_clk,
+	altpll_clk400_areset_conduit_export,
+	altpll_clk400_locked_conduit_export,
+	altpll_clk400_pll_slave_read,
+	altpll_clk400_pll_slave_write,
+	altpll_clk400_pll_slave_address,
+	altpll_clk400_pll_slave_readdata,
+	altpll_clk400_pll_slave_writedata);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -111,6 +119,18 @@ module MebX_Qsys_Project (
 	output	[3:0]	ctrl_io_lvds_export;
 	input	[7:0]	dip_export;
 	input		ext_export;
+	inout	[31:0]	ftdi_0_conduit_umft_pins_umft_data_signal;
+	output		ftdi_0_conduit_umft_pins_umft_reset_n_signal;
+	input		ftdi_0_conduit_umft_pins_umft_rxf_n_signal;
+	input		ftdi_0_conduit_umft_pins_umft_clock_signal;
+	inout		ftdi_0_conduit_umft_pins_umft_wakeup_n_signal;
+	inout	[3:0]	ftdi_0_conduit_umft_pins_umft_be_signal;
+	input		ftdi_0_conduit_umft_pins_umft_txe_n_signal;
+	inout	[1:0]	ftdi_0_conduit_umft_pins_umft_gpio_bus_signal;
+	output		ftdi_0_conduit_umft_pins_umft_wr_n_signal;
+	output		ftdi_0_conduit_umft_pins_umft_rd_n_signal;
+	output		ftdi_0_conduit_umft_pins_umft_oe_n_signal;
+	output		ftdi_0_conduit_umft_pins_umft_siwu_n_signal;
 	output	[7:0]	led_de4_export;
 	output	[20:0]	led_painel_export;
 	output		m1_ddr2_i2c_scl_export;
@@ -189,16 +209,12 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	inout	[31:0]	ftdi_0_conduit_umft_pins_umft_data_signal;
-	output		ftdi_0_conduit_umft_pins_umft_reset_n_signal;
-	input		ftdi_0_conduit_umft_pins_umft_rxf_n_signal;
-	input		ftdi_0_conduit_umft_pins_umft_clock_signal;
-	inout		ftdi_0_conduit_umft_pins_umft_wakeup_n_signal;
-	inout	[3:0]	ftdi_0_conduit_umft_pins_umft_be_signal;
-	input		ftdi_0_conduit_umft_pins_umft_txe_n_signal;
-	inout	[1:0]	ftdi_0_conduit_umft_pins_umft_gpio_bus_signal;
-	output		ftdi_0_conduit_umft_pins_umft_wr_n_signal;
-	output		ftdi_0_conduit_umft_pins_umft_rd_n_signal;
-	output		ftdi_0_conduit_umft_pins_umft_oe_n_signal;
-	output		ftdi_0_conduit_umft_pins_umft_siwu_n_signal;
+	output		altpll_clk400_c0_clk;
+	input		altpll_clk400_areset_conduit_export;
+	output		altpll_clk400_locked_conduit_export;
+	input		altpll_clk400_pll_slave_read;
+	input		altpll_clk400_pll_slave_write;
+	input	[1:0]	altpll_clk400_pll_slave_address;
+	output	[31:0]	altpll_clk400_pll_slave_readdata;
+	input	[31:0]	altpll_clk400_pll_slave_writedata;
 endmodule

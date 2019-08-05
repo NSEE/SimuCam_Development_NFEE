@@ -6,6 +6,7 @@ entity ftdi_umft601a_controller_ent is
 	port(
 		clk_i                         : in    std_logic;
 		rst_i                         : in    std_logic;
+		clk_base_i                    : in    std_logic;
 		-- umft601a input pins
 		umft_rxf_n_pin_i              : in    std_logic                     := '1';
 		umft_clock_pin_i              : in    std_logic                     := '1';
@@ -117,6 +118,19 @@ architecture RTL of ftdi_umft601a_controller_ent is
 	signal s_umft601a_clock_n : std_logic;
 
 begin
+
+	-- TODO: remover depois [rfranca]
+	-- clk reconstructor instantiation
+	ftdi_clk_reconstructor_ent_inst : entity work.ftdi_clk_reconstructor_ent
+		generic map(
+			g_CLKDIV => 4
+		)
+		port map(
+			clk_base_i          => clk_base_i,
+			rst_i               => rst_i,
+			trigger_i           => s_umft601a_buffered_pins.rxf_n,
+			clk_reconstructed_o => s_umft601a_clock_n
+		);
 
 	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
 	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
@@ -557,7 +571,7 @@ begin
 
 	-- signals assingments
 	-- clock and reset assingments
-	s_umft601a_clock_n               <= not (s_umft601a_buffered_pins.clock);
+--	s_umft601a_clock_n               <= not (s_umft601a_buffered_pins.clock);
 	s_umft601a_buffered_pins.reset_n <= not (rst_i);
 
 end architecture RTL;
