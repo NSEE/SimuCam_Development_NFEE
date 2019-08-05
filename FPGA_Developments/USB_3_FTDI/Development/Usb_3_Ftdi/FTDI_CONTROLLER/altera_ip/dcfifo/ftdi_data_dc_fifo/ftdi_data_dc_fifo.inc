@@ -27,8 +27,8 @@ RETURNS (
 	q[35..0],
 	rdempty,
 	rdfull,
-	rdusedw[8..0],
+	rdusedw[11..0],
 	wrempty,
 	wrfull,
-	wrusedw[8..0]
+	wrusedw[11..0]
 );

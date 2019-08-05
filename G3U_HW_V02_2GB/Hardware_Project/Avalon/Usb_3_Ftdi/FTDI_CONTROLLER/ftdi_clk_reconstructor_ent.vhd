@@ -43,7 +43,7 @@ begin
 				s_clk_cnt           <= c_CLK_CNT_TOOGLE;
 			else
 
-				if (v_clk_cnt = 0) then
+				if (s_clk_cnt = 0) then
 					s_clk_reconstructed <= not s_clk_reconstructed;
 					s_clk_cnt           <= c_CLK_CNT_TOOGLE;
 				else

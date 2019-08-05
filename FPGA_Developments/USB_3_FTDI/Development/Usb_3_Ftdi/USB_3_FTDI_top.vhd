@@ -52,7 +52,7 @@ architecture rtl of USB_3_FTDI_top is
 	signal s_tx_dc_data_fifo_wrreq       : std_logic;
 	signal s_tx_dc_data_fifo_wrempty     : std_logic;
 	signal s_tx_dc_data_fifo_wrfull      : std_logic;
-	signal s_tx_dc_data_fifo_wrusedw     : std_logic_vector(8 downto 0);
+	signal s_tx_dc_data_fifo_wrusedw     : std_logic_vector(11 downto 0);
 
 	-- rx dc fifo signals
 	signal s_rx_dc_data_fifo_rdreq       : std_logic;
@@ -60,12 +60,12 @@ architecture rtl of USB_3_FTDI_top is
 	signal s_rx_dc_data_fifo_rddata_be   : std_logic_vector(3 downto 0);
 	signal s_rx_dc_data_fifo_rdempty     : std_logic;
 	signal s_rx_dc_data_fifo_rdfull      : std_logic;
-	signal s_rx_dc_data_fifo_rdusedw     : std_logic_vector(8 downto 0);
+	signal s_rx_dc_data_fifo_rdusedw     : std_logic_vector(11 downto 0);
 
 	-- loopback mode fsm type
 	type t_loopback_mode_fsm is (
-		WAITING_RX_DATA,
-		FETCH_RX_DATA,
+--		WAITING_RX_DATA,
+--		FETCH_RX_DATA,
 		WAITING_TX_SPACE,
 		WRITE_TX_DATA
 	);
@@ -80,7 +80,6 @@ begin
 		port map(
 			clk_i                         => a_avs_clock,
 			rst_i                         => a_reset,
---			clk_base_i                    => umft_clock_pin,
 			umft_rxf_n_pin_i              => umft_rxf_n_pin,
 			umft_clock_pin_i              => umft_clock_pin,
 			umft_txe_n_pin_i              => umft_txe_n_pin,
@@ -111,7 +110,8 @@ begin
 	p_loopback_mode : process(a_avs_clock, a_reset) is
 	begin
 		if (a_reset = '1') then
-			t_loopback_mode_state         <= WAITING_RX_DATA;
+			--			t_loopback_mode_state         <= WAITING_RX_DATA;
+			t_loopback_mode_state         <= WAITING_TX_SPACE;
 			s_tx_dc_data_fifo_wrdata_data <= (others => '0');
 			s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
 			s_tx_dc_data_fifo_wrreq       <= '0';
@@ -120,23 +120,23 @@ begin
 
 			case (t_loopback_mode_state) is
 
-				when WAITING_RX_DATA =>
-					t_loopback_mode_state         <= WAITING_RX_DATA;
-					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
-					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
-					s_tx_dc_data_fifo_wrreq       <= '0';
-					s_rx_dc_data_fifo_rdreq       <= '0';
-					if (s_rx_dc_data_fifo_rdempty = '0') then
-						t_loopback_mode_state   <= FETCH_RX_DATA;
-						s_rx_dc_data_fifo_rdreq <= '1';
-					end if;
-
-				when FETCH_RX_DATA =>
-					t_loopback_mode_state         <= WAITING_TX_SPACE;
-					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
-					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
-					s_tx_dc_data_fifo_wrreq       <= '0';
-					s_rx_dc_data_fifo_rdreq       <= '0';
+--				when WAITING_RX_DATA =>
+--					t_loopback_mode_state         <= WAITING_RX_DATA;
+--					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+--					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+--					s_tx_dc_data_fifo_wrreq       <= '0';
+--					s_rx_dc_data_fifo_rdreq       <= '0';
+--					if (s_rx_dc_data_fifo_rdempty = '0') then
+--						--						t_loopback_mode_state   <= FETCH_RX_DATA;
+--						t_loopback_mode_state <= WAITING_TX_SPACE;
+--					end if;
+--
+--				when FETCH_RX_DATA =>
+--					t_loopback_mode_state         <= WAITING_TX_SPACE;
+--					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+--					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+--					s_tx_dc_data_fifo_wrreq       <= '0';
+--					s_rx_dc_data_fifo_rdreq       <= '0';
 
 				when WAITING_TX_SPACE =>
 					t_loopback_mode_state         <= WAITING_TX_SPACE;
@@ -144,22 +144,25 @@ begin
 					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
 					s_tx_dc_data_fifo_wrreq       <= '0';
 					s_rx_dc_data_fifo_rdreq       <= '0';
-					if (s_tx_dc_data_fifo_wrfull = '0') then
+					--					if (s_tx_dc_data_fifo_wrfull = '0') then
+					if ((s_rx_dc_data_fifo_rdempty = '0') and (s_tx_dc_data_fifo_wrfull = '0')) then
 						t_loopback_mode_state         <= WRITE_TX_DATA;
 						s_tx_dc_data_fifo_wrdata_data <= s_rx_dc_data_fifo_rddata_data;
 						s_tx_dc_data_fifo_wrdata_be   <= s_rx_dc_data_fifo_rddata_be;
+						s_rx_dc_data_fifo_rdreq       <= '1';
 						s_tx_dc_data_fifo_wrreq       <= '1';
 					end if;
 
 				when WRITE_TX_DATA =>
-					t_loopback_mode_state         <= WAITING_RX_DATA;
+					--					t_loopback_mode_state         <= WAITING_RX_DATA;
+					t_loopback_mode_state         <= WAITING_TX_SPACE;
 					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
 					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
 					s_tx_dc_data_fifo_wrreq       <= '0';
 					s_rx_dc_data_fifo_rdreq       <= '0';
 
 				when others =>
-					t_loopback_mode_state         <= WAITING_RX_DATA;
+					t_loopback_mode_state         <= WAITING_TX_SPACE;
 					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
 					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
 					s_tx_dc_data_fifo_wrreq       <= '0';

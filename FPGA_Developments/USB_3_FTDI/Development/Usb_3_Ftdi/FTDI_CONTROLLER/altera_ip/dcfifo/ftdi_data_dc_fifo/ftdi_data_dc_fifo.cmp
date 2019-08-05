@@ -25,9 +25,9 @@ component ftdi_data_dc_fifo
 		q		: OUT STD_LOGIC_VECTOR (35 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
 		rdfull		: OUT STD_LOGIC ;
-		rdusedw		: OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
+		rdusedw		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0);
 		wrempty		: OUT STD_LOGIC ;
 		wrfull		: OUT STD_LOGIC ;
-		wrusedw		: OUT STD_LOGIC_VECTOR (8 DOWNTO 0)
+		wrusedw		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
 	);
 end component;

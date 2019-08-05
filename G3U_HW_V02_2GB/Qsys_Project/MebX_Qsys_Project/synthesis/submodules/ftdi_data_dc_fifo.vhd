@@ -51,10 +51,10 @@ ENTITY ftdi_data_dc_fifo IS
 		q		: OUT STD_LOGIC_VECTOR (35 DOWNTO 0);
 		rdempty		: OUT STD_LOGIC ;
 		rdfull		: OUT STD_LOGIC ;
-		rdusedw		: OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
+		rdusedw		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0);
 		wrempty		: OUT STD_LOGIC ;
 		wrfull		: OUT STD_LOGIC ;
-		wrusedw		: OUT STD_LOGIC_VECTOR (8 DOWNTO 0)
+		wrusedw		: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
 	);
 END ftdi_data_dc_fifo;
 
@@ -64,10 +64,10 @@ ARCHITECTURE SYN OF ftdi_data_dc_fifo IS
 	SIGNAL sub_wire0	: STD_LOGIC_VECTOR (35 DOWNTO 0);
 	SIGNAL sub_wire1	: STD_LOGIC ;
 	SIGNAL sub_wire2	: STD_LOGIC ;
-	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (8 DOWNTO 0);
+	SIGNAL sub_wire3	: STD_LOGIC_VECTOR (11 DOWNTO 0);
 	SIGNAL sub_wire4	: STD_LOGIC ;
 	SIGNAL sub_wire5	: STD_LOGIC ;
-	SIGNAL sub_wire6	: STD_LOGIC_VECTOR (8 DOWNTO 0);
+	SIGNAL sub_wire6	: STD_LOGIC_VECTOR (11 DOWNTO 0);
 
 
 
@@ -97,10 +97,10 @@ ARCHITECTURE SYN OF ftdi_data_dc_fifo IS
 			q	: OUT STD_LOGIC_VECTOR (35 DOWNTO 0);
 			rdempty	: OUT STD_LOGIC ;
 			rdfull	: OUT STD_LOGIC ;
-			rdusedw	: OUT STD_LOGIC_VECTOR (8 DOWNTO 0);
+			rdusedw	: OUT STD_LOGIC_VECTOR (11 DOWNTO 0);
 			wrempty	: OUT STD_LOGIC ;
 			wrfull	: OUT STD_LOGIC ;
-			wrusedw	: OUT STD_LOGIC_VECTOR (8 DOWNTO 0)
+			wrusedw	: OUT STD_LOGIC_VECTOR (11 DOWNTO 0)
 	);
 	END COMPONENT;
 
@@ -108,19 +108,19 @@ BEGIN
 	q    <= sub_wire0(35 DOWNTO 0);
 	rdempty    <= sub_wire1;
 	rdfull    <= sub_wire2;
-	rdusedw    <= sub_wire3(8 DOWNTO 0);
+	rdusedw    <= sub_wire3(11 DOWNTO 0);
 	wrempty    <= sub_wire4;
 	wrfull    <= sub_wire5;
-	wrusedw    <= sub_wire6(8 DOWNTO 0);
+	wrusedw    <= sub_wire6(11 DOWNTO 0);
 
 	dcfifo_component : dcfifo
 	GENERIC MAP (
 		intended_device_family => "Stratix IV",
-		lpm_numwords => 512,
-		lpm_showahead => "OFF",
+		lpm_numwords => 4096,
+		lpm_showahead => "ON",
 		lpm_type => "dcfifo",
 		lpm_width => 36,
-		lpm_widthu => 9,
+		lpm_widthu => 12,
 		overflow_checking => "ON",
 		rdsync_delaypipe => 4,
 		read_aclr_synch => "ON",
@@ -158,12 +158,12 @@ END SYN;
 -- Retrieval info: PRIVATE: AlmostFullThr NUMERIC "-1"
 -- Retrieval info: PRIVATE: CLOCKS_ARE_SYNCHRONIZED NUMERIC "0"
 -- Retrieval info: PRIVATE: Clock NUMERIC "4"
--- Retrieval info: PRIVATE: Depth NUMERIC "512"
+-- Retrieval info: PRIVATE: Depth NUMERIC "4096"
 -- Retrieval info: PRIVATE: Empty NUMERIC "1"
 -- Retrieval info: PRIVATE: Full NUMERIC "1"
 -- Retrieval info: PRIVATE: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
 -- Retrieval info: PRIVATE: LE_BasedFIFO NUMERIC "0"
--- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "1"
+-- Retrieval info: PRIVATE: LegacyRREQ NUMERIC "0"
 -- Retrieval info: PRIVATE: MAX_DEPTH_BY_9 NUMERIC "0"
 -- Retrieval info: PRIVATE: OVERFLOW_CHECKING NUMERIC "0"
 -- Retrieval info: PRIVATE: Optimize NUMERIC "0"
@@ -186,11 +186,11 @@ END SYN;
 -- Retrieval info: PRIVATE: wsUsedW NUMERIC "1"
 -- Retrieval info: LIBRARY: altera_mf altera_mf.altera_mf_components.all
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Stratix IV"
--- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "512"
--- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "OFF"
+-- Retrieval info: CONSTANT: LPM_NUMWORDS NUMERIC "4096"
+-- Retrieval info: CONSTANT: LPM_SHOWAHEAD STRING "ON"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "dcfifo"
 -- Retrieval info: CONSTANT: LPM_WIDTH NUMERIC "36"
--- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "9"
+-- Retrieval info: CONSTANT: LPM_WIDTHU NUMERIC "12"
 -- Retrieval info: CONSTANT: OVERFLOW_CHECKING STRING "ON"
 -- Retrieval info: CONSTANT: RDSYNC_DELAYPIPE NUMERIC "4"
 -- Retrieval info: CONSTANT: READ_ACLR_SYNCH STRING "ON"
@@ -205,12 +205,12 @@ END SYN;
 -- Retrieval info: USED_PORT: rdempty 0 0 0 0 OUTPUT NODEFVAL "rdempty"
 -- Retrieval info: USED_PORT: rdfull 0 0 0 0 OUTPUT NODEFVAL "rdfull"
 -- Retrieval info: USED_PORT: rdreq 0 0 0 0 INPUT NODEFVAL "rdreq"
--- Retrieval info: USED_PORT: rdusedw 0 0 9 0 OUTPUT NODEFVAL "rdusedw[8..0]"
+-- Retrieval info: USED_PORT: rdusedw 0 0 12 0 OUTPUT NODEFVAL "rdusedw[11..0]"
 -- Retrieval info: USED_PORT: wrclk 0 0 0 0 INPUT NODEFVAL "wrclk"
 -- Retrieval info: USED_PORT: wrempty 0 0 0 0 OUTPUT NODEFVAL "wrempty"
 -- Retrieval info: USED_PORT: wrfull 0 0 0 0 OUTPUT NODEFVAL "wrfull"
 -- Retrieval info: USED_PORT: wrreq 0 0 0 0 INPUT NODEFVAL "wrreq"
--- Retrieval info: USED_PORT: wrusedw 0 0 9 0 OUTPUT NODEFVAL "wrusedw[8..0]"
+-- Retrieval info: USED_PORT: wrusedw 0 0 12 0 OUTPUT NODEFVAL "wrusedw[11..0]"
 -- Retrieval info: CONNECT: @aclr 0 0 0 0 aclr 0 0 0 0
 -- Retrieval info: CONNECT: @data 0 0 36 0 data 0 0 36 0
 -- Retrieval info: CONNECT: @rdclk 0 0 0 0 rdclk 0 0 0 0
@@ -220,10 +220,10 @@ END SYN;
 -- Retrieval info: CONNECT: q 0 0 36 0 @q 0 0 36 0
 -- Retrieval info: CONNECT: rdempty 0 0 0 0 @rdempty 0 0 0 0
 -- Retrieval info: CONNECT: rdfull 0 0 0 0 @rdfull 0 0 0 0
--- Retrieval info: CONNECT: rdusedw 0 0 9 0 @rdusedw 0 0 9 0
+-- Retrieval info: CONNECT: rdusedw 0 0 12 0 @rdusedw 0 0 12 0
 -- Retrieval info: CONNECT: wrempty 0 0 0 0 @wrempty 0 0 0 0
 -- Retrieval info: CONNECT: wrfull 0 0 0 0 @wrfull 0 0 0 0
--- Retrieval info: CONNECT: wrusedw 0 0 9 0 @wrusedw 0 0 9 0
+-- Retrieval info: CONNECT: wrusedw 0 0 12 0 @wrusedw 0 0 12 0
 -- Retrieval info: GEN_FILE: TYPE_NORMAL ftdi_data_dc_fifo.vhd TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL ftdi_data_dc_fifo.inc TRUE
 -- Retrieval info: GEN_FILE: TYPE_NORMAL ftdi_data_dc_fifo.cmp TRUE
