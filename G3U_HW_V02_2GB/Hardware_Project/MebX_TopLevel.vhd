@@ -258,6 +258,44 @@ port(
 	I_RS232_UART_RXD : in  std_logic;
    O_RS232_UART_TXD : out std_logic;
 	
+	 -- GPIO Expansion Header (JP3) Pins
+--	JP3_GPIO0_D0_IO  : inout std_logic;
+--	JP3_GPIO0_D1_IO  : inout std_logic;
+--	JP3_GPIO0_D2_IO  : inout std_logic;
+--	JP3_GPIO0_D3_IO  : inout std_logic;
+--	JP3_GPIO0_D4_IO  : inout std_logic;
+--	JP3_GPIO0_D5_IO  : inout std_logic;
+--	JP3_GPIO0_D6_IO  : inout std_logic;
+	JP3_GPIO0_D7_IO  : out std_logic;
+	JP3_GPIO0_D8_IO  : out std_logic;
+	JP3_GPIO0_D9_IO  : out std_logic;
+--	JP3_GPIO0_D10_IO : inout std_logic;
+--	JP3_GPIO0_D11_IO : inout std_logic;
+--	JP3_GPIO0_D12_IO : inout std_logic;
+--	JP3_GPIO0_D13_IO : inout std_logic;
+--	JP3_GPIO0_D14_IO : inout std_logic;
+--	JP3_GPIO0_D15_IO : inout std_logic;
+--	JP3_GPIO0_D16_IO : inout std_logic;
+--	JP3_GPIO0_D17_IO : inout std_logic;
+--	JP3_GPIO0_D18_IO : inout std_logic;
+--	JP3_GPIO0_D19_IO : inout std_logic;
+--	JP3_GPIO0_D20_IO : inout std_logic;
+--	JP3_GPIO0_D21_IO : inout std_logic;
+--	JP3_GPIO0_D22_IO : inout std_logic;
+--	JP3_GPIO0_D23_IO : inout std_logic;
+--	JP3_GPIO0_D24_IO : inout std_logic;
+--	JP3_GPIO0_D25_IO : inout std_logic;
+--	JP3_GPIO0_D26_IO : inout std_logic;
+--	JP3_GPIO0_D27_IO : inout std_logic;
+--	JP3_GPIO0_D28_IO : inout std_logic;
+--	JP3_GPIO0_D29_IO : inout std_logic;
+--	JP3_GPIO0_D30_IO : inout std_logic;
+--	JP3_GPIO0_D31_IO : inout std_logic;
+--	JP3_GPIO0_D32_IO : inout std_logic;
+--	JP3_GPIO0_D33_IO : inout std_logic;
+--	JP3_GPIO0_D34_IO : inout std_logic;
+--	JP3_GPIO0_D35_IO : inout std_logic;
+	
 		 -- FTDI Module
     FTDI_DATA     : inout std_logic_vector(31 downto 0);
     FTDI_BE       : inout std_logic_vector(3 downto 0);
@@ -271,7 +309,7 @@ port(
     FTDI_RD_N     : out   std_logic;
     FTDI_OE_N     : out   std_logic;
     FTDI_SIWU_N   : out   std_logic
-	 
+ 	 
   );
 end entity;
 
@@ -728,8 +766,8 @@ SOPC_INST : MebX_Qsys_Project
 -- rst
 --==========--
 
---rst <= CPU_RESET_n AND RESET_PAINEL_n;
-rst <= CPU_RESET_n;
+rst <= CPU_RESET_n AND RESET_PAINEL_n;
+--rst <= CPU_RESET_n;
 FTDI_RESET_N <= rst;
  
 --==========--
@@ -759,13 +797,14 @@ LED_DE4(5) <= ('1') when (rst = '0') else (not leds_b(5));
 LED_DE4(6) <= ('1') when (rst = '0') else (not leds_b(6));
 LED_DE4(7) <= ('1') when (rst = '0') else (not leds_b(7));
 
+
+JP3_GPIO0_D7_IO  <= FTDI_CLOCK;
+JP3_GPIO0_D8_IO  <= FTDI_RXF_N;
+JP3_GPIO0_D9_IO  <= FTDI_TXE_N;
 				  
-LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (FTDI_CLOCK);
-LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (FTDI_RXF_N);
-LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (FTDI_TXE_N);
---LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
---LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
---LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
+LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
+LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
+LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
 LED_PAINEL_LED_2R    <= ('1') when (rst = '0') else (leds_p(3));
 LED_PAINEL_LED_3G    <= ('1') when (rst = '0') else (leds_p(4));
 LED_PAINEL_LED_3R    <= ('1') when (rst = '0') else (leds_p(5));

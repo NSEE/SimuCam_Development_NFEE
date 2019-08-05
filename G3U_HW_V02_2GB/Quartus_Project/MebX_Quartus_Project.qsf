@@ -2288,4 +2288,76 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to FTDI_GPIO[0]
 set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to FTDI_RD_N
 set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to FTDI_OE_N
 set_instance_assignment -name CURRENT_STRENGTH_NEW 12MA -to FTDI_SIWU_N
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D0_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D1_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D2_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D3_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D4_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D5_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D6_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D7_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D8_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D9_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D10_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D11_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D12_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D13_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D14_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D15_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D16_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D17_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D18_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D19_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D20_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D21_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D22_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D23_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D24_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D25_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D26_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D27_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D28_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D29_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D30_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D31_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D32_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D33_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D34_IO
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to JP3_GPIO0_D35_IO
+set_location_assignment PIN_AF6 -to JP3_GPIO0_D0_IO
+set_location_assignment PIN_AU9 -to JP3_GPIO0_D1_IO
+set_location_assignment PIN_AE5 -to JP3_GPIO0_D2_IO
+set_location_assignment PIN_AR8 -to JP3_GPIO0_D3_IO
+set_location_assignment PIN_AN9 -to JP3_GPIO0_D4_IO
+set_location_assignment PIN_AP9 -to JP3_GPIO0_D5_IO
+set_location_assignment PIN_AV5 -to JP3_GPIO0_D6_IO
+set_location_assignment PIN_AW6 -to JP3_GPIO0_D7_IO
+set_location_assignment PIN_AV7 -to JP3_GPIO0_D8_IO
+set_location_assignment PIN_AW7 -to JP3_GPIO0_D9_IO
+set_location_assignment PIN_AT5 -to JP3_GPIO0_D10_IO
+set_location_assignment PIN_AT8 -to JP3_GPIO0_D11_IO
+set_location_assignment PIN_AP5 -to JP3_GPIO0_D12_IO
+set_location_assignment PIN_AP7 -to JP3_GPIO0_D13_IO
+set_location_assignment PIN_AN5 -to JP3_GPIO0_D14_IO
+set_location_assignment PIN_AN10 -to JP3_GPIO0_D15_IO
+set_location_assignment PIN_AM5 -to JP3_GPIO0_D16_IO
+set_location_assignment PIN_AM10 -to JP3_GPIO0_D17_IO
+set_location_assignment PIN_AL10 -to JP3_GPIO0_D18_IO
+set_location_assignment PIN_AM8 -to JP3_GPIO0_D19_IO
+set_location_assignment PIN_AL8 -to JP3_GPIO0_D20_IO
+set_location_assignment PIN_AK8 -to JP3_GPIO0_D21_IO
+set_location_assignment PIN_AJ11 -to JP3_GPIO0_D22_IO
+set_location_assignment PIN_AK7 -to JP3_GPIO0_D23_IO
+set_location_assignment PIN_AJ5 -to JP3_GPIO0_D24_IO
+set_location_assignment PIN_AH12 -to JP3_GPIO0_D25_IO
+set_location_assignment PIN_AG10 -to JP3_GPIO0_D26_IO
+set_location_assignment PIN_AG13 -to JP3_GPIO0_D27_IO
+set_location_assignment PIN_AG9 -to JP3_GPIO0_D28_IO
+set_location_assignment PIN_AF11 -to JP3_GPIO0_D29_IO
+set_location_assignment PIN_AT9 -to JP3_GPIO0_D30_IO
+set_location_assignment PIN_AF10 -to JP3_GPIO0_D31_IO
+set_location_assignment PIN_AD10 -to JP3_GPIO0_D32_IO
+set_location_assignment PIN_AD9 -to JP3_GPIO0_D33_IO
+set_location_assignment PIN_AD12 -to JP3_GPIO0_D34_IO
+set_location_assignment PIN_AD13 -to JP3_GPIO0_D35_IO
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

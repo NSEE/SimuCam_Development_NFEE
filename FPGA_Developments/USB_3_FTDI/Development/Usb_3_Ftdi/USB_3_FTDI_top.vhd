@@ -46,6 +46,12 @@ architecture rtl of USB_3_FTDI_top is
 	alias a_avs_clock is clock_sink_clk;
 	alias a_reset is reset_sink_reset;
 
+	-- constants
+	constant c_OPERATION_MODE : natural := 2;
+	-- 0 = Loopback Mode
+	-- 1 = Consumer Mode
+	-- 2 = Stall Mode
+
 	-- tx dc fifo signals
 	signal s_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
 	signal s_tx_dc_data_fifo_wrdata_be   : std_logic_vector(3 downto 0);
@@ -64,14 +70,16 @@ architecture rtl of USB_3_FTDI_top is
 
 	-- loopback mode fsm type
 	type t_loopback_mode_fsm is (
---		WAITING_RX_DATA,
---		FETCH_RX_DATA,
+		--		WAITING_RX_DATA,
+		--		FETCH_RX_DATA,
 		WAITING_TX_SPACE,
 		WRITE_TX_DATA
 	);
 
 	-- loopback mode fsm state
 	signal t_loopback_mode_state : t_loopback_mode_fsm;
+	
+	signal s_fifo_full :std_logic := '0';
 
 begin
 
@@ -116,59 +124,97 @@ begin
 			s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
 			s_tx_dc_data_fifo_wrreq       <= '0';
 			s_rx_dc_data_fifo_rdreq       <= '0';
+			s_fifo_full <= '0';
 		elsif rising_edge(a_avs_clock) then
 
-			case (t_loopback_mode_state) is
+			if (c_OPERATION_MODE = 0) then
 
---				when WAITING_RX_DATA =>
---					t_loopback_mode_state         <= WAITING_RX_DATA;
---					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
---					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
---					s_tx_dc_data_fifo_wrreq       <= '0';
---					s_rx_dc_data_fifo_rdreq       <= '0';
---					if (s_rx_dc_data_fifo_rdempty = '0') then
---						--						t_loopback_mode_state   <= FETCH_RX_DATA;
---						t_loopback_mode_state <= WAITING_TX_SPACE;
---					end if;
---
---				when FETCH_RX_DATA =>
---					t_loopback_mode_state         <= WAITING_TX_SPACE;
---					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
---					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
---					s_tx_dc_data_fifo_wrreq       <= '0';
---					s_rx_dc_data_fifo_rdreq       <= '0';
+				case (t_loopback_mode_state) is
 
-				when WAITING_TX_SPACE =>
-					t_loopback_mode_state         <= WAITING_TX_SPACE;
-					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
-					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
-					s_tx_dc_data_fifo_wrreq       <= '0';
-					s_rx_dc_data_fifo_rdreq       <= '0';
-					--					if (s_tx_dc_data_fifo_wrfull = '0') then
-					if ((s_rx_dc_data_fifo_rdempty = '0') and (s_tx_dc_data_fifo_wrfull = '0')) then
-						t_loopback_mode_state         <= WRITE_TX_DATA;
-						s_tx_dc_data_fifo_wrdata_data <= s_rx_dc_data_fifo_rddata_data;
-						s_tx_dc_data_fifo_wrdata_be   <= s_rx_dc_data_fifo_rddata_be;
-						s_rx_dc_data_fifo_rdreq       <= '1';
-						s_tx_dc_data_fifo_wrreq       <= '1';
-					end if;
-
-				when WRITE_TX_DATA =>
+					--				when WAITING_RX_DATA =>
 					--					t_loopback_mode_state         <= WAITING_RX_DATA;
-					t_loopback_mode_state         <= WAITING_TX_SPACE;
-					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
-					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
-					s_tx_dc_data_fifo_wrreq       <= '0';
-					s_rx_dc_data_fifo_rdreq       <= '0';
+					--					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+					--					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+					--					s_tx_dc_data_fifo_wrreq       <= '0';
+					--					s_rx_dc_data_fifo_rdreq       <= '0';
+					--					if (s_rx_dc_data_fifo_rdempty = '0') then
+					--						--						t_loopback_mode_state   <= FETCH_RX_DATA;
+					--						t_loopback_mode_state <= WAITING_TX_SPACE;
+					--					end if;
+					--
+					--				when FETCH_RX_DATA =>
+					--					t_loopback_mode_state         <= WAITING_TX_SPACE;
+					--					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+					--					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+					--					s_tx_dc_data_fifo_wrreq       <= '0';
+					--					s_rx_dc_data_fifo_rdreq       <= '0';
 
-				when others =>
-					t_loopback_mode_state         <= WAITING_TX_SPACE;
-					s_tx_dc_data_fifo_wrdata_data <= (others => '0');
-					s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
-					s_tx_dc_data_fifo_wrreq       <= '0';
-					s_rx_dc_data_fifo_rdreq       <= '0';
+					when WAITING_TX_SPACE =>
+						t_loopback_mode_state         <= WAITING_TX_SPACE;
+						s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+						s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+						s_tx_dc_data_fifo_wrreq       <= '0';
+						s_rx_dc_data_fifo_rdreq       <= '0';
+						--					if (s_tx_dc_data_fifo_wrfull = '0') then
+						if ((s_rx_dc_data_fifo_rdempty = '0') and (s_tx_dc_data_fifo_wrfull = '0')) then
+							t_loopback_mode_state         <= WRITE_TX_DATA;
+							s_tx_dc_data_fifo_wrdata_data <= s_rx_dc_data_fifo_rddata_data;
+							s_tx_dc_data_fifo_wrdata_be   <= s_rx_dc_data_fifo_rddata_be;
+							s_rx_dc_data_fifo_rdreq       <= '1';
+							s_tx_dc_data_fifo_wrreq       <= '1';
+						end if;
 
-			end case;
+					when WRITE_TX_DATA =>
+						--					t_loopback_mode_state         <= WAITING_RX_DATA;
+						t_loopback_mode_state         <= WAITING_TX_SPACE;
+						s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+						s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+						s_tx_dc_data_fifo_wrreq       <= '0';
+						s_rx_dc_data_fifo_rdreq       <= '0';
+
+					when others =>
+						t_loopback_mode_state         <= WAITING_TX_SPACE;
+						s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+						s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+						s_tx_dc_data_fifo_wrreq       <= '0';
+						s_rx_dc_data_fifo_rdreq       <= '0';
+
+				end case;
+
+			elsif (c_OPERATION_MODE = 1) then
+
+				-- Tx write dummy data
+				s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+				s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+				s_tx_dc_data_fifo_wrreq       <= '0';
+				if (s_tx_dc_data_fifo_wrfull = '0') then
+					s_tx_dc_data_fifo_wrdata_data <= x"F5F5F5F5";
+					s_tx_dc_data_fifo_wrdata_be   <= (others => '1');
+					s_tx_dc_data_fifo_wrreq       <= '1';
+				end if;
+
+				-- Rx dummy read data
+				s_rx_dc_data_fifo_rdreq <= '0';
+				if (s_rx_dc_data_fifo_rdempty = '0') then
+					s_rx_dc_data_fifo_rdreq <= '1';
+				end if;
+
+			elsif (c_OPERATION_MODE = 2) then
+				
+				-- Tx write dummy data
+				s_tx_dc_data_fifo_wrdata_data <= (others => '0');
+				s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
+				s_tx_dc_data_fifo_wrreq       <= '0';
+				if ((s_tx_dc_data_fifo_wrfull = '0') and (s_fifo_full = '0')) then
+					s_tx_dc_data_fifo_wrdata_data <= x"F5F5F5F5";
+					s_tx_dc_data_fifo_wrdata_be   <= (others => '1');
+					s_tx_dc_data_fifo_wrreq       <= '1';
+				end if;
+				if (s_tx_dc_data_fifo_wrusedw = "111111111111") then
+					s_fifo_full <= '1';
+				end if;
+
+			end if;
 
 		end if;
 	end process p_loopback_mode;

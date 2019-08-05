@@ -794,7 +794,7 @@ GND                          : AV3       : gnd    :                   :         
 NC                           : AV4       :        :                   :         :           :                
 EN_ISO_DRIVERS               : AV5       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 GND                          : AV6       : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AV7       :        :                   :         : 5A        :                
+JP3_GPIO0_D8_IO              : AV7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RTCC_SDO                     : AV8       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
 GND                          : AV9       : gnd    :                   :         :           :                
 LED_PAINEL_LED_ST2           : AV10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
@@ -831,8 +831,8 @@ RREF                         : AW2       :        :                   :         
 GND                          : AW3       : gnd    :                   :         :           :                
 RTCC_SCK                     : AW4       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RTCC_ALARM                   : AW5       : input  : 3.3-V LVCMOS      :         : 5A        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AW6       :        :                   :         : 5A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AW7       :        :                   :         : 5A        :                
+JP3_GPIO0_D7_IO              : AW6       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+JP3_GPIO0_D9_IO              : AW7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 LED_PAINEL_LED_ST1           : AW8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 VCCIO5A                      : AW9       : power  :                   : 3.0V    : 5A        :                
 LED_PAINEL_LED_ST3           : AW10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
