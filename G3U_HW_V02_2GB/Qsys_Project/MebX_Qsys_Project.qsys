@@ -47,12 +47,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295032832";
+         value = "4294967296";
          type = "String";
       }
    }
@@ -60,12 +60,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4294967296";
+         value = "4295000064";
          type = "String";
       }
    }
@@ -102,12 +102,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295041024";
+         value = "4295032832";
          type = "String";
       }
    }
@@ -115,12 +115,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4294975488";
+         value = "4295065600";
          type = "String";
       }
    }
@@ -149,12 +149,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295049216";
+         value = "4295098368";
          type = "String";
       }
    }
@@ -162,12 +162,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4294983680";
+         value = "4295131136";
          type = "String";
       }
    }
@@ -196,12 +196,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295057408";
+         value = "4295163904";
          type = "String";
       }
    }
@@ -209,12 +209,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4294991872";
+         value = "4295196672";
          type = "String";
       }
    }
@@ -243,12 +243,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295065600";
+         value = "4295229440";
          type = "String";
       }
    }
@@ -256,12 +256,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295000064";
+         value = "4295262208";
          type = "String";
       }
    }
@@ -290,12 +290,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295073792";
+         value = "4295294976";
          type = "String";
       }
    }
@@ -303,12 +303,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295008256";
+         value = "4295327744";
          type = "String";
       }
    }
@@ -337,12 +337,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295081984";
+         value = "4295360512";
          type = "String";
       }
    }
@@ -350,12 +350,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295016448";
+         value = "4295393280";
          type = "String";
       }
    }
@@ -384,12 +384,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295090176";
+         value = "4295426048";
          type = "String";
       }
    }
@@ -397,12 +397,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "4295024640";
+         value = "4295458816";
          type = "String";
       }
    }
@@ -411,6 +411,14 @@
       datum baseAddress
       {
          value = "2166362112";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
          type = "String";
       }
    }
@@ -1831,42 +1839,42 @@
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="1" />
  <module
    name="COMM_Pedreiro_v1_01_G"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="0" />
  <module
    name="COMM_Pedreiro_v1_01_H"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    enabled="0" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
@@ -2014,14 +2022,14 @@
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x100020000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100028000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x100030000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100038000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x100040000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100048000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x100050000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100058000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x100060000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="512" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_FIFO_DEPTH" value="128" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
@@ -2057,14 +2065,14 @@
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
   <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 32" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x100020000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100028000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x100030000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100038000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x100040000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100048000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x100050000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100058000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x100060000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 33" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="512" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_FIFO_DEPTH" value="128" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
@@ -3913,7 +3921,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100010000" />
+  <parameter name="baseAddress" value="0x0000000100000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3922,7 +3930,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100012000" />
+  <parameter name="baseAddress" value="0x0000000100010000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3931,7 +3939,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010001c000" />
+  <parameter name="baseAddress" value="0x0000000100060000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3940,7 +3948,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010001e000" />
+  <parameter name="baseAddress" value="0x0000000100070000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3949,7 +3957,7 @@
    start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100010000" />
+  <parameter name="baseAddress" value="0x0000000100000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3958,16 +3966,79 @@
    start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100012000" />
+  <parameter name="baseAddress" value="0x0000000100010000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100020000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer">
+   end="COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010001c000" />
+  <parameter name="baseAddress" value="0x0000000100020000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100030000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M2.mm_write"
+   end="COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100030000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100040000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M2.mm_write"
+   end="COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100040000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M2.mm_write"
+   end="COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100050000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100050000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -3976,79 +4047,16 @@
    start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_H.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010001e000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100014000" />
+  <parameter name="baseAddress" value="0x0000000100070000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer">
+   end="COMM_Pedreiro_v1_01_G.avalon_slave_L_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100014000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100016000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100016000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100018000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100018000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010001a000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010001a000" />
+  <parameter name="baseAddress" value="0x0000000100060000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4057,7 +4065,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100000000" />
+  <parameter name="baseAddress" value="0x0000000100008000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4066,7 +4074,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100002000" />
+  <parameter name="baseAddress" value="0x0000000100018000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4075,7 +4083,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010000c000" />
+  <parameter name="baseAddress" value="0x0000000100068000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4084,7 +4092,7 @@
    start="dma_DDR_M1.mm_write"
    end="COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010000e000" />
+  <parameter name="baseAddress" value="0x0000000100078000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4093,7 +4101,7 @@
    start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100000000" />
+  <parameter name="baseAddress" value="0x0000000100008000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4102,16 +4110,79 @@
    start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100002000" />
+  <parameter name="baseAddress" value="0x0000000100018000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100028000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer">
+   end="COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010000c000" />
+  <parameter name="baseAddress" value="0x0000000100028000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100038000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M2.mm_write"
+   end="COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100038000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100048000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M2.mm_write"
+   end="COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100048000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M2.mm_write"
+   end="COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100058000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="18.1"
+   start="dma_DDR_M1.mm_write"
+   end="COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000000100058000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4120,79 +4191,16 @@
    start="dma_DDR_M2.mm_write"
    end="COMM_Pedreiro_v1_01_H.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010000e000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100004000" />
+  <parameter name="baseAddress" value="0x0000000100078000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer">
+   end="COMM_Pedreiro_v1_01_G.avalon_slave_R_buffer">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100004000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100006000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100006000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100008000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000000100008000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M2.mm_write"
-   end="COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010000a000" />
-  <parameter name="defaultConnection" value="false" />
- </connection>
- <connection
-   kind="avalon"
-   version="18.1"
-   start="dma_DDR_M1.mm_write"
-   end="COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer">
-  <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x000000010000a000" />
+  <parameter name="baseAddress" value="0x0000000100068000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection

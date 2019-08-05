@@ -6,15 +6,17 @@ use work.avalon_mm_windowing_pkg.all;
 
 entity avalon_mm_windowing_write_ent is
 	port(
-		clk_i                 : in  std_logic;
-		rst_i                 : in  std_logic;
-		avalon_mm_windowing_i : in  t_avalon_mm_windowing_write_in;
-		mask_enable_i         : in  std_logic;
+		clk_i                  : in  std_logic;
+		rst_i                  : in  std_logic;
+		avalon_mm_windowing_i  : in  t_avalon_mm_windowing_write_in;
+		mask_enable_i          : in  std_logic;
 		--		pattern_timecode_i    : in  std_logic;
-		avalon_mm_windowing_o : out t_avalon_mm_windowing_write_out;
-		window_data_write_o   : out std_logic;
-		window_mask_write_o   : out std_logic;
-		window_data_o         : out std_logic_vector(63 downto 0)
+		fee_clear_signal_i     : in  std_logic;
+		window_buffer_change_i : in  std_logic;
+		avalon_mm_windowing_o  : out t_avalon_mm_windowing_write_out;
+		window_data_write_o    : out std_logic;
+		window_mask_write_o    : out std_logic;
+		window_data_o          : out std_logic_vector(63 downto 0)
 	);
 end entity avalon_mm_windowing_write_ent;
 
@@ -193,19 +195,68 @@ architecture rtl of avalon_mm_windowing_write_ent is
 		return v_new_mask;
 	end function f_mask_conv;
 
-	signal s_windown_data_ctn : natural range 0 to 16;
-	signal s_waitrequest      : std_logic;
+	signal s_window_data_ctn : natural range 0 to 16;
+	signal s_waitrequest     : std_logic;
+
+	-- avs 256b buffer signals
+	signal s_avsbuff_data      : std_logic_vector(255 downto 0);
+	signal s_avsbuff_rdreq     : std_logic;
+	signal s_avsbuff_sclr      : std_logic;
+	signal s_avsbuff_wrreq     : std_logic;
+	signal s_avsbuff_empty     : std_logic;
+	signal s_avsbuff_full      : std_logic;
+	signal s_avsbuff_q         : std_logic_vector(255 downto 0);
+	signal s_avsbuff_usedw     : std_logic_vector(5 downto 0);
+	signal s_avsbuff_q_qword_0 : std_logic_vector(63 downto 0);
+	signal s_avsbuff_q_qword_1 : std_logic_vector(63 downto 0);
+	signal s_avsbuff_q_qword_2 : std_logic_vector(63 downto 0);
+	signal s_avsbuff_q_qword_3 : std_logic_vector(63 downto 0);
+
+	type t_avsbuff_fsm is (
+		IDLE,
+		QWORD_0,
+		QWORD_1,
+		QWORD_2,
+		QWORD_3
+	);
+	signal s_avsbuff_state : t_avsbuff_fsm;
+
+	signal s_avsbuff_delay : std_logic;
 
 begin
 
+	-- avs 256b buffer instantiaton
+	windowing_avsbuff_sc_fifo_inst : entity work.windowing_avsbuff_sc_fifo
+		port map(
+			aclr  => rst_i,
+			clock => clk_i,
+			data  => s_avsbuff_data,
+			rdreq => s_avsbuff_rdreq,
+			sclr  => s_avsbuff_sclr,
+			wrreq => s_avsbuff_wrreq,
+			empty => s_avsbuff_empty,
+			full  => s_avsbuff_full,
+			q     => s_avsbuff_q,
+			usedw => s_avsbuff_usedw
+		);
+	s_avsbuff_sclr      <= (fee_clear_signal_i) or (rst_i);
+	s_avsbuff_q_qword_0 <= s_avsbuff_q(((64 * 0) + 63) downto (64 * 0));
+	s_avsbuff_q_qword_1 <= s_avsbuff_q(((64 * 1) + 63) downto (64 * 1));
+	s_avsbuff_q_qword_2 <= s_avsbuff_q(((64 * 2) + 63) downto (64 * 2));
+	s_avsbuff_q_qword_3 <= s_avsbuff_q(((64 * 3) + 63) downto (64 * 3));
+
+	-- windowing avs write process
 	p_avalon_mm_windowing_write : process(clk_i, rst_i) is
 		procedure p_reset_registers is
 		begin
 			window_data_write_o <= '0';
 			window_mask_write_o <= '0';
 			window_data_o       <= (others => '0');
-			s_windown_data_ctn  <= 0;
+			s_avsbuff_wrreq     <= '0';
+			s_avsbuff_data      <= (others => '0');
+			s_window_data_ctn   <= 0;
 			s_waitrequest       <= '0';
+			s_avsbuff_delay     <= '0';
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
@@ -213,7 +264,92 @@ begin
 			window_data_write_o <= '0';
 			window_mask_write_o <= '0';
 			window_data_o       <= (others => '0');
+			s_avsbuff_wrreq     <= '0';
+			s_avsbuff_data      <= (others => '0');
+			s_avsbuff_delay     <= '0';
 		end procedure p_control_triggers;
+
+		--		procedure p_windowing_writedata(write_address_i : t_avalon_mm_windowing_address) is
+		--		begin
+		--
+		--			-- check if masking is enabled
+		--			--			if (mask_enable_i = '1') then
+		--			-- masking enabled
+		--			-- Registers Write Data
+		--			case (write_address_i) is
+		--				-- Case for access to all registers address
+		--
+		--				when 0 to 271 =>
+		--					-- check if the waitrequested is still active
+		--					if (s_waitrequest = '1') then
+		--						-- waitrequest active, execute write operation
+		--						-- check if it is the beggining of a new cicle
+		--						if (write_address_i = 0) then
+		--							-- address is zero, new cicle
+		--							window_data_write_o <= '1';
+		--							window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+		--							s_window_data_ctn  <= 1;
+		--						else
+		--							-- address not zero, verify counter
+		--							if (s_window_data_ctn < 16) then
+		--								-- counter at data address
+		--								window_data_write_o <= '1';
+		--								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+		--								-- increment counter
+		--								s_window_data_ctn  <= s_window_data_ctn + 1;
+		--							else
+		--								-- counter at mask address
+		--								window_mask_write_o <= '1';
+		--								window_data_o       <= f_mask_conv(avalon_mm_windowing_i.writedata);
+		--								-- reset counter
+		--								s_window_data_ctn  <= 0;
+		--							end if;
+		--						end if;
+		--					end if;
+		--
+		--				when others =>
+		--					null;
+		--			end case;
+		--			--			else
+		--			--				-- masking disabled
+		--			--				-- Registers Write Data
+		--			--				case (write_address_i) is
+		--			--					-- Case for access to all registers address
+		--			--
+		--			--					when 0 to 254 =>
+		--			--						-- check if the waitrequested is still active
+		--			--						if (s_waitrequest = '1') then
+		--			--							-- waitrequest active, execute write operation
+		--			--							-- check if it is the beggining of a new cicle
+		--			--							if (write_address_i = 0) then
+		--			--								-- address is zero, new cicle
+		--			--								window_data_write_o <= '1';
+		--			--								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+		--			--								s_window_data_ctn  <= 1;
+		--			--							else
+		--			--								-- address not zero, verify counter
+		--			--								if (s_window_data_ctn < 16) then
+		--			--									-- counter at data address
+		--			--									window_data_write_o <= '1';
+		--			--									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+		--			--									-- increment counter
+		--			--									s_window_data_ctn  <= s_window_data_ctn + 1;
+		--			--								else
+		--			--									-- counter at mask address
+		--			--									window_data_write_o <= '1';
+		--			--									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
+		--			--									-- set counter to first data
+		--			--									s_window_data_ctn  <= 1;
+		--			--								end if;
+		--			--							end if;
+		--			--						end if;
+		--			--
+		--			--					when others =>
+		--			--						null;
+		--			--				end case;
+		--			--			end if;
+		--
+		--		end procedure p_windowing_writedata;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_windowing_address) is
 		begin
@@ -225,75 +361,22 @@ begin
 			case (write_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 271 =>
-					-- check if the waitrequested is still active
-					if (s_waitrequest = '1') then
-						-- waitrequest active, execute write operation
-						-- check if it is the beggining of a new cicle
-						if (write_address_i = 0) then
-							-- address is zero, new cicle
-							window_data_write_o <= '1';
-							window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-							s_windown_data_ctn  <= 1;
-						else
-							-- address not zero, verify counter
-							if (s_windown_data_ctn < 16) then
-								-- counter at data address
-								window_data_write_o <= '1';
-								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-								-- increment counter
-								s_windown_data_ctn  <= s_windown_data_ctn + 1;
-							else
-								-- counter at mask address
-								window_mask_write_o <= '1';
-								window_data_o       <= f_mask_conv(avalon_mm_windowing_i.writedata);
-								-- reset counter
-								s_windown_data_ctn  <= 0;
-							end if;
-						end if;
+				when 0 to 67 =>
+					-- check if the waitrequested is still active and avsbuff is not full
+					if ((s_waitrequest = '1') and (s_avsbuff_full = '0')) then
+						-- waitrequest active and avsbuff is not full, execute write operation
+						s_avsbuff_data  <= avalon_mm_windowing_i.writedata;
+						s_avsbuff_wrreq <= '1';
+					end if;
+
+					if (write_address_i = 0) then
+						-- address is zero, new cicle
+						s_window_data_ctn <= 0;
 					end if;
 
 				when others =>
 					null;
 			end case;
-			--			else
-			--				-- masking disabled
-			--				-- Registers Write Data
-			--				case (write_address_i) is
-			--					-- Case for access to all registers address
-			--
-			--					when 0 to 254 =>
-			--						-- check if the waitrequested is still active
-			--						if (s_waitrequest = '1') then
-			--							-- waitrequest active, execute write operation
-			--							-- check if it is the beggining of a new cicle
-			--							if (write_address_i = 0) then
-			--								-- address is zero, new cicle
-			--								window_data_write_o <= '1';
-			--								window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-			--								s_windown_data_ctn  <= 1;
-			--							else
-			--								-- address not zero, verify counter
-			--								if (s_windown_data_ctn < 16) then
-			--									-- counter at data address
-			--									window_data_write_o <= '1';
-			--									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-			--									-- increment counter
-			--									s_windown_data_ctn  <= s_windown_data_ctn + 1;
-			--								else
-			--									-- counter at mask address
-			--									window_data_write_o <= '1';
-			--									window_data_o       <= f_pixels_data_little_to_big_endian(avalon_mm_windowing_i.writedata);
-			--									-- set counter to first data
-			--									s_windown_data_ctn  <= 1;
-			--								end if;
-			--							end if;
-			--						end if;
-			--
-			--					when others =>
-			--						null;
-			--				end case;
-			--			end if;
 
 		end procedure p_writedata;
 
@@ -314,7 +397,180 @@ begin
 				v_write_address                   := to_integer(unsigned(avalon_mm_windowing_i.address));
 				p_writedata(v_write_address);
 			end if;
+
+			-------------------------------------------------------------------------------------------------
+			-- avsbuff finite state machine
+			case (s_avsbuff_state) is
+
+				-- avsbuff is empty
+				when IDLE =>
+					s_avsbuff_state     <= IDLE;
+					window_data_write_o <= '0';
+					window_data_o       <= (others => '0');
+					window_mask_write_o <= '0';
+					window_data_o       <= (others => '0');
+					s_avsbuff_rdreq     <= '0';
+					s_avsbuff_delay     <= '0';
+					if (s_avsbuff_delay = '1') then
+						s_avsbuff_state <= IDLE;
+					else
+						-- check if the avsbuff have available data
+						if (s_avsbuff_empty = '0') then
+							s_avsbuff_state <= QWORD_0;
+						end if;
+					end if;
+
+				-- 1st qword (64b)
+				when QWORD_0 =>
+					s_avsbuff_state     <= IDLE;
+					window_data_write_o <= '0';
+					window_data_o       <= (others => '0');
+					window_mask_write_o <= '0';
+					window_data_o       <= (others => '0');
+					s_avsbuff_rdreq     <= '0';
+					s_avsbuff_delay     <= '0';
+					if (s_avsbuff_delay = '1') then
+						s_avsbuff_state <= QWORD_0;
+					else
+						if (window_buffer_change_i = '1') then
+							s_avsbuff_rdreq <= '1';
+							s_avsbuff_delay <= '1';
+						else
+							s_avsbuff_state <= QWORD_1;
+							if (s_window_data_ctn < 16) then
+								-- counter at data address
+								window_data_write_o <= '1';
+								window_data_o       <= f_pixels_data_little_to_big_endian(s_avsbuff_q_qword_0);
+								-- increment counter
+								s_window_data_ctn   <= s_window_data_ctn + 1;
+							else
+								-- counter at mask address
+								window_mask_write_o <= '1';
+								window_data_o       <= f_mask_conv(s_avsbuff_q_qword_0);
+								-- reset counter
+								s_window_data_ctn   <= 0;
+								s_avsbuff_delay     <= '1';
+							end if;
+							s_avsbuff_rdreq <= '0';
+						end if;
+					end if;
+
+				-- 2nd qword (64b)	
+				when QWORD_1 =>
+					s_avsbuff_state     <= IDLE;
+					window_data_write_o <= '0';
+					window_data_o       <= (others => '0');
+					window_mask_write_o <= '0';
+					window_data_o       <= (others => '0');
+					s_avsbuff_rdreq     <= '0';
+					s_avsbuff_delay     <= '0';
+					if (s_avsbuff_delay = '1') then
+						s_avsbuff_state <= QWORD_1;
+					else
+						if (window_buffer_change_i = '1') then
+							s_avsbuff_rdreq <= '1';
+							s_avsbuff_delay <= '1';
+						else
+							s_avsbuff_state <= QWORD_2;
+							if (s_window_data_ctn < 16) then
+								-- counter at data address
+								window_data_write_o <= '1';
+								window_data_o       <= f_pixels_data_little_to_big_endian(s_avsbuff_q_qword_1);
+								-- increment counter
+								s_window_data_ctn   <= s_window_data_ctn + 1;
+							else
+								-- counter at mask address
+								window_mask_write_o <= '1';
+								window_data_o       <= f_mask_conv(s_avsbuff_q_qword_1);
+								-- reset counter
+								s_window_data_ctn   <= 0;
+								s_avsbuff_delay     <= '1';
+							end if;
+							s_avsbuff_rdreq <= '0';
+						end if;
+					end if;
+
+				-- 3rd qword (64b)
+				when QWORD_2 =>
+					s_avsbuff_state     <= IDLE;
+					window_data_write_o <= '0';
+					window_data_o       <= (others => '0');
+					window_mask_write_o <= '0';
+					window_data_o       <= (others => '0');
+					s_avsbuff_rdreq     <= '0';
+					s_avsbuff_delay     <= '0';
+					if (s_avsbuff_delay = '1') then
+						s_avsbuff_state <= QWORD_2;
+					else
+						if (window_buffer_change_i = '1') then
+							s_avsbuff_rdreq <= '1';
+							s_avsbuff_delay <= '1';
+						else
+							s_avsbuff_state <= QWORD_3;
+							if (s_window_data_ctn < 16) then
+								-- counter at data address
+								window_data_write_o <= '1';
+								window_data_o       <= f_pixels_data_little_to_big_endian(s_avsbuff_q_qword_2);
+								-- increment counter
+								s_window_data_ctn   <= s_window_data_ctn + 1;
+							else
+								-- counter at mask address
+								window_mask_write_o <= '1';
+								window_data_o       <= f_mask_conv(s_avsbuff_q_qword_2);
+								-- reset counter
+								s_window_data_ctn   <= 0;
+								s_avsbuff_delay     <= '1';
+							end if;
+							-- ack avsbuff data (will be toggled in QWORD_3, changing the effective data in the next QWORD_0)
+							s_avsbuff_rdreq <= '1';
+						end if;
+					end if;
+
+				-- 4th qword (64b)
+				when QWORD_3 =>
+					s_avsbuff_state     <= IDLE;
+					window_data_write_o <= '0';
+					window_data_o       <= (others => '0');
+					window_mask_write_o <= '0';
+					window_data_o       <= (others => '0');
+					s_avsbuff_rdreq     <= '0';
+					s_avsbuff_delay     <= '0';
+					if (s_avsbuff_delay = '1') then
+						s_avsbuff_state <= QWORD_3;
+					else
+						if (window_buffer_change_i = '1') then
+							s_avsbuff_rdreq <= '0';
+							s_avsbuff_delay <= '1';
+						else
+							s_avsbuff_state <= IDLE;
+							-- check if there is more data to be processed
+							if (unsigned(s_avsbuff_usedw) > 1) then
+								s_avsbuff_state <= QWORD_0;
+							end if;
+							if (s_window_data_ctn < 16) then
+								-- counter at data address
+								window_data_write_o <= '1';
+								window_data_o       <= f_pixels_data_little_to_big_endian(s_avsbuff_q_qword_3);
+								-- increment counter
+								s_window_data_ctn   <= s_window_data_ctn + 1;
+							else
+								-- counter at mask address
+								window_mask_write_o <= '1';
+								window_data_o       <= f_mask_conv(s_avsbuff_q_qword_3);
+								-- reset counter
+								s_window_data_ctn   <= 0;
+								s_avsbuff_delay     <= '1';
+								-- go directly to idle to avoid losing data in the case a mask is found in this position
+								s_avsbuff_state     <= IDLE;
+							end if;
+							s_avsbuff_rdreq <= '0';
+						end if;
+					end if;
+
+			end case;
+
 		end if;
+
 	end process p_avalon_mm_windowing_write;
 
 end architecture rtl;

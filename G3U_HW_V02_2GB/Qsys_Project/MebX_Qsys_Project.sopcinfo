@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.06.18.16:48:38 -->
+ <!-- 2019.08.05.14:19:30 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1560887317</value>
+  <value>1565025569</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -724,7 +724,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_A"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    path="COMM_Pedreiro_v1_01_A">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -1585,7 +1585,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -1902,7 +1902,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_L_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
   </interface>
@@ -1944,7 +1944,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -2255,7 +2255,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_R_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -2269,7 +2269,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_B"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    path="COMM_Pedreiro_v1_01_B">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -3130,7 +3130,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -3447,7 +3447,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_L_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
   </interface>
@@ -3489,7 +3489,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -3800,7 +3800,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_R_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -3814,7 +3814,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_C"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    path="COMM_Pedreiro_v1_01_C">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -4675,7 +4675,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -4992,7 +4992,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_L_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
   </interface>
@@ -5034,7 +5034,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -5345,7 +5345,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_R_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -5359,7 +5359,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_D"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    path="COMM_Pedreiro_v1_01_D">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -6220,7 +6220,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -6537,7 +6537,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_L_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
   </interface>
@@ -6579,7 +6579,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -6890,7 +6890,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_R_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -6904,7 +6904,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_E"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    path="COMM_Pedreiro_v1_01_E">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -7765,7 +7765,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -8082,7 +8082,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_L_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
   </interface>
@@ -8124,7 +8124,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -8435,7 +8435,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_R_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -8449,7 +8449,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="COMM_Pedreiro_v1_01_F"
    kind="COMM_Pedreiro_v1_01"
-   version="1.8"
+   version="1.9"
    path="COMM_Pedreiro_v1_01_F">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -9310,7 +9310,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -9627,7 +9627,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_L_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
   </interface>
@@ -9669,7 +9669,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="addressSpan">
     <type>java.math.BigInteger</type>
-    <value>8192</value>
+    <value>32768</value>
     <derived>true</derived>
     <enabled>true</enabled>
     <visible>false</visible>
@@ -9980,7 +9980,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_R_buffer_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -18285,11 +18285,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>512</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -18385,7 +18385,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18417,7 +18417,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>512</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -18664,7 +18664,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x100020000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100028000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x100030000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100038000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x100040000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100048000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x100050000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100058000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x100060000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -19016,13 +19016,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -19339,13 +19339,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -19359,96 +19359,96 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer</name>
-    <baseAddress>4295032832</baseAddress>
-    <span>8192</span>
+    <baseAddress>4294967296</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer</name>
-    <baseAddress>4295041024</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295032832</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer</name>
-    <baseAddress>4295049216</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295098368</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer</name>
-    <baseAddress>4295057408</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295163904</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer</name>
-    <baseAddress>4295065600</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295229440</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer</name>
-    <baseAddress>4295073792</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295294976</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer</name>
-    <baseAddress>4294967296</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295000064</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer</name>
-    <baseAddress>4294975488</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295065600</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer</name>
-    <baseAddress>4294983680</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295131136</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer</name>
-    <baseAddress>4294991872</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295196672</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer</name>
-    <baseAddress>4295000064</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295262208</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer</name>
-    <baseAddress>4295008256</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295327744</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>true</isBridge>
@@ -20394,11 +20394,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>512</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -20494,7 +20494,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -20526,7 +20526,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>512</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -20773,7 +20773,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100002000' end='0x100004000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100004000' end='0x100006000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100006000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x10000A000' end='0x10000C000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100012000' end='0x100014000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100014000' end='0x100016000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100016000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x10001A000' end='0x10001C000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100008000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x100010000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100018000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x100020000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100028000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x100030000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100038000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x100040000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100048000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x100050000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100058000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x100060000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -21125,13 +21125,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -21432,13 +21432,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -21452,96 +21452,96 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer</name>
-    <baseAddress>4295032832</baseAddress>
-    <span>8192</span>
+    <baseAddress>4294967296</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer</name>
-    <baseAddress>4295041024</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295032832</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer</name>
-    <baseAddress>4295049216</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295098368</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer</name>
-    <baseAddress>4295057408</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295163904</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer</name>
-    <baseAddress>4295065600</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295229440</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
     <slaveName>avalon_slave_L_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer</name>
-    <baseAddress>4295073792</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295294976</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_A</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer</name>
-    <baseAddress>4294967296</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295000064</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_B</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer</name>
-    <baseAddress>4294975488</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295065600</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_C</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer</name>
-    <baseAddress>4294983680</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295131136</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_D</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer</name>
-    <baseAddress>4294991872</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295196672</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_E</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer</name>
-    <baseAddress>4295000064</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295262208</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
     <moduleName>COMM_Pedreiro_v1_01_F</moduleName>
     <slaveName>avalon_slave_R_buffer</slaveName>
     <name>COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer</name>
-    <baseAddress>4295008256</baseAddress>
-    <span>8192</span>
+    <baseAddress>4295327744</baseAddress>
+    <span>32768</span>
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
@@ -72820,7 +72820,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1560887317</value>
+   <value>1565025569</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -72840,7 +72840,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1560887317</value>
+   <value>1565025569</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -72856,7 +72856,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1560887317</value>
+   <value>1565025569</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -79716,7 +79716,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100010000</value>
+   <value>0x0000000100000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79767,7 +79767,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100012000</value>
+   <value>0x0000000100010000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79818,7 +79818,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100010000</value>
+   <value>0x0000000100000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79869,7 +79869,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100012000</value>
+   <value>0x0000000100010000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79920,7 +79920,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100014000</value>
+   <value>0x0000000100020000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -79971,7 +79971,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100014000</value>
+   <value>0x0000000100020000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80022,7 +80022,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100016000</value>
+   <value>0x0000000100030000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80073,7 +80073,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100016000</value>
+   <value>0x0000000100030000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80124,7 +80124,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100018000</value>
+   <value>0x0000000100040000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80175,7 +80175,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100018000</value>
+   <value>0x0000000100040000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80226,7 +80226,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010001a000</value>
+   <value>0x0000000100050000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80277,7 +80277,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010001a000</value>
+   <value>0x0000000100050000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80328,7 +80328,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100000000</value>
+   <value>0x0000000100008000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80379,7 +80379,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100002000</value>
+   <value>0x0000000100018000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80430,7 +80430,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100000000</value>
+   <value>0x0000000100008000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80481,7 +80481,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100002000</value>
+   <value>0x0000000100018000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80532,7 +80532,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100004000</value>
+   <value>0x0000000100028000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80583,7 +80583,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100004000</value>
+   <value>0x0000000100028000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80634,7 +80634,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100006000</value>
+   <value>0x0000000100038000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80685,7 +80685,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100006000</value>
+   <value>0x0000000100038000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80736,7 +80736,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100008000</value>
+   <value>0x0000000100048000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80787,7 +80787,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000000100008000</value>
+   <value>0x0000000100048000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80838,7 +80838,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010000a000</value>
+   <value>0x0000000100058000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -80889,7 +80889,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x000000010000a000</value>
+   <value>0x0000000100058000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -86551,7 +86551,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>COMM_Pedreiro_v1_01</displayName>
-  <version>1.8</version>
+  <version>1.9</version>
  </plugin>
  <plugin>
   <instanceCount>20</instanceCount>

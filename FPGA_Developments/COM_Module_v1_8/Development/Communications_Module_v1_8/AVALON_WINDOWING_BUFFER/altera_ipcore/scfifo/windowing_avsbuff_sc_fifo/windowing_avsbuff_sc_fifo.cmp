@@ -25,6 +25,6 @@ component windowing_avsbuff_sc_fifo
 		empty		: OUT STD_LOGIC ;
 		full		: OUT STD_LOGIC ;
 		q		: OUT STD_LOGIC_VECTOR (255 DOWNTO 0);
-		usedw		: OUT STD_LOGIC_VECTOR (8 DOWNTO 0)
+		usedw		: OUT STD_LOGIC_VECTOR (5 DOWNTO 0)
 	);
 end component;

@@ -89,13 +89,13 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 176 104)
 		(output)
-		(text "usedw[8..0]" (rect 0 0 68 14)(font "Arial" (font_size 8)))
-		(text "usedw[8..0]" (rect 99 97 155 110)(font "Arial" (font_size 8)))
+		(text "usedw[5..0]" (rect 0 0 68 14)(font "Arial" (font_size 8)))
+		(text "usedw[5..0]" (rect 99 97 155 110)(font "Arial" (font_size 8)))
 		(line (pt 176 104)(pt 160 104)(line_width 3))
 	)
 	(drawing
 		(text "(ack)" (rect 50 83 120 177)(font "Arial" ))
-		(text "256 bits x 512 words" (rect 73 149 230 309)(font "Arial" ))
+		(text "256 bits x 64 words" (rect 78 149 235 309)(font "Arial" ))
 		(line (pt 16 124)(pt 160 124))
 		(line (pt 16 32)(pt 160 32))
 		(line (pt 160 32)(pt 160 194))

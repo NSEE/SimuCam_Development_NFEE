@@ -206,7 +206,7 @@ architecture rtl of avalon_mm_windowing_write_ent is
 	signal s_avsbuff_empty     : std_logic;
 	signal s_avsbuff_full      : std_logic;
 	signal s_avsbuff_q         : std_logic_vector(255 downto 0);
-	signal s_avsbuff_usedw     : std_logic_vector(8 downto 0);
+	signal s_avsbuff_usedw     : std_logic_vector(5 downto 0);
 	signal s_avsbuff_q_qword_0 : std_logic_vector(63 downto 0);
 	signal s_avsbuff_q_qword_1 : std_logic_vector(63 downto 0);
 	signal s_avsbuff_q_qword_2 : std_logic_vector(63 downto 0);
@@ -560,6 +560,8 @@ begin
 								-- reset counter
 								s_window_data_ctn   <= 0;
 								s_avsbuff_delay     <= '1';
+								-- go directly to idle to avoid losing data in the case a mask is found in this position
+								s_avsbuff_state     <= IDLE;
 							end if;
 							s_avsbuff_rdreq <= '0';
 						end if;
