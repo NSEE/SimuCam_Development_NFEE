@@ -1,0 +1,107 @@
+# Altera Corporation Software and/or Intellectual Property License File
+# Issued 31 August 2015
+# Upgrade to these products will no longer be available after the Maintenance Expiration  
+# date unless licenses are renewed.  
+# Floating Server License
+# Primary Machine Name-NSEESERVER
+# Primary Machine ID-NIC ID 001E90946D52
+# Redundant Server 2-N/A
+# Redundant Server 3-N/A
+# Product License Summary:
+# University License NIOS II Soft Processor MegaCore, 2 Seat(s)
+# - Maintenance Expiration of 2025.07
+# - License Expires 18-Jul-2025
+# Quartus II SE Float for University Program, 2 Seat(s)
+# - Maintenance Expiration of 2025.07
+# - License Expires 18-Jul-2025
+# ModelSim Altera Edition for University Program, 2 Seat(s)
+# - Maintenance Expiration of 2016.07
+# - License Expires 20-Jul-2016
+################################################################################ 
+SERVER NSEESERVER 001E90946D52 1800 
+VENDOR alterad c:/altera/10.1/quartus/bin/alterad.exe
+VENDOR mgcld c:/altera/11.0/modelsim_ae/win32aloem/mgcld.exe 
+USE_SERVER
+################################################################################
+# FEATURE START 
+# The following is a license file for the Altera Nios II University Soft Processor  
+# MegaCore  
+# Number of seat licenses is 2 
+# License Expires 18-Jul-2025 
+FEATURE 6AF7_00A2 alterad 2025.07 18-jul-2025 2 FBA90DFEBD63 \
+	VENDOR_STRING="iiiiiiiihdLkhIIIIIIIImPDuiaaaaaaaaP1X38DDDDDDDDmjz5cdddddddd4mGzGJJJJJJJJiqIh0uuuuuuuucYYWiVVVVVVVVcp0FVHHHHHHHHPUEakffffffffR2FFRkkkkkkkkqL$84" \
+	SIGN="136D 6A2B 7AD2 78E8 EDA6 A389 CE56 4679 8C7A 3891 5109 \
+	FBFE 35D0 BB66 AF85 0257 35AD 3D0D C947 302A 28A3 17AD 39E8 \
+	2A7A 6634 8487 EC8A C33B D9C6 130B"
+# FEATURE END 
+################################################################################
+# FEATURE START 
+# The following is a license file for the Altera IP Base Suite (FIR, FFT, NCO, DDR/2/3  
+# SDRAM Controllers supporting ALTMEMPHY, QDRII, DDR/DDR2 Library, RLDRAM II, SerialLite  
+# II, FIR Compiler II, QDRII/II+ w/UniPHY, RLDRAM II w/UniPHY and DDR2 / 3 SDRAM Controllers  
+# supporting ALTMEMPHY and UniPHY).  
+# Number of seat licenses is 1 
+# No license expiration date 
+FEATURE quartus alterad 2040.12 permanent uncounted 08ECFB0CE77D \
+	HOSTID=001c25df4612 TS_OK SIGN="1FBC B2F6 4A80 0A39 504C ED27 \
+	CCA1 024C C561 D72B 50C1 DAD6 B45C 10CE 054C 1E75 38ED 7DD1 \
+	BCFA B107 8EB6 BC07 1039 8294 9975 ADE3 D9B7 B2E8 AE41 B2F0"
+# FEATURE END 
+################################################################################
+# FEATURE START 
+# The following is a license file for Altera's MAX+PLUS II Software 
+# Number of seat licenses is 2 
+# License Expires 18-Jul-2025 
+FEATURE maxplus2 alterad 2025.07 18-jul-2025 2 EBDE2A809AF0 \
+	SIGN="092F 5186 1026 70A8 C526 DEFC 81B7 3E08 1A85 5DF4 96CB \
+	AD88 07BD A9BC F1FC 1706 74B2 A964 5E8A BD52 7D23 2EE3 8717 \
+	4C8D F0ED 4EE8 082F EC47 D3B6 9143"
+# FEATURE END 
+################################################################################
+# FEATURE START 
+# The following is a license file for Altera's MAX+PLUS II Verilog 
+# Number of seat licenses is 2 
+# License Expires 18-Jul-2025 
+FEATURE maxplus2verilog alterad 2025.07 18-jul-2025 2 3915EC9F5FF6 \
+	SIGN="1CAC F295 1BC0 51D9 2208 ECE5 2F77 CEEE 8800 9C4B FA98 \
+	F0CD 78AA 4FC1 77DB 1974 A42E 06AF C3C5 9670 BBA4 726D 09EF \
+	5CC2 2304 2B5B BB71 A9F8 EAAC 0157"
+# FEATURE END 
+################################################################################
+# FEATURE START 
+# The following is a license file for Altera's MAX+PLUS II VHDL 
+# Number of seat licenses is 2 
+# License Expires 18-Jul-2025 
+FEATURE maxplus2vhdl alterad 2025.07 18-jul-2025 2 9BB569A929F4 \
+	SIGN="0F72 0713 C3EA 1596 9113 AA4B 406B 4F72 FCD7 D9DD EB94 \
+	8D48 E175 F351 482E 168B CD5F 2D39 5E6D 0955 56B4 EFBF F0F9 \
+	76F6 CA5F 1013 7B61 AA06 2F28 3DAC"
+# FEATURE END 
+################################################################################
+# FEATURE START 
+# The following is a license file for Quartus II Subscription Edition University Floating  
+# Number of seat licenses is 2 
+# License Expires 18-Jul-2025 
+FEATURE maxplus2 alterad 2025.07 18-jul-2025 2 EBDE2A809AF0 \
+	SIGN="092F 5186 1026 70A8 C526 DEFC 81B7 3E08 1A85 5DF4 96CB \
+	AD88 07BD A9BC F1FC 1706 74B2 A964 5E8A BD52 7D23 2EE3 8717 \
+	4C8D F0ED 4EE8 082F EC47 D3B6 9143"
+FEATURE quartus alterad 2025.07 18-jul-2025 2 2D50251FC220 SIGN="19C2 \
+	7EBE 5AE3 3A04 C1AE 9465 18C6 EAE7 9374 C2C0 4556 36E7 B164 \
+	1FAF CA53 0F4E 6F10 AA69 CC91 716E E321 B8D7 050F 59D6 CF85 \
+	8D4C 6EED F276 2A60 E7DD"
+# FEATURE END 
+################################################################################
+# FEATURE START 
+# The following is a feature line for Altera ModelSim Altera University Edition 
+# Number of seat licenses is 2 
+# License Expires 20-Jul-2016 
+INCREMENT alteramtivsim mgcld 2016.07 20-jul-2016 2 EE86AF0FE3107CA98826 \
+    \
+  VENDOR_STRING=2DDD6590 ISSUER=Altera SN=50182950 SIGN2="1444 BC0F 7CA6 \
+    1702 A8A0 61D5 CEB1 8B76 390F 2E73 C035 9158 8F16 B469 2CD5 0D2F 0692 \
+    93BA CB87 77F8 18FD F90F 9D86 4BF8 8815 E179 8783 40D1 67E4 99D9"
+
+# FEATURE END 
+################################################################################
+# End of Altera Corporation Software and/or Intellectual Property License File. Issued 08/31/2015
