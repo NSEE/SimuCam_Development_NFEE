@@ -2,26 +2,6 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
-	comm_a_conduit_end_data_in_signal,
-	comm_a_conduit_end_data_out_signal,
-	comm_a_conduit_end_strobe_in_signal,
-	comm_a_conduit_end_strobe_out_signal,
-	comm_a_sync_end_sync_channel_signal,
-	comm_b_conduit_end_data_in_signal,
-	comm_b_conduit_end_data_out_signal,
-	comm_b_conduit_end_strobe_in_signal,
-	comm_b_conduit_end_strobe_out_signal,
-	comm_b_sync_end_sync_channel_signal,
-	comm_c_conduit_end_data_in_signal,
-	comm_c_conduit_end_data_out_signal,
-	comm_c_conduit_end_strobe_in_signal,
-	comm_c_conduit_end_strobe_out_signal,
-	comm_c_sync_end_sync_channel_signal,
-	comm_d_conduit_end_data_in_signal,
-	comm_d_conduit_end_data_out_signal,
-	comm_d_conduit_end_strobe_in_signal,
-	comm_d_conduit_end_strobe_out_signal,
-	comm_d_sync_end_sync_channel_signal,
 	csense_adc_fo_export,
 	csense_cs_n_export,
 	csense_sck_export,
@@ -99,16 +79,6 @@ module MebX_Qsys_Project (
 	sd_card_wp_n_io_export,
 	ssdp_ssdp0,
 	ssdp_ssdp1,
-	sync_in_conduit,
-	sync_out_conduit,
-	sync_spwa_conduit,
-	sync_spwb_conduit,
-	sync_spwc_conduit,
-	sync_spwd_conduit,
-	sync_spwe_conduit,
-	sync_spwf_conduit,
-	sync_spwg_conduit,
-	sync_spwh_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -117,30 +87,22 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_read_n_out,
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out);	
+	tristate_conduit_tcm_chipselect_n_out,
+	ftdi_0_conduit_umft_pins_umft_data_signal,
+	ftdi_0_conduit_umft_pins_umft_reset_n_signal,
+	ftdi_0_conduit_umft_pins_umft_rxf_n_signal,
+	ftdi_0_conduit_umft_pins_umft_clock_signal,
+	ftdi_0_conduit_umft_pins_umft_wakeup_n_signal,
+	ftdi_0_conduit_umft_pins_umft_be_signal,
+	ftdi_0_conduit_umft_pins_umft_txe_n_signal,
+	ftdi_0_conduit_umft_pins_umft_gpio_bus_signal,
+	ftdi_0_conduit_umft_pins_umft_wr_n_signal,
+	ftdi_0_conduit_umft_pins_umft_rd_n_signal,
+	ftdi_0_conduit_umft_pins_umft_oe_n_signal,
+	ftdi_0_conduit_umft_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
-	input		comm_a_conduit_end_data_in_signal;
-	output		comm_a_conduit_end_data_out_signal;
-	input		comm_a_conduit_end_strobe_in_signal;
-	output		comm_a_conduit_end_strobe_out_signal;
-	input		comm_a_sync_end_sync_channel_signal;
-	input		comm_b_conduit_end_data_in_signal;
-	output		comm_b_conduit_end_data_out_signal;
-	input		comm_b_conduit_end_strobe_in_signal;
-	output		comm_b_conduit_end_strobe_out_signal;
-	input		comm_b_sync_end_sync_channel_signal;
-	input		comm_c_conduit_end_data_in_signal;
-	output		comm_c_conduit_end_data_out_signal;
-	input		comm_c_conduit_end_strobe_in_signal;
-	output		comm_c_conduit_end_strobe_out_signal;
-	input		comm_c_sync_end_sync_channel_signal;
-	input		comm_d_conduit_end_data_in_signal;
-	output		comm_d_conduit_end_data_out_signal;
-	input		comm_d_conduit_end_strobe_in_signal;
-	output		comm_d_conduit_end_strobe_out_signal;
-	input		comm_d_sync_end_sync_channel_signal;
 	output		csense_adc_fo_export;
 	output	[1:0]	csense_cs_n_export;
 	output		csense_sck_export;
@@ -218,16 +180,6 @@ module MebX_Qsys_Project (
 	input		sd_card_wp_n_io_export;
 	output	[7:0]	ssdp_ssdp0;
 	output	[7:0]	ssdp_ssdp1;
-	input		sync_in_conduit;
-	output		sync_out_conduit;
-	output		sync_spwa_conduit;
-	output		sync_spwb_conduit;
-	output		sync_spwc_conduit;
-	output		sync_spwd_conduit;
-	output		sync_spwe_conduit;
-	output		sync_spwf_conduit;
-	output		sync_spwg_conduit;
-	output		sync_spwh_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;
@@ -237,4 +189,16 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
+	inout	[31:0]	ftdi_0_conduit_umft_pins_umft_data_signal;
+	output		ftdi_0_conduit_umft_pins_umft_reset_n_signal;
+	input		ftdi_0_conduit_umft_pins_umft_rxf_n_signal;
+	input		ftdi_0_conduit_umft_pins_umft_clock_signal;
+	inout		ftdi_0_conduit_umft_pins_umft_wakeup_n_signal;
+	inout	[3:0]	ftdi_0_conduit_umft_pins_umft_be_signal;
+	input		ftdi_0_conduit_umft_pins_umft_txe_n_signal;
+	inout	[1:0]	ftdi_0_conduit_umft_pins_umft_gpio_bus_signal;
+	output		ftdi_0_conduit_umft_pins_umft_wr_n_signal;
+	output		ftdi_0_conduit_umft_pins_umft_rd_n_signal;
+	output		ftdi_0_conduit_umft_pins_umft_oe_n_signal;
+	output		ftdi_0_conduit_umft_pins_umft_siwu_n_signal;
 endmodule

@@ -1,26 +1,6 @@
 	MebX_Qsys_Project u0 (
 		.button_export                                        (<connected-to-button_export>),                                        //                     button.export
 		.clk50_clk                                            (<connected-to-clk50_clk>),                                            //                      clk50.clk
-		.comm_a_conduit_end_data_in_signal                    (<connected-to-comm_a_conduit_end_data_in_signal>),                    //         comm_a_conduit_end.data_in_signal
-		.comm_a_conduit_end_data_out_signal                   (<connected-to-comm_a_conduit_end_data_out_signal>),                   //                           .data_out_signal
-		.comm_a_conduit_end_strobe_in_signal                  (<connected-to-comm_a_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
-		.comm_a_conduit_end_strobe_out_signal                 (<connected-to-comm_a_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
-		.comm_a_sync_end_sync_channel_signal                  (<connected-to-comm_a_sync_end_sync_channel_signal>),                  //            comm_a_sync_end.sync_channel_signal
-		.comm_b_conduit_end_data_in_signal                    (<connected-to-comm_b_conduit_end_data_in_signal>),                    //         comm_b_conduit_end.data_in_signal
-		.comm_b_conduit_end_data_out_signal                   (<connected-to-comm_b_conduit_end_data_out_signal>),                   //                           .data_out_signal
-		.comm_b_conduit_end_strobe_in_signal                  (<connected-to-comm_b_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
-		.comm_b_conduit_end_strobe_out_signal                 (<connected-to-comm_b_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
-		.comm_b_sync_end_sync_channel_signal                  (<connected-to-comm_b_sync_end_sync_channel_signal>),                  //            comm_b_sync_end.sync_channel_signal
-		.comm_c_conduit_end_data_in_signal                    (<connected-to-comm_c_conduit_end_data_in_signal>),                    //         comm_c_conduit_end.data_in_signal
-		.comm_c_conduit_end_data_out_signal                   (<connected-to-comm_c_conduit_end_data_out_signal>),                   //                           .data_out_signal
-		.comm_c_conduit_end_strobe_in_signal                  (<connected-to-comm_c_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
-		.comm_c_conduit_end_strobe_out_signal                 (<connected-to-comm_c_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
-		.comm_c_sync_end_sync_channel_signal                  (<connected-to-comm_c_sync_end_sync_channel_signal>),                  //            comm_c_sync_end.sync_channel_signal
-		.comm_d_conduit_end_data_in_signal                    (<connected-to-comm_d_conduit_end_data_in_signal>),                    //         comm_d_conduit_end.data_in_signal
-		.comm_d_conduit_end_data_out_signal                   (<connected-to-comm_d_conduit_end_data_out_signal>),                   //                           .data_out_signal
-		.comm_d_conduit_end_strobe_in_signal                  (<connected-to-comm_d_conduit_end_strobe_in_signal>),                  //                           .strobe_in_signal
-		.comm_d_conduit_end_strobe_out_signal                 (<connected-to-comm_d_conduit_end_strobe_out_signal>),                 //                           .strobe_out_signal
-		.comm_d_sync_end_sync_channel_signal                  (<connected-to-comm_d_sync_end_sync_channel_signal>),                  //            comm_d_sync_end.sync_channel_signal
 		.csense_adc_fo_export                                 (<connected-to-csense_adc_fo_export>),                                 //              csense_adc_fo.export
 		.csense_cs_n_export                                   (<connected-to-csense_cs_n_export>),                                   //                csense_cs_n.export
 		.csense_sck_export                                    (<connected-to-csense_sck_export>),                                    //                 csense_sck.export
@@ -98,16 +78,6 @@
 		.sd_card_wp_n_io_export                               (<connected-to-sd_card_wp_n_io_export>),                               //            sd_card_wp_n_io.export
 		.ssdp_ssdp0                                           (<connected-to-ssdp_ssdp0>),                                           //                       ssdp.ssdp0
 		.ssdp_ssdp1                                           (<connected-to-ssdp_ssdp1>),                                           //                           .ssdp1
-		.sync_in_conduit                                      (<connected-to-sync_in_conduit>),                                      //                    sync_in.conduit
-		.sync_out_conduit                                     (<connected-to-sync_out_conduit>),                                     //                   sync_out.conduit
-		.sync_spwa_conduit                                    (<connected-to-sync_spwa_conduit>),                                    //                  sync_spwa.conduit
-		.sync_spwb_conduit                                    (<connected-to-sync_spwb_conduit>),                                    //                  sync_spwb.conduit
-		.sync_spwc_conduit                                    (<connected-to-sync_spwc_conduit>),                                    //                  sync_spwc.conduit
-		.sync_spwd_conduit                                    (<connected-to-sync_spwd_conduit>),                                    //                  sync_spwd.conduit
-		.sync_spwe_conduit                                    (<connected-to-sync_spwe_conduit>),                                    //                  sync_spwe.conduit
-		.sync_spwf_conduit                                    (<connected-to-sync_spwf_conduit>),                                    //                  sync_spwf.conduit
-		.sync_spwg_conduit                                    (<connected-to-sync_spwg_conduit>),                                    //                  sync_spwg.conduit
-		.sync_spwh_conduit                                    (<connected-to-sync_spwh_conduit>),                                    //                  sync_spwh.conduit
 		.temp_scl_export                                      (<connected-to-temp_scl_export>),                                      //                   temp_scl.export
 		.temp_sda_export                                      (<connected-to-temp_sda_export>),                                      //                   temp_sda.export
 		.timer_1ms_external_port_export                       (<connected-to-timer_1ms_external_port_export>),                       //    timer_1ms_external_port.export
@@ -116,6 +86,18 @@
 		.tristate_conduit_tcm_read_n_out                      (<connected-to-tristate_conduit_tcm_read_n_out>),                      //                           .tcm_read_n_out
 		.tristate_conduit_tcm_write_n_out                     (<connected-to-tristate_conduit_tcm_write_n_out>),                     //                           .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                        (<connected-to-tristate_conduit_tcm_data_out>),                        //                           .tcm_data_out
-		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>)                 //                           .tcm_chipselect_n_out
+		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                //                           .tcm_chipselect_n_out
+		.ftdi_0_conduit_umft_pins_umft_data_signal            (<connected-to-ftdi_0_conduit_umft_pins_umft_data_signal>),            //   ftdi_0_conduit_umft_pins.umft_data_signal
+		.ftdi_0_conduit_umft_pins_umft_reset_n_signal         (<connected-to-ftdi_0_conduit_umft_pins_umft_reset_n_signal>),         //                           .umft_reset_n_signal
+		.ftdi_0_conduit_umft_pins_umft_rxf_n_signal           (<connected-to-ftdi_0_conduit_umft_pins_umft_rxf_n_signal>),           //                           .umft_rxf_n_signal
+		.ftdi_0_conduit_umft_pins_umft_clock_signal           (<connected-to-ftdi_0_conduit_umft_pins_umft_clock_signal>),           //                           .umft_clock_signal
+		.ftdi_0_conduit_umft_pins_umft_wakeup_n_signal        (<connected-to-ftdi_0_conduit_umft_pins_umft_wakeup_n_signal>),        //                           .umft_wakeup_n_signal
+		.ftdi_0_conduit_umft_pins_umft_be_signal              (<connected-to-ftdi_0_conduit_umft_pins_umft_be_signal>),              //                           .umft_be_signal
+		.ftdi_0_conduit_umft_pins_umft_txe_n_signal           (<connected-to-ftdi_0_conduit_umft_pins_umft_txe_n_signal>),           //                           .umft_txe_n_signal
+		.ftdi_0_conduit_umft_pins_umft_gpio_bus_signal        (<connected-to-ftdi_0_conduit_umft_pins_umft_gpio_bus_signal>),        //                           .umft_gpio_bus_signal
+		.ftdi_0_conduit_umft_pins_umft_wr_n_signal            (<connected-to-ftdi_0_conduit_umft_pins_umft_wr_n_signal>),            //                           .umft_wr_n_signal
+		.ftdi_0_conduit_umft_pins_umft_rd_n_signal            (<connected-to-ftdi_0_conduit_umft_pins_umft_rd_n_signal>),            //                           .umft_rd_n_signal
+		.ftdi_0_conduit_umft_pins_umft_oe_n_signal            (<connected-to-ftdi_0_conduit_umft_pins_umft_oe_n_signal>),            //                           .umft_oe_n_signal
+		.ftdi_0_conduit_umft_pins_umft_siwu_n_signal          (<connected-to-ftdi_0_conduit_umft_pins_umft_siwu_n_signal>)           //                           .umft_siwu_n_signal
 	);
 

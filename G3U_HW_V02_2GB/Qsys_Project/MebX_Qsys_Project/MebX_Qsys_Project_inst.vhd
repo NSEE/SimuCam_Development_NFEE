@@ -2,26 +2,6 @@
 		port (
 			button_export                                        : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                            : in    std_logic                     := 'X';             -- clk
-			comm_a_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_a_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_a_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_a_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_a_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_b_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_b_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_b_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_b_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_b_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_c_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_c_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_c_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_c_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_c_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
-			comm_d_conduit_end_data_in_signal                    : in    std_logic                     := 'X';             -- data_in_signal
-			comm_d_conduit_end_data_out_signal                   : out   std_logic;                                        -- data_out_signal
-			comm_d_conduit_end_strobe_in_signal                  : in    std_logic                     := 'X';             -- strobe_in_signal
-			comm_d_conduit_end_strobe_out_signal                 : out   std_logic;                                        -- strobe_out_signal
-			comm_d_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 			csense_adc_fo_export                                 : out   std_logic;                                        -- export
 			csense_cs_n_export                                   : out   std_logic_vector(1 downto 0);                     -- export
 			csense_sck_export                                    : out   std_logic;                                        -- export
@@ -99,16 +79,6 @@
 			sd_card_wp_n_io_export                               : in    std_logic                     := 'X';             -- export
 			ssdp_ssdp0                                           : out   std_logic_vector(7 downto 0);                     -- ssdp0
 			ssdp_ssdp1                                           : out   std_logic_vector(7 downto 0);                     -- ssdp1
-			sync_in_conduit                                      : in    std_logic                     := 'X';             -- conduit
-			sync_out_conduit                                     : out   std_logic;                                        -- conduit
-			sync_spwa_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwb_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwc_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwd_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwe_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwf_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwg_conduit                                    : out   std_logic;                                        -- conduit
-			sync_spwh_conduit                                    : out   std_logic;                                        -- conduit
 			temp_scl_export                                      : out   std_logic;                                        -- export
 			temp_sda_export                                      : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                       : out   std_logic;                                        -- export
@@ -117,7 +87,19 @@
 			tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
+			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
+			ftdi_0_conduit_umft_pins_umft_data_signal            : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
+			ftdi_0_conduit_umft_pins_umft_reset_n_signal         : out   std_logic;                                        -- umft_reset_n_signal
+			ftdi_0_conduit_umft_pins_umft_rxf_n_signal           : in    std_logic                     := 'X';             -- umft_rxf_n_signal
+			ftdi_0_conduit_umft_pins_umft_clock_signal           : in    std_logic                     := 'X';             -- umft_clock_signal
+			ftdi_0_conduit_umft_pins_umft_wakeup_n_signal        : inout std_logic                     := 'X';             -- umft_wakeup_n_signal
+			ftdi_0_conduit_umft_pins_umft_be_signal              : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- umft_be_signal
+			ftdi_0_conduit_umft_pins_umft_txe_n_signal           : in    std_logic                     := 'X';             -- umft_txe_n_signal
+			ftdi_0_conduit_umft_pins_umft_gpio_bus_signal        : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- umft_gpio_bus_signal
+			ftdi_0_conduit_umft_pins_umft_wr_n_signal            : out   std_logic;                                        -- umft_wr_n_signal
+			ftdi_0_conduit_umft_pins_umft_rd_n_signal            : out   std_logic;                                        -- umft_rd_n_signal
+			ftdi_0_conduit_umft_pins_umft_oe_n_signal            : out   std_logic;                                        -- umft_oe_n_signal
+			ftdi_0_conduit_umft_pins_umft_siwu_n_signal          : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -125,26 +107,6 @@
 		port map (
 			button_export                                        => CONNECTED_TO_button_export,                                        --                     button.export
 			clk50_clk                                            => CONNECTED_TO_clk50_clk,                                            --                      clk50.clk
-			comm_a_conduit_end_data_in_signal                    => CONNECTED_TO_comm_a_conduit_end_data_in_signal,                    --         comm_a_conduit_end.data_in_signal
-			comm_a_conduit_end_data_out_signal                   => CONNECTED_TO_comm_a_conduit_end_data_out_signal,                   --                           .data_out_signal
-			comm_a_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_a_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
-			comm_a_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_a_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
-			comm_a_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_a_sync_end_sync_channel_signal,                  --            comm_a_sync_end.sync_channel_signal
-			comm_b_conduit_end_data_in_signal                    => CONNECTED_TO_comm_b_conduit_end_data_in_signal,                    --         comm_b_conduit_end.data_in_signal
-			comm_b_conduit_end_data_out_signal                   => CONNECTED_TO_comm_b_conduit_end_data_out_signal,                   --                           .data_out_signal
-			comm_b_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_b_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
-			comm_b_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_b_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
-			comm_b_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_b_sync_end_sync_channel_signal,                  --            comm_b_sync_end.sync_channel_signal
-			comm_c_conduit_end_data_in_signal                    => CONNECTED_TO_comm_c_conduit_end_data_in_signal,                    --         comm_c_conduit_end.data_in_signal
-			comm_c_conduit_end_data_out_signal                   => CONNECTED_TO_comm_c_conduit_end_data_out_signal,                   --                           .data_out_signal
-			comm_c_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_c_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
-			comm_c_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_c_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
-			comm_c_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_c_sync_end_sync_channel_signal,                  --            comm_c_sync_end.sync_channel_signal
-			comm_d_conduit_end_data_in_signal                    => CONNECTED_TO_comm_d_conduit_end_data_in_signal,                    --         comm_d_conduit_end.data_in_signal
-			comm_d_conduit_end_data_out_signal                   => CONNECTED_TO_comm_d_conduit_end_data_out_signal,                   --                           .data_out_signal
-			comm_d_conduit_end_strobe_in_signal                  => CONNECTED_TO_comm_d_conduit_end_strobe_in_signal,                  --                           .strobe_in_signal
-			comm_d_conduit_end_strobe_out_signal                 => CONNECTED_TO_comm_d_conduit_end_strobe_out_signal,                 --                           .strobe_out_signal
-			comm_d_sync_end_sync_channel_signal                  => CONNECTED_TO_comm_d_sync_end_sync_channel_signal,                  --            comm_d_sync_end.sync_channel_signal
 			csense_adc_fo_export                                 => CONNECTED_TO_csense_adc_fo_export,                                 --              csense_adc_fo.export
 			csense_cs_n_export                                   => CONNECTED_TO_csense_cs_n_export,                                   --                csense_cs_n.export
 			csense_sck_export                                    => CONNECTED_TO_csense_sck_export,                                    --                 csense_sck.export
@@ -222,16 +184,6 @@
 			sd_card_wp_n_io_export                               => CONNECTED_TO_sd_card_wp_n_io_export,                               --            sd_card_wp_n_io.export
 			ssdp_ssdp0                                           => CONNECTED_TO_ssdp_ssdp0,                                           --                       ssdp.ssdp0
 			ssdp_ssdp1                                           => CONNECTED_TO_ssdp_ssdp1,                                           --                           .ssdp1
-			sync_in_conduit                                      => CONNECTED_TO_sync_in_conduit,                                      --                    sync_in.conduit
-			sync_out_conduit                                     => CONNECTED_TO_sync_out_conduit,                                     --                   sync_out.conduit
-			sync_spwa_conduit                                    => CONNECTED_TO_sync_spwa_conduit,                                    --                  sync_spwa.conduit
-			sync_spwb_conduit                                    => CONNECTED_TO_sync_spwb_conduit,                                    --                  sync_spwb.conduit
-			sync_spwc_conduit                                    => CONNECTED_TO_sync_spwc_conduit,                                    --                  sync_spwc.conduit
-			sync_spwd_conduit                                    => CONNECTED_TO_sync_spwd_conduit,                                    --                  sync_spwd.conduit
-			sync_spwe_conduit                                    => CONNECTED_TO_sync_spwe_conduit,                                    --                  sync_spwe.conduit
-			sync_spwf_conduit                                    => CONNECTED_TO_sync_spwf_conduit,                                    --                  sync_spwf.conduit
-			sync_spwg_conduit                                    => CONNECTED_TO_sync_spwg_conduit,                                    --                  sync_spwg.conduit
-			sync_spwh_conduit                                    => CONNECTED_TO_sync_spwh_conduit,                                    --                  sync_spwh.conduit
 			temp_scl_export                                      => CONNECTED_TO_temp_scl_export,                                      --                   temp_scl.export
 			temp_sda_export                                      => CONNECTED_TO_temp_sda_export,                                      --                   temp_sda.export
 			timer_1ms_external_port_export                       => CONNECTED_TO_timer_1ms_external_port_export,                       --    timer_1ms_external_port.export
@@ -240,6 +192,18 @@
 			tristate_conduit_tcm_read_n_out                      => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                      --                           .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                     --                           .tcm_write_n_out
 			tristate_conduit_tcm_data_out                        => CONNECTED_TO_tristate_conduit_tcm_data_out,                        --                           .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                 --                           .tcm_chipselect_n_out
+			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                --                           .tcm_chipselect_n_out
+			ftdi_0_conduit_umft_pins_umft_data_signal            => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_data_signal,            --   ftdi_0_conduit_umft_pins.umft_data_signal
+			ftdi_0_conduit_umft_pins_umft_reset_n_signal         => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_reset_n_signal,         --                           .umft_reset_n_signal
+			ftdi_0_conduit_umft_pins_umft_rxf_n_signal           => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_rxf_n_signal,           --                           .umft_rxf_n_signal
+			ftdi_0_conduit_umft_pins_umft_clock_signal           => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_clock_signal,           --                           .umft_clock_signal
+			ftdi_0_conduit_umft_pins_umft_wakeup_n_signal        => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_wakeup_n_signal,        --                           .umft_wakeup_n_signal
+			ftdi_0_conduit_umft_pins_umft_be_signal              => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_be_signal,              --                           .umft_be_signal
+			ftdi_0_conduit_umft_pins_umft_txe_n_signal           => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_txe_n_signal,           --                           .umft_txe_n_signal
+			ftdi_0_conduit_umft_pins_umft_gpio_bus_signal        => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_gpio_bus_signal,        --                           .umft_gpio_bus_signal
+			ftdi_0_conduit_umft_pins_umft_wr_n_signal            => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_wr_n_signal,            --                           .umft_wr_n_signal
+			ftdi_0_conduit_umft_pins_umft_rd_n_signal            => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_rd_n_signal,            --                           .umft_rd_n_signal
+			ftdi_0_conduit_umft_pins_umft_oe_n_signal            => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_oe_n_signal,            --                           .umft_oe_n_signal
+			ftdi_0_conduit_umft_pins_umft_siwu_n_signal          => CONNECTED_TO_ftdi_0_conduit_umft_pins_umft_siwu_n_signal           --                           .umft_siwu_n_signal
 		);
 

@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project
-Thu May 30 19:47:02 2019
+Mon Jun 10 13:53:32 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -40,22 +40,22 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Thu May 30 19:47:02 2019           ;
+; Flow Status                       ; Successful - Mon Jun 10 13:53:32 2019           ;
 ; Quartus Prime Version             ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project                            ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
 ; Family                            ; Stratix IV                                      ;
 ; Device                            ; EP4SGX230KF40C2                                 ;
 ; Timing Models                     ; Final                                           ;
-; Logic utilization                 ; 68 %                                            ;
-;     Combinational ALUTs           ; 87,384 / 182,400 ( 48 % )                       ;
-;     Memory ALUTs                  ; 7,783 / 91,200 ( 9 % )                          ;
-;     Dedicated logic registers     ; 70,752 / 182,400 ( 39 % )                       ;
-; Total registers                   ; 72040                                           ;
-; Total pins                        ; 452 / 888 ( 51 % )                              ;
+; Logic utilization                 ; 22 %                                            ;
+;     Combinational ALUTs           ; 28,787 / 182,400 ( 16 % )                       ;
+;     Memory ALUTs                  ; 1,304 / 91,200 ( 1 % )                          ;
+;     Dedicated logic registers     ; 29,180 / 182,400 ( 16 % )                       ;
+; Total registers                   ; 30468                                           ;
+; Total pins                        ; 499 / 888 ( 56 % )                              ;
 ; Total virtual pins                ; 0                                               ;
-; Total block memory bits           ; 12,563,692 / 14,625,792 ( 86 % )                ;
-; DSP block 18-bit elements         ; 32 / 1,288 ( 2 % )                              ;
+; Total block memory bits           ; 8,277,224 / 14,625,792 ( 57 % )                 ;
+; DSP block 18-bit elements         ; 8 / 1,288 ( < 1 % )                             ;
 ; Total GXB Receiver Channel PCS    ; 0 / 24 ( 0 % )                                  ;
 ; Total GXB Receiver Channel PMA    ; 0 / 36 ( 0 % )                                  ;
 ; Total GXB Transmitter Channel PCS ; 0 / 24 ( 0 % )                                  ;
@@ -70,7 +70,7 @@ refer to the applicable agreement for further details.
 +-------------------+----------------------+
 ; Option            ; Setting              ;
 +-------------------+----------------------+
-; Start date & time ; 05/30/2019 15:24:43  ;
+; Start date & time ; 06/10/2019 13:28:33  ;
 ; Main task         ; Compilation          ;
 ; Revision Name     ; MebX_Quartus_Project ;
 +-------------------+----------------------+
@@ -82,7 +82,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name       ; Section Id     ;
 +---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                             ; 66485671440360.155924068313072                                                ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 66485671440360.156018411315188                                                ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -140,7 +140,7 @@ refer to the applicable agreement for further details.
 ; SAVE_DISK_SPACE                                   ; Off                                                                           ; On                                   ; --                ; --             ;
 ; SLD_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.regmap          ; --                                   ; --                ; --             ;
 ; SLD_FILE                                          ; ../Qsys_Project/MebX_Qsys_Project/synthesis/MebX_Qsys_Project.debuginfo       ; --                                   ; --                ; --             ;
-; SLD_INFO                                          ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1559240338           ; --                                   ; MebX_Qsys_Project ; --             ;
+; SLD_INFO                                          ; QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1560179326           ; --                                   ; MebX_Qsys_Project ; --             ;
 ; SMART_RECOMPILE                                   ; On                                                                            ; Off                                  ; --                ; --             ;
 ; SOPCINFO_FILE                                     ; ../Qsys_Project/MebX_Qsys_Project/synthesis/../../MebX_Qsys_Project.sopcinfo  ; --                                   ; --                ; --             ;
 ; STATE_MACHINE_PROCESSING                          ; One-Hot                                                                       ; Auto                                 ; --                ; --             ;
@@ -154,13 +154,13 @@ refer to the applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:14:59     ; 1.0                     ; 3510 MB             ; 00:15:29                           ;
-; I/O Assignment Analysis ; 00:03:57     ; 1.0                     ; 1520 MB             ; 00:03:45                           ;
-; Fitter                  ; 00:44:45     ; 1.1                     ; 4608 MB             ; 01:42:10                           ;
-; Assembler               ; 00:00:57     ; 1.0                     ; 1412 MB             ; 00:00:55                           ;
-; Timing Analyzer         ; 00:03:15     ; 1.3                     ; 2664 MB             ; 00:03:48                           ;
-; EDA Netlist Writer      ; 00:02:30     ; 1.0                     ; 1911 MB             ; 00:02:27                           ;
-; Total                   ; 01:10:23     ; --                      ; --                  ; 02:08:34                           ;
+; Analysis & Synthesis    ; 00:06:29     ; 1.0                     ; 2271 MB             ; 00:06:52                           ;
+; I/O Assignment Analysis ; 00:01:53     ; 1.0                     ; 1317 MB             ; 00:01:51                           ;
+; Fitter                  ; 00:12:47     ; 1.2                     ; 3025 MB             ; 00:22:50                           ;
+; Assembler               ; 00:00:27     ; 1.0                     ; 1087 MB             ; 00:00:26                           ;
+; Timing Analyzer         ; 00:01:40     ; 1.2                     ; 1699 MB             ; 00:01:51                           ;
+; EDA Netlist Writer      ; 00:00:59     ; 1.0                     ; 1248 MB             ; 00:00:57                           ;
+; Total                   ; 00:24:15     ; --                      ; --                  ; 00:34:47                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
@@ -184,9 +184,9 @@ refer to the applicable agreement for further details.
 quartus_map --read_settings_files=on --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
 quartus_fit --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project --plan
 quartus_fit --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
-quartus_asm --read_settings_files=on --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
+quartus_asm --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
 quartus_sta MebX_Quartus_Project -c MebX_Quartus_Project
-quartus_eda --read_settings_files=on --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
+quartus_eda --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
 
 
 
