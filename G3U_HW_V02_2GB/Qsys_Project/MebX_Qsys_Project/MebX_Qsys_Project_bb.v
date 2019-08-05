@@ -1,5 +1,13 @@
 
 module MebX_Qsys_Project (
+	altpll_clk400_areset_conduit_export,
+	altpll_clk400_c0_clk,
+	altpll_clk400_locked_conduit_export,
+	altpll_clk400_pll_slave_read,
+	altpll_clk400_pll_slave_write,
+	altpll_clk400_pll_slave_address,
+	altpll_clk400_pll_slave_readdata,
+	altpll_clk400_pll_slave_writedata,
 	button_export,
 	clk50_clk,
 	csense_adc_fo_export,
@@ -99,16 +107,16 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_read_n_out,
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out,
-	altpll_clk400_c0_clk,
-	altpll_clk400_areset_conduit_export,
-	altpll_clk400_locked_conduit_export,
-	altpll_clk400_pll_slave_read,
-	altpll_clk400_pll_slave_write,
-	altpll_clk400_pll_slave_address,
-	altpll_clk400_pll_slave_readdata,
-	altpll_clk400_pll_slave_writedata);	
+	tristate_conduit_tcm_chipselect_n_out);	
 
+	input		altpll_clk400_areset_conduit_export;
+	output		altpll_clk400_c0_clk;
+	output		altpll_clk400_locked_conduit_export;
+	input		altpll_clk400_pll_slave_read;
+	input		altpll_clk400_pll_slave_write;
+	input	[1:0]	altpll_clk400_pll_slave_address;
+	output	[31:0]	altpll_clk400_pll_slave_readdata;
+	input	[31:0]	altpll_clk400_pll_slave_writedata;
 	input	[3:0]	button_export;
 	input		clk50_clk;
 	output		csense_adc_fo_export;
@@ -209,12 +217,4 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	output		altpll_clk400_c0_clk;
-	input		altpll_clk400_areset_conduit_export;
-	output		altpll_clk400_locked_conduit_export;
-	input		altpll_clk400_pll_slave_read;
-	input		altpll_clk400_pll_slave_write;
-	input	[1:0]	altpll_clk400_pll_slave_address;
-	output	[31:0]	altpll_clk400_pll_slave_readdata;
-	input	[31:0]	altpll_clk400_pll_slave_writedata;
 endmodule

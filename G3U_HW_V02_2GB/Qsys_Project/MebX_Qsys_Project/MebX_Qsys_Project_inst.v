@@ -1,4 +1,12 @@
 	MebX_Qsys_Project u0 (
+		.altpll_clk400_areset_conduit_export                  (<connected-to-altpll_clk400_areset_conduit_export>),                  // altpll_clk400_areset_conduit.export
+		.altpll_clk400_c0_clk                                 (<connected-to-altpll_clk400_c0_clk>),                                 //             altpll_clk400_c0.clk
+		.altpll_clk400_locked_conduit_export                  (<connected-to-altpll_clk400_locked_conduit_export>),                  // altpll_clk400_locked_conduit.export
+		.altpll_clk400_pll_slave_read                         (<connected-to-altpll_clk400_pll_slave_read>),                         //      altpll_clk400_pll_slave.read
+		.altpll_clk400_pll_slave_write                        (<connected-to-altpll_clk400_pll_slave_write>),                        //                             .write
+		.altpll_clk400_pll_slave_address                      (<connected-to-altpll_clk400_pll_slave_address>),                      //                             .address
+		.altpll_clk400_pll_slave_readdata                     (<connected-to-altpll_clk400_pll_slave_readdata>),                     //                             .readdata
+		.altpll_clk400_pll_slave_writedata                    (<connected-to-altpll_clk400_pll_slave_writedata>),                    //                             .writedata
 		.button_export                                        (<connected-to-button_export>),                                        //                       button.export
 		.clk50_clk                                            (<connected-to-clk50_clk>),                                            //                        clk50.clk
 		.csense_adc_fo_export                                 (<connected-to-csense_adc_fo_export>),                                 //                csense_adc_fo.export
@@ -98,14 +106,6 @@
 		.tristate_conduit_tcm_read_n_out                      (<connected-to-tristate_conduit_tcm_read_n_out>),                      //                             .tcm_read_n_out
 		.tristate_conduit_tcm_write_n_out                     (<connected-to-tristate_conduit_tcm_write_n_out>),                     //                             .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                        (<connected-to-tristate_conduit_tcm_data_out>),                        //                             .tcm_data_out
-		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                //                             .tcm_chipselect_n_out
-		.altpll_clk400_c0_clk                                 (<connected-to-altpll_clk400_c0_clk>),                                 //             altpll_clk400_c0.clk
-		.altpll_clk400_areset_conduit_export                  (<connected-to-altpll_clk400_areset_conduit_export>),                  // altpll_clk400_areset_conduit.export
-		.altpll_clk400_locked_conduit_export                  (<connected-to-altpll_clk400_locked_conduit_export>),                  // altpll_clk400_locked_conduit.export
-		.altpll_clk400_pll_slave_read                         (<connected-to-altpll_clk400_pll_slave_read>),                         //      altpll_clk400_pll_slave.read
-		.altpll_clk400_pll_slave_write                        (<connected-to-altpll_clk400_pll_slave_write>),                        //                             .write
-		.altpll_clk400_pll_slave_address                      (<connected-to-altpll_clk400_pll_slave_address>),                      //                             .address
-		.altpll_clk400_pll_slave_readdata                     (<connected-to-altpll_clk400_pll_slave_readdata>),                     //                             .readdata
-		.altpll_clk400_pll_slave_writedata                    (<connected-to-altpll_clk400_pll_slave_writedata>)                     //                             .writedata
+		.tristate_conduit_tcm_chipselect_n_out                (<connected-to-tristate_conduit_tcm_chipselect_n_out>)                 //                             .tcm_chipselect_n_out
 	);
 

@@ -760,12 +760,12 @@ LED_DE4(6) <= ('1') when (rst = '0') else (not leds_b(6));
 LED_DE4(7) <= ('1') when (rst = '0') else (not leds_b(7));
 
 				  
---LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (FTDI_CLOCK);
---LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (FTDI_RXF_N);
---LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (FTDI_TXE_N);
-LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
-LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
-LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
+LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (FTDI_CLOCK);
+LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (FTDI_RXF_N);
+LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (FTDI_TXE_N);
+--LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
+--LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
+--LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
 LED_PAINEL_LED_2R    <= ('1') when (rst = '0') else (leds_p(3));
 LED_PAINEL_LED_3G    <= ('1') when (rst = '0') else (leds_p(4));
 LED_PAINEL_LED_3R    <= ('1') when (rst = '0') else (leds_p(5));

@@ -2218,7 +2218,7 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80040000' end='0x80040800' /><slave name='USB_3_FTDI_0.avalon_burst_slave' start='0x100000000' end='0x100040000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_burst_slave' start='0x100000000' end='0x100040000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 33" />
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 31" />
@@ -3096,7 +3096,7 @@
    name="nios2_gen2_0"
    kind="altera_nios2_gen2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="AUTO_CLK_CLOCK_DOMAIN" value="5" />
   <parameter name="AUTO_CLK_RESET_DOMAIN" value="5" />
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
@@ -3278,9 +3278,9 @@
    name="onchip_memory"
    kind="altera_avalon_onchip_memory2"
    version="18.1"
-   enabled="1">
+   enabled="0">
   <parameter name="allowInSystemMemoryContentEditor" value="false" />
-  <parameter name="autoInitializationFileName">$${FILENAME}_onchip_memory</parameter>
+  <parameter name="autoInitializationFileName">MebX_Qsys_Project_onchip_memory</parameter>
   <parameter name="blockType" value="M9K" />
   <parameter name="copyInitFile" value="false" />
   <parameter name="dataWidth" value="32" />

@@ -1,5 +1,13 @@
 	component MebX_Qsys_Project is
 		port (
+			altpll_clk400_areset_conduit_export                  : in    std_logic                     := 'X';             -- export
+			altpll_clk400_c0_clk                                 : out   std_logic;                                        -- clk
+			altpll_clk400_locked_conduit_export                  : out   std_logic;                                        -- export
+			altpll_clk400_pll_slave_read                         : in    std_logic                     := 'X';             -- read
+			altpll_clk400_pll_slave_write                        : in    std_logic                     := 'X';             -- write
+			altpll_clk400_pll_slave_address                      : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- address
+			altpll_clk400_pll_slave_readdata                     : out   std_logic_vector(31 downto 0);                    -- readdata
+			altpll_clk400_pll_slave_writedata                    : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
 			button_export                                        : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- export
 			clk50_clk                                            : in    std_logic                     := 'X';             -- clk
 			csense_adc_fo_export                                 : out   std_logic;                                        -- export
@@ -99,20 +107,20 @@
 			tristate_conduit_tcm_read_n_out                      : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                        : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
-			altpll_clk400_c0_clk                                 : out   std_logic;                                        -- clk
-			altpll_clk400_areset_conduit_export                  : in    std_logic                     := 'X';             -- export
-			altpll_clk400_locked_conduit_export                  : out   std_logic;                                        -- export
-			altpll_clk400_pll_slave_read                         : in    std_logic                     := 'X';             -- read
-			altpll_clk400_pll_slave_write                        : in    std_logic                     := 'X';             -- write
-			altpll_clk400_pll_slave_address                      : in    std_logic_vector(1 downto 0)  := (others => 'X'); -- address
-			altpll_clk400_pll_slave_readdata                     : out   std_logic_vector(31 downto 0);                    -- readdata
-			altpll_clk400_pll_slave_writedata                    : in    std_logic_vector(31 downto 0) := (others => 'X')  -- writedata
+			tristate_conduit_tcm_chipselect_n_out                : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
 		);
 	end component MebX_Qsys_Project;
 
 	u0 : component MebX_Qsys_Project
 		port map (
+			altpll_clk400_areset_conduit_export                  => CONNECTED_TO_altpll_clk400_areset_conduit_export,                  -- altpll_clk400_areset_conduit.export
+			altpll_clk400_c0_clk                                 => CONNECTED_TO_altpll_clk400_c0_clk,                                 --             altpll_clk400_c0.clk
+			altpll_clk400_locked_conduit_export                  => CONNECTED_TO_altpll_clk400_locked_conduit_export,                  -- altpll_clk400_locked_conduit.export
+			altpll_clk400_pll_slave_read                         => CONNECTED_TO_altpll_clk400_pll_slave_read,                         --      altpll_clk400_pll_slave.read
+			altpll_clk400_pll_slave_write                        => CONNECTED_TO_altpll_clk400_pll_slave_write,                        --                             .write
+			altpll_clk400_pll_slave_address                      => CONNECTED_TO_altpll_clk400_pll_slave_address,                      --                             .address
+			altpll_clk400_pll_slave_readdata                     => CONNECTED_TO_altpll_clk400_pll_slave_readdata,                     --                             .readdata
+			altpll_clk400_pll_slave_writedata                    => CONNECTED_TO_altpll_clk400_pll_slave_writedata,                    --                             .writedata
 			button_export                                        => CONNECTED_TO_button_export,                                        --                       button.export
 			clk50_clk                                            => CONNECTED_TO_clk50_clk,                                            --                        clk50.clk
 			csense_adc_fo_export                                 => CONNECTED_TO_csense_adc_fo_export,                                 --                csense_adc_fo.export
@@ -212,14 +220,6 @@
 			tristate_conduit_tcm_read_n_out                      => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                      --                             .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                     => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                     --                             .tcm_write_n_out
 			tristate_conduit_tcm_data_out                        => CONNECTED_TO_tristate_conduit_tcm_data_out,                        --                             .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                --                             .tcm_chipselect_n_out
-			altpll_clk400_c0_clk                                 => CONNECTED_TO_altpll_clk400_c0_clk,                                 --             altpll_clk400_c0.clk
-			altpll_clk400_areset_conduit_export                  => CONNECTED_TO_altpll_clk400_areset_conduit_export,                  -- altpll_clk400_areset_conduit.export
-			altpll_clk400_locked_conduit_export                  => CONNECTED_TO_altpll_clk400_locked_conduit_export,                  -- altpll_clk400_locked_conduit.export
-			altpll_clk400_pll_slave_read                         => CONNECTED_TO_altpll_clk400_pll_slave_read,                         --      altpll_clk400_pll_slave.read
-			altpll_clk400_pll_slave_write                        => CONNECTED_TO_altpll_clk400_pll_slave_write,                        --                             .write
-			altpll_clk400_pll_slave_address                      => CONNECTED_TO_altpll_clk400_pll_slave_address,                      --                             .address
-			altpll_clk400_pll_slave_readdata                     => CONNECTED_TO_altpll_clk400_pll_slave_readdata,                     --                             .readdata
-			altpll_clk400_pll_slave_writedata                    => CONNECTED_TO_altpll_clk400_pll_slave_writedata                     --                             .writedata
+			tristate_conduit_tcm_chipselect_n_out                => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                 --                             .tcm_chipselect_n_out
 		);
 

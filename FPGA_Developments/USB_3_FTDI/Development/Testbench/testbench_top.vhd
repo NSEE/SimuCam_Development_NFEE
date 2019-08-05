@@ -9,7 +9,7 @@ architecture RTL of testbench_top is
 
 	-- clk and rst signals
 	signal clk100Avs  : std_logic := '0';
-	signal clk100Ftdi : std_logic := '0';
+	signal clk100Ftdi : std_logic := '1';
 	signal rst        : std_logic := '1';
 
 	-- dut signals
@@ -61,8 +61,7 @@ begin
 
 	usb_3_ftdi_top_inst : entity work.USB_3_FTDI_top
 		port map(
---			clock_sink_clk                   => clk100Avs,
-			clock_sink_clk                   => clk100Ftdi,
+			clock_sink_clk                   => clk100Avs,
 			reset_sink_reset                 => rst,
 			umft_data_bus                    => s_umft_data_bus,
 			umft_reset_n_pin                 => s_umft_reset_n_pin,
