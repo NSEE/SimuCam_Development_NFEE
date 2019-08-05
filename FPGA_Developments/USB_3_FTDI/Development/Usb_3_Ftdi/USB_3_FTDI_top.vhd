@@ -47,7 +47,7 @@ architecture rtl of USB_3_FTDI_top is
 	alias a_reset is reset_sink_reset;
 
 	-- constants
-	constant c_OPERATION_MODE : natural := 2;
+	constant c_OPERATION_MODE : natural := 0;
 	-- 0 = Loopback Mode
 	-- 1 = Consumer Mode
 	-- 2 = Stall Mode
