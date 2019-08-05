@@ -728,7 +728,8 @@ SOPC_INST : MebX_Qsys_Project
 -- rst
 --==========--
 
-rst <= CPU_RESET_n AND RESET_PAINEL_n;
+--rst <= CPU_RESET_n AND RESET_PAINEL_n;
+rst <= CPU_RESET_n;
 FTDI_RESET_N <= rst;
  
 --==========--
@@ -746,9 +747,12 @@ FAN_CTRL <= '1';
 -- LEDs assumem estado diferente no rst.
 
 --LED_DE4(0) <= ('1') when (rst = '0') else (leds_b(0));
-LED_DE4(0) <= ('1') when (rst = '0') else (not FTDI_CLOCK);
-LED_DE4(1) <= ('1') when (rst = '0') else (not FTDI_RXF_N);
-LED_DE4(2) <= ('1') when (rst = '0') else (not FTDI_TXE_N);
+--LED_DE4(0) <= ('1') when (rst = '0') else (not FTDI_CLOCK);
+--LED_DE4(1) <= ('1') when (rst = '0') else (not FTDI_RXF_N);
+--LED_DE4(2) <= ('1') when (rst = '0') else (not FTDI_TXE_N);
+LED_DE4(0) <= ('1') when (rst = '0') else (not leds_b(0));
+LED_DE4(1) <= ('1') when (rst = '0') else (not leds_b(1));
+LED_DE4(2) <= ('1') when (rst = '0') else (not leds_b(2));
 LED_DE4(3) <= ('1') when (rst = '0') else (not leds_b(3));
 LED_DE4(4) <= ('1') when (rst = '0') else (not leds_b(4));
 LED_DE4(5) <= ('1') when (rst = '0') else (not leds_b(5));
@@ -756,6 +760,9 @@ LED_DE4(6) <= ('1') when (rst = '0') else (not leds_b(6));
 LED_DE4(7) <= ('1') when (rst = '0') else (not leds_b(7));
 
 				  
+--LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (FTDI_CLOCK);
+--LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (FTDI_RXF_N);
+--LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (FTDI_TXE_N);
 LED_PAINEL_LED_1G    <= ('1') when (rst = '0') else (leds_p(0));
 LED_PAINEL_LED_1R    <= ('1') when (rst = '0') else (leds_p(1));
 LED_PAINEL_LED_2G    <= ('1') when (rst = '0') else (leds_p(2));
@@ -777,6 +784,17 @@ LED_PAINEL_LED_ST1   <= ('1') when (rst = '0') else (leds_p(17));
 LED_PAINEL_LED_ST2   <= ('1') when (rst = '0') else (leds_p(18));
 LED_PAINEL_LED_ST3   <= ('1') when (rst = '0') else (leds_p(19));
 LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
+				  
+--	p_clk_teste : process(FTDI_CLOCK, rst) is
+--		variable v_clk : std_logic := '1';
+--	begin
+--		if (rst = '0') then
+--			LED_PAINEL_LED_1G <= '1';
+--		elsif rising_edge(FTDI_CLOCK) then
+--			v_clk := not v_clk;
+--			LED_PAINEL_LED_1G <= v_clk;
+--		end if;
+--	end process p_clk_teste;
 				  
 --==========--
 -- eth

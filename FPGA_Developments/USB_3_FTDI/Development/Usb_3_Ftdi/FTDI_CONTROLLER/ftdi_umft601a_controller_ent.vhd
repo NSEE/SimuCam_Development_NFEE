@@ -6,7 +6,7 @@ entity ftdi_umft601a_controller_ent is
 	port(
 		clk_i                         : in    std_logic;
 		rst_i                         : in    std_logic;
-		clk_base_i                    : in    std_logic;
+--		clk_base_i                    : in    std_logic;
 		-- umft601a input pins
 		umft_rxf_n_pin_i              : in    std_logic                     := '1';
 		umft_clock_pin_i              : in    std_logic                     := '1';
@@ -119,18 +119,18 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 begin
 
-	-- TODO: remover depois [rfranca]
-	-- clk reconstructor instantiation
-	ftdi_clk_reconstructor_ent_inst : entity work.ftdi_clk_reconstructor_ent
-		generic map(
-			g_CLKDIV => 4
-		)
-		port map(
-			clk_base_i          => clk_base_i,
-			rst_i               => rst_i,
-			trigger_i           => s_umft601a_buffered_pins.rxf_n,
-			clk_reconstructed_o => s_umft601a_clock_n
-		);
+--	-- TODO: remover depois [rfranca]
+--	-- clk reconstructor instantiation
+--	ftdi_clk_reconstructor_ent_inst : entity work.ftdi_clk_reconstructor_ent
+--		generic map(
+--			g_CLKDIV => 4
+--		)
+--		port map(
+--			clk_base_i          => clk_base_i,
+--			rst_i               => rst_i,
+--			trigger_i           => s_umft601a_buffered_pins.rxf_n,
+--			clk_reconstructed_o => s_umft601a_clock_n
+--		);
 
 	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
 	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
@@ -190,19 +190,19 @@ begin
 	-- bidir io buffer instantiation, for the umft601a module pins (fpga <--> umft601a)
 	ftdi_inout_io_buffer_39b_inst : entity work.ftdi_inout_io_buffer_39b
 		port map(
-			datain(38 downto 7)  => s_umft601a_buffered_pins.data_in,
-			datain(6)            => s_umft601a_buffered_pins.wakeup_n_in,
-			datain(5 downto 2)   => s_umft601a_buffered_pins.be_in,
-			datain(1 downto 0)   => s_umft601a_buffered_pins.gpio_in,
+			datain(38 downto 7)  => s_umft601a_buffered_pins.data_out,
+			datain(6)            => s_umft601a_buffered_pins.wakeup_n_out,
+			datain(5 downto 2)   => s_umft601a_buffered_pins.be_out,
+			datain(1 downto 0)   => s_umft601a_buffered_pins.gpio_out,
 			oe                   => (others => s_io_inout_buffer_output_enable),
 			dataio(38 downto 7)  => umft_data_bus_io,
 			dataio(6)            => umft_wakeup_n_pin_io,
 			dataio(5 downto 2)   => umft_be_bus_io,
 			dataio(1 downto 0)   => umft_gpio_bus_io,
-			dataout(38 downto 7) => s_umft601a_buffered_pins.data_out,
-			dataout(6)           => s_umft601a_buffered_pins.wakeup_n_out,
-			dataout(5 downto 2)  => s_umft601a_buffered_pins.be_out,
-			dataout(1 downto 0)  => s_umft601a_buffered_pins.gpio_out
+			dataout(38 downto 7) => s_umft601a_buffered_pins.data_in,
+			dataout(6)           => s_umft601a_buffered_pins.wakeup_n_in,
+			dataout(5 downto 2)  => s_umft601a_buffered_pins.be_in,
+			dataout(1 downto 0)  => s_umft601a_buffered_pins.gpio_in
 		);
 
 	-- output io buffer instantiation, for the umft601a module pins (fpga --> umft601a)
@@ -242,7 +242,7 @@ begin
 			s_umft601a_buffered_pins.siwu_n       <= '1';
 			s_tx_dc_data_fifo.rdreq               <= '0';
 			s_rx_dc_data_fifo.wrreq               <= '0';
-		elsif (rising_edge(clk_i)) then
+		elsif (rising_edge(s_umft601a_clock_n)) then
 
 			-- States transitions FSM
 			case (s_ftdi_umft601a_controller_state) is
@@ -572,6 +572,7 @@ begin
 	-- signals assingments
 	-- clock and reset assingments
 --	s_umft601a_clock_n               <= not (s_umft601a_buffered_pins.clock);
+	s_umft601a_clock_n               <= (s_umft601a_buffered_pins.clock);
 	s_umft601a_buffered_pins.reset_n <= not (rst_i);
 
 end architecture RTL;
