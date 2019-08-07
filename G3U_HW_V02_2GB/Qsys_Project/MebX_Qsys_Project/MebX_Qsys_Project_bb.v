@@ -2,36 +2,6 @@
 module MebX_Qsys_Project (
 	button_export,
 	clk50_clk,
-	comm_a_conduit_end_data_in_signal,
-	comm_a_conduit_end_data_out_signal,
-	comm_a_conduit_end_strobe_in_signal,
-	comm_a_conduit_end_strobe_out_signal,
-	comm_a_sync_end_sync_channel_signal,
-	comm_b_conduit_end_data_in_signal,
-	comm_b_conduit_end_data_out_signal,
-	comm_b_conduit_end_strobe_in_signal,
-	comm_b_conduit_end_strobe_out_signal,
-	comm_b_sync_end_sync_channel_signal,
-	comm_c_conduit_end_data_in_signal,
-	comm_c_conduit_end_data_out_signal,
-	comm_c_conduit_end_strobe_in_signal,
-	comm_c_conduit_end_strobe_out_signal,
-	comm_c_sync_end_sync_channel_signal,
-	comm_d_conduit_end_data_in_signal,
-	comm_d_conduit_end_data_out_signal,
-	comm_d_conduit_end_strobe_in_signal,
-	comm_d_conduit_end_strobe_out_signal,
-	comm_d_sync_end_sync_channel_signal,
-	comm_e_conduit_end_data_in_signal,
-	comm_e_conduit_end_data_out_signal,
-	comm_e_conduit_end_strobe_in_signal,
-	comm_e_conduit_end_strobe_out_signal,
-	comm_e_sync_end_sync_channel_signal,
-	comm_f_conduit_end_data_in_signal,
-	comm_f_conduit_end_data_out_signal,
-	comm_f_conduit_end_strobe_in_signal,
-	comm_f_conduit_end_strobe_out_signal,
-	comm_f_sync_end_sync_channel_signal,
 	csense_adc_fo_export,
 	csense_cs_n_export,
 	csense_sck_export,
@@ -131,36 +101,6 @@ module MebX_Qsys_Project (
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
-	input		comm_a_conduit_end_data_in_signal;
-	output		comm_a_conduit_end_data_out_signal;
-	input		comm_a_conduit_end_strobe_in_signal;
-	output		comm_a_conduit_end_strobe_out_signal;
-	input		comm_a_sync_end_sync_channel_signal;
-	input		comm_b_conduit_end_data_in_signal;
-	output		comm_b_conduit_end_data_out_signal;
-	input		comm_b_conduit_end_strobe_in_signal;
-	output		comm_b_conduit_end_strobe_out_signal;
-	input		comm_b_sync_end_sync_channel_signal;
-	input		comm_c_conduit_end_data_in_signal;
-	output		comm_c_conduit_end_data_out_signal;
-	input		comm_c_conduit_end_strobe_in_signal;
-	output		comm_c_conduit_end_strobe_out_signal;
-	input		comm_c_sync_end_sync_channel_signal;
-	input		comm_d_conduit_end_data_in_signal;
-	output		comm_d_conduit_end_data_out_signal;
-	input		comm_d_conduit_end_strobe_in_signal;
-	output		comm_d_conduit_end_strobe_out_signal;
-	input		comm_d_sync_end_sync_channel_signal;
-	input		comm_e_conduit_end_data_in_signal;
-	output		comm_e_conduit_end_data_out_signal;
-	input		comm_e_conduit_end_strobe_in_signal;
-	output		comm_e_conduit_end_strobe_out_signal;
-	input		comm_e_sync_end_sync_channel_signal;
-	input		comm_f_conduit_end_data_in_signal;
-	output		comm_f_conduit_end_data_out_signal;
-	input		comm_f_conduit_end_strobe_in_signal;
-	output		comm_f_conduit_end_strobe_out_signal;
-	input		comm_f_sync_end_sync_channel_signal;
 	output		csense_adc_fo_export;
 	output	[1:0]	csense_cs_n_export;
 	output		csense_sck_export;
