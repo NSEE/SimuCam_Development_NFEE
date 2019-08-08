@@ -461,7 +461,7 @@ begin
 	-- signals assignments
 	s_window_mask_buffer_size             <= window_buffer_size_i;
 	s_window_data_buffer_size(7 downto 4) <= window_buffer_size_i;
-	s_window_data_buffer_size(3 downto 0) <= "1111";
+	s_window_data_buffer_size(3 downto 0) <= "1110";
 
 	-- output signals generation:
 	window_buffer_empty_o   <= (((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty)) or ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty)));

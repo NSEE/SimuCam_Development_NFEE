@@ -257,14 +257,13 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		usiRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks);
 	}
 
-	//	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
-	//	if (uliSrcAddrLow % 32) {
-	//		// Address is not a multiple of 32
-	//		bAddressFlag = FALSE;
-	//	} else {
-	//		bAddressFlag = TRUE;
-	//	}
+	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
+	if (uliSrcAddrLow % 32) {
+		// Address is not a multiple of 32
+		bAddressFlag = FALSE;
+	} else {
 		bAddressFlag = TRUE;
+	}
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 
@@ -474,14 +473,13 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 		usiRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks);
 	}
 
-//	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
-//	if (uliSrcAddrLow % 32) {
-//		// Address is not a multiple of 32
-//		bAddressFlag = FALSE;
-//	} else {
-//		bAddressFlag = TRUE;
-//	}
-	bAddressFlag = TRUE;
+	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
+	if (uliSrcAddrLow % 32) {
+		// Address is not a multiple of 32
+		bAddressFlag = FALSE;
+	} else {
+		bAddressFlag = TRUE;
+	}
 
 	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 		if (pxDmaM2Dev != NULL) {

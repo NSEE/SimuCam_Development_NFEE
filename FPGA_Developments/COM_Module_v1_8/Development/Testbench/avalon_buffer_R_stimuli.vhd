@@ -153,8 +153,9 @@ begin
 					--					if (s_address_cnt = (272 - 1)) then
 					if (s_address_cnt = (68 - 1)) then
 --					if (s_address_cnt = (68 - 1)) then
-						if (s_times_cnt < 1) then
-							s_counter     <= 1000;
+						if (s_times_cnt < 10) then
+							s_counter     <= 500;
+--							s_counter     <= 1000;
 --							s_counter     <= 1500;
 							s_address_cnt <= 0;
 							s_times_cnt   <= s_times_cnt + 1;

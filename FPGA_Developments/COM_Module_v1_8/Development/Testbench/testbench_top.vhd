@@ -162,15 +162,15 @@ begin
 		variable v_sync_div_cnt : natural := 0;
 	begin
 		if (rst = '1') then
-			s_sync         <= '0';
+			s_sync         <= '1';
 			v_sync_div_cnt := 0;
 		elsif rising_edge(clk100) then
-			if (v_sync_div_cnt = 10000) then
-				if (s_sync = '0') then
-					s_sync <= '1';
+			if (v_sync_div_cnt = 2000) then
+				if (s_sync = '1') then
+					s_sync <= '0';
 					v_sync_div_cnt := 0;
 				else
-					s_sync <= '0';
+					s_sync <= '1';
 					v_sync_div_cnt := 10001;
 				end if;
 --				v_sync_div_cnt := 0;
