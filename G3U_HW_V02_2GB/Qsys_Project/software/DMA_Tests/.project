@@ -3,6 +3,7 @@
 	<name>DMA_Tests</name>
 	<comment></comment>
 	<projects>
+		<project>DMA_Tests_bsp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

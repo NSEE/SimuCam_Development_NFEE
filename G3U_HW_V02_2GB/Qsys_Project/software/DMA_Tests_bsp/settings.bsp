@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
-        <BspVersion>default</BspVersion>
-        <BspGeneratedTimeStamp>Aug 7, 2019 3:58:54 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1565204334389</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\rfranca\Development\GitHub\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\DMA_Tests_bsp</BspGeneratedLocation>
+        <BspVersion>18.1</BspVersion>
+        <BspGeneratedTimeStamp>Aug 7, 2019 11:25:30 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1565231130662</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -971,7 +971,7 @@
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>AvsTap64_0</slaveDescriptor>
+                <slaveDescriptor>AvsTap256_0</slaveDescriptor>
                 <addressRange>0x80004000 - 0x80007FFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>

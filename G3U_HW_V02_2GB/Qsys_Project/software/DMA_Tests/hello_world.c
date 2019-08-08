@@ -43,26 +43,34 @@ int main()
 	  pxDes++;
   }
 
-  pxDes = (alt_u8 *) uliDdr2Base;
-  for (uiDataCnt = 0; uiDataCnt < 2176; uiDataCnt++) {
-	  printf("Addr: %04lu; Data: %02X \n", (alt_u32)pxDes, *pxDes);
-	  pxDes++;
-  }
+//  pxDes = (alt_u8 *) uliDdr2Base;
+//  for (uiDataCnt = 0; uiDataCnt < 2176; uiDataCnt++) {
+//	  printf("Addr: %04lu; Data: %02X \n", (alt_u32)pxDes, *pxDes);
+//	  pxDes++;
+//  }
+
+  pxDes32 = (alt_u32 *) AVSTAP256_0_BASE;
+  *pxDes32 = 1;
 
   if (bSdmaInitM1Dma()){
 	  printf("Ok1 \n");
   }
-  if (bSdmaDmaM1Transfer((alt_u32 *)0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)){
+  if (bSdmaDmaM1Transfer((alt_u32 *)32, 1, eSdmaLeftBuffer, eSdmaCh1Buffer)){
 	  printf("Ok2 \n");
+
+	  usleep(1000*1000*1);
+
+	  pxDes32 = (alt_u32 *) AVSTAP256_0_BASE;
+	    for (uiDataCnt = 0; uiDataCnt < (2176/4 + 4); uiDataCnt++) {
+	  	  printf("Addr: %04lu; Data: %08lX \n", (alt_u32)pxDes32, *pxDes32);
+	  	  pxDes32++;
+	    }
+
+  } else {
+	  printf("Fail2 \n");
   }
 
-  usleep(1000*1000*5);
 
-  pxDes32 = (alt_u32 *) AVSTAP64_0_BASE;
-    for (uiDataCnt = 0; uiDataCnt < (2176/4 + 4); uiDataCnt++) {
-  	  printf("Addr: %04lu; Data: %08lX \n", (alt_u32)pxDes32, *pxDes32);
-  	  pxDes32++;
-    }
 
   return 0;
 }

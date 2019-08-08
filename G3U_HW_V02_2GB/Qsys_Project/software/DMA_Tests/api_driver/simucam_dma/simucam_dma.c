@@ -88,6 +88,9 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 	alt_u32 uliControlBits = 0x00000000;
 	bool bBufferEmptyFlag;
 	bool bChannelFlag;
+	bool bAddressFlag = FALSE;
+
+	alt_u16 usiRoundedTransferSizeInBytes = 0;
 
 	/* Assuming that the channel selected exist, change to FALSE if doesn't */
 	bChannelFlag = TRUE;
@@ -232,7 +235,24 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 
 	bBufferEmptyFlag = TRUE;
 
-	if ( (bChannelFlag) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
+	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
+	if ((SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks) % 32) {
+		// Transfer size is not a multiple of 32
+		usiRoundedTransferSizeInBytes = ((alt_u16) ((SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks) / 32) + 1) * 32;
+	} else {
+		usiRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks);
+	}
+
+		// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
+		if (uliSrcAddrLow % 32) {
+			// Address is not a multiple of 32
+			bAddressFlag = FALSE;
+		} else {
+			bAddressFlag = TRUE;
+		}
+//		bAddressFlag = TRUE;
+
+	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
 
 		if (pxDmaM1Dev != NULL) {
 			// hold transfers for descriptor fifo space
@@ -243,7 +263,7 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
 					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 					(alt_u32 *) uliDestAddrLow,
-					SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks, uliControlBits,
+					usiRoundedTransferSizeInBytes, uliControlBits,
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
 					1, 1, 1, 1, 1)	) {
 				/* Success = 0 */
@@ -270,7 +290,9 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 	alt_u32 uliControlBits = 0x00000000;
 	bool bBufferEmptyFlag;
 	bool bChannelFlag;
+	bool bAddressFlag = FALSE;
 
+	alt_u16 usiRoundedTransferSizeInBytes = 0;
 
 	/* Assuming that the channel selected exist, change to FALSE if doesn't */
 	bChannelFlag = TRUE;
@@ -414,22 +436,39 @@ bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 			+ (alt_u32) uliDdrInitialAddr;
 	uliSrcAddrHigh = (alt_u32) SDMA_M2_BASE_ADDR_HIGH;
 
-	if ((bChannelFlag) && (bBufferEmptyFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
-		if (pxDmaM2Dev != NULL) {
+	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
+	if ((SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks) % 32) {
+		// Transfer size is not a multiple of 32
+		usiRoundedTransferSizeInBytes = ((alt_u16) ((SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks) / 32) + 1) * 32;
+	} else {
+		usiRoundedTransferSizeInBytes = (SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks);
+	}
 
-			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
+	//	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
+	//	if (uliSrcAddrLow % 32) {
+	//		// Address is not a multiple of 32
+	//		bAddressFlag = FALSE;
+	//	} else {
+	//		bAddressFlag = TRUE;
+	//	}
+		bAddressFlag = TRUE;
+
+	if ((bChannelFlag) && (bBufferEmptyFlag) && (bAddressFlag) && (usiTransferSizeInBlocks <= SDMA_MAX_BLOCKS)) {
+
+		if (pxDmaM1Dev != NULL) {
+			// hold transfers for descriptor fifo space
+			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM1Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {
 				alt_busy_sleep(1); /* delay 1us */
 			}
 			/* Success = 0 */
-			if ( 0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM2Dev,
+			if (0 == iMsgdmaConstructExtendedMmToMmDescriptor(pxDmaM1Dev,
 					&xDmaExtendedDescriptor, (alt_u32 *) uliSrcAddrLow,
 					(alt_u32 *) uliDestAddrLow,
-					SDMA_PIXEL_BLOCK_SIZE_BYTES*usiTransferSizeInBlocks, uliControlBits,
+					usiRoundedTransferSizeInBytes, uliControlBits,
 					(alt_u32 *) uliSrcAddrHigh, (alt_u32 *) uliDestAddrHigh,
-					1, 1, 1, 1, 1)) {
+					1, 1, 1, 1, 1)	) {
 				/* Success = 0 */
-				if ( 0 == iMsgdmaExtendedDescriptorSyncTransfer(pxDmaM2Dev,
-						&xDmaExtendedDescriptor)) {
+				if (0 == iMsgdmaExtendedDescriptorAsyncTransfer(pxDmaM1Dev,	&xDmaExtendedDescriptor)) {
 					bStatus = TRUE;
 				}
 			}
