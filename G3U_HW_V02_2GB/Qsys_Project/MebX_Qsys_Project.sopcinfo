@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.08.07.15:46:54 -->
+ <!-- 2019.08.07.20:50:53 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1565203613</value>
+  <value>1565221853</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -721,7 +721,7 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="AvsTap64_0" kind="AvsTap64" version="1.0" path="AvsTap64_0">
+ <module name="AvsTap256_0" kind="AvsTap256" version="1.0" path="AvsTap256_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
   <parameter name="deviceFamily">
@@ -846,7 +846,7 @@ parameters are a RESULT of the module parameters. -->
     <role>clk</role>
    </port>
   </interface>
-  <interface name="avalon_slave_64" kind="avalon_slave" version="18.1">
+  <interface name="avalon_slave_256" kind="avalon_slave" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -1181,25 +1181,25 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon</type>
    <isStart>false</isStart>
    <port>
-    <name>avalon_slave_64_address</name>
+    <name>avalon_slave_256_address</name>
     <direction>Input</direction>
-    <width>11</width>
+    <width>9</width>
     <role>address</role>
    </port>
    <port>
-    <name>avalon_slave_64_write</name>
+    <name>avalon_slave_256_write</name>
     <direction>Input</direction>
     <width>1</width>
     <role>write</role>
    </port>
    <port>
-    <name>avalon_slave_64_writedata</name>
+    <name>avalon_slave_256_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
-    <name>avalon_slave_64_waitrequest</name>
+    <name>avalon_slave_256_waitrequest</name>
     <direction>Output</direction>
     <width>1</width>
     <role>waitrequest</role>
@@ -2386,9 +2386,9 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>AvsTap64_0</moduleName>
+    <moduleName>AvsTap256_0</moduleName>
     <slaveName>clock_sink_100</slaveName>
-    <name>AvsTap64_0.clock_sink_100</name>
+    <name>AvsTap256_0.clock_sink_100</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -9805,11 +9805,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>512</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -9905,7 +9905,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -9937,7 +9937,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>512</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -10184,7 +10184,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='AvsTap64_0.avalon_slave_64' start='0x100010000' end='0x100014000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='AvsTap256_0.avalon_slave_256' start='0x100010000' end='0x100014000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10536,13 +10536,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -10859,13 +10859,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -10876,9 +10876,9 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>AvsTap64_0</moduleName>
-    <slaveName>avalon_slave_64</slaveName>
-    <name>AvsTap64_0.avalon_slave_64</name>
+    <moduleName>AvsTap256_0</moduleName>
+    <slaveName>avalon_slave_256</slaveName>
+    <name>AvsTap256_0.avalon_slave_256</name>
     <baseAddress>4295032832</baseAddress>
     <span>16384</span>
    </memoryBlock>
@@ -11826,11 +11826,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>512</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -11926,7 +11926,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -11958,7 +11958,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>512</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12205,7 +12205,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='AvsTap64_0.avalon_slave_64' start='0x100010000' end='0x100014000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='AvsTap256_0.avalon_slave_256' start='0x100010000' end='0x100014000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12557,13 +12557,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -12864,13 +12864,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -12881,9 +12881,9 @@ parameters are a RESULT of the module parameters. -->
    </port>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>AvsTap64_0</moduleName>
-    <slaveName>avalon_slave_64</slaveName>
-    <name>AvsTap64_0.avalon_slave_64</name>
+    <moduleName>AvsTap256_0</moduleName>
+    <slaveName>avalon_slave_256</slaveName>
+    <name>AvsTap256_0.avalon_slave_256</name>
     <baseAddress>4295032832</baseAddress>
     <span>16384</span>
    </memoryBlock>
@@ -46147,9 +46147,9 @@ parameters are a RESULT of the module parameters. -->
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
-    <moduleName>AvsTap64_0</moduleName>
+    <moduleName>AvsTap256_0</moduleName>
     <slaveName>clock_sink_100</slaveName>
-    <name>AvsTap64_0.clock_sink_100</name>
+    <name>AvsTap256_0.clock_sink_100</name>
    </clockDomainMember>
    <clockDomainMember>
     <isBridge>false</isBridge>
@@ -48692,7 +48692,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="dataSlaveMapParam">
    <type>java.lang.String</type>
-   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='dma_DDR_M2.descriptor_slave' start='0x80000800' end='0x80000820' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x80000820' end='0x80000840' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x80000840' end='0x80000860' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x80000860' end='0x80000880' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x80000880' end='0x80000888' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x80000888' end='0x80000890' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80000890' end='0x80000898' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='AvsTap64_0.avalon_slave_32' start='0x80004000' end='0x80008000' type='AvsTap64.avalon_slave_32' /><slave name='onchip_memory.s1' start='0x80200000' end='0x802D4800' type='altera_avalon_onchip_memory2.s1' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x81000000' end='0x81000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x81000400' end='0x81000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x81000800' end='0x81000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x81000840' end='0x81000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x81000860' end='0x81000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x81000880' end='0x810008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x810008A0' end='0x810008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x810008B0' end='0x810008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x810008C0' end='0x810008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x810008D0' end='0x810008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x810008E0' end='0x810008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x810008F0' end='0x81000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x81000900' end='0x81000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x81000910' end='0x81000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x81000920' end='0x81000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x81000930' end='0x81000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x81000940' end='0x81000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x81000950' end='0x81000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x81000960' end='0x81000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x81000970' end='0x81000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x81000980' end='0x81000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x81000990' end='0x810009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x810009A0' end='0x810009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x810009B0' end='0x810009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x810009C0' end='0x810009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x810009D0' end='0x810009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x810009E0' end='0x810009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x810009F0' end='0x81000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x81000A00' end='0x81000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x81000A10' end='0x81000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='dma_DDR_M2.descriptor_slave' start='0x80000800' end='0x80000820' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x80000820' end='0x80000840' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x80000840' end='0x80000860' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x80000860' end='0x80000880' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x80000880' end='0x80000888' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x80000888' end='0x80000890' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80000890' end='0x80000898' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='AvsTap256_0.avalon_slave_32' start='0x80004000' end='0x80008000' type='AvsTap256.avalon_slave_32' /><slave name='onchip_memory.s1' start='0x80200000' end='0x802D4800' type='altera_avalon_onchip_memory2.s1' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x81000000' end='0x81000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x81000400' end='0x81000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x81000800' end='0x81000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x81000840' end='0x81000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x81000860' end='0x81000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x81000880' end='0x810008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x810008A0' end='0x810008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x810008B0' end='0x810008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x810008C0' end='0x810008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x810008D0' end='0x810008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x810008E0' end='0x810008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x810008F0' end='0x81000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x81000900' end='0x81000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x81000910' end='0x81000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x81000920' end='0x81000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x81000930' end='0x81000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x81000940' end='0x81000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x81000950' end='0x81000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x81000960' end='0x81000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x81000970' end='0x81000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x81000980' end='0x81000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x81000990' end='0x810009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x810009A0' end='0x810009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x810009B0' end='0x810009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x810009C0' end='0x810009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x810009D0' end='0x810009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x810009E0' end='0x810009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x810009F0' end='0x81000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x81000A00' end='0x81000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x81000A10' end='0x81000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -49368,9 +49368,9 @@ parameters are a RESULT of the module parameters. -->
    </memoryBlock>
    <memoryBlock>
     <isBridge>false</isBridge>
-    <moduleName>AvsTap64_0</moduleName>
+    <moduleName>AvsTap256_0</moduleName>
     <slaveName>avalon_slave_32</slaveName>
-    <name>AvsTap64_0.avalon_slave_32</name>
+    <name>AvsTap256_0.avalon_slave_32</name>
     <baseAddress>2147500032</baseAddress>
     <span>16384</span>
    </memoryBlock>
@@ -63974,7 +63974,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1565203613</value>
+   <value>1565221853</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -63994,7 +63994,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1565203613</value>
+   <value>1565221853</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -64010,7 +64010,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1565203613</value>
+   <value>1565221853</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -67999,11 +67999,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>avalon_jtag_slave</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.data_master/AvsTap64_0.avalon_slave_32"
+   name="nios2_gen2_0.data_master/AvsTap256_0.avalon_slave_32"
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="AvsTap64_0.avalon_slave_32">
+   end="AvsTap256_0.avalon_slave_32">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -68046,7 +68046,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>nios2_gen2_0</startModule>
   <startConnectionPoint>data_master</startConnectionPoint>
-  <endModule>AvsTap64_0</endModule>
+  <endModule>AvsTap256_0</endModule>
   <endConnectionPoint>avalon_slave_32</endConnectionPoint>
  </connection>
  <connection
@@ -70600,11 +70600,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>s0</endConnectionPoint>
  </connection>
  <connection
-   name="dma_DDR_M1.mm_write/AvsTap64_0.avalon_slave_64"
+   name="dma_DDR_M1.mm_write/AvsTap256_0.avalon_slave_256"
    kind="avalon"
    version="18.1"
    start="dma_DDR_M1.mm_write"
-   end="AvsTap64_0.avalon_slave_64">
+   end="AvsTap256_0.avalon_slave_256">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -70647,15 +70647,15 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>dma_DDR_M1</startModule>
   <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>AvsTap64_0</endModule>
-  <endConnectionPoint>avalon_slave_64</endConnectionPoint>
+  <endModule>AvsTap256_0</endModule>
+  <endConnectionPoint>avalon_slave_256</endConnectionPoint>
  </connection>
  <connection
-   name="dma_DDR_M2.mm_write/AvsTap64_0.avalon_slave_64"
+   name="dma_DDR_M2.mm_write/AvsTap256_0.avalon_slave_256"
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="AvsTap64_0.avalon_slave_64">
+   end="AvsTap256_0.avalon_slave_256">
   <parameter name="arbitrationPriority">
    <type>int</type>
    <value>1</value>
@@ -70698,8 +70698,8 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>dma_DDR_M2</startModule>
   <startConnectionPoint>mm_write</startConnectionPoint>
-  <endModule>AvsTap64_0</endModule>
-  <endConnectionPoint>avalon_slave_64</endConnectionPoint>
+  <endModule>AvsTap256_0</endModule>
+  <endConnectionPoint>avalon_slave_256</endConnectionPoint>
  </connection>
  <connection
    name="dma_DDR_M2.mm_write/m2_ddr2_memory.avl"
@@ -71965,11 +71965,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>clock_sink</endConnectionPoint>
  </connection>
  <connection
-   name="clk_100.clk/AvsTap64_0.clock_sink_100"
+   name="clk_100.clk/AvsTap256_0.clock_sink_100"
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="AvsTap64_0.clock_sink_100">
+   end="AvsTap256_0.clock_sink_100">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -71988,7 +71988,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_100</startModule>
   <startConnectionPoint>clk</startConnectionPoint>
-  <endModule>AvsTap64_0</endModule>
+  <endModule>AvsTap256_0</endModule>
   <endConnectionPoint>clock_sink_100</endConnectionPoint>
  </connection>
  <connection
@@ -73622,11 +73622,11 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
-   name="clk_50.clk_reset/AvsTap64_0.reset_sink"
+   name="clk_50.clk_reset/AvsTap256_0.reset_sink"
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="AvsTap64_0.reset_sink">
+   end="AvsTap256_0.reset_sink">
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -73645,7 +73645,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <startModule>clk_50</startModule>
   <startConnectionPoint>clk_reset</startConnectionPoint>
-  <endModule>AvsTap64_0</endModule>
+  <endModule>AvsTap256_0</endModule>
   <endConnectionPoint>reset_sink</endConnectionPoint>
  </connection>
  <connection
@@ -75148,10 +75148,10 @@ parameters are a RESULT of the module parameters. -->
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
-  <name>AvsTap64</name>
+  <name>AvsTap256</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
-  <displayName>AvsTap64</displayName>
+  <displayName>AvsTap256</displayName>
   <version>1.0</version>
  </plugin>
  <plugin>

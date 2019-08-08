@@ -40,7 +40,6 @@ architecture rtl of avstap64_top is
 	alias a_reset is reset_sink_reset;
 
 	-- 32 avalon mm read signals
-	signal s_avalon_mm_32_read_readdata    : std_logic_vector(31 downto 0);
 	signal s_avalon_mm_32_read_waitrequest : std_logic;
 
 	-- 32 avalon mm write signals
@@ -59,7 +58,7 @@ begin
 			rst_i                      => a_reset,
 			avalon_mm_32_i.address     => avalon_slave_32_address,
 			avalon_mm_32_i.read        => avalon_slave_32_read,
-			avalon_mm_32_o.readdata    => s_avalon_mm_32_read_readdata,
+			avalon_mm_32_o.readdata    => avalon_slave_32_readdata,
 			avalon_mm_32_o.waitrequest => s_avalon_mm_32_read_waitrequest,
 			write_registers_i          => s_avstap_write_registers,
 			read_registers_i           => s_avstap_read_registers

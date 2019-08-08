@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 package avalon_mm_32_registers_pkg is
 
-	constant c_AVSTAP_DATA_SIZE_DWORDS : natural := 4096; -- Size of the AvsTap, in DWORDS (32b)
+	constant c_AVSTAP_DATA_SIZE_DWORDS : natural := 1024; -- Size of the AvsTap, in DWORDS (32b)
 
 	type t_avstap_data is array (0 to (c_AVSTAP_DATA_SIZE_DWORDS - 1)) of std_logic_vector(31 downto 0);
 

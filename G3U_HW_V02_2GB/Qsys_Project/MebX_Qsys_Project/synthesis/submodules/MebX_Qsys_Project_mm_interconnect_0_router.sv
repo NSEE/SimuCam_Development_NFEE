@@ -264,7 +264,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router
     // ( 0x80004000 .. 0x80008000 )
     if ( {address[RG:PAD9],{PAD9{1'b0}}} == 32'h80004000   ) begin
             src_channel = 16'b0000000000010;
-            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 0;
+            src_data[PKT_DEST_ID_H:PKT_DEST_ID_L] = 1;
     end
 
     // ( 0x80200000 .. 0x80300000 )
