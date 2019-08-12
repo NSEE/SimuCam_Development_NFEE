@@ -21,7 +21,8 @@ end entity avalon_mm_windowing_write_ent;
 
 architecture rtl of avalon_mm_windowing_write_ent is
 
-	signal s_waitrequest : std_logic;
+	signal s_waitrequest  : std_logic;
+	signal s_discard_data : std_logic;
 
 begin
 
@@ -35,6 +36,7 @@ begin
 			window_double_buffer_o(1).full    <= '0';
 			window_double_buffer_o(1).size    <= (others => '1');
 			s_waitrequest                     <= '0';
+			s_discard_data                    <= '0';
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
@@ -50,23 +52,33 @@ begin
 			case (write_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 67 =>
+				when 0 =>
 					-- check if the waitrequested is still active
 					if (s_waitrequest = '1') then
 						-- waitrequest active, execute write operation
 						if (window_buffer_control_i.locked = '0') then
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 0) <= avalon_mm_windowing_i.writedata((32 * 0 + 31) downto (32 * 0));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 1) <= avalon_mm_windowing_i.writedata((32 * 1 + 31) downto (32 * 1));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 2) <= avalon_mm_windowing_i.writedata((32 * 2 + 31) downto (32 * 2));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 3) <= avalon_mm_windowing_i.writedata((32 * 3 + 31) downto (32 * 3));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 4) <= avalon_mm_windowing_i.writedata((32 * 4 + 31) downto (32 * 4));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 5) <= avalon_mm_windowing_i.writedata((32 * 5 + 31) downto (32 * 5));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 6) <= avalon_mm_windowing_i.writedata((32 * 6 + 31) downto (32 * 6));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 8) + 7) <= avalon_mm_windowing_i.writedata((32 * 7 + 31) downto (32 * 7));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 0) <= avalon_mm_windowing_i.writedata((64 * 0 + 63) downto (64 * 0));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 1) <= avalon_mm_windowing_i.writedata((64 * 1 + 63) downto (64 * 1));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 2) <= avalon_mm_windowing_i.writedata((64 * 2 + 63) downto (64 * 2));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 3) <= avalon_mm_windowing_i.writedata((64 * 3 + 63) downto (64 * 3));
+							s_discard_data                                                                              <= '0';
 						end if;
-						if (write_address_i = c_BUFFER_SIZE_TO_ADDR(to_integer(unsigned(window_buffer_size_i)))) then
-							window_double_buffer_o(window_buffer_control_i.selected).full <= '1';
-							window_double_buffer_o(window_buffer_control_i.selected).size <= window_buffer_size_i;
+					end if;
+
+				when 1 to 67 =>
+					-- check if the waitrequested is still active
+					if (s_waitrequest = '1') then
+						-- waitrequest active, execute write operation
+						if ((window_buffer_control_i.locked = '0') and (s_discard_data = '0')) then
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 0) <= avalon_mm_windowing_i.writedata((64 * 0 + 63) downto (64 * 0));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 1) <= avalon_mm_windowing_i.writedata((64 * 1 + 63) downto (64 * 1));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 2) <= avalon_mm_windowing_i.writedata((64 * 2 + 63) downto (64 * 2));
+							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 3) <= avalon_mm_windowing_i.writedata((64 * 3 + 63) downto (64 * 3));
+							if (write_address_i = c_BUFFER_SIZE_TO_ADDR(to_integer(unsigned(window_buffer_size_i)))) then
+								window_double_buffer_o(window_buffer_control_i.selected).full <= '1';
+								window_double_buffer_o(window_buffer_control_i.selected).size <= window_buffer_size_i;
+								s_discard_data                                                <= '1';
+							end if;
 						end if;
 					end if;
 

@@ -283,7 +283,7 @@ begin
 									avalon_mm_write_o                 <= '1';
 									avalon_mm_writedata_o             <= (others => '0');
 				--					avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(16 - 1, 4)); -- right_buffer_size
-									avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(16 - 1, 4)); -- right_buffer_size
+									avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(15 - 1, 4)); -- right_buffer_size
 									avalon_mm_read_o                  <= '0';
 				--
 				--				-- fee_windowing_left_buffer_size_reg

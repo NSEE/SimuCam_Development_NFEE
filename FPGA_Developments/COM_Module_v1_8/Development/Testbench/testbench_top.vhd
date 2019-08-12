@@ -50,13 +50,13 @@ architecture RTL of testbench_top is
 
 	-- avalon_buffer_R_stimuli signals
 	signal s_avalon_buffer_R_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
+	signal s_avalon_buffer_R_stimuli_mm_address     : std_logic_vector(7 downto 0); --          .address
 	signal s_avalon_buffer_R_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_R_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
 
 	-- avalon_buffer_L_stimuli signals
 	signal s_avalon_buffer_L_stimuli_mm_waitrequest : std_logic; --                                     -- avalon_mm.waitrequest
-	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(9 downto 0); --          .address
+	signal s_avalon_buffer_L_stimuli_mm_address     : std_logic_vector(7 downto 0); --          .address
 	signal s_avalon_buffer_L_stimuli_mm_write       : std_logic; --                                     --          .write
 	signal s_avalon_buffer_L_stimuli_mm_writedata   : std_logic_vector(255 downto 0); -- --          .writedata
 
@@ -99,7 +99,7 @@ begin
 
 	avalon_buffer_R_stimuli_inst : entity work.avalon_buffer_R_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
+			g_ADDRESS_WIDTH => 8,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -113,7 +113,7 @@ begin
 
 	avalon_buffer_L_stimuli_inst : entity work.avalon_buffer_L_stimuli
 		generic map(
-			g_ADDRESS_WIDTH => 10,
+			g_ADDRESS_WIDTH => 8,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
