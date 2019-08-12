@@ -9,12 +9,13 @@ entity windowing_buffer_ent is
 	port(
 		clk_i                   : in  std_logic;
 		rst_i                   : in  std_logic;
-		window_buffer_size_i    : in  std_logic_vector(3 downto 0);
 		fee_clear_signal_i      : in  std_logic;
 		fee_stop_signal_i       : in  std_logic;
 		fee_start_signal_i      : in  std_logic;
 		window_double_buffer_i  : in  t_windowing_double_buffer;
 		window_buffer_control_o : out t_windowing_buffer_control;
+		window_data_read_i      : in  std_logic;
+		window_mask_read_i      : in  std_logic;
 		window_data_o           : out std_logic_vector(63 downto 0);
 		window_mask_o           : out std_logic_vector(63 downto 0);
 		window_data_ready_o     : out std_logic;
@@ -45,8 +46,7 @@ architecture RTL of windowing_buffer_ent is
 	-- windowing dataset double buffer
 	signal s_dataset_double_buffer : t_windowing_dataset_double_buffer;
 
-	signal s_selected_write_dbuffer : natural range 0 to 1;
-	signal s_selected_read_dbuffer  : natural range 0 to 1;
+	signal s_selected_read_dbuffer : natural range 0 to 1;
 
 	signal s_dbuffer_0_empty : std_logic;
 	signal s_dbuffer_1_empty : std_logic;
@@ -112,70 +112,51 @@ begin
 			s_windowing_mask_fifo_control.write.wrreq <= '0';
 			s_windowing_mask_fifo_control.write.sclr  <= '1';
 			s_windowing_mask_fifo_wr_data.data        <= (others => '0');
-			s_write_data_buffer_0_active              <= '1';
-			s_write_mask_buffer_0_active              <= '1';
-			s_read_data_buffer_0_active               <= '1';
-			s_read_mask_buffer_0_active               <= '1';
-			s_data_buffer_0_ready                     <= '0';
-			s_data_buffer_1_ready                     <= '0';
-			s_mask_buffer_0_ready                     <= '0';
-			s_mask_buffer_1_ready                     <= '0';
-			s_data_buffer_0_lock                      <= '0';
-			s_data_buffer_1_lock                      <= '0';
-			s_mask_buffer_0_lock                      <= '0';
-			s_mask_buffer_1_lock                      <= '0';
 			s_stopped_flag                            <= '1';
+			s_selected_read_dbuffer                   <= 0;
+			s_dbuffer_0_empty                         <= '1';
+			s_dbuffer_1_empty                         <= '1';
+			s_dbuffer_0_readable                      <= '0';
+			s_dbuffer_1_readable                      <= '0';
+			s_dbuffer_write_state                     <= DBUFFER_0;
+			s_dbuffer_read_state                      <= IDLE;
+			s_dbuffer_data_cnt                        <= 0;
+			s_dbuffer_buffer_cnt                      <= 0;
 		elsif rising_edge(clk_i) then
 
 			-- check if the windowing buffer is stopped
 			if (s_stopped_flag = '1') then
 				-- windowing buffer stopped, do nothing
 				-- clear signals
-				window_data_o                               <= (others => '0');
-				window_mask_o                               <= (others => '0');
-				s_windowing_data_fifo_0_control.read.rdreq  <= '0';
-				s_windowing_data_fifo_0_control.read.sclr   <= '0';
-				s_windowing_data_fifo_0_control.write.wrreq <= '0';
-				s_windowing_data_fifo_0_control.write.sclr  <= '0';
-				s_windowing_data_fifo_0_wr_data.data        <= (others => '0');
-				s_windowing_mask_fifo_0_control.read.rdreq  <= '0';
-				s_windowing_mask_fifo_0_control.read.sclr   <= '0';
-				s_windowing_mask_fifo_0_control.write.wrreq <= '0';
-				s_windowing_mask_fifo_0_control.write.sclr  <= '0';
-				s_windowing_mask_fifo_0_wr_data.data        <= (others => '0');
-				s_windowing_data_fifo_1_control.read.rdreq  <= '0';
-				s_windowing_data_fifo_1_control.read.sclr   <= '0';
-				s_windowing_data_fifo_1_control.write.wrreq <= '0';
-				s_windowing_data_fifo_1_control.write.sclr  <= '0';
-				s_windowing_data_fifo_1_wr_data.data        <= (others => '0');
-				s_windowing_mask_fifo_1_control.read.rdreq  <= '0';
-				s_windowing_mask_fifo_1_control.read.sclr   <= '0';
-				s_windowing_mask_fifo_1_control.write.wrreq <= '0';
-				s_windowing_mask_fifo_1_control.write.sclr  <= '0';
-				s_windowing_mask_fifo_1_wr_data.data        <= (others => '0');
-				s_write_data_buffer_0_active                <= '1';
-				s_write_mask_buffer_0_active                <= '1';
-				s_read_data_buffer_0_active                 <= '1';
-				s_read_mask_buffer_0_active                 <= '1';
-				s_data_buffer_0_ready                       <= '0';
-				s_data_buffer_1_ready                       <= '0';
-				s_mask_buffer_0_ready                       <= '0';
-				s_mask_buffer_1_ready                       <= '0';
-				s_data_buffer_0_lock                        <= '0';
-				s_data_buffer_1_lock                        <= '0';
-				s_mask_buffer_0_lock                        <= '0';
+				window_data_o                             <= (others => '0');
+				window_mask_o                             <= (others => '0');
+				s_windowing_data_fifo_control.read.rdreq  <= '0';
+				s_windowing_data_fifo_control.read.sclr   <= '0';
+				s_windowing_data_fifo_control.write.wrreq <= '0';
+				s_windowing_data_fifo_control.write.sclr  <= '0';
+				s_windowing_data_fifo_wr_data.data        <= (others => '0');
+				s_windowing_mask_fifo_control.read.rdreq  <= '0';
+				s_windowing_mask_fifo_control.read.sclr   <= '0';
+				s_windowing_mask_fifo_control.write.wrreq <= '0';
+				s_windowing_mask_fifo_control.write.sclr  <= '0';
+				s_windowing_mask_fifo_wr_data.data        <= (others => '0');
+				s_selected_read_dbuffer                   <= 0;
+				s_dbuffer_0_empty                         <= '1';
+				s_dbuffer_1_empty                         <= '1';
+				s_dbuffer_0_readable                      <= '0';
+				s_dbuffer_1_readable                      <= '0';
+				s_dbuffer_write_state                     <= DBUFFER_0;
+				s_dbuffer_read_state                      <= IDLE;
+				s_dbuffer_data_cnt                        <= 0;
+				s_dbuffer_buffer_cnt                      <= 0;
 				-- check if a clear request was received
 				if (fee_clear_signal_i = '1') then
 					-- clear request received
 					-- clear buffer
-					s_windowing_data_fifo_0_control.read.sclr  <= '1';
-					s_windowing_data_fifo_0_control.write.sclr <= '1';
-					s_windowing_mask_fifo_0_control.read.sclr  <= '1';
-					s_windowing_mask_fifo_0_control.write.sclr <= '1';
-					s_windowing_data_fifo_1_control.read.sclr  <= '1';
-					s_windowing_data_fifo_1_control.write.sclr <= '1';
-					s_windowing_mask_fifo_1_control.read.sclr  <= '1';
-					s_windowing_mask_fifo_1_control.write.sclr <= '1';
+					s_windowing_data_fifo_control.read.sclr  <= '1';
+					s_windowing_data_fifo_control.write.sclr <= '1';
+					s_windowing_mask_fifo_control.read.sclr  <= '1';
+					s_windowing_mask_fifo_control.write.sclr <= '1';
 				end if;
 				-- check if a start request was received
 				if (fee_start_signal_i = '1') then
@@ -192,18 +173,10 @@ begin
 					s_stopped_flag <= '1';
 				end if;
 				-- normal operation
-
-				window_data_o                             <= (others => '0');
-				window_mask_o                             <= (others => '0');
-				s_windowing_data_fifo_control.read.rdreq  <= '0';
-				s_windowing_data_fifo_control.read.sclr   <= '0';
-				s_windowing_data_fifo_control.write.wrreq <= '0';
-				s_windowing_data_fifo_control.write.sclr  <= '0';
-				s_windowing_data_fifo_wr_data.data        <= (others => '0');
-				s_windowing_mask_fifo_control.read.rdreq  <= '0';
-				s_windowing_mask_fifo_control.read.sclr   <= '0';
-				s_windowing_mask_fifo_control.write.wrreq <= '0';
-				s_windowing_mask_fifo_control.write.sclr  <= '0';
+				s_windowing_data_fifo_control.read.sclr  <= '0';
+				s_windowing_data_fifo_control.write.sclr <= '0';
+				s_windowing_mask_fifo_control.read.sclr  <= '0';
+				s_windowing_mask_fifo_control.write.sclr <= '0';
 
 				-- data buffer write
 				case (s_dbuffer_write_state) is
@@ -277,7 +250,7 @@ begin
 						if (s_windowing_data_fifo_status.write.full = '0') then
 							s_dbuffer_read_state                      <= DATA_DELAY;
 							s_windowing_data_fifo_control.write.wrreq <= '1';
-							s_windowing_data_fifo_wr_data.data        <= s_dataset_double_buffer(s_selected_read_dbuffer)(s_dbuffer_buffer_cnt).data(s_dbuffer_data_cnt);
+							s_windowing_data_fifo_wr_data.data        <= f_pixels_data_little_to_big_endian(s_dataset_double_buffer(s_selected_read_dbuffer)(s_dbuffer_buffer_cnt).data(s_dbuffer_data_cnt));
 							if (s_dbuffer_data_cnt = 15) then
 								s_dbuffer_data_cnt <= 0;
 							else
@@ -304,7 +277,7 @@ begin
 						if (s_windowing_mask_fifo_status.write.full = '0') then
 							s_dbuffer_read_state                      <= MASK_DELAY;
 							s_windowing_mask_fifo_control.write.wrreq <= '1';
-							s_windowing_mask_fifo_wr_data.data        <= s_dataset_double_buffer(s_selected_read_dbuffer)(s_dbuffer_buffer_cnt).mask;
+							s_windowing_mask_fifo_wr_data.data        <= f_mask_conv(s_dataset_double_buffer(s_selected_read_dbuffer)(s_dbuffer_buffer_cnt).mask);
 							if (s_dbuffer_buffer_cnt = to_integer(unsigned(window_double_buffer_i(s_selected_read_dbuffer).size))) then
 								s_dbuffer_buffer_cnt <= 0;
 							else
@@ -342,6 +315,23 @@ begin
 
 				end case;
 
+				-- Windowing Buffer Read
+				window_data_o                            <= (others => '0');
+				window_mask_o                            <= (others => '0');
+				s_windowing_data_fifo_control.read.rdreq <= '0';
+				s_windowing_mask_fifo_control.read.rdreq <= '0';
+				-- check if a buffer data read was requested
+				if (window_data_read_i = '1') then
+					-- read data from the data buffer 0
+					s_windowing_data_fifo_control.read.rdreq <= '1';
+					window_data_o                            <= s_windowing_data_fifo_rd_data.q;
+				-- check if a buffer mask read was requested	
+				elsif (window_mask_read_i = '1') then
+					-- read data from the mask buffer 0
+					s_windowing_mask_fifo_control.read.rdreq <= '1';
+					window_mask_o                            <= s_windowing_mask_fifo_rd_data.q;
+				end if;
+
 			end if;
 
 		end if;
@@ -350,11 +340,11 @@ begin
 	-- signals assignments
 
 	-- output signals generation:
-	window_buffer_empty_o   <= (((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty)) or ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty)));
-	window_buffer_0_empty_o <= ((s_windowing_data_fifo_0_status.read.empty) and (s_windowing_mask_fifo_0_status.read.empty));
-	window_buffer_1_empty_o <= ((s_windowing_data_fifo_1_status.read.empty) and (s_windowing_mask_fifo_1_status.read.empty));
-	window_data_ready_o     <= ((s_data_buffer_0_ready) or (s_data_buffer_1_ready));
-	window_mask_ready_o     <= ((s_mask_buffer_0_ready) or (s_mask_buffer_1_ready));
+	window_buffer_empty_o   <= (s_dbuffer_0_empty) or (s_dbuffer_1_empty);
+	window_buffer_0_empty_o <= (s_dbuffer_0_empty);
+	window_buffer_1_empty_o <= (s_dbuffer_1_empty);
+	window_data_ready_o     <= not (s_windowing_data_fifo_status.read.empty);
+	window_mask_ready_o     <= not (s_windowing_mask_fifo_status.read.empty);
 
 	-- windowing dataset double buffer assingments
 

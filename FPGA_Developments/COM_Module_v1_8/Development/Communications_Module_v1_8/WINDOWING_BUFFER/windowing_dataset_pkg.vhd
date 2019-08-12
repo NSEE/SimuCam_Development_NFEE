@@ -1,4 +1,14 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
 package windowing_dataset_pkg is
+
+	-- buffer size to address
+	type t_buffer_size_addr is array (0 to 15) of natural range 0 to 67;
+	constant c_BUFFER_SIZE_TO_ADDR : t_buffer_size_addr := (
+		4, 8, 12, 16, 21, 25, 29, 33, 38, 42, 46, 50, 55, 59, 63, 67
+	);
 
 	-- windowing buffer data buffer
 	type t_windowing_data_buffer is array (0 to 271) of std_logic_vector(63 downto 0);
