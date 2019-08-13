@@ -24,12 +24,12 @@ begin
 	p_avalon_mm_32_write : process(clk_i, rst_i) is
 		procedure p_reset_registers is
 		begin
-			write_registers_o.avstap_control.avstap_clear <= '0';
+			
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
 		begin
-			write_registers_o.avstap_control.avstap_clear <= '0';
+			
 		end procedure p_control_triggers;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_32_address) is
@@ -38,8 +38,13 @@ begin
 			case (write_address_i) is
 				-- Case for access to all registers address
 
-				when (16#00#) =>
-					write_registers_o.avstap_control.avstap_clear <= avalon_mm_32_i.writedata(0);
+				when 0 to (c_AVSTAP_DATA_SIZE_DWORDS - 1) =>
+					for cnt_i in 0 to 3 loop
+						if (avalon_mm_32_i.byteenable(cnt_i) = '1') then
+							write_registers_o.avstap_data_reg.avstap_data(write_address_i)((8 * cnt_i + 7) downto (8 * cnt_i)) <= avalon_mm_32_i.writedata((8 * cnt_i + 7) downto (8 * cnt_i));
+						end if;
+					end loop;
+
 				when others =>
 					null;
 

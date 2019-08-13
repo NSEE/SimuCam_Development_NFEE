@@ -18,18 +18,18 @@ use work.avalon_mm_32_registers_pkg.all;
 
 entity avstap256_top is
 	port(
-		reset_sink_reset             : in  std_logic                     := '0'; --          --       reset_sink.a_reset
-		clock_sink_100_clk           : in  std_logic                     := '0'; --          --   clock_sink_100.clk
-		avalon_slave_32_address      : in  std_logic_vector(11 downto 0) := (others => '0'); --  avalon_slave_32.address
-		avalon_slave_32_write        : in  std_logic                     := '0'; --          --                 .write
-		avalon_slave_32_read         : in  std_logic                     := '0'; --          --                 .read
-		avalon_slave_32_readdata     : out std_logic_vector(31 downto 0); --                 --                 .readdata
-		avalon_slave_32_writedata    : in  std_logic_vector(31 downto 0) := (others => '0'); --                 .writedata
-		avalon_slave_32_waitrequest  : out std_logic; --                                     --                 .waitrequest
-		avalon_slave_256_address     : in  std_logic_vector(8 downto 0)  := (others => '0'); -- avalon_slave_256.address
-		avalon_slave_256_write       : in  std_logic                     := '0'; --          --                 .write
-		avalon_slave_256_writedata   : in  std_logic_vector(63 downto 0) := (others => '0'); --                 .writedata
-		avalon_slave_256_waitrequest : out std_logic --                                      --                 .waitrequest
+		reset_sink_reset             : in  std_logic                      := '0'; --          --       reset_sink.a_reset
+		clock_sink_100_clk           : in  std_logic                      := '0'; --          --   clock_sink_100.clk
+		avalon_slave_32_address      : in  std_logic_vector(11 downto 0)  := (others => '0'); --  avalon_slave_32.address
+		avalon_slave_32_write        : in  std_logic                      := '0'; --          --                 .write
+		avalon_slave_32_read         : in  std_logic                      := '0'; --          --                 .read
+		avalon_slave_32_readdata     : out std_logic_vector(31 downto 0); --                 --                  .readdata
+		avalon_slave_32_writedata    : in  std_logic_vector(31 downto 0)  := (others => '0'); --                 .writedata
+		avalon_slave_32_waitrequest  : out std_logic; --                                     --                  .waitrequest
+		avalon_slave_256_address     : in  std_logic_vector(8 downto 0)   := (others => '0'); -- avalon_slave_256.address
+		avalon_slave_256_write       : in  std_logic                      := '0'; --          --                 .write
+		avalon_slave_256_writedata   : in  std_logic_vector(255 downto 0) := (others => '0'); --                 .writedata
+		avalon_slave_256_waitrequest : out std_logic --                                      --                  .waitrequest
 	);
 end entity avstap256_top;
 
@@ -77,7 +77,7 @@ begin
 		);
 
 	-- 256 avalon mm write instantiation
-	avalon_mm_256_write_ent_inst : entity work.avalon_mm_265_write_ent
+	avalon_mm_256_write_ent_inst : entity work.avalon_mm_256_write_ent
 		port map(
 			clk_i                       => a_avs_clock,
 			rst_i                       => a_reset,

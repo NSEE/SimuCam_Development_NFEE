@@ -22,55 +22,40 @@
 
 FILE* fp;
 
-int main()
-{
-  printf("Hello from Nios II!\n\n");
+int main() {
+	printf("Hello from Nios II!\n\n");
 
-  // write test data in memory
-  bDdr2SwitchMemory(DDR2_M1_ID);
+	alt_u8 *pxDes;
+	alt_u32 *pxDes32;
 
-  alt_u32 uliDdr2Base;
-  alt_u8 *pxDes;
-  alt_u32 *pxDes32;
+	alt_u32 uiDataCnt = 0;
 
-  alt_u16 uiDataCnt = 0;
+	pxDes32 = (alt_u32 *) AVSTAP32_0_BASE;
+	for (uiDataCnt = 0; uiDataCnt < 1024; uiDataCnt++) {
+		*pxDes32 = (alt_u32) 0;
+		pxDes32++;
+	}
 
-  uliDdr2Base = DDR2_EXT_ADDR_WINDOWED_BASE;
+	usleep(1000 * 1000 * 1);
 
-  pxDes = (alt_u8 *) uliDdr2Base;
-  for (uiDataCnt = 0; uiDataCnt < 2176; uiDataCnt++) {
-	  *pxDes = (alt_u8)uiDataCnt;
-	  pxDes++;
-  }
+	pxDes = (alt_u8 *) AVSTAP32_0_BASE;
+	*pxDes = (alt_u32) 50;
 
-//  pxDes = (alt_u8 *) uliDdr2Base;
-//  for (uiDataCnt = 0; uiDataCnt < 2176; uiDataCnt++) {
-//	  printf("Addr: %04lu; Data: %02X \n", (alt_u32)pxDes, *pxDes);
-//	  pxDes++;
-//  }
+	*(pxDes+3) = (alt_u32) 50;
 
-  pxDes32 = (alt_u32 *) AVSTAP256_0_BASE;
-  *pxDes32 = 1;
+//	pxDes32 = (alt_u32 *) AVSTAP32_0_BASE;
+//	for (uiDataCnt = 0; uiDataCnt < 1024; uiDataCnt++) {
+//		*pxDes32 = (alt_u32) uiDataCnt;
+//		pxDes32++;
+//	}
 
-  if (bSdmaInitM1Dma()){
-	  printf("Ok1 \n");
-  }
-  if (bSdmaDmaM1Transfer((alt_u32 *)32, 1, eSdmaLeftBuffer, eSdmaCh1Buffer)){
-	  printf("Ok2 \n");
+	usleep(1000 * 1000 * 1);
 
-	  usleep(1000*1000*1);
+	pxDes32 = (alt_u32 *) AVSTAP32_0_BASE;
+	for (uiDataCnt = 0; uiDataCnt < 1024; uiDataCnt++) {
+		printf("Addr: %04lu; Data: %08lX \n", (alt_u32) pxDes32, *pxDes32);
+		pxDes32++;
+	}
 
-	  pxDes32 = (alt_u32 *) AVSTAP256_0_BASE;
-	    for (uiDataCnt = 0; uiDataCnt < (2176/4 + 4); uiDataCnt++) {
-	  	  printf("Addr: %04lu; Data: %08lX \n", (alt_u32)pxDes32, *pxDes32);
-	  	  pxDes32++;
-	    }
-
-  } else {
-	  printf("Fail2 \n");
-  }
-
-
-
-  return 0;
+	return 0;
 }

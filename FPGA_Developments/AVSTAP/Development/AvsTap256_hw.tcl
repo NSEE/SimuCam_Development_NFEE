@@ -4,7 +4,7 @@
 
 
 # 
-# AvsTa256 "AvsTa256" v1.0
+# AvsTap256 "AvsTap256" v1.0
 #  2019.08.07.15:22:07
 # 
 # 
@@ -16,15 +16,15 @@ package require -exact qsys 16.1
 
 
 # 
-# module AvsTa256
+# module AvsTap256
 # 
 set_module_property DESCRIPTION ""
-set_module_property NAME AvsTa256
+set_module_property NAME AvsTap256
 set_module_property VERSION 1.0
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
-set_module_property DISPLAY_NAME AvsTa256
+set_module_property DISPLAY_NAME AvsTap256
 set_module_property INSTANTIATE_IN_SYSTEM_MODULE true
 set_module_property EDITABLE true
 set_module_property REPORT_TO_TALKBACK false

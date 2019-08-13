@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Aug 7, 2019 11:25:30 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1565231130662</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Aug 12, 2019 4:53:54 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1565639634960</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -971,7 +971,7 @@
                 <attributes>printable</attributes>
         </MemoryMap>
         <MemoryMap>
-                <slaveDescriptor>AvsTap256_0</slaveDescriptor>
+                <slaveDescriptor>AvsTap32_0</slaveDescriptor>
                 <addressRange>0x80004000 - 0x80007FFF</addressRange>
                 <addressSpan>16384</addressSpan>
                 <attributes/>

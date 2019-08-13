@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Wed Aug 07 23:25:31 BRT 2019
+ * Generated: Mon Aug 12 16:53:55 BRT 2019
  */
 
 /*
@@ -70,17 +70,17 @@
 
 
 /*
- * AvsTap256_0 configuration
+ * AvsTap32_0 configuration
  *
  */
 
-#define ALT_MODULE_CLASS_AvsTap256_0 AvsTap256
-#define AVSTAP256_0_BASE 0x80004000
-#define AVSTAP256_0_IRQ -1
-#define AVSTAP256_0_IRQ_INTERRUPT_CONTROLLER_ID -1
-#define AVSTAP256_0_NAME "/dev/AvsTap256_0"
-#define AVSTAP256_0_SPAN 16384
-#define AVSTAP256_0_TYPE "AvsTap256"
+#define ALT_MODULE_CLASS_AvsTap32_0 AvsTap32
+#define AVSTAP32_0_BASE 0x80004000
+#define AVSTAP32_0_IRQ -1
+#define AVSTAP32_0_IRQ_INTERRUPT_CONTROLLER_ID -1
+#define AVSTAP32_0_NAME "/dev/AvsTap32_0"
+#define AVSTAP32_0_SPAN 16384
+#define AVSTAP32_0_TYPE "AvsTap32"
 
 
 /*
@@ -178,7 +178,7 @@
 #define __ALTERA_MSGDMA
 #define __ALTERA_NIOS2_GEN2
 #define __ALTERA_UP_SD_CARD_AVALON_INTERFACE
-#define __AVSTAP256
+#define __AVSTAP32
 #define __RST_CONTROLLER
 #define __SEVEN_SEGMENT_CONTROLLER
 #define __SYNC
@@ -1143,7 +1143,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1565221853
+#define SYSID_QSYS_TIMESTAMP 1565638339
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 
