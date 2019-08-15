@@ -647,7 +647,8 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 			fprintf(fp, "Memory %i\n",mem_number);
 		}
 		#endif
-		for( NFee_i = 0; NFee_i < N_OF_NFEE; NFee_i++ ) {
+		for( NFee_i = 0; NFee_i < 1; NFee_i++ ) {
+//		for( NFee_i = 0; NFee_i < N_OF_NFEE; NFee_i++ ) {
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				fprintf(fp, "--NFEE %i\n", NFee_i);

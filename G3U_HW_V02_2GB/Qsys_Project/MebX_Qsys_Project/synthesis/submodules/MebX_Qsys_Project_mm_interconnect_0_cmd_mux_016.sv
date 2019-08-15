@@ -43,9 +43,9 @@
 //   ARBITRATION_SHARES:  1 1 1
 //   ARBITRATION_SCHEME   "round-robin"
 //   PIPELINE_ARB:        1
-//   PKT_TRANS_LOCK:      325 (arbitration locking enabled)
-//   ST_DATA_W:           378
-//   ST_CHANNEL_W:        17
+//   PKT_TRANS_LOCK:      109 (arbitration locking enabled)
+//   ST_DATA_W:           162
+//   ST_CHANNEL_W:        26
 // ------------------------------------------
 
 module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016
@@ -54,22 +54,22 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016
     // Sinks
     // ----------------------
     input                       sink0_valid,
-    input [378-1   : 0]  sink0_data,
-    input [17-1: 0]  sink0_channel,
+    input [162-1   : 0]  sink0_data,
+    input [26-1: 0]  sink0_channel,
     input                       sink0_startofpacket,
     input                       sink0_endofpacket,
     output                      sink0_ready,
 
     input                       sink1_valid,
-    input [378-1   : 0]  sink1_data,
-    input [17-1: 0]  sink1_channel,
+    input [162-1   : 0]  sink1_data,
+    input [26-1: 0]  sink1_channel,
     input                       sink1_startofpacket,
     input                       sink1_endofpacket,
     output                      sink1_ready,
 
     input                       sink2_valid,
-    input [378-1   : 0]  sink2_data,
-    input [17-1: 0]  sink2_channel,
+    input [162-1   : 0]  sink2_data,
+    input [26-1: 0]  sink2_channel,
     input                       sink2_startofpacket,
     input                       sink2_endofpacket,
     output                      sink2_ready,
@@ -79,8 +79,8 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016
     // Source
     // ----------------------
     output                      src_valid,
-    output [378-1    : 0] src_data,
-    output [17-1 : 0] src_channel,
+    output [162-1    : 0] src_data,
+    output [26-1 : 0] src_channel,
     output                      src_startofpacket,
     output                      src_endofpacket,
     input                       src_ready,
@@ -91,13 +91,13 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016
     input clk,
     input reset
 );
-    localparam PAYLOAD_W        = 378 + 17 + 2;
+    localparam PAYLOAD_W        = 162 + 26 + 2;
     localparam NUM_INPUTS       = 3;
     localparam SHARE_COUNTER_W  = 1;
     localparam PIPELINE_ARB     = 1;
-    localparam ST_DATA_W        = 378;
-    localparam ST_CHANNEL_W     = 17;
-    localparam PKT_TRANS_LOCK   = 325;
+    localparam ST_DATA_W        = 162;
+    localparam ST_CHANNEL_W     = 26;
+    localparam PKT_TRANS_LOCK   = 109;
 
     // ------------------------------------------
     // Signals
@@ -132,9 +132,9 @@ module MebX_Qsys_Project_mm_interconnect_0_cmd_mux_016
     // ------------------------------------------
     reg [NUM_INPUTS - 1 : 0] lock;
     always @* begin
-      lock[0] = sink0_data[325];
-      lock[1] = sink1_data[325];
-      lock[2] = sink2_data[325];
+      lock[0] = sink0_data[109];
+      lock[1] = sink1_data[109];
+      lock[2] = sink2_data[109];
     end
     reg [NUM_INPUTS - 1 : 0] locked = '0;
     always @(posedge clk or posedge reset) begin
