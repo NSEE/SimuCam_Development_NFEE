@@ -5,12 +5,14 @@
   <columns>
    <connections preferredWidth="655" />
    <irq preferredWidth="34" />
-   <name preferredWidth="244" />
-   <inputclock preferredWidth="155" />
+   <name preferredWidth="300" />
+   <inputclock preferredWidth="177" />
    <export preferredWidth="211" />
+   <description preferredWidth="325" />
   </columns>
  </systemtable>
- <library expandedCategories="Library,Project" />
+ <library
+   expandedCategories="Library/Processors and Peripherals/Co-Processors/Nios II Custom Instructions,Library,Library/Processors and Peripherals/Co-Processors,Library/Processors and Peripherals,Library/Processors and Peripherals/Embedded Processors,Project,Library/Basic Functions/Simulation; Debug and Verification,Library/Basic Functions,Library/Basic Functions/Simulation; Debug and Verification/Simulation" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />

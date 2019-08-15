@@ -1,9 +1,9 @@
 <sld_project_info>
   <project>
-    <hash md5_digest_80b="5945ef647405d8c3448a"/>
+    <hash md5_digest_80b="59dcfe2534d4b427af8b"/>
   </project>
   <file_info>
-    <file device="EP4SGX230KF40C2" path="MebX_Quartus_Project.sof" usercode="0xFFFFFFFF"/>
+    <file device="EP4SGX530KH40C2" path="MebX_Quartus_Project.sof" usercode="0xFFFFFFFF"/>
   </file_info>
   <hub_info hub_ir_width="5" ir_width="2" node_addr_width="2" node_count="2"/>
   <node_info>
@@ -139,7 +139,7 @@
   <sld_infos>
     <sld_info hpath="MebX_Qsys_Project:SOPC_INST" name="SOPC_INST">
       <assignment_values>
-        <assignment_value text="QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1559240338"/>
+        <assignment_value text="QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1560887317"/>
       </assignment_values>
       <parameters/>
     </sld_info>

@@ -176,24 +176,67 @@ void vRmapCh4HandleIrq(void* pvContext) {
 }
 
 void vRmapCh5HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*pviHoldContext = ...;
-	// if (*pviHoldContext == '0') {}...
-	// App logic sequence...
+	tQMask uiCmdRmap;
+	INT8U ucADDRReg;
+	INT8U error_codel;
+
+
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IRQ RMAP.\n");
+	}
+#endif
+
+	ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+
+	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 4;
+	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+	uiCmdRmap.ucByte[1] = ucADDRReg;
+	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[4];
+
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+	}
+#endif
+
+	error_codel = OSQPostFront(xFeeQ[4], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendRMAPFromIRQ( 4 );
+	}
+
 	vRmapCh5IrqFlagClrWriteCmd();
 }
 
 void vRmapCh6HandleIrq(void* pvContext) {
-	// Cast context to hold_context's type. It is important that this be
-	// declared volatile to avoid unwanted compiler optimization.
-	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	// Use context value according to your app logic...
-	//*hold_context_ptr = ...;
-	// if (*hold_context_ptr == '0') {}...
-	// App logic sequence...
+	tQMask uiCmdRmap;
+	INT8U ucADDRReg;
+	INT8U error_codel;
+
+
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IRQ RMAP.\n");
+	}
+#endif
+
+	ucADDRReg = (unsigned char)uliRmapCh4WriteCmdAddress();
+
+	uiCmdRmap.ucByte[3] = M_NFEE_BASE_ADDR + 5;
+	uiCmdRmap.ucByte[2] = M_FEE_RMAP;
+	uiCmdRmap.ucByte[1] = ucADDRReg;
+	uiCmdRmap.ucByte[0] = xDefaultsCH.ucChannelToFEE[5];
+
+#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		fprintf(fp,"IucADDRReg: %u\n", ucADDRReg);
+	}
+#endif
+
+	error_codel = OSQPostFront(xFeeQ[5], (void *)uiCmdRmap.ulWord); /*todo: Fee number Hard Coded*/
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendRMAPFromIRQ( 5 );
+	}
 	vRmapCh6IrqFlagClrWriteCmd();
 }
 
