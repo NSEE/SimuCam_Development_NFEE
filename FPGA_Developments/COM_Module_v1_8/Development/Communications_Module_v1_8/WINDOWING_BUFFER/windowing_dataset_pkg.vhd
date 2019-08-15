@@ -14,10 +14,21 @@ package windowing_dataset_pkg is
 	type t_windowing_data_buffer is array (0 to 271) of std_logic_vector(63 downto 0);
 
 	-- windowing buffer
+	--	type t_windowing_buffer is record
+	--		dbuffer : t_windowing_data_buffer;
+	--		full    : std_logic;
+	--		size    : std_logic_vector(3 downto 0);
+	--	end record t_windowing_buffer;
+
+	-- windowing buffer
 	type t_windowing_buffer is record
-		dbuffer : t_windowing_data_buffer;
-		full    : std_logic;
-		size    : std_logic_vector(3 downto 0);
+		large_wrdata : std_logic_vector(255 downto 0);
+		large_wrreq  : std_logic;
+		small_wrdata : std_logic_vector(255 downto 0);
+		small_wrreq  : std_logic;
+		sclr         : std_logic;
+		full         : std_logic;
+		size         : std_logic_vector(3 downto 0);
 	end record t_windowing_buffer;
 
 	-- windowing double buffer
@@ -43,6 +54,33 @@ package windowing_dataset_pkg is
 
 	-- windowing buffer dataset double buffer
 	type t_windowing_dataset_double_buffer is array (0 to 1) of t_windowing_dataset_buffer;
+
+	-- windowing large avsbuff sc fifo
+	type t_windowing_large_avsbuff_sc_fifo is record
+		rdreq  : std_logic;
+		empty  : std_logic;
+		full   : std_logic;
+		rddata : std_logic_vector(255 downto 0);
+		usedw  : std_logic_vector(5 downto 0);
+	end record t_windowing_large_avsbuff_sc_fifo;
+
+	-- windowing large avsbuff sc double fifo
+	type t_windowing_large_avsbuff_sc_double_fifo is array (0 to 1) of t_windowing_large_avsbuff_sc_fifo;
+
+	-- windowing small avsbuff sc fifo
+	type t_windowing_small_avsbuff_sc_fifo is record
+		rdreq  : std_logic;
+		empty  : std_logic;
+		full   : std_logic;
+		rddata : std_logic_vector(255 downto 0);
+		usedw  : std_logic_vector(5 downto 0);
+	end record t_windowing_small_avsbuff_sc_fifo;
+
+	-- windowing small avsbuff sc double fifo
+	type t_windowing_small_avsbuff_sc_double_fifo is array (0 to 1) of t_windowing_small_avsbuff_sc_fifo;
+
+	-- windowing avsbuff qword data
+	type t_windowing_avsbuff_qword_data is array (0 to 3) of std_logic_vector(63 downto 0);
 
 	--	function f_pattern_pixels_change_timecode(pattern_pixel_data_i : in std_logic_vector; timecode_i : in std_logic_vector) return std_logic_vector;
 
