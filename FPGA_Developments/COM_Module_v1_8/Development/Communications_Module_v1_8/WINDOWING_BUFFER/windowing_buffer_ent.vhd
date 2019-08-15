@@ -12,10 +12,11 @@ entity windowing_buffer_ent is
 		fee_clear_signal_i      : in  std_logic;
 		fee_stop_signal_i       : in  std_logic;
 		fee_start_signal_i      : in  std_logic;
+		fee_sync_signal_i       : in  std_logic;
 		window_double_buffer_i  : in  t_windowing_double_buffer;
-		window_buffer_control_o : out t_windowing_buffer_control;
 		window_data_read_i      : in  std_logic;
 		window_mask_read_i      : in  std_logic;
+		window_buffer_control_o : out t_windowing_buffer_control;
 		window_data_o           : out std_logic_vector(63 downto 0);
 		window_mask_o           : out std_logic_vector(63 downto 0);
 		window_data_ready_o     : out std_logic;
@@ -61,12 +62,15 @@ architecture RTL of windowing_buffer_ent is
 	signal s_dbuffer_1_readable : std_logic;
 
 	type t_dbuffer_write_fsm is (
+		STOPPED,
 		DBUFFER_0,
 		DBUFFER_1
 	);
 	signal s_dbuffer_write_state : t_dbuffer_write_fsm;
 
 	type t_dbuffer_read_fsm is (
+		STOPPED,
+		WAITING_SYNC,
 		IDLE,
 		DATA_WRITE,
 		DATA_DELAY,
@@ -83,7 +87,7 @@ architecture RTL of windowing_buffer_ent is
 
 begin
 
-	windowing_large_avsbuff_sc_fifo_0_inst : entity work.windowing_avsbuff_sc_fifo
+	windowing_large_avsbuff_sc_fifo_0_inst : entity work.windowing_large_avsbuff_sc_fifo
 		port map(
 			aclr  => rst_i,
 			clock => clk_i,
@@ -97,7 +101,7 @@ begin
 			usedw => s_windowing_large_avsbuff_sc_double_fifo(0).usedw
 		);
 
-	windowing_small_avsbuff_sc_fifo_0_inst : entity work.windowing_avsbuff_sc_fifo
+	windowing_small_avsbuff_sc_fifo_0_inst : entity work.windowing_small_avsbuff_sc_fifo
 		port map(
 			aclr  => rst_i,
 			clock => clk_i,
@@ -111,7 +115,7 @@ begin
 			usedw => s_windowing_small_avsbuff_sc_double_fifo(0).usedw
 		);
 
-	windowing_large_avsbuff_sc_fifo_1_inst : entity work.windowing_avsbuff_sc_fifo
+	windowing_large_avsbuff_sc_fifo_1_inst : entity work.windowing_large_avsbuff_sc_fifo
 		port map(
 			aclr  => rst_i,
 			clock => clk_i,
@@ -125,7 +129,7 @@ begin
 			usedw => s_windowing_large_avsbuff_sc_double_fifo(1).usedw
 		);
 
-	windowing_small_avsbuff_sc_fifo_1_inst : entity work.windowing_avsbuff_sc_fifo
+	windowing_small_avsbuff_sc_fifo_1_inst : entity work.windowing_small_avsbuff_sc_fifo
 		port map(
 			aclr  => rst_i,
 			clock => clk_i,
@@ -164,6 +168,8 @@ begin
 	p_windowing_buffer : process(clk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
+			window_buffer_control_o.locked                    <= '0';
+			window_buffer_control_o.selected                  <= 0;
 			window_data_o                                     <= (others => '0');
 			window_mask_o                                     <= (others => '0');
 			s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
@@ -186,53 +192,306 @@ begin
 			s_dbuffer_1_empty                                 <= '1';
 			s_dbuffer_0_readable                              <= '0';
 			s_dbuffer_1_readable                              <= '0';
-			s_dbuffer_write_state                             <= DBUFFER_0;
-			s_dbuffer_read_state                              <= IDLE;
+			s_dbuffer_write_state                             <= STOPPED;
+			s_dbuffer_read_state                              <= STOPPED;
 			s_dbuffer_data_cnt                                <= 0;
 			s_dbuffer_buffer_cnt                              <= 0;
 			s_dbuffer_qword_cnt                               <= 0;
 			s_dbuffer_addr_cnt                                <= 0;
 		elsif rising_edge(clk_i) then
 
+			-- data buffer write
+			case (s_dbuffer_write_state) is
+
+				when STOPPED =>
+					s_dbuffer_write_state            <= STOPPED;
+					s_dbuffer_0_empty                <= '1';
+					s_dbuffer_1_empty                <= '1';
+					s_dbuffer_0_readable             <= '0';
+					s_dbuffer_1_readable             <= '0';
+					window_buffer_control_o.selected <= 0;
+					window_buffer_control_o.locked   <= '1';
+					if (fee_start_signal_i = '1') then
+						s_dbuffer_write_state <= DBUFFER_0;
+					end if;
+
+				when DBUFFER_0 =>
+					s_dbuffer_write_state            <= DBUFFER_0;
+					window_buffer_control_o.selected <= 0;
+					if (s_dbuffer_0_empty = '1') then
+						window_buffer_control_o.locked <= '0';
+					end if;
+					if (window_double_buffer_i(0).full = '1') then
+						window_buffer_control_o.locked   <= '1';
+						s_dbuffer_0_readable             <= '1';
+						s_dbuffer_0_empty                <= '0';
+						s_dbuffer_write_state            <= DBUFFER_1;
+						window_buffer_control_o.selected <= 1;
+						if (s_dbuffer_1_empty = '1') then
+							window_buffer_control_o.locked <= '0';
+						end if;
+					end if;
+
+				when DBUFFER_1 =>
+					s_dbuffer_write_state            <= DBUFFER_1;
+					window_buffer_control_o.selected <= 1;
+					if (s_dbuffer_1_empty = '1') then
+						window_buffer_control_o.locked <= '0';
+					end if;
+					if (window_double_buffer_i(1).full = '1') then
+						window_buffer_control_o.locked   <= '1';
+						s_dbuffer_1_readable             <= '1';
+						s_dbuffer_1_empty                <= '0';
+						s_dbuffer_write_state            <= DBUFFER_0;
+						window_buffer_control_o.selected <= 0;
+						if (s_dbuffer_0_empty = '1') then
+							window_buffer_control_o.locked <= '0';
+						end if;
+					end if;
+
+			end case;
+
+			-- data buffer read
+			case (s_dbuffer_read_state) is
+
+				when STOPPED =>
+					s_dbuffer_read_state                              <= STOPPED;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_control.write.sclr          <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_control.write.sclr          <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					s_selected_read_dbuffer                           <= 0;
+					s_dbuffer_data_cnt                                <= 0;
+					s_dbuffer_buffer_cnt                              <= 0;
+					s_dbuffer_qword_cnt                               <= 0;
+					s_dbuffer_addr_cnt                                <= 0;
+					if (fee_clear_signal_i = '1') then
+						s_windowing_data_fifo_control.write.sclr <= '1';
+						s_windowing_mask_fifo_control.write.sclr <= '1';
+					elsif (fee_start_signal_i = '1') then
+						s_dbuffer_read_state <= WAITING_SYNC;
+					end if;
+
+				when WAITING_SYNC =>
+					s_dbuffer_read_state                              <= WAITING_SYNC;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_control.write.sclr          <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_control.write.sclr          <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					s_selected_read_dbuffer                           <= 0;
+					s_dbuffer_data_cnt                                <= 0;
+					s_dbuffer_buffer_cnt                              <= 0;
+					s_dbuffer_qword_cnt                               <= 0;
+					s_dbuffer_addr_cnt                                <= 0;
+					if (fee_sync_signal_i = '1') then
+						s_dbuffer_read_state <= IDLE;
+					end if;
+
+				when IDLE =>
+					s_dbuffer_read_state                              <= IDLE;
+					s_dbuffer_data_cnt                                <= 0;
+					s_dbuffer_buffer_cnt                              <= 0;
+					s_dbuffer_qword_cnt                               <= 0;
+					s_dbuffer_addr_cnt                                <= 0;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					if (s_selected_read_dbuffer = 0) then
+						if (s_dbuffer_0_readable = '1') then
+							s_dbuffer_read_state <= DATA_WRITE;
+						end if;
+					else
+						if (s_dbuffer_1_readable = '1') then
+							s_dbuffer_read_state <= DATA_WRITE;
+						end if;
+					end if;
+					if (window_double_buffer_i(s_selected_read_dbuffer).full = '1') then
+						s_dbuffer_read_state <= DATA_WRITE;
+					end if;
+
+				when DATA_WRITE =>
+					s_dbuffer_read_state                              <= DATA_WRITE;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					if (s_windowing_data_fifo_status.write.full = '0') then
+						s_dbuffer_read_state                      <= DATA_DELAY;
+						s_windowing_data_fifo_control.write.wrreq <= '1';
+						if (s_dbuffer_addr_cnt <= 255) then
+							s_windowing_data_fifo_wr_data.data <= f_pixels_data_little_to_big_endian(s_windowing_large_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
+						else
+							s_windowing_data_fifo_wr_data.data <= f_pixels_data_little_to_big_endian(s_windowing_small_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
+						end if;
+						if (s_dbuffer_qword_cnt = 3) then
+							s_dbuffer_qword_cnt <= 0;
+							if (s_dbuffer_addr_cnt <= 255) then
+								if (s_selected_read_dbuffer = 0) then
+									s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '1';
+								else
+									s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '1';
+								end if;
+							else
+								if (s_selected_read_dbuffer = 0) then
+									s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '1';
+								else
+									s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '1';
+								end if;
+							end if;
+						else
+							s_dbuffer_qword_cnt <= s_dbuffer_qword_cnt + 1;
+						end if;
+						if (s_dbuffer_addr_cnt <= 271) then
+							s_dbuffer_addr_cnt <= 0;
+						else
+							s_dbuffer_addr_cnt <= s_dbuffer_addr_cnt + 1;
+						end if;
+						if (s_dbuffer_data_cnt = 15) then
+							s_dbuffer_data_cnt <= 0;
+						else
+							s_dbuffer_data_cnt <= s_dbuffer_data_cnt + 1;
+						end if;
+					end if;
+
+				when DATA_DELAY =>
+					s_dbuffer_read_state                              <= DATA_WRITE;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					if (s_dbuffer_data_cnt = 0) then
+						s_dbuffer_read_state <= MASK_WRITE;
+					end if;
+
+				when MASK_WRITE =>
+					s_dbuffer_read_state                              <= MASK_WRITE;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					if (s_windowing_mask_fifo_status.write.full = '0') then
+						s_dbuffer_read_state                      <= MASK_DELAY;
+						s_windowing_mask_fifo_control.write.wrreq <= '1';
+						if (s_dbuffer_addr_cnt <= 255) then
+							s_windowing_mask_fifo_wr_data.data <= f_mask_conv(s_windowing_large_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
+						else
+							s_windowing_mask_fifo_wr_data.data <= f_mask_conv(s_windowing_small_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
+						end if;
+						if (s_dbuffer_qword_cnt = 3) then
+							s_dbuffer_qword_cnt <= 0;
+							if (s_dbuffer_addr_cnt <= 255) then
+								if (s_selected_read_dbuffer = 0) then
+									s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '1';
+								else
+									s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '1';
+								end if;
+							else
+								if (s_selected_read_dbuffer = 0) then
+									s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '1';
+								else
+									s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '1';
+								end if;
+							end if;
+						else
+							s_dbuffer_qword_cnt <= s_dbuffer_qword_cnt + 1;
+						end if;
+						if (s_dbuffer_addr_cnt <= 271) then
+							s_dbuffer_addr_cnt <= 0;
+						else
+							s_dbuffer_addr_cnt <= s_dbuffer_addr_cnt + 1;
+						end if;
+						if (s_dbuffer_buffer_cnt = to_integer(unsigned(window_double_buffer_i(s_selected_read_dbuffer).size))) then
+							s_dbuffer_buffer_cnt <= 0;
+						else
+							s_dbuffer_buffer_cnt <= s_dbuffer_buffer_cnt + 1;
+						end if;
+					end if;
+
+				when MASK_DELAY =>
+					s_dbuffer_read_state                              <= DATA_WRITE;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					if (s_dbuffer_buffer_cnt = 0) then
+						s_dbuffer_read_state <= DBUFFER_CHANGE;
+					end if;
+
+				when DBUFFER_CHANGE =>
+					s_dbuffer_read_state                              <= IDLE;
+					s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
+					s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
+					s_dbuffer_data_cnt                                <= 0;
+					s_dbuffer_buffer_cnt                              <= 0;
+					s_dbuffer_qword_cnt                               <= 0;
+					s_dbuffer_addr_cnt                                <= 0;
+					s_windowing_data_fifo_control.write.wrreq         <= '0';
+					s_windowing_data_fifo_wr_data.data                <= (others => '0');
+					s_windowing_mask_fifo_control.write.wrreq         <= '0';
+					s_windowing_mask_fifo_wr_data.data                <= (others => '0');
+					if (s_selected_read_dbuffer = 1) then
+						s_selected_read_dbuffer <= 0;
+						s_dbuffer_1_empty       <= '1';
+						s_dbuffer_1_readable    <= '0';
+					else
+						s_selected_read_dbuffer <= 1;
+						s_dbuffer_0_empty       <= '1';
+						s_dbuffer_0_readable    <= '0';
+					end if;
+
+			end case;
+
 			-- check if the windowing buffer is stopped
 			if (s_stopped_flag = '1') then
 				-- windowing buffer stopped, do nothing
 				-- clear signals
-				window_data_o                                     <= (others => '0');
-				window_mask_o                                     <= (others => '0');
-				s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-				s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-				s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-				s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-				s_windowing_data_fifo_control.read.rdreq          <= '0';
-				s_windowing_data_fifo_control.read.sclr           <= '0';
-				s_windowing_data_fifo_control.write.wrreq         <= '0';
-				s_windowing_data_fifo_control.write.sclr          <= '0';
-				s_windowing_data_fifo_wr_data.data                <= (others => '0');
-				s_windowing_mask_fifo_control.read.rdreq          <= '0';
-				s_windowing_mask_fifo_control.read.sclr           <= '0';
-				s_windowing_mask_fifo_control.write.wrreq         <= '0';
-				s_windowing_mask_fifo_control.write.sclr          <= '0';
-				s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-				s_selected_read_dbuffer                           <= 0;
-				s_dbuffer_0_empty                                 <= '1';
-				s_dbuffer_1_empty                                 <= '1';
-				s_dbuffer_0_readable                              <= '0';
-				s_dbuffer_1_readable                              <= '0';
-				s_dbuffer_write_state                             <= DBUFFER_0;
-				s_dbuffer_read_state                              <= IDLE;
-				s_dbuffer_data_cnt                                <= 0;
-				s_dbuffer_buffer_cnt                              <= 0;
-				s_dbuffer_qword_cnt                               <= 0;
-				s_dbuffer_addr_cnt                                <= 0;
+				window_data_o                            <= (others => '0');
+				window_mask_o                            <= (others => '0');
+				s_windowing_data_fifo_control.read.rdreq <= '0';
+				s_windowing_data_fifo_control.read.sclr  <= '0';
+				s_windowing_mask_fifo_control.read.rdreq <= '0';
+				s_windowing_mask_fifo_control.read.sclr  <= '0';
 				-- check if a clear request was received
 				if (fee_clear_signal_i = '1') then
 					-- clear request received
 					-- clear buffer
-					s_windowing_data_fifo_control.read.sclr  <= '1';
-					s_windowing_data_fifo_control.write.sclr <= '1';
-					s_windowing_mask_fifo_control.read.sclr  <= '1';
-					s_windowing_mask_fifo_control.write.sclr <= '1';
+					s_windowing_data_fifo_control.read.sclr <= '1';
+					s_windowing_mask_fifo_control.read.sclr <= '1';
 				end if;
 				-- check if a start request was received
 				if (fee_start_signal_i = '1') then
@@ -242,213 +501,6 @@ begin
 				end if;
 			else
 				-- windowing buffer started, normal operation
-				-- check if a stop request was received
-				if (fee_stop_signal_i = '1') then
-					-- stop request received
-					-- set stopped flag
-					s_stopped_flag <= '1';
-				end if;
-				-- normal operation
-				s_windowing_data_fifo_control.read.sclr  <= '0';
-				s_windowing_data_fifo_control.write.sclr <= '0';
-				s_windowing_mask_fifo_control.read.sclr  <= '0';
-				s_windowing_mask_fifo_control.write.sclr <= '0';
-
-				-- data buffer write
-				case (s_dbuffer_write_state) is
-
-					when DBUFFER_0 =>
-						s_dbuffer_write_state            <= DBUFFER_0;
-						window_buffer_control_o.selected <= 0;
-						if (s_dbuffer_0_empty = '1') then
-							window_buffer_control_o.locked <= '0';
-						end if;
-						if (window_double_buffer_i(0).full = '1') then
-							window_buffer_control_o.locked   <= '1';
-							s_dbuffer_0_readable             <= '1';
-							s_dbuffer_0_empty                <= '0';
-							s_dbuffer_write_state            <= DBUFFER_1;
-							window_buffer_control_o.selected <= 1;
-							if (s_dbuffer_1_empty = '1') then
-								window_buffer_control_o.locked <= '0';
-							end if;
-						end if;
-
-					when DBUFFER_1 =>
-						s_dbuffer_write_state            <= DBUFFER_1;
-						window_buffer_control_o.selected <= 1;
-						if (s_dbuffer_1_empty = '1') then
-							window_buffer_control_o.locked <= '0';
-						end if;
-						if (window_double_buffer_i(1).full = '1') then
-							window_buffer_control_o.locked   <= '1';
-							s_dbuffer_1_readable             <= '1';
-							s_dbuffer_1_empty                <= '0';
-							s_dbuffer_write_state            <= DBUFFER_0;
-							window_buffer_control_o.selected <= 0;
-							if (s_dbuffer_0_empty = '1') then
-								window_buffer_control_o.locked <= '0';
-							end if;
-						end if;
-
-				end case;
-
-				-- data buffer read
-				case (s_dbuffer_read_state) is
-
-					when IDLE =>
-						s_dbuffer_read_state                              <= IDLE;
-						s_dbuffer_data_cnt                                <= 0;
-						s_dbuffer_buffer_cnt                              <= 0;
-						s_dbuffer_qword_cnt                               <= 0;
-						s_dbuffer_addr_cnt                                <= 0;
-						s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_data_fifo_control.write.wrreq         <= '0';
-						s_windowing_data_fifo_wr_data.data                <= (others => '0');
-						s_windowing_mask_fifo_control.write.wrreq         <= '0';
-						s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-						if (s_selected_read_dbuffer = 0) then
-							if (s_dbuffer_0_readable = '1') then
-								s_dbuffer_read_state <= DATA_WRITE;
-							end if;
-						else
-							if (s_dbuffer_1_readable = '1') then
-								s_dbuffer_read_state <= DATA_WRITE;
-							end if;
-						end if;
-						if (window_double_buffer_i(s_selected_read_dbuffer).full = '1') then
-							s_dbuffer_read_state <= DATA_WRITE;
-						end if;
-
-					when DATA_WRITE =>
-						s_dbuffer_read_state                              <= DATA_WRITE;
-						s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_data_fifo_control.write.wrreq         <= '0';
-						s_windowing_data_fifo_wr_data.data                <= (others => '0');
-						s_windowing_mask_fifo_control.write.wrreq         <= '0';
-						s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-						if (s_windowing_data_fifo_status.write.full = '0') then
-							s_dbuffer_read_state                      <= DATA_DELAY;
-							s_windowing_data_fifo_control.write.wrreq <= '1';
-							if (s_dbuffer_addr_cnt <= 255) then
-								s_windowing_data_fifo_wr_data.data <= f_pixels_data_little_to_big_endian(s_windowing_large_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
-							else
-								s_windowing_data_fifo_wr_data.data <= f_pixels_data_little_to_big_endian(s_windowing_small_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
-							end if;
-							if (s_dbuffer_qword_cnt = 3) then
-								s_dbuffer_qword_cnt <= 0;
-								if (s_dbuffer_addr_cnt <= 255) then
-									s_windowing_large_avsbuff_sc_double_fifo(s_selected_read_dbuffer).rdreq <= '1';
-								else
-									s_windowing_small_avsbuff_sc_double_fifo(s_selected_read_dbuffer).rdreq <= '1';
-								end if;
-							else
-								s_dbuffer_qword_cnt <= s_dbuffer_qword_cnt + 1;
-							end if;
-							s_dbuffer_addr_cnt                        <= s_dbuffer_addr_cnt + 1;
-							if (s_dbuffer_data_cnt = 15) then
-								s_dbuffer_data_cnt <= 0;
-							else
-								s_dbuffer_data_cnt <= s_dbuffer_data_cnt + 1;
-							end if;
-						end if;
-
-					when DATA_DELAY =>
-						s_dbuffer_read_state                              <= DATA_WRITE;
-						s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_data_fifo_control.write.wrreq         <= '0';
-						s_windowing_data_fifo_wr_data.data                <= (others => '0');
-						s_windowing_mask_fifo_control.write.wrreq         <= '0';
-						s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-						if (s_dbuffer_data_cnt = 0) then
-							s_dbuffer_read_state <= MASK_WRITE;
-						end if;
-
-					when MASK_WRITE =>
-						s_dbuffer_read_state                              <= MASK_WRITE;
-						s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_data_fifo_control.write.wrreq         <= '0';
-						s_windowing_data_fifo_wr_data.data                <= (others => '0');
-						s_windowing_mask_fifo_control.write.wrreq         <= '0';
-						s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-						if (s_windowing_mask_fifo_status.write.full = '0') then
-							s_dbuffer_read_state                      <= MASK_DELAY;
-							s_windowing_mask_fifo_control.write.wrreq <= '1';
-							if (s_dbuffer_addr_cnt <= 255) then
-								s_windowing_mask_fifo_wr_data.data <= f_mask_conv(s_windowing_large_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
-							else
-								s_windowing_mask_fifo_wr_data.data <= f_mask_conv(s_windowing_small_avsbuff_qword_double_data(s_selected_read_dbuffer)(s_dbuffer_qword_cnt));
-							end if;
-							if (s_dbuffer_qword_cnt = 3) then
-								s_dbuffer_qword_cnt <= 0;
-								if (s_dbuffer_addr_cnt <= 255) then
-									s_windowing_large_avsbuff_sc_double_fifo(s_selected_read_dbuffer).rdreq <= '1';
-								else
-									s_windowing_small_avsbuff_sc_double_fifo(s_selected_read_dbuffer).rdreq <= '1';
-								end if;
-							else
-								s_dbuffer_qword_cnt <= s_dbuffer_qword_cnt + 1;
-							end if;
-							s_dbuffer_addr_cnt                        <= s_dbuffer_addr_cnt + 1;
-							if (s_dbuffer_buffer_cnt = to_integer(unsigned(window_double_buffer_i(s_selected_read_dbuffer).size))) then
-								s_dbuffer_buffer_cnt <= 0;
-							else
-								s_dbuffer_buffer_cnt <= s_dbuffer_buffer_cnt + 1;
-							end if;
-						end if;
-
-					when MASK_DELAY =>
-						s_dbuffer_read_state                              <= DATA_WRITE;
-						s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_data_fifo_control.write.wrreq         <= '0';
-						s_windowing_data_fifo_wr_data.data                <= (others => '0');
-						s_windowing_mask_fifo_control.write.wrreq         <= '0';
-						s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-						if (s_dbuffer_buffer_cnt = 0) then
-							s_dbuffer_read_state <= DBUFFER_CHANGE;
-						end if;
-
-					when DBUFFER_CHANGE =>
-						s_dbuffer_read_state                              <= IDLE;
-						s_windowing_large_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_large_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(0).rdreq <= '0';
-						s_windowing_small_avsbuff_sc_double_fifo(1).rdreq <= '0';
-						s_dbuffer_data_cnt                                <= 0;
-						s_dbuffer_buffer_cnt                              <= 0;
-						s_dbuffer_qword_cnt                               <= 0;
-						s_dbuffer_addr_cnt                                <= 0;
-						s_windowing_data_fifo_control.write.wrreq         <= '0';
-						s_windowing_data_fifo_wr_data.data                <= (others => '0');
-						s_windowing_mask_fifo_control.write.wrreq         <= '0';
-						s_windowing_mask_fifo_wr_data.data                <= (others => '0');
-						if (s_selected_read_dbuffer = 1) then
-							s_selected_read_dbuffer <= 0;
-							s_dbuffer_1_empty       <= '1';
-							s_dbuffer_1_readable    <= '0';
-						else
-							s_selected_read_dbuffer <= 1;
-							s_dbuffer_0_empty       <= '1';
-							s_dbuffer_0_readable    <= '0';
-						end if;
-
-				end case;
-
 				-- Windowing Buffer Read
 				window_data_o                            <= (others => '0');
 				window_mask_o                            <= (others => '0');
@@ -466,6 +518,15 @@ begin
 					window_mask_o                            <= s_windowing_mask_fifo_rd_data.q;
 				end if;
 
+			end if;
+
+			-- check if a stop request was received
+			if (fee_stop_signal_i = '1') then
+				-- stop request received
+				-- set stopped flag
+				s_stopped_flag        <= '1';
+				s_dbuffer_write_state <= STOPPED;
+				s_dbuffer_read_state  <= STOPPED;
 			end if;
 
 		end if;

@@ -29,20 +29,36 @@ begin
 	p_avalon_mm_windowing_write : process(clk_i, rst_i) is
 		procedure p_reset_registers is
 		begin
-			window_double_buffer_o(0).dbuffer <= (others => x"0000000000000000");
-			window_double_buffer_o(0).full    <= '0';
-			window_double_buffer_o(0).size    <= (others => '1');
-			window_double_buffer_o(1).dbuffer <= (others => x"0000000000000000");
-			window_double_buffer_o(1).full    <= '0';
-			window_double_buffer_o(1).size    <= (others => '1');
-			s_waitrequest                     <= '0';
-			s_discard_data                    <= '0';
+			window_double_buffer_o(0).large_wrdata <= (others => '0');
+			window_double_buffer_o(0).large_wrreq  <= '0';
+			window_double_buffer_o(0).small_wrdata <= (others => '0');
+			window_double_buffer_o(0).small_wrreq  <= '0';
+			window_double_buffer_o(0).sclr         <= '1';
+			window_double_buffer_o(0).full         <= '0';
+			window_double_buffer_o(0).size         <= (others => '1');
+			window_double_buffer_o(1).large_wrdata <= (others => '0');
+			window_double_buffer_o(1).large_wrreq  <= '0';
+			window_double_buffer_o(1).small_wrdata <= (others => '0');
+			window_double_buffer_o(1).small_wrreq  <= '0';
+			window_double_buffer_o(1).sclr         <= '1';
+			window_double_buffer_o(1).full         <= '0';
+			window_double_buffer_o(1).size         <= (others => '1');
+			s_waitrequest                          <= '0';
+			s_discard_data                         <= '0';
 		end procedure p_reset_registers;
 
 		procedure p_control_triggers is
 		begin
-			window_double_buffer_o(0).full <= '0';
-			window_double_buffer_o(1).full <= '0';
+			window_double_buffer_o(0).large_wrdata <= (others => '0');
+			window_double_buffer_o(0).large_wrreq  <= '0';
+			window_double_buffer_o(0).small_wrdata <= (others => '0');
+			window_double_buffer_o(0).small_wrreq  <= '0';
+			window_double_buffer_o(0).sclr         <= '0';
+			window_double_buffer_o(0).full         <= '0';
+			window_double_buffer_o(1).large_wrreq  <= '0';
+			window_double_buffer_o(1).small_wrreq  <= '0';
+			window_double_buffer_o(1).sclr         <= '0';
+			window_double_buffer_o(1).full         <= '0';
 		end procedure p_control_triggers;
 
 		procedure p_writedata(write_address_i : t_avalon_mm_windowing_address) is
@@ -57,23 +73,34 @@ begin
 					if (s_waitrequest = '1') then
 						-- waitrequest active, execute write operation
 						if (window_buffer_control_i.locked = '0') then
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 0) <= avalon_mm_windowing_i.writedata((64 * 0 + 63) downto (64 * 0));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 1) <= avalon_mm_windowing_i.writedata((64 * 1 + 63) downto (64 * 1));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 2) <= avalon_mm_windowing_i.writedata((64 * 2 + 63) downto (64 * 2));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 3) <= avalon_mm_windowing_i.writedata((64 * 3 + 63) downto (64 * 3));
-							s_discard_data                                                                              <= '0';
+							window_double_buffer_o(window_buffer_control_i.selected).large_wrdata <= avalon_mm_windowing_i.writedata;
+							window_double_buffer_o(window_buffer_control_i.selected).large_wrreq  <= '1';
+							s_discard_data                                                        <= '0';
 						end if;
 					end if;
 
-				when 1 to 67 =>
+				when 1 to 63 =>
 					-- check if the waitrequested is still active
 					if (s_waitrequest = '1') then
 						-- waitrequest active, execute write operation
 						if ((window_buffer_control_i.locked = '0') and (s_discard_data = '0')) then
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 0) <= avalon_mm_windowing_i.writedata((64 * 0 + 63) downto (64 * 0));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 1) <= avalon_mm_windowing_i.writedata((64 * 1 + 63) downto (64 * 1));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 2) <= avalon_mm_windowing_i.writedata((64 * 2 + 63) downto (64 * 2));
-							window_double_buffer_o(window_buffer_control_i.selected).dbuffer((write_address_i * 4) + 3) <= avalon_mm_windowing_i.writedata((64 * 3 + 63) downto (64 * 3));
+							window_double_buffer_o(window_buffer_control_i.selected).large_wrdata <= avalon_mm_windowing_i.writedata;
+							window_double_buffer_o(window_buffer_control_i.selected).large_wrreq  <= '1';
+							if (write_address_i = c_BUFFER_SIZE_TO_ADDR(to_integer(unsigned(window_buffer_size_i)))) then
+								window_double_buffer_o(window_buffer_control_i.selected).full <= '1';
+								window_double_buffer_o(window_buffer_control_i.selected).size <= window_buffer_size_i;
+								s_discard_data                                                <= '1';
+							end if;
+						end if;
+					end if;
+
+				when 64 to 67 =>
+					-- check if the waitrequested is still active
+					if (s_waitrequest = '1') then
+						-- waitrequest active, execute write operation
+						if ((window_buffer_control_i.locked = '0') and (s_discard_data = '0')) then
+							window_double_buffer_o(window_buffer_control_i.selected).small_wrdata <= avalon_mm_windowing_i.writedata;
+							window_double_buffer_o(window_buffer_control_i.selected).small_wrreq  <= '1';
 							if (write_address_i = c_BUFFER_SIZE_TO_ADDR(to_integer(unsigned(window_buffer_size_i)))) then
 								window_double_buffer_o(window_buffer_control_i.selected).full <= '1';
 								window_double_buffer_o(window_buffer_control_i.selected).size <= window_buffer_size_i;
@@ -106,12 +133,20 @@ begin
 				v_write_address                   := to_integer(unsigned(avalon_mm_windowing_i.address));
 				p_writedata(v_write_address);
 			elsif (fee_clear_signal_i = '1') then
-				window_double_buffer_o(0).dbuffer <= (others => x"0000000000000000");
-				window_double_buffer_o(0).full    <= '0';
-				window_double_buffer_o(0).size    <= (others => '1');
-				window_double_buffer_o(1).dbuffer <= (others => x"0000000000000000");
-				window_double_buffer_o(1).full    <= '0';
-				window_double_buffer_o(1).size    <= (others => '1');
+				window_double_buffer_o(0).large_wrdata <= (others => '0');
+				window_double_buffer_o(0).large_wrreq  <= '0';
+				window_double_buffer_o(0).small_wrdata <= (others => '0');
+				window_double_buffer_o(0).small_wrreq  <= '0';
+				window_double_buffer_o(0).sclr         <= '1';
+				window_double_buffer_o(0).full         <= '0';
+				window_double_buffer_o(0).size         <= (others => '1');
+				window_double_buffer_o(1).large_wrdata <= (others => '0');
+				window_double_buffer_o(1).large_wrreq  <= '0';
+				window_double_buffer_o(1).small_wrdata <= (others => '0');
+				window_double_buffer_o(1).small_wrreq  <= '0';
+				window_double_buffer_o(1).sclr         <= '1';
+				window_double_buffer_o(1).full         <= '0';
+				window_double_buffer_o(1).size         <= (others => '1');
 			end if;
 		end if;
 	end process p_avalon_mm_windowing_write;

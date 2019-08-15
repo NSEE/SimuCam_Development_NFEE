@@ -39,7 +39,23 @@
       }
       datum sopceditor_expanded
       {
-         value = "0";
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+   }
+   element COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer
+   {
+      datum _lockedAddress
+      {
+         value = "1";
          type = "boolean";
       }
    }

@@ -73,7 +73,7 @@ package windowing_dataset_pkg is
 		empty  : std_logic;
 		full   : std_logic;
 		rddata : std_logic_vector(255 downto 0);
-		usedw  : std_logic_vector(5 downto 0);
+		usedw  : std_logic_vector(1 downto 0);
 	end record t_windowing_small_avsbuff_sc_fifo;
 
 	-- windowing small avsbuff sc double fifo
@@ -81,6 +81,9 @@ package windowing_dataset_pkg is
 
 	-- windowing avsbuff qword data
 	type t_windowing_avsbuff_qword_data is array (0 to 3) of std_logic_vector(63 downto 0);
+
+	-- windowing avsbuff qword double data
+	type t_windowing_avsbuff_qword_double_data is array (0 to 1) of t_windowing_avsbuff_qword_data;
 
 	--	function f_pattern_pixels_change_timecode(pattern_pixel_data_i : in std_logic_vector; timecode_i : in std_logic_vector) return std_logic_vector;
 
