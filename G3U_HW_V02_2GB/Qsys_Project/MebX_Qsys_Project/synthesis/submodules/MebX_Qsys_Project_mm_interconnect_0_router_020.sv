@@ -49,21 +49,21 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020_default_decode
                DEFAULT_RD_CHANNEL = -1,
                DEFAULT_DESTID = 1 
    )
-  (output [146 - 143 : 0] default_destination_id,
-   output [15-1 : 0] default_wr_channel,
-   output [15-1 : 0] default_rd_channel,
-   output [15-1 : 0] default_src_channel
+  (output [151 - 148 : 0] default_destination_id,
+   output [16-1 : 0] default_wr_channel,
+   output [16-1 : 0] default_rd_channel,
+   output [16-1 : 0] default_src_channel
   );
 
   assign default_destination_id = 
-    DEFAULT_DESTID[146 - 143 : 0];
+    DEFAULT_DESTID[151 - 148 : 0];
 
   generate
     if (DEFAULT_CHANNEL == -1) begin : no_default_channel_assignment
       assign default_src_channel = '0;
     end
     else begin : default_channel_assignment
-      assign default_src_channel = 15'b1 << DEFAULT_CHANNEL;
+      assign default_src_channel = 16'b1 << DEFAULT_CHANNEL;
     end
   endgenerate
 
@@ -73,8 +73,8 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020_default_decode
       assign default_rd_channel = '0;
     end
     else begin : default_rw_channel_assignment
-      assign default_wr_channel = 15'b1 << DEFAULT_WR_CHANNEL;
-      assign default_rd_channel = 15'b1 << DEFAULT_RD_CHANNEL;
+      assign default_wr_channel = 16'b1 << DEFAULT_WR_CHANNEL;
+      assign default_rd_channel = 16'b1 << DEFAULT_RD_CHANNEL;
     end
   endgenerate
 
@@ -93,7 +93,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     // Command Sink (Input)
     // -------------------
     input                       sink_valid,
-    input  [160-1 : 0]    sink_data,
+    input  [165-1 : 0]    sink_data,
     input                       sink_startofpacket,
     input                       sink_endofpacket,
     output                      sink_ready,
@@ -102,8 +102,8 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     // Command Source (Output)
     // -------------------
     output                          src_valid,
-    output reg [160-1    : 0] src_data,
-    output reg [15-1 : 0] src_channel,
+    output reg [165-1    : 0] src_data,
+    output reg [16-1 : 0] src_channel,
     output                          src_startofpacket,
     output                          src_endofpacket,
     input                           src_ready
@@ -112,18 +112,18 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     // -------------------------------------------------------
     // Local parameters and variables
     // -------------------------------------------------------
-    localparam PKT_ADDR_H = 104;
+    localparam PKT_ADDR_H = 109;
     localparam PKT_ADDR_L = 72;
-    localparam PKT_DEST_ID_H = 146;
-    localparam PKT_DEST_ID_L = 143;
-    localparam PKT_PROTECTION_H = 150;
-    localparam PKT_PROTECTION_L = 148;
-    localparam ST_DATA_W = 160;
-    localparam ST_CHANNEL_W = 15;
+    localparam PKT_DEST_ID_H = 151;
+    localparam PKT_DEST_ID_L = 148;
+    localparam PKT_PROTECTION_H = 155;
+    localparam PKT_PROTECTION_L = 153;
+    localparam ST_DATA_W = 165;
+    localparam ST_CHANNEL_W = 16;
     localparam DECODER_TYPE = 1;
 
-    localparam PKT_TRANS_WRITE = 107;
-    localparam PKT_TRANS_READ  = 108;
+    localparam PKT_TRANS_WRITE = 112;
+    localparam PKT_TRANS_READ  = 113;
 
     localparam PKT_ADDR_W = PKT_ADDR_H-PKT_ADDR_L + 1;
     localparam PKT_DEST_ID_W = PKT_DEST_ID_H-PKT_DEST_ID_L + 1;
@@ -158,7 +158,7 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
     assign src_valid         = sink_valid;
     assign src_startofpacket = sink_startofpacket;
     assign src_endofpacket   = sink_endofpacket;
-    wire [15-1 : 0] default_src_channel;
+    wire [16-1 : 0] default_src_channel;
 
 
 
@@ -192,15 +192,19 @@ module MebX_Qsys_Project_mm_interconnect_0_router_020
 
 
         if (destid == 1  && read_transaction) begin
-            src_channel = 15'b001;
-        end
-
-        if (destid == 0 ) begin
-            src_channel = 15'b010;
+            src_channel = 16'b0001;
         end
 
         if (destid == 2  && write_transaction) begin
-            src_channel = 15'b100;
+            src_channel = 16'b0010;
+        end
+
+        if (destid == 3  && read_transaction) begin
+            src_channel = 16'b0100;
+        end
+
+        if (destid == 4  && write_transaction) begin
+            src_channel = 16'b1000;
         end
 
 

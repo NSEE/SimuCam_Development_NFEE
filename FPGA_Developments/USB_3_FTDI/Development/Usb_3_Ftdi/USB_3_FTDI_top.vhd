@@ -81,8 +81,6 @@ architecture rtl of USB_3_FTDI_top is
 	signal s_tx_dbuffer_stat_empty  : std_logic;
 	signal s_tx_dbuffer_stat_full   : std_logic;
 	signal s_tx_dbuffer_rddata      : std_logic_vector(63 downto 0);
-	signal s_tx_dbuffer_rdready     : std_logic;
-	signal s_tx_dbuffer_wrready     : std_logic;
 
 	-- Tx DC Data FIFO Signals
 	signal s_tx_dc_data_fifo_wrdata_data : std_logic_vector(31 downto 0);
@@ -101,8 +99,6 @@ architecture rtl of USB_3_FTDI_top is
 	signal s_rx_dbuffer_stat_empty  : std_logic;
 	signal s_rx_dbuffer_stat_full   : std_logic;
 	signal s_rx_dbuffer_rddata      : std_logic_vector(63 downto 0);
-	signal s_rx_dbuffer_rdready     : std_logic;
-	signal s_rx_dbuffer_wrready     : std_logic;
 
 	-- Rx DC Data FIFO Signals
 	signal s_rx_dc_data_fifo_rdreq       : std_logic;
@@ -150,7 +146,7 @@ begin
 			ftdi_tx_data_avalon_mm_i.write       => avalon_slave_data_write,
 			ftdi_tx_data_avalon_mm_i.writedata   => avalon_slave_data_writedata,
 			buffer_stat_full_i                   => s_tx_dbuffer_stat_full,
-			buffer_wrready_i                     => s_tx_dbuffer_wrready,
+			buffer_wrready_i                     => s_config_read_registers.tx_dbuffer_status_reg.wrready,
 			ftdi_tx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_write_waitrequest,
 			buffer_data_loaded_o                 => s_tx_dbuffer_data_loaded,
 			buffer_wrdata_o                      => s_tx_dbuffer_wrdata,
@@ -166,7 +162,7 @@ begin
 			double_buffer_stop_i       => s_config_write_registers.general_control_reg.stop,
 			double_buffer_start_i      => s_config_write_registers.general_control_reg.start,
 			buffer_data_loaded_i       => s_tx_dbuffer_data_loaded,
-			buffer_cfg_length_i        => "11111111111",
+			buffer_cfg_length_i        => "10000000000",
 			buffer_wrdata_i            => s_tx_dbuffer_wrdata,
 			buffer_wrreq_i             => s_tx_dbuffer_wrreq,
 			buffer_rdreq_i             => s_tx_dbuffer_rdreq,
@@ -178,8 +174,8 @@ begin
 			buffer_stat_empty_o        => s_tx_dbuffer_stat_empty,
 			buffer_stat_full_o         => s_tx_dbuffer_stat_full,
 			buffer_rddata_o            => s_tx_dbuffer_rddata,
-			buffer_rdready_o           => s_tx_dbuffer_rdready,
-			buffer_wrready_o           => s_tx_dbuffer_wrready
+			buffer_rdready_o           => s_config_read_registers.tx_dbuffer_status_reg.rdready,
+			buffer_wrready_o           => s_config_read_registers.tx_dbuffer_status_reg.wrready
 		);
 
 	-- FTDI Data Transmitter Instantiation (Tx: FPGA => FTDI)	
@@ -191,7 +187,7 @@ begin
 			data_tx_start_i               => s_config_write_registers.general_control_reg.start,
 			buffer_stat_empty_i           => s_tx_dbuffer_stat_empty,
 			buffer_rddata_i               => s_tx_dbuffer_rddata,
-			buffer_rdready_i              => s_tx_dbuffer_rdready,
+			buffer_rdready_i              => s_config_read_registers.tx_dbuffer_status_reg.rdready,
 			tx_dc_data_fifo_wrfull_i      => s_tx_dc_data_fifo_wrfull,
 			tx_dc_data_fifo_wrusedw_i     => s_tx_dc_data_fifo_wrusedw,
 			buffer_rdreq_o                => s_tx_dbuffer_rdreq,
@@ -210,7 +206,7 @@ begin
 			ftdi_rx_data_avalon_mm_i.read        => avalon_slave_data_read,
 			buffer_stat_empty_i                  => s_rx_dbuffer_stat_empty,
 			buffer_rddata_i                      => s_rx_dbuffer_rddata,
-			buffer_rdready_i                     => s_rx_dbuffer_rdready,
+			buffer_rdready_i                     => s_config_read_registers.rx_dbuffer_status_reg.rdready,
 			ftdi_rx_data_avalon_mm_o.readdata    => avalon_slave_data_readdata,
 			ftdi_rx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_read_waitrequest,
 			buffer_rdreq_o                       => s_rx_dbuffer_rdreq,
@@ -226,7 +222,7 @@ begin
 			double_buffer_stop_i       => s_config_write_registers.general_control_reg.stop,
 			double_buffer_start_i      => s_config_write_registers.general_control_reg.start,
 			buffer_data_loaded_i       => s_rx_dbuffer_data_loaded,
-			buffer_cfg_length_i        => "11111111111",
+			buffer_cfg_length_i        => "10000000000",
 			buffer_wrdata_i            => s_rx_dbuffer_wrdata,
 			buffer_wrreq_i             => s_rx_dbuffer_wrreq,
 			buffer_rdreq_i             => s_rx_dbuffer_rdreq,
@@ -238,8 +234,8 @@ begin
 			buffer_stat_empty_o        => s_rx_dbuffer_stat_empty,
 			buffer_stat_full_o         => s_rx_dbuffer_stat_full,
 			buffer_rddata_o            => s_rx_dbuffer_rddata,
-			buffer_rdready_o           => s_rx_dbuffer_rdready,
-			buffer_wrready_o           => s_rx_dbuffer_wrready
+			buffer_rdready_o           => s_config_read_registers.rx_dbuffer_status_reg.rdready,
+			buffer_wrready_o           => s_config_read_registers.rx_dbuffer_status_reg.wrready
 		);
 
 	-- FTDI Data Receiver Instantiation (Rx: FTDI => FPGA)
@@ -254,7 +250,7 @@ begin
 			rx_dc_data_fifo_rdempty_i     => s_rx_dc_data_fifo_rdempty,
 			rx_dc_data_fifo_rdusedw_i     => s_rx_dc_data_fifo_rdusedw,
 			buffer_stat_full_i            => s_rx_dbuffer_stat_full,
-			buffer_wrready_i              => s_rx_dbuffer_wrready,
+			buffer_wrready_i              => s_config_read_registers.rx_dbuffer_status_reg.wrready,
 			rx_dc_data_fifo_rdreq_o       => s_rx_dc_data_fifo_rdreq,
 			buffer_data_loaded_o          => s_rx_dbuffer_data_loaded,
 			buffer_wrdata_o               => s_rx_dbuffer_wrdata,

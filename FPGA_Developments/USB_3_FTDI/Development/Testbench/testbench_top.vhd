@@ -40,6 +40,9 @@ architecture RTL of testbench_top is
 	signal s_avalon_slave_data_readdata      : std_logic_vector(63 downto 0);
 	signal s_avalon_slave_data_waitrequest   : std_logic;
 
+	signal s_tx_avalon_slave_data_address : std_logic_vector(9 downto 0);
+	signal s_rx_avalon_slave_data_address : std_logic_vector(9 downto 0);
+
 	--dummy
 
 begin
@@ -47,6 +50,36 @@ begin
 	clk100Avs  <= not clk100Avs after 5 ns; -- 100 MHz
 	clk100Ftdi <= not clk100Ftdi after 5 ns; -- 100 MHz
 	rst        <= '0' after 100 ns;
+
+	tx_data_stimulli_inst : entity work.tx_data_stimulli
+		generic map(
+			g_ADDRESS_WIDTH => 10,
+			g_DATA_WIDTH    => 64
+		)
+		port map(
+			clk_i                   => clk100Avs,
+			rst_i                   => rst,
+			avalon_mm_waitrequest_i => s_avalon_slave_data_waitrequest,
+			avalon_mm_address_o     => s_tx_avalon_slave_data_address,
+			avalon_mm_write_o       => s_avalon_slave_data_write,
+			avalon_mm_writedata_o   => s_avalon_slave_data_writedata
+		);
+
+	rx_data_stimulli_inst : entity work.rx_data_stimulli
+		generic map(
+			g_ADDRESS_WIDTH => 10,
+			g_DATA_WIDTH    => 64
+		)
+		port map(
+			clk_i                   => clk100Avs,
+			rst_i                   => rst,
+			avalon_mm_readdata_i    => s_avalon_slave_data_readdata,
+			avalon_mm_waitrequest_i => s_avalon_slave_data_waitrequest,
+			avalon_mm_address_o     => s_rx_avalon_slave_data_address,
+			avalon_mm_read_o        => s_avalon_slave_data_read
+		);
+
+	s_avalon_slave_data_address <= (s_tx_avalon_slave_data_address) or (s_rx_avalon_slave_data_address);
 
 	usb3_fifo_master_stimuli_inst : entity work.usb3_fifo_master_stimuli
 		port map(

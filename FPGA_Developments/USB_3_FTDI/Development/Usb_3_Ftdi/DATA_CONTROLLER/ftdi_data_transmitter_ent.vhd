@@ -106,7 +106,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					-- check if there is enough space in the tx dc data fifo for the fetched qword
-					if (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 2)) then
+					if ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 2))) then
 						s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_0;
 						v_ftdi_data_transmitter_state := WRITE_TX_DWORD_0;
 					end if;

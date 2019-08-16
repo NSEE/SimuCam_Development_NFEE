@@ -96,11 +96,9 @@ architecture RTL of ftdi_umft601a_controller_ent is
 		IDLE,
 		RX_DELAY,
 		RX_ACTIVATE_UMFT_OE,
-		--		RX_RECEIVING,
 		RX_WRITING,
 		TX_DELAY,
 		TX_ACTIVATE_FPGA_OE,
-		--		TX_READING,
 		TX_TRANSMITTING
 	);
 
@@ -114,22 +112,22 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 	signal s_tx_data_fetched : std_logic;
 
-	signal s_umft601a_clock_n : std_logic;
+	signal s_umft601a_clock : std_logic;
+
+	signal s_rx_wrreq_protected : std_logic;
+	signal s_tx_rdreq_protected : std_logic;
+
+	signal s_tx_be_protected   : std_logic_vector(3 downto 0);
+	signal s_tx_data_protected : std_logic_vector(31 downto 0);
+
+	signal s_tx_transmit_control    : natural range 0 to 2 := 0; -- Number of bytes to be transmitted before checking if the transmission is continuous or not
+	signal s_tx_transmit_continuous : std_logic; -- '1': Transmission only stops at when there is no more data available
+
+	signal s_tx_priority : std_logic;   -- '0': bus priority is with the Rx / '1': bus priority is with the Tx
+
+	signal s_words_to_transfer : natural range 0 to 1024;
 
 begin
-
-	--	-- TODO: remover depois [rfranca]
-	--	-- clk reconstructor instantiation
-	--	ftdi_clk_reconstructor_ent_inst : entity work.ftdi_clk_reconstructor_ent
-	--		generic map(
-	--			g_CLKDIV => 4
-	--		)
-	--		port map(
-	--			clk_base_i          => clk_base_i,
-	--			rst_i               => rst_i,
-	--			trigger_i           => s_umft601a_buffered_pins.rxf_n,
-	--			clk_reconstructed_o => s_umft601a_clock_n
-	--		);
 
 	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
 	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
@@ -137,8 +135,8 @@ begin
 			aclr              => rst_i,
 			data(35 downto 4) => tx_dc_data_fifo_wrdata_data_i,
 			data(3 downto 0)  => tx_dc_data_fifo_wrdata_be_i,
-			rdclk             => s_umft601a_clock_n,
-			rdreq             => s_tx_dc_data_fifo.rdreq,
+			rdclk             => s_umft601a_clock,
+			rdreq             => s_tx_rdreq_protected,
 			wrclk             => clk_i,
 			wrreq             => tx_dc_data_fifo_wrreq_i,
 			--			q(35 downto 4)    => s_tx_dc_data_fifo.rddata_data,
@@ -163,8 +161,8 @@ begin
 			data(3 downto 0)  => s_umft601a_buffered_pins.be_in,
 			rdclk             => clk_i,
 			rdreq             => rx_dc_data_fifo_rdreq_i,
-			wrclk             => s_umft601a_clock_n,
-			wrreq             => s_rx_dc_data_fifo.wrreq,
+			wrclk             => s_umft601a_clock,
+			wrreq             => s_rx_wrreq_protected,
 			q(35 downto 4)    => rx_dc_data_fifo_rddata_data_o,
 			q(3 downto 0)     => rx_dc_data_fifo_rddata_be_o,
 			rdempty           => rx_dc_data_fifo_rdempty_o,
@@ -189,9 +187,9 @@ begin
 	-- bidir io buffer instantiation, for the umft601a module pins (fpga <--> umft601a)
 	ftdi_inout_io_buffer_39b_inst : entity work.ftdi_inout_io_buffer_39b
 		port map(
-			datain(38 downto 7)  => s_umft601a_buffered_pins.data_out,
+			datain(38 downto 7)  => s_tx_data_protected,
 			datain(6)            => s_umft601a_buffered_pins.wakeup_n_out,
-			datain(5 downto 2)   => s_umft601a_buffered_pins.be_out,
+			datain(5 downto 2)   => s_tx_be_protected,
 			datain(1 downto 0)   => s_umft601a_buffered_pins.gpio_out,
 			oe(38)               => s_io_inout_buffer_output_enable,
 			oe(37)               => s_io_inout_buffer_output_enable,
@@ -258,7 +256,7 @@ begin
 		);
 
 	-- ftdi umft601a controller fsm process (245 Synchronous FIFO mode Protocols)
-	p_ftdi_umft601a_controller : process(s_umft601a_clock_n, rst_i)
+	p_ftdi_umft601a_controller : process(s_umft601a_clock, rst_i)
 		variable v_ftdi_umft601a_controller_state : t_ftdi_umft601a_controller_fsm; -- current state
 	begin
 		-- on asynchronous reset in any state we jump to the idle state
@@ -269,6 +267,10 @@ begin
 			-- internal signals
 			s_delay_cnt                           <= 0;
 			s_tx_data_fetched                     <= '0';
+			s_tx_transmit_control                 <= 0;
+			s_tx_transmit_continuous              <= '0';
+			s_tx_priority                         <= '0';
+			s_words_to_transfer                   <= 0;
 			-- outputs
 			s_io_inout_buffer_output_enable       <= '0';
 			s_umft601a_buffered_pins.wakeup_n_out <= '1';
@@ -279,7 +281,7 @@ begin
 			s_umft601a_buffered_pins.siwu_n       <= '1';
 			s_tx_dc_data_fifo.rdreq               <= '0';
 			s_rx_dc_data_fifo.wrreq               <= '0';
-		elsif (rising_edge(s_umft601a_clock_n)) then
+		elsif (rising_edge(s_umft601a_clock)) then
 
 			-- States transitions FSM
 			case (s_ftdi_umft601a_controller_state) is
@@ -292,20 +294,38 @@ begin
 					v_ftdi_umft601a_controller_state := IDLE;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_transmit_control            <= 0;
+					s_tx_transmit_continuous         <= '0';
+					s_words_to_transfer              <= 0;
 					-- conditional state transition and internal signal values
-					-- check if the UMFT601A module have rx data and the rx dc fifo can receive
-					--					if ((s_umft601a_buffered_pins.rxf_n = '0') and (s_rx_dc_data_fifo.wrfull = '0')) then
-					if ((s_umft601a_buffered_pins.rxf_n = '0') and (unsigned(s_rx_dc_data_fifo.wrusedw) < ((2 ** s_rx_dc_data_fifo.wrusedw'length)) - 1023)) then
-						-- UMFT601A module have rx data and the rx dc fifo can receive
-						s_ftdi_umft601a_controller_state <= RX_DELAY;
-						v_ftdi_umft601a_controller_state := RX_DELAY;
-						s_delay_cnt                      <= 1;
-					-- check if the UMFT601A module can receive tx data and the tx dc fifo have data
-					elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_dc_data_fifo.rdempty = '0')) then
-						-- UMFT601A module can receive tx data and the tx dc fifo have data
-						s_ftdi_umft601a_controller_state <= TX_DELAY;
-						v_ftdi_umft601a_controller_state := TX_DELAY;
-						s_delay_cnt                      <= 1;
+					if (s_tx_priority = '0') then
+						-- check if the UMFT601A module have rx data and the rx dc fifo can receive
+						if ((s_umft601a_buffered_pins.rxf_n = '0')) then
+							-- UMFT601A module have rx data and the rx dc fifo can receive
+							s_ftdi_umft601a_controller_state <= RX_DELAY;
+							v_ftdi_umft601a_controller_state := RX_DELAY;
+							s_delay_cnt                      <= 1;
+						-- check if the UMFT601A module can receive tx data and the tx dc fifo have data
+						elsif ((s_umft601a_buffered_pins.txe_n = '0')) then
+							-- UMFT601A module can receive tx data and the tx dc fifo have data
+							s_ftdi_umft601a_controller_state <= TX_DELAY;
+							v_ftdi_umft601a_controller_state := TX_DELAY;
+							s_delay_cnt                      <= 1;
+						end if;
+					else
+						-- check if the UMFT601A module can receive tx data and the tx dc fifo have data
+						if ((s_umft601a_buffered_pins.txe_n = '0')) then
+							-- UMFT601A module can receive tx data and the tx dc fifo have data
+							s_ftdi_umft601a_controller_state <= TX_DELAY;
+							v_ftdi_umft601a_controller_state := TX_DELAY;
+							s_delay_cnt                      <= 1;
+						-- check if the UMFT601A module have rx data and the rx dc fifo can receive
+						elsif ((s_umft601a_buffered_pins.rxf_n = '0')) then
+							-- UMFT601A module have rx data and the rx dc fifo can receive
+							s_ftdi_umft601a_controller_state <= RX_DELAY;
+							v_ftdi_umft601a_controller_state := RX_DELAY;
+							s_delay_cnt                      <= 1;
+						end if;
 					end if;
 
 				-- state "RX_DELAY"
@@ -316,6 +336,8 @@ begin
 					v_ftdi_umft601a_controller_state := RX_DELAY;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_priority                    <= '1';
+					s_words_to_transfer              <= 0;
 					-- conditional state transition and internal signal values
 					-- check if the delay is finished
 					if (s_delay_cnt > 0) then
@@ -325,29 +347,26 @@ begin
 						-- delay finished, go to output enable
 						s_ftdi_umft601a_controller_state <= RX_ACTIVATE_UMFT_OE;
 						v_ftdi_umft601a_controller_state := RX_ACTIVATE_UMFT_OE;
+						if ((s_rx_dc_data_fifo.wrfull = '1') or (((2**s_rx_dc_data_fifo.wrusedw'length) - to_integer(unsigned(s_rx_dc_data_fifo.wrusedw))) < 256)) then
+							s_ftdi_umft601a_controller_state <= IDLE;
+							v_ftdi_umft601a_controller_state := IDLE;
+						elsif (((2**s_rx_dc_data_fifo.wrusedw'length) - to_integer(unsigned(s_rx_dc_data_fifo.wrusedw))) < 1024) then
+							s_words_to_transfer <= (2**s_rx_dc_data_fifo.wrusedw'length) - to_integer(unsigned(s_rx_dc_data_fifo.wrusedw));
+						else
+							s_words_to_transfer <= 1024;
+						end if;
 					end if;
 
 				-- state "RX_ACTIVATE_UMFT_OE"
 				when RX_ACTIVATE_UMFT_OE =>
 					-- activate output enable for the UMFT601A module (for receiving)
 					-- default state transition
-					--					s_ftdi_umft601a_controller_state <= RX_RECEIVING;
-					--					v_ftdi_umft601a_controller_state := RX_RECEIVING;
 					s_ftdi_umft601a_controller_state <= RX_WRITING;
 					v_ftdi_umft601a_controller_state := RX_WRITING;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_priority                    <= '1';
 				-- conditional state transition and internal signal values
-
-				--				-- state "RX_RECEIVING"
-				--				when RX_RECEIVING =>
-				--					-- receive rx data from the UMFT601A module
-				--					-- default state transition
-				--					s_ftdi_umft601a_controller_state <= RX_WRITING;
-				--					v_ftdi_umft601a_controller_state := RX_WRITING;
-				--					-- default internal signal values
-				--					s_delay_cnt                      <= 0;
-				--				-- conditional state transition and internal signal values
 
 				-- state "RX_WRITING"
 				when RX_WRITING =>
@@ -357,21 +376,17 @@ begin
 					v_ftdi_umft601a_controller_state := IDLE;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_priority                    <= '1';
+					s_words_to_transfer              <= 0;
 					-- conditional state transition and internal signal values
-					-- check if the UMFT601A module still have rx data and the rx dc fifo can still receive
-					--					if ((s_umft601a_buffered_pins.rxf_n = '0') and (s_rx_dc_data_fifo.wrfull = '0')) then
-					if ((s_umft601a_buffered_pins.rxf_n = '0') and (unsigned(s_rx_dc_data_fifo.wrusedw) < ((2 ** s_rx_dc_data_fifo.wrusedw'length)) - 2)) then
-						-- UMFT601A module still have rx data and the rx dc fifo still can receive
-						--						s_ftdi_umft601a_controller_state <= RX_RECEIVING;
-						--						v_ftdi_umft601a_controller_state := RX_RECEIVING;
-						s_ftdi_umft601a_controller_state <= RX_WRITING;
-						v_ftdi_umft601a_controller_state := RX_WRITING;
-					-- check if the UMFT601A module can receive tx data and the tx dc fifo have data
-					elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_dc_data_fifo.rdempty = '0')) then
-						-- UMFT601A module can receive tx data and the tx dc fifo have data
-						s_ftdi_umft601a_controller_state <= TX_DELAY;
-						v_ftdi_umft601a_controller_state := TX_DELAY;
-						s_delay_cnt                      <= 1;
+					if (s_words_to_transfer > 1) then
+						-- check if the UMFT601A module still have rx data and the rx dc fifo can still receive
+						if ((s_umft601a_buffered_pins.rxf_n = '0')) then
+							-- UMFT601A module still have rx data and the rx dc fifo still can receive
+							s_ftdi_umft601a_controller_state <= RX_WRITING;
+							v_ftdi_umft601a_controller_state := RX_WRITING;
+							s_words_to_transfer              <= s_words_to_transfer - 1;
+						end if;
 					end if;
 
 				-- state "TX_DELAY"
@@ -382,6 +397,8 @@ begin
 					v_ftdi_umft601a_controller_state := TX_DELAY;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_priority                    <= '0';
+					s_words_to_transfer              <= 0;
 					-- conditional state transition and internal signal values
 					-- check if the delay is finished
 					if (s_delay_cnt > 0) then
@@ -391,47 +408,26 @@ begin
 						-- delay finished, go to output enable
 						s_ftdi_umft601a_controller_state <= TX_ACTIVATE_FPGA_OE;
 						v_ftdi_umft601a_controller_state := TX_ACTIVATE_FPGA_OE;
+						if (s_tx_dc_data_fifo.rdempty = '1') then
+							s_ftdi_umft601a_controller_state <= IDLE;
+							v_ftdi_umft601a_controller_state := IDLE;
+						--						elsif (to_integer(unsigned(s_tx_dc_data_fifo.rdusedw)) < 1024) then
+						--							s_words_to_transfer <= 1024;
+						else
+							s_words_to_transfer <= 1024;
+						end if;
 					end if;
 
 				-- state "TX_ACTIVATE_FPGA_OE"
 				when TX_ACTIVATE_FPGA_OE =>
 					-- activate the output enable for the FPGA (for transmitting)
 					-- default state transition
-					--					s_ftdi_umft601a_controller_state <= TX_READING;
-					--					v_ftdi_umft601a_controller_state := TX_READING;
 					s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
 					v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_priority                    <= '0';
 				-- conditional state transition and internal signal values
-				-- check if the tx dc fifo already have a fetched data
-				--					if (s_tx_data_fetched = '1') then
-				--						-- tx dc fifo already have fetched data, no need to fetch another data
-				--						s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
-				--						v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
-				--					end if;
-
-				--				-- state "TX_READING"
-				--				when TX_READING =>
-				--					-- read/fetch the tx data from the tx dc fifo
-				--					-- default state transition
-				--					s_ftdi_umft601a_controller_state <= IDLE;
-				--					v_ftdi_umft601a_controller_state := IDLE;
-				--					-- default internal signal values
-				--					s_delay_cnt                      <= 0;
-				--					-- conditional state transition and internal signal values
-				--					-- check if the UMFT601A module still can receive tx data
-				--					if (s_umft601a_buffered_pins.txe_n = '0') then
-				--						-- UMFT601A module still can receive tx data
-				--						s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
-				--						v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
-				--					-- check if the UMFT601A module have rx data and the rx dc fifo can receive
-				--					elsif ((s_umft601a_buffered_pins.rxf_n = '0') and (s_rx_dc_data_fifo.wrfull = '0')) then
-				--						-- UMFT601A module have rx data and the rx dc fifo can receive
-				--						s_ftdi_umft601a_controller_state <= RX_DELAY;
-				--						v_ftdi_umft601a_controller_state := RX_DELAY;
-				--						s_delay_cnt                      <= 1;
-				--					end if;
 
 				-- state "TX_TRANSMITTING"
 				when TX_TRANSMITTING =>
@@ -441,22 +437,18 @@ begin
 					v_ftdi_umft601a_controller_state := IDLE;
 					-- default internal signal values
 					s_delay_cnt                      <= 0;
+					s_tx_transmit_control            <= 1;
+					s_tx_priority                    <= '0';
+					s_words_to_transfer              <= 0;
 					-- conditional state transition and internal signal values
-					-- check if the tx dc fifo still have data
-					--					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_dc_data_fifo.rdempty = '0')) then
-					if ((s_umft601a_buffered_pins.txe_n = '0') and (unsigned(s_tx_dc_data_fifo.rdusedw) > 2)) then
-						-- tx dc fifo still have data
-						--						s_ftdi_umft601a_controller_state <= TX_READING;
-						--						v_ftdi_umft601a_controller_state := TX_READING;
-						s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
-						v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
-					-- check if the UMFT601A module have rx data and the rx dc fifo can receive
-					--					elsif ((s_umft601a_buffered_pins.rxf_n = '0') and (s_rx_dc_data_fifo.wrfull = '0')) then
-					elsif ((s_umft601a_buffered_pins.rxf_n = '0') and (unsigned(s_rx_dc_data_fifo.wrusedw) < ((2 ** s_rx_dc_data_fifo.wrusedw'length)) - 1023)) then
-						-- UMFT601A module have rx data and the rx dc fifo can receive
-						s_ftdi_umft601a_controller_state <= RX_DELAY;
-						v_ftdi_umft601a_controller_state := RX_DELAY;
-						s_delay_cnt                      <= 1;
+					if (s_words_to_transfer > 1) then
+						-- check if the tx dc fifo still have data
+						if ((s_umft601a_buffered_pins.txe_n = '0')) then
+							-- tx dc fifo still have data
+							s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
+							v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
+							s_words_to_transfer              <= s_words_to_transfer - 1;
+						end if;
 					end if;
 
 				-- all the other states (not defined)
@@ -515,26 +507,10 @@ begin
 					s_rx_dc_data_fifo.wrreq               <= '0';
 				-- conditional output signals
 
-				--				-- state "RX_RECEIVING"
-				--				when RX_RECEIVING =>
-				--					-- receive rx data from the UMFT601A module
-				--					-- default output signals
-				--					s_io_inout_buffer_output_enable       <= '0';
-				--					s_umft601a_buffered_pins.wakeup_n_out <= '1';
-				--					s_umft601a_buffered_pins.gpio_out     <= (others => '1');
-				--					s_umft601a_buffered_pins.wr_n         <= '1';
-				--					s_umft601a_buffered_pins.rd_n         <= '0';
-				--					s_umft601a_buffered_pins.oe_n         <= '0';
-				--					s_umft601a_buffered_pins.siwu_n       <= '1';
-				--					s_tx_dc_data_fifo.rdreq               <= '0';
-				--					s_rx_dc_data_fifo.wrreq               <= '0';
-				--				-- conditional output signals
-
 				-- state "RX_WRITING"
 				when RX_WRITING =>
 					-- write rx data in the rx dc fifo
 					-- default output signals
-
 					s_io_inout_buffer_output_enable       <= '0';
 					s_umft601a_buffered_pins.wakeup_n_out <= '1';
 					s_umft601a_buffered_pins.gpio_out     <= (others => '1');
@@ -575,23 +551,6 @@ begin
 					s_rx_dc_data_fifo.wrreq               <= '0';
 				-- conditional output signals
 
-				--				-- state "TX_READING"
-				--				when TX_READING =>
-				--					-- read/fetch the tx data from the tx dc fifo
-				--					s_tx_data_fetched                     <= '1';
-				--					-- default state dependent internal signals
-				--					-- default output signals
-				--					s_io_inout_buffer_output_enable       <= '1';
-				--					s_umft601a_buffered_pins.wakeup_n_out <= '1';
-				--					s_umft601a_buffered_pins.gpio_out     <= (others => '1');
-				--					s_umft601a_buffered_pins.wr_n         <= '1';
-				--					s_umft601a_buffered_pins.rd_n         <= '1';
-				--					s_umft601a_buffered_pins.oe_n         <= '1';
-				--					s_umft601a_buffered_pins.siwu_n       <= '1';
-				--					s_tx_dc_data_fifo.rdreq               <= '0';
-				--					s_rx_dc_data_fifo.wrreq               <= '0';
-				--				-- conditional output signals
-
 				-- state "TX_TRANSMITTING"
 				when TX_TRANSMITTING =>
 					-- transmit tx data
@@ -620,8 +579,13 @@ begin
 
 	-- signals assingments
 	-- clock and reset assingments
-	--	s_umft601a_clock_n               <= not (s_umft601a_buffered_pins.clock);
-	s_umft601a_clock_n               <= (s_umft601a_buffered_pins.clock);
+	s_umft601a_clock                 <= (s_umft601a_buffered_pins.clock);
 	s_umft601a_buffered_pins.reset_n <= not (rst_i);
+
+	s_rx_wrreq_protected <= (s_rx_dc_data_fifo.wrreq) when (s_umft601a_buffered_pins.rxf_n = '0') else ('0');
+	s_tx_rdreq_protected <= (s_tx_dc_data_fifo.rdreq) when ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_dc_data_fifo.rdempty = '0')) else ('0');
+
+	s_tx_be_protected   <= (s_umft601a_buffered_pins.be_out) when (s_tx_dc_data_fifo.rdempty = '0') else ("0000");
+	s_tx_data_protected <= (s_umft601a_buffered_pins.data_out) when (s_tx_dc_data_fifo.rdempty = '0') else (x"00000000");
 
 end architecture RTL;

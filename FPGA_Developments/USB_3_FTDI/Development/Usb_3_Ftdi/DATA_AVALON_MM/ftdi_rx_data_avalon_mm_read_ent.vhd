@@ -51,11 +51,13 @@ begin
 		procedure p_readdata(read_address_i : t_ftdi_data_avalon_mm_address) is
 		begin
 			-- Registers Data Read
+			
+			buffer_rdreq_o                    <= '1';
 			case (read_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 1023 =>
-
+			when 0 to 1023 =>
+				
 					-- check if the readdata is fetched
 					if (s_readdata_fetched = '1') then
 						s_readdata_fetched                <= '0';
@@ -70,7 +72,6 @@ begin
 							s_readdata_fetched <= '1';
 							buffer_rdreq_o     <= '1';
 						end if;
-
 					end if;
 
 				when others =>
@@ -90,12 +91,12 @@ begin
 			ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 			ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
 			p_flags_hold;
+			p_buffer_control;
 			if (ftdi_rx_data_avalon_mm_i.read = '1') then
 				v_read_address                       := to_integer(unsigned(ftdi_rx_data_avalon_mm_i.address));
 				ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
 				p_readdata(v_read_address);
 			end if;
-			p_buffer_control;
 		end if;
 	end process p_ftdi_rx_data_avalon_mm_read;
 

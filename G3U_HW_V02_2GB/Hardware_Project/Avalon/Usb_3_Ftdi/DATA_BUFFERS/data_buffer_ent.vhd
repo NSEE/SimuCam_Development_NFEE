@@ -13,7 +13,7 @@ entity data_buffer_ent is
 		-- others
 		buffer_data_loaded_i       : in  std_logic;
 		buffer_cfg_length_i        : in  std_logic_vector(10 downto 0);
-		buffer_wrdata_i            : in  std_logic_vector(64 downto 0);
+		buffer_wrdata_i            : in  std_logic_vector(63 downto 0);
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
 		buffer_change_i            : in  std_logic;
@@ -23,7 +23,7 @@ entity data_buffer_ent is
 		buffer_stat_almost_full_o  : out std_logic;
 		buffer_stat_empty_o        : out std_logic;
 		buffer_stat_full_o         : out std_logic;
-		buffer_rddata_o            : out std_logic_vector(64 downto 0);
+		buffer_rddata_o            : out std_logic_vector(63 downto 0);
 		buffer_rdready_o           : out std_logic;
 		buffer_wrready_o           : out std_logic
 	);

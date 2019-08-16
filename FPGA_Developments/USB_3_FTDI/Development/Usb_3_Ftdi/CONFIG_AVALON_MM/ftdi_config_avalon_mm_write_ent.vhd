@@ -73,13 +73,13 @@ begin
 		elsif (rising_edge(clk_i)) then
 			ftdi_config_avalon_mm_o.waitrequest <= '1';
 			p_control_triggers;
+			s_data_acquired <= '0';
 			if (ftdi_config_avalon_mm_i.write = '1') then
 				v_write_address                     := to_integer(unsigned(ftdi_config_avalon_mm_i.address));
 				ftdi_config_avalon_mm_o.waitrequest <= '0';
 				s_data_acquired                     <= '1';
-				if (s_data_acquired = '1') then
+				if (s_data_acquired = '0') then
 					p_writedata(v_write_address);
-					s_data_acquired <= '0';
 				end if;
 			end if;
 		end if;

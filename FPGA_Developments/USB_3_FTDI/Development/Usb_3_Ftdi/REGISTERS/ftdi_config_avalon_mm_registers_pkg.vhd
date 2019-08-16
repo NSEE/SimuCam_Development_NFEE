@@ -7,14 +7,16 @@ package ftdi_config_avalon_mm_registers_pkg is
 	--	t_comm_spw_link_config_status_rd_reg
 
 	type t_ftdi_general_control_wr_reg is record
-		clear       : std_logic;
-		stop        : std_logic;
-		start       : std_logic;
+		clear : std_logic;
+		stop  : std_logic;
+		start : std_logic;
 	end record t_ftdi_general_control_wr_reg;
 
 	type t_ftdi_dbuffer_status_rd_reg is record
-		empty : std_logic;
-		full  : std_logic;
+		empty   : std_logic;
+		wrready : std_logic;
+		full    : std_logic;
+		rdready : std_logic;
 	end record t_ftdi_dbuffer_status_rd_reg;
 
 	type t_ftdi_config_write_registers is record

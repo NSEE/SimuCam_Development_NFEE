@@ -60,17 +60,37 @@ begin
 
 				when (16#04#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.full;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.wrready;
 					end if;
 
 				when (16#05#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.empty;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.full;
 					end if;
 
 				when (16#06#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.rdready;
+					end if;
+
+				when (16#07#) =>
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.empty;
+					end if;
+
+				when (16#08#) =>
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.wrready;
+					end if;
+
+				when (16#09#) =>
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.full;
+					end if;
+
+				when (16#0A#) =>
+					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.rdready;
 					end if;
 
 				when others =>

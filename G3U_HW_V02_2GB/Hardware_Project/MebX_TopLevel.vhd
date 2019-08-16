@@ -559,7 +559,7 @@ signal spw_h_sync : std_logic;
             rs232_uart_rxd                                       : in    std_logic                     := 'X';             -- rxd
             rs232_uart_txd                                       : out   std_logic;                                        -- txd
 				
-				altpll_clk400_c0_clk                                 : out   std_logic;                                        -- clk
+--				altpll_clk400_c0_clk                                 : out   std_logic;                                        -- clk
 				
             ftdi_0_conduit_umft_pins_umft_data_signal            : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
             ftdi_0_conduit_umft_pins_umft_reset_n_signal         : out   std_logic;                                        -- umft_reset_n_signal
@@ -744,7 +744,7 @@ SOPC_INST : MebX_Qsys_Project
 	rs232_uart_rxd => I_RS232_UART_RXD, -- rs232_uart.rxd
 	rs232_uart_txd => O_RS232_UART_TXD,  --           .txd
 	
-	altpll_clk400_c0_clk                                 => s_clk_400,                                 --             altpll_clk400_c0.clk
+--	altpll_clk400_c0_clk                                 => s_clk_400,                                 --             altpll_clk400_c0.clk
 	
     ftdi_0_conduit_umft_pins_umft_data_signal            => FTDI_DATA,            --          ftdi_0_conduit_umft_pins.umft_data_signal
 --    ftdi_0_conduit_umft_pins_umft_reset_n_signal         => FTDI_RESET_N,         --                                  .umft_reset_n_signal
