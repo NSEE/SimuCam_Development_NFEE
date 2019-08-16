@@ -124,6 +124,8 @@ void vDataControlTask(void *task_data) {
 
 						/* Indicates that at any moment the memory could be swaped in order to the NFEEs prepare the first packet to send in the next M. Sync */
 						pxDataC->bUpdateComplete = TRUE;
+						bSendMSGtoSimMebTask(Q_MEB_DATA_MEM_UPDATE_FINISHED, 0, 0); /*todo: Tratar retorno*/
+
 
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -146,6 +148,7 @@ void vDataControlTask(void *task_data) {
 					case sSubSetupEpoch:
 						/* Indicates that the memory update is not completed, at this moment just start */
 						pxDataC->bUpdateComplete = FALSE;
+						bSendMSGtoSimMebTask(Q_MEB_DATA_MEM_IN_USE, 0, 0); /*todo: Tratar retorno*/
 
 						/* todo: For now, this 'toca' implementation will always update all CCDs of all FEE.
 						   The next implementation we should avoid to update FEEs that are working with patterns, unless that has any LUT update */
@@ -411,7 +414,10 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
 			#endif
 			/* Do nothing for now */
 			break;
-		case M_SYNC:
+		case M_MEM_SWAPPED:
+			/* Do nothing for now */
+			break;
+		case M_MASTER_SYNC:
 			pxFeeCP->sRunMode = sSubSetupEpoch;
 			break;			
 		default:
@@ -448,6 +454,31 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP )
 				debug(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}
+}
+
+
+/* This function send command to meb_sim task*/
+bool bSendMSGtoSimMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Send message to xMebQ -> meb_sim task */
+	bSuccesL = FALSE;
+	error_codel = OSQPost(xMebQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMSGMebTask();
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+	return bSuccesL;
 }
 
 /* ================================ MOCK das libs do HW hardware ========================= */

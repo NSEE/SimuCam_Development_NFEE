@@ -205,6 +205,10 @@ void vFeeTask(void *task_data) {
 					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 				}
 
+				/* Send to Meb Task that is not using RAM */
+				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRANSMISSION_FINISHED, 0, pxNFee->ucId);
+
+
 				/* End of simulation! Clear everything that is possible */
 				pxNFee->xControl.bWatingSync = FALSE;
 				pxNFee->xControl.bSimulating = FALSE;
@@ -274,6 +278,9 @@ void vFeeTask(void *task_data) {
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
+				/* Send to Meb Task that is not using RAM */
+				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRANSMISSION_FINISHED, 0, pxNFee->ucId);
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"NFEE-%hu Task: Standby\n", pxNFee->ucId);
@@ -339,9 +346,12 @@ void vFeeTask(void *task_data) {
 					ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem );
 
 				/* Get the memory map values for this next readout*/
-				if ( pxNFee->xControl.eSide == sLeft )
+				if ( pxNFee->xControl.eSide == sLeft ) {
 					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xLeft;
-				else
+
+					/*  WAIT FOR MEMORY SWAP for continue  */
+
+				} else
 					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xRight;
 
 				/* Update the memory side that will be used in the next readout*/
@@ -1582,6 +1592,31 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 }
 
 /* This function send command request for the NFEE Controller Queue*/
+bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	bool bSuccesL;
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	bSuccesL = FALSE;
+	error_codel = OSQPost(xMebQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMSGMebTaskFromFEE();
+		bSuccesL = FALSE;
+	} else {
+		bSuccesL =  TRUE;
+	}
+	return bSuccesL;
+}
+
+
+/* This function send command request for the NFEE Controller Queue*/
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
 	bool bSuccesL;
@@ -1877,6 +1912,7 @@ void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
 
 }
 
+/* todo: Adicionar Timeout */
 void vWaitUntilBufferEmpty( unsigned char ucId ) {
 
 	switch (ucId) {
@@ -1893,10 +1929,10 @@ void vWaitUntilBufferEmpty( unsigned char ucId ) {
 			while ( (bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)  ) {}
 			break;
 		case 4:
-			//while ( (bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)  ) {}
+			while ( (bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)  ) {}
 			break;
 		case 5:
-			//while ( (bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)  ) {}
+			while ( (bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)  ) {}
 			break;
 		case 6:
 			//while ( (bFeebGetCh7LeftFeeBusy()== TRUE) || (bFeebGetCh7RightFeeBusy()== TRUE)  ) {}

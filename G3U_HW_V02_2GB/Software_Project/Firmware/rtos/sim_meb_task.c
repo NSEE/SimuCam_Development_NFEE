@@ -13,12 +13,10 @@ and also know the self state and what is allowed to be performed or not */
 
 void vSimMebTask(void *task_data) {
 	TSimucam_MEB *pxMebC;
-	unsigned char tCode;
-	unsigned char tCodeNext;
 	unsigned char ucIL;
 	volatile tQMask uiCmdMeb;
 	INT8U error_code;
-	INT8U ucFrameNumber;
+
 
 	pxMebC = (TSimucam_MEB *) task_data;
 
@@ -80,35 +78,8 @@ void vSimMebTask(void *task_data) {
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
-
-					/* Check if the command is for MEB */
-					if ( uiCmdMeb.ucByte[3] == M_MEB_ADDR ) {
-						/* Parse the cmd that comes in the Queue */
-						switch ( uiCmdMeb.ucByte[2] ) {
-							/* Receive a PUS command */
-							case Q_MEB_PUS:
-								vPusMebTask( pxMebC );
-								break;
-
-							case M_MASTER_SYNC:
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
-								#endif
-								break;
-
-							default:
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdMeb.ucByte[2]);
-								#endif
-						}
-					} else {
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-							fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdMeb.ucByte[3]);
-						#endif
-					}
+					/* Threat the command received in the Queue Message */
+					vPerformActionMebInConfig( uiCmdMeb, pxMebC);
 				} else {
 					/* Should never get here (blocking operation), critical fail */
 					vCouldNotGetCmdQueueMeb();
@@ -116,51 +87,12 @@ void vSimMebTask(void *task_data) {
 				break;
 
 			case sMebRun:
+
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 
-					/* Check if the command is for MEB */
-					if ( uiCmdMeb.ucByte[3] == M_MEB_ADDR ) {
-						/* Parse the cmd that comes in the Queue */
-						switch (uiCmdMeb.ucByte[2]) {
-							/* Receive a PUS command */
-							case Q_MEB_PUS:
-								vPusMebTask( pxMebC );
-								break;
-
-							case M_MASTER_SYNC:
-								/* Perform memory SWAP */
-								vSwapMemmory(pxMebC);
-								pxMebC->xDataControl.usiEPn++;
-							case M_SYNC:
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-									fprintf(fp,"\n\nSync\n");
-									if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-										bSpwcGetTimecode(&pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire);
-										tCode = ( pxMebC->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
-										tCodeNext = ( tCode ) % 4;
-										fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
-										bRmapGetMemConfigArea(&pxMebC->xFeeControl.xNfee[0].xChannel.xRmap);
-										ucFrameNumber = pxMebC->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
-										fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
-									}
-								}
-								#endif
-								break;
-
-							default:
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-									fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdMeb.ucByte[2]);
-								#endif
-						}
-					} else {
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-							fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdMeb.ucByte[3]);
-						#endif
-					}
+					/* Threat the command received in the Queue Message */
+					vPerformActionMebInRunning( uiCmdMeb, pxMebC);
 
 				} else {
 					/* Should never get here (blocking operation), critical fail */
@@ -178,6 +110,186 @@ void vSimMebTask(void *task_data) {
 		}
 	}
 }
+
+
+void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal ) {
+	tQMask uiCmdLocal;
+	INT8U ucFrameNumber;
+	unsigned char ucFeeInst;
+	unsigned char tCode;
+	unsigned char tCodeNext;
+	unsigned char ucIL =0;
+
+	uiCmdLocal.ulWord = uiCmdParam;
+
+	/* Check if the command is for MEB */
+	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
+		/* Parse the cmd that comes in the Queue */
+		switch (uiCmdLocal.ucByte[2]) {
+			/* Receive a PUS command */
+			case Q_MEB_PUS:
+				vPusMebTask( pxMebCLocal );
+				break;
+
+			case M_PRE_MASTER:
+				pxMebCLocal->xSwapControl.lastReadOut = TRUE;
+				pxMebCLocal->xSwapControl.end = 0x00; /* 0x7F for N-FEE, need to adjust to F-FEE */
+				vDebugSyncTimeCode(pxMebCLocal);
+				break;
+
+			case M_MASTER_SYNC:
+
+				pxMebCLocal->xSwapControl.lastReadOut = FALSE;
+				vDebugSyncTimeCode(pxMebCLocal);
+				break;
+
+			case M_SYNC:
+				vDebugSyncTimeCode(pxMebCLocal);
+				break;
+
+			case M_SYNC:
+				vDebugSyncTimeCode(pxMebCLocal);
+				break;
+
+			case Q_MEB_DATA_MEM_IN_USE:
+				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end | (0x01<<6);
+				break;
+
+			case Q_MEB_FEE_MEM_IN_USE:
+				ucFeeInst = uiCmdLocal.ucByte[0];
+				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end | (0x01<<ucFeeInst);
+				break;
+
+			case Q_MEB_DATA_MEM_UPDATE_FINISHED:
+				/* Clear the flag of the end variable, if is the last ccd readout check if all NFEE finish */
+				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<6);
+				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
+					/* Cheack if NFEEs instances also finished the work with RAM */
+					if ( pxMebCLocal->xSwapControl.end == 0x00 ){
+
+						/* Perform memory SWAP */
+						vSwapMemmory(pxMebCLocal);
+						pxMebCLocal->xDataControl.usiEPn++; /* todo: Procurar os resets, para verificar se ele tbm é resetado */
+
+						/* Using QMASK send to NfeeControl that will foward */
+						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
+						}
+
+						/* Send the swap Command to data Controller */
+						vSendCmdQToDataCTRL( M_MEM_SWAPPED, 0, 0 );
+
+						pxMebCLocal->xSwapControl.lastReadOut = FALSE;
+					}
+				}
+
+				break;
+
+			case Q_MEB_FEE_MEM_TRANSMISSION_FINISHED:
+				/* Clear the flag only in the last CCD transmission */
+				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
+					ucFeeInst = uiCmdLocal.ucByte[0];
+					pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<ucFeeInst);
+					/* Cheack if all NFEEs instances finished the work with RAM */
+					if ( pxMebCLocal->xSwapControl.end == 0x00 ){
+
+						/* Perform memory SWAP */
+						vSwapMemmory(pxMebCLocal);
+						pxMebCLocal->xDataControl.usiEPn++; /* todo: Procurar os resets, para verificar se ele tbm é resetado */
+
+						/* Using QMASK send to NfeeControl that will foward */
+						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
+						}
+
+						/* Send the swap Command to data Controller */
+						vSendCmdQToDataCTRL( M_MEM_SWAPPED, 0, 0 );
+
+						pxMebCLocal->xSwapControl.lastReadOut = FALSE;
+					}
+				}
+
+				break;
+
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"MEB Task: Unknown command (%hhu)\n", uiCmdLocal.ucByte[2]);
+				#endif
+		}
+	} else {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
+		#endif
+	}
+}
+
+
+
+void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal ) {
+	tQMask uiCmdLocal;
+
+	uiCmdLocal.ulWord = uiCmdParam;
+
+	/* Check if the command is for MEB */
+	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
+
+		/* Parse the cmd that comes in the Queue */
+		switch ( uiCmdLocal.ucByte[2] ) {
+			/* Receive a PUS command */
+			case Q_MEB_PUS:
+				vPusMebTask( pxMebCLocal );
+				break;
+
+			case M_SYNC:
+			case M_PRE_MASTER:
+			case M_MASTER_SYNC:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
+				#endif
+				break;
+
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+					fprintf(fp,"MEB Task: Unknown command for the Config Mode (Queue xMebQ, cmd= %hhu)\n", uiCmdLocal.ucByte[2]);
+				#endif
+		}
+	} else {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			fprintf(fp,"MEB Task: Command Ignored wrong address (ADDR= %hhu)\n", uiCmdLocal.ucByte[3]);
+		#endif
+	}
+}
+
+
+void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
+	INT8U ucFrameNumber;
+	unsigned char tCode;
+	unsigned char tCodeNext;
+
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"\n\nSync\n");
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
+			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
+			tCodeNext = ( tCode ) % 4;
+			fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
+			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
+			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
+			fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
+		}
+	}
+	#endif
+}
+
+
+
 
 void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	bool bSuccess;
@@ -279,6 +391,9 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	}
 }
 
+
+
+
 void vPusType251conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
@@ -298,6 +413,7 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 				fprintf(fp,"MEB Task: Can't perform this operation in the Link while Meb is Config mode \n\n");
 			#endif
+			break;
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */

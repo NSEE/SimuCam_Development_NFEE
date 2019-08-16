@@ -1166,6 +1166,22 @@ void vFailRequestDMA( unsigned char ucTemp)
 	 */
 }
 
+void vFailSendMSGMebTaskfromFEE ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMSGMebTaskfromFEE \n");
+	}
+	#endif
+}
+
+void vFailSendMSGMebTask ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMSGMebTask \n");
+	}
+	#endif
+}
+
 void vFailSendBufferFullIRQtoDTC ( void ) {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {

@@ -54,7 +54,9 @@ void vSyncHandleIrq(void* pvContext) {
 	ucSyncL = (vucN % 4);
 	if ( ucSyncL == 0 )
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
-	else
+	else if ( ucSyncL == 3 ) {
+		uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
+	} else
 		uiCmdtoSend.ucByte[2] = M_SYNC;
 
 	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
@@ -77,7 +79,10 @@ void vSyncHandleIrq(void* pvContext) {
 		}
 	}
 
-	vucN += 1;
+	if ( vucN >= 252 ) /*Precisa zerar no módulo 4*/
+		vucN = 0;
+	else
+		vucN += 1;
 
 	vSyncIrqFlagClrSync();
 }

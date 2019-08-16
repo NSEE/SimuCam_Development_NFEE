@@ -58,6 +58,9 @@ typedef union qMask{
 /* General command to sync */
 #define M_MASTER_SYNC               0xE0    /* Command send byt the Sync Interrupt */
 #define M_SYNC                      0xE1    /* Command send byt the Sync Interrupt */
+#define M_PRE_MASTER                0xE2    /* Command send byt the Sync Interrupt */
+
+#define M_MEM_SWAPPED               0xE4    /* Memory Swapped!!! */
 
 
 /*=====================================================================================================================*/
@@ -66,6 +69,11 @@ typedef union qMask{
 /* These list of commands is used in the xMebQ to send message the Meb task */
 #define Q_MEB_PUS 		0x01 /* Indicates that income a PUS command and it should check the xPus array */
 
+#define Q_MEB_DATA_MEM_IN_USE   		 0x11 	/* DTC Updating memory*/
+#define Q_MEB_DATA_MEM_UPDATE_FINISHED   0x12 	/* DTC Indicates That finish the load of the data in the RAM memory */
+
+#define Q_MEB_FEE_MEM_IN_USE				0x21 	/* FEE Using memory */
+#define Q_MEB_FEE_MEM_TRANSMISSION_FINISHED 0x22 	/* FEE CCD transmitted */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -102,6 +110,7 @@ typedef union qMask{
 #define M_DATA_FTDI_BUFFER_EMPTY   0xB4 /* Indicates IRQ buffer empty */
 
 #define M_DATA_FTDI_ERROR   0xC1 	/* Indicates IRQ Communication error */
+
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -125,11 +134,8 @@ typedef union qMask{
 
 
 #define M_FEE_RMAP                  0xF0 /* RMAP command received */
-
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
-
-
 
 
 
