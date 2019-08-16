@@ -108,6 +108,7 @@ int main() {
 	pxChA->xDataPacket.xDpktDataPacketConfig.usiDataYSize = 4510;
 	pxChA->xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = 30;
 //	pxChA->xDataPacket.xDpktDataPacketConfig.usiPacketLength = 10 + 2048;
+//	pxChA->xDataPacket.xDpktDataPacketConfig.usiPacketLength = 10 + 8;
 //	pxChA->xDataPacket.xDpktDataPacketConfig.usiPacketLength = 2048;
 	pxChA->xDataPacket.xDpktDataPacketConfig.usiPacketLength = 32140;
 	pxChA->xDataPacket.xDpktDataPacketConfig.ucCcdNumber = 0;
@@ -128,8 +129,8 @@ int main() {
 		uiDataCnt++;
 		for (uiPixlCnt = 0; uiPixlCnt < 64; uiPixlCnt++) {
 //			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) uiDataCnt;
-//			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0;
-			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0xFFFF;
+			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0;
+//			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0xFFFF;
 		}
 		pxDataBuffer->xData[uiBuffCnt].ullMask = 0xFFFFFFFFFFFFFFFF;
 //		pxDataBuffer->xData[uiBuffCnt].ullMask = 0xF;
@@ -142,8 +143,8 @@ int main() {
 		uiDataCnt++;
 		for (uiPixlCnt = 0; uiPixlCnt < 64; uiPixlCnt++) {
 //			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) uiDataCnt;
-			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0;
-//			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0xFFFF;
+//			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0;
+			pxDataBuffer->xData[uiBuffCnt].uiPixel[uiPixlCnt] = (alt_u16) 0xFFFF;
 		}
 		pxDataBuffer->xData[uiBuffCnt].ullMask = 0xFFFFFFFFFFFFFFFF;
 //		pxDataBuffer->xData[uiBuffCnt].ullMask = 0xF;
@@ -179,28 +180,29 @@ int main() {
 
 	bSyncCtrStart();
 
-	bCommSetGlobalIrqEn(TRUE, eCommSpwCh1);
+//	bCommSetGlobalIrqEn(TRUE, eCommSpwCh1);
 
-//	for (uiBuffCnt = 0; uiBuffCnt < 10176; uiBuffCnt++) {
-////	for (uiBuffCnt = 0; uiBuffCnt < 1; uiBuffCnt++) {
-//
-//		if (bSdmaDmaM1Transfer((alt_u32 *)0, 8, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
-//			printf("DMA Ok \n");
-//		} else {
-//			printf("DMA Fail \n");
-//		}
-//
-//		while (!bFeebGetCh1LeftBufferEmpty()) {}
-//
-//		if (bSdmaDmaM1Transfer((alt_u32 *)2176, 8, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
-//			printf("DMA Ok \n");
-//		} else {
-//			printf("DMA Fail \n");
-//		}
-//
-//		while (!bFeebGetCh1LeftBufferEmpty()) {}
-//
-//	}
+	for (uiBuffCnt = 0; uiBuffCnt < (10176 - 1); uiBuffCnt++) {
+//	for (uiBuffCnt = 0; uiBuffCnt < (10176/2 - 1); uiBuffCnt++) {
+//	for (uiBuffCnt = 0; uiBuffCnt < 1; uiBuffCnt++) {
+
+		while (!bFeebGetCh1LeftBufferEmpty()) {}
+
+		if (bSdmaDmaM1Transfer((alt_u32 *)0, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
+			printf("DMA Ok \n");
+		} else {
+			printf("DMA Fail \n");
+		}
+
+		while (!bFeebGetCh1LeftBufferEmpty()) {}
+
+		if (bSdmaDmaM1Transfer((alt_u32 *)2176, 16, eSdmaLeftBuffer, eSdmaCh1Buffer)) {
+			printf("DMA Ok \n");
+		} else {
+			printf("DMA Fail \n");
+		}
+
+	}
 
 	while (1) {}
 

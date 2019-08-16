@@ -41,9 +41,9 @@ static volatile int viHoldContext;
  * @retval void
  */
 void vSyncHandleIrq(void* pvContext) {
-	volatile unsigned char ucIL;
-	volatile unsigned char ucSyncL;
-	unsigned char error_codel;
+//	volatile unsigned char ucIL;
+//	volatile unsigned char ucSyncL;
+//	unsigned char error_codel;
 
 	vSyncIrqFlagClrSync();
 }

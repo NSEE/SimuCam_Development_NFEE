@@ -362,7 +362,7 @@ begin
 						else
 							s_dbuffer_qword_cnt <= s_dbuffer_qword_cnt + 1;
 						end if;
-						if (s_dbuffer_addr_cnt <= 271) then
+						if (s_dbuffer_addr_cnt = 271) then
 							s_dbuffer_addr_cnt <= 0;
 						else
 							s_dbuffer_addr_cnt <= s_dbuffer_addr_cnt + 1;
@@ -424,7 +424,7 @@ begin
 						else
 							s_dbuffer_qword_cnt <= s_dbuffer_qword_cnt + 1;
 						end if;
-						if (s_dbuffer_addr_cnt <= 271) then
+						if (s_dbuffer_addr_cnt = 271) then
 							s_dbuffer_addr_cnt <= 0;
 						else
 							s_dbuffer_addr_cnt <= s_dbuffer_addr_cnt + 1;

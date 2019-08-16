@@ -3,10 +3,10 @@
  <debug showDebugMenu="0" />
  <systemtable filter="All Interfaces">
   <columns>
-   <connections preferredWidth="31" />
+   <connections preferredWidth="655" />
    <irq preferredWidth="34" />
-   <name preferredWidth="307" />
-   <inputclock preferredWidth="177" />
+   <name preferredWidth="209" />
+   <inputclock preferredWidth="101" />
    <export preferredWidth="211" />
    <description preferredWidth="325" />
   </columns>

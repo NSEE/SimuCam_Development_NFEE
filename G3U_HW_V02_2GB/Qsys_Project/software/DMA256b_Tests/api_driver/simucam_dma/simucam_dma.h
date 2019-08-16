@@ -9,6 +9,7 @@
 #define SIMUCAM_DMA_H_
 
 #include "../../driver/msgdma/msgdma.h"
+#include "../../driver/comm/fee_buffers/fee_buffers.h"
 #include "../../simucam_definitions.h"
 
 //! [constants definition]

@@ -50,7 +50,7 @@ R11
 R12
 R13
 Eavalon_buffer_r_stimuli
-Z15 w1565880534
+Z15 w1565896909
 R1
 R2
 R3
@@ -63,9 +63,9 @@ VA4[LaK1a0B?i5]mhD6VXz3
 !s100 kB5A<0oHgINQ1oInTE36_2
 R7
 32
-Z18 !s110 1565880538
+Z18 !s110 1565896913
 !i10b 1
-Z19 !s108 1565880538.000000
+Z19 !s108 1565896913.000000
 Z20 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/avalon_buffer_R_stimuli.vhd|
 Z21 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench/avalon_buffer_R_stimuli.vhd|
 !i113 1
@@ -78,8 +78,8 @@ R3
 Z22 DEx4 work 23 avalon_buffer_r_stimuli 0 22 A4[LaK1a0B?i5]mhD6VXz3
 l58
 L20
-VA4HcM4gbDD0fWh4218D4B1
-!s100 7Q>60^j_4Whh:APFZEnC51
+V3FOclRVP`jT^ooWXemcXX1
+!s100 2V_8VoE5<JK?1j21F[c5T3
 R7
 32
 R18
@@ -2397,7 +2397,7 @@ R285
 R12
 R13
 Ewindowing_buffer_ent
-Z286 w1565885945
+Z286 w1565898282
 R46
 R73
 R1
@@ -2412,9 +2412,9 @@ VIka8AD4e0TYQ@jT^gCC_>1
 !s100 bolgJ`P>kD3cMgJhYJ1o=2
 R7
 32
-Z289 !s110 1565885950
+Z289 !s110 1565898285
 !i10b 1
-Z290 !s108 1565885950.000000
+Z290 !s108 1565898284.000000
 Z291 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_buffer_ent.vhd|
 Z292 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_buffer_ent.vhd|
 !i113 1
@@ -2433,8 +2433,8 @@ R3
 R74
 l88
 L30
-V<0YPmFIGb0N>QU:j2]nDa2
-!s100 B_zHRV`PPWGVVWLU1Hkz?0
+VEfV6[]72V?MfR1U3EC6l@1
+!s100 Bl_Ua`GK1eP>d5UcjmPaz0
 R7
 32
 R289
@@ -2532,7 +2532,7 @@ Pwindowing_dataset_pkg
 R1
 R2
 R3
-Z307 w1565879689
+Z307 w1565886456
 R4
 Z308 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_dataset_pkg.vhd
 Z309 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_dataset_pkg.vhd
@@ -2543,11 +2543,11 @@ V3Bdjjea6eXF>1Yz>`?1W;1
 R7
 32
 b1
-R31
+Z310 !s110 1565896892
 !i10b 1
-R41
-Z310 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_dataset_pkg.vhd|
-Z311 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_dataset_pkg.vhd|
+Z311 !s108 1565896892.000000
+Z312 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_dataset_pkg.vhd|
+Z313 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_dataset_pkg.vhd|
 !i113 1
 R12
 R13
@@ -2562,11 +2562,11 @@ Vj@bhoM6ScF[h8CDQgNNcg0
 !s100 AO]>n]dZkoa=@CPe[ad3:0
 R7
 32
-R31
-!i10b 1
-R41
 R310
+!i10b 1
 R311
+R312
+R313
 !i113 1
 R12
 R13
@@ -2576,8 +2576,8 @@ R2
 R3
 R297
 R4
-Z312 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd
-Z313 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd
+Z314 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd
+Z315 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd
 l0
 L5
 V?kea1T2[W`L2efh1T3T943
@@ -2587,8 +2587,8 @@ R7
 R31
 !i10b 1
 R41
-Z314 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd|
-Z315 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd|
+Z316 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd|
+Z317 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_fifo_pkg.vhd|
 !i113 1
 R12
 R13
@@ -2606,18 +2606,18 @@ R7
 R31
 !i10b 1
 R41
-R314
-R315
+R316
+R317
 !i113 1
 R12
 R13
 Ewindowing_large_avsbuff_sc_fifo
-Z316 w1565879368
+Z318 w1565879368
 R2
 R3
 R4
-Z317 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd
-Z318 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd
+Z319 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd
+Z320 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd
 l0
 L42
 VRjozld:QR5a45I;KbXO;<0
@@ -2627,8 +2627,8 @@ R7
 R31
 !i10b 1
 R41
-Z319 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd|
-Z320 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd|
+Z321 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd|
+Z322 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_large_avsbuff_sc_fifo/windowing_large_avsbuff_sc_fifo.vhd|
 !i113 1
 R12
 R13
@@ -2645,8 +2645,8 @@ R7
 R31
 !i10b 1
 R41
-R319
-R320
+R321
+R322
 !i113 1
 R12
 R13
@@ -2657,8 +2657,8 @@ R1
 R2
 R3
 R4
-Z321 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd
-Z322 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd
+Z323 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd
+Z324 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd
 l0
 L7
 VD;3W4jJ_F8S`LSYW9>@hL3
@@ -2668,13 +2668,13 @@ R7
 R31
 !i10b 1
 R41
-Z323 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd|
-Z324 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd|
+Z325 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd|
+Z326 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/windowing_mask_fifo_ent.vhd|
 !i113 1
 R12
 R13
 Artl
-Z325 DEx4 work 22 windowing_mask_sc_fifo 0 22 4@bjVhb@O3DXTkK>1l9c^3
+Z327 DEx4 work 22 windowing_mask_sc_fifo 0 22 4@bjVhb@O3DXTkK>1l9c^3
 R73
 R1
 R2
@@ -2689,8 +2689,8 @@ R7
 R31
 !i10b 1
 R41
-R323
-R324
+R325
+R326
 !i113 1
 R12
 R13
@@ -2699,8 +2699,8 @@ R297
 R2
 R3
 R4
-Z326 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
-Z327 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
+Z328 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
+Z329 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd
 l0
 L43
 V4@bjVhb@O3DXTkK>1l9c^3
@@ -2710,15 +2710,15 @@ R7
 R31
 !i10b 1
 R41
-Z328 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd|
-Z329 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd|
+Z330 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd|
+Z331 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_mask_sc_fifo/windowing_mask_sc_fifo.vhd|
 !i113 1
 R12
 R13
 Asyn
 R2
 R3
-R325
+R327
 l97
 L60
 VGFo7m7Cd2T4lRB=lhgmNe1
@@ -2728,18 +2728,18 @@ R7
 R31
 !i10b 1
 R41
-R328
-R329
+R330
+R331
 !i113 1
 R12
 R13
 Ewindowing_small_avsbuff_sc_fifo
-Z330 w1565879372
+Z332 w1565879372
 R2
 R3
 R4
-Z331 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd
-Z332 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd
+Z333 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd
+Z334 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd
 l0
 L42
 V>Cb?3Yi2aQ`16`cn0[MHD0
@@ -2749,8 +2749,8 @@ R7
 R31
 !i10b 1
 R41
-Z333 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd|
-Z334 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd|
+Z335 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd|
+Z336 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Communications_Module_v1_8/WINDOWING_BUFFER/altera_ipcore/scfifo/windowing_small_avsbuff_sc_fifo/windowing_small_avsbuff_sc_fifo.vhd|
 !i113 1
 R12
 R13
@@ -2767,8 +2767,8 @@ R7
 R31
 !i10b 1
 R41
-R333
-R334
+R335
+R336
 !i113 1
 R12
 R13

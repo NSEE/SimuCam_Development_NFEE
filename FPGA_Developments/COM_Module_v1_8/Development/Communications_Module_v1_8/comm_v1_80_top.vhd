@@ -24,28 +24,29 @@ entity comm_v1_80_top is
 	port(
 		reset_sink_reset                   : in  std_logic                      := '0'; --          --               reset_sink.a_reset
 		data_in                            : in  std_logic                      := '0'; --          --          spw_conduit_end.data_in_signal
-		data_out                           : out std_logic; --                                     --                         .data_out_signal
+		data_out                           : out std_logic; --                                      --                         .data_out_signal
 		strobe_in                          : in  std_logic                      := '0'; --          --                         .strobe_in_signal
-		strobe_out                         : out std_logic; --                                     --                         .strobe_out_signal
+		strobe_out                         : out std_logic; --                                      --                         .strobe_out_signal
 		sync_channel                       : in  std_logic                      := '0'; --          --         sync_conduit_end.sync_channel_signal
-		rmap_interrupt_sender_irq          : out std_logic; --                                     --    rmap_interrupt_sender.irq
-		buffers_interrupt_sender_irq       : out std_logic; --                                     -- buffers_interrupt_sender.irq
+		rmap_interrupt_sender_irq          : out std_logic; --                                      --    rmap_interrupt_sender.irq
+		buffers_interrupt_sender_irq       : out std_logic; --                                      -- buffers_interrupt_sender.irq
 		clock_sink_200_clk                 : in  std_logic                      := '0'; --          --           clock_sink_200.clk
 		clock_sink_100_clk                 : in  std_logic                      := '0'; --          --           clock_sink_100.clk
 		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_windowing.address
 		avalon_slave_windowing_write       : in  std_logic                      := '0'; --          --                         .write
 		avalon_slave_windowing_read        : in  std_logic                      := '0'; --          --                         .read
-		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                 --                         .readdata
+		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                  --                         .readdata
 		avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
-		avalon_slave_windowing_waitrequest : out std_logic; --                                     --                         .waitrequest
+		avalon_slave_windowing_waitrequest : out std_logic; --                                      --                         .waitrequest
 		avalon_slave_L_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => '0'); --    avalon_slave_L_buffer.address
-		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                     --                         .waitrequest
+		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
 		avalon_slave_L_buffer_write        : in  std_logic                      := '0'; --          --                         .write
 		avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
 		avalon_slave_R_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => '0'); --    avalon_slave_R_buffer.address
 		avalon_slave_R_buffer_write        : in  std_logic                      := '0'; --          --                         .write
 		avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_waitrequest  : out std_logic --                                      --                         .waitrequest
+		avalon_slave_R_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
+		measurements_channel               : out std_logic_vector(7 downto 0) --                    -- measurements_conduit_end.measurements_channel_signal
 	);
 end entity comm_v1_80_top;
 
@@ -1004,5 +1005,17 @@ begin
 			s_sync_in_delayed      <= s_sync_channel_n;
 		end if;
 	end process p_sync_in_triger;
+
+	-- measurements channel outputs
+	-- measurement 0 : right empty buffer signal
+	measurements_channel(0)          <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
+	-- measurement 1 : right write signal
+	measurements_channel(1)          <= avalon_slave_R_buffer_write;
+	-- measurement 2 : left empty  buffer signal
+	measurements_channel(2)          <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
+	-- measurement 3 : left write signal
+	measurements_channel(3)          <= avalon_slave_L_buffer_write;
+	-- not used measurements will be logical 0
+	measurements_channel(7 downto 4) <= (others => '0');
 
 end architecture rtl;                   -- of comm_v1_80_top
