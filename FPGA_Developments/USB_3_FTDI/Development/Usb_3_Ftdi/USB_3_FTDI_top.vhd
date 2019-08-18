@@ -262,36 +262,36 @@ begin
 			buffer_wrreq_o                => s_rx_dbuffer_wrreq
 		);
 
-	--	-- FTDI UMFT601A Controller Instantiation
-	--	ftdi_umft601a_controller_ent_inst : entity work.ftdi_umft601a_controller_ent
-	--		port map(
-	--			clk_i                         => a_avs_clock,
-	--			rst_i                         => a_reset,
-	--			umft_rxf_n_pin_i              => umft_rxf_n_pin,
-	--			umft_clock_pin_i              => umft_clock_pin,
-	--			umft_txe_n_pin_i              => umft_txe_n_pin,
-	--			tx_dc_data_fifo_wrdata_data_i => s_tx_dc_data_fifo_wrdata_data,
-	--			tx_dc_data_fifo_wrdata_be_i   => s_tx_dc_data_fifo_wrdata_be,
-	--			tx_dc_data_fifo_wrreq_i       => s_tx_dc_data_fifo_wrreq,
-	--			rx_dc_data_fifo_rdreq_i       => s_rx_dc_data_fifo_rdreq,
-	--			umft_data_bus_io              => umft_data_bus,
-	--			umft_wakeup_n_pin_io          => umft_wakeup_n_pin,
-	--			umft_be_bus_io                => umft_be_bus,
-	--			umft_gpio_bus_io              => umft_gpio_bus,
-	--			umft_reset_n_pin_o            => umft_reset_n_pin,
-	--			umft_wr_n_pin_o               => umft_wr_n_pin,
-	--			umft_rd_n_pin_o               => umft_rd_n_pin,
-	--			umft_oe_n_pin_o               => umft_oe_n_pin,
-	--			umft_siwu_n_pin_o             => umft_siwu_n_pin,
-	--			tx_dc_data_fifo_wrempty_o     => s_tx_dc_data_fifo_wrempty,
-	--			tx_dc_data_fifo_wrfull_o      => s_tx_dc_data_fifo_wrfull,
-	--			tx_dc_data_fifo_wrusedw_o     => s_tx_dc_data_fifo_wrusedw,
-	--			rx_dc_data_fifo_rddata_data_o => s_rx_dc_data_fifo_rddata_data,
-	--			rx_dc_data_fifo_rddata_be_o   => s_rx_dc_data_fifo_rddata_be,
-	--			rx_dc_data_fifo_rdempty_o     => s_rx_dc_data_fifo_rdempty,
-	--			rx_dc_data_fifo_rdfull_o      => s_rx_dc_data_fifo_rdfull,
-	--			rx_dc_data_fifo_rdusedw_o     => s_rx_dc_data_fifo_rdusedw
-	--		);
+--		-- FTDI UMFT601A Controller Instantiation
+--		ftdi_umft601a_controller_ent_inst : entity work.ftdi_umft601a_controller_ent
+--			port map(
+--				clk_i                         => a_avs_clock,
+--				rst_i                         => a_reset,
+--				umft_rxf_n_pin_i              => umft_rxf_n_pin,
+--				umft_clock_pin_i              => umft_clock_pin,
+--				umft_txe_n_pin_i              => umft_txe_n_pin,
+--				tx_dc_data_fifo_wrdata_data_i => s_tx_dc_data_fifo_wrdata_data,
+--				tx_dc_data_fifo_wrdata_be_i   => s_tx_dc_data_fifo_wrdata_be,
+--				tx_dc_data_fifo_wrreq_i       => s_tx_dc_data_fifo_wrreq,
+--				rx_dc_data_fifo_rdreq_i       => s_rx_dc_data_fifo_rdreq,
+--				umft_data_bus_io              => umft_data_bus,
+--				umft_wakeup_n_pin_io          => umft_wakeup_n_pin,
+--				umft_be_bus_io                => umft_be_bus,
+--				umft_gpio_bus_io              => umft_gpio_bus,
+--				umft_reset_n_pin_o            => umft_reset_n_pin,
+--				umft_wr_n_pin_o               => umft_wr_n_pin,
+--				umft_rd_n_pin_o               => umft_rd_n_pin,
+--				umft_oe_n_pin_o               => umft_oe_n_pin,
+--				umft_siwu_n_pin_o             => umft_siwu_n_pin,
+--				tx_dc_data_fifo_wrempty_o     => s_tx_dc_data_fifo_wrempty,
+--				tx_dc_data_fifo_wrfull_o      => s_tx_dc_data_fifo_wrfull,
+--				tx_dc_data_fifo_wrusedw_o     => s_tx_dc_data_fifo_wrusedw,
+--				rx_dc_data_fifo_rddata_data_o => s_rx_dc_data_fifo_rddata_data,
+--				rx_dc_data_fifo_rddata_be_o   => s_rx_dc_data_fifo_rddata_be,
+--				rx_dc_data_fifo_rdempty_o     => s_rx_dc_data_fifo_rdempty,
+--				rx_dc_data_fifo_rdfull_o      => s_rx_dc_data_fifo_rdfull,
+--				rx_dc_data_fifo_rdusedw_o     => s_rx_dc_data_fifo_rdusedw
+--			);
 
 	-- TEST -- Remove Later
 

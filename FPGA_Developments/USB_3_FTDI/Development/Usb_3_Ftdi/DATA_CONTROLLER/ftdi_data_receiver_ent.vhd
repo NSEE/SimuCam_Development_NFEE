@@ -31,6 +31,7 @@ architecture RTL of ftdi_data_receiver_ent is
 		FETCH_RX_DWORD_0,               -- fetch rx dword data 0 (32b)
 		FETCH_RX_DWORD_1,               -- fetch rx dword data 1 (32b)
 		FETCH_DELAY,                    -- fetch delay
+		LONG_FETCH_DELAY,               -- long fetch delay
 		WRITE_RX_QWORD,                 -- write rx qword data (64b)
 		WRITE_DELAY,                    -- write delay
 		CHANGE_BUFFER                   -- change tx buffer
@@ -101,8 +102,22 @@ begin
 				-- state "FETCH_DELAY"
 				when FETCH_DELAY =>
 					-- fetch delay
-					s_ftdi_data_receiver_state <= FETCH_DELAY;
-					v_ftdi_data_receiver_state := FETCH_DELAY;
+					s_ftdi_data_receiver_state <= LONG_FETCH_DELAY;
+					v_ftdi_data_receiver_state := LONG_FETCH_DELAY;
+					-- default state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the rx data buffer is ready to be written and not full
+					if ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0')) then
+						s_ftdi_data_receiver_state <= WRITE_RX_QWORD;
+						v_ftdi_data_receiver_state := WRITE_RX_QWORD;
+					end if;
+					
+				-- state "LONG_FETCH_DELAY"
+				when LONG_FETCH_DELAY =>
+					-- long fetch delay
+					s_ftdi_data_receiver_state <= LONG_FETCH_DELAY;
+					v_ftdi_data_receiver_state := LONG_FETCH_DELAY;
 					-- default state transition
 					-- default internal signal values
 					-- conditional state transition
@@ -221,6 +236,16 @@ begin
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_1            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+				
+				-- state "LONG_FETCH_DELAY"
+				when LONG_FETCH_DELAY =>
+					-- fetch delay
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
 				-- conditional output signals
 
 				-- state "WRITE_RX_QWORD"

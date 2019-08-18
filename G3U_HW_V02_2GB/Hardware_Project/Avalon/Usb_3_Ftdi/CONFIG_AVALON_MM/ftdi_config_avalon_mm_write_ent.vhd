@@ -26,7 +26,7 @@ begin
 		begin
 			ftdi_config_write_registers_o.general_control_reg.clear            <= '0';
 			ftdi_config_write_registers_o.general_control_reg.stop             <= '0';
-			ftdi_config_write_registers_o.general_control_reg.start            <= '0';
+			ftdi_config_write_registers_o.general_control_reg.start            <= '1';
 			ftdi_config_write_registers_o.test_fifo_control_reg.tx_rdreq       <= '0';
 			ftdi_config_write_registers_o.test_fifo_control_reg.rx_wrreq       <= '0';
 			ftdi_config_write_registers_o.test_fifo_control_reg.rx_wrdata_data <= (others => '0');
@@ -37,7 +37,7 @@ begin
 		begin
 			ftdi_config_write_registers_o.general_control_reg.clear      <= '0';
 			ftdi_config_write_registers_o.general_control_reg.stop       <= '0';
-			ftdi_config_write_registers_o.general_control_reg.start      <= '0';
+			ftdi_config_write_registers_o.general_control_reg.start      <= '1';
 			ftdi_config_write_registers_o.test_fifo_control_reg.tx_rdreq <= '0';
 			ftdi_config_write_registers_o.test_fifo_control_reg.rx_wrreq <= '0';
 		end procedure p_control_triggers;

@@ -53,8 +53,6 @@ begin
 			tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 			tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 			tx_dc_data_fifo_wrreq_o       <= '0';
-			s_tx_dword_0                  <= (others => '0');
-			s_tx_dword_1                  <= (others => '0');
 		elsif rising_edge(clk_i) then
 
 			-- States transitions FSM
@@ -181,8 +179,6 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 					tx_dc_data_fifo_wrreq_o       <= '0';
-					s_tx_dword_0                  <= (others => '0');
-					s_tx_dword_1                  <= (others => '0');
 				-- conditional output signals
 
 				-- state "IDLE"
@@ -194,8 +190,6 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 					tx_dc_data_fifo_wrreq_o       <= '0';
-					s_tx_dword_0                  <= (others => '0');
-					s_tx_dword_1                  <= (others => '0');
 				-- conditional output signals
 
 				-- state "FETCH_TX_QWORD"
@@ -207,8 +201,6 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 					tx_dc_data_fifo_wrreq_o       <= '0';
-					s_tx_dword_0                  <= (others => '0');
-					s_tx_dword_1                  <= (others => '0');
 				-- conditional output signals
 
 				-- state "FETCH_DELAY"
@@ -220,8 +212,6 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 					tx_dc_data_fifo_wrreq_o       <= '0';
-					s_tx_dword_0                  <= buffer_rddata_i(31 downto 0);
-					s_tx_dword_1                  <= buffer_rddata_i(63 downto 32);
 				-- conditional output signals
 
 				-- state "WRITE_TX_DWORD_0"
@@ -255,8 +245,6 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 					tx_dc_data_fifo_wrreq_o       <= '0';
-					s_tx_dword_0                  <= (others => '0');
-					s_tx_dword_1                  <= (others => '0');
 				-- conditional output signals
 
 				-- state "CHANGE_BUFFER"
@@ -268,14 +256,16 @@ begin
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
 					tx_dc_data_fifo_wrreq_o       <= '0';
-					s_tx_dword_0                  <= (others => '0');
-					s_tx_dword_1                  <= (others => '0');
 					-- conditional output signals
 
 			end case;
 
 		end if;
 	end process p_ftdi_data_transmitter;
+
+	-- Signals Assingments
+	s_tx_dword_0 <= buffer_rddata_i(31 downto 0);
+	s_tx_dword_1 <= buffer_rddata_i(63 downto 32);
 
 end architecture RTL;
 
