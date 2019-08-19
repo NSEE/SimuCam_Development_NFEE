@@ -24,8 +24,7 @@ architecture rtl of ftdi_tx_data_avalon_mm_write_ent is
 
 	type t_ftdi_tx_data_avalon_mm_write_fsm is (
 		IDLE,
-		WRITE_DATA,
-		WRITE_FINISHED
+		WRITE_DATA
 	);
 	signal s_ftdi_tx_data_avalon_mm_write_state : t_ftdi_tx_data_avalon_mm_write_fsm;
 
@@ -99,12 +98,6 @@ begin
 					end if;
 
 				when WRITE_DATA =>
-					s_ftdi_tx_data_avalon_mm_write_state <= WRITE_FINISHED;
-					ftdi_tx_data_avalon_mm_o.waitrequest <= '0';
-					p_control_triggers;
-					p_buffer_control;
-
-				when WRITE_FINISHED =>
 					s_ftdi_tx_data_avalon_mm_write_state <= IDLE;
 					ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
 					p_control_triggers;

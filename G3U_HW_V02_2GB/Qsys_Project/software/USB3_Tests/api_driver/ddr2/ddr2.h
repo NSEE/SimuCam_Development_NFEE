@@ -50,5 +50,6 @@ bool bDdr2MemoryWriteTest(alt_u8 ucMemoryId);
 bool bDdr2MemoryReadTest(alt_u8 ucMemoryId);
 bool bDdr2MemoryRandomWriteTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime);
 bool bDdr2MemoryRandomReadTest(alt_u8 ucMemoryId, bool bVerbose, bool bTime);
+alt_u32 uliXorshift32(alt_u32 *puliState);
 
 #endif /* DDR2_H_ */

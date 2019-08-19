@@ -55,127 +55,132 @@ begin
 
 				when (16#03#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.empty;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_write_registers_i.general_control_reg.loopback_en;
 					end if;
 
 				when (16#04#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.wrready;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.empty;
 					end if;
 
 				when (16#05#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.full;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.wrready;
 					end if;
 
 				when (16#06#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.rdready;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.full;
 					end if;
 
 				when (16#07#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.empty;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.tx_dbuffer_status_reg.rdready;
 					end if;
 
 				when (16#08#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.wrready;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.empty;
 					end if;
 
 				when (16#09#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.full;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.wrready;
 					end if;
 
 				when (16#0A#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.rdready;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.full;
 					end if;
 
 				when (16#0B#) =>
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_write_registers_i.test_fifo_control_reg.tx_rdreq;
+						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.rx_dbuffer_status_reg.rdready;
 					end if;
 
-				when (16#0C#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdempty;
-					end if;
-
-				when (16#0D#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdfull;
-					end if;
-
-				when (16#0E#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdusedw(7 downto 0);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdusedw(11 downto 8);
-					end if;
-
-				when (16#0F#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(7 downto 0);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(15 downto 8);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-						ftdi_config_avalon_mm_o.readdata(23 downto 16) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(23 downto 16);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-						ftdi_config_avalon_mm_o.readdata(31 downto 24) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(31 downto 24);
-					end if;
-
-				when (16#10#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(3 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_be;
-					end if;
-
-				when (16#11#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrreq;
-					end if;
-
-				when (16#12#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(7 downto 0);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(15 downto 8);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-						ftdi_config_avalon_mm_o.readdata(23 downto 16) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(23 downto 16);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
-						ftdi_config_avalon_mm_o.readdata(31 downto 24) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(31 downto 24);
-					end if;
-
-				when (16#13#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(3 downto 0) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_be;
-					end if;
-
-				when (16#14#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrempty;
-					end if;
-
-				when (16#15#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrfull;
-					end if;
-
-				when (16#16#) =>
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrusedw(7 downto 0);
-					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrusedw(11 downto 8);
-					end if;
+--				when (16#0C#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_write_registers_i.test_fifo_control_reg.tx_rdreq;
+--					end if;
+--
+--				when (16#0D#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdempty;
+--					end if;
+--
+--				when (16#0E#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdfull;
+--					end if;
+--
+--				when (16#0F#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdusedw(7 downto 0);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rdusedw(11 downto 8);
+--					end if;
+--
+--				when (16#10#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(7 downto 0);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(15 downto 8);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(23 downto 16) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(23 downto 16);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(31 downto 24) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_data(31 downto 24);
+--					end if;
+--
+--				when (16#11#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(3 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.tx_rddata_be;
+--					end if;
+--
+--				when (16#12#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrreq;
+--					end if;
+--
+--				when (16#13#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(7 downto 0);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(15 downto 8);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(23 downto 16) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(23 downto 16);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(31 downto 24) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_data(31 downto 24);
+--					end if;
+--
+--				when (16#14#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(3 downto 0) <= ftdi_config_write_registers_i.test_fifo_control_reg.rx_wrdata_be;
+--					end if;
+--
+--				when (16#15#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrempty;
+--					end if;
+--
+--				when (16#16#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrfull;
+--					end if;
+--
+--				when (16#17#) =>
+--					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrusedw(7 downto 0);
+--					end if;
+--					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+--						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_read_registers_i.test_fifo_status_reg.rx_wrusedw(11 downto 8);
+--					end if;
 
 				when others =>
 					ftdi_config_avalon_mm_o.readdata <= (others => '0');

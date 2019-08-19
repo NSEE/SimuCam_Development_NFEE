@@ -1,4 +1,13 @@
-../Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
+../Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity ftdi_rx_data_mux_ent
+-- Compiling architecture RTL of ftdi_rx_data_mux_ent
+
+} {} {}} ../Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
@@ -44,6 +53,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of ftdi_inout_io_buffer_39b_iobuf_bidir_ruo
 -- Compiling entity ftdi_inout_io_buffer_39b
 -- Compiling architecture RTL of ftdi_inout_io_buffer_39b
+
+} {} {}} ../Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity ftdi_tx_data_mux_ent
+-- Compiling architecture RTL of ftdi_tx_data_mux_ent
 
 } {} {}} ../Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -102,26 +120,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity ftdi_in_io_buffer_3b
 -- Compiling architecture RTL of ftdi_in_io_buffer_3b
 
-} {} {}} ../Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd
+} {} {}} ../Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling package ftdi_config_avalon_mm_pkg
-
-} {} {}} ../Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity ftdi_umft601a_controller_ent
--- Compiling architecture RTL of ftdi_umft601a_controller_ent
--- Loading entity ftdi_data_dc_fifo
--- Loading entity ftdi_in_io_buffer_3b
--- Loading entity ftdi_inout_io_buffer_39b
--- Loading entity ftdi_out_io_buffer_5b
+-- Compiling entity ftdi_data_loopback_ent
+-- Compiling architecture RTL of ftdi_data_loopback_ent
 
 } {} {}} ../Usb_3_Ftdi/USB_3_FTDI_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -141,26 +147,40 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity ftdi_data_transmitter_ent
 -- Loading entity ftdi_rx_data_avalon_mm_read_ent
 -- Loading entity ftdi_data_receiver_ent
+-- Loading entity ftdi_data_loopback_ent
+-- Loading entity ftdi_tx_data_mux_ent
+-- Loading entity ftdi_rx_data_mux_ent
 -- Loading entity ftdi_umft601a_controller_ent
 
-} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd
+} {} {}} ../Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling entity rx_data_stimulli
--- Compiling architecture RTL of rx_data_stimulli
+-- Compiling entity ftdi_umft601a_controller_ent
+-- Compiling architecture RTL of ftdi_umft601a_controller_ent
+-- Loading entity ftdi_data_dc_fifo
+-- Loading entity ftdi_in_io_buffer_3b
+-- Loading entity ftdi_inout_io_buffer_39b
+-- Loading entity ftdi_out_io_buffer_5b
 
-} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
+} {} {}} ../Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
--- Compiling entity ftdi_in_io_buffer_3b_iobuf_in_c5i
--- Compiling architecture RTL of ftdi_in_io_buffer_3b_iobuf_in_c5i
--- Compiling entity ftdi_in_io_buffer_3b
--- Compiling architecture RTL of ftdi_in_io_buffer_3b
+-- Loading package NUMERIC_STD
+-- Compiling package ftdi_config_avalon_mm_pkg
+
+} {} {}} ../Testbench/tx_data_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tx_data_stimulli
+-- Compiling architecture RTL of tx_data_stimulli
 
 } {} {}} ../Usb_3_Ftdi/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -172,14 +192,63 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity ftdi_rx_data_avalon_mm_read_ent
 -- Compiling architecture rtl of ftdi_rx_data_avalon_mm_read_ent
 
-} {} {}} ../Testbench/tx_data_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd
+} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ftdi_in_io_buffer_3b_iobuf_in_c5i
+-- Compiling architecture RTL of ftdi_in_io_buffer_3b_iobuf_in_c5i
+-- Compiling entity ftdi_in_io_buffer_3b
+-- Compiling architecture RTL of ftdi_in_io_buffer_3b
+
+} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
 -- Loading package TEXTIO
 -- Loading package std_logic_1164
 -- Loading package NUMERIC_STD
--- Compiling entity tx_data_stimulli
--- Compiling architecture RTL of tx_data_stimulli
+-- Compiling entity rx_data_stimulli
+-- Compiling architecture RTL of rx_data_stimulli
+
+} {} {}} ../Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity ftdi_data_receiver_ent
+-- Compiling architecture RTL of ftdi_data_receiver_ent
+
+} {} {}} ../Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity data_buffer_ent
+-- Compiling architecture RTL of data_buffer_ent
+-- Loading entity data_buffer_sc_fifo
+
+} {} {}} ../Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package ftdi_data_avalon_mm_pkg
+-- Compiling entity ftdi_tx_data_avalon_mm_write_ent
+-- Compiling architecture rtl of ftdi_tx_data_avalon_mm_write_ent
+
+} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity USB_3_FTDI_top
+-- Compiling architecture rtl of USB_3_FTDI_top
+-- Loading entity ftdi_umft601a_controller_ent
 
 } {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -194,54 +263,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity ftdi_inout_io_buffer_39b
 -- Loading entity ftdi_out_io_buffer_5b
 
-} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity USB_3_FTDI_top
--- Compiling architecture rtl of USB_3_FTDI_top
--- Loading entity ftdi_umft601a_controller_ent
-
-} {} {}} ../Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Loading package ftdi_data_avalon_mm_pkg
--- Compiling entity ftdi_tx_data_avalon_mm_write_ent
--- Compiling architecture rtl of ftdi_tx_data_avalon_mm_write_ent
-
-} {} {}} ../Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity data_buffer_ent
--- Compiling architecture RTL of data_buffer_ent
--- Loading entity data_buffer_sc_fifo
-
-} {} {}} ../Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity ftdi_data_receiver_ent
--- Compiling architecture RTL of ftdi_data_receiver_ent
-
-} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Loading package NUMERIC_STD
--- Compiling entity tx_data_stimulli
--- Compiling architecture RTL of tx_data_stimulli
-
 } {} {}} ../Testbench/usb3_fifo_master_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -251,6 +272,15 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity usb3_fifo_master_stimuli
 -- Compiling architecture RTL of usb3_fifo_master_stimuli
 -- Loading entity ftdi_inout_io_buffer_39b
+
+} {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity tx_data_stimulli
+-- Compiling architecture RTL of tx_data_stimulli
 
 } {} {}} ../Testbench/testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -268,16 +298,6 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading package ftdi_data_avalon_mm_pkg
 -- Loading entity USB_3_FTDI_top
 
-} {} {}} ../Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity ftdi_out_io_buffer_5b_iobuf_out_5ts
--- Compiling architecture RTL of ftdi_out_io_buffer_5b_iobuf_out_5ts
--- Compiling entity ftdi_out_io_buffer_5b
--- Compiling architecture RTL of ftdi_out_io_buffer_5b
-
 } {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -287,6 +307,16 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling entity usb3_fifo_master_stimuli
 -- Compiling architecture RTL of usb3_fifo_master_stimuli
 -- Loading entity ftdi_inout_io_buffer_39b
+
+} {} {}} ../Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ftdi_out_io_buffer_5b_iobuf_out_5ts
+-- Compiling architecture RTL of ftdi_out_io_buffer_5b_iobuf_out_5ts
+-- Compiling entity ftdi_out_io_buffer_5b
+-- Compiling architecture RTL of ftdi_out_io_buffer_5b
 
 } {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
@@ -299,6 +329,14 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Loading entity usb3_fifo_master_stimuli
 -- Loading entity USB_3_FTDI_top
 
+} {} {}} ../Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity data_buffer_sc_fifo
+-- Compiling architecture SYN of data_buffer_sc_fifo
+
 } {} {}} C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
 Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
 -- Loading package STANDARD
@@ -308,13 +346,5 @@ Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  
 -- Compiling architecture RTL of ftdi_out_io_buffer_5b_iobuf_out_5ts
 -- Compiling entity ftdi_out_io_buffer_5b
 -- Compiling architecture RTL of ftdi_out_io_buffer_5b
-
-} {} {}} ../Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd {1 {vcom -work work -2002 -explicit -stats=none D:/rfranca/Development/GitLab/simutemp/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
-Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
--- Loading package STANDARD
--- Loading package TEXTIO
--- Loading package std_logic_1164
--- Compiling entity data_buffer_sc_fifo
--- Compiling architecture SYN of data_buffer_sc_fifo
 
 } {} {}}
