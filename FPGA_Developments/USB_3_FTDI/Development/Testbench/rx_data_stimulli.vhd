@@ -48,17 +48,19 @@ begin
 					--					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
 					avalon_mm_address_o <= std_logic_vector(to_unsigned(s_rd_addr, g_ADDRESS_WIDTH));
 					avalon_mm_read_o    <= '1';
-					if (s_rd_addr < 1023) then
-						s_rd_addr <= s_rd_addr + 1;
-						s_counter <= 20000 - 1;
-					else
-						s_rd_addr <= 0;
-						if (s_times >= (4 - 1)) then
-							s_times   <= 0;
-							s_counter <= 20000 + 2;
+					if (s_counter = 20001) then
+						if (s_rd_addr < 1023) then
+							s_rd_addr <= s_rd_addr + 1;
+							s_counter <= 20000 - 1;
 						else
-							s_times   <= s_times + 1;
-							s_counter <= 20000 - 5000 - 1;
+							s_rd_addr <= 0;
+							if (s_times >= (4 - 1)) then
+								s_times   <= 0;
+								s_counter <= 20000 + 2;
+							else
+								s_times   <= s_times + 1;
+								s_counter <= 20000 - 5000 - 1;
+							end if;
 						end if;
 					end if;
 

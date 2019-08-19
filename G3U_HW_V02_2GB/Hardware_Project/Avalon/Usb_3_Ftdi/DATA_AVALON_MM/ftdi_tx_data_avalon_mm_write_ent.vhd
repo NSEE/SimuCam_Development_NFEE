@@ -78,12 +78,12 @@ begin
 			ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
 			p_control_triggers;
 			p_buffer_control;
-			s_data_acquired <= '0';
+			s_data_acquired                      <= '0';
 			if (ftdi_tx_data_avalon_mm_i.write = '1') then
-				v_write_address                      := to_integer(unsigned(ftdi_tx_data_avalon_mm_i.address));
-				ftdi_tx_data_avalon_mm_o.waitrequest <= '0';
-				s_data_acquired                      <= '1';
+				s_data_acquired <= '1';
 				if (s_data_acquired = '0') then
+					v_write_address                      := to_integer(unsigned(ftdi_tx_data_avalon_mm_i.address));
+					ftdi_tx_data_avalon_mm_o.waitrequest <= '0';
 					p_writedata(v_write_address);
 				end if;
 			end if;

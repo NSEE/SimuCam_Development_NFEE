@@ -83,15 +83,15 @@ int main() {
 //		puliFtdiAddr++;
 //	}
 
-//	// Write Test Data to be read (8kiB)
-//		alt_u16 ucDataCnt = 0;
-//		for (ucDataCnt = 0; ucDataCnt < (8*1024); ucDataCnt = ucDataCnt + 4) {
-//			pxFtdi->uliTestRxWrdataData = (alt_u32)(((ucDataCnt) & 0x000000FF) | (((ucDataCnt + 1) << 8) & 0x0000FF00) | (((ucDataCnt + 2) << 16) & 0x00FF0000) | (((ucDataCnt + 3) << 24) & 0xFF000000));
-//			pxFtdi->ucTestRxWrdataBe = (alt_u8)0xFF;
-//			pxFtdi->bTestRxWrreq = TRUE;
-//			printf("Test Rx Empty(%d), UsedW(%d), Full(%d) \n", pxFtdi->bTestRxWrempty, pxFtdi->uiTestRxWrusedw, pxFtdi->bTestRxWrfull);
-//		}
-//		pxFtdi->bFtdiStart = TRUE;
+	// Write Test Data to be read (8kiB)
+		alt_u16 ucDataCnt = 0;
+		for (ucDataCnt = 0; ucDataCnt < (8*1024); ucDataCnt = ucDataCnt + 4) {
+			pxFtdi->uliTestRxWrdataData = (alt_u32)(((ucDataCnt) & 0x000000FF) | (((ucDataCnt + 1) << 8) & 0x0000FF00) | (((ucDataCnt + 2) << 16) & 0x00FF0000) | (((ucDataCnt + 3) << 24) & 0xFF000000));
+			pxFtdi->ucTestRxWrdataBe = (alt_u8)0xFF;
+			pxFtdi->bTestRxWrreq = TRUE;
+			printf("Test Rx Empty(%d), UsedW(%d), Full(%d) \n", pxFtdi->bTestRxWrempty, pxFtdi->uiTestRxWrusedw, pxFtdi->bTestRxWrfull);
+		}
+		pxFtdi->bFtdiStart = TRUE;
 
 	// Dump Channel Status
 	printf("bFtdiClear        : %d \n", pxFtdi->bFtdiClear       );
@@ -106,22 +106,22 @@ int main() {
 	printf("bRxDbufferFull    : %d \n", pxFtdi->bRxDbufferFull   );
 	printf("bRxDbufferRdready : %d \n", pxFtdi->bRxDbufferRdready);
 
-//	// Receive data from USB
-//	while (!pxFtdi->bRxDbufferRdready) {}
-//
-//	if (bSdmaDmaM2FtdiTransfer((alt_u32 *)0, (8 * 1024), eSdmaRxFtdi)) {
-//		printf("DMA Rx Ok \n");
-//	} else {
-//		printf("DMA Rx Fail \n");
-//	}
+	// Receive data from USB
+	while (!pxFtdi->bRxDbufferRdready) {}
 
-	// Fill Memory
-	alt_u16 ucDataCnt = 0;
-	alt_u8 *pucDataAddr = (alt_u8 *)DDR2_EXT_ADDR_WINDOWED_BASE;
-	for (ucDataCnt = 0; ucDataCnt < (8*1024); ucDataCnt++) {
-		*pucDataAddr = (alt_u8)ucDataCnt;
-		pucDataAddr++;
+	if (bSdmaDmaM2FtdiTransfer((alt_u32 *)0, (8 * 1024), eSdmaRxFtdi)) {
+		printf("DMA Rx Ok \n");
+	} else {
+		printf("DMA Rx Fail \n");
 	}
+
+//	// Fill Memory
+//	alt_u16 ucDataCnt = 0;
+//	alt_u8 *pucDataAddr = (alt_u8 *)DDR2_EXT_ADDR_WINDOWED_BASE;
+//	for (ucDataCnt = 0; ucDataCnt < (8*1024); ucDataCnt++) {
+//		*pucDataAddr = (alt_u8)ucDataCnt;
+//		pucDataAddr++;
+//	}
 
 	usleep(1*1000*1000);
 
@@ -147,30 +147,30 @@ int main() {
 //
 
 
-	pxFtdi->bFtdiStart = TRUE;
+//	pxFtdi->bFtdiStart = TRUE;
 
-	// Transmitt data to USB
-	while (!pxFtdi->bTxDbufferWrready) {}
-
-	if (bSdmaDmaM2FtdiTransfer((alt_u32 *)0, (8 * 1024), eSdmaTxFtdi)) {
-		printf("DMA Tx Ok \n");
-	} else {
-		printf("DMA Tx Fail \n");
-	}
+//	// Transmitt data to USB
+//	while (!pxFtdi->bTxDbufferWrready) {}
+//
+//	if (bSdmaDmaM2FtdiTransfer((alt_u32 *)0, (8 * 1024), eSdmaTxFtdi)) {
+//		printf("DMA Tx Ok \n");
+//	} else {
+//		printf("DMA Tx Fail \n");
+//	}
 
 	// Read Test Data (8kiB)
 //		alt_u16 ucDataCnt = 0;
 
 
-	usleep(1*1000*1000);
-	printf("Test Tx Empty(%d), UsedW(%d), Full(%d) \n", pxFtdi->bTestTxRdempty, pxFtdi->uiTestTxRdusedw, pxFtdi->bTestTxRdfull);
-
-		for (ucDataCnt = 0; ucDataCnt < (8*1024/4); ucDataCnt++) {
-			while (pxFtdi->bTestTxRdempty) {}
-			printf("Test Tx Data(0x%08lX), BE(0x%X) \n", pxFtdi->uliTestTxRddataData, pxFtdi->ucTestTxRddataBe);
-			pxFtdi->bTestTxRdreq = TRUE;
-		}
-		printf("Test Tx Empty(%d), UsedW(%d), Full(%d) \n", pxFtdi->bTestTxRdempty, pxFtdi->uiTestTxRdusedw, pxFtdi->bTestTxRdfull);
+//	usleep(1*1000*1000);
+//	printf("Test Tx Empty(%d), UsedW(%d), Full(%d) \n", pxFtdi->bTestTxRdempty, pxFtdi->uiTestTxRdusedw, pxFtdi->bTestTxRdfull);
+//
+//		for (ucDataCnt = 0; ucDataCnt < (8*1024/4); ucDataCnt++) {
+//			while (pxFtdi->bTestTxRdempty) {}
+//			printf("Test Tx Data(0x%08lX), BE(0x%X) \n", pxFtdi->uliTestTxRddataData, pxFtdi->ucTestTxRddataBe);
+//			pxFtdi->bTestTxRdreq = TRUE;
+//		}
+//		printf("Test Tx Empty(%d), UsedW(%d), Full(%d) \n", pxFtdi->bTestTxRdempty, pxFtdi->uiTestTxRdusedw, pxFtdi->bTestTxRdfull);
 
 	while (1) {}
 

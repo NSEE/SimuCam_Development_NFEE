@@ -68,17 +68,19 @@ begin
 					avalon_mm_writedata_o(63 downto 56) <= std_logic_vector(to_unsigned(v_data_cnt, 8));
 					v_data_cnt                          := v_data_cnt + 1;
 					avalon_mm_write_o                   <= '1';
-					if (s_wr_addr < 1023) then
-						s_wr_addr <= s_wr_addr + 1;
-						s_counter <= 50000 - 1;
-					else
-						s_wr_addr <= 0;
-						if (s_times >= (4 - 1)) then
-							s_times   <= 0;
-							s_counter <= 50000 + 2;
+					if (s_counter = 50001) then
+						if (s_wr_addr < 1023) then
+							s_wr_addr <= s_wr_addr + 1;
+							s_counter <= 50000 - 1;
 						else
-							s_times   <= s_times + 1;
-							s_counter <= 50000 - 5000 - 1;
+							s_wr_addr <= 0;
+							if (s_times >= (4 - 1)) then
+								s_times   <= 0;
+								s_counter <= 50000 + 2;
+							else
+								s_times   <= s_times + 1;
+								s_counter <= 50000 - 5000 - 1;
+							end if;
 						end if;
 					end if;
 
