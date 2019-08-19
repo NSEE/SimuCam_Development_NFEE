@@ -1,4 +1,4 @@
-Fitter Status : Successful - Sun Aug 18 21:36:10 2019
+Fitter Status : Successful - Sun Aug 18 22:46:20 2019
 Quartus Prime Version : 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 Revision Name : MebX_Quartus_Project
 Top-level Entity Name : MebX_TopLevel
@@ -6,10 +6,10 @@ Family : Stratix IV
 Device : EP4SGX230KF40C2
 Timing Models : Final
 Logic utilization : 20 %
-    Combinational ALUTs : 28,661 / 182,400 ( 16 % )
+    Combinational ALUTs : 28,671 / 182,400 ( 16 % )
     Memory ALUTs : 463 / 91,200 ( < 1 % )
-    Dedicated logic registers : 27,697 / 182,400 ( 15 % )
-Total registers : 28985
+    Dedicated logic registers : 27,695 / 182,400 ( 15 % )
+Total registers : 28983
 Total pins : 502 / 888 ( 57 % )
 Total virtual pins : 0
 Total block memory bits : 3,627,208 / 14,625,792 ( 25 % )
