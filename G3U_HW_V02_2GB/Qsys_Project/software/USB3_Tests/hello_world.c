@@ -26,6 +26,7 @@ typedef struct FtdiRegisters {
 	bool bFtdiClear;
 	bool bFtdiStop;
 	bool bFtdiStart;
+	bool bFtdiLoopbackEn;
 	bool bTxDbufferEmpty;
 	bool bTxDbufferWrready;
 	bool bTxDbufferFull;
@@ -66,22 +67,95 @@ int main() {
 	alt_u64 *pulliDdr2Mem;
 	alt_u32 uliAddrCnt = 0;
 
+//	const alt_u32 cuiBuffTimes = 12800;
+	const alt_u32 cuiBuffTimes = 2544;
+
 	// Clear Memory
 	pulliDdr2Mem = (alt_u64 *)DDR2_EXT_ADDR_WINDOWED_BASE;
-	for (uliAddrCnt = 0; uliAddrCnt < 1024*2; uliAddrCnt++) {
+	for (uliAddrCnt = 0; uliAddrCnt < 1024*cuiBuffTimes; uliAddrCnt++) {
 		*pulliDdr2Mem = (alt_u64)0;
 //		printf("Addr: 0x%08lX, Data: 0x%016llX \n", (alt_u32)pulliDdr2Mem, (alt_u64)(*pulliDdr2Mem));
 		pulliDdr2Mem++;
 	}
 
 	// Stop and Clear Channel
+	pxFtdi->bFtdiLoopbackEn = FALSE;
 	pxFtdi->bFtdiStop = TRUE;
 	pxFtdi->bFtdiClear = TRUE;
 
 	// Start Channel
-//	pxFtdi->bFtdiStart = TRUE;
+	pxFtdi->bFtdiStart = TRUE;
+
+	// Enable Loopback
+//	pxFtdi->bFtdiLoopbackEn = TRUE;
+//	printf("Loopback Enabled! \n");
 
 	usleep(5*1000*1000);
+
+	printf("Ready! \n");
+	// Receive data from USB
+
+	alt_u32 uiBuffCnt = 0;
+	int iTimeStart, iTimeElapsed = 0;
+
+	while (!pxFtdi->bRxDbufferRdready) {}
+
+	iTimeStart = alt_nticks();
+
+	for (uiBuffCnt = 0; uiBuffCnt < cuiBuffTimes; uiBuffCnt++) {
+
+		while (!pxFtdi->bRxDbufferRdready) {}
+
+		if (bSdmaDmaM2FtdiTransfer((alt_u32 *)(uiBuffCnt * 0x2000), (8 * 1024), eSdmaRxFtdi)) {
+//			printf("DMA Rx Ok \n");
+		} else {
+//			printf("DMA Rx Fail \n");
+		}
+
+	}
+
+	iTimeElapsed = alt_nticks() - iTimeStart;
+		printf("USB data written, size=%ld bytes, %.3f sec\n", cuiBuffTimes*8*1024, (float) iTimeElapsed / (float) alt_ticks_per_second());
+
+	usleep(1*1000*1000);
+
+//	// Check Memory Content
+//	pulliDdr2Mem = (alt_u64 *)(DDR2_EXT_ADDR_WINDOWED_BASE);
+//	for (uliAddrCnt = 0; uliAddrCnt < 1024; uliAddrCnt++) {
+//		printf("Addr: 0x%08lX, Data: 0x%016llX \n", (alt_u32)pulliDdr2Mem, (alt_u64)(*pulliDdr2Mem));
+//		pulliDdr2Mem++;
+//	}
+
+	// Transmitt data to USB
+//	for (uiBuffCnt = 0; uiBuffCnt < cuiBuffTimes; uiBuffCnt++) {
+//
+//		while ((!pxFtdi->bTxDbufferWrready) & (!pxFtdi->bTxDbufferEmpty)) {}
+//
+//		if (bSdmaDmaM2FtdiTransfer((alt_u32 *)(uiBuffCnt * 0x2000), (8 * 1024), eSdmaTxFtdi)) {
+//			printf("DMA Tx Ok \n");
+//		} else {
+//			printf("DMA Tx Fail \n");
+//		}
+//
+//		usleep(1*1000*1000);
+//
+//	}
+
+	usleep(1*1000*1000);
+
+	// Dump Channel Status
+	printf("bFtdiClear        : %d \n", pxFtdi->bFtdiClear       );
+	printf("bFtdiStop         : %d \n", pxFtdi->bFtdiStop        );
+	printf("bFtdiStart        : %d \n", pxFtdi->bFtdiStart       );
+	printf("bTxDbufferEmpty   : %d \n", pxFtdi->bTxDbufferEmpty  );
+	printf("bTxDbufferWrready : %d \n", pxFtdi->bTxDbufferWrready);
+	printf("bTxDbufferFull    : %d \n", pxFtdi->bTxDbufferFull   );
+	printf("bTxDbufferRdready : %d \n", pxFtdi->bTxDbufferRdready);
+	printf("bRxDbufferEmpty   : %d \n", pxFtdi->bRxDbufferEmpty  );
+	printf("bRxDbufferWrready : %d \n", pxFtdi->bRxDbufferWrready);
+	printf("bRxDbufferFull    : %d \n", pxFtdi->bRxDbufferFull   );
+	printf("bRxDbufferRdready : %d \n", pxFtdi->bRxDbufferRdready);
+
 
 //	// Dump Raw Channel
 //	alt_u32 *puliFtdiAddr = (alt_u32 *)USB_3_FTDI_0_BASE;
@@ -93,7 +167,7 @@ int main() {
 //	vWriteTest();
 //	vReadTest();
 //	vLoopbackTest();
-	vLoopbackRandomTest();
+//	vLoopbackRandomTest();
 
 	while (1) {}
 
