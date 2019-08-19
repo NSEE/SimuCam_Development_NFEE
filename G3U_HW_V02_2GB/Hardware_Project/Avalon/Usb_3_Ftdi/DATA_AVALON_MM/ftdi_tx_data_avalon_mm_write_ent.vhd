@@ -20,7 +20,14 @@ end entity ftdi_tx_data_avalon_mm_write_ent;
 
 architecture rtl of ftdi_tx_data_avalon_mm_write_ent is
 
-	signal s_data_acquired : std_logic;
+	--	signal s_data_acquired : std_logic;
+
+	type t_ftdi_tx_data_avalon_mm_write_fsm is (
+		IDLE,
+		WRITE_DATA,
+		WRITE_FINISHED
+	);
+	signal s_ftdi_tx_data_avalon_mm_write_state : t_ftdi_tx_data_avalon_mm_write_fsm;
 
 begin
 
@@ -71,22 +78,52 @@ begin
 	begin
 		if (rst_i = '1') then
 			ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
-			s_data_acquired                      <= '0';
+			s_ftdi_tx_data_avalon_mm_write_state <= IDLE;
+			--			s_data_acquired                      <= '0';
 			v_write_address                      := 0;
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
-			ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
-			p_control_triggers;
-			p_buffer_control;
-			s_data_acquired                      <= '0';
-			if (ftdi_tx_data_avalon_mm_i.write = '1') then
-				s_data_acquired <= '1';
-				if (s_data_acquired = '0') then
-					v_write_address                      := to_integer(unsigned(ftdi_tx_data_avalon_mm_i.address));
+
+			case (s_ftdi_tx_data_avalon_mm_write_state) is
+
+				when IDLE =>
+					s_ftdi_tx_data_avalon_mm_write_state <= IDLE;
+					ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
+					p_control_triggers;
+					p_buffer_control;
+					if (ftdi_tx_data_avalon_mm_i.write = '1') then
+						s_ftdi_tx_data_avalon_mm_write_state <= WRITE_DATA;
+						ftdi_tx_data_avalon_mm_o.waitrequest <= '0';
+						v_write_address                      := to_integer(unsigned(ftdi_tx_data_avalon_mm_i.address));
+						p_writedata(v_write_address);
+					end if;
+
+				when WRITE_DATA =>
+					s_ftdi_tx_data_avalon_mm_write_state <= WRITE_FINISHED;
 					ftdi_tx_data_avalon_mm_o.waitrequest <= '0';
-					p_writedata(v_write_address);
-				end if;
-			end if;
+					p_control_triggers;
+					p_buffer_control;
+
+				when WRITE_FINISHED =>
+					s_ftdi_tx_data_avalon_mm_write_state <= IDLE;
+					ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
+					p_control_triggers;
+					p_buffer_control;
+
+			end case;
+
+			--			ftdi_tx_data_avalon_mm_o.waitrequest <= '1';
+			--			p_control_triggers;
+			--			p_buffer_control;
+			--			s_data_acquired                      <= '0';
+			--			if (ftdi_tx_data_avalon_mm_i.write = '1') then
+			--				s_data_acquired <= '1';
+			--				if (s_data_acquired = '0') then
+			--					v_write_address                      := to_integer(unsigned(ftdi_tx_data_avalon_mm_i.address));
+			--					ftdi_tx_data_avalon_mm_o.waitrequest <= '0';
+			--					p_writedata(v_write_address);
+			--				end if;
+			--			end if;
 		end if;
 	end process p_ftdi_tx_data_avalon_mm_write;
 

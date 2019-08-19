@@ -21,7 +21,14 @@ end entity ftdi_rx_data_avalon_mm_read_ent;
 architecture rtl of ftdi_rx_data_avalon_mm_read_ent is
 
 	signal s_readdata_fetched : std_logic;
-	signal s_data_acquired    : std_logic;
+	--	signal s_data_acquired    : std_logic;
+
+	type t_ftdi_rx_data_avalon_mm_read_fsm is (
+		IDLE,
+		READ_DATA,
+		READ_FINISHED
+	);
+	signal s_ftdi_rx_data_avalon_mm_read_state : t_ftdi_rx_data_avalon_mm_read_fsm;
 
 begin
 
@@ -86,23 +93,56 @@ begin
 		if (rst_i = '1') then
 			ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 			ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
-			s_data_acquired                      <= '0';
+			s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
+			--			s_data_acquired                      <= '0';
 			v_read_address                       := 0;
 			p_reset_registers;
 		elsif (rising_edge(clk_i)) then
-			ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
-			ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
-			p_flags_hold;
-			p_buffer_control;
-			s_data_acquired                      <= '0';
-			if (ftdi_rx_data_avalon_mm_i.read = '1') then
-				s_data_acquired <= '1';
-				if (s_data_acquired = '0') then
-					v_read_address                       := to_integer(unsigned(ftdi_rx_data_avalon_mm_i.address));
+
+			case (s_ftdi_rx_data_avalon_mm_read_state) is
+
+				when IDLE =>
+					s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
+					ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
+					ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
+					p_flags_hold;
+					p_buffer_control;
+					if (ftdi_rx_data_avalon_mm_i.read = '1') then
+						s_ftdi_rx_data_avalon_mm_read_state  <= READ_DATA;
+						ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
+						v_read_address                       := to_integer(unsigned(ftdi_rx_data_avalon_mm_i.address));
+						p_readdata(v_read_address);
+					end if;
+
+				when READ_DATA =>
+					s_ftdi_rx_data_avalon_mm_read_state  <= READ_FINISHED;
+					ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 					ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
-					p_readdata(v_read_address);
-				end if;
-			end if;
+					p_flags_hold;
+					p_buffer_control;
+
+				when READ_FINISHED =>
+					s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
+					ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
+					ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
+					p_flags_hold;
+					p_buffer_control;
+
+			end case;
+
+			--			ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
+			--			ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
+			--			p_flags_hold;
+			--			p_buffer_control;
+			--			s_data_acquired                      <= '0';
+			--			if (ftdi_rx_data_avalon_mm_i.read = '1') then
+			--				s_data_acquired <= '1';
+			--				if (s_data_acquired = '0') then
+			--					v_read_address                       := to_integer(unsigned(ftdi_rx_data_avalon_mm_i.address));
+			--					ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
+			--					p_readdata(v_read_address);
+			--				end if;
+			--			end if;
 		end if;
 	end process p_ftdi_rx_data_avalon_mm_read;
 

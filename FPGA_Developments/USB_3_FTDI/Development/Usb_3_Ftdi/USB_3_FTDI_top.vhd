@@ -262,80 +262,80 @@ begin
 			buffer_wrreq_o                => s_rx_dbuffer_wrreq
 		);
 
-		-- FTDI UMFT601A Controller Instantiation
-		ftdi_umft601a_controller_ent_inst : entity work.ftdi_umft601a_controller_ent
-			port map(
-				clk_i                         => a_avs_clock,
-				rst_i                         => a_reset,
-				umft_rxf_n_pin_i              => umft_rxf_n_pin,
-				umft_clock_pin_i              => umft_clock_pin,
-				umft_txe_n_pin_i              => umft_txe_n_pin,
-				tx_dc_data_fifo_wrdata_data_i => s_tx_dc_data_fifo_wrdata_data,
-				tx_dc_data_fifo_wrdata_be_i   => s_tx_dc_data_fifo_wrdata_be,
-				tx_dc_data_fifo_wrreq_i       => s_tx_dc_data_fifo_wrreq,
-				rx_dc_data_fifo_rdreq_i       => s_rx_dc_data_fifo_rdreq,
-				umft_data_bus_io              => umft_data_bus,
-				umft_wakeup_n_pin_io          => umft_wakeup_n_pin,
-				umft_be_bus_io                => umft_be_bus,
-				umft_gpio_bus_io              => umft_gpio_bus,
-				umft_reset_n_pin_o            => umft_reset_n_pin,
-				umft_wr_n_pin_o               => umft_wr_n_pin,
-				umft_rd_n_pin_o               => umft_rd_n_pin,
-				umft_oe_n_pin_o               => umft_oe_n_pin,
-				umft_siwu_n_pin_o             => umft_siwu_n_pin,
-				tx_dc_data_fifo_wrempty_o     => s_tx_dc_data_fifo_wrempty,
-				tx_dc_data_fifo_wrfull_o      => s_tx_dc_data_fifo_wrfull,
-				tx_dc_data_fifo_wrusedw_o     => s_tx_dc_data_fifo_wrusedw,
-				rx_dc_data_fifo_rddata_data_o => s_rx_dc_data_fifo_rddata_data,
-				rx_dc_data_fifo_rddata_be_o   => s_rx_dc_data_fifo_rddata_be,
-				rx_dc_data_fifo_rdempty_o     => s_rx_dc_data_fifo_rdempty,
-				rx_dc_data_fifo_rdfull_o      => s_rx_dc_data_fifo_rdfull,
-				rx_dc_data_fifo_rdusedw_o     => s_rx_dc_data_fifo_rdusedw
-			);
+--		-- FTDI UMFT601A Controller Instantiation
+--		ftdi_umft601a_controller_ent_inst : entity work.ftdi_umft601a_controller_ent
+--			port map(
+--				clk_i                         => a_avs_clock,
+--				rst_i                         => a_reset,
+--				umft_rxf_n_pin_i              => umft_rxf_n_pin,
+--				umft_clock_pin_i              => umft_clock_pin,
+--				umft_txe_n_pin_i              => umft_txe_n_pin,
+--				tx_dc_data_fifo_wrdata_data_i => s_tx_dc_data_fifo_wrdata_data,
+--				tx_dc_data_fifo_wrdata_be_i   => s_tx_dc_data_fifo_wrdata_be,
+--				tx_dc_data_fifo_wrreq_i       => s_tx_dc_data_fifo_wrreq,
+--				rx_dc_data_fifo_rdreq_i       => s_rx_dc_data_fifo_rdreq,
+--				umft_data_bus_io              => umft_data_bus,
+--				umft_wakeup_n_pin_io          => umft_wakeup_n_pin,
+--				umft_be_bus_io                => umft_be_bus,
+--				umft_gpio_bus_io              => umft_gpio_bus,
+--				umft_reset_n_pin_o            => umft_reset_n_pin,
+--				umft_wr_n_pin_o               => umft_wr_n_pin,
+--				umft_rd_n_pin_o               => umft_rd_n_pin,
+--				umft_oe_n_pin_o               => umft_oe_n_pin,
+--				umft_siwu_n_pin_o             => umft_siwu_n_pin,
+--				tx_dc_data_fifo_wrempty_o     => s_tx_dc_data_fifo_wrempty,
+--				tx_dc_data_fifo_wrfull_o      => s_tx_dc_data_fifo_wrfull,
+--				tx_dc_data_fifo_wrusedw_o     => s_tx_dc_data_fifo_wrusedw,
+--				rx_dc_data_fifo_rddata_data_o => s_rx_dc_data_fifo_rddata_data,
+--				rx_dc_data_fifo_rddata_be_o   => s_rx_dc_data_fifo_rddata_be,
+--				rx_dc_data_fifo_rdempty_o     => s_rx_dc_data_fifo_rdempty,
+--				rx_dc_data_fifo_rdfull_o      => s_rx_dc_data_fifo_rdfull,
+--				rx_dc_data_fifo_rdusedw_o     => s_rx_dc_data_fifo_rdusedw
+--			);
 
 	-- TEST -- Remove Later
 
---	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
---	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
---		port map(
---			aclr              => s_test_tx_dc_data_fifo_aclr,
---			data(35 downto 4) => s_tx_dc_data_fifo_wrdata_data,
---			data(3 downto 0)  => s_tx_dc_data_fifo_wrdata_be,
---			rdclk             => a_avs_clock,
---			rdreq             => s_config_write_registers.test_fifo_control_reg.tx_rdreq,
---			wrclk             => a_avs_clock,
---			wrreq             => s_tx_dc_data_fifo_wrreq,
---			q(35 downto 4)    => s_config_read_registers.test_fifo_status_reg.tx_rddata_data,
---			q(3 downto 0)     => s_config_read_registers.test_fifo_status_reg.tx_rddata_be,
---			rdempty           => s_config_read_registers.test_fifo_status_reg.tx_rdempty,
---			rdfull            => s_config_read_registers.test_fifo_status_reg.tx_rdfull,
---			rdusedw           => s_config_read_registers.test_fifo_status_reg.tx_rdusedw,
---			wrempty           => s_tx_dc_data_fifo_wrempty,
---			wrfull            => s_tx_dc_data_fifo_wrfull,
---			wrusedw           => s_tx_dc_data_fifo_wrusedw
---		);
---	s_test_tx_dc_data_fifo_aclr <= (a_reset) or (s_config_write_registers.general_control_reg.clear);
---
---	-- rx dc data fifo instantiation, for data synchronization (fpga <-- umft601a)
---	ftdi_rx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
---		port map(
---			aclr              => s_test_rx_dc_data_fifo_aclr,
---			data(35 downto 4) => s_config_write_registers.test_fifo_control_reg.rx_wrdata_data,
---			data(3 downto 0)  => s_config_write_registers.test_fifo_control_reg.rx_wrdata_be,
---			rdclk             => a_avs_clock,
---			rdreq             => s_rx_dc_data_fifo_rdreq,
---			wrclk             => a_avs_clock,
---			wrreq             => s_config_write_registers.test_fifo_control_reg.rx_wrreq,
---			q(35 downto 4)    => s_rx_dc_data_fifo_rddata_data,
---			q(3 downto 0)     => s_rx_dc_data_fifo_rddata_be,
---			rdempty           => s_rx_dc_data_fifo_rdempty,
---			rdfull            => s_rx_dc_data_fifo_rdfull,
---			rdusedw           => s_rx_dc_data_fifo_rdusedw,
---			wrempty           => s_config_read_registers.test_fifo_status_reg.rx_wrempty,
---			wrfull            => s_config_read_registers.test_fifo_status_reg.rx_wrfull,
---			wrusedw           => s_config_read_registers.test_fifo_status_reg.rx_wrusedw
---		);
---	s_test_rx_dc_data_fifo_aclr <= (a_reset) or (s_config_write_registers.general_control_reg.clear);
+	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
+	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
+		port map(
+			aclr              => s_test_tx_dc_data_fifo_aclr,
+			data(35 downto 4) => s_tx_dc_data_fifo_wrdata_data,
+			data(3 downto 0)  => s_tx_dc_data_fifo_wrdata_be,
+			rdclk             => a_avs_clock,
+			rdreq             => s_config_write_registers.test_fifo_control_reg.tx_rdreq,
+			wrclk             => a_avs_clock,
+			wrreq             => s_tx_dc_data_fifo_wrreq,
+			q(35 downto 4)    => s_config_read_registers.test_fifo_status_reg.tx_rddata_data,
+			q(3 downto 0)     => s_config_read_registers.test_fifo_status_reg.tx_rddata_be,
+			rdempty           => s_config_read_registers.test_fifo_status_reg.tx_rdempty,
+			rdfull            => s_config_read_registers.test_fifo_status_reg.tx_rdfull,
+			rdusedw           => s_config_read_registers.test_fifo_status_reg.tx_rdusedw,
+			wrempty           => s_tx_dc_data_fifo_wrempty,
+			wrfull            => s_tx_dc_data_fifo_wrfull,
+			wrusedw           => s_tx_dc_data_fifo_wrusedw
+		);
+	s_test_tx_dc_data_fifo_aclr <= (a_reset) or (s_config_write_registers.general_control_reg.clear);
+
+	-- rx dc data fifo instantiation, for data synchronization (fpga <-- umft601a)
+	ftdi_rx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
+		port map(
+			aclr              => s_test_rx_dc_data_fifo_aclr,
+			data(35 downto 4) => s_config_write_registers.test_fifo_control_reg.rx_wrdata_data,
+			data(3 downto 0)  => s_config_write_registers.test_fifo_control_reg.rx_wrdata_be,
+			rdclk             => a_avs_clock,
+			rdreq             => s_rx_dc_data_fifo_rdreq,
+			wrclk             => a_avs_clock,
+			wrreq             => s_config_write_registers.test_fifo_control_reg.rx_wrreq,
+			q(35 downto 4)    => s_rx_dc_data_fifo_rddata_data,
+			q(3 downto 0)     => s_rx_dc_data_fifo_rddata_be,
+			rdempty           => s_rx_dc_data_fifo_rdempty,
+			rdfull            => s_rx_dc_data_fifo_rdfull,
+			rdusedw           => s_rx_dc_data_fifo_rdusedw,
+			wrempty           => s_config_read_registers.test_fifo_status_reg.rx_wrempty,
+			wrfull            => s_config_read_registers.test_fifo_status_reg.rx_wrfull,
+			wrusedw           => s_config_read_registers.test_fifo_status_reg.rx_wrusedw
+		);
+	s_test_rx_dc_data_fifo_aclr <= (a_reset) or (s_config_write_registers.general_control_reg.clear);
 
 	-- Signals Assignments --
 
