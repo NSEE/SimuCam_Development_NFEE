@@ -6,6 +6,7 @@ entity ftdi_umft601a_controller_ent is
 	port(
 		clk_i                         : in    std_logic;
 		rst_i                         : in    std_logic;
+		clr_i                         : in    std_logic;
 		-- umft601a input pins
 		umft_rxf_n_pin_i              : in    std_logic                     := '1';
 		umft_clock_pin_i              : in    std_logic                     := '1';
@@ -67,6 +68,7 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 	-- tx dc data fifo record type
 	type t_tx_dc_data_fifo is record
+		aclr    : std_logic;
 		rdreq   : std_logic;
 		--		rddata_data : std_logic_vector(31 downto 0);
 		--		rddata_be   : std_logic_vector(3 downto 0);
@@ -80,6 +82,7 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 	-- rx dc data fifo record type
 	type t_rx_dc_data_fifo is record
+		aclr    : std_logic;
 		--		wrdata_data : std_logic_vector(31 downto 0);
 		--		wrdata_be   : std_logic_vector(3 downto 0);
 		wrreq   : std_logic;
@@ -132,7 +135,7 @@ begin
 	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
 	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
 		port map(
-			aclr              => rst_i,
+			aclr              => s_tx_dc_data_fifo.aclr,
 			data(35 downto 4) => tx_dc_data_fifo_wrdata_data_i,
 			data(3 downto 0)  => tx_dc_data_fifo_wrdata_be_i,
 			rdclk             => s_umft601a_clock,
@@ -154,7 +157,7 @@ begin
 	-- rx dc data fifo instantiation, for data synchronization (fpga <-- umft601a)
 	ftdi_rx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
 		port map(
-			aclr              => rst_i,
+			aclr              => s_rx_dc_data_fifo.aclr,
 			--			data(35 downto 4) => s_rx_dc_data_fifo.wrdata_data,
 			--			data(3 downto 0)  => s_rx_dc_data_fifo.wrdata_be,
 			data(35 downto 4) => s_umft601a_buffered_pins.data_in,
@@ -587,5 +590,8 @@ begin
 
 	s_tx_be_protected   <= (s_umft601a_buffered_pins.be_out) when (s_tx_dc_data_fifo.rdempty = '0') else ("0000");
 	s_tx_data_protected <= (s_umft601a_buffered_pins.data_out) when (s_tx_dc_data_fifo.rdempty = '0') else (x"00000000");
+
+	s_tx_dc_data_fifo.aclr <= (rst_i) or (clr_i);
+	s_rx_dc_data_fifo.aclr <= (rst_i) or (clr_i);
 
 end architecture RTL;

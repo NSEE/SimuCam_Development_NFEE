@@ -50,6 +50,9 @@ add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Usb_3_Ftdi/DATA_BUFFERS/alter
 add_fileset_file data_buffer_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd
 add_fileset_file ftdi_data_receiver_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
 add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
+add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
+add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
+add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
 add_fileset_file ftdi_in_io_buffer_3b.vhd VHDL PATH Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
@@ -72,6 +75,9 @@ add_fileset_file data_buffer_sc_fifo.vhd VHDL PATH Usb_3_Ftdi/DATA_BUFFERS/alter
 add_fileset_file data_buffer_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd
 add_fileset_file ftdi_data_receiver_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
 add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
+add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
+add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
+add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
 add_fileset_file ftdi_in_io_buffer_3b.vhd VHDL PATH Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd

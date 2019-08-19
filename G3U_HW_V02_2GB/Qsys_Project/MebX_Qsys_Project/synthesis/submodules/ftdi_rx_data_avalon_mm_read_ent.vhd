@@ -25,8 +25,7 @@ architecture rtl of ftdi_rx_data_avalon_mm_read_ent is
 
 	type t_ftdi_rx_data_avalon_mm_read_fsm is (
 		IDLE,
-		READ_DATA,
-		READ_FINISHED
+		READ_DATA
 	);
 	signal s_ftdi_rx_data_avalon_mm_read_state : t_ftdi_rx_data_avalon_mm_read_fsm;
 
@@ -115,13 +114,6 @@ begin
 					end if;
 
 				when READ_DATA =>
-					s_ftdi_rx_data_avalon_mm_read_state  <= READ_FINISHED;
-					ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
-					ftdi_rx_data_avalon_mm_o.waitrequest <= '0';
-					p_flags_hold;
-					p_buffer_control;
-
-				when READ_FINISHED =>
 					s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
 					ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
 					ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
