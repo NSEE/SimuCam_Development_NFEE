@@ -104,13 +104,6 @@ architecture rtl of sync_ent is
 	signal s_sync_signal    : std_logic;
 	signal s_syncgen_signal : std_logic;
 
-	-- irq signas
-	signal s_irq_sync         : std_logic;
-	signal s_irq_sync_delayed : std_logic;
-
-	signal s_irq_flag_clear : std_logic;
-	signal s_irq_flag       : std_logic;
-
 	--============================================================================
 	-- architecture begin
 	--============================================================================
@@ -124,7 +117,6 @@ begin
 			avalon_mm_i.read        => a_avalon_mm_read,
 			mm_write_reg_i          => s_sync_mm_write_registers,
 			mm_read_reg_i           => s_sync_mm_read_registers,
-			sync_irq_flag_i         => s_irq_flag,
 			avalon_mm_o.readdata    => a_avalon_mm_readata,
 			avalon_mm_o.waitrequest => s_avalon_mm_read_waitrequest
 		);
@@ -138,8 +130,7 @@ begin
 			avalon_mm_i.write       => a_avalon_mm_write,
 			avalon_mm_i.writedata   => a_avalon_mm_writedata,
 			avalon_mm_o.waitrequest => s_avalon_mm_write_waitrequest,
-			mm_write_reg_o          => s_sync_mm_write_registers,
-			sync_irq_trigger_o      => s_irq_flag_clear
+			mm_write_reg_o          => s_sync_mm_write_registers
 		);
 
 	-- Sync generator module instantiation
@@ -202,23 +193,35 @@ begin
 	-- Sync Interrupt module instantiation
 	sync_int_inst : entity work.sync_int
 		port map(
-			clk_i                                       => a_clock,
-			reset_n_i                                   => s_reset_n,
+			clk_i                                            => a_clock,
+			reset_n_i                                        => s_reset_n,
 			-- Int enable
-			int_enable_i.error_int_enable               => s_sync_mm_write_registers.int_enable_register.error_int_enable,
-			int_enable_i.blank_pulse_int_enable         => s_sync_mm_write_registers.int_enable_register.blank_pulse_int_enable,
+			int_enable_i.error_int_enable                    => s_sync_mm_write_registers.int_enable_register.error_int_enable,
+			int_enable_i.blank_pulse_int_enable              => s_sync_mm_write_registers.int_enable_register.blank_pulse_int_enable,
+			int_enable_i.master_pulse_int_enable             => s_sync_mm_write_registers.int_enable_register.master_pulse_int_enable,
+			int_enable_i.normal_pulse_int_enable             => s_sync_mm_write_registers.int_enable_register.normal_pulse_int_enable,
+			int_enable_i.pre_master_pulse_int_enable         => s_sync_mm_write_registers.int_enable_register.pre_master_pulse_int_enable,
 			-- Int flag clear
-			int_flag_clear_i.error_int_flag_clear       => s_sync_mm_write_registers.int_flag_clear_register.error_int_flag_clear,
-			int_flag_clear_i.blank_pulse_int_flag_clear => s_sync_mm_write_registers.int_flag_clear_register.blank_pulse_int_flag_clear,
+			int_flag_clear_i.error_int_flag_clear            => s_sync_mm_write_registers.int_flag_clear_register.error_int_flag_clear,
+			int_flag_clear_i.blank_pulse_int_flag_clear      => s_sync_mm_write_registers.int_flag_clear_register.blank_pulse_int_flag_clear,
+			int_flag_clear_i.master_pulse_int_flag_clear     => s_sync_mm_write_registers.int_flag_clear_register.master_pulse_int_flag_clear,
+			int_flag_clear_i.normal_pulse_int_flag_clear     => s_sync_mm_write_registers.int_flag_clear_register.normal_pulse_int_flag_clear,
+			int_flag_clear_i.pre_master_pulse_int_flag_clear => s_sync_mm_write_registers.int_flag_clear_register.pre_master_pulse_int_flag_clear,
 			-- Input watch signals (that can produce interrupts)
-			int_watch_i.error_code_watch                => s_sync_mm_read_registers.status_register.error_code,
-			int_watch_i.sync_wave_watch                 => s_sync_signal,
+			int_watch_i.error_code_watch                     => s_sync_mm_read_registers.status_register.error_code,
+			int_watch_i.sync_cycle_number                    => s_sync_mm_read_registers.status_register.cycle_number,
+			int_watch_i.sync_wave_watch                      => s_sync_signal,
 			-- Aux to inform sync polarity
-			int_watch_i.sync_pol_watch                  => s_sync_mm_write_registers.config_register.general.signal_polarity,
+			int_watch_i.sync_pol_watch                       => s_sync_mm_write_registers.config_register.general.signal_polarity,
+			-- Aux to inform sync number of cycles
+			int_watch_i.sync_number_of_cycles                => s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			-- Int flag
-			int_flag_o.error_int_flag                   => s_sync_mm_read_registers.int_flag_register.error_int_flag,
-			int_flag_o.blank_pulse_int_flag             => s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag,
-			irq_o                                       => s_irq_sync
+			int_flag_o.error_int_flag                        => s_sync_mm_read_registers.int_flag_register.error_int_flag,
+			int_flag_o.blank_pulse_int_flag                  => s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag,
+			int_flag_o.master_pulse_int_flag                 => s_sync_mm_read_registers.int_flag_register.master_pulse_int_flag,
+			int_flag_o.normal_pulse_int_flag                 => s_sync_mm_read_registers.int_flag_register.normal_pulse_int_flag,
+			int_flag_o.pre_master_pulse_int_flag             => s_sync_mm_read_registers.int_flag_register.pre_master_pulse_int_flag,
+			irq_o                                            => a_irq
 		);
 
 	-- Signals assignment (concurrent code)
@@ -236,43 +239,19 @@ begin
 	-- Keep error code status reseted (no error) - It´s logic should be conceived
 	s_sync_mm_read_registers.status_register.error_code <= (others => '0');
 
-	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
-	s_sync_mm_read_registers.int_flag_register.error_int_enable           <= '0';
-	s_sync_mm_read_registers.int_flag_register.blank_pulse_int_enable     <= '0';
-	s_sync_mm_read_registers.int_flag_register.error_int_flag_clear       <= '0';
-	s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag_clear <= '0';
-	s_sync_mm_read_registers.error_injection_register.error_injection     <= (others => '0');
-	s_sync_mm_read_registers.config_register.master_blank_time            <= (others => '0');
-	s_sync_mm_read_registers.config_register.blank_time                   <= (others => '0');
-	s_sync_mm_read_registers.config_register.period                       <= (others => '0');
-	s_sync_mm_read_registers.config_register.one_shot_time                <= (others => '0');
-	s_sync_mm_read_registers.config_register.general.signal_polarity      <= '0';
-	s_sync_mm_read_registers.config_register.general.number_of_cycles     <= (others => '0');
-	s_sync_mm_read_registers.control_register                             <= (others => '0');
-
-	--		signal s_irq_flag_clear : std_logic;
-	--	signal s_irq_flag : std_logic;
-
-	-- ir manager
-	p_sync_irq_manager : process(a_clock, a_reset) is
-	begin
-		if (a_reset) = '1' then
-			s_irq_flag         <= '0';
-			s_irq_sync_delayed <= '0';
-		elsif rising_edge(a_clock) then
-			-- flag clear
-			if (s_irq_flag_clear = '1') then
-				s_irq_flag <= '0';
-			end if;
-			-- detect a rising edge in sync signal
-			if (((s_irq_sync_delayed = '0') and (s_irq_sync = '1'))) then
-				s_irq_flag <= '1';
-			end if;
-			-- delay signals
-			s_irq_sync_delayed <= s_irq_sync;
-		end if;
-	end process p_sync_irq_manager;
-	a_irq <= s_irq_flag;
+--	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
+--	s_sync_mm_read_registers.int_enable_register.error_int_enable               <= '0';
+--	s_sync_mm_read_registers.int_enable_register.blank_pulse_int_enable         <= '0';
+--	s_sync_mm_read_registers.int_flag_clear_register.error_int_flag_clear       <= '0';
+--	s_sync_mm_read_registers.int_flag_clear_register.blank_pulse_int_flag_clear <= '0';
+--	s_sync_mm_read_registers.error_injection_register.error_injection           <= (others => '0');
+--	s_sync_mm_read_registers.config_register.master_blank_time                  <= (others => '0');
+--	s_sync_mm_read_registers.config_register.blank_time                         <= (others => '0');
+--	s_sync_mm_read_registers.config_register.period                             <= (others => '0');
+--	s_sync_mm_read_registers.config_register.one_shot_time                      <= (others => '0');
+--	s_sync_mm_read_registers.config_register.general.signal_polarity            <= '0';
+--	s_sync_mm_read_registers.config_register.general.number_of_cycles           <= (others => '0');
+--	s_sync_mm_read_registers.control_register                                   <= (others => '0');
 
 end architecture rtl;
 --============================================================================

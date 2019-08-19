@@ -29,8 +29,6 @@
 #define SYNC_CONFIG_GENERAL_REG_OFFSET  8
 #define SYNC_ERR_INJ_REG_OFFSET         9
 #define SYNC_CTR_REG_OFFSET             10
-#define SYNC_IRQ_FG_CLR_REG_OFFSET      11
-#define SYNC_IRQ_FG_REG_OFFSET          12
 
 // bit states
 #define SYNC_BIT_ON                     TRUE
@@ -42,14 +40,23 @@
 #define SYNC_STAT_ERROR_CODE_MSK        0x0000FF00
 #define SYNC_STAT_CYCLE_NUMBER_MSK      0x000000FF
 
-#define SYNC_IRQ_ENABLE_ERROR_MSK       0x00000002
-#define SYNC_IRQ_ENABLE_BLANK_MSK       0x00000001
+#define SYNC_IRQ_ENABLE_ERROR_MSK       0x00000010
+#define SYNC_IRQ_ENABLE_BLANK_MSK       0x00000008
+#define SYNC_IRQ_ENABLE_MASTER_MSK      0x00000004
+#define SYNC_IRQ_ENABLE_NORMAL_MSK      0x00000002
+#define SYNC_IRQ_ENABLE_PMASTER_MSK     0x00000001
 
-#define SYNC_IRQ_FLAG_CLR_ERROR_MSK     0x00000002
-#define SYNC_IRQ_FLAG_CLR_BLANK_MSK     0x00000001
+#define SYNC_IRQ_FLAG_CLR_ERROR_MSK     0x00000010
+#define SYNC_IRQ_FLAG_CLR_BLANK_MSK     0x00000008
+#define SYNC_IRQ_FLAG_CLR_MASTER_MSK    0x00000004
+#define SYNC_IRQ_FLAG_CLR_NORMAL_MSK    0x00000002
+#define SYNC_IRQ_FLAG_CLR_PMASTER_MSK   0x00000001
 
-#define SYNC_IRQ_FLAG_ERROR_MSK         0x00000002
-#define SYNC_IRQ_FLAG_BLANK_MSK         0x00000001
+#define SYNC_IRQ_FLAG_ERROR_MSK         0x00000010
+#define SYNC_IRQ_FLAG_BLANK_MSK         0x00000008
+#define SYNC_IRQ_FLAG_MASTER_MSK        0x00000004
+#define SYNC_IRQ_FLAG_NORMAL_MSK        0x00000002
+#define SYNC_IRQ_FLAG_PMASTER_MSK       0x00000001
 
 #define SYNC_CONFIG_GEN_POLARITY_MSK    0x00000100
 #define SYNC_CONFIG_GEN_N_CYCLES_MSK    0x000000FF
@@ -69,13 +76,18 @@
 #define SYNC_CTR_CHB_EN_MSK             0x00000002
 #define SYNC_CTR_CHA_EN_MSK             0x00000001
 
-#define SYNC_IRQ_FG_CLR_MSK             0x00000001
-
-#define SYNC_IRQ_FG_MSK                 0x00000001
-
 //! [constants definition]
+const alt_u8 ucSyncIrqFlagsQtd;
 
 //! [public module structs definition]
+enum SyncIrqFlags {
+	eSyncIrqErrorFlag = 0,
+	eSyncIrqBlankPulseFlag,
+	eSyncIrqMasterPulseFlag,
+	eSyncIrqNormalPulseFlag,
+	eSyncIrqPreMasterPulseFlag
+} ESyncIrqFlags;
+
 typedef struct GeneralConfig {
 	bool bPolarity;
 	alt_u8 ucNCycles;
@@ -103,8 +115,8 @@ typedef struct CtrReg {
 void vSyncInitIrq(void);
 void vSyncHandleIrq(void* pvContext);
 
-void vSyncIrqFlagClrSync(void);
-bool bSyncIrqFlagSync(void);
+void vSyncIrqGetFlags(bool *pbSyncIrqFlags);
+void vSyncIrqClrFlag(alt_u8 ucSyncIrqFlag);
 
 bool bSyncStatusExtnIrq(void);
 alt_u8 ucSyncStatusState(void);
@@ -114,13 +126,22 @@ alt_u8 ucSyncStatusCycleNumber(void);
 alt_u32 uliSyncReadStatus(void);
 
 bool bSyncIrqEnableError(bool bValue);
-bool bSyncIrqEnableBlank(bool bValue);
+bool bSyncIrqEnableBlankPulse(bool bValue);
+bool bSyncIrqEnableMasterPulse(bool bValue);
+bool bSyncIrqEnableNormalPulse(bool bValue);
+bool bSyncIrqEnablePreMasterPulse(bool bValue);
 
 bool bSyncIrqFlagClrError(bool bValue);
-bool bSyncIrqFlagClrBlank(bool bValue);
+bool bSyncIrqFlagClrBlankPulse(bool bValue);
+bool bSyncIrqFlagClrMasterPulse(bool bValue);
+bool bSyncIrqFlagClrNormalPulse(bool bValue);
+bool bSyncIrqFlagClrPreMasterPulse(bool bValue);
 
 bool bSyncIrqFlagError(void);
-bool bSyncIrqFlagBlank(void);
+bool bSyncIrqFlagBlankPulse(void);
+bool bSyncIrqFlagMasterPulse(void);
+bool bSyncIrqFlagNormalPulse(void);
+bool bSyncIrqFlagPreMasterPulse(void);
 
 bool bSyncSetMbt(alt_u32 uliValue);
 bool bSyncSetBt(alt_u32 uliValue);

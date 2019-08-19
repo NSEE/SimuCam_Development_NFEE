@@ -1,0 +1,682 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/ccberni/Desktop/tes
+Eavs_stimuli
+Z0 w1543507411
+Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z4 dE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb2
+Z5 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd
+Z6 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd
+l0
+L5
+VF2D5VnoUhL94>P]NGE_We3
+!s100 f<g5R`TCaPZGIADEJ^MfP0
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1543507907
+!i10b 1
+Z9 !s108 1543507907.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd|
+Z11 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/avs_stimuli.vhd|
+!i113 1
+Z12 o-work work -2002 -explicit
+Z13 tExplicit 1 CvgOpt 0
+Artl
+R1
+R2
+R3
+Z14 DEx4 work 11 avs_stimuli 0 22 F2D5VnoUhL94>P]NGE_We3
+l41
+L23
+VUf]43::><zkElIbaA^oC]0
+!s100 =JoJbag8JJ0naZ6lEBn862
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Psync_avalon_mm_pkg
+Z15 DPx4 work 21 sync_mm_registers_pkg 0 22 Ybg>=2fS7Wcj159@DfaIh1
+Z16 DPx4 work 15 sync_common_pkg 0 22 Fi:[hET`[KFACi4R_kL7_2
+R1
+R2
+R3
+Z17 w1543353530
+Z18 dC:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb2
+Z19 8C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd
+Z20 FC:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd
+l0
+L52
+V^W;^Yfh_<maNH6UoOG9Hz2
+!s100 T:2]4M6OjQ:g_`Z4UDOM[1
+R7
+32
+Z21 !s110 1544462415
+!i10b 1
+Z22 !s108 1544462414.000000
+Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd|
+Z24 !s107 C:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+Z25 DPx4 work 18 sync_avalon_mm_pkg 0 22 ^W;^Yfh_<maNH6UoOG9Hz2
+R15
+R16
+R1
+R2
+R3
+l0
+L117
+Z26 VI23HH4]6bSKPZQOPU^JoL1
+Z27 !s100 EQ<MLZE:HJlO8lPNW[8MG2
+R7
+32
+R21
+!i10b 1
+R22
+R23
+R24
+!i113 1
+R12
+R13
+Esync_avalon_mm_read
+Z28 w1543494225
+R15
+R16
+R25
+R1
+R2
+R3
+R4
+Z29 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd
+Z30 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd
+l0
+L53
+V<]HLOD5>VD>Gmf[P5^DfZ2
+!s100 dOz[Kd^Y5dUl@6Fd8:hgR3
+R7
+32
+Z31 !s110 1543509254
+!i10b 1
+Z32 !s108 1543509254.000000
+Z33 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd|
+Z34 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_read.vhd|
+!i113 1
+R12
+R13
+Artl
+R15
+R16
+R25
+R1
+R2
+R3
+Z35 DEx4 work 19 sync_avalon_mm_read 0 22 <]HLOD5>VD>Gmf[P5^DfZ2
+l73
+L68
+V[U]QBgA1?9_W[^5ff3B^D3
+!s100 5MW3Zj^DhVQ:X_mUAl8aY2
+R7
+32
+R31
+!i10b 1
+R32
+R33
+R34
+!i113 1
+R12
+R13
+Esync_avalon_mm_write
+Z36 w1543494317
+R15
+R16
+R25
+R1
+R2
+R3
+R4
+Z37 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd
+Z38 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd
+l0
+L54
+V6Th6h;zbC<7bzE`fE3V>N3
+!s100 HoV<`9Smkd9g]L?aL5h1c2
+R7
+32
+R31
+!i10b 1
+R32
+Z39 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd|
+Z40 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/avalon/sync_avalon_mm_write.vhd|
+!i113 1
+R12
+R13
+Artl
+R15
+R16
+R25
+R1
+R2
+R3
+Z41 DEx4 work 20 sync_avalon_mm_write 0 22 6Th6h;zbC<7bzE`fE3V>N3
+l76
+L71
+VLSFV>9Z9n^h^JCj?1dC@e0
+!s100 ]89AF]52BeFRX`49STHbK2
+R7
+32
+R31
+!i10b 1
+R32
+R39
+R40
+!i113 1
+R12
+R13
+Psync_common_pkg
+R1
+R2
+R3
+Z42 w1543507093
+R4
+Z43 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd
+Z44 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd
+l0
+L50
+VFi:[hET`[KFACi4R_kL7_2
+!s100 ZlcL2CTcGkmGlcYF1AM3?0
+R7
+32
+Z45 !s110 1543507906
+!i10b 1
+Z46 !s108 1543507906.000000
+Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd|
+Z48 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/common/sync_common_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R16
+R1
+R2
+R3
+l0
+L60
+VX_O^:7;U=KfCKlh`DKFAh2
+!s100 V?lFB5D=9E9aiDHTdPnA92
+R7
+32
+R45
+!i10b 1
+R46
+R47
+R48
+!i113 1
+R12
+R13
+Esync_ent
+Z49 w1543522274
+Z50 DPx4 work 12 sync_int_pkg 0 22 13nonFIz8D?]GE:J<jfc^3
+Z51 DPx4 work 14 sync_outen_pkg 0 22 RS2j:YaW:Rz711MC4D9G`1
+Z52 DPx4 work 12 sync_gen_pkg 0 22 802<E`Fl;W=;WnZ>eE:KD3
+R16
+R25
+R15
+R1
+R2
+R3
+R4
+Z53 8E:\cassio\repo_simucam\SimuCam_Development\FPGA_Developments\Sync\sync\sync_topfile.vhd
+Z54 FE:\cassio\repo_simucam\SimuCam_Development\FPGA_Developments\Sync\sync\sync_topfile.vhd
+l0
+L56
+V8eRSJ7bPo[_?IBRiEQFo81
+!s100 VkMSPb@mj032C4LJOEZg33
+R7
+32
+Z55 !s110 1543522985
+!i10b 1
+Z56 !s108 1543522985.000000
+Z57 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:\cassio\repo_simucam\SimuCam_Development\FPGA_Developments\Sync\sync\sync_topfile.vhd|
+Z58 !s107 E:\cassio\repo_simucam\SimuCam_Development\FPGA_Developments\Sync\sync\sync_topfile.vhd|
+!i113 1
+R12
+R13
+Artl
+Z59 DEx4 work 8 sync_int 0 22 OQ8G:gh`dVcc?72bG4:Pj2
+Z60 DEx4 work 10 sync_outen 0 22 NJNhSe577`f]3j>>2?kf<1
+Z61 DEx4 work 8 sync_gen 0 22 =H2]NGXZ13AF^VQ]GzfFX1
+R41
+R35
+R50
+R51
+R52
+R16
+R25
+R15
+R1
+R2
+R3
+Z62 DEx4 work 8 sync_ent 0 22 8eRSJ7bPo[_?IBRiEQFo81
+l111
+L84
+VmYZNRQ@DdRYY<80ihB9SW1
+!s100 Uf8VKz^T3J;@V?j6?PYOz0
+R7
+32
+R55
+!i10b 1
+R56
+R57
+R58
+!i113 1
+R12
+R13
+Esync_gen
+R36
+R16
+R52
+R1
+R2
+R3
+R4
+Z63 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd
+Z64 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd
+l0
+L53
+V=H2]NGXZ13AF^VQ]GzfFX1
+!s100 _8k>W_j<1`egI6E>gcbaj2
+R7
+32
+R45
+!i10b 1
+R46
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd|
+Z66 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen.vhd|
+!i113 1
+R12
+R13
+Artl
+R16
+R52
+R1
+R2
+R3
+R61
+l100
+L74
+VAl=mDeFFVT0KAH@n1IJ1^0
+!s100 AliL^`<dW^dW:eRXP4z0L2
+R7
+32
+R45
+!i10b 1
+R46
+R65
+R66
+!i113 1
+R12
+R13
+Psync_gen_pkg
+R16
+R1
+R2
+R3
+R28
+R4
+Z67 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd
+Z68 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd
+l0
+L51
+V802<E`Fl;W=;WnZ>eE:KD3
+!s100 OgSaVjTk1l1AdW1``nbKE3
+R7
+32
+R45
+!i10b 1
+R46
+Z69 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd|
+Z70 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/gen/sync_gen_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R52
+R16
+R1
+R2
+R3
+l0
+L110
+VgDXU>9m<4Pf8;@>5^Elcb1
+!s100 :ANA^ZeOU:9co@09NGFRK2
+R7
+32
+R45
+!i10b 1
+R46
+R69
+R70
+!i113 1
+R12
+R13
+Esync_int
+R36
+R16
+R50
+R1
+R2
+R3
+R4
+Z71 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd
+Z72 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd
+l0
+L52
+VOQ8G:gh`dVcc?72bG4:Pj2
+!s100 3AhEKO1D[5J[0OEghTAH>3
+R7
+32
+R45
+!i10b 1
+R46
+Z73 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd|
+Z74 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int.vhd|
+!i113 1
+R12
+R13
+Artl
+R16
+R50
+R1
+R2
+R3
+R59
+l83
+L72
+V>jD@zkCIADX7BEWD6]CWZ1
+!s100 iOkJD[NLnL9Li^<UF?cbo2
+R7
+32
+R45
+!i10b 1
+R46
+R73
+R74
+!i113 1
+R12
+R13
+Psync_int_pkg
+R16
+R1
+R2
+R3
+R28
+R4
+Z75 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd
+Z76 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd
+l0
+L50
+V13nonFIz8D?]GE:J<jfc^3
+!s100 Z387Z9o@ai5zhOgbgfO0k3
+R7
+32
+R45
+!i10b 1
+R46
+Z77 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd|
+Z78 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/int/sync_int_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R50
+R16
+R1
+R2
+R3
+l0
+L100
+Vd8Z52IEF0oREz7NbG0?WI3
+!s100 O^RPUeXd@1gkl]gIZPHYH0
+R7
+32
+R45
+!i10b 1
+R46
+R77
+R78
+!i113 1
+R12
+R13
+Psync_mm_registers_pkg
+R1
+R2
+R3
+R28
+R4
+Z79 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd
+Z80 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd
+l0
+L50
+VYbg>=2fS7Wcj159@DfaIh1
+!s100 Fb;IV[`0K[DM7Y6=:^n:?2
+R7
+32
+R8
+!i10b 1
+R46
+Z81 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd|
+Z82 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/registers/sync_mm_registers_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R15
+R1
+R2
+R3
+l0
+L206
+VA38?U<[R4?a`7GSAFOR>F3
+!s100 4>o1f@d>3J7YdR8d[ElEm0
+R7
+32
+R8
+!i10b 1
+R46
+R81
+R82
+!i113 1
+R12
+R13
+Esync_outen
+R36
+R51
+R1
+R2
+R3
+R4
+Z83 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd
+Z84 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd
+l0
+L52
+VNJNhSe577`f]3j>>2?kf<1
+!s100 Y4GCD:6ZFl`;mZmVZ8]HZ2
+R7
+32
+R45
+!i10b 1
+R46
+Z85 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd|
+Z86 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen.vhd|
+!i113 1
+R12
+R13
+Artl
+R51
+R1
+R2
+R3
+R60
+l71
+L66
+ViDYOHkSzD_=z^kYLal5;m2
+!s100 z`SdW>3N@J8ZcTa13OK]G2
+R7
+32
+R45
+!i10b 1
+R46
+R85
+R86
+!i113 1
+R12
+R13
+Psync_outen_pkg
+R1
+R2
+R3
+R36
+R4
+Z87 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd
+Z88 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd
+l0
+L51
+VRS2j:YaW:Rz711MC4D9G`1
+!s100 HaM:2bK5PgY`ZiN^GR^;50
+R7
+32
+R45
+!i10b 1
+R46
+Z89 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd|
+Z90 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/sync/outen/sync_outen_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R51
+R1
+R2
+R3
+l0
+L96
+V;fL4o`2ALYe]EV1G:WKa50
+!s100 QQO>oToL5BTXf9W^k3H@@1
+R7
+32
+R45
+!i10b 1
+R46
+R89
+R90
+!i113 1
+R12
+R13
+Etb
+R36
+Z91 DPx4 work 6 tb_pkg 0 22 MHHk>6^gTi:GTJXT=NLm?0
+R1
+R2
+R3
+R4
+Z92 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd
+Z93 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd
+l0
+L6
+VYlZ:6iW7M4AhZPhn5_mV_3
+!s100 UbW]VI7I21h@bMcDEmRd:1
+R7
+32
+R8
+!i10b 1
+R9
+Z94 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd|
+Z95 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb.vhd|
+!i113 1
+R12
+R13
+Artl
+R50
+R51
+R52
+R16
+R25
+R15
+R62
+R14
+R91
+R1
+R2
+R3
+DEx4 work 2 tb 0 22 YlZ:6iW7M4AhZPhn5_mV_3
+l40
+L9
+VCRekdIF1@KWYdNUMi7JF;1
+!s100 GeNFjg787mS=iK=NNh4=83
+R7
+32
+R8
+!i10b 1
+R9
+R94
+R95
+!i113 1
+R12
+R13
+Ptb_pkg
+R1
+R2
+R3
+R28
+R4
+Z96 8E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd
+Z97 FE:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd
+l0
+L49
+VMHHk>6^gTi:GTJXT=NLm?0
+!s100 W4zIZKNKWBm@bA=OT<l4I3
+R7
+32
+R8
+!i10b 1
+R9
+Z98 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd|
+Z99 !s107 E:/cassio/repo_simucam/SimuCam_Development/FPGA_Developments/Sync/tb/tb_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R91
+R1
+R2
+R3
+l0
+L108
+V<X6F_NW:SelT1aGAK]8fk2
+!s100 9k4fLZnZ0Szl_kYBCe]UB1
+R7
+32
+R8
+!i10b 1
+R9
+R98
+R99
+!i113 1
+R12
+R13
