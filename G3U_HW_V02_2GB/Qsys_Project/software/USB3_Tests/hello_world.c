@@ -67,8 +67,8 @@ int main() {
 	alt_u64 *pulliDdr2Mem;
 	alt_u32 uliAddrCnt = 0;
 
-//	const alt_u32 cuiBuffTimes = 12800;
-	const alt_u32 cuiBuffTimes = 2544;
+	const alt_u32 cuiBuffTimes = 12800;
+//	const alt_u32 cuiBuffTimes = 2703;
 
 	// Clear Memory
 	pulliDdr2Mem = (alt_u64 *)DDR2_EXT_ADDR_WINDOWED_BASE;
@@ -126,7 +126,7 @@ int main() {
 //		pulliDdr2Mem++;
 //	}
 
-	// Transmitt data to USB
+////	 Transmitt data to USB
 //	for (uiBuffCnt = 0; uiBuffCnt < cuiBuffTimes; uiBuffCnt++) {
 //
 //		while ((!pxFtdi->bTxDbufferWrready) & (!pxFtdi->bTxDbufferEmpty)) {}

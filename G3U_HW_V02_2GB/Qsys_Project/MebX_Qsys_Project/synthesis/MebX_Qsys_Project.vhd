@@ -145,33 +145,33 @@ architecture rtl of MebX_Qsys_Project is
 
 	component USB_3_FTDI_top is
 		port (
-			clock_sink_clk                  : in    std_logic                     := 'X';             -- clk
-			reset_sink_reset                : in    std_logic                     := 'X';             -- reset
-			umft_data_bus                   : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
-			umft_reset_n_pin                : out   std_logic;                                        -- umft_reset_n_signal
-			umft_rxf_n_pin                  : in    std_logic                     := 'X';             -- umft_rxf_n_signal
-			umft_clock_pin                  : in    std_logic                     := 'X';             -- umft_clock_signal
-			umft_wakeup_n_pin               : inout std_logic                     := 'X';             -- umft_wakeup_n_signal
-			umft_be_bus                     : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- umft_be_signal
-			umft_txe_n_pin                  : in    std_logic                     := 'X';             -- umft_txe_n_signal
-			umft_gpio_bus                   : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- umft_gpio_bus_signal
-			umft_wr_n_pin                   : out   std_logic;                                        -- umft_wr_n_signal
-			umft_rd_n_pin                   : out   std_logic;                                        -- umft_rd_n_signal
-			umft_oe_n_pin                   : out   std_logic;                                        -- umft_oe_n_signal
-			umft_siwu_n_pin                 : out   std_logic;                                        -- umft_siwu_n_signal
-			avalon_slave_config_address     : in    std_logic_vector(7 downto 0)  := (others => 'X'); -- address
-			avalon_slave_config_write       : in    std_logic                     := 'X';             -- write
-			avalon_slave_config_read        : in    std_logic                     := 'X';             -- read
-			avalon_slave_config_readdata    : out   std_logic_vector(31 downto 0);                    -- readdata
-			avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			avalon_slave_config_waitrequest : out   std_logic;                                        -- waitrequest
-			avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
-			avalon_slave_data_address       : in    std_logic_vector(9 downto 0)  := (others => 'X'); -- address
-			avalon_slave_data_write         : in    std_logic                     := 'X';             -- write
-			avalon_slave_data_read          : in    std_logic                     := 'X';             -- read
-			avalon_slave_data_writedata     : in    std_logic_vector(63 downto 0) := (others => 'X'); -- writedata
-			avalon_slave_data_readdata      : out   std_logic_vector(63 downto 0);                    -- readdata
-			avalon_slave_data_waitrequest   : out   std_logic                                         -- waitrequest
+			clock_sink_clk                  : in    std_logic                      := 'X';             -- clk
+			reset_sink_reset                : in    std_logic                      := 'X';             -- reset
+			umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'X'); -- umft_data_signal
+			umft_reset_n_pin                : out   std_logic;                                         -- umft_reset_n_signal
+			umft_rxf_n_pin                  : in    std_logic                      := 'X';             -- umft_rxf_n_signal
+			umft_clock_pin                  : in    std_logic                      := 'X';             -- umft_clock_signal
+			umft_wakeup_n_pin               : inout std_logic                      := 'X';             -- umft_wakeup_n_signal
+			umft_be_bus                     : inout std_logic_vector(3 downto 0)   := (others => 'X'); -- umft_be_signal
+			umft_txe_n_pin                  : in    std_logic                      := 'X';             -- umft_txe_n_signal
+			umft_gpio_bus                   : inout std_logic_vector(1 downto 0)   := (others => 'X'); -- umft_gpio_bus_signal
+			umft_wr_n_pin                   : out   std_logic;                                         -- umft_wr_n_signal
+			umft_rd_n_pin                   : out   std_logic;                                         -- umft_rd_n_signal
+			umft_oe_n_pin                   : out   std_logic;                                         -- umft_oe_n_signal
+			umft_siwu_n_pin                 : out   std_logic;                                         -- umft_siwu_n_signal
+			avalon_slave_config_address     : in    std_logic_vector(7 downto 0)   := (others => 'X'); -- address
+			avalon_slave_config_write       : in    std_logic                      := 'X';             -- write
+			avalon_slave_config_read        : in    std_logic                      := 'X';             -- read
+			avalon_slave_config_readdata    : out   std_logic_vector(31 downto 0);                     -- readdata
+			avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			avalon_slave_config_waitrequest : out   std_logic;                                         -- waitrequest
+			avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			avalon_slave_data_address       : in    std_logic_vector(7 downto 0)   := (others => 'X'); -- address
+			avalon_slave_data_write         : in    std_logic                      := 'X';             -- write
+			avalon_slave_data_read          : in    std_logic                      := 'X';             -- read
+			avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
+			avalon_slave_data_readdata      : out   std_logic_vector(255 downto 0);                    -- readdata
+			avalon_slave_data_waitrequest   : out   std_logic                                          -- waitrequest
 		);
 	end component USB_3_FTDI_top;
 
@@ -257,14 +257,14 @@ architecture rtl of MebX_Qsys_Project is
 		port (
 			mm_read_address              : out std_logic_vector(37 downto 0);                     -- address
 			mm_read_read                 : out std_logic;                                         -- read
-			mm_read_byteenable           : out std_logic_vector(7 downto 0);                      -- byteenable
-			mm_read_readdata             : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- readdata
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
 			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
 			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
 			mm_write_address             : out std_logic_vector(37 downto 0);                     -- address
 			mm_write_write               : out std_logic;                                         -- write
-			mm_write_byteenable          : out std_logic_vector(7 downto 0);                      -- byteenable
-			mm_write_writedata           : out std_logic_vector(63 downto 0);                     -- writedata
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
 			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
 			clock_clk                    : in  std_logic                      := 'X';             -- clk
 			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
@@ -286,14 +286,14 @@ architecture rtl of MebX_Qsys_Project is
 		port (
 			mm_read_address              : out std_logic_vector(37 downto 0);                     -- address
 			mm_read_read                 : out std_logic;                                         -- read
-			mm_read_byteenable           : out std_logic_vector(7 downto 0);                      -- byteenable
-			mm_read_readdata             : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- readdata
+			mm_read_byteenable           : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_read_readdata             : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
 			mm_read_waitrequest          : in  std_logic                      := 'X';             -- waitrequest
 			mm_read_readdatavalid        : in  std_logic                      := 'X';             -- readdatavalid
 			mm_write_address             : out std_logic_vector(37 downto 0);                     -- address
 			mm_write_write               : out std_logic;                                         -- write
-			mm_write_byteenable          : out std_logic_vector(7 downto 0);                      -- byteenable
-			mm_write_writedata           : out std_logic_vector(63 downto 0);                     -- writedata
+			mm_write_byteenable          : out std_logic_vector(31 downto 0);                     -- byteenable
+			mm_write_writedata           : out std_logic_vector(255 downto 0);                    -- writedata
 			mm_write_waitrequest         : in  std_logic                      := 'X';             -- waitrequest
 			clock_clk                    : in  std_logic                      := 'X';             -- clk
 			reset_n_reset_n              : in  std_logic                      := 'X';             -- reset_n
@@ -819,26 +819,26 @@ architecture rtl of MebX_Qsys_Project is
 			ddr2_address_span_extender_expanded_master_writedata            : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
 			dma_DDR_M1_mm_read_address                                      : in  std_logic_vector(37 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M1_mm_read_waitrequest                                  : out std_logic;                                         -- waitrequest
-			dma_DDR_M1_mm_read_byteenable                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
+			dma_DDR_M1_mm_read_byteenable                                   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
 			dma_DDR_M1_mm_read_read                                         : in  std_logic                      := 'X';             -- read
-			dma_DDR_M1_mm_read_readdata                                     : out std_logic_vector(63 downto 0);                     -- readdata
+			dma_DDR_M1_mm_read_readdata                                     : out std_logic_vector(255 downto 0);                    -- readdata
 			dma_DDR_M1_mm_read_readdatavalid                                : out std_logic;                                         -- readdatavalid
 			dma_DDR_M1_mm_write_address                                     : in  std_logic_vector(37 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M1_mm_write_waitrequest                                 : out std_logic;                                         -- waitrequest
-			dma_DDR_M1_mm_write_byteenable                                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
+			dma_DDR_M1_mm_write_byteenable                                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
 			dma_DDR_M1_mm_write_write                                       : in  std_logic                      := 'X';             -- write
-			dma_DDR_M1_mm_write_writedata                                   : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- writedata
+			dma_DDR_M1_mm_write_writedata                                   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
 			dma_DDR_M2_mm_read_address                                      : in  std_logic_vector(37 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M2_mm_read_waitrequest                                  : out std_logic;                                         -- waitrequest
-			dma_DDR_M2_mm_read_byteenable                                   : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
+			dma_DDR_M2_mm_read_byteenable                                   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
 			dma_DDR_M2_mm_read_read                                         : in  std_logic                      := 'X';             -- read
-			dma_DDR_M2_mm_read_readdata                                     : out std_logic_vector(63 downto 0);                     -- readdata
+			dma_DDR_M2_mm_read_readdata                                     : out std_logic_vector(255 downto 0);                    -- readdata
 			dma_DDR_M2_mm_read_readdatavalid                                : out std_logic;                                         -- readdatavalid
 			dma_DDR_M2_mm_write_address                                     : in  std_logic_vector(37 downto 0)  := (others => 'X'); -- address
 			dma_DDR_M2_mm_write_waitrequest                                 : out std_logic;                                         -- waitrequest
-			dma_DDR_M2_mm_write_byteenable                                  : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- byteenable
+			dma_DDR_M2_mm_write_byteenable                                  : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- byteenable
 			dma_DDR_M2_mm_write_write                                       : in  std_logic                      := 'X';             -- write
-			dma_DDR_M2_mm_write_writedata                                   : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- writedata
+			dma_DDR_M2_mm_write_writedata                                   : in  std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
 			m1_clock_bridge_s0_address                                      : out std_logic_vector(30 downto 0);                     -- address
 			m1_clock_bridge_s0_write                                        : out std_logic;                                         -- write
 			m1_clock_bridge_s0_read                                         : out std_logic;                                         -- read
@@ -859,11 +859,11 @@ architecture rtl of MebX_Qsys_Project is
 			m2_ddr2_memory_avl_byteenable                                   : out std_logic_vector(31 downto 0);                     -- byteenable
 			m2_ddr2_memory_avl_readdatavalid                                : in  std_logic                      := 'X';             -- readdatavalid
 			m2_ddr2_memory_avl_waitrequest                                  : in  std_logic                      := 'X';             -- waitrequest
-			USB_3_FTDI_0_avalon_slave_data_address                          : out std_logic_vector(9 downto 0);                      -- address
+			USB_3_FTDI_0_avalon_slave_data_address                          : out std_logic_vector(7 downto 0);                      -- address
 			USB_3_FTDI_0_avalon_slave_data_write                            : out std_logic;                                         -- write
 			USB_3_FTDI_0_avalon_slave_data_read                             : out std_logic;                                         -- read
-			USB_3_FTDI_0_avalon_slave_data_readdata                         : in  std_logic_vector(63 downto 0)  := (others => 'X'); -- readdata
-			USB_3_FTDI_0_avalon_slave_data_writedata                        : out std_logic_vector(63 downto 0);                     -- writedata
+			USB_3_FTDI_0_avalon_slave_data_readdata                         : in  std_logic_vector(255 downto 0) := (others => 'X'); -- readdata
+			USB_3_FTDI_0_avalon_slave_data_writedata                        : out std_logic_vector(255 downto 0);                    -- writedata
 			USB_3_FTDI_0_avalon_slave_data_waitrequest                      : in  std_logic                      := 'X'              -- waitrequest
 		);
 	end component MebX_Qsys_Project_mm_interconnect_1;
@@ -1466,28 +1466,28 @@ architecture rtl of MebX_Qsys_Project is
 	signal ddr2_address_span_extender_expanded_master_write                                       : std_logic;                      -- ddr2_address_span_extender:avm_m0_write -> mm_interconnect_1:ddr2_address_span_extender_expanded_master_write
 	signal ddr2_address_span_extender_expanded_master_writedata                                   : std_logic_vector(31 downto 0);  -- ddr2_address_span_extender:avm_m0_writedata -> mm_interconnect_1:ddr2_address_span_extender_expanded_master_writedata
 	signal ddr2_address_span_extender_expanded_master_burstcount                                  : std_logic_vector(7 downto 0);   -- ddr2_address_span_extender:avm_m0_burstcount -> mm_interconnect_1:ddr2_address_span_extender_expanded_master_burstcount
-	signal dma_ddr_m2_mm_read_readdata                                                            : std_logic_vector(63 downto 0);  -- mm_interconnect_1:dma_DDR_M2_mm_read_readdata -> dma_DDR_M2:mm_read_readdata
+	signal dma_ddr_m2_mm_read_readdata                                                            : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_DDR_M2_mm_read_readdata -> dma_DDR_M2:mm_read_readdata
 	signal dma_ddr_m2_mm_read_waitrequest                                                         : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_read_waitrequest -> dma_DDR_M2:mm_read_waitrequest
 	signal dma_ddr_m2_mm_read_address                                                             : std_logic_vector(37 downto 0);  -- dma_DDR_M2:mm_read_address -> mm_interconnect_1:dma_DDR_M2_mm_read_address
 	signal dma_ddr_m2_mm_read_read                                                                : std_logic;                      -- dma_DDR_M2:mm_read_read -> mm_interconnect_1:dma_DDR_M2_mm_read_read
-	signal dma_ddr_m2_mm_read_byteenable                                                          : std_logic_vector(7 downto 0);   -- dma_DDR_M2:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_read_byteenable
+	signal dma_ddr_m2_mm_read_byteenable                                                          : std_logic_vector(31 downto 0);  -- dma_DDR_M2:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_read_byteenable
 	signal dma_ddr_m2_mm_read_readdatavalid                                                       : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_read_readdatavalid -> dma_DDR_M2:mm_read_readdatavalid
 	signal dma_ddr_m2_mm_write_waitrequest                                                        : std_logic;                      -- mm_interconnect_1:dma_DDR_M2_mm_write_waitrequest -> dma_DDR_M2:mm_write_waitrequest
 	signal dma_ddr_m2_mm_write_address                                                            : std_logic_vector(37 downto 0);  -- dma_DDR_M2:mm_write_address -> mm_interconnect_1:dma_DDR_M2_mm_write_address
-	signal dma_ddr_m2_mm_write_byteenable                                                         : std_logic_vector(7 downto 0);   -- dma_DDR_M2:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_write_byteenable
+	signal dma_ddr_m2_mm_write_byteenable                                                         : std_logic_vector(31 downto 0);  -- dma_DDR_M2:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M2_mm_write_byteenable
 	signal dma_ddr_m2_mm_write_write                                                              : std_logic;                      -- dma_DDR_M2:mm_write_write -> mm_interconnect_1:dma_DDR_M2_mm_write_write
-	signal dma_ddr_m2_mm_write_writedata                                                          : std_logic_vector(63 downto 0);  -- dma_DDR_M2:mm_write_writedata -> mm_interconnect_1:dma_DDR_M2_mm_write_writedata
-	signal dma_ddr_m1_mm_read_readdata                                                            : std_logic_vector(63 downto 0);  -- mm_interconnect_1:dma_DDR_M1_mm_read_readdata -> dma_DDR_M1:mm_read_readdata
+	signal dma_ddr_m2_mm_write_writedata                                                          : std_logic_vector(255 downto 0); -- dma_DDR_M2:mm_write_writedata -> mm_interconnect_1:dma_DDR_M2_mm_write_writedata
+	signal dma_ddr_m1_mm_read_readdata                                                            : std_logic_vector(255 downto 0); -- mm_interconnect_1:dma_DDR_M1_mm_read_readdata -> dma_DDR_M1:mm_read_readdata
 	signal dma_ddr_m1_mm_read_waitrequest                                                         : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_read_waitrequest -> dma_DDR_M1:mm_read_waitrequest
 	signal dma_ddr_m1_mm_read_address                                                             : std_logic_vector(37 downto 0);  -- dma_DDR_M1:mm_read_address -> mm_interconnect_1:dma_DDR_M1_mm_read_address
 	signal dma_ddr_m1_mm_read_read                                                                : std_logic;                      -- dma_DDR_M1:mm_read_read -> mm_interconnect_1:dma_DDR_M1_mm_read_read
-	signal dma_ddr_m1_mm_read_byteenable                                                          : std_logic_vector(7 downto 0);   -- dma_DDR_M1:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_read_byteenable
+	signal dma_ddr_m1_mm_read_byteenable                                                          : std_logic_vector(31 downto 0);  -- dma_DDR_M1:mm_read_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_read_byteenable
 	signal dma_ddr_m1_mm_read_readdatavalid                                                       : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_read_readdatavalid -> dma_DDR_M1:mm_read_readdatavalid
 	signal dma_ddr_m1_mm_write_waitrequest                                                        : std_logic;                      -- mm_interconnect_1:dma_DDR_M1_mm_write_waitrequest -> dma_DDR_M1:mm_write_waitrequest
 	signal dma_ddr_m1_mm_write_address                                                            : std_logic_vector(37 downto 0);  -- dma_DDR_M1:mm_write_address -> mm_interconnect_1:dma_DDR_M1_mm_write_address
-	signal dma_ddr_m1_mm_write_byteenable                                                         : std_logic_vector(7 downto 0);   -- dma_DDR_M1:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_write_byteenable
+	signal dma_ddr_m1_mm_write_byteenable                                                         : std_logic_vector(31 downto 0);  -- dma_DDR_M1:mm_write_byteenable -> mm_interconnect_1:dma_DDR_M1_mm_write_byteenable
 	signal dma_ddr_m1_mm_write_write                                                              : std_logic;                      -- dma_DDR_M1:mm_write_write -> mm_interconnect_1:dma_DDR_M1_mm_write_write
-	signal dma_ddr_m1_mm_write_writedata                                                          : std_logic_vector(63 downto 0);  -- dma_DDR_M1:mm_write_writedata -> mm_interconnect_1:dma_DDR_M1_mm_write_writedata
+	signal dma_ddr_m1_mm_write_writedata                                                          : std_logic_vector(255 downto 0); -- dma_DDR_M1:mm_write_writedata -> mm_interconnect_1:dma_DDR_M1_mm_write_writedata
 	signal mm_interconnect_1_m2_ddr2_memory_avl_beginbursttransfer                                : std_logic;                      -- mm_interconnect_1:m2_ddr2_memory_avl_beginbursttransfer -> m2_ddr2_memory:avl_burstbegin
 	signal mm_interconnect_1_m2_ddr2_memory_avl_readdata                                          : std_logic_vector(255 downto 0); -- m2_ddr2_memory:avl_rdata -> mm_interconnect_1:m2_ddr2_memory_avl_readdata
 	signal m2_ddr2_memory_avl_waitrequest                                                         : std_logic;                      -- m2_ddr2_memory:avl_ready -> m2_ddr2_memory_avl_waitrequest:in
@@ -1508,12 +1508,12 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_m1_clock_bridge_s0_write                                             : std_logic;                      -- mm_interconnect_1:m1_clock_bridge_s0_write -> m1_clock_bridge:s0_write
 	signal mm_interconnect_1_m1_clock_bridge_s0_writedata                                         : std_logic_vector(63 downto 0);  -- mm_interconnect_1:m1_clock_bridge_s0_writedata -> m1_clock_bridge:s0_writedata
 	signal mm_interconnect_1_m1_clock_bridge_s0_burstcount                                        : std_logic_vector(4 downto 0);   -- mm_interconnect_1:m1_clock_bridge_s0_burstcount -> m1_clock_bridge:s0_burstcount
-	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_readdata                              : std_logic_vector(63 downto 0);  -- USB_3_FTDI_0:avalon_slave_data_readdata -> mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_readdata
+	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_readdata                              : std_logic_vector(255 downto 0); -- USB_3_FTDI_0:avalon_slave_data_readdata -> mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_readdata
 	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_waitrequest                           : std_logic;                      -- USB_3_FTDI_0:avalon_slave_data_waitrequest -> mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_waitrequest
-	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_address                               : std_logic_vector(9 downto 0);   -- mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_address -> USB_3_FTDI_0:avalon_slave_data_address
+	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_address                               : std_logic_vector(7 downto 0);   -- mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_address -> USB_3_FTDI_0:avalon_slave_data_address
 	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_read                                  : std_logic;                      -- mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_read -> USB_3_FTDI_0:avalon_slave_data_read
 	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_write                                 : std_logic;                      -- mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_write -> USB_3_FTDI_0:avalon_slave_data_write
-	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_writedata                             : std_logic_vector(63 downto 0);  -- mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_writedata -> USB_3_FTDI_0:avalon_slave_data_writedata
+	signal mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_writedata                             : std_logic_vector(255 downto 0); -- mm_interconnect_1:USB_3_FTDI_0_avalon_slave_data_writedata -> USB_3_FTDI_0:avalon_slave_data_writedata
 	signal clock_bridge_afi_50_m0_waitrequest                                                     : std_logic;                      -- mm_interconnect_2:clock_bridge_afi_50_m0_waitrequest -> clock_bridge_afi_50:m0_waitrequest
 	signal clock_bridge_afi_50_m0_readdata                                                        : std_logic_vector(31 downto 0);  -- mm_interconnect_2:clock_bridge_afi_50_m0_readdata -> clock_bridge_afi_50:m0_readdata
 	signal clock_bridge_afi_50_m0_debugaccess                                                     : std_logic;                      -- clock_bridge_afi_50:m0_debugaccess -> mm_interconnect_2:clock_bridge_afi_50_m0_debugaccess

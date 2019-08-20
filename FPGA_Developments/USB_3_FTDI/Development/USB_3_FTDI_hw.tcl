@@ -4,7 +4,7 @@
 
 
 # 
-# USB_3_FTDI "FTDI_UMFT601A_Module" v1.3
+# USB_3_FTDI "FTDI_UMFT601A_Module" v1.4
 #  2019.06.12.14:05:05
 # 
 # 
@@ -20,7 +20,7 @@ package require -exact qsys 16.1
 # 
 set_module_property DESCRIPTION ""
 set_module_property NAME USB_3_FTDI
-set_module_property VERSION 1.3
+set_module_property VERSION 1.4
 set_module_property INTERNAL false
 set_module_property OPAQUE_ADDRESS_MAP true
 set_module_property AUTHOR ""
@@ -217,11 +217,11 @@ set_interface_property avalon_slave_data PORT_NAME_MAP ""
 set_interface_property avalon_slave_data CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_slave_data SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_data avalon_slave_data_address address Input 10
+add_interface_port avalon_slave_data avalon_slave_data_address address Input 8
 add_interface_port avalon_slave_data avalon_slave_data_write write Input 1
 add_interface_port avalon_slave_data avalon_slave_data_read read Input 1
-add_interface_port avalon_slave_data avalon_slave_data_writedata writedata Input 64
-add_interface_port avalon_slave_data avalon_slave_data_readdata readdata Output 64
+add_interface_port avalon_slave_data avalon_slave_data_writedata writedata Input 256
+add_interface_port avalon_slave_data avalon_slave_data_readdata readdata Output 256
 add_interface_port avalon_slave_data avalon_slave_data_waitrequest waitrequest Output 1
 set_interface_assignment avalon_slave_data embeddedsw.configuration.isFlash 0
 set_interface_assignment avalon_slave_data embeddedsw.configuration.isMemoryDevice 0

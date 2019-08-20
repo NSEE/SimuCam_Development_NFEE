@@ -16,7 +16,7 @@ entity ftdi_data_receiver_ent is
 		buffer_wrready_i              : in  std_logic;
 		rx_dc_data_fifo_rdreq_o       : out std_logic;
 		buffer_data_loaded_o          : out std_logic;
-		buffer_wrdata_o               : out std_logic_vector(63 downto 0);
+		buffer_wrdata_o               : out std_logic_vector(255 downto 0);
 		buffer_wrreq_o                : out std_logic
 	);
 end entity ftdi_data_receiver_ent;
@@ -30,9 +30,15 @@ architecture RTL of ftdi_data_receiver_ent is
 		IDLE,                           -- data receiver in idle
 		FETCH_RX_DWORD_0,               -- fetch rx dword data 0 (32b)
 		FETCH_RX_DWORD_1,               -- fetch rx dword data 1 (32b)
+		FETCH_RX_DWORD_2,               -- fetch rx dword data 2 (32b)
+		FETCH_RX_DWORD_3,               -- fetch rx dword data 3 (32b)
+		FETCH_RX_DWORD_4,               -- fetch rx dword data 4 (32b)
+		FETCH_RX_DWORD_5,               -- fetch rx dword data 5 (32b)
+		FETCH_RX_DWORD_6,               -- fetch rx dword data 6 (32b)
+		FETCH_RX_DWORD_7,               -- fetch rx dword data 7 (32b)
 		FETCH_DELAY,                    -- fetch delay
 		LONG_FETCH_DELAY,               -- long fetch delay
-		WRITE_RX_QWORD,                 -- write rx qword data (64b)
+		WRITE_RX_QQWORD,                -- write rx qqword data (256b)
 		WRITE_DELAY,                    -- write delay
 		CHANGE_BUFFER                   -- change tx buffer
 	);
@@ -40,6 +46,12 @@ architecture RTL of ftdi_data_receiver_ent is
 
 	signal s_rx_dword_0 : std_logic_vector(31 downto 0);
 	signal s_rx_dword_1 : std_logic_vector(31 downto 0);
+	signal s_rx_dword_2 : std_logic_vector(31 downto 0);
+	signal s_rx_dword_3 : std_logic_vector(31 downto 0);
+	signal s_rx_dword_4 : std_logic_vector(31 downto 0);
+	signal s_rx_dword_5 : std_logic_vector(31 downto 0);
+	signal s_rx_dword_6 : std_logic_vector(31 downto 0);
+	signal s_rx_dword_7 : std_logic_vector(31 downto 0);
 
 begin
 
@@ -76,7 +88,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					-- check if the rx dc data fifo have at least two dwords available 
-					if (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 2) then
+					if (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8) then
 						s_ftdi_data_receiver_state <= FETCH_RX_DWORD_0;
 						v_ftdi_data_receiver_state := FETCH_RX_DWORD_0;
 					end if;
@@ -93,6 +105,60 @@ begin
 				-- state "FETCH_RX_DWORD_1"
 				when FETCH_RX_DWORD_1 =>
 					-- fetch rx dword data 1 (32b)
+					s_ftdi_data_receiver_state <= FETCH_RX_DWORD_2;
+					v_ftdi_data_receiver_state := FETCH_RX_DWORD_2;
+				-- default state transition
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "FETCH_RX_DWORD_2"
+				when FETCH_RX_DWORD_2 =>
+					-- fetch rx dword data 2 (32b)
+					s_ftdi_data_receiver_state <= FETCH_RX_DWORD_3;
+					v_ftdi_data_receiver_state := FETCH_RX_DWORD_3;
+				-- default state transition
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "FETCH_RX_DWORD_3"
+				when FETCH_RX_DWORD_3 =>
+					-- fetch rx dword data 3 (32b)
+					s_ftdi_data_receiver_state <= FETCH_RX_DWORD_4;
+					v_ftdi_data_receiver_state := FETCH_RX_DWORD_4;
+				-- default state transition
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "FETCH_RX_DWORD_4"
+				when FETCH_RX_DWORD_4 =>
+					-- fetch rx dword data 4 (32b)
+					s_ftdi_data_receiver_state <= FETCH_RX_DWORD_5;
+					v_ftdi_data_receiver_state := FETCH_RX_DWORD_5;
+				-- default state transition
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "FETCH_RX_DWORD_5"
+				when FETCH_RX_DWORD_5 =>
+					-- fetch rx dword data 5 (32b)
+					s_ftdi_data_receiver_state <= FETCH_RX_DWORD_6;
+					v_ftdi_data_receiver_state := FETCH_RX_DWORD_6;
+				-- default state transition
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "FETCH_RX_DWORD_6"
+				when FETCH_RX_DWORD_6 =>
+					-- fetch rx dword data 6 (32b)
+					s_ftdi_data_receiver_state <= FETCH_RX_DWORD_7;
+					v_ftdi_data_receiver_state := FETCH_RX_DWORD_7;
+				-- default state transition
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "FETCH_RX_DWORD_7"
+				when FETCH_RX_DWORD_7 =>
+					-- fetch rx dword data 7 (32b)
 					s_ftdi_data_receiver_state <= FETCH_DELAY;
 					v_ftdi_data_receiver_state := FETCH_DELAY;
 				-- default state transition
@@ -112,7 +178,7 @@ begin
 						s_ftdi_data_receiver_state <= WRITE_RX_QWORD;
 						v_ftdi_data_receiver_state := WRITE_RX_QWORD;
 					end if;
-					
+
 				-- state "LONG_FETCH_DELAY"
 				when LONG_FETCH_DELAY =>
 					-- long fetch delay
@@ -127,9 +193,9 @@ begin
 						v_ftdi_data_receiver_state := WRITE_RX_QWORD;
 					end if;
 
-				-- state "WRITE_RX_QWORD"
-				when WRITE_RX_QWORD =>
-					-- write rx qword data (64b)
+				-- state "WRITE_RX_QQWORD"
+				when WRITE_RX_QQWORD =>
+					-- write rx qqword data (256b)
 					s_ftdi_data_receiver_state <= WRITE_DELAY;
 					v_ftdi_data_receiver_state := WRITE_DELAY;
 				-- default state transition
@@ -149,7 +215,7 @@ begin
 						s_ftdi_data_receiver_state <= CHANGE_BUFFER;
 						v_ftdi_data_receiver_state := CHANGE_BUFFER;
 					-- check if the rx dc data fifo have at least two dwords available 
-					elsif (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 2) then
+					elsif (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8) then
 						s_ftdi_data_receiver_state <= FETCH_RX_DWORD_0;
 						v_ftdi_data_receiver_state := FETCH_RX_DWORD_0;
 						-- check if the rx 
@@ -190,6 +256,12 @@ begin
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
 					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "IDLE"
@@ -202,6 +274,12 @@ begin
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
 					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "FETCH_RX_DWORD_0"
@@ -214,6 +292,12 @@ begin
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
 					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "FETCH_RX_DWORD_1"
@@ -227,6 +311,72 @@ begin
 					s_rx_dword_0            <= rx_dc_data_fifo_rddata_data_i;
 				-- conditional output signals
 
+				-- state "FETCH_RX_DWORD_2"
+				when FETCH_RX_DWORD_2 =>
+					-- fetch rx dword data 1 (32b)
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_1            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+
+				-- state "FETCH_RX_DWORD_3"
+				when FETCH_RX_DWORD_3 =>
+					-- fetch rx dword data 1 (32b)
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_2            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+
+				-- state "FETCH_RX_DWORD_4"
+				when FETCH_RX_DWORD_4 =>
+					-- fetch rx dword data 1 (32b)
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_3            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+
+				-- state "FETCH_RX_DWORD_5"
+				when FETCH_RX_DWORD_5 =>
+					-- fetch rx dword data 1 (32b)
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_4            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+
+				-- state "FETCH_RX_DWORD_6"
+				when FETCH_RX_DWORD_6 =>
+					-- fetch rx dword data 1 (32b)
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_5            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+
+				-- state "FETCH_RX_DWORD_7"
+				when FETCH_RX_DWORD_7 =>
+					-- fetch rx dword data 1 (32b)
+					-- default output signals
+					rx_dc_data_fifo_rdreq_o <= '1';
+					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_6            <= rx_dc_data_fifo_rddata_data_i;
+				-- conditional output signals
+
 				-- state "FETCH_DELAY"
 				when FETCH_DELAY =>
 					-- fetch delay
@@ -235,9 +385,9 @@ begin
 					buffer_data_loaded_o    <= '0';
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
-					s_rx_dword_1            <= rx_dc_data_fifo_rddata_data_i;
+					s_rx_dword_7            <= rx_dc_data_fifo_rddata_data_i;
 				-- conditional output signals
-				
+
 				-- state "LONG_FETCH_DELAY"
 				when LONG_FETCH_DELAY =>
 					-- fetch delay
@@ -248,15 +398,21 @@ begin
 					buffer_wrreq_o          <= '0';
 				-- conditional output signals
 
-				-- state "WRITE_RX_QWORD"
-				when WRITE_RX_QWORD =>
-					-- write rx qword data (64b)
+				-- state "WRITE_RX_QQWORD"
+				when WRITE_RX_QQWORD =>
+					-- write rx qqword data (256b)
 					-- default output signals
-					rx_dc_data_fifo_rdreq_o       <= '0';
-					buffer_data_loaded_o          <= '0';
-					buffer_wrdata_o(31 downto 0)  <= s_rx_dword_0;
-					buffer_wrdata_o(63 downto 32) <= s_rx_dword_1;
-					buffer_wrreq_o                <= '1';
+					rx_dc_data_fifo_rdreq_o         <= '0';
+					buffer_data_loaded_o            <= '0';
+					buffer_wrdata_o(31 downto 0)    <= s_rx_dword_0;
+					buffer_wrdata_o(63 downto 32)   <= s_rx_dword_1;
+					buffer_wrdata_o(95 downto 64)   <= s_rx_dword_2;
+					buffer_wrdata_o(127 downto 96)  <= s_rx_dword_3;
+					buffer_wrdata_o(159 downto 128) <= s_rx_dword_4;
+					buffer_wrdata_o(191 downto 160) <= s_rx_dword_5;
+					buffer_wrdata_o(223 downto 192) <= s_rx_dword_6;
+					buffer_wrdata_o(255 downto 224) <= s_rx_dword_7;
+					buffer_wrreq_o                  <= '1';
 				-- conditional output signals
 
 				-- state "WRITE_DELAY"
@@ -269,6 +425,12 @@ begin
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
 					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 				-- conditional output signals
 
 				-- state "CHANGE_BUFFER"
@@ -281,6 +443,12 @@ begin
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
 					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
 					-- conditional output signals
 
 			end case;

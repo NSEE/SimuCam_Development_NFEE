@@ -13,7 +13,7 @@ entity ftdi_tx_data_avalon_mm_write_ent is
 		buffer_wrready_i         : in  std_logic;
 		ftdi_tx_data_avalon_mm_o : out t_ftdi_tx_data_avalon_mm_write_out;
 		buffer_data_loaded_o     : out std_logic;
-		buffer_wrdata_o          : out std_logic_vector(63 downto 0);
+		buffer_wrdata_o          : out std_logic_vector(255 downto 0);
 		buffer_wrreq_o           : out std_logic
 	);
 end entity ftdi_tx_data_avalon_mm_write_ent;
@@ -57,7 +57,7 @@ begin
 			case (write_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 1023 =>
+				when 0 to 255 =>
 
 					-- check if the rx data buffer is ready to be written and not full
 					if ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0')) then

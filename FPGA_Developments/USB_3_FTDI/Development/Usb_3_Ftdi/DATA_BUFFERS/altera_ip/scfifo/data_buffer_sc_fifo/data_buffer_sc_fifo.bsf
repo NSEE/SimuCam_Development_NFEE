@@ -26,8 +26,8 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 0 48)
 		(input)
-		(text "data[63..0]" (rect 0 0 60 14)(font "Arial" (font_size 8)))
-		(text "data[63..0]" (rect 20 41 69 54)(font "Arial" (font_size 8)))
+		(text "data[255..0]" (rect 0 0 67 14)(font "Arial" (font_size 8)))
+		(text "data[255..0]" (rect 20 41 75 54)(font "Arial" (font_size 8)))
 		(line (pt 0 48)(pt 16 48)(line_width 3))
 	)
 	(port
@@ -68,8 +68,8 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 176 48)
 		(output)
-		(text "q[63..0]" (rect 0 0 42 14)(font "Arial" (font_size 8)))
-		(text "q[63..0]" (rect 121 41 155 54)(font "Arial" (font_size 8)))
+		(text "q[255..0]" (rect 0 0 49 14)(font "Arial" (font_size 8)))
+		(text "q[255..0]" (rect 115 41 155 54)(font "Arial" (font_size 8)))
 		(line (pt 176 48)(pt 160 48)(line_width 3))
 	)
 	(port
@@ -89,12 +89,12 @@ refer to the applicable agreement for further details.
 	(port
 		(pt 176 104)
 		(output)
-		(text "usedw[9..0]" (rect 0 0 68 14)(font "Arial" (font_size 8)))
-		(text "usedw[9..0]" (rect 99 97 155 110)(font "Arial" (font_size 8)))
+		(text "usedw[7..0]" (rect 0 0 68 14)(font "Arial" (font_size 8)))
+		(text "usedw[7..0]" (rect 99 97 155 110)(font "Arial" (font_size 8)))
 		(line (pt 176 104)(pt 160 104)(line_width 3))
 	)
 	(drawing
-		(text "64 bits x 1024 words" (rect 73 149 230 309)(font "Arial" ))
+		(text "256 bits x 256 words" (rect 73 149 230 309)(font "Arial" ))
 		(line (pt 16 124)(pt 160 124))
 		(line (pt 16 32)(pt 160 32))
 		(line (pt 160 32)(pt 160 185))

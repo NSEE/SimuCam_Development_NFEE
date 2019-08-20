@@ -73,7 +73,7 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  29 .quartus_project_dir 00000048  00000000  00000000  00096f6c  2**0
                   CONTENTS, READONLY
- 30 .sopcinfo     001e35ca  00000000  00000000  00096fb4  2**0
+ 30 .sopcinfo     001e35d7  00000000  00000000  00096fb4  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 86020000 l    d  .entry	00000000 .entry
@@ -8718,10 +8718,10 @@ int main() {
 	alt_u32 uliAddrCnt = 0;
 80204c28:	e03ff815 	stw	zero,-32(fp)
 
-//	const alt_u32 cuiBuffTimes = 12800;
-	const alt_u32 cuiBuffTimes = 2544;
-80204c2c:	00827c04 	movi	r2,2544
+	const alt_u32 cuiBuffTimes = 12800;
+80204c2c:	008c8004 	movi	r2,12800
 80204c30:	e0bffb15 	stw	r2,-20(fp)
+//	const alt_u32 cuiBuffTimes = 2703;
 
 	// Clear Memory
 	pulliDdr2Mem = (alt_u64 *)DDR2_EXT_ADDR_WINDOWED_BASE;
@@ -8738,8 +8738,8 @@ int main() {
 80204c4c:	e0bff717 	ldw	r2,-36(fp)
 80204c50:	10800204 	addi	r2,r2,8
 80204c54:	e0bff715 	stw	r2,-36(fp)
-//	const alt_u32 cuiBuffTimes = 12800;
-	const alt_u32 cuiBuffTimes = 2544;
+	const alt_u32 cuiBuffTimes = 12800;
+//	const alt_u32 cuiBuffTimes = 2703;
 
 	// Clear Memory
 	pulliDdr2Mem = (alt_u64 *)DDR2_EXT_ADDR_WINDOWED_BASE;

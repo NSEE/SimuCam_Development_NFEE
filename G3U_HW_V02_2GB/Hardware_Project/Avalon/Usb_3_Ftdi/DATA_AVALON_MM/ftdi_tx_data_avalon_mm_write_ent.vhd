@@ -13,7 +13,7 @@ entity ftdi_tx_data_avalon_mm_write_ent is
 		buffer_wrready_i         : in  std_logic;
 		ftdi_tx_data_avalon_mm_o : out t_ftdi_tx_data_avalon_mm_write_out;
 		buffer_data_loaded_o     : out std_logic;
-		buffer_wrdata_o          : out std_logic_vector(63 downto 0);
+		buffer_wrdata_o          : out std_logic_vector(255 downto 0);
 		buffer_wrreq_o           : out std_logic
 	);
 end entity ftdi_tx_data_avalon_mm_write_ent;

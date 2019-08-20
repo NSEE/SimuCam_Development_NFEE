@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.08.19.07:13:32 -->
+ <!-- 2019.08.19.18:21:43 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1566209611</value>
+  <value>1566249703</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1242,7 +1242,7 @@ parameters are a RESULT of the module parameters. -->
  <module
    name="USB_3_FTDI_0"
    kind="USB_3_FTDI"
-   version="1.3"
+   version="1.4"
    path="USB_3_FTDI_0">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
@@ -2177,7 +2177,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_data_address</name>
     <direction>Input</direction>
-    <width>10</width>
+    <width>8</width>
     <role>address</role>
    </port>
    <port>
@@ -2195,13 +2195,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>avalon_slave_data_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
     <name>avalon_slave_data_readdata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -9894,11 +9894,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>512</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -9994,7 +9994,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -10026,7 +10026,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>512</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -10625,13 +10625,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -10948,13 +10948,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -11915,11 +11915,11 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_FIFO_DEPTH</name>
-   <value>512</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DATA_WIDTH</name>
-   <value>64</value>
+   <value>256</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
@@ -12015,7 +12015,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12047,7 +12047,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DATA_FIFO_DEPTH">
    <type>int</type>
-   <value>512</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -12646,13 +12646,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_read_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -12961,13 +12961,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
     <name>mm_write_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -61791,7 +61791,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1566209611</value>
+   <value>1566249703</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -61811,7 +61811,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1566209611</value>
+   <value>1566249703</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -61827,7 +61827,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1566209611</value>
+   <value>1566249703</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -71487,7 +71487,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>FTDI_UMFT601A_Module</displayName>
-  <version>1.3</version>
+  <version>1.4</version>
  </plugin>
  <plugin>
   <instanceCount>3</instanceCount>

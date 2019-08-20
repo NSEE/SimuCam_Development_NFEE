@@ -17,7 +17,7 @@ FUNCTION data_buffer_sc_fifo
 (
 	aclr,
 	clock,
-	data[63..0],
+	data[255..0],
 	rdreq,
 	sclr,
 	wrreq
@@ -26,6 +26,6 @@ FUNCTION data_buffer_sc_fifo
 RETURNS (
 	empty,
 	full,
-	q[63..0],
-	usedw[9..0]
+	q[255..0],
+	usedw[7..0]
 );

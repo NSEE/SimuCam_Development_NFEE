@@ -1912,7 +1912,7 @@
    kind="SEVEN_SEGMENT_CONTROLLER"
    version="1.0"
    enabled="1" />
- <module name="USB_3_FTDI_0" kind="USB_3_FTDI" version="1.3" enabled="1" />
+ <module name="USB_3_FTDI_0" kind="USB_3_FTDI" version="1.4" enabled="1" />
  <module name="altpll_clk400" kind="altpll" version="18.1" enabled="0">
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_INCLK_INTERFACE_CLOCK_RATE" value="50000000" />
@@ -2227,8 +2227,8 @@
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="512" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_FIFO_DEPTH" value="128" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
@@ -2270,8 +2270,8 @@
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
   <parameter name="CHANNEL_WIDTH" value="8" />
-  <parameter name="DATA_FIFO_DEPTH" value="512" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="DATA_FIFO_DEPTH" value="128" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />

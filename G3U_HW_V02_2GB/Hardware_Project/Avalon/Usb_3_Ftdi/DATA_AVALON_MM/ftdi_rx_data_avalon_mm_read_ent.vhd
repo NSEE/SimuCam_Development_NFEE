@@ -10,7 +10,7 @@ entity ftdi_rx_data_avalon_mm_read_ent is
 		rst_i                    : in  std_logic;
 		ftdi_rx_data_avalon_mm_i : in  t_ftdi_rx_data_avalon_mm_read_in;
 		buffer_stat_empty_i      : in  std_logic;
-		buffer_rddata_i          : in  std_logic_vector(63 downto 0);
+		buffer_rddata_i          : in  std_logic_vector(255 downto 0);
 		buffer_rdready_i         : in  std_logic;
 		ftdi_rx_data_avalon_mm_o : out t_ftdi_rx_data_avalon_mm_read_out;
 		buffer_rdreq_o           : out std_logic;

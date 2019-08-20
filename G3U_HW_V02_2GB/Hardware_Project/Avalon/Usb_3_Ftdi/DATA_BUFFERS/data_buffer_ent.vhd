@@ -12,8 +12,8 @@ entity data_buffer_ent is
 		double_buffer_start_i      : in  std_logic;
 		-- others
 		buffer_data_loaded_i       : in  std_logic;
-		buffer_cfg_length_i        : in  std_logic_vector(10 downto 0);
-		buffer_wrdata_i            : in  std_logic_vector(63 downto 0);
+		buffer_cfg_length_i        : in  std_logic_vector(8 downto 0);
+		buffer_wrdata_i            : in  std_logic_vector(255 downto 0);
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
 		buffer_change_i            : in  std_logic;
@@ -23,7 +23,7 @@ entity data_buffer_ent is
 		buffer_stat_almost_full_o  : out std_logic;
 		buffer_stat_empty_o        : out std_logic;
 		buffer_stat_full_o         : out std_logic;
-		buffer_rddata_o            : out std_logic_vector(63 downto 0);
+		buffer_rddata_o            : out std_logic_vector(255 downto 0);
 		buffer_rdready_o           : out std_logic;
 		buffer_wrready_o           : out std_logic
 	);
@@ -33,14 +33,14 @@ architecture RTL of data_buffer_ent is
 
 	-- data fifo record type
 	type t_data_fifo is record
-		data  : std_logic_vector(63 downto 0);
+		data  : std_logic_vector(255 downto 0);
 		rdreq : std_logic;
 		sclr  : std_logic;
 		wrreq : std_logic;
 		empty : std_logic;
 		full  : std_logic;
-		q     : std_logic_vector(63 downto 0);
-		usedw : std_logic_vector(9 downto 0);
+		q     : std_logic_vector(255 downto 0);
+		usedw : std_logic_vector(7 downto 0);
 	end record t_data_fifo;
 
 	-- data fifo 0 signals
