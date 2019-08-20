@@ -145,9 +145,9 @@ begin
 
 			-- Logic for normal pulse
 			-- check if this falg can be triggered
-			if (unsigned(int_watch_i.sync_number_of_cycles) > 1) then
+			if (unsigned(int_watch_i.sync_number_of_cycles) > 2) then
 				-- flag can be triggered
-				-- Activate normal pulse flag if: sync wave is at blank level and sync cycle number is between 0 (master) and (sync number of cicles - 1) (pre-master)
+				-- Activate normal pulse flag if: sync wave is at blank level and sync cycle number is between 0 (master) and (sync number of cicles - 1) (last)
 				if ((int_watch_i.sync_wave_watch = int_watch_i.sync_pol_watch) and (unsigned(int_watch_i.sync_cycle_number) > 0) and (unsigned(int_watch_i.sync_cycle_number) < (unsigned(int_watch_i.sync_number_of_cycles) - 1))) then
 					s_int_flag.normal_pulse_int_flag <= '1';
 				else
@@ -168,28 +168,28 @@ begin
 				s_int_flag_edge_triggered.normal_pulse_int_flag <= '0';
 			end if;
 
-			-- Logic for pre-master pulse
+			-- Logic for last pulse
 			-- check if this falg can be triggered
-			if (unsigned(int_watch_i.sync_number_of_cycles) > 2) then
+			if (unsigned(int_watch_i.sync_number_of_cycles) > 1) then
 				-- flag can be triggered
-				-- Activate blank pre-master flag if: sync wave is at blank level and sync cycle number is at (sync number of cicles - 1) (pre-master)
+				-- Activate blank last flag if: sync wave is at blank level and sync cycle number is at (sync number of cicles - 1) (last)
 				if ((int_watch_i.sync_wave_watch = int_watch_i.sync_pol_watch) and (unsigned(int_watch_i.sync_cycle_number) = (unsigned(int_watch_i.sync_number_of_cycles) - 1))) then
-					s_int_flag.pre_master_pulse_int_flag <= '1';
+					s_int_flag.last_pulse_int_flag <= '1';
 				else
-					s_int_flag.pre_master_pulse_int_flag <= '0';
+					s_int_flag.last_pulse_int_flag <= '0';
 				end if;
 				-- Set and clear flag
 				-- Check if flag was triggered and is enabled
-				if ((s_int_flag_delayed.pre_master_pulse_int_flag = '0') and (s_int_flag.pre_master_pulse_int_flag = '1') and (int_enable_i.pre_master_pulse_int_enable = '1')) then
-					s_int_flag_edge_triggered.pre_master_pulse_int_flag <= '1';
+				if ((s_int_flag_delayed.last_pulse_int_flag = '0') and (s_int_flag.last_pulse_int_flag = '1') and (int_enable_i.last_pulse_int_enable = '1')) then
+					s_int_flag_edge_triggered.last_pulse_int_flag <= '1';
 				end if;
 				-- check if a flag clear was issued
-				if (int_flag_clear_i.pre_master_pulse_int_flag_clear = '1') then
-					s_int_flag_edge_triggered.pre_master_pulse_int_flag <= '0';
+				if (int_flag_clear_i.last_pulse_int_flag_clear = '1') then
+					s_int_flag_edge_triggered.last_pulse_int_flag <= '0';
 				end if;
 			else
 				-- flag cannot be triggered
-				s_int_flag.pre_master_pulse_int_flag            <= '0';
+				s_int_flag.last_pulse_int_flag                  <= '0';
 				s_int_flag_edge_triggered.normal_pulse_int_flag <= '0';
 			end if;
 
@@ -200,7 +200,7 @@ begin
 	end process p_sync_int;
 
 	-- generate irq_o
-	irq_o <= (g_SYNC_DEFAULT_IRQ_POLARITY) when ((s_int_flag_edge_triggered.error_int_flag = '1') or (s_int_flag_edge_triggered.blank_pulse_int_flag = '1') or (s_int_flag_edge_triggered.master_pulse_int_flag = '1') or (s_int_flag_edge_triggered.normal_pulse_int_flag = '1') or (s_int_flag_edge_triggered.pre_master_pulse_int_flag = '1')) else (not g_SYNC_DEFAULT_IRQ_POLARITY);
+	irq_o <= (g_SYNC_DEFAULT_IRQ_POLARITY) when ((s_int_flag_edge_triggered.error_int_flag = '1') or (s_int_flag_edge_triggered.blank_pulse_int_flag = '1') or (s_int_flag_edge_triggered.master_pulse_int_flag = '1') or (s_int_flag_edge_triggered.normal_pulse_int_flag = '1') or (s_int_flag_edge_triggered.last_pulse_int_flag = '1')) else (not g_SYNC_DEFAULT_IRQ_POLARITY);
 
 	-- update int_flag_o
 	int_flag_o <= s_int_flag_edge_triggered;

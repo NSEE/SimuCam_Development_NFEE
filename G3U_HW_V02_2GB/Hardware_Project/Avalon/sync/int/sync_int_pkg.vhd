@@ -53,27 +53,27 @@ package sync_int_pkg is
 	constant c_SYNC_DEFAULT_IRQ_POLARITY : std_logic := '1';
 
 	type t_sync_int_enable is record
-		error_int_enable            : std_logic;
-		blank_pulse_int_enable      : std_logic;
-		master_pulse_int_enable     : std_logic;
-		normal_pulse_int_enable     : std_logic;
-		pre_master_pulse_int_enable : std_logic;
+		error_int_enable        : std_logic;
+		blank_pulse_int_enable  : std_logic;
+		master_pulse_int_enable : std_logic;
+		normal_pulse_int_enable : std_logic;
+		last_pulse_int_enable   : std_logic;
 	end record t_sync_int_enable;
 
 	type t_sync_int_flag_clear is record
-		error_int_flag_clear            : std_logic;
-		blank_pulse_int_flag_clear      : std_logic;
-		master_pulse_int_flag_clear     : std_logic;
-		normal_pulse_int_flag_clear     : std_logic;
-		pre_master_pulse_int_flag_clear : std_logic;
+		error_int_flag_clear        : std_logic;
+		blank_pulse_int_flag_clear  : std_logic;
+		master_pulse_int_flag_clear : std_logic;
+		normal_pulse_int_flag_clear : std_logic;
+		last_pulse_int_flag_clear   : std_logic;
 	end record t_sync_int_flag_clear;
 
 	type t_sync_int_flag is record
-		error_int_flag            : std_logic;
-		blank_pulse_int_flag      : std_logic;
-		master_pulse_int_flag     : std_logic;
-		normal_pulse_int_flag     : std_logic;
-		pre_master_pulse_int_flag : std_logic;
+		error_int_flag        : std_logic;
+		blank_pulse_int_flag  : std_logic;
+		master_pulse_int_flag : std_logic;
+		normal_pulse_int_flag : std_logic;
+		last_pulse_int_flag   : std_logic;
 	end record t_sync_int_flag;
 
 	type t_sync_int_watch is record

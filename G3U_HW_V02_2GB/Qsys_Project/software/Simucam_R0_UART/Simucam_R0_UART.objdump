@@ -49,31 +49,31 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  17 .debug_ranges 000022d8  00000000  00000000  000bf3d0  2**3
                   CONTENTS, READONLY, DEBUGGING
- 18 .thread_model 00000006  00000000  00000000  000cdb0d  2**0
+ 18 .thread_model 00000006  00000000  00000000  000cdafd  2**0
                   CONTENTS, READONLY
- 19 .cpu          0000000c  00000000  00000000  000cdb13  2**0
+ 19 .cpu          0000000c  00000000  00000000  000cdb03  2**0
                   CONTENTS, READONLY
- 20 .qsys         00000001  00000000  00000000  000cdb1f  2**0
+ 20 .qsys         00000001  00000000  00000000  000cdb0f  2**0
                   CONTENTS, READONLY
- 21 .simulation_enabled 00000001  00000000  00000000  000cdb20  2**0
+ 21 .simulation_enabled 00000001  00000000  00000000  000cdb10  2**0
                   CONTENTS, READONLY
- 22 .sysid_hash   00000004  00000000  00000000  000cdb21  2**0
+ 22 .sysid_hash   00000004  00000000  00000000  000cdb11  2**0
                   CONTENTS, READONLY
- 23 .sysid_base   00000004  00000000  00000000  000cdb25  2**0
+ 23 .sysid_base   00000004  00000000  00000000  000cdb15  2**0
                   CONTENTS, READONLY
- 24 .sysid_time   00000004  00000000  00000000  000cdb29  2**0
+ 24 .sysid_time   00000004  00000000  00000000  000cdb19  2**0
                   CONTENTS, READONLY
- 25 .stderr_dev   0000000b  00000000  00000000  000cdb2d  2**0
+ 25 .stderr_dev   0000000b  00000000  00000000  000cdb1d  2**0
                   CONTENTS, READONLY
- 26 .stdin_dev    0000000a  00000000  00000000  000cdb38  2**0
+ 26 .stdin_dev    0000000a  00000000  00000000  000cdb28  2**0
                   CONTENTS, READONLY
- 27 .stdout_dev   0000000a  00000000  00000000  000cdb42  2**0
+ 27 .stdout_dev   0000000a  00000000  00000000  000cdb32  2**0
                   CONTENTS, READONLY
- 28 .sopc_system_name 00000011  00000000  00000000  000cdb4c  2**0
+ 28 .sopc_system_name 00000011  00000000  00000000  000cdb3c  2**0
                   CONTENTS, READONLY
- 29 .quartus_project_dir 00000053  00000000  00000000  000cdb5d  2**0
+ 29 .quartus_project_dir 00000053  00000000  00000000  000cdb4d  2**0
                   CONTENTS, READONLY
- 30 .sopcinfo     00231a3e  00000000  00000000  000cdbb0  2**0
+ 30 .sopcinfo     00231a3e  00000000  00000000  000cdba0  2**0
                   CONTENTS, READONLY
 SYMBOL TABLE:
 86020000 l    d  .entry	00000000 .entry
@@ -523,13 +523,13 @@ SYMBOL TABLE:
 811296d4 g     F .text	000015f8 _strtod_r
 81144ee0 g     O .bss	00000004 xSemCountSenderACK
 8111ab6c g     F .text	00000440 .hidden __divsf3
-81109444 g     F .text	00000034 bSyncIrqFlagClrPreMasterPulse
 81144ff0 g     O .bss	00000004 current_sector_modified
 81144d78 g     O .rwdata	00000002 OSDataSize
 81144f8c g     O .bss	00000001 OSRunning
 81107580 g     F .text	00000148 bSpwcInitCh
 81147fe0 g     O .bss	00001000 senderTask_stk
 811060a8 g     F .text	00000054 bRmapGetMemConfigStat
+811094d8 g     F .text	00000014 bSyncIrqFlagLastPulse
 81144ee4 g     O .bss	00000004 fp
 81148fe0 g     O .bss	00000100 xNfeeScheduleTBL
 8110f9a0 g     F .text	0000010c bCheckInAck128
@@ -793,7 +793,6 @@ SYMBOL TABLE:
 8113bd08 g     F .text	00000050 alt_msgdma_construct_prefetcher_standard_st_to_mm_descriptor
 81144db2 g     O .rwdata	00000002 OSQSize
 8112f784 g     F .text	00000538 .hidden __umoddi3
-811094d8 g     F .text	00000014 bSyncIrqFlagPreMasterPulse
 8113189c g     F .text	00000090 lseek
 81135a6c g     F .text	00000140 OSSemPend
 8111985c g     F .text	00000064 vCouldNotGetCmdQueueMeb
@@ -1221,6 +1220,7 @@ SYMBOL TABLE:
 8110b760 g     F .text	0000030c vLoadCtemp
 81108f0c g     F .text	00000014 bSyncSetPer
 811001f0 g     F .text	0000038c bDdr2EepromTest
+81109340 g     F .text	00000034 bSyncIrqEnableLastPulse
 81145010 g     O .bss	00000004 status_register
 81144d88 g     O .rwdata	00000002 OSTmrCfgMax
 81109374 g     F .text	00000034 bSyncIrqFlagClrError
@@ -1502,7 +1502,6 @@ SYMBOL TABLE:
 8115d668 g     O .bss	00000d00 OSEventTbl
 8111a0d8 g     F .text	00000004 vFeeSpwRMAPChangeDefault
 8111b5bc g     F .text	000000dc .hidden __gedf2
-81109340 g     F .text	00000034 bSyncIrqEnablePreMasterPulse
 81119bbc g     F .text	0000003c vFailSendMsgSyncRMAPTRIGGER
 81159224 g     O .bss	00000020 xSenderACK
 8113cd84 g     F .text	00000020 alt_putchar
@@ -1577,6 +1576,7 @@ SYMBOL TABLE:
 81115870 g     F .text	000000a4 vSendTurnOff
 81118304 g     F .text	00000040 vFailSendPreParsedSemaphore
 81138044 g     F .text	0000010c match_file_record_to_name_ext
+81109444 g     F .text	00000034 bSyncIrqFlagClrLastPulse
 8110b2a4 g     F .text	000000d4 vSetDoubleBufferLeftSize
 811326e4 g     F .text	0000001c OS_EventWaitListInit
 8112e348 g     F .text	00000080 fputwc
@@ -11672,14 +11672,14 @@ alt_after_alt_main:
 81109338:	00800044 	movi	r2,1
 8110933c:	f800283a 	ret
 
-81109340 <bSyncIrqEnablePreMasterPulse>:
+81109340 <bSyncIrqEnableLastPulse>:
 81109340:	00a00034 	movhi	r2,32768
 81109344:	10810104 	addi	r2,r2,1028
 81109348:	10800017 	ldw	r2,0(r2)
-8110934c:	2000031e 	bne	r4,zero,8110935c <bSyncIrqEnablePreMasterPulse+0x1c>
+8110934c:	2000031e 	bne	r4,zero,8110935c <bSyncIrqEnableLastPulse+0x1c>
 81109350:	00ffff84 	movi	r3,-2
 81109354:	10c4703a 	and	r2,r2,r3
-81109358:	00000106 	br	81109360 <bSyncIrqEnablePreMasterPulse+0x20>
+81109358:	00000106 	br	81109360 <bSyncIrqEnableLastPulse+0x20>
 8110935c:	10800054 	ori	r2,r2,1
 81109360:	00e00034 	movhi	r3,32768
 81109364:	18c10104 	addi	r3,r3,1028
@@ -11747,14 +11747,14 @@ alt_after_alt_main:
 8110943c:	00800044 	movi	r2,1
 81109440:	f800283a 	ret
 
-81109444 <bSyncIrqFlagClrPreMasterPulse>:
+81109444 <bSyncIrqFlagClrLastPulse>:
 81109444:	00a00034 	movhi	r2,32768
 81109448:	10810204 	addi	r2,r2,1032
 8110944c:	10800017 	ldw	r2,0(r2)
-81109450:	2000031e 	bne	r4,zero,81109460 <bSyncIrqFlagClrPreMasterPulse+0x1c>
+81109450:	2000031e 	bne	r4,zero,81109460 <bSyncIrqFlagClrLastPulse+0x1c>
 81109454:	00ffff84 	movi	r3,-2
 81109458:	10c4703a 	and	r2,r2,r3
-8110945c:	00000106 	br	81109464 <bSyncIrqFlagClrPreMasterPulse+0x20>
+8110945c:	00000106 	br	81109464 <bSyncIrqFlagClrLastPulse+0x20>
 81109460:	10800054 	ori	r2,r2,1
 81109464:	00e00034 	movhi	r3,32768
 81109468:	18c10204 	addi	r3,r3,1032
@@ -11794,7 +11794,7 @@ alt_after_alt_main:
 811094d0:	1080004c 	andi	r2,r2,1
 811094d4:	f800283a 	ret
 
-811094d8 <bSyncIrqFlagPreMasterPulse>:
+811094d8 <bSyncIrqFlagLastPulse>:
 811094d8:	00a00034 	movhi	r2,32768
 811094dc:	10810304 	addi	r2,r2,1036
 811094e0:	10800017 	ldw	r2,0(r2)

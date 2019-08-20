@@ -101,8 +101,8 @@ begin
 					avalon_mm_o.readdata(2)           <= mm_write_reg_i.int_enable_register.master_pulse_int_enable;
 					--     1- 1 : Normal pulse interrupt enable bit         [R/W]
 					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_enable_register.normal_pulse_int_enable;
-					--     0- 0 : Pre-Master pulse interrupt enable bit     [R/W]
-					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_enable_register.pre_master_pulse_int_enable;
+					--     0- 0 : Last pulse interrupt enable bit           [R/W]
+					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_enable_register.last_pulse_int_enable;
 
 				-- Interrupt flag clear register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS) =>
@@ -116,8 +116,8 @@ begin
 					avalon_mm_o.readdata(2)           <= mm_write_reg_i.int_flag_clear_register.master_pulse_int_flag_clear;
 					--     1- 1 : Normal pulse interrupt flag clear bit     [R/W]
 					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_flag_clear_register.normal_pulse_int_flag_clear;
-					--     0- 0 : Pre-Master pulse interrupt flag clear bit [R/W]
-					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_flag_clear_register.pre_master_pulse_int_flag_clear;
+					--     0- 0 : Last pulse interrupt flag clear bit       [R/W]
+					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_flag_clear_register.last_pulse_int_flag_clear;
 
 				-- Interrupt flag register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_REG_ADDRESS) =>
@@ -131,8 +131,8 @@ begin
 					avalon_mm_o.readdata(2)           <= mm_read_reg_i.int_flag_register.master_pulse_int_flag;
 					--     1- 1 : Normal pulse interrupt flag bit 		    [R/-]
 					avalon_mm_o.readdata(1)           <= mm_read_reg_i.int_flag_register.normal_pulse_int_flag;
-					--     0- 0 : Pre-Master pulse interrupt flag bit 		[R/-]
-					avalon_mm_o.readdata(0)           <= mm_read_reg_i.int_flag_register.pre_master_pulse_int_flag;
+					--     0- 0 : Last pulse interrupt flag bit 		[R/-]
+					avalon_mm_o.readdata(0)           <= mm_read_reg_i.int_flag_register.last_pulse_int_flag;
 
 				-- Master blank time register (32 bits):
 				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>

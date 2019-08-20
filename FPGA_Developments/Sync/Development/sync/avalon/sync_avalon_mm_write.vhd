@@ -89,17 +89,17 @@ begin
 		-- Sync registers reset procedure
 		procedure p_mm_reset_registers is
 		begin
-			mm_write_reg_o.int_enable_register.error_int_enable            <= '0';
-			mm_write_reg_o.int_enable_register.blank_pulse_int_enable      <= '0';
-			mm_write_reg_o.int_enable_register.master_pulse_int_enable     <= '0';
-			mm_write_reg_o.int_enable_register.normal_pulse_int_enable     <= '0';
-			mm_write_reg_o.int_enable_register.pre_master_pulse_int_enable <= '0';
+			mm_write_reg_o.int_enable_register.error_int_enable        <= '0';
+			mm_write_reg_o.int_enable_register.blank_pulse_int_enable  <= '0';
+			mm_write_reg_o.int_enable_register.master_pulse_int_enable <= '0';
+			mm_write_reg_o.int_enable_register.normal_pulse_int_enable <= '0';
+			mm_write_reg_o.int_enable_register.last_pulse_int_enable   <= '0';
 
-			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear            <= '0';
-			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear      <= '0';
-			mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear     <= '0';
-			mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear     <= '0';
-			mm_write_reg_o.int_flag_clear_register.pre_master_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear        <= '0';
+			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear  <= '0';
+			mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.last_pulse_int_flag_clear   <= '0';
 
 			mm_write_reg_o.config_register.master_blank_time        <= (others => '0');
 			mm_write_reg_o.config_register.blank_time               <= (others => '0');
@@ -131,15 +131,15 @@ begin
 		-- Sync control triggers reset procedure
 		procedure p_mm_control_triggers is
 		begin
-			mm_write_reg_o.control_register.start                                  <= '0';
-			mm_write_reg_o.control_register.reset                                  <= '0';
-			mm_write_reg_o.control_register.one_shot                               <= '0';
-			mm_write_reg_o.control_register.err_inj                                <= '0';
-			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear            <= '0';
-			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear      <= '0';
-			mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear     <= '0';
-			mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear     <= '0';
-			mm_write_reg_o.int_flag_clear_register.pre_master_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.control_register.start                              <= '0';
+			mm_write_reg_o.control_register.reset                              <= '0';
+			mm_write_reg_o.control_register.one_shot                           <= '0';
+			mm_write_reg_o.control_register.err_inj                            <= '0';
+			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear        <= '0';
+			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear  <= '0';
+			mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.last_pulse_int_flag_clear   <= '0';
 		end procedure p_mm_control_triggers;
 
 		-- Sync writedata procedure
@@ -150,29 +150,29 @@ begin
 				when (c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS) =>
 					--    31- 5 : Reserved	                                [-/-]
 					--     4- 4 : Error interrupt enable bit                [R/W]
-					mm_write_reg_o.int_enable_register.error_int_enable            <= avalon_mm_i.writedata(4);
+					mm_write_reg_o.int_enable_register.error_int_enable        <= avalon_mm_i.writedata(4);
 					--     3- 3 : Blank pulse interrupt enable bit          [R/W]
-					mm_write_reg_o.int_enable_register.blank_pulse_int_enable      <= avalon_mm_i.writedata(3);
+					mm_write_reg_o.int_enable_register.blank_pulse_int_enable  <= avalon_mm_i.writedata(3);
 					--     2- 2 : Master pulse interrupt enable bit         [R/W]
-					mm_write_reg_o.int_enable_register.master_pulse_int_enable     <= avalon_mm_i.writedata(2);
+					mm_write_reg_o.int_enable_register.master_pulse_int_enable <= avalon_mm_i.writedata(2);
 					--     1- 1 : Normal pulse interrupt enable bit         [R/W]
-					mm_write_reg_o.int_enable_register.normal_pulse_int_enable     <= avalon_mm_i.writedata(1);
-					--     0- 0 : Pre-Master pulse interrupt enable bit     [R/W]
-					mm_write_reg_o.int_enable_register.pre_master_pulse_int_enable <= avalon_mm_i.writedata(0);
+					mm_write_reg_o.int_enable_register.normal_pulse_int_enable <= avalon_mm_i.writedata(1);
+					--     0- 0 : Last pulse interrupt enable bit			[R/W]
+					mm_write_reg_o.int_enable_register.last_pulse_int_enable   <= avalon_mm_i.writedata(0);
 
 				-- Interrupt flag clear register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS) =>
 					--    31- 5 : Reserved	                                [-/-]
 					--     4- 4 : Error interrupt flag clear bit            [R/W]
-					mm_write_reg_o.int_flag_clear_register.error_int_flag_clear            <= avalon_mm_i.writedata(4);
+					mm_write_reg_o.int_flag_clear_register.error_int_flag_clear        <= avalon_mm_i.writedata(4);
 					--     3- 3 : Blank pulse interrupt flag clear bit      [R/W]
-					mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear      <= avalon_mm_i.writedata(3);
+					mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear  <= avalon_mm_i.writedata(3);
 					--     2- 2 : Master Pulse interrupt flag clear bit     [R/W]
-					mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear     <= avalon_mm_i.writedata(2);
+					mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear <= avalon_mm_i.writedata(2);
 					--     1- 1 : Normal pulse interrupt flag clear bit     [R/W]
-					mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear     <= avalon_mm_i.writedata(1);
-					--     0- 0 : Pre-Master pulse interrupt flag clear bit [R/W]
-					mm_write_reg_o.int_flag_clear_register.pre_master_pulse_int_flag_clear <= avalon_mm_i.writedata(0);
+					mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear <= avalon_mm_i.writedata(1);
+					--     0- 0 : Last pulse interrupt flag clear bit		[R/W]
+					mm_write_reg_o.int_flag_clear_register.last_pulse_int_flag_clear   <= avalon_mm_i.writedata(0);
 
 				-- Master blank time register (32 bits):
 				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>

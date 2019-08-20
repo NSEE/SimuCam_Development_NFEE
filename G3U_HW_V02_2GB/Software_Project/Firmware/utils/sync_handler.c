@@ -100,7 +100,6 @@ bool bInitSync( void ) {
 	bSyncCtrReset();
 	bSyncIrqEnableBlankPulse(TRUE);
 
-
 	return bSuccess;
 }
 

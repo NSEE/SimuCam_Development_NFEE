@@ -44,19 +44,19 @@
 #define SYNC_IRQ_ENABLE_BLANK_MSK       0x00000008
 #define SYNC_IRQ_ENABLE_MASTER_MSK      0x00000004
 #define SYNC_IRQ_ENABLE_NORMAL_MSK      0x00000002
-#define SYNC_IRQ_ENABLE_PMASTER_MSK     0x00000001
+#define SYNC_IRQ_ENABLE_LAST_MSK        0x00000001
 
 #define SYNC_IRQ_FLAG_CLR_ERROR_MSK     0x00000010
 #define SYNC_IRQ_FLAG_CLR_BLANK_MSK     0x00000008
 #define SYNC_IRQ_FLAG_CLR_MASTER_MSK    0x00000004
 #define SYNC_IRQ_FLAG_CLR_NORMAL_MSK    0x00000002
-#define SYNC_IRQ_FLAG_CLR_PMASTER_MSK   0x00000001
+#define SYNC_IRQ_FLAG_CLR_LAST_MSK      0x00000001
 
 #define SYNC_IRQ_FLAG_ERROR_MSK         0x00000010
 #define SYNC_IRQ_FLAG_BLANK_MSK         0x00000008
 #define SYNC_IRQ_FLAG_MASTER_MSK        0x00000004
 #define SYNC_IRQ_FLAG_NORMAL_MSK        0x00000002
-#define SYNC_IRQ_FLAG_PMASTER_MSK       0x00000001
+#define SYNC_IRQ_FLAG_LAST_MSK          0x00000001
 
 #define SYNC_CONFIG_GEN_POLARITY_MSK    0x00000100
 #define SYNC_CONFIG_GEN_N_CYCLES_MSK    0x000000FF
@@ -85,7 +85,7 @@ enum SyncIrqFlags {
 	eSyncIrqBlankPulseFlag,
 	eSyncIrqMasterPulseFlag,
 	eSyncIrqNormalPulseFlag,
-	eSyncIrqPreMasterPulseFlag
+	eSyncIrqLastPulseFlag
 } ESyncIrqFlags;
 
 typedef struct GeneralConfig {
@@ -129,19 +129,19 @@ bool bSyncIrqEnableError(bool bValue);
 bool bSyncIrqEnableBlankPulse(bool bValue);
 bool bSyncIrqEnableMasterPulse(bool bValue);
 bool bSyncIrqEnableNormalPulse(bool bValue);
-bool bSyncIrqEnablePreMasterPulse(bool bValue);
+bool bSyncIrqEnableLastPulse(bool bValue);
 
 bool bSyncIrqFlagClrError(bool bValue);
 bool bSyncIrqFlagClrBlankPulse(bool bValue);
 bool bSyncIrqFlagClrMasterPulse(bool bValue);
 bool bSyncIrqFlagClrNormalPulse(bool bValue);
-bool bSyncIrqFlagClrPreMasterPulse(bool bValue);
+bool bSyncIrqFlagClrLastPulse(bool bValue);
 
 bool bSyncIrqFlagError(void);
 bool bSyncIrqFlagBlankPulse(void);
 bool bSyncIrqFlagMasterPulse(void);
 bool bSyncIrqFlagNormalPulse(void);
-bool bSyncIrqFlagPreMasterPulse(void);
+bool bSyncIrqFlagLastPulse(void);
 
 bool bSyncSetMbt(alt_u32 uliValue);
 bool bSyncSetBt(alt_u32 uliValue);
