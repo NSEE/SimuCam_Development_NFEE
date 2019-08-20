@@ -74,7 +74,7 @@ OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
 
 void *xQueueSyncResetTBL[1];	//todo Change to define
-OS_EVENT *xQueueSyncReset;		/* bndky */
+OS_EVENT *xQueueSyncReset;		/* [bndky] */
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -133,7 +133,7 @@ OS_STK    vFeeTask3_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask4_stk[FEES_STACK_SIZE];
 OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
 /* -------------- Definition of Stacks------------------ */
-
+OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 
 /* --------------- Timers ------------------ */
 OS_TMR *xTimerRetransmission;

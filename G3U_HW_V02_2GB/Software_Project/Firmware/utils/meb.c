@@ -134,16 +134,20 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 
 
 /* Any mode */
-/* Synchronization Reset */
+/* Synchronization Reset [bndky] */
 void vSyncReset( unsigned short int ufSynchDelayL ) {
     INT8U iErrorCodeL = 0;
-
-    /* Increase task PRIO */
-    iErrorCodeL = OSTaskChangePrio(SYNC_RESET_LOW_PRIO , SYNC_RESET_HIGH_PRIO);
 
     /* Send message to task queue */
     OSQPost(xQueueSyncReset, &ufSynchDelayL);
 
-    /* Put all NFEE in Stand-by mode, if not in Config mode */
-    vSendCmdQToNFeeCTRL_PRIO(M_FEE_STANDBY, 0, 0); /* TODO verif usage */
+    /* Increase task PRIO TODO: Find a way to get the priorities */
+    iErrorCodeL = OSTaskChangePrio(SYNC_RESET_LOW_PRIO , SYNC_RESET_HIGH_PRIO);
+
+    if (iErrorCodeL == OS_ERR_NONE){
+        // TODO verify that this mode will be reached and will work appropriately
+        /* Put all NFEE in Stand-by mode, if not in Config mode */
+        vSendCmdQToNFeeCTRL_PRIO(M_FEE_STANDBY, 0, 0); /* TODO verif usage */
+    }
+    //TODO error condition?
 }

@@ -1376,6 +1376,910 @@
 					</entry>
 				</language>
 			</provider>
+			<provider id="altera.tool.Nios2GCCBuildCommandParser">
+				<language id="org.eclipse.cdt.core.gcc">
+					<resource project-relative-path="driver/sync/sync.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/ccd.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/events_handler.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/parser_comm_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="api_driver/dma/dma.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/reset/reset.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="api_driver/sense/sense.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/power_spi/power_spi.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/comm/comm_channel.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="api_driver/ddr2/ddr2.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/rtcc_spi/rtcc_spi.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/comm/spw_controller/spw_controller.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/ctrl_io_lvds/ctrl_io_lvds.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/test_module_simucam.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/error_handler_simucam.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/comm/rmap/rmap.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/comm/fee_buffers/fee_buffers.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/i2c/i2c.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/msgdma/msgdma.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/initialization_simucam.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/stack_monitor_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/sync_reset_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/data_control_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/leds/leds.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/fee_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="api_driver/simucam_dma/simucam_dma.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/meb.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/configs_simucam.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/in_ack_handler_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/initialization_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/communication_utils.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/fee.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/configs_bind_channel_FEEinst.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/sync_handler.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/sdcard_file_manager.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/pattern.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/out_ack_handler_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/fee_controller.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/util.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/receiver_uart_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/crc8.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="simucam_main.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/data_controller.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/sender_com_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/timeout_checker_ack_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="utils/log_manager_simucam.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/comm/data_packet/data_packet.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/sim_meb_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="rtos/nfee_control_task.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+					<resource project-relative-path="driver/seven_seg/seven_seg.c">
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/UCOSII/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/HAL/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="includePath" name="/Simucam_R0_UART_bsp/drivers/inc">
+							<flag value="VALUE_WORKSPACE_PATH|RESOLVED"/>
+						</entry>
+						<entry kind="macro" name="ALT_NO_C_PLUS_PLUS" value=""/>
+						<entry kind="macro" name="ALT_NO_INSTRUCTION_EMULATION" value=""/>
+						<entry kind="macro" name="__hal__" value=""/>
+						<entry kind="macro" name="__ucosii__" value=""/>
+					</resource>
+				</language>
+			</provider>
 		</extension>
 	</configuration>
 </project>

@@ -1,7 +1,7 @@
 /*
  ************************************************************************************************
  *                                              NSEE
- *                                             Address
+ *                                              IMT
  *
  *                                       All Rights Reserved
  *
@@ -24,6 +24,8 @@
 ************************************************************************************************
 */
 #include "../utils/configs_simucam.h"
+#include "../utils/meb.h"               /* To get task prio */
+#include "tasks_configurations.h"
 
 /*$PAGE*/
 
@@ -33,7 +35,9 @@
 ************************************************************************************************
 */
 
-extern xSemSyncReset;
+void vSyncResetTask(void *task_data);
+
+extern OS_EVENT *xQueueSyncReset;
 
 /*$PAGE*/
 

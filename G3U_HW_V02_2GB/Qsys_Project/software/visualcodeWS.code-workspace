@@ -10,7 +10,11 @@
 	"settings": {
 		"files.associations": {
 			"stdio.h": "c",
-			"sync_reset_task.h": "c"
+			"sync_reset_task.h": "c",
+			"tasks_configurations.h": "c",
+			"meb.h": "c",
+			"configs_simucam.h": "c",
+			"error_handler_simucam.h": "c"
 		}
 	}
 }

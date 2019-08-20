@@ -14,6 +14,8 @@
 #include "fee.h"
 #include "ccd.h"
 
+/* Used to get the priorities needed for the sync-reset function [bndky] */
+#include "../rtos/tasks_configurations.h"   
 
 
 /* Simucam operation modes */
@@ -41,6 +43,7 @@ typedef struct Simucam_MEB {
 } TSimucam_MEB;
 
 extern TSimucam_MEB xSimMeb;
+extern OS_EVENT *xQueueSyncReset;   /*[bndky]*/
 
 
 void vSimucamStructureInit( TSimucam_MEB *xMeb );
@@ -57,6 +60,6 @@ void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
 void vLoadDefaultAutoResetSync( TSimucam_MEB *xMeb );
 void vChangeAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
-void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay );
+void vSyncReset( unsigned short int ufSynchDelay );
 
 #endif /* MEB_H_ */
