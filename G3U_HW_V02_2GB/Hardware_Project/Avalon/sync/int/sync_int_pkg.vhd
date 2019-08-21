@@ -8,6 +8,7 @@ use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 --! Specific packages
 use work.sync_common_pkg.all;
+use work.sync_gen_pkg.all;
 -------------------------------------------------------------------------------
 -- --
 -- Maua Institute of Technology - Embedded Electronic Systems Nucleous --
@@ -49,48 +50,58 @@ use work.sync_common_pkg.all;
 --============================================================================
 package sync_int_pkg is
 
-	constant c_SYNC_DEFAULT_IRQ_POLARITY  : std_logic := '1';
-	
+	constant c_SYNC_DEFAULT_IRQ_POLARITY : std_logic := '1';
+
 	type t_sync_int_enable is record
-		error_int_enable			: std_logic;
-		blank_pulse_int_enable		: std_logic;
+		error_int_enable        : std_logic;
+		blank_pulse_int_enable  : std_logic;
+		master_pulse_int_enable : std_logic;
+		normal_pulse_int_enable : std_logic;
+		last_pulse_int_enable   : std_logic;
 	end record t_sync_int_enable;
 
 	type t_sync_int_flag_clear is record
-		error_int_flag_clear		: std_logic;
-		blank_pulse_int_flag_clear	: std_logic;
+		error_int_flag_clear        : std_logic;
+		blank_pulse_int_flag_clear  : std_logic;
+		master_pulse_int_flag_clear : std_logic;
+		normal_pulse_int_flag_clear : std_logic;
+		last_pulse_int_flag_clear   : std_logic;
 	end record t_sync_int_flag_clear;
 
 	type t_sync_int_flag is record
-		error_int_flag				: std_logic;
-		blank_pulse_int_flag		: std_logic;
+		error_int_flag        : std_logic;
+		blank_pulse_int_flag  : std_logic;
+		master_pulse_int_flag : std_logic;
+		normal_pulse_int_flag : std_logic;
+		last_pulse_int_flag   : std_logic;
 	end record t_sync_int_flag;
 
 	type t_sync_int_watch is record
-		error_code_watch			: std_logic_vector(7 downto 0);
-		sync_wave_watch				: std_logic;
-		sync_pol_watch				: std_logic;
+		error_code_watch      : std_logic_vector(7 downto 0);
+		sync_wave_watch       : std_logic;
+		sync_pol_watch        : std_logic;
+		sync_cycle_number     : std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);
+		sync_number_of_cycles : std_logic_vector((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0);
 	end record t_sync_int_watch;
 
---====================================
---! Component declaration for sync_int
---====================================
-component sync_int is
-	generic (
-		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY;		
-		g_SYNC_DEFAULT_IRQ_POLARITY  : std_logic := c_SYNC_DEFAULT_IRQ_POLARITY
-	);
-	port (
-		clk_i           	: in std_logic;
-		reset_n_i      		: in std_logic;
-		int_enable_i 		: in t_sync_int_enable;
-		int_flag_clear_i	: in t_sync_int_flag_clear;
-		int_watch_i			: in t_sync_int_watch; 
-		
-		int_flag_o 			: out t_sync_int_flag;
-		irq_o				: out std_logic
-	);
-end component sync_int;
+	--====================================
+	--! Component declaration for sync_int
+	--====================================
+	component sync_int is
+		generic(
+			g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY;
+			g_SYNC_DEFAULT_IRQ_POLARITY  : std_logic := c_SYNC_DEFAULT_IRQ_POLARITY
+		);
+		port(
+			clk_i            : in  std_logic;
+			reset_n_i        : in  std_logic;
+			int_enable_i     : in  t_sync_int_enable;
+			int_flag_clear_i : in  t_sync_int_flag_clear;
+			int_watch_i      : in  t_sync_int_watch;
+			int_flag_o       : out t_sync_int_flag;
+			irq_o            : out std_logic
+		);
+	end component sync_int;
 
 end package sync_int_pkg;
 

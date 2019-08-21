@@ -36,6 +36,10 @@ architecture rtl of avs_stimuli is
 	alias a_wr_reg_bit17		: std_logic is avalon_mm_writedata_o(17);
 	alias a_wr_reg_bit16		: std_logic is avalon_mm_writedata_o(16);
 	alias a_wr_reg_bit8			: std_logic is avalon_mm_writedata_o(8);
+	alias a_wr_reg_bit4			: std_logic is avalon_mm_writedata_o(4);
+	alias a_wr_reg_bit3			: std_logic is avalon_mm_writedata_o(3);
+	alias a_wr_reg_bit2			: std_logic is avalon_mm_writedata_o(2);
+	alias a_wr_reg_bit1			: std_logic is avalon_mm_writedata_o(1);
 	alias a_wr_reg_bit0			: std_logic is avalon_mm_writedata_o(0);
 
 begin
@@ -336,7 +340,7 @@ begin
 					-- Signal polarity = '0'
 					a_wr_reg_bit8			<= '0';
 					-- Number of cycles = 1
-					v_value					:= 1;
+					v_value					:= 4;
 					a_wr_reg_bits_7_0		<= std_logic_vector(to_unsigned(v_value,8));
 					avalon_mm_write_o   	<= '1';
 
@@ -376,6 +380,10 @@ begin
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- Blank pulse int enable
+					a_wr_reg_bit4			<= '1';
+					a_wr_reg_bit3			<= '1';
+					a_wr_reg_bit2			<= '1';
+					a_wr_reg_bit1			<= '1';
 					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 
@@ -393,15 +401,34 @@ begin
 					a_wr_reg_bit19			<= '1'; 
 					avalon_mm_write_o   	<= '1';
 
-				when 5500 to 5501 =>
+--				when 5500 to 5501 =>
+--					-- Register write
+--					-- Sync config registers
+--					-- Interrupt enable register - address: 1
+--					v_address				:= 1;
+--					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
+--					avalon_mm_read_o    	<= '0';
+--					-- Blank pulse int disable
+--					a_wr_reg_bit4			<= '0';
+--					a_wr_reg_bit3			<= '0';
+--					a_wr_reg_bit2			<= '0';
+--					a_wr_reg_bit1			<= '0';
+--					a_wr_reg_bit0			<= '0';
+--					avalon_mm_write_o   	<= '1';
+--					
+				when 5630 to 5631 =>
 					-- Register write
 					-- Sync config registers
 					-- Interrupt enable register - address: 1
-					v_address				:= 1;
+					v_address				:= 2;
 					avalon_mm_address_o 	<= std_logic_vector(to_unsigned(v_address,8));
 					avalon_mm_read_o    	<= '0';
 					-- Blank pulse int disable
-					a_wr_reg_bit0			<= '0';
+					a_wr_reg_bit4			<= '1';
+					a_wr_reg_bit3			<= '1';
+					a_wr_reg_bit2			<= '1';
+					a_wr_reg_bit1			<= '1';
+					a_wr_reg_bit0			<= '1';
 					avalon_mm_write_o   	<= '1';
 
 				when others =>

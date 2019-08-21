@@ -56,12 +56,11 @@ entity sync_avalon_mm_write is
 		g_SYNC_DEFAULT_STBY_POLARITY : std_logic := c_SYNC_DEFAULT_STBY_POLARITY
 	);
 	port(
-		clk_i              : in  std_logic;
-		rst_i              : in  std_logic;
-		avalon_mm_i        : in  t_sync_avalon_mm_write_i;
-		avalon_mm_o        : out t_sync_avalon_mm_write_o;
-		mm_write_reg_o     : out t_sync_mm_write_registers;
-		sync_irq_trigger_o : out std_logic
+		clk_i          : in  std_logic;
+		rst_i          : in  std_logic;
+		avalon_mm_i    : in  t_sync_avalon_mm_write_i;
+		avalon_mm_o    : out t_sync_avalon_mm_write_o;
+		mm_write_reg_o : out t_sync_mm_write_registers
 	);
 end entity sync_avalon_mm_write;
 
@@ -70,29 +69,37 @@ end entity sync_avalon_mm_write;
 --============================================================================
 architecture rtl of sync_avalon_mm_write is
 
+	signal s_data_acquired : std_logic;
+
 	--============================================================================
 	-- architecture begin
 	--============================================================================
 begin
-	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value" 
-	mm_write_reg_o.int_enable_register.error_int_flag_clear       <= '0';
-	mm_write_reg_o.int_enable_register.blank_pulse_int_flag_clear <= '0';
-	mm_write_reg_o.int_enable_register.error_int_flag             <= '0';
-	mm_write_reg_o.int_enable_register.blank_pulse_int_flag       <= '0';
-	mm_write_reg_o.int_flag_clear_register.error_int_enable       <= '0';
-	mm_write_reg_o.int_flag_clear_register.blank_pulse_int_enable <= '0';
-	mm_write_reg_o.int_flag_clear_register.error_int_flag         <= '0';
-	mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag   <= '0';
+	--	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value" 
+	--	mm_write_reg_o.int_enable_register.error_int_flag_clear       <= '0';
+	--	mm_write_reg_o.int_enable_register.blank_pulse_int_flag_clear <= '0';
+	--	mm_write_reg_o.int_enable_register.error_int_flag             <= '0';
+	--	mm_write_reg_o.int_enable_register.blank_pulse_int_flag       <= '0';
+	--	mm_write_reg_o.int_flag_clear_register.error_int_enable       <= '0';
+	--	mm_write_reg_o.int_flag_clear_register.blank_pulse_int_enable <= '0';
+	--	mm_write_reg_o.int_flag_clear_register.error_int_flag         <= '0';
+	--	mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag   <= '0';
 
 	p_sync_avalon_mm_write : process(clk_i, rst_i) is
 		-- Sync registers reset procedure
 		procedure p_mm_reset_registers is
 		begin
-			mm_write_reg_o.int_enable_register.error_int_enable       <= '0';
-			mm_write_reg_o.int_enable_register.blank_pulse_int_enable <= '0';
+			mm_write_reg_o.int_enable_register.error_int_enable        <= '0';
+			mm_write_reg_o.int_enable_register.blank_pulse_int_enable  <= '0';
+			mm_write_reg_o.int_enable_register.master_pulse_int_enable <= '0';
+			mm_write_reg_o.int_enable_register.normal_pulse_int_enable <= '0';
+			mm_write_reg_o.int_enable_register.last_pulse_int_enable   <= '0';
 
-			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear       <= '0';
-			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear        <= '0';
+			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear  <= '0';
+			mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.last_pulse_int_flag_clear   <= '0';
 
 			mm_write_reg_o.config_register.master_blank_time        <= (others => '0');
 			mm_write_reg_o.config_register.blank_time               <= (others => '0');
@@ -119,19 +126,20 @@ begin
 			mm_write_reg_o.control_register.channel_b_enable <= '0';
 			mm_write_reg_o.control_register.channel_a_enable <= '0';
 
-			--TODO: organizar
-			sync_irq_trigger_o <= '0';
 		end procedure p_mm_reset_registers;
 
 		-- Sync control triggers reset procedure
 		procedure p_mm_control_triggers is
 		begin
-			mm_write_reg_o.control_register.start    <= '0';
-			mm_write_reg_o.control_register.reset    <= '0';
-			mm_write_reg_o.control_register.one_shot <= '0';
-			mm_write_reg_o.control_register.err_inj  <= '0';
-			--TODO: organizar
-			sync_irq_trigger_o                       <= '0';
+			mm_write_reg_o.control_register.start                              <= '0';
+			mm_write_reg_o.control_register.reset                              <= '0';
+			mm_write_reg_o.control_register.one_shot                           <= '0';
+			mm_write_reg_o.control_register.err_inj                            <= '0';
+			mm_write_reg_o.int_flag_clear_register.error_int_flag_clear        <= '0';
+			mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear  <= '0';
+			mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear <= '0';
+			mm_write_reg_o.int_flag_clear_register.last_pulse_int_flag_clear   <= '0';
 		end procedure p_mm_control_triggers;
 
 		-- Sync writedata procedure
@@ -140,19 +148,31 @@ begin
 			case (mm_write_address_i) is
 				-- Interrupt enable register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS) =>
-					--    31- 2 : Reserved	                                [-/-]
-					--     1- 1 : Error interrupt enable bit                [R/W]
-					mm_write_reg_o.int_enable_register.error_int_enable       <= avalon_mm_i.writedata(1);
-					--     0- 0 : Blank pulse interrupt enable bit          [R/W]
-					mm_write_reg_o.int_enable_register.blank_pulse_int_enable <= avalon_mm_i.writedata(0);
+					--    31- 5 : Reserved	                                [-/-]
+					--     4- 4 : Error interrupt enable bit                [R/W]
+					mm_write_reg_o.int_enable_register.error_int_enable        <= avalon_mm_i.writedata(4);
+					--     3- 3 : Blank pulse interrupt enable bit          [R/W]
+					mm_write_reg_o.int_enable_register.blank_pulse_int_enable  <= avalon_mm_i.writedata(3);
+					--     2- 2 : Master pulse interrupt enable bit         [R/W]
+					mm_write_reg_o.int_enable_register.master_pulse_int_enable <= avalon_mm_i.writedata(2);
+					--     1- 1 : Normal pulse interrupt enable bit         [R/W]
+					mm_write_reg_o.int_enable_register.normal_pulse_int_enable <= avalon_mm_i.writedata(1);
+					--     0- 0 : Last pulse interrupt enable bit			[R/W]
+					mm_write_reg_o.int_enable_register.last_pulse_int_enable   <= avalon_mm_i.writedata(0);
 
 				-- Interrupt flag clear register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS) =>
-					--    31- 2 : Reserved	                                [-/-]
-					--     1- 1 : Error interrupt flag clear bit            [R/W]
-					mm_write_reg_o.int_flag_clear_register.error_int_flag_clear       <= avalon_mm_i.writedata(1);
-					--     0- 0 : Blank pulse interrupt flag clear bit      [R/W]
-					mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear <= avalon_mm_i.writedata(0);
+					--    31- 5 : Reserved	                                [-/-]
+					--     4- 4 : Error interrupt flag clear bit            [R/W]
+					mm_write_reg_o.int_flag_clear_register.error_int_flag_clear        <= avalon_mm_i.writedata(4);
+					--     3- 3 : Blank pulse interrupt flag clear bit      [R/W]
+					mm_write_reg_o.int_flag_clear_register.blank_pulse_int_flag_clear  <= avalon_mm_i.writedata(3);
+					--     2- 2 : Master Pulse interrupt flag clear bit     [R/W]
+					mm_write_reg_o.int_flag_clear_register.master_pulse_int_flag_clear <= avalon_mm_i.writedata(2);
+					--     1- 1 : Normal pulse interrupt flag clear bit     [R/W]
+					mm_write_reg_o.int_flag_clear_register.normal_pulse_int_flag_clear <= avalon_mm_i.writedata(1);
+					--     0- 0 : Last pulse interrupt flag clear bit		[R/W]
+					mm_write_reg_o.int_flag_clear_register.last_pulse_int_flag_clear   <= avalon_mm_i.writedata(0);
 
 				-- Master blank time register (32 bits):
 				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>
@@ -220,10 +240,6 @@ begin
 					--     0- 0 : channel A out enable bit               	[R/W]
 					mm_write_reg_o.control_register.channel_a_enable <= avalon_mm_i.writedata(0);
 
-				-- TODO: organizar
-				when (c_SYNC_IRQ_FLAG_CLEAR) =>
-					sync_irq_trigger_o <= avalon_mm_i.writedata(0);
-
 				when others =>
 					null;
 			end case;
@@ -233,15 +249,20 @@ begin
 	begin
 		if (rst_i = '1') then
 			avalon_mm_o.waitrequest <= '1';
+			s_data_acquired         <= '0';
 			v_mm_write_address      := 0;
 			p_mm_reset_registers;
 		elsif (rising_edge(clk_i)) then
 			avalon_mm_o.waitrequest <= '1';
 			p_mm_control_triggers;
+			s_data_acquired         <= '0';
 			if (avalon_mm_i.write = '1') then
 				avalon_mm_o.waitrequest <= '0';
 				v_mm_write_address      := to_integer(unsigned(avalon_mm_i.address));
-				p_mm_writedata(v_mm_write_address);
+				s_data_acquired         <= '1';
+				if (s_data_acquired = '0') then
+					p_mm_writedata(v_mm_write_address);
+				end if;
 			end if;
 		end if;
 	end process p_sync_avalon_mm_write;

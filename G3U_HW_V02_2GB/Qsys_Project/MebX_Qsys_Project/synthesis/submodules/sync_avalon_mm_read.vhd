@@ -52,13 +52,12 @@ use work.sync_mm_registers_pkg.all;
 --============================================================================
 entity sync_avalon_mm_read is
 	port(
-		clk_i           : in  std_logic;
-		rst_i           : in  std_logic;
-		avalon_mm_i     : in  t_sync_avalon_mm_read_i;
-		mm_write_reg_i  : in  t_sync_mm_write_registers;
-		mm_read_reg_i   : in  t_sync_mm_read_registers;
-		sync_irq_flag_i : in  std_logic;
-		avalon_mm_o     : out t_sync_avalon_mm_read_o
+		clk_i          : in  std_logic;
+		rst_i          : in  std_logic;
+		avalon_mm_i    : in  t_sync_avalon_mm_read_i;
+		mm_write_reg_i : in  t_sync_mm_write_registers;
+		mm_read_reg_i  : in  t_sync_mm_read_registers;
+		avalon_mm_o    : out t_sync_avalon_mm_read_o
 	);
 end entity sync_avalon_mm_read;
 
@@ -92,30 +91,48 @@ begin
 
 				-- Interrupt enable register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_ENABLE_REG_ADDRESS) =>
-					--    31-2 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 2) <= (others => '0');
-					--     1- 1 : Error interrupt enable bit                [R/W]
-					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_enable_register.error_int_enable;
-					--     0- 0 : Blank pulse interrupt enable bit          [R/W]
-					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_enable_register.blank_pulse_int_enable;
+					--    31- 5 : Reserved                                  [-/-]
+					avalon_mm_o.readdata(31 downto 5) <= (others => '0');
+					--     4- 4 : Error interrupt enable bit                [R/W]
+					avalon_mm_o.readdata(4)           <= mm_write_reg_i.int_enable_register.error_int_enable;
+					--     3- 3 : Blank pulse interrupt enable bit          [R/W]
+					avalon_mm_o.readdata(3)           <= mm_write_reg_i.int_enable_register.blank_pulse_int_enable;
+					--     2- 2 : Master pulse interrupt enable bit         [R/W]
+					avalon_mm_o.readdata(2)           <= mm_write_reg_i.int_enable_register.master_pulse_int_enable;
+					--     1- 1 : Normal pulse interrupt enable bit         [R/W]
+					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_enable_register.normal_pulse_int_enable;
+					--     0- 0 : Pre-Master pulse interrupt enable bit     [R/W]
+					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_enable_register.pre_master_pulse_int_enable;
 
 				-- Interrupt flag clear register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_CLEAR_REG_ADDRESS) =>
-					--    31-2 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 2) <= (others => '0');
-					--     1- 1 : Error interrupt flag clear bit            [R/W]
-					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_flag_clear_register.error_int_flag_clear;
-					--     0- 0 : Blank pulse interrupt flag clear bit      [R/W]
-					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_flag_clear_register.blank_pulse_int_flag_clear;
+					--    31- 5 : Reserved                                  [-/-]
+					avalon_mm_o.readdata(31 downto 5) <= (others => '0');
+					--     4- 4 : Error interrupt flag clear bit            [R/W]
+					avalon_mm_o.readdata(4)           <= mm_write_reg_i.int_flag_clear_register.error_int_flag_clear;
+					--     3- 3 : Blank pulse interrupt flag clear bit      [R/W]
+					avalon_mm_o.readdata(3)           <= mm_write_reg_i.int_flag_clear_register.blank_pulse_int_flag_clear;
+					--     2- 2 : Master pulse interrupt flag clear bit     [R/W]
+					avalon_mm_o.readdata(2)           <= mm_write_reg_i.int_flag_clear_register.master_pulse_int_flag_clear;
+					--     1- 1 : Normal pulse interrupt flag clear bit     [R/W]
+					avalon_mm_o.readdata(1)           <= mm_write_reg_i.int_flag_clear_register.normal_pulse_int_flag_clear;
+					--     0- 0 : Pre-Master pulse interrupt flag clear bit [R/W]
+					avalon_mm_o.readdata(0)           <= mm_write_reg_i.int_flag_clear_register.pre_master_pulse_int_flag_clear;
 
 				-- Interrupt flag register (32 bits):
 				when (c_SYNC_INTERRUPT_MM_FLAG_REG_ADDRESS) =>
-					--    31-2 : Reserved                                  [-/-]
-					avalon_mm_o.readdata(31 downto 2) <= (others => '0');
-					--     1- 1 : Error interrupt flag bit		            [R/-]
-					avalon_mm_o.readdata(1)           <= mm_read_reg_i.int_flag_register.error_int_flag;
-					--     0- 0 : Blank pulse interrupt flag bit 		    [R/-]
-					avalon_mm_o.readdata(0)           <= mm_read_reg_i.int_flag_register.blank_pulse_int_flag;
+					--    31- 5 : Reserved                                  [-/-]
+					avalon_mm_o.readdata(31 downto 5) <= (others => '0');
+					--     4- 4 : Error interrupt flag bit		            [R/-]
+					avalon_mm_o.readdata(4)           <= mm_read_reg_i.int_flag_register.error_int_flag;
+					--     3- 3 : Blank pulse interrupt flag bit 		    [R/-]
+					avalon_mm_o.readdata(3)           <= mm_read_reg_i.int_flag_register.blank_pulse_int_flag;
+					--     2- 2 : Master pulse interrupt flag bit 		    [R/-]
+					avalon_mm_o.readdata(2)           <= mm_read_reg_i.int_flag_register.master_pulse_int_flag;
+					--     1- 1 : Normal pulse interrupt flag bit 		    [R/-]
+					avalon_mm_o.readdata(1)           <= mm_read_reg_i.int_flag_register.normal_pulse_int_flag;
+					--     0- 0 : Pre-Master pulse interrupt flag bit 		[R/-]
+					avalon_mm_o.readdata(0)           <= mm_read_reg_i.int_flag_register.pre_master_pulse_int_flag;
 
 				-- Master blank time register (32 bits):
 				when (c_SYNC_CONFIG_MASTER_BLANK_TIME_MM_REG_ADDRESS) =>
@@ -185,10 +202,6 @@ begin
 					avalon_mm_o.readdata(1)            <= mm_write_reg_i.control_register.channel_b_enable;
 					--     0- 0 : channel A out enable bit               	[R/W]
 					avalon_mm_o.readdata(0)            <= mm_write_reg_i.control_register.channel_a_enable;
-
-				when (c_SYNC_IRQ_FLAG) =>
-					avalon_mm_o.readdata(31 downto 1) <= (others => '0');
-					avalon_mm_o.readdata(0)           <= sync_irq_flag_i;
 
 				when others =>
 					avalon_mm_o.readdata <= (others => '0');
