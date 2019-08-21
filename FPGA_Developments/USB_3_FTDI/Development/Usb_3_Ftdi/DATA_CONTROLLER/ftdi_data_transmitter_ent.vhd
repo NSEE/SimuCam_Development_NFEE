@@ -59,8 +59,11 @@ begin
 		variable v_ftdi_data_transmitter_state : t_ftdi_data_transmitter_fsm := STOPPED;
 	begin
 		if (rst_i = '1') then
+			-- fsm state reset
 			s_ftdi_data_transmitter_state <= STOPPED;
 			v_ftdi_data_transmitter_state := STOPPED;
+			-- internal signals reset
+			-- outputs reset
 			buffer_rdreq_o                <= '0';
 			buffer_change_o               <= '0';
 			tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -74,9 +77,9 @@ begin
 				-- state "STOPPED"
 				when STOPPED =>
 					-- data transmitter stopped
+					-- default state transition
 					s_ftdi_data_transmitter_state <= STOPPED;
 					v_ftdi_data_transmitter_state := STOPPED;
-					-- default state transition
 					-- default internal signal values
 					-- conditional state transition
 					-- check if a start command was issued
@@ -102,18 +105,18 @@ begin
 				-- state "FETCH_TX_QQWORD"
 				when FETCH_TX_QQWORD =>
 					-- fetch tx qqword data (256b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= FETCH_DELAY;
 					v_ftdi_data_transmitter_state := FETCH_DELAY;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "FETCH_DELAY"
 				when FETCH_DELAY =>
 					-- fetch delay
+					-- default state transition
 					s_ftdi_data_transmitter_state <= FETCH_DELAY;
 					v_ftdi_data_transmitter_state := FETCH_DELAY;
-					-- default state transition
 					-- default internal signal values
 					-- conditional state transition
 					-- check if there is enough space in the tx dc data fifo for the fetched qword
@@ -125,81 +128,81 @@ begin
 				-- state "WRITE_TX_DWORD_0"
 				when WRITE_TX_DWORD_0 =>
 					-- write tx dword data 0 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_1;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_1;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_1"
 				when WRITE_TX_DWORD_1 =>
 					-- write tx dword data 1 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_2;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_2;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_2"
 				when WRITE_TX_DWORD_2 =>
 					-- write tx dword data 2 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_3;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_3;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_3"
 				when WRITE_TX_DWORD_3 =>
 					-- write tx dword data 3 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_4;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_4;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_4"
 				when WRITE_TX_DWORD_4 =>
 					-- write tx dword data 4 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_5;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_5;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_5"
 				when WRITE_TX_DWORD_5 =>
 					-- write tx dword data 5 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_6;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_6;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_6"
 				when WRITE_TX_DWORD_6 =>
 					-- write tx dword data 6 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_TX_DWORD_7;
 					v_ftdi_data_transmitter_state := WRITE_TX_DWORD_7;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_7"
 				when WRITE_TX_DWORD_7 =>
 					-- write tx dword data 7 (32b)
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WRITE_DELAY;
 					v_ftdi_data_transmitter_state := WRITE_DELAY;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 
 				-- state "WRITE_DELAY"
 				when WRITE_DELAY =>
 					-- write delay
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WAITING_TX_READY;
 					v_ftdi_data_transmitter_state := WAITING_TX_READY;
-					-- default state transition
 					-- default internal signal values
 					-- conditional state transition
 					-- check if the tx data buffer is empty
@@ -215,9 +218,9 @@ begin
 				-- state "CHANGE_BUFFER"
 				when CHANGE_BUFFER =>
 					-- change tx buffer
+					-- default state transition
 					s_ftdi_data_transmitter_state <= WAITING_TX_READY;
 					v_ftdi_data_transmitter_state := WAITING_TX_READY;
-				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
 

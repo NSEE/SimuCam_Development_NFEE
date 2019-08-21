@@ -65,7 +65,6 @@ begin
 			tx_dc_data_fifo_wrdata_data_o         <= (others => '0');
 			tx_dc_data_fifo_wrdata_be_o           <= (others => '0');
 			tx_dc_data_fifo_wrreq_o               <= '0';
-
 		elsif rising_edge(clk_i) then
 
 			-- States transitions FSM
