@@ -11,11 +11,11 @@ entity ftdi_tx_protocol_header_generator_ent is
 		rst_i                         : in  std_logic;
 		data_tx_stop_i                : in  std_logic;
 		data_tx_start_i               : in  std_logic;
-		hgen_start_i                  : in  std_logic;
+		header_generator_start_i      : in  std_logic;
 		hgen_header_data_i            : in  t_ftdi_prot_header_fields;
 		tx_dc_data_fifo_wrfull_i      : in  std_logic;
 		tx_dc_data_fifo_wrusedw_i     : in  std_logic_vector(11 downto 0);
-		hgen_busy_o                   : out std_logic;
+		header_generator_busy_o       : out std_logic;
 		tx_dc_data_fifo_wrdata_data_o : out std_logic_vector(31 downto 0);
 		tx_dc_data_fifo_wrdata_be_o   : out std_logic_vector(3 downto 0);
 		tx_dc_data_fifo_wrreq_o       : out std_logic
@@ -55,7 +55,7 @@ begin
 			v_ftdi_tx_prot_header_generator_state := STOPPED;
 			-- internal signals reset
 			-- outputs reset
-			hgen_busy_o                           <= '0';
+			header_generator_busy_o               <= '0';
 			v_header_dword                        := (others => '0');
 			s_header_crc32                        <= (others => '0');
 			tx_dc_data_fifo_wrdata_data_o         <= (others => '0');
@@ -90,7 +90,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					-- check if a header generator start was issued
-					if (hgen_start_i = '1') then
+					if (header_generator_start_i = '1') then
 						s_ftdi_tx_prot_header_generator_state <= WAITING_TX_SPACE;
 						v_ftdi_tx_prot_header_generator_state := WAITING_TX_SPACE;
 					end if;
@@ -205,7 +205,7 @@ begin
 				when STOPPED =>
 					-- header generator stopped
 					-- default output signals
-					hgen_busy_o                   <= '0';
+					header_generator_busy_o       <= '0';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -217,7 +217,7 @@ begin
 				when IDLE =>
 					-- header generator idle
 					-- default output signals
-					hgen_busy_o                   <= '0';
+					header_generator_busy_o       <= '0';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -229,7 +229,7 @@ begin
 				when WAITING_TX_SPACE =>
 					-- wait until the tx fifo have enough space for a full header
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -241,7 +241,7 @@ begin
 				when HEADER_TX_START_OF_PACKAGE =>
 					-- write a start of package to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= c_FTDI_PROT_START_OF_PACKAGE;
@@ -253,7 +253,7 @@ begin
 				when HEADER_TX_PACKAGE_ID =>
 					-- write the package id to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := s_registered_header_data.package_id;
 					s_header_crc32                <= f_ftdi_protocol_calculate_crc32(s_header_crc32, v_header_dword);
 					tx_dc_data_fifo_wrdata_data_o <= v_header_dword;
@@ -265,7 +265,7 @@ begin
 				when HEADER_TX_IMAGE_SELECTION =>
 					-- write the image selection to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					v_header_dword(18 downto 16)  := s_registered_header_data.image_selection.fee_number;
 					v_header_dword(9 downto 8)    := s_registered_header_data.image_selection.ccd_number;
@@ -280,7 +280,7 @@ begin
 				when HEADER_TX_IMAGE_SIZE =>
 					-- write the image size to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					v_header_dword(28 downto 16)  := s_registered_header_data.image_size.ccd_height;
 					v_header_dword(11 downto 0)   := s_registered_header_data.image_size.ccd_width;
@@ -294,7 +294,7 @@ begin
 				when HEADER_TX_EXPOSURE_NUMBER =>
 					-- write the exposure number to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					v_header_dword(15 downto 0)   := s_registered_header_data.exposure_number;
 					s_header_crc32                <= f_ftdi_protocol_calculate_crc32(s_header_crc32, v_header_dword);
@@ -306,7 +306,7 @@ begin
 				when HEADER_TX_PAYLOAD_LENGTH =>
 					-- write the payload length to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := s_registered_header_data.payload_length;
 					s_header_crc32                <= f_ftdi_protocol_calculate_crc32(s_header_crc32, v_header_dword);
 					tx_dc_data_fifo_wrdata_data_o <= v_header_dword;
@@ -318,7 +318,7 @@ begin
 				when HEADER_TX_HEADER_CRC =>
 					-- write the header crc to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= s_header_crc32;
@@ -330,7 +330,7 @@ begin
 				when HEADER_TX_END_OF_HEADER =>
 					-- write a end of header to the tx fifo
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= c_FTDI_PROT_END_OF_HEADER;
@@ -342,7 +342,7 @@ begin
 				when FINISH_HEADER_TX =>
 					-- finish the header transmission
 					-- default output signals
-					hgen_busy_o                   <= '1';
+					header_generator_busy_o       <= '1';
 					v_header_dword                := (others => '0');
 					s_header_crc32                <= (others => '0');
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');

@@ -27,7 +27,7 @@ architecture RTL of ftdi_data_transmitter_ent is
 
 	type t_ftdi_data_transmitter_fsm is (
 		STOPPED,                        -- data transmitter stopped
-		IDLE,                           -- data transmitter in idle
+		WAITING_TX_READY,               -- wait until there is data to be fetched and space to write
 		FETCH_TX_QQWORD,                -- fetch tx qqword data (256b)
 		FETCH_DELAY,                    -- fetch delay
 		WRITE_TX_DWORD_0,               -- write tx dword data 0 (32b)
@@ -80,22 +80,22 @@ begin
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_tx_start_i = '1') then
-						s_ftdi_data_transmitter_state <= IDLE;
-						v_ftdi_data_transmitter_state := IDLE;
+						s_ftdi_data_transmitter_state <= WAITING_TX_READY;
+						v_ftdi_data_transmitter_state := WAITING_TX_READY;
 					end if;
 
-				-- state "IDLE"
-				when IDLE =>
-					-- data transmitter in idle
-					s_ftdi_data_transmitter_state <= IDLE;
-					v_ftdi_data_transmitter_state := IDLE;
+				-- state "WAITING_TX_READY"
+				when WAITING_TX_READY =>
+					-- wait until there is data to be fetched and space to write
 					-- default state transition
+					s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_READY;
+					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_READY;
 					-- default internal signal values
 					-- conditional state transition
-					-- check if the tx data buffer is ready and not empty
-					if ((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
-						s_ftdi_data_transmitter_state <= FETCH_TX_QQWORD;
-						v_ftdi_data_transmitter_state := FETCH_TX_QQWORD;
+					-- check (if the tx data buffer is ready and not empty) and (if there is enough space in the tx dc data fifo for the fetched qword) 
+					if (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
+						s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
+						v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
 					end if;
 
 				-- state "FETCH_TX_QQWORD"
@@ -196,8 +196,8 @@ begin
 				-- state "WRITE_DELAY"
 				when WRITE_DELAY =>
 					-- write delay
-					s_ftdi_data_transmitter_state <= IDLE;
-					v_ftdi_data_transmitter_state := IDLE;
+					s_ftdi_data_transmitter_state <= WAITING_TX_READY;
+					v_ftdi_data_transmitter_state := WAITING_TX_READY;
 					-- default state transition
 					-- default internal signal values
 					-- conditional state transition
@@ -205,17 +205,17 @@ begin
 					if (buffer_stat_empty_i = '1') then
 						s_ftdi_data_transmitter_state <= CHANGE_BUFFER;
 						v_ftdi_data_transmitter_state := CHANGE_BUFFER;
-					-- check if the tx data buffer is ready and not empty
-					elsif ((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
-						s_ftdi_data_transmitter_state <= FETCH_TX_QQWORD;
-						v_ftdi_data_transmitter_state := FETCH_TX_QQWORD;
+					-- check (if the tx data buffer is ready and not empty) and (if there is enough space in the tx dc data fifo for the fetched qword)
+					elsif (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
+						s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
+						v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
 					end if;
 
 				-- state "CHANGE_BUFFER"
 				when CHANGE_BUFFER =>
 					-- change tx buffer
-					s_ftdi_data_transmitter_state <= IDLE;
-					v_ftdi_data_transmitter_state := IDLE;
+					s_ftdi_data_transmitter_state <= WAITING_TX_READY;
+					v_ftdi_data_transmitter_state := WAITING_TX_READY;
 				-- default state transition
 				-- default internal signal values
 				-- conditional state transition
@@ -247,9 +247,9 @@ begin
 					tx_dc_data_fifo_wrreq_o       <= '0';
 				-- conditional output signals
 
-				-- state "IDLE"
-				when IDLE =>
-					-- data transmitter in idle
+				-- state "WAITING_TX_READY"
+				when WAITING_TX_READY =>
+					-- wait until there is data to be fetched and space to write
 					-- default output signals
 					buffer_rdreq_o                <= '0';
 					buffer_change_o               <= '0';
