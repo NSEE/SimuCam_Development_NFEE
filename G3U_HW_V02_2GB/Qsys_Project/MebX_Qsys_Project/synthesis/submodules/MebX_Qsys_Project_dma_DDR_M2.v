@@ -13,7 +13,7 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 		input  wire [255:0] mm_read_readdata,             //                 .readdata
 		input  wire         mm_read_waitrequest,          //                 .waitrequest
 		input  wire         mm_read_readdatavalid,        //                 .readdatavalid
-		output wire [31:0]  mm_write_address,             //         mm_write.address
+		output wire [32:0]  mm_write_address,             //         mm_write.address
 		output wire         mm_write_write,               //                 .write
 		output wire [31:0]  mm_write_byteenable,          //                 .byteenable
 		output wire [255:0] mm_write_writedata,           //                 .writedata
@@ -159,7 +159,7 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 		.ERROR_WIDTH                    (8),
 		.BYTE_ENABLE_WIDTH              (32),
 		.BYTE_ENABLE_WIDTH_LOG2         (5),
-		.ADDRESS_WIDTH                  (32),
+		.ADDRESS_WIDTH                  (33),
 		.FIFO_DEPTH_LOG2                (7),
 		.SYMBOL_WIDTH                   (8),
 		.NUMBER_OF_SYMBOLS              (32),

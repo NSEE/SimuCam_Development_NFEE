@@ -256,7 +256,45 @@ port(
 	
 	-- RS232 UART	 
 	I_RS232_UART_RXD : in  std_logic;
-   O_RS232_UART_TXD : out std_logic
+   O_RS232_UART_TXD : out std_logic;
+	
+		 -- GPIO Expansion Header (JP3) Pins
+--	JP3_GPIO0_D0_IO  : inout std_logic;
+--	JP3_GPIO0_D1_IO  : inout std_logic;
+--	JP3_GPIO0_D2_IO  : inout std_logic;
+--	JP3_GPIO0_D3_IO  : inout std_logic;
+--	JP3_GPIO0_D4_IO  : inout std_logic;
+--	JP3_GPIO0_D5_IO  : inout std_logic;
+--	JP3_GPIO0_D6_IO  : inout std_logic;
+--	JP3_GPIO0_D7_IO  : inout std_logic;
+--	JP3_GPIO0_D8_IO  : inout std_logic;
+--	JP3_GPIO0_D9_IO  : inout std_logic;
+	JP3_GPIO0_D10_IO : out std_logic;
+	JP3_GPIO0_D11_IO : out std_logic;
+	JP3_GPIO0_D12_IO : out std_logic;
+	JP3_GPIO0_D13_IO : out std_logic
+--	JP3_GPIO0_D14_IO : inout std_logic;
+--	JP3_GPIO0_D15_IO : inout std_logic;
+--	JP3_GPIO0_D16_IO : inout std_logic;
+--	JP3_GPIO0_D17_IO : inout std_logic;
+--	JP3_GPIO0_D18_IO : inout std_logic;
+--	JP3_GPIO0_D19_IO : inout std_logic;
+--	JP3_GPIO0_D20_IO : inout std_logic;
+--	JP3_GPIO0_D21_IO : inout std_logic;
+--	JP3_GPIO0_D22_IO : inout std_logic;
+--	JP3_GPIO0_D23_IO : inout std_logic;
+--	JP3_GPIO0_D24_IO : inout std_logic;
+--	JP3_GPIO0_D25_IO : inout std_logic;
+--	JP3_GPIO0_D26_IO : inout std_logic;
+--	JP3_GPIO0_D27_IO : inout std_logic;
+--	JP3_GPIO0_D28_IO : inout std_logic;
+--	JP3_GPIO0_D29_IO : inout std_logic;
+--	JP3_GPIO0_D30_IO : inout std_logic;
+--	JP3_GPIO0_D31_IO : inout std_logic;
+--	JP3_GPIO0_D32_IO : inout std_logic;
+--	JP3_GPIO0_D33_IO : inout std_logic;
+--	JP3_GPIO0_D34_IO : inout std_logic;
+--	JP3_GPIO0_D35_IO : inout std_logic;
 
   );
 end entity;
@@ -351,6 +389,15 @@ signal spw_e_sync : std_logic;
 signal spw_f_sync : std_logic;
 signal spw_g_sync : std_logic;
 signal spw_h_sync : std_logic;
+
+signal spw_a_measure : std_logic_vector (7 downto 0);
+signal spw_b_measure : std_logic_vector (7 downto 0);
+signal spw_c_measure : std_logic_vector (7 downto 0);
+signal spw_d_measure : std_logic_vector (7 downto 0);
+signal spw_e_measure : std_logic_vector (7 downto 0);
+signal spw_f_measure : std_logic_vector (7 downto 0);
+signal spw_g_measure : std_logic_vector (7 downto 0);
+signal spw_h_measure : std_logic_vector (7 downto 0);
 
 -----------------------------------------
 	-- Sync - test
@@ -467,6 +514,13 @@ signal spw_h_sync : std_logic;
 --            comm_f_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_g_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
 --            comm_h_sync_end_sync_channel_signal                  : in    std_logic                     := 'X';             -- sync_channel_signal
+			
+--            comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
+--            comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
+--            comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
+--            comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
+--            comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
+            comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                      -- measurements_channel_signal
 			
             temp_scl_export       : out   std_logic;                     
             temp_sda_export       : inout std_logic;
@@ -628,6 +682,7 @@ SOPC_INST : MebX_Qsys_Project
 --	comm_h_conduit_end_data_out_signal   => spw_h_do(0),
 --	comm_h_conduit_end_strobe_out_signal => spw_h_so(0),
 	
+<<<<<<< HEAD
 --            comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
 --            comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
 --            comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
@@ -636,6 +691,23 @@ SOPC_INST : MebX_Qsys_Project
 --            comm_f_sync_end_sync_channel_signal                  => spw_f_sync,                  --            comm_f_sync_end.sync_channel_signal
 --            comm_g_sync_end_sync_channel_signal                  => spw_g_sync,                  --            comm_g_sync_end.sync_channel_signal
 --            comm_h_sync_end_sync_channel_signal                  => spw_h_sync,                  --            comm_h_sync_end.sync_channel_signal
+=======
+	comm_a_sync_end_sync_channel_signal                  => spw_a_sync,                  --            comm_a_sync_end.sync_channel_signal
+	comm_b_sync_end_sync_channel_signal                  => spw_b_sync,                  --            comm_b_sync_end.sync_channel_signal
+	comm_c_sync_end_sync_channel_signal                  => spw_c_sync,                  --            comm_c_sync_end.sync_channel_signal
+	comm_d_sync_end_sync_channel_signal                  => spw_d_sync,                  --            comm_d_sync_end.sync_channel_signal
+	comm_e_sync_end_sync_channel_signal                  => spw_e_sync,                  --            comm_e_sync_end.sync_channel_signal
+	comm_f_sync_end_sync_channel_signal                  => spw_f_sync,                  --            comm_f_sync_end.sync_channel_signal
+--	comm_g_sync_end_sync_channel_signal                  => spw_g_sync,                  --            comm_g_sync_end.sync_channel_signal
+--	comm_h_sync_end_sync_channel_signal                  => spw_h_sync,                  --            comm_h_sync_end.sync_channel_signal
+
+--	comm_a_measurements_conduit_end_measurements_channel_signal => spw_a_measure, -- comm_a_measurements_conduit_end.measurements_channel_signal
+--	comm_b_measurements_conduit_end_measurements_channel_signal => spw_b_measure, -- comm_b_measurements_conduit_end.measurements_channel_signal
+--	comm_c_measurements_conduit_end_measurements_channel_signal => spw_c_measure, -- comm_c_measurements_conduit_end.measurements_channel_signal
+--	comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, -- comm_d_measurements_conduit_end.measurements_channel_signal
+--	comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, -- comm_e_measurements_conduit_end.measurements_channel_signal
+	comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure,  -- comm_f_measurements_conduit_end.measurements_channel_signal
+>>>>>>> origin/hw_6ch_256b_dma_3
 	
     temp_scl_export          => TEMP_SMCLK,
     temp_sda_export          => TEMP_SMDAT,
@@ -726,6 +798,12 @@ LED_PAINEL_LED_ST2   <= ('1') when (rst = '0') else (leds_p(18));
 LED_PAINEL_LED_ST3   <= ('1') when (rst = '0') else (leds_p(19));
 LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
 				  
+-- SpW Channel Measurements
+JP3_GPIO0_D10_IO <= spw_f_measure(0);
+JP3_GPIO0_D11_IO <= spw_f_measure(1);
+JP3_GPIO0_D12_IO <= spw_f_measure(2);
+JP3_GPIO0_D13_IO <= spw_f_measure(3);
+
 --==========--
 -- eth
 --==========--

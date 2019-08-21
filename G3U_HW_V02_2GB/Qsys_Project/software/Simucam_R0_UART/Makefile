@@ -143,6 +143,7 @@ ELF := Simucam_R0_UART.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS += simucam_main.c
+C_SRCS += driver/comm/spw_controller/spw_controller.c
 C_SRCS += api_driver/ddr2/ddr2.c
 C_SRCS += api_driver/dma/dma.c
 C_SRCS += api_driver/sense/sense.c
@@ -189,6 +190,7 @@ C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
+C_SRCS += api_driver/simucam_dma/simucam_dma.c
 CXX_SRCS :=
 ASM_SRCS :=
 
