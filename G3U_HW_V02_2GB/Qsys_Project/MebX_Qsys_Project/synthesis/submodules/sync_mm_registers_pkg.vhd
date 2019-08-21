@@ -63,7 +63,7 @@ package sync_mm_registers_pkg is
 	--     3- 3 : Blank pulse interrupt enable bit		    [R/W]
 	--     2- 2 : Master pulse interrupt enable bit		    [R/W]
 	--     1- 1 : Normal pulse interrupt enable bit		    [R/W]
-	--     0- 0 : Pre-Master pulse interrupt enable bit		[R/W]
+	--     0- 0 : Last pulse interrupt enable bit			[R/W]
 
 	--  Flag Clear Register				                 	(32 bits):
 	--    31- 5 : Reserved                                  [-/-]
@@ -71,7 +71,7 @@ package sync_mm_registers_pkg is
 	--     3- 3 : Blank pulse interrupt flag clear bit	    [R/W]
 	--     2- 2 : Master pulse interrupt flag clear bit	    [R/W]
 	--     1- 1 : Normal pulse interrupt flag clear bit	    [R/W]
-	--     0- 0 : Pre-Master pulse interrupt flag clear bit	[R/W]
+	--     0- 0 : Last pulse interrupt flag clear bit		[R/W]
 
 	--  Flag Register				                 	(32 bits):
 	--    31- 5 : Reserved                                  [-/-]
@@ -79,7 +79,7 @@ package sync_mm_registers_pkg is
 	--     3- 3 : Blank pulse interrupt flag bit		    [R/-]
 	--     2- 2 : Master pulse interrupt flag bit		    [R/-]
 	--     1- 1 : Normal pulse interrupt flag bit		    [R/-]
-	--     0- 0 : Pre-Master pulse interrupt flag bit		[R/-]
+	--     0- 0 : Last pulse interrupt flag bit				[R/-]
 	-----------------------------------------------------------------
 
 	--  Sync config registers -----------------------------------
@@ -148,27 +148,27 @@ package sync_mm_registers_pkg is
 	end record t_sync_status_register;
 
 	type t_sync_interrupt_enable_register is record
-		error_int_enable            : std_logic;
-		blank_pulse_int_enable      : std_logic;
-		master_pulse_int_enable     : std_logic;
-		normal_pulse_int_enable     : std_logic;
-		pre_master_pulse_int_enable : std_logic;
+		error_int_enable        : std_logic;
+		blank_pulse_int_enable  : std_logic;
+		master_pulse_int_enable : std_logic;
+		normal_pulse_int_enable : std_logic;
+		last_pulse_int_enable   : std_logic;
 	end record t_sync_interrupt_enable_register;
 
 	type t_sync_interrupt_flag_register is record
-		error_int_flag            : std_logic;
-		blank_pulse_int_flag      : std_logic;
-		master_pulse_int_flag     : std_logic;
-		normal_pulse_int_flag     : std_logic;
-		pre_master_pulse_int_flag : std_logic;
+		error_int_flag        : std_logic;
+		blank_pulse_int_flag  : std_logic;
+		master_pulse_int_flag : std_logic;
+		normal_pulse_int_flag : std_logic;
+		last_pulse_int_flag   : std_logic;
 	end record t_sync_interrupt_flag_register;
 
 	type t_sync_interrupt_flag_clear_register is record
-		error_int_flag_clear            : std_logic;
-		blank_pulse_int_flag_clear      : std_logic;
-		master_pulse_int_flag_clear     : std_logic;
-		normal_pulse_int_flag_clear     : std_logic;
-		pre_master_pulse_int_flag_clear : std_logic;
+		error_int_flag_clear        : std_logic;
+		blank_pulse_int_flag_clear  : std_logic;
+		master_pulse_int_flag_clear : std_logic;
+		normal_pulse_int_flag_clear : std_logic;
+		last_pulse_int_flag_clear   : std_logic;
 	end record t_sync_interrupt_flag_clear_register;
 
 	type t_sync_general_config_register is record

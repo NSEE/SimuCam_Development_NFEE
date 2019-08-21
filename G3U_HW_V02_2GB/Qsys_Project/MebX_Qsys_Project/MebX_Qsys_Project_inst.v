@@ -5,31 +5,37 @@
 		.comm_a_conduit_end_data_out_signal                          (<connected-to-comm_a_conduit_end_data_out_signal>),                          //                                .data_out_signal
 		.comm_a_conduit_end_strobe_in_signal                         (<connected-to-comm_a_conduit_end_strobe_in_signal>),                         //                                .strobe_in_signal
 		.comm_a_conduit_end_strobe_out_signal                        (<connected-to-comm_a_conduit_end_strobe_out_signal>),                        //                                .strobe_out_signal
+		.comm_a_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_a_measurements_conduit_end_measurements_channel_signal>), // comm_a_measurements_conduit_end.measurements_channel_signal
 		.comm_a_sync_end_sync_channel_signal                         (<connected-to-comm_a_sync_end_sync_channel_signal>),                         //                 comm_a_sync_end.sync_channel_signal
 		.comm_b_conduit_end_data_in_signal                           (<connected-to-comm_b_conduit_end_data_in_signal>),                           //              comm_b_conduit_end.data_in_signal
 		.comm_b_conduit_end_data_out_signal                          (<connected-to-comm_b_conduit_end_data_out_signal>),                          //                                .data_out_signal
 		.comm_b_conduit_end_strobe_in_signal                         (<connected-to-comm_b_conduit_end_strobe_in_signal>),                         //                                .strobe_in_signal
 		.comm_b_conduit_end_strobe_out_signal                        (<connected-to-comm_b_conduit_end_strobe_out_signal>),                        //                                .strobe_out_signal
+		.comm_b_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_b_measurements_conduit_end_measurements_channel_signal>), // comm_b_measurements_conduit_end.measurements_channel_signal
 		.comm_b_sync_end_sync_channel_signal                         (<connected-to-comm_b_sync_end_sync_channel_signal>),                         //                 comm_b_sync_end.sync_channel_signal
 		.comm_c_conduit_end_data_in_signal                           (<connected-to-comm_c_conduit_end_data_in_signal>),                           //              comm_c_conduit_end.data_in_signal
 		.comm_c_conduit_end_data_out_signal                          (<connected-to-comm_c_conduit_end_data_out_signal>),                          //                                .data_out_signal
 		.comm_c_conduit_end_strobe_in_signal                         (<connected-to-comm_c_conduit_end_strobe_in_signal>),                         //                                .strobe_in_signal
 		.comm_c_conduit_end_strobe_out_signal                        (<connected-to-comm_c_conduit_end_strobe_out_signal>),                        //                                .strobe_out_signal
+		.comm_c_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_c_measurements_conduit_end_measurements_channel_signal>), // comm_c_measurements_conduit_end.measurements_channel_signal
 		.comm_c_sync_end_sync_channel_signal                         (<connected-to-comm_c_sync_end_sync_channel_signal>),                         //                 comm_c_sync_end.sync_channel_signal
 		.comm_d_conduit_end_data_in_signal                           (<connected-to-comm_d_conduit_end_data_in_signal>),                           //              comm_d_conduit_end.data_in_signal
 		.comm_d_conduit_end_data_out_signal                          (<connected-to-comm_d_conduit_end_data_out_signal>),                          //                                .data_out_signal
 		.comm_d_conduit_end_strobe_in_signal                         (<connected-to-comm_d_conduit_end_strobe_in_signal>),                         //                                .strobe_in_signal
 		.comm_d_conduit_end_strobe_out_signal                        (<connected-to-comm_d_conduit_end_strobe_out_signal>),                        //                                .strobe_out_signal
+		.comm_d_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_d_measurements_conduit_end_measurements_channel_signal>), // comm_d_measurements_conduit_end.measurements_channel_signal
 		.comm_d_sync_end_sync_channel_signal                         (<connected-to-comm_d_sync_end_sync_channel_signal>),                         //                 comm_d_sync_end.sync_channel_signal
 		.comm_e_conduit_end_data_in_signal                           (<connected-to-comm_e_conduit_end_data_in_signal>),                           //              comm_e_conduit_end.data_in_signal
 		.comm_e_conduit_end_data_out_signal                          (<connected-to-comm_e_conduit_end_data_out_signal>),                          //                                .data_out_signal
 		.comm_e_conduit_end_strobe_in_signal                         (<connected-to-comm_e_conduit_end_strobe_in_signal>),                         //                                .strobe_in_signal
 		.comm_e_conduit_end_strobe_out_signal                        (<connected-to-comm_e_conduit_end_strobe_out_signal>),                        //                                .strobe_out_signal
+		.comm_e_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_e_measurements_conduit_end_measurements_channel_signal>), // comm_e_measurements_conduit_end.measurements_channel_signal
 		.comm_e_sync_end_sync_channel_signal                         (<connected-to-comm_e_sync_end_sync_channel_signal>),                         //                 comm_e_sync_end.sync_channel_signal
 		.comm_f_conduit_end_data_in_signal                           (<connected-to-comm_f_conduit_end_data_in_signal>),                           //              comm_f_conduit_end.data_in_signal
 		.comm_f_conduit_end_data_out_signal                          (<connected-to-comm_f_conduit_end_data_out_signal>),                          //                                .data_out_signal
 		.comm_f_conduit_end_strobe_in_signal                         (<connected-to-comm_f_conduit_end_strobe_in_signal>),                         //                                .strobe_in_signal
 		.comm_f_conduit_end_strobe_out_signal                        (<connected-to-comm_f_conduit_end_strobe_out_signal>),                        //                                .strobe_out_signal
+		.comm_f_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_f_measurements_conduit_end_measurements_channel_signal>), // comm_f_measurements_conduit_end.measurements_channel_signal
 		.comm_f_sync_end_sync_channel_signal                         (<connected-to-comm_f_sync_end_sync_channel_signal>),                         //                 comm_f_sync_end.sync_channel_signal
 		.csense_adc_fo_export                                        (<connected-to-csense_adc_fo_export>),                                        //                   csense_adc_fo.export
 		.csense_cs_n_export                                          (<connected-to-csense_cs_n_export>),                                          //                     csense_cs_n.export
@@ -126,12 +132,6 @@
 		.tristate_conduit_tcm_read_n_out                             (<connected-to-tristate_conduit_tcm_read_n_out>),                             //                                .tcm_read_n_out
 		.tristate_conduit_tcm_write_n_out                            (<connected-to-tristate_conduit_tcm_write_n_out>),                            //                                .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                               (<connected-to-tristate_conduit_tcm_data_out>),                               //                                .tcm_data_out
-		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                       //                                .tcm_chipselect_n_out
-		.comm_a_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_a_measurements_conduit_end_measurements_channel_signal>), // comm_a_measurements_conduit_end.measurements_channel_signal
-		.comm_b_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_b_measurements_conduit_end_measurements_channel_signal>), // comm_b_measurements_conduit_end.measurements_channel_signal
-		.comm_c_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_c_measurements_conduit_end_measurements_channel_signal>), // comm_c_measurements_conduit_end.measurements_channel_signal
-		.comm_d_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_d_measurements_conduit_end_measurements_channel_signal>), // comm_d_measurements_conduit_end.measurements_channel_signal
-		.comm_e_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_e_measurements_conduit_end_measurements_channel_signal>), // comm_e_measurements_conduit_end.measurements_channel_signal
-		.comm_f_measurements_conduit_end_measurements_channel_signal (<connected-to-comm_f_measurements_conduit_end_measurements_channel_signal>)  // comm_f_measurements_conduit_end.measurements_channel_signal
+		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>)                        //                                .tcm_chipselect_n_out
 	);
 

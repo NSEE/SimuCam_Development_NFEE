@@ -6,31 +6,37 @@
 			comm_a_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
 			comm_a_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_a_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
+			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_a_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			comm_b_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
 			comm_b_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
 			comm_b_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_b_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
+			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_b_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			comm_c_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
 			comm_c_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
 			comm_c_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_c_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
+			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_c_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			comm_d_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
 			comm_d_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
 			comm_d_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_d_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
+			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_d_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			comm_e_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
 			comm_e_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
 			comm_e_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_e_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
+			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_e_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			comm_f_conduit_end_data_in_signal                           : in    std_logic                     := 'X';             -- data_in_signal
 			comm_f_conduit_end_data_out_signal                          : out   std_logic;                                        -- data_out_signal
 			comm_f_conduit_end_strobe_in_signal                         : in    std_logic                     := 'X';             -- strobe_in_signal
 			comm_f_conduit_end_strobe_out_signal                        : out   std_logic;                                        -- strobe_out_signal
+			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
 			comm_f_sync_end_sync_channel_signal                         : in    std_logic                     := 'X';             -- sync_channel_signal
 			csense_adc_fo_export                                        : out   std_logic;                                        -- export
 			csense_cs_n_export                                          : out   std_logic_vector(1 downto 0);                     -- export
@@ -127,13 +133,7 @@
 			tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
-			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0);                     -- measurements_channel_signal
-			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0)                      -- measurements_channel_signal
+			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
 		);
 	end component MebX_Qsys_Project;
 
@@ -145,31 +145,37 @@
 			comm_a_conduit_end_data_out_signal                          => CONNECTED_TO_comm_a_conduit_end_data_out_signal,                          --                                .data_out_signal
 			comm_a_conduit_end_strobe_in_signal                         => CONNECTED_TO_comm_a_conduit_end_strobe_in_signal,                         --                                .strobe_in_signal
 			comm_a_conduit_end_strobe_out_signal                        => CONNECTED_TO_comm_a_conduit_end_strobe_out_signal,                        --                                .strobe_out_signal
+			comm_a_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_a_measurements_conduit_end_measurements_channel_signal, -- comm_a_measurements_conduit_end.measurements_channel_signal
 			comm_a_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_a_sync_end_sync_channel_signal,                         --                 comm_a_sync_end.sync_channel_signal
 			comm_b_conduit_end_data_in_signal                           => CONNECTED_TO_comm_b_conduit_end_data_in_signal,                           --              comm_b_conduit_end.data_in_signal
 			comm_b_conduit_end_data_out_signal                          => CONNECTED_TO_comm_b_conduit_end_data_out_signal,                          --                                .data_out_signal
 			comm_b_conduit_end_strobe_in_signal                         => CONNECTED_TO_comm_b_conduit_end_strobe_in_signal,                         --                                .strobe_in_signal
 			comm_b_conduit_end_strobe_out_signal                        => CONNECTED_TO_comm_b_conduit_end_strobe_out_signal,                        --                                .strobe_out_signal
+			comm_b_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_b_measurements_conduit_end_measurements_channel_signal, -- comm_b_measurements_conduit_end.measurements_channel_signal
 			comm_b_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_b_sync_end_sync_channel_signal,                         --                 comm_b_sync_end.sync_channel_signal
 			comm_c_conduit_end_data_in_signal                           => CONNECTED_TO_comm_c_conduit_end_data_in_signal,                           --              comm_c_conduit_end.data_in_signal
 			comm_c_conduit_end_data_out_signal                          => CONNECTED_TO_comm_c_conduit_end_data_out_signal,                          --                                .data_out_signal
 			comm_c_conduit_end_strobe_in_signal                         => CONNECTED_TO_comm_c_conduit_end_strobe_in_signal,                         --                                .strobe_in_signal
 			comm_c_conduit_end_strobe_out_signal                        => CONNECTED_TO_comm_c_conduit_end_strobe_out_signal,                        --                                .strobe_out_signal
+			comm_c_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_c_measurements_conduit_end_measurements_channel_signal, -- comm_c_measurements_conduit_end.measurements_channel_signal
 			comm_c_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_c_sync_end_sync_channel_signal,                         --                 comm_c_sync_end.sync_channel_signal
 			comm_d_conduit_end_data_in_signal                           => CONNECTED_TO_comm_d_conduit_end_data_in_signal,                           --              comm_d_conduit_end.data_in_signal
 			comm_d_conduit_end_data_out_signal                          => CONNECTED_TO_comm_d_conduit_end_data_out_signal,                          --                                .data_out_signal
 			comm_d_conduit_end_strobe_in_signal                         => CONNECTED_TO_comm_d_conduit_end_strobe_in_signal,                         --                                .strobe_in_signal
 			comm_d_conduit_end_strobe_out_signal                        => CONNECTED_TO_comm_d_conduit_end_strobe_out_signal,                        --                                .strobe_out_signal
+			comm_d_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_d_measurements_conduit_end_measurements_channel_signal, -- comm_d_measurements_conduit_end.measurements_channel_signal
 			comm_d_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_d_sync_end_sync_channel_signal,                         --                 comm_d_sync_end.sync_channel_signal
 			comm_e_conduit_end_data_in_signal                           => CONNECTED_TO_comm_e_conduit_end_data_in_signal,                           --              comm_e_conduit_end.data_in_signal
 			comm_e_conduit_end_data_out_signal                          => CONNECTED_TO_comm_e_conduit_end_data_out_signal,                          --                                .data_out_signal
 			comm_e_conduit_end_strobe_in_signal                         => CONNECTED_TO_comm_e_conduit_end_strobe_in_signal,                         --                                .strobe_in_signal
 			comm_e_conduit_end_strobe_out_signal                        => CONNECTED_TO_comm_e_conduit_end_strobe_out_signal,                        --                                .strobe_out_signal
+			comm_e_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_e_measurements_conduit_end_measurements_channel_signal, -- comm_e_measurements_conduit_end.measurements_channel_signal
 			comm_e_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_e_sync_end_sync_channel_signal,                         --                 comm_e_sync_end.sync_channel_signal
 			comm_f_conduit_end_data_in_signal                           => CONNECTED_TO_comm_f_conduit_end_data_in_signal,                           --              comm_f_conduit_end.data_in_signal
 			comm_f_conduit_end_data_out_signal                          => CONNECTED_TO_comm_f_conduit_end_data_out_signal,                          --                                .data_out_signal
 			comm_f_conduit_end_strobe_in_signal                         => CONNECTED_TO_comm_f_conduit_end_strobe_in_signal,                         --                                .strobe_in_signal
 			comm_f_conduit_end_strobe_out_signal                        => CONNECTED_TO_comm_f_conduit_end_strobe_out_signal,                        --                                .strobe_out_signal
+			comm_f_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_f_measurements_conduit_end_measurements_channel_signal, -- comm_f_measurements_conduit_end.measurements_channel_signal
 			comm_f_sync_end_sync_channel_signal                         => CONNECTED_TO_comm_f_sync_end_sync_channel_signal,                         --                 comm_f_sync_end.sync_channel_signal
 			csense_adc_fo_export                                        => CONNECTED_TO_csense_adc_fo_export,                                        --                   csense_adc_fo.export
 			csense_cs_n_export                                          => CONNECTED_TO_csense_cs_n_export,                                          --                     csense_cs_n.export
@@ -266,12 +272,6 @@
 			tristate_conduit_tcm_read_n_out                             => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                             --                                .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                            => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                            --                                .tcm_write_n_out
 			tristate_conduit_tcm_data_out                               => CONNECTED_TO_tristate_conduit_tcm_data_out,                               --                                .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                       --                                .tcm_chipselect_n_out
-			comm_a_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_a_measurements_conduit_end_measurements_channel_signal, -- comm_a_measurements_conduit_end.measurements_channel_signal
-			comm_b_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_b_measurements_conduit_end_measurements_channel_signal, -- comm_b_measurements_conduit_end.measurements_channel_signal
-			comm_c_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_c_measurements_conduit_end_measurements_channel_signal, -- comm_c_measurements_conduit_end.measurements_channel_signal
-			comm_d_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_d_measurements_conduit_end_measurements_channel_signal, -- comm_d_measurements_conduit_end.measurements_channel_signal
-			comm_e_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_e_measurements_conduit_end_measurements_channel_signal, -- comm_e_measurements_conduit_end.measurements_channel_signal
-			comm_f_measurements_conduit_end_measurements_channel_signal => CONNECTED_TO_comm_f_measurements_conduit_end_measurements_channel_signal  -- comm_f_measurements_conduit_end.measurements_channel_signal
+			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                        --                                .tcm_chipselect_n_out
 		);
 
