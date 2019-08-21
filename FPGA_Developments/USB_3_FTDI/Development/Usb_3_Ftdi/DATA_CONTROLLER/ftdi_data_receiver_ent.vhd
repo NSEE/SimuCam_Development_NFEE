@@ -11,6 +11,7 @@ entity ftdi_data_receiver_ent is
 		rx_dc_data_fifo_rddata_data_i : in  std_logic_vector(31 downto 0);
 		rx_dc_data_fifo_rddata_be_i   : in  std_logic_vector(3 downto 0);
 		rx_dc_data_fifo_rdempty_i     : in  std_logic;
+		rx_dc_data_fifo_rdfull_i      : in  std_logic;
 		rx_dc_data_fifo_rdusedw_i     : in  std_logic_vector(11 downto 0);
 		buffer_stat_full_i            : in  std_logic;
 		buffer_wrready_i              : in  std_logic;
@@ -40,7 +41,7 @@ architecture RTL of ftdi_data_receiver_ent is
 		LONG_FETCH_DELAY,               -- long fetch delay
 		WRITE_RX_QQWORD,                -- write rx qqword data (256b)
 		WRITE_DELAY,                    -- write delay
-		CHANGE_BUFFER                   -- change tx buffer
+		CHANGE_BUFFER                   -- change rx buffer
 	);
 	signal s_ftdi_data_receiver_state : t_ftdi_data_receiver_fsm;
 
@@ -67,7 +68,7 @@ begin
 
 				-- state "STOPPED"
 				when STOPPED =>
-					-- data transmitter stopped
+					-- data receiver stopped
 					s_ftdi_data_receiver_state <= STOPPED;
 					v_ftdi_data_receiver_state := STOPPED;
 					-- default state transition
@@ -88,7 +89,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					-- check if the rx dc data fifo have at least two dwords available 
-					if (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8) then
+					if ((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8)) then
 						s_ftdi_data_receiver_state <= FETCH_RX_DWORD_0;
 						v_ftdi_data_receiver_state := FETCH_RX_DWORD_0;
 					end if;
@@ -223,7 +224,7 @@ begin
 
 				-- state "CHANGE_BUFFER"
 				when CHANGE_BUFFER =>
-					-- change tx buffer
+					-- change rx buffer
 					s_ftdi_data_receiver_state <= IDLE;
 					v_ftdi_data_receiver_state := IDLE;
 				-- default state transition
@@ -248,7 +249,7 @@ begin
 
 				-- state "STOPPED"
 				when STOPPED =>
-					-- data transmitter stopped
+					-- data receiver stopped
 					-- default output signals
 					rx_dc_data_fifo_rdreq_o <= '0';
 					buffer_data_loaded_o    <= '0';
@@ -435,7 +436,7 @@ begin
 
 				-- state "CHANGE_BUFFER"
 				when CHANGE_BUFFER =>
-					-- change tx buffer
+					-- change rx buffer
 					-- default output signals
 					rx_dc_data_fifo_rdreq_o <= '0';
 					buffer_data_loaded_o    <= '0';

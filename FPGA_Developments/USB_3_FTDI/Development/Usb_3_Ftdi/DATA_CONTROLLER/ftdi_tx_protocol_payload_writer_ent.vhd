@@ -12,10 +12,12 @@ entity ftdi_tx_protocol_payload_writer_ent is
 		data_tx_stop_i                : in  std_logic;
 		data_tx_start_i               : in  std_logic;
 		payload_writer_start_i        : in  std_logic;
+		payload_writer_reset_i        : in  std_logic;
 		payload_length_bytes_i        : in  std_logic_vector(31 downto 0);
 		buffer_stat_empty_i           : in  std_logic;
 		buffer_rddata_i               : in  std_logic_vector(255 downto 0);
 		buffer_rdready_i              : in  std_logic;
+		tx_dc_data_fifo_wrempty_i     : in  std_logic;
 		tx_dc_data_fifo_wrfull_i      : in  std_logic;
 		tx_dc_data_fifo_wrusedw_i     : in  std_logic_vector(11 downto 0);
 		payload_writer_busy_o         : out std_logic;
@@ -26,6 +28,8 @@ entity ftdi_tx_protocol_payload_writer_ent is
 		tx_dc_data_fifo_wrreq_o       : out std_logic
 	);
 end entity ftdi_tx_protocol_payload_writer_ent;
+
+-- (Tx: FPGA => FTDI)
 
 architecture RTL of ftdi_tx_protocol_payload_writer_ent is
 
@@ -53,7 +57,6 @@ architecture RTL of ftdi_tx_protocol_payload_writer_ent is
 		WAITING_TX_SPACE_EOP,           -- wait until there is enough space in the tx fifo for the eop
 		WRITE_TX_END_OF_PAYLOAD,        -- write a end of payload to the tx fifo
 		FINISH_PAYLOAD_TX               -- finish the payload write
-
 	);
 	signal s_ftdi_tx_prot_payload_writer_state : t_ftdi_tx_prot_payload_writer_fsm;
 
@@ -246,15 +249,15 @@ begin
 						v_ftdi_tx_prot_payload_writer_state := CHANGE_BUFFER;
 					else
 						if (unsigned(payload_length_bytes_i) < 8) then
-							s_payload_length_cnt                <= (others => '0');
 							s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_SPACE_CRC;
 							v_ftdi_tx_prot_payload_writer_state := WAITING_TX_SPACE_CRC;
+							s_payload_length_cnt                <= (others => '0');
 						else
-							s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 8);
 							-- check (if the tx data buffer is ready and not empty) and (if there is enough space in the tx dc data fifo for the fetched qword)
 							if (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
 								s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
 								v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
+								s_payload_length_cnt                <= std_logic_vector(unsigned(s_payload_length_cnt) - 8);
 							end if;
 						end if;
 					end if;
@@ -282,6 +285,7 @@ begin
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
 					-- conditional state transition
+					-- check if there is enough space in the tx fifo for the crc and eop
 					if ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 2))) then
 						s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_PAYLOAD_CRC;
 						v_ftdi_tx_prot_payload_writer_state := WRITE_TX_PAYLOAD_CRC;
@@ -325,11 +329,16 @@ begin
 				when FINISH_PAYLOAD_TX =>
 					-- finish the payload write
 					-- default state transition
-					s_ftdi_tx_prot_payload_writer_state <= IDLE;
-					v_ftdi_tx_prot_payload_writer_state := IDLE;
+					s_ftdi_tx_prot_payload_writer_state <= FINISH_PAYLOAD_TX;
+					v_ftdi_tx_prot_payload_writer_state := FINISH_PAYLOAD_TX;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
-				-- conditional state transition
+					-- conditional state transition
+					-- check if a payload writer reset was issued
+					if (payload_writer_reset_i = '1') then
+						s_ftdi_tx_prot_payload_writer_state <= IDLE;
+						v_ftdi_tx_prot_payload_writer_state := IDLE;
+					end if;
 
 				-- all the other states (not defined)
 				when others =>

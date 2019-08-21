@@ -12,7 +12,9 @@ entity ftdi_tx_protocol_header_generator_ent is
 		data_tx_stop_i                : in  std_logic;
 		data_tx_start_i               : in  std_logic;
 		header_generator_start_i      : in  std_logic;
-		hgen_header_data_i            : in  t_ftdi_prot_header_fields;
+		header_generator_reset_i      : in  std_logic;
+		header_data_i                 : in  t_ftdi_prot_header_fields;
+		tx_dc_data_fifo_wrempty_i     : in  std_logic;
 		tx_dc_data_fifo_wrfull_i      : in  std_logic;
 		tx_dc_data_fifo_wrusedw_i     : in  std_logic_vector(11 downto 0);
 		header_generator_busy_o       : out std_logic;
@@ -21,6 +23,8 @@ entity ftdi_tx_protocol_header_generator_ent is
 		tx_dc_data_fifo_wrreq_o       : out std_logic
 	);
 end entity ftdi_tx_protocol_header_generator_ent;
+
+-- (Tx: FPGA => FTDI)
 
 architecture RTL of ftdi_tx_protocol_header_generator_ent is
 
@@ -185,10 +189,15 @@ begin
 				when FINISH_HEADER_TX =>
 					-- finish the header transmission
 					-- default state transition
-					s_ftdi_tx_prot_header_generator_state <= IDLE;
-					v_ftdi_tx_prot_header_generator_state := IDLE;
+					s_ftdi_tx_prot_header_generator_state <= FINISH_HEADER_TX;
+					v_ftdi_tx_prot_header_generator_state := FINISH_HEADER_TX;
 					-- default internal signal values
 					-- conditional state transition
+					-- check if a header generator reset was issued
+					if (header_generator_reset_i = '1') then
+						s_ftdi_tx_prot_header_generator_state <= IDLE;
+						v_ftdi_tx_prot_header_generator_state := IDLE;
+					end if;
 
 			end case;
 

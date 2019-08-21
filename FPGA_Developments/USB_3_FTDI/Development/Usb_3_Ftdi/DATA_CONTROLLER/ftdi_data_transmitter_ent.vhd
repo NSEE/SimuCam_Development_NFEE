@@ -11,6 +11,7 @@ entity ftdi_data_transmitter_ent is
 		buffer_stat_empty_i           : in  std_logic;
 		buffer_rddata_i               : in  std_logic_vector(255 downto 0);
 		buffer_rdready_i              : in  std_logic;
+		tx_dc_data_fifo_wrempty_i     : in  std_logic;
 		tx_dc_data_fifo_wrfull_i      : in  std_logic;
 		tx_dc_data_fifo_wrusedw_i     : in  std_logic_vector(11 downto 0);
 		buffer_rdreq_o                : out std_logic;
