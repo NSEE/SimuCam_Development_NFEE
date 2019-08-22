@@ -206,7 +206,7 @@ void vFeeTask(void *task_data) {
 				}
 
 				/* Send to Meb Task that is not using RAM */
-				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRANSMISSION_FINISHED, 0, pxNFee->ucId);
+				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRAN_FIN, 0, pxNFee->ucId);
 
 
 				/* End of simulation! Clear everything that is possible */
@@ -279,7 +279,7 @@ void vFeeTask(void *task_data) {
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
 
 				/* Send to Meb Task that is not using RAM */
-				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRANSMISSION_FINISHED, 0, pxNFee->ucId);
+				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRAN_FIN, 0, pxNFee->ucId);
 
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -1607,7 +1607,7 @@ bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned c
 	bSuccesL = FALSE;
 	error_codel = OSQPost(xMebQ, (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMSGMebTaskFromFEE();
+		vFailFromFEE();
 		bSuccesL = FALSE;
 	} else {
 		bSuccesL =  TRUE;

@@ -79,7 +79,7 @@ void vSimMebTask(void *task_data) {
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					/* Threat the command received in the Queue Message */
-					vPerformActionMebInConfig( uiCmdMeb, pxMebC);
+					vPerformActionMebInConfig( uiCmdMeb.ulWord, pxMebC);
 				} else {
 					/* Should never get here (blocking operation), critical fail */
 					vCouldNotGetCmdQueueMeb();
@@ -92,7 +92,7 @@ void vSimMebTask(void *task_data) {
 				if ( error_code == OS_ERR_NONE ) {
 
 					/* Threat the command received in the Queue Message */
-					vPerformActionMebInRunning( uiCmdMeb, pxMebC);
+					vPerformActionMebInRunning( uiCmdMeb.ulWord, pxMebC);
 
 				} else {
 					/* Should never get here (blocking operation), critical fail */
@@ -114,10 +114,7 @@ void vSimMebTask(void *task_data) {
 
 void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal ) {
 	tQMask uiCmdLocal;
-	INT8U ucFrameNumber;
 	unsigned char ucFeeInst;
-	unsigned char tCode;
-	unsigned char tCodeNext;
 	unsigned char ucIL =0;
 
 	uiCmdLocal.ulWord = uiCmdParam;
@@ -147,10 +144,6 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
-			case M_SYNC:
-				vDebugSyncTimeCode(pxMebCLocal);
-				break;
-
 			case Q_MEB_DATA_MEM_IN_USE:
 				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end | (0x01<<6);
 				break;
@@ -160,7 +153,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end | (0x01<<ucFeeInst);
 				break;
 
-			case Q_MEB_DATA_MEM_UPDATE_FINISHED:
+			case Q_MEB_DATA_MEM_UPD_FIN:
 				/* Clear the flag of the end variable, if is the last ccd readout check if all NFEE finish */
 				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<6);
 				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
@@ -185,7 +178,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 
 				break;
 
-			case Q_MEB_FEE_MEM_TRANSMISSION_FINISHED:
+			case Q_MEB_FEE_MEM_TRAN_FIN:
 				/* Clear the flag only in the last CCD transmission */
 				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
 					ucFeeInst = uiCmdLocal.ucByte[0];

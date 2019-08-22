@@ -1166,7 +1166,7 @@ void vFailRequestDMA( unsigned char ucTemp)
 	 */
 }
 
-void vFailSendMSGMebTaskfromFEE ( void ) {
+void vFailFromFEE ( void ) {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 		fprintf(fp,"vFailSendMSGMebTaskfromFEE \n");

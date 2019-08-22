@@ -19,7 +19,7 @@
 void vFailFtdiErrorIRQtoDTC ( void );
 void vFailSendBufferEmptyIRQtoDTC ( void );
 void vFailSendBufferLastIRQtoDTC ( void );
-void vFailSendMSGMebTaskfromFEE ( void );
+void vFailFromFEE ( void );
 void vFailSendMSGMebTask ( void );
 void vFailSendBufferFullIRQtoDTC ( void );
 void vFailFTDIDMASchedule( void );

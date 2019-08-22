@@ -20,6 +20,8 @@
 #include "../driver/comm/data_packet/data_packet.h"
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/leds/leds.h"
+#include "../utils/communication_configs.h"
+#include "../utils/error_handler_simucam.h"
 
 void vFeeTask(void *task_data);
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );

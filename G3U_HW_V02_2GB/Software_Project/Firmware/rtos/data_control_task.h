@@ -12,6 +12,8 @@
 #include "../simucam_definitions.h"
 #include "../utils/data_controller.h"
 #include "../utils/queue_commands_list.h"
+#include "../utils/communication_configs.h"
+#include "../utils/events_handler.h"
 
 
 void vDataControlTask(void *task_data);

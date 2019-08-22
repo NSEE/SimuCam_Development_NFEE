@@ -70,10 +70,11 @@ typedef union qMask{
 #define Q_MEB_PUS 		0x01 /* Indicates that income a PUS command and it should check the xPus array */
 
 #define Q_MEB_DATA_MEM_IN_USE   		 0x11 	/* DTC Updating memory*/
-#define Q_MEB_DATA_MEM_UPDATE_FINISHED   0x12 	/* DTC Indicates That finish the load of the data in the RAM memory */
+#define Q_MEB_DATA_MEM_UPD_FIN   		 0x12 	/* DTC Indicates That finish the load of the data in the RAM memory Q_MEB_DATA_MEM_UPDATE_FINISHED*/
 
 #define Q_MEB_FEE_MEM_IN_USE				0x21 	/* FEE Using memory */
-#define Q_MEB_FEE_MEM_TRANSMISSION_FINISHED 0x22 	/* FEE CCD transmitted */
+#define Q_MEB_FEE_MEM_TRAN_FIN 				0x22 	/* FEE CCD transmitted Q_MEB_FEE_MEM_TRANSMISSION_FINISHED*/
+#define Q_MEB_FEE_DIS                       0x24 	/* FEE Instance Inactive todo: decide if will be used*/
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 

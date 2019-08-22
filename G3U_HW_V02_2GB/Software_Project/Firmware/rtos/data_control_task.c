@@ -17,6 +17,7 @@ alt_u16 usiFTDInDataLeftInBuffer( void );
 bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
 bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
 bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
+bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 void vRxBuffer0FullIRQHandler(void);
 void vRxBuffer1FullIRQHandler(void);
 void vRxLastBufferFullIRQHandler(void);
@@ -124,7 +125,7 @@ void vDataControlTask(void *task_data) {
 
 						/* Indicates that at any moment the memory could be swaped in order to the NFEEs prepare the first packet to send in the next M. Sync */
 						pxDataC->bUpdateComplete = TRUE;
-						bSendMSGtoSimMebTask(Q_MEB_DATA_MEM_UPDATE_FINISHED, 0, 0); /*todo: Tratar retorno*/
+						bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_UPD_FIN, 0, 0); /*todo: Tratar retorno*/
 
 
 						#if DEBUG_ON
@@ -148,7 +149,7 @@ void vDataControlTask(void *task_data) {
 					case sSubSetupEpoch:
 						/* Indicates that the memory update is not completed, at this moment just start */
 						pxDataC->bUpdateComplete = FALSE;
-						bSendMSGtoSimMebTask(Q_MEB_DATA_MEM_IN_USE, 0, 0); /*todo: Tratar retorno*/
+						bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_IN_USE, 0, 0); /*todo: Tratar retorno*/
 
 						/* todo: For now, this 'toca' implementation will always update all CCDs of all FEE.
 						   The next implementation we should avoid to update FEEs that are working with patterns, unless that has any LUT update */
@@ -207,11 +208,12 @@ void vDataControlTask(void *task_data) {
 								#endif
 
 								pxDataC->sRunMode = sSubWaitIRQBuffer;
-								if ( ucSubCCDSide == 0 ) 
+								if ( ucSubCCDSide == 0 ) {
 									xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xLeft;
-								else
+								} else {
 									xCCDMemMapL = &pxDataC->xCopyNfee[ucSubReqIFEE].xMemMap.xCcd[ucSubReqICCD].xRight;
-								
+								}
+								xCCDMemMapL->ulBlockI = 0;
 							}
 
 						} else {
@@ -458,7 +460,7 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP )
 
 
 /* This function send command to meb_sim task*/
-bool bSendMSGtoSimMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
 	bool bSuccesL;
 	INT8U error_codel;
