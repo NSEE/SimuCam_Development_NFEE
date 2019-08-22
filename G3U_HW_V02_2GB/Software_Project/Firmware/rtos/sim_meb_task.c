@@ -366,7 +366,7 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
-		/* TC_SCAMxx_SYNCH_RST */
+		/* TC_SCAMxx_SYNCH_RST [bndky] */
 		case 31:
 			/* Send the wait time info to the sync reset function*/
 			vSyncReset( xPusL->usiValues[0] );

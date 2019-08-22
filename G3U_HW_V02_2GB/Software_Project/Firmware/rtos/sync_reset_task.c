@@ -36,7 +36,7 @@ void vSyncResetTask( void *task_data ){
             bStopSync();
 
             /* Reset the time code */ 
-            vResetTimeCode(&pxMeb->xFeeControl);
+            vResetTimeCode(pxMeb->xFeeControl);
 
             /* Wait ufSynchDelay milliseconds */ 
             OSTimeDlyHMSM(0, 0, 0, usiResetDelayL);
