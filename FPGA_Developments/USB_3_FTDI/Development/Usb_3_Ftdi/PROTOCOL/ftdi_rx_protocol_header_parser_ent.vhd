@@ -64,8 +64,17 @@ begin
 			-- fsm state reset
 			s_ftdi_tx_prot_header_parser_state <= STOPPED;
 			v_ftdi_tx_prot_header_parser_state := STOPPED;
-		-- internal signals reset
-		-- outputs reset
+			-- internal signals reset
+			s_header_crc32_match               <= '0';
+			s_header_eoh_error                 <= '0';
+			-- outputs reset
+			header_parser_busy_o               <= '0';
+			s_registered_header_data           <= c_FTDI_PROT_HEADER_RESET;
+			header_data_o                      <= c_FTDI_PROT_HEADER_RESET;
+			s_header_crc32                     <= (others => '0');
+			header_crc32_match_o               <= '0';
+			header_eoh_error_o                 <= '0';
+			rx_dc_data_fifo_rdreq_o            <= '0';
 		elsif rising_edge(clk_i) then
 
 			-- States transitions FSM
