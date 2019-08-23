@@ -191,6 +191,7 @@ C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
 C_SRCS += api_driver/simucam_dma/simucam_dma.c
+C_SRCS += rtos/test_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

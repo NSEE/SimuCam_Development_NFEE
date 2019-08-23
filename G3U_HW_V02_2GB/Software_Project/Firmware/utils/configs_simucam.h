@@ -52,7 +52,6 @@ typedef struct Defaults{
 	unsigned short int usiDataProtId;
 	unsigned short int usiDpuLogicalAddr;
 	unsigned short int usiSpwPLength;
-
 }TDefaults;
 
 

@@ -16,6 +16,17 @@
     void printErrorTask( INT8U error_code );
 #endif
 
+void vFailFtdiErrorIRQtoDTC ( void );
+void vFailSendBufferEmptyIRQtoDTC ( void );
+void vFailSendBufferLastIRQtoDTC ( void );
+void vFailFromFEE ( void );
+void vFailSendMSGMebTask ( void );
+void vFailSendBufferFullIRQtoDTC ( void );
+void vFailFTDIDMASchedule( void );
+void vCommunicationErrorUSB3DTController( void );
+void vCriticalFailUpdateMemoreDTController( void );
+void vFailSendRequestDTController( void );
+void vFailInitRTOSResources( void );
 void vFailTestCriticasParts( void );
 void vFailGetMacRTC( void );
 void vFailInitialization( void );

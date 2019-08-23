@@ -58,6 +58,9 @@ typedef union qMask{
 /* General command to sync */
 #define M_MASTER_SYNC               0xE0    /* Command send byt the Sync Interrupt */
 #define M_SYNC                      0xE1    /* Command send byt the Sync Interrupt */
+#define M_PRE_MASTER                0xE2    /* Command send byt the Sync Interrupt */
+
+#define M_MEM_SWAPPED               0xE4    /* Memory Swapped!!! */
 
 
 /*=====================================================================================================================*/
@@ -66,6 +69,12 @@ typedef union qMask{
 /* These list of commands is used in the xMebQ to send message the Meb task */
 #define Q_MEB_PUS 		0x01 /* Indicates that income a PUS command and it should check the xPus array */
 
+#define Q_MEB_DATA_MEM_IN_USE   		 0x11 	/* DTC Updating memory*/
+#define Q_MEB_DATA_MEM_UPD_FIN   		 0x12 	/* DTC Indicates That finish the load of the data in the RAM memory Q_MEB_DATA_MEM_UPDATE_FINISHED*/
+
+#define Q_MEB_FEE_MEM_IN_USE				0x21 	/* FEE Using memory */
+#define Q_MEB_FEE_MEM_TRAN_FIN 				0x22 	/* FEE CCD transmitted Q_MEB_FEE_MEM_TRANSMISSION_FINISHED*/
+#define Q_MEB_FEE_DIS                       0x24 	/* FEE Instance Inactive todo: decide if will be used*/
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -79,7 +88,6 @@ typedef union qMask{
 #define M_NFC_RUN 		    0x02 /* Indicates that should go to Run Mode */
 #define M_NFC_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_NFC_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
-
 
 #define M_NFC_DMA_GIVEBACK  0x81
 #define M_NFC_DMA_REQUEST   0x80 /* DO NOT ATTRIBUTE 0x80 TO ANY OTHER COMMAND */
@@ -95,9 +103,15 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_DATA_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_DATA_RUN 		    0x02 /* Indicates that should go to Run Mode */
-
 #define M_DATA_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_DATA_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
+
+#define M_DATA_FTDI_BUFFER_FULL    0xB1 /* Indicates IRQ ftdi buffer full */
+#define M_DATA_FTDI_BUFFER_LAST    0xB2 /* Indicates IRQ last packet */
+#define M_DATA_FTDI_BUFFER_EMPTY   0xB4 /* Indicates IRQ buffer empty */
+
+#define M_DATA_FTDI_ERROR   0xC1 	/* Indicates IRQ Communication error */
+
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 
@@ -121,11 +135,8 @@ typedef union qMask{
 
 
 #define M_FEE_RMAP                  0xF0 /* RMAP command received */
-
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
-
-
 
 
 

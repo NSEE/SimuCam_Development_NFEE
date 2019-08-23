@@ -58,6 +58,7 @@ typedef struct FEEMemoryMap{
 
 typedef enum { sLeft = 0, sRight, sBoth } tNFeeSide;
 typedef struct FeeControl{
+    bool bNeedUpDateMem;
     bool bEnabled;
     bool bDMALocked;					/* Is true while the FEee has the mutex of the DMA */
     bool bUsingDMA;

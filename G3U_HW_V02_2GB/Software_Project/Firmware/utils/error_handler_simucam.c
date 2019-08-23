@@ -23,6 +23,72 @@ void vCriticalErrorLedPanel( void ) {
 	bSetPainelLeds( LEDS_ON, LEDS_PAINEL_ALL_MASK );
 }
 
+void vFailInitRTOSResources( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailInitRTOSResources. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCriticalFailUpdateMemoreDTController( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vCriticalFailUpdateMemoreDTController. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCommunicationErrorUSB3DTController( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vCommunicationErrorUSB3DTController. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailSendRequestDTController( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailSendRequestDTController. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vFailFTDIDMASchedule( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailFTDIDMASchedule. (exit)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+
 void vFailCreateMutexSResources( INT8U error_code )
 {
 	#if DEBUG_ON
@@ -1099,6 +1165,55 @@ void vFailRequestDMA( unsigned char ucTemp)
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
 	 */
 }
+
+void vFailFromFEE ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMSGMebTaskfromFEE \n");
+	}
+	#endif
+}
+
+void vFailSendMSGMebTask ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMSGMebTask \n");
+	}
+	#endif
+}
+
+void vFailSendBufferFullIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailSendBufferLastIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailFtdiErrorIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
+void vFailSendBufferEmptyIRQtoDTC ( void ) {
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendBufferFullIRQtoDTC \n");
+	}
+	#endif
+}
+
 
 void vFailRequestDMAFromIRQ( unsigned char ucTemp)
 {

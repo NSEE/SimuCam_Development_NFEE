@@ -24,6 +24,8 @@
 
 void vSimMebTask(void *task_data);
 
+void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal );
+
 void vPusMebTask( TSimucam_MEB *pxMebCLocal );
 
 /* This function should treat the PUS command in the Config Mode, need check all the things that is possible to update in this mode */
@@ -53,7 +55,10 @@ void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned c
 void vMebInit(TSimucam_MEB *pxMebCLocal);
 //void vReleaseSyncMessages(void);
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal);
-void vEnterConfigRoutine( void );
+void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal );
+
+void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
+void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
 
 
 #endif /* SIM_MEB_TASK_H_ */

@@ -30,6 +30,7 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     vUpdateMemMapFEE(pxNfeeL);
 
     /* Initilizing control variables */
+    pxNfeeL->xControl.bNeedUpDateMem = FALSE;
     pxNfeeL->xControl.bEnabled = TRUE;
     pxNfeeL->xControl.bUsingDMA = FALSE;
     pxNfeeL->xControl.bChannelEnable = FALSE;

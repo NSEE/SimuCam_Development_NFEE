@@ -64,33 +64,35 @@ void vSyncHandleIrq(void* pvContext) {
 
 		/* Sync Blank Pulse IRQ routine */
 
-			uiCmdtoSend.ulWord = 0;
-			/* MasterSync? */
-			ucSyncL = (vucN % 4);
-			if ( ucSyncL == 0 )
-				uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
-			else
-				uiCmdtoSend.ucByte[2] = M_SYNC;
+		uiCmdtoSend.ulWord = 0;
+		/* MasterSync? */
+		ucSyncL = (vucN % 4);
+		if ( ucSyncL == 0 )
+			uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
+		else if ( ucSyncL == 3 ) {
+			uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
+		} else
+			uiCmdtoSend.ucByte[2] = M_SYNC;
 
-			uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
 
-			/* Send Priority message to the Meb Task to indicate the Master Sync */
-			error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
-			if ( error_codel != OS_ERR_NONE ) {
-				vFailSendMsgMasterSyncMeb( );
-			}
+		/* Send Priority message to the Meb Task to indicate the Master Sync */
+		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendMsgMasterSyncMeb( );
+		}
 
-			for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-				if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
-					uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-					error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-					if ( error_codel != OS_ERR_NONE ) {
-						vFailSendMsgSync( ucIL );
-					}
+		for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+			if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
+				uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+				error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+				if ( error_codel != OS_ERR_NONE ) {
+					vFailSendMsgSync( ucIL );
 				}
 			}
+		}
 
-			vucN += 1;
+		vucN += 1;
 
 		vSyncIrqClrFlag(eSyncIrqBlankPulseFlag);
 	}
@@ -112,6 +114,11 @@ void vSyncHandleIrq(void* pvContext) {
 
 		vSyncIrqClrFlag(eSyncIrqLastPulseFlag);
 	}
+
+	if ( vucN >= 252 ) /*Precisa zerar no módulo 4*/
+		vucN = 0;
+	else
+		vucN += 1;
 
 }
 

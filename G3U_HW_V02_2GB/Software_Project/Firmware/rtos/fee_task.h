@@ -20,6 +20,8 @@
 #include "../driver/comm/data_packet/data_packet.h"
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/leds/leds.h"
+#include "../utils/communication_configs.h"
+#include "../utils/error_handler_simucam.h"
 
 void vFeeTask(void *task_data);
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );
@@ -32,6 +34,7 @@ bool bDisableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );
 bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
+bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
