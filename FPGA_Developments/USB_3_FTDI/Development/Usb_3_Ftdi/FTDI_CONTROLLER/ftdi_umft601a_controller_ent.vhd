@@ -130,6 +130,11 @@ architecture RTL of ftdi_umft601a_controller_ent is
 
 	signal s_words_to_transfer : natural range 0 to 1024;
 
+	signal s_rx_dc_be_little_endian   : std_logic_vector(3 downto 0);
+	signal s_rx_dc_data_little_endian : std_logic_vector(31 downto 0);
+	signal s_tx_dc_be_little_endian   : std_logic_vector(3 downto 0);
+	signal s_tx_dc_data_little_endian : std_logic_vector(31 downto 0);
+
 begin
 
 	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
@@ -144,8 +149,10 @@ begin
 			wrreq             => tx_dc_data_fifo_wrreq_i,
 			--			q(35 downto 4)    => s_tx_dc_data_fifo.rddata_data,
 			--			q(3 downto 0)     => s_tx_dc_data_fifo.rddata_be,
-			q(35 downto 4)    => s_umft601a_buffered_pins.data_out,
-			q(3 downto 0)     => s_umft601a_buffered_pins.be_out,
+			--			q(35 downto 4)    => s_umft601a_buffered_pins.data_out,
+			--			q(3 downto 0)     => s_umft601a_buffered_pins.be_out,
+			q(35 downto 4)    => s_tx_dc_data_little_endian,
+			q(3 downto 0)     => s_tx_dc_be_little_endian,
 			rdempty           => s_tx_dc_data_fifo.rdempty,
 			rdfull            => s_tx_dc_data_fifo.rdfull,
 			rdusedw           => s_tx_dc_data_fifo.rdusedw,
@@ -160,8 +167,10 @@ begin
 			aclr              => s_rx_dc_data_fifo.aclr,
 			--			data(35 downto 4) => s_rx_dc_data_fifo.wrdata_data,
 			--			data(3 downto 0)  => s_rx_dc_data_fifo.wrdata_be,
-			data(35 downto 4) => s_umft601a_buffered_pins.data_in,
-			data(3 downto 0)  => s_umft601a_buffered_pins.be_in,
+			--			data(35 downto 4) => s_umft601a_buffered_pins.data_in,
+			--			data(3 downto 0)  => s_umft601a_buffered_pins.be_in,
+			data(35 downto 4) => s_rx_dc_data_little_endian,
+			data(3 downto 0)  => s_rx_dc_be_little_endian,
 			rdclk             => clk_i,
 			rdreq             => rx_dc_data_fifo_rdreq_i,
 			wrclk             => s_umft601a_clock,
@@ -593,5 +602,23 @@ begin
 
 	s_tx_dc_data_fifo.aclr <= (rst_i) or (clr_i);
 	s_rx_dc_data_fifo.aclr <= (rst_i) or (clr_i);
+
+	-- endianess correction
+	s_umft601a_buffered_pins.data_out(31 downto 24) <= s_tx_dc_data_little_endian(7 downto 0);
+	s_umft601a_buffered_pins.data_out(23 downto 16) <= s_tx_dc_data_little_endian(15 downto 8);
+	s_umft601a_buffered_pins.data_out(15 downto 8)  <= s_tx_dc_data_little_endian(23 downto 16);
+	s_umft601a_buffered_pins.data_out(7 downto 0)   <= s_tx_dc_data_little_endian(31 downto 24);
+	s_umft601a_buffered_pins.be_out(3)              <= s_tx_dc_be_little_endian(0);
+	s_umft601a_buffered_pins.be_out(2)              <= s_tx_dc_be_little_endian(1);
+	s_umft601a_buffered_pins.be_out(1)              <= s_tx_dc_be_little_endian(2);
+	s_umft601a_buffered_pins.be_out(0)              <= s_tx_dc_be_little_endian(3);
+	s_rx_dc_data_little_endian(7 downto 0)          <= s_umft601a_buffered_pins.data_in(31 downto 24);
+	s_rx_dc_data_little_endian(15 downto 8)         <= s_umft601a_buffered_pins.data_in(23 downto 16);
+	s_rx_dc_data_little_endian(23 downto 16)        <= s_umft601a_buffered_pins.data_in(15 downto 8);
+	s_rx_dc_data_little_endian(31 downto 24)        <= s_umft601a_buffered_pins.data_in(7 downto 0);
+	s_rx_dc_be_little_endian(0)                     <= s_umft601a_buffered_pins.be_in(3);
+	s_rx_dc_be_little_endian(1)                     <= s_umft601a_buffered_pins.be_in(2);
+	s_rx_dc_be_little_endian(2)                     <= s_umft601a_buffered_pins.be_in(1);
+	s_rx_dc_be_little_endian(3)                     <= s_umft601a_buffered_pins.be_in(0);
 
 end architecture RTL;

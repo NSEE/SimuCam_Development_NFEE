@@ -46,6 +46,13 @@ package ftdi_protocol_pkg is
 		payload_length  : std_logic_vector(31 downto 0);
 	end record t_ftdi_prot_header_fields;
 
+	type t_ftdi_prot_halfccd_req_config is record
+		image_selection : t_ftdi_prot_header_img_sel;
+		image_size      : t_ftdi_prot_header_img_size;
+		exposure_number : std_logic_vector(15 downto 0);
+		payload_length  : std_logic_vector(31 downto 0);
+	end record t_ftdi_prot_halfccd_req_config;
+
 	constant c_FTDI_PROT_HEADER_IMG_SEL_RESET : t_ftdi_prot_header_img_sel := (
 		fee_number => std_logic_vector(to_unsigned(0, fee_number'length)),
 		ccd_number => std_logic_vector(to_unsigned(0, ccd_number'length)),
