@@ -159,8 +159,18 @@ void vUpdateMemMapFEE( TNFee *pxNfeeL ) {
     ulLastOffset = pxNfeeL->xMemMap.ulOffsetRoot + RESERVED_FEE_X + RESERVED_HALF_CCD_X;
     ulStepHalfCCD = RESERVED_HALF_CCD_X + pxNfeeL->xMemMap.xCommon.usiTotalBytes;
     for ( ucIL = 0; ucIL < 4; ucIL++ ) {
+    	/* Verify and round the start address to be 256 bits (32 bytes) aligned */
+    	if (ulLastOffset % 32) {
+    		/* Address is not aligned, set it to the next aligned address */
+    		ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
+    	}
         pxNfeeL->xMemMap.xCcd[ ucIL ].xLeft.ulOffsetAddr = ulLastOffset;
         ulLastOffset = ulLastOffset + ulStepHalfCCD;
+    	/* Verify and round the start address to be 256 bits (32 bytes) aligned */
+    	if (ulLastOffset % 32) {
+    		/* Address is not aligned, set it to the next aligned address */
+    		ulLastOffset = ((unsigned long) (ulLastOffset / 32) + 1) * 32;
+    	}
         pxNfeeL->xMemMap.xCcd[ ucIL ].xRight.ulOffsetAddr = ulLastOffset; 
         ulLastOffset = ulLastOffset + ulStepHalfCCD;
     }

@@ -18,33 +18,35 @@ use work.avalon_mm_spacewire_registers_pkg.all;
 use work.spw_codec_pkg.all;
 use work.rmap_target_pkg.all;
 use work.rmap_mem_area_nfee_pkg.all;
+use work.windowing_dataset_pkg.all;
 
 entity comm_v1_80_top is
 	port(
-		reset_sink_reset                   : in  std_logic                     := '0'; --          --               reset_sink.a_reset
-		data_in                            : in  std_logic                     := '0'; --          --          spw_conduit_end.data_in_signal
-		data_out                           : out std_logic; --                                     --                         .data_out_signal
-		strobe_in                          : in  std_logic                     := '0'; --          --                         .strobe_in_signal
-		strobe_out                         : out std_logic; --                                     --                         .strobe_out_signal
-		sync_channel                       : in  std_logic                     := '0'; --          --         sync_conduit_end.sync_channel_signal
-		rmap_interrupt_sender_irq          : out std_logic; --                                     --    rmap_interrupt_sender.irq
-		buffers_interrupt_sender_irq       : out std_logic; --                                     -- buffers_interrupt_sender.irq
-		clock_sink_200_clk                 : in  std_logic                     := '0'; --          --           clock_sink_200.clk
-		clock_sink_100_clk                 : in  std_logic                     := '0'; --          --           clock_sink_100.clk
-		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)  := (others => '0'); --   avalon_slave_windowing.address
-		avalon_slave_windowing_write       : in  std_logic                     := '0'; --          --                         .write
-		avalon_slave_windowing_read        : in  std_logic                     := '0'; --          --                         .read
-		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                 --                         .readdata
-		avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_windowing_waitrequest : out std_logic; --                                     --                         .waitrequest
-		avalon_slave_L_buffer_address      : in  std_logic_vector(9 downto 0)  := (others => '0'); --    avalon_slave_L_buffer.address
-		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                     --                         .waitrequest
-		avalon_slave_L_buffer_write        : in  std_logic                     := '0'; --          --                         .write
-		avalon_slave_L_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_address      : in  std_logic_vector(9 downto 0)  := (others => '0'); --    avalon_slave_R_buffer.address
-		avalon_slave_R_buffer_write        : in  std_logic                     := '0'; --          --                         .write
-		avalon_slave_R_buffer_writedata    : in  std_logic_vector(63 downto 0) := (others => '0'); --                         .writedata
-		avalon_slave_R_buffer_waitrequest  : out std_logic --                                      --                         .waitrequest
+		reset_sink_reset                   : in  std_logic                      := '0'; --          --               reset_sink.a_reset
+		data_in                            : in  std_logic                      := '0'; --          --          spw_conduit_end.data_in_signal
+		data_out                           : out std_logic; --                                      --                         .data_out_signal
+		strobe_in                          : in  std_logic                      := '0'; --          --                         .strobe_in_signal
+		strobe_out                         : out std_logic; --                                      --                         .strobe_out_signal
+		sync_channel                       : in  std_logic                      := '0'; --          --         sync_conduit_end.sync_channel_signal
+		rmap_interrupt_sender_irq          : out std_logic; --                                      --    rmap_interrupt_sender.irq
+		buffers_interrupt_sender_irq       : out std_logic; --                                      -- buffers_interrupt_sender.irq
+		clock_sink_200_clk                 : in  std_logic                      := '0'; --          --           clock_sink_200.clk
+		clock_sink_100_clk                 : in  std_logic                      := '0'; --          --           clock_sink_100.clk
+		avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_windowing.address
+		avalon_slave_windowing_write       : in  std_logic                      := '0'; --          --                         .write
+		avalon_slave_windowing_read        : in  std_logic                      := '0'; --          --                         .read
+		avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0); --                  --                         .readdata
+		avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0)  := (others => '0'); --                         .writedata
+		avalon_slave_windowing_waitrequest : out std_logic; --                                      --                         .waitrequest
+		avalon_slave_L_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => '0'); --    avalon_slave_L_buffer.address
+		avalon_slave_L_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
+		avalon_slave_L_buffer_write        : in  std_logic                      := '0'; --          --                         .write
+		avalon_slave_L_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
+		avalon_slave_R_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => '0'); --    avalon_slave_R_buffer.address
+		avalon_slave_R_buffer_write        : in  std_logic                      := '0'; --          --                         .write
+		avalon_slave_R_buffer_writedata    : in  std_logic_vector(255 downto 0) := (others => '0'); --                         .writedata
+		avalon_slave_R_buffer_waitrequest  : out std_logic; --                                      --                         .waitrequest
+		measurements_channel               : out std_logic_vector(7 downto 0) --                    -- measurements_conduit_end.measurements_channel_signal
 	);
 end entity comm_v1_80_top;
 
@@ -255,6 +257,12 @@ architecture rtl of comm_v1_80_top is
 	-- sync_in polarity fix (timing issues, need to be improved!!!)
 	signal s_sync_channel_n : std_logic;
 
+	-- window double buffer
+	signal s_R_window_double_buffer  : t_windowing_double_buffer;
+	signal s_R_window_buffer_control : t_windowing_buffer_control;
+	signal s_L_window_double_buffer  : t_windowing_double_buffer;
+	signal s_L_window_buffer_control : t_windowing_buffer_control;
+
 begin
 
 	-- reset_n creation
@@ -300,11 +308,11 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
-			mask_enable_i                     => '1',
+			fee_clear_signal_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			window_buffer_size_i              => s_right_buffer_size,
+			window_buffer_control_i           => s_R_window_buffer_control,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
-			window_data_write_o               => s_R_window_data_write,
-			window_mask_write_o               => s_R_window_mask_write,
-			window_data_o                     => s_R_window_data
+			window_double_buffer_o            => s_R_window_double_buffer
 		);
 
 	-- rigth windowing buffer instantiation
@@ -312,13 +320,12 @@ begin
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
-			window_buffer_size_i    => s_right_buffer_size,
 			fee_clear_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
 			fee_stop_signal_i       => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
 			fee_start_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
-			window_data_write_i     => s_R_window_data_write,
-			window_mask_write_i     => s_R_window_mask_write,
-			window_data_i           => s_R_window_data,
+			fee_sync_signal_i       => s_sync_in_trigger,
+			window_double_buffer_i  => s_R_window_double_buffer,
+			window_buffer_control_o => s_R_window_buffer_control,
 			window_data_read_i      => s_R_window_data_read,
 			window_mask_read_i      => s_R_window_mask_read,
 			window_data_o           => s_R_window_data_out,
@@ -338,11 +345,11 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
-			mask_enable_i                     => '1',
+			fee_clear_signal_i                => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
+			window_buffer_size_i              => s_left_buffer_size,
+			window_buffer_control_i           => s_L_window_buffer_control,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
-			window_data_write_o               => s_L_window_data_write,
-			window_mask_write_o               => s_L_window_mask_write,
-			window_data_o                     => s_L_window_data
+			window_double_buffer_o            => s_L_window_double_buffer
 		);
 
 	-- left windowing buffer instantiation
@@ -350,13 +357,12 @@ begin
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
-			window_buffer_size_i    => s_left_buffer_size,
 			fee_clear_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_clear,
 			fee_stop_signal_i       => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_stop,
 			fee_start_signal_i      => s_spacewire_write_registers.fee_windowing_buffers_config_reg.fee_machine_start,
-			window_data_write_i     => s_L_window_data_write,
-			window_mask_write_i     => s_L_window_mask_write,
-			window_data_i           => s_L_window_data,
+			fee_sync_signal_i       => s_sync_in_trigger,
+			window_double_buffer_i  => s_L_window_double_buffer,
+			window_buffer_control_o => s_L_window_buffer_control,
 			window_data_read_i      => s_L_window_data_read,
 			window_mask_read_i      => s_L_window_mask_read,
 			window_data_o           => s_L_window_data_out,
@@ -999,5 +1005,17 @@ begin
 			s_sync_in_delayed      <= s_sync_channel_n;
 		end if;
 	end process p_sync_in_triger;
+
+	-- measurements channel outputs
+	-- measurement 0 : right empty buffer signal
+	measurements_channel(0)          <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_right_buffer_empty;
+	-- measurement 1 : right write signal
+	measurements_channel(1)          <= avalon_slave_R_buffer_write;
+	-- measurement 2 : left empty  buffer signal
+	measurements_channel(2)          <= s_spacewire_read_registers.fee_windowing_buffers_status_reg.windowing_left_buffer_empty;
+	-- measurement 3 : left write signal
+	measurements_channel(3)          <= avalon_slave_L_buffer_write;
+	-- not used measurements will be logical 0
+	measurements_channel(7 downto 4) <= (others => '0');
 
 end architecture rtl;                   -- of comm_v1_80_top
