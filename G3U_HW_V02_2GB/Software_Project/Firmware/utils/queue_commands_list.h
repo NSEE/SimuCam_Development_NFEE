@@ -123,16 +123,31 @@ typedef union qMask{
 /* FORMAT: 32 bits MASK ()    0x BB BB */
 #define M_FEE_CONFIG 		0x01 /* Indicates that should go to Config Mode */
 #define M_FEE_RUN 		    0x02 /* Indicates that should go to Run Mode - Mode On -> StandBy */
+#define M_FEE_ON            0x03
 #define M_FEE_STANDBY	    0x04
-#define M_FEE_FULL_PATTERN  0x08
+#define M_FEE_FULL_PATTERN  0x05
+#define M_FEE_WIN_PATTERN   0x06
+#define M_FEE_FULL          0x07
+#define M_FEE_WIN           0x08
+#define M_FEE_PAR_TRAP_1    0x09
+#define M_FEE_PAR_TRAP_2    0x0A
+#define M_FEE_SERIAL_TRAP_1 0x0B
+#define M_FEE_SERIAL_TRAP_2 0x0C
 
 #define M_FEE_DMA_ACCESS    0x8F    /* This Command should be sent by the ISR of the Empty Buffer */
 
 #define M_FEE_CONFIG_FORCED		    0xA1 /* Indicates that should go to Config Mode */
 #define M_FEE_RUN_FORCED            0xA2 /* Indicates that should go to Run Mode - Mode On -> StandBy */
+#define M_FEE_ON_FORCED             0xA3
 #define M_FEE_STANDBY_FORCED        0xA4
-#define M_FEE_FULL_PATTERN_FORCED   0xA8
-
+#define M_FEE_FULL_PATTERN_FORCED   0xA5
+#define M_FEE_WIN_PATTERN_FORCED    0x06
+#define M_FEE_FULL_FORCED           0x07
+#define M_FEE_WIN_FORCED            0x08
+#define M_FEE_PAR_TRAP_1_FORCED     0x09
+#define M_FEE_PAR_TRAP_2_FORCED     0x0A
+#define M_FEE_SERIAL_TRAP_1_FORCED  0x0B
+#define M_FEE_SERIAL_TRAP_2_FORCED  0x0C
 
 #define M_FEE_RMAP                  0xF0 /* RMAP command received */
 /*=====================================================================================================================*/

@@ -166,7 +166,9 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 
 						/* Using QMASK send to NfeeControl that will foward */
 						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
+							if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
+								vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
+							}
 						}
 
 						/* Send the swap Command to data Controller */

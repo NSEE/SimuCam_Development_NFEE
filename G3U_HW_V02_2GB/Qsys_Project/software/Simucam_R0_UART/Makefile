@@ -192,6 +192,8 @@ C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
 C_SRCS += rtos/test_task.c
+C_SRCS += rtos/fee_taskV2.c
+C_SRCS += utils/feeV2.c
 CXX_SRCS :=
 ASM_SRCS :=
 

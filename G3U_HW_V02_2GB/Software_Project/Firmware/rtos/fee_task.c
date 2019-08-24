@@ -206,7 +206,7 @@ void vFeeTask(void *task_data) {
 				}
 
 				/* Send to Meb Task that is not using RAM */
-				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRAN_FIN, 0, pxNFee->ucId);
+				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRAN_FIN, 0, pxNFee->ucId); // Isso deve estar na saida dos modos de transmissão !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
 				/* End of simulation! Clear everything that is possible */
