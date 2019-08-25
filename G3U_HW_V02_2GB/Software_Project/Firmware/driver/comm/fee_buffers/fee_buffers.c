@@ -64,6 +64,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -74,6 +75,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -84,6 +86,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -94,6 +97,7 @@ void vFeebCh1HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -130,6 +134,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -140,6 +145,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -150,6 +156,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -160,6 +167,7 @@ void vFeebCh2HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -196,6 +204,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -206,6 +215,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -216,6 +226,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -226,6 +237,7 @@ void vFeebCh3HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -261,6 +273,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -271,6 +284,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -281,6 +295,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -291,6 +306,7 @@ void vFeebCh4HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -326,6 +342,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -336,6 +353,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -346,6 +364,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -356,6 +375,7 @@ void vFeebCh5HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -392,6 +412,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	// Check Irq Buffer Empty Flags
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -402,6 +423,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqLeftEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 0; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -412,6 +434,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer0Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {
@@ -422,6 +445,7 @@ void vFeebCh6HandleIrq(void* pvContext) {
 	}
 	if (bIrqEmptyBufferFlags[eFeebIrqRightEmptyBuffer1Flag]) {
 
+		uiCmdtoSend.ucByte[1] = 1; /*Left or Right -> Left = 0; Right=1*/
 		/*Sync the Meb task and tell that has a PUS command waiting*/
 		error_codel = OSQPost(xNfeeSchedule, (void *) uiCmdtoSend.ulWord);
 		if (error_codel != OS_ERR_NONE) {

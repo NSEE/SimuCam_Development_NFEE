@@ -23,7 +23,8 @@
 #include "../utils/communication_configs.h"
 #include "../utils/error_handler_simucam.h"
 
-
+void vFeeTaskV2(void *task_data);
+void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd );

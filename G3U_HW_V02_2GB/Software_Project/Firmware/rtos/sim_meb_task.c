@@ -137,6 +137,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_MASTER_SYNC:
 
 				pxMebCLocal->xSwapControl.lastReadOut = FALSE;
+				/* Perform memory SWAP */
+				vSwapMemmory(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
@@ -154,56 +156,19 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:
-				/* Clear the flag of the end variable, if is the last ccd readout check if all NFEE finish */
-				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<6);
-				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
-					/* Cheack if NFEEs instances also finished the work with RAM */
-					if ( pxMebCLocal->xSwapControl.end == 0x00 ){
 
-						/* Perform memory SWAP */
-						vSwapMemmory(pxMebCLocal);
-						pxMebCLocal->xDataControl.usiEPn++; /* todo: Procurar os resets, para verificar se ele tbm é resetado */
+				/*Check if is already the sync before Master Sync*/
+				if ( xGlobal.bPreMaster == TRUE ) {
 
-						/* Using QMASK send to NfeeControl that will foward */
-						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-							if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
-								vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
-							}
+					/*Maybe have some FEE instances loked in reading queue, waiting for a message that DTC finishes the upload of the memory*/
+					/*So, need to send them a message to inform*/
+					/* Using QMASK send to NfeeControl that will foward */
+					for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+						if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
+							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
 						}
-
-						/* Send the swap Command to data Controller */
-						vSendCmdQToDataCTRL( M_MEM_SWAPPED, 0, 0 );
-
-						pxMebCLocal->xSwapControl.lastReadOut = FALSE;
 					}
 				}
-
-				break;
-
-			case Q_MEB_FEE_MEM_TRAN_FIN:
-				/* Clear the flag only in the last CCD transmission */
-				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
-					ucFeeInst = uiCmdLocal.ucByte[0];
-					pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<ucFeeInst);
-					/* Cheack if all NFEEs instances finished the work with RAM */
-					if ( pxMebCLocal->xSwapControl.end == 0x00 ){
-
-						/* Perform memory SWAP */
-						vSwapMemmory(pxMebCLocal);
-						pxMebCLocal->xDataControl.usiEPn++; /* todo: Procurar os resets, para verificar se ele tbm é resetado */
-
-						/* Using QMASK send to NfeeControl that will foward */
-						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
-						}
-
-						/* Send the swap Command to data Controller */
-						vSendCmdQToDataCTRL( M_MEM_SWAPPED, 0, 0 );
-
-						pxMebCLocal->xSwapControl.lastReadOut = FALSE;
-					}
-				}
-
 				break;
 
 			default:
@@ -740,7 +705,6 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 5);
 
-	pxMebCLocal->xDataControl.usiEPn = 0;
 	pxMebCLocal->ucActualDDR = 0;
 	pxMebCLocal->ucNextDDR = 1;
 	/* Transition to Config Mode (Ending the simulation) */

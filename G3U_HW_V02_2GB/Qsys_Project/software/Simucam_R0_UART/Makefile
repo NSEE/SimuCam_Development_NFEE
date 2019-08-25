@@ -143,14 +143,18 @@ ELF := Simucam_R0_UART.elf
 
 # Paths to C, C++, and assembly source files.
 C_SRCS += simucam_main.c
-C_SRCS += driver/comm/spw_controller/spw_controller.c
+C_SRCS += rtos/test_task.c
+C_SRCS += rtos/fee_taskV2.c
+C_SRCS += utils/feeV2.c
 C_SRCS += api_driver/ddr2/ddr2.c
 C_SRCS += api_driver/dma/dma.c
 C_SRCS += api_driver/sense/sense.c
+C_SRCS += api_driver/simucam_dma/simucam_dma.c
 C_SRCS += driver/comm/comm_channel.c
 C_SRCS += driver/comm/data_packet/data_packet.c
 C_SRCS += driver/comm/fee_buffers/fee_buffers.c
 C_SRCS += driver/comm/rmap/rmap.c
+C_SRCS += driver/comm/spw_controller/spw_controller.c
 C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
 C_SRCS += driver/i2c/i2c.c
 C_SRCS += driver/leds/leds.c
@@ -190,10 +194,6 @@ C_SRCS += utils/sdcard_file_manager.c
 C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
-C_SRCS += api_driver/simucam_dma/simucam_dma.c
-C_SRCS += rtos/test_task.c
-C_SRCS += rtos/fee_taskV2.c
-C_SRCS += utils/feeV2.c
 CXX_SRCS :=
 ASM_SRCS :=
 

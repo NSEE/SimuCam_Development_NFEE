@@ -150,6 +150,8 @@ typedef union qMask{
 #define M_FEE_SERIAL_TRAP_2_FORCED  0x0C
 
 #define M_FEE_RMAP                  0xF0 /* RMAP command received */
+
+#define M_FEE_CAN_ACCESS_NEXT_MEM   0xE1 /* Meb send this message to inform FEE instances that already can access the data in the memory that DTC is updating, after DTC finishes the job */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 

@@ -53,72 +53,59 @@ void vSyncHandleIrq(void* pvContext) {
 	bool bSyncIrqFlags[ucSyncIrqFlagsQtd];
 	vSyncIrqGetFlags(bSyncIrqFlags);
 
+	uiCmdtoSend.ulWord = 0;
+
 	// Check Sync Irq Flags
 	if (bSyncIrqFlags[eSyncIrqErrorFlag]) {
-
 		/* Sync Error IRQ routine */
-
 		vSyncIrqClrFlag(eSyncIrqErrorFlag);
 	}
 	if (bSyncIrqFlags[eSyncIrqBlankPulseFlag]) {
-
 		/* Sync Blank Pulse IRQ routine */
-
-		uiCmdtoSend.ulWord = 0;
-		/* MasterSync? */
-		ucSyncL = (vucN % 4);
-		if ( ucSyncL == 0 )
-			uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
-		else if ( ucSyncL == 3 ) {
-			uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
-		} else
-			uiCmdtoSend.ucByte[2] = M_SYNC;
-
-		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
-
-		/* Send Priority message to the Meb Task to indicate the Master Sync */
-		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgMasterSyncMeb( );
-		}
-
-		for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-			if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
-				uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-				error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-				if ( error_codel != OS_ERR_NONE ) {
-					vFailSendMsgSync( ucIL );
-				}
-			}
-		}
-
-		vucN += 1;
-
 		vSyncIrqClrFlag(eSyncIrqBlankPulseFlag);
 	}
-	if (bSyncIrqFlags[eSyncIrqMasterPulseFlag]) {
+
+	if (bSyncIrqFlags[eSyncIrqNormalPulseFlag]) {
+		/* Sync Normal Pulse IRQ routine */
+		uiCmdtoSend.ucByte[2] = M_SYNC;
+		xGlobal.bPreMaster = FALSE;
+		xGlobal.ucEP0_3++;
+		vSyncIrqClrFlag(eSyncIrqNormalPulseFlag);
+	} else if (bSyncIrqFlags[eSyncIrqMasterPulseFlag]) {
 
 		/* Sync Master Pulse IRQ routine */
-
+		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
+		xGlobal.bPreMaster = FALSE;
+		xGlobal.ucEP0_3 = 0;
 		vSyncIrqClrFlag(eSyncIrqMasterPulseFlag);
-	}
-	if (bSyncIrqFlags[eSyncIrqNormalPulseFlag]) {
-
-		/* Sync Normal Pulse IRQ routine */
-
-		vSyncIrqClrFlag(eSyncIrqNormalPulseFlag);
-	}
-	if (bSyncIrqFlags[eSyncIrqLastPulseFlag]) {
+	} else if (bSyncIrqFlags[eSyncIrqLastPulseFlag]) {
 
 		/* Sync Last Pulse IRQ routine */
-
+		uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
+		xGlobal.bPreMaster = TRUE;
+		xGlobal.ucEP0_3 = 3;
 		vSyncIrqClrFlag(eSyncIrqLastPulseFlag);
 	}
 
-	if ( vucN >= 252 ) /*Precisa zerar no módulo 4*/
-		vucN = 0;
-	else
-		vucN += 1;
+
+	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+
+	/* Send Priority message to the Meb Task to indicate the Sync */
+	error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgMasterSyncMeb( );
+	}
+
+	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
+		}
+	}
+
 
 }
 

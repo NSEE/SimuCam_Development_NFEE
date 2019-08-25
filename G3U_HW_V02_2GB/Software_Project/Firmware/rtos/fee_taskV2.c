@@ -11,21 +11,27 @@
 
 typedef struct FEETransmission{
 	bool bFirstT;
-	bool lastReadOut;
-	unsigned long ulAddrIni;	/* (byte) Initial transmission data, calculated after */
+	bool bDmaReturn[2];				/*Two half CCDs-> Left and Right*/
+	bool bFinal[2];				/*Two half CCDs-> Left and Right*/
+	unsigned long ulAddrIni;		/* (byte) Initial transmission data, calculated after */
 	unsigned long ulAddrFinal;
 	unsigned long ulTotalBlocks;
 	unsigned long ulSMD_MAX_BLOCKS;
 	tNFeeSide side;
 	unsigned char ucMemory;
+	unsigned char ucCcdNumber;
+	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
 } TFEETransmission;
 
 
-void vFeeTask(void *task_data) {
+void vFeeTaskV2(void *task_data) {
 	TNFee *pxNFee;
 	INT8U error_code;
 	tQMask uiCmdFEE;
 	TFEETransmission xTrans;
+	unsigned char ucEL = 0, ucSideFromMSG = 0;
+	unsigned short int usiLenLastBlocks = 0;
+
 
 	/* Fee Instance Data Structure */
 	pxNFee = ( TNFee * ) task_data;
@@ -83,8 +89,6 @@ void vFeeTask(void *task_data) {
 				}
 				#endif
 
-				/* Send to Meb Task that is not using RAM */
-				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRAN_FIN, 0, pxNFee->ucId);
 
 				/* End of simulation! Clear everything that is possible */
 				pxNFee->xControl.bWatingSync = FALSE;
@@ -227,7 +231,6 @@ void vFeeTask(void *task_data) {
 					#endif
 				}
 				break;
-				break;
 
 			case sWaitSync:
 				/* Debug only*/
@@ -286,47 +289,270 @@ void vFeeTask(void *task_data) {
 
 			case redoutCycle_Enter:
 
-				if (xTrans.lastReadOut == TRUE) {
+				/* Indicates that this FEE will now need to use DMA*/
+				pxNFee->xControl.bUsingDMA = TRUE;
+
+				/* For now is fixed by this define, but at any moment it could change*/
+				xTrans.ulSMD_MAX_BLOCKS = SDMA_MAX_BLOCKS;
+
+				if ( xGlobal.bPreMaster == TRUE ) {
 					/* Check any parameter or restriction that may have to transmit the data */
 					pxNFee->xControl.eState = redoutCheckRestr;
 				} else {
-
+					/* Check any parameter or restriction that may have to transmit the data */
+					pxNFee->xControl.eState = redoutConfigureTrans;
 				}
-
 				break;
 
 
 			case redoutCheckRestr:
 
-				/* Indicates that this FEE will now need to use DMA*/
-				pxNFee->xControl.bUsingDMA = TRUE;
+
+				if ( xGlobal.bPreMaster == TRUE ) {
+					/*Need to verify if the Data Controller already update all memory*/
+					if ( xGlobal.bDTCFinished == FALSE ) {
+
+						/*Wait for commands in the Queue, expected to receive the message informing that DTC finished the memory update*/
+						uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+						if ( error_code == OS_ERR_NONE ) {
+							vQCmdFEEinWaitingMemUpdate( pxNFee, uiCmdFEE.ulWord );
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+								fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+							}
+							#endif
+						}
+						break;
+
+					} else {
+						pxNFee->xControl.eState = redoutConfigureTrans;
+
+						/*The Meb My have sent a message to inform the finish of the update of the image*/
+						error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
+						if ( error_code != OS_NO_ERR ) {
+							vFailFlushNFEEQueue();
+						}
+					}
+				} else pxNFee->xControl.eState = redoutConfigureTrans;
 
 				/* Wait until both buffers are empty  */
 				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
 				/* Guard time that HW MAYBE need, this will be used during the development, will be removed in some future version*/
 				OSTimeDlyHMSM(0, 0, 0, xDefaults.usiGuardNFEEDelay);
 
-
-
-
 				break;
 
 
 			case redoutConfigureTrans:
 
+				/* Reset the memory control variables thats is used in the transmission*/
+				vResetMemCCDFEE( pxNFee );
 
+				//todo: Pegar com o França qual como ler esse registrador
+				xTrans.side = sLeft;
+
+				/*For now is HardCoded, for a complete half CCD*/
+				xTrans.ulAddrIni = 0;
+				xTrans.ulAddrFinal = pxNFee->xMemMap.xCommon.usiTotalBytes;
+				xTrans.ulTotalBlocks = pxNFee->xMemMap.xCommon.usiNTotalBlocks;
+
+				/* (re)Configuring the size of the double buffer to the HW DataPacket*/
+				vSetDoubleBufferLeftSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferRightSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
+
+				/* Enable IRQ and clear the Double Buffer */
+				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+
+				/* Check which CCD should be send due to the configured readout order*/
+				ucEL = (xGlobal.ucEP0_3 + 1) % 4;
+				xTrans.ucCcdNumber = pxNFee->xControl.ucROutOrder[ ucEL ];
+
+				/* Get the memory map values for this next readout*/
+				xTrans.xCcdMapLocal[sLeft] = &pxNFee->xMemMap.xCcd[ xTrans.ucCcdNumber ].xLeft;
+				xTrans.xCcdMapLocal[sRight] = &pxNFee->xMemMap.xCcd[ xTrans.ucCcdNumber ].xRight;
+
+				/* Check if need to change the memory */
+				if ( ucEL == 0 )
+					xTrans.ucMemory = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
+				else
+					xTrans.ucMemory = (unsigned char) ( *pxNFee->xControl.pActualMem );
+
+
+
+				/* Update DataPacket with the information of actual readout information*/
+				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = xTrans.ucCcdNumber;
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern; //todo: Verificar com o França
+				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
+
+
+				xTrans.bDmaReturn[0] = TRUE;
+				xTrans.bDmaReturn[1] = TRUE;
+
+				if ( xTrans.side == sBoth ) {
+					/* Make a requests for the Double buffer */
+					bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 0, pxNFee->ucId); /*Request for the Left side*/
+					bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, 1, pxNFee->ucId); /*Request for the Right side*/
+					xTrans.bDmaReturn[0] = FALSE;
+					xTrans.bDmaReturn[1] = FALSE;
+				} else {
+					bSendRequestNFeeCtrl( M_NFC_DMA_REQUEST, xTrans.side, pxNFee->ucId); /*Request for the Left or Right side*/
+					xTrans.bDmaReturn[ xTrans.side ] = FALSE;
+				}
+
+				/*Will indicate the finish of transmission, just getting initial value from the DMA return, because it carries in this stage if is one side or both sides*/
+				xTrans.bFinal[0] = xTrans.bDmaReturn[0];
+				xTrans.bFinal[1] = xTrans.bDmaReturn[1];
+
+				pxNFee->xControl.eState = redoutPreLoadBuffer;
 				break;
 
 
 			case redoutPreLoadBuffer:
+
+				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+				if ( error_code == OS_ERR_NONE ) {
+
+					/* First Check if is access to the DMA (priority) */
+					if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
+
+						ucSideFromMSG = uiCmdFEE.ucByte[1];
+
+						/* Try to get the Mutex */
+						OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
+						if ( error_code == OS_ERR_NONE ) {
+
+							/* Schedule the DMA to fill the double buffer for this FEE*/
+							xTrans.bDmaReturn[ ucSideFromMSG ] = bPrepareDoubleBuffer( xTrans.xCcdMapLocal[ucSideFromMSG], xTrans.ucMemory, pxNFee->ucId, pxNFee, ucSideFromMSG );
+							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
+						}
+						/* Send message telling to controller that is not using the DMA any more */
+						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
+
+						if ( (xTrans.bDmaReturn[0] == TRUE) && (xTrans.bDmaReturn[1] == TRUE) ) {
+
+							pxNFee->xControl.eState = redoutWaitSync;
+							pxNFee->xControl.eNextMode = redoutTransmission;
+
+
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+							}
+							#endif
+						} else {
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
+							}
+							#endif
+						}
+					} else {
+						/* Is not access to DMA, so we need to check what is this received command */
+						vQCmdFEEinNEED_CHANGE( pxNFee, uiCmdFEE.ulWord );//todo: fazer um leitor
+					}
+				} else {
+					/* Error while trying to read from the Queue*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+					}
+					#endif
+				}
+
 				break;
 
 
 			case redoutTransmission:
+
+				/* Wait for command for this FEE (DMA access or any other message)*/
+				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+				if ( error_code == OS_ERR_NONE ) {
+
+					/* First Check if is access to the DMA (priority) */
+					if ( uiCmdFEE.ucByte[2] == M_FEE_DMA_ACCESS ) {
+
+						ucSideFromMSG = uiCmdFEE.ucByte[1];
+
+						/* Try to get the Mutex */
+						OSMutexPend(xDma[xTrans.ucMemory].xMutexDMA, 0, &error_code); /* Blocking way */
+						if ( error_code == OS_ERR_NONE ) {
+
+							/* Is this the last block? */
+
+							if ( (xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI + xTrans.ulSMD_MAX_BLOCKS) >= xTrans.ulTotalBlocks ) {
+
+								/* Define the size of the data in the double buffer (need this to create the interrupt right)*/
+								usiLenLastBlocks = xTrans.ulTotalBlocks - xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI;
+
+								/* The last packet don't fill all the buffer, we need to tell what is the size, in order to the HW set the new threshold for the IRQ*/
+								if ( ucSideFromMSG == 0 ) /*Left*/
+									vSetDoubleBufferLeftSize( (unsigned char)usiLenLastBlocks, pxNFee->ucSPWId );
+								else
+									vSetDoubleBufferRightSize( (unsigned char)usiLenLastBlocks, pxNFee->ucSPWId );
+
+								/* Indicates that is the last packet*/
+								xTrans.bFinal[ucSideFromMSG] = TRUE;
+							} else {
+								/* Full size*/
+								usiLenLastBlocks = xTrans.ulSMD_MAX_BLOCKS;
+							}
+
+							/* Check which memory is using in this readout, this will be change in later versions */
+							if ( xTrans.ucMemory == 0 )
+								xTrans.bDmaReturn[ucSideFromMSG] = bSdmaDmaM1Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u16)usiLenLastBlocks, ucSideFromMSG, pxNFee->ucSPWId);
+							else
+								xTrans.bDmaReturn[ucSideFromMSG] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u16)usiLenLastBlocks, ucSideFromMSG, pxNFee->ucSPWId);
+
+							/* Giving the mutex back*/
+							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
+
+							/* Check if was possible to schedule the transfer in the DMA*/
+							if ( xTrans.bDmaReturn[ucSideFromMSG] == TRUE ) {
+								/* Value of xCcdMapLocal->ulAddrI already set in the last iteration */
+								xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI += SDMA_PIXEL_BLOCK_SIZE_BYTES*usiLenLastBlocks; //todo: Provavelmente precisara mudar SDMA_PIXEL_BLOCK_SIZE_BYTES
+								xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI += usiLenLastBlocks;
+							} else {
+								xTrans.bFinal[ucSideFromMSG] = FALSE;
+								/* Send the request for use the DMA, but to front of the QUEUE. Because will not have any other IRQ to set it for us */
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
+							}
+
+							/* Send message telling to controller that is not using the DMA any more */
+							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
+
+							/* Last Packet scheduled?*/
+							if ( (xTrans.bFinal[0] == TRUE) && (xTrans.bFinal[1] == TRUE) ) {
+								/* Changing the FEE state */
+								pxNFee->xControl.eState = redoutEndSch;
+							}
+						}
+					} else {
+						//todo: TIAGO TIAGO CONTINUAR AQUI CONTINUAR AQUI
+						/* Is not an access DMA command, check what is?*/
+						vQCmdFEEinFullPatternNEEDCHANGE( pxNFee, uiCmdFEE.ulWord );//todo: é preciso avaliar!!!!!!!!!!!!!
+
+						/* Check if need to wait for the Sync */
+						if ( pxNFee->xControl.bWatingSync == FALSE ) {
+							pxNFee->xControl.eMode = pxNFee->xControl.eNextMode;
+						}
+					}
+
+				} else {
+					/* Queue error*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ\n", pxNFee->ucId);
+					}
+					#endif
+				}
 				break;
 
-
 			case redoutEndSch:
+				//todo: acho que nao precisa, verificar
+				xTrans.bFinal[0] = FALSE;
+				xTrans.bFinal[1] = FALSE;
 				break;
 
 
@@ -334,8 +560,6 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bUsingDMA = FALSE;
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFee->ucId);
-				/* Send to Meb Task that is not using RAM */
-				bSendMSGtoMebTask( Q_MEB_FEE_MEM_TRAN_FIN, 0, pxNFee->ucId);
 
 				/* Real State */
 				pxNFee->xControl.eState = pxNFee->xControl.eLastMode;
@@ -343,6 +567,90 @@ void vFeeTask(void *task_data) {
 
 
 			case redoutWaitSync:
+
+
+				/* Debug only*/
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"NFEE-%hu Task: (redoutWaitSync)\n", pxNFee->ucId);
+				}
+				#endif
+
+				/* Wait for sync, or any other command*/
+				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
+				if ( error_code != OS_ERR_NONE ) {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"NFEE-%hu Task: Can't get cmd from Queue xFeeQ (redoutWaitSync)\n", pxNFee->ucId);
+					}
+					#endif
+				} else {
+					vQCmdFEEinReadoutSync( pxNFee, uiCmdFEE.ulWord  );
+				}
+
+
+				//todo: o valor do uliCurrentMode, vai para qual registrador? ccd_mode_config? lá nao apenas indica para onde deve ir o FEE?
+				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
+				/*ccd_mode_config[3:0]*/
+				/*Trying to save some processing*/
+				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
+				switch ( pxNFee->xControl.eMode ) {
+					case sFullPattern: /*0x1*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x1) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x1;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sWinPattern:/*0x2*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x2) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x2;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sFullImage:/*0x6*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x6) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x6;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sWindowing:/*0x5*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x5) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x5;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sParTrap1:/*0x9*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x9) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x9;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sParTrap2:/*0xA*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0xA) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0xA;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sSerialTrap1:/*0xB*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0xB) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0xB;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					case sSerialTrap2:/*0xC*/
+						if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0xC) {
+							pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0xC;
+							bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
+						}
+						break;
+					default:
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"NFEE-%hu Task: Unexpected eMode (redoutWaitSync)\n", pxNFee->ucId);
+						}
+						#endif
+						break;
+				}
 				break;
 
 			default:
@@ -356,6 +664,91 @@ void vFeeTask(void *task_data) {
 
 	}
 }
+
+/* Threat income command while the Fee is waiting for sync*/
+void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
+	tQMask uiCmdFEEL;
+
+	/* Get command word*/
+	uiCmdFEEL.ulWord = cmd;
+
+	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
+
+		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CONFIG:
+			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				/* Real Fee State (graph) */
+				pxNFeeP->xControl.eMode = sConfig;
+				/* Real State */
+				pxNFeeP->xControl.eState = sConfig_Enter;
+				break;
+			case M_FEE_ON:
+				if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
+
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* If a transition to On was requested when the FEE is waiting to go to Calibration,
+					 * configure the hardware to not send any data in the next sync */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+					pxNFeeP->xControl.eState = redoutWaitSync;
+					pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+					}
+					#endif
+				}
+				break;
+			case M_FEE_ON_FORCED:
+
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eState = sOn_Enter;
+
+				break;
+
+			case M_FEE_STANDBY_FORCED:
+				break;
+
+			case M_FEE_STANDBY:
+				break;
+
+			case M_FEE_RMAP:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+					fprintf(fp,"\nNFEE %hhu Task: RMAP Message\n", pxNFeeP->ucId);
+				}
+				#endif
+				/* Perform some actions, check if is a valid command for this mode of operation  */
+				vQCmdFeeRMAPNEED_CHANGE( pxNFeeP, cmd ); // todo: Precisa criar fluxo para RMAP
+				break;
+			case M_SYNC:
+			case M_PRE_MASTER:
+			case M_MASTER_SYNC:
+				/* Warning */
+					pxNFeeP->xControl.eState = pxNFeeP->xControl.eNextMode;
+				break;
+
+			case M_FEE_DMA_ACCESS:
+				pxNFeeP->xControl.bUsingDMA = FALSE;
+				/* Send message telling to controller that is not using the DMA any more */
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
+				break;
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
+		}
+	}
+}
+
 
 /* Threat income command while the Fee is waiting for sync*/
 void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
@@ -602,7 +995,54 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
+/* Threat income command while the Fee is in Config. mode*/
+void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
+	tQMask uiCmdFEEL;
 
+	uiCmdFEEL.ulWord = cmd;
+
+	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
+
+		switch (uiCmdFEEL.ucByte[2]) {
+
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				pxNFeeP->xControl.eState = redoutConfigureTrans;
+				break;
+			case M_FEE_ON_FORCED:
+				//todo: precisa ser possivel voltar para o mode on
+				break;
+			case M_FEE_ON:
+				//todo: precisa ser possivel voltar para o mode on
+				break;
+			case M_FEE_RMAP:
+				//todo: Isso precisa ser tratado para quando for necessario voltar para ON no modo forced, só pra isso
+				break;
+			case M_SYNC:
+			case M_PRE_MASTER:
+			case M_MASTER_SYNC:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"NFEE %hhu Task: Fee stuck waiting for DTC. CRITICAL, check this condition (Readout Cycle)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed in this mode (Readout Cycle, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+				}
+				#endif
+				break;
+		}
+	} else {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			fprintf(fp,"NFEE %hhu Task:  Wrong FEE id (Config)\n", pxNFeeP->ucId);
+		}
+		#endif
+		break;
+	}
+}
 
 
 

@@ -12,6 +12,8 @@
 /*Configuration related to the eth connection*/
 TConfEth xConfEth;
 TDefaults xDefaults;
+TGlobal	xGlobal;
+
 
 /* Load ETH configuration values from SD Card */
 bool vLoadDefaultETHConf( void ){

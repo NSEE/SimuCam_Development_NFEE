@@ -29,6 +29,13 @@ typedef struct ConfEth{
 	bool bDHCP;
 }TConfEth;
 
+typedef struct Globals{
+	bool bNormal;			/*Indicates if it is a normal or Fast FEE. Normal=1; Fast=0*/
+	bool bPreMaster;		/*Indicates if is the pre-master sync cycle*/
+	bool bDTCFinished;		/*Indicates if the DTC finishes to update the memory*/
+	unsigned char ucEP0_3;	/*Indicate which sequence are 0, 1, 2, 3 => 0: Master Sync*/
+}TGlobal;
+
 
 typedef struct Defaults{
 	unsigned char ucReadOutOrder[4];
@@ -57,7 +64,7 @@ typedef struct Defaults{
 
 extern TConfEth xConfEth;
 extern TDefaults xDefaults;
-
+extern TGlobal	xGlobal;
 
 /*Functions*/
 bool vLoadDefaultETHConf( void );

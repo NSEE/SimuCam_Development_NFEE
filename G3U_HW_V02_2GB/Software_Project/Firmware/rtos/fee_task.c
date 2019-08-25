@@ -314,45 +314,45 @@ void vFeeTask(void *task_data) {
 				 *the transmission just after the sync signal*/
 
 				/* Indicates that this FEE will now need to use DMA*/
-				pxNFee->xControl.bUsingDMA = TRUE;
+				pxNFee->xControl.bUsingDMA = TRUE;//X
 
 				/* Reset the memory control variables thats is used in the transmission*/
 				vResetMemCCDFEE( pxNFee );
 
 				/* Wait until both buffers are empty  */
-				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
+				vWaitUntilBufferEmpty( pxNFee->ucSPWId );//X
 
 				/* Guard time that HW MAYBE need, this will be used during the development, will be removed in some future version*/
-				OSTimeDlyHMSM(0, 0, 0, xDefaults.usiGuardNFEEDelay);
+				OSTimeDlyHMSM(0, 0, 0, xDefaults.usiGuardNFEEDelay);//X
 
 				/* Inform the size of the buffer that will be used to the HW DataPacket */
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );//x
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );//x
 
 				/* Enable IRQ and clear the Double Buffer */
-				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);//x
 
 				/* Get the timecode to to check which CCD should be send due to the configured readout order*/
 				bSpwcGetTimecode(&pxNFee->xChannel.xSpacewire);
 				tCodFeeTask = pxNFee->xChannel.xSpacewire.xTimecode.ucCounter;
 				tCodeNext = ( tCodFeeTask + 1) % 4;
-				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext];
+				ucReadout = pxNFee->xControl.ucROutOrder[tCodeNext]; //x
 
 				/* Check if MEB will swap memory for this next transmission*/
-				if ( tCodeNext == 0 )
+				if ( tCodeNext == 0 ) //x
 					/* Should get Data from the another memory, because is a cycle start */
 					ucMemUsing = (unsigned char) (( *pxNFee->xControl.pActualMem + 1 ) % 2) ; /* Select the other memory*/
 				else
 					ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem );
 
 				/* Get the memory map values for this next readout*/
-				if ( pxNFee->xControl.eSide == sLeft ) {
-					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xLeft;
+				if ( pxNFee->xControl.eSide == sLeft ) { //x
+					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xLeft; //x
 
 					/*  WAIT FOR MEMORY SWAP for continue  */
 
 				} else
-					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xRight;
+					xCcdMapLocal = &pxNFee->xMemMap.xCcd[ucReadout].xRight; //x
 
 				/* Update the memory side that will be used in the next readout*/
 				ucIterationSide = pxNFee->xControl.eSide;
@@ -463,8 +463,8 @@ void vFeeTask(void *task_data) {
 				pxNFee->xControl.bEnabled = TRUE;
 
 				/* (re)Configuring the size of the double buffer to the HW DataPacket*/
-				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
-				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );
+				vSetDoubleBufferLeftSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );//x
+				vSetDoubleBufferRightSize( SDMA_MAX_BLOCKS, pxNFee->ucSPWId );//x
 
 				/* (re)Getting the memory  number that will be used in this readout*/
 				ucMemUsing = (unsigned char) ( *pxNFee->xControl.pActualMem ) ;
@@ -592,7 +592,7 @@ void vFeeTask(void *task_data) {
 
 				break;
 
-			case sFeeWaitingSync:
+			case sFeeWaitingSync: //x
 
 				/* Debug only*/
 				#if DEBUG_ON
