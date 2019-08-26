@@ -166,9 +166,9 @@ begin
 					s_header_eoh_error                 <= '0';
 					-- conditional state transition
 					-- check if there is enough data in the rx dc data fifo for a full header (minus the sop) (7 dwords)
-					if ((tx_dc_data_fifo_wrfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= (c_FTDI_PROT_HEADER_SIZE - 1))) then
-						s_ftdi_data_receiver_state <= FETCH_RX_DATA;
-						v_ftdi_data_receiver_state := FETCH_RX_DATA;
+					if ((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= (c_FTDI_PROT_HEADER_SIZE - 1))) then
+						s_ftdi_tx_prot_header_parser_state <= FETCH_RX_DATA;
+						v_ftdi_tx_prot_header_parser_state := FETCH_RX_DATA;
 					end if;
 
 				-- state "FETCH_RX_DATA"

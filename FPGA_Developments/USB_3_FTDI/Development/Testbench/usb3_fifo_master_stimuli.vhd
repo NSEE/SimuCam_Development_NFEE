@@ -117,8 +117,8 @@ begin
 			s_umft601a_wakeup_n_out <= '1';
 			s_umft601a_be_out       <= (others => '0');
 			s_umft601a_gpio_out     <= (others => '1');
-			s_counter               <= s_counter + 1;
-			s_counter2              <= s_counter2 + 1;
+--			s_counter               <= s_counter + 1;
+--			s_counter2              <= s_counter2 + 1;
 
 			case s_counter is
 

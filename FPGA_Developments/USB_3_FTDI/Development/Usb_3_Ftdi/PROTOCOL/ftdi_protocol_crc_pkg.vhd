@@ -4,10 +4,27 @@ use ieee.numeric_std.all;
 
 package ftdi_protocol_crc_pkg is
 
-	-- Function to calculate the ftdi protocol CRC32, copied from the PUS CRC32 implementation
-	function f_ftdi_protocol_calculate_crc32(
+	-- Constant for the initial value to the ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	constant c_FTDI_PROT_CRC32_START : std_logic_vector(31 downto 0) := x"FFFFFFFF";
+
+	-- Constant to finish the calulation of the ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	constant c_FTDI_PROT_CRC32_FINISH : std_logic_vector(31 downto 0) := x"FFFFFFFF";
+
+	-- Function to add a byte to the calculated ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	function f_ftdi_protocol_calculate_crc32_byte(
+		constant crc32_i : in std_logic_vector(31 downto 0);
+		constant byte_i  : in std_logic_vector(7 downto 0)
+	) return std_logic_vector;
+
+	-- Function to add a dword to the calculated ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	function f_ftdi_protocol_calculate_crc32_dword(
 		constant crc32_i : in std_logic_vector(31 downto 0);
 		constant dword_i : in std_logic_vector(31 downto 0)
+	) return std_logic_vector;
+
+	-- Function to finish the calculation of the ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	function f_ftdi_protocol_finish_crc32(
+		constant crc32_i : in std_logic_vector(31 downto 0)
 	) return std_logic_vector;
 
 	-- CRC32 table
@@ -49,12 +66,13 @@ end package ftdi_protocol_crc_pkg;
 
 package body ftdi_protocol_crc_pkg is
 
-	function f_ftdi_protocol_calculate_crc32(
+	-- Function to add a byte to the calculated ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	function f_ftdi_protocol_calculate_crc32_byte(
 		constant crc32_i : in std_logic_vector(31 downto 0);
-		constant dword_i : in std_logic_vector(31 downto 0)
+		constant byte_i  : in std_logic_vector(7 downto 0)
 	) return std_logic_vector is
 		variable v_bitshifted_crc32  : std_logic_vector(31 downto 0) := x"00000000";
-		variable v_crc32_table_index : std_logic_vector(31 downto 0) := x"00000000";
+		variable v_crc32_table_index : std_logic_vector(7 downto 0)  := x"00";
 		variable v_updated_crc32     : std_logic_vector(31 downto 0) := x"00000000";
 	begin
 
@@ -63,12 +81,53 @@ package body ftdi_protocol_crc_pkg is
 		v_bitshifted_crc32(23 downto 0)  := crc32_i(31 downto 8);
 
 		-- calculated the crc32 table index (crc32 ^ dword)
-		v_crc32_table_index := (crc32_i) xor (dword_i);
+		v_crc32_table_index := (crc32_i(7 downto 0)) xor (byte_i);
 
-		-- calculate updated crc32 ((crc32 >> 8) ^ crc32_table[(crc32 ^ dword) & 0x000000FF]);
-		v_updated_crc32 := (v_updated_crc32) xor (c_FTDI_PROT_CRC32_TABLE(to_integer(unsigned(v_crc32_table_index(7 downto 0)))));
+		-- calculate updated crc32 ((crc32 >> 8) ^ crc32_table[(crc32 ^ dword) & 0x000000FF])
+		v_updated_crc32 := (v_bitshifted_crc32) xor (c_FTDI_PROT_CRC32_TABLE(to_integer(unsigned(v_crc32_table_index))));
 
 		return v_updated_crc32;
-	end function f_ftdi_protocol_calculate_crc32;
+	end function f_ftdi_protocol_calculate_crc32_byte;
+
+	-- Function to add a dword to the calculated ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	function f_ftdi_protocol_calculate_crc32_dword(
+		constant crc32_i : in std_logic_vector(31 downto 0);
+		constant dword_i : in std_logic_vector(31 downto 0)
+	) return std_logic_vector is
+		variable v_updated_crc32 : std_logic_vector(31 downto 0) := x"00000000";
+		variable v_dword_byte    : std_logic_vector(7 downto 0)  := x"00";
+	begin
+
+		-- calculate updated crc32 for dword byte 3
+		v_dword_byte    := dword_i(31 downto 24);
+		v_updated_crc32 := f_ftdi_protocol_calculate_crc32_byte(crc32_i, v_dword_byte);
+
+		-- calculate updated crc32 for dword byte 2
+		v_dword_byte    := dword_i(23 downto 16);
+		v_updated_crc32 := f_ftdi_protocol_calculate_crc32_byte(v_updated_crc32, v_dword_byte);
+
+		-- calculate updated crc32 for dword byte 1
+		v_dword_byte    := dword_i(15 downto 8);
+		v_updated_crc32 := f_ftdi_protocol_calculate_crc32_byte(v_updated_crc32, v_dword_byte);
+
+		-- calculate updated crc32 for dword byte 0
+		v_dword_byte    := dword_i(7 downto 0);
+		v_updated_crc32 := f_ftdi_protocol_calculate_crc32_byte(v_updated_crc32, v_dword_byte);
+
+		return v_updated_crc32;
+	end function f_ftdi_protocol_calculate_crc32_dword;
+
+	-- Function to finish the calculation of the ftdi protocol CRC32, copied from the PUS CRC32 implementation
+	function f_ftdi_protocol_finish_crc32(
+		constant crc32_i : in std_logic_vector(31 downto 0)
+	) return std_logic_vector is
+		variable v_updated_crc32 : std_logic_vector(31 downto 0) := x"00000000";
+	begin
+
+		-- finsih the calculation of the crc32 ((crc ^ 0xFFFFFFFF))
+		v_updated_crc32 := (crc32_i) xor (c_FTDI_PROT_CRC32_FINISH);
+
+		return v_updated_crc32;
+	end function f_ftdi_protocol_finish_crc32;
 
 end package body ftdi_protocol_crc_pkg;

@@ -54,22 +54,22 @@ package ftdi_protocol_pkg is
 	end record t_ftdi_prot_halfccd_req_config;
 
 	constant c_FTDI_PROT_HEADER_IMG_SEL_RESET : t_ftdi_prot_header_img_sel := (
-		fee_number => std_logic_vector(to_unsigned(0, fee_number'length)),
-		ccd_number => std_logic_vector(to_unsigned(0, ccd_number'length)),
+		fee_number => std_logic_vector(to_unsigned(0, 3)),
+		ccd_number => std_logic_vector(to_unsigned(0, 2)),
 		ccd_side   => '0'
 	);
 
 	constant c_FTDI_PROT_HEADER_IMG_SIZE_RESET : t_ftdi_prot_header_img_size := (
-		ccd_height => std_logic_vector(to_unsigned(1, ccd_height'length)),
-		ccd_width  => std_logic_vector(to_unsigned(1, ccd_width'length))
+		ccd_height => std_logic_vector(to_unsigned(1, 13)),
+		ccd_width  => std_logic_vector(to_unsigned(1, 12))
 	);
 
 	constant c_FTDI_PROT_HEADER_RESET : t_ftdi_prot_header_fields := (
 		package_id      => x"00000000",
 		image_selection => c_FTDI_PROT_HEADER_IMG_SEL_RESET,
 		image_size      => c_FTDI_PROT_HEADER_IMG_SIZE_RESET,
-		exposure_number => std_logic_vector(to_unsigned(0, exposure_number'length)),
-		payload_length  => std_logic_vector(to_unsigned(0, payload_length'length))
+		exposure_number => std_logic_vector(to_unsigned(0, 16)),
+		payload_length  => std_logic_vector(to_unsigned(0, 32))
 	);
 
 end package ftdi_protocol_pkg;

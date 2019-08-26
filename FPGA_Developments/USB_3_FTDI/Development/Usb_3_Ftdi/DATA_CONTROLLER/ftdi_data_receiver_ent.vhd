@@ -213,8 +213,8 @@ begin
 						v_ftdi_data_receiver_state := CHANGE_BUFFER;
 					-- check (if the rx dc data fifo have at least eight dwords available) and (if the rx data buffer is ready to be written and not full) 
 					elsif (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
-						s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
-						v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
+						s_ftdi_data_receiver_state <= PRE_FETCH_DELAY;
+						v_ftdi_data_receiver_state := PRE_FETCH_DELAY;
 					end if;
 
 				-- state "CHANGE_BUFFER"

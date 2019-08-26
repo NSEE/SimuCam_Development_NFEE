@@ -39,7 +39,7 @@ begin
 
 			avalon_mm_address_o <= (others => '0');
 			avalon_mm_read_o    <= '0';
-			s_counter           <= s_counter + 1;
+--			s_counter           <= s_counter + 1;
 
 			case s_counter is
 

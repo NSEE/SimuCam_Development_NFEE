@@ -92,14 +92,14 @@ begin
 				when WAITING_TX_READY =>
 					-- wait until there is data to be fetched and space to write
 					-- default state transition
-					s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_READY;
-					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_READY;
+					s_ftdi_data_transmitter_state <= WAITING_TX_READY;
+					v_ftdi_data_transmitter_state := WAITING_TX_READY;
 					-- default internal signal values
 					-- conditional state transition
 					-- check (if the tx data buffer is ready and not empty) and (if there is enough space in the tx dc data fifo for the fetched qword) 
 					if (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
-						s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
-						v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
+						s_ftdi_data_transmitter_state <= FETCH_TX_QQWORD;
+						v_ftdi_data_transmitter_state := FETCH_TX_QQWORD;
 					end if;
 
 				-- state "FETCH_TX_QQWORD"
@@ -211,8 +211,8 @@ begin
 						v_ftdi_data_transmitter_state := CHANGE_BUFFER;
 					-- check (if the tx data buffer is ready and not empty) and (if there is enough space in the tx dc data fifo for the fetched qword)
 					elsif (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
-						s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
-						v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
+						s_ftdi_data_transmitter_state <= FETCH_TX_QQWORD;
+						v_ftdi_data_transmitter_state := FETCH_TX_QQWORD;
 					end if;
 
 				-- state "CHANGE_BUFFER"

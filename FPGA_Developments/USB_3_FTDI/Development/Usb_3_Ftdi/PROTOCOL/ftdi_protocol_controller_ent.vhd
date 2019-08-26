@@ -40,28 +40,32 @@ architecture RTL of ftdi_protocol_controller_ent is
 	type t_ftdi_prot_controller_fsm is (
 		STOPPED,                        -- protocol controller stopped
 		IDLE,                           -- protocol controller idle
-		HFCCD_REQUEST_START,            -- half-ccd request start
-		HFCCD_REQUEST_TX_HEADER,        -- half-ccd request transmit request header
-		HFCCD_ACK_NACK_RX_HEADER,       -- half-ccd request receive request ack/nack
-		HFCCD_REQUEST_RX_HEADER,        -- half-ccd request receive reply header
-		HFCCD_ACK_NACK_TX_HEADER,       -- half-ccd request transmit reply ack/nack 
-		HFCCD_REQUEST_RX_PAYLOAD,       -- half-ccd request receive reply payload
-		HFCCD_ACK_NACK_TX_PAYLOAD,      -- half-ccd request transmit payload ack/nack
-		HFCCD_REQUEST_FINISH,           -- half-ccd request finish
-		WAIT_TX_HEADER_END,             -- wait until a header generator is finished
-		RESET_TX_HEADER_END,            -- reset the header generator
-		WAIT_RX_HEADER_END,             -- wait until a header parser is finished
-		RESET_RX_HEADER_END,            -- reset the header parser
-		WAIT_TX_PAYLOAD_END,            -- wait until a payload writer is finished
-		RESET_TX_PAYLOAD_END,           -- reset the payload writer
-		WAIT_RX_PAYLOAD_END,            -- wait until a payload reader is finished
-		RESET_RX_PAYLOAD_END            -- reset the payload reader
+		HFCCD_REQ_START,                -- half-ccd request start
+		HFCCD_REQ_SEND_TX_HEADER,       -- half-ccd request transmit request header
+		HFCCD_REQ_WAIT_TX_HEADER,       -- half-ccd request wait request header
+		HFCCD_REQ_RESET_TX_HEADER,      -- half-ccd request reset request header
+		HFCCD_ACK_RECEIVE_RX_HEADER,    -- half-ccd request receive request ack/nack
+		HFCCD_ACK_WAIT_RX_HEADER,       -- half-ccd request wait request ack/nack
+		HFCCD_ACK_PARSE_RX_HEADER,      -- half-ccd request parse request ack/nack
+		HFCCD_REPLY_RECEIVE_RX_HEADER,  -- half-ccd request receive reply header
+		HFCCD_REPLY_WAIT_RX_HEADER,     -- half-ccd request wait reply header
+		HFCCD_REPLY_PARSE_RX_HEADER,    -- half-ccd request parse reply header
+		HFCCD_ACK_SEND_TX_HEADER,       -- half-ccd request transmit reply ack/nack 
+		HFCCD_ACK_WAIT_TX_HEADER,       -- half-ccd request wait reply ack/nack
+		HFCCD_ACK_RESET_TX_HEADER,      -- half-ccd request reset reply ack/nack
+		HFCCD_REPLY_RECEIVE_RX_PAYLOAD, -- half-ccd request receive reply payload
+		HFCCD_REPLY_WAIT_RX_PAYLOAD,    -- half-ccd request wait reply payload
+		HFCCD_REPLY_PARSE_RX_PAYLOAD,   -- half-ccd request parse reply payload
+		HFCCD_ACK_SEND_TX_PAYLOAD,      -- half-ccd request transmit payload ack/nack
+		HFCCD_ACK_WAIT_TX_PAYLOAD,      -- half-ccd request wait payload ack/nack
+		HFCCD_ACK_RESET_TX_PAYLOAD,     -- half-ccd request reset payload ack/nack
+		HFCCD_REQ_FINISH                -- half-ccd request finish
 	);
 	signal s_ftdi_prot_controller_state : t_ftdi_prot_controller_fsm;
 
-	signal s_ftdi_prot_controller_next_state : t_ftdi_prot_controller_fsm;
-
 	signal s_parsed_header_data : t_ftdi_prot_header_fields;
+
+	signal s_request_tries : natural range 0 to 2;
 
 begin
 
@@ -70,11 +74,23 @@ begin
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
-			s_ftdi_prot_controller_state      <= STOPPED;
-			v_ftdi_prot_controller_state      := STOPPED;
-			s_ftdi_prot_controller_next_state <= STOPPED;
-		-- internal signals reset
-		-- outputs reset
+			s_ftdi_prot_controller_state  <= STOPPED;
+			v_ftdi_prot_controller_state  := STOPPED;
+			-- internal signals reset
+			s_parsed_header_data          <= c_FTDI_PROT_HEADER_RESET;
+			s_request_tries               <= 0;
+			-- outputs reset
+			header_generator_start_o      <= '0';
+			header_generator_reset_o      <= '0';
+			header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+			header_parser_start_o         <= '0';
+			header_parser_reset_o         <= '0';
+			payload_writer_start_o        <= '0';
+			payload_writer_reset_o        <= '0';
+			payload_writer_length_bytes_o <= (others => '0');
+			payload_reader_start_o        <= '0';
+			payload_reader_reset_o        <= '0';
+			payload_reader_length_bytes_o <= (others => '0');
 		elsif rising_edge(clk_i) then
 
 			-- States transitions FSM
@@ -87,6 +103,7 @@ begin
 					s_ftdi_prot_controller_state <= STOPPED;
 					v_ftdi_prot_controller_state := STOPPED;
 					-- default internal signal values
+					s_request_tries              <= 0;
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_start_i = '1') then
@@ -102,174 +119,232 @@ begin
 					v_ftdi_prot_controller_state := IDLE;
 					-- default internal signal values
 					-- conditional state transition
+					s_request_tries              <= 0;
 					-- check if a header generator start was issued
 					if (half_ccd_request_start_i = '1') then
-						s_ftdi_prot_controller_state <= HFCCD_REQUEST_START;
-						v_ftdi_prot_controller_state := HFCCD_REQUEST_START;
+						s_ftdi_prot_controller_state <= HFCCD_REQ_START;
+						v_ftdi_prot_controller_state := HFCCD_REQ_START;
 					end if;
 
-				-- state "HFCCD_REQUEST_START"
-				when HFCCD_REQUEST_START =>
+				-- state "HFCCD_REQ_START"
+				when HFCCD_REQ_START =>
 					-- half-ccd request start
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REQUEST_TX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_REQUEST_TX_HEADER;
-				-- default internal signal values
+					s_ftdi_prot_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
+					-- default internal signal values
+					s_request_tries              <= 2;
 				-- conditional state transition
 
-				-- state "HFCCD_REQUEST_TX_HEADER"
-				when HFCCD_REQUEST_TX_HEADER =>
+				-- state "HFCCD_REQ_SEND_TX_HEADER"
+				when HFCCD_REQ_SEND_TX_HEADER =>
 					-- half-ccd request transmit request header
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_ACK_NACK_RX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_ACK_NACK_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REQ_WAIT_TX_HEADER;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "HFCCD_ACK_NACK_RX_HEADER"
-				when HFCCD_ACK_NACK_RX_HEADER =>
+				-- state "HFCCD_REQ_WAIT_TX_HEADER"
+				when HFCCD_REQ_WAIT_TX_HEADER =>
+					-- half-ccd request wait request header
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REQ_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REQ_WAIT_TX_HEADER;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the transmission of the request header is finished
+					if (header_generator_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_REQ_RESET_TX_HEADER;
+						v_ftdi_prot_controller_state := HFCCD_REQ_RESET_TX_HEADER;
+					end if;
+
+				-- state "HFCCD_REQ_RESET_TX_HEADER"
+				when HFCCD_REQ_RESET_TX_HEADER =>
+					-- half-ccd request reset request header
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_RECEIVE_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_RECEIVE_RX_HEADER;
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "HFCCD_ACK_RECEIVE_RX_HEADER"
+				when HFCCD_ACK_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive request ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REQUEST_RX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_REQUEST_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_RX_HEADER;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "HFCCD_REQUEST_RX_HEADER"
-				when HFCCD_REQUEST_RX_HEADER =>
+				-- state "HFCCD_ACK_WAIT_RX_HEADER"
+				when HFCCD_ACK_WAIT_RX_HEADER =>
+					-- half-ccd request wait request ack/nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_RX_HEADER;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the receival of the request ack/nack is finished
+					if (header_parser_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_ACK_PARSE_RX_HEADER;
+						v_ftdi_prot_controller_state := HFCCD_ACK_PARSE_RX_HEADER;
+					end if;
+
+				-- state "HFCCD_ACK_PARSE_RX_HEADER"
+				when HFCCD_ACK_PARSE_RX_HEADER =>
+					-- half-ccd request parse request ack/nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+					-- default internal signal values
+					s_request_tries              <= 2;
+					-- conditional state transition
+					-- check if maximum amout of tries was attempted (3 tries)
+					if (s_request_tries = 0) then
+						s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+						v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
+					else
+						s_request_tries <= s_request_tries - 1;
+					end if;
+
+				-- state "HFCCD_REPLY_RECEIVE_RX_HEADER"
+				when HFCCD_REPLY_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive reply header
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_ACK_NACK_TX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_ACK_NACK_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_HEADER;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "HFCCD_ACK_NACK_TX_HEADER"
-				when HFCCD_ACK_NACK_TX_HEADER =>
+				-- state "HFCCD_REPLY_WAIT_RX_HEADER"
+				when HFCCD_REPLY_WAIT_RX_HEADER =>
+					-- half-ccd request wait reply header
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_HEADER;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the receival of the request reply is finished
+					if (header_parser_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_REPLY_PARSE_RX_HEADER;
+						v_ftdi_prot_controller_state := HFCCD_REPLY_PARSE_RX_HEADER;
+					end if;
+
+				-- state "HFCCD_REPLY_PARSE_RX_HEADER"
+				when HFCCD_REPLY_PARSE_RX_HEADER =>
+					-- half-ccd request parse reply header
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_HEADER;
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "HFCCD_ACK_SEND_TX_HEADER"
+				when HFCCD_ACK_SEND_TX_HEADER =>
 					-- half-ccd request transmit reply ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REQUEST_RX_PAYLOAD;
-					v_ftdi_prot_controller_state := HFCCD_REQUEST_RX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
+				-- default internal signal values
+				-- conditional state transition
+				-- TODO: Ack tem três tentativas?
+
+				-- state "HFCCD_ACK_WAIT_TX_HEADER"
+				when HFCCD_ACK_WAIT_TX_HEADER =>
+					-- half-ccd request wait reply ack/nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the transmission of the reply ack/nack is finished
+					if (header_generator_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_ACK_RESET_TX_HEADER;
+						v_ftdi_prot_controller_state := HFCCD_ACK_RESET_TX_HEADER;
+					end if;
+
+				-- state "HFCCD_ACK_RESET_TX_HEADER"
+				when HFCCD_ACK_RESET_TX_HEADER =>
+					-- half-ccd request reset reply ack/nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "HFCCD_REQUEST_RX_PAYLOAD"
-				when HFCCD_REQUEST_RX_PAYLOAD =>
+				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
+				when HFCCD_REPLY_RECEIVE_RX_PAYLOAD =>
 					-- half-ccd request receive reply payload
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_ACK_NACK_TX_PAYLOAD;
-					v_ftdi_prot_controller_state := HFCCD_ACK_NACK_TX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "HFCCD_ACK_NACK_TX_PAYLOAD"
-				when HFCCD_ACK_NACK_TX_PAYLOAD =>
+				-- state "HFCCD_REPLY_WAIT_RX_PAYLOAD"
+				when HFCCD_REPLY_WAIT_RX_PAYLOAD =>
+					-- half-ccd request wait reply payload
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the receival of the reply payload is finished
+					if (payload_reader_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_REPLY_PARSE_RX_PAYLOAD;
+						v_ftdi_prot_controller_state := HFCCD_REPLY_PARSE_RX_PAYLOAD;
+					end if;
+
+				-- state "HFCCD_REPLY_PARSE_RX_PAYLOAD"
+				when HFCCD_REPLY_PARSE_RX_PAYLOAD =>
+					-- half-ccd request parse reply payload
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
+				when HFCCD_ACK_SEND_TX_PAYLOAD =>
 					-- half-ccd request transmit payload ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REQUEST_FINISH;
-					v_ftdi_prot_controller_state := HFCCD_REQUEST_FINISH;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
 				-- default internal signal values
 				-- conditional state transition
 
-				-- state "HFCCD_REQUEST_FINISH"
-				when HFCCD_REQUEST_FINISH =>
+				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
+				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
+					-- half-ccd request wait payload ack/nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
+					-- default internal signal values
+					-- conditional state transition
+					-- check if the transmission of the payload ack/nack is finished
+					if (header_generator_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_ACK_RESET_TX_PAYLOAD;
+						v_ftdi_prot_controller_state := HFCCD_ACK_RESET_TX_PAYLOAD;
+					end if;
+
+				-- state "HFCCD_ACK_RESET_TX_PAYLOAD"
+				when HFCCD_ACK_RESET_TX_PAYLOAD =>
+					-- half-ccd request reset payload ack/nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
+				-- default internal signal values
+				-- conditional state transition
+
+				-- state "HFCCD_REQ_FINISH"
+				when HFCCD_REQ_FINISH =>
 					-- half-ccd request finish
 					-- default state transition
-					s_ftdi_prot_controller_state <= IDLE;
-					v_ftdi_prot_controller_state := IDLE;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "WAIT_TX_HEADER_END"
-				when WAIT_TX_HEADER_END =>
-					-- wait until a header generator is finished
-					-- default state transition
-					s_ftdi_prot_controller_state <= WAIT_TX_HEADER_END;
-					v_ftdi_prot_controller_state := WAIT_TX_HEADER_END;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					-- conditional state transition
-					-- check if the header transmission is finished
-					if (header_generator_busy_i = '0') then
-						s_ftdi_prot_controller_state <= RESET_TX_HEADER_END;
-						v_ftdi_prot_controller_state := RESET_TX_HEADER_END;
-					end if;
-
-				-- state "RESET_TX_HEADER_END"
-				when RESET_TX_HEADER_END =>
-					-- reset the header generator
-					-- default state transition
-					s_ftdi_prot_controller_state <= s_ftdi_prot_controller_next_state;
-					v_ftdi_prot_controller_state := s_ftdi_prot_controller_next_state;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "WAIT_RX_HEADER_END"
-				when WAIT_RX_HEADER_END =>
-					-- wait until a header parser is finished
-					-- default state transition
-					s_ftdi_prot_controller_state <= WAIT_RX_HEADER_END;
-					v_ftdi_prot_controller_state := WAIT_RX_HEADER_END;
-					-- default internal signal values
-					-- conditional state transition
-					-- check if the header transmission is finished
-					if (header_parser_busy_i = '0') then
-						s_ftdi_prot_controller_state <= RESET_RX_HEADER_END;
-						v_ftdi_prot_controller_state := RESET_RX_HEADER_END;
-					end if;
-
-				-- state "RESET_RX_HEADER_END"
-				when RESET_RX_HEADER_END =>
-					-- reset the header parser
-					-- default state transition
-					s_ftdi_prot_controller_state <= s_ftdi_prot_controller_next_state;
-					v_ftdi_prot_controller_state := s_ftdi_prot_controller_next_state;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "WAIT_TX_PAYLOAD_END"
-				when WAIT_TX_PAYLOAD_END =>
-					-- wait until a payload writer is finished
-					-- default state transition
-					s_ftdi_prot_controller_state <= WAIT_TX_PAYLOAD_END;
-					v_ftdi_prot_controller_state := WAIT_TX_PAYLOAD_END;
-					-- default internal signal values
-					-- conditional state transition
-					-- check if the header transmission is finished
-					if (payload_writer_busy_i = '0') then
-						s_ftdi_prot_controller_state <= RESET_TX_PAYLOAD_END;
-						v_ftdi_prot_controller_state := RESET_TX_PAYLOAD_END;
-					end if;
-
-				-- state "RESET_TX_PAYLOAD_END"
-				when RESET_TX_PAYLOAD_END =>
-					-- reset the payload writer
-					-- default state transition
-					s_ftdi_prot_controller_state <= s_ftdi_prot_controller_next_state;
-					v_ftdi_prot_controller_state := s_ftdi_prot_controller_next_state;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "WAIT_RX_PAYLOAD_END"
-				when WAIT_RX_PAYLOAD_END =>
-					-- wait until a payload reader is finished
-					-- default state transition
-					s_ftdi_prot_controller_state <= WAIT_RX_PAYLOAD_END;
-					v_ftdi_prot_controller_state := WAIT_RX_PAYLOAD_END;
-					-- default internal signal values
-					-- conditional state transition
-					-- check if the header transmission is finished
-					if (payload_reader_busy_i = '0') then
-						s_ftdi_prot_controller_state <= RESET_RX_PAYLOAD_END;
-						v_ftdi_prot_controller_state := RESET_RX_PAYLOAD_END;
-					end if;
-
-				-- state "RESET_RX_PAYLOAD_END"
-				when RESET_RX_PAYLOAD_END =>
-					-- reset the payload reader
-					-- default state transition
-					s_ftdi_prot_controller_state <= s_ftdi_prot_controller_next_state;
-					v_ftdi_prot_controller_state := s_ftdi_prot_controller_next_state;
-				-- default internal signal values
+					s_request_tries              <= 0;
 				-- conditional state transition
 
 				-- all the other states (not defined)
@@ -292,22 +367,55 @@ begin
 				when STOPPED =>
 					-- protocol controller stopped
 					-- default output signals
-					-- conditional output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
 
-					-- state "IDLE"
+				-- state "IDLE"
 				when IDLE =>
 					-- protocol controller idle
 					-- default output signals
-					-- conditional output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
 
-					-- state "HFCCD_REQUEST_START"
-				when HFCCD_REQUEST_START =>
+				-- state "HFCCD_REQ_START"
+				when HFCCD_REQ_START =>
 					-- half-ccd request start
 					-- default output signals
-					-- conditional output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
 
-					-- state "HFCCD_REQUEST_TX_HEADER"
-				when HFCCD_REQUEST_TX_HEADER =>
+				-- state "HFCCD_REQ_SEND_TX_HEADER"
+				when HFCCD_REQ_SEND_TX_HEADER =>
 					-- half-ccd request transmit request header
 					-- default output signals
 					header_generator_start_o                           <= '1';
@@ -330,8 +438,42 @@ begin
 					payload_reader_length_bytes_o                      <= (others => '0');
 				-- conditional output signals
 
-				-- state "HFCCD_ACK_NACK_RX_HEADER"
-				when HFCCD_ACK_NACK_RX_HEADER =>
+				-- state "HFCCD_REQ_WAIT_TX_HEADER"
+				when HFCCD_REQ_WAIT_TX_HEADER =>
+					-- half-ccd request wait request header
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_REQ_RESET_TX_HEADER"
+				when HFCCD_REQ_RESET_TX_HEADER =>
+					-- half-ccd request reset request header
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '1';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_ACK_RECEIVE_RX_HEADER"
+				when HFCCD_ACK_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive request ack/nack
 					-- default output signals
 					header_generator_start_o      <= '0';
@@ -347,8 +489,42 @@ begin
 					payload_reader_length_bytes_o <= (others => '0');
 				-- conditional output signals
 
-				-- state "HFCCD_REQUEST_RX_HEADER"
-				when HFCCD_REQUEST_RX_HEADER =>
+				-- state "HFCCD_ACK_WAIT_RX_HEADER"
+				when HFCCD_ACK_WAIT_RX_HEADER =>
+					-- half-ccd request wait request ack/nack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_ACK_PARSE_RX_HEADER"
+				when HFCCD_ACK_PARSE_RX_HEADER =>
+					-- half-ccd request parse request ack/nack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '1';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_REPLY_RECEIVE_RX_HEADER"
+				when HFCCD_REPLY_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive reply header
 					-- default output signals
 					header_generator_start_o      <= '0';
@@ -364,9 +540,44 @@ begin
 					payload_reader_length_bytes_o <= (others => '0');
 				-- conditional output signals
 
-				-- state "HFCCD_ACK_NACK_TX_HEADER"
-				when HFCCD_ACK_NACK_TX_HEADER =>
+				-- state "HFCCD_REPLY_WAIT_RX_HEADER"
+				when HFCCD_REPLY_WAIT_RX_HEADER =>
+					-- half-ccd request wait reply header
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_REPLY_PARSE_RX_HEADER"
+				when HFCCD_REPLY_PARSE_RX_HEADER =>
+					-- half-ccd request parse reply header
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '1';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_ACK_SEND_TX_HEADER"
+				when HFCCD_ACK_SEND_TX_HEADER =>
 					-- half-ccd request transmit reply ack/nack
+					-- default output signals
 					-- default output signals
 					header_generator_start_o                           <= '1';
 					header_generator_reset_o                           <= '0';
@@ -388,8 +599,42 @@ begin
 					payload_reader_length_bytes_o                      <= (others => '0');
 				-- conditional output signals
 
-				-- state "HFCCD_REQUEST_RX_PAYLOAD"
-				when HFCCD_REQUEST_RX_PAYLOAD =>
+				-- state "HFCCD_ACK_WAIT_TX_HEADER"
+				when HFCCD_ACK_WAIT_TX_HEADER =>
+					-- half-ccd request wait reply ack/nack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_ACK_RESET_TX_HEADER"
+				when HFCCD_ACK_RESET_TX_HEADER =>
+					-- half-ccd request reset reply ack/nack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '1';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
+				when HFCCD_REPLY_RECEIVE_RX_PAYLOAD =>
 					-- half-ccd request receive reply payload
 					-- default output signals
 					header_generator_start_o      <= '0';
@@ -405,26 +650,67 @@ begin
 					payload_reader_length_bytes_o <= s_parsed_header_data.payload_length;
 				-- conditional output signals
 
-				-- state "HFCCD_ACK_NACK_TX_PAYLOAD"
-				when HFCCD_ACK_NACK_TX_PAYLOAD =>
+				-- state "HFCCD_REPLY_WAIT_RX_PAYLOAD"
+				when HFCCD_REPLY_WAIT_RX_PAYLOAD =>
+					-- half-ccd request wait reply payload
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_REPLY_PARSE_RX_PAYLOAD"
+				when HFCCD_REPLY_PARSE_RX_PAYLOAD =>
+					-- half-ccd request parse reply payload
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '1';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
+				when HFCCD_ACK_SEND_TX_PAYLOAD =>
 					-- half-ccd request transmit payload ack/nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '1';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					header_generator_start_o                           <= '1';
+					header_generator_reset_o                           <= '0';
+					header_generator_data_o.package_id                 <= c_FTDI_PROT_PKG_ID_ACK_OK;
+					header_generator_data_o.image_selection.fee_number <= half_ccd_request_data_i.image_selection.fee_number;
+					header_generator_data_o.image_selection.ccd_number <= half_ccd_request_data_i.image_selection.ccd_number;
+					header_generator_data_o.image_selection.ccd_side   <= half_ccd_request_data_i.image_selection.ccd_side;
+					header_generator_data_o.image_size.ccd_height      <= half_ccd_request_data_i.image_size.ccd_height;
+					header_generator_data_o.image_size.ccd_width       <= half_ccd_request_data_i.image_size.ccd_width;
+					header_generator_data_o.exposure_number            <= half_ccd_request_data_i.exposure_number;
+					header_generator_data_o.payload_length             <= half_ccd_request_data_i.payload_length;
+					header_parser_start_o                              <= '0';
+					header_parser_reset_o                              <= '0';
+					payload_writer_start_o                             <= '0';
+					payload_writer_reset_o                             <= '0';
+					payload_writer_length_bytes_o                      <= (others => '0');
+					payload_reader_start_o                             <= '0';
+					payload_reader_reset_o                             <= '0';
+					payload_reader_length_bytes_o                      <= (others => '0');
 				-- conditional output signals
 
-				-- state "HFCCD_REQUEST_FINISH"
-				when HFCCD_REQUEST_FINISH =>
-					-- half-ccd request finish
+				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
+				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
+					-- half-ccd request wait payload ack/nack
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '0';
@@ -439,26 +725,9 @@ begin
 					payload_reader_length_bytes_o <= (others => '0');
 				-- conditional output signals
 
-				-- state "WAIT_TX_HEADER_END"
-				when WAIT_TX_HEADER_END =>
-					-- wait until a header generator is finished
-					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
-				-- conditional output signals
-
-				-- state "RESET_TX_HEADER_END"
-				when RESET_TX_HEADER_END =>
-					-- reset the header generator
+				-- state "HFCCD_ACK_RESET_TX_PAYLOAD"
+				when HFCCD_ACK_RESET_TX_PAYLOAD =>
+					-- half-ccd request reset payload ack/nack
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '1';
@@ -473,9 +742,9 @@ begin
 					payload_reader_length_bytes_o <= (others => '0');
 				-- conditional output signals
 
-				-- state "WAIT_RX_HEADER_END"
-				when WAIT_RX_HEADER_END =>
-					-- wait until a header parser is finished
+				-- state "HFCCD_REQ_FINISH"
+				when HFCCD_REQ_FINISH =>
+					-- half-ccd request finish
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '0';
@@ -487,91 +756,6 @@ begin
 					payload_writer_length_bytes_o <= (others => '0');
 					payload_reader_start_o        <= '0';
 					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
-				-- conditional output signals
-
-				-- state "RESET_RX_HEADER_END"
-				when RESET_RX_HEADER_END =>
-					-- reset the header parser
-					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '1';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
-				-- conditional output signals
-
-				-- state "WAIT_TX_PAYLOAD_END"
-				when WAIT_TX_PAYLOAD_END =>
-					-- wait until a payload writer is finished
-					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
-				-- conditional output signals
-
-				-- state "RESET_TX_PAYLOAD_END"
-				when RESET_TX_PAYLOAD_END =>
-					-- reset the payload writer
-					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '1';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
-				-- conditional output signals
-
-				-- state "WAIT_RX_PAYLOAD_END"
-				when WAIT_RX_PAYLOAD_END =>
-					-- wait until a payload reader is finished
-					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
-				-- conditional output signals
-
-				-- state "RESET_RX_PAYLOAD_END"
-				when RESET_RX_PAYLOAD_END =>
-					-- reset the payload reader
-					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '1';
 					payload_reader_length_bytes_o <= (others => '0');
 					-- conditional output signals
 

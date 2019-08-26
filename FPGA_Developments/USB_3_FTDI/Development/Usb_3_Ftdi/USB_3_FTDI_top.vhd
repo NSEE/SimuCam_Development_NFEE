@@ -219,24 +219,24 @@ begin
 			buffer_wrready_o           => s_config_read_registers.tx_dbuffer_status_reg.wrready
 		);
 
-	-- FTDI Data Transmitter Instantiation (Tx: FPGA => FTDI)	
-	ftdi_data_transmitter_ent_inst : entity work.ftdi_data_transmitter_ent
-		port map(
-			clk_i                         => a_avs_clock,
-			rst_i                         => a_reset,
-			data_tx_stop_i                => s_config_write_registers.general_control_reg.stop,
-			data_tx_start_i               => s_config_write_registers.general_control_reg.start,
-			buffer_stat_empty_i           => s_tx_dbuffer_stat_empty,
-			buffer_rddata_i               => s_tx_dbuffer_rddata,
-			buffer_rdready_i              => s_config_read_registers.tx_dbuffer_status_reg.rdready,
-			tx_dc_data_fifo_wrfull_i      => s_avalon_tx_dc_data_fifo_wrfull,
-			tx_dc_data_fifo_wrusedw_i     => s_avalon_tx_dc_data_fifo_wrusedw,
-			buffer_rdreq_o                => s_tx_dbuffer_rdreq,
-			buffer_change_o               => s_tx_dbuffer_change,
-			tx_dc_data_fifo_wrdata_data_o => s_avalon_tx_dc_data_fifo_wrdata_data,
-			tx_dc_data_fifo_wrdata_be_o   => s_avalon_tx_dc_data_fifo_wrdata_be,
-			tx_dc_data_fifo_wrreq_o       => s_avalon_tx_dc_data_fifo_wrreq
-		);
+	--	-- FTDI Data Transmitter Instantiation (Tx: FPGA => FTDI)	
+	--	ftdi_data_transmitter_ent_inst : entity work.ftdi_data_transmitter_ent
+	--		port map(
+	--			clk_i                         => a_avs_clock,
+	--			rst_i                         => a_reset,
+	--			data_tx_stop_i                => s_config_write_registers.general_control_reg.stop,
+	--			data_tx_start_i               => s_config_write_registers.general_control_reg.start,
+	--			buffer_stat_empty_i           => s_tx_dbuffer_stat_empty,
+	--			buffer_rddata_i               => s_tx_dbuffer_rddata,
+	--			buffer_rdready_i              => s_config_read_registers.tx_dbuffer_status_reg.rdready,
+	--			tx_dc_data_fifo_wrfull_i      => s_avalon_tx_dc_data_fifo_wrfull,
+	--			tx_dc_data_fifo_wrusedw_i     => s_avalon_tx_dc_data_fifo_wrusedw,
+	--			buffer_rdreq_o                => s_tx_dbuffer_rdreq,
+	--			buffer_change_o               => s_tx_dbuffer_change,
+	--			tx_dc_data_fifo_wrdata_data_o => s_avalon_tx_dc_data_fifo_wrdata_data,
+	--			tx_dc_data_fifo_wrdata_be_o   => s_avalon_tx_dc_data_fifo_wrdata_be,
+	--			tx_dc_data_fifo_wrreq_o       => s_avalon_tx_dc_data_fifo_wrreq
+	--		);
 
 	-- Rx Data Avalon MM Read Instantiation
 	ftdi_rx_data_avalon_mm_read_ent_inst : entity work.ftdi_rx_data_avalon_mm_read_ent
@@ -279,23 +279,62 @@ begin
 			buffer_wrready_o           => s_config_read_registers.rx_dbuffer_status_reg.wrready
 		);
 
-	-- FTDI Data Receiver Instantiation (Rx: FTDI => FPGA)
-	ftdi_data_receiver_ent_inst : entity work.ftdi_data_receiver_ent
+	--	-- FTDI Data Receiver Instantiation (Rx: FTDI => FPGA)
+	--	ftdi_data_receiver_ent_inst : entity work.ftdi_data_receiver_ent
+	--		port map(
+	--			clk_i                         => a_avs_clock,
+	--			rst_i                         => a_reset,
+	--			data_rx_stop_i                => s_config_write_registers.general_control_reg.stop,
+	--			data_rx_start_i               => s_config_write_registers.general_control_reg.start,
+	--			rx_dc_data_fifo_rddata_data_i => s_avalon_rx_dc_data_fifo_rddata_data,
+	--			rx_dc_data_fifo_rddata_be_i   => s_avalon_rx_dc_data_fifo_rddata_be,
+	--			rx_dc_data_fifo_rdempty_i     => s_avalon_rx_dc_data_fifo_rdempty,
+	--			rx_dc_data_fifo_rdusedw_i     => s_avalon_rx_dc_data_fifo_rdusedw,
+	--			buffer_stat_full_i            => s_rx_dbuffer_stat_full,
+	--			buffer_wrready_i              => s_config_read_registers.rx_dbuffer_status_reg.wrready,
+	--			rx_dc_data_fifo_rdreq_o       => s_avalon_rx_dc_data_fifo_rdreq,
+	--			buffer_data_loaded_o          => s_rx_dbuffer_data_loaded,
+	--			buffer_wrdata_o               => s_rx_dbuffer_wrdata,
+	--			buffer_wrreq_o                => s_rx_dbuffer_wrreq
+	--		);
+
+	-- FTDI Data Protocol Instantiation (Protocol: FPGA => FTDI, FTDI => FPGA)
+	ftdi_protocol_top_inst : entity work.ftdi_protocol_top
 		port map(
-			clk_i                         => a_avs_clock,
-			rst_i                         => a_reset,
-			data_rx_stop_i                => s_config_write_registers.general_control_reg.stop,
-			data_rx_start_i               => s_config_write_registers.general_control_reg.start,
-			rx_dc_data_fifo_rddata_data_i => s_avalon_rx_dc_data_fifo_rddata_data,
-			rx_dc_data_fifo_rddata_be_i   => s_avalon_rx_dc_data_fifo_rddata_be,
-			rx_dc_data_fifo_rdempty_i     => s_avalon_rx_dc_data_fifo_rdempty,
-			rx_dc_data_fifo_rdusedw_i     => s_avalon_rx_dc_data_fifo_rdusedw,
-			buffer_stat_full_i            => s_rx_dbuffer_stat_full,
-			buffer_wrready_i              => s_config_read_registers.rx_dbuffer_status_reg.wrready,
-			rx_dc_data_fifo_rdreq_o       => s_avalon_rx_dc_data_fifo_rdreq,
-			buffer_data_loaded_o          => s_rx_dbuffer_data_loaded,
-			buffer_wrdata_o               => s_rx_dbuffer_wrdata,
-			buffer_wrreq_o                => s_rx_dbuffer_wrreq
+			clk_i                                              => a_avs_clock,
+			rst_i                                              => a_reset,
+			data_stop_i                                        => s_config_write_registers.general_control_reg.stop,
+			data_start_i                                       => s_config_write_registers.general_control_reg.start,
+			half_ccd_request_start_i                           => '1',
+			half_ccd_request_data_i.image_selection.fee_number => std_logic_vector(to_unsigned(5, 3)),
+			half_ccd_request_data_i.image_selection.ccd_number => std_logic_vector(to_unsigned(3, 2)),
+			half_ccd_request_data_i.image_selection.ccd_side   => '1',
+			half_ccd_request_data_i.image_size.ccd_height      => std_logic_vector(to_unsigned(4540, 13)),
+			half_ccd_request_data_i.image_size.ccd_width       => std_logic_vector(to_unsigned(2295, 12)),
+			half_ccd_request_data_i.exposure_number            => std_logic_vector(to_unsigned(845, 16)),
+			half_ccd_request_data_i.payload_length             => std_logic_vector(to_unsigned(100, 32)),
+			tx_dc_data_fifo_wrempty_i                          => s_avalon_tx_dc_data_fifo_wrempty,
+			tx_dc_data_fifo_wrfull_i                           => s_avalon_tx_dc_data_fifo_wrfull,
+			tx_dc_data_fifo_wrusedw_i                          => s_avalon_tx_dc_data_fifo_wrusedw,
+			rx_dc_data_fifo_rddata_data_i                      => s_avalon_rx_dc_data_fifo_rddata_data,
+			rx_dc_data_fifo_rddata_be_i                        => s_avalon_rx_dc_data_fifo_rddata_be,
+			rx_dc_data_fifo_rdempty_i                          => s_avalon_rx_dc_data_fifo_rdempty,
+			rx_dc_data_fifo_rdfull_i                           => s_avalon_rx_dc_data_fifo_rdfull,
+			rx_dc_data_fifo_rdusedw_i                          => s_avalon_rx_dc_data_fifo_rdusedw,
+			tx_dbuffer_stat_empty_i                            => s_tx_dbuffer_stat_empty,
+			tx_dbuffer_rddata_i                                => s_tx_dbuffer_rddata,
+			tx_dbuffer_rdready_i                               => s_config_read_registers.tx_dbuffer_status_reg.rdready,
+			rx_dbuffer_stat_full_i                             => s_rx_dbuffer_stat_full,
+			rx_dbuffer_wrready_i                               => s_config_read_registers.rx_dbuffer_status_reg.wrready,
+			tx_dc_data_fifo_wrdata_data_o                      => s_avalon_tx_dc_data_fifo_wrdata_data,
+			tx_dc_data_fifo_wrdata_be_o                        => s_avalon_tx_dc_data_fifo_wrdata_be,
+			tx_dc_data_fifo_wrreq_o                            => s_avalon_tx_dc_data_fifo_wrreq,
+			rx_dc_data_fifo_rdreq_o                            => s_avalon_rx_dc_data_fifo_rdreq,
+			tx_dbuffer_rdreq_o                                 => s_tx_dbuffer_rdreq,
+			tx_dbuffer_change_o                                => s_tx_dbuffer_change,
+			rx_dbuffer_data_loaded_o                           => s_rx_dbuffer_data_loaded,
+			rx_dbuffer_wrdata_o                                => s_rx_dbuffer_wrdata,
+			rx_dbuffer_wrreq_o                                 => s_rx_dbuffer_wrreq
 		);
 
 	-- FTDI Data Loopback  Instantiation (Loopback: FTDI => FTDI)
