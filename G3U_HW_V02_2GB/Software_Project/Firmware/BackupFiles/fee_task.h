@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 #include "tasks_configurations.h"
 #include "../utils/ccd.h"
-#include "../utils/fee.h"
+#include "../utils/feeV2.h"
 #include "../utils/meb.h"
 #include "../driver/comm/spw_controller/spw_controller.h"
 #include "../driver/comm/comm_channel.h"

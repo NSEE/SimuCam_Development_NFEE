@@ -545,7 +545,7 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
-			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sFeeConfig ) {
+			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sConfig ) {
 				/* Disable the RMAP interrupt */
 				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = FALSE;

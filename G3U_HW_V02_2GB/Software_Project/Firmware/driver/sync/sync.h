@@ -113,6 +113,7 @@ typedef struct CtrReg {
 
 //! [public function prototypes]
 void vSyncInitIrq(void);
+void vBeforeSyncHandleIrq(void* pvContext);
 void vSyncHandleIrq(void* pvContext);
 
 void vSyncIrqGetFlags(bool *pbSyncIrqFlags);

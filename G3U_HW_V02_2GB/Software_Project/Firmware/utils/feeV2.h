@@ -47,10 +47,10 @@ typedef enum { sMebInit  = 0, sMebToConfig, sMebToRun, sMebConfig, sMebRun } tSi
 typedef enum { sInit = 0, sConfig, sConfig_Enter, sOn, sOn_Enter, sStandBy, sStandby_Enter,
 	sFullPattern, sFullPattern_Enter, sFullPattern_Out, sWinPattern, sWinPattern_Enter, sWinPattern_Out,
 	sFullImage, sFullImage_Enter, sFullImage_Out, sWindowing, sWindowing_Enter, sWindowing_Out,
-	sParTrap1, sParTrap1_Enter, sParTrap1_Out, sParTrap2, sParTrap2_Enter, sParTrap2_Enter,
+	sParTrap1, sParTrap1_Enter, sParTrap1_Out, sParTrap2, sParTrap2_Enter, sParTrap2_Out,
 	sSerialTrap1, sSerialTrap1_Enter, sSerialTrap1_Out, sSerialTrap2, sSerialTrap2_Enter, sSerialTrap2_Out,
 	sWaitSync, redoutWaitSync,
-	redoutCycle_Enter, redoutCycle_Out, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
+	redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 	redoutTransmission, redoutEndSch} tFEEStates;
 
 
@@ -76,10 +76,9 @@ typedef struct FeeControl{
     unsigned char ucROutOrder[N_OF_CCD];/* CCD Readout Order  [<0..3>, <0..3>, <0..3>, <0..3>]*/
     tNFeeSide   eSide;                   /* Which side of the CCD is configured in the NFEE to be transmited */
 
-
     volatile tFEEStates eState;                   /* Real State of NFEE */
     tFEEStates eLastMode;
-    tFEEStates eModeV;
+    tFEEStates eMode;
     tFEEStates eNextMode;
 
 } TFeeControl;
@@ -93,6 +92,24 @@ typedef struct NFee {
     TCommChannel xChannel;
 } TNFee;
 
+typedef struct FEETransmission{
+	bool bFirstT;
+	bool bDmaReturn[2];				/*Two half CCDs-> Left and Right*/
+	bool bFinal[2];					/*Two half CCDs-> Left and Right*/
+	unsigned long ulAddrIni;		/* (byte) Initial transmission data, calculated after */
+	unsigned long ulAddrFinal;
+	unsigned long ulTotalBlocks;
+	unsigned long ulSMD_MAX_BLOCKS;
+	tNFeeSide side;
+	unsigned char ucMemory;
+	unsigned char ucCcdNumber;
+	TCcdMemMap *xCcdMapLocal[2]; 	/*Two half CCDs-> Left and Right*/
+} TFEETransmission;
 
+void vResetMemCCDFEE( TNFee *pxNfeeL );
+void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE );
+void vUpdateMemMapFEE( TNFee *pxNfeeL );
+bool bMemNewLimits( TNFee *pxNfeeL, unsigned short int usiVStart, unsigned short int usiVEnd );
+void vResetMemCCDFEE( TNFee *pxNfeeL );
 
 #endif /* UTILS_FEEV2_H_ */

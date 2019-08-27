@@ -28,6 +28,36 @@ static volatile int viHoldContext;
 
 //! [public functions]
 
+
+
+
+
+void vBeforeSyncHandleIrq(void* pvContext) {
+	volatile unsigned char ucIL;
+	unsigned char error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ulWord = 0;
+	xGlobal.bJustBeforSync = TRUE;
+
+	uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
+
+	vSyncIrqClrFlag(     12    ); //todo: substituir pelo valor que o França criar
+
+	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bUsingDMA == TRUE) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
+		}
+	}
+}
+
+
+
+
 /**
  * @name    vSyncHandleIrq
  * @brief
@@ -54,6 +84,7 @@ void vSyncHandleIrq(void* pvContext) {
 	vSyncIrqGetFlags(bSyncIrqFlags);
 
 	uiCmdtoSend.ulWord = 0;
+	xGlobal.bJustBeforSync = FALSE;
 
 	// Check Sync Irq Flags
 	if (bSyncIrqFlags[eSyncIrqErrorFlag]) {
@@ -105,8 +136,6 @@ void vSyncHandleIrq(void* pvContext) {
 			}
 		}
 	}
-
-
 }
 
 void vSyncClearCounter(void) {

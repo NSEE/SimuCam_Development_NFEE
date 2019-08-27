@@ -11,7 +11,7 @@
 
 #include "../simucam_definitions.h"
 #include "fee_controller.h"
-#include "fee.h"
+#include "feeV2.h"
 #include "ccd.h"
 
 typedef enum { sSubInit  = 0, sSubMemUpdated, sSubSetupEpoch, sSubRequest, sSubWaitIRQBuffer, sSubScheduleDMA, sSubLastPckt, sWaitForEmptyBufferIRQ } tDTCSubStates;

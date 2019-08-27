@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 #include "../utils/communication_configs.h"
 #include "../utils/queue_commands_list.h"
-#include "../utils/fee.h"
+#include "../utils/feeV2.h"
 #include "../utils/ccd.h"
 #include "../utils/meb.h"
 #include "../utils/events_handler.h"

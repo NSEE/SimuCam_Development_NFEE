@@ -60,7 +60,8 @@ typedef union qMask{
 #define M_SYNC                      0xE1    /* Command send byt the Sync Interrupt */
 #define M_PRE_MASTER                0xE2    /* Command send byt the Sync Interrupt */
 
-#define M_MEM_SWAPPED               0xE4    /* Memory Swapped!!! */
+#define M_BEFORE_SYNC               0xE4    /* Indicate that a sync will occours soon, will be used to prepare the double buffer */
+
 
 
 /*=====================================================================================================================*/
@@ -141,17 +142,17 @@ typedef union qMask{
 #define M_FEE_ON_FORCED             0xA3
 #define M_FEE_STANDBY_FORCED        0xA4
 #define M_FEE_FULL_PATTERN_FORCED   0xA5
-#define M_FEE_WIN_PATTERN_FORCED    0x06
-#define M_FEE_FULL_FORCED           0x07
-#define M_FEE_WIN_FORCED            0x08
-#define M_FEE_PAR_TRAP_1_FORCED     0x09
-#define M_FEE_PAR_TRAP_2_FORCED     0x0A
-#define M_FEE_SERIAL_TRAP_1_FORCED  0x0B
-#define M_FEE_SERIAL_TRAP_2_FORCED  0x0C
+#define M_FEE_WIN_PATTERN_FORCED    0xA6
+#define M_FEE_FULL_FORCED           0xA7
+#define M_FEE_WIN_FORCED            0xA8
+#define M_FEE_PAR_TRAP_1_FORCED     0xA9
+#define M_FEE_PAR_TRAP_2_FORCED     0xAA
+#define M_FEE_SERIAL_TRAP_1_FORCED  0xAB
+#define M_FEE_SERIAL_TRAP_2_FORCED  0xAC
 
 #define M_FEE_RMAP                  0xF0 /* RMAP command received */
 
-#define M_FEE_CAN_ACCESS_NEXT_MEM   0xE1 /* Meb send this message to inform FEE instances that already can access the data in the memory that DTC is updating, after DTC finishes the job */
+#define M_FEE_CAN_ACCESS_NEXT_MEM   0x71 /* Meb send this message to inform FEE instances that already can access the data in the memory that DTC is updating, after DTC finishes the job */
 /*=====================================================================================================================*/
 /*=====================================================================================================================*/
 

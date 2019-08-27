@@ -418,9 +418,6 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
 			#endif
 			/* Do nothing for now */
 			break;
-		case M_MEM_SWAPPED:
-			/* Do nothing for now */
-			break;
 		case M_MASTER_SYNC:
 			pxFeeCP->usiEPn++;
 			xGlobal.bDTCFinished = FALSE;

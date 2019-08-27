@@ -1376,7 +1376,6 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 				}
 				#endif
 
-
 				pxNFeeP->xControl.eMode =  sNextPatternIteration;
 				pxNFeeP->xControl.eNextMode =  sFeeWaitingSync;
 			} else {
@@ -1876,7 +1875,6 @@ void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId ) {
 		default:
 			break;
 	}
-
 }
 
 void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
@@ -1909,10 +1907,9 @@ void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
 		default:
 			break;
 	}
-
 }
 
-/* todo: Adicionar Timeout */
+/* todo: Adicionar Timeout e colocar a tarefa para sleep*/
 void vWaitUntilBufferEmpty( unsigned char ucId ) {
 
 	switch (ucId) {

@@ -28,17 +28,16 @@ void vNFeeStructureInit( TNFee *pxNfeeL, unsigned char ucIdNFEE ) {
     pxNfeeL->xControl.bWatingSync = FALSE;
     pxNfeeL->xControl.bEchoing = FALSE;
     pxNfeeL->xControl.bLogging = FALSE;
-    pxNfeeL->xControl.bDMALocked = FALSE;
     /* The default side is left */
     pxNfeeL->xControl.eSide = sLeft;
     pxNfeeL->xControl.ucTimeCode = 0;
 
 
     /* The NFEE initialize in the Config mode by default */
-    pxNfeeL->xControl.eState = sFeeInit;
-    pxNfeeL->xControl.eLastMode = sFeeInit;
-    pxNfeeL->xControl.eModeV = sFeeInit;
-    pxNfeeL->xControl.eNextMode = sFeeInit;
+    pxNfeeL->xControl.eState = sInit;
+    pxNfeeL->xControl.eLastMode = sInit;
+    pxNfeeL->xControl.eMode = sInit;
+    pxNfeeL->xControl.eNextMode = sInit;
 
 
     pxNfeeL->ucSPWId = (unsigned char)xDefaultsCH.ucFEEtoChanell[ ucIdNFEE ];
