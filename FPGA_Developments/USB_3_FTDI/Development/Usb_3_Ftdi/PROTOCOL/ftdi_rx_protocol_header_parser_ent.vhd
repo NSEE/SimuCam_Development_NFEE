@@ -39,7 +39,6 @@ architecture RTL of ftdi_rx_protocol_header_parser_ent is
 		STOPPED,                        -- header parser stopped
 		IDLE,                           -- header parser idle
 		WAITING_RX_DATA_SOP,            -- wait until the rx fifo have data
-		FETCH_RX_DATA_SOP,              -- fetch a rx fifo data sop
 		HEADER_RX_START_OF_PACKAGE,     -- parse a start of package from the rx fifo (discard all data until a sop) (discard all data until a sop)
 		WAITING_RX_DATA,                -- wait until the rx fifo have enough data for a full header (minus start of package)
 		FETCH_RX_DATA,                  -- fetch a rx fifo data
@@ -124,20 +123,9 @@ begin
 					-- conditional state transition
 					-- check if the rx dc data fifo is not empty 
 					if (rx_dc_data_fifo_rdempty_i = '0') then
-						s_ftdi_tx_prot_header_parser_state <= FETCH_RX_DATA_SOP;
-						v_ftdi_tx_prot_header_parser_state := FETCH_RX_DATA_SOP;
+						s_ftdi_tx_prot_header_parser_state <= HEADER_RX_START_OF_PACKAGE;
+						v_ftdi_tx_prot_header_parser_state := HEADER_RX_START_OF_PACKAGE;
 					end if;
-
-				-- state "FETCH_RX_DATA_SOP"
-				when FETCH_RX_DATA_SOP =>
-					-- fetch a rx fifo data sop
-					-- default state transition
-					s_ftdi_tx_prot_header_parser_state <= HEADER_RX_START_OF_PACKAGE;
-					v_ftdi_tx_prot_header_parser_state := HEADER_RX_START_OF_PACKAGE;
-					-- default internal signal values
-					s_header_crc32_match               <= '0';
-					s_header_eoh_error                 <= '0';
-				-- conditional state transition
 
 				-- state "HEADER_RX_START_OF_PACKAGE"
 				when HEADER_RX_START_OF_PACKAGE =>
@@ -246,7 +234,7 @@ begin
 					s_header_eoh_error                 <= '0';
 					-- conditional state transition
 					-- check if the received header crc32 match the calculated crc32
-					if (rx_dc_data_fifo_rddata_data_i = s_header_crc32) then
+					if (rx_dc_data_fifo_rddata_data_i = f_ftdi_protocol_finish_crc32(s_header_crc32)) then
 						s_header_crc32_match <= '1';
 					end if;
 
@@ -328,19 +316,6 @@ begin
 					rx_dc_data_fifo_rdreq_o  <= '0';
 				-- conditional output signals
 
-				-- state "FETCH_RX_DATA_SOP"
-				when FETCH_RX_DATA_SOP =>
-					-- fetch a rx fifo data sop
-					-- default output signals
-					header_parser_busy_o     <= '1';
-					s_registered_header_data <= c_FTDI_PROT_HEADER_RESET;
-					header_data_o            <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32           <= (others => '0');
-					header_crc32_match_o     <= '0';
-					header_eoh_error_o       <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '1';
-				-- conditional output signals
-
 				-- state "HEADER_RX_START_OF_PACKAGE"
 				when HEADER_RX_START_OF_PACKAGE =>
 					-- parse a start of package from the rx fifo (discard all data until a sop)
@@ -351,7 +326,7 @@ begin
 					s_header_crc32           <= (others => '0');
 					header_crc32_match_o     <= '0';
 					header_eoh_error_o       <= '0';
-					rx_dc_data_fifo_rdreq_o  <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '1';
 				-- conditional output signals
 
 				-- state "WAITING_RX_DATA"
@@ -374,7 +349,7 @@ begin
 					header_parser_busy_o     <= '1';
 					s_registered_header_data <= c_FTDI_PROT_HEADER_RESET;
 					header_data_o            <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32           <= (others => '0');
+					s_header_crc32           <= c_FTDI_PROT_CRC32_START;
 					header_crc32_match_o     <= '0';
 					header_eoh_error_o       <= '0';
 					rx_dc_data_fifo_rdreq_o  <= '1';
@@ -387,7 +362,7 @@ begin
 					header_parser_busy_o                <= '1';
 					s_registered_header_data.package_id <= rx_dc_data_fifo_rddata_data_i;
 					header_data_o                       <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32                      <= f_ftdi_protocol_calculate_crc32(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
+					s_header_crc32                      <= f_ftdi_protocol_calculate_crc32_dword(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
 					header_crc32_match_o                <= '0';
 					header_eoh_error_o                  <= '0';
 					rx_dc_data_fifo_rdreq_o             <= '1';
@@ -402,7 +377,7 @@ begin
 					s_registered_header_data.image_selection.ccd_number <= rx_dc_data_fifo_rddata_data_i(9 downto 8);
 					s_registered_header_data.image_selection.ccd_side   <= rx_dc_data_fifo_rddata_data_i(0);
 					header_data_o                                       <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32                                      <= f_ftdi_protocol_calculate_crc32(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
+					s_header_crc32                                      <= f_ftdi_protocol_calculate_crc32_dword(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
 					header_crc32_match_o                                <= '0';
 					header_eoh_error_o                                  <= '0';
 					rx_dc_data_fifo_rdreq_o                             <= '1';
@@ -416,7 +391,7 @@ begin
 					s_registered_header_data.image_size.ccd_height <= rx_dc_data_fifo_rddata_data_i(28 downto 16);
 					s_registered_header_data.image_size.ccd_width  <= rx_dc_data_fifo_rddata_data_i(11 downto 0);
 					header_data_o                                  <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32                                 <= f_ftdi_protocol_calculate_crc32(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
+					s_header_crc32                                 <= f_ftdi_protocol_calculate_crc32_dword(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
 					header_crc32_match_o                           <= '0';
 					header_eoh_error_o                             <= '0';
 					rx_dc_data_fifo_rdreq_o                        <= '1';
@@ -429,7 +404,7 @@ begin
 					header_parser_busy_o                     <= '1';
 					s_registered_header_data.exposure_number <= rx_dc_data_fifo_rddata_data_i(15 downto 0);
 					header_data_o                            <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32                           <= f_ftdi_protocol_calculate_crc32(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
+					s_header_crc32                           <= f_ftdi_protocol_calculate_crc32_dword(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
 					header_crc32_match_o                     <= '0';
 					header_eoh_error_o                       <= '0';
 					rx_dc_data_fifo_rdreq_o                  <= '1';
@@ -442,10 +417,10 @@ begin
 					header_parser_busy_o                    <= '1';
 					s_registered_header_data.payload_length <= rx_dc_data_fifo_rddata_data_i;
 					header_data_o                           <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32                          <= f_ftdi_protocol_calculate_crc32(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
+					s_header_crc32                          <= f_ftdi_protocol_calculate_crc32_dword(s_header_crc32, rx_dc_data_fifo_rddata_data_i);
 					header_crc32_match_o                    <= '0';
 					header_eoh_error_o                      <= '0';
-					rx_dc_data_fifo_rdreq_o                 <= '1';
+					rx_dc_data_fifo_rdreq_o                 <= '0';
 				-- conditional output signals
 
 				-- state "HEADER_RX_HEADER_CRC"
@@ -454,7 +429,6 @@ begin
 					-- default output signals
 					header_parser_busy_o    <= '1';
 					header_data_o           <= c_FTDI_PROT_HEADER_RESET;
-					s_header_crc32          <= (others => '0');
 					header_crc32_match_o    <= '0';
 					header_eoh_error_o      <= '0';
 					rx_dc_data_fifo_rdreq_o <= '1';
@@ -469,14 +443,14 @@ begin
 					s_header_crc32          <= (others => '0');
 					header_crc32_match_o    <= '0';
 					header_eoh_error_o      <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
+					rx_dc_data_fifo_rdreq_o <= '1';
 				-- conditional output signals
 
 				-- state "FINISH_HEADER_RX"
 				when FINISH_HEADER_RX =>
 					-- finish the header receival
 					-- default output signals
-					header_parser_busy_o    <= '1';
+					header_parser_busy_o    <= '0';
 					header_data_o           <= s_registered_header_data;
 					s_header_crc32          <= (others => '0');
 					header_crc32_match_o    <= s_header_crc32_match;

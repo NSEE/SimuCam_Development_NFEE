@@ -73,6 +73,7 @@ begin
 
 	p_ftdi_tx_protocol_payload_writer : process(clk_i, rst_i) is
 		variable v_ftdi_tx_prot_payload_writer_state : t_ftdi_tx_prot_payload_writer_fsm := STOPPED;
+		variable v_write_dword                       : std_logic;
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
@@ -80,6 +81,7 @@ begin
 			v_ftdi_tx_prot_payload_writer_state := STOPPED;
 			-- internal signals reset
 			s_payload_length_cnt                <= (others => '0');
+			v_write_dword                       := '0';
 			-- outputs reset
 			payload_writer_busy_o               <= '0';
 			s_payload_crc32                     <= (others => '0');
@@ -101,6 +103,7 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := STOPPED;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_tx_start_i = '1') then
@@ -116,12 +119,13 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := IDLE;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 					-- conditional state transition
 					-- check if a payload writer start was issued
 					if (payload_writer_start_i = '1') then
 						s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_READY;
 						v_ftdi_tx_prot_payload_writer_state := WAITING_TX_READY;
-						if (unsigned(payload_length_bytes_i) >= 8) then
+						if (unsigned(payload_length_bytes_i) >= 4) then
 							s_payload_length_cnt <= payload_length_bytes_i;
 						else
 							s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_SPACE_EOP;
@@ -136,12 +140,12 @@ begin
 					s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_READY;
 					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_READY;
 					-- default internal signal values
+					v_write_dword                       := '0';
 					-- conditional state transition
 					-- check (if the tx data buffer is ready and not empty) and (if there is enough space in the tx dc data fifo for the fetched qword) 
 					if (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
 						s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
 						v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
-						s_payload_length_cnt                <= std_logic_vector(unsigned(s_payload_length_cnt) - 8);
 					end if;
 
 				-- state "FETCH_TX_QQWORD"
@@ -150,7 +154,8 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= FETCH_DELAY;
 					v_ftdi_tx_prot_payload_writer_state := FETCH_DELAY;
-				-- default internal signal values
+					-- default internal signal values
+					v_write_dword                       := '0';
 				-- conditional state transition
 
 				-- state "FETCH_DELAY"
@@ -159,7 +164,8 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_0;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_0;
-				-- default internal signal values
+					-- default internal signal values
+					v_write_dword                       := '1';
 				-- conditional state transition
 
 				-- state "WRITE_TX_DWORD_0"
@@ -168,8 +174,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_1;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_1;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_1"
 				when WRITE_TX_DWORD_1 =>
@@ -177,8 +191,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_2;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_2;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_2"
 				when WRITE_TX_DWORD_2 =>
@@ -186,8 +208,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_3;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_3;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_3"
 				when WRITE_TX_DWORD_3 =>
@@ -195,8 +225,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_4;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_4;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_4"
 				when WRITE_TX_DWORD_4 =>
@@ -204,8 +242,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_5;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_5;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_5"
 				when WRITE_TX_DWORD_5 =>
@@ -213,8 +259,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_6;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_6;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_6"
 				when WRITE_TX_DWORD_6 =>
@@ -222,8 +276,16 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_DWORD_7;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_DWORD_7;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_write_dword        := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_write_dword        := '0';
+					end if;
 
 				-- state "WRITE_TX_DWORD_7"
 				when WRITE_TX_DWORD_7 =>
@@ -231,8 +293,15 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_writer_state <= WRITE_DELAY;
 					v_ftdi_tx_prot_payload_writer_state := WRITE_DELAY;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					v_write_dword                       := '0';
+					-- conditional state transition
+					-- check if there is still payload to be writed
+					if (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+					end if;
 
 				-- state "WRITE_DELAY"
 				when WRITE_DELAY =>
@@ -241,6 +310,7 @@ begin
 					s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_READY;
 					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_READY;
 					-- default internal signal values
+					v_write_dword                       := '0';
 					-- conditional state transition
 					-- check if the tx data buffer is empty
 					if (buffer_stat_empty_i = '1') then
@@ -248,7 +318,7 @@ begin
 						s_ftdi_tx_prot_payload_writer_state <= CHANGE_BUFFER;
 						v_ftdi_tx_prot_payload_writer_state := CHANGE_BUFFER;
 					else
-						if (unsigned(payload_length_bytes_i) < 8) then
+						if (unsigned(s_payload_length_cnt) < 4) then
 							s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_SPACE_CRC;
 							v_ftdi_tx_prot_payload_writer_state := WAITING_TX_SPACE_CRC;
 							s_payload_length_cnt                <= (others => '0');
@@ -257,7 +327,6 @@ begin
 							if (((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) and ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 8)))) then
 								s_ftdi_tx_prot_payload_writer_state <= FETCH_TX_QQWORD;
 								v_ftdi_tx_prot_payload_writer_state := FETCH_TX_QQWORD;
-								s_payload_length_cnt                <= std_logic_vector(unsigned(s_payload_length_cnt) - 8);
 							end if;
 						end if;
 					end if;
@@ -269,8 +338,9 @@ begin
 					s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_READY;
 					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_READY;
 					-- default internal signal values
+					v_write_dword                       := '0';
 					-- conditional state transition
-					if (unsigned(payload_length_bytes_i) < 8) then
+					if (unsigned(s_payload_length_cnt) < 4) then
 						s_payload_length_cnt                <= (others => '0');
 						s_ftdi_tx_prot_payload_writer_state <= WAITING_TX_SPACE_CRC;
 						v_ftdi_tx_prot_payload_writer_state := WAITING_TX_SPACE_CRC;
@@ -284,6 +354,7 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_SPACE_CRC;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 					-- conditional state transition
 					-- check if there is enough space in the tx fifo for the crc and eop
 					if ((tx_dc_data_fifo_wrfull_i = '0') and (to_integer(unsigned(tx_dc_data_fifo_wrusedw_i)) <= ((2 ** tx_dc_data_fifo_wrusedw_i'length) - 2))) then
@@ -299,6 +370,7 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := WRITE_TX_END_OF_PAYLOAD;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 				-- conditional state transition
 
 				-- state "WAITING_TX_SPACE_EOP"
@@ -309,6 +381,7 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := WAITING_TX_SPACE_EOP;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 					-- conditional state transition
 					if (tx_dc_data_fifo_wrfull_i = '0') then
 						s_ftdi_tx_prot_payload_writer_state <= WRITE_TX_PAYLOAD_CRC;
@@ -323,6 +396,7 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := FINISH_PAYLOAD_TX;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 				-- conditional state transition
 
 				-- state "FINISH_PAYLOAD_TX"
@@ -333,6 +407,7 @@ begin
 					v_ftdi_tx_prot_payload_writer_state := FINISH_PAYLOAD_TX;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_write_dword                       := '0';
 					-- conditional state transition
 					-- check if a payload writer reset was issued
 					if (payload_writer_reset_i = '1') then
@@ -374,7 +449,7 @@ begin
 					-- payload writer idle
 					-- default output signals
 					payload_writer_busy_o         <= '0';
-					s_payload_crc32               <= (others => '0');
+					s_payload_crc32               <= c_FTDI_PROT_CRC32_START;
 					buffer_rdreq_o                <= '0';
 					buffer_change_o               <= '0';
 					tx_dc_data_fifo_wrdata_data_o <= (others => '0');
@@ -422,105 +497,161 @@ begin
 				when WRITE_TX_DWORD_0 =>
 					-- write tx dword data 0 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_0);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_0;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_0;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_0);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_1"
 				when WRITE_TX_DWORD_1 =>
 					-- write tx dword data 1 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_1);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_1;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_1;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_1);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_2"
 				when WRITE_TX_DWORD_2 =>
 					-- write tx dword data 2 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_2);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_2;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_2;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_2);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_3"
 				when WRITE_TX_DWORD_3 =>
 					-- write tx dword data 3 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_3);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_3;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_3;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_3);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_4"
 				when WRITE_TX_DWORD_4 =>
 					-- write tx dword data 4 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_4);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_4;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_4;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_4);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_5"
 				when WRITE_TX_DWORD_5 =>
 					-- write tx dword data 5 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_5);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_5;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_5;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_5);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_6"
 				when WRITE_TX_DWORD_6 =>
 					-- write tx dword data 6 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_6);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_6;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_6;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_6);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_TX_DWORD_7"
 				when WRITE_TX_DWORD_7 =>
 					-- write tx dword data 7 (32b)
 					-- default output signals
-					payload_writer_busy_o         <= '1';
-					s_payload_crc32               <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, s_tx_dword_7);
-					buffer_rdreq_o                <= '0';
-					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_7;
-					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
-					tx_dc_data_fifo_wrreq_o       <= '1';
-				-- conditional output signals
+					payload_writer_busy_o <= '1';
+					buffer_rdreq_o        <= '0';
+					buffer_change_o       <= '0';
+					-- conditional output signals
+					-- check if the word need to be written
+					if (v_write_dword = '1') then
+						tx_dc_data_fifo_wrreq_o       <= '1';
+						tx_dc_data_fifo_wrdata_data_o <= s_tx_dword_7;
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
+						s_payload_crc32               <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, s_tx_dword_7);
+					else
+						tx_dc_data_fifo_wrreq_o       <= '0';
+						tx_dc_data_fifo_wrdata_data_o <= (others => '0');
+						tx_dc_data_fifo_wrdata_be_o   <= (others => '0');
+					end if;
 
 				-- state "WRITE_DELAY"
 				when WRITE_DELAY =>
@@ -566,7 +697,7 @@ begin
 					s_payload_crc32               <= (others => '0');
 					buffer_rdreq_o                <= '0';
 					buffer_change_o               <= '0';
-					tx_dc_data_fifo_wrdata_data_o <= s_payload_crc32;
+					tx_dc_data_fifo_wrdata_data_o <= f_ftdi_protocol_finish_crc32(s_payload_crc32);
 					tx_dc_data_fifo_wrdata_be_o   <= (others => '1');
 					tx_dc_data_fifo_wrreq_o       <= '1';
 				-- conditional output signals
@@ -601,7 +732,7 @@ begin
 				when FINISH_PAYLOAD_TX =>
 					-- finish the payload write
 					-- default output signals
-					payload_writer_busy_o         <= '1';
+					payload_writer_busy_o         <= '0';
 					s_payload_crc32               <= (others => '0');
 					buffer_rdreq_o                <= '0';
 					buffer_change_o               <= '0';

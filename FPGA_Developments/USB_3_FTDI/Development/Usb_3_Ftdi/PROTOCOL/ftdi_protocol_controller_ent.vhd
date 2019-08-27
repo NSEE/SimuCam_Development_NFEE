@@ -21,6 +21,7 @@ entity ftdi_protocol_controller_ent is
 		payload_reader_busy_i         : in  std_logic;
 		payload_reader_crc32_match_i  : in  std_logic;
 		payload_reader_eop_error_i    : in  std_logic;
+		protocol_general_error_o      : out std_logic;
 		header_generator_start_o      : out std_logic;
 		header_generator_reset_o      : out std_logic;
 		header_generator_data_o       : out t_ftdi_prot_header_fields;
@@ -50,15 +51,21 @@ architecture RTL of ftdi_protocol_controller_ent is
 		HFCCD_REPLY_RECEIVE_RX_HEADER,  -- half-ccd request receive reply header
 		HFCCD_REPLY_WAIT_RX_HEADER,     -- half-ccd request wait reply header
 		HFCCD_REPLY_PARSE_RX_HEADER,    -- half-ccd request parse reply header
-		HFCCD_ACK_SEND_TX_HEADER,       -- half-ccd request transmit reply ack/nack 
-		HFCCD_ACK_WAIT_TX_HEADER,       -- half-ccd request wait reply ack/nack
-		HFCCD_ACK_RESET_TX_HEADER,      -- half-ccd request reset reply ack/nack
+		HFCCD_ACK_SEND_TX_HEADER,       -- half-ccd request transmit reply ack 
+		HFCCD_ACK_WAIT_TX_HEADER,       -- half-ccd request wait reply ack
+		HFCCD_ACK_RESET_TX_HEADER,      -- half-ccd request reset reply ack
+		HFCCD_NACK_SEND_TX_HEADER,      -- half-ccd request transmit reply nack 
+		HFCCD_NACK_WAIT_TX_HEADER,      -- half-ccd request wait reply nack
+		HFCCD_NACK_RESET_TX_HEADER,     -- half-ccd request reset reply nack
 		HFCCD_REPLY_RECEIVE_RX_PAYLOAD, -- half-ccd request receive reply payload
 		HFCCD_REPLY_WAIT_RX_PAYLOAD,    -- half-ccd request wait reply payload
 		HFCCD_REPLY_PARSE_RX_PAYLOAD,   -- half-ccd request parse reply payload
-		HFCCD_ACK_SEND_TX_PAYLOAD,      -- half-ccd request transmit payload ack/nack
-		HFCCD_ACK_WAIT_TX_PAYLOAD,      -- half-ccd request wait payload ack/nack
-		HFCCD_ACK_RESET_TX_PAYLOAD,     -- half-ccd request reset payload ack/nack
+		HFCCD_ACK_SEND_TX_PAYLOAD,      -- half-ccd request transmit payload ack
+		HFCCD_ACK_WAIT_TX_PAYLOAD,      -- half-ccd request wait payload ack
+		HFCCD_ACK_RESET_TX_PAYLOAD,     -- half-ccd request reset payload ack
+		HFCCD_NACK_SEND_TX_PAYLOAD,     -- half-ccd request transmit payload nack
+		HFCCD_NACK_WAIT_TX_PAYLOAD,     -- half-ccd request wait payload nack
+		HFCCD_NACK_RESET_TX_PAYLOAD,    -- half-ccd request reset payload nack
 		HFCCD_REQ_FINISH                -- half-ccd request finish
 	);
 	signal s_ftdi_prot_controller_state : t_ftdi_prot_controller_fsm;
@@ -66,6 +73,8 @@ architecture RTL of ftdi_protocol_controller_ent is
 	signal s_parsed_header_data : t_ftdi_prot_header_fields;
 
 	signal s_request_tries : natural range 0 to 2;
+
+	signal s_general_error : std_logic;
 
 begin
 
@@ -79,6 +88,7 @@ begin
 			-- internal signals reset
 			s_parsed_header_data          <= c_FTDI_PROT_HEADER_RESET;
 			s_request_tries               <= 0;
+			s_general_error               <= '0';
 			-- outputs reset
 			header_generator_start_o      <= '0';
 			header_generator_reset_o      <= '0';
@@ -104,6 +114,7 @@ begin
 					v_ftdi_prot_controller_state := STOPPED;
 					-- default internal signal values
 					s_request_tries              <= 0;
+					s_general_error              <= '0';
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_start_i = '1') then
@@ -120,6 +131,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					s_request_tries              <= 0;
+					s_general_error              <= '0';
 					-- check if a header generator start was issued
 					if (half_ccd_request_start_i = '1') then
 						s_ftdi_prot_controller_state <= HFCCD_REQ_START;
@@ -134,6 +146,7 @@ begin
 					v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
 					-- default internal signal values
 					s_request_tries              <= 2;
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_REQ_SEND_TX_HEADER"
@@ -142,7 +155,8 @@ begin
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_REQ_WAIT_TX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_REQ_WAIT_TX_HEADER;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_REQ_WAIT_TX_HEADER"
@@ -153,6 +167,7 @@ begin
 					v_ftdi_prot_controller_state := HFCCD_REQ_WAIT_TX_HEADER;
 					-- default internal signal values
 					-- conditional state transition
+					s_general_error              <= '0';
 					-- check if the transmission of the request header is finished
 					if (header_generator_busy_i = '0') then
 						s_ftdi_prot_controller_state <= HFCCD_REQ_RESET_TX_HEADER;
@@ -165,7 +180,8 @@ begin
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_ACK_RECEIVE_RX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_ACK_RECEIVE_RX_HEADER;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_ACK_RECEIVE_RX_HEADER"
@@ -174,7 +190,8 @@ begin
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_RX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_RX_HEADER;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_ACK_WAIT_RX_HEADER"
@@ -184,6 +201,7 @@ begin
 					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_RX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_RX_HEADER;
 					-- default internal signal values
+					s_general_error              <= '0';
 					-- conditional state transition
 					-- check if the receival of the request ack/nack is finished
 					if (header_parser_busy_i = '0') then
@@ -195,17 +213,34 @@ begin
 				when HFCCD_ACK_PARSE_RX_HEADER =>
 					-- half-ccd request parse request ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
 					s_request_tries              <= 2;
+					s_general_error              <= '0';
 					-- conditional state transition
-					-- check if maximum amout of tries was attempted (3 tries)
-					if (s_request_tries = 0) then
-						s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
-						v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
-					else
-						s_request_tries <= s_request_tries - 1;
+					-- check if the arriving package passed the CRC check
+					if (header_parser_crc32_match_i = '1') then
+						-- CRC matched, package is reliable
+						-- check if the arriving package is a ACK or NACK
+						if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_ACK_OK) then
+							-- ACK received
+							s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
+							v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+						elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_NACK_ERROR) then
+							-- NACK received
+							-- check if maximum amout of tries was attempted (3 tries)
+							if (s_request_tries > 0) then
+								s_ftdi_prot_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+								v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
+								s_request_tries              <= s_request_tries - 1;
+							end if;
+						else
+							-- Unexpected package received
+							s_general_error <= '1';
+						end if;
+						-- Package CRC does not match
+						s_general_error <= '1';
 					end if;
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_HEADER"
@@ -214,7 +249,8 @@ begin
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_HEADER;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_REPLY_WAIT_RX_HEADER"
@@ -224,6 +260,7 @@ begin
 					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
+					s_general_error              <= '0';
 					-- conditional state transition
 					-- check if the receival of the request reply is finished
 					if (header_parser_busy_i = '0') then
@@ -235,28 +272,61 @@ begin
 				when HFCCD_REPLY_PARSE_RX_HEADER =>
 					-- half-ccd request parse reply header
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_HEADER;
-				-- default internal signal values
-				-- conditional state transition
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
+					-- default internal signal values
+					s_request_tries              <= 2;
+					s_parsed_header_data         <= header_parser_data_i;
+					s_general_error              <= '0';
+					-- conditional state transition
+					-- check if the arriving package passed the CRC check
+					if (header_parser_crc32_match_i = '1') then
+						-- CRC matched, package is reliable
+						-- check if an error was not detected
+						if (header_parser_eoh_error_i = '0') then
+							-- send a ACK
+							s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_HEADER;
+							v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_HEADER;
+						else
+							-- check if maximum amout of tries was attempted (3 tries)
+							if (s_request_tries > 0) then
+								-- send a NACK
+								s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
+								v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_HEADER;
+								s_request_tries              <= s_request_tries - 1;
+								s_general_error              <= '1';
+							end if;
+						end if;
+					else
+						-- Package CRC does not match
+						-- check if maximum amout of tries was attempted (3 tries)
+						if (s_request_tries > 0) then
+							-- send a NACK
+							s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
+							v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_HEADER;
+							s_request_tries              <= s_request_tries - 1;
+							s_general_error              <= '1';
+						end if;
+					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_HEADER"
 				when HFCCD_ACK_SEND_TX_HEADER =>
-					-- half-ccd request transmit reply ack/nack
-					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
-				-- default internal signal values
-				-- conditional state transition
-				-- TODO: Ack tem três tentativas?
-
-				-- state "HFCCD_ACK_WAIT_TX_HEADER"
-				when HFCCD_ACK_WAIT_TX_HEADER =>
-					-- half-ccd request wait reply ack/nack
+					-- half-ccd request transmit reply ack
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
 					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
+					s_general_error              <= '0';
+				-- conditional state transition
+
+				-- state "HFCCD_ACK_WAIT_TX_HEADER"
+				when HFCCD_ACK_WAIT_TX_HEADER =>
+					-- half-ccd request wait reply ack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
+					-- default internal signal values
+					s_general_error              <= '0';
 					-- conditional state transition
 					-- check if the transmission of the reply ack/nack is finished
 					if (header_generator_busy_i = '0') then
@@ -266,11 +336,47 @@ begin
 
 				-- state "HFCCD_ACK_RESET_TX_HEADER"
 				when HFCCD_ACK_RESET_TX_HEADER =>
-					-- half-ccd request reset reply ack/nack
+					-- half-ccd request reset reply ack
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
 					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
+				-- conditional state transition
+
+				-- state "HFCCD_NACK_SEND_TX_HEADER"
+				when HFCCD_NACK_SEND_TX_HEADER =>
+					-- half-ccd request transmit reply nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_HEADER;
+					-- default internal signal values
+					s_general_error              <= '0';
+				-- conditional state transition
+
+				-- state "HFCCD_NACK_WAIT_TX_HEADER"
+				when HFCCD_NACK_WAIT_TX_HEADER =>
+					-- half-ccd request wait reply nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_HEADER;
+					-- default internal signal values
+					s_general_error              <= '0';
+					-- conditional state transition
+					-- check if the transmission of the reply ack/nack is finished
+					if (header_generator_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_HEADER;
+						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_HEADER;
+					end if;
+
+				-- state "HFCCD_NACK_RESET_TX_HEADER"
+				when HFCCD_NACK_RESET_TX_HEADER =>
+					-- half-ccd request reset reply nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
@@ -279,7 +385,8 @@ begin
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_PAYLOAD;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_REPLY_WAIT_RX_PAYLOAD"
@@ -289,6 +396,7 @@ begin
 					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
+					s_general_error              <= '0';
 					-- conditional state transition
 					-- check if the receival of the reply payload is finished
 					if (payload_reader_busy_i = '0') then
@@ -302,25 +410,49 @@ begin
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
 					v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					s_general_error              <= '0';
+					-- conditional state transition
+					-- check if the arriving package passed the CRC check
+					if (payload_reader_crc32_match_i = '1') then
+						-- CRC matched, package is reliable
+						-- check if an error was not detected
+						if (payload_reader_eop_error_i = '0') then
+							-- send a ACK
+							s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
+							v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
+						else
+							-- send a NACK
+							s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_PAYLOAD;
+							v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_PAYLOAD;
+							s_general_error              <= '1';
+						end if;
+					else
+						-- Package CRC does not match
+						-- send a NACK
+						s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_PAYLOAD;
+						v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_PAYLOAD;
+						s_general_error              <= '1';
+					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
 				when HFCCD_ACK_SEND_TX_PAYLOAD =>
-					-- half-ccd request transmit payload ack/nack
-					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
-					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
-				-- default internal signal values
-				-- conditional state transition
-
-				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
-				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
-					-- half-ccd request wait payload ack/nack
+					-- half-ccd request transmit payload ack
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
 					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
+					s_general_error              <= '0';
+				-- conditional state transition
+
+				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
+				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
+					-- half-ccd request wait payload ack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
+					-- default internal signal values
+					s_general_error              <= '0';
 					-- conditional state transition
 					-- check if the transmission of the payload ack/nack is finished
 					if (header_generator_busy_i = '0') then
@@ -330,11 +462,47 @@ begin
 
 				-- state "HFCCD_ACK_RESET_TX_PAYLOAD"
 				when HFCCD_ACK_RESET_TX_PAYLOAD =>
-					-- half-ccd request reset payload ack/nack
+					-- half-ccd request reset payload ack
 					-- default state transition
 					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
 					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
-				-- default internal signal values
+					-- default internal signal values
+					s_general_error              <= '0';
+				-- conditional state transition
+
+				-- state "HFCCD_NACK_SEND_TX_PAYLOAD"
+				when HFCCD_NACK_SEND_TX_PAYLOAD =>
+					-- half-ccd request transmit payload nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_PAYLOAD;
+					-- default internal signal values
+					s_general_error              <= '0';
+				-- conditional state transition
+
+				-- state "HFCCD_NACK_WAIT_TX_PAYLOAD"
+				when HFCCD_NACK_WAIT_TX_PAYLOAD =>
+					-- half-ccd request wait payload nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_PAYLOAD;
+					-- default internal signal values
+					s_general_error              <= '0';
+					-- conditional state transition
+					-- check if the transmission of the payload ack/nack is finished
+					if (header_generator_busy_i = '0') then
+						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
+						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
+					end if;
+
+				-- state "HFCCD_NACK_RESET_TX_PAYLOAD"
+				when HFCCD_NACK_RESET_TX_PAYLOAD =>
+					-- half-ccd request reset payload nack
+					-- default state transition
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
+					-- default internal signal values
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- state "HFCCD_REQ_FINISH"
@@ -345,6 +513,7 @@ begin
 					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
 					s_request_tries              <= 0;
+					s_general_error              <= '0';
 				-- conditional state transition
 
 				-- all the other states (not defined)
@@ -576,32 +745,24 @@ begin
 
 				-- state "HFCCD_ACK_SEND_TX_HEADER"
 				when HFCCD_ACK_SEND_TX_HEADER =>
-					-- half-ccd request transmit reply ack/nack
+					-- half-ccd request transmit reply ack
 					-- default output signals
-					-- default output signals
-					header_generator_start_o                           <= '1';
-					header_generator_reset_o                           <= '0';
-					header_generator_data_o.package_id                 <= c_FTDI_PROT_PKG_ID_ACK_OK;
-					header_generator_data_o.image_selection.fee_number <= half_ccd_request_data_i.image_selection.fee_number;
-					header_generator_data_o.image_selection.ccd_number <= half_ccd_request_data_i.image_selection.ccd_number;
-					header_generator_data_o.image_selection.ccd_side   <= half_ccd_request_data_i.image_selection.ccd_side;
-					header_generator_data_o.image_size.ccd_height      <= half_ccd_request_data_i.image_size.ccd_height;
-					header_generator_data_o.image_size.ccd_width       <= half_ccd_request_data_i.image_size.ccd_width;
-					header_generator_data_o.exposure_number            <= half_ccd_request_data_i.exposure_number;
-					header_generator_data_o.payload_length             <= half_ccd_request_data_i.payload_length;
-					header_parser_start_o                              <= '0';
-					header_parser_reset_o                              <= '0';
-					payload_writer_start_o                             <= '0';
-					payload_writer_reset_o                             <= '0';
-					payload_writer_length_bytes_o                      <= (others => '0');
-					payload_reader_start_o                             <= '0';
-					payload_reader_reset_o                             <= '0';
-					payload_reader_length_bytes_o                      <= (others => '0');
+					header_generator_start_o      <= '1';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_ACK_OK;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_WAIT_TX_HEADER"
 				when HFCCD_ACK_WAIT_TX_HEADER =>
-					-- half-ccd request wait reply ack/nack
+					-- half-ccd request wait reply ack
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '0';
@@ -618,7 +779,59 @@ begin
 
 				-- state "HFCCD_ACK_RESET_TX_HEADER"
 				when HFCCD_ACK_RESET_TX_HEADER =>
-					-- half-ccd request reset reply ack/nack
+					-- half-ccd request reset reply ack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '1';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_NACK_SEND_TX_HEADER"
+				when HFCCD_NACK_SEND_TX_HEADER =>
+					-- half-ccd request transmit reply nack
+					-- default output signals
+					-- default output signals
+					header_generator_start_o      <= '1';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_NACK_ERROR;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_NACK_WAIT_TX_HEADER"
+				when HFCCD_NACK_WAIT_TX_HEADER =>
+					-- half-ccd request wait reply nack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_NACK_RESET_TX_HEADER"
+				when HFCCD_NACK_RESET_TX_HEADER =>
+					-- half-ccd request reset reply nack
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '1';
@@ -686,31 +899,24 @@ begin
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
 				when HFCCD_ACK_SEND_TX_PAYLOAD =>
-					-- half-ccd request transmit payload ack/nack
+					-- half-ccd request transmit payload ack
 					-- default output signals
-					header_generator_start_o                           <= '1';
-					header_generator_reset_o                           <= '0';
-					header_generator_data_o.package_id                 <= c_FTDI_PROT_PKG_ID_ACK_OK;
-					header_generator_data_o.image_selection.fee_number <= half_ccd_request_data_i.image_selection.fee_number;
-					header_generator_data_o.image_selection.ccd_number <= half_ccd_request_data_i.image_selection.ccd_number;
-					header_generator_data_o.image_selection.ccd_side   <= half_ccd_request_data_i.image_selection.ccd_side;
-					header_generator_data_o.image_size.ccd_height      <= half_ccd_request_data_i.image_size.ccd_height;
-					header_generator_data_o.image_size.ccd_width       <= half_ccd_request_data_i.image_size.ccd_width;
-					header_generator_data_o.exposure_number            <= half_ccd_request_data_i.exposure_number;
-					header_generator_data_o.payload_length             <= half_ccd_request_data_i.payload_length;
-					header_parser_start_o                              <= '0';
-					header_parser_reset_o                              <= '0';
-					payload_writer_start_o                             <= '0';
-					payload_writer_reset_o                             <= '0';
-					payload_writer_length_bytes_o                      <= (others => '0');
-					payload_reader_start_o                             <= '0';
-					payload_reader_reset_o                             <= '0';
-					payload_reader_length_bytes_o                      <= (others => '0');
+					header_generator_start_o      <= '1';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_ACK_OK;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
 				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
-					-- half-ccd request wait payload ack/nack
+					-- half-ccd request wait payload ack
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '0';
@@ -727,7 +933,58 @@ begin
 
 				-- state "HFCCD_ACK_RESET_TX_PAYLOAD"
 				when HFCCD_ACK_RESET_TX_PAYLOAD =>
-					-- half-ccd request reset payload ack/nack
+					-- half-ccd request reset payload ack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '1';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_NACK_SEND_TX_PAYLOAD"
+				when HFCCD_NACK_SEND_TX_PAYLOAD =>
+					-- half-ccd request transmit payload nack
+					-- default output signals
+					header_generator_start_o      <= '1';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_NACK_ERROR;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_NACK_WAIT_TX_PAYLOAD"
+				when HFCCD_NACK_WAIT_TX_PAYLOAD =>
+					-- half-ccd request wait payload nack
+					-- default output signals
+					header_generator_start_o      <= '0';
+					header_generator_reset_o      <= '0';
+					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o         <= '0';
+					header_parser_reset_o         <= '0';
+					payload_writer_start_o        <= '0';
+					payload_writer_reset_o        <= '0';
+					payload_writer_length_bytes_o <= (others => '0');
+					payload_reader_start_o        <= '0';
+					payload_reader_reset_o        <= '0';
+					payload_reader_length_bytes_o <= (others => '0');
+				-- conditional output signals
+
+				-- state "HFCCD_NACK_RESET_TX_PAYLOAD"
+				when HFCCD_NACK_RESET_TX_PAYLOAD =>
+					-- half-ccd request reset payload nack
 					-- default output signals
 					header_generator_start_o      <= '0';
 					header_generator_reset_o      <= '1';

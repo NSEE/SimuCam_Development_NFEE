@@ -56,6 +56,7 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 		WRITE_RX_QQWORD,                -- write rx qqword data (256b)
 		WRITE_DELAY,                    -- write delay
 		CHANGE_BUFFER,                  -- change rx buffer
+		LOAD_BUFFER,                    -- load rx buffer
 		WAITING_RX_DATA_CRC,            -- wait until there is enough data in the rx fifo for the crc
 		PAYLOAD_RX_PAYLOAD_CRC,         -- fetch and parse the payload crc to the rx fifo
 		WAITING_RX_DATA_EOP,            -- wait until there is enough data in the rx fifo for the eop
@@ -77,6 +78,8 @@ begin
 
 	p_ftdi_tx_prot_payload_reader : process(clk_i, rst_i) is
 		variable v_ftdi_tx_prot_payload_reader_state : t_ftdi_tx_prot_payload_reader_fsm := STOPPED;
+		variable v_fetch_dword                       : std_logic;
+		variable v_read_dword                        : std_logic;
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
@@ -86,6 +89,8 @@ begin
 			s_payload_length_cnt                <= (others => '0');
 			s_payload_crc32_match               <= '0';
 			s_payload_eop_error                 <= '0';
+			v_fetch_dword                       := '0';
+			v_read_dword                        := '0';
 			-- outputs reset
 			payload_reader_busy_o               <= '0';
 			s_payload_crc32                     <= (others => '0');
@@ -118,6 +123,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_rx_start_i = '1') then
@@ -135,12 +142,14 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if a payload writer start was issued
 					if (payload_reader_start_i = '1') then
 						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_READY;
 						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_READY;
-						if (unsigned(payload_length_bytes_i) >= 8) then
+						if (unsigned(payload_length_bytes_i) >= 4) then
 							s_payload_length_cnt <= payload_length_bytes_i;
 						else
 							s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_EOP;
@@ -157,12 +166,34 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
-					-- check (if the rx dc data fifo have at least eight dwords available) and (if the rx data buffer is ready to be written and not full) 
-					if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
-						s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
-						v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
-						s_payload_length_cnt                <= std_logic_vector(unsigned(s_payload_length_cnt) - 8);
+					-- check if the remaining payload length is equivalent to a full qqword
+					if (unsigned(s_payload_length_cnt) >= 32) then
+						-- check (if the rx dc data fifo have at least eight dwords available) and (if the rx data buffer is ready to be written and not full) 
+						if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
+							s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
+							v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
+							v_fetch_dword                       := '1';
+							v_read_dword                        := '1';
+						end if;
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						-- check (if the rx dc data fifo have at least the (remaining payload length)/4 dwords available) and (if the rx data buffer is ready to be written and not full) 
+						if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= to_integer(unsigned(s_payload_length_cnt(31 downto 2))))) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
+							s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
+							v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
+							v_fetch_dword                       := '1';
+							v_read_dword                        := '1';
+						end if;
+					else
+						-- check (if the rx dc data fifo have at least one dword available) and (if the rx data buffer is ready to be written and not full) 
+						if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 1)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
+							s_ftdi_tx_prot_payload_reader_state <= FETCH_RX_DWORD_0;
+							v_ftdi_tx_prot_payload_reader_state := FETCH_RX_DWORD_0;
+							v_fetch_dword                       := '1';
+							v_read_dword                        := '1';
+						end if;
 					end if;
 
 				-- state "PRE_FETCH_DELAY"
@@ -182,8 +213,24 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_reader_state <= FETCH_RX_DWORD_1;
 					v_ftdi_tx_prot_payload_reader_state := FETCH_RX_DWORD_1;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_1"
 				when FETCH_RX_DWORD_1 =>
@@ -194,7 +241,21 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
-				-- conditional state transition
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_2"
 				when FETCH_RX_DWORD_2 =>
@@ -202,8 +263,24 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_reader_state <= FETCH_RX_DWORD_3;
 					v_ftdi_tx_prot_payload_reader_state := FETCH_RX_DWORD_3;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_3"
 				when FETCH_RX_DWORD_3 =>
@@ -214,7 +291,21 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
-				-- conditional state transition
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_4"
 				when FETCH_RX_DWORD_4 =>
@@ -222,8 +313,24 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_reader_state <= FETCH_RX_DWORD_5;
 					v_ftdi_tx_prot_payload_reader_state := FETCH_RX_DWORD_5;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_5"
 				when FETCH_RX_DWORD_5 =>
@@ -234,7 +341,21 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
-				-- conditional state transition
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_6"
 				when FETCH_RX_DWORD_6 =>
@@ -242,8 +363,24 @@ begin
 					-- default state transition
 					s_ftdi_tx_prot_payload_reader_state <= FETCH_RX_DWORD_7;
 					v_ftdi_tx_prot_payload_reader_state := FETCH_RX_DWORD_7;
-				-- default internal signal values
-				-- conditional state transition
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_7"
 				when FETCH_RX_DWORD_7 =>
@@ -254,7 +391,21 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
-				-- conditional state transition
+					-- conditional state transition
+					-- check if there is still payload to be fetched
+					if (unsigned(s_payload_length_cnt) > 8) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '1';
+						v_read_dword         := '1';
+					elsif (unsigned(s_payload_length_cnt) > 4) then
+						s_payload_length_cnt <= std_logic_vector(unsigned(s_payload_length_cnt) - 4);
+						v_fetch_dword        := '0';
+						v_read_dword         := '1';
+					else
+						s_payload_length_cnt <= std_logic_vector(to_unsigned(0, s_payload_length_cnt'length));
+						v_fetch_dword        := '0';
+						v_read_dword         := '0';
+					end if;
 
 				-- state "WRITE_RX_QQWORD"
 				when WRITE_RX_QQWORD =>
@@ -276,22 +427,44 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if the rx data buffer is full
 					if (buffer_stat_full_i = '1') then
 						s_ftdi_tx_prot_payload_reader_state <= CHANGE_BUFFER;
 						v_ftdi_tx_prot_payload_reader_state := CHANGE_BUFFER;
 					else
-						if (unsigned(payload_length_bytes_i) < 8) then
-							s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_CRC;
-							v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_CRC;
+						if (unsigned(s_payload_length_cnt) < 4) then
+							s_ftdi_tx_prot_payload_reader_state <= LOAD_BUFFER;
+							v_ftdi_tx_prot_payload_reader_state := LOAD_BUFFER;
 							s_payload_length_cnt                <= (others => '0');
 						else
-							-- check (if the rx dc data fifo have at least eight dwords available) and (if the rx data buffer is ready to be written and not full) 
-							if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
-								s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
-								v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
-								s_payload_length_cnt                <= std_logic_vector(unsigned(s_payload_length_cnt) - 8);
+							-- check if the remaining payload length is equivalent to a full qqword
+							if (unsigned(s_payload_length_cnt) >= 32) then
+								-- check (if the rx dc data fifo have at least eight dwords available) and (if the rx data buffer is ready to be written and not full) 
+								if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 8)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
+									s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
+									v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
+									v_fetch_dword                       := '1';
+									v_read_dword                        := '1';
+								end if;
+							elsif (unsigned(s_payload_length_cnt) > 4) then
+								-- check (if the rx dc data fifo have at least the (remaining payload length)/4 dwords available) and (if the rx data buffer is ready to be written and not full) 
+								if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= to_integer(unsigned(s_payload_length_cnt(31 downto 2))))) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
+									s_ftdi_tx_prot_payload_reader_state <= PRE_FETCH_DELAY;
+									v_ftdi_tx_prot_payload_reader_state := PRE_FETCH_DELAY;
+									v_fetch_dword                       := '1';
+									v_read_dword                        := '1';
+								end if;
+							else
+								-- check (if the rx dc data fifo have at least one dword available) and (if the rx data buffer is ready to be written and not full) 
+								if (((rx_dc_data_fifo_rdfull_i = '1') or (to_integer(unsigned(rx_dc_data_fifo_rdusedw_i)) >= 1)) and ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0'))) then
+									s_ftdi_tx_prot_payload_reader_state <= FETCH_RX_DWORD_0;
+									v_ftdi_tx_prot_payload_reader_state := FETCH_RX_DWORD_0;
+									v_fetch_dword                       := '1';
+									v_read_dword                        := '1';
+								end if;
 							end if;
 						end if;
 					end if;
@@ -306,11 +479,25 @@ begin
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
 					-- conditional state transition
-					if (unsigned(payload_length_bytes_i) < 8) then
+					if (unsigned(s_payload_length_cnt) < 4) then
 						s_payload_length_cnt                <= (others => '0');
 						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_CRC;
 						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_CRC;
 					end if;
+
+				-- state "LOAD_BUFFER"
+				when LOAD_BUFFER =>
+					-- load tx buffer
+					-- default state transition
+					s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_CRC;
+					v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_CRC;
+					-- default internal signal values
+					s_payload_length_cnt                <= (others => '0');
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
+				-- conditional state transition
 
 				-- state "WAITING_RX_DATA_CRC"
 				when WAITING_RX_DATA_CRC =>
@@ -322,6 +509,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if there is data in the rx fifo for the crc
 					if (rx_dc_data_fifo_rdempty_i = '0') then
@@ -339,9 +528,11 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if the received payload crc32 match the calculated crc32
-					if (rx_dc_data_fifo_rddata_data_i = s_payload_crc32) then
+					if (rx_dc_data_fifo_rddata_data_i = f_ftdi_protocol_finish_crc32(s_payload_crc32)) then
 						s_payload_crc32_match <= '1';
 					end if;
 
@@ -354,6 +545,8 @@ begin
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if there is data in the rx fifo for the eop
 					if (rx_dc_data_fifo_rdempty_i = '0') then
@@ -370,6 +563,8 @@ begin
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_eop_error                 <= '0';
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if a payload end of payload was not received
 					if (rx_dc_data_fifo_rddata_data_i /= c_FTDI_PROT_END_OF_PAYLOAD) then
@@ -384,6 +579,8 @@ begin
 					v_ftdi_tx_prot_payload_reader_state := FINISH_PAYLOAD_RX;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					v_fetch_dword                       := '0';
+					v_read_dword                        := '0';
 					-- conditional state transition
 					-- check if a payload writer reset was issued
 					if (payload_reader_reset_i = '1') then
@@ -434,7 +631,7 @@ begin
 					-- payload reader in idle
 					-- default output signals
 					payload_reader_busy_o   <= '0';
-					s_payload_crc32         <= (others => '0');
+					s_payload_crc32         <= c_FTDI_PROT_CRC32_START;
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
 					rx_dc_data_fifo_rdreq_o <= '0';
@@ -456,7 +653,6 @@ begin
 					-- wait until there is data to be fetched and space to write
 					-- default output signals
 					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= (others => '0');
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
 					rx_dc_data_fifo_rdreq_o <= '0';
@@ -478,7 +674,6 @@ begin
 					-- pre fetch delay
 					-- default output signals
 					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= (others => '0');
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
 					rx_dc_data_fifo_rdreq_o <= '1';
@@ -493,127 +688,206 @@ begin
 					s_rx_dword_5            <= (others => '0');
 					s_rx_dword_6            <= (others => '0');
 					s_rx_dword_7            <= (others => '0');
-				-- conditional output signals
+					-- conditional output signals
+					-- check if the word does not need to be fetched
+					if (v_fetch_dword = '0') then
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
 
 				-- state "FETCH_RX_DWORD_0"
 				when FETCH_RX_DWORD_0 =>
 					-- fetch rx dword data 0 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_0            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_0    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_0 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_1"
 				when FETCH_RX_DWORD_1 =>
 					-- fetch rx dword data 1 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_1            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_1    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_1 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_2"
 				when FETCH_RX_DWORD_2 =>
 					-- fetch rx dword data 2 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_2            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_2    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_2 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_3"
 				when FETCH_RX_DWORD_3 =>
 					-- fetch rx dword data 3 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_3            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_3    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_3 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_4"
 				when FETCH_RX_DWORD_4 =>
 					-- fetch rx dword data 4 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_4            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_4    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_4 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_5"
 				when FETCH_RX_DWORD_5 =>
 					-- fetch rx dword data 5 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_5            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_5    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_5 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_6"
 				when FETCH_RX_DWORD_6 =>
 					-- fetch rx dword data 6 (32b)
 					-- default output signals
-					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
-					payload_crc32_match_o   <= '0';
-					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '1';
-					buffer_data_loaded_o    <= '0';
-					buffer_wrdata_o         <= (others => '0');
-					buffer_wrreq_o          <= '0';
-					s_rx_dword_6            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					payload_reader_busy_o <= '1';
+					payload_crc32_match_o <= '0';
+					payload_eop_error_o   <= '0';
+					buffer_data_loaded_o  <= '0';
+					buffer_wrdata_o       <= (others => '0');
+					buffer_wrreq_o        <= '0';
+					-- conditional output signals
+					-- check if the word need to be fetched
+					if (v_fetch_dword = '1') then
+						rx_dc_data_fifo_rdreq_o <= '1';
+					else
+						rx_dc_data_fifo_rdreq_o <= '0';
+					end if;
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_6    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_6 <= (others => '0');
+					end if;
 
 				-- state "FETCH_RX_DWORD_7"
 				when FETCH_RX_DWORD_7 =>
 					-- fetch rx dword data 7 (32b)
 					-- default output signals
 					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= f_ftdi_protocol_calculate_crc32(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
 					rx_dc_data_fifo_rdreq_o <= '0';
 					buffer_data_loaded_o    <= '0';
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
-					s_rx_dword_7            <= rx_dc_data_fifo_rddata_data_i;
-				-- conditional output signals
+					-- conditional output signals
+					-- check if the word need to be read
+					if (v_read_dword = '1') then
+						s_rx_dword_7    <= rx_dc_data_fifo_rddata_data_i;
+						s_payload_crc32 <= f_ftdi_protocol_calculate_crc32_dword(s_payload_crc32, rx_dc_data_fifo_rddata_data_i);
+					else
+						s_rx_dword_7 <= (others => '0');
+					end if;
 
 				-- state "WRITE_RX_QQWORD"
 				when WRITE_RX_QQWORD =>
@@ -658,13 +932,34 @@ begin
 
 				-- state "CHANGE_BUFFER"
 				when CHANGE_BUFFER =>
-					-- change tx buffer
+					-- change rx buffer
 					-- default output signals
 					payload_reader_busy_o   <= '1';
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
 					rx_dc_data_fifo_rdreq_o <= '0';
 					buffer_data_loaded_o    <= '0';
+					buffer_wrdata_o         <= (others => '0');
+					buffer_wrreq_o          <= '0';
+					s_rx_dword_0            <= (others => '0');
+					s_rx_dword_1            <= (others => '0');
+					s_rx_dword_2            <= (others => '0');
+					s_rx_dword_3            <= (others => '0');
+					s_rx_dword_4            <= (others => '0');
+					s_rx_dword_5            <= (others => '0');
+					s_rx_dword_6            <= (others => '0');
+					s_rx_dword_7            <= (others => '0');
+				-- conditional output signals
+
+				-- state "LOAD_BUFFER"
+				when LOAD_BUFFER =>
+					-- load rx buffer
+					-- default output signals
+					payload_reader_busy_o   <= '1';
+					payload_crc32_match_o   <= '0';
+					payload_eop_error_o     <= '0';
+					rx_dc_data_fifo_rdreq_o <= '0';
+					buffer_data_loaded_o    <= '1';
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
@@ -703,10 +998,9 @@ begin
 					-- fetch and parse the payload crc to the rx fifo
 					-- default output signals
 					payload_reader_busy_o   <= '1';
-					s_payload_crc32         <= (others => '0');
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
+					rx_dc_data_fifo_rdreq_o <= '1';
 					buffer_data_loaded_o    <= '0';
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
@@ -750,7 +1044,7 @@ begin
 					s_payload_crc32         <= (others => '0');
 					payload_crc32_match_o   <= '0';
 					payload_eop_error_o     <= '0';
-					rx_dc_data_fifo_rdreq_o <= '0';
+					rx_dc_data_fifo_rdreq_o <= '1';
 					buffer_data_loaded_o    <= '0';
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
@@ -768,7 +1062,7 @@ begin
 				when FINISH_PAYLOAD_RX =>
 					-- finish the payload read
 					-- default output signals
-					payload_reader_busy_o   <= '1';
+					payload_reader_busy_o   <= '0';
 					s_payload_crc32         <= (others => '0');
 					payload_crc32_match_o   <= s_payload_crc32_match;
 					payload_eop_error_o     <= s_payload_eop_error;
