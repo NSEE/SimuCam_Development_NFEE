@@ -62,6 +62,7 @@ entity sync_ent is
 		avalon_slave_read           : in  std_logic                     := '0';
 		avalon_slave_write          : in  std_logic                     := '0';
 		avalon_slave_writedata      : in  std_logic_vector(31 downto 0) := (others => '0');
+		avalon_slave_byteenable     : in  std_logic_vector(3 downto 0);
 		avalon_slave_readdata       : out std_logic_vector(31 downto 0);
 		avalon_slave_waitrequest    : out std_logic;
 		conduit_sync_signal_spwa    : out std_logic;
@@ -92,6 +93,7 @@ architecture rtl of sync_ent is
 	alias a_avalon_mm_write is avalon_slave_write;
 	alias a_avalon_mm_writedata is avalon_slave_writedata;
 	alias a_avalon_mm_waitrequest is avalon_slave_waitrequest;
+	alias a_avalon_mm_byteenable is avalon_slave_byteenable;
 
 	signal s_reset_n : std_logic;
 
@@ -115,6 +117,7 @@ begin
 			rst_i                   => a_reset,
 			avalon_mm_i.address     => a_avalon_mm_address,
 			avalon_mm_i.read        => a_avalon_mm_read,
+			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
 			mm_write_reg_i          => s_sync_mm_write_registers,
 			mm_read_reg_i           => s_sync_mm_read_registers,
 			avalon_mm_o.readdata    => a_avalon_mm_readata,
@@ -129,6 +132,7 @@ begin
 			avalon_mm_i.address     => a_avalon_mm_address,
 			avalon_mm_i.write       => a_avalon_mm_write,
 			avalon_mm_i.writedata   => a_avalon_mm_writedata,
+			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
 			avalon_mm_o.waitrequest => s_avalon_mm_write_waitrequest,
 			mm_write_reg_o          => s_sync_mm_write_registers
 		);
@@ -139,22 +143,22 @@ begin
 			clk_i                      => a_clock,
 			reset_n_i                  => s_reset_n,
 			-- Control
-			control_i.start            => s_sync_mm_write_registers.control_register.start,
-			control_i.reset            => s_sync_mm_write_registers.control_register.reset,
-			control_i.one_shot         => s_sync_mm_write_registers.control_register.one_shot,
-			control_i.err_inj          => s_sync_mm_write_registers.control_register.err_inj,
+			control_i.start            => s_sync_mm_write_registers.sync_control_reg.start,
+			control_i.reset            => s_sync_mm_write_registers.sync_control_reg.reset,
+			control_i.one_shot         => s_sync_mm_write_registers.sync_control_reg.one_shot,
+			control_i.err_inj          => s_sync_mm_write_registers.sync_control_reg.err_inj,
 			-- Config
-			config_i.master_blank_time => s_sync_mm_write_registers.config_register.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.blank_time        => s_sync_mm_write_registers.config_register.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.period            => s_sync_mm_write_registers.config_register.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.one_shot_time     => s_sync_mm_write_registers.config_register.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.signal_polarity   => s_sync_mm_write_registers.config_register.general.signal_polarity,
-			config_i.number_of_cycles  => s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			config_i.master_blank_time => s_sync_mm_write_registers.sync_config_reg.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.blank_time        => s_sync_mm_write_registers.sync_config_reg.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.period            => s_sync_mm_write_registers.sync_config_reg.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.one_shot_time     => s_sync_mm_write_registers.sync_config_reg.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.signal_polarity   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
+			config_i.number_of_cycles  => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			-- Error injection
-			err_inj_i.error_injection  => s_sync_mm_write_registers.error_injection_register.error_injection,
+			err_inj_i.error_injection  => s_sync_mm_write_registers.sync_error_injection_reg.error_injection,
 			-- Status
-			status_o.state             => s_sync_mm_read_registers.status_register.state,
-			status_o.cycle_number      => s_sync_mm_read_registers.status_register.cycle_number,
+			status_o.state             => s_sync_mm_read_registers.sync_status_reg.state,
+			status_o.cycle_number      => s_sync_mm_read_registers.sync_status_reg.cycle_number,
 			-- Final internal generated sync signal
 			sync_gen_o                 => s_syncgen_signal
 		);
@@ -167,17 +171,17 @@ begin
 			-- Post mux sync signal (ext/int)
 			sync_signal_i                    => s_sync_signal,
 			-- Blank pulse sync polarity
-			sync_pol_i                       => s_sync_mm_write_registers.config_register.general.signal_polarity,
+			sync_pol_i                       => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			-- Enable controls
-			sync_control_i.channel_a_enable  => s_sync_mm_write_registers.control_register.channel_a_enable,
-			sync_control_i.channel_b_enable  => s_sync_mm_write_registers.control_register.channel_b_enable,
-			sync_control_i.channel_c_enable  => s_sync_mm_write_registers.control_register.channel_c_enable,
-			sync_control_i.channel_d_enable  => s_sync_mm_write_registers.control_register.channel_d_enable,
-			sync_control_i.channel_e_enable  => s_sync_mm_write_registers.control_register.channel_e_enable,
-			sync_control_i.channel_f_enable  => s_sync_mm_write_registers.control_register.channel_f_enable,
-			sync_control_i.channel_g_enable  => s_sync_mm_write_registers.control_register.channel_g_enable,
-			sync_control_i.channel_h_enable  => s_sync_mm_write_registers.control_register.channel_h_enable,
-			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.control_register.out_enable,
+			sync_control_i.channel_a_enable  => s_sync_mm_write_registers.sync_control_reg.channel_1_enable,
+			sync_control_i.channel_b_enable  => s_sync_mm_write_registers.sync_control_reg.channel_2_enable,
+			sync_control_i.channel_c_enable  => s_sync_mm_write_registers.sync_control_reg.channel_3_enable,
+			sync_control_i.channel_d_enable  => s_sync_mm_write_registers.sync_control_reg.channel_4_enable,
+			sync_control_i.channel_e_enable  => s_sync_mm_write_registers.sync_control_reg.channel_5_enable,
+			sync_control_i.channel_f_enable  => s_sync_mm_write_registers.sync_control_reg.channel_6_enable,
+			sync_control_i.channel_g_enable  => s_sync_mm_write_registers.sync_control_reg.channel_7_enable,
+			sync_control_i.channel_h_enable  => s_sync_mm_write_registers.sync_control_reg.channel_8_enable,
+			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.sync_control_reg.out_enable,
 			-- Sync signal routing
 			sync_channels_o.channel_a_signal => conduit_sync_signal_spwa,
 			sync_channels_o.channel_b_signal => conduit_sync_signal_spwb,
@@ -196,31 +200,31 @@ begin
 			clk_i                                        => a_clock,
 			reset_n_i                                    => s_reset_n,
 			-- Int enable
-			int_enable_i.error_int_enable                => s_sync_mm_write_registers.int_enable_register.error_int_enable,
-			int_enable_i.blank_pulse_int_enable          => s_sync_mm_write_registers.int_enable_register.blank_pulse_int_enable,
-			int_enable_i.master_pulse_int_enable         => s_sync_mm_write_registers.int_enable_register.master_pulse_int_enable,
-			int_enable_i.normal_pulse_int_enable         => s_sync_mm_write_registers.int_enable_register.normal_pulse_int_enable,
-			int_enable_i.last_pulse_int_enable           => s_sync_mm_write_registers.int_enable_register.last_pulse_int_enable,
+			int_enable_i.error_int_enable                => s_sync_mm_write_registers.sync_irq_enable_reg.error_irq_enable,
+			int_enable_i.blank_pulse_int_enable          => s_sync_mm_write_registers.sync_irq_enable_reg.blank_pulse_irq_enable,
+			int_enable_i.master_pulse_int_enable         => s_sync_mm_write_registers.sync_irq_enable_reg.master_pulse_irq_enable,
+			int_enable_i.normal_pulse_int_enable         => s_sync_mm_write_registers.sync_irq_enable_reg.normal_pulse_irq_enable,
+			int_enable_i.last_pulse_int_enable           => s_sync_mm_write_registers.sync_irq_enable_reg.last_pulse_irq_enable,
 			-- Int flag clear
-			int_flag_clear_i.error_int_flag_clear        => s_sync_mm_write_registers.int_flag_clear_register.error_int_flag_clear,
-			int_flag_clear_i.blank_pulse_int_flag_clear  => s_sync_mm_write_registers.int_flag_clear_register.blank_pulse_int_flag_clear,
-			int_flag_clear_i.master_pulse_int_flag_clear => s_sync_mm_write_registers.int_flag_clear_register.master_pulse_int_flag_clear,
-			int_flag_clear_i.normal_pulse_int_flag_clear => s_sync_mm_write_registers.int_flag_clear_register.normal_pulse_int_flag_clear,
-			int_flag_clear_i.last_pulse_int_flag_clear   => s_sync_mm_write_registers.int_flag_clear_register.last_pulse_int_flag_clear,
+			int_flag_clear_i.error_int_flag_clear        => s_sync_mm_write_registers.sync_irq_flag_clear_reg.error_irq_flag_clear,
+			int_flag_clear_i.blank_pulse_int_flag_clear  => s_sync_mm_write_registers.sync_irq_flag_clear_reg.blank_pulse_irq_flag_clear,
+			int_flag_clear_i.master_pulse_int_flag_clear => s_sync_mm_write_registers.sync_irq_flag_clear_reg.master_pulse_irq_flag_clear,
+			int_flag_clear_i.normal_pulse_int_flag_clear => s_sync_mm_write_registers.sync_irq_flag_clear_reg.normal_pulse_irq_flag_clear,
+			int_flag_clear_i.last_pulse_int_flag_clear   => s_sync_mm_write_registers.sync_irq_flag_clear_reg.last_pulse_irq_flag_clear,
 			-- Input watch signals (that can produce interrupts)
-			int_watch_i.error_code_watch                 => s_sync_mm_read_registers.status_register.error_code,
-			int_watch_i.sync_cycle_number                => s_sync_mm_read_registers.status_register.cycle_number,
+			int_watch_i.error_code_watch                 => s_sync_mm_read_registers.sync_status_reg.error_code,
+			int_watch_i.sync_cycle_number                => s_sync_mm_read_registers.sync_status_reg.cycle_number,
 			int_watch_i.sync_wave_watch                  => s_sync_signal,
 			-- Aux to inform sync polarity
-			int_watch_i.sync_pol_watch                   => s_sync_mm_write_registers.config_register.general.signal_polarity,
+			int_watch_i.sync_pol_watch                   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			-- Aux to inform sync number of cycles
-			int_watch_i.sync_number_of_cycles            => s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			int_watch_i.sync_number_of_cycles            => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			-- Int flag
-			int_flag_o.error_int_flag                    => s_sync_mm_read_registers.int_flag_register.error_int_flag,
-			int_flag_o.blank_pulse_int_flag              => s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag,
-			int_flag_o.master_pulse_int_flag             => s_sync_mm_read_registers.int_flag_register.master_pulse_int_flag,
-			int_flag_o.normal_pulse_int_flag             => s_sync_mm_read_registers.int_flag_register.normal_pulse_int_flag,
-			int_flag_o.last_pulse_int_flag               => s_sync_mm_read_registers.int_flag_register.last_pulse_int_flag,
+			int_flag_o.error_int_flag                    => s_sync_mm_read_registers.sync_irq_flag_reg.error_irq_flag,
+			int_flag_o.blank_pulse_int_flag              => s_sync_mm_read_registers.sync_irq_flag_reg.blank_pulse_irq_flag,
+			int_flag_o.master_pulse_int_flag             => s_sync_mm_read_registers.sync_irq_flag_reg.master_pulse_irq_flag,
+			int_flag_o.normal_pulse_int_flag             => s_sync_mm_read_registers.sync_irq_flag_reg.normal_pulse_irq_flag,
+			int_flag_o.last_pulse_int_flag               => s_sync_mm_read_registers.sync_irq_flag_reg.last_pulse_irq_flag,
 			irq_o                                        => a_irq
 		);
 
@@ -231,13 +235,13 @@ begin
 	-- Sync mux: internal ou external sync
 	-- '1' -> internal sync
 	-- '0' -> external sync
-	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else (conduit_sync_signal_syncin);
+	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.sync_control_reg.int_ext_n = '1') else (conduit_sync_signal_syncin);
 
 	-- Sync mux status
-	s_sync_mm_read_registers.status_register.int_ext_n <= s_sync_mm_write_registers.control_register.int_ext_n;
+	s_sync_mm_read_registers.sync_status_reg.int_ext_n <= s_sync_mm_write_registers.sync_control_reg.int_ext_n;
 
 	-- Keep error code status reseted (no error) - It´s logic should be conceived
-	s_sync_mm_read_registers.status_register.error_code <= (others => '0');
+	s_sync_mm_read_registers.sync_status_reg.error_code <= (others => '0');
 
 	--	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
 	--	s_sync_mm_read_registers.int_enable_register.error_int_enable               <= '0';

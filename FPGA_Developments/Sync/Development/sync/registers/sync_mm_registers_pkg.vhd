@@ -148,41 +148,62 @@ package sync_mm_registers_pkg is
 	end record t_sync_status_register;
 
 	type t_sync_interrupt_enable_register is record
-		error_int_enable        : std_logic;
-		blank_pulse_int_enable  : std_logic;
-		master_pulse_int_enable : std_logic;
-		normal_pulse_int_enable : std_logic;
-		last_pulse_int_enable   : std_logic;
+		error_irq_enable        : std_logic;
+		blank_pulse_irq_enable  : std_logic;
+		master_pulse_irq_enable : std_logic;
+		normal_pulse_irq_enable : std_logic;
+		last_pulse_irq_enable   : std_logic;
 	end record t_sync_interrupt_enable_register;
 
+	type t_sync_interrupt_flag_clear_register is record
+		error_irq_flag_clear        : std_logic;
+		blank_pulse_irq_flag_clear  : std_logic;
+		master_pulse_irq_flag_clear : std_logic;
+		normal_pulse_irq_flag_clear : std_logic;
+		last_pulse_irq_flag_clear   : std_logic;
+	end record t_sync_interrupt_flag_clear_register;
+
 	type t_sync_interrupt_flag_register is record
-		error_int_flag        : std_logic;
-		blank_pulse_int_flag  : std_logic;
-		master_pulse_int_flag : std_logic;
-		normal_pulse_int_flag : std_logic;
-		last_pulse_int_flag   : std_logic;
+		error_irq_flag        : std_logic;
+		blank_pulse_irq_flag  : std_logic;
+		master_pulse_irq_flag : std_logic;
+		normal_pulse_irq_flag : std_logic;
+		last_pulse_irq_flag   : std_logic;
 	end record t_sync_interrupt_flag_register;
 
-	type t_sync_interrupt_flag_clear_register is record
-		error_int_flag_clear        : std_logic;
-		blank_pulse_int_flag_clear  : std_logic;
-		master_pulse_int_flag_clear : std_logic;
-		normal_pulse_int_flag_clear : std_logic;
-		last_pulse_int_flag_clear   : std_logic;
-	end record t_sync_interrupt_flag_clear_register;
+	type t_pre_sync_interrupt_enable_register is record
+		pre_blank_pulse_irq_enable  : std_logic;
+		pre_master_pulse_irq_enable : std_logic;
+		pre_normal_pulse_irq_enable : std_logic;
+		pre_last_pulse_irq_enable   : std_logic;
+	end record t_pre_sync_interrupt_enable_register;
+
+	type t_pre_sync_interrupt_flag_clear_register is record
+		pre_blank_pulse_irq_flag_clear  : std_logic;
+		pre_master_pulse_irq_flag_clear : std_logic;
+		pre_normal_pulse_irq_flag_clear : std_logic;
+		pre_last_pulse_irq_flag_clear   : std_logic;
+	end record t_pre_sync_interrupt_flag_clear_register;
+
+	type t_pre_sync_interrupt_flag_register is record
+		pre_blank_pulse_irq_flag  : std_logic;
+		pre_master_pulse_irq_flag : std_logic;
+		pre_normal_pulse_irq_flag : std_logic;
+		pre_last_pulse_irq_flag   : std_logic;
+	end record t_pre_sync_interrupt_flag_register;
+
+	type t_sync_config_register is record
+		master_blank_time : std_logic_vector(31 downto 0);
+		blank_time        : std_logic_vector(31 downto 0);
+		pre_blank_time    : std_logic_vector(31 downto 0);
+		period            : std_logic_vector(31 downto 0);
+		one_shot_time     : std_logic_vector(31 downto 0);
+	end record t_sync_config_register;
 
 	type t_sync_general_config_register is record
 		signal_polarity  : std_logic;
 		number_of_cycles : std_logic_vector(7 downto 0);
 	end record t_sync_general_config_register;
-
-	type t_sync_config_register is record
-		master_blank_time : std_logic_vector(31 downto 0);
-		blank_time        : std_logic_vector(31 downto 0);
-		period            : std_logic_vector(31 downto 0);
-		one_shot_time     : std_logic_vector(31 downto 0);
-		general           : t_sync_general_config_register;
-	end record t_sync_config_register;
 
 	type t_sync_error_injection_register is record
 		error_injection : std_logic_vector(31 downto 0);
@@ -195,31 +216,32 @@ package sync_mm_registers_pkg is
 		one_shot         : std_logic;
 		err_inj          : std_logic;
 		out_enable       : std_logic;
-		channel_h_enable : std_logic;
-		channel_g_enable : std_logic;
-		channel_f_enable : std_logic;
-		channel_e_enable : std_logic;
-		channel_d_enable : std_logic;
-		channel_c_enable : std_logic;
-		channel_b_enable : std_logic;
-		channel_a_enable : std_logic;
+		channel_1_enable : std_logic;
+		channel_2_enable : std_logic;
+		channel_3_enable : std_logic;
+		channel_4_enable : std_logic;
+		channel_5_enable : std_logic;
+		channel_6_enable : std_logic;
+		channel_7_enable : std_logic;
+		channel_8_enable : std_logic;
 	end record t_sync_control_register;
 
 	-- Avalon mm types
 	type t_sync_mm_write_registers is record
-		int_enable_register      : t_sync_interrupt_enable_register;
-		int_flag_clear_register  : t_sync_interrupt_flag_clear_register;
-		config_register          : t_sync_config_register;
-		error_injection_register : t_sync_error_injection_register;
-		control_register         : t_sync_control_register;
+		sync_irq_enable_reg         : t_sync_interrupt_enable_register;
+		sync_irq_flag_clear_reg     : t_sync_interrupt_flag_clear_register;
+		pre_sync_irq_enable_reg     : t_pre_sync_interrupt_enable_register;
+		pre_sync_irq_flag_clear_reg : t_pre_sync_interrupt_flag_clear_register;
+		sync_config_reg             : t_sync_config_register;
+		sync_general_config_reg     : t_sync_general_config_register;
+		sync_error_injection_reg    : t_sync_error_injection_register;
+		sync_control_reg            : t_sync_control_register;
 	end record t_sync_mm_write_registers;
 
 	type t_sync_mm_read_registers is record
-		status_register          : t_sync_status_register;
-		int_flag_register        : t_sync_interrupt_flag_register;
-		config_register          : t_sync_config_register;
-		error_injection_register : t_sync_error_injection_register;
-		control_register         : t_sync_control_register;
+		sync_status_reg       : t_sync_status_register;
+		sync_irq_flag_reg     : t_sync_interrupt_flag_register;
+		pre_sync_irq_flag_reg : t_pre_sync_interrupt_flag_register;
 	end record t_sync_mm_read_registers;
 
 end package sync_mm_registers_pkg;

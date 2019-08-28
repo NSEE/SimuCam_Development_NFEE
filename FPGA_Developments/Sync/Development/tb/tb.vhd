@@ -72,6 +72,7 @@ begin
 		avalon_slave_read           => s_avalon_mm_read,
 		avalon_slave_write          => s_avalon_mm_write,
 		avalon_slave_writedata      => s_avalon_mm_writedata,
+		avalon_slave_byteenable     => (others => '1'),
 
 		avalon_slave_readdata       => s_avalon_mm_readdata,
 		avalon_slave_waitrequest    => s_avalon_mm_waitrequest,

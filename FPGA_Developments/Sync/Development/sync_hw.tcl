@@ -157,6 +157,7 @@ add_interface_port avalon_mm_slave avalon_slave_address address Input 8
 add_interface_port avalon_mm_slave avalon_slave_read read Input 1
 add_interface_port avalon_mm_slave avalon_slave_write write Input 1
 add_interface_port avalon_mm_slave avalon_slave_writedata writedata Input 32
+add_interface_port avalon_mm_slave avalon_slave_byteenable byteenable Input 4
 add_interface_port avalon_mm_slave avalon_slave_readdata readdata Output 32
 add_interface_port avalon_mm_slave avalon_slave_waitrequest waitrequest Output 1
 set_interface_assignment avalon_mm_slave embeddedsw.configuration.isFlash 0
