@@ -691,6 +691,10 @@ architecture rtl of MebX_Qsys_Project is
 	end component rst_controller_top;
 
 	component sync_ent is
+		generic (
+			g_SYNC_IRQ_NUMBER     : natural := 0;
+			g_PRE_SYNC_IRQ_NUMBER : natural := 0
+		);
 		port (
 			clock_sink_clk_i                : in  std_logic                     := 'X';             -- clk
 			reset_sink_reset_i              : in  std_logic                     := 'X';             -- reset
@@ -2969,6 +2973,10 @@ begin
 		);
 
 	sync : component sync_ent
+		generic map (
+			g_SYNC_IRQ_NUMBER     => 11,
+			g_PRE_SYNC_IRQ_NUMBER => 12
+		)
 		port map (
 			clock_sink_clk_i                => clk50_clk,                                          --                     clock.clk
 			reset_sink_reset_i              => rst_controller_019_reset_out_reset,                 --                     reset.reset
