@@ -226,6 +226,11 @@ package sync_mm_registers_pkg is
 		channel_8_enable : std_logic;
 	end record t_sync_control_register;
 
+	type t_sync_irq_number_register is record
+		sync_irq_number     : std_logic_vector(31 downto 0);
+		pre_sync_irq_number : std_logic_vector(31 downto 0);
+	end record t_sync_irq_number_register;
+
 	-- Avalon mm types
 	type t_sync_mm_write_registers is record
 		sync_irq_enable_reg         : t_sync_interrupt_enable_register;
@@ -242,6 +247,7 @@ package sync_mm_registers_pkg is
 		sync_status_reg       : t_sync_status_register;
 		sync_irq_flag_reg     : t_sync_interrupt_flag_register;
 		pre_sync_irq_flag_reg : t_pre_sync_interrupt_flag_register;
+		sync_irq_number_reg   : t_sync_irq_number_register;
 	end record t_sync_mm_read_registers;
 
 end package sync_mm_registers_pkg;

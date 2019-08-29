@@ -74,7 +74,6 @@ begin
 		-- Sync module readdata procedure
 		procedure p_mm_readdata(mm_read_address_i : t_sync_avalon_mm_address) is
 		begin
-
 			-- Registers Data Read
 			case (mm_read_address_i) is
 				-- Case for access to all registers address
@@ -292,21 +291,6 @@ begin
 					end if;
 
 				when (16#20#) =>
-					-- Sync Period Config Register : Period value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.period(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.period(23 downto 16);
-					end if;
-					if (avalon_mm_i.byteenable(1) = '1') then
-						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.period(15 downto 8);
-					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.period(7 downto 0);
-					end if;
-
-				when (16#21#) =>
 					-- Sync Period Config Register : Pre-Blank value
 					if (avalon_mm_i.byteenable(3) = '1') then
 						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.pre_blank_time(31 downto 24);
@@ -319,6 +303,21 @@ begin
 					end if;
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.pre_blank_time(7 downto 0);
+					end if;
+
+				when (16#21#) =>
+					-- Sync Period Config Register : Period value
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_write_reg_i.sync_config_reg.period(31 downto 24);
+					end if;
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_write_reg_i.sync_config_reg.period(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						avalon_mm_o.readdata(15 downto 8) <= mm_write_reg_i.sync_config_reg.period(15 downto 8);
+					end if;
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_write_reg_i.sync_config_reg.period(7 downto 0);
 					end if;
 
 				when (16#22#) =>
@@ -445,6 +444,36 @@ begin
 					-- Sync Control Register : Channel 8 out enable bit
 					if (avalon_mm_i.byteenable(0) = '1') then
 						avalon_mm_o.readdata(0) <= mm_write_reg_i.sync_control_reg.channel_8_enable;
+					end if;
+
+				when (16#34#) =>
+					-- Sync IRQ Number Register : Sync IRQ number
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(31 downto 24);
+					end if;
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						avalon_mm_o.readdata(15 downto 8) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(15 downto 8);
+					end if;
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_read_reg_i.sync_irq_number_reg.sync_irq_number(7 downto 0);
+					end if;
+
+				when (16#35#) =>
+					-- Sync IRQ Number Register : Pre-Sync IRQ number
+					if (avalon_mm_i.byteenable(3) = '1') then
+						avalon_mm_o.readdata(31 downto 24) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(31 downto 24);
+					end if;
+					if (avalon_mm_i.byteenable(2) = '1') then
+						avalon_mm_o.readdata(23 downto 16) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						avalon_mm_o.readdata(15 downto 8) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(15 downto 8);
+					end if;
+					if (avalon_mm_i.byteenable(0) = '1') then
+						avalon_mm_o.readdata(7 downto 0) <= mm_read_reg_i.sync_irq_number_reg.pre_sync_irq_number(7 downto 0);
 					end if;
 
 				when others =>

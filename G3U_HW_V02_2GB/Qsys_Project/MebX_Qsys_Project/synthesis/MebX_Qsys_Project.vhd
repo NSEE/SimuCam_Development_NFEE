@@ -125,14 +125,14 @@ entity MebX_Qsys_Project is
 		ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);                     --                                .ssdp1
 		sync_in_conduit                                             : in    std_logic                     := '0';             --                         sync_in.conduit
 		sync_out_conduit                                            : out   std_logic;                                        --                        sync_out.conduit
-		sync_spwa_conduit                                           : out   std_logic;                                        --                       sync_spwa.conduit
-		sync_spwb_conduit                                           : out   std_logic;                                        --                       sync_spwb.conduit
-		sync_spwc_conduit                                           : out   std_logic;                                        --                       sync_spwc.conduit
-		sync_spwd_conduit                                           : out   std_logic;                                        --                       sync_spwd.conduit
-		sync_spwe_conduit                                           : out   std_logic;                                        --                       sync_spwe.conduit
-		sync_spwf_conduit                                           : out   std_logic;                                        --                       sync_spwf.conduit
-		sync_spwg_conduit                                           : out   std_logic;                                        --                       sync_spwg.conduit
-		sync_spwh_conduit                                           : out   std_logic;                                        --                       sync_spwh.conduit
+		sync_spw1_conduit                                           : out   std_logic;                                        --                       sync_spw1.conduit
+		sync_spw2_conduit                                           : out   std_logic;                                        --                       sync_spw2.conduit
+		sync_spw3_conduit                                           : out   std_logic;                                        --                       sync_spw3.conduit
+		sync_spw4_conduit                                           : out   std_logic;                                        --                       sync_spw4.conduit
+		sync_spw5_conduit                                           : out   std_logic;                                        --                       sync_spw5.conduit
+		sync_spw6_conduit                                           : out   std_logic;                                        --                       sync_spw6.conduit
+		sync_spw7_conduit                                           : out   std_logic;                                        --                       sync_spw7.conduit
+		sync_spw8_conduit                                           : out   std_logic;                                        --                       sync_spw8.conduit
 		temp_scl_export                                             : out   std_logic;                                        --                        temp_scl.export
 		temp_sda_export                                             : inout std_logic                     := '0';             --                        temp_sda.export
 		timer_1ms_external_port_export                              : out   std_logic;                                        --         timer_1ms_external_port.export
@@ -692,25 +692,27 @@ architecture rtl of MebX_Qsys_Project is
 
 	component sync_ent is
 		port (
-			clock_sink_clk              : in  std_logic                     := 'X';             -- clk
-			reset_sink_reset            : in  std_logic                     := 'X';             -- reset
-			interrupt_sender_irq        : out std_logic;                                        -- irq
-			avalon_slave_address        : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- address
-			avalon_slave_read           : in  std_logic                     := 'X';             -- read
-			avalon_slave_write          : in  std_logic                     := 'X';             -- write
-			avalon_slave_writedata      : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
-			avalon_slave_readdata       : out std_logic_vector(31 downto 0);                    -- readdata
-			avalon_slave_waitrequest    : out std_logic;                                        -- waitrequest
-			conduit_sync_signal_syncin  : in  std_logic                     := 'X';             -- conduit
-			conduit_sync_signal_spwa    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwb    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwc    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwd    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwe    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwf    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwg    : out std_logic;                                        -- conduit
-			conduit_sync_signal_spwh    : out std_logic;                                        -- conduit
-			conduit_sync_signal_syncout : out std_logic                                         -- conduit
+			clock_sink_clk_i                : in  std_logic                     := 'X';             -- clk
+			reset_sink_reset_i              : in  std_logic                     := 'X';             -- reset
+			avalon_slave_address_i          : in  std_logic_vector(7 downto 0)  := (others => 'X'); -- address
+			avalon_slave_read_i             : in  std_logic                     := 'X';             -- read
+			avalon_slave_write_i            : in  std_logic                     := 'X';             -- write
+			avalon_slave_writedata_i        : in  std_logic_vector(31 downto 0) := (others => 'X'); -- writedata
+			avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0)  := (others => 'X'); -- byteenable
+			avalon_slave_readdata_o         : out std_logic_vector(31 downto 0);                    -- readdata
+			avalon_slave_waitrequest_o      : out std_logic;                                        -- waitrequest
+			conduit_sync_signal_syncin_i    : in  std_logic                     := 'X';             -- conduit
+			conduit_sync_signal_spw1_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw2_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw3_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw4_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw5_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw6_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw7_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_spw8_o      : out std_logic;                                        -- conduit
+			conduit_sync_signal_syncout_o   : out std_logic;                                        -- conduit
+			sync_interrupt_sender_irq_o     : out std_logic;                                        -- irq
+			pre_sync_interrupt_sender_irq_o : out std_logic                                         -- irq
 		);
 	end component sync_ent;
 
@@ -1154,6 +1156,7 @@ architecture rtl of MebX_Qsys_Project is
 			sync_avalon_mm_slave_read                                              : out std_logic;                                        -- read
 			sync_avalon_mm_slave_readdata                                          : in  std_logic_vector(31 downto 0) := (others => 'X'); -- readdata
 			sync_avalon_mm_slave_writedata                                         : out std_logic_vector(31 downto 0);                    -- writedata
+			sync_avalon_mm_slave_byteenable                                        : out std_logic_vector(3 downto 0);                     -- byteenable
 			sync_avalon_mm_slave_waitrequest                                       : in  std_logic                     := 'X';             -- waitrequest
 			temp_scl_s1_address                                                    : out std_logic_vector(1 downto 0);                     -- address
 			temp_scl_s1_write                                                      : out std_logic;                                        -- write
@@ -1232,6 +1235,7 @@ architecture rtl of MebX_Qsys_Project is
 			receiver17_irq : in  std_logic                     := 'X'; -- irq
 			receiver18_irq : in  std_logic                     := 'X'; -- irq
 			receiver19_irq : in  std_logic                     := 'X'; -- irq
+			receiver20_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq     : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component MebX_Qsys_Project_irq_mapper;
@@ -1593,7 +1597,7 @@ architecture rtl of MebX_Qsys_Project is
 	end component mebx_qsys_project_m1_clock_bridge;
 
 	signal m2_ddr2_memory_afi_clk_clk                                                             : std_logic;                      -- m2_ddr2_memory:afi_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_200_clk, COMM_Pedreiro_v1_01_B:clock_sink_200_clk, COMM_Pedreiro_v1_01_C:clock_sink_200_clk, COMM_Pedreiro_v1_01_D:clock_sink_200_clk, COMM_Pedreiro_v1_01_E:clock_sink_200_clk, COMM_Pedreiro_v1_01_F:clock_sink_200_clk, mm_interconnect_0:m2_ddr2_memory_afi_clk_clk, rst_controller_020:clk]
-	signal m2_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_100_clk, COMM_Pedreiro_v1_01_B:clock_sink_100_clk, COMM_Pedreiro_v1_01_C:clock_sink_100_clk, COMM_Pedreiro_v1_01_D:clock_sink_100_clk, COMM_Pedreiro_v1_01_E:clock_sink_100_clk, COMM_Pedreiro_v1_01_F:clock_sink_100_clk, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, dma_DDR_M1:clock_clk, dma_DDR_M2:clock_clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, jtag_uart_0:clk, m1_clock_bridge:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_0:m2_ddr2_memory_afi_half_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_006:clk, rst_controller_007:clk, rst_controller_009:clk, rst_controller_010:clk, rst_controller_016:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
+	signal m2_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m2_ddr2_memory:afi_half_clk -> [COMM_Pedreiro_v1_01_A:clock_sink_100_clk, COMM_Pedreiro_v1_01_B:clock_sink_100_clk, COMM_Pedreiro_v1_01_C:clock_sink_100_clk, COMM_Pedreiro_v1_01_D:clock_sink_100_clk, COMM_Pedreiro_v1_01_E:clock_sink_100_clk, COMM_Pedreiro_v1_01_F:clock_sink_100_clk, clock_bridge_afi_50:s0_clk, ddr2_address_span_extender:clk, dma_DDR_M1:clock_clk, dma_DDR_M2:clock_clk, ext_flash:clk_clk, irq_mapper:clk, irq_synchronizer:sender_clk, irq_synchronizer_001:sender_clk, irq_synchronizer_002:sender_clk, irq_synchronizer_003:sender_clk, irq_synchronizer_004:sender_clk, irq_synchronizer_005:sender_clk, jtag_uart_0:clk, m1_clock_bridge:s0_clk, mm_interconnect_0:clk_100_clk_clk, mm_interconnect_0:m2_ddr2_memory_afi_half_clk_clk, nios2_gen2_0:clk, onchip_memory:clk, rst_controller_002:clk, rst_controller_003:clk, rst_controller_004:clk, rst_controller_005:clk, rst_controller_006:clk, rst_controller_007:clk, rst_controller_009:clk, rst_controller_010:clk, rst_controller_016:clk, sysid_qsys:clock, tristate_conduit_bridge_0:clk]
 	signal m1_ddr2_memory_afi_half_clk_clk                                                        : std_logic;                      -- m1_ddr2_memory:afi_half_clk -> [m1_clock_bridge:m0_clk, mm_interconnect_2:m1_ddr2_memory_afi_half_clk_clk, rst_controller_011:clk]
 	signal ext_flash_tcm_data_outen                                                               : std_logic;                      -- ext_flash:tcm_data_outen -> tristate_conduit_bridge_0:tcs_tcm_data_outen
 	signal ext_flash_tcm_request                                                                  : std_logic;                      -- ext_flash:tcm_request -> tristate_conduit_bridge_0:request
@@ -1845,12 +1849,13 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_1_seven_segment_controller_0_ssdp_avalon_slave_address                 : std_logic_vector(0 downto 0);   -- mm_interconnect_1:SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_address -> SEVEN_SEGMENT_CONTROLLER_0:AVALON_SLAVE_ADDRESS
 	signal mm_interconnect_1_seven_segment_controller_0_ssdp_avalon_slave_write                   : std_logic;                      -- mm_interconnect_1:SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_write -> SEVEN_SEGMENT_CONTROLLER_0:AVALON_SLAVE_WRITE
 	signal mm_interconnect_1_seven_segment_controller_0_ssdp_avalon_slave_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_1:SEVEN_SEGMENT_CONTROLLER_0_SSDP_avalon_slave_writedata -> SEVEN_SEGMENT_CONTROLLER_0:AVALON_SLAVE_WRITEDATA
-	signal mm_interconnect_1_sync_avalon_mm_slave_readdata                                        : std_logic_vector(31 downto 0);  -- sync:avalon_slave_readdata -> mm_interconnect_1:sync_avalon_mm_slave_readdata
-	signal mm_interconnect_1_sync_avalon_mm_slave_waitrequest                                     : std_logic;                      -- sync:avalon_slave_waitrequest -> mm_interconnect_1:sync_avalon_mm_slave_waitrequest
-	signal mm_interconnect_1_sync_avalon_mm_slave_address                                         : std_logic_vector(7 downto 0);   -- mm_interconnect_1:sync_avalon_mm_slave_address -> sync:avalon_slave_address
-	signal mm_interconnect_1_sync_avalon_mm_slave_read                                            : std_logic;                      -- mm_interconnect_1:sync_avalon_mm_slave_read -> sync:avalon_slave_read
-	signal mm_interconnect_1_sync_avalon_mm_slave_write                                           : std_logic;                      -- mm_interconnect_1:sync_avalon_mm_slave_write -> sync:avalon_slave_write
-	signal mm_interconnect_1_sync_avalon_mm_slave_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_1:sync_avalon_mm_slave_writedata -> sync:avalon_slave_writedata
+	signal mm_interconnect_1_sync_avalon_mm_slave_readdata                                        : std_logic_vector(31 downto 0);  -- sync:avalon_slave_readdata_o -> mm_interconnect_1:sync_avalon_mm_slave_readdata
+	signal mm_interconnect_1_sync_avalon_mm_slave_waitrequest                                     : std_logic;                      -- sync:avalon_slave_waitrequest_o -> mm_interconnect_1:sync_avalon_mm_slave_waitrequest
+	signal mm_interconnect_1_sync_avalon_mm_slave_address                                         : std_logic_vector(7 downto 0);   -- mm_interconnect_1:sync_avalon_mm_slave_address -> sync:avalon_slave_address_i
+	signal mm_interconnect_1_sync_avalon_mm_slave_read                                            : std_logic;                      -- mm_interconnect_1:sync_avalon_mm_slave_read -> sync:avalon_slave_read_i
+	signal mm_interconnect_1_sync_avalon_mm_slave_byteenable                                      : std_logic_vector(3 downto 0);   -- mm_interconnect_1:sync_avalon_mm_slave_byteenable -> sync:avalon_slave_byteenable_i
+	signal mm_interconnect_1_sync_avalon_mm_slave_write                                           : std_logic;                      -- mm_interconnect_1:sync_avalon_mm_slave_write -> sync:avalon_slave_write_i
+	signal mm_interconnect_1_sync_avalon_mm_slave_writedata                                       : std_logic_vector(31 downto 0);  -- mm_interconnect_1:sync_avalon_mm_slave_writedata -> sync:avalon_slave_writedata_i
 	signal mm_interconnect_1_rst_controller_avalon_rst_controller_slave_readdata                  : std_logic_vector(31 downto 0);  -- rst_controller:avalon_slave_rst_controller_readdata -> mm_interconnect_1:rst_controller_avalon_rst_controller_slave_readdata
 	signal mm_interconnect_1_rst_controller_avalon_rst_controller_slave_waitrequest               : std_logic;                      -- rst_controller:avalon_slave_rst_controller_waitrequest -> mm_interconnect_1:rst_controller_avalon_rst_controller_slave_waitrequest
 	signal mm_interconnect_1_rst_controller_avalon_rst_controller_slave_address                   : std_logic_vector(3 downto 0);   -- mm_interconnect_1:rst_controller_avalon_rst_controller_slave_address -> rst_controller:avalon_slave_rst_controller_address
@@ -2008,7 +2013,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal irq_mapper_receiver5_irq                                                               : std_logic;                      -- COMM_Pedreiro_v1_01_F:buffers_interrupt_sender_irq -> irq_mapper:receiver5_irq
 	signal irq_mapper_receiver6_irq                                                               : std_logic;                      -- dma_DDR_M1:csr_irq_irq -> irq_mapper:receiver6_irq
 	signal irq_mapper_receiver7_irq                                                               : std_logic;                      -- dma_DDR_M2:csr_irq_irq -> irq_mapper:receiver7_irq
-	signal irq_mapper_receiver9_irq                                                               : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver9_irq
+	signal irq_mapper_receiver8_irq                                                               : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver8_irq
 	signal irq_mapper_receiver14_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_A:rmap_interrupt_sender_irq -> irq_mapper:receiver14_irq
 	signal irq_mapper_receiver15_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_B:rmap_interrupt_sender_irq -> irq_mapper:receiver15_irq
 	signal irq_mapper_receiver16_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_C:rmap_interrupt_sender_irq -> irq_mapper:receiver16_irq
@@ -2016,16 +2021,18 @@ architecture rtl of MebX_Qsys_Project is
 	signal irq_mapper_receiver18_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_E:rmap_interrupt_sender_irq -> irq_mapper:receiver18_irq
 	signal irq_mapper_receiver19_irq                                                              : std_logic;                      -- COMM_Pedreiro_v1_01_F:rmap_interrupt_sender_irq -> irq_mapper:receiver19_irq
 	signal nios2_gen2_0_irq_irq                                                                   : std_logic_vector(31 downto 0);  -- irq_mapper:sender_irq -> nios2_gen2_0:irq
-	signal irq_mapper_receiver8_irq                                                               : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver8_irq
-	signal irq_synchronizer_receiver_irq                                                          : std_logic_vector(0 downto 0);   -- sync:interrupt_sender_irq -> irq_synchronizer:receiver_irq
+	signal irq_mapper_receiver9_irq                                                               : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver9_irq
+	signal irq_synchronizer_receiver_irq                                                          : std_logic_vector(0 downto 0);   -- timer_1ms:irq -> irq_synchronizer:receiver_irq
 	signal irq_mapper_receiver10_irq                                                              : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver10_irq
-	signal irq_synchronizer_001_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- timer_1ms:irq -> irq_synchronizer_001:receiver_irq
+	signal irq_synchronizer_001_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- timer_1us:irq -> irq_synchronizer_001:receiver_irq
 	signal irq_mapper_receiver11_irq                                                              : std_logic;                      -- irq_synchronizer_002:sender_irq -> irq_mapper:receiver11_irq
-	signal irq_synchronizer_002_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- timer_1us:irq -> irq_synchronizer_002:receiver_irq
+	signal irq_synchronizer_002_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- pio_EXT:irq -> irq_synchronizer_002:receiver_irq
 	signal irq_mapper_receiver12_irq                                                              : std_logic;                      -- irq_synchronizer_003:sender_irq -> irq_mapper:receiver12_irq
-	signal irq_synchronizer_003_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- pio_EXT:irq -> irq_synchronizer_003:receiver_irq
+	signal irq_synchronizer_003_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- rs232_uart:irq -> irq_synchronizer_003:receiver_irq
 	signal irq_mapper_receiver13_irq                                                              : std_logic;                      -- irq_synchronizer_004:sender_irq -> irq_mapper:receiver13_irq
-	signal irq_synchronizer_004_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- rs232_uart:irq -> irq_synchronizer_004:receiver_irq
+	signal irq_synchronizer_004_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- sync:pre_sync_interrupt_sender_irq_o -> irq_synchronizer_004:receiver_irq
+	signal irq_mapper_receiver20_irq                                                              : std_logic;                      -- irq_synchronizer_005:sender_irq -> irq_mapper:receiver20_irq
+	signal irq_synchronizer_005_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- sync:sync_interrupt_sender_irq_o -> irq_synchronizer_005:receiver_irq
 	signal rst_controller_001_reset_out_reset                                                     : std_logic;                      -- rst_controller_001:reset_out -> [mm_interconnect_1:Altera_UP_SD_Card_Avalon_Interface_0_reset_reset_bridge_in_reset_reset, rst_controller_001_reset_out_reset:in]
 	signal rst_controller_reset_source_sd_card_reset                                              : std_logic;                      -- rst_controller:reset_source_sd_card_reset -> rst_controller_001:reset_in1
 	signal rst_controller_reset_source_simucam_reset                                              : std_logic;                      -- rst_controller:reset_source_simucam_reset -> [rst_controller_001:reset_in2, rst_controller_002:reset_in2, rst_controller_003:reset_in2, rst_controller_004:reset_in2, rst_controller_005:reset_in2, rst_controller_006:reset_in2, rst_controller_007:reset_in2, rst_controller_008:reset_in1, rst_controller_009:reset_in1, rst_controller_010:reset_in2, rst_controller_011:reset_in1, rst_controller_012:reset_in1, rst_controller_013:reset_in1, rst_controller_014:reset_in1, rst_controller_015:reset_in1, rst_controller_016:reset_in1, rst_controller_017:reset_in2, rst_controller_019:reset_in1, rst_controller_020:reset_in1, rst_controller_021:reset_in1]
@@ -2041,7 +2048,7 @@ architecture rtl of MebX_Qsys_Project is
 	signal rst_controller_reset_source_comm_ch5_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch5_reset -> rst_controller_006:reset_in1
 	signal rst_controller_007_reset_out_reset                                                     : std_logic;                      -- rst_controller_007:reset_out -> [COMM_Pedreiro_v1_01_F:reset_sink_reset, mm_interconnect_0:COMM_Pedreiro_v1_01_F_reset_sink_reset_bridge_in_reset_reset]
 	signal rst_controller_reset_source_comm_ch6_reset                                             : std_logic;                      -- rst_controller:reset_source_comm_ch6_reset -> rst_controller_007:reset_in1
-	signal rst_controller_008_reset_out_reset                                                     : std_logic;                      -- rst_controller_008:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_002:receiver_reset, irq_synchronizer_003:receiver_reset, mm_interconnect_1:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller_008_reset_out_reset:in]
+	signal rst_controller_008_reset_out_reset                                                     : std_logic;                      -- rst_controller_008:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_002:receiver_reset, mm_interconnect_1:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller_008_reset_out_reset:in]
 	signal rst_controller_009_reset_out_reset                                                     : std_logic;                      -- rst_controller_009:reset_out -> [clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge:s0_reset, mm_interconnect_0:dma_DDR_M1_reset_n_reset_bridge_in_reset_reset, mm_interconnect_0:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_controller_009_reset_out_reset:in, rst_translator:in_reset]
 	signal rst_controller_009_reset_out_reset_req                                                 : std_logic;                      -- rst_controller_009:reset_req -> [onchip_memory:reset_req, rst_translator:reset_req_in]
 	signal rst_controller_010_reset_out_reset                                                     : std_logic;                      -- rst_controller_010:reset_out -> [ext_flash:reset_reset, mm_interconnect_0:ext_flash_reset_reset_bridge_in_reset_reset, tristate_conduit_bridge_0:reset]
@@ -2050,12 +2057,12 @@ architecture rtl of MebX_Qsys_Project is
 	signal rst_controller_013_reset_out_reset                                                     : std_logic;                      -- rst_controller_013:reset_out -> rst_controller_013_reset_out_reset:in
 	signal rst_controller_014_reset_out_reset                                                     : std_logic;                      -- rst_controller_014:reset_out -> rst_controller_014_reset_out_reset:in
 	signal rst_controller_015_reset_out_reset                                                     : std_logic;                      -- rst_controller_015:reset_out -> rst_controller_015_reset_out_reset:in
-	signal rst_controller_016_reset_out_reset                                                     : std_logic;                      -- rst_controller_016:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, rst_controller_016_reset_out_reset:in, rst_translator_001:in_reset]
+	signal rst_controller_016_reset_out_reset                                                     : std_logic;                      -- rst_controller_016:reset_out -> [irq_mapper:reset, irq_synchronizer:sender_reset, irq_synchronizer_001:sender_reset, irq_synchronizer_002:sender_reset, irq_synchronizer_003:sender_reset, irq_synchronizer_004:sender_reset, irq_synchronizer_005:sender_reset, mm_interconnect_0:nios2_gen2_0_reset_reset_bridge_in_reset_reset, rst_controller_016_reset_out_reset:in, rst_translator_001:in_reset]
 	signal rst_controller_016_reset_out_reset_req                                                 : std_logic;                      -- rst_controller_016:reset_req -> [nios2_gen2_0:reset_req, rst_translator_001:reset_req_in]
-	signal rst_controller_017_reset_out_reset                                                     : std_logic;                      -- rst_controller_017:reset_out -> [irq_synchronizer_004:receiver_reset, mm_interconnect_1:rs232_uart_reset_reset_bridge_in_reset_reset, rst_controller_017_reset_out_reset:in]
+	signal rst_controller_017_reset_out_reset                                                     : std_logic;                      -- rst_controller_017:reset_out -> [irq_synchronizer_003:receiver_reset, mm_interconnect_1:rs232_uart_reset_reset_bridge_in_reset_reset, rst_controller_017_reset_out_reset:in]
 	signal rst_controller_reset_source_rs232_reset                                                : std_logic;                      -- rst_controller:reset_source_rs232_reset -> rst_controller_017:reset_in1
 	signal rst_controller_018_reset_out_reset                                                     : std_logic;                      -- rst_controller_018:reset_out -> [mm_interconnect_1:rst_controller_reset_sink_reset_bridge_in_reset_reset, rst_controller:reset_sink_reset]
-	signal rst_controller_019_reset_out_reset                                                     : std_logic;                      -- rst_controller_019:reset_out -> [irq_synchronizer:receiver_reset, mm_interconnect_1:sync_reset_reset_bridge_in_reset_reset, sync:reset_sink_reset]
+	signal rst_controller_019_reset_out_reset                                                     : std_logic;                      -- rst_controller_019:reset_out -> [irq_synchronizer_004:receiver_reset, irq_synchronizer_005:receiver_reset, mm_interconnect_1:sync_reset_reset_bridge_in_reset_reset, sync:reset_sink_reset_i]
 	signal rst_controller_reset_source_sync_reset                                                 : std_logic;                      -- rst_controller:reset_source_sync_reset -> rst_controller_019:reset_in2
 	signal rst_controller_020_reset_out_reset                                                     : std_logic;                      -- rst_controller_020:reset_out -> [mm_interconnect_0:m2_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_0:m2_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
 	signal rst_controller_021_reset_out_reset                                                     : std_logic;                      -- rst_controller_021:reset_out -> [mm_interconnect_2:m1_ddr2_memory_avl_translator_reset_reset_bridge_in_reset_reset, mm_interconnect_2:m1_ddr2_memory_soft_reset_reset_bridge_in_reset_reset]
@@ -2566,7 +2573,7 @@ begin
 			av_write_n     => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv, --                  .write_n
 			av_writedata   => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata,       --                  .writedata
 			av_waitrequest => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_waitrequest,     --                  .waitrequest
-			av_irq         => irq_mapper_receiver9_irq                                         --               irq.irq
+			av_irq         => irq_mapper_receiver8_irq                                         --               irq.irq
 		);
 
 	m1_clock_bridge : component mebx_qsys_project_m1_clock_bridge
@@ -2819,7 +2826,7 @@ begin
 			chipselect => mm_interconnect_1_pio_ext_s1_chipselect,      --                    .chipselect
 			readdata   => mm_interconnect_1_pio_ext_s1_readdata,        --                    .readdata
 			in_port    => ext_export,                                   -- external_connection.export
-			irq        => irq_synchronizer_003_receiver_irq(0)          --                 irq.irq
+			irq        => irq_synchronizer_002_receiver_irq(0)          --                 irq.irq
 		);
 
 	pio_led : component MebX_Qsys_Project_pio_LED
@@ -2871,7 +2878,7 @@ begin
 			readdata      => mm_interconnect_1_rs232_uart_s1_readdata,        --                    .readdata
 			rxd           => rs232_uart_rxd,                                  -- external_connection.export
 			txd           => rs232_uart_txd,                                  --                    .export
-			irq           => irq_synchronizer_004_receiver_irq(0)             --                 irq.irq
+			irq           => irq_synchronizer_003_receiver_irq(0)             --                 irq.irq
 		);
 
 	rst_controller : component rst_controller_top
@@ -2963,25 +2970,27 @@ begin
 
 	sync : component sync_ent
 		port map (
-			clock_sink_clk              => clk50_clk,                                          --            clock.clk
-			reset_sink_reset            => rst_controller_019_reset_out_reset,                 --            reset.reset
-			interrupt_sender_irq        => irq_synchronizer_receiver_irq(0),                   -- interrupt_sender.irq
-			avalon_slave_address        => mm_interconnect_1_sync_avalon_mm_slave_address,     --  avalon_mm_slave.address
-			avalon_slave_read           => mm_interconnect_1_sync_avalon_mm_slave_read,        --                 .read
-			avalon_slave_write          => mm_interconnect_1_sync_avalon_mm_slave_write,       --                 .write
-			avalon_slave_writedata      => mm_interconnect_1_sync_avalon_mm_slave_writedata,   --                 .writedata
-			avalon_slave_readdata       => mm_interconnect_1_sync_avalon_mm_slave_readdata,    --                 .readdata
-			avalon_slave_waitrequest    => mm_interconnect_1_sync_avalon_mm_slave_waitrequest, --                 .waitrequest
-			conduit_sync_signal_syncin  => sync_in_conduit,                                    --          sync_in.conduit
-			conduit_sync_signal_spwa    => sync_spwa_conduit,                                  --        sync_spwa.conduit
-			conduit_sync_signal_spwb    => sync_spwb_conduit,                                  --        sync_spwb.conduit
-			conduit_sync_signal_spwc    => sync_spwc_conduit,                                  --        sync_spwc.conduit
-			conduit_sync_signal_spwd    => sync_spwd_conduit,                                  --        sync_spwd.conduit
-			conduit_sync_signal_spwe    => sync_spwe_conduit,                                  --        sync_spwe.conduit
-			conduit_sync_signal_spwf    => sync_spwf_conduit,                                  --        sync_spwf.conduit
-			conduit_sync_signal_spwg    => sync_spwg_conduit,                                  --        sync_spwg.conduit
-			conduit_sync_signal_spwh    => sync_spwh_conduit,                                  --        sync_spwh.conduit
-			conduit_sync_signal_syncout => sync_out_conduit                                    --         sync_out.conduit
+			clock_sink_clk_i                => clk50_clk,                                          --                     clock.clk
+			reset_sink_reset_i              => rst_controller_019_reset_out_reset,                 --                     reset.reset
+			avalon_slave_address_i          => mm_interconnect_1_sync_avalon_mm_slave_address,     --           avalon_mm_slave.address
+			avalon_slave_read_i             => mm_interconnect_1_sync_avalon_mm_slave_read,        --                          .read
+			avalon_slave_write_i            => mm_interconnect_1_sync_avalon_mm_slave_write,       --                          .write
+			avalon_slave_writedata_i        => mm_interconnect_1_sync_avalon_mm_slave_writedata,   --                          .writedata
+			avalon_slave_byteenable_i       => mm_interconnect_1_sync_avalon_mm_slave_byteenable,  --                          .byteenable
+			avalon_slave_readdata_o         => mm_interconnect_1_sync_avalon_mm_slave_readdata,    --                          .readdata
+			avalon_slave_waitrequest_o      => mm_interconnect_1_sync_avalon_mm_slave_waitrequest, --                          .waitrequest
+			conduit_sync_signal_syncin_i    => sync_in_conduit,                                    --                   sync_in.conduit
+			conduit_sync_signal_spw1_o      => sync_spw1_conduit,                                  --                 sync_spw1.conduit
+			conduit_sync_signal_spw2_o      => sync_spw2_conduit,                                  --                 sync_spw2.conduit
+			conduit_sync_signal_spw3_o      => sync_spw3_conduit,                                  --                 sync_spw3.conduit
+			conduit_sync_signal_spw4_o      => sync_spw4_conduit,                                  --                 sync_spw4.conduit
+			conduit_sync_signal_spw5_o      => sync_spw5_conduit,                                  --                 sync_spw5.conduit
+			conduit_sync_signal_spw6_o      => sync_spw6_conduit,                                  --                 sync_spw6.conduit
+			conduit_sync_signal_spw7_o      => sync_spw7_conduit,                                  --                 sync_spw7.conduit
+			conduit_sync_signal_spw8_o      => sync_spw8_conduit,                                  --                 sync_spw8.conduit
+			conduit_sync_signal_syncout_o   => sync_out_conduit,                                   --                  sync_out.conduit
+			sync_interrupt_sender_irq_o     => irq_synchronizer_005_receiver_irq(0),               --     sync_interrupt_sender.irq
+			pre_sync_interrupt_sender_irq_o => irq_synchronizer_004_receiver_irq(0)                -- pre_sync_interrupt_sender.irq
 		);
 
 	sysid_qsys : component MebX_Qsys_Project_sysid_qsys
@@ -3025,7 +3034,7 @@ begin
 			readdata      => mm_interconnect_1_timer_1ms_s1_readdata,        --              .readdata
 			chipselect    => mm_interconnect_1_timer_1ms_s1_chipselect,      --              .chipselect
 			write_n       => mm_interconnect_1_timer_1ms_s1_write_ports_inv, --              .write_n
-			irq           => irq_synchronizer_001_receiver_irq(0),           --           irq.irq
+			irq           => irq_synchronizer_receiver_irq(0),               --           irq.irq
 			timeout_pulse => timer_1ms_external_port_export                  -- external_port.export
 		);
 
@@ -3038,7 +3047,7 @@ begin
 			readdata      => mm_interconnect_1_timer_1us_s1_readdata,        --              .readdata
 			chipselect    => mm_interconnect_1_timer_1us_s1_chipselect,      --              .chipselect
 			write_n       => mm_interconnect_1_timer_1us_s1_write_ports_inv, --              .write_n
-			irq           => irq_synchronizer_002_receiver_irq(0),           --           irq.irq
+			irq           => irq_synchronizer_001_receiver_irq(0),           --           irq.irq
 			timeout_pulse => timer_1us_external_port_export                  -- external_port.export
 		);
 
@@ -3443,6 +3452,7 @@ begin
 			sync_avalon_mm_slave_read                                              => mm_interconnect_1_sync_avalon_mm_slave_read,                                            --                                                                 .read
 			sync_avalon_mm_slave_readdata                                          => mm_interconnect_1_sync_avalon_mm_slave_readdata,                                        --                                                                 .readdata
 			sync_avalon_mm_slave_writedata                                         => mm_interconnect_1_sync_avalon_mm_slave_writedata,                                       --                                                                 .writedata
+			sync_avalon_mm_slave_byteenable                                        => mm_interconnect_1_sync_avalon_mm_slave_byteenable,                                      --                                                                 .byteenable
 			sync_avalon_mm_slave_waitrequest                                       => mm_interconnect_1_sync_avalon_mm_slave_waitrequest,                                     --                                                                 .waitrequest
 			temp_scl_s1_address                                                    => mm_interconnect_1_temp_scl_s1_address,                                                  --                                                      temp_scl_s1.address
 			temp_scl_s1_write                                                      => mm_interconnect_1_temp_scl_s1_write,                                                    --                                                                 .write
@@ -3519,6 +3529,7 @@ begin
 			receiver17_irq => irq_mapper_receiver17_irq,          -- receiver17.irq
 			receiver18_irq => irq_mapper_receiver18_irq,          -- receiver18.irq
 			receiver19_irq => irq_mapper_receiver19_irq,          -- receiver19.irq
+			receiver20_irq => irq_mapper_receiver20_irq,          -- receiver20.irq
 			sender_irq     => nios2_gen2_0_irq_irq                --     sender.irq
 		);
 
@@ -3529,10 +3540,10 @@ begin
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_019_reset_out_reset, -- receiver_clk_reset.reset
+			receiver_reset => rst_controller_008_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_016_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_receiver_irq,      --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver8_irq            --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver9_irq            --             sender.irq
 		);
 
 	irq_synchronizer_001 : component altera_irq_clock_crosser
@@ -3568,7 +3579,7 @@ begin
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_008_reset_out_reset, -- receiver_clk_reset.reset
+			receiver_reset => rst_controller_017_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_016_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_003_receiver_irq,  --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver12_irq           --             sender.irq
@@ -3581,10 +3592,23 @@ begin
 		port map (
 			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
 			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
-			receiver_reset => rst_controller_017_reset_out_reset, -- receiver_clk_reset.reset
+			receiver_reset => rst_controller_019_reset_out_reset, -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_016_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_004_receiver_irq,  --           receiver.irq
 			sender_irq(0)  => irq_mapper_receiver13_irq           --             sender.irq
+		);
+
+	irq_synchronizer_005 : component altera_irq_clock_crosser
+		generic map (
+			IRQ_WIDTH => 1
+		)
+		port map (
+			receiver_clk   => clk50_clk,                          --       receiver_clk.clk
+			sender_clk     => m2_ddr2_memory_afi_half_clk_clk,    --         sender_clk.clk
+			receiver_reset => rst_controller_019_reset_out_reset, -- receiver_clk_reset.reset
+			sender_reset   => rst_controller_016_reset_out_reset, --   sender_clk_reset.reset
+			receiver_irq   => irq_synchronizer_005_receiver_irq,  --           receiver.irq
+			sender_irq(0)  => irq_mapper_receiver20_irq           --             sender.irq
 		);
 
 	rst_controller_001 : component mebx_qsys_project_rst_controller_001

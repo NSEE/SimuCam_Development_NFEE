@@ -38,7 +38,7 @@ typedef struct SyncIrqEn {
 	bool bErrorIrqEn;
 	bool bBlankPulseIrqEn;
 	bool bMasterPulseIrqEn;
-	bool bNormalPulseIrq;
+	bool bNormalPulseIrqEn;
 	bool bLastPulseIrqEn;
 } TSyncIrqEn;
 
@@ -113,6 +113,11 @@ typedef struct SyncControl {
 	bool bChannel8En;
 } TSyncControl;
 
+typedef struct SyncIRQNumber {
+	alt_u32 uliSyncIrqNumber;
+	alt_u32 uliPreSyncIrqNumber;
+} TSyncIRQNumber;
+
 typedef struct SyncModule {
 	TSyncStatus         xSyncStatus        ;
 	TSyncIrqEn          xSyncIrqEn         ;
@@ -125,12 +130,16 @@ typedef struct SyncModule {
 	TSyncGeneralConfig  xSyncGeneralConfig ;
 	TSyncErrorInjection xSyncErrorInjection;
 	TSyncControl        xSyncControl       ;
+	TSyncIRQNumber      xSyncIRQNumber     ;
 } TSyncModule;
 //! [public module structs definition]
 
 //! [public function prototypes]
 void vSyncInitIrq(void);
-void vSyncHandleIrq(void* pvContext);
+void vSyncHandleSyncIrq(void* pvContext);
+
+void vSyncPreInitIrq(void);
+void vSyncPreHandleIrq(void* pvContext);
 
 bool bSyncStatusExtnIrq(void);
 alt_u8 ucSyncStatusState(void);
@@ -155,8 +164,24 @@ bool bSyncIrqFlagMasterPulse(void);
 bool bSyncIrqFlagNormalPulse(void);
 bool bSyncIrqFlagLastPulse(void);
 
+bool bSyncPreIrqEnableBlankPulse(bool bValue);
+bool bSyncPreIrqEnableMasterPulse(bool bValue);
+bool bSyncPreIrqEnableNormalPulse(bool bValue);
+bool bSyncPreIrqEnableLastPulse(bool bValue);
+
+bool bSyncPreIrqFlagClrBlankPulse(bool bValue);
+bool bSyncPreIrqFlagClrMasterPulse(bool bValue);
+bool bSyncPreIrqFlagClrNormalPulse(bool bValue);
+bool bSyncPreIrqFlagClrLastPulse(bool bValue);
+
+bool bSyncPreIrqFlagBlankPulse(void);
+bool bSyncPreIrqFlagMasterPulse(void);
+bool bSyncPreIrqFlagNormalPulse(void);
+bool bSyncPreIrqFlagLastPulse(void);
+
 bool bSyncSetMbt(alt_u32 uliValue);
 bool bSyncSetBt(alt_u32 uliValue);
+bool bSyncSetPreBt(alt_u32 uliValue);
 bool bSyncSetPer(alt_u32 uliValue);
 bool bSyncSetOst(alt_u32 uliValue);
 bool bSyncSetPolarity(bool bValue);

@@ -9,24 +9,24 @@ z2
 cModel Technology
 dC:/projetos/nsee/simucam_fpga/FPGA_Developments/Sync/tb2
 Eavs_stimuli
-Z0 w1566355060
+Z0 w1567016162
 Z1 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
 Z2 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z3 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
-Z4 dD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb3
-Z5 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd
-Z6 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd
+Z4 dC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb3
+Z5 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd
+Z6 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd
 l0
 L5
 VF2D5VnoUhL94>P]NGE_We3
 !s100 f<g5R`TCaPZGIADEJ^MfP0
 Z7 OV;C;10.5b;63
 32
-Z8 !s110 1566964119
+Z8 !s110 1567020888
 !i10b 1
-Z9 !s108 1566964119.000000
-Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd|
-Z11 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd|
+Z9 !s108 1567020888.000000
+Z10 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd|
+Z11 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/avs_stimuli.vhd|
 !i113 1
 Z12 o-work work -2002 -explicit
 Z13 tExplicit 1 CvgOpt 0
@@ -37,8 +37,8 @@ R3
 Z14 DEx4 work 11 avs_stimuli 0 22 F2D5VnoUhL94>P]NGE_We3
 l45
 L23
-Vo=UU17KOA5:i^SASGS8Km1
-!s100 cQLLi962UNJ4bQF4YzCP^0
+VC2MdcPkjHagP^3V<7:8mF3
+!s100 l9IS2O[gLm2bd=4:QEMfi1
 R7
 32
 R8
@@ -49,34 +49,81 @@ R11
 !i113 1
 R12
 R13
-Psync_avalon_mm_pkg
-Z15 DPx4 work 21 sync_mm_registers_pkg 0 22 _;5<cYZWl?Tkg@G=ZEDe<1
-Z16 DPx4 work 15 sync_common_pkg 0 22 Fi:[hET`[KFACi4R_kL7_2
+Epre_sync_irq
+Z15 w1567014729
+Z16 DPx4 work 12 sync_gen_pkg 0 22 ]Y59lf9LZUK6^[=_N8Oza1
+Z17 DPx4 work 15 sync_common_pkg 0 22 Fi:[hET`[KFACi4R_kL7_2
+Z18 DPx4 work 12 sync_irq_pkg 0 22 GELQFmN9jjA[4ZlaKXBnW0
 R1
 R2
 R3
-Z17 w1566963454
 R4
-Z18 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd
-Z19 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd
+Z19 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/pre_sync_irq.vhd
+Z20 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/pre_sync_irq.vhd
+l0
+L52
+V4Sf_g_S2]4ebb736Ig3:<1
+!s100 DC3;3n1X5jzUGFBgio`dm0
+R7
+32
+R8
+!i10b 1
+R9
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/pre_sync_irq.vhd|
+Z22 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/pre_sync_irq.vhd|
+!i113 1
+R12
+R13
+Artl
+R16
+R17
+R18
+R1
+R2
+R3
+Z23 DEx4 work 12 pre_sync_irq 0 22 4Sf_g_S2]4ebb736Ig3:<1
+l84
+L71
+V>bo4DHJH0]egK21kD]L8K2
+!s100 `;CJf4XNf4zCoSf[Wkn;02
+R7
+32
+R8
+!i10b 1
+R9
+R21
+R22
+!i113 1
+R12
+R13
+Psync_avalon_mm_pkg
+Z24 DPx4 work 21 sync_mm_registers_pkg 0 22 nnDbSfCM6:^od:4HKl6A11
+R17
+R1
+R2
+R3
+Z25 w1567002544
+R4
+Z26 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd
+Z27 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd
 l0
 L52
 VDTXg9U@BQQ^jFI4AOmF>o1
 !s100 YH`mN60RBj]cOk=mXQz0A0
 R7
 32
-Z20 !s110 1566964117
+Z28 !s110 1567020887
 !i10b 1
-Z21 !s108 1566964117.000000
-Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd|
-Z23 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd|
+Z29 !s108 1567020887.000000
+Z30 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd|
+Z31 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-Z24 DPx4 work 18 sync_avalon_mm_pkg 0 22 DTXg9U@BQQ^jFI4AOmF>o1
-R15
-R16
+Z32 DPx4 work 18 sync_avalon_mm_pkg 0 22 DTXg9U@BQQ^jFI4AOmF>o1
+R24
+R17
 R1
 R2
 R3
@@ -84,53 +131,6 @@ l0
 L117
 VI23HH4]6bSKPZQOPU^JoL1
 !s100 EQ<MLZE:HJlO8lPNW[8MG2
-R7
-32
-R20
-!i10b 1
-R21
-R22
-R23
-!i113 1
-R12
-R13
-Esync_avalon_mm_read
-Z25 w1566964071
-R15
-R16
-R24
-R1
-R2
-R3
-R4
-Z26 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd
-Z27 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd
-l0
-L53
-V1ZDNZc8h>1CcWRYbT7I153
-!s100 3nk4:32?B?SznbXkQ6T2<2
-R7
-32
-Z28 !s110 1566964118
-!i10b 1
-Z29 !s108 1566964118.000000
-Z30 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd|
-Z31 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd|
-!i113 1
-R12
-R13
-Artl
-R15
-R16
-R24
-R1
-R2
-R3
-Z32 DEx4 work 19 sync_avalon_mm_read 0 22 1ZDNZc8h>1CcWRYbT7I153
-l72
-L67
-VZ5977J;5hA=njTSQ7T[;A0
-!s100 @e^Sa5imVLCL]@7:<l?SG3
 R7
 32
 R28
@@ -141,43 +141,43 @@ R31
 !i113 1
 R12
 R13
-Esync_avalon_mm_write
-Z33 w1566964095
-R15
-R16
+Esync_avalon_mm_read
+Z33 w1567020687
 R24
+R17
+R32
 R1
 R2
 R3
 R4
-Z34 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd
-Z35 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd
+Z34 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd
+Z35 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd
 l0
-L54
-VaaNVZ;G0mI@z:SN8J`G6C3
-!s100 R3KHombgZ9kI6]VVf92<H3
+L53
+V1ZDNZc8h>1CcWRYbT7I153
+!s100 3nk4:32?B?SznbXkQ6T2<2
 R7
 32
 R28
 !i10b 1
 R29
-Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd|
-Z37 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd|
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd|
+Z37 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_read.vhd|
 !i113 1
 R12
 R13
 Artl
-R15
-R16
 R24
+R17
+R32
 R1
 R2
 R3
-Z38 DEx4 work 20 sync_avalon_mm_write 0 22 aaNVZ;G0mI@z:SN8J`G6C3
-l77
-L70
-VIoB0EfUEmHRMnh__AKb9P1
-!s100 @dcYoNbOgghO^`]OacMIj1
+Z38 DEx4 work 19 sync_avalon_mm_read 0 22 1ZDNZc8h>1CcWRYbT7I153
+l72
+L67
+V]fVNCjSS<1<Eh>Nh3AAiU3
+!s100 ]gL0SlHXfFzJeGjWE?Nh03
 R7
 32
 R28
@@ -188,30 +188,77 @@ R37
 !i113 1
 R12
 R13
+Esync_avalon_mm_write
+Z39 w1567016057
+R24
+R17
+R32
+R1
+R2
+R3
+R4
+Z40 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd
+Z41 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd
+l0
+L54
+VaaNVZ;G0mI@z:SN8J`G6C3
+!s100 R3KHombgZ9kI6]VVf92<H3
+R7
+32
+R8
+!i10b 1
+R29
+Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd|
+Z43 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/avalon/sync_avalon_mm_write.vhd|
+!i113 1
+R12
+R13
+Artl
+R24
+R17
+R32
+R1
+R2
+R3
+Z44 DEx4 work 20 sync_avalon_mm_write 0 22 aaNVZ;G0mI@z:SN8J`G6C3
+l77
+L70
+V4gN2M45`I^zcd9GUP5BLW0
+!s100 nhl_?QoHz6l6:Ymn7Z=_f3
+R7
+32
+R8
+!i10b 1
+R29
+R42
+R43
+!i113 1
+R12
+R13
 Psync_common_pkg
 R1
 R2
 R3
-R0
+R25
 R4
-Z39 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd
-Z40 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd
+Z45 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd
+Z46 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd
 l0
 L50
 VFi:[hET`[KFACi4R_kL7_2
 !s100 ZlcL2CTcGkmGlcYF1AM3?0
 R7
 32
-Z41 !s110 1566964116
+R28
 !i10b 1
-Z42 !s108 1566964116.000000
-Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd|
-Z44 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd|
+R29
+Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd|
+Z48 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/common/sync_common_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-R16
+R17
 R1
 R2
 R3
@@ -221,235 +268,236 @@ VX_O^:7;U=KfCKlh`DKFAh2
 !s100 V?lFB5D=9E9aiDHTdPnA92
 R7
 32
-R41
+R28
 !i10b 1
-R42
-R43
-R44
+R29
+R47
+R48
 !i113 1
 R12
 R13
 Esync_ent
-Z45 w1566963608
-Z46 DPx4 work 12 sync_int_pkg 0 22 ^AEX25>^]A;Fj<>F68@m31
-Z47 DPx4 work 14 sync_outen_pkg 0 22 RS2j:YaW:Rz711MC4D9G`1
-Z48 DPx4 work 12 sync_gen_pkg 0 22 802<E`Fl;W=;WnZ>eE:KD3
+Z49 w1567020433
+R18
+Z50 DPx4 work 14 sync_outen_pkg 0 22 fe8kRLiDGhMEI0aNn^40H3
 R16
+R17
+R32
 R24
-R15
 R1
 R2
 R3
 R4
-Z49 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd
-Z50 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd
+Z51 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd
+Z52 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd
 l0
-L56
-VO?VCQ1PN8UEDZ3FNZVb6o1
-!s100 `29bkmmRbHXEkCbFL;L_H0
+L57
+VYlGF=ES3E;k7R@odnJ@AU1
+!s100 gUO7WhihDTLQVd@kfhn]Y0
 R7
 32
 R8
 !i10b 1
 R9
-Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd|
-Z52 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd|
+Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd|
+Z54 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/sync_topfile.vhd|
 !i113 1
 R12
 R13
 Artl
-Z53 DEx4 work 8 sync_int 0 22 E;=VaTnzkRdF1Eo>l4?di3
-Z54 DEx4 work 10 sync_outen 0 22 NJNhSe577`f]3j>>2?kf<1
-Z55 DEx4 work 8 sync_gen 0 22 =H2]NGXZ13AF^VQ]GzfFX1
+R23
+Z55 DEx4 work 8 sync_irq 0 22 kHH3JW9NFTggPVoAXgK9i2
+Z56 DEx4 work 10 sync_outen 0 22 zLCi_X>z9bPM>SQkVQM;H2
+Z57 DEx4 work 8 sync_gen 0 22 G[@Iem27IMRfL=<PQbXhm3
+R44
 R38
-R32
-R46
-R47
-R48
+R18
+R50
 R16
+R17
+R32
 R24
-R15
 R1
 R2
 R3
-Z56 DEx4 work 8 sync_ent 0 22 O?VCQ1PN8UEDZ3FNZVb6o1
-l112
-L84
-VWfP9>hUcSdeUiGWg`dd>;3
-!s100 CfL0z1cTI9k<E`?;PX4JD1
+Z58 DEx4 work 8 sync_ent 0 22 YlGF=ES3E;k7R@odnJ@AU1
+l122
+L90
+VV_1PikT7HJSg3]2<TJV<e1
+!s100 >NW?ZH3z[SFEoMZZDCDfQ2
 R7
 32
 R8
 !i10b 1
 R9
-R51
-R52
+R53
+R54
 !i113 1
 R12
 R13
 Esync_gen
-R0
+Z59 w1567017811
+R17
 R16
-R48
 R1
 R2
 R3
 R4
-Z57 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd
-Z58 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd
+Z60 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd
+Z61 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd
 l0
 L53
-V=H2]NGXZ13AF^VQ]GzfFX1
-!s100 _8k>W_j<1`egI6E>gcbaj2
+VG[@Iem27IMRfL=<PQbXhm3
+!s100 =063;c`3h;M<]KdZ5=Ni82
 R7
 32
 R8
 !i10b 1
 R9
-Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd|
-Z60 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd|
+Z62 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd|
+Z63 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen.vhd|
 !i113 1
 R12
 R13
 Artl
+R17
 R16
-R48
 R1
 R2
 R3
-R55
-l100
+R57
+l101
 L74
-ViQ[`Az^:0R2DOf>>Cco>Y1
-!s100 X6P6=HgE<=F@jTSlWOk;:2
+V>b65@]_;1H;I`E_dO`gI^1
+!s100 R>hUz:DD]Jiio@UZ>TN3`2
 R7
 32
 R8
 !i10b 1
 R9
-R59
-R60
+R62
+R63
 !i113 1
 R12
 R13
 Psync_gen_pkg
-R16
+R17
 R1
 R2
 R3
-R0
+Z64 w1567013470
 R4
-Z61 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd
-Z62 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd
+Z65 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd
+Z66 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd
 l0
 L51
-V802<E`Fl;W=;WnZ>eE:KD3
-!s100 OgSaVjTk1l1AdW1``nbKE3
+V]Y59lf9LZUK6^[=_N8Oza1
+!s100 Bf=6AoK6kbCDShKo3EdTS3
 R7
 32
-R20
+R28
 !i10b 1
-R21
-Z63 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd|
-Z64 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd|
+R29
+Z67 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd|
+Z68 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/gen/sync_gen_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-R48
 R16
+R17
 R1
 R2
 R3
 l0
-L110
-VgDXU>9m<4Pf8;@>5^Elcb1
-!s100 :ANA^ZeOU:9co@09NGFRK2
+L111
+V9?_LX_`7;c`EdQ:ZHTECa0
+!s100 ]GBmTbPkY?8ZZ<Ed=1PV`1
 R7
 32
-R20
+R28
 !i10b 1
-R21
-R63
-R64
+R29
+R67
+R68
 !i113 1
 R12
 R13
 Esync_int
-Z65 w1566355046
-R48
-R16
-R46
+Z69 w1566355046
+Z70 DPx4 work 12 sync_gen_pkg 0 22 802<E`Fl;W=;WnZ>eE:KD3
+R17
+Z71 DPx4 work 12 sync_int_pkg 0 22 ^AEX25>^]A;Fj<>F68@m31
 R1
 R2
 R3
-R4
-Z66 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd
-Z67 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd
+Z72 dD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb3
+Z73 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd
+Z74 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd
 l0
 L52
 VE;=VaTnzkRdF1Eo>l4?di3
 !s100 jS1YOJcliMH@o=2zf]_;I0
 R7
 32
-R8
+Z75 !s110 1566964119
 !i10b 1
-R9
-Z68 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd|
-Z69 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd|
+Z76 !s108 1566964119.000000
+Z77 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd|
+Z78 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int.vhd|
 !i113 1
 R12
 R13
 Artl
-R48
-R16
-R46
+R70
+R17
+R71
 R1
 R2
 R3
-R53
+DEx4 work 8 sync_int 0 22 E;=VaTnzkRdF1Eo>l4?di3
 l84
 L71
 V[gzWhOJQ_=Z>iEhz]7RKD0
 !s100 m9FdYLjVK6efA@@NoS2Va2
 R7
 32
-R8
+R75
 !i10b 1
-R9
-R68
-R69
+R76
+R77
+R78
 !i113 1
 R12
 R13
 Psync_int_pkg
-R48
-R16
+R70
+R17
 R1
 R2
 R3
-R0
-R4
-Z70 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd
-Z71 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd
+Z79 w1566355060
+R72
+Z80 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd
+Z81 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd
 l0
 L51
 V^AEX25>^]A;Fj<>F68@m31
 !s100 aN>b01FK0>B2e?UH2o82L3
 R7
 32
-R20
+Z82 !s110 1566964117
 !i10b 1
-R21
-Z72 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd|
-Z73 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd|
+Z83 !s108 1566964117.000000
+Z84 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd|
+Z85 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/int/sync_int_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-R46
-R48
-R16
+R71
+R70
+R17
 R1
 R2
 R3
@@ -459,11 +507,103 @@ VKiH4mb`PY0e7>`fY?DgUn2
 !s100 K0TZ?NH3PlU>K9^;JZW963
 R7
 32
-R20
+R82
 !i10b 1
-R21
-R72
-R73
+R83
+R84
+R85
+!i113 1
+R12
+R13
+Esync_irq
+R15
+R16
+R17
+R18
+R1
+R2
+R3
+R4
+Z86 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq.vhd
+Z87 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq.vhd
+l0
+L52
+VkHH3JW9NFTggPVoAXgK9i2
+!s100 KY5==lSP@EKZic==LMUWL2
+R7
+32
+R8
+!i10b 1
+R9
+Z88 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq.vhd|
+Z89 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq.vhd|
+!i113 1
+R12
+R13
+Artl
+R16
+R17
+R18
+R1
+R2
+R3
+R55
+l84
+L71
+V9ZU0FzSLIWm5:7[zoPiK@0
+!s100 F7SNmR?CIzT5SM7nTY_8E0
+R7
+32
+R8
+!i10b 1
+R9
+R88
+R89
+!i113 1
+R12
+R13
+Psync_irq_pkg
+R16
+R17
+R1
+R2
+R3
+Z90 w1567010195
+R4
+Z91 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq_pkg.vhd
+Z92 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq_pkg.vhd
+l0
+L51
+VGELQFmN9jjA[4ZlaKXBnW0
+!s100 `]K?mnFlL?0Ye9M71l9An0
+R7
+32
+R28
+!i10b 1
+R29
+Z93 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq_pkg.vhd|
+Z94 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/irq/sync_irq_pkg.vhd|
+!i113 1
+R12
+R13
+Bbody
+R18
+R16
+R17
+R1
+R2
+R3
+l0
+L158
+V8^1371GaAIhk[j^bVVo?;0
+!s100 jnN2S@L9cl`7ga[g:hz=e0
+R7
+32
+R28
+!i10b 1
+R29
+R93
+R94
 !i113 1
 R12
 R13
@@ -471,83 +611,83 @@ Psync_mm_registers_pkg
 R1
 R2
 R3
-Z74 w1566964098
+Z95 w1567020776
 R4
-Z75 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd
-Z76 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd
+Z96 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd
+Z97 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd
 l0
 L50
-V_;5<cYZWl?Tkg@G=ZEDe<1
-!s100 lR45[z]I8mL]mZbmN77Yj1
+VnnDbSfCM6:^od:4HKl6A11
+!s100 W3PU7Pz21EL8Z2Hf;Zoc12
 R7
 32
-R20
+R28
 !i10b 1
-R21
-Z77 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd|
-Z78 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd|
+R29
+Z98 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd|
+Z99 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/registers/sync_mm_registers_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-R15
+R24
 R1
 R2
 R3
 l0
-L252
-VDRfIZUQ<DjXCekHKlZQX41
-!s100 DL_l15iObED7T9eW74FmE2
+L258
+VgFYZ>Mm^0D2W;3^KZ:S3n0
+!s100 bJ2Bf>bL`32oBE8A_L?z>0
 R7
 32
-R20
+R28
 !i10b 1
-R21
-R77
-R78
+R29
+R98
+R99
 !i113 1
 R12
 R13
 Esync_outen
-R0
-R47
+Z100 w1567013582
+R50
 R1
 R2
 R3
 R4
-Z79 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd
-Z80 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd
+Z101 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd
+Z102 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd
 l0
 L52
-VNJNhSe577`f]3j>>2?kf<1
-!s100 Y4GCD:6ZFl`;mZmVZ8]HZ2
+VzLCi_X>z9bPM>SQkVQM;H2
+!s100 G[[z6n37j^P[Vgi^EPVJC3
 R7
 32
 R8
 !i10b 1
 R9
-Z81 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd|
-Z82 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd|
+Z103 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd|
+Z104 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen.vhd|
 !i113 1
 R12
 R13
 Artl
-R47
+R50
 R1
 R2
 R3
-R54
+R56
 l71
 L66
-ViDYOHkSzD_=z^kYLal5;m2
-!s100 z`SdW>3N@J8ZcTa13OK]G2
+VWWJKBo15_`hF_>g5I1oZ91
+!s100 5RA@4:e`j<^fP5K8c?8h?0
 R7
 32
 R8
 !i10b 1
 R9
-R81
-R82
+R103
+R104
 !i113 1
 R12
 R13
@@ -555,26 +695,26 @@ Psync_outen_pkg
 R1
 R2
 R3
-R0
+Z105 w1567010834
 R4
-Z83 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd
-Z84 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd
+Z106 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd
+Z107 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd
 l0
 L51
-VRS2j:YaW:Rz711MC4D9G`1
-!s100 HaM:2bK5PgY`ZiN^GR^;50
+Vfe8kRLiDGhMEI0aNn^40H3
+!s100 `XGH0W5>>gL>I1M7g<NMz1
 R7
 32
-R20
+R28
 !i10b 1
-R21
-Z85 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd|
-Z86 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd|
+R29
+Z108 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd|
+Z109 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/sync/outen/sync_outen_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-R47
+R50
 R1
 R2
 R3
@@ -584,62 +724,62 @@ V;fL4o`2ALYe]EV1G:WKa50
 !s100 QQO>oToL5BTXf9W^k3H@@1
 R7
 32
-R20
+R28
 !i10b 1
-R21
-R85
-R86
+R29
+R108
+R109
 !i113 1
 R12
 R13
 Etb
-Z87 w1566963673
-Z88 DPx4 work 6 tb_pkg 0 22 MHHk>6^gTi:GTJXT=NLm?0
+Z110 w1567014703
+Z111 DPx4 work 6 tb_pkg 0 22 MHHk>6^gTi:GTJXT=NLm?0
 R1
 R2
 R3
 R4
-Z89 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd
-Z90 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd
+Z112 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd
+Z113 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd
 l0
 L6
 VYlZ:6iW7M4AhZPhn5_mV_3
 !s100 UbW]VI7I21h@bMcDEmRd:1
 R7
 32
-Z91 !s110 1566964120
+R8
 !i10b 1
-Z92 !s108 1566964120.000000
-Z93 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd|
-Z94 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd|
+R9
+Z114 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd|
+Z115 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb.vhd|
 !i113 1
 R12
 R13
 Artl
-R46
-R47
-R48
+R18
+R50
 R16
+R17
+R32
 R24
-R15
-R56
+R58
 R14
-R88
+R111
 R1
 R2
 R3
-Z95 DEx4 work 2 tb 0 22 YlZ:6iW7M4AhZPhn5_mV_3
+Z116 DEx4 work 2 tb 0 22 YlZ:6iW7M4AhZPhn5_mV_3
 l40
 L9
-Z96 VN_=j]`nmO8PY;:R>;9fS`1
-Z97 !s100 ^?PO9bmzG[EdlSXK:8Scg3
+Z117 V@UX^:>Q1G6[EH`g`>PI:72
+Z118 !s100 ;S?ke1J7McnaZLGeGj:9W2
 R7
 32
-R91
+R8
 !i10b 1
-R92
-R93
-R94
+R9
+R114
+R115
 !i113 1
 R12
 R13
@@ -647,26 +787,26 @@ Ptb_pkg
 R1
 R2
 R3
-R0
+R25
 R4
-Z98 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd
-Z99 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd
+Z119 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd
+Z120 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd
 l0
 L49
 VMHHk>6^gTi:GTJXT=NLm?0
 !s100 W4zIZKNKWBm@bA=OT<l4I3
 R7
 32
-R20
+R28
 !i10b 1
-R21
-Z100 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd|
-Z101 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd|
+R29
+Z121 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd|
+Z122 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/Sync/Development/tb/tb_pkg.vhd|
 !i113 1
 R12
 R13
 Bbody
-R88
+R111
 R1
 R2
 R3
@@ -678,9 +818,9 @@ R7
 32
 R28
 !i10b 1
-R21
-R100
-R101
+R29
+R121
+R122
 !i113 1
 R12
 R13

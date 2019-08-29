@@ -16,9 +16,9 @@ volatile alt_u8 vucN;
 //! [program memory public global variables]
 
 //! [data memory private global variables]
-const alt_u8 ucSyncIrqFlagsQtd = 5;
 // A variable to hold the context of interrupt
-static volatile int viHoldContext;
+static volatile int viSyncHoldContext;
+static volatile int viPreSyncHoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -31,7 +31,7 @@ static volatile int viHoldContext;
  * @brief
  * @ingroup sync
  *
- * Handle interrupt from sync ip
+ * Handle sync interrupt from sync ip
  * The value stored in *context is used to control program flow
  * in the rest of this program's routines
  *
@@ -45,7 +45,7 @@ void vSyncHandleIrq(void* pvContext) {
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
-//	volatile int* pviHoldContext = (volatile int*) pvContext;
+//	volatile int* pviSyncHoldContext = (volatile int*) pvContext;
 
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 
@@ -118,6 +118,53 @@ void vSyncHandleIrq(void* pvContext) {
 
 }
 
+/**
+ * @name    vSyncPreHandleIrq
+ * @brief
+ * @ingroup sync
+ *
+ * Handle pre-sync interrupt from sync ip
+ * The value stored in *context is used to control program flow
+ * in the rest of this program's routines
+ *
+ * @param [in] void* context
+ *
+ * @retval void
+ */
+void vSyncPreHandleIrq(void* pvContext) {
+
+//	volatile int* pviPreSyncHoldContext = (volatile int*) pvContext;
+
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+
+	// Check Sync Irq Flags
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
+
+		/* Pre-Sync Blank Pulse IRQ routine */
+
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
+	}
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag) {
+
+		/* Pre-Sync Master Pulse IRQ routine */
+
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
+	}
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreNormalPulseIrqFlag) {
+
+		/* Pre-Sync Normal Pulse IRQ routine */
+
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = TRUE;
+	}
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreLastPulseIrqFlag) {
+
+		/* Pre-Sync Last Pulse IRQ routine */
+
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = TRUE;
+	}
+
+}
+
 void vSyncClearCounter(void) {
 	// Recast the viHoldContext pointer to match the alt_irq_register() function
 	// prototype.
@@ -129,18 +176,39 @@ void vSyncClearCounter(void) {
  * @brief
  * @ingroup sync
  *
- * Make interrupt initialization
+ * Make sync interrupt initialization
  *
  * @param [in] void
  *
  * @retval void
  */
 void vSyncInitIrq(void) {
-	// Recast the viHoldContext pointer to match the alt_irq_register() function
+	// Recast the viSyncHoldContext pointer to match the alt_irq_register() function
 	// prototype.
-	void* hold_context_ptr = (void*) &viHoldContext;
+	void* hold_context_ptr = (void*) &viSyncHoldContext;
 	// Register the interrupt handler
-	alt_irq_register(SYNC_IRQ, hold_context_ptr, vSyncHandleIrq);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliSyncIrqNumber, hold_context_ptr, vSyncHandleIrq);
+}
+
+/**
+ * @name    vSyncPreInitIrq
+ * @brief
+ * @ingroup sync
+ *
+ * Make pre-sync interrupt initialization
+ *
+ * @param [in] void
+ *
+ * @retval void
+ */
+void vSyncPreInitIrq(void) {
+	// Recast the viPreSyncHoldContext pointer to match the alt_irq_register() function
+	// prototype.
+	void* hold_context_ptr = (void*) &viPreSyncHoldContext;
+	// Register the interrupt handler
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliPreSyncIrqNumber, hold_context_ptr, vSyncPreHandleIrq);
 }
 
 // Status reg
@@ -248,6 +316,23 @@ bool bSyncSetMbt(alt_u32 uliValue) {
 bool bSyncSetBt(alt_u32 uliValue) {
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncConfig.uliBlankTime = uliValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncSetPreBt
+ * @brief
+ * @ingroup sync
+ *
+ * Write an alt_u32 value into pre-blank time register (pulse duration = value * 20 ns)
+ *
+ * @param [in] alt_u32 value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncSetPreBt(alt_u32 uliValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncConfig.uliPreBlankTime = uliValue;
 	return TRUE;
 }
 
@@ -659,13 +744,13 @@ bool bSyncCtrCh8OutEnable(bool bValue) {
 	return TRUE;
 }
 
-// Int enable register
+// Irq enable register
 /**
  * @name    bSyncIrqEnableError
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int error enable bit of int enable register (0 -> int error disable / 1 -> int error enable)
+ * Write a bool value into irq error enable bit of irq enable register (0 -> irq error disable / 1 -> irq error enable)
  *
  * @param [in] bool value
  *
@@ -682,7 +767,7 @@ bool bSyncIrqEnableError(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int blank pulse enable bit of int enable register (0 -> int blank pulse disable / 1 -> int blank pulse enable)
+ * Write a bool value into irq blank pulse enable bit of irq enable register (0 -> irq blank pulse disable / 1 -> irq blank pulse enable)
  *
  * @param [in] bool value
  *
@@ -699,7 +784,7 @@ bool bSyncIrqEnableBlankPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int master pulse enable bit of int enable register (0 -> int master pulse disable / 1 -> int master pulse enable)
+ * Write a bool value into irq master pulse enable bit of irq enable register (0 -> irq master pulse disable / 1 -> irq master pulse enable)
  *
  * @param [in] bool value
  *
@@ -716,7 +801,7 @@ bool bSyncIrqEnableMasterPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int normal pulse enable bit of int enable register (0 -> int blank normal disable / 1 -> int blank normal enable)
+ * Write a bool value into irq normal pulse enable bit of irq enable register (0 -> irq normal pulse disable / 1 -> irq normal pulse enable)
  *
  * @param [in] bool value
  *
@@ -724,7 +809,7 @@ bool bSyncIrqEnableMasterPulse(bool bValue) {
  */
 bool bSyncIrqEnableNormalPulse(bool bValue) {
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
-	vpxSyncModule->xSyncIrqEn.bNormalPulseIrq = bValue;
+	vpxSyncModule->xSyncIrqEn.bNormalPulseIrqEn = bValue;
 	return TRUE;
 }
 
@@ -733,7 +818,7 @@ bool bSyncIrqEnableNormalPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int last pulse enable bit of int enable register (0 -> int blank last disable / 1 -> int blank last enable)
+ * Write a bool value into irq last pulse enable bit of irq enable register (0 -> irq last pulse disable / 1 -> irq last pulse enable)
  *
  * @param [in] bool value
  *
@@ -745,13 +830,13 @@ bool bSyncIrqEnableLastPulse(bool bValue) {
 	return TRUE;
 }
 
-// Int flag clear register
+// Irq flag clear register
 /**
  * @name    bSyncIrqFlagClrError
  * @brief
  * @ingroup sync
  *
- * Write a bool value into error bit of int flag clear register (0 -> keep int error flag unchanged / 1 -> clear int error flag)
+ * Write a bool value into error bit of irq flag clear register (0 -> keep irq error flag unchanged / 1 -> clear irq error flag)
  *
  * @param [in] bool value
  *
@@ -768,7 +853,7 @@ bool bSyncIrqFlagClrError(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into blank pulse bit of int flag clear register (0 -> keep int blank pulse flag unchanged / 1 -> clear int blank pulse flag)
+ * Write a bool value into blank pulse bit of irq flag clear register (0 -> keep irq blank pulse flag unchanged / 1 -> clear irq blank pulse flag)
  *
  * @param [in] bool value
  *
@@ -785,7 +870,7 @@ bool bSyncIrqFlagClrBlankPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into master pulse bit of int flag clear register (0 -> keep int master pulse flag unchanged / 1 -> clear int master pulse flag)
+ * Write a bool value into master pulse bit of irq flag clear register (0 -> keep irq master pulse flag unchanged / 1 -> clear irq master pulse flag)
  *
  * @param [in] bool value
  *
@@ -802,7 +887,7 @@ bool bSyncIrqFlagClrMasterPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into normal pulse bit of int flag clear register (0 -> keep int normal pulse flag unchanged / 1 -> clear int normal pulse flag)
+ * Write a bool value into normal pulse bit of irq flag clear register (0 -> keep irq normal pulse flag unchanged / 1 -> clear irq normal pulse flag)
  *
  * @param [in] bool value
  *
@@ -819,7 +904,7 @@ bool bSyncIrqFlagClrNormalPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into last pulse bit of int flag clear register (0 -> keep int last pulse flag unchanged / 1 -> clear int last pulse flag)
+ * Write a bool value into last pulse bit of irq flag clear register (0 -> keep irq last pulse flag unchanged / 1 -> clear irq last pulse flag)
  *
  * @param [in] bool value
  *
@@ -831,13 +916,13 @@ bool bSyncIrqFlagClrLastPulse(bool bValue) {
 	return TRUE;
 }
 
-// Int flag reg
+// Irq flag reg
 /**
  * @name    bSyncIrqFlagError
  * @brief
  * @ingroup sync
  *
- * Read int error flag bit of int flag reg (0 -> no error int. occured / 1 -> error int. occured)
+ * Read irq error flag bit of irq flag reg (0 -> no error int. occured / 1 -> error int. occured)
  *
  * @param [in] void
  *
@@ -855,7 +940,7 @@ bool bSyncIrqFlagError(void) {
  * @brief
  * @ingroup sync
  *
- * Read int blank pulse flag bit of int flag reg (0 -> no int blank pulse occured / 1 -> int error occured)
+ * Read irq blank pulse flag bit of irq flag reg (0 -> no irq blank pulse occured / 1 -> irq blank pulse occured)
  *
  * @param [in] void
  *
@@ -873,7 +958,7 @@ bool bSyncIrqFlagBlankPulse(void) {
  * @brief
  * @ingroup sync
  *
- * Read int master pulse flag bit of int flag reg (0 -> no int master pulse occured / 1 -> int error occured)
+ * Read irq master pulse flag bit of irq flag reg (0 -> no irq master pulse occured / 1 -> irq master pulse occured)
  *
  * @param [in] void
  *
@@ -891,7 +976,7 @@ bool bSyncIrqFlagMasterPulse(void) {
  * @brief
  * @ingroup sync
  *
- * Read int normal pulse flag bit of int flag reg (0 -> no int normal pulse occured / 1 -> int error occured)
+ * Read irq normal pulse flag bit of irq flag reg (0 -> no irq normal pulse occured / 1 -> irq normal pulse occured)
  *
  * @param [in] void
  *
@@ -909,7 +994,7 @@ bool bSyncIrqFlagNormalPulse(void) {
  * @brief
  * @ingroup sync
  *
- * Read int last pulse flag bit of int flag reg (0 -> no int last pulse occured / 1 -> int error occured)
+ * Read irq last pulse flag bit of irq flag reg (0 -> no irq last pulse occured / 1 -> irq last pulse occured)
  *
  * @param [in] void
  *
@@ -919,6 +1004,216 @@ bool bSyncIrqFlagLastPulse(void) {
 	bool bResult;
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 	bResult = vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqEnableBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into irq pre-blank pulse enable bit of irq enable register (0 -> irq pre-blank pulse disable / 1 -> irq pre-blank pulse enable)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqEnableBlankPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreBlankPulseIrqEn = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqEnableMasterPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into irq pre-master pulse enable bit of irq enable register (0 -> irq pre-master pulse disable / 1 -> irq pre-master pulse enable)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqEnableMasterPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreMasterPulseIrqEn = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqEnableNormalPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into irq pre-normal pulse enable bit of irq enable register (0 -> irq pre-normal pulse disable / 1 -> irq pre-normal pulse enable)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqEnableNormalPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreNormalPulseIrqEn = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqEnableLastPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into irq pre-last pulse enable bit of irq enable register (0 -> irq blank pre-last pulse disable / 1 -> irq blank pre-last pulse enable)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqEnableLastPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreLastPulseIrqEn = bValue;
+	return TRUE;
+}
+
+// Irq flag clear register
+/**
+ * @name    bSyncPreIrqFlagClrBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-blank pulse bit of irq flag clear register (0 -> keep irq pre-blank pulse flag unchanged / 1 -> clear irq pre-blank pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrBlankPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqFlagClrMasterPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-master pulse bit of irq flag clear register (0 -> keep irq pre-master pulse flag unchanged / 1 -> clear irq pre-master pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrMasterPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqFlagClrNormalPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-normal pulse bit of irq flag clear register (0 -> keep irq pre-normal pulse flag unchanged / 1 -> clear irq pre-normal pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrNormalPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqFlagClrLastPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-last pulse bit of irq flag clear register (0 -> keep irq pre-last pulse flag unchanged / 1 -> clear irq pre-last pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrLastPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+// Irq flag reg
+/**
+ * @name    bSyncPreIrqFlagBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-blank pulse flag bit of irq flag reg (0 -> no irq pre-blank pulse occured / 1 -> irq pre-blank pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagBlankPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqFlagMasterPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-master pulse flag bit of irq flag reg (0 -> no irq pre-master pulse occured / 1 -> irq pre-master pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagMasterPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqFlagNormalPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-normal pulse flag bit of irq flag reg (0 -> no irq pre-normal pulse occured / 1 -> irq pre-normal pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagNormalPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreNormalPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqFlagLastPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-last pulse flag bit of irq flag reg (0 -> no irq pre-last pulse occured / 1 -> irq pre-last pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagLastPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreLastPulseIrqFlag;
 	return bResult;
 }
 

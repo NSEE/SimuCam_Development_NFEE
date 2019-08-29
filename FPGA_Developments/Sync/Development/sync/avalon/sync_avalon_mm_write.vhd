@@ -101,6 +101,16 @@ begin
 			mm_write_reg_o.sync_irq_flag_clear_reg.normal_pulse_irq_flag_clear <= '0';
 			mm_write_reg_o.sync_irq_flag_clear_reg.last_pulse_irq_flag_clear   <= '0';
 
+			mm_write_reg_o.pre_sync_irq_enable_reg.pre_blank_pulse_irq_enable  <= '0';
+			mm_write_reg_o.pre_sync_irq_enable_reg.pre_master_pulse_irq_enable <= '0';
+			mm_write_reg_o.pre_sync_irq_enable_reg.pre_normal_pulse_irq_enable <= '0';
+			mm_write_reg_o.pre_sync_irq_enable_reg.pre_last_pulse_irq_enable   <= '0';
+
+			mm_write_reg_o.pre_sync_irq_flag_clear_reg.pre_blank_pulse_irq_flag_clear  <= '0';
+			mm_write_reg_o.pre_sync_irq_flag_clear_reg.pre_master_pulse_irq_flag_clear <= '0';
+			mm_write_reg_o.pre_sync_irq_flag_clear_reg.pre_normal_pulse_irq_flag_clear <= '0';
+			mm_write_reg_o.pre_sync_irq_flag_clear_reg.pre_last_pulse_irq_flag_clear   <= '0';
+
 			mm_write_reg_o.sync_config_reg.master_blank_time <= (others => '0');
 			mm_write_reg_o.sync_config_reg.blank_time        <= (others => '0');
 			mm_write_reg_o.sync_config_reg.pre_blank_time    <= (others => '0');
@@ -146,7 +156,6 @@ begin
 		-- Sync writedata procedure
 		procedure p_mm_writedata(mm_write_address_i : t_sync_avalon_mm_address) is
 		begin
-
 			-- Registers Write Data
 			case (mm_write_address_i) is
 				-- Case for access to all registers address
@@ -290,21 +299,6 @@ begin
 					end if;
 
 				when (16#20#) =>
-					-- Sync Period Config Register : Period value
-					if (avalon_mm_i.byteenable(3) = '1') then
-						mm_write_reg_o.sync_config_reg.period(31 downto 24) <= avalon_mm_i.writedata(31 downto 24);
-					end if;
-					if (avalon_mm_i.byteenable(2) = '1') then
-						mm_write_reg_o.sync_config_reg.period(23 downto 16) <= avalon_mm_i.writedata(23 downto 16);
-					end if;
-					if (avalon_mm_i.byteenable(1) = '1') then
-						mm_write_reg_o.sync_config_reg.period(15 downto 8) <= avalon_mm_i.writedata(15 downto 8);
-					end if;
-					if (avalon_mm_i.byteenable(0) = '1') then
-						mm_write_reg_o.sync_config_reg.period(7 downto 0) <= avalon_mm_i.writedata(7 downto 0);
-					end if;
-
-				when (16#21#) =>
 					-- Sync Period Config Register : Pre-Blank value
 					if (avalon_mm_i.byteenable(3) = '1') then
 						mm_write_reg_o.sync_config_reg.pre_blank_time(31 downto 24) <= avalon_mm_i.writedata(31 downto 24);
@@ -317,6 +311,21 @@ begin
 					end if;
 					if (avalon_mm_i.byteenable(0) = '1') then
 						mm_write_reg_o.sync_config_reg.pre_blank_time(7 downto 0) <= avalon_mm_i.writedata(7 downto 0);
+					end if;
+
+				when (16#21#) =>
+					-- Sync Period Config Register : Period value
+					if (avalon_mm_i.byteenable(3) = '1') then
+						mm_write_reg_o.sync_config_reg.period(31 downto 24) <= avalon_mm_i.writedata(31 downto 24);
+					end if;
+					if (avalon_mm_i.byteenable(2) = '1') then
+						mm_write_reg_o.sync_config_reg.period(23 downto 16) <= avalon_mm_i.writedata(23 downto 16);
+					end if;
+					if (avalon_mm_i.byteenable(1) = '1') then
+						mm_write_reg_o.sync_config_reg.period(15 downto 8) <= avalon_mm_i.writedata(15 downto 8);
+					end if;
+					if (avalon_mm_i.byteenable(0) = '1') then
+						mm_write_reg_o.sync_config_reg.period(7 downto 0) <= avalon_mm_i.writedata(7 downto 0);
 					end if;
 
 				when (16#22#) =>
