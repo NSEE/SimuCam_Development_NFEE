@@ -133,21 +133,29 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 }
 
 
-/* Any mode */
-/* Synchronization Reset Command, wait times are in miliseconds [bndky] */
-void vSyncReset( unsigned short int ufSynchDelayL ) {
+/* Only in MEB_RUNNING */
+/* Synchronization Reset [bndky] */
+void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
     INT8U iErrorCodeL = 0;
+    int i = 0;
 
     /* Send message to task queue */
-    OSQPost(xQueueSyncReset, &ufSynchDelayL);
-
-    /* Increase task PRIO */
-    iErrorCodeL = OSTaskChangePrio(SYNC_RESET_LOW_PRIO , SYNC_RESET_HIGH_PRIO);
-
+    iErrorCodeL = OSQPost(xQueueSyncReset, ufSynchDelayL);
     if (iErrorCodeL == OS_ERR_NONE){
-        // TODO verify that this mode will be reached and will work appropriately
-        /* Put all NFEE in Stand-by mode, if not in Config mode */
-        vSendCmdQToNFeeCTRL_PRIO(M_FEE_STANDBY, 0, 0); /* TODO verif usage */
+
+        /* Resume sync reset task */
+        iErrorCodeL = OSTaskResume(SYNC_RESET_HIGH_PRIO);
+
+        if (iErrorCodeL == OS_NO_ERR){
+            /* Put all NFEE in Stand-by mode, if not in Config mode */
+
+            for( i = 0; i < N_OF_NFEE; i++){
+                    if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
+                        bSendCmdQToNFeeInst_Prio( i, M_FEE_STANDBY, 0, i  );
+                    }
+                }
+
+        }
     }
-    //TODO: error condition?
+    //TODO error condition?
 }

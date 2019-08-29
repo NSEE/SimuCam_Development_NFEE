@@ -35,11 +35,10 @@
 #define PCP_MUTEX_SENDER_ACK            18   /* MUTEX Reader -> Ack receiver control*/
 #define PCP_MUTEX_TX_UART_PRIO          17   /* MUTEX TX UART*/
 
-/*  Sync reset task will change priorities when it's executing
- *  from very low to very high [bndky]
+/*  Sync reset task will have a very high priority
+ *  but will be suspended when not in use [bndky]
  */
 #define SYNC_RESET_HIGH_PRIO            2   
-#define SYNC_RESET_LOW_PRIO             31
 
 
 /* Main application priority */

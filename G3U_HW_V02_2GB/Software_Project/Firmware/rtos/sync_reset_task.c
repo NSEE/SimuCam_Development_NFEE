@@ -22,24 +22,29 @@ void vSyncResetTask( void *task_data ){
     pxMeb = (TSimucam_MEB *) task_data;
     unsigned short int usiResetDelayL = 0;
     INT8U iErrorCodeL = 0;
-
+    div_t xDlyAdjusted;
     
 
     for(;;){
+        /* Suspend task because of it's high PRIO */
+        OSTaskSuspend(SYNC_RESET_HIGH_PRIO);
 
-        /* receive delay time via qck */
+        /* Receive delay time via qck */
         usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 0, &iErrorCodeL);
         
         if (iErrorCodeL == OS_ERR_NONE) {
 
+            /* Format the delay time */
+            xDlyAdjusted = div (usiResetDelayL, 1000);
+
             /* Disable Sync */
-            bStopSync();
+            iErrorCodeL = bStopSync();
 
             /* Reset the time code */ 
-            vResetTimeCode(pxMeb->xFeeControl);
+            vResetTimeCode(&pxMeb->xFeeControl);
 
-            /* Wait ufSynchDelay milliseconds */ 
-            OSTimeDlyHMSM(0, 0, 0, usiResetDelayL);
+            /* Wait ufSynchDelay milliseconds adjusted */ 
+            OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, xDlyAdjusted.rem);
 
            /* Reseting swap memory mechanism */
             pxMeb->ucActualDDR = 0;
@@ -48,11 +53,8 @@ void vSyncResetTask( void *task_data ){
 
             /* Enable Sync */
             bStartSync();
-
-            /* Decrease Self Priority */
-            iErrorCodeL = OSTaskChangePrio(OS_PRIO_SELF, SYNC_RESET_LOW_PRIO);
         } else{
-            //TODO error statement
+            // TODO error statement
         }
         
     }

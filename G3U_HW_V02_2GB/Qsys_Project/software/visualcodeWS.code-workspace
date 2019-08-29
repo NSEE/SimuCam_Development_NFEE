@@ -14,7 +14,8 @@
 			"tasks_configurations.h": "c",
 			"meb.h": "c",
 			"configs_simucam.h": "c",
-			"error_handler_simucam.h": "c"
+			"error_handler_simucam.h": "c",
+			"sync_handler.h": "c"
 		}
 	}
 }
