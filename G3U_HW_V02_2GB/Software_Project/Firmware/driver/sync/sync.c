@@ -516,7 +516,7 @@ bool bSyncErrInj(alt_u32 uliValue) {
 
 // Control reg
 /**
- * @name    bSyncCtrExtnIrq
+ * @name    bSyncCtrExtn
  * @brief
  * @ingroup sync
  *
@@ -526,7 +526,7 @@ bool bSyncErrInj(alt_u32 uliValue) {
  *
  * @retval bool TRUE
  */
-bool bSyncCtrExtnIrq(bool bValue) {
+bool bSyncCtrIntern(bool bValue) {
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 	vpxSyncModule->xSyncControl.bIntExtN = bValue;
 	return TRUE;

@@ -125,7 +125,6 @@ bool bInitSync( void ) {
 	bSyncPreIrqEnableBlankPulse(TRUE);
 
 
-
 	return bSuccess;
 }
 

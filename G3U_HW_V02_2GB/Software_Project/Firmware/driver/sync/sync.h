@@ -194,7 +194,7 @@ alt_u32 uliSyncGetOst(void);
 
 bool bSyncErrInj(alt_u32 uliValue);
 
-bool bSyncCtrExtnIrq(bool bValue);
+bool bSyncCtrIntern(bool bValue);
 bool bSyncCtrStart(void);
 bool bSyncCtrReset(void);
 bool bSyncCtrOneShot(void);

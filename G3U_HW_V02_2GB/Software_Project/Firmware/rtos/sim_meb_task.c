@@ -318,8 +318,15 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
+	unsigned short int param1 =0;
+
+	param1 = xPusL->usiValues[0];
 
 	switch (xPusL->usiSubType) {
+		/* TC_SYNCH_SOURCE */
+		case 29:
+			bSyncCtrIntern(param1 == 0); /*True = Internal*/
+			break;
 		/* TC_SCAM_RUN */
 		case 61:
 			pxMebCLocal->eMode = sMebToRun;
