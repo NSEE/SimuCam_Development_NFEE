@@ -18,6 +18,7 @@ short int siPosStr( char *buffer, char cValue);
 void vTimeoutCheck (void *p_arg);
 void vSendEthConf ( void );
 void vSendTurnOff ( void );
+void vSendBufferChar128( const char * cDataIn );
 void vSendReset ( void );
 void vSendLog ( const char * cDataIn );
 void vSendPusTM64 ( tTMPus xPcktPus );

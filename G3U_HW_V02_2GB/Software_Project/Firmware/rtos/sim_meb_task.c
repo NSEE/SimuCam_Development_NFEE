@@ -56,6 +56,7 @@ void vSimMebTask(void *task_data) {
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
+				vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
@@ -712,11 +713,44 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
+	vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
+
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);
 
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+}
+
+void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
+	INT8U error_code, i;
+	char cHeader[8] = "!M:%hhu:";
+	char cBufferL[128] = "";
+
+	sprintf( cBufferL, "%s%hu", cHeader, mode );
+
+
+	/* Should send message to the NUc to inform the FEE mode */
+	OSMutexPend(xMutexTranferBuffer, 0, &error_code); /*Blocking*/
+	if (error_code == OS_ERR_NONE) {
+		/* Got the Mutex */
+		/*For now, will only get the first, not the packet that is waiting for longer time*/
+		for( i = 0; i < N_128_SENDER; i++)
+		{
+            if ( xBuffer128_Sender[i].bInUse == FALSE ) {
+                /* Locate a filled PreParsed variable in the array*/
+            	/* Perform a copy to a local variable */
+            	memcpy(xBuffer128_Sender[i].buffer_128, cBufferL, 128);
+                xBuffer128_Sender[i].bInUse = TRUE;
+                xBuffer128_Sender[i].bPUS = FALSE;
+                break;
+            }
+		}
+		OSMutexPost(xMutexTranferBuffer);
+	} else {
+		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
+		vFailGetxMutexSenderBuffer128();
+	}
 }
 
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */

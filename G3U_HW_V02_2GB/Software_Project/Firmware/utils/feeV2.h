@@ -15,7 +15,7 @@
 
 
 /* Meb state is here to Data controller and NFEE controller use the same enum */
-typedef enum { sMebInit  = 0, sMebToConfig, sMebToRun, sMebConfig, sMebRun } tSimucamStates;
+typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSimucamStates;
 
 
 /* Definition of offset for each FEE in the DDR Memory */
@@ -44,11 +44,12 @@ typedef enum { sMebInit  = 0, sMebToConfig, sMebToRun, sMebConfig, sMebRun } tSi
 
 
 /* FEE operation modes */
-typedef enum { sInit = 0, sConfig, sConfig_Enter, sOn, sOn_Enter, sStandBy, sStandby_Enter,
-	sFullPattern, sFullPattern_Enter, sFullPattern_Out, sWinPattern, sWinPattern_Enter, sWinPattern_Out,
-	sFullImage, sFullImage_Enter, sFullImage_Out, sWindowing, sWindowing_Enter, sWindowing_Out,
-	sParTrap1, sParTrap1_Enter, sParTrap1_Out, sParTrap2, sParTrap2_Enter, sParTrap2_Out,
-	sSerialTrap1, sSerialTrap1_Enter, sSerialTrap1_Out, sSerialTrap2, sSerialTrap2_Enter, sSerialTrap2_Out,
+typedef enum { sInit = 0, sConfig, sOn, sStandBy, sFullPattern, sWinPattern, sFullImage, sWindowing, sParTrap1, sParTrap2, sSerialTrap1, sSerialTrap2,
+	sConfig_Enter, sOn_Enter, sStandby_Enter,
+	sFullPattern_Enter, sFullPattern_Out, sWinPattern_Enter, sWinPattern_Out,
+	sFullImage_Enter, sFullImage_Out, sWindowing_Enter, sWindowing_Out,
+	sParTrap1_Enter, sParTrap1_Out, sParTrap2_Enter, sParTrap2_Out,
+	sSerialTrap1_Enter, sSerialTrap1_Out, sSerialTrap2_Enter, sSerialTrap2_Out,
 	sWaitSync, redoutWaitSync,
 	redoutCycle_Enter, redoutCycle_Out, redoutWaitBeforeSyncSignal, redoutCheckDTCUpdate, redoutCheckRestr, redoutConfigureTrans, redoutPreLoadBuffer,
 	redoutTransmission, redoutEndSch} tFEEStates;

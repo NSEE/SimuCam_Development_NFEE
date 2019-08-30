@@ -100,6 +100,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eMode = sConfig;
 				pxNFee->xControl.eNextMode = sConfig;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = sConfig;
 				break;
 
@@ -159,6 +161,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = pxNFee->xControl.eMode;
 				pxNFee->xControl.eMode = sOn;
 				pxNFee->xControl.eNextMode = sOn;
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				/* Real State */
 				pxNFee->xControl.eState = sOn;
 				break;
@@ -211,6 +215,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = pxNFee->xControl.eMode;
 				pxNFee->xControl.eMode = sStandBy;
 				pxNFee->xControl.eNextMode = sStandBy;
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = sStandBy;
 				break;
 
@@ -265,6 +271,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sOn_Enter;
 				pxNFee->xControl.eMode = sFullPattern;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -301,6 +309,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sFullImage;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -319,6 +329,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sWindowing;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -337,6 +349,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sParTrap1;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -355,6 +369,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sParTrap2;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -373,6 +389,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sSerialTrap1;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -391,6 +409,8 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sSerialTrap2;
 				/* Real State */
+
+				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -1762,10 +1782,35 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
 }
 
-void vSendMessageNUCModeFeeChange( unsigned char usIdFee, tFEEStates mode  ) {
+void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {
+	INT8U error_code, i;
+	char cHeader[8] = "!F:%hhu:";
+	char cBufferL[128] = "";
+
+	sprintf( cBufferL, "%s%hhu:%hu", cHeader, usIdFee, mode );
+
 
 	/* Should send message to the NUc to inform the FEE mode */
-
+	OSMutexPend(xMutexTranferBuffer, 0, &error_code); /*Blocking*/
+	if (error_code == OS_ERR_NONE) {
+		/* Got the Mutex */
+		/*For now, will only get the first, not the packet that is waiting for longer time*/
+		for( i = 0; i < N_128_SENDER; i++)
+		{
+            if ( xBuffer128_Sender[i].bInUse == FALSE ) {
+                /* Locate a filled PreParsed variable in the array*/
+            	/* Perform a copy to a local variable */
+            	memcpy(xBuffer128_Sender[i].buffer_128, cBufferL, 128);
+                xBuffer128_Sender[i].bInUse = TRUE;
+                xBuffer128_Sender[i].bPUS = FALSE;
+                break;
+            }
+		}
+		OSMutexPost(xMutexTranferBuffer);
+	} else {
+		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
+		vFailGetxMutexSenderBuffer128();
+	}
 }
 
 void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId ) {

@@ -475,6 +475,19 @@ void vFailFoundBufferRetransmission( void )
 	 */
 }
 
+void vFailGetCountSemaphoreSenderBuffer( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailGetCountSemaphoreSenderBuffer. (exit)\n");
+		debug(fp,"Could not get the semaphore and some error happens.(Sender task)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
 
 void vFailGetCountSemaphorePreParsedBuffer( void )
 {
@@ -505,6 +518,19 @@ void vFailGetxMutexPreParsedParserRxTask( void )
 	 */
 }
 
+void vFailGetxMutexSenderBuffer128( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vFailGetxMutexSenderBuffer128. (exit)\n");
+		debug(fp,"Could not get the mutex and some error happens.(vSender)\n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
 
 void vNoContentInPreParsedBuffer( void )
 {
@@ -514,6 +540,20 @@ void vNoContentInPreParsedBuffer( void )
 		debug(fp,"Semaphore was post by some task but has no message in the PreParsedBuffer.(vParserRXTask)\n");
 	}
 	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vNoContentInSenderBuffer( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vNoContentInSenderBuffer. (exit)\n");
+		debug(fp,"Semaphore was post by some task but has no message.(Sender)\n");
+	}
+	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
@@ -785,6 +825,19 @@ void vCouldNotSendTurnOff( void )
 		debug(fp,"Could not send the turn off command. \n");
 	}
 	#endif	
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
+void vCouldNotSendGenericMessageInternalCMD( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vCouldNotSendGenericMessageInternalCMD. (exit)\n");
+	}
+	#endif
 	/*
 	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
 	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento

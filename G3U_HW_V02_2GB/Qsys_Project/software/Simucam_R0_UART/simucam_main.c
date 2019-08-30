@@ -33,6 +33,9 @@ txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
 
+//todo: Tiago Verificar se necessita ser volatil
+tTMPusChar_Sender xBuffer128_Sender[N_128_SENDER];
+
 volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 volatile txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
 
@@ -72,6 +75,7 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
+OS_EVENT *xMutexTranferBuffer;
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -252,6 +256,12 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
+	xMutexTranferBuffer = OSMutexCreate(PCP_MUTEX_B128_PRIO_SENDER, &err);
+	if ( err != OS_ERR_NONE ) {
+		vFailCreateMutexSResources(err);
+		bSuccess = FALSE;
+	}
+
 	xSemTimeoutChecker = OSSemCreate(0);
 	if (!xSemTimeoutChecker) {
 		vFailCreateSemaphoreResources();
@@ -369,6 +379,20 @@ void vVariablesInitialization ( void ) {
 	memset( (void *)xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
 	memset( (void *)xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
 	
+
+
+	for( ucIL = 0; ucIL < N_128_SENDER; ucIL++)
+	{
+		xBuffer128_Sender[ucIL].bInUse = FALSE;
+		xBuffer128_Sender[ucIL].bPUS = FALSE;
+		xBuffer128_Sender[ucIL].ucNofValues = 0;
+		xBuffer128_Sender[ucIL].usiCat = 0;
+		xBuffer128_Sender[ucIL].usiPid = 0;
+		xBuffer128_Sender[ucIL].usiSubType = 0;
+		xBuffer128_Sender[ucIL].usiType = 0;
+		memset( (void *)xBuffer128_Sender[ucIL].buffer_128, 0, 128);
+	}
+
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
 		memset( (void *)xBuffer128[ucIL].buffer, 0, 128);

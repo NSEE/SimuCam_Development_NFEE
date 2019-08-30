@@ -56,6 +56,7 @@ void vMebInit(TSimucam_MEB *pxMebCLocal);
 //void vReleaseSyncMessages(void);
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal);
 void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal );
+void vSendMessageNUCModeMEBChange(  unsigned short int mode  );
 
 void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
 void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
