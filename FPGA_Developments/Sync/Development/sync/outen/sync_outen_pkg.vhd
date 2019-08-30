@@ -52,41 +52,41 @@ package sync_outen_pkg is
 
 	type t_sync_outen_control is record
 		sync_out_enable  : std_logic;
-		channel_h_enable : std_logic;
-		channel_g_enable : std_logic;
-		channel_f_enable : std_logic;
-		channel_e_enable : std_logic;
-		channel_d_enable : std_logic;
-		channel_c_enable : std_logic;
-		channel_b_enable : std_logic;
-		channel_a_enable : std_logic;
+		channel_1_enable : std_logic;
+		channel_2_enable : std_logic;
+		channel_3_enable : std_logic;
+		channel_4_enable : std_logic;
+		channel_5_enable : std_logic;
+		channel_6_enable : std_logic;
+		channel_7_enable : std_logic;
+		channel_8_enable : std_logic;
 	end record t_sync_outen_control;
 
 	type t_sync_outen_output is record
 		sync_out_signal  : std_logic;
-		channel_h_signal : std_logic;
-		channel_g_signal : std_logic;
-		channel_f_signal : std_logic;
-		channel_e_signal : std_logic;
-		channel_d_signal : std_logic;
-		channel_c_signal : std_logic;
-		channel_b_signal : std_logic;
-		channel_a_signal : std_logic;
+		channel_1_signal : std_logic;
+		channel_2_signal : std_logic;
+		channel_3_signal : std_logic;
+		channel_4_signal : std_logic;
+		channel_5_signal : std_logic;
+		channel_6_signal : std_logic;
+		channel_7_signal : std_logic;
+		channel_8_signal : std_logic;
 	end record t_sync_outen_output;
 
---=======================================
---! Component declaration for sync_outen
---=======================================
-component sync_outen is
-	port (
-		clk_i           : in  std_logic;
-		reset_n_i       : in  std_logic;
-		sync_signal_i   : in  std_logic;
-		sync_control_i  : in  t_sync_outen_control;
-		sync_pol_i		: in  std_logic;
-		sync_channels_o : out t_sync_outen_output
-	);
-end component sync_outen;
+	--=======================================
+	--! Component declaration for sync_outen
+	--=======================================
+	component sync_outen is
+		port(
+			clk_i           : in  std_logic;
+			reset_n_i       : in  std_logic;
+			sync_signal_i   : in  std_logic;
+			sync_control_i  : in  t_sync_outen_control;
+			sync_pol_i      : in  std_logic;
+			sync_channels_o : out t_sync_outen_output
+		);
+	end component sync_outen;
 
 end package sync_outen_pkg;
 

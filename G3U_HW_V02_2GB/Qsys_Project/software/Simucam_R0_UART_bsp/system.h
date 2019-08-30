@@ -4,7 +4,7 @@
  * Machine generated for CPU 'nios2_gen2_0' in SOPC Builder design 'MebX_Qsys_Project'
  * SOPC Builder design path: ../../MebX_Qsys_Project.sopcinfo
  *
- * Generated: Mon Aug 26 23:27:43 BRT 2019
+ * Generated: Wed Aug 28 22:55:17 BRT 2019
  */
 
 /*
@@ -1194,8 +1194,8 @@
 
 #define ALT_MODULE_CLASS_sync Sync
 #define SYNC_BASE 0x81000400
-#define SYNC_IRQ 4
-#define SYNC_IRQ_INTERRUPT_CONTROLLER_ID 0
+#define SYNC_IRQ -1
+#define SYNC_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYNC_NAME "/dev/sync"
 #define SYNC_SPAN 1024
 #define SYNC_TYPE "Sync"
@@ -1213,7 +1213,7 @@
 #define SYSID_QSYS_IRQ_INTERRUPT_CONTROLLER_ID -1
 #define SYSID_QSYS_NAME "/dev/sysid_qsys"
 #define SYSID_QSYS_SPAN 8
-#define SYSID_QSYS_TIMESTAMP 1566497054
+#define SYSID_QSYS_TIMESTAMP 1567021520
 #define SYSID_QSYS_TYPE "altera_avalon_sysid_qsys"
 
 
