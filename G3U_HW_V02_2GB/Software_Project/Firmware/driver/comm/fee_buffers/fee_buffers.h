@@ -29,37 +29,47 @@ enum FeebIrqEmptyBufferFlags {
 	eFeebIrqRightEmptyBuffer1Flag
 } EFeebIrqEmptyBufferFlags;
 
-typedef struct FeebWindowingConfig {
-	bool bMasking;
-} TFeebWindowingConfig;
+typedef struct FeebMachineControl {
+	bool bClear; /* FEE Machine Clear */
+	bool bStop; /* FEE Machine Stop */
+	bool bStart; /* FEE Machine Start */
+	bool bMasking; /* FEE Masking Enable */
+} TFeebMachineControl;
+
+typedef struct FeebBufferStatus {
+	alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
+	alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
+	bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
+	bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
+	bool bRightFeeBusy; /* FEE Right Machine Busy */
+	bool bLeftFeeBusy; /* FEE Left Machine Busy */
+} TFeebBufferStatus;
 
 typedef struct FeebIrqControl {
-	bool bLeftBufferEmptyEn;
-	bool bRightBufferEmptyEn;
+	bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
+	bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
 } TFeebIrqControl;
 
 typedef struct FeebIrqFlag {
-	bool bLeftBufferEmpty0Flag;
-	bool bLeftBufferEmpty1Flag;
-	bool bRightBufferEmpty0Flag;
-	bool bRightBufferEmpty1Flag;
+	bool bRightBufferEmpty0Flag; /* FEE Right Buffer 0 Empty IRQ Flag */
+	bool bRightBufferEmpty1Flag; /* FEE Right Buffer 1 Empty IRQ Flag */
+	bool bLeftBufferEmpty0Flag; /* FEE Left Buffer 0 Empty IRQ Flag */
+	bool bLeftBufferEmpty1Flag; /* FEE Left Buffer 1 Empty IRQ Flag */
 } TFeebIrqFlag;
 
-typedef struct FeebBufferStatus {
-	bool bLeftBufferEmpty;
-	bool bRightBufferEmpty;
-	bool bLeftFeeBusy;
-	bool bRightFeeBusy;
-	alt_u8 ucLeftBufferSize;
-	alt_u8 ucRightBufferSize;
-} TFeebBufferStatus;
+typedef struct FeebIrqFlagClr {
+	bool bRightBufferEmpty0FlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
+	bool bRightBufferEmpty1FlagClr; /* FEE Right Buffer 1 Empty IRQ Flag Clear */
+	bool bLeftBufferEmpty0FlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
+	bool bLeftBufferEmpty1FlagClr; /* FEE Left Buffer 1 Empty IRQ Flag Clear */
+} TFeebIrqFlagClr;
 
 typedef struct FeebChannel {
-	alt_u32 *puliFeebChAddr;
-	TFeebWindowingConfig xWindowingConfig;
+	TFeebMachineControl xMachineControl;
+	TFeebBufferStatus xBufferStatus;
 	TFeebIrqControl xIrqControl;
 	TFeebIrqFlag xIrqFlag;
-	TFeebBufferStatus xBufferStatus;
+	TFeebIrqFlagClr xIrqFlagClr;
 } TFeebChannel;
 //! [public module structs definition]
 

@@ -17,35 +17,36 @@
 
 //! [public module structs definition]
 typedef struct SpwcLinkConfig {
-	bool bAutostart;
-	bool bLinkStart;
-	bool bDisconnect;
-	alt_u8 ucTxDivCnt;
+	bool bDisconnect; /* SpaceWire Link Config Disconnect */
+	bool bLinkStart; /* SpaceWire Link Config Linkstart */
+	bool bAutostart; /* SpaceWire Link Config Autostart */
+	alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
 } TSpwcLinkConfig;
 
-typedef struct SpwcLinkError {
-	bool bDisconnect;
-	bool bParity;
-	bool bEscape;
-	bool bCredit;
-} TSpwcLinkError;
-
 typedef struct SpwcLinkStatus {
-	bool bStarted;
-	bool bConnecting;
-	bool bRunning;
+	bool bRunning; /* SpaceWire Link Running */
+	bool bConnecting; /* SpaceWire Link Connecting */
+	bool bStarted; /* SpaceWire Link Started */
 } TSpwcLinkStatus;
 
+typedef struct SpwcLinkError {
+	bool bDisconnect; /* SpaceWire Error Disconnect */
+	bool bParity; /* SpaceWire Error Parity */
+	bool bEscape; /* SpaceWire Error Escape */
+	bool bCredit; /* SpaceWire Error Credit */
+} TSpwcLinkError;
+
 typedef struct SpwcTimecode {
-	alt_u8 ucControl;
-	alt_u8 ucCounter;
+	bool bClear; /* SpaceWire Timecode Clear */
+	bool bEnable; /* SpaceWire Timecode Enable */
+	alt_u8 ucTime; /* SpaceWire Timecode Time */
+	alt_u8 ucControl; /* SpaceWire Timecode Control */
 } TSpwcTimecode;
 
 typedef struct SpwcChannel {
-	alt_u32 *puliSpwcChAddr;
 	TSpwcLinkConfig xLinkConfig;
-	TSpwcLinkError xLinkError;
 	TSpwcLinkStatus xLinkStatus;
+	TSpwcLinkError xLinkError;
 	TSpwcTimecode xTimecode;
 } TSpwcChannel;
 //! [public module structs definition]

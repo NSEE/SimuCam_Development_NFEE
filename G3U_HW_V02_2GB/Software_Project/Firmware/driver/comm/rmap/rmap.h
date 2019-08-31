@@ -25,33 +25,47 @@ extern OS_EVENT *xFeeQ[N_OF_NFEE];
 
 //! [public module structs definition]
 typedef struct RmapCodecConfig {
-	alt_u8 ucKey;
-	alt_u8 ucLogicalAddress;
+	alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
+	alt_u8 ucKey; /* RMAP Target Key */
 } TRmapCodecConfig;
+
 typedef struct RmapCodecStatus {
-	bool bCommandReceived;
-	bool bWriteRequested;
-	bool bWriteAuthorized;
-	bool bReadRequested;
-	bool bReadAuthorized;
-	bool bReplySended;
-	bool bDiscardedPackage;
+	bool bCommandReceived; /* RMAP Status Command Received */
+	bool bWriteRequested; /* RMAP Status Write Requested */
+	bool bWriteAuthorized; /* RMAP Status Write Authorized */
+	bool bReadRequested; /* RMAP Status Read Requested */
+	bool bReadAuthorized; /* RMAP Status Read Authorized */
+	bool bReplySended; /* RMAP Status Reply Sended */
+	bool bDiscardedPackage; /* RMAP Status Discarded Package */
 } TRmapCodecStatus;
+
 typedef struct RmapCodecError {
-	bool bEarlyEop;
-	bool bEep;
-	bool bHeaderCRC;
-	bool bUnusedPacketType;
-	bool bInvalidCommandCode;
-	bool bTooMuchData;
-	bool bInvalidDataCrc;
+	bool bEarlyEop; /* RMAP Error Early EOP */
+	bool bEep; /* RMAP Error EEP */
+	bool bHeaderCRC; /* RMAP Error Header CRC */
+	bool bUnusedPacketType; /* RMAP Error Unused Packet Type */
+	bool bInvalidCommandCode; /* RMAP Error Invalid Command Code */
+	bool bTooMuchData; /* RMAP Error Too Much Data */
+	bool bInvalidDataCrc; /* RMAP Error Invalid Data CRC */
 } TRmapCodecError;
+
+typedef struct RmapMemConfigStat {
+	alt_u32 uliLastWriteAddress; /* RMAP Last Write Address */
+	alt_u32 uliLastReadAddress; /* RMAP Last Read Address */
+} TRmapMemConfigStat;
+
 typedef struct RmapIrqControl {
-	bool bWriteCmdEn;
+	bool bWriteCmdEn; /* RMAP Write Command IRQ Enable */
 } TRmapIrqControl;
+
 typedef struct RmapIrqFlag {
-	bool bWriteCmdFlag;
+	bool bWriteCmdFlag; /* RMAP Write Command IRQ Flag */
 } TRmapIrqFlag;
+
+typedef struct RmapIrqFlagClr {
+	bool bWriteCmdFlagClr; /* RMAP Write Command IRQ Flag Clear */
+} TRmapIrqFlagClr;
+
 typedef struct RmapMemConfigArea {
 	alt_u32 uliCcdSeq1Config;
 	alt_u32 uliCcdSeq2Config;
@@ -142,17 +156,29 @@ typedef struct RmapMemHKArea {
 	alt_u16 usiSelHiresPrt7;
 	alt_u16 usiZeroHiresAmp;
 } TRmapMemHKArea;
+
 typedef struct RmapChannel {
-	alt_u32 *puliRmapChAddr;
-	TRmapCodecConfig xRmapCodecConfig;
-	TRmapCodecStatus xRmapCodecStatus;
-	TRmapCodecError xRmapCodecError;
-	TRmapIrqControl xRmapIrqControl;
-	TRmapIrqFlag xRmapIrqFlag;
-	TRmapMemConfigArea xRmapMemConfigArea;
-	TRmapMemConfigStat xRmapMemConfigStat;
-	TRmapMemHKArea xRmapMemHKArea;
+	TRmapCodecConfig xCodecConfig;
+	TRmapCodecStatus xCodecStatus;
+	TRmapCodecError xCodecError;
+	TRmapMemConfigStat xMemConfigStat;
+	TRmapIrqControl xIrqControl;
+	TRmapIrqFlag xIrqFlag;
+	TRmapIrqFlagClr xIrqFlagClr;
 } TRmapChannel;
+
+//typedef struct RmapChannel {
+//	TRmapCodecConfig xRmapCodecConfig;
+//	TRmapCodecStatus xRmapCodecStatus;
+//	TRmapCodecError xRmapCodecError;
+//	TRmapMemConfigStat xRmapMemConfigStat;
+//	TRmapIrqControl xRmapIrqControl;
+//	TRmapIrqFlag xRmapIrqFlag;
+//	TRmapIrqFlagClr xRmapIrqFlagClr;
+//	TRmapMemConfigArea xRmapMemConfigArea;
+//	TRmapMemConfigStat xRmapMemConfigStat;
+//	TRmapMemHKArea xRmapMemHKArea;
+//} TRmapChannel;
 //! [public module structs definition]
 
 extern TRmapChannel xRmap[N_OF_NFEE];

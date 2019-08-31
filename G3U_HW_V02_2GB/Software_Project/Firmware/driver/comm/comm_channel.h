@@ -20,13 +20,23 @@
 //! [constants definition]
 
 //! [public module structs definition]
+typedef struct CommIrqControl {
+	bool bGlobalIrqEn; /* Comm Global IRQ Enable */
+} TCommIrqControl;
+
+typedef struct CommDevAddr {
+	alt_u32 uliDevBaseAddr; /* Comm Device Base Address */
+} TCommDevAddr;
+
 typedef struct CommChannel {
-	alt_u32 *puliCommChAddr;
-	TDpktChannel xDataPacket;
+	TSpwcChannel xSpacewire;
 	TFeebChannel xFeeBuffer;
 	TRmapChannel xRmap;
-	TSpwcChannel xSpacewire;
+	TDpktChannel xDataPacket;
+	TCommIrqControl xCommIrqControl;
+	TCommDevAddr xCommDevAddr;
 } TCommChannel;
+
 //! [public module structs definition]
 
 //! [public function prototypes]

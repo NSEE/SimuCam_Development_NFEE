@@ -16,43 +16,43 @@
 //! [constants definition]
 
 enum DpktMode {
-	eDpktStandBy          = 0,
-	eDpktFullImage        = 8, // First bit is used to indicate non standby. The modes start in 0b1000 = 8.
-    eDpktFullImagePattern ,
-    eDpktWindowing        ,
-    eDpktWindowingPattern ,
-    eDpktPartialReadOut   ,
+	eDpktStandBy = 0, eDpktFullImage = 8, // First bit is used to indicate non standby. The modes start in 0b1000 = 8.
+	eDpktFullImagePattern,
+	eDpktWindowing,
+	eDpktWindowingPattern,
+	eDpktPartialReadOut,
 } EDpktMode;
-
 
 //! [public module structs definition]
 typedef struct DpktDataPacketConfig {
-	alt_u16 usiCcdXSize;
-	alt_u16 usiCcdYSize;
-	alt_u16 usiDataYSize;
-	alt_u16 usiOverscanYSize;
-	alt_u16 usiPacketLength;
-	alt_u8 ucFeeMode;
-	alt_u8 ucCcdNumber;
-	alt_u8 ucProtocolId;
-	alt_u8 ucLogicalAddr;
+	alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
+	alt_u16 usiCcdYSize; /* Data Packet CCD Y Size */
+	alt_u16 usiDataYSize; /* Data Packet Data Y Size */
+	alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
+	alt_u16 usiPacketLength; /* Data Packet Packet Length */
+	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
+	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
+	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
+	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
 } TDpktDataPacketConfig;
+
 typedef struct DpktDataPacketHeader {
-	alt_u16 usiLength;
-	alt_u16 usiType;
-	alt_u16 usiFrameCounter;
-	alt_u16 usiSequenceCounter;
+	alt_u16 usiLength; /* Data Packet Header Length */
+	alt_u16 usiType; /* Data Packet Header Type */
+	alt_u16 usiFrameCounter; /* Data Packet Header Frame Counter */
+	alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
 } TDpktDataPacketHeader;
+
 typedef struct DpktPixelDelay {
-	alt_u16 usiLineDelay;
-	alt_u16 usiColumnDelay;
-	alt_u16 usiAdcDelay;
+	alt_u16 usiLineDelay; /* Data Packet Line Delay */
+	alt_u16 usiColumnDelay; /* Data Packet Column Delay */
+	alt_u16 usiAdcDelay; /* Data Packet ADC Delay */
 } TDpktPixelDelay;
+
 typedef struct DpktChannel {
-	alt_u32 *puliDpktChAddr;
-	TDpktDataPacketConfig xDpktDataPacketConfig;
-	TDpktDataPacketHeader xDpktDataPacketHeader;
-	TDpktPixelDelay xDpktPixelDelay;
+	TDpktDataPacketConfig xDataPacketConfig;
+	TDpktDataPacketHeader xDataPacketHeader;
+	TDpktPixelDelay xPixelDelay;
 } TDpktChannel;
 //! [public module structs definition]
 
