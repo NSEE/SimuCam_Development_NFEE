@@ -59,7 +59,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 		req_hccd_ccd_number       : std_logic_vector(1 downto 0); -- Half-CCD CCD Number
 		req_hccd_ccd_side         : std_logic; -- Half-CCD CCD Side
 		req_hccd_ccd_height       : std_logic_vector(12 downto 0); -- Half-CCD CCD Height
-		req_hccd_cdd_width        : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
+		req_hccd_ccd_width        : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
 		req_hccd_exposure_number  : std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
 		req_request_hccd          : std_logic; -- Request Half-CCD
 		req_abort_hccd_req        : std_logic; -- Abort Half-CCD Request
@@ -72,7 +72,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 		rly_hccd_ccd_number         : std_logic_vector(1 downto 0); -- Half-CCD CCD Number
 		rly_hccd_ccd_side           : std_logic; -- Half-CCD CCD Side
 		rly_hccd_ccd_height         : std_logic_vector(12 downto 0); -- Half-CCD CCD Height
-		rly_hccd_cdd_width          : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
+		rly_hccd_ccd_width          : std_logic_vector(11 downto 0); -- Half-CCD CCD Width
 		rly_hccd_exposure_number    : std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
 		rly_hccd_image_length_bytes : std_logic_vector(31 downto 0); -- Half-CCD Image Length [Bytes]
 		rly_hccd_received           : std_logic; -- Half-CCD Received

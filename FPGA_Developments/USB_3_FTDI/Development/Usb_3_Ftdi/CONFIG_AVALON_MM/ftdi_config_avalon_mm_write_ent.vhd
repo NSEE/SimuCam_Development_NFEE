@@ -68,7 +68,7 @@ begin
 			-- FTDI Half-CCD Request Control Register : Half-CCD CCD Height
 			ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height                 <= std_logic_vector(to_unsigned(0, 13));
 			-- FTDI Half-CCD Request Control Register : Half-CCD CCD Width
-			ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_cdd_width                  <= std_logic_vector(to_unsigned(0, 12));
+			ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width                  <= std_logic_vector(to_unsigned(0, 12));
 			-- FTDI Half-CCD Request Control Register : Half-CCD Exposure Number
 			ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number            <= std_logic_vector(to_unsigned(0, 16));
 			-- FTDI Half-CCD Request Control Register : Request Half-CCD
@@ -248,10 +248,10 @@ begin
 				when (16#19#) =>
 					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Width
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_cdd_width(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_cdd_width(11 downto 8) <= ftdi_config_avalon_mm_i.writedata(11 downto 8);
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width(11 downto 8) <= ftdi_config_avalon_mm_i.writedata(11 downto 8);
 					end if;
 
 				when (16#1A#) =>

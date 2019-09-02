@@ -187,10 +187,10 @@ begin
 				when (16#19#) =>
 					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Width
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_wr_regs_i.hccd_req_control_reg.req_hccd_cdd_width(7 downto 0);
+						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_wr_regs_i.hccd_req_control_reg.req_hccd_ccd_width(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_wr_regs_i.hccd_req_control_reg.req_hccd_cdd_width(11 downto 8);
+						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_wr_regs_i.hccd_req_control_reg.req_hccd_ccd_width(11 downto 8);
 					end if;
 
 				when (16#1A#) =>
@@ -250,10 +250,10 @@ begin
 				when (16#22#) =>
 					-- FTDI Half-CCD Reply Status Register : Half-CCD CCD Width
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.hccd_reply_status_reg.rly_hccd_cdd_width(7 downto 0);
+						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.hccd_reply_status_reg.rly_hccd_ccd_width(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_rd_regs_i.hccd_reply_status_reg.rly_hccd_cdd_width(11 downto 8);
+						ftdi_config_avalon_mm_o.readdata(11 downto 8) <= ftdi_config_rd_regs_i.hccd_reply_status_reg.rly_hccd_ccd_width(11 downto 8);
 					end if;
 
 				when (16#23#) =>
