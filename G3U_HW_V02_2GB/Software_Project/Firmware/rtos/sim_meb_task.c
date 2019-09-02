@@ -270,11 +270,11 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 		fprintf(fp,"\n\nSync\n");
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 			bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
+			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucTime);
 			tCodeNext = ( tCode ) % 4;
 			fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
 			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
+			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.pxMemArea->xRmapMemConfigArea.uliFrameNumber;
 			fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 		}
 	}
@@ -413,19 +413,19 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Disable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = FALSE;
 			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 			/* Change the configuration */
 			bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
 			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
 
 			/* Enable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = TRUE;
 			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 			/* todo: Need to treat all the returns */
@@ -581,19 +581,19 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sFeeConfig ) {
 				/* Disable the RMAP interrupt */
 				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = FALSE;
 				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 				/* Change the configuration */
 				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
 				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
 
 				/* Enable the RMAP interrupt */
 				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = TRUE;
 				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			} else {
 				#if DEBUG_ON

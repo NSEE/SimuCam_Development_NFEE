@@ -66,6 +66,7 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh);
 bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh);
 
 bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
+bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable);
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
 //! [public function prototypes]

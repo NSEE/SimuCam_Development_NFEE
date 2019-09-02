@@ -38,6 +38,15 @@
 #define COMM_CHANNEL_6_BASE_ADDR        COMM_PEDREIRO_V1_01_F_BASE
 #define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
+// offsets
+#define COMM_SPWC_BASE_ADDR_OFST        0x25
+#define COMM_FEEB_BASE_ADDR_OFST        0x25
+#define COMM_RMAP_BASE_ADDR_OFST        0x25
+#define COMM_DPKT_BASE_ADDR_OFST        0x25
+#define COMM_SPWC_OFST                  0x25
+#define COMM_FEEB_OFST                  0x25
+#define COMM_RMAP_OFST                  0x25
+#define COMM_DPKT_OFST                  0x25
 // RMAP config addr
 #define COMM_RMAP_CCD_SEQ_1_CFG_REG_OFST 0x40
 #define COMM_RMAP_CCD_SEQ_2_CFG_REG_OFST 0x41

@@ -18,17 +18,9 @@ extern OS_EVENT *xNfeeSchedule;
 //! [constants definition]
 // address
 // bit masks
-const alt_u8 ucFeebIrqEmptyBufferFlagsQtd;
 //! [constants definition]
 
 //! [public module structs definition]
-enum FeebIrqEmptyBufferFlags {
-	eFeebIrqLeftEmptyBuffer0Flag = 0,
-	eFeebIrqLeftEmptyBuffer1Flag,
-	eFeebIrqRightEmptyBuffer0Flag,
-	eFeebIrqRightEmptyBuffer1Flag
-} EFeebIrqEmptyBufferFlags;
-
 typedef struct FeebMachineControl {
 	bool bClear; /* FEE Machine Clear */
 	bool bStop; /* FEE Machine Stop */
@@ -82,24 +74,6 @@ void vFeebCh5HandleIrq(void* pvContext);
 void vFeebCh6HandleIrq(void* pvContext);
 void vFeebCh7HandleIrq(void* pvContext);
 void vFeebCh8HandleIrq(void* pvContext);
-
-void vFeebCh1IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh2IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh3IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh4IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh5IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh6IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh7IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-void vFeebCh8IrqFlagClrBufferEmpty(alt_u8 ucEmptyBufferFlag);
-
-void vFeebCh1IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh2IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh3IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh4IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh5IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh6IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh7IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
-void vFeebCh8IrqFlagBufferEmpty(bool *pbChEmptyBufferFlags);
 
 bool bFeebCh1SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);
 bool bFeebCh2SetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide);

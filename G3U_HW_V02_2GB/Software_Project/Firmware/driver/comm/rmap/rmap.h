@@ -86,10 +86,6 @@ typedef struct RmapMemConfigArea {
 	alt_u32 uliFrameNumber;
 	alt_u32 uliCurrentMode;
 } TRmapMemConfigArea;
-typedef struct RmapMemConfigStat {
-	alt_u32 uliLastWriteAddress;
-	alt_u32 uliLastReadAddress;
-} TRmapMemConfigStat;
 typedef struct RmapMemHKArea {
 	alt_u16 usiHkCcd1VodE;
 	alt_u16 usiHkCcd1VodF;
@@ -157,6 +153,12 @@ typedef struct RmapMemHKArea {
 	alt_u16 usiZeroHiresAmp;
 } TRmapMemHKArea;
 
+typedef struct RmapMemArea {
+	alt_u32 *puliRmapChAddr;
+	TRmapMemConfigArea xRmapMemConfigArea;
+	TRmapMemHKArea xRmapMemHKArea;
+} TRmapMemArea;
+
 typedef struct RmapChannel {
 	TRmapCodecConfig xCodecConfig;
 	TRmapCodecStatus xCodecStatus;
@@ -165,20 +167,9 @@ typedef struct RmapChannel {
 	TRmapIrqControl xIrqControl;
 	TRmapIrqFlag xIrqFlag;
 	TRmapIrqFlagClr xIrqFlagClr;
+	TRmapMemArea* pxMemArea;
 } TRmapChannel;
 
-//typedef struct RmapChannel {
-//	TRmapCodecConfig xRmapCodecConfig;
-//	TRmapCodecStatus xRmapCodecStatus;
-//	TRmapCodecError xRmapCodecError;
-//	TRmapMemConfigStat xRmapMemConfigStat;
-//	TRmapIrqControl xRmapIrqControl;
-//	TRmapIrqFlag xRmapIrqFlag;
-//	TRmapIrqFlagClr xRmapIrqFlagClr;
-//	TRmapMemConfigArea xRmapMemConfigArea;
-//	TRmapMemConfigStat xRmapMemConfigStat;
-//	TRmapMemHKArea xRmapMemHKArea;
-//} TRmapChannel;
 //! [public module structs definition]
 
 extern TRmapChannel xRmap[N_OF_NFEE];
@@ -192,24 +183,6 @@ void vRmapCh5HandleIrq(void* pvContext);
 void vRmapCh6HandleIrq(void* pvContext);
 void vRmapCh7HandleIrq(void* pvContext);
 void vRmapCh8HandleIrq(void* pvContext);
-
-void vRmapCh1IrqFlagClrWriteCmd(void);
-void vRmapCh2IrqFlagClrWriteCmd(void);
-void vRmapCh3IrqFlagClrWriteCmd(void);
-void vRmapCh4IrqFlagClrWriteCmd(void);
-void vRmapCh5IrqFlagClrWriteCmd(void);
-void vRmapCh6IrqFlagClrWriteCmd(void);
-void vRmapCh7IrqFlagClrWriteCmd(void);
-void vRmapCh8IrqFlagClrWriteCmd(void);
-
-bool bRmapCh1IrqFlagWriteCmd(void);
-bool bRmapCh2IrqFlagWriteCmd(void);
-bool bRmapCh3IrqFlagWriteCmd(void);
-bool bRmapCh4IrqFlagWriteCmd(void);
-bool bRmapCh5IrqFlagWriteCmd(void);
-bool bRmapCh6IrqFlagWriteCmd(void);
-bool bRmapCh7IrqFlagWriteCmd(void);
-bool bRmapCh8IrqFlagWriteCmd(void);
 
 alt_u32 uliRmapCh1WriteCmdAddress(void);
 alt_u32 uliRmapCh2WriteCmdAddress(void);
