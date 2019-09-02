@@ -6,33 +6,60 @@ use work.ftdi_protocol_pkg.all;
 
 entity ftdi_protocol_controller_ent is
 	port(
-		clk_i                         : in  std_logic;
-		rst_i                         : in  std_logic;
-		data_stop_i                   : in  std_logic;
-		data_start_i                  : in  std_logic;
-		half_ccd_request_start_i      : in  std_logic;
-		half_ccd_request_data_i       : in  t_ftdi_prot_halfccd_req_config;
-		header_generator_busy_i       : in  std_logic;
-		header_parser_busy_i          : in  std_logic;
-		header_parser_data_i          : in  t_ftdi_prot_header_fields;
-		header_parser_crc32_match_i   : in  std_logic;
-		header_parser_eoh_error_i     : in  std_logic;
-		payload_writer_busy_i         : in  std_logic;
-		payload_reader_busy_i         : in  std_logic;
-		payload_reader_crc32_match_i  : in  std_logic;
-		payload_reader_eop_error_i    : in  std_logic;
-		protocol_general_error_o      : out std_logic;
-		header_generator_start_o      : out std_logic;
-		header_generator_reset_o      : out std_logic;
-		header_generator_data_o       : out t_ftdi_prot_header_fields;
-		header_parser_start_o         : out std_logic;
-		header_parser_reset_o         : out std_logic;
-		payload_writer_start_o        : out std_logic;
-		payload_writer_reset_o        : out std_logic;
-		payload_writer_length_bytes_o : out std_logic_vector(31 downto 0);
-		payload_reader_start_o        : out std_logic;
-		payload_reader_reset_o        : out std_logic;
-		payload_reader_length_bytes_o : out std_logic_vector(31 downto 0)
+		clk_i                                : in  std_logic;
+		rst_i                                : in  std_logic;
+		data_stop_i                          : in  std_logic;
+		data_start_i                         : in  std_logic;
+		req_half_ccd_request_timeout_i       : in  std_logic_vector(15 downto 0);
+		req_half_ccd_fee_number_i            : in  std_logic_vector(2 downto 0);
+		req_half_ccd_ccd_number_i            : in  std_logic_vector(1 downto 0);
+		req_half_ccd_ccd_side_i              : in  std_logic;
+		req_half_ccd_height_i                : in  std_logic_vector(12 downto 0);
+		req_half_ccd_width_i                 : in  std_logic_vector(11 downto 0);
+		req_half_ccd_exposure_number_i       : in  std_logic_vector(15 downto 0);
+		req_half_ccd_request_i               : in  std_logic;
+		req_half_ccd_abort_request_i         : in  std_logic;
+		req_half_ccd_reset_controller_i      : in  std_logic;
+		header_generator_busy_i              : in  std_logic;
+		header_parser_busy_i                 : in  std_logic;
+		header_parser_data_i                 : in  t_ftdi_prot_header_fields;
+		header_parser_crc32_match_i          : in  std_logic;
+		header_parser_eoh_error_i            : in  std_logic;
+		payload_writer_busy_i                : in  std_logic;
+		payload_reader_busy_i                : in  std_logic;
+		payload_reader_crc32_match_i         : in  std_logic;
+		payload_reader_eop_error_i           : in  std_logic;
+		rly_half_ccd_fee_number_o            : out std_logic_vector(2 downto 0);
+		rly_half_ccd_ccd_number_o            : out std_logic_vector(1 downto 0);
+		rly_half_ccd_ccd_side_o              : out std_logic;
+		rly_half_ccd_height_o                : out std_logic_vector(12 downto 0);
+		rly_half_ccd_width_o                 : out std_logic_vector(11 downto 0);
+		rly_half_ccd_exposure_number_o       : out std_logic_vector(15 downto 0);
+		rly_half_ccd_image_length_bytes_o    : out std_logic_vector(31 downto 0);
+		rly_half_ccd_received_o              : out std_logic;
+		rly_half_ccd_controller_busy_o       : out std_logic;
+		rly_half_ccd_last_rx_buffer_o        : out std_logic;
+		err_rx_comm_err_state_o              : out std_logic;
+		err_rx_comm_err_code_o               : out std_logic;
+		err_half_ccd_request_nack_err_o      : out std_logic;
+		err_half_ccd_reply_header_crc_err_o  : out std_logic;
+		err_half_ccd_reply_eoh_err_o         : out std_logic;
+		err_half_ccd_reply_payload_crc_err_o : out std_logic;
+		err_half_ccd_reply_eop_err_o         : out std_logic;
+		err_half_ccd_req_max_tries_err_o     : out std_logic;
+		err_half_ccd_reply_ccd_size_err_o    : out std_logic;
+		err_half_ccd_req_timeout_err_o       : out std_logic;
+		header_generator_start_o             : out std_logic;
+		header_generator_reset_o             : out std_logic;
+		header_generator_data_o              : out t_ftdi_prot_header_fields;
+		header_parser_start_o                : out std_logic;
+		header_parser_reset_o                : out std_logic;
+		payload_writer_start_o               : out std_logic;
+		payload_writer_reset_o               : out std_logic;
+		payload_writer_length_bytes_o        : out std_logic_vector(31 downto 0);
+		payload_reader_start_o               : out std_logic;
+		payload_reader_reset_o               : out std_logic;
+		payload_reader_length_bytes_o        : out std_logic_vector(31 downto 0)
 	);
 end entity ftdi_protocol_controller_ent;
 
@@ -70,7 +97,8 @@ architecture RTL of ftdi_protocol_controller_ent is
 	);
 	signal s_ftdi_prot_controller_state : t_ftdi_prot_controller_fsm;
 
-	signal s_parsed_header_data : t_ftdi_prot_header_fields;
+	signal s_registered_request_data : t_ftdi_prot_header_fields;
+	signal s_parsed_header_data      : t_ftdi_prot_header_fields;
 
 	signal s_request_tries : natural range 0 to 2;
 
@@ -83,24 +111,45 @@ begin
 	begin
 		if (rst_i = '1') then
 			-- fsm state reset
-			s_ftdi_prot_controller_state  <= STOPPED;
-			v_ftdi_prot_controller_state  := STOPPED;
+			s_ftdi_prot_controller_state         <= STOPPED;
+			v_ftdi_prot_controller_state         := STOPPED;
 			-- internal signals reset
-			s_parsed_header_data          <= c_FTDI_PROT_HEADER_RESET;
-			s_request_tries               <= 0;
-			s_general_error               <= '0';
+			s_registered_request_data            <= c_FTDI_PROT_HEADER_RESET;
+			s_parsed_header_data                 <= c_FTDI_PROT_HEADER_RESET;
+			s_request_tries                      <= 0;
+			s_general_error                      <= '0';
 			-- outputs reset
-			header_generator_start_o      <= '0';
-			header_generator_reset_o      <= '0';
-			header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-			header_parser_start_o         <= '0';
-			header_parser_reset_o         <= '0';
-			payload_writer_start_o        <= '0';
-			payload_writer_reset_o        <= '0';
-			payload_writer_length_bytes_o <= (others => '0');
-			payload_reader_start_o        <= '0';
-			payload_reader_reset_o        <= '0';
-			payload_reader_length_bytes_o <= (others => '0');
+			rly_half_ccd_fee_number_o            <= (others => '0');
+			rly_half_ccd_ccd_number_o            <= (others => '0');
+			rly_half_ccd_ccd_side_o              <= '0';
+			rly_half_ccd_height_o                <= (others => '0');
+			rly_half_ccd_width_o                 <= (others => '0');
+			rly_half_ccd_exposure_number_o       <= (others => '0');
+			rly_half_ccd_image_length_bytes_o    <= (others => '0');
+			rly_half_ccd_received_o              <= '0';
+			rly_half_ccd_controller_busy_o       <= '0';
+			rly_half_ccd_last_rx_buffer_o        <= '0';
+			err_rx_comm_err_state_o              <= '0';
+			err_rx_comm_err_code_o               <= '0';
+			err_half_ccd_request_nack_err_o      <= '0';
+			err_half_ccd_reply_header_crc_err_o  <= '0';
+			err_half_ccd_reply_eoh_err_o         <= '0';
+			err_half_ccd_reply_payload_crc_err_o <= '0';
+			err_half_ccd_reply_eop_err_o         <= '0';
+			err_half_ccd_req_max_tries_err_o     <= '0';
+			err_half_ccd_reply_ccd_size_err_o    <= '0';
+			err_half_ccd_req_timeout_err_o       <= '0';
+			header_generator_start_o             <= '0';
+			header_generator_reset_o             <= '0';
+			header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+			header_parser_start_o                <= '0';
+			header_parser_reset_o                <= '0';
+			payload_writer_start_o               <= '0';
+			payload_writer_reset_o               <= '0';
+			payload_writer_length_bytes_o        <= (others => '0');
+			payload_reader_start_o               <= '0';
+			payload_reader_reset_o               <= '0';
+			payload_reader_length_bytes_o        <= (others => '0');
 		elsif rising_edge(clk_i) then
 
 			-- States transitions FSM
@@ -113,6 +162,8 @@ begin
 					s_ftdi_prot_controller_state <= STOPPED;
 					v_ftdi_prot_controller_state := STOPPED;
 					-- default internal signal values
+					s_registered_request_data    <= c_FTDI_PROT_HEADER_RESET;
+					s_parsed_header_data         <= c_FTDI_PROT_HEADER_RESET;
 					s_request_tries              <= 0;
 					s_general_error              <= '0';
 					-- conditional state transition
@@ -129,13 +180,23 @@ begin
 					s_ftdi_prot_controller_state <= IDLE;
 					v_ftdi_prot_controller_state := IDLE;
 					-- default internal signal values
-					-- conditional state transition
+					s_registered_request_data    <= c_FTDI_PROT_HEADER_RESET;
+					s_parsed_header_data         <= c_FTDI_PROT_HEADER_RESET;
 					s_request_tries              <= 0;
 					s_general_error              <= '0';
+					-- conditional state transition
 					-- check if a header generator start was issued
-					if (half_ccd_request_start_i = '1') then
-						s_ftdi_prot_controller_state <= HFCCD_REQ_START;
-						v_ftdi_prot_controller_state := HFCCD_REQ_START;
+					if (req_half_ccd_request_i = '1') then
+						s_ftdi_prot_controller_state                         <= HFCCD_REQ_START;
+						v_ftdi_prot_controller_state                         := HFCCD_REQ_START;
+						s_registered_request_data.package_id                 <= c_FTDI_PROT_PKG_ID_HALF_CCD_REQUEST;
+						s_registered_request_data.image_selection.fee_number <= req_half_ccd_ccd_number_i;
+						s_registered_request_data.image_selection.ccd_number <= req_half_ccd_ccd_number_i;
+						s_registered_request_data.image_selection.ccd_side   <= req_half_ccd_ccd_side_i;
+						s_registered_request_data.image_size.ccd_height      <= req_half_ccd_height_i;
+						s_registered_request_data.image_size.ccd_width       <= req_half_ccd_width_i;
+						s_registered_request_data.exposure_number            <= req_half_ccd_exposure_number_i;
+						s_registered_request_data.payload_length             <= (others => '0');
 					end if;
 
 				-- state "HFCCD_REQ_START"
@@ -514,7 +575,12 @@ begin
 					-- default internal signal values
 					s_request_tries              <= 0;
 					s_general_error              <= '0';
-				-- conditional state transition
+					-- conditional state transition
+					-- check if a reset was requested
+					if (req_half_ccd_reset_controller_i = '1') then
+						s_ftdi_prot_controller_state <= IDLE;
+						v_ftdi_prot_controller_state := IDLE;
+					end if;
 
 				-- all the other states (not defined)
 				when others =>
@@ -536,484 +602,980 @@ begin
 				when STOPPED =>
 					-- protocol controller stopped
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '0';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "IDLE"
 				when IDLE =>
 					-- protocol controller idle
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '0';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REQ_START"
 				when HFCCD_REQ_START =>
 					-- half-ccd request start
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REQ_SEND_TX_HEADER"
 				when HFCCD_REQ_SEND_TX_HEADER =>
 					-- half-ccd request transmit request header
 					-- default output signals
-					header_generator_start_o                           <= '1';
-					header_generator_reset_o                           <= '0';
-					header_generator_data_o.package_id                 <= c_FTDI_PROT_PKG_ID_HALF_CCD_REQUEST;
-					header_generator_data_o.image_selection.fee_number <= half_ccd_request_data_i.image_selection.fee_number;
-					header_generator_data_o.image_selection.ccd_number <= half_ccd_request_data_i.image_selection.ccd_number;
-					header_generator_data_o.image_selection.ccd_side   <= half_ccd_request_data_i.image_selection.ccd_side;
-					header_generator_data_o.image_size.ccd_height      <= half_ccd_request_data_i.image_size.ccd_height;
-					header_generator_data_o.image_size.ccd_width       <= half_ccd_request_data_i.image_size.ccd_width;
-					header_generator_data_o.exposure_number            <= half_ccd_request_data_i.exposure_number;
-					header_generator_data_o.payload_length             <= half_ccd_request_data_i.payload_length;
-					header_parser_start_o                              <= '0';
-					header_parser_reset_o                              <= '0';
-					payload_writer_start_o                             <= '0';
-					payload_writer_reset_o                             <= '0';
-					payload_writer_length_bytes_o                      <= (others => '0');
-					payload_reader_start_o                             <= '0';
-					payload_reader_reset_o                             <= '0';
-					payload_reader_length_bytes_o                      <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '1';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= s_registered_request_data;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REQ_WAIT_TX_HEADER"
 				when HFCCD_REQ_WAIT_TX_HEADER =>
 					-- half-ccd request wait request header
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REQ_RESET_TX_HEADER"
 				when HFCCD_REQ_RESET_TX_HEADER =>
 					-- half-ccd request reset request header
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '1';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '1';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_RECEIVE_RX_HEADER"
 				when HFCCD_ACK_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive request ack/nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '1';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '1';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_WAIT_RX_HEADER"
 				when HFCCD_ACK_WAIT_RX_HEADER =>
 					-- half-ccd request wait request ack/nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_PARSE_RX_HEADER"
 				when HFCCD_ACK_PARSE_RX_HEADER =>
 					-- half-ccd request parse request ack/nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '1';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '1';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_HEADER"
 				when HFCCD_REPLY_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive reply header
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '1';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '1';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REPLY_WAIT_RX_HEADER"
 				when HFCCD_REPLY_WAIT_RX_HEADER =>
 					-- half-ccd request wait reply header
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REPLY_PARSE_RX_HEADER"
 				when HFCCD_REPLY_PARSE_RX_HEADER =>
 					-- half-ccd request parse reply header
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '1';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '1';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_SEND_TX_HEADER"
 				when HFCCD_ACK_SEND_TX_HEADER =>
 					-- half-ccd request transmit reply ack
 					-- default output signals
-					header_generator_start_o      <= '1';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_ACK_OK;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '1';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_ACK_OK;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_WAIT_TX_HEADER"
 				when HFCCD_ACK_WAIT_TX_HEADER =>
 					-- half-ccd request wait reply ack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_RESET_TX_HEADER"
 				when HFCCD_ACK_RESET_TX_HEADER =>
 					-- half-ccd request reset reply ack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '1';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '1';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_NACK_SEND_TX_HEADER"
 				when HFCCD_NACK_SEND_TX_HEADER =>
 					-- half-ccd request transmit reply nack
 					-- default output signals
-					-- default output signals
-					header_generator_start_o      <= '1';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_NACK_ERROR;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '1';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_NACK_ERROR;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_NACK_WAIT_TX_HEADER"
 				when HFCCD_NACK_WAIT_TX_HEADER =>
 					-- half-ccd request wait reply nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_NACK_RESET_TX_HEADER"
 				when HFCCD_NACK_RESET_TX_HEADER =>
 					-- half-ccd request reset reply nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '1';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '1';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
 				when HFCCD_REPLY_RECEIVE_RX_PAYLOAD =>
 					-- half-ccd request receive reply payload
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '1';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= s_parsed_header_data.payload_length;
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '1';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= s_parsed_header_data.payload_length;
 				-- conditional output signals
 
 				-- state "HFCCD_REPLY_WAIT_RX_PAYLOAD"
 				when HFCCD_REPLY_WAIT_RX_PAYLOAD =>
 					-- half-ccd request wait reply payload
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REPLY_PARSE_RX_PAYLOAD"
 				when HFCCD_REPLY_PARSE_RX_PAYLOAD =>
 					-- half-ccd request parse reply payload
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '1';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '1';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
 				when HFCCD_ACK_SEND_TX_PAYLOAD =>
 					-- half-ccd request transmit payload ack
 					-- default output signals
-					header_generator_start_o      <= '1';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_ACK_OK;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '1';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_ACK_OK;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
 				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
 					-- half-ccd request wait payload ack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_ACK_RESET_TX_PAYLOAD"
 				when HFCCD_ACK_RESET_TX_PAYLOAD =>
 					-- half-ccd request reset payload ack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '1';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '1';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_NACK_SEND_TX_PAYLOAD"
 				when HFCCD_NACK_SEND_TX_PAYLOAD =>
 					-- half-ccd request transmit payload nack
 					-- default output signals
-					header_generator_start_o      <= '1';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_NACK_ERROR;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '1';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_NACK_ERROR;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_NACK_WAIT_TX_PAYLOAD"
 				when HFCCD_NACK_WAIT_TX_PAYLOAD =>
 					-- half-ccd request wait payload nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_NACK_RESET_TX_PAYLOAD"
 				when HFCCD_NACK_RESET_TX_PAYLOAD =>
 					-- half-ccd request reset payload nack
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '1';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '1';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 				-- conditional output signals
 
 				-- state "HFCCD_REQ_FINISH"
 				when HFCCD_REQ_FINISH =>
 					-- half-ccd request finish
 					-- default output signals
-					header_generator_start_o      <= '0';
-					header_generator_reset_o      <= '0';
-					header_generator_data_o       <= c_FTDI_PROT_HEADER_RESET;
-					header_parser_start_o         <= '0';
-					header_parser_reset_o         <= '0';
-					payload_writer_start_o        <= '0';
-					payload_writer_reset_o        <= '0';
-					payload_writer_length_bytes_o <= (others => '0');
-					payload_reader_start_o        <= '0';
-					payload_reader_reset_o        <= '0';
-					payload_reader_length_bytes_o <= (others => '0');
+					rly_half_ccd_fee_number_o            <= (others => '0');
+					rly_half_ccd_ccd_number_o            <= (others => '0');
+					rly_half_ccd_ccd_side_o              <= '0';
+					rly_half_ccd_height_o                <= (others => '0');
+					rly_half_ccd_width_o                 <= (others => '0');
+					rly_half_ccd_exposure_number_o       <= (others => '0');
+					rly_half_ccd_image_length_bytes_o    <= (others => '0');
+					rly_half_ccd_received_o              <= '0';
+					rly_half_ccd_controller_busy_o       <= '1';
+					rly_half_ccd_last_rx_buffer_o        <= '0';
+					err_half_ccd_request_nack_err_o      <= '0';
+					err_half_ccd_reply_header_crc_err_o  <= '0';
+					err_half_ccd_reply_eoh_err_o         <= '0';
+					err_half_ccd_reply_payload_crc_err_o <= '0';
+					err_half_ccd_reply_eop_err_o         <= '0';
+					err_half_ccd_req_max_tries_err_o     <= '0';
+					err_half_ccd_reply_ccd_size_err_o    <= '0';
+					err_half_ccd_req_timeout_err_o       <= '0';
+					header_generator_start_o             <= '0';
+					header_generator_reset_o             <= '0';
+					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
+					header_parser_start_o                <= '0';
+					header_parser_reset_o                <= '0';
+					payload_writer_start_o               <= '0';
+					payload_writer_reset_o               <= '0';
+					payload_writer_length_bytes_o        <= (others => '0');
+					payload_reader_start_o               <= '0';
+					payload_reader_reset_o               <= '0';
+					payload_reader_length_bytes_o        <= (others => '0');
 					-- conditional output signals
 
 			end case;

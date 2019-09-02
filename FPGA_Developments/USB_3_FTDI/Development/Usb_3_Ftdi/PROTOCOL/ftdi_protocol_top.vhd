@@ -6,34 +6,62 @@ use work.ftdi_protocol_pkg.all;
 
 entity ftdi_protocol_top is
 	port(
-		clk_i                         : in  std_logic;
-		rst_i                         : in  std_logic;
-		data_stop_i                   : in  std_logic;
-		data_start_i                  : in  std_logic;
-		half_ccd_request_start_i      : in  std_logic;
-		half_ccd_request_data_i       : in  t_ftdi_prot_halfccd_req_config;
-		tx_dc_data_fifo_wrempty_i     : in  std_logic;
-		tx_dc_data_fifo_wrfull_i      : in  std_logic;
-		tx_dc_data_fifo_wrusedw_i     : in  std_logic_vector(11 downto 0);
-		rx_dc_data_fifo_rddata_data_i : in  std_logic_vector(31 downto 0);
-		rx_dc_data_fifo_rddata_be_i   : in  std_logic_vector(3 downto 0);
-		rx_dc_data_fifo_rdempty_i     : in  std_logic;
-		rx_dc_data_fifo_rdfull_i      : in  std_logic;
-		rx_dc_data_fifo_rdusedw_i     : in  std_logic_vector(11 downto 0);
-		tx_dbuffer_stat_empty_i       : in  std_logic;
-		tx_dbuffer_rddata_i           : in  std_logic_vector(255 downto 0);
-		tx_dbuffer_rdready_i          : in  std_logic;
-		rx_dbuffer_stat_full_i        : in  std_logic;
-		rx_dbuffer_wrready_i          : in  std_logic;
-		tx_dc_data_fifo_wrdata_data_o : out std_logic_vector(31 downto 0);
-		tx_dc_data_fifo_wrdata_be_o   : out std_logic_vector(3 downto 0);
-		tx_dc_data_fifo_wrreq_o       : out std_logic;
-		rx_dc_data_fifo_rdreq_o       : out std_logic;
-		tx_dbuffer_rdreq_o            : out std_logic;
-		tx_dbuffer_change_o           : out std_logic;
-		rx_dbuffer_data_loaded_o      : out std_logic;
-		rx_dbuffer_wrdata_o           : out std_logic_vector(255 downto 0);
-		rx_dbuffer_wrreq_o            : out std_logic
+		clk_i                                : in  std_logic;
+		rst_i                                : in  std_logic;
+		ftdi_module_stop_i                   : in  std_logic; --                  -- Start Module Operation
+		ftdi_module_start_i                  : in  std_logic; --                  -- Stop Module Operation
+		req_half_ccd_request_timeout_i       : in  std_logic_vector(15 downto 0); -- Half-CCD Request Timeout
+		req_half_ccd_fee_number_i            : in  std_logic_vector(2 downto 0); --- Half-CCD FEE Number
+		req_half_ccd_ccd_number_i            : in  std_logic_vector(1 downto 0); --- Half-CCD CCD Number
+		req_half_ccd_ccd_side_i              : in  std_logic; --                     Half-CCD CCD Side
+		req_half_ccd_height_i                : in  std_logic_vector(12 downto 0); -- Half-CCD CCD Height
+		req_half_ccd_width_i                 : in  std_logic_vector(11 downto 0); -- Half-CCD CCD Width
+		req_half_ccd_exposure_number_i       : in  std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
+		req_half_ccd_request_i               : in  std_logic; --                  -- Request Half-CCD
+		req_half_ccd_abort_request_i         : in  std_logic; --                  -- Abort Half-CCD Request
+		req_half_ccd_reset_controller_i      : in  std_logic; --                  -- Reset Half-CCD Controller		
+		tx_dc_data_fifo_wrempty_i            : in  std_logic;
+		tx_dc_data_fifo_wrfull_i             : in  std_logic;
+		tx_dc_data_fifo_wrusedw_i            : in  std_logic_vector(11 downto 0);
+		rx_dc_data_fifo_rddata_data_i        : in  std_logic_vector(31 downto 0);
+		rx_dc_data_fifo_rddata_be_i          : in  std_logic_vector(3 downto 0);
+		rx_dc_data_fifo_rdempty_i            : in  std_logic;
+		rx_dc_data_fifo_rdfull_i             : in  std_logic;
+		rx_dc_data_fifo_rdusedw_i            : in  std_logic_vector(11 downto 0);
+		tx_dbuffer_stat_empty_i              : in  std_logic;
+		tx_dbuffer_rddata_i                  : in  std_logic_vector(255 downto 0);
+		tx_dbuffer_rdready_i                 : in  std_logic;
+		rx_dbuffer_stat_full_i               : in  std_logic;
+		rx_dbuffer_wrready_i                 : in  std_logic;
+		rly_half_ccd_fee_number_o            : out std_logic_vector(2 downto 0); --- Half-CCD FEE Number
+		rly_half_ccd_ccd_number_o            : out std_logic_vector(1 downto 0); --- Half-CCD CCD Number
+		rly_half_ccd_ccd_side_o              : out std_logic; --                  -- Half-CCD CCD Side
+		rly_half_ccd_height_o                : out std_logic_vector(12 downto 0); -- Half-CCD CCD Height
+		rly_half_ccd_width_o                 : out std_logic_vector(11 downto 0); -- Half-CCD CCD Width
+		rly_half_ccd_exposure_number_o       : out std_logic_vector(15 downto 0); -- Half-CCD Exposure Number
+		rly_half_ccd_image_length_bytes_o    : out std_logic_vector(31 downto 0); -- Half-CCD Image Length [Bytes]
+		rly_half_ccd_received_o              : out std_logic; --                  -- Half-CCD Received
+		rly_half_ccd_controller_busy_o       : out std_logic; --                  -- Half-CCD Controller Busy
+		rly_half_ccd_last_rx_buffer_o        : out std_logic; --                  -- Half-CCD Last Rx Buffer
+		err_rx_comm_err_state_o              : out std_logic; --                  -- Rx Communication Error State
+		err_rx_comm_err_code_o               : out std_logic; --                  -- Rx Communication Error Code
+		err_half_ccd_request_nack_err_o      : out std_logic; --                  -- Half-CCD Request Nack Error
+		err_half_ccd_reply_header_crc_err_o  : out std_logic; --                  -- Half-CCD Reply Wrong Header CRC Error
+		err_half_ccd_reply_eoh_err_o         : out std_logic; --                  -- Half-CCD Reply End of Header Error
+		err_half_ccd_reply_payload_crc_err_o : out std_logic; --                  -- Half-CCD Reply Wrong Payload CRC Error
+		err_half_ccd_reply_eop_err_o         : out std_logic; --                  -- Half-CCD Reply End of Payload Error
+		err_half_ccd_req_max_tries_err_o     : out std_logic; --                  -- Half-CCD Request Maximum Tries Error
+		err_half_ccd_reply_ccd_size_err_o    : out std_logic; --                  -- Half-CCD Request CCD Size Error
+		err_half_ccd_req_timeout_err_o       : out std_logic; --                  -- Half-CCD Request Timeout Error
+		tx_dc_data_fifo_wrdata_data_o        : out std_logic_vector(31 downto 0);
+		tx_dc_data_fifo_wrdata_be_o          : out std_logic_vector(3 downto 0);
+		tx_dc_data_fifo_wrreq_o              : out std_logic;
+		rx_dc_data_fifo_rdreq_o              : out std_logic;
+		tx_dbuffer_rdreq_o                   : out std_logic;
+		tx_dbuffer_change_o                  : out std_logic;
+		rx_dbuffer_data_loaded_o             : out std_logic;
+		rx_dbuffer_wrdata_o                  : out std_logic_vector(255 downto 0);
+		rx_dbuffer_wrreq_o                   : out std_logic
 	);
 end entity ftdi_protocol_top;
 
@@ -94,32 +122,60 @@ begin
 	-- FTDI Protocol Controller Instantiation
 	ftdi_protocol_controller_ent_inst : entity work.ftdi_protocol_controller_ent
 		port map(
-			clk_i                         => clk_i,
-			rst_i                         => rst_i,
-			data_stop_i                   => data_stop_i,
-			data_start_i                  => data_start_i,
-			half_ccd_request_start_i      => half_ccd_request_start_i,
-			half_ccd_request_data_i       => half_ccd_request_data_i,
-			header_generator_busy_i       => s_header_generator_busy,
-			header_parser_busy_i          => s_header_parser_busy,
-			header_parser_data_i          => s_header_parser_data,
-			header_parser_crc32_match_i   => s_header_parser_crc32_match,
-			header_parser_eoh_error_i     => s_header_parser_eoh_error,
-			payload_writer_busy_i         => s_payload_writer_busy,
-			payload_reader_busy_i         => s_payload_reader_busy,
-			payload_reader_crc32_match_i  => s_payload_reader_crc32_match,
-			payload_reader_eop_error_i    => s_payload_reader_eop_error,
-			header_generator_start_o      => s_header_generator_start,
-			header_generator_reset_o      => s_header_generator_reset,
-			header_generator_data_o       => s_header_generator_data,
-			header_parser_start_o         => s_header_parser_start,
-			header_parser_reset_o         => s_header_parser_reset,
-			payload_writer_start_o        => s_payload_writer_start,
-			payload_writer_reset_o        => s_payload_writer_reset,
-			payload_writer_length_bytes_o => s_payload_writer_length_bytes,
-			payload_reader_start_o        => s_payload_reader_start,
-			payload_reader_reset_o        => s_payload_reader_reset,
-			payload_reader_length_bytes_o => s_payload_reader_length_bytes
+			clk_i                                => clk_i,
+			rst_i                                => rst_i,
+			data_stop_i                          => ftdi_module_stop_i,
+			data_start_i                         => ftdi_module_start_i,
+			req_half_ccd_request_timeout_i       => req_half_ccd_request_timeout_i,
+			req_half_ccd_fee_number_i            => req_half_ccd_fee_number_i,
+			req_half_ccd_ccd_number_i            => req_half_ccd_ccd_number_i,
+			req_half_ccd_ccd_side_i              => req_half_ccd_ccd_side_i,
+			req_half_ccd_height_i                => req_half_ccd_height_i,
+			req_half_ccd_width_i                 => req_half_ccd_width_i,
+			req_half_ccd_exposure_number_i       => req_half_ccd_exposure_number_i,
+			req_half_ccd_request_i               => req_half_ccd_request_i,
+			req_half_ccd_abort_request_i         => req_half_ccd_abort_request_i,
+			req_half_ccd_reset_controller_i      => req_half_ccd_reset_controller_i,
+			header_generator_busy_i              => s_header_generator_busy,
+			header_parser_busy_i                 => s_header_parser_busy,
+			header_parser_data_i                 => s_header_parser_data,
+			header_parser_crc32_match_i          => s_header_parser_crc32_match,
+			header_parser_eoh_error_i            => s_header_parser_eoh_error,
+			payload_writer_busy_i                => s_payload_writer_busy,
+			payload_reader_busy_i                => s_payload_reader_busy,
+			payload_reader_crc32_match_i         => s_payload_reader_crc32_match,
+			payload_reader_eop_error_i           => s_payload_reader_eop_error,
+			rly_half_ccd_fee_number_o            => rly_half_ccd_fee_number_o,
+			rly_half_ccd_ccd_number_o            => rly_half_ccd_ccd_number_o,
+			rly_half_ccd_ccd_side_o              => rly_half_ccd_ccd_side_o,
+			rly_half_ccd_height_o                => rly_half_ccd_height_o,
+			rly_half_ccd_width_o                 => rly_half_ccd_width_o,
+			rly_half_ccd_exposure_number_o       => rly_half_ccd_exposure_number_o,
+			rly_half_ccd_image_length_bytes_o    => rly_half_ccd_image_length_bytes_o,
+			rly_half_ccd_received_o              => rly_half_ccd_received_o,
+			rly_half_ccd_controller_busy_o       => rly_half_ccd_controller_busy_o,
+			rly_half_ccd_last_rx_buffer_o        => rly_half_ccd_last_rx_buffer_o,
+			err_rx_comm_err_state_o              => err_rx_comm_err_state_o,
+			err_rx_comm_err_code_o               => err_rx_comm_err_code_o,
+			err_half_ccd_request_nack_err_o      => err_half_ccd_request_nack_err_o,
+			err_half_ccd_reply_header_crc_err_o  => err_half_ccd_reply_header_crc_err_o,
+			err_half_ccd_reply_eoh_err_o         => err_half_ccd_reply_eoh_err_o,
+			err_half_ccd_reply_payload_crc_err_o => err_half_ccd_reply_payload_crc_err_o,
+			err_half_ccd_reply_eop_err_o         => err_half_ccd_reply_eop_err_o,
+			err_half_ccd_req_max_tries_err_o     => err_half_ccd_req_max_tries_err_o,
+			err_half_ccd_reply_ccd_size_err_o    => err_half_ccd_reply_ccd_size_err_o,
+			err_half_ccd_req_timeout_err_o       => err_half_ccd_req_timeout_err_o,
+			header_generator_start_o             => s_header_generator_start,
+			header_generator_reset_o             => s_header_generator_reset,
+			header_generator_data_o              => s_header_generator_data,
+			header_parser_start_o                => s_header_parser_start,
+			header_parser_reset_o                => s_header_parser_reset,
+			payload_writer_start_o               => s_payload_writer_start,
+			payload_writer_reset_o               => s_payload_writer_reset,
+			payload_writer_length_bytes_o        => s_payload_writer_length_bytes,
+			payload_reader_start_o               => s_payload_reader_start,
+			payload_reader_reset_o               => s_payload_reader_reset,
+			payload_reader_length_bytes_o        => s_payload_reader_length_bytes
 		);
 
 	-- FTDI Tx Protocol Header Generator Instantiation
@@ -127,8 +183,8 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
-			data_tx_stop_i                => data_stop_i,
-			data_tx_start_i               => data_start_i,
+			data_tx_stop_i                => ftdi_module_stop_i,
+			data_tx_start_i               => ftdi_module_start_i,
 			header_generator_start_i      => s_header_generator_start,
 			header_generator_reset_i      => s_header_generator_reset,
 			header_data_i                 => s_header_generator_data,
@@ -146,8 +202,8 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
-			data_rx_stop_i                => data_stop_i,
-			data_rx_start_i               => data_start_i,
+			data_rx_stop_i                => ftdi_module_stop_i,
+			data_rx_start_i               => ftdi_module_start_i,
 			header_parser_start_i         => s_header_parser_start,
 			header_parser_reset_i         => s_header_parser_reset,
 			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
@@ -167,8 +223,8 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
-			data_tx_stop_i                => data_stop_i,
-			data_tx_start_i               => data_start_i,
+			data_tx_stop_i                => ftdi_module_stop_i,
+			data_tx_start_i               => ftdi_module_start_i,
 			payload_writer_start_i        => s_payload_writer_start,
 			payload_writer_reset_i        => s_payload_writer_reset,
 			payload_length_bytes_i        => s_payload_writer_length_bytes,
@@ -191,8 +247,8 @@ begin
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
-			data_rx_stop_i                => data_stop_i,
-			data_rx_start_i               => data_start_i,
+			data_rx_stop_i                => ftdi_module_stop_i,
+			data_rx_start_i               => ftdi_module_start_i,
 			payload_reader_start_i        => s_payload_reader_start,
 			payload_reader_reset_i        => s_payload_reader_reset,
 			payload_length_bytes_i        => s_payload_reader_length_bytes,
