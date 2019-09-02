@@ -61,6 +61,6 @@ void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
 void vLoadDefaultAutoResetSync( TSimucam_MEB *xMeb );
 void vChangeAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
-void vSyncReset( unsigned short int ufSynchDelay, TNFee_Control *pxFeeCP ); /* [bndky] */
+INT8U vSyncReset( unsigned short int ufSynchDelay, TNFee_Control *pxFeeCP ); /* [bndky] */
 
 #endif /* MEB_H_ */

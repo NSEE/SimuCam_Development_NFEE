@@ -54,9 +54,11 @@ void vSyncResetTask( void *task_data ){
             /* Enable Sync */
             bStartSync();
         } else{
-            // TODO error statement
-        }
-        
+            #if DEBUG_ON        //TODO verif se esta tudo certo com o erro
+                if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+                    fprintf(fp,"Sync Reset: Sync Reset Error\n");
+            #endif
+        }   
     }
 }
 

@@ -135,8 +135,9 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 
 /* Only in MEB_RUNNING */
 /* Synchronization Reset [bndky] */
-void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
+INT8U vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
     INT8U iErrorCodeL = 0;
+    INT8U iReturnError = 0;
     int i = 0;
 
     /* Send message to task queue */
@@ -155,7 +156,16 @@ void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
                     }
                 }
 
+        }else{
+            #if DEBUG_ON
+                if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+                    fprintf(fp,"Sync Reset: Sync Reset Error\n");
+            #endif
         }
+    } else{
+        #if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				fprintf(fp,"Sync Reset: Sync Reset Error\n");
+		#endif
     }
-    //TODO error condition?
 }
