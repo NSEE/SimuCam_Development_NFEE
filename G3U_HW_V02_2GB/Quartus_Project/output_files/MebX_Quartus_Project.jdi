@@ -3,7 +3,7 @@
     <hash md5_digest_80b="5945ef647405d8c3448a"/>
   </project>
   <file_info>
-    <file device="EP4SGX230KF40C2" path="MebX_Quartus_Project.sof" usercode="0xFFFFFFFF"/>
+    <file device="EP4SGX530KH40C2" path="MebX_Quartus_Project.sof" usercode="0xFFFFFFFF"/>
   </file_info>
   <hub_info hub_ir_width="5" ir_width="2" node_addr_width="2" node_count="2"/>
   <node_info>
