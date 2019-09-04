@@ -8,20 +8,35 @@ package avalon_mm_spacewire_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_SPACEWIRE_MAX_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#3D#;
+	constant c_AVALON_MM_SPACEWIRE_MIN_ADDR : natural range 0 to 255 := 16#47#;
 
 	-- Registers Types
 
-	-- SpaceWire Link Config/Status Register
-	type t_comm_spw_link_config_status_wr_reg is record
+	-- Comm Device Address Register
+	type t_comm_comm_dev_addr_wr_reg is record
+		comm_dev_base_addr : std_logic_vector(31 downto 0); -- Comm Device Base Address
+	end record t_comm_comm_dev_addr_wr_reg;
+
+	-- Comm IRQ Control Register
+	type t_comm_comm_irq_control_wr_reg is record
+		comm_global_irq_en : std_logic; -- Comm Global IRQ Enable
+	end record t_comm_comm_irq_control_wr_reg;
+
+	-- SpaceWire Device Address Register
+	type t_comm_spw_dev_addr_wr_reg is record
+		spw_dev_base_addr : std_logic_vector(31 downto 0); -- SpaceWire Device Base Address
+	end record t_comm_spw_dev_addr_wr_reg;
+
+	-- SpaceWire Link Config Register
+	type t_comm_spw_link_config_wr_reg is record
 		spw_lnkcfg_disconnect : std_logic; -- SpaceWire Link Config Disconnect
 		spw_lnkcfg_linkstart  : std_logic; -- SpaceWire Link Config Linkstart
 		spw_lnkcfg_autostart  : std_logic; -- SpaceWire Link Config Autostart
 		spw_lnkcfg_txdivcnt   : std_logic_vector(7 downto 0); -- SpaceWire Link Config TxDivCnt
-	end record t_comm_spw_link_config_status_wr_reg;
+	end record t_comm_spw_link_config_wr_reg;
 
-	-- SpaceWire Link Config/Status Register
-	type t_comm_spw_link_config_status_rd_reg is record
+	-- SpaceWire Link Status Register
+	type t_comm_spw_link_status_rd_reg is record
 		spw_link_running    : std_logic; -- SpaceWire Link Running
 		spw_link_connecting : std_logic; -- SpaceWire Link Connecting
 		spw_link_started    : std_logic; -- SpaceWire Link Started
@@ -29,26 +44,37 @@ package avalon_mm_spacewire_registers_pkg is
 		spw_err_parity      : std_logic; -- SpaceWire Error Parity
 		spw_err_escape      : std_logic; -- SpaceWire Error Escape
 		spw_err_credit      : std_logic; -- SpaceWire Error Credit
-	end record t_comm_spw_link_config_status_rd_reg;
+	end record t_comm_spw_link_status_rd_reg;
 
-	-- SpaceWire Timecode Register
+	-- SpaceWire Timecode Config Register
 	type t_comm_spw_timecode_wr_reg is record
 		timecode_clear : std_logic;     -- SpaceWire Timecode Clear
 		timecode_en    : std_logic;     -- SpaceWire Timecode Enable
 	end record t_comm_spw_timecode_wr_reg;
 
-	-- SpaceWire Timecode Register
+	-- SpaceWire Timecode Status Register
 	type t_comm_spw_timecode_rd_reg is record
 		timecode_time    : std_logic_vector(5 downto 0); -- SpaceWire Timecode Time
 		timecode_control : std_logic_vector(1 downto 0); -- SpaceWire Timecode Control
 	end record t_comm_spw_timecode_rd_reg;
 
+	-- FEE Buffers Device Address Register
+	type t_comm_fee_buffers_dev_addr_wr_reg is record
+		fee_buffers_dev_base_addr : std_logic_vector(31 downto 0); -- FEE Buffers Device Base Address
+	end record t_comm_fee_buffers_dev_addr_wr_reg;
+
+	-- FEE Machine Config Register
+	type t_comm_fee_machine_config_wr_reg is record
+		fee_machine_clear      : std_logic; -- FEE Machine Clear
+		fee_machine_stop       : std_logic; -- FEE Machine Stop
+		fee_machine_start      : std_logic; -- FEE Machine Start
+		fee_data_controller_en : std_logic; -- FEE Data Controller Enable
+		fee_digitalise_en      : std_logic; -- FEE Digitalise Enable
+		fee_windowing_en       : std_logic; -- FEE Windowing Enable
+	end record t_comm_fee_machine_config_wr_reg;
+
 	-- FEE Buffers Config Register
 	type t_comm_fee_buffers_config_wr_reg is record
-		fee_machine_clear     : std_logic; -- FEE Machine Clear
-		fee_machine_stop      : std_logic; -- FEE Machine Stop
-		fee_machine_start     : std_logic; -- FEE Machine Start
-		fee_masking_en        : std_logic; -- FEE Masking Enable
 		fee_right_buffer_size : std_logic_vector(3 downto 0); -- Windowing Right Buffer Size Config
 		fee_left_buffer_size  : std_logic_vector(3 downto 0); -- Windowing Left Buffer Size Config
 	end record t_comm_fee_buffers_config_wr_reg;
@@ -83,6 +109,16 @@ package avalon_mm_spacewire_registers_pkg is
 		fee_left_buffer_1_empty_flag_clear  : std_logic; -- FEE Left Buffer 1 Empty IRQ Flag Clear
 	end record t_comm_fee_buffers_irq_flags_clear_wr_reg;
 
+	-- FEE Buffers IRQ Number Register
+	type t_comm_fee_buffers_number_rd_reg is record
+		fee_buffers_irq_number : std_logic_vector(31 downto 0); -- FEE Buffers IRQ Number/ID
+	end record t_comm_fee_buffers_number_rd_reg;
+
+	-- RMAP Device Address Register
+	type t_comm_rmap_dev_addr_wr_reg is record
+		rmap_dev_base_addr : std_logic_vector(31 downto 0); -- RMAP Device Base Address
+	end record t_comm_rmap_dev_addr_wr_reg;
+
 	-- RMAP Codec Config Register
 	type t_comm_rmap_codec_config_wr_reg is record
 		rmap_target_logical_addr : std_logic_vector(7 downto 0); -- RMAP Target Logical Address
@@ -107,11 +143,17 @@ package avalon_mm_spacewire_registers_pkg is
 		rmap_err_invalid_data_crc     : std_logic; -- RMAP Error Invalid Data CRC
 	end record t_comm_rmap_codec_status_rd_reg;
 
-	-- RMAP Memory Config/Status Register
-	type t_comm_rmap_memory_config_status_rd_reg is record
+	-- RMAP Memory Status Register
+	type t_comm_rmap_memory_status_rd_reg is record
 		rmap_last_write_addr : std_logic_vector(31 downto 0); -- RMAP Last Write Address
 		rmap_last_read_addr  : std_logic_vector(31 downto 0); -- RMAP Last Read Address
-	end record t_comm_rmap_memory_config_status_rd_reg;
+	end record t_comm_rmap_memory_status_rd_reg;
+
+	-- RMAP Memory Area Address Register
+	type t_comm_rmap_mem_area_addr_wr_reg is record
+		rmap_mem_area_config_base_addr : std_logic_vector(31 downto 0); -- RMAP Config Memory Area Base Address
+		rmap_mem_area_hk_base_addr     : std_logic_vector(31 downto 0); -- RMAP HouseKeeping Memory Area Base Address
+	end record t_comm_rmap_mem_area_addr_wr_reg;
 
 	-- RMAP IRQ Control Register
 	type t_comm_rmap_irq_control_wr_reg is record
@@ -127,6 +169,16 @@ package avalon_mm_spacewire_registers_pkg is
 	type t_comm_rmap_irq_flags_clear_wr_reg is record
 		rmap_write_command_flag_clear : std_logic; -- RMAP Write Command IRQ Flag Clear
 	end record t_comm_rmap_irq_flags_clear_wr_reg;
+
+	-- RMAP IRQ Number Register
+	type t_comm_rmap_irq_number_rd_reg is record
+		rmap_irq_number : std_logic_vector(31 downto 0); -- RMAP IRQ Number/ID
+	end record t_comm_rmap_irq_number_rd_reg;
+
+	-- Data Packet Device Channel Address Register
+	type t_comm_data_packet_dev_addr_wr_reg is record
+		data_packet_dev_base_addr : std_logic_vector(31 downto 0); -- Data Packet Device Base Address
+	end record t_comm_data_packet_dev_addr_wr_reg;
 
 	-- Data Packet Config Register
 	type t_comm_data_packet_config_wr_reg is record
@@ -156,44 +208,42 @@ package avalon_mm_spacewire_registers_pkg is
 		data_pkt_adc_delay    : std_logic_vector(15 downto 0); -- Data Packet ADC Delay
 	end record t_comm_data_packet_pixel_delay_wr_reg;
 
-	-- Comm IRQ Control Register
-	type t_comm_comm_irq_control_wr_reg is record
-		comm_global_irq_en : std_logic; -- Comm Global IRQ Enable
-	end record t_comm_comm_irq_control_wr_reg;
-
-	-- Comm Device Address Register
-	type t_comm_comm_dev_addr_wr_reg is record
-		comm_dev_base_addr : std_logic_vector(31 downto 0); -- Comm Device Base Address
-	end record t_comm_comm_dev_addr_wr_reg;
-
 	-- Avalon MM Types
 
 	-- Avalon MM Read/Write Registers
 	type t_windowing_write_registers is record
-		spw_link_config_status_reg      : t_comm_spw_link_config_status_wr_reg; -- SpaceWire Link Config/Status Register
-		spw_timecode_reg                : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Register
+		comm_dev_addr_reg               : t_comm_comm_dev_addr_wr_reg; -- Comm Device Address Register
+		comm_irq_control_reg            : t_comm_comm_irq_control_wr_reg; -- Comm IRQ Control Register
+		spw_dev_addr_reg                : t_comm_spw_dev_addr_wr_reg; -- SpaceWire Device Address Register
+		spw_link_config_reg             : t_comm_spw_link_config_wr_reg; -- SpaceWire Link Config Register
+		spw_timecode_config_reg         : t_comm_spw_timecode_wr_reg; -- SpaceWire Timecode Config Register
+		fee_buffers_dev_addr_reg        : t_comm_fee_buffers_dev_addr_wr_reg; -- FEE Buffers Device Address Register
+		fee_machine_config_reg          : t_comm_fee_machine_config_wr_reg; -- FEE Machine Config Register
 		fee_buffers_config_reg          : t_comm_fee_buffers_config_wr_reg; -- FEE Buffers Config Register
 		fee_buffers_irq_control_reg     : t_comm_fee_buffers_irq_control_wr_reg; -- FEE Buffers IRQ Control Register
 		fee_buffers_irq_flags_clear_reg : t_comm_fee_buffers_irq_flags_clear_wr_reg; -- FEE Buffers IRQ Flags Clear Register
+		rmap_dev_addr_reg               : t_comm_rmap_dev_addr_wr_reg; -- RMAP Device Address Register
 		rmap_codec_config_reg           : t_comm_rmap_codec_config_wr_reg; -- RMAP Codec Config Register
+		rmap_mem_area_addr_reg          : t_comm_rmap_mem_area_addr_wr_reg; -- RMAP Memory Area Address Register
 		rmap_irq_control_reg            : t_comm_rmap_irq_control_wr_reg; -- RMAP IRQ Control Register
 		rmap_irq_flags_clear_reg        : t_comm_rmap_irq_flags_clear_wr_reg; -- RMAP IRQ Flags Clear Register
+		data_packet_dev_addr_reg        : t_comm_data_packet_dev_addr_wr_reg; -- Data Packet Device Channel Address Register
 		data_packet_config_reg          : t_comm_data_packet_config_wr_reg; -- Data Packet Config Register
 		data_packet_pixel_delay_reg     : t_comm_data_packet_pixel_delay_wr_reg; -- Data Packet Pixel Delay Register
-		comm_irq_control_reg            : t_comm_comm_irq_control_wr_reg; -- Comm IRQ Control Register
-		comm_dev_addr_reg               : t_comm_comm_dev_addr_wr_reg; -- Comm Device Address Register
 	end record t_windowing_write_registers;
 
 	-- Avalon MM Read-Only Registers
 	type t_windowing_read_registers is record
-		spw_link_config_status_reg    : t_comm_spw_link_config_status_rd_reg; -- SpaceWire Link Config/Status Register
-		spw_timecode_reg              : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Register
-		fee_buffers_status_reg        : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
-		fee_buffers_irq_flags_reg     : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
-		rmap_codec_status_reg         : t_comm_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
-		rmap_memory_config_status_reg : t_comm_rmap_memory_config_status_rd_reg; -- RMAP Memory Config/Status Register
-		rmap_irq_flags_reg            : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
-		data_packet_header_reg        : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
+		spw_link_status_reg        : t_comm_spw_link_status_rd_reg; -- SpaceWire Link Status Register
+		spw_timecode_status_reg    : t_comm_spw_timecode_rd_reg; -- SpaceWire Timecode Status Register
+		fee_buffers_status_reg     : t_comm_fee_buffers_status_rd_reg; -- FEE Buffers Status Register
+		fee_buffers_irq_flags_reg  : t_comm_fee_buffers_irq_flags_rd_reg; -- FEE Buffers IRQ Flags Register
+		fee_buffers_irq_number_reg : t_comm_fee_buffers_number_rd_reg; -- FEE Buffers IRQ Number Register
+		rmap_codec_status_reg      : t_comm_rmap_codec_status_rd_reg; -- RMAP Codec Status Register
+		rmap_memory_status_reg     : t_comm_rmap_memory_status_rd_reg; -- RMAP Memory Status Register
+		rmap_irq_flags_reg         : t_comm_rmap_irq_flags_rd_reg; -- RMAP IRQ Flags Register
+		rmap_irq_number_reg        : t_comm_rmap_irq_number_rd_reg; -- RMAP IRQ Number Register
+		data_packet_header_reg     : t_comm_data_packet_header_rd_reg; -- Data Packet Header Register
 	end record t_windowing_read_registers;
 
 end package avalon_mm_spacewire_registers_pkg;

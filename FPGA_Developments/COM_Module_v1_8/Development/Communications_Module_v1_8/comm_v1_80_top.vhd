@@ -303,10 +303,8 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_R_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_R_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_R_buffer_writedata,
-			fee_clear_signal_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
+			fee_clear_signal_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
 			window_buffer_size_i              => s_spacewire_write_registers.fee_buffers_config_reg.fee_right_buffer_size,
-			--			fee_clear_signal_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
-			--			window_buffer_size_i              => s_spacewire_write_registers.fee_buffers_config_reg.fee_right_buffer_size,
 			window_buffer_control_i           => s_R_window_buffer_control,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_R_buffer_waitrequest,
 			window_double_buffer_o            => s_R_window_double_buffer
@@ -317,9 +315,9 @@ begin
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
-			fee_clear_signal_i      => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
-			fee_stop_signal_i       => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_stop,
-			fee_start_signal_i      => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_start,
+			fee_clear_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
+			fee_stop_signal_i       => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
+			fee_start_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			fee_sync_signal_i       => s_sync_in_trigger,
 			window_double_buffer_i  => s_R_window_double_buffer,
 			window_buffer_control_o => s_R_window_buffer_control,
@@ -342,7 +340,7 @@ begin
 			avalon_mm_windowing_i.address     => avalon_slave_L_buffer_address,
 			avalon_mm_windowing_i.write       => avalon_slave_L_buffer_write,
 			avalon_mm_windowing_i.writedata   => avalon_slave_L_buffer_writedata,
-			fee_clear_signal_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
+			fee_clear_signal_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
 			window_buffer_size_i              => s_spacewire_write_registers.fee_buffers_config_reg.fee_left_buffer_size,
 			window_buffer_control_i           => s_L_window_buffer_control,
 			avalon_mm_windowing_o.waitrequest => avalon_slave_L_buffer_waitrequest,
@@ -354,9 +352,9 @@ begin
 		port map(
 			clk_i                   => a_avs_clock,
 			rst_i                   => a_reset,
-			fee_clear_signal_i      => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
-			fee_stop_signal_i       => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_stop,
-			fee_start_signal_i      => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_start,
+			fee_clear_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
+			fee_stop_signal_i       => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
+			fee_start_signal_i      => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			fee_sync_signal_i       => s_sync_in_trigger,
 			window_double_buffer_i  => s_L_window_double_buffer,
 			window_buffer_control_o => s_L_window_buffer_control,
@@ -372,106 +370,106 @@ begin
 		);
 
 	-- signals muxing for "fee data controller" and "data controller"
-	--   -- "fee_masking_en" is set  : the "fee data controller" have the access right to the windowing buffers and the spw mux
-	--   -- "fee_masking_en" is clear: the "data controller"     have the access right to the windowing buffers and the spw mux
+	--   -- "fee_data_controller_en" is set  : the "fee data controller" have the access right to the windowing buffers and the spw mux
+	--   -- "fee_data_controller_en" is clear: the "data controller"     have the access right to the windowing buffers and the spw mux
 	-- 
 	-- right windowing buffer control muxing
 	s_R_window_data_read                      <= ('0') when (a_reset = '1')
-		else (s_data_controller_R_window_data_read) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_R_window_data_read) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_R_fee_data_controller_window_data_read);
 	s_R_window_mask_read                      <= ('0') when (a_reset = '1')
-		else (s_data_controller_R_window_mask_read) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_R_window_mask_read) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_R_fee_data_controller_window_mask_read);
 	-- right windowing buffer status muxing
 	s_R_fee_data_controller_window_data_out   <= ((others => '0')) when (a_reset = '1')
-		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ((others => '0'));
 	s_R_fee_data_controller_window_mask_out   <= ((others => '0')) when (a_reset = '1')
-		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ((others => '0'));
 	s_R_fee_data_controller_window_data_ready <= ('0') when (a_reset = '1')
-		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ('0');
 	s_R_fee_data_controller_window_mask_ready <= ('0') when (a_reset = '1')
-		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ('0');
 	s_data_controller_R_window_data_out       <= ((others => '0')) when (a_reset = '1')
-		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_window_data_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ((others => '0'));
 	s_data_controller_R_window_mask_out       <= ((others => '0')) when (a_reset = '1')
-		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_window_mask_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ((others => '0'));
 	s_data_controller_R_window_data_ready     <= ('0') when (a_reset = '1')
-		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_window_data_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ('0');
 	s_data_controller_R_window_mask_ready     <= ('0') when (a_reset = '1')
-		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_R_window_mask_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ('0');
 	-- left windowing buffer control muxing
 	s_L_window_data_read                      <= ('0') when (a_reset = '1')
-		else (s_data_controller_L_window_data_read) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_L_window_data_read) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_L_fee_data_controller_window_data_read);
 	s_L_window_mask_read                      <= ('0') when (a_reset = '1')
-		else (s_data_controller_L_window_mask_read) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_L_window_mask_read) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_L_fee_data_controller_window_mask_read);
 	-- left windowing buffer status muxing
 	s_L_fee_data_controller_window_data_out   <= ((others => '0')) when (a_reset = '1')
-		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ((others => '0'));
 	s_L_fee_data_controller_window_mask_out   <= ((others => '0')) when (a_reset = '1')
-		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ((others => '0'));
 	s_L_fee_data_controller_window_data_ready <= ('0') when (a_reset = '1')
-		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ('0');
 	s_L_fee_data_controller_window_mask_ready <= ('0') when (a_reset = '1')
-		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ('0');
 	s_data_controller_L_window_data_out       <= ((others => '0')) when (a_reset = '1')
-		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_window_data_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ((others => '0'));
 	s_data_controller_L_window_mask_out       <= ((others => '0')) when (a_reset = '1')
-		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_window_mask_out) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ((others => '0'));
 	s_data_controller_L_window_data_ready     <= ('0') when (a_reset = '1')
-		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_window_data_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ('0');
 	s_data_controller_L_window_mask_ready     <= ('0') when (a_reset = '1')
-		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_L_window_mask_ready) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ('0');
 	-- spw mux tx 1 command muxing
 	s_mux_tx_1_command.txwrite                <= ('0') when (a_reset = '1')
-		else (s_data_controller_spw_txwrite) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_spw_txwrite) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_R_fee_data_controller_spw_txwrite);
 	s_mux_tx_1_command.txflag                 <= ('0') when (a_reset = '1')
-		else (s_data_controller_spw_txflag) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_spw_txflag) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_R_fee_data_controller_spw_txflag);
 	s_mux_tx_1_command.txdata                 <= ((others => '0')) when (a_reset = '1')
-		else (s_data_controller_spw_txdata) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_data_controller_spw_txdata) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_R_fee_data_controller_spw_txdata);
 	-- spw mux tx 1 status muxing
 	s_R_fee_data_controller_spw_txrdy         <= ('0') when (a_reset = '1')
-		else (s_mux_tx_1_status.txrdy) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_mux_tx_1_status.txrdy) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ('0');
 	s_data_controller_spw_txrdy               <= ('0') when (a_reset = '1')
-		else (s_mux_tx_1_status.txrdy) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_mux_tx_1_status.txrdy) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ('0');
 	s_data_controller_spw_txhalff             <= ('0') when (a_reset = '1')
-		else (s_mux_tx_1_status.txhalff) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else (s_mux_tx_1_status.txhalff) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else ('0');
 	-- spw mux tx 2 command muxing
 	s_mux_tx_2_command.txwrite                <= ('0') when (a_reset = '1')
-		else ('0') when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else ('0') when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_L_fee_data_controller_spw_txwrite);
 	s_mux_tx_2_command.txflag                 <= ('0') when (a_reset = '1')
-		else ('0') when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else ('0') when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_L_fee_data_controller_spw_txflag);
 	s_mux_tx_2_command.txdata                 <= ((others => '0')) when (a_reset = '1')
-		else ((others => '0')) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '0')
+		else ((others => '0')) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '0')
 		else (s_L_fee_data_controller_spw_txdata);
 	-- spw mux tx 2 status muxing
 	s_L_fee_data_controller_spw_txrdy         <= ('0') when (a_reset = '1')
-		else (s_mux_tx_2_status.txrdy) when (s_spacewire_write_registers.fee_buffers_config_reg.fee_masking_en = '1')
+		else (s_mux_tx_2_status.txrdy) when (s_spacewire_write_registers.fee_machine_config_reg.fee_data_controller_en = '1')
 		else ('0');
 
 	-- data controller instantiation
@@ -509,11 +507,13 @@ begin
 			rst_i                              => a_reset,
 			fee_sync_signal_i                  => s_sync_in_trigger,
 			fee_current_timecode_i             => s_current_timecode,
-			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_reg.timecode_clear,
+			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
 			fee_side_activated_i               => s_right_side_activated,
-			fee_machine_clear_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
-			fee_machine_stop_i                 => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_stop,
-			fee_machine_start_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_start,
+			fee_machine_clear_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
+			fee_machine_stop_i                 => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
+			fee_machine_start_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_digitalise_en_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
+			fee_windowing_en_i                 => s_spacewire_write_registers.fee_machine_config_reg.fee_windowing_en,
 			fee_window_data_i                  => s_R_fee_data_controller_window_data_out,
 			fee_window_mask_i                  => s_R_fee_data_controller_window_mask_out,
 			fee_window_data_ready_i            => s_R_fee_data_controller_window_data_ready,
@@ -560,11 +560,13 @@ begin
 			rst_i                              => a_reset,
 			fee_sync_signal_i                  => s_sync_in_trigger,
 			fee_current_timecode_i             => s_current_timecode,
-			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_reg.timecode_clear,
+			fee_clear_frame_i                  => s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear,
 			fee_side_activated_i               => s_left_side_activated,
-			fee_machine_clear_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
-			fee_machine_stop_i                 => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_stop,
-			fee_machine_start_i                => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_start,
+			fee_machine_clear_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
+			fee_machine_stop_i                 => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
+			fee_machine_start_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
+			fee_digitalise_en_i                => s_spacewire_write_registers.fee_machine_config_reg.fee_digitalise_en,
+			fee_windowing_en_i                 => s_spacewire_write_registers.fee_machine_config_reg.fee_windowing_en,
 			fee_window_data_i                  => s_L_fee_data_controller_window_data_out,
 			fee_window_mask_i                  => s_L_fee_data_controller_window_mask_out,
 			fee_window_data_ready_i            => s_L_fee_data_controller_window_data_ready,
@@ -696,9 +698,9 @@ begin
 		port map(
 			clk_i                          => a_avs_clock,
 			rst_i                          => a_reset,
-			fee_clear_signal_i             => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear,
-			fee_stop_signal_i              => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_stop,
-			fee_start_signal_i             => s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_start,
+			fee_clear_signal_i             => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear,
+			fee_stop_signal_i              => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop,
+			fee_start_signal_i             => s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start,
 			spw_codec_rx_status_i          => s_mux_rx_channel_status,
 			spw_codec_tx_status_i          => s_mux_tx_channel_status,
 			spw_mux_rx_0_command_i.rxread  => s_rmap_spw_control.receiver.read,
@@ -725,10 +727,10 @@ begin
 			clk_100_i                                 => a_avs_clock,
 			clk_200_i                                 => a_spw_clock,
 			rst_i                                     => a_reset,
-			spw_codec_link_command_clk100_i.autostart => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_autostart,
-			spw_codec_link_command_clk100_i.linkstart => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_linkstart,
-			spw_codec_link_command_clk100_i.linkdis   => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_disconnect,
-			spw_codec_link_command_clk100_i.txdivcnt  => s_spacewire_write_registers.spw_link_config_status_reg.spw_lnkcfg_txdivcnt,
+			spw_codec_link_command_clk100_i.autostart => s_spacewire_write_registers.spw_link_config_reg.spw_lnkcfg_autostart,
+			spw_codec_link_command_clk100_i.linkstart => s_spacewire_write_registers.spw_link_config_reg.spw_lnkcfg_linkstart,
+			spw_codec_link_command_clk100_i.linkdis   => s_spacewire_write_registers.spw_link_config_reg.spw_lnkcfg_disconnect,
+			spw_codec_link_command_clk100_i.txdivcnt  => s_spacewire_write_registers.spw_link_config_reg.spw_lnkcfg_txdivcnt,
 			spw_codec_timecode_tx_clk100_i.tick_in    => s_timecode_tick,
 			spw_codec_timecode_tx_clk100_i.ctrl_in    => s_timecode_control,
 			spw_codec_timecode_tx_clk100_i.time_in    => s_timecode_counter,
@@ -739,13 +741,13 @@ begin
 			spw_codec_timecode_rx_clk200_i            => s_spw_codec_timecode_rx_clk200,
 			spw_codec_data_rx_status_clk200_i         => s_spw_codec_data_rx_status_clk200,
 			spw_codec_data_tx_status_clk200_i         => s_spw_codec_data_tx_status_clk200,
-			spw_codec_link_status_clk100_o.started    => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_started,
-			spw_codec_link_status_clk100_o.connecting => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_connecting,
-			spw_codec_link_status_clk100_o.running    => s_spacewire_read_registers.spw_link_config_status_reg.spw_link_running,
-			spw_codec_link_error_clk100_o.errdisc     => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_disconnect,
-			spw_codec_link_error_clk100_o.errpar      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_parity,
-			spw_codec_link_error_clk100_o.erresc      => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_escape,
-			spw_codec_link_error_clk100_o.errcred     => s_spacewire_read_registers.spw_link_config_status_reg.spw_err_credit,
+			spw_codec_link_status_clk100_o.started    => s_spacewire_read_registers.spw_link_status_reg.spw_link_started,
+			spw_codec_link_status_clk100_o.connecting => s_spacewire_read_registers.spw_link_status_reg.spw_link_connecting,
+			spw_codec_link_status_clk100_o.running    => s_spacewire_read_registers.spw_link_status_reg.spw_link_running,
+			spw_codec_link_error_clk100_o.errdisc     => s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect,
+			spw_codec_link_error_clk100_o.errpar      => s_spacewire_read_registers.spw_link_status_reg.spw_err_parity,
+			spw_codec_link_error_clk100_o.erresc      => s_spacewire_read_registers.spw_link_status_reg.spw_err_escape,
+			spw_codec_link_error_clk100_o.errcred     => s_spacewire_read_registers.spw_link_status_reg.spw_err_credit,
 			spw_codec_timecode_rx_clk100_o.tick_out   => s_dummy_timecode_rx_tick_out,
 			spw_codec_timecode_rx_clk100_o.ctrl_out   => s_dummy_timecode_rx_ctrl_out,
 			spw_codec_timecode_rx_clk100_o.time_out   => s_dummy_timecode_rx_time_out,
@@ -799,23 +801,23 @@ begin
 		variable v_read_addr_recorded  : std_logic := '0';
 	begin
 		if (a_reset) = '1' then
-			s_spacewire_read_registers.rmap_memory_config_status_reg.rmap_last_write_addr <= (others => '0');
-			s_spacewire_read_registers.rmap_memory_config_status_reg.rmap_last_read_addr  <= (others => '0');
-			v_write_addr_recorded                                                         := '0';
-			v_read_addr_recorded                                                          := '0';
+			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_addr <= (others => '0');
+			s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_addr  <= (others => '0');
+			v_write_addr_recorded                                                  := '0';
+			v_read_addr_recorded                                                   := '0';
 		elsif rising_edge(a_avs_clock) then
 			if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_write_authorized = '1') then
 				if ((s_rmap_mem_control.write.write = '1') and (v_write_addr_recorded = '0')) then
-					s_spacewire_read_registers.rmap_memory_config_status_reg.rmap_last_write_addr <= s_rmap_mem_wr_byte_address;
-					v_write_addr_recorded                                                         := '1';
+					s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_write_addr <= s_rmap_mem_wr_byte_address;
+					v_write_addr_recorded                                                  := '1';
 				end if;
 			else
 				v_write_addr_recorded := '0';
 			end if;
 			if (s_spacewire_read_registers.rmap_codec_status_reg.rmap_stat_read_authorized = '1') then
 				if ((s_rmap_mem_control.read.read = '1') and (v_read_addr_recorded = '0')) then
-					s_spacewire_read_registers.rmap_memory_config_status_reg.rmap_last_read_addr <= s_rmap_mem_rd_byte_address;
-					v_read_addr_recorded                                                         := '1';
+					s_spacewire_read_registers.rmap_memory_status_reg.rmap_last_read_addr <= s_rmap_mem_rd_byte_address;
+					v_read_addr_recorded                                                  := '1';
 				end if;
 			else
 				v_read_addr_recorded := '0';
@@ -834,7 +836,7 @@ begin
 		elsif rising_edge(a_avs_clock) then
 
 			-- check if a timecode clear was issued
-			if (s_spacewire_write_registers.spw_timecode_reg.timecode_clear = '1') then
+			if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_clear = '1') then
 				-- timecode clear issued, clear timecode
 				s_timecode_control <= (others => '0');
 				s_timecode_counter <= (others => '0');
@@ -846,7 +848,10 @@ begin
 				-- sync issued, increment timecode and send by spw
 				if (v_timecode_sended = '0') then
 					v_timecode_sended  := '1';
-					s_timecode_tick    <= '1';
+					-- check if the timecode transmission is enabled
+					if (s_spacewire_write_registers.spw_timecode_config_reg.timecode_en = '1') then
+						s_timecode_tick <= '1';
+					end if;
 					s_timecode_control <= (others => '0');
 					if (s_timecode_counter = "111111") then
 						s_timecode_counter <= (others => '0');
@@ -860,10 +865,10 @@ begin
 
 		end if;
 	end process p_timecode_manager;
-	s_current_timecode(7 downto 6)                               <= s_timecode_control;
-	s_current_timecode(5 downto 0)                               <= s_timecode_counter;
-	s_spacewire_read_registers.spw_timecode_reg.timecode_control <= s_timecode_control;
-	s_spacewire_read_registers.spw_timecode_reg.timecode_time    <= s_timecode_counter;
+	s_current_timecode(7 downto 6)                                      <= s_timecode_control;
+	s_current_timecode(5 downto 0)                                      <= s_timecode_counter;
+	s_spacewire_read_registers.spw_timecode_status_reg.timecode_control <= s_timecode_control;
+	s_spacewire_read_registers.spw_timecode_status_reg.timecode_time    <= s_timecode_counter;
 
 	p_fee_buffers_irq_manager : process(a_avs_clock, a_reset) is
 		variable v_started : std_logic := '0';
@@ -880,9 +885,9 @@ begin
 			v_started                                                                          := '0';
 		elsif rising_edge(a_avs_clock) then
 
-			if (s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_start = '1') then
+			if (s_spacewire_write_registers.fee_machine_config_reg.fee_machine_start = '1') then
 				v_started := '1';
-			elsif ((s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_stop = '1') or (s_spacewire_write_registers.fee_buffers_config_reg.fee_machine_clear = '1')) then
+			elsif ((s_spacewire_write_registers.fee_machine_config_reg.fee_machine_stop = '1') or (s_spacewire_write_registers.fee_machine_config_reg.fee_machine_clear = '1')) then
 				v_started := '0';
 			end if;
 
@@ -1016,5 +1021,9 @@ begin
 	measurements_channel(3)          <= avalon_slave_L_buffer_write;
 	-- not used measurements will be logical 0
 	measurements_channel(7 downto 4) <= (others => '0');
+
+	-- mock irq numbers (TODO: need to create generics later)
+	s_spacewire_read_registers.fee_buffers_irq_number_reg.fee_buffers_irq_number <= (others => '0');
+	s_spacewire_read_registers.rmap_irq_number_reg.rmap_irq_number               <= (others => '0');
 
 end architecture rtl;                   -- of comm_v1_80_top
