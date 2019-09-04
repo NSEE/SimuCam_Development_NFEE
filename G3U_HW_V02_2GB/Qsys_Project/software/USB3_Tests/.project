@@ -3,6 +3,7 @@
 	<name>USB3_Tests</name>
 	<comment></comment>
 	<projects>
+		<project>USB3_Tests_bsp</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

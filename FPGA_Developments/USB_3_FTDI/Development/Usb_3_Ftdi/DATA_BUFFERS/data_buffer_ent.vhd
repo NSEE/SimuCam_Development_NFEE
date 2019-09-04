@@ -17,7 +17,23 @@ entity data_buffer_ent is
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
 		buffer_change_i            : in  std_logic;
+		buffer_0_wrable_o          : out std_logic;
+		buffer_0_rdable_o          : out std_logic;
+		buffer_0_empty_o           : out std_logic;
+		buffer_0_used_bytes_o      : out std_logic_vector(13 downto 0);
+		buffer_0_free_bytes_o      : out std_logic_vector(13 downto 0);
+		buffer_0_full_o            : out std_logic;
+		buffer_1_wrable_o          : out std_logic;
+		buffer_1_rdable_o          : out std_logic;
+		buffer_1_empty_o           : out std_logic;
+		buffer_1_used_bytes_o      : out std_logic_vector(13 downto 0);
+		buffer_1_free_bytes_o      : out std_logic_vector(13 downto 0);
+		buffer_1_full_o            : out std_logic;
+		double_buffer_wrable_o     : out std_logic;
+		double_buffer_rdable_o     : out std_logic;
 		double_buffer_empty_o      : out std_logic;
+		double_buffer_used_bytes_o : out std_logic_vector(13 downto 0);
+		double_buffer_free_bytes_o : out std_logic_vector(13 downto 0);
 		double_buffer_full_o       : out std_logic;
 		buffer_stat_almost_empty_o : out std_logic;
 		buffer_stat_almost_full_o  : out std_logic;
@@ -122,6 +138,12 @@ begin
 			-- output signals reset
 			buffer_rdready_o           <= '0';
 			buffer_wrready_o           <= '0';
+			buffer_0_rdable_o          <= '0';
+			buffer_0_wrable_o          <= '0';
+			buffer_1_rdable_o          <= '0';
+			buffer_1_wrable_o          <= '0';
+			double_buffer_rdable_o     <= '0';
+			double_buffer_wrable_o     <= '0';
 			-- others
 			s_wr_data_buffer_selection <= 2;
 			s_rd_data_buffer_selection <= 2;
@@ -141,6 +163,9 @@ begin
 					-- stopped state. do nothing and reset
 					s_data_buffer_write_state  <= STOPPED;
 					buffer_wrready_o           <= '0';
+					buffer_0_wrable_o          <= '0';
+					buffer_1_wrable_o          <= '0';
+					double_buffer_wrable_o     <= '0';
 					s_wr_data_buffer_selection <= 2;
 					s_data_fifo_0_rdhold       <= '1';
 					s_data_fifo_1_rdhold       <= '1';
@@ -155,6 +180,8 @@ begin
 					s_wr_data_buffer_selection <= 2;
 					s_data_buffer_write_state  <= WAIT_WR_DFIFO_0;
 					buffer_wrready_o           <= '0';
+					buffer_0_wrable_o          <= '0';
+					double_buffer_wrable_o     <= '0';
 					-- check if data fifo 0 is available (empty)
 					if ((s_data_fifo_0.empty = '1') and (s_data_fifo_0_wrhold = '0')) then
 						-- data fifo 0 is available, go to write data fifo 0 
@@ -166,6 +193,8 @@ begin
 						--						s_data_fifo_0_wrhold       <= '0';
 						-- set the data buffer as ready for write
 						buffer_wrready_o           <= '1';
+						buffer_0_wrable_o          <= '1';
+						double_buffer_wrable_o     <= '1';
 					end if;
 
 				when WRITE_DFIFO_0 =>
@@ -175,6 +204,8 @@ begin
 					s_data_fifo_0_rdhold       <= '1';
 					--					s_data_fifo_0_wrhold       <= '0';
 					buffer_wrready_o           <= '1';
+					buffer_0_wrable_o          <= '1';
+					double_buffer_wrable_o     <= '1';
 					-- check if the data fifo 0 is full or the fee data is loaded  (start using data fifo 1 and release data fifo 0 for read)
 					if ((s_data_fifo_0_extended_usedw = buffer_cfg_length_i) or (buffer_data_loaded_i = '1')) then
 						-- data fifo 0 is full, go to waiting data fifo 1
@@ -186,6 +217,8 @@ begin
 						--						s_data_fifo_0_wrhold       <= '1';
 						-- set the data buffer as not ready for write
 						buffer_wrready_o           <= '0';
+						buffer_0_wrable_o          <= '0';
+						double_buffer_wrable_o     <= '0';
 					end if;
 
 				when WAIT_WR_DFIFO_1 =>
@@ -193,6 +226,8 @@ begin
 					s_wr_data_buffer_selection <= 2;
 					s_data_buffer_write_state  <= WAIT_WR_DFIFO_1;
 					buffer_wrready_o           <= '0';
+					buffer_1_wrable_o          <= '0';
+					double_buffer_wrable_o     <= '0';
 					-- check if data fifo 1 is available (empty)
 					if ((s_data_fifo_1.empty = '1') and (s_data_fifo_1_wrhold = '0')) then
 						-- data fifo 1 is available, go to write data fifo 1 
@@ -204,6 +239,8 @@ begin
 						--						s_data_fifo_1_wrhold       <= '0';
 						-- set the data buffer as ready for write
 						buffer_wrready_o           <= '1';
+						buffer_1_wrable_o          <= '1';
+						double_buffer_wrable_o     <= '1';
 					end if;
 
 				when WRITE_DFIFO_1 =>
@@ -213,6 +250,8 @@ begin
 					s_data_fifo_1_rdhold       <= '1';
 					--					s_data_fifo_1_wrhold       <= '0';
 					buffer_wrready_o           <= '1';
+					buffer_1_wrable_o          <= '1';
+					double_buffer_wrable_o     <= '1';
 					-- check if the data fifo 1 is full or the fee data is loaded  (start using data fifo 0 and release data fifo 1 for read)
 					if ((s_data_fifo_1_extended_usedw = buffer_cfg_length_i) or (buffer_data_loaded_i = '1')) then
 						-- data fifo 1 is full, go to waiting data fifo 0
@@ -224,6 +263,8 @@ begin
 						--						s_data_fifo_1_wrhold       <= '1';
 						-- set the data buffer as not ready for write
 						buffer_wrready_o           <= '0';
+						buffer_1_wrable_o          <= '0';
+						double_buffer_wrable_o     <= '0';
 					end if;
 
 			end case;
@@ -237,6 +278,9 @@ begin
 					-- stopped state. do nothing and reset
 					s_data_buffer_read_state   <= STOPPED;
 					buffer_rdready_o           <= '0';
+					buffer_0_rdable_o          <= '0';
+					buffer_1_rdable_o          <= '0';
+					double_buffer_rdable_o     <= '0';
 					s_rd_data_buffer_selection <= 2;
 					s_data_fifo_0_wrhold       <= '0';
 					s_data_fifo_1_wrhold       <= '0';
@@ -251,6 +295,8 @@ begin
 					s_rd_data_buffer_selection <= 2;
 					s_data_buffer_read_state   <= WAIT_RD_DFIFO_0;
 					buffer_rdready_o           <= '0';
+					buffer_0_rdable_o          <= '0';
+					double_buffer_rdable_o     <= '0';
 					-- check if the data fifo 0 was released for read
 					if (s_data_fifo_0_rdhold = '0') then
 						-- data fifo 0 released for read, go to read data fifo 0
@@ -262,6 +308,8 @@ begin
 						s_data_fifo_0_wrhold       <= '1';
 						-- set the data buffer as ready for read
 						buffer_rdready_o           <= '1';
+						buffer_0_rdable_o          <= '1';
+						double_buffer_rdable_o     <= '1';
 					end if;
 
 				when READ_DFIFO_0 =>
@@ -271,6 +319,8 @@ begin
 					--					s_data_fifo_0_rdhold       <= '0';
 					s_data_fifo_0_wrhold       <= '1';
 					buffer_rdready_o           <= '1';
+					buffer_0_rdable_o          <= '1';
+					double_buffer_rdable_o     <= '1';
 					-- check if the data fifo 0 is empty (start using data fifo 1 and hold data fifo 0 for read)
 					if ((s_data_fifo_0.empty = '1') and (buffer_change_i = '1')) then
 						-- data fifo 0 is empty, go to waiting data fifo 1
@@ -282,6 +332,8 @@ begin
 						s_data_fifo_0_wrhold       <= '0';
 						-- set the data buffer as not ready for read
 						buffer_rdready_o           <= '0';
+						buffer_0_rdable_o          <= '0';
+						double_buffer_rdable_o     <= '0';
 					end if;
 
 				when WAIT_RD_DFIFO_1 =>
@@ -289,6 +341,8 @@ begin
 					s_rd_data_buffer_selection <= 2;
 					s_data_buffer_read_state   <= WAIT_RD_DFIFO_1;
 					buffer_rdready_o           <= '0';
+					buffer_1_rdable_o          <= '0';
+					double_buffer_rdable_o     <= '0';
 					-- check if the data fifo 1 was released for read
 					if (s_data_fifo_1_rdhold = '0') then
 						-- data fifo 1 released for read, go to read data fifo 1
@@ -300,6 +354,8 @@ begin
 						s_data_fifo_1_wrhold       <= '1';
 						-- set the data buffer as ready for read
 						buffer_rdready_o           <= '1';
+						buffer_1_rdable_o          <= '1';
+						double_buffer_rdable_o     <= '1';
 					end if;
 
 				when READ_DFIFO_1 =>
@@ -309,6 +365,8 @@ begin
 					--					s_data_fifo_1_rdhold       <= '0';
 					s_data_fifo_1_wrhold       <= '1';
 					buffer_rdready_o           <= '1';
+					buffer_1_rdable_o          <= '1';
+					double_buffer_rdable_o     <= '1';
 					-- check if the data fifo 1 is empty (start using data fifo 0 and hold data fifo 1 for read)
 					if ((s_data_fifo_1.empty = '1') and (buffer_change_i = '1')) then
 						-- data fifo 1 is empty, go to waiting data fifo 0
@@ -320,6 +378,8 @@ begin
 						s_data_fifo_1_wrhold       <= '0';
 						-- set the data buffer as not ready for read
 						buffer_rdready_o           <= '0';
+						buffer_1_rdable_o          <= '0';
+						double_buffer_rdable_o     <= '0';
 					end if;
 
 			end case;
@@ -390,14 +450,39 @@ begin
 		else ('0');
 
 	-- signals assingment
+
 	-- extended usedw signals
 	s_data_fifo_0_extended_usedw(s_data_fifo_0.usedw'length)                <= s_data_fifo_0.full;
 	s_data_fifo_0_extended_usedw((s_data_fifo_0.usedw'length - 1) downto 0) <= s_data_fifo_0.usedw;
 	s_data_fifo_1_extended_usedw(s_data_fifo_1.usedw'length)                <= s_data_fifo_1.full;
 	s_data_fifo_1_extended_usedw((s_data_fifo_1.usedw'length - 1) downto 0) <= s_data_fifo_1.usedw;
-	-- double buffer empty generation
-	double_buffer_empty_o                                                   <= (s_data_fifo_0.empty) and (s_data_fifo_1.empty);
-	-- double buffer full generation
-	double_buffer_full_o                                                    <= (s_data_fifo_0.full) and (s_data_fifo_1.full);
+
+	-- buffer 0 status
+	buffer_0_empty_o                        <= s_data_fifo_0.empty;
+	buffer_0_used_bytes_o(13 downto 5)      <= s_data_fifo_0_extended_usedw;
+	buffer_0_used_bytes_o(4 downto 0)       <= (others => '0');
+	buffer_0_free_bytes_o(13 downto 5)      <= std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_0_extended_usedw));
+	buffer_0_free_bytes_o(4 downto 0)       <= (others => '0');
+	buffer_0_full_o                         <= s_data_fifo_0.full;
+	-- buffer 1 status
+	buffer_1_empty_o                        <= s_data_fifo_1.empty;
+	buffer_1_used_bytes_o(13 downto 5)      <= s_data_fifo_1_extended_usedw;
+	buffer_1_used_bytes_o(4 downto 0)       <= (others => '0');
+	buffer_1_free_bytes_o(13 downto 5)      <= std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_1_extended_usedw));
+	buffer_1_free_bytes_o(4 downto 0)       <= (others => '0');
+	buffer_1_full_o                         <= s_data_fifo_1.full;
+	-- double buffer
+	double_buffer_empty_o                   <= (s_data_fifo_0.empty) and (s_data_fifo_1.empty);
+	double_buffer_used_bytes_o(13 downto 5) <= ((others => '0')) when (rst_i = '1')
+		else (s_data_fifo_0_extended_usedw) when (s_rd_data_buffer_selection = 0)
+		else (s_data_fifo_1_extended_usedw) when (s_rd_data_buffer_selection = 1)
+		else ((others => '0'));
+	double_buffer_used_bytes_o(4 downto 0)  <= (others => '0');
+	double_buffer_free_bytes_o(13 downto 5) <= (buffer_cfg_length_i) when (rst_i = '1')
+		else (std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_0_extended_usedw))) when (s_rd_data_buffer_selection = 0)
+		else (std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_1_extended_usedw))) when (s_rd_data_buffer_selection = 1)
+		else (buffer_cfg_length_i);
+	double_buffer_free_bytes_o(4 downto 0)  <= (others => '0');
+	double_buffer_full_o                    <= (s_data_fifo_0.full) and (s_data_fifo_1.full);
 
 end architecture RTL;

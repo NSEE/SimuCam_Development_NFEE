@@ -2,7 +2,7 @@ set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_TOOL_VERSION "18.1"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_TOOL_ENV "Qsys"
 set_global_assignment -library "MebX_Qsys_Project" -name SOPCINFO_FILE [file join $::quartus(qip_path) "../../MebX_Qsys_Project.sopcinfo"]
-set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name SLD_INFO "QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1566249703"
+set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name SLD_INFO "QSYS_NAME MebX_Qsys_Project HAS_SOPCINFO 1 GENERATION_ID 1567457107"
 set_global_assignment -library "MebX_Qsys_Project" -name MISC_FILE [file join $::quartus(qip_path) "../MebX_Qsys_Project.cmp"]
 set_global_assignment -library "MebX_Qsys_Project" -name SLD_FILE [file join $::quartus(qip_path) "MebX_Qsys_Project.regmap"]
 set_global_assignment -library "MebX_Qsys_Project" -name SLD_FILE [file join $::quartus(qip_path) "MebX_Qsys_Project.debuginfo"]
@@ -16,7 +16,7 @@ set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_REPORT_HIERARCHY "On"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_INTERNAL "Off"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_VERSION "MS4w"
-set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU2NjI0OTcwMw==::QXV0byBHRU5FUkFUSU9OX0lE"
+set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19HRU5FUkFUSU9OX0lE::MTU2NzQ1NzEwNw==::QXV0byBHRU5FUkFUSU9OX0lE"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfRkFNSUxZ::U3RyYXRpeCBJVg==::QXV0byBERVZJQ0VfRkFNSUxZ"
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0U=::RVA0U0dYMjMwS0Y0MEMy::QXV0byBERVZJQ0U="
 set_global_assignment -entity "MebX_Qsys_Project" -library "MebX_Qsys_Project" -name IP_COMPONENT_PARAMETER "QVVUT19ERVZJQ0VfU1BFRURHUkFERQ==::Mg==::QXV0byBERVZJQ0VfU1BFRURHUkFERQ=="
@@ -11956,6 +11956,14 @@ set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $:
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_data_loopback_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_tx_data_mux_ent.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_rx_data_mux_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_protocol_pkg.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_protocol_top.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_rx_protocol_header_parser_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_rx_protocol_payload_reader_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_tx_protocol_header_generator_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_tx_protocol_payload_writer_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_protocol_controller_ent.vhd"]
+set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_protocol_crc_pkg.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_data_dc_fifo.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_inout_io_buffer_39b.vhd"]
 set_global_assignment -library "MebX_Qsys_Project" -name VHDL_FILE [file join $::quartus(qip_path) "submodules/ftdi_in_io_buffer_3b.vhd"]

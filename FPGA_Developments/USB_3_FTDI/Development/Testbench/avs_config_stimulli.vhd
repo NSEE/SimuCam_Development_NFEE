@@ -122,23 +122,21 @@ begin
 
 			case s_counter is
 
-				when 50 =>
+				when 5 =>
 					-- Stop the ftdi module
-					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop <= '1';
-
-				when 60 =>
-					-- Clear the ftdi module
-					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear <= '1';
-
-				when 70 =>
-					-- Start the ftdi module
-					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_start <= '1';
-
-				when 80 =>
+					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop        <= '1';
 					-- Disable loopback the ftdi module
 					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_loopback_en <= '0';
 
-				when 150 =>
+				when 10 =>
+					-- Clear the ftdi module
+					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear <= '1';
+
+				when 15 =>
+					-- Start the ftdi module
+					avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_start <= '1';
+
+				when 20 =>
 					-- Request Half-CCD
 					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_fee_number      <= std_logic_vector(to_unsigned(3, 3));
 					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_number      <= std_logic_vector(to_unsigned(2, 2));
@@ -149,9 +147,26 @@ begin
 					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_req_timeout     <= (others => '0');
 					avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd         <= '1';
 
-				--			when 1000 =>
-				--				-- Reset Half-CCD
-				--					avs_config_wr_regs_o.hccd_req_control_reg.req_reset_hccd_controller <= '1';	
+				when 25 =>
+					-- Enables IRQ
+					avs_config_wr_regs_o.ftdi_irq_control_reg.ftdi_global_irq_en         <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_0_rdable_irq_en    <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_1_rdable_irq_en    <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_rdable_irq_en <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_buffer_last_empty_irq_en  <= '1';
+					avs_config_wr_regs_o.rx_irq_control_reg.rx_comm_err_irq_en           <= '1';
+
+				when 250 =>
+					-- Reset Half-CCD
+					avs_config_wr_regs_o.hccd_req_control_reg.req_reset_hccd_controller <= '1';
+
+				when 255 =>
+					-- Clear IRQ
+					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr    <= '1';
+					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr    <= '1';
+					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_rdable_irq_flag_clr <= '1';
+					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr  <= '1';
+					avs_config_wr_regs_o.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr           <= '1';
 
 				when others =>
 					null;

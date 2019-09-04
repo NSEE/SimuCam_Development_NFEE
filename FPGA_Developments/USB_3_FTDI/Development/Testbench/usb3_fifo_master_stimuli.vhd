@@ -55,13 +55,13 @@ architecture RTL of usb3_fifo_master_stimuli is
 		x"01020300",
 		x"07001000",
 		x"6B030000",
-		x"F0000000",
-		x"09089E52",
+		x"10010000",  
+		x"30DB8FEB",
 		x"33333333"
 	);
 
 	-- Reply Payload
-	type t_ftdi_prot_reply_payload is array (0 to 61) of std_logic_vector(31 downto 0);
+	type t_ftdi_prot_reply_payload is array (0 to 69) of std_logic_vector(31 downto 0);
 	constant c_FTDI_PROT_REPLY_PAYLOAD : t_ftdi_prot_reply_payload := (
 		x"01F400F4",
 		x"03F402F4",
@@ -121,9 +121,17 @@ architecture RTL of usb3_fifo_master_stimuli is
 		x"E2F5E1F5",
 		x"E4F5E3F5",
 		x"E6F5E5F5",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
 		x"FFFFFFFF",
 		x"0000FFFF",
-		x"9693EB3B",
+		x"37AB0228",
 		x"77777777"
 	);
 
@@ -260,7 +268,7 @@ begin
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
 
-				when 123 to (123 - 1 + 62) =>
+				when 123 to (123 - 1 + 70) =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= c_FTDI_PROT_REPLY_PAYLOAD(v_data_cnt);

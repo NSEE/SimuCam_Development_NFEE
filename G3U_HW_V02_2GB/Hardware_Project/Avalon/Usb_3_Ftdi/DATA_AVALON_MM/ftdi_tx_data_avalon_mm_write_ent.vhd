@@ -57,7 +57,7 @@ begin
 			case (write_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 1023 =>
+				when 0 to 255 =>
 
 					-- check if the rx data buffer is ready to be written and not full
 					if ((buffer_wrready_i = '1') and (buffer_stat_full_i = '0')) then

@@ -80,4 +80,10 @@
 			</target>
 		</buildTargets>
 	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Nios II">
+			<resource resourceType="PROJECT" workspacePath="/USB3_Tests"/>
+		</configuration>
+	</storageModule>
+	<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cproject>

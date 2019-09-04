@@ -150,6 +150,8 @@ C_SRCS += driver/leds/leds.c
 C_SRCS += driver/msgdma/msgdma.c
 C_SRCS += driver/power_spi/power_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
+C_SRCS += crc.c
+C_SRCS += pattern.c
 CXX_SRCS :=
 ASM_SRCS :=
 

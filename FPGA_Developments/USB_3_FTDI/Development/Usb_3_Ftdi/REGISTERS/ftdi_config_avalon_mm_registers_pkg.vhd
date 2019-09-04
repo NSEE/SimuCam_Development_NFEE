@@ -115,7 +115,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 	-- FTDI Rx Communication Error Register
 	type t_ftdi_rx_comm_error_rd_reg is record
 		rx_comm_err_state              : std_logic; -- Rx Communication Error State
-		rx_comm_err_code               : std_logic; -- Rx Communication Error Code
+		rx_comm_err_code               : std_logic_vector(15 downto 0); -- Rx Communication Error Code
 		err_hccd_req_nack_err          : std_logic; -- Half-CCD Request Nack Error
 		err_hccd_reply_header_crc_err  : std_logic; -- Half-CCD Reply Wrong Header CRC Error
 		err_hccd_reply_eoh_err         : std_logic; -- Half-CCD Reply End of Header Error

@@ -156,6 +156,12 @@ architecture rtl of USB_3_FTDI_top is
 	--	signal s_test_tx_dc_data_fifo_aclr : std_logic;
 	--	signal s_test_rx_dc_data_fifo_aclr : std_logic;
 
+	signal s_rx_buffer_0_rdable_delayed : std_logic;
+	signal s_rx_buffer_1_rdable_delayed : std_logic;
+	signal s_rx_dbuffer_rdable_delayed  : std_logic;
+	signal s_rx_buffer_empty_delayed    : std_logic;
+	signal s_rx_comm_err_delayed        : std_logic;
+
 begin
 
 	-- Config Avalon MM Read Instantiation
@@ -215,7 +221,23 @@ begin
 			buffer_wrreq_i             => s_tx_dbuffer_wrreq,
 			buffer_rdreq_i             => s_tx_dbuffer_rdreq,
 			buffer_change_i            => s_tx_dbuffer_change,
+			buffer_0_wrable_o          => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_wrable,
+			buffer_0_rdable_o          => open,
+			buffer_0_empty_o           => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_empty,
+			buffer_0_used_bytes_o      => open,
+			buffer_0_free_bytes_o      => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_space_bytes,
+			buffer_0_full_o            => s_config_read_registers.tx_buffer_status_reg.tx_buffer_0_full,
+			buffer_1_wrable_o          => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_wrable,
+			buffer_1_rdable_o          => open,
+			buffer_1_empty_o           => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_empty,
+			buffer_1_used_bytes_o      => open,
+			buffer_1_free_bytes_o      => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_space_bytes,
+			buffer_1_full_o            => s_config_read_registers.tx_buffer_status_reg.tx_buffer_1_full,
+			double_buffer_wrable_o     => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_wrable,
+			double_buffer_rdable_o     => open,
 			double_buffer_empty_o      => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_empty,
+			double_buffer_used_bytes_o => open,
+			double_buffer_free_bytes_o => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_space_bytes,
 			double_buffer_full_o       => s_config_read_registers.tx_buffer_status_reg.tx_dbuffer_full,
 			buffer_stat_almost_empty_o => open,
 			buffer_stat_almost_full_o  => open,
@@ -275,7 +297,23 @@ begin
 			buffer_wrreq_i             => s_rx_dbuffer_wrreq,
 			buffer_rdreq_i             => s_rx_dbuffer_rdreq,
 			buffer_change_i            => s_rx_dbuffer_change,
+			buffer_0_wrable_o          => open,
+			buffer_0_rdable_o          => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable,
+			buffer_0_empty_o           => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_empty,
+			buffer_0_used_bytes_o      => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_used_bytes,
+			buffer_0_free_bytes_o      => open,
+			buffer_0_full_o            => s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_full,
+			buffer_1_wrable_o          => open,
+			buffer_1_rdable_o          => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable,
+			buffer_1_empty_o           => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_empty,
+			buffer_1_used_bytes_o      => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_used_bytes,
+			buffer_1_free_bytes_o      => open,
+			buffer_1_full_o            => s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_full,
+			double_buffer_wrable_o     => open,
+			double_buffer_rdable_o     => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable,
 			double_buffer_empty_o      => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty,
+			double_buffer_used_bytes_o => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_used_bytes,
+			double_buffer_free_bytes_o => open,
 			double_buffer_full_o       => s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_full,
 			buffer_stat_almost_empty_o => open,
 			buffer_stat_almost_full_o  => open,
@@ -547,6 +585,105 @@ begin
 	--		);
 	--	s_test_rx_dc_data_fifo_aclr <= (a_reset) or (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear);
 
+	-- IRQ Manager (need to become a module)
+	p_rx_buffer_irq_manager : process(a_avs_clock, a_reset) is
+		variable v_started          : std_logic := '0';
+		variable v_last_buffer_full : std_logic := '0';
+	begin
+		if (a_reset) = '1' then
+			s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag    <= '0';
+			s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag    <= '0';
+			s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
+			s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag  <= '0';
+			s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
+			s_rx_buffer_0_rdable_delayed                                           <= '0';
+			s_rx_buffer_1_rdable_delayed                                           <= '0';
+			s_rx_buffer_empty_delayed                                              <= '0';
+			s_rx_comm_err_delayed                                                  <= '0';
+			v_started                                                              := '0';
+			v_last_buffer_full                                                     := '0';
+		elsif rising_edge(a_avs_clock) then
+
+			if (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start = '1') then
+				v_started := '1';
+			elsif ((testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop = '1') or (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear = '1')) then
+				v_started := '0';
+			end if;
+
+			if (v_started = '0') then
+				-- keep flags cleared
+				s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag    <= '0';
+				s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag    <= '0';
+				s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
+				s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag  <= '0';
+				s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
+			else
+				-- clear flags --
+				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr = '1') then
+					s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '0';
+				end if;
+				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr = '1') then
+					s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '0';
+				end if;
+				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_last_rdable_irq_flag_clr = '1') then
+					s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
+				end if;
+				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr = '1') then
+					s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '0';
+				end if;
+				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr = '1') then
+					s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag <= '0';
+				end if;
+				-- set flags --
+				-- check if the global interrupt is enabled
+				if (testbench_debug_wr_regs.ftdi_irq_control_reg.ftdi_global_irq_en = '1') then
+					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_0_rdable_irq_en = '1') then
+						if ((s_rx_buffer_0_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '0')) then
+							s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '1';
+						end if;
+					end if;
+					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_1_rdable_irq_en = '1') then
+						if ((s_rx_buffer_1_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '0')) then
+							s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '1';
+						end if;
+
+					end if;
+					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_last_rdable_irq_en = '1') then
+						if ((s_rx_dbuffer_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '1')) then
+							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '1';
+							v_last_buffer_full                                                     := '1';
+						end if;
+
+					end if;
+					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_last_empty_irq_en = '1') then
+						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (v_last_buffer_full = '1')) then
+							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '1';
+							v_last_buffer_full                                                    := '0';
+						end if;
+
+					end if;
+					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_comm_err_irq_en = '1') then
+						if ((s_rx_comm_err_delayed = '0') and (s_config_read_registers.rx_comm_error_reg.rx_comm_err_state = '1')) then
+							s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag <= '1';
+						end if;
+
+					end if;
+				end if;
+			end if;
+
+			-- delay signals
+			s_rx_buffer_0_rdable_delayed <= s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable;
+			s_rx_buffer_1_rdable_delayed <= s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable;
+			s_rx_dbuffer_rdable_delayed  <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable;
+			s_rx_buffer_empty_delayed    <= s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty;
+			s_rx_comm_err_delayed        <= s_config_read_registers.rx_comm_error_reg.rx_comm_err_state;
+
+		end if;
+	end process p_rx_buffer_irq_manager;
+	--	buffers_interrupt_sender_irq <= ('0') when (a_reset = '1')
+	--		else ('1') when ((s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_0_empty_flag = '1') or (s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_1_empty_flag = '1') or (s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_0_empty_flag = '1') or (s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_1_empty_flag = '1'))
+	--		else ('0');
+
 	-- Signals Assignments --
 
 	-- Config Avalon Assignments
@@ -558,5 +695,17 @@ begin
 	-- Tx/Rx Mux Assignments
 	s_tx_mux_select <= ("01") when (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
 	s_rx_mux_select <= ("01") when (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
+
+	-- Reserved Signals Assignments
+	s_config_read_registers.reserved_reg.tx_buffer_0_empty_irq    <= '0';
+	s_config_read_registers.reserved_reg.tx_buffer_1_empty_irq    <= '0';
+	s_config_read_registers.reserved_reg.lut_transmitted_irq      <= '0';
+	s_config_read_registers.reserved_reg.tx_comm_protocol_err_irq <= '0';
+	s_config_read_registers.reserved_reg.lut_length_bytes         <= (others => '0');
+	s_config_read_registers.reserved_reg.transmit_lut             <= '0';
+	s_config_read_registers.reserved_reg.lut_last_buffer          <= '0';
+	s_config_read_registers.reserved_reg.lut_transmitted          <= '0';
+	s_config_read_registers.reserved_reg.tx_busy                  <= '0';
+	s_config_read_registers.reserved_reg.tx_buffer_empty          <= '0';
 
 end architecture rtl;                   -- of USB_3_FTDI_top

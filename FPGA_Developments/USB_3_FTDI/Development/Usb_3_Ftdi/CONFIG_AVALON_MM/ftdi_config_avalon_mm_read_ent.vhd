@@ -469,7 +469,10 @@ begin
 				when (16#41#) =>
 					-- FTDI Rx Communication Error Register : Rx Communication Error Code
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_avalon_mm_o.readdata(0) <= ftdi_config_rd_regs_i.rx_comm_error_reg.rx_comm_err_code;
+						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.rx_comm_error_reg.rx_comm_err_code(7 downto 0);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.rx_comm_error_reg.rx_comm_err_code(15 downto 8);
 					end if;
 
 				when (16#42#) =>
