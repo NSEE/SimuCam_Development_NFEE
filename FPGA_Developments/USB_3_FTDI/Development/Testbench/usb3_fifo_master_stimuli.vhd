@@ -277,29 +277,29 @@ begin
 					s_umft601a_be_out       <= (others => '1');
 					s_umft601a_gpio_out     <= (others => '1');
 
-				--				when 2500 to 2502 =>
-				--					umft_rxf_n_pin_o        <= '0';
-				--					umft_txe_n_pin_o        <= '1';
-				--					s_umft601a_data_out     <= (others => '0');
-				--					s_umft601a_wakeup_n_out <= '1';
-				--					s_umft601a_be_out       <= (others => '0');
-				--					s_umft601a_gpio_out     <= (others => '1');
-				--					v_data_cnt              := 0;
-				--
-				--				when 2503 to (2503 - 1 + 1024) =>
-				--					umft_rxf_n_pin_o                  <= '0';
-				--					umft_txe_n_pin_o                  <= '1';
-				--					s_umft601a_data_out(7 downto 0)   <= std_logic_vector(to_unsigned(v_data_cnt, 8));
-				--					v_data_cnt                        := v_data_cnt + 1;
-				--					s_umft601a_data_out(15 downto 8)  <= std_logic_vector(to_unsigned(v_data_cnt, 8));
-				--					v_data_cnt                        := v_data_cnt + 1;
-				--					s_umft601a_data_out(23 downto 16) <= std_logic_vector(to_unsigned(v_data_cnt, 8));
-				--					v_data_cnt                        := v_data_cnt + 1;
-				--					s_umft601a_data_out(31 downto 24) <= std_logic_vector(to_unsigned(v_data_cnt, 8));
-				--					v_data_cnt                        := v_data_cnt + 1;
-				--					s_umft601a_wakeup_n_out           <= '1';
-				--					s_umft601a_be_out                 <= (others => '1');
-				--					s_umft601a_gpio_out               <= (others => '1');
+--								when 2500 to 2502 =>
+--									umft_rxf_n_pin_o        <= '0';
+--									umft_txe_n_pin_o        <= '1';
+--									s_umft601a_data_out     <= (others => '0');
+--									s_umft601a_wakeup_n_out <= '1';
+--									s_umft601a_be_out       <= (others => '0');
+--									s_umft601a_gpio_out     <= (others => '1');
+--									v_data_cnt              := 0;
+--				
+--								when 2503 to (2503 - 1 + 1024) =>
+--									umft_rxf_n_pin_o                  <= '0';
+--									umft_txe_n_pin_o                  <= '1';
+--									s_umft601a_data_out(7 downto 0)   <= std_logic_vector(to_unsigned(v_data_cnt, 8));
+--									v_data_cnt                        := v_data_cnt + 1;
+--									s_umft601a_data_out(15 downto 8)  <= std_logic_vector(to_unsigned(v_data_cnt, 8));
+--									v_data_cnt                        := v_data_cnt + 1;
+--									s_umft601a_data_out(23 downto 16) <= std_logic_vector(to_unsigned(v_data_cnt, 8));
+--									v_data_cnt                        := v_data_cnt + 1;
+--									s_umft601a_data_out(31 downto 24) <= std_logic_vector(to_unsigned(v_data_cnt, 8));
+--									v_data_cnt                        := v_data_cnt + 1;
+--									s_umft601a_wakeup_n_out           <= '1';
+--									s_umft601a_be_out                 <= (others => '1');
+--									s_umft601a_gpio_out               <= (others => '1');
 				--
 				--				when (2503 + 1024) =>
 				--					if (s_times_cnt >= (8 - 1)) then
@@ -449,23 +449,41 @@ begin
 				--						s_counter   <= 60000 - 2000;
 				--					end if;
 				--					
-				--				when 32500 to 32502 =>
-				--					umft_rxf_n_pin_o        <= '1';
-				--					umft_txe_n_pin_o        <= '0';
-				--					s_umft601a_data_out     <= (others => '0');
-				--					s_umft601a_wakeup_n_out <= '1';
-				--					s_umft601a_be_out       <= (others => '0');
-				--					s_umft601a_gpio_out     <= (others => '1');
-				--					v_data_cnt              := 0;
-				--
-				--				when 32503 to (32503 - 1 + 900) =>
-				--					umft_rxf_n_pin_o        <= '1';
-				--					umft_txe_n_pin_o        <= '0';
-				--					s_umft601a_data_out     <= (others => '0');
-				--					s_umft601a_wakeup_n_out <= '1';
-				--					s_umft601a_be_out       <= (others => '0');
-				--					s_umft601a_gpio_out     <= (others => '1');
-				--					v_data_cnt              := 0;
+								when 2500 to 2502 =>
+									umft_rxf_n_pin_o        <= '1';
+									umft_txe_n_pin_o        <= '0';
+									s_umft601a_data_out     <= (others => '0');
+									s_umft601a_wakeup_n_out <= '1';
+									s_umft601a_be_out       <= (others => '0');
+									s_umft601a_gpio_out     <= (others => '1');
+									v_data_cnt              := 0;
+				
+								when 2503 to (2503 - 1 + 1024) =>
+									umft_rxf_n_pin_o        <= '1';
+									umft_txe_n_pin_o        <= '0';
+									s_umft601a_data_out     <= (others => '0');
+									s_umft601a_wakeup_n_out <= '1';
+									s_umft601a_be_out       <= (others => '0');
+									s_umft601a_gpio_out     <= (others => '1');
+									v_data_cnt              := 0;
+									
+--								when 3500 to 3502 =>
+--									umft_rxf_n_pin_o        <= '1';
+--									umft_txe_n_pin_o        <= '0';
+--									s_umft601a_data_out     <= (others => '0');
+--									s_umft601a_wakeup_n_out <= '1';
+--									s_umft601a_be_out       <= (others => '0');
+--									s_umft601a_gpio_out     <= (others => '1');
+--									v_data_cnt              := 0;
+--				
+--								when 3503 to (3503 - 1 + 6) =>
+--									umft_rxf_n_pin_o        <= '1';
+--									umft_txe_n_pin_o        <= '0';
+--									s_umft601a_data_out     <= (others => '0');
+--									s_umft601a_wakeup_n_out <= '1';
+--									s_umft601a_be_out       <= (others => '0');
+--									s_umft601a_gpio_out     <= (others => '1');
+--									v_data_cnt              := 0;
 				--					
 				--				when 15500 to 15502 =>
 				--					umft_rxf_n_pin_o        <= '1';
