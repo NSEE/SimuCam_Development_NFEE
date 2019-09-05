@@ -244,6 +244,29 @@ int main() {
 
 	}
 
+//	for (usiExpNumCnt = 0; usiExpNumCnt < 16; usiExpNumCnt++) {
+//		iTimeStart = alt_nticks();
+//		iTimeSync = alt_nticks();
+//		for (ucFeeCnt = 0; ucFeeCnt < 1; ucFeeCnt++) {
+//			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
+//				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
+//				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 4540/2, 2295, usiExpNumCnt, FALSE, FALSE);
+//				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
+//				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 4540/2, 2295, usiExpNumCnt, FALSE, FALSE);
+//			}
+//		}
+//
+//		iTimeElapsed = alt_nticks() - iTimeStart;
+//		printf("USB data written, size=%d bytes, %.3f sec\n", 0, (float) iTimeElapsed / (float) alt_ticks_per_second());
+//
+//		iTimeSyncElapsed = alt_nticks() - iTimeSync;
+//		while (((float) iTimeSyncElapsed / (float) alt_ticks_per_second()) < 2.5) {
+//			usleep(1000);
+//			iTimeSyncElapsed = alt_nticks() - iTimeSync;
+//		}
+//
+//	}
+
 	printf("Finished!! \n");
 
 	while (1) {}
