@@ -207,7 +207,7 @@ int main() {
 	pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn = TRUE;
 	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
 
-	usleep(5*1000*1000);
+	usleep(1*1000*1000);
 
 	printf("Ready! \n\n");
 
@@ -218,21 +218,31 @@ int main() {
 
 //	vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 5000, 3000, usiExpNumCnt, FALSE, TRUE);
 
-	iTimeStart = alt_nticks();
+	int iTimeSync = 0;
+	int iTimeSyncElapsed = 0;
 
-	for (usiExpNumCnt = 0; usiExpNumCnt < 3; usiExpNumCnt++) {
+	for (usiExpNumCnt = 0; usiExpNumCnt < 28; usiExpNumCnt++) {
+		iTimeStart = alt_nticks();
+		iTimeSync = alt_nticks();
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
 			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 5000, 3000, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 5000, 3000, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
 			}
 		}
-	}
 
-	iTimeElapsed = alt_nticks() - iTimeStart;
-	printf("USB data written, size=%ld bytes, %.3f sec\n", 0, (float) iTimeElapsed / (float) alt_ticks_per_second());
+		iTimeElapsed = alt_nticks() - iTimeStart;
+		printf("USB data written, size=%d bytes, %.3f sec\n", 0, (float) iTimeElapsed / (float) alt_ticks_per_second());
+
+		iTimeSyncElapsed = alt_nticks() - iTimeSync;
+		while (((float) iTimeSyncElapsed / (float) alt_ticks_per_second()) < 25.0) {
+			usleep(1000);
+			iTimeSyncElapsed = alt_nticks() - iTimeSync;
+		}
+
+	}
 
 	printf("Finished!! \n");
 
@@ -672,9 +682,9 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 	pxFtdi->xFtdiFtdiModuleControl.bModuleStop = TRUE;
 	pxFtdi->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 
-		usleep(1*1000*1000);
+//		usleep(1*1000*1000);
 //		usleep(100*1000);
-//	usleep(1);
+	usleep(1);
 
 	printf("\n\n");
 
