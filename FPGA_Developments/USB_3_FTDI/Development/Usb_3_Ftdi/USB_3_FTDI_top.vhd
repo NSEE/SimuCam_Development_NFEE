@@ -78,10 +78,98 @@ architecture rtl of USB_3_FTDI_top is
 
 	-- loopback mode fsm state
 	signal t_loopback_mode_state : t_loopback_mode_fsm;
-	
-	signal s_fifo_full :std_logic := '0';
+
+	signal s_fifo_full : std_logic := '0';
 
 begin
+
+	-- Tx (Double) Data Buffer (Tx: FPGA => FTDI)	
+	tx_data_buffer_ent_inst : entity work.data_buffer_ent
+		port map(
+			clk_i                      => a_avs_clock,
+			rst_i                      => a_reset,
+			double_buffer_clear_i      => double_buffer_clear_i,
+			double_buffer_stop_i       => double_buffer_stop_i,
+			double_buffer_start_i      => double_buffer_start_i,
+			buffer_data_loaded_i       => buffer_data_loaded_i,
+			buffer_cfg_length_i        => buffer_cfg_length_i,
+			buffer_wrdata_i            => buffer_wrdata_i,
+			buffer_wrreq_i             => buffer_wrreq_i,
+			buffer_rdreq_i             => buffer_rdreq_i,
+			buffer_change_i            => buffer_change_i,
+			double_buffer_empty_o      => double_buffer_empty_o,
+			double_buffer_full_o       => double_buffer_full_o,
+			buffer_stat_almost_empty_o => buffer_stat_almost_empty_o,
+			buffer_stat_almost_full_o  => buffer_stat_almost_full_o,
+			buffer_stat_empty_o        => buffer_stat_empty_o,
+			buffer_stat_full_o         => buffer_stat_full_o,
+			buffer_rddata_o            => buffer_rddata_o,
+			buffer_rdready_o           => buffer_rdready_o,
+			buffer_wrready_o           => buffer_wrready_o
+		);
+
+	-- FTDI Data Transmitter (Tx: FPGA => FTDI)	
+	ftdi_data_transmitter_ent_inst : entity work.ftdi_data_transmitter_ent
+		port map(
+			clk_i                         => clk_i,
+			rst_i                         => rst_i,
+			data_tx_stop_i                => data_tx_stop_i,
+			data_tx_start_i               => data_tx_start_i,
+			buffer_stat_empty_i           => buffer_stat_empty_i,
+			buffer_rddata_i               => buffer_rddata_i,
+			buffer_rdready_i              => buffer_rdready_i,
+			tx_dc_data_fifo_wrfull_i      => tx_dc_data_fifo_wrfull_i,
+			tx_dc_data_fifo_wrusedw_i     => tx_dc_data_fifo_wrusedw_i,
+			buffer_rdreq_o                => buffer_rdreq_o,
+			buffer_change_o               => buffer_change_o,
+			tx_dc_data_fifo_wrdata_data_o => tx_dc_data_fifo_wrdata_data_o,
+			tx_dc_data_fifo_wrdata_be_o   => tx_dc_data_fifo_wrdata_be_o,
+			tx_dc_data_fifo_wrreq_o       => tx_dc_data_fifo_wrreq_o
+		);
+
+	-- Rx (Double) Data Buffer (Rx: FTDI => FPGA)
+	rx_data_buffer_ent_inst : entity work.data_buffer_ent
+		port map(
+			clk_i                      => a_avs_clock,
+			rst_i                      => a_reset,
+			double_buffer_clear_i      => double_buffer_clear_i,
+			double_buffer_stop_i       => double_buffer_stop_i,
+			double_buffer_start_i      => double_buffer_start_i,
+			buffer_data_loaded_i       => buffer_data_loaded_i,
+			buffer_cfg_length_i        => buffer_cfg_length_i,
+			buffer_wrdata_i            => buffer_wrdata_i,
+			buffer_wrreq_i             => buffer_wrreq_i,
+			buffer_rdreq_i             => buffer_rdreq_i,
+			buffer_change_i            => buffer_change_i,
+			double_buffer_empty_o      => double_buffer_empty_o,
+			double_buffer_full_o       => double_buffer_full_o,
+			buffer_stat_almost_empty_o => buffer_stat_almost_empty_o,
+			buffer_stat_almost_full_o  => buffer_stat_almost_full_o,
+			buffer_stat_empty_o        => buffer_stat_empty_o,
+			buffer_stat_full_o         => buffer_stat_full_o,
+			buffer_rddata_o            => buffer_rddata_o,
+			buffer_rdready_o           => buffer_rdready_o,
+			buffer_wrready_o           => buffer_wrready_o
+		);
+
+	-- FTDI Data Receiver (Rx: FTDI => FPGA)
+	ftdi_data_receiver_ent_inst : entity work.ftdi_data_receiver_ent
+		port map(
+			clk_i                         => clk_i,
+			rst_i                         => rst_i,
+			data_rx_stop_i                => data_tx_stop_i,
+			data_rx_start_i               => data_tx_start_i,
+			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
+			rx_dc_data_fifo_rddata_be_i   => rx_dc_data_fifo_rddata_be_i,
+			rx_dc_data_fifo_rdempty_i     => rx_dc_data_fifo_rdempty_i,
+			rx_dc_data_fifo_rdusedw_i     => rx_dc_data_fifo_rdusedw_i,
+			buffer_stat_full_i            => buffer_stat_full_i,
+			buffer_wrready_i              => buffer_wrready_i,
+			rx_dc_data_fifo_rdreq_o       => rx_dc_data_fifo_rdreq_o,
+			buffer_data_loaded_o          => buffer_data_loaded_o,
+			buffer_wrdata_o               => buffer_wrdata_o,
+			buffer_wrreq_o                => buffer_wrreq_o
+		);
 
 	-- ftdi umft601a controller instantiation
 	ftdi_umft601a_controller_ent_inst : entity work.ftdi_umft601a_controller_ent
@@ -124,7 +212,7 @@ begin
 			s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
 			s_tx_dc_data_fifo_wrreq       <= '0';
 			s_rx_dc_data_fifo_rdreq       <= '0';
-			s_fifo_full <= '0';
+			s_fifo_full                   <= '0';
 		elsif rising_edge(a_avs_clock) then
 
 			if (c_OPERATION_MODE = 0) then
@@ -200,7 +288,7 @@ begin
 				end if;
 
 			elsif (c_OPERATION_MODE = 2) then
-				
+
 				-- Tx write dummy data
 				s_tx_dc_data_fifo_wrdata_data <= (others => '0');
 				s_tx_dc_data_fifo_wrdata_be   <= (others => '0');
