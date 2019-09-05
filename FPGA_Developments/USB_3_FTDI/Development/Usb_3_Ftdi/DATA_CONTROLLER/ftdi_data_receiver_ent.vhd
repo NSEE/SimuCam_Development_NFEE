@@ -61,7 +61,7 @@ begin
 					-- default internal signal values
 					-- conditional state transition
 					-- check if a start command was issued
-					if (data_tx_start_i = '1') then
+					if (data_rx_start_i = '1') then
 						s_ftdi_data_receiver_state <= IDLE;
 						v_ftdi_data_receiver_state := IDLE;
 					end if;
@@ -157,7 +157,7 @@ begin
 			end case;
 
 			-- check if a stop command was received
-			if (data_tx_stop_i = '1') then
+			if (data_rx_stop_i = '1') then
 				s_ftdi_data_receiver_state <= STOPPED;
 				v_ftdi_data_receiver_state := STOPPED;
 			end if;
@@ -251,7 +251,7 @@ begin
 					-- change tx buffer
 					-- default output signals
 					rx_dc_data_fifo_rdreq_o <= '0';
-					buffer_data_loaded_o    <= '1';
+					buffer_data_loaded_o    <= '0';
 					buffer_wrdata_o         <= (others => '0');
 					buffer_wrreq_o          <= '0';
 					s_rx_dword_0            <= (others => '0');
