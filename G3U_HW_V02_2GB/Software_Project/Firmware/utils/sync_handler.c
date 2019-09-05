@@ -65,8 +65,8 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
-	// Altera mux para sync interno
-	bSuccess = bSyncCtrExtnIrq(TRUE);
+	// Altera mux para sync intern
+	bSuccess = bSyncCtrIntern(TRUE);
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}

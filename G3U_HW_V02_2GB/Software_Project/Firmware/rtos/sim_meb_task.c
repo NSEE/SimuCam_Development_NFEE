@@ -500,15 +500,47 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_STANDBY, 0, usiFeeInstL );
 			break;
-		/* TC_SCAM_FEE_CALIBRATION_TEST_ENTER */
+		/* NFEE_RUNNING_FULLIMAGE_ENTER */
+		case 3:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_WINDOWING _ENTER */
+		case 4:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL_PATTERN, 0, usiFeeInstL );
 			break;
-		case 0:
-		case 3:
-		case 4:
+		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1_ENTER */
+		case 12:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
+		case 13:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_2, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
+		case 14:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_1, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
+		case 15:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_2, 0, usiFeeInstL );
+			break;
+		case 0:
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
