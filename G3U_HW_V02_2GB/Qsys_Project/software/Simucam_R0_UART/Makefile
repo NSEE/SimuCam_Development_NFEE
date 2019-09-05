@@ -142,7 +142,6 @@ ACDS_VERSION := 16.1
 ELF := Simucam_R0_UART.elf
 
 # Paths to C, C++, and assembly source files.
-<<<<<<< HEAD
 C_SRCS += simucam_main.c
 C_SRCS += api_driver/ddr2/ddr2.c
 C_SRCS += api_driver/dma/dma.c
@@ -195,60 +194,6 @@ C_SRCS += utils/util.c
 C_SRCS += rtos/sync_reset_task.c
 CXX_SRCS :=
 ASM_SRCS :=
-=======
-C_SRCS += simucam_main.c
-C_SRCS += rtos/test_task.c
-C_SRCS += rtos/fee_taskV2.c
-C_SRCS += utils/feeV2.c
-C_SRCS += api_driver/ddr2/ddr2.c
-C_SRCS += api_driver/dma/dma.c
-C_SRCS += api_driver/sense/sense.c
-C_SRCS += api_driver/simucam_dma/simucam_dma.c
-C_SRCS += driver/comm/comm_channel.c
-C_SRCS += driver/comm/data_packet/data_packet.c
-C_SRCS += driver/comm/fee_buffers/fee_buffers.c
-C_SRCS += driver/comm/rmap/rmap.c
-C_SRCS += driver/comm/spw_controller/spw_controller.c
-C_SRCS += driver/ctrl_io_lvds/ctrl_io_lvds.c
-C_SRCS += driver/i2c/i2c.c
-C_SRCS += driver/leds/leds.c
-C_SRCS += driver/msgdma/msgdma.c
-C_SRCS += driver/power_spi/power_spi.c
-C_SRCS += driver/reset/reset.c
-C_SRCS += driver/rtcc_spi/rtcc_spi.c
-C_SRCS += driver/seven_seg/seven_seg.c
-C_SRCS += driver/sync/sync.c
-C_SRCS += rtos/data_control_task.c
-C_SRCS += rtos/in_ack_handler_task.c
-C_SRCS += rtos/initialization_task.c
-C_SRCS += rtos/nfee_control_task.c
-C_SRCS += rtos/out_ack_handler_task.c
-C_SRCS += rtos/parser_comm_task.c
-C_SRCS += rtos/receiver_uart_task.c
-C_SRCS += rtos/sender_com_task.c
-C_SRCS += rtos/sim_meb_task.c
-C_SRCS += rtos/stack_monitor_task.c
-C_SRCS += rtos/timeout_checker_ack_task.c
-C_SRCS += utils/ccd.c
-C_SRCS += utils/communication_utils.c
-C_SRCS += utils/configs_bind_channel_FEEinst.c
-C_SRCS += utils/configs_simucam.c
-C_SRCS += utils/crc8.c
-C_SRCS += utils/data_controller.c
-C_SRCS += utils/error_handler_simucam.c
-C_SRCS += utils/events_handler.c
-C_SRCS += utils/fee_controller.c
-C_SRCS += utils/initialization_simucam.c
-C_SRCS += utils/log_manager_simucam.c
-C_SRCS += utils/meb.c
-C_SRCS += utils/pattern.c
-C_SRCS += utils/sdcard_file_manager.c
-C_SRCS += utils/sync_handler.c
-C_SRCS += utils/test_module_simucam.c
-C_SRCS += utils/util.c
-CXX_SRCS :=
-ASM_SRCS :=
->>>>>>> sw_refactFee
 
 
 # Path to root of object file tree.

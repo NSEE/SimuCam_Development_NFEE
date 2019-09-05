@@ -276,15 +276,15 @@ begin
 
 				--              -- teste de mudança de tamanho de buffer
 				--
-								-- fee_windowing_right_buffer_size_reg
-								when 1350 to 1351 =>
-									-- register write
-									avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#14#, g_ADDRESS_WIDTH));
-									avalon_mm_write_o                 <= '1';
-									avalon_mm_writedata_o             <= (others => '0');
-				--					avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(16 - 1, 4)); -- right_buffer_size
-									avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(16 - 1, 4)); -- right_buffer_size
-									avalon_mm_read_o                  <= '0';
+				--				-- fee_windowing_right_buffer_size_reg
+				--				when 1050 to 1051 =>
+				--					-- register write
+				--					avalon_mm_address_o               <= std_logic_vector(to_unsigned(16#14#, g_ADDRESS_WIDTH));
+				--					avalon_mm_write_o                 <= '1';
+				--					avalon_mm_writedata_o             <= (others => '0');
+				----					avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(16 - 1, 4)); -- right_buffer_size
+				--					avalon_mm_writedata_o(3 downto 0) <= std_logic_vector(to_unsigned(4 - 1, 4)); -- right_buffer_size
+				--					avalon_mm_read_o                  <= '0';
 				--
 				--				-- fee_windowing_left_buffer_size_reg
 				--				when 1100 to 1101 =>

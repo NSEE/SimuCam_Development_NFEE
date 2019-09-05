@@ -12,7 +12,7 @@ void vNFeeControlTask(void *task_data) {
 	tQMask uiCmdNFC;
 	bool bCmdSent;
 	INT8U error_codeCtrl;
-	unsigned char ucFeeInstL = 0, ucSide = 0;
+	unsigned char ucFeeInstL;
 	static bool bDmaBack;
 	static unsigned char ucWhoGetDMA;
 	unsigned char ucIL;
@@ -20,8 +20,9 @@ void vNFeeControlTask(void *task_data) {
 	pxFeeC = (TNFee_Control *) task_data;
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
         debug(fp,"NFee Controller Task. (Task on)\n");
+	}
     #endif
 
 	for (;;) {
@@ -58,21 +59,6 @@ void vNFeeControlTask(void *task_data) {
 				pxFeeC->sMode = sMebConfig;
 				break;
 
-			case sMebConfig:
-				
-				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
-				if ( error_codeCtrl == OS_ERR_NONE ) {
-					/* Check if the command is for NFEE Controller */
-					if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
-						vPerformActionNFCConfig(uiCmdNFC.ulWord, pxFeeC);
-					}
-				} else {
-					/* Should never get here (blocking operation), critical fail */
-					vCouldNotGetQueueMaskNfeeCtrl();
-				}
-				break;
-
-
 			case sMebToRun:
 				/* Transition state */
 				vEvtChangeFeeControllerMode();
@@ -102,6 +88,24 @@ void vNFeeControlTask(void *task_data) {
 				pxFeeC->sMode = sMebRun;
 				break;
 
+
+			case sMebConfig:
+				
+				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
+				if ( error_codeCtrl == OS_ERR_NONE ) {
+					/* Check if the command is for NFEE Controller */
+					if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
+						vPerformActionNFCConfig(uiCmdNFC.ulWord, pxFeeC);
+					}
+					bCmdSent = FALSE;
+					bDmaBack = TRUE;
+				} else {
+					/* Should never get here (blocking operation), critical fail */
+					vCouldNotGetQueueMaskNfeeCtrl();
+				}
+				break;
+
+
 			case sMebRun:
 				/* 	We have 2 importantes Queues here.  
 					xQMaskFeeCtrl is How NFEE Controller receive Commands in a fast way and
@@ -113,9 +117,9 @@ void vNFeeControlTask(void *task_data) {
 					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 4, &error_codeCtrl);
 					if ( error_codeCtrl == OS_ERR_NONE ) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
-						ucSide = uiCmdNFC.ucByte[1];
+
 						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
-							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, ucSide, ucFeeInstL );
+							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, 0, ucFeeInstL );
 							if ( bCmdSent == TRUE ) {
 								bDmaBack = FALSE;
 								ucWhoGetDMA = ucFeeInstL;
@@ -163,7 +167,7 @@ void vNFeeControlTask(void *task_data) {
 				}
 				#endif
 				
-				pxFeeC->sMode = sMebToConfig;
+				pxFeeC->sMode = sMebConfig;
 		}
 	}
 }
@@ -194,10 +198,13 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 			break;
 		default:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
-			#endif
+			}
+			#endif	
+			break;
 	}
+
 }
 
 void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) {

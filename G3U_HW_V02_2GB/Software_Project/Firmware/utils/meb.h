@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 #include "fee_controller.h"
 #include "data_controller.h"
-#include "feeV2.h"
+#include "fee.h"
 #include "ccd.h"
 
 /* Used to get the priorities needed for the sync-reset function [bndky] */
@@ -23,15 +23,6 @@
 typedef enum { sInternal = 0, sExternal } tSimucamSync;
 typedef enum { sNormalFEE = 0, sFastFEE } tFeeType;
 
-
-/* MASK LOGIC
- * think in bit ---> end[7] end[6] end[5] end[4] end[3] end[2] end[1] end[0] => 7: always zero; 6: is the DataController; 0..5: NFEE0 to NFEE5
- * */
-
-typedef struct SwapControl {
-	bool lastReadOut;	/* Will be true in the last CCD readout */
-	unsigned char end; 	/* 0111 1111 = 0x7F => Which NFEE(6) + DT Controller, each time they finish the use of the memory send message to Meb that will pass the bit to zero  */
-}TSwapControl;
 
 /*Moved to simucam definitions*/
 typedef struct Simucam_MEB {
@@ -50,7 +41,6 @@ typedef struct Simucam_MEB {
     /* todo: estruturas de controle para o simucam */
     TNData_Control xDataControl;
     TNFee_Control xFeeControl;
-    TSwapControl xSwapControl;
 } TSimucam_MEB;
 
 extern TSimucam_MEB xSimMeb;

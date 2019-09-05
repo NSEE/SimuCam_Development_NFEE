@@ -4,8 +4,8 @@ use ieee.numeric_std.all;
 
 package avalon_mm_windowing_pkg is
 
-	constant c_AVALON_MM_WINDOWING_ADRESS_SIZE : natural := 8;
-	constant c_AVALON_MM_WINDOWING_DATA_SIZE   : natural := 256;
+	constant c_AVALON_MM_WINDOWING_ADRESS_SIZE : natural := 10;
+	constant c_AVALON_MM_WINDOWING_DATA_SIZE   : natural := 64;
 	constant c_AVALON_MM_WINDOWING_SYMBOL_SIZE : natural := 8;
 
 	subtype t_avalon_mm_windowing_address is natural range 0 to ((2 ** c_AVALON_MM_WINDOWING_ADRESS_SIZE) - 1);

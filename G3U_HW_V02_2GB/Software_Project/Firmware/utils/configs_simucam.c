@@ -12,8 +12,6 @@
 /*Configuration related to the eth connection*/
 TConfEth xConfEth;
 TDefaults xDefaults;
-TGlobal	xGlobal;
-
 
 /* Load ETH configuration values from SD Card */
 bool vLoadDefaultETHConf( void ){
@@ -346,24 +344,6 @@ bool vLoadDebugConfs( void ){
 					case 13: 	//ASCII: 13 = CR
 						break;
 
-					case 'X':
-						ucParser = 0;
-						do {
-							do {
-								c = cGetNextChar(siFile);
-								if ( isdigit( c ) ) {
-									(*p_inteiro) = c;
-									p_inteiro++;
-								}
-							} while ( (c !=46) && (c !=59) ); //ASCII: 46 = '.' 59 = ';'
-							(*p_inteiro) = 10; // Adding LN -> ASCII: 10 = LINE FEED
-
-							xDefaults.usiPreBtSync = (unsigned short int)atoi( inteiro );
-							p_inteiro = inteiro;
-							ucParser++;
-						} while ( (c !=59) );
-
-						break;
 					case 'S':
 						ucParser = 0;
 						do {

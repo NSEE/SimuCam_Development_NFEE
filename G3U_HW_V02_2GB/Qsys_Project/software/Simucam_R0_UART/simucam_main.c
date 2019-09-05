@@ -33,9 +33,6 @@ txBuffer128 xBuffer128[N_128];
 txBuffer64 xBuffer64[N_64];
 txBuffer32 xBuffer32[N_32];
 
-//todo: Tiago Verificar se necessita ser volatil
-tTMPusChar_Sender xBuffer128_Sender[N_128_SENDER];
-
 volatile tPreParsed xPreParsed[N_PREPARSED_ENTRIES];
 volatile txReceivedACK xReceivedACK[N_ACKS_RECEIVED];
 
@@ -75,13 +72,9 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
-<<<<<<< HEAD
 
 void *xQueueSyncResetTBL[N_MESG_SYNCRST];	//todo Change to define
 OS_EVENT *xQueueSyncReset;		/* [bndky] */
-=======
-OS_EVENT *xMutexTranferBuffer;
->>>>>>> sw_refactFee
 /* -------------- Definition of Semaphores -------------- */
 
 
@@ -262,12 +255,6 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}
 
-	xMutexTranferBuffer = OSMutexCreate(PCP_MUTEX_B128_PRIO_SENDER, &err);
-	if ( err != OS_ERR_NONE ) {
-		vFailCreateMutexSResources(err);
-		bSuccess = FALSE;
-	}
-
 	xSemTimeoutChecker = OSSemCreate(0);
 	if (!xSemTimeoutChecker) {
 		vFailCreateSemaphoreResources();
@@ -316,7 +303,7 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 3 );
 		bSuccess = FALSE;		
 	}
-
+/*
 	xFeeQ[4] = OSQCreate(&xFeeQueueTBL4[0], N_MSG_FEE);
 	if ( xFeeQ[4] == NULL ) {
 		vFailCreateNFEEQueue( 4 );
@@ -328,6 +315,7 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateNFEEQueue( 5 );
 		bSuccess = FALSE;		
 	}
+*/
 
 
 	/* Syncronization (no THE sync) of the meb and signalization that has to wakeup */
@@ -391,20 +379,6 @@ void vVariablesInitialization ( void ) {
 	memset( (void *)xInUseRetrans.b64 , FALSE , sizeof(xInUseRetrans.b64));
 	memset( (void *)xInUseRetrans.b32 , FALSE , sizeof(xInUseRetrans.b32));
 	
-
-
-	for( ucIL = 0; ucIL < N_128_SENDER; ucIL++)
-	{
-		xBuffer128_Sender[ucIL].bInUse = FALSE;
-		xBuffer128_Sender[ucIL].bPUS = FALSE;
-		xBuffer128_Sender[ucIL].ucNofValues = 0;
-		xBuffer128_Sender[ucIL].usiCat = 0;
-		xBuffer128_Sender[ucIL].usiPid = 0;
-		xBuffer128_Sender[ucIL].usiSubType = 0;
-		xBuffer128_Sender[ucIL].usiType = 0;
-		memset( (void *)xBuffer128_Sender[ucIL].buffer_128, 0, 128);
-	}
-
 	for( ucIL = 0; ucIL < N_128; ucIL++)
 	{
 		memset( (void *)xBuffer128[ucIL].buffer, 0, 128);
@@ -567,14 +541,10 @@ int main(void)
 		fprintf(fp, "FEE 1 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[1]);
 		fprintf(fp, "FEE 2 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[2]);
 		fprintf(fp, "FEE 3 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[3]);
-		fprintf(fp, "FEE 4 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[4]);
-		fprintf(fp, "FEE 5 - Channel %hhu \n", xDefaultsCH.ucFEEtoChanell[5]);
 		fprintf(fp, "Channel 0 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[0]);
 		fprintf(fp, "Channel 1 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[1]);
 		fprintf(fp, "Channel 2 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[2]);
 		fprintf(fp, "Channel 3 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[3]);
-		fprintf(fp, "Channel 4 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[4]);
-		fprintf(fp, "Channel 5 - FEE %hhu \n", xDefaultsCH.ucChannelToFEE[5]);
 	}
 	#endif
 
@@ -607,7 +577,7 @@ int main(void)
 			debug(fp, "Can't allocate resources for RTOS. (exit) \n");
 		}
 		#endif
-		vFailInitRTOSResources();
+		vCriticalErrorLedPanel();
 		return -1;
 	}
 
@@ -615,7 +585,6 @@ int main(void)
 
 	/* Start the structure of control of the Simucam Application, including all FEEs instances */
 	vSimucamStructureInit( &xSimMeb );
-
 
 	bInitSync();
 

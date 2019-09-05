@@ -22,7 +22,7 @@
 #endif
 
 
-#define N_OF_NFEE       6	/* ONLY for tests */
+#define N_OF_NFEE       4	/* ONLY for tests */
 #define N_OF_FastFEE    2
 
 #define N_SEC_WAIT_SHUTDOWN 15   /*In seconds*/

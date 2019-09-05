@@ -50,7 +50,5 @@ H=80;
 E=1.1.1.1;
 'Initial SPW Packet Lenght'
 I=32140;
-'Pre Sync Period (milliseconds)'
-X=500;
 <<
 'Keep the "less than" (<) caracter, this is used in the parser'

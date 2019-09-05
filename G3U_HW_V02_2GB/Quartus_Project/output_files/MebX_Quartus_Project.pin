@@ -34,8 +34,8 @@
  --                  Bank 3A:       1.8V
  --                  Bank 3B:       1.8V
  --                  Bank 3C:       1.8V
- --                  Bank 4C:  1.8V
- --                  Bank 4B:  1.8V
+ --                  Bank 4C:       1.8V
+ --                  Bank 4B:       1.8V
  --                  Bank 4A:  1.8V
  --                  Bank 5A:  3.0V
  --                  Bank 5C:  3.0V
@@ -84,7 +84,7 @@
  ---------------------------------------------------------------------------------
 
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-CHIP  "MebX_Quartus_Project"  ASSIGNED TO AN: EP4SGX530KH40C2
+CHIP  "MebX_Quartus_Project"  ASSIGNED TO AN: EP4SGX230KF40C2
 
 Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
 -------------------------------------------------------------------------------------------------------------
@@ -636,9 +636,9 @@ GND                          : AP1       : gnd    :                   :         
 GND                          : AP2       : gnd    :                   :         :           :                
 GXB_NC                       : AP3       :        :                   :         : QR0       :                
 GXB_NC                       : AP4       :        :                   :         : QR0       :                
-JP3_GPIO0_D12_IO             : AP5       : output : 3.3-V LVCMOS      :         : 5C        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP5       :        :                   :         : 5C        :                
 LED_PAINEL_LED_3G            : AP6       : output : 3.3-V LVCMOS      :         : 5C        : Y              
-JP3_GPIO0_D13_IO             : AP7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AP7       :        :                   :         : 5A        :                
 RTCC_CS_n                    : AP8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP9       :        :                   :         : 5A        :                
 SYNC_OUT                     : AP10      : output : 3.3-V LVTTL       :         : 5A        : Y              
@@ -714,10 +714,10 @@ GND                          : AT1       : gnd    :                   :         
 GND                          : AT2       : gnd    :                   :         :           :                
 GXB_NC                       : AT3       :        :                   :         : QR0       :                
 GXB_NC                       : AT4       :        :                   :         : QR0       :                
-JP3_GPIO0_D10_IO             : AT5       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT5       :        :                   :         : 5A        :                
 LED_PAINEL_LED_2R            : AT6       : output : 3.3-V LVCMOS      :         : 5A        : Y              
 LED_PAINEL_LED_4R            : AT7       : output : 3.3-V LVCMOS      :         : 5A        : Y              
-JP3_GPIO0_D11_IO             : AT8       : output : 3.3-V LVCMOS      :         : 5A        : Y              
+RESERVED_INPUT_WITH_WEAK_PULLUP : AT8       :        :                   :         : 5A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT9       :        :                   :         : 5A        :                
 LED_PAINEL_LED_1R            : AT10      : output : 3.3-V LVCMOS      :         : 5A        : Y              
 nCEO                         : AT11      :        :                   :         : 1A        :                
@@ -1320,7 +1320,7 @@ GND                          : N24       : gnd    :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : N25       :        :                   :         : 8A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N26       :        :                   :         : 8A        :                
 altera_reserved_tms          : N27       : input  : 2.5 V             :         : 1A        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : N28       :        :                   :         : 1A        :                
+FSM_A[0]                     : N28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[4]                   : N29       : output : 2.5 V             :         : 1A        : Y              
 LED_DE4[7]                   : N30       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : N31       :        :                   :         : 1A        :                
@@ -1397,7 +1397,7 @@ VCCPD8B                      : R23       : power  :                   : 2.5V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :         : 8A        :                
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
-FSM_A[0]                     : R27       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                

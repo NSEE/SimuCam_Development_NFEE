@@ -9,14 +9,14 @@
 module MebX_Qsys_Project_dma_DDR_M2 (
 		output wire [31:0]  mm_read_address,              //          mm_read.address
 		output wire         mm_read_read,                 //                 .read
-		output wire [31:0]  mm_read_byteenable,           //                 .byteenable
-		input  wire [255:0] mm_read_readdata,             //                 .readdata
+		output wire [7:0]   mm_read_byteenable,           //                 .byteenable
+		input  wire [63:0]  mm_read_readdata,             //                 .readdata
 		input  wire         mm_read_waitrequest,          //                 .waitrequest
 		input  wire         mm_read_readdatavalid,        //                 .readdatavalid
 		output wire [32:0]  mm_write_address,             //         mm_write.address
 		output wire         mm_write_write,               //                 .write
-		output wire [31:0]  mm_write_byteenable,          //                 .byteenable
-		output wire [255:0] mm_write_writedata,           //                 .writedata
+		output wire [7:0]   mm_write_byteenable,          //                 .byteenable
+		output wire [63:0]  mm_write_writedata,           //                 .writedata
 		input  wire         mm_write_waitrequest,         //                 .waitrequest
 		input  wire         clock_clk,                    //            clock.clk
 		input  wire         reset_n_reset_n,              //          reset_n.reset_n
@@ -34,7 +34,7 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 	);
 
 	wire          read_mstr_internal_data_source_valid;           // read_mstr_internal:src_valid -> write_mstr_internal:snk_valid
-	wire  [255:0] read_mstr_internal_data_source_data;            // read_mstr_internal:src_data -> write_mstr_internal:snk_data
+	wire   [63:0] read_mstr_internal_data_source_data;            // read_mstr_internal:src_data -> write_mstr_internal:snk_data
 	wire          read_mstr_internal_data_source_ready;           // write_mstr_internal:snk_ready -> read_mstr_internal:src_ready
 	wire          dispatcher_internal_read_command_source_valid;  // dispatcher_internal:src_read_master_valid -> read_mstr_internal:snk_command_valid
 	wire  [255:0] dispatcher_internal_read_command_source_data;   // dispatcher_internal:src_read_master_data -> read_mstr_internal:snk_command_data
@@ -97,9 +97,9 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 	);
 
 	read_master #(
-		.DATA_WIDTH                (256),
+		.DATA_WIDTH                (64),
 		.LENGTH_WIDTH              (27),
-		.FIFO_DEPTH                (128),
+		.FIFO_DEPTH                (512),
 		.STRIDE_ENABLE             (0),
 		.BURST_ENABLE              (0),
 		.PACKET_ENABLE             (0),
@@ -107,13 +107,13 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 		.ERROR_WIDTH               (8),
 		.CHANNEL_ENABLE            (0),
 		.CHANNEL_WIDTH             (8),
-		.BYTE_ENABLE_WIDTH         (32),
-		.BYTE_ENABLE_WIDTH_LOG2    (5),
+		.BYTE_ENABLE_WIDTH         (8),
+		.BYTE_ENABLE_WIDTH_LOG2    (3),
 		.ADDRESS_WIDTH             (32),
-		.FIFO_DEPTH_LOG2           (7),
+		.FIFO_DEPTH_LOG2           (9),
 		.SYMBOL_WIDTH              (8),
-		.NUMBER_OF_SYMBOLS         (32),
-		.NUMBER_OF_SYMBOLS_LOG2    (5),
+		.NUMBER_OF_SYMBOLS         (8),
+		.NUMBER_OF_SYMBOLS_LOG2    (3),
 		.MAX_BURST_COUNT_WIDTH     (1),
 		.UNALIGNED_ACCESSES_ENABLE (0),
 		.ONLY_FULL_ACCESS_ENABLE   (1),
@@ -149,21 +149,21 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 	);
 
 	write_master #(
-		.DATA_WIDTH                     (256),
+		.DATA_WIDTH                     (64),
 		.LENGTH_WIDTH                   (27),
-		.FIFO_DEPTH                     (128),
+		.FIFO_DEPTH                     (512),
 		.STRIDE_ENABLE                  (0),
 		.BURST_ENABLE                   (0),
 		.PACKET_ENABLE                  (0),
 		.ERROR_ENABLE                   (0),
 		.ERROR_WIDTH                    (8),
-		.BYTE_ENABLE_WIDTH              (32),
-		.BYTE_ENABLE_WIDTH_LOG2         (5),
+		.BYTE_ENABLE_WIDTH              (8),
+		.BYTE_ENABLE_WIDTH_LOG2         (3),
 		.ADDRESS_WIDTH                  (33),
-		.FIFO_DEPTH_LOG2                (7),
+		.FIFO_DEPTH_LOG2                (9),
 		.SYMBOL_WIDTH                   (8),
-		.NUMBER_OF_SYMBOLS              (32),
-		.NUMBER_OF_SYMBOLS_LOG2         (5),
+		.NUMBER_OF_SYMBOLS              (8),
+		.NUMBER_OF_SYMBOLS_LOG2         (3),
 		.MAX_BURST_COUNT_WIDTH          (1),
 		.UNALIGNED_ACCESSES_ENABLE      (0),
 		.ONLY_FULL_ACCESS_ENABLE        (1),
@@ -193,7 +193,7 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 		.master_burstcount  (),                                               //       (terminated)
 		.snk_sop            (1'b0),                                           //       (terminated)
 		.snk_eop            (1'b0),                                           //       (terminated)
-		.snk_empty          (5'b00000),                                       //       (terminated)
+		.snk_empty          (3'b000),                                         //       (terminated)
 		.snk_error          (8'b00000000)                                     //       (terminated)
 	);
 
