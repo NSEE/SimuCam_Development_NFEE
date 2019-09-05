@@ -1,0 +1,1505 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/COM_Module_v1_8/Development/Testbench
+Eavs_config_stimulli
+Z0 w1567455295
+Z1 DPx4 work 35 ftdi_config_avalon_mm_registers_pkg 0 22 NW?OQbB^G1l8GEaTHf1[83
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+Z5 dC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench
+Z6 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/avs_config_stimulli.vhd
+Z7 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/avs_config_stimulli.vhd
+l0
+L7
+VLXNcVz7_f3Uh52BFQJ^=N3
+!s100 9YNf6D=E1?j[hKO6^[>gH1
+Z8 OV;C;10.5b;63
+32
+Z9 !s110 1567456006
+!i10b 1
+Z10 !s108 1567456006.000000
+Z11 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/avs_config_stimulli.vhd|
+Z12 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/avs_config_stimulli.vhd|
+!i113 1
+Z13 o-work work -2002 -explicit
+Z14 tExplicit 1 CvgOpt 0
+Artl
+R1
+R2
+R3
+R4
+Z15 DEx4 work 19 avs_config_stimulli 0 22 LXNcVz7_f3Uh52BFQJ^=N3
+l20
+L15
+VI8EO?cg4^c?iVGAS`BCok1
+!s100 ]_TlVH0XH73=H9n_N]PLL1
+R8
+32
+R9
+!i10b 1
+R10
+R11
+R12
+!i113 1
+R13
+R14
+Edata_buffer_ent
+Z16 w1567451313
+R2
+R3
+R4
+R5
+Z17 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd
+Z18 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd
+l0
+L5
+VleeJCVmgnRND<FcHkk>Ro1
+!s100 5h=^Jo2Bi:HR`^XS7ToF:0
+R8
+32
+Z19 !s110 1567456004
+!i10b 1
+Z20 !s108 1567456004.000000
+Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd|
+Z22 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/data_buffer_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+Z23 DEx4 work 19 data_buffer_sc_fifo 0 22 4K3ojM7df[IOhY=dF[DBA0
+R2
+R3
+R4
+Z24 DEx4 work 15 data_buffer_ent 0 22 leeJCVmgnRND<FcHkk>Ro1
+l102
+L48
+Vc6O]<a?W_NEKR[VegEaI]0
+!s100 lm?d>;KnC<hf`O1bbRoR[0
+R8
+32
+R19
+!i10b 1
+R20
+R21
+R22
+!i113 1
+R13
+R14
+Edata_buffer_sc_fifo
+Z25 w1566498585
+R3
+R4
+R5
+Z26 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
+Z27 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd
+l0
+L40
+V4K3ojM7df[IOhY=dF[DBA0
+!s100 z>S[AMUe9T8JROiWhTK@e2
+R8
+32
+R19
+!i10b 1
+R20
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd|
+Z29 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_BUFFERS/altera_ip/scfifo/data_buffer_sc_fifo/data_buffer_sc_fifo.vhd|
+!i113 1
+R13
+R14
+Asyn
+R3
+R4
+R23
+l89
+L55
+VfX3NId1;2g@hWElHK1kkZ2
+!s100 A5W[L51V9_DUgRP2iE^mb0
+R8
+32
+R19
+!i10b 1
+R20
+R28
+R29
+!i113 1
+R13
+R14
+Pftdi_config_avalon_mm_pkg
+R2
+R3
+R4
+R25
+R5
+8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd
+FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd
+l0
+L5
+V<h7amP^8j`WU>k4>;biJn3
+!s100 JWEfkTMXV_VR2]7>Q735[2
+R8
+32
+!s110 1567456003
+!i10b 1
+!s108 1567456003.000000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd|
+!s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd|
+!i113 1
+R13
+R14
+Eftdi_config_avalon_mm_read_ent
+Z30 w1567445956
+R1
+Z31 DPx4 work 25 ftdi_config_avalon_mm_pkg 0 22 <h7amP^8j`WU>k4>;biJn3
+R2
+R3
+R4
+R5
+Z32 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
+Z33 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
+l0
+L8
+V@h4^C<O`ElS2gZ`:;eQ8;3
+!s100 9J<VfQ]E`hk>SnebMm1Bb3
+R8
+32
+R19
+!i10b 1
+R20
+Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd|
+Z35 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R1
+R31
+R2
+R3
+R4
+Z36 DEx4 work 30 ftdi_config_avalon_mm_read_ent 0 22 @h4^C<O`ElS2gZ`:;eQ8;3
+l21
+L19
+VC2FZ;nd<aBTbU9nRAHFP_3
+!s100 8MWkKUa?S0gIc1UMEfe<>0
+R8
+32
+R19
+!i10b 1
+R20
+R34
+R35
+!i113 1
+R13
+R14
+Pftdi_config_avalon_mm_registers_pkg
+R2
+R3
+R4
+Z37 w1567456104
+R5
+Z38 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd
+Z39 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd
+l0
+L5
+VNW?OQbB^G1l8GEaTHf1[83
+!s100 VT@97JR6lXAc4kd]?CnAO1
+R8
+32
+Z40 !s110 1567614607
+!i10b 1
+Z41 !s108 1567614607.000000
+Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd|
+Z43 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd|
+!i113 1
+R13
+R14
+Bbody
+R1
+R2
+R3
+R4
+l0
+L166
+VGX1zk6Rl>fY1Hg]ISFZjc0
+!s100 g<zB@42]XjTFIYhMO5V_a3
+R8
+32
+R40
+!i10b 1
+R41
+R42
+R43
+!i113 1
+R13
+R14
+Eftdi_config_avalon_mm_write_ent
+Z44 w1567445940
+R1
+R31
+R2
+R3
+R4
+R5
+Z45 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
+Z46 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
+l0
+L8
+V<lWEadfA@fA]`d0MRe0ni0
+!s100 `9X@=:MYle9K`1cX?VO?j0
+R8
+32
+R19
+!i10b 1
+R20
+Z47 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd|
+Z48 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R1
+R31
+R2
+R3
+R4
+Z49 DEx4 work 31 ftdi_config_avalon_mm_write_ent 0 22 <lWEadfA@fA]`d0MRe0ni0
+l22
+L18
+VEZ:g?W:5<WK?T[z[UG@2k0
+!s100 Ogd=X5MP42nWW<NKK@]191
+R8
+32
+R19
+!i10b 1
+R20
+R47
+R48
+!i113 1
+R13
+R14
+Pftdi_data_avalon_mm_pkg
+R2
+R3
+R4
+R25
+R5
+8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
+FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd
+l0
+L5
+VSXL3aO54fQk?HM`og[?Ka1
+!s100 c3oZkzz^W7P[6kNQTMXiA0
+R8
+32
+R19
+!i10b 1
+R20
+!s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd|
+!s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd|
+!i113 1
+R13
+R14
+Eftdi_data_dc_fifo
+R25
+R3
+R4
+R5
+Z50 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
+Z51 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
+l0
+L42
+VAW1dZI5XkX1S4>X7KLRD<3
+!s100 g_YkG1U?c@aB?M]bS=1550
+R8
+32
+Z52 !s110 1567456005
+!i10b 1
+Z53 !s108 1567456005.000000
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd|
+Z55 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd|
+!i113 1
+R13
+R14
+Asyn
+R3
+R4
+Z56 DEx4 work 17 ftdi_data_dc_fifo 0 22 AW1dZI5XkX1S4>X7KLRD<3
+l107
+L62
+V3zGn=X9R:3kQ5H8?nJfaz1
+!s100 ?ib=8nPCWFXbnBJAHb@`02
+R8
+32
+R52
+!i10b 1
+R53
+R54
+R55
+!i113 1
+R13
+R14
+Eftdi_data_loopback_ent
+R25
+R2
+R3
+R4
+R5
+Z57 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
+Z58 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
+l0
+L5
+V10dnZWZf>lZz[nlR_^^0a3
+!s100 e?QWWMeiGoPG;0N<U`XRi0
+R8
+32
+R52
+!i10b 1
+R53
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd|
+Z60 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+Z61 DEx4 work 22 ftdi_data_loopback_ent 0 22 10dnZWZf>lZz[nlR_^^0a3
+l39
+L28
+VFH[fIAFhez4IjQ0b8eUc30
+!s100 mX_2?n9KJ4ga1nCZjX1M30
+R8
+32
+R52
+!i10b 1
+R53
+R59
+R60
+!i113 1
+R13
+R14
+Eftdi_data_receiver_ent
+Z62 w1566834951
+R2
+R3
+R4
+R5
+Z63 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
+Z64 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd
+l0
+L5
+V;:eX`F1djPlOOmo@FKG6D3
+!s100 ?Djmo@92PFG^d:3F_O4cK3
+R8
+32
+R19
+!i10b 1
+R20
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd|
+Z66 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_receiver_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+DEx4 work 22 ftdi_data_receiver_ent 0 22 ;:eX`F1djPlOOmo@FKG6D3
+l56
+L27
+V<d:LNMN7:YoVgk_oiME6l3
+!s100 =eHFD:1M[Ne2MGL50mXz[2
+R8
+32
+R19
+!i10b 1
+R20
+R65
+R66
+!i113 1
+R13
+R14
+Eftdi_data_transmitter_ent
+R62
+R2
+R3
+R4
+R5
+Z67 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
+Z68 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd
+l0
+L5
+Vf]QOQ8=bOJ=J9]<X77GO>2
+!s100 hZ5WIio_`JAo@@dL`9@dK3
+R8
+32
+R19
+!i10b 1
+R20
+Z69 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd|
+Z70 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+DEx4 work 25 ftdi_data_transmitter_ent 0 22 f]QOQ8=bOJ=J9]<X77GO>2
+l56
+L27
+VD>e_Z2mm5dgWci:O;9Q752
+!s100 dakG0G>bd2NRoUMH9T8De0
+R8
+32
+R19
+!i10b 1
+R20
+R69
+R70
+!i113 1
+R13
+R14
+Eftdi_in_io_buffer_3b
+R25
+R3
+R4
+R5
+Z71 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
+Z72 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
+l0
+L97
+VN:2nj:N6K6>nTLdD1C_Ac2
+!s100 J0ZfOjf[E;I6FM8FmLfCD3
+R8
+32
+R52
+!i10b 1
+R53
+Z73 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd|
+Z74 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd|
+!i113 1
+R13
+R14
+Artl
+R3
+R4
+Z75 DEx4 work 20 ftdi_in_io_buffer_3b 0 22 N:2nj:N6K6>nTLdD1C_Ac2
+l119
+L106
+ViWE>9`TCMZNYo[mD5Binh2
+!s100 A:;=8T9ReN`=amU_iQ6062
+R8
+32
+R52
+!i10b 1
+R53
+R73
+R74
+!i113 1
+R13
+R14
+Eftdi_in_io_buffer_3b_iobuf_in_c5i
+R25
+R3
+R4
+R5
+R71
+R72
+l0
+L46
+VEe?_L8X1j;`n:b5P^X8H:3
+!s100 GLi[mN_hL:liggRZnWja>1
+R8
+32
+R52
+!i10b 1
+R53
+R73
+R74
+!i113 1
+R13
+R14
+Artl
+R3
+R4
+DEx4 work 33 ftdi_in_io_buffer_3b_iobuf_in_c5i 0 22 Ee?_L8X1j;`n:b5P^X8H:3
+l74
+L54
+VdP:^i:K<7>XVVSBB<[czF2
+!s100 07YTCJbcTRzRlYZDYWIW11
+R8
+32
+R52
+!i10b 1
+R53
+R73
+R74
+!i113 1
+R13
+R14
+Eftdi_inout_io_buffer_39b
+R25
+R3
+R4
+R5
+Z76 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
+Z77 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
+l0
+L137
+Vof2;VIB6AJ8i4hBlJA@Mi1
+!s100 H`RjZWQU9z=Y==gNfVNFF0
+R8
+32
+R52
+!i10b 1
+R53
+Z78 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd|
+Z79 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd|
+!i113 1
+R13
+R14
+Artl
+R3
+R4
+Z80 DEx4 work 24 ftdi_inout_io_buffer_39b 0 22 of2;VIB6AJ8i4hBlJA@Mi1
+l163
+L148
+VH7ldB47:PJ8gdR^kQX7dG3
+!s100 FOl?ZXJfiMMZCc_V6NIaC2
+R8
+32
+R52
+!i10b 1
+R53
+R78
+R79
+!i113 1
+R13
+R14
+Eftdi_inout_io_buffer_39b_iobuf_bidir_ruo
+R25
+R3
+R4
+R5
+R76
+R77
+l0
+L46
+V38^8`:F5DX9LV7ROf?`aP2
+!s100 I`iBW]UND^CflYH27@QKL3
+R8
+32
+R52
+!i10b 1
+R53
+R78
+R79
+!i113 1
+R13
+R14
+Artl
+R3
+R4
+DEx4 work 40 ftdi_inout_io_buffer_39b_iobuf_bidir_ruo 0 22 38^8`:F5DX9LV7ROf?`aP2
+l99
+L56
+V>;6JFN2RT3_P@M<B>c9g>2
+!s100 z_WU]Bhf3VFEhZg`O8[eX3
+R8
+32
+R52
+!i10b 1
+R53
+R78
+R79
+!i113 1
+R13
+R14
+Eftdi_out_io_buffer_5b
+R25
+R3
+R4
+R5
+Z81 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
+Z82 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
+l0
+L107
+Vz>OoJQ<BNkh00_`WnEM2f3
+!s100 :O`:J@n>Gie`b`J;S=lSQ2
+R8
+32
+R52
+!i10b 1
+R53
+Z83 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd|
+Z84 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd|
+!i113 1
+R13
+R14
+Artl
+R3
+R4
+Z85 DEx4 work 21 ftdi_out_io_buffer_5b 0 22 z>OoJQ<BNkh00_`WnEM2f3
+l129
+L116
+V2mLmkNj:7S@Wg2m0CU:fn1
+!s100 Kan>OR1WGNcNzZcJ^hDCD1
+R8
+32
+R52
+!i10b 1
+R53
+R83
+R84
+!i113 1
+R13
+R14
+Eftdi_out_io_buffer_5b_iobuf_out_5ts
+R25
+R3
+R4
+R5
+R81
+R82
+l0
+L46
+V2P<0dc5>^ilcPz_iZoz3L1
+!s100 Gj?[?mhSY2YeTCDh:K9dG0
+R8
+32
+R52
+!i10b 1
+R53
+R83
+R84
+!i113 1
+R13
+R14
+Artl
+R3
+R4
+DEx4 work 35 ftdi_out_io_buffer_5b_iobuf_out_5ts 0 22 2P<0dc5>^ilcPz_iZoz3L1
+l80
+L54
+VGFD=WSA1U0czFb7nc54^V3
+!s100 OWCbYP9W8;5bzOn]?B6EQ3
+R8
+32
+R52
+!i10b 1
+R53
+R83
+R84
+!i113 1
+R13
+R14
+Eftdi_protocol_controller_ent
+Z86 w1567451749
+Z87 DPx4 work 17 ftdi_protocol_pkg 0 22 iQe?oAeQEF7:>?^onc6Pc1
+R2
+R3
+R4
+R5
+Z88 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_controller_ent.vhd
+Z89 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_controller_ent.vhd
+l0
+L7
+V>P;0=EhheJlzO:WNFS<Lo3
+!s100 M9e8hdCPoVUE2<8NFld<B1
+R8
+32
+R52
+!i10b 1
+R53
+Z90 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_controller_ent.vhd|
+Z91 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_controller_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R87
+R2
+R3
+R4
+Z92 DEx4 work 28 ftdi_protocol_controller_ent 0 22 >P;0=EhheJlzO:WNFS<Lo3
+l115
+L65
+VO=cll?Uf0_c6D:Me9nzGk2
+!s100 8CIeg<80S]5:Le`h>=kYX1
+R8
+32
+R52
+!i10b 1
+R53
+R90
+R91
+!i113 1
+R13
+R14
+Pftdi_protocol_crc_pkg
+R2
+R3
+R4
+Z93 w1566864515
+R5
+Z94 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_crc_pkg.vhd
+Z95 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_crc_pkg.vhd
+l0
+L5
+VP`aB59G9gC;9;8OjB:JT=1
+!s100 ^l^eO^RHS6N`57<OQ1]nk3
+R8
+32
+b1
+R19
+!i10b 1
+R20
+Z96 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_crc_pkg.vhd|
+Z97 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_crc_pkg.vhd|
+!i113 1
+R13
+R14
+Bbody
+Z98 DPx4 work 21 ftdi_protocol_crc_pkg 0 22 P`aB59G9gC;9;8OjB:JT=1
+R2
+R3
+R4
+l0
+L69
+V?n^UoPZD`<[N1HzN?HDE01
+!s100 jgelNPX:MmgIIbbGRP`Gh1
+R8
+32
+R19
+!i10b 1
+R20
+R96
+R97
+!i113 1
+R13
+R14
+Pftdi_protocol_pkg
+R2
+R3
+R4
+Z99 w1567445402
+R5
+Z100 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_pkg.vhd
+Z101 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_pkg.vhd
+l0
+L5
+ViQe?oAeQEF7:>?^onc6Pc1
+!s100 Hnn9TKTGkm3hB]0?1H]6j0
+R8
+32
+R19
+!i10b 1
+R20
+Z102 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_pkg.vhd|
+Z103 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_pkg.vhd|
+!i113 1
+R13
+R14
+Bbody
+R87
+R2
+R3
+R4
+l0
+L115
+VY?3_6TUIkDekCl`2Kc5@c2
+!s100 =@ORQ64EHHMPzo@M^alX<3
+R8
+32
+R19
+!i10b 1
+R20
+R102
+R103
+!i113 1
+R13
+R14
+Eftdi_protocol_top
+Z104 w1567453282
+R87
+R2
+R3
+R4
+R5
+Z105 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_top.vhd
+Z106 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_top.vhd
+l0
+L7
+V;`aTC`_eoe4PDV9;7XL_W1
+!s100 aFZ=AiLOHHd7R47UbK6V[0
+R8
+32
+R52
+!i10b 1
+R53
+Z107 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_top.vhd|
+Z108 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_protocol_top.vhd|
+!i113 1
+R13
+R14
+Artl
+Z109 DEx4 work 35 ftdi_rx_protocol_payload_reader_ent 0 22 3cU`3hfbQZUK9Ac4[@]f43
+Z110 DEx4 work 35 ftdi_tx_protocol_payload_writer_ent 0 22 5XDl=:I<]`Xg6hd<006;m0
+Z111 DEx4 work 34 ftdi_rx_protocol_header_parser_ent 0 22 :ij<e1>RjgXLEHeJ7Qf8^2
+R98
+Z112 DEx4 work 37 ftdi_tx_protocol_header_generator_ent 0 22 EbNcMkA2OTBc]N?gHFdFF1
+R92
+R87
+R2
+R3
+R4
+Z113 DEx4 work 17 ftdi_protocol_top 0 22 ;`aTC`_eoe4PDV9;7XL_W1
+l120
+L68
+V;gzihdbE^mQCfNXIcPdn=2
+!s100 e2Dzb1Y282mRhIZhdW_9z1
+R8
+32
+R52
+!i10b 1
+R53
+R107
+R108
+!i113 1
+R13
+R14
+Eftdi_rx_data_avalon_mm_read_ent
+R25
+Z114 DPx4 work 23 ftdi_data_avalon_mm_pkg 0 22 SXL3aO54fQk?HM`og[?Ka1
+R2
+R3
+R4
+R5
+Z115 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
+Z116 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
+l0
+L7
+V7:BBQci1TdfBRe4GFNIQK2
+!s100 M6RJ[B91R35e:cFTzUYaZ3
+R8
+32
+R19
+!i10b 1
+R20
+Z117 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd|
+Z118 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R114
+R2
+R3
+R4
+Z119 DEx4 work 31 ftdi_rx_data_avalon_mm_read_ent 0 22 7:BBQci1TdfBRe4GFNIQK2
+l32
+L21
+VNdbTJDmcFIlFGGAeEhm]i3
+!s100 G8O;kn^:CR;R5Yd]VL4NC2
+R8
+32
+R19
+!i10b 1
+R20
+R117
+R118
+!i113 1
+R13
+R14
+Eftdi_rx_data_mux_ent
+R25
+R2
+R3
+R4
+R5
+Z120 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+Z121 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+l0
+L5
+V=1nl2P`5BTg0]hNf>T0^O3
+!s100 CX[:Oi0O_kABiHa<hOT]32
+R8
+32
+R52
+!i10b 1
+R53
+Z122 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd|
+Z123 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+Z124 DEx4 work 20 ftdi_rx_data_mux_ent 0 22 =1nl2P`5BTg0]hNf>T0^O3
+l45
+L36
+Vz6Yz_9W028eBAndG[RGbT0
+!s100 7;99MIm_8dghQ7DWWbO:G3
+R8
+32
+R52
+!i10b 1
+R53
+R122
+R123
+!i113 1
+R13
+R14
+Eftdi_rx_protocol_header_parser_ent
+Z125 w1567443418
+R98
+R87
+R2
+R3
+R4
+R5
+Z126 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
+Z127 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
+l0
+L8
+V:ij<e1>RjgXLEHeJ7Qf8^2
+!s100 8D6Eo[0PAbLGIMh@loDoS0
+R8
+32
+R19
+!i10b 1
+R20
+Z128 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd|
+Z129 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R98
+R87
+R2
+R3
+R4
+R111
+l56
+L31
+VMQVO2OZ6905AZO_?ZiCmn0
+!s100 =cZFVUNomHhzUc_0L2<f=3
+R8
+32
+R19
+!i10b 1
+R20
+R128
+R129
+!i113 1
+R13
+R14
+Eftdi_rx_protocol_payload_reader_ent
+Z130 w1567452650
+R98
+R87
+R2
+R3
+R4
+R5
+Z131 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
+Z132 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd
+l0
+L8
+V3cU`3hfbQZUK9Ac4[@]f43
+!s100 GdK^B;mN?]g?omd;oa7381
+R8
+32
+R52
+!i10b 1
+R53
+Z133 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd|
+Z134 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R98
+R87
+R2
+R3
+R4
+R109
+l78
+L37
+V0N?jX6k@Yh17oe^3?0?hG0
+!s100 Y:1kSAzJdLWQl37T5?dMQ1
+R8
+32
+R52
+!i10b 1
+R53
+R133
+R134
+!i113 1
+R13
+R14
+Eftdi_tx_data_avalon_mm_write_ent
+R25
+R114
+R2
+R3
+R4
+R5
+Z135 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
+Z136 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd
+l0
+L7
+VCfg;MPGPQJb`f>:aCVnC91
+!s100 bBkMMc<585F6zan]]SQ=i0
+R8
+32
+R19
+!i10b 1
+R20
+Z137 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd|
+Z138 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_AVALON_MM/ftdi_tx_data_avalon_mm_write_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R114
+R2
+R3
+R4
+Z139 DEx4 work 32 ftdi_tx_data_avalon_mm_write_ent 0 22 Cfg;MPGPQJb`f>:aCVnC91
+l31
+L21
+VT;0l1A3MQlB:oN:OUOlOI2
+!s100 6WmnW_4G5edLH8fnB=;:C3
+R8
+32
+R19
+!i10b 1
+R20
+R137
+R138
+!i113 1
+R13
+R14
+Eftdi_tx_data_mux_ent
+R25
+R2
+R3
+R4
+R5
+Z140 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
+Z141 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
+l0
+L5
+VhWKmlc8F=^mkMQ0;EZ?dF3
+!s100 oRL;5aE[MInUB8G?JNLL;3
+R8
+32
+R52
+!i10b 1
+R53
+Z142 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd|
+Z143 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+Z144 DEx4 work 20 ftdi_tx_data_mux_ent 0 22 hWKmlc8F=^mkMQ0;EZ?dF3
+l45
+L36
+VfM`JeHaUeDW5GXea8^:m91
+!s100 7QzLF3kOZniP7^U0L:7D53
+R8
+32
+R52
+!i10b 1
+R53
+R142
+R143
+!i113 1
+R13
+R14
+Eftdi_tx_protocol_header_generator_ent
+Z145 w1567443438
+R98
+R87
+R2
+R3
+R4
+R5
+Z146 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
+Z147 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd
+l0
+L8
+VEbNcMkA2OTBc]N?gHFdFF1
+!s100 C4Y:ARfSNzDcfci@Q`8D]0
+R8
+32
+R19
+!i10b 1
+R20
+Z148 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd|
+Z149 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R98
+R87
+R2
+R3
+R4
+R112
+l50
+L29
+VOjR0D]Q6O4N:^2416LWNB1
+!s100 FcO@`F95TPS;ZK=gCi;H30
+R8
+32
+R19
+!i10b 1
+R20
+R148
+R149
+!i113 1
+R13
+R14
+Eftdi_tx_protocol_payload_writer_ent
+Z150 w1567443463
+R98
+R87
+R2
+R3
+R4
+R5
+Z151 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
+Z152 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd
+l0
+L8
+V5XDl=:I<]`Xg6hd<006;m0
+!s100 8:Yfbe7MgRoZ6gODRQ^042
+R8
+32
+R52
+!i10b 1
+R20
+Z153 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd|
+Z154 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R98
+R87
+R2
+R3
+R4
+R110
+l72
+L34
+VR2Fb2A9KI6@6_Ej4;noEB1
+!s100 _LmPO^P1SiJ^A`0QZX:Eh1
+R8
+32
+R52
+!i10b 1
+R20
+R153
+R154
+!i113 1
+R13
+R14
+Eftdi_umft601a_controller_ent
+Z155 w1567618235
+R2
+R3
+R4
+R5
+Z156 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
+Z157 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
+l0
+L5
+VkmYa^65f13O;h[XeD@T_S2
+!s100 Y9P9onohm?NV[Mf5@A<1Q3
+R8
+32
+Z158 !s110 1567618237
+!i10b 1
+Z159 !s108 1567618237.000000
+Z160 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd|
+Z161 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd|
+!i113 1
+R13
+R14
+Artl
+R85
+R80
+R75
+R56
+R2
+R3
+R4
+Z162 DEx4 work 28 ftdi_umft601a_controller_ent 0 22 kmYa^65f13O;h[XeD@T_S2
+l144
+L44
+V9VZnWh4<7BTCWj@okG>4G0
+!s100 EMANfFBgUE]nh1F^0T5H>0
+R8
+32
+R158
+!i10b 1
+R159
+R160
+R161
+!i113 1
+R13
+R14
+Erx_data_stimulli
+Z163 w1567614752
+R2
+R3
+R4
+R5
+Z164 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd
+Z165 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd
+l0
+L5
+Vi6bK1<WHE;gWJ_c]3OYFG3
+!s100 WghC[>oO5P=o]14:G=RP>3
+R8
+32
+Z166 !s110 1567614771
+!i10b 1
+Z167 !s108 1567614771.000000
+Z168 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd|
+Z169 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/rx_data_stimulli.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+Z170 DEx4 work 16 rx_data_stimulli 0 22 i6bK1<WHE;gWJ_c]3OYFG3
+l26
+L20
+VPn;WaPcgM2G5l^JC=cGG70
+!s100 <4kk:F@7gF[BIhA;;4:Yo2
+R8
+32
+R166
+!i10b 1
+R167
+R168
+R169
+!i113 1
+R13
+R14
+Etestbench_top
+Z171 w1567435141
+R1
+R2
+R3
+R4
+R5
+Z172 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd
+Z173 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd
+l0
+L7
+V2V;6JdbMeYAH4:QUNE_Rm1
+!s100 J]bmDFhUmH=XZlnPcP49]3
+R8
+32
+R9
+!i10b 1
+R10
+Z174 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd|
+Z175 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/testbench_top.vhd|
+!i113 1
+R13
+R14
+Artl
+R114
+R31
+Z176 DEx4 work 14 usb_3_ftdi_top 0 22 <dAc>`o_ABlMU`Tc>lJa`0
+Z177 DEx4 work 24 usb3_fifo_master_stimuli 0 22 m]k0=k_1Nf`MoVdV^GQWj1
+R170
+Z178 DEx4 work 16 tx_data_stimulli 0 22 ;Mdj:0C6jdza]RAe_OW[03
+R15
+R1
+R2
+R3
+R4
+DEx4 work 13 testbench_top 0 22 2V;6JdbMeYAH4:QUNE_Rm1
+l52
+L10
+V@5OQ1@94[?X]J2o`LE8iR0
+!s100 dS`<^Fn2P^KK7XWRDSeHK0
+R8
+32
+R9
+!i10b 1
+R10
+R174
+R175
+!i113 1
+R13
+R14
+Etx_data_stimulli
+Z179 w1566857985
+R2
+R3
+R4
+R5
+Z180 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd
+Z181 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd
+l0
+L5
+V;Mdj:0C6jdza]RAe_OW[03
+!s100 8?keG=FY@B8]HddEO<i;^3
+R8
+32
+R9
+!i10b 1
+R10
+Z182 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd|
+Z183 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/tx_data_stimulli.vhd|
+!i113 1
+R13
+R14
+Artl
+R2
+R3
+R4
+R178
+l39
+L20
+V[WObe2GQG@ECz1ZYSQ2T43
+!s100 _Qe4Pc[nemF9R0eMbjAd[1
+R8
+32
+R9
+!i10b 1
+R10
+R182
+R183
+!i113 1
+R13
+R14
+Eusb3_fifo_master_stimuli
+Z184 w1567618338
+R2
+R3
+R4
+R5
+Z185 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd
+Z186 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd
+l0
+L5
+Vm]k0=k_1Nf`MoVdV^GQWj1
+!s100 i=iC^_3PXO5h995bC=5``2
+R8
+32
+Z187 !s110 1567618345
+!i10b 1
+Z188 !s108 1567618345.000000
+Z189 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd|
+Z190 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Testbench/usb3_fifo_master_stimuli.vhd|
+!i113 1
+R13
+R14
+Artl
+R80
+R2
+R3
+R4
+R177
+l138
+L21
+V9L89lXF:^XNMha:EnnYiT2
+!s100 R7Y4`zjJJS]z5jzO2aYV?1
+R8
+32
+R187
+!i10b 1
+R188
+R189
+R190
+!i113 1
+R13
+R14
+Eusb_3_ftdi_top
+Z191 w1567456195
+R114
+R1
+R31
+R2
+R3
+R4
+R5
+Z192 8C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
+Z193 FC:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
+l0
+L19
+V<dAc>`o_ABlMU`Tc>lJa`0
+!s100 SEX=B4SWHCUEP5j]cm2OM1
+R8
+32
+R40
+!i10b 1
+R41
+Z194 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd|
+Z195 !s107 C:/Users/rfranca/Development/GitLab/simutemp2/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd|
+!i113 1
+R13
+R14
+Artl
+R162
+R124
+R144
+R61
+R87
+R113
+R119
+R24
+R139
+R49
+R36
+R114
+R1
+R31
+R2
+R3
+R4
+R176
+l165
+L54
+VR1jdXCKKZW2gSXgGbIlV>1
+!s100 >FWaDhbPgUI5QiJBBGONm0
+R8
+32
+R40
+!i10b 1
+R41
+R194
+R195
+!i113 1
+R13
+R14
