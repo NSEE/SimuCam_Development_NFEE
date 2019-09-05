@@ -133,7 +133,19 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_read_n_out,
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out);	
+	tristate_conduit_tcm_chipselect_n_out,
+	umft601a_pins_umft_data_signal,
+	umft601a_pins_umft_reset_n_signal,
+	umft601a_pins_umft_rxf_n_signal,
+	umft601a_pins_umft_clock_signal,
+	umft601a_pins_umft_wakeup_n_signal,
+	umft601a_pins_umft_be_signal,
+	umft601a_pins_umft_txe_n_signal,
+	umft601a_pins_umft_gpio_bus_signal,
+	umft601a_pins_umft_wr_n_signal,
+	umft601a_pins_umft_rd_n_signal,
+	umft601a_pins_umft_oe_n_signal,
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -269,4 +281,16 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
+	inout	[31:0]	umft601a_pins_umft_data_signal;
+	output		umft601a_pins_umft_reset_n_signal;
+	input		umft601a_pins_umft_rxf_n_signal;
+	input		umft601a_pins_umft_clock_signal;
+	inout		umft601a_pins_umft_wakeup_n_signal;
+	inout	[3:0]	umft601a_pins_umft_be_signal;
+	input		umft601a_pins_umft_txe_n_signal;
+	inout	[1:0]	umft601a_pins_umft_gpio_bus_signal;
+	output		umft601a_pins_umft_wr_n_signal;
+	output		umft601a_pins_umft_rd_n_signal;
+	output		umft601a_pins_umft_oe_n_signal;
+	output		umft601a_pins_umft_siwu_n_signal;
 endmodule

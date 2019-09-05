@@ -133,7 +133,19 @@
 			tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
+			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
+			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
+			umft601a_pins_umft_reset_n_signal                           : out   std_logic;                                        -- umft_reset_n_signal
+			umft601a_pins_umft_rxf_n_signal                             : in    std_logic                     := 'X';             -- umft_rxf_n_signal
+			umft601a_pins_umft_clock_signal                             : in    std_logic                     := 'X';             -- umft_clock_signal
+			umft601a_pins_umft_wakeup_n_signal                          : inout std_logic                     := 'X';             -- umft_wakeup_n_signal
+			umft601a_pins_umft_be_signal                                : inout std_logic_vector(3 downto 0)  := (others => 'X'); -- umft_be_signal
+			umft601a_pins_umft_txe_n_signal                             : in    std_logic                     := 'X';             -- umft_txe_n_signal
+			umft601a_pins_umft_gpio_bus_signal                          : inout std_logic_vector(1 downto 0)  := (others => 'X'); -- umft_gpio_bus_signal
+			umft601a_pins_umft_wr_n_signal                              : out   std_logic;                                        -- umft_wr_n_signal
+			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
+			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
+			umft601a_pins_umft_siwu_n_signal                            : out   std_logic                                         -- umft_siwu_n_signal
 		);
 	end component MebX_Qsys_Project;
 
@@ -272,6 +284,18 @@
 			tristate_conduit_tcm_read_n_out                             => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                             --                                .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                            => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                            --                                .tcm_write_n_out
 			tristate_conduit_tcm_data_out                               => CONNECTED_TO_tristate_conduit_tcm_data_out,                               --                                .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                        --                                .tcm_chipselect_n_out
+			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                       --                                .tcm_chipselect_n_out
+			umft601a_pins_umft_data_signal                              => CONNECTED_TO_umft601a_pins_umft_data_signal,                              --                   umft601a_pins.umft_data_signal
+			umft601a_pins_umft_reset_n_signal                           => CONNECTED_TO_umft601a_pins_umft_reset_n_signal,                           --                                .umft_reset_n_signal
+			umft601a_pins_umft_rxf_n_signal                             => CONNECTED_TO_umft601a_pins_umft_rxf_n_signal,                             --                                .umft_rxf_n_signal
+			umft601a_pins_umft_clock_signal                             => CONNECTED_TO_umft601a_pins_umft_clock_signal,                             --                                .umft_clock_signal
+			umft601a_pins_umft_wakeup_n_signal                          => CONNECTED_TO_umft601a_pins_umft_wakeup_n_signal,                          --                                .umft_wakeup_n_signal
+			umft601a_pins_umft_be_signal                                => CONNECTED_TO_umft601a_pins_umft_be_signal,                                --                                .umft_be_signal
+			umft601a_pins_umft_txe_n_signal                             => CONNECTED_TO_umft601a_pins_umft_txe_n_signal,                             --                                .umft_txe_n_signal
+			umft601a_pins_umft_gpio_bus_signal                          => CONNECTED_TO_umft601a_pins_umft_gpio_bus_signal,                          --                                .umft_gpio_bus_signal
+			umft601a_pins_umft_wr_n_signal                              => CONNECTED_TO_umft601a_pins_umft_wr_n_signal,                              --                                .umft_wr_n_signal
+			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                .umft_rd_n_signal
+			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                .umft_oe_n_signal
+			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal                             --                                .umft_siwu_n_signal
 		);
 

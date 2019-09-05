@@ -132,6 +132,18 @@
 		.tristate_conduit_tcm_read_n_out                             (<connected-to-tristate_conduit_tcm_read_n_out>),                             //                                .tcm_read_n_out
 		.tristate_conduit_tcm_write_n_out                            (<connected-to-tristate_conduit_tcm_write_n_out>),                            //                                .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                               (<connected-to-tristate_conduit_tcm_data_out>),                               //                                .tcm_data_out
-		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>)                        //                                .tcm_chipselect_n_out
+		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                       //                                .tcm_chipselect_n_out
+		.umft601a_pins_umft_data_signal                              (<connected-to-umft601a_pins_umft_data_signal>),                              //                   umft601a_pins.umft_data_signal
+		.umft601a_pins_umft_reset_n_signal                           (<connected-to-umft601a_pins_umft_reset_n_signal>),                           //                                .umft_reset_n_signal
+		.umft601a_pins_umft_rxf_n_signal                             (<connected-to-umft601a_pins_umft_rxf_n_signal>),                             //                                .umft_rxf_n_signal
+		.umft601a_pins_umft_clock_signal                             (<connected-to-umft601a_pins_umft_clock_signal>),                             //                                .umft_clock_signal
+		.umft601a_pins_umft_wakeup_n_signal                          (<connected-to-umft601a_pins_umft_wakeup_n_signal>),                          //                                .umft_wakeup_n_signal
+		.umft601a_pins_umft_be_signal                                (<connected-to-umft601a_pins_umft_be_signal>),                                //                                .umft_be_signal
+		.umft601a_pins_umft_txe_n_signal                             (<connected-to-umft601a_pins_umft_txe_n_signal>),                             //                                .umft_txe_n_signal
+		.umft601a_pins_umft_gpio_bus_signal                          (<connected-to-umft601a_pins_umft_gpio_bus_signal>),                          //                                .umft_gpio_bus_signal
+		.umft601a_pins_umft_wr_n_signal                              (<connected-to-umft601a_pins_umft_wr_n_signal>),                              //                                .umft_wr_n_signal
+		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                .umft_rd_n_signal
+		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                .umft_oe_n_signal
+		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>)                             //                                .umft_siwu_n_signal
 	);
 
