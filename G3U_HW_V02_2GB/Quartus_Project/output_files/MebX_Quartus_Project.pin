@@ -190,11 +190,11 @@ GND                          : AB23      : gnd    :                   :         
 VCC                          : AB24      : power  :                   : 0.9V    :           :                
 GND                          : AB25      : gnd    :                   :         :           :                
 VCCPD2A                      : AB26      : power  :                   : 2.5V    : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB27      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB28      :        :                   :         : 2C        :                
+FTDI_DATA[2]                 : AB27      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[3]                 : AB28      : bidir  : 2.5 V             :         : 2C        : Y              
 VREFB2CN0                    : AB29      : power  :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB30      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AB31      :        :                   :         : 2C        :                
+FTDI_DATA[4]                 : AB30      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[5]                 : AB31      : bidir  : 2.5 V             :         : 2C        : Y              
 VCC                          : AB32      : power  :                   : 0.9V    :           :                
 GND                          : AB33      : gnd    :                   :         :           :                
 GND+                         : AB34      :        :                   :         : 1C        :                
@@ -228,15 +228,15 @@ GND                          : AC22      : gnd    :                   :         
 VCC                          : AC23      : power  :                   : 0.9V    :           :                
 GND                          : AC24      : gnd    :                   :         :           :                
 VCC                          : AC25      : power  :                   : 0.9V    :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC26      :        :                   :         : 2A        :                
+FTDI_DATA[0]                 : AC26      : bidir  : 2.5 V             :         : 2A        : Y              
 GND                          : AC27      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC28      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC29      :        :                   :         : 2C        :                
+FTDI_BE[0]                   : AC28      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_BE[1]                   : AC29      : bidir  : 2.5 V             :         : 2C        : Y              
 GND                          : AC30      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC31      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AC32      :        :                   :         : 2C        :                
+FTDI_DATA[16]                : AC31      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[17]                : AC32      : bidir  : 2.5 V             :         : 2C        : Y              
 GND                          : AC33      : gnd    :                   :         :           :                
-GND+                         : AC34      :        :                   :         : 2C        :                
+FTDI_CLOCK                   : AC34      : input  : 2.5 V             :         : 2C        : Y              
 OSC_50_BANK2                 : AC35      : input  : 2.5 V             :         : 2C        : Y              
 GND                          : AC36      : gnd    :                   :         :           :                
 GND                          : AC37      : gnd    :                   :         :           :                
@@ -267,12 +267,12 @@ VCCPD3B                      : AD22      : power  :                   : 2.5V    
 GND                          : AD23      : gnd    :                   :         :           :                
 VCCPD3A                      : AD24      : power  :                   : 2.5V    : 3A        :                
 M1_DDR2_ba[1]                : AD25      : output : SSTL-18 Class I   :         : 3A        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD26      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD27      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD28      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD29      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD30      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AD31      :        :                   :         : 2C        :                
+FTDI_DATA[1]                 : AD26      : bidir  : 2.5 V             :         : 2A        : Y              
+FTDI_DATA[6]                 : AD27      : bidir  : 2.5 V             :         : 2A        : Y              
+FTDI_DATA[8]                 : AD28      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[9]                 : AD29      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_GPIO[1]                 : AD30      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_GPIO[0]                 : AD31      : bidir  : 2.5 V             :         : 2C        : Y              
 GND                          : AD32      : gnd    :                   :         :           :                
 VCCL_GXBL0                   : AD33      : power  :                   : 1.1V    : QL0       :                
 GND                          : AD34      : gnd    :                   :         :           :                
@@ -306,10 +306,10 @@ M1_DDR2_dq[31]               : AE22      : bidir  : SSTL-18 Class I   :         
 M1_DDR2_dq[27]               : AE23      : bidir  : SSTL-18 Class I   :         : 3B        : Y              
 M1_DDR2_odt[1]               : AE24      : output : SSTL-18 Class I   :         : 3A        : Y              
 M1_DDR2_cs_n[1]              : AE25      : output : SSTL-18 Class I   :         : 3A        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE26      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE27      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE28      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AE29      :        :                   :         : 2C        :                
+FTDI_DATA[12]                : AE26      : bidir  : 2.5 V             :         : 2A        : Y              
+FTDI_DATA[7]                 : AE27      : bidir  : 2.5 V             :         : 2A        : Y              
+FTDI_DATA[10]                : AE28      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[11]                : AE29      : bidir  : 2.5 V             :         : 2C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE30      :        :                   :         : 2C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AE31      :        :                   :         : 2C        :                
 VCC                          : AE32      : power  :                   : 0.9V    :           :                
@@ -345,7 +345,7 @@ M1_DDR2_dq[26]               : AF22      : bidir  : SSTL-18 Class I   :         
 M1_DDR2_dq[30]               : AF23      : bidir  : SSTL-18 Class I   :         : 3B        : Y              
 GND                          : AF24      : gnd    :                   :         :           :                
 M1_DDR2_oct_rup              : AF25      : input  : 1.8 V             :         : 3A        : Y              
-RESERVED_INPUT_WITH_WEAK_PULLUP : AF26      :        :                   :         : 2A        :                
+FTDI_DATA[13]                : AF26      : bidir  : 2.5 V             :         : 2A        : Y              
 GND                          : AF27      : gnd    :                   :         :           :                
 VREFB2AN0                    : AF28      : power  :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AF29      :        :                   :         : 2C        :                
@@ -389,8 +389,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AG27      :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG28      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG29      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG30      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AG31      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AG32      :        :                   :         : 2C        :                
+FTDI_DATA[14]                : AG31      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[15]                : AG32      : bidir  : 2.5 V             :         : 2C        : Y              
 VCCIO2C                      : AG33      : power  :                   : 2.5V    : 2C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG34      :        :                   :         : 2C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AG35      :        :                   :         : 2C        :                
@@ -431,8 +431,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AH30      :        :                   :      
 VCCIO2C                      : AH31      : power  :                   : 2.5V    : 2C        :                
 I_RS232_UART_RXD             : AH32      : input  : 2.5 V             :         : 2C        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AH33      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AH34      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AH35      :        :                   :         : 2C        :                
+FTDI_DATA[20]                : AH34      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[21]                : AH35      : bidir  : 2.5 V             :         : 2C        : Y              
 GXB_NC                       : AH36      :        :                   :         : QL0       :                
 GXB_NC                       : AH37      :        :                   :         : QL0       :                
 GND                          : AH38      : gnd    :                   :         :           :                
@@ -465,13 +465,13 @@ M1_DDR2_cas_n[0]             : AJ25      : output : SSTL-18 Class I   :         
 M1_DDR2_addr[10]             : AJ26      : output : SSTL-18 Class I   :         : 3A        : Y              
 GND                          : AJ27      : gnd    :                   :         :           :                
 VCCIO2A                      : AJ28      : power  :                   : 2.5V    : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AJ29      :        :                   :         : 2A        :                
+FTDI_BE[2]                   : AJ29      : bidir  : 2.5 V             :         : 2A        : Y              
 GND                          : AJ30      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AJ31      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AJ32      :        :                   :         : 2C        :                
+FTDI_DATA[18]                : AJ32      : bidir  : 2.5 V             :         : 2C        : Y              
 GND                          : AJ33      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AJ34      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AJ35      :        :                   :         : 2C        :                
+FTDI_DATA[22]                : AJ34      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[23]                : AJ35      : bidir  : 2.5 V             :         : 2C        : Y              
 GND                          : AJ36      : gnd    :                   :         :           :                
 GND                          : AJ37      : gnd    :                   :         :           :                
 GXB_GND*                     : AJ38      :        :                   :         : QL0       :                
@@ -504,13 +504,13 @@ M1_DDR2_we_n[0]              : AK25      : output : SSTL-18 Class I   :         
 M1_DDR2_addr[5]              : AK26      : output : SSTL-18 Class I   :         : 3A        : Y              
 M1_DDR2_cke[1]               : AK27      : output : SSTL-18 Class I   :         : 3A        : Y              
 VCCPGM                       : AK28      : power  :                   : 1.8V/2.5V/3.0V :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AK29      :        :                   :         : 2A        :                
+FTDI_BE[3]                   : AK29      : bidir  : 2.5 V             :         : 2A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AK30      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AK31      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AK32      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AK33      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AK34      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AK35      :        :                   :         : 2C        :                
+FTDI_RESET_N                 : AK32      : output : 2.5 V             :         : 2A        : Y              
+FTDI_DATA[19]                : AK33      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[24]                : AK34      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[25]                : AK35      : bidir  : 2.5 V             :         : 2C        : Y              
 GXB_NC                       : AK36      :        :                   :         : QL0       :                
 GXB_NC                       : AK37      :        :                   :         : QL0       :                
 GND                          : AK38      : gnd    :                   :         :           :                
@@ -546,7 +546,7 @@ VCCAUX                       : AL28      : power  :                   : 2.5V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : AL29      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AL30      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AL31      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AL32      :        :                   :         : 2A        :                
+FTDI_WAKEUP_N                : AL32      : bidir  : 2.5 V             :         : 2A        : Y              
 VCCIO2C                      : AL33      : power  :                   : 2.5V    : 2C        :                
 SEVEN_SEG_HEX0[7]            : AL34      : output : 2.5 V             :         : 2C        : Y              
 SEVEN_SEG_HEX1[7]            : AL35      : output : 2.5 V             :         : 2C        : Y              
@@ -584,11 +584,11 @@ GND                          : AM27      : gnd    :                   :         
 NC                           : AM28      :        :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AM29      :        :                   :         : 2A        :                
 GND                          : AM30      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AM31      :        :                   :         : 2A        :                
+FTDI_DATA[30]                : AM31      : bidir  : 2.5 V             :         : 2A        : Y              
 VCCIO2A                      : AM32      : power  :                   : 2.5V    : 2A        :                
 GND                          : AM33      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AM34      :        :                   :         : 2C        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AM35      :        :                   :         : 2C        :                
+FTDI_DATA[28]                : AM34      : bidir  : 2.5 V             :         : 2C        : Y              
+FTDI_DATA[29]                : AM35      : bidir  : 2.5 V             :         : 2C        : Y              
 GXB_NC                       : AM36      :        :                   :         : QL0       :                
 GXB_NC                       : AM37      :        :                   :         : QL0       :                
 GND                          : AM38      : gnd    :                   :         :           :                
@@ -622,8 +622,8 @@ M1_DDR2_addr[4]              : AN26      : output : SSTL-18 Class I   :         
 M1_DDR2_addr[9]              : AN27      : output : SSTL-18 Class I   :         : 3A        : Y              
 VREFB3AN0                    : AN28      : power  :                   : 0.9V    : 3A        :                
 nCE                          : AN29      :        :                   :         : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AN30      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AN31      :        :                   :         : 2A        :                
+FTDI_DATA[26]                : AN30      : bidir  : 2.5 V             :         : 2A        : Y              
+FTDI_DATA[31]                : AN31      : bidir  : 2.5 V             :         : 2A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN32      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AN33      :        :                   :         : 2A        :                
 O_RS232_UART_TXD             : AN34      : output : 2.5 V             :         : 2C        : Y              
@@ -661,9 +661,9 @@ M1_DDR2_addr[12]             : AP26      : output : SSTL-18 Class I   :         
 M1_DDR2_ba[2]                : AP27      : output : SSTL-18 Class I   :         : 3A        : Y              
 M1_DDR2_clk[0]               : AP28      : bidir  : Differential 1.8-V SSTL Class I :         : 3A        : Y              
 PORSEL                       : AP29      :        :                   :         : 1A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AP30      :        :                   :         : 2A        :                
+FTDI_DATA[27]                : AP30      : bidir  : 2.5 V             :         : 2A        : Y              
 VCCIO2A                      : AP31      : power  :                   : 2.5V    : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AP32      :        :                   :         : 2A        :                
+FTDI_TXE_N                   : AP32      : input  : 2.5 V             :         : 2A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP33      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP34      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AP35      :        :                   :         : 2A        :                
@@ -701,8 +701,8 @@ GND                          : AR27      : gnd    :                   :         
 M1_DDR2_clk_n[0]             : AR28      : bidir  : Differential 1.8-V SSTL Class I :         : 3A        : Y              
 VCCIO3A                      : AR29      : power  :                   : 1.8V    : 3A        :                
 GND                          : AR30      : gnd    :                   :         :           :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AR31      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AR32      :        :                   :         : 2A        :                
+FTDI_SIWU_N                  : AR31      : output : 2.5 V             :         : 2A        : Y              
+FTDI_RXF_N                   : AR32      : input  : 2.5 V             :         : 2A        : Y              
 GND                          : AR33      : gnd    :                   :         :           :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AR34      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AR35      :        :                   :         : 2A        :                
@@ -739,10 +739,10 @@ M1_DDR2_dqs[1]               : AT26      : bidir  : Differential 1.8-V SSTL Clas
 M1_DDR2_addr[7]              : AT27      : output : SSTL-18 Class I   :         : 3A        : Y              
 M1_DDR2_cke[0]               : AT28      : output : SSTL-18 Class I   :         : 3A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT29      :        :                   :         : 3A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AT30      :        :                   :         : 2A        :                
+FTDI_WR_N                    : AT30      : output : 2.5 V             :         : 2A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT31      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT32      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AT33      :        :                   :         : 2A        :                
+FTDI_RD_N                    : AT33      : output : 2.5 V             :         : 2A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AT34      :        :                   :         : 2A        :                
 VCCIO2A                      : AT35      : power  :                   : 2.5V    : 2A        :                
 GXB_NC                       : AT36      :        :                   :         : QL0       :                
@@ -781,7 +781,7 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : AU29      :        :                   :      
 VCCIO3A                      : AU30      : power  :                   : 1.8V    : 3A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU31      :        :                   :         : 2A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU32      :        :                   :         : 2A        :                
-RESERVED_INPUT_WITH_WEAK_PULLUP : AU33      :        :                   :         : 2A        :                
+FTDI_OE_N                    : AU33      : output : 2.5 V             :         : 2A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : AU34      :        :                   :         : 2A        :                
 NC                           : AU35      :        :                   :         :           :                
 GND                          : AU36      : gnd    :                   :         :           :                
@@ -1397,8 +1397,8 @@ VCCPD8B                      : R23       : power  :                   : 2.5V    
 RESERVED_INPUT_WITH_WEAK_PULLUP : R24       :        :                   :         : 8A        :                
 VCCPD8A                      : R25       : power  :                   : 2.5V    : 8A        :                
 NC                           : R26       :        :                   :         :           :                
-FSM_A[0]                     : R27       : output : 2.5 V             :         : 1A        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : R28       :        :                   :         : 1A        :                
+RESERVED_INPUT_WITH_WEAK_PULLUP : R27       :        :                   :         : 1A        :                
+FSM_A[0]                     : R28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[2]                   : R29       : output : 2.5 V             :         : 1A        : Y              
 RESERVED_INPUT_WITH_WEAK_PULLUP : R30       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : R31       :        :                   :         : 1C        :                
