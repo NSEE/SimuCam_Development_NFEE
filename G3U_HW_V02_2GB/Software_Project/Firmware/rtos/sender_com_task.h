@@ -13,9 +13,10 @@
 #include "../utils/communication_utils.h"
 
 
-typedef enum { sConfiguringSender = 0, sStartingConnSender, sReadingQueue, sProcessingCommand, sSendingBuffer,  sDummySender , sHandlingErrorSender } tSenderStates;
+typedef enum { sConfiguringSender = 0, sStartingConnSender, sReadingQueue, sSendingPUS, sSendingInternalCMD, sProcessingCommand, sSendingBuffer,  sDummySender , sHandlingErrorSender } tSenderStates;
 
 
 void vSenderComTask(void *task_data);
+bool getBufferSendPUSorChar( tTMPusChar_Sender *cBuffer );
 
 #endif /* SENDER_COM_H_ */

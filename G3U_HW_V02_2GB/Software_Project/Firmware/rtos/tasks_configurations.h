@@ -27,10 +27,11 @@
 #define SENDER_TASK_PRIO                26
 #define IN_ACK_TASK_PRIO				25
 
-#define PCP_MUTEX_PrePareseds           23   /* MUTEX Reader -> PARSER task*/
-#define PCP_MUTEX_B32_PRIO              22   /* MUTEX Buffer TX char[32]*/
-#define PCP_MUTEX_B64_PRIO              21   /* MUTEX Buffer TX char[64]*/
-#define PCP_MUTEX_B128_PRIO             20   /* MUTEX Buffer TX char[128]*/
+#define PCP_MUTEX_PrePareseds           24   /* MUTEX Reader -> PARSER task*/
+#define PCP_MUTEX_B32_PRIO              23   /* MUTEX Buffer TX char[32]*/
+#define PCP_MUTEX_B64_PRIO              22   /* MUTEX Buffer TX char[64]*/
+#define PCP_MUTEX_B128_PRIO             21   /* MUTEX Buffer TX char[128]*/
+#define PCP_MUTEX_B128_PRIO_SENDER      20   /* MUTEX Buffer TX char[128]*/
 #define PCP_MUTEX_RECEIVER_ACK          19   /* MUTEX Reader -> Ack receiver control*/
 #define PCP_MUTEX_SENDER_ACK            18   /* MUTEX Reader -> Ack receiver control*/
 #define PCP_MUTEX_TX_UART_PRIO          17   /* MUTEX TX UART*/
@@ -51,7 +52,7 @@
 #define PCP_MUTEX_DMA_1                 6
 #define PCP_MUTEX_DMA_0                 4
 
-#define STACK_MONITOR_TASK_PRIO			16   /* Very High*/
+#define STACK_MONITOR_TASK_PRIO			16   /* High*/
 
 /* --------------- Timers ------------------ */
 #define PERIOD_TIMER        4   /* In the BSP the Hz of the timer is 500 milli, period = 2 give me 2 sec */
@@ -165,6 +166,8 @@ extern OS_EVENT *xSemTimeoutChecker;
 
 extern OS_EVENT *xSemCountSenderACK;
 extern OS_EVENT *xMutexSenderACK;
+
+OS_EVENT *xMutexTranferBuffer;
 
 
 /* Struct for the DMA control */

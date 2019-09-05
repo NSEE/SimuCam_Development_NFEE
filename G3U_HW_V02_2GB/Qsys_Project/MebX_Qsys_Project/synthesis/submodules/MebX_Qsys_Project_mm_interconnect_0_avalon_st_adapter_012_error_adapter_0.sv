@@ -1,10 +1,10 @@
-// (C) 2001-2016 Intel Corporation. All rights reserved.
+// (C) 2001-2018 Intel Corporation. All rights reserved.
 // Your use of Intel Corporation's design tools, logic functions and other 
 // software and tools, and its AMPP partner logic functions, and any output 
-// files any of the foregoing (including device programming or simulation 
+// files from any of the foregoing (including device programming or simulation 
 // files), and any associated documentation or information are expressly subject 
 // to the terms and conditions of the Intel Program License Subscription 
-// Agreement, Intel MegaCore Function License Agreement, or other applicable 
+// Agreement, Intel FPGA IP License Agreement, or other applicable 
 // license agreement, including, without limitation, that your use is for the 
 // sole purpose of programming logic devices manufactured by Intel and sold by 
 // Intel or its authorized distributors.  Please refer to the applicable 
@@ -43,7 +43,7 @@
 //   use_packets:        false
 //   use_empty:          0
 //   empty_width:        0
-//   data_width:         18
+//   data_width:         258
 //   channel_width:      0
 //   in_error_width:     0
 //   out_error_width:    1
@@ -68,11 +68,11 @@ module MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_012_error_adapter_0
  // Interface: in
  output reg         in_ready,
  input              in_valid,
- input [18-1: 0]     in_data,
+ input [258-1: 0]     in_data,
  // Interface: out
  input               out_ready,
  output reg          out_valid,
- output reg [18-1: 0] out_data,
+ output reg [258-1: 0] out_data,
  output reg [0:0]         out_error,
   // Interface: clk
  input              clk,

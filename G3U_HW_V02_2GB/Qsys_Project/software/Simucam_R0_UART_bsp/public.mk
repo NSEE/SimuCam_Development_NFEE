@@ -148,6 +148,7 @@ ELF_PATCH_FLAG  += --simulation_enabled false
 
 # The SOPC System ID 
 # setting SOPC_SYSID is 113
+<<<<<<< HEAD
 SOPC_SYSID_FLAG += --id=113
 ELF_PATCH_FLAG  += --id 113
 
@@ -163,6 +164,23 @@ ELF_PATCH_FLAG  += --timestamp 1559240338
 
 # Enable JTAG UART driver to recover when host is inactive causing buffer to 
 # full without returning error. Printf will not fail with this recovery. none 
+=======
+SOPC_SYSID_FLAG += --id=113
+ELF_PATCH_FLAG  += --id 113
+
+# The SOPC System ID Base Address 
+# setting SOPC_SYSID_BASE_ADDRESS is 0x80002080
+SOPC_SYSID_FLAG += --sidp=0x80002080
+ELF_PATCH_FLAG  += --sidp 0x80002080
+
+# The SOPC Timestamp 
+# setting SOPC_TIMESTAMP is 1567106321
+SOPC_SYSID_FLAG += --timestamp=1567106321
+ELF_PATCH_FLAG  += --timestamp 1567106321
+
+# Enable JTAG UART driver to recover when host is inactive causing buffer to 
+# full without returning error. Printf will not fail with this recovery. none 
+>>>>>>> sw_refactFee
 # setting altera_avalon_jtag_uart_driver.enable_jtag_uart_ignore_fifo_full_error is false
 
 # Small-footprint (polled mode) driver none 

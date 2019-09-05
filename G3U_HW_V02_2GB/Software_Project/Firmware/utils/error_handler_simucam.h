@@ -16,6 +16,17 @@
     void printErrorTask( INT8U error_code );
 #endif
 
+void vFailFtdiErrorIRQtoDTC ( void );
+void vFailSendBufferEmptyIRQtoDTC ( void );
+void vFailSendBufferLastIRQtoDTC ( void );
+void vFailFromFEE ( void );
+void vFailSendMSGMebTask ( void );
+void vFailSendBufferFullIRQtoDTC ( void );
+void vFailFTDIDMASchedule( void );
+void vCommunicationErrorUSB3DTController( void );
+void vCriticalFailUpdateMemoreDTController( void );
+void vFailSendRequestDTController( void );
+void vFailInitRTOSResources( void );
 void vFailTestCriticasParts( void );
 void vFailGetMacRTC( void );
 void vFailInitialization( void );
@@ -40,8 +51,11 @@ void vFailSetCountSemaphorexBuffer64( void );
 void vFailSetCountSemaphorexBuffer128( void );
 void vFailFoundBufferRetransmission( void );
 void vFailGetCountSemaphorePreParsedBuffer( void );
+void vFailGetCountSemaphoreSenderBuffer( void );
 void vFailGetxMutexPreParsedParserRxTask( void );
+void vFailGetxMutexSenderBuffer128( void );
 void vNoContentInPreParsedBuffer( void );
+void vNoContentInSenderBuffer( void );
 void vCouldNotSendEthConfUART( void );
 void vFailSendNack( void );
 void vFailSetPreAckSenderBuffer( void );
@@ -61,6 +75,7 @@ void vCouldNotRetransmitB128TimeoutTask( void );
 void vFailStartTimerRetransmission( void );
 void vFailCouldNotRetransmitTimeoutTask( void );
 void vCouldNotSendTurnOff( void );
+void vCouldNotSendGenericMessageInternalCMD( void );
 void vCouldNotSendReset( void );
 void vCouldNotSendLog( void );
 void vCouldNotSendTMPusCommand( const char *cData );

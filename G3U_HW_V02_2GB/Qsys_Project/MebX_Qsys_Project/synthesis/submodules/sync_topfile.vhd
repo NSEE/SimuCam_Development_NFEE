@@ -9,9 +9,10 @@ use IEEE.numeric_std.all;
 --! Specific packages
 use work.sync_mm_registers_pkg.all;
 use work.sync_avalon_mm_pkg.all;
+use work.sync_common_pkg.all;
 use work.sync_gen_pkg.all;
 use work.sync_outen_pkg.all;
-use work.sync_int_pkg.all;
+use work.sync_irq_pkg.all;
 
 -------------------------------------------------------------------------------
 -- --
@@ -54,26 +55,32 @@ use work.sync_int_pkg.all;
 --! Entity declaration for sync top level
 --============================================================================
 entity sync_ent is
+	generic(
+		g_SYNC_IRQ_NUMBER     : natural := 0;
+		g_PRE_SYNC_IRQ_NUMBER : natural := 0
+	);
 	port(
-		reset_sink_reset            : in  std_logic                     := '0';
-		clock_sink_clk              : in  std_logic                     := '0';
-		conduit_sync_signal_syncin  : in  std_logic                     := '0';
-		avalon_slave_address        : in  std_logic_vector(7 downto 0)  := (others => '0');
-		avalon_slave_read           : in  std_logic                     := '0';
-		avalon_slave_write          : in  std_logic                     := '0';
-		avalon_slave_writedata      : in  std_logic_vector(31 downto 0) := (others => '0');
-		avalon_slave_readdata       : out std_logic_vector(31 downto 0);
-		avalon_slave_waitrequest    : out std_logic;
-		conduit_sync_signal_spwa    : out std_logic;
-		conduit_sync_signal_spwb    : out std_logic;
-		conduit_sync_signal_spwc    : out std_logic;
-		conduit_sync_signal_spwd    : out std_logic;
-		conduit_sync_signal_spwe    : out std_logic;
-		conduit_sync_signal_spwf    : out std_logic;
-		conduit_sync_signal_spwg    : out std_logic;
-		conduit_sync_signal_spwh    : out std_logic;
-		conduit_sync_signal_syncout : out std_logic;
-		interrupt_sender_irq        : out std_logic
+		reset_sink_reset_i              : in  std_logic                     := '0';
+		clock_sink_clk_i                : in  std_logic                     := '0';
+		conduit_sync_signal_syncin_i    : in  std_logic                     := '0';
+		avalon_slave_address_i          : in  std_logic_vector(7 downto 0)  := (others => '0');
+		avalon_slave_read_i             : in  std_logic                     := '0';
+		avalon_slave_write_i            : in  std_logic                     := '0';
+		avalon_slave_writedata_i        : in  std_logic_vector(31 downto 0) := (others => '0');
+		avalon_slave_byteenable_i       : in  std_logic_vector(3 downto 0);
+		avalon_slave_readdata_o         : out std_logic_vector(31 downto 0);
+		avalon_slave_waitrequest_o      : out std_logic;
+		conduit_sync_signal_spw1_o      : out std_logic;
+		conduit_sync_signal_spw2_o      : out std_logic;
+		conduit_sync_signal_spw3_o      : out std_logic;
+		conduit_sync_signal_spw4_o      : out std_logic;
+		conduit_sync_signal_spw5_o      : out std_logic;
+		conduit_sync_signal_spw6_o      : out std_logic;
+		conduit_sync_signal_spw7_o      : out std_logic;
+		conduit_sync_signal_spw8_o      : out std_logic;
+		conduit_sync_signal_syncout_o   : out std_logic;
+		sync_interrupt_sender_irq_o     : out std_logic;
+		pre_sync_interrupt_sender_irq_o : out std_logic
 	);
 end entity sync_ent;
 
@@ -82,16 +89,18 @@ end entity sync_ent;
 --============================================================================
 architecture rtl of sync_ent is
 
-	alias a_reset is reset_sink_reset;
-	alias a_clock is clock_sink_clk;
-	alias a_irq is interrupt_sender_irq;
+	alias a_reset is reset_sink_reset_i;
+	alias a_clock is clock_sink_clk_i;
+	alias a_sync_irq is sync_interrupt_sender_irq_o;
+	alias a_pre_sync_irq is pre_sync_interrupt_sender_irq_o;
 
-	alias a_avalon_mm_address is avalon_slave_address;
-	alias a_avalon_mm_read is avalon_slave_read;
-	alias a_avalon_mm_readata is avalon_slave_readdata;
-	alias a_avalon_mm_write is avalon_slave_write;
-	alias a_avalon_mm_writedata is avalon_slave_writedata;
-	alias a_avalon_mm_waitrequest is avalon_slave_waitrequest;
+	alias a_avalon_mm_address is avalon_slave_address_i;
+	alias a_avalon_mm_read is avalon_slave_read_i;
+	alias a_avalon_mm_readata is avalon_slave_readdata_o;
+	alias a_avalon_mm_write is avalon_slave_write_i;
+	alias a_avalon_mm_writedata is avalon_slave_writedata_i;
+	alias a_avalon_mm_waitrequest is avalon_slave_waitrequest_o;
+	alias a_avalon_mm_byteenable is avalon_slave_byteenable_i;
 
 	signal s_reset_n : std_logic;
 
@@ -104,12 +113,8 @@ architecture rtl of sync_ent is
 	signal s_sync_signal    : std_logic;
 	signal s_syncgen_signal : std_logic;
 
-	-- irq signas
-	signal s_irq_sync         : std_logic;
-	signal s_irq_sync_delayed : std_logic;
-
-	signal s_irq_flag_clear : std_logic;
-	signal s_irq_flag       : std_logic;
+	signal s_pre_sync_signal   : std_logic;
+	signal s_next_cycle_number : std_logic_vector(7 downto 0);
 
 	--============================================================================
 	-- architecture begin
@@ -122,9 +127,9 @@ begin
 			rst_i                   => a_reset,
 			avalon_mm_i.address     => a_avalon_mm_address,
 			avalon_mm_i.read        => a_avalon_mm_read,
+			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
 			mm_write_reg_i          => s_sync_mm_write_registers,
 			mm_read_reg_i           => s_sync_mm_read_registers,
-			sync_irq_flag_i         => s_irq_flag,
 			avalon_mm_o.readdata    => a_avalon_mm_readata,
 			avalon_mm_o.waitrequest => s_avalon_mm_read_waitrequest
 		);
@@ -137,9 +142,9 @@ begin
 			avalon_mm_i.address     => a_avalon_mm_address,
 			avalon_mm_i.write       => a_avalon_mm_write,
 			avalon_mm_i.writedata   => a_avalon_mm_writedata,
+			avalon_mm_i.byteenable  => a_avalon_mm_byteenable,
 			avalon_mm_o.waitrequest => s_avalon_mm_write_waitrequest,
-			mm_write_reg_o          => s_sync_mm_write_registers,
-			sync_irq_trigger_o      => s_irq_flag_clear
+			mm_write_reg_o          => s_sync_mm_write_registers
 		);
 
 	-- Sync generator module instantiation
@@ -148,24 +153,27 @@ begin
 			clk_i                      => a_clock,
 			reset_n_i                  => s_reset_n,
 			-- Control
-			control_i.start            => s_sync_mm_write_registers.control_register.start,
-			control_i.reset            => s_sync_mm_write_registers.control_register.reset,
-			control_i.one_shot         => s_sync_mm_write_registers.control_register.one_shot,
-			control_i.err_inj          => s_sync_mm_write_registers.control_register.err_inj,
+			control_i.start            => s_sync_mm_write_registers.sync_control_reg.start,
+			control_i.reset            => s_sync_mm_write_registers.sync_control_reg.reset,
+			control_i.one_shot         => s_sync_mm_write_registers.sync_control_reg.one_shot,
+			control_i.err_inj          => s_sync_mm_write_registers.sync_control_reg.err_inj,
 			-- Config
-			config_i.master_blank_time => s_sync_mm_write_registers.config_register.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.blank_time        => s_sync_mm_write_registers.config_register.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.period            => s_sync_mm_write_registers.config_register.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.one_shot_time     => s_sync_mm_write_registers.config_register.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
-			config_i.signal_polarity   => s_sync_mm_write_registers.config_register.general.signal_polarity,
-			config_i.number_of_cycles  => s_sync_mm_write_registers.config_register.general.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			config_i.master_blank_time => s_sync_mm_write_registers.sync_config_reg.master_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.blank_time        => s_sync_mm_write_registers.sync_config_reg.blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.pre_blank_time    => s_sync_mm_write_registers.sync_config_reg.pre_blank_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.period            => s_sync_mm_write_registers.sync_config_reg.period((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.one_shot_time     => s_sync_mm_write_registers.sync_config_reg.one_shot_time((c_SYNC_COUNTER_WIDTH - 1) downto 0),
+			config_i.signal_polarity   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
+			config_i.number_of_cycles  => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
 			-- Error injection
-			err_inj_i.error_injection  => s_sync_mm_write_registers.error_injection_register.error_injection,
+			err_inj_i.error_injection  => s_sync_mm_write_registers.sync_error_injection_reg.error_injection,
 			-- Status
-			status_o.state             => s_sync_mm_read_registers.status_register.state,
-			status_o.cycle_number      => s_sync_mm_read_registers.status_register.cycle_number,
+			status_o.state             => s_sync_mm_read_registers.sync_status_reg.state,
+			status_o.cycle_number      => s_sync_mm_read_registers.sync_status_reg.cycle_number,
+			status_o.next_cycle_number => s_next_cycle_number,
 			-- Final internal generated sync signal
-			sync_gen_o                 => s_syncgen_signal
+			sync_gen_o                 => s_syncgen_signal,
+			pre_sync_gen_o             => s_pre_sync_signal
 		);
 
 	-- Output enable module instantiation
@@ -176,49 +184,99 @@ begin
 			-- Post mux sync signal (ext/int)
 			sync_signal_i                    => s_sync_signal,
 			-- Blank pulse sync polarity
-			sync_pol_i                       => s_sync_mm_write_registers.config_register.general.signal_polarity,
+			sync_pol_i                       => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
 			-- Enable controls
-			sync_control_i.channel_a_enable  => s_sync_mm_write_registers.control_register.channel_a_enable,
-			sync_control_i.channel_b_enable  => s_sync_mm_write_registers.control_register.channel_b_enable,
-			sync_control_i.channel_c_enable  => s_sync_mm_write_registers.control_register.channel_c_enable,
-			sync_control_i.channel_d_enable  => s_sync_mm_write_registers.control_register.channel_d_enable,
-			sync_control_i.channel_e_enable  => s_sync_mm_write_registers.control_register.channel_e_enable,
-			sync_control_i.channel_f_enable  => s_sync_mm_write_registers.control_register.channel_f_enable,
-			sync_control_i.channel_g_enable  => s_sync_mm_write_registers.control_register.channel_g_enable,
-			sync_control_i.channel_h_enable  => s_sync_mm_write_registers.control_register.channel_h_enable,
-			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.control_register.out_enable,
+			sync_control_i.channel_1_enable  => s_sync_mm_write_registers.sync_control_reg.channel_1_enable,
+			sync_control_i.channel_2_enable  => s_sync_mm_write_registers.sync_control_reg.channel_2_enable,
+			sync_control_i.channel_3_enable  => s_sync_mm_write_registers.sync_control_reg.channel_3_enable,
+			sync_control_i.channel_4_enable  => s_sync_mm_write_registers.sync_control_reg.channel_4_enable,
+			sync_control_i.channel_5_enable  => s_sync_mm_write_registers.sync_control_reg.channel_5_enable,
+			sync_control_i.channel_6_enable  => s_sync_mm_write_registers.sync_control_reg.channel_6_enable,
+			sync_control_i.channel_7_enable  => s_sync_mm_write_registers.sync_control_reg.channel_7_enable,
+			sync_control_i.channel_8_enable  => s_sync_mm_write_registers.sync_control_reg.channel_8_enable,
+			sync_control_i.sync_out_enable   => s_sync_mm_write_registers.sync_control_reg.out_enable,
 			-- Sync signal routing
-			sync_channels_o.channel_a_signal => conduit_sync_signal_spwa,
-			sync_channels_o.channel_b_signal => conduit_sync_signal_spwb,
-			sync_channels_o.channel_c_signal => conduit_sync_signal_spwc,
-			sync_channels_o.channel_d_signal => conduit_sync_signal_spwd,
-			sync_channels_o.channel_e_signal => conduit_sync_signal_spwe,
-			sync_channels_o.channel_f_signal => conduit_sync_signal_spwf,
-			sync_channels_o.channel_g_signal => conduit_sync_signal_spwg,
-			sync_channels_o.channel_h_signal => conduit_sync_signal_spwh,
-			sync_channels_o.sync_out_signal  => conduit_sync_signal_syncout
+			sync_channels_o.channel_1_signal => conduit_sync_signal_spw1_o,
+			sync_channels_o.channel_2_signal => conduit_sync_signal_spw2_o,
+			sync_channels_o.channel_3_signal => conduit_sync_signal_spw3_o,
+			sync_channels_o.channel_4_signal => conduit_sync_signal_spw4_o,
+			sync_channels_o.channel_5_signal => conduit_sync_signal_spw5_o,
+			sync_channels_o.channel_6_signal => conduit_sync_signal_spw6_o,
+			sync_channels_o.channel_7_signal => conduit_sync_signal_spw7_o,
+			sync_channels_o.channel_8_signal => conduit_sync_signal_spw8_o,
+			sync_channels_o.sync_out_signal  => conduit_sync_signal_syncout_o
 		);
 
 	-- Sync Interrupt module instantiation
-	sync_int_inst : entity work.sync_int
+	sync_irq_inst : entity work.sync_irq
+		generic map(
+			g_SYNC_DEFAULT_STBY_POLARITY => c_SYNC_DEFAULT_STBY_POLARITY,
+			g_SYNC_DEFAULT_IRQ_POLARITY  => c_SYNC_DEFAULT_IRQ_POLARITY
+		)
 		port map(
-			clk_i                                       => a_clock,
-			reset_n_i                                   => s_reset_n,
-			-- Int enable
-			int_enable_i.error_int_enable               => s_sync_mm_write_registers.int_enable_register.error_int_enable,
-			int_enable_i.blank_pulse_int_enable         => s_sync_mm_write_registers.int_enable_register.blank_pulse_int_enable,
-			-- Int flag clear
-			int_flag_clear_i.error_int_flag_clear       => s_sync_mm_write_registers.int_flag_clear_register.error_int_flag_clear,
-			int_flag_clear_i.blank_pulse_int_flag_clear => s_sync_mm_write_registers.int_flag_clear_register.blank_pulse_int_flag_clear,
+			clk_i                                        => a_clock,
+			reset_n_i                                    => s_reset_n,
+			-- Irq enable
+			irq_enable_i.error_irq_enable                => s_sync_mm_write_registers.sync_irq_enable_reg.error_irq_enable,
+			irq_enable_i.blank_pulse_irq_enable          => s_sync_mm_write_registers.sync_irq_enable_reg.blank_pulse_irq_enable,
+			irq_enable_i.master_pulse_irq_enable         => s_sync_mm_write_registers.sync_irq_enable_reg.master_pulse_irq_enable,
+			irq_enable_i.normal_pulse_irq_enable         => s_sync_mm_write_registers.sync_irq_enable_reg.normal_pulse_irq_enable,
+			irq_enable_i.last_pulse_irq_enable           => s_sync_mm_write_registers.sync_irq_enable_reg.last_pulse_irq_enable,
+			-- Irq flag clear
+			irq_flag_clear_i.error_irq_flag_clear        => s_sync_mm_write_registers.sync_irq_flag_clear_reg.error_irq_flag_clear,
+			irq_flag_clear_i.blank_pulse_irq_flag_clear  => s_sync_mm_write_registers.sync_irq_flag_clear_reg.blank_pulse_irq_flag_clear,
+			irq_flag_clear_i.master_pulse_irq_flag_clear => s_sync_mm_write_registers.sync_irq_flag_clear_reg.master_pulse_irq_flag_clear,
+			irq_flag_clear_i.normal_pulse_irq_flag_clear => s_sync_mm_write_registers.sync_irq_flag_clear_reg.normal_pulse_irq_flag_clear,
+			irq_flag_clear_i.last_pulse_irq_flag_clear   => s_sync_mm_write_registers.sync_irq_flag_clear_reg.last_pulse_irq_flag_clear,
 			-- Input watch signals (that can produce interrupts)
-			int_watch_i.error_code_watch                => s_sync_mm_read_registers.status_register.error_code,
-			int_watch_i.sync_wave_watch                 => s_sync_signal,
+			irq_watch_i.error_code_watch                 => s_sync_mm_read_registers.sync_status_reg.error_code,
+			irq_watch_i.sync_cycle_number                => s_sync_mm_read_registers.sync_status_reg.cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			irq_watch_i.sync_wave_watch                  => s_sync_signal,
 			-- Aux to inform sync polarity
-			int_watch_i.sync_pol_watch                  => s_sync_mm_write_registers.config_register.general.signal_polarity,
-			-- Int flag
-			int_flag_o.error_int_flag                   => s_sync_mm_read_registers.int_flag_register.error_int_flag,
-			int_flag_o.blank_pulse_int_flag             => s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag,
-			irq_o                                       => s_irq_sync
+			irq_watch_i.sync_pol_watch                   => s_sync_mm_write_registers.sync_general_config_reg.signal_polarity,
+			-- Aux to inform sync number of cycles
+			irq_watch_i.sync_number_of_cycles            => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			-- Irq flag
+			irq_flag_o.error_irq_flag                    => s_sync_mm_read_registers.sync_irq_flag_reg.error_irq_flag,
+			irq_flag_o.blank_pulse_irq_flag              => s_sync_mm_read_registers.sync_irq_flag_reg.blank_pulse_irq_flag,
+			irq_flag_o.master_pulse_irq_flag             => s_sync_mm_read_registers.sync_irq_flag_reg.master_pulse_irq_flag,
+			irq_flag_o.normal_pulse_irq_flag             => s_sync_mm_read_registers.sync_irq_flag_reg.normal_pulse_irq_flag,
+			irq_flag_o.last_pulse_irq_flag               => s_sync_mm_read_registers.sync_irq_flag_reg.last_pulse_irq_flag,
+			irq_o                                        => a_sync_irq
+		);
+
+	-- Pre-Sync Interrupt module instantiation
+	pre_sync_irq_inst : entity work.pre_sync_irq
+		generic map(
+			g_SYNC_DEFAULT_STBY_POLARITY => c_SYNC_DEFAULT_STBY_POLARITY,
+			g_SYNC_DEFAULT_IRQ_POLARITY  => c_SYNC_DEFAULT_IRQ_POLARITY
+		)
+		port map(
+			clk_i                                            => a_clock,
+			reset_n_i                                        => s_reset_n,
+			-- Irq enable
+			irq_enable_i.pre_blank_pulse_irq_enable          => s_sync_mm_write_registers.pre_sync_irq_enable_reg.pre_blank_pulse_irq_enable,
+			irq_enable_i.pre_master_pulse_irq_enable         => s_sync_mm_write_registers.pre_sync_irq_enable_reg.pre_master_pulse_irq_enable,
+			irq_enable_i.pre_normal_pulse_irq_enable         => s_sync_mm_write_registers.pre_sync_irq_enable_reg.pre_normal_pulse_irq_enable,
+			irq_enable_i.pre_last_pulse_irq_enable           => s_sync_mm_write_registers.pre_sync_irq_enable_reg.pre_last_pulse_irq_enable,
+			-- Irq flag clear
+			irq_flag_clear_i.pre_blank_pulse_irq_flag_clear  => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_blank_pulse_irq_flag_clear,
+			irq_flag_clear_i.pre_master_pulse_irq_flag_clear => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_master_pulse_irq_flag_clear,
+			irq_flag_clear_i.pre_normal_pulse_irq_flag_clear => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_normal_pulse_irq_flag_clear,
+			irq_flag_clear_i.pre_last_pulse_irq_flag_clear   => s_sync_mm_write_registers.pre_sync_irq_flag_clear_reg.pre_last_pulse_irq_flag_clear,
+			-- Input watch signals (that can produce interrupts)
+			irq_watch_i.pre_sync_cycle_number                => s_next_cycle_number((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			irq_watch_i.pre_sync_wave_watch                  => s_pre_sync_signal,
+			-- Aux to inform pre-sync polarity
+			irq_watch_i.pre_sync_pol_watch                   => '1',
+			-- Aux to inform sync number of cycles
+			irq_watch_i.pre_sync_number_of_cycles            => s_sync_mm_write_registers.sync_general_config_reg.number_of_cycles((c_SYNC_CYCLE_NUMBER_WIDTH - 1) downto 0),
+			-- Irq flag
+			irq_flag_o.pre_blank_pulse_irq_flag              => s_sync_mm_read_registers.pre_sync_irq_flag_reg.pre_blank_pulse_irq_flag,
+			irq_flag_o.pre_master_pulse_irq_flag             => s_sync_mm_read_registers.pre_sync_irq_flag_reg.pre_master_pulse_irq_flag,
+			irq_flag_o.pre_normal_pulse_irq_flag             => s_sync_mm_read_registers.pre_sync_irq_flag_reg.pre_normal_pulse_irq_flag,
+			irq_flag_o.pre_last_pulse_irq_flag               => s_sync_mm_read_registers.pre_sync_irq_flag_reg.pre_last_pulse_irq_flag,
+			irq_o                                            => a_pre_sync_irq
 		);
 
 	-- Signals assignment (concurrent code)
@@ -228,51 +286,31 @@ begin
 	-- Sync mux: internal ou external sync
 	-- '1' -> internal sync
 	-- '0' -> external sync
-	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.control_register.int_ext_n = '1') else (conduit_sync_signal_syncin);
+	s_sync_signal <= (s_syncgen_signal) when (s_sync_mm_write_registers.sync_control_reg.int_ext_n = '1') else (conduit_sync_signal_syncin_i);
 
 	-- Sync mux status
-	s_sync_mm_read_registers.status_register.int_ext_n <= s_sync_mm_write_registers.control_register.int_ext_n;
+	s_sync_mm_read_registers.sync_status_reg.int_ext_n <= s_sync_mm_write_registers.sync_control_reg.int_ext_n;
 
 	-- Keep error code status reseted (no error) - It´s logic should be conceived
-	s_sync_mm_read_registers.status_register.error_code <= (others => '0');
+	s_sync_mm_read_registers.sync_status_reg.error_code <= (others => '0');
 
-	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
-	s_sync_mm_read_registers.int_flag_register.error_int_enable           <= '0';
-	s_sync_mm_read_registers.int_flag_register.blank_pulse_int_enable     <= '0';
-	s_sync_mm_read_registers.int_flag_register.error_int_flag_clear       <= '0';
-	s_sync_mm_read_registers.int_flag_register.blank_pulse_int_flag_clear <= '0';
-	s_sync_mm_read_registers.error_injection_register.error_injection     <= (others => '0');
-	s_sync_mm_read_registers.config_register.master_blank_time            <= (others => '0');
-	s_sync_mm_read_registers.config_register.blank_time                   <= (others => '0');
-	s_sync_mm_read_registers.config_register.period                       <= (others => '0');
-	s_sync_mm_read_registers.config_register.one_shot_time                <= (others => '0');
-	s_sync_mm_read_registers.config_register.general.signal_polarity      <= '0';
-	s_sync_mm_read_registers.config_register.general.number_of_cycles     <= (others => '0');
-	s_sync_mm_read_registers.control_register                             <= (others => '0');
+	-- Sync IRQ Number assignment
+	s_sync_mm_read_registers.sync_irq_number_reg.sync_irq_number     <= std_logic_vector(to_unsigned(g_SYNC_IRQ_NUMBER, s_sync_mm_read_registers.sync_irq_number_reg.sync_irq_number'length));
+	s_sync_mm_read_registers.sync_irq_number_reg.pre_sync_irq_number <= std_logic_vector(to_unsigned(g_PRE_SYNC_IRQ_NUMBER, s_sync_mm_read_registers.sync_irq_number_reg.pre_sync_irq_number'length));
 
-	--		signal s_irq_flag_clear : std_logic;
-	--	signal s_irq_flag : std_logic;
-
-	-- ir manager
-	p_sync_irq_manager : process(a_clock, a_reset) is
-	begin
-		if (a_reset) = '1' then
-			s_irq_flag         <= '0';
-			s_irq_sync_delayed <= '0';
-		elsif rising_edge(a_clock) then
-			-- flag clear
-			if (s_irq_flag_clear = '1') then
-				s_irq_flag <= '0';
-			end if;
-			-- detect a rising edge in sync signal
-			if (((s_irq_sync_delayed = '0') and (s_irq_sync = '1'))) then
-				s_irq_flag <= '1';
-			end if;
-			-- delay signals
-			s_irq_sync_delayed <= s_irq_sync;
-		end if;
-	end process p_sync_irq_manager;
-	a_irq <= s_irq_flag;
+	--	-- Signals not used by ip logic. Initial levels made here, to suppress IDE "using don´t care ('x') value"
+	--	s_sync_mm_read_registers.irq_enable_register.error_irq_enable               <= '0';
+	--	s_sync_mm_read_registers.irq_enable_register.blank_pulse_irq_enable         <= '0';
+	--	s_sync_mm_read_registers.irq_flag_clear_register.error_irq_flag_clear       <= '0';
+	--	s_sync_mm_read_registers.irq_flag_clear_register.blank_pulse_irq_flag_clear <= '0';
+	--	s_sync_mm_read_registers.error_injection_register.error_injection           <= (others => '0');
+	--	s_sync_mm_read_registers.config_register.master_blank_time                  <= (others => '0');
+	--	s_sync_mm_read_registers.config_register.blank_time                         <= (others => '0');
+	--	s_sync_mm_read_registers.config_register.period                             <= (others => '0');
+	--	s_sync_mm_read_registers.config_register.one_shot_time                      <= (others => '0');
+	--	s_sync_mm_read_registers.config_register.general.signal_polarity            <= '0';
+	--	s_sync_mm_read_registers.config_register.general.number_of_cycles           <= (others => '0');
+	--	s_sync_mm_read_registers.control_register                                   <= (others => '0');
 
 end architecture rtl;
 --============================================================================

@@ -33,6 +33,8 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     /* Reseting swap memory mechanism */
     xMeb->ucActualDDR = 0;
     xMeb->ucNextDDR = 1;
+    xMeb->xSwapControl.end = 0x00; /* 0x7F for N-FEE, need to adjust to F-FEE */
+    xMeb->xSwapControl.lastReadOut = FALSE;
 
     xMeb->xFeeControl.pActualMem = &xMeb->ucActualDDR;
     xMeb->xDataControl.pNextMem = &xMeb->ucNextDDR;

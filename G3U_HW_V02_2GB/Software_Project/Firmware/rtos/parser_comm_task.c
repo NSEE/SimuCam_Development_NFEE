@@ -129,6 +129,15 @@ void vParserCommTask(void *task_data) {
 
                     case 250: /* srv-Type = 250 */
 						switch ( xTcPusL.usiSubType ) {
+							case 29: /* TC_SYNCH_SOURCE */
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp,"Parser Task: TC_SYNCH_SOURCE\n");
+								#endif
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
+
 							case 59: /* TC_SCAM_RESET */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -330,6 +339,7 @@ bool getPreParsedPacket( tPreParsed *xPreParsedParser ) {
 	}
 	return bSuccess;
 }
+
 
 /* Search for some free location in the xPus array to put the full command to send to the meb task */
 bool bSendMessagePUStoMebTask( tTMPus *xPusL ) {

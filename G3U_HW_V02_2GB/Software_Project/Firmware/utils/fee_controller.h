@@ -10,7 +10,7 @@
 
 
 #include "../simucam_definitions.h"
-#include "fee.h"
+#include "feeV2.h"
 #include "ccd.h"
 
 
