@@ -243,3 +243,22 @@ set_interface_assignment avalon_slave_data embeddedsw.configuration.isFlash 0
 set_interface_assignment avalon_slave_data embeddedsw.configuration.isMemoryDevice 0
 set_interface_assignment avalon_slave_data embeddedsw.configuration.isNonVolatileStorage 0
 set_interface_assignment avalon_slave_data embeddedsw.configuration.isPrintableDevice 0
+
+
+
+# 
+# connection point ftdi_interrupt_sender
+# 
+add_interface ftdi_interrupt_sender interrupt end
+set_interface_property ftdi_interrupt_sender associatedAddressablePoint ""
+set_interface_property ftdi_interrupt_sender associatedClock clock_sink
+set_interface_property ftdi_interrupt_sender associatedReset reset_sink
+set_interface_property ftdi_interrupt_sender bridgedReceiverOffset ""
+set_interface_property ftdi_interrupt_sender bridgesToReceiver ""
+set_interface_property ftdi_interrupt_sender ENABLED true
+set_interface_property ftdi_interrupt_sender EXPORT_OF ""
+set_interface_property ftdi_interrupt_sender PORT_NAME_MAP ""
+set_interface_property ftdi_interrupt_sender CMSIS_SVD_VARIABLES ""
+set_interface_property ftdi_interrupt_sender SVD_ADDRESS_GROUP ""
+
+add_interface_port ftdi_interrupt_sender ftdi_interrupt_sender_irq irq Output 1
