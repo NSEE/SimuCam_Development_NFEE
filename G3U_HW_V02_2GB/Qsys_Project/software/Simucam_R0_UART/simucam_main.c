@@ -75,13 +75,10 @@ OS_EVENT *xSemTimeoutChecker;
 
 OS_EVENT *xSemCountSenderACK;
 OS_EVENT *xMutexSenderACK;
-<<<<<<< HEAD
 
 void *xQueueSyncResetTBL[N_MESG_SYNCRST];	//todo Change to define
 OS_EVENT *xQueueSyncReset;		/* [bndky] */
-=======
 OS_EVENT *xMutexTranferBuffer;
->>>>>>> sw_refactFee
 /* -------------- Definition of Semaphores -------------- */
 
 

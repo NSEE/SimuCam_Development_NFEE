@@ -39,6 +39,7 @@
 void vSyncResetTask(void *task_data);
 
 extern OS_EVENT *xQueueSyncReset;
+extern OS_EVENT *xFeeQ[N_OF_NFEE];
 
 /*$PAGE*/
 
