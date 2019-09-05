@@ -23,7 +23,13 @@ void vSyncResetTask( void *task_data ){
     unsigned short int usiResetDelayL = 0;
     INT8U iErrorCodeL = 0;
     div_t xDlyAdjusted;
-    
+    volatile unsigned char ucIL;
+	unsigned char error_codel;
+	tQMask uiCmdtoSend;
+//    unsigned short int usiPreSyncTimeDif = xDefaults.usiPreBtSync;
+    uiCmdtoSend.ulWord = 0;
+//    xGlobal.bJustBeforSync = TRUE;
+
 
     for(;;){
         /* Suspend task because of it's high PRIO */
@@ -41,24 +47,37 @@ void vSyncResetTask( void *task_data ){
             iErrorCodeL = bStopSync();
 
             /* Reset the time code */ 
-            vResetTimeCode(&pxMeb->xFeeControl);
+            for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) { 
+                bSpwcClearTimecode(&pxMeb->xFeeControl.xNfee[ucIL].xChannel.xSpacewire); 
+                pxMeb->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0; 
+            }
 
-            /* Wait ufSynchDelay milliseconds adjusted */ 
-            OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, xDlyAdjusted.rem);
 
-           /* Reseting swap memory mechanism */
-            pxMeb->ucActualDDR = 0;
-            pxMeb->ucNextDDR = 1;
-            //pxMeb->xDataControl.usiEPn = 0; /* TODO: Discover and correct this */
+            /* Wait ufSynchDelay milliseconds adjusted minus the time needed for pre-sync*/ 
+//            OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, (xDlyAdjusted.rem - usiPreSyncTimeDif));
+
+            /* Sending pre-sync */
+            
+//            uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
+            
+            for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+                uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+                error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+                if ( error_codel != OS_ERR_NONE ) {
+                    vFailSendMsgSync( ucIL );
+                }
+            }
+            /* Wait the rest of the time */
+//            OSTimeDlyHMSM(0,0,0,usiPreSyncTimeDif);
 
             /* Enable Sync */
             bStartSync();
         } else{
             #if DEBUG_ON        //TODO verif se esta tudo certo com o erro
-                if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+                if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
                     fprintf(fp,"Sync Reset: Sync Reset Error\n");
+                }
             #endif
         }   
     }
 }
-
