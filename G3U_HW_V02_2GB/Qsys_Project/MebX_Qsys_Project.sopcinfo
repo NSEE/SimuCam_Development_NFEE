@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.09.06.03:12:02 -->
+ <!-- 2019.09.06.09:51:13 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1567750321</value>
+  <value>1567774272</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -57813,7 +57813,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="internalIrqMaskSystemInfo">
    <type>long</type>
-   <value>10479615</value>
+   <value>10485743</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -59184,13 +59184,6 @@ parameters are a RESULT of the module parameters. -->
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
-    <moduleName>sync</moduleName>
-    <slaveName>interrupt_sender</slaveName>
-    <name>sync.interrupt_sender</name>
-    <interruptNumber>4</interruptNumber>
-   </interrupt>
-   <interrupt>
-    <isBridge>false</isBridge>
     <moduleName>jtag_uart_0</moduleName>
     <slaveName>irq</slaveName>
     <name>jtag_uart_0.irq</name>
@@ -59223,6 +59216,13 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>irq</slaveName>
     <name>rs232_uart.irq</name>
     <interruptNumber>13</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>sync</moduleName>
+    <slaveName>pre_sync_interrupt_sender</slaveName>
+    <name>sync.pre_sync_interrupt_sender</name>
+    <interruptNumber>12</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
@@ -59265,6 +59265,13 @@ parameters are a RESULT of the module parameters. -->
     <slaveName>rmap_interrupt_sender</slaveName>
     <name>COMM_Pedreiro_v1_01_F.rmap_interrupt_sender</name>
     <interruptNumber>20</interruptNumber>
+   </interrupt>
+   <interrupt>
+    <isBridge>false</isBridge>
+    <moduleName>sync</moduleName>
+    <slaveName>sync_interrupt_sender</slaveName>
+    <name>sync.sync_interrupt_sender</name>
+    <interruptNumber>11</interruptNumber>
    </interrupt>
   </interface>
   <interface name="debug_reset_request" kind="reset_source" version="18.1">
@@ -72053,9 +72060,25 @@ parameters are a RESULT of the module parameters. -->
    </port>
   </interface>
  </module>
- <module name="sync" kind="Sync" version="1.2" path="sync">
+ <module name="sync" kind="Sync" version="1.4" path="sync">
   <!-- Describes a single module. Module parameters are
 the requested settings for a module instance. -->
+  <parameter name="g_SYNC_IRQ_NUMBER">
+   <type>int</type>
+   <value>11</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="g_PRE_SYNC_IRQ_NUMBER">
+   <type>int</type>
+   <value>12</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
   <parameter name="deviceFamily">
    <type>java.lang.String</type>
    <value>UNKNOWN</value>
@@ -72127,7 +72150,7 @@ parameters are a RESULT of the module parameters. -->
    <type>clock</type>
    <isStart>false</isStart>
    <port>
-    <name>clock_sink_clk</name>
+    <name>clock_sink_clk_i</name>
     <direction>Input</direction>
     <width>1</width>
     <role>clk</role>
@@ -72172,87 +72195,10 @@ parameters are a RESULT of the module parameters. -->
    <type>reset</type>
    <isStart>false</isStart>
    <port>
-    <name>reset_sink_reset</name>
+    <name>reset_sink_reset_i</name>
     <direction>Input</direction>
     <width>1</width>
     <role>reset</role>
-   </port>
-  </interface>
-  <interface name="interrupt_sender" kind="interrupt_sender" version="18.1">
-   <!-- The connection points exposed by a module instance for the
-particular module parameters. Connection points and their
-parameters are a RESULT of the module parameters. -->
-   <parameter name="associatedAddressablePoint">
-    <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value>sync.avalon_mm_slave</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedClock">
-    <type>java.lang.String</type>
-    <value>clock</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="associatedReset">
-    <type>java.lang.String</type>
-    <value>reset</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="bridgedReceiverOffset">
-    <type>java.lang.Integer</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="bridgesToReceiver">
-    <type>com.altera.entityinterfaces.IConnectionPoint</type>
-    <value></value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="irqScheme">
-    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
-    <value>NONE</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>false</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="deviceFamily">
-    <type>java.lang.String</type>
-    <value>UNKNOWN</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <parameter name="generateLegacySim">
-    <type>boolean</type>
-    <value>false</value>
-    <derived>false</derived>
-    <enabled>true</enabled>
-    <visible>true</visible>
-    <valid>true</valid>
-   </parameter>
-   <type>interrupt</type>
-   <isStart>false</isStart>
-   <port>
-    <name>interrupt_sender_irq</name>
-    <direction>Output</direction>
-    <width>1</width>
-    <role>irq</role>
    </port>
   </interface>
   <interface name="avalon_mm_slave" kind="avalon_slave" version="18.1">
@@ -72590,37 +72536,43 @@ parameters are a RESULT of the module parameters. -->
    <type>avalon</type>
    <isStart>false</isStart>
    <port>
-    <name>avalon_slave_address</name>
+    <name>avalon_slave_address_i</name>
     <direction>Input</direction>
     <width>8</width>
     <role>address</role>
    </port>
    <port>
-    <name>avalon_slave_read</name>
+    <name>avalon_slave_read_i</name>
     <direction>Input</direction>
     <width>1</width>
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_write</name>
+    <name>avalon_slave_write_i</name>
     <direction>Input</direction>
     <width>1</width>
     <role>write</role>
    </port>
    <port>
-    <name>avalon_slave_writedata</name>
+    <name>avalon_slave_writedata_i</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
    </port>
    <port>
-    <name>avalon_slave_readdata</name>
+    <name>avalon_slave_byteenable_i</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_readdata_o</name>
     <direction>Output</direction>
     <width>32</width>
     <role>readdata</role>
    </port>
    <port>
-    <name>avalon_slave_waitrequest</name>
+    <name>avalon_slave_waitrequest_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>waitrequest</role>
@@ -72665,13 +72617,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_syncin</name>
+    <name>conduit_sync_signal_syncin_i</name>
     <direction>Input</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwa" kind="conduit_end" version="18.1">
+  <interface name="sync_spw1" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72710,13 +72662,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwa</name>
+    <name>conduit_sync_signal_spw1_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwb" kind="conduit_end" version="18.1">
+  <interface name="sync_spw2" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72755,13 +72707,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwb</name>
+    <name>conduit_sync_signal_spw2_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwc" kind="conduit_end" version="18.1">
+  <interface name="sync_spw3" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72800,13 +72752,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwc</name>
+    <name>conduit_sync_signal_spw3_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwd" kind="conduit_end" version="18.1">
+  <interface name="sync_spw4" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72845,13 +72797,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwd</name>
+    <name>conduit_sync_signal_spw4_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwe" kind="conduit_end" version="18.1">
+  <interface name="sync_spw5" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72890,13 +72842,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwe</name>
+    <name>conduit_sync_signal_spw5_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwf" kind="conduit_end" version="18.1">
+  <interface name="sync_spw6" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72935,13 +72887,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwf</name>
+    <name>conduit_sync_signal_spw6_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwg" kind="conduit_end" version="18.1">
+  <interface name="sync_spw7" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -72980,13 +72932,13 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwg</name>
+    <name>conduit_sync_signal_spw7_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
    </port>
   </interface>
-  <interface name="sync_spwh" kind="conduit_end" version="18.1">
+  <interface name="sync_spw8" kind="conduit_end" version="18.1">
    <!-- The connection points exposed by a module instance for the
 particular module parameters. Connection points and their
 parameters are a RESULT of the module parameters. -->
@@ -73025,7 +72977,7 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_spwh</name>
+    <name>conduit_sync_signal_spw8_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
@@ -73070,10 +73022,167 @@ parameters are a RESULT of the module parameters. -->
    <type>conduit</type>
    <isStart>false</isStart>
    <port>
-    <name>conduit_sync_signal_syncout</name>
+    <name>conduit_sync_signal_syncout_o</name>
     <direction>Output</direction>
     <width>1</width>
     <role>conduit</role>
+   </port>
+  </interface>
+  <interface name="sync_interrupt_sender" kind="interrupt_sender" version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>sync_interrupt_sender_irq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
+   </port>
+  </interface>
+  <interface
+     name="pre_sync_interrupt_sender"
+     kind="interrupt_sender"
+     version="18.1">
+   <!-- The connection points exposed by a module instance for the
+particular module parameters. Connection points and their
+parameters are a RESULT of the module parameters. -->
+   <parameter name="associatedAddressablePoint">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedClock">
+    <type>java.lang.String</type>
+    <value>clock</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="associatedReset">
+    <type>java.lang.String</type>
+    <value>reset</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgedReceiverOffset">
+    <type>java.lang.Integer</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="bridgesToReceiver">
+    <type>com.altera.entityinterfaces.IConnectionPoint</type>
+    <value></value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="irqScheme">
+    <type>com.altera.sopcmodel.interrupt.InterruptConnectionPoint$EIrqScheme</type>
+    <value>NONE</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>false</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="deviceFamily">
+    <type>java.lang.String</type>
+    <value>UNKNOWN</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <parameter name="generateLegacySim">
+    <type>boolean</type>
+    <value>false</value>
+    <derived>false</derived>
+    <enabled>true</enabled>
+    <visible>true</visible>
+    <valid>true</valid>
+   </parameter>
+   <type>interrupt</type>
+   <isStart>false</isStart>
+   <port>
+    <name>pre_sync_interrupt_sender_irq_o</name>
+    <direction>Output</direction>
+    <width>1</width>
+    <role>irq</role>
    </port>
   </interface>
  </module>
@@ -73090,7 +73199,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1567750321</value>
+   <value>1567774272</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -73110,7 +73219,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1567750321</value>
+   <value>1567774272</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -73126,7 +73235,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1567750321</value>
+   <value>1567774272</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -83143,41 +83252,6 @@ parameters are a RESULT of the module parameters. -->
   <endConnectionPoint>csr_irq</endConnectionPoint>
  </connection>
  <connection
-   name="nios2_gen2_0.irq/sync.interrupt_sender"
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
-   end="sync.interrupt_sender">
-  <parameter name="irqNumber">
-   <type>int</type>
-   <value>4</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="deviceFamily">
-   <type>java.lang.String</type>
-   <value>UNKNOWN</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <parameter name="generateLegacySim">
-   <type>boolean</type>
-   <value>false</value>
-   <derived>false</derived>
-   <enabled>true</enabled>
-   <visible>true</visible>
-   <valid>true</valid>
-  </parameter>
-  <startModule>nios2_gen2_0</startModule>
-  <startConnectionPoint>irq</startConnectionPoint>
-  <endModule>sync</endModule>
-  <endConnectionPoint>interrupt_sender</endConnectionPoint>
- </connection>
- <connection
    name="nios2_gen2_0.irq/jtag_uart_0.irq"
    kind="interrupt"
    version="18.1"
@@ -83351,6 +83425,41 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>rs232_uart</endModule>
   <endConnectionPoint>irq</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/sync.pre_sync_interrupt_sender"
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="sync.pre_sync_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>12</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>sync</endModule>
+  <endConnectionPoint>pre_sync_interrupt_sender</endConnectionPoint>
  </connection>
  <connection
    name="nios2_gen2_0.irq/COMM_Pedreiro_v1_01_A.rmap_interrupt_sender"
@@ -83561,6 +83670,41 @@ parameters are a RESULT of the module parameters. -->
   <startConnectionPoint>irq</startConnectionPoint>
   <endModule>COMM_Pedreiro_v1_01_F</endModule>
   <endConnectionPoint>rmap_interrupt_sender</endConnectionPoint>
+ </connection>
+ <connection
+   name="nios2_gen2_0.irq/sync.sync_interrupt_sender"
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="sync.sync_interrupt_sender">
+  <parameter name="irqNumber">
+   <type>int</type>
+   <value>11</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="deviceFamily">
+   <type>java.lang.String</type>
+   <value>UNKNOWN</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <parameter name="generateLegacySim">
+   <type>boolean</type>
+   <value>false</value>
+   <derived>false</derived>
+   <enabled>true</enabled>
+   <visible>true</visible>
+   <valid>true</valid>
+  </parameter>
+  <startModule>nios2_gen2_0</startModule>
+  <startConnectionPoint>irq</startConnectionPoint>
+  <endModule>sync</endModule>
+  <endConnectionPoint>sync_interrupt_sender</endConnectionPoint>
  </connection>
  <connection
    name="clk_50.clk_reset/SEVEN_SEGMENT_CONTROLLER_0.SSDP_RST"
@@ -86824,7 +86968,7 @@ parameters are a RESULT of the module parameters. -->
   <version>1.9</version>
  </plugin>
  <plugin>
-  <instanceCount>20</instanceCount>
+  <instanceCount>21</instanceCount>
   <name>interrupt_sender</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IMutableConnectionPoint</subtype>
@@ -87021,7 +87165,7 @@ parameters are a RESULT of the module parameters. -->
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IModule</subtype>
   <displayName>Sync</displayName>
-  <version>1.2</version>
+  <version>1.4</version>
  </plugin>
  <plugin>
   <instanceCount>1</instanceCount>
@@ -87072,7 +87216,7 @@ parameters are a RESULT of the module parameters. -->
   <version>18.1</version>
  </plugin>
  <plugin>
-  <instanceCount>20</instanceCount>
+  <instanceCount>21</instanceCount>
   <name>interrupt</name>
   <type>com.altera.entityinterfaces.IElementClass</type>
   <subtype>com.altera.entityinterfaces.IConnection</subtype>

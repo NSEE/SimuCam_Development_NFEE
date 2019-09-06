@@ -1347,6 +1347,14 @@
          type = "String";
       }
    }
+   element sync.pre_sync_interrupt_sender
+   {
+      datum _tags
+      {
+         value = "";
+         type = "String";
+      }
+   }
    element sysid_qsys
    {
       datum _sortIndex
@@ -1763,14 +1771,22 @@
    dir="end" />
  <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
  <interface name="sync_out" internal="sync.sync_out" type="conduit" dir="end" />
- <interface name="sync_spwa" internal="sync.sync_spwa" type="conduit" dir="end" />
- <interface name="sync_spwb" internal="sync.sync_spwb" type="conduit" dir="end" />
- <interface name="sync_spwc" internal="sync.sync_spwc" type="conduit" dir="end" />
- <interface name="sync_spwd" internal="sync.sync_spwd" type="conduit" dir="end" />
- <interface name="sync_spwe" internal="sync.sync_spwe" type="conduit" dir="end" />
- <interface name="sync_spwf" internal="sync.sync_spwf" type="conduit" dir="end" />
- <interface name="sync_spwg" internal="sync.sync_spwg" type="conduit" dir="end" />
- <interface name="sync_spwh" internal="sync.sync_spwh" type="conduit" dir="end" />
+ <interface name="sync_spw1" internal="sync.sync_spw1" type="conduit" dir="end" />
+ <interface name="sync_spw2" internal="sync.sync_spw2" type="conduit" dir="end" />
+ <interface name="sync_spw3" internal="sync.sync_spw3" type="conduit" dir="end" />
+ <interface name="sync_spw4" internal="sync.sync_spw4" type="conduit" dir="end" />
+ <interface name="sync_spw5" internal="sync.sync_spw5" type="conduit" dir="end" />
+ <interface name="sync_spw6" internal="sync.sync_spw6" type="conduit" dir="end" />
+ <interface name="sync_spw7" internal="sync.sync_spw7" type="conduit" dir="end" />
+ <interface name="sync_spw8" internal="sync.sync_spw8" type="conduit" dir="end" />
+ <interface name="sync_spwa" internal="sync.sync_spwa" />
+ <interface name="sync_spwb" internal="sync.sync_spwb" />
+ <interface name="sync_spwc" internal="sync.sync_spwc" />
+ <interface name="sync_spwd" internal="sync.sync_spwd" />
+ <interface name="sync_spwe" internal="sync.sync_spwe" />
+ <interface name="sync_spwf" internal="sync.sync_spwf" />
+ <interface name="sync_spwg" internal="sync.sync_spwg" />
+ <interface name="sync_spwh" internal="sync.sync_spwh" />
  <interface
    name="temp_scl"
    internal="temp_scl.external_connection"
@@ -2932,7 +2948,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="10479615" />
+  <parameter name="internalIrqMaskSystemInfo" value="10485743" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -3277,7 +3293,10 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.2" enabled="1" />
+ <module name="sync" kind="Sync" version="1.4" enabled="1">
+  <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
+  <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
+ </module>
  <module
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
@@ -4481,13 +4500,6 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="sync.interrupt_sender">
-  <parameter name="irqNumber" value="4" />
- </connection>
- <connection
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
    end="jtag_uart_0.irq">
   <parameter name="irqNumber" value="14" />
  </connection>
@@ -4518,6 +4530,13 @@
    start="nios2_gen2_0.irq"
    end="rs232_uart.irq">
   <parameter name="irqNumber" value="13" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="sync.pre_sync_interrupt_sender">
+  <parameter name="irqNumber" value="12" />
  </connection>
  <connection
    kind="interrupt"
@@ -4574,6 +4593,13 @@
    start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_F.rmap_interrupt_sender">
   <parameter name="irqNumber" value="20" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="sync.sync_interrupt_sender">
+  <parameter name="irqNumber" value="11" />
  </connection>
  <connection
    kind="reset"

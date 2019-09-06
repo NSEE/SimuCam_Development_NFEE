@@ -67,7 +67,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </table>
   <table class="blueBar">
    <tr>
-    <td class="l">2019.09.06.03:12:03</td>
+    <td class="l">2019.09.06.09:51:13</td>
     <td class="r">Datasheet</td>
    </tr>
   </table>
@@ -230,7 +230,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      </a> altera_avalon_pio 18.1
      <br/>&#160;&#160;
      <a href="#module_sync"><b>sync</b>
-     </a> Sync 1.2
+     </a> Sync 1.4
      <br/>&#160;&#160;
      <a href="#module_sysid_qsys"><b>sysid_qsys</b>
      </a> altera_avalon_sysid_qsys 18.1
@@ -19425,7 +19425,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_dma_DDR_M1">dma_DDR_M1</a>
       </td>
       <td class="from">mm_read&#160;&#160;</td>
-      <td class="main" rowspan="107">nios2_gen2_0</td>
+      <td class="main" rowspan="109">nios2_gen2_0</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;debug_mem_slave</td>
@@ -19895,22 +19895,6 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td class="from">irq&#160;&#160;</td>
       <td class="neighbor" rowspan="2">
-       <a href="#module_sync">sync</a>
-      </td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="to">&#160;&#160;interrupt_sender</td>
-     </tr>
-     <tr style="height:6px">
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-      <td class="from">irq&#160;&#160;</td>
-      <td class="neighbor" rowspan="2">
        <a href="#module_timer_1ms">timer_1ms</a>
       </td>
      </tr>
@@ -19966,6 +19950,32 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
       <td></td>
       <td class="to">&#160;&#160;irq</td>
+     </tr>
+     <tr style="height:6px">
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+      <td class="neighbor" rowspan="4">
+       <a href="#module_sync">sync</a>
+      </td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;pre_sync_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+      <td class="to">&#160;&#160;sync_interrupt_sender</td>
      </tr>
     </table>
    </div>
@@ -20718,7 +20728,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">internalIrqMaskSystemInfo</td>
-        <td class="parametervalue">10479615</td>
+        <td class="parametervalue">10485743</td>
        </tr>
        <tr>
         <td class="parametername">customInstSlavesSystemInfo</td>
@@ -24885,7 +24895,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   <a name="module_sync"> </a>
   <div>
    <hr/>
-   <h2>sync</h2>Sync v1.2
+   <h2>sync</h2>Sync v1.4
    <br/>
    <div class="greydiv">
     <table class="connectionboxes">
@@ -24894,7 +24904,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        <a href="#module_clock_bridge_afi_50">clock_bridge_afi_50</a>
       </td>
       <td class="from">m0&#160;&#160;</td>
-      <td class="main" rowspan="15">sync</td>
+      <td class="main" rowspan="17">sync</td>
      </tr>
      <tr>
       <td class="to">&#160;&#160;avalon_mm_slave</td>
@@ -24921,13 +24931,19 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
       <td></td>
      </tr>
      <tr>
-      <td class="neighbor" rowspan="2">
+      <td class="neighbor" rowspan="4">
        <a href="#module_nios2_gen2_0">nios2_gen2_0</a>
       </td>
       <td class="from">irq&#160;&#160;</td>
      </tr>
      <tr>
-      <td class="to">&#160;&#160;interrupt_sender</td>
+      <td class="to">&#160;&#160;pre_sync_interrupt_sender</td>
+     </tr>
+     <tr>
+      <td class="from">irq&#160;&#160;</td>
+     </tr>
+     <tr>
+      <td class="to">&#160;&#160;sync_interrupt_sender</td>
      </tr>
      <tr style="height:6px">
       <td></td>
@@ -24956,6 +24972,14 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
      <td class="parametersbox">
       <h2>Parameters</h2>
       <table>
+       <tr>
+        <td class="parametername">g_SYNC_IRQ_NUMBER</td>
+        <td class="parametervalue">11</td>
+       </tr>
+       <tr>
+        <td class="parametername">g_PRE_SYNC_IRQ_NUMBER</td>
+        <td class="parametervalue">12</td>
+       </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
         <td class="parametervalue">UNKNOWN</td>
@@ -25043,7 +25067,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">timestamp</td>
-        <td class="parametervalue">1567750321</td>
+        <td class="parametervalue">1567774272</td>
        </tr>
        <tr>
         <td class="parametername">deviceFamily</td>
@@ -25068,7 +25092,7 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
        </tr>
        <tr>
         <td class="parametername">TIMESTAMP</td>
-        <td class="parametervalue">1567750321</td>
+        <td class="parametervalue">1567774272</td>
        </tr>
       </table>
      </td>
@@ -26006,8 +26030,8 @@ div.greydiv { vertical-align:top ; text-align:center ; background:#eeeeee ; bord
   </div>
   <table class="blueBar">
    <tr>
-    <td class="l">generation took 0,02 seconds</td>
-    <td class="r">rendering took 0,37 seconds</td>
+    <td class="l">generation took 0,01 seconds</td>
+    <td class="r">rendering took 0,29 seconds</td>
    </tr>
   </table>
  </body>
