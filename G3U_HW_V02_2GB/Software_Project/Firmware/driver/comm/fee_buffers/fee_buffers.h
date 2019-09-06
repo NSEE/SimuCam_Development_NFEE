@@ -21,48 +21,6 @@ extern OS_EVENT *xNfeeSchedule;
 //! [constants definition]
 
 //! [public module structs definition]
-typedef struct FeebMachineControl {
-	bool bClear; /* FEE Machine Clear */
-	bool bStop; /* FEE Machine Stop */
-	bool bStart; /* FEE Machine Start */
-	bool bMasking; /* FEE Masking Enable */
-} TFeebMachineControl;
-
-typedef struct FeebBufferStatus {
-	alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
-	alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
-	bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
-	bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
-	bool bRightFeeBusy; /* FEE Right Machine Busy */
-	bool bLeftFeeBusy; /* FEE Left Machine Busy */
-} TFeebBufferStatus;
-
-typedef struct FeebIrqControl {
-	bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
-	bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
-} TFeebIrqControl;
-
-typedef struct FeebIrqFlag {
-	bool bRightBufferEmpty0Flag; /* FEE Right Buffer 0 Empty IRQ Flag */
-	bool bRightBufferEmpty1Flag; /* FEE Right Buffer 1 Empty IRQ Flag */
-	bool bLeftBufferEmpty0Flag; /* FEE Left Buffer 0 Empty IRQ Flag */
-	bool bLeftBufferEmpty1Flag; /* FEE Left Buffer 1 Empty IRQ Flag */
-} TFeebIrqFlag;
-
-typedef struct FeebIrqFlagClr {
-	bool bRightBufferEmpty0FlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
-	bool bRightBufferEmpty1FlagClr; /* FEE Right Buffer 1 Empty IRQ Flag Clear */
-	bool bLeftBufferEmpty0FlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
-	bool bLeftBufferEmpty1FlagClr; /* FEE Left Buffer 1 Empty IRQ Flag Clear */
-} TFeebIrqFlagClr;
-
-typedef struct FeebChannel {
-	TFeebMachineControl xMachineControl;
-	TFeebBufferStatus xBufferStatus;
-	TFeebIrqControl xIrqControl;
-	TFeebIrqFlag xIrqFlag;
-	TFeebIrqFlagClr xIrqFlagClr;
-} TFeebChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]
@@ -133,8 +91,8 @@ bool bFeebGetCh8RightFeeBusy(void);
 bool bFeebSetBufferSize(TFeebChannel *pxFeebCh, alt_u8 ucBufferSizeInBlocks,
 		alt_u8 ucBufferSide);
 
-bool bFeebSetWindowing(TFeebChannel *pxFeebCh);
-bool bFeebGetWindowing(TFeebChannel *pxFeebCh);
+bool bFeebSetMachineControl(TFeebChannel *pxFeebCh);
+bool bFeebGetMachineControl(TFeebChannel *pxFeebCh);
 
 bool bFeebStartCh(TFeebChannel *pxFeebCh);
 bool bFeebStopCh(TFeebChannel *pxFeebCh);

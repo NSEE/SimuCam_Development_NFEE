@@ -16,39 +16,6 @@
 //! [constants definition]
 
 //! [public module structs definition]
-typedef struct SpwcLinkConfig {
-	bool bDisconnect; /* SpaceWire Link Config Disconnect */
-	bool bLinkStart; /* SpaceWire Link Config Linkstart */
-	bool bAutostart; /* SpaceWire Link Config Autostart */
-	alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
-} TSpwcLinkConfig;
-
-typedef struct SpwcLinkStatus {
-	bool bRunning; /* SpaceWire Link Running */
-	bool bConnecting; /* SpaceWire Link Connecting */
-	bool bStarted; /* SpaceWire Link Started */
-} TSpwcLinkStatus;
-
-typedef struct SpwcLinkError {
-	bool bDisconnect; /* SpaceWire Error Disconnect */
-	bool bParity; /* SpaceWire Error Parity */
-	bool bEscape; /* SpaceWire Error Escape */
-	bool bCredit; /* SpaceWire Error Credit */
-} TSpwcLinkError;
-
-typedef struct SpwcTimecode {
-	bool bClear; /* SpaceWire Timecode Clear */
-	bool bEnable; /* SpaceWire Timecode Enable */
-	alt_u8 ucTime; /* SpaceWire Timecode Time */
-	alt_u8 ucControl; /* SpaceWire Timecode Control */
-} TSpwcTimecode;
-
-typedef struct SpwcChannel {
-	TSpwcLinkConfig xLinkConfig;
-	TSpwcLinkStatus xLinkStatus;
-	TSpwcLinkError xLinkError;
-	TSpwcTimecode xTimecode;
-} TSpwcChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]

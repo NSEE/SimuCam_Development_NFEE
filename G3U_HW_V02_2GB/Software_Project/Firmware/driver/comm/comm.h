@@ -39,14 +39,6 @@
 #define COMM_CHANNEL_7_BASE_ADDR        COMM_PEDREIRO_V1_01_A_BASE
 #define COMM_CHANNEL_8_BASE_ADDR        COMM_PEDREIRO_V1_01_B_BASE
 // offsets
-#define COMM_SPWC_BASE_ADDR_OFST        0x25
-#define COMM_FEEB_BASE_ADDR_OFST        0x25
-#define COMM_RMAP_BASE_ADDR_OFST        0x25
-#define COMM_DPKT_BASE_ADDR_OFST        0x25
-#define COMM_SPWC_OFST                  0x25
-#define COMM_FEEB_OFST                  0x25
-#define COMM_RMAP_OFST                  0x25
-#define COMM_DPKT_OFST                  0x25
 // RMAP config addr
 #define COMM_RMAP_CCD_SEQ_1_CFG_REG_OFST 0x40
 #define COMM_RMAP_CCD_SEQ_2_CFG_REG_OFST 0x41
@@ -228,6 +220,385 @@ enum CommSpwCh {
 	eCommSpwCh7,
 	eCommSpwCh8
 } ECommSpwCh;
+
+typedef struct CommDevAddr {
+  alt_u32 uliDevBaseAddr; /* Comm Device Base Address */
+} TCommDevAddr;
+
+typedef struct CommIrqControl {
+  bool bGlobalIrqEn; /* Comm Global IRQ Enable */
+} TCommIrqControl;
+
+typedef struct SpwcDevAddr {
+  alt_u32 uliSpwcBaseAddr; /* SpaceWire Device Base Address */
+} TSpwcDevAddr;
+
+typedef struct SpwcLinkConfig {
+  bool bDisconnect; /* SpaceWire Link Config Disconnect */
+  bool bLinkStart; /* SpaceWire Link Config Linkstart */
+  bool bAutostart; /* SpaceWire Link Config Autostart */
+  alt_u8 ucTxDivCnt; /* SpaceWire Link Config TxDivCnt */
+} TSpwcLinkConfig;
+
+typedef struct SpwcLinkStatus {
+  bool bRunning; /* SpaceWire Link Running */
+  bool bConnecting; /* SpaceWire Link Connecting */
+  bool bStarted; /* SpaceWire Link Started */
+} TSpwcLinkStatus;
+
+typedef struct SpwcLinkError {
+  bool bDisconnect; /* SpaceWire Error Disconnect */
+  bool bParity; /* SpaceWire Error Parity */
+  bool bEscape; /* SpaceWire Error Escape */
+  bool bCredit; /* SpaceWire Error Credit */
+} TSpwcLinkError;
+
+typedef struct SpwcTimecodeConfig {
+  bool bClear; /* SpaceWire Timecode Clear */
+  bool bEnable; /* SpaceWire Timecode Enable */
+} TSpwcTimecodeConfig;
+
+typedef struct SpwcTimecodeStatus {
+  alt_u8 ucTime; /* SpaceWire Timecode Time */
+  alt_u8 ucControl; /* SpaceWire Timecode Control */
+} TSpwcTimecodeStatus;
+
+typedef struct FeebDevAddr {
+  alt_u32 uliFeebBaseAddr; /* FEE Buffers Device Base Address */
+} TFeebDevAddr;
+
+typedef struct FeebMachineControl {
+  bool bClear; /* FEE Machine Clear */
+  bool bStop; /* FEE Machine Stop */
+  bool bStart; /* FEE Machine Start */
+  bool bDataControllerEn; /* FEE Data Controller Enable */
+  bool bDigitaliseEn; /* FEE Digitalise Enable */
+  bool bWindowingEn; /* FEE Windowing Enable */
+} TFeebMachineControl;
+
+typedef struct FeebBufferStatus {
+  alt_u8 ucRightBufferSize; /* Windowing Right Buffer Size Config */
+  alt_u8 ucLeftBufferSize; /* Windowing Left Buffer Size Config */
+  bool bRightBufferEmpty; /* Windowing Right Buffer Empty */
+  bool bLeftBufferEmpty; /* Windowing Left Buffer Empty */
+  bool bRightFeeBusy; /* FEE Right Machine Busy */
+  bool bLeftFeeBusy; /* FEE Left Machine Busy */
+} TFeebBufferStatus;
+
+typedef struct FeebIrqControl {
+  bool bRightBufferEmptyEn; /* FEE Right Buffer Empty IRQ Enable */
+  bool bLeftBufferEmptyEn; /* FEE Left Buffer Empty IRQ Enable */
+} TFeebIrqControl;
+
+typedef struct FeebIrqFlag {
+  bool bRightBufferEmpty0Flag; /* FEE Right Buffer 0 Empty IRQ Flag */
+  bool bRightBufferEmpty1Flag; /* FEE Right Buffer 1 Empty IRQ Flag */
+  bool bLeftBufferEmpty0Flag; /* FEE Left Buffer 0 Empty IRQ Flag */
+  bool bLeftBufferEmpty1Flag; /* FEE Left Buffer 1 Empty IRQ Flag */
+} TFeebIrqFlag;
+
+typedef struct FeebIrqFlagClr {
+  bool bRightBufferEmpty0FlagClr; /* FEE Right Buffer 0 Empty IRQ Flag Clear */
+  bool bRightBufferEmpty1FlagClr; /* FEE Right Buffer 1 Empty IRQ Flag Clear */
+  bool bLeftBufferEmpty0FlagClr; /* FEE Left Buffer 0 Empty IRQ Flag Clear */
+  bool bLeftBufferEmpty1FlagClr; /* FEE Left Buffer 1 Empty IRQ Flag Clear */
+} TFeebIrqFlagClr;
+
+typedef struct FeebIrqNumber {
+  alt_u32 uliBuffersEmptyIrqId; /* FEE Buffers IRQ Number/ID */
+} TFeebIrqNumber;
+
+typedef struct RmapMemAreaConfig {
+  alt_u16 usiVStart; /* V Start Config Field */
+  alt_u16 usiVEnd; /* V End Config Field */
+  alt_u16 usiChargeInjectionWidth; /* Charge Injection Width Config Field */
+  alt_u16 usiChargeInjectionGap; /* Charge Injection Gap Config Field */
+  alt_u16 usiParallelToiPeriod; /* Parallel Toi Period Config Field */
+  alt_u16 usiParallelClkOverlap; /* Parallel Clock Overlap Config Field */
+  alt_u8 ucCcdReadoutOrder; /* CCD Readout Order Config Field */
+  alt_u16 usiNFinalDump; /* N Final Dump Config Field */
+  alt_u16 usiHEnd; /* H End Config Field */
+  bool bChargeInjectionEn; /* Charge Injection Enable Config Field */
+  bool bTriLevelClkEn; /* Tri Level Clock Enable Config Field */
+  bool bImgClkDir; /* Image Clock Direction Config Field */
+  bool bRegClkDir; /* Register Clock Direction Config Field */
+  alt_u16 usiPacketSize; /* Data Packet Size Config Field */
+  alt_u16 usiIntSyncPeriod; /* Internal Sync Period Config Field */
+  alt_u32 uliSlowReadoutPause; /* Slow Readout Pause Config Field */
+  bool bSyncSel; /* Sync Source Selection Config Field */
+  alt_u8 ucSensorSel; /* CCD Port Data Sensor Selection Config Field */
+  bool bDigitiseEn; /* Digitalise Enable Config Field */
+  alt_u8 ucReg5ConfigReserved; /* Register 5 Configuration Reserved */
+  alt_u32 uliCcd1WinListPtr; /* CCD 1 Window List Pointer Config Field */
+  alt_u32 uliCcd1PktorderListPtr; /* CCD 1 Packet Order List Pointer Config Field */
+  alt_u16 usiCcd1WinListLength; /* CCD 1 Window List Length Config Field */
+  alt_u8 ucCcd1WinSizeX; /* CCD 1 Window Size X Config Field */
+  alt_u8 ucCcd1WinSizeY; /* CCD 1 Window Size Y Config Field */
+  alt_u8 ucReg8ConfigReserved; /* Register 8 Configuration Reserved */
+  alt_u32 uliCcd2WinListPtr; /* CCD 2 Window List Pointer Config Field */
+  alt_u32 uliCcd2PktorderListPtr; /* CCD 2 Packet Order List Pointer Config Field */
+  alt_u16 usiCcd2WinListLength; /* CCD 2 Window List Length Config Field */
+  alt_u8 ucCcd2WinSizeX; /* CCD 2 Window Size X Config Field */
+  alt_u8 ucCcd2WinSizeY; /* CCD 2 Window Size Y Config Field */
+  alt_u8 ucReg11ConfigReserved; /* Register 11 Configuration Reserved */
+  alt_u32 uliCcd3WinListPtr; /* CCD 3 Window List Pointer Config Field */
+  alt_u32 uliCcd3PktorderListPtr; /* CCD 3 Packet Order List Pointer Config Field */
+  alt_u16 usiCcd3WinListLength; /* CCD 3 Window List Length Config Field */
+  alt_u8 ucCcd3WinSizeX; /* CCD 3 Window Size X Config Field */
+  alt_u8 ucCcd3WinSizeY; /* CCD 3 Window Size Y Config Field */
+  alt_u8 ucReg14ConfigReserved; /* Register 14 Configuration Reserved */
+  alt_u32 uliCcd4WinListPtr; /* CCD 4 Window List Pointer Config Field */
+  alt_u32 uliCcd4PktorderListPtr; /* CCD 4 Packet Order List Pointer Config Field */
+  alt_u16 usiCcd4WinListLength; /* CCD 4 Window List Length Config Field */
+  alt_u8 ucCcd4WinSizeX; /* CCD 4 Window Size X Config Field */
+  alt_u8 ucCcd4WinSizeY; /* CCD 4 Window Size Y Config Field */
+  alt_u8 ucReg17ConfigReserved; /* Register 17 Configuration Reserved */
+  alt_u16 usiCcdVodConfig; /* CCD Vod Configuration Config Field */
+  alt_u16 usiCcd1VrdConfig; /* CCD 1 Vrd Configuration Config Field */
+  alt_u8 ucCcd2VrdConfig0; /* CCD 2 Vrd Configuration Config Field */
+  alt_u8 ucCcd2VrdConfig1; /* CCD 2 Vrd Configuration Config Field */
+  alt_u16 usiCcd3VrdConfig; /* CCD 3 Vrd Configuration Config Field */
+  alt_u16 usiCcd4VrdConfig; /* CCD 4 Vrd Configuration Config Field */
+  alt_u8 ucCcdVgdConfig0; /* CCD Vgd Configuration Config Field */
+  alt_u8 ucCcdVgdConfig1; /* CCD Vgd Configuration Config Field */
+  alt_u16 usiCcdVogConfig; /* CCD Vog Configurion Config Field */
+  alt_u16 usiCcdIgHiConfig; /* CCD Ig High Configuration Config Field */
+  alt_u16 usiCcdIgLoConfig; /* CCD Ig Low Configuration Config Field */
+  alt_u16 usiHStart; /* H Start Config Field */
+  alt_u8 ucCcdModeConfig; /* CCD Mode Configuration Config Field */
+  alt_u8 ucReg21ConfigReserved; /* Register 21 Configuration Reserved */
+  bool bClearErrorFlag; /* Clear Error Flag Config Field */
+  alt_u32 uliReg22ConfigReserved; /* Register 22 Configuration Reserved */
+  alt_u32 uliReg23ConfigReserved; /* Register 23 Configuration Reserved */
+} TRmapMemAreaConfig;
+
+typedef struct RmapMemAreaHk {
+  alt_u16 usiTouSense1; /* TOU Sense 1 HK Field */
+  alt_u16 usiTouSense2; /* TOU Sense 2 HK Field */
+  alt_u16 usiTouSense3; /* TOU Sense 3 HK Field */
+  alt_u16 usiTouSense4; /* TOU Sense 4 HK Field */
+  alt_u16 usiTouSense5; /* TOU Sense 5 HK Field */
+  alt_u16 usiTouSense6; /* TOU Sense 6 HK Field */
+  alt_u16 usiCcd1Ts; /* CCD 1 TS HK Field */
+  alt_u16 usiCcd2Ts; /* CCD 2 TS HK Field */
+  alt_u16 usiCcd3Ts; /* CCD 3 TS HK Field */
+  alt_u16 usiCcd4Ts; /* CCD 4 TS HK Field */
+  alt_u16 usiPrt1; /* PRT 1 HK Field */
+  alt_u16 usiPrt2; /* PRT 2 HK Field */
+  alt_u16 usiPrt3; /* PRT 3 HK Field */
+  alt_u16 usiPrt4; /* PRT 4 HK Field */
+  alt_u16 usiPrt5; /* PRT 5 HK Field */
+  alt_u16 usiZeroDiffAmp; /* Zero Diff Amplifier HK Field */
+  alt_u16 usiCcd1VodMon; /* CCD 1 Vod Monitor HK Field */
+  alt_u16 usiCcd1VogMon; /* CCD 1 Vog Monitor HK Field */
+  alt_u16 usiCcd1VrdMonE; /* CCD 1 Vrd Monitor E HK Field */
+  alt_u16 usiCcd2VodMon; /* CCD 2 Vod Monitor HK Field */
+  alt_u16 usiCcd2VogMon; /* CCD 2 Vog Monitor HK Field */
+  alt_u16 usiCcd2VrdMonE; /* CCD 2 Vrd Monitor E HK Field */
+  alt_u16 usiCcd3VodMon; /* CCD 3 Vod Monitor HK Field */
+  alt_u16 usiCcd3VogMon; /* CCD 3 Vog Monitor HK Field */
+  alt_u16 usiCcd3VrdMonE; /* CCD 3 Vrd Monitor E HK Field */
+  alt_u16 usiCcd4VodMon; /* CCD 4 Vod Monitor HK Field */
+  alt_u16 usiCcd4VogMon; /* CCD 4 Vog Monitor HK Field */
+  alt_u16 usiCcd4VrdMonE; /* CCD 4 Vrd Monitor E HK Field */
+  alt_u16 usiVccd; /* V CCD HK Field */
+  alt_u16 usiVrclkMon; /* VRClock Monitor HK Field */
+  alt_u16 usiViclk; /* VIClock HK Field */
+  alt_u16 usiVrclkLow; /* VRClock Low HK Field */
+  alt_u16 usi5vbPosMon; /* 5Vb Positive Monitor HK Field */
+  alt_u16 usi5vbNegMon; /* 5Vb Negative Monitor HK Field */
+  alt_u16 usi3v3bMon; /* 3V3b Monitor HK Field */
+  alt_u16 usi2v5aMon; /* 2V5a Monitor HK Field */
+  alt_u16 usi3v3dMon; /* 3V3d Monitor HK Field */
+  alt_u16 usi2v5dMon; /* 2V5d Monitor HK Field */
+  alt_u16 usi1v5dMon; /* 1V5d Monitor HK Field */
+  alt_u16 usi5vrefMon; /* 5Vref Monitor HK Field */
+  alt_u16 usiVccdPosRaw; /* Vccd Positive Raw HK Field */
+  alt_u16 usiVclkPosRaw; /* Vclk Positive Raw HK Field */
+  alt_u16 usiVan1PosRaw; /* Van 1 Positive Raw HK Field */
+  alt_u16 usiVan3NegMon; /* Van 3 Negative Monitor HK Field */
+  alt_u16 usiVan2PosRaw; /* Van Positive Raw HK Field */
+  alt_u16 usiVdigRaw; /* Vdig Raw HK Field */
+  alt_u16 usiVdigRaw2; /* Vdig Raw 2 HK Field */
+  alt_u16 usiViclkLow; /* VIClock Low HK Field */
+  alt_u16 usiCcd1VrdMonF; /* CCD 1 Vrd Monitor F HK Field */
+  alt_u16 usiCcd1VddMon; /* CCD 1 Vdd Monitor HK Field */
+  alt_u16 usiCcd1VgdMon; /* CCD 1 Vgd Monitor HK Field */
+  alt_u16 usiCcd2VrdMonF; /* CCD 2 Vrd Monitor F HK Field */
+  alt_u16 usiCcd2VddMon; /* CCD 2 Vdd Monitor HK Field */
+  alt_u16 usiCcd2VgdMon; /* CCD 2 Vgd Monitor HK Field */
+  alt_u16 usiCcd3VrdMonF; /* CCD 3 Vrd Monitor F HK Field */
+  alt_u16 usiCcd3VddMon; /* CCD 3 Vdd Monitor HK Field */
+  alt_u16 usiCcd3VgdMon; /* CCD 3 Vgd Monitor HK Field */
+  alt_u16 usiCcd4VrdMonF; /* CCD 4 Vrd Monitor F HK Field */
+  alt_u16 usiCcd4VddMon; /* CCD 4 Vdd Monitor HK Field */
+  alt_u16 usiCcd4VgdMon; /* CCD 4 Vgd Monitor HK Field */
+  alt_u16 usiIgHiMon; /* Ig High Monitor HK Field */
+  alt_u16 usiIgLoMon; /* Ig Low Monitor HK Field */
+  alt_u16 usiTsenseA; /* Tsense A HK Field */
+  alt_u16 usiTsenseB; /* Tsense B HK Field */
+  alt_u8 ucSpwStatusSpwStatusReserved; /* SpW Status : SpaceWire Status Reserved */
+  alt_u8 ucReg32HkReserved; /* Register 32 HK Reserved */
+  alt_u8 ucSpwStatusTimecodeFromSpw; /* SpW Status : Timecode From SpaceWire HK Field */
+  alt_u8 ucSpwStatusRmapTargetStatus; /* SpW Status : RMAP Target Status HK Field */
+  bool bSpwStatusRmapTargetIndicate; /* SpW Status : RMAP Target Indicate HK Field */
+  bool bSpwStatusStatLinkEscapeError; /* SpW Status : Status Link Escape Error HK Field */
+  bool bSpwStatusStatLinkCreditError; /* SpW Status : Status Link Credit Error HK Field */
+  bool bSpwStatusStatLinkParityError; /* SpW Status : Status Link Parity Error HK Field */
+  bool bSpwStatusStatLinkDisconnect; /* SpW Status : Status Link Disconnect HK Field */
+  bool bSpwStatusStatLinkRunning; /* SpW Status : Status Link Running HK Field */
+  alt_u8 ucOpMode; /* Operational Mode HK Field */
+  alt_u16 usiReg33HkReserved; /* Register 33 HK Reserved */
+  alt_u16 usiFrameCounter; /* Frame Counter HK Field */
+  alt_u8 ucFrameNumber; /* Frame Number HK Field */
+  alt_u32 uliErrorFlagsErrorFlagsReserved; /* Error Flags : Error Flags Reserved */
+  bool bErrorFlagsFSidePixelExternalSramBufferIsFull; /* Error Flags : F Side Pixel External SRAM Buffer is Full HK Field */
+  bool bErrorFlagsESidePixelExternalSramBufferIsFull; /* Error Flags : E Side Pixel External SRAM Buffer is Full HK Field */
+  bool bErrorFlagsWindowPixelsFallOutsideCddBoundaryDueToWrongYCoordinate; /* Error Flags : Window Pixels Fall Outside CDD Boundary Due To Wrong Y Coordinate HK Field */
+  bool bErrorFlagsWindowPixelsFallOutsideCddBoundaryDueToWrongXCoordinate; /* Error Flags : Window Pixels Fall Outside CDD Boundary Due To Wrong X Coordinate HK Field */
+  bool bErrorFlagsSpacewireStatLinkParityError; /* Error Flags : SpaceWire Status Link Parity Error HK Field */
+  bool bErrorFlagsSpacewireStatLinkCreditError; /* Error Flags : SpaceWire Status Link Credit Error HK Field */
+  bool bErrorFlagsSpacewireStatLinkEscapeError; /* Error Flags : SpaceWire Status Link Escape Error HK Field */
+  alt_u32 uliReg35HkReserved; /* Register 35 HK Reserved HK Field */
+} TRmapMemAreaHk;
+
+typedef struct RmapMemArea {
+  TRmapMemAreaConfig xRmapMemAreaConfig;
+  TRmapMemAreaHk xRmapMemAreaHk;
+} TRmapMemArea;
+
+typedef struct RmapDevAddr {
+  alt_u32 uliRmapBaseAddr; /* RMAP Device Base Address */
+} TRmapDevAddr;
+
+typedef struct RmapCodecConfig {
+  alt_u8 ucLogicalAddress; /* RMAP Target Logical Address */
+  alt_u8 ucKey; /* RMAP Target Key */
+} TRmapCodecConfig;
+
+typedef struct RmapCodecStatus {
+  bool bCommandReceived; /* RMAP Status Command Received */
+  bool bWriteRequested; /* RMAP Status Write Requested */
+  bool bWriteAuthorized; /* RMAP Status Write Authorized */
+  bool bReadRequested; /* RMAP Status Read Requested */
+  bool bReadAuthorized; /* RMAP Status Read Authorized */
+  bool bReplySended; /* RMAP Status Reply Sended */
+  bool bDiscardedPackage; /* RMAP Status Discarded Package */
+} TRmapCodecStatus;
+
+typedef struct RmapCodecError {
+  bool bEarlyEop; /* RMAP Error Early EOP */
+  bool bEep; /* RMAP Error EEP */
+  bool bHeaderCRC; /* RMAP Error Header CRC */
+  bool bUnusedPacketType; /* RMAP Error Unused Packet Type */
+  bool bInvalidCommandCode; /* RMAP Error Invalid Command Code */
+  bool bTooMuchData; /* RMAP Error Too Much Data */
+  bool bInvalidDataCrc; /* RMAP Error Invalid Data CRC */
+} TRmapCodecError;
+
+typedef struct RmapMemConfigStat {
+  alt_u32 uliLastWriteAddress; /* RMAP Last Write Address */
+  alt_u32 uliLastReadAddress; /* RMAP Last Read Address */
+} TRmapMemConfigStat;
+
+typedef struct RmapMemAreaAddr {
+	TRmapMemAreaConfig *puliConfigAreaBaseAddr; /* RMAP Config Memory Area Base Address */
+	TRmapMemAreaHk *puliHkAreaBaseAddr; /* RMAP HouseKeeping Memory Area Base Address */
+} TRmapMemAreaAddr;
+
+typedef struct RmapIrqControl {
+  bool bWriteCmdEn; /* RMAP Write Command IRQ Enable */
+} TRmapIrqControl;
+
+typedef struct RmapIrqFlag {
+  bool bWriteCmdFlag; /* RMAP Write Command IRQ Flag */
+} TRmapIrqFlag;
+
+typedef struct RmapIrqFlagClr {
+  bool bWriteCmdFlagClr; /* RMAP Write Command IRQ Flag Clear */
+} TRmapIrqFlagClr;
+
+typedef struct RmapIrqNumber {
+  alt_u32 uliWriteCmdIrqId; /* RMAP IRQ Number/ID */
+} TRmapIrqNumber;
+
+typedef struct DpktDevAddr {
+  alt_u32 uliDpktBaseAddr; /* Data Packet Device Base Address */
+} TDpktDevAddr;
+
+typedef struct DpktDataPacketConfig {
+  alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
+  alt_u16 usiCcdYSize; /* Data Packet CCD Y Size */
+  alt_u16 usiDataYSize; /* Data Packet Data Y Size */
+  alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
+  alt_u16 usiPacketLength; /* Data Packet Packet Length */
+  alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
+  alt_u8 ucProtocolId; /* Data Packet Protocol ID */
+  alt_u8 ucFeeMode; /* Data Packet FEE Mode */
+  alt_u8 ucCcdNumber; /* Data Packet CCD Number */
+} TDpktDataPacketConfig;
+
+typedef struct DpktDataPacketHeader {
+  alt_u16 usiLength; /* Data Packet Header Length */
+  alt_u16 usiType; /* Data Packet Header Type */
+  alt_u16 usiFrameCounter; /* Data Packet Header Frame Counter */
+  alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
+} TDpktDataPacketHeader;
+
+typedef struct DpktPixelDelay {
+  alt_u16 usiLineDelay; /* Data Packet Line Delay */
+  alt_u16 usiColumnDelay; /* Data Packet Column Delay */
+  alt_u16 usiAdcDelay; /* Data Packet ADC Delay */
+} TDpktPixelDelay;
+
+typedef struct SpwcChannel {
+  TSpwcDevAddr xSpwcDevAddr;
+  TSpwcLinkConfig xSpwcLinkConfig;
+  TSpwcLinkStatus xSpwcLinkStatus;
+  TSpwcLinkError xSpwcLinkError;
+  TSpwcTimecodeConfig xSpwcTimecodeConfig;
+  TSpwcTimecodeStatus xSpwcTimecodeStatus;
+} TSpwcChannel;
+
+typedef struct FeebChannel {
+  TFeebDevAddr xFeebDevAddr;
+  TFeebMachineControl xFeebMachineControl;
+  TFeebBufferStatus xFeebBufferStatus;
+  TFeebIrqControl xFeebIrqControl;
+  TFeebIrqFlag xFeebIrqFlag;
+  TFeebIrqFlagClr xFeebIrqFlagClr;
+  TFeebIrqNumber xFeebIrqNumber;
+} TFeebChannel;
+
+typedef struct RmapChannel {
+  TRmapDevAddr xRmapDevAddr;
+  TRmapCodecConfig xRmapCodecConfig;
+  TRmapCodecStatus xRmapCodecStatus;
+  TRmapCodecError xRmapCodecError;
+  TRmapMemConfigStat xRmapMemConfigStat;
+  TRmapMemAreaAddr xRmapMemAreaAddr;
+  TRmapIrqControl xRmapIrqControl;
+  TRmapIrqFlag xRmapIrqFlag;
+  TRmapIrqFlagClr xRmapIrqFlagClr;
+  TRmapIrqNumber xRmapIrqNumber;
+} TRmapChannel;
+
+typedef struct DpktChannel {
+  TDpktDevAddr xDpktDevAddr;
+  TDpktDataPacketConfig xDpktDataPacketConfig;
+  TDpktDataPacketHeader xDpktDataPacketHeader;
+  TDpktPixelDelay xDpktPixelDelay;
+} TDpktChannel;
+
+typedef struct CommChannel {
+  TCommDevAddr xCommDevAddr;
+  TCommIrqControl xCommIrqControl;
+  TSpwcChannel xSpacewire;
+  TFeebChannel xFeeBuffer;
+  TRmapChannel xRmap;
+  TDpktChannel xDataPacket;
+} TCommChannel;
+
 //! [public module structs definition]
 
 //! [public function prototypes]

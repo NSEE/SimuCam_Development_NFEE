@@ -53,7 +53,7 @@ void vFeeTaskV2(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*Off*/
+				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x00; /*Off*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
@@ -125,7 +125,7 @@ void vFeeTaskV2(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*On mode*/
+				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x00; /*On mode*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
@@ -186,7 +186,7 @@ void vFeeTaskV2(void *task_data) {
 
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x04; /*sFeeStandBy*/
+				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x04; /*sFeeStandBy*/
 				bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 
 				/* Disable IRQ and clear the Double Buffer */
@@ -784,50 +784,50 @@ void vFeeTaskV2(void *task_data) {
 					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 					switch ( pxNFee->xControl.eMode ) {
 						case sFullPattern: /*0x1*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x1) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x1;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x1) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x1;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sWinPattern:/*0x2*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x2) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x2;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x2) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x2;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sFullImage:/*0x6*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x6) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x6;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x6) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x6;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sWindowing:/*0x5*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x5) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x5;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x5) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x5;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sParTrap1:/*0x9*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0x9) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x9;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0x9) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x9;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sParTrap2:/*0xA*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0xA) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0xA;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0xA) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0xA;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sSerialTrap1:/*0xB*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0xB) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0xB;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0xB) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0xB;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
 						case sSerialTrap2:/*0xC*/
-							if (pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode != 0xC) {
-								pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0xC;
+							if (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode != 0xC) {
+								pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0xC;
 								bRmapSetMemConfigArea(&pxNFee->xChannel.xRmap);
 							}
 							break;
@@ -1715,70 +1715,70 @@ void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 
 	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodE = 0xFF00;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VodF = 0xFF01;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1VrdMon = 0xFF02;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2VodE = 0xFF03;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2VodF = 0xFF04;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2VrdMon = 0xFF05;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3VodE = 0xFF06;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3VodF = 0xFF07;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3VrdMon = 0xFF08;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4VodE  = 0xFF09;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4VodF = 0xFF0A;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4VrdMon = 0xFF0B;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVccd = 0xFF0C;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVrclk = 0xFF0D;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkViclk = 0xFF0E;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVrclkLow = 0xFF0F;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk5vbPos = 0xFF10;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk5vbNeg = 0xFF11;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk33vbPos = 0xFF12;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk25vaPos = 0xFF13;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk33vdPos = 0xFF14;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk25vdPos = 0xFF15;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk15vdPos = 0xFF16;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHk5vref = 0xFF17;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVccdPosRaw = 0xFF18;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVclkPosRaw = 0xFF19;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVan1PosRaw = 0xFF1A;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVan3NegRaw = 0xFF1B;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVan2PosRaw = 0xFF1C;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVdigFpgaRaw = 0xFF1D;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkVdigSpwRaw = 0xFF1E;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkViclkLow = 0xFF1F;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkAdcTempAE = 0xFF20;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkAdcTempAF = 0xFF21;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd1Temp = 0xFF22;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd2Temp = 0xFF23;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd3Temp = 0xFF24;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkCcd4Temp = 0xFF25;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiHkWp605Spare = 0xFF26;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA0 = 0xFF27;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA1 = 0xFF28;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA2 = 0xFF29;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA3 = 0xFF2A;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA4 = 0xFF2B;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA5 = 0xFF2C;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA6 = 0xFF2D;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA7 = 0xFF2E;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA8 = 0xFF2F;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA9 = 0xFF30;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA10 = 0xFF31;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA11 = 0xFF32;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA12 = 0xFF33;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA13 = 0xFF34;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA14 = 0xFF35;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiLowresPrtA15 = 0xFF36;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt0 = 0xFF37;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt1 = 0xFF38;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt2 = 0xFF39;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt3 = 0xFF3A;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt4 = 0xFF3B;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt5 = 0xFF3C;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt6 = 0xFF3D;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiSelHiresPrt7 = 0xFF3E;
-	pxNFeeP->xChannel.xRmap.xRmapMemHKArea.usiZeroHiresAmp = 0xFF3F;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense1 = 0xFF00;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense2 = 0xFF01;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense3 = 0xFF02;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense4 = 0xFF03;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense5 = 0xFF04;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense6 = 0xFF05;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1Ts = 0xFF06;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2Ts = 0xFF07;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3Ts = 0xFF08;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4Ts = 0xFF09;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt1 = 0xFF0A;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt2 = 0xFF0B;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt3 = 0xFF0C;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt4 = 0xFF0D;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt5 = 0xFF0E;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiZeroDiffAmp = 0xFF0F;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VodMon = 0xFF10;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VogMon = 0xFF11;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VrdMonE = 0xFF12;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VodMon = 0xFF13;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VogMon = 0xFF14;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VrdMonE = 0xFF15;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VodMon = 0xFF16;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VogMon = 0xFF17;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VrdMonE = 0xFF18;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VodMon = 0xFF19;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VogMon = 0xFF1A;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VrdMonE = 0xFF1B;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVccd = 0xFF1C;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVrclkMon = 0xFF1D;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiViclk = 0xFF1E;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVrclkLow = 0xFF1F;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vbPosMon = 0xFF20;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vbNegMon = 0xFF21;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi3v3bMon = 0xFF22;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi2v5aMon = 0xFF23;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi3v3dMon = 0xFF24;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi2v5dMon = 0xFF25;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi1v5dMon = 0xFF26;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vrefMon = 0xFF27;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVccdPosRaw = 0xFF28;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVclkPosRaw = 0xFF29;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan1PosRaw = 0xFF2A;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan3NegMon = 0xFF2B;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan2PosRaw = 0xFF2C;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVdigRaw = 0xFF2D;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVdigRaw2 = 0xFF2E;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiViclkLow = 0xFF2F;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VrdMonF = 0xFF30;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VddMon = 0xFF31;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VgdMon = 0xFF32;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VrdMonF = 0xFF33;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VddMon = 0xFF34;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VgdMon = 0xFF35;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VrdMonF = 0xFF36;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VddMon = 0xFF37;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VgdMon = 0xFF38;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VrdMonF = 0xFF39;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VddMon = 0xFF3A;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VgdMon = 0xFF3B;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiIgHiMon = 0xFF3C;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiIgLoMon = 0xFF3D;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseA = 0xFF3E;
+	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB = 0xFF3F;
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
 }
 
@@ -2169,9 +2169,9 @@ bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId ) {
 bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Disable SPW channel */
 	bSpwcGetLink(xSPW);
-	xSPW->xLinkConfig.bLinkStart = FALSE;
-	xSPW->xLinkConfig.bAutostart = FALSE;
-	xSPW->xLinkConfig.bDisconnect = TRUE;
+	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
+	xSPW->xSpwcLinkConfig.bAutostart = FALSE;
+	xSPW->xSpwcLinkConfig.bDisconnect = TRUE;
 	bSpwcSetLink(xSPW);
 
 	/*todo: No treatment for now  */
@@ -2181,9 +2181,9 @@ bool bDisableSPWChannel( TSpwcChannel *xSPW ) {
 bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 	/* Enable SPW channel */
 	bSpwcGetLink(xSPW);
-	xSPW->xLinkConfig.bLinkStart = FALSE;
-	xSPW->xLinkConfig.bAutostart = TRUE;
-	xSPW->xLinkConfig.bDisconnect = FALSE;
+	xSPW->xSpwcLinkConfig.bLinkStart = FALSE;
+	xSPW->xSpwcLinkConfig.bAutostart = TRUE;
+	xSPW->xSpwcLinkConfig.bDisconnect = FALSE;
 	bSpwcSetLink(xSPW);
 
 	/*todo: No treatment for now  */
@@ -2199,15 +2199,15 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
 	bFeebStartCh(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
-	bFeebGetWindowing(pxFeebCh);
+	bFeebGetMachineControl(pxFeebCh);
 	//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
-	pxFeebCh->xWindowingConfig.bMasking = xDefaults.bDataPacket;
-	bFeebSetWindowing(pxFeebCh);
+	pxFeebCh->xFeebMachineControl.bDataControllerEn = xDefaults.bDataPacket;
+	bFeebSetMachineControl(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
-	pxFeebCh->xIrqControl.bLeftBufferEmptyEn = TRUE;
-	pxFeebCh->xIrqControl.bRightBufferEmptyEn = TRUE;
+	pxFeebCh->xFeebIrqControl.bLeftBufferEmptyEn = TRUE;
+	pxFeebCh->xFeebIrqControl.bRightBufferEmptyEn = TRUE;
 	bFeebSetIrqControl(pxFeebCh);
 
 	/*todo: No treatment for now  */
@@ -2219,8 +2219,8 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 
 	/*Disable IRQ of FEE Buffer*/
 	bFeebGetIrqControl(pxFeebCh);
-	pxFeebCh->xIrqControl.bLeftBufferEmptyEn = FALSE;
-	pxFeebCh->xIrqControl.bRightBufferEmptyEn = FALSE;
+	pxFeebCh->xFeebIrqControl.bLeftBufferEmptyEn = FALSE;
+	pxFeebCh->xFeebIrqControl.bRightBufferEmptyEn = FALSE;
 	bFeebSetIrqControl(pxFeebCh);
 
 	/* Stop the module Double Buffer */
@@ -2252,7 +2252,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2279,7 +2279,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2305,7 +2305,7 @@ void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2331,7 +2331,7 @@ void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2356,7 +2356,7 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2382,7 +2382,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2409,7 +2409,7 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;
@@ -2435,7 +2435,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg(pxNFeeP->xChannel.xRmap.puliRmapChAddr,  ucADDRReg);
+	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
 		case 0x40://0x00000000: ccd_seq_1_config
 			break;

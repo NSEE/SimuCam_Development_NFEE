@@ -25,13 +25,13 @@
 //! [public functions]
 bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	volatile TDpktChannel *vpxDpktChannel;
+	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
-		vpxDpktChannel = (TDpktChannel *)((alt_u32)pxDpktCh + COMM_DPKT_BASE_ADDR_OFST);
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxDpktChannel->xDataPacketConfig = pxDpktCh->xDataPacketConfig;
+		vpxCommChannel->xDataPacket.xDpktDataPacketConfig = pxDpktCh->xDpktDataPacketConfig;
 
 		bStatus = TRUE;
 
@@ -42,13 +42,13 @@ bool bDpktSetPacketConfig(TDpktChannel *pxDpktCh) {
 
 bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	volatile TDpktChannel *vpxDpktChannel;
+	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
-		vpxDpktChannel = (TDpktChannel *)((alt_u32)pxDpktCh + COMM_DPKT_BASE_ADDR_OFST);
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		pxDpktCh->xDataPacketConfig = vpxDpktChannel->xDataPacketConfig;
+		pxDpktCh->xDpktDataPacketConfig = vpxCommChannel->xDataPacket.xDpktDataPacketConfig;
 
 		bStatus = TRUE;
 
@@ -59,13 +59,13 @@ bool bDpktGetPacketConfig(TDpktChannel *pxDpktCh) {
 
 bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	volatile TDpktChannel *vpxDpktChannel;
+	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
-		vpxDpktChannel = (TDpktChannel *)((alt_u32)pxDpktCh + COMM_DPKT_BASE_ADDR_OFST);
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		pxDpktCh->xDataPacketHeader = vpxDpktChannel->xDataPacketHeader;
+		pxDpktCh->xDpktDataPacketHeader = vpxCommChannel->xDataPacket.xDpktDataPacketHeader;
 
 		bStatus = TRUE;
 
@@ -76,13 +76,13 @@ bool bDpktGetPacketHeader(TDpktChannel *pxDpktCh) {
 
 bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	volatile TDpktChannel *vpxDpktChannel;
+	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
-		vpxDpktChannel = (TDpktChannel *)((alt_u32)pxDpktCh + COMM_DPKT_BASE_ADDR_OFST);
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		vpxDpktChannel->xPixelDelay = pxDpktCh->xPixelDelay;
+		vpxCommChannel->xDataPacket.xDpktPixelDelay = pxDpktCh->xDpktPixelDelay;
 
 		bStatus = TRUE;
 	}
@@ -92,13 +92,13 @@ bool bDpktSetPixelDelay(TDpktChannel *pxDpktCh) {
 
 bool bDpktGetPixelDelay(TDpktChannel *pxDpktCh) {
 	bool bStatus = FALSE;
-	volatile TDpktChannel *vpxDpktChannel;
+	volatile TCommChannel *vpxCommChannel;
 
 	if (pxDpktCh != NULL) {
 
-		vpxDpktChannel = (TDpktChannel *)((alt_u32)pxDpktCh + COMM_DPKT_BASE_ADDR_OFST);
+		vpxCommChannel = (TCommChannel *)(pxDpktCh->xDpktDevAddr.uliDpktBaseAddr);
 
-		pxDpktCh->xPixelDelay = vpxDpktChannel->xPixelDelay;
+		pxDpktCh->xDpktPixelDelay = vpxCommChannel->xDataPacket.xDpktPixelDelay;
 
 		bStatus = TRUE;
 
@@ -111,43 +111,40 @@ bool bDpktInitCh(TDpktChannel *pxDpktCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidCh = FALSE;
 	bool bInitFail = FALSE;
-	alt_u32 *uliCommChBaseAddr;
 
 	if (pxDpktCh != NULL) {
 
-		uliCommChBaseAddr = (alt_u32 *)((alt_u32)pxDpktCh + COMM_DPKT_BASE_ADDR_OFST);
-
 		switch (ucCommCh) {
 		case eCommSpwCh1:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
-			*uliCommChBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
+			pxDpktCh->xDpktDevAddr.uliDpktBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
 		default:

@@ -24,36 +24,6 @@ enum DpktMode {
 } EDpktMode;
 
 //! [public module structs definition]
-typedef struct DpktDataPacketConfig {
-	alt_u16 usiCcdXSize; /* Data Packet CCD X Size */
-	alt_u16 usiCcdYSize; /* Data Packet CCD Y Size */
-	alt_u16 usiDataYSize; /* Data Packet Data Y Size */
-	alt_u16 usiOverscanYSize; /* Data Packet Overscan Y Size */
-	alt_u16 usiPacketLength; /* Data Packet Packet Length */
-	alt_u8 ucLogicalAddr; /* Data Packet Logical Address */
-	alt_u8 ucProtocolId; /* Data Packet Protocol ID */
-	alt_u8 ucFeeMode; /* Data Packet FEE Mode */
-	alt_u8 ucCcdNumber; /* Data Packet CCD Number */
-} TDpktDataPacketConfig;
-
-typedef struct DpktDataPacketHeader {
-	alt_u16 usiLength; /* Data Packet Header Length */
-	alt_u16 usiType; /* Data Packet Header Type */
-	alt_u16 usiFrameCounter; /* Data Packet Header Frame Counter */
-	alt_u16 usiSequenceCounter; /* Data Packet Header Sequence Counter */
-} TDpktDataPacketHeader;
-
-typedef struct DpktPixelDelay {
-	alt_u16 usiLineDelay; /* Data Packet Line Delay */
-	alt_u16 usiColumnDelay; /* Data Packet Column Delay */
-	alt_u16 usiAdcDelay; /* Data Packet ADC Delay */
-} TDpktPixelDelay;
-
-typedef struct DpktChannel {
-	TDpktDataPacketConfig xDataPacketConfig;
-	TDpktDataPacketHeader xDataPacketHeader;
-	TDpktPixelDelay xPixelDelay;
-} TDpktChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]
