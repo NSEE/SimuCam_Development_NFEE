@@ -292,6 +292,8 @@ void vParserCommTask(void *task_data) {
 									fprintf(fp, "- RMAP_KEY: 0x%02X;\n", PreParsedLocal.usiValues[12] );
 								}
 								#endif
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
 							default:
