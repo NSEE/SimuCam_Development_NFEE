@@ -206,8 +206,8 @@ architecture rtl of comm_v1_80_top is
 	signal s_rmap_mem_wr_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 	signal s_rmap_mem_rd_byte_address : std_logic_vector((32 + 0 - 1) downto 0);
 
-	signal s_rmap_mem_config_area : t_rmap_memory_config_area;
-	signal s_rmap_mem_hk_area     : t_rmap_memory_hk_area;
+	signal s_rmap_mem_wr_area : t_rmap_memory_wr_area;
+	signal s_rmap_mem_rd_area : t_rmap_memory_rd_area;
 
 	signal s_rmap_write_data_finished : std_logic;
 	signal s_rmap_read_data_finished  : std_logic;
@@ -648,8 +648,8 @@ begin
 			fee_hk_readaddr_i            => s_fee_data_controller_mem_rd_byte_address,
 			rmap_read_i                  => s_rmap_mem_control.read.read,
 			rmap_readaddr_i              => s_rmap_mem_rd_byte_address,
-			rmap_config_registers_i      => s_rmap_mem_config_area,
-			rmap_hk_registers_i          => s_rmap_mem_hk_area,
+			rmap_registers_wr_i          => s_rmap_mem_wr_area,
+			rmap_registers_rd_i          => s_rmap_mem_rd_area,
 			avalon_mm_rmap_i.address     => avalon_slave_windowing_address,
 			avalon_mm_rmap_i.read        => avalon_slave_windowing_read,
 			avalon_mm_rmap_i.byteenable  => avalon_slave_windowing_byteenable,
@@ -686,8 +686,7 @@ begin
 			rmap_memerror_o              => s_rmap_mem_flag.write.error,
 			rmap_memready_o              => s_rmap_mem_flag.write.ready,
 			avalon_mm_rmap_o.waitrequest => s_avalon_mm_rmap_mem_write_waitrequest,
-			rmap_config_registers_o      => s_rmap_mem_config_area,
-			rmap_hk_registers_o          => s_rmap_mem_hk_area
+			rmap_registers_wr_o          => s_rmap_mem_wr_area
 		);
 
 	-- spw mux
@@ -1025,5 +1024,25 @@ begin
 	-- mock irq numbers (TODO: need to create generics later)
 	s_spacewire_read_registers.fee_buffers_irq_number_reg.fee_buffers_irq_number <= (others => '0');
 	s_spacewire_read_registers.rmap_irq_number_reg.rmap_irq_number               <= (others => '0');
+
+	-- rmap read area
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(7 downto 6)                                      <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(5 downto 0)                                      <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_status                                                 <= x"00";
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_indicate                                               <= '0';
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running                                                  <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
+	s_rmap_mem_rd_area.reg_33_hk.frame_counter                                                                 <= s_fee_slave_frame_counter;
+	s_rmap_mem_rd_area.reg_33_hk.frame_number                                                                  <= s_fee_slave_frame_number;
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error                                  <= '0';
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error                                  <= '0';
+	s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error                                  <= '0';
 
 end architecture rtl;                   -- of comm_v1_80_top

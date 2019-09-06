@@ -16,6 +16,8 @@ entity masking_machine_ent is
 		fee_clear_signal_i            : in  std_logic;
 		fee_stop_signal_i             : in  std_logic;
 		fee_start_signal_i            : in  std_logic;
+		fee_digitalise_en_i           : in  std_logic;
+		fee_windowing_en_i            : in  std_logic;
 		-- others
 		fee_start_masking_i           : in  std_logic;
 		masking_machine_hold_i        : in  std_logic;
@@ -378,18 +380,30 @@ begin
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
 						s_masking_machine_state <= PIXEL_0_BYTE_LSB;
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(7 downto 0), current_timecode_i);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_state <= NOT_STARTED;
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(7 downto 0), current_timecode_i);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(7 downto 0), current_timecode_i);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_state <= NOT_STARTED;
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 					end if;
 
@@ -423,23 +437,35 @@ begin
 							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= s_registered_window_data(15 downto 8);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_return_state <= NOT_STARTED;
-								s_masking_machine_state        <= NOT_STARTED;
-								s_adc_delay_trigger            <= '0';
-								s_adc_delay_timer              <= (others => '0');
-								s_line_delay_trigger           <= '0';
-								s_line_delay_timer             <= (others => '0');
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= s_registered_window_data(15 downto 8);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= s_registered_window_data(15 downto 8);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_return_state <= NOT_STARTED;
+							s_masking_machine_state        <= NOT_STARTED;
+							s_adc_delay_trigger            <= '0';
+							s_adc_delay_timer              <= (others => '0');
+							s_line_delay_trigger           <= '0';
+							s_line_delay_timer             <= (others => '0');
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 						s_mask_counter                 <= s_mask_counter + 1;
 					end if;
@@ -460,18 +486,30 @@ begin
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
 						s_masking_machine_state <= PIXEL_1_BYTE_LSB;
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(23 downto 16), current_timecode_i);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_state <= NOT_STARTED;
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(23 downto 16), current_timecode_i);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(23 downto 16), current_timecode_i);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_state <= NOT_STARTED;
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 					end if;
 
@@ -506,23 +544,35 @@ begin
 							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= s_registered_window_data(31 downto 24);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_return_state <= NOT_STARTED;
-								s_masking_machine_state        <= NOT_STARTED;
-								s_adc_delay_trigger            <= '0';
-								s_adc_delay_timer              <= (others => '0');
-								s_line_delay_trigger           <= '0';
-								s_line_delay_timer             <= (others => '0');
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= s_registered_window_data(31 downto 24);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= s_registered_window_data(31 downto 24);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_return_state <= NOT_STARTED;
+							s_masking_machine_state        <= NOT_STARTED;
+							s_adc_delay_trigger            <= '0';
+							s_adc_delay_timer              <= (others => '0');
+							s_line_delay_trigger           <= '0';
+							s_line_delay_timer             <= (others => '0');
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 					end if;
 
@@ -542,18 +592,30 @@ begin
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
 						s_masking_machine_state <= PIXEL_2_BYTE_LSB;
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(39 downto 32), current_timecode_i);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_state <= NOT_STARTED;
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(39 downto 32), current_timecode_i);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(39 downto 32), current_timecode_i);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_state <= NOT_STARTED;
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 					end if;
 
@@ -588,23 +650,35 @@ begin
 							s_column_delay_timer    <= fee_column_delay_i;
 						end if;
 						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= s_registered_window_data(47 downto 40);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_return_state <= NOT_STARTED;
-								s_masking_machine_state        <= NOT_STARTED;
-								s_adc_delay_trigger            <= '0';
-								s_adc_delay_timer              <= (others => '0');
-								s_line_delay_trigger           <= '0';
-								s_line_delay_timer             <= (others => '0');
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= s_registered_window_data(47 downto 40);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= s_registered_window_data(47 downto 40);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_return_state <= NOT_STARTED;
+							s_masking_machine_state        <= NOT_STARTED;
+							s_adc_delay_trigger            <= '0';
+							s_adc_delay_timer              <= (others => '0');
+							s_line_delay_trigger           <= '0';
+							s_line_delay_timer             <= (others => '0');
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 					end if;
 
@@ -624,18 +698,30 @@ begin
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
 						s_masking_machine_state <= PIXEL_3_BYTE_LSB;
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(55 downto 48), current_timecode_i);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_state <= NOT_STARTED;
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(55 downto 48), current_timecode_i);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(55 downto 48), current_timecode_i);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_state <= NOT_STARTED;
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 					end if;
 
@@ -654,18 +740,30 @@ begin
 					-- check if masking fifo is not almost full
 					if (unsigned(s_masking_fifo.usedw) < (2**s_masking_fifo.usedw'length - 2)) then
 						-- masking fifo has space
-						-- check if the bit is masked
-						if (s_registered_window_mask(s_mask_counter) = '1') then
-							s_masking_fifo.wrreq <= '1';
-							s_masking_fifo.data  <= s_registered_window_data(63 downto 56);
-							-- check if data bytes for the read-out cycle ended
-							if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
-								-- data bytes for the read-out cycle ended, stop masking
-								s_masking_machine_state <= NOT_STARTED;
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, digitalise data
+							-- check if the windowing is enabled
+							if (fee_windowing_en_i = '1') then
+								-- windowing enabled, perform windowing operation
+								-- check if the bit is masked
+								if (s_registered_window_mask(s_mask_counter) = '1') then
+									s_masking_fifo.wrreq <= '1';
+									s_masking_fifo.data  <= s_registered_window_data(63 downto 56);
+								end if;
 							else
-								-- decrement remaining data bytes counter
-								s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
+								-- windowing disabled, do not mask any pixel
+								s_masking_fifo.wrreq <= '1';
+								s_masking_fifo.data  <= s_registered_window_data(63 downto 56);
 							end if;
+						end if;
+						-- check if data bytes for the read-out cycle ended
+						if (s_fee_remaining_data_bytes = std_logic_vector(to_unsigned(0, s_fee_remaining_data_bytes'length))) then
+							-- data bytes for the read-out cycle ended, stop masking
+							s_masking_machine_state <= NOT_STARTED;
+						else
+							-- decrement remaining data bytes counter
+							s_fee_remaining_data_bytes <= std_logic_vector(unsigned(s_fee_remaining_data_bytes) - 1);
 						end if;
 						-- check mask counter
 						if (s_mask_counter < 63) then
