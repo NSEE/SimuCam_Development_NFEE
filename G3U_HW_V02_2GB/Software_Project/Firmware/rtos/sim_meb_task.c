@@ -56,6 +56,7 @@ void vSimMebTask(void *task_data) {
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
+				vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
@@ -137,6 +138,8 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_MASTER_SYNC:
 
 				pxMebCLocal->xSwapControl.lastReadOut = FALSE;
+				/* Perform memory SWAP */
+				vSwapMemmory(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
@@ -154,54 +157,19 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				break;
 
 			case Q_MEB_DATA_MEM_UPD_FIN:
-				/* Clear the flag of the end variable, if is the last ccd readout check if all NFEE finish */
-				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<6);
-				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
-					/* Cheack if NFEEs instances also finished the work with RAM */
-					if ( pxMebCLocal->xSwapControl.end == 0x00 ){
 
-						/* Perform memory SWAP */
-						vSwapMemmory(pxMebCLocal);
-						pxMebCLocal->xDataControl.usiEPn++; /* todo: Procurar os resets, para verificar se ele tbm é resetado */
+				/*Check if is already the sync before Master Sync*/
+				if ( xGlobal.bPreMaster == TRUE ) {
 
-						/* Using QMASK send to NfeeControl that will foward */
-						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
+					/*Maybe have some FEE instances loked in reading queue, waiting for a message that DTC finishes the upload of the memory*/
+					/*So, need to send them a message to inform*/
+					/* Using QMASK send to NfeeControl that will foward */
+					for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
+						if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
+							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
 						}
-
-						/* Send the swap Command to data Controller */
-						vSendCmdQToDataCTRL( M_MEM_SWAPPED, 0, 0 );
-
-						pxMebCLocal->xSwapControl.lastReadOut = FALSE;
 					}
 				}
-
-				break;
-
-			case Q_MEB_FEE_MEM_TRAN_FIN:
-				/* Clear the flag only in the last CCD transmission */
-				if ( pxMebCLocal->xSwapControl.lastReadOut == TRUE ) {
-					ucFeeInst = uiCmdLocal.ucByte[0];
-					pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end & (0xFE<<ucFeeInst);
-					/* Cheack if all NFEEs instances finished the work with RAM */
-					if ( pxMebCLocal->xSwapControl.end == 0x00 ){
-
-						/* Perform memory SWAP */
-						vSwapMemmory(pxMebCLocal);
-						pxMebCLocal->xDataControl.usiEPn++; /* todo: Procurar os resets, para verificar se ele tbm é resetado */
-
-						/* Using QMASK send to NfeeControl that will foward */
-						for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
-							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_MEM_SWAPPED, 0, ucIL );
-						}
-
-						/* Send the swap Command to data Controller */
-						vSendCmdQToDataCTRL( M_MEM_SWAPPED, 0, 0 );
-
-						pxMebCLocal->xSwapControl.lastReadOut = FALSE;
-					}
-				}
-
 				break;
 
 			default:
@@ -270,11 +238,11 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 		fprintf(fp,"\n\nSync\n");
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 			bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucTime);
+			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
 			tCodeNext = ( tCode ) % 4;
 			fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
 			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.pxMemArea->xRmapMemConfigArea.uliFrameNumber;
+			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
 			fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 		}
 	}
@@ -350,8 +318,15 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
+	unsigned short int param1 =0;
+
+	param1 = xPusL->usiValues[0];
 
 	switch (xPusL->usiSubType) {
+		/* TC_SYNCH_SOURCE */
+		case 29:
+			bSyncCtrIntern(param1 == 0); /*True = Internal*/
+			break;
 		/* TC_SCAM_RUN */
 		case 61:
 			pxMebCLocal->eMode = sMebToRun;
@@ -413,19 +388,19 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 			/* Disable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = FALSE;
 			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 			/* Change the configuration */
 			bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
 			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
 
 			/* Enable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = TRUE;
 			bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 			/* todo: Need to treat all the returns */
@@ -525,15 +500,47 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_STANDBY, 0, usiFeeInstL );
 			break;
-		/* TC_SCAM_FEE_CALIBRATION_TEST_ENTER */
+		/* NFEE_RUNNING_FULLIMAGE_ENTER */
+		case 3:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_WINDOWING _ENTER */
+		case 4:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL_PATTERN, 0, usiFeeInstL );
 			break;
-		case 0:
-		case 3:
-		case 4:
+		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1_ENTER */
+		case 12:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
+		case 13:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_2, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
+		case 14:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_1, 0, usiFeeInstL );
+			break;
+		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
+		case 15:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_2, 0, usiFeeInstL );
+			break;
+		case 0:
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -578,22 +585,22 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 2: /* TC_SCAM_SPW_RMAP_CONFIG_UPDATE */
 
 			/* todo: For now we can only update the Logical Address and the RAMP Key */
-			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sFeeConfig ) {
+			if ( pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xControl.eMode == sConfig ) {
 				/* Disable the RMAP interrupt */
 				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = FALSE;
 				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 
 				/* Change the configuration */
 				bRmapGetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucKey = (unsigned char)xPusL->usiValues[12];
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapCodecConfig.ucLogicalAddress = (unsigned char)xPusL->usiValues[9];
 				bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
 
 				/* Enable the RMAP interrupt */
 				bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
-				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xIrqControl.bWriteCmdEn = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = TRUE;
 				bRmapSetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			} else {
 				#if DEBUG_ON
@@ -738,7 +745,6 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 5);
 
-	pxMebCLocal->xDataControl.usiEPn = 0;
 	pxMebCLocal->ucActualDDR = 0;
 	pxMebCLocal->ucNextDDR = 1;
 	/* Transition to Config Mode (Ending the simulation) */
@@ -746,11 +752,44 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
+	vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
+
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);
 
 	bDisableIsoDrivers();
 	bDisableLvdsBoard();
+}
+
+void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
+	INT8U error_code, i;
+	char cHeader[8] = "!M:%hhu:";
+	char cBufferL[128] = "";
+
+	sprintf( cBufferL, "%s%hu", cHeader, mode );
+
+
+	/* Should send message to the NUc to inform the FEE mode */
+	OSMutexPend(xMutexTranferBuffer, 0, &error_code); /*Blocking*/
+	if (error_code == OS_ERR_NONE) {
+		/* Got the Mutex */
+		/*For now, will only get the first, not the packet that is waiting for longer time*/
+		for( i = 0; i < N_128_SENDER; i++)
+		{
+            if ( xBuffer128_Sender[i].bInUse == FALSE ) {
+                /* Locate a filled PreParsed variable in the array*/
+            	/* Perform a copy to a local variable */
+            	memcpy(xBuffer128_Sender[i].buffer_128, cBufferL, 128);
+                xBuffer128_Sender[i].bInUse = TRUE;
+                xBuffer128_Sender[i].bPUS = FALSE;
+                break;
+            }
+		}
+		OSMutexPost(xMutexTranferBuffer);
+	} else {
+		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
+		vFailGetxMutexSenderBuffer128();
+	}
 }
 
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */

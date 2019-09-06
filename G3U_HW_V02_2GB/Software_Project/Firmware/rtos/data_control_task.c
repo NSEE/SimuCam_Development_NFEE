@@ -77,6 +77,7 @@ void vDataControlTask(void *task_data) {
 
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
+				pxDataC->usiEPn = 0;
 
 				pxDataC->sMode = sMebConfig;
 				break;
@@ -125,6 +126,7 @@ void vDataControlTask(void *task_data) {
 
 						/* Indicates that at any moment the memory could be swaped in order to the NFEEs prepare the first packet to send in the next M. Sync */
 						pxDataC->bUpdateComplete = TRUE;
+						xGlobal.bDTCFinished = TRUE;
 						bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_UPD_FIN, 0, 0); /*todo: Tratar retorno*/
 
 
@@ -416,10 +418,9 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
 			#endif
 			/* Do nothing for now */
 			break;
-		case M_MEM_SWAPPED:
-			/* Do nothing for now */
-			break;
 		case M_MASTER_SYNC:
+			pxFeeCP->usiEPn++;
+			xGlobal.bDTCFinished = FALSE;
 			pxFeeCP->sRunMode = sSubSetupEpoch;
 			break;			
 		default:

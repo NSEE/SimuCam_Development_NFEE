@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 #include "fee_controller.h"
 #include "data_controller.h"
-#include "fee.h"
+#include "feeV2.h"
 #include "ccd.h"
 
 

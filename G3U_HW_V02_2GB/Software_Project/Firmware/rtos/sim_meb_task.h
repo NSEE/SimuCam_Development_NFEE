@@ -11,7 +11,7 @@
 #include "../simucam_definitions.h"
 #include "../utils/communication_configs.h"
 #include "../utils/queue_commands_list.h"
-#include "../utils/fee.h"
+#include "../utils/feeV2.h"
 #include "../utils/ccd.h"
 #include "../utils/meb.h"
 #include "../utils/events_handler.h"
@@ -56,6 +56,7 @@ void vMebInit(TSimucam_MEB *pxMebCLocal);
 //void vReleaseSyncMessages(void);
 void vSwapMemmory(TSimucam_MEB *pxMebCLocal);
 void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal );
+void vSendMessageNUCModeMEBChange(  unsigned short int mode  );
 
 void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
 void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
