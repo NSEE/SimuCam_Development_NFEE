@@ -106,12 +106,16 @@ OS_EVENT *xQMaskDataCtrl;
 /* Comunication and syncronization of the Meb Task */
 void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 OS_EVENT *xMebQ;
+
+/* Sync Reset comm queue [bndky] */
+void *xQueueSyncResetTBL[N_MESG_SYNCRST];
+OS_EVENT *xQueueSyncReset;		
 /* -------------- Definition of Queues -------------- */
 
 
 /* -------------- Definition of Stacks------------------ */
 OS_STK    vInitialTask_stk[INITIALIZATION_TASK_SIZE];
-
+OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 
 /* Communication tasks */
 OS_STK    vReceiverUartTask_stk[RECEIVER_TASK_SIZE];
@@ -365,6 +369,13 @@ bool bResourcesInitRTOS( void ) {
 		vFailCreateMutexDMA();
 		bSuccess = FALSE;
 	}	
+
+	/* Create the sync reset control comm queue [bndky] */
+	xQueueSyncReset = OSQCreate(&xQueueSyncResetTBL[0], N_MESG_SYNCRST);		//TODO Change to define
+	if (!xQueueSyncReset) {
+		//vFailCreateSemaphoreResources(); TODO create error msg
+		bSuccess = FALSE;
+	}
 
 	return bSuccess;
 }

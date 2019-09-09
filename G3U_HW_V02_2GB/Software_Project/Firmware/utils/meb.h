@@ -14,7 +14,10 @@
 #include "feeV2.h"
 #include "ccd.h"
 
-
+/* Used to get the priorities needed for the sync-reset function [bndky] */
+#include "../rtos/tasks_configurations.h"
+/* Used to send the NFEEs to standby [bndky]*/
+#include "../rtos/nfee_control_task.h"
 
 /* Simucam operation modes */
 typedef enum { sInternal = 0, sExternal } tSimucamSync;
@@ -51,7 +54,7 @@ typedef struct Simucam_MEB {
 } TSimucam_MEB;
 
 extern TSimucam_MEB xSimMeb;
-
+extern OS_EVENT *xQueueSyncReset;   /*[bndky]*/
 
 void vSimucamStructureInit( TSimucam_MEB *xMeb );
 
@@ -67,6 +70,6 @@ void vChangeDefaultSyncSource( TSimucam_MEB *xMeb, tSimucamSync eSource );
 void vLoadDefaultAutoResetSync( TSimucam_MEB *xMeb );
 void vChangeAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
-void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay );
+INT8U vSyncReset( unsigned short int ufSynchDelay, TNFee_Control *pxFeeCP ); /* [bndky] */
 
 #endif /* MEB_H_ */

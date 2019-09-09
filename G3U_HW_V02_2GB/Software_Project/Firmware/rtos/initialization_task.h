@@ -23,6 +23,7 @@
 #include "stack_monitor_task.h"
 #include "../utils/meb.h"
 #include "../utils/error_handler_simucam.h"
+#include "sync_reset_task.h"    /* bndky */
 
 void vInitialTask(void *task_data);
 

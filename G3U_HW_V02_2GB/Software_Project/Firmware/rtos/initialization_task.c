@@ -556,6 +556,41 @@ void vInitialTask(void *task_data)
 
 	OSTimeDlyHMSM(0, 0, 0, 200);
 
+	/* Create Sync-Reset Task [bndky] */
+	#if ( STACK_MONITOR == 1)
+		error_code = OSTaskCreateExt(vSyncResetTask,
+									&xSimMeb,
+									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
+									SYNC_RESET_HIGH_PRIO,
+									SYNC_RESET_HIGH_PRIO,
+									vSyncReset_stk,
+									SYNC_RESET_STACK_SIZE,
+									NULL,
+									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
+	#else
+		error_code = OSTaskCreateExt(vSyncResetTask,
+									&xSimMeb,
+									(void *)&vSyncReset_stk[SYNC_RESET_STACK_SIZE-1],
+									SYNC_RESET_HIGH_PRIO,
+									SYNC_RESET_HIGH_PRIO,
+									vSyncReset_stk,
+									SYNC_RESET_STACK_SIZE,
+									NULL,
+									0);
+	#endif
+
+	if ( error_code != OS_ERR_NONE) {
+		/* Can't create Task */
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			printErrorTask( error_code );
+		}
+		#endif
+		vFailSyncResetCreate();
+	}
+
+	OSTimeDlyHMSM(0, 0, 0, 200);
+
 
 
 	#if ( STACK_MONITOR == 1)

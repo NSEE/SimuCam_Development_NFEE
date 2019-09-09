@@ -17,6 +17,7 @@
 
 #define N_OF_MSG_QUEUE 	64 	/* N_OF_NFEE * 2 => Two empty buffer ISRs */
 #define N_MSG_FEE		16	/* The FEE entities will receive comands through the Queue, and this define is the length */
+#define	N_MESG_SYNCRST	8	/* sync reset qck msg stack size [bndky] */
 
 //#define N_MSG_SYNC		8	/* The FEE entities will receive comands through the Queue, and this define is the length */
 
