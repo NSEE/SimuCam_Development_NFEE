@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.09.06.09:51:13 -->
+ <!-- 2019.09.09.11:04:11 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1567774272</value>
+  <value>1568037850</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -1529,16 +1529,22 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_windowing_readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
     <name>avalon_slave_windowing_writedata</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_byteenable</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
    <port>
     <name>avalon_slave_windowing_waitrequest</name>
@@ -3119,16 +3125,22 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_windowing_readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
     <name>avalon_slave_windowing_writedata</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_byteenable</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
    <port>
     <name>avalon_slave_windowing_waitrequest</name>
@@ -4709,16 +4721,22 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_windowing_readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
     <name>avalon_slave_windowing_writedata</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_byteenable</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
    <port>
     <name>avalon_slave_windowing_waitrequest</name>
@@ -6299,16 +6317,22 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_windowing_readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
     <name>avalon_slave_windowing_writedata</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_byteenable</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
    <port>
     <name>avalon_slave_windowing_waitrequest</name>
@@ -7889,16 +7913,22 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_windowing_readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
     <name>avalon_slave_windowing_writedata</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_byteenable</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
    <port>
     <name>avalon_slave_windowing_waitrequest</name>
@@ -9479,16 +9509,22 @@ parameters are a RESULT of the module parameters. -->
     <role>read</role>
    </port>
    <port>
-    <name>avalon_slave_windowing_readdata</name>
-    <direction>Output</direction>
-    <width>32</width>
-    <role>readdata</role>
-   </port>
-   <port>
     <name>avalon_slave_windowing_writedata</name>
     <direction>Input</direction>
     <width>32</width>
     <role>writedata</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_byteenable</name>
+    <direction>Input</direction>
+    <width>4</width>
+    <role>byteenable</role>
+   </port>
+   <port>
+    <name>avalon_slave_windowing_readdata</name>
+    <direction>Output</direction>
+    <width>32</width>
+    <role>readdata</role>
    </port>
    <port>
     <name>avalon_slave_windowing_waitrequest</name>
@@ -73199,7 +73235,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1567774272</value>
+   <value>1568037850</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -73219,7 +73255,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1567774272</value>
+   <value>1568037850</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -73235,7 +73271,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1567774272</value>
+   <value>1568037850</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
