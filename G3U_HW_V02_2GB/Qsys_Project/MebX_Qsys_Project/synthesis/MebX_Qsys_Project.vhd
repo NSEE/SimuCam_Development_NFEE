@@ -180,8 +180,9 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_windowing_address     : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- address
 			avalon_slave_windowing_write       : in  std_logic                      := 'X';             -- write
 			avalon_slave_windowing_read        : in  std_logic                      := 'X';             -- read
-			avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0);                     -- readdata
 			avalon_slave_windowing_writedata   : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- writedata
+			avalon_slave_windowing_byteenable  : in  std_logic_vector(3 downto 0)   := (others => 'X'); -- byteenable
+			avalon_slave_windowing_readdata    : out std_logic_vector(31 downto 0);                     -- readdata
 			avalon_slave_windowing_waitrequest : out std_logic;                                         -- waitrequest
 			avalon_slave_L_buffer_address      : in  std_logic_vector(7 downto 0)   := (others => 'X'); -- address
 			avalon_slave_L_buffer_waitrequest  : out std_logic;                                         -- waitrequest
@@ -863,6 +864,7 @@ architecture rtl of MebX_Qsys_Project is
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_read               : out std_logic;                                         -- read
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_readdata           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_writedata          : out std_logic_vector(31 downto 0);                     -- writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
 			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
 			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
@@ -877,6 +879,7 @@ architecture rtl of MebX_Qsys_Project is
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_read               : out std_logic;                                         -- read
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_readdata           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_writedata          : out std_logic_vector(31 downto 0);                     -- writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
 			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
 			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
@@ -891,6 +894,7 @@ architecture rtl of MebX_Qsys_Project is
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_read               : out std_logic;                                         -- read
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_readdata           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_writedata          : out std_logic_vector(31 downto 0);                     -- writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
 			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
 			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
@@ -905,6 +909,7 @@ architecture rtl of MebX_Qsys_Project is
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_read               : out std_logic;                                         -- read
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_readdata           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_writedata          : out std_logic_vector(31 downto 0);                     -- writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
 			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
 			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
@@ -919,6 +924,7 @@ architecture rtl of MebX_Qsys_Project is
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_read               : out std_logic;                                         -- read
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_readdata           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_writedata          : out std_logic_vector(31 downto 0);                     -- writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
 			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address             : out std_logic_vector(7 downto 0);                      -- address
 			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write               : out std_logic;                                         -- write
@@ -933,6 +939,7 @@ architecture rtl of MebX_Qsys_Project is
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_read               : out std_logic;                                         -- read
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_readdata           : in  std_logic_vector(31 downto 0)  := (others => 'X'); -- readdata
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_writedata          : out std_logic_vector(31 downto 0);                     -- writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_byteenable         : out std_logic_vector(3 downto 0);                      -- byteenable
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_waitrequest        : in  std_logic                      := 'X';             -- waitrequest
 			ddr2_address_span_extender_cntl_write                           : out std_logic;                                         -- write
 			ddr2_address_span_extender_cntl_read                            : out std_logic;                                         -- read
@@ -1668,36 +1675,42 @@ architecture rtl of MebX_Qsys_Project is
 	signal mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_A:avalon_slave_windowing_waitrequest -> mm_interconnect_0:COMM_Pedreiro_v1_01_A_avalon_slave_windowing_waitrequest
 	signal mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_address                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_A_avalon_slave_windowing_address -> COMM_Pedreiro_v1_01_A:avalon_slave_windowing_address
 	signal mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_read                    : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_A_avalon_slave_windowing_read -> COMM_Pedreiro_v1_01_A:avalon_slave_windowing_read
+	signal mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_A_avalon_slave_windowing_byteenable -> COMM_Pedreiro_v1_01_A:avalon_slave_windowing_byteenable
 	signal mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_write                   : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_A_avalon_slave_windowing_write -> COMM_Pedreiro_v1_01_A:avalon_slave_windowing_write
 	signal mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:COMM_Pedreiro_v1_01_A_avalon_slave_windowing_writedata -> COMM_Pedreiro_v1_01_A:avalon_slave_windowing_writedata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_readdata                : std_logic_vector(31 downto 0);  -- COMM_Pedreiro_v1_01_B:avalon_slave_windowing_readdata -> mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_readdata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_B:avalon_slave_windowing_waitrequest -> mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_waitrequest
 	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_address                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_address -> COMM_Pedreiro_v1_01_B:avalon_slave_windowing_address
 	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_read                    : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_read -> COMM_Pedreiro_v1_01_B:avalon_slave_windowing_read
+	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_byteenable -> COMM_Pedreiro_v1_01_B:avalon_slave_windowing_byteenable
 	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_write                   : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_write -> COMM_Pedreiro_v1_01_B:avalon_slave_windowing_write
 	signal mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:COMM_Pedreiro_v1_01_B_avalon_slave_windowing_writedata -> COMM_Pedreiro_v1_01_B:avalon_slave_windowing_writedata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_readdata                : std_logic_vector(31 downto 0);  -- COMM_Pedreiro_v1_01_C:avalon_slave_windowing_readdata -> mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_readdata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_C:avalon_slave_windowing_waitrequest -> mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_waitrequest
 	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_address                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_address -> COMM_Pedreiro_v1_01_C:avalon_slave_windowing_address
 	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_read                    : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_read -> COMM_Pedreiro_v1_01_C:avalon_slave_windowing_read
+	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_byteenable -> COMM_Pedreiro_v1_01_C:avalon_slave_windowing_byteenable
 	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_write                   : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_write -> COMM_Pedreiro_v1_01_C:avalon_slave_windowing_write
 	signal mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:COMM_Pedreiro_v1_01_C_avalon_slave_windowing_writedata -> COMM_Pedreiro_v1_01_C:avalon_slave_windowing_writedata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_readdata                : std_logic_vector(31 downto 0);  -- COMM_Pedreiro_v1_01_D:avalon_slave_windowing_readdata -> mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_readdata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_D:avalon_slave_windowing_waitrequest -> mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_waitrequest
 	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_address                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_address -> COMM_Pedreiro_v1_01_D:avalon_slave_windowing_address
 	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_read                    : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_read -> COMM_Pedreiro_v1_01_D:avalon_slave_windowing_read
+	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_byteenable -> COMM_Pedreiro_v1_01_D:avalon_slave_windowing_byteenable
 	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_write                   : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_write -> COMM_Pedreiro_v1_01_D:avalon_slave_windowing_write
 	signal mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:COMM_Pedreiro_v1_01_D_avalon_slave_windowing_writedata -> COMM_Pedreiro_v1_01_D:avalon_slave_windowing_writedata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_readdata                : std_logic_vector(31 downto 0);  -- COMM_Pedreiro_v1_01_E:avalon_slave_windowing_readdata -> mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_readdata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_E:avalon_slave_windowing_waitrequest -> mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_waitrequest
 	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_address                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_address -> COMM_Pedreiro_v1_01_E:avalon_slave_windowing_address
 	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_read                    : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_read -> COMM_Pedreiro_v1_01_E:avalon_slave_windowing_read
+	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_byteenable -> COMM_Pedreiro_v1_01_E:avalon_slave_windowing_byteenable
 	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_write                   : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_write -> COMM_Pedreiro_v1_01_E:avalon_slave_windowing_write
 	signal mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:COMM_Pedreiro_v1_01_E_avalon_slave_windowing_writedata -> COMM_Pedreiro_v1_01_E:avalon_slave_windowing_writedata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_readdata                : std_logic_vector(31 downto 0);  -- COMM_Pedreiro_v1_01_F:avalon_slave_windowing_readdata -> mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_readdata
 	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_waitrequest             : std_logic;                      -- COMM_Pedreiro_v1_01_F:avalon_slave_windowing_waitrequest -> mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_waitrequest
 	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_address                 : std_logic_vector(7 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_address -> COMM_Pedreiro_v1_01_F:avalon_slave_windowing_address
 	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_read                    : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_read -> COMM_Pedreiro_v1_01_F:avalon_slave_windowing_read
+	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_byteenable              : std_logic_vector(3 downto 0);   -- mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_byteenable -> COMM_Pedreiro_v1_01_F:avalon_slave_windowing_byteenable
 	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_write                   : std_logic;                      -- mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_write -> COMM_Pedreiro_v1_01_F:avalon_slave_windowing_write
 	signal mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_writedata               : std_logic_vector(31 downto 0);  -- mm_interconnect_0:COMM_Pedreiro_v1_01_F_avalon_slave_windowing_writedata -> COMM_Pedreiro_v1_01_F:avalon_slave_windowing_writedata
 	signal mm_interconnect_0_ddr2_address_span_extender_cntl_readdata                             : std_logic_vector(63 downto 0);  -- ddr2_address_span_extender:avs_cntl_readdata -> mm_interconnect_0:ddr2_address_span_extender_cntl_readdata
@@ -2141,8 +2154,9 @@ begin
 			avalon_slave_windowing_address     => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_address,     --   avalon_slave_windowing.address
 			avalon_slave_windowing_write       => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_write,       --                         .write
 			avalon_slave_windowing_read        => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_read,        --                         .read
-			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_writedata   => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_writedata,   --                         .writedata
+			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_byteenable,  --                         .byteenable
+			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_waitrequest, --                         .waitrequest
 			avalon_slave_L_buffer_address      => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
 			avalon_slave_L_buffer_waitrequest  => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
@@ -2170,8 +2184,9 @@ begin
 			avalon_slave_windowing_address     => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_address,     --   avalon_slave_windowing.address
 			avalon_slave_windowing_write       => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_write,       --                         .write
 			avalon_slave_windowing_read        => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_read,        --                         .read
-			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_writedata   => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_writedata,   --                         .writedata
+			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_byteenable,  --                         .byteenable
+			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_waitrequest, --                         .waitrequest
 			avalon_slave_L_buffer_address      => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
 			avalon_slave_L_buffer_waitrequest  => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
@@ -2199,8 +2214,9 @@ begin
 			avalon_slave_windowing_address     => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_address,     --   avalon_slave_windowing.address
 			avalon_slave_windowing_write       => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_write,       --                         .write
 			avalon_slave_windowing_read        => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_read,        --                         .read
-			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_writedata   => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_writedata,   --                         .writedata
+			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_byteenable,  --                         .byteenable
+			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_waitrequest, --                         .waitrequest
 			avalon_slave_L_buffer_address      => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
 			avalon_slave_L_buffer_waitrequest  => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
@@ -2228,8 +2244,9 @@ begin
 			avalon_slave_windowing_address     => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_address,     --   avalon_slave_windowing.address
 			avalon_slave_windowing_write       => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_write,       --                         .write
 			avalon_slave_windowing_read        => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_read,        --                         .read
-			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_writedata   => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_writedata,   --                         .writedata
+			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_byteenable,  --                         .byteenable
+			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_waitrequest, --                         .waitrequest
 			avalon_slave_L_buffer_address      => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
 			avalon_slave_L_buffer_waitrequest  => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
@@ -2257,8 +2274,9 @@ begin
 			avalon_slave_windowing_address     => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_address,     --   avalon_slave_windowing.address
 			avalon_slave_windowing_write       => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_write,       --                         .write
 			avalon_slave_windowing_read        => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_read,        --                         .read
-			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_writedata   => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_writedata,   --                         .writedata
+			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_byteenable,  --                         .byteenable
+			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_waitrequest, --                         .waitrequest
 			avalon_slave_L_buffer_address      => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
 			avalon_slave_L_buffer_waitrequest  => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
@@ -2286,8 +2304,9 @@ begin
 			avalon_slave_windowing_address     => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_address,     --   avalon_slave_windowing.address
 			avalon_slave_windowing_write       => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_write,       --                         .write
 			avalon_slave_windowing_read        => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_read,        --                         .read
-			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_writedata   => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_writedata,   --                         .writedata
+			avalon_slave_windowing_byteenable  => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_byteenable,  --                         .byteenable
+			avalon_slave_windowing_readdata    => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_readdata,    --                         .readdata
 			avalon_slave_windowing_waitrequest => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_waitrequest, --                         .waitrequest
 			avalon_slave_L_buffer_address      => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address,      --    avalon_slave_L_buffer.address
 			avalon_slave_L_buffer_waitrequest  => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_waitrequest,  --                         .waitrequest
@@ -3164,6 +3183,7 @@ begin
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_read               => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_read,        --                                                          .read
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_readdata           => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_readdata,    --                                                          .readdata
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_writedata          => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_writedata,   --                                                          .writedata
+			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_byteenable         => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_byteenable,  --                                                          .byteenable
 			COMM_Pedreiro_v1_01_A_avalon_slave_windowing_waitrequest        => mm_interconnect_0_comm_pedreiro_v1_01_a_avalon_slave_windowing_waitrequest, --                                                          .waitrequest
 			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address             => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_address,      --               COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer.address
 			COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write               => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_l_buffer_write,        --                                                          .write
@@ -3178,6 +3198,7 @@ begin
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_read               => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_read,        --                                                          .read
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_readdata           => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_readdata,    --                                                          .readdata
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_writedata          => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_writedata,   --                                                          .writedata
+			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_byteenable         => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_byteenable,  --                                                          .byteenable
 			COMM_Pedreiro_v1_01_B_avalon_slave_windowing_waitrequest        => mm_interconnect_0_comm_pedreiro_v1_01_b_avalon_slave_windowing_waitrequest, --                                                          .waitrequest
 			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address             => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_address,      --               COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer.address
 			COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write               => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_l_buffer_write,        --                                                          .write
@@ -3192,6 +3213,7 @@ begin
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_read               => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_read,        --                                                          .read
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_readdata           => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_readdata,    --                                                          .readdata
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_writedata          => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_writedata,   --                                                          .writedata
+			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_byteenable         => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_byteenable,  --                                                          .byteenable
 			COMM_Pedreiro_v1_01_C_avalon_slave_windowing_waitrequest        => mm_interconnect_0_comm_pedreiro_v1_01_c_avalon_slave_windowing_waitrequest, --                                                          .waitrequest
 			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address             => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_address,      --               COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer.address
 			COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write               => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_l_buffer_write,        --                                                          .write
@@ -3206,6 +3228,7 @@ begin
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_read               => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_read,        --                                                          .read
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_readdata           => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_readdata,    --                                                          .readdata
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_writedata          => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_writedata,   --                                                          .writedata
+			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_byteenable         => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_byteenable,  --                                                          .byteenable
 			COMM_Pedreiro_v1_01_D_avalon_slave_windowing_waitrequest        => mm_interconnect_0_comm_pedreiro_v1_01_d_avalon_slave_windowing_waitrequest, --                                                          .waitrequest
 			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address             => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_address,      --               COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer.address
 			COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write               => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_l_buffer_write,        --                                                          .write
@@ -3220,6 +3243,7 @@ begin
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_read               => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_read,        --                                                          .read
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_readdata           => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_readdata,    --                                                          .readdata
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_writedata          => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_writedata,   --                                                          .writedata
+			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_byteenable         => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_byteenable,  --                                                          .byteenable
 			COMM_Pedreiro_v1_01_E_avalon_slave_windowing_waitrequest        => mm_interconnect_0_comm_pedreiro_v1_01_e_avalon_slave_windowing_waitrequest, --                                                          .waitrequest
 			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address             => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_address,      --               COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer.address
 			COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write               => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_l_buffer_write,        --                                                          .write
@@ -3234,6 +3258,7 @@ begin
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_read               => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_read,        --                                                          .read
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_readdata           => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_readdata,    --                                                          .readdata
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_writedata          => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_writedata,   --                                                          .writedata
+			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_byteenable         => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_byteenable,  --                                                          .byteenable
 			COMM_Pedreiro_v1_01_F_avalon_slave_windowing_waitrequest        => mm_interconnect_0_comm_pedreiro_v1_01_f_avalon_slave_windowing_waitrequest, --                                                          .waitrequest
 			ddr2_address_span_extender_cntl_write                           => mm_interconnect_0_ddr2_address_span_extender_cntl_write,                    --                           ddr2_address_span_extender_cntl.write
 			ddr2_address_span_extender_cntl_read                            => mm_interconnect_0_ddr2_address_span_extender_cntl_read,                     --                                                          .read

@@ -90,6 +90,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         COMM_Pedreiro_v1_01_A_avalon_slave_windowing_read,               //                                                          .read
 		input  wire [31:0]  COMM_Pedreiro_v1_01_A_avalon_slave_windowing_readdata,           //                                                          .readdata
 		output wire [31:0]  COMM_Pedreiro_v1_01_A_avalon_slave_windowing_writedata,          //                                                          .writedata
+		output wire [3:0]   COMM_Pedreiro_v1_01_A_avalon_slave_windowing_byteenable,         //                                                          .byteenable
 		input  wire         COMM_Pedreiro_v1_01_A_avalon_slave_windowing_waitrequest,        //                                                          .waitrequest
 		output wire [7:0]   COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_B_avalon_slave_L_buffer_write,               //                                                          .write
@@ -104,6 +105,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         COMM_Pedreiro_v1_01_B_avalon_slave_windowing_read,               //                                                          .read
 		input  wire [31:0]  COMM_Pedreiro_v1_01_B_avalon_slave_windowing_readdata,           //                                                          .readdata
 		output wire [31:0]  COMM_Pedreiro_v1_01_B_avalon_slave_windowing_writedata,          //                                                          .writedata
+		output wire [3:0]   COMM_Pedreiro_v1_01_B_avalon_slave_windowing_byteenable,         //                                                          .byteenable
 		input  wire         COMM_Pedreiro_v1_01_B_avalon_slave_windowing_waitrequest,        //                                                          .waitrequest
 		output wire [7:0]   COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_C_avalon_slave_L_buffer_write,               //                                                          .write
@@ -118,6 +120,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         COMM_Pedreiro_v1_01_C_avalon_slave_windowing_read,               //                                                          .read
 		input  wire [31:0]  COMM_Pedreiro_v1_01_C_avalon_slave_windowing_readdata,           //                                                          .readdata
 		output wire [31:0]  COMM_Pedreiro_v1_01_C_avalon_slave_windowing_writedata,          //                                                          .writedata
+		output wire [3:0]   COMM_Pedreiro_v1_01_C_avalon_slave_windowing_byteenable,         //                                                          .byteenable
 		input  wire         COMM_Pedreiro_v1_01_C_avalon_slave_windowing_waitrequest,        //                                                          .waitrequest
 		output wire [7:0]   COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_D_avalon_slave_L_buffer_write,               //                                                          .write
@@ -132,6 +135,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         COMM_Pedreiro_v1_01_D_avalon_slave_windowing_read,               //                                                          .read
 		input  wire [31:0]  COMM_Pedreiro_v1_01_D_avalon_slave_windowing_readdata,           //                                                          .readdata
 		output wire [31:0]  COMM_Pedreiro_v1_01_D_avalon_slave_windowing_writedata,          //                                                          .writedata
+		output wire [3:0]   COMM_Pedreiro_v1_01_D_avalon_slave_windowing_byteenable,         //                                                          .byteenable
 		input  wire         COMM_Pedreiro_v1_01_D_avalon_slave_windowing_waitrequest,        //                                                          .waitrequest
 		output wire [7:0]   COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_E_avalon_slave_L_buffer_write,               //                                                          .write
@@ -146,6 +150,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         COMM_Pedreiro_v1_01_E_avalon_slave_windowing_read,               //                                                          .read
 		input  wire [31:0]  COMM_Pedreiro_v1_01_E_avalon_slave_windowing_readdata,           //                                                          .readdata
 		output wire [31:0]  COMM_Pedreiro_v1_01_E_avalon_slave_windowing_writedata,          //                                                          .writedata
+		output wire [3:0]   COMM_Pedreiro_v1_01_E_avalon_slave_windowing_byteenable,         //                                                          .byteenable
 		input  wire         COMM_Pedreiro_v1_01_E_avalon_slave_windowing_waitrequest,        //                                                          .waitrequest
 		output wire [7:0]   COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_address,             //               COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer.address
 		output wire         COMM_Pedreiro_v1_01_F_avalon_slave_L_buffer_write,               //                                                          .write
@@ -160,6 +165,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         COMM_Pedreiro_v1_01_F_avalon_slave_windowing_read,               //                                                          .read
 		input  wire [31:0]  COMM_Pedreiro_v1_01_F_avalon_slave_windowing_readdata,           //                                                          .readdata
 		output wire [31:0]  COMM_Pedreiro_v1_01_F_avalon_slave_windowing_writedata,          //                                                          .writedata
+		output wire [3:0]   COMM_Pedreiro_v1_01_F_avalon_slave_windowing_byteenable,         //                                                          .byteenable
 		input  wire         COMM_Pedreiro_v1_01_F_avalon_slave_windowing_waitrequest,        //                                                          .waitrequest
 		output wire         ddr2_address_span_extender_cntl_write,                           //                           ddr2_address_span_extender_cntl.write
 		output wire         ddr2_address_span_extender_cntl_read,                            //                                                          .read
@@ -3354,11 +3360,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.av_read                (COMM_Pedreiro_v1_01_A_avalon_slave_windowing_read),                   //                         .read
 		.av_readdata            (COMM_Pedreiro_v1_01_A_avalon_slave_windowing_readdata),               //                         .readdata
 		.av_writedata           (COMM_Pedreiro_v1_01_A_avalon_slave_windowing_writedata),              //                         .writedata
+		.av_byteenable          (COMM_Pedreiro_v1_01_A_avalon_slave_windowing_byteenable),             //                         .byteenable
 		.av_waitrequest         (COMM_Pedreiro_v1_01_A_avalon_slave_windowing_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -3418,11 +3424,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.av_read                (COMM_Pedreiro_v1_01_B_avalon_slave_windowing_read),                   //                         .read
 		.av_readdata            (COMM_Pedreiro_v1_01_B_avalon_slave_windowing_readdata),               //                         .readdata
 		.av_writedata           (COMM_Pedreiro_v1_01_B_avalon_slave_windowing_writedata),              //                         .writedata
+		.av_byteenable          (COMM_Pedreiro_v1_01_B_avalon_slave_windowing_byteenable),             //                         .byteenable
 		.av_waitrequest         (COMM_Pedreiro_v1_01_B_avalon_slave_windowing_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -3482,11 +3488,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.av_read                (COMM_Pedreiro_v1_01_C_avalon_slave_windowing_read),                   //                         .read
 		.av_readdata            (COMM_Pedreiro_v1_01_C_avalon_slave_windowing_readdata),               //                         .readdata
 		.av_writedata           (COMM_Pedreiro_v1_01_C_avalon_slave_windowing_writedata),              //                         .writedata
+		.av_byteenable          (COMM_Pedreiro_v1_01_C_avalon_slave_windowing_byteenable),             //                         .byteenable
 		.av_waitrequest         (COMM_Pedreiro_v1_01_C_avalon_slave_windowing_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -3546,11 +3552,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.av_read                (COMM_Pedreiro_v1_01_D_avalon_slave_windowing_read),                   //                         .read
 		.av_readdata            (COMM_Pedreiro_v1_01_D_avalon_slave_windowing_readdata),               //                         .readdata
 		.av_writedata           (COMM_Pedreiro_v1_01_D_avalon_slave_windowing_writedata),              //                         .writedata
+		.av_byteenable          (COMM_Pedreiro_v1_01_D_avalon_slave_windowing_byteenable),             //                         .byteenable
 		.av_waitrequest         (COMM_Pedreiro_v1_01_D_avalon_slave_windowing_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -3610,11 +3616,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.av_read                (COMM_Pedreiro_v1_01_E_avalon_slave_windowing_read),                   //                         .read
 		.av_readdata            (COMM_Pedreiro_v1_01_E_avalon_slave_windowing_readdata),               //                         .readdata
 		.av_writedata           (COMM_Pedreiro_v1_01_E_avalon_slave_windowing_writedata),              //                         .writedata
+		.av_byteenable          (COMM_Pedreiro_v1_01_E_avalon_slave_windowing_byteenable),             //                         .byteenable
 		.av_waitrequest         (COMM_Pedreiro_v1_01_E_avalon_slave_windowing_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
@@ -3674,11 +3680,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.av_read                (COMM_Pedreiro_v1_01_F_avalon_slave_windowing_read),                   //                         .read
 		.av_readdata            (COMM_Pedreiro_v1_01_F_avalon_slave_windowing_readdata),               //                         .readdata
 		.av_writedata           (COMM_Pedreiro_v1_01_F_avalon_slave_windowing_writedata),              //                         .writedata
+		.av_byteenable          (COMM_Pedreiro_v1_01_F_avalon_slave_windowing_byteenable),             //                         .byteenable
 		.av_waitrequest         (COMM_Pedreiro_v1_01_F_avalon_slave_windowing_waitrequest),            //                         .waitrequest
 		.av_begintransfer       (),                                                                    //              (terminated)
 		.av_beginbursttransfer  (),                                                                    //              (terminated)
 		.av_burstcount          (),                                                                    //              (terminated)
-		.av_byteenable          (),                                                                    //              (terminated)
 		.av_readdatavalid       (1'b0),                                                                //              (terminated)
 		.av_writebyteenable     (),                                                                    //              (terminated)
 		.av_lock                (),                                                                    //              (terminated)
