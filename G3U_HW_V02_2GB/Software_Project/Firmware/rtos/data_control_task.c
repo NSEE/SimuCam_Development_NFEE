@@ -335,6 +335,8 @@ void vDataControlTask(void *task_data) {
 //		}
 
 		//todo: Implementação temporaria
+		pxDataC->bUpdateComplete = TRUE;
+		xGlobal.bDTCFinished = TRUE;
 		OSTimeDlyHMSM(0, 0, 5, 0);
 		error_code = OSQFlush(xQMaskDataCtrl);
 		if ( error_code != OS_NO_ERR ) {

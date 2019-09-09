@@ -276,8 +276,8 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sOn_Enter;
 				pxNFee->xControl.eMode = sFullPattern;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
-
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
@@ -296,6 +296,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sOn_Enter;
 				pxNFee->xControl.eMode = sWinPattern;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
@@ -314,6 +315,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sFullImage;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -334,6 +336,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sWindowing;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -354,6 +357,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sParTrap1;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -374,6 +378,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sParTrap2;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -394,6 +399,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sSerialTrap1;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -414,6 +420,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sSerialTrap2;
+				pxNFee->xControl.eNextMode = redoutWaitBeforeSyncSignal;
 				/* Real State */
 
 				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
@@ -428,6 +435,12 @@ void vFeeTaskV2(void *task_data) {
 
 
 			case redoutCycle_Enter:
+				/* Debug only*/
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"N-%hu: redoutCycle_Enter\n", pxNFee->ucId);
+				}
+				#endif
 
 				/* Indicates that this FEE will now need to use DMA*/
 				pxNFee->xControl.bUsingDMA = TRUE;
@@ -441,6 +454,7 @@ void vFeeTaskV2(void *task_data) {
 				break;
 
 			case redoutWaitBeforeSyncSignal:
+
 
 				/*Will wait for the Before sync signal, probably in this state it will need to treat many RMAP commands*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
@@ -458,6 +472,12 @@ void vFeeTaskV2(void *task_data) {
 
 
 			case redoutCheckDTCUpdate:
+
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"N-%hu: redoutCheckDTCUpdate\n", pxNFee->ucId);
+				}
+				#endif
 
 				/*Check if is needed wait the update of the memory, need only in the last readout cycle */
 				if ( xGlobal.bPreMaster == FALSE ) {
@@ -484,6 +504,12 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCheckRestr:
 
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"N-%hu: redoutCheckRestr\n", pxNFee->ucId);
+				}
+				#endif
+
 				/*The Meb My have sent a message to inform the finish of the update of the image*/
 				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
 				if ( error_code != OS_NO_ERR ) {
@@ -501,6 +527,11 @@ void vFeeTaskV2(void *task_data) {
 
 
 			case redoutConfigureTrans:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"N-%hu: redoutConfigureTrans\n", pxNFee->ucId);
+				}
+				#endif
 
 				/* Reset the memory control variables thats is used in the transmission*/
 				vResetMemCCDFEE( pxNFee );
@@ -561,7 +592,7 @@ void vFeeTaskV2(void *task_data) {
 					case sSerialTrap2:
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-							fprintf(fp,"\nNFEE-%hu Task: CRITICAL NEED to UPDATE ucFeeMode in the xDpktDataPacketConfig (Data Packet) \n", pxNFee->ucId);
+							fprintf(fp,"\nNFEE-%hu Task: CRITICAL! NEED to UPDATE ucFeeMode in the xDpktDataPacketConfig (Data Packet) \n", pxNFee->ucId);
 						#endif
 						break;
 					default:
@@ -611,8 +642,17 @@ void vFeeTaskV2(void *task_data) {
 						OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", pxNFee->ucId, ucSideFromMSG);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI);
+#endif
+
+
 							/* Schedule the DMA to fill the double buffer for this FEE*/
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bPrepareDoubleBuffer( xTrans.xCcdMapLocal[ucSideFromMSG], xTrans.ucMemory, pxNFee->ucId, pxNFee, ucSideFromMSG, xTrans );
+
 							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 						}
 						/* Send message telling to controller that is not using the DMA any more */
@@ -622,7 +662,12 @@ void vFeeTaskV2(void *task_data) {
 
 							pxNFee->xControl.eState = redoutWaitSync;
 							pxNFee->xControl.eNextMode = redoutTransmission;
-
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", pxNFee->ucId, ucSideFromMSG);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI);
+#endif
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -630,6 +675,13 @@ void vFeeTaskV2(void *task_data) {
 							}
 							#endif
 						} else {
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", pxNFee->ucId, ucSideFromMSG);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI);
+#endif
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
@@ -654,6 +706,7 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutTransmission:
 
+
 				/* Wait for command for this FEE (DMA access or any other message)*/
 				uiCmdFEE.ulWord = (unsigned int)OSQPend(xFeeQ[ pxNFee->ucId ] , 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -663,13 +716,22 @@ void vFeeTaskV2(void *task_data) {
 
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
+						xTrans.bFinal[ucSideFromMSG] = FALSE;
+
 						/* Try to get the Mutex */
 						OSMutexPend(xDma[xTrans.ucMemory].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
 
 							/* Is this the last block? */
-
 							if ( (xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI + xTrans.ulSMD_MAX_BLOCKS) >= xTrans.ulTotalBlocks ) {
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"\nN-%hu: Trans ucSideFromMSG = %hhu \n", pxNFee->ucId, ucSideFromMSG);
+	fprintf(fp,"\nN-%hu: Trans xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
+	fprintf(fp,"\nN-%hu: Trans xTrans.ulSMD_MAX_BLOCKS = %lu \n\n", pxNFee->ucId, xTrans.ulSMD_MAX_BLOCKS);
+	fprintf(fp,"\nN-%hu: Trans xTrans.ulTotalBlocks = %lu \n", pxNFee->ucId, xTrans.ulTotalBlocks);
+#endif
 
 								/* Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLenLastBlocks = xTrans.ulTotalBlocks - xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI;
@@ -926,6 +988,10 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				/* Perform some actions, check if is a valid command for this mode of operation  */
 				vQCmdFeeRMAPinPreLoadBuffer( pxNFeeP, cmd );//todo: Tiago
 
+				break;
+
+			case M_BEFORE_SYNC:
+				/*Do nothing*/
 				break;
 
 			case M_SYNC:
@@ -1881,25 +1947,27 @@ void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId ) {
 
 /* todo: Adicionar Timeout e colocar a tarefa para sleep*/
 void vWaitUntilBufferEmpty( unsigned char ucId ) {
+	unsigned char ucIcounter;
 
+	ucIcounter = 0;
 	switch (ucId) {
 		case 0:
-			while ( (bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)  ) {}
+			while ( ((bFeebGetCh1LeftFeeBusy()== TRUE) || (bFeebGetCh1RightFeeBusy()== TRUE)) && (ucIcounter<10) ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
 			break;
 		case 1:
-			while ( (bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)  ) {}
+			while ( ((bFeebGetCh2LeftFeeBusy()== TRUE) || (bFeebGetCh2RightFeeBusy()== TRUE)) && (ucIcounter<10)  ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
 			break;
 		case 2:
-			while ( (bFeebGetCh3LeftFeeBusy()== TRUE) || (bFeebGetCh3RightFeeBusy()== TRUE)  ) {}
+			while ( ((bFeebGetCh3LeftFeeBusy()== TRUE) || (bFeebGetCh3RightFeeBusy()== TRUE)) && (ucIcounter<10)  ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
 			break;
 		case 3:
-			while ( (bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)  ) {}
+			while ( ((bFeebGetCh4LeftFeeBusy()== TRUE) || (bFeebGetCh4RightFeeBusy()== TRUE)) && (ucIcounter<10)  ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
 			break;
 		case 4:
-			while ( (bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)  ) {}
+			while ( ((bFeebGetCh5LeftFeeBusy()== TRUE) || (bFeebGetCh5RightFeeBusy()== TRUE)) && (ucIcounter<10)  ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
 			break;
 		case 5:
-			while ( (bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)  ) {}
+			while ( ((bFeebGetCh6LeftFeeBusy()== TRUE) || (bFeebGetCh6RightFeeBusy()== TRUE)) && (ucIcounter<10)  ) {OSTimeDlyHMSM(0, 0, 0, 1); ucIcounter++;}
 			break;
 		case 6:
 			//while ( (bFeebGetCh7LeftFeeBusy()== TRUE) || (bFeebGetCh7RightFeeBusy()== TRUE)  ) {}
@@ -2003,6 +2071,15 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId);
 	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"bPrepareDoubleBuffer\n");
+	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", ucSide, ucSide);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", ucSide, xCcdMapLocal->ulBlockI);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", ucSide, xCcdMapLocal->ulAddrI);
+	fprintf(fp,"\nN-%hu: ulLengthBlocks = %lu \n", ucSide, ulLengthBlocks);
+#endif
+
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
 		if ( bDmaReturn == TRUE ) {
@@ -2029,6 +2106,14 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"bPrepareDoubleBuffer\n");
+	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", ucSide, ucSide);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", ucSide, xCcdMapLocal->ulBlockI);
+	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", ucSide, xCcdMapLocal->ulAddrI);
+	fprintf(fp,"\nN-%hu: ulLengthBlocks = %lu \n", ucSide, ulLengthBlocks);
+#endif
 
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
@@ -2045,6 +2130,11 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 		} else
 			return bDmaReturn;
 	}
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+	fprintf(fp,"\nDoubleBufferP \n");
+#endif
 
 	return bDmaReturn;
 }
@@ -2204,6 +2294,8 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
 	bFeebGetMachineControl(pxFeebCh);
 	//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 	pxFeebCh->xFeebMachineControl.bDataControllerEn = xDefaults.bDataPacket;
+	pxFeebCh->xFeebMachineControl.bDigitaliseEn = TRUE; //todo: não deixar hardcoded
+	pxFeebCh->xFeebMachineControl.bWindowingEn = FALSE;
 	bFeebSetMachineControl(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
