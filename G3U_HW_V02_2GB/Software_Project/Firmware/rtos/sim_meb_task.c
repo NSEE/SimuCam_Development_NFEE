@@ -56,7 +56,7 @@ void vSimMebTask(void *task_data) {
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
-				vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
+				//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
@@ -77,29 +77,29 @@ void vSimMebTask(void *task_data) {
 
 			case sMebConfig:
 
-				#if DEBUG_ON
+/*				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
 				#endif
-				break;
+				break;*/
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					/* Threat the command received in the Queue Message */
 					vPerformActionMebInConfig( uiCmdMeb.ulWord, pxMebC);
 				} else {
-					/* Should never get here (blocking operation), critical fail */
+					/* Should never get here (blocking operation), critical failure */
 					vCouldNotGetCmdQueueMeb();
 				}
 				break;
 
 			case sMebRun:
 
-				#if DEBUG_ON
+/*				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebRun - Waiting for command.");
 				#endif
-				break;
+				break;*/
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -277,7 +277,7 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
-		fprintf(fp,"MEB Task: vPusMebTask");
+		fprintf(fp,"MEB Task: vPusMebTask\n");
 	#endif
 
 	bSuccess = FALSE;
@@ -554,7 +554,11 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1_ENTER */
+		/* NFEE_ON */
+		case 11:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_ON, 0, usiFeeInstL );
+			break;
 		case 12:
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
@@ -786,7 +790,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
-	vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
+	//vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
 
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);

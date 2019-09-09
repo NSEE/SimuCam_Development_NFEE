@@ -51,6 +51,12 @@ void vFeeTaskV2(void *task_data) {
 				break;
 			case sConfig_Enter:/* Transition */
 
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"NFEE-%hu Task: Config Mode\n", pxNFee->ucId);
+				}
+				#endif
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemConfigArea.uliCurrentMode = 0x00; /*Off*/
@@ -101,7 +107,7 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eNextMode = sConfig;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = sConfig;
 				break;
 
@@ -162,7 +168,7 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eMode = sOn;
 				pxNFee->xControl.eNextMode = sOn;
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				/* Real State */
 				pxNFee->xControl.eState = sOn;
 				break;
@@ -216,7 +222,7 @@ void vFeeTaskV2(void *task_data) {
 				pxNFee->xControl.eMode = sStandBy;
 				pxNFee->xControl.eNextMode = sStandBy;
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = sStandBy;
 				break;
 
@@ -265,14 +271,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sOn_Enter;
 				pxNFee->xControl.eMode = sFullPattern;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -285,7 +291,7 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sOn_Enter;
@@ -303,14 +309,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sFullImage;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -323,14 +329,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sWindowing;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -343,14 +349,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sParTrap1;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -363,14 +369,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sParTrap2;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -383,14 +389,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sSerialTrap1;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 
@@ -403,14 +409,14 @@ void vFeeTaskV2(void *task_data) {
 				}
 				#endif
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, pxNFee->xControl.eState );
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sStandby_Enter;
 				pxNFee->xControl.eMode = sSerialTrap2;
 				/* Real State */
 
-				vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
+				//vSendMessageNUCModeFeeChange( pxNFee->ucId, (unsigned short int)pxNFee->xControl.eMode );
 				pxNFee->xControl.eState = redoutCycle_Enter;
 				break;
 

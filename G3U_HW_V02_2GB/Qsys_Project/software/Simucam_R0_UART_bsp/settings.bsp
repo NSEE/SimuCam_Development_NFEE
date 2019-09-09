@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>09/09/2019 11:11:46</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1568038306415</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>09/09/2019 12:14:24</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1568042064177</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -878,7 +878,7 @@
                 <SettingName>ucosii.os_max_tasks</SettingName>
                 <Identifier>OS_MAX_TASKS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>40</Value>
+                <Value>42</Value>
                 <DefaultValue>10</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of tasks</Description>
@@ -890,7 +890,7 @@
                 <SettingName>ucosii.os_lowest_prio</SettingName>
                 <Identifier>OS_LOWEST_PRIO</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>42</Value>
+                <Value>44</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Lowest assignable priority</Description>
