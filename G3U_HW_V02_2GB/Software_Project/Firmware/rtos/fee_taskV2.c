@@ -760,7 +760,6 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutWaitSync:
 
-
 				/* Debug only*/
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -1115,7 +1114,6 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_FEE_DMA_ACCESS:
-				pxNFeeP->xControl.bUsingDMA = FALSE;
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1176,7 +1174,6 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eState = pxNFeeP->xControl.eNextMode;
 				break;
 			case M_FEE_DMA_ACCESS:
-				pxNFeeP->xControl.bUsingDMA = FALSE;
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
@@ -1669,7 +1666,6 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_FEE_DMA_ACCESS:
-				pxNFeeP->xControl.bUsingDMA = FALSE;
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;

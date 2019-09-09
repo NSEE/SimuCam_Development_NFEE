@@ -255,11 +255,11 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 		fprintf(fp,"\n\nSync\n");
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 			bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
+			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
 			tCodeNext = ( tCode ) % 4;
 			fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
 			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
+			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucFrameNumber;
 			fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 		}
 	}
@@ -594,9 +594,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -606,9 +606,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
 			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )

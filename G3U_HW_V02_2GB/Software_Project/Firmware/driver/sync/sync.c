@@ -134,6 +134,13 @@ void vSyncPreHandleIrq(void* pvContext) {
 //	volatile int* pviPreSyncHoldContext = (volatile int*) pvContext;
 
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"Pre-Sync Signal\n");
+	}
+	#endif
+
 	
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = TRUE;
@@ -147,24 +154,7 @@ void vSyncPreHandleIrq(void* pvContext) {
 
 		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
 	}
-	//	if (vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag) {
-	//
-	//		/* Pre-Sync Master Pulse IRQ routine */
-	//
-	//		vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = TRUE;
-	//	}
-	//	if (vpxSyncModule->xPreSyncIrqFlag.bPreNormalPulseIrqFlag) {
-	//
-	//		/* Pre-Sync Normal Pulse IRQ routine */
-	//
-	//		vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = TRUE;
-	//	}
-	//	if (vpxSyncModule->xPreSyncIrqFlag.bPreLastPulseIrqFlag) {
-	//
-	//		/* Pre-Sync Last Pulse IRQ routine */
-	//
-	//		vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = TRUE;
-	//	}
+
 	
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bUsingDMA == TRUE) {
