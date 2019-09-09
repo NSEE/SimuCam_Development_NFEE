@@ -56,7 +56,7 @@ void vSimMebTask(void *task_data) {
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
-				vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
+				//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
@@ -77,29 +77,29 @@ void vSimMebTask(void *task_data) {
 
 			case sMebConfig:
 
-				#if DEBUG_ON
+/*				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
 				#endif
-				break;
+				break;*/
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					/* Threat the command received in the Queue Message */
 					vPerformActionMebInConfig( uiCmdMeb.ulWord, pxMebC);
 				} else {
-					/* Should never get here (blocking operation), critical fail */
+					/* Should never get here (blocking operation), critical failure */
 					vCouldNotGetCmdQueueMeb();
 				}
 				break;
 
 			case sMebRun:
 
-				#if DEBUG_ON
+/*				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: sMebRun - Waiting for command.");
 				#endif
-				break;
+				break;*/
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -205,6 +205,11 @@ void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLoc
 
 	uiCmdLocal.ulWord = uiCmdParam;
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+	fprintf(fp,"MEB Task: vPerformActionMebInConfig - CMD.ulWord:0x%08x ",uiCmdLocal.ulWord );
+#endif
+
 	/* Check if the command is for MEB */
 	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
 
@@ -250,11 +255,11 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 		fprintf(fp,"\n\nSync\n");
 		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 			bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
+			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xTimecode.ucCounter);
 			tCodeNext = ( tCode ) % 4;
 			fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
 			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucFrameNumber;
+			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemConfigArea.uliFrameNumber;
 			fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 		}
 	}
@@ -272,7 +277,7 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
-		fprintf(fp,"MEB Task: vPusMebTask");
+		fprintf(fp,"MEB Task: vPusMebTask\n");
 	#endif
 
 	bSuccess = FALSE;
@@ -549,7 +554,11 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1_ENTER */
+		/* NFEE_ON */
+		case 11:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_ON, 0, usiFeeInstL );
+			break;
 		case 12:
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
@@ -585,9 +594,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		case 3: /* TC_SCAM_SPW_LINK_ENABLE */
 			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = FALSE;
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -597,9 +606,9 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		case 4: /* TC_SCAM_SPW_LINK_DISABLE */
 			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
-			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bDisconnect = TRUE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bLinkStart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bAutostart = FALSE;
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xLinkConfig.bDisconnect = TRUE;
 			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -781,7 +790,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
-	vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
+	//vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
 
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);
