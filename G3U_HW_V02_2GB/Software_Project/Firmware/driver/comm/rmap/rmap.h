@@ -26,8 +26,6 @@ extern OS_EVENT *xFeeQ[N_OF_NFEE];
 //! [public module structs definition]
 //! [public module structs definition]
 
-extern TRmapChannel xRmap[N_OF_NFEE];
-
 //! [public function prototypes]
 void vRmapCh1HandleIrq(void* pvContext);
 void vRmapCh2HandleIrq(void* pvContext);

@@ -8,11 +8,9 @@
 #include "rmap.h"
 
 //! [private function prototypes]
-static alt_u32 uliConvRmapCfgAddr(alt_u32 puliRmapAddr);
 //! [private function prototypes]
 
 //! [data memory public global variables]
-TRmapChannel xRmap[N_OF_NFEE];
 //! [data memory public global variables]
 
 //! [program memory public global variables]
@@ -273,42 +271,42 @@ void vRmapCh8HandleIrq(void* pvContext) {
 
 alt_u32 uliRmapCh1WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh2WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh3WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh4WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh5WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh6WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh7WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 alt_u32 uliRmapCh8WriteCmdAddress(void) {
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
-	return (uliConvRmapCfgAddr(vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress));
+	return (vpxCommChannel->xRmap.xRmapMemConfigStat.uliLastWriteAddress);
 }
 
 bool vRmapInitIrq(alt_u8 ucCommCh) {
@@ -592,40 +590,89 @@ bool bRmapInitCh(TRmapChannel *pxRmapCh, alt_u8 ucCommCh) {
 	bool bStatus = FALSE;
 	bool bValidCh = FALSE;
 	bool bInitFail = FALSE;
+	volatile TCommChannel *vpxCommChannel;
 
 	if (pxRmapCh != NULL) {
 
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_1_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_1_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_1_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_1_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh2:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_2_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_2_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_2_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_2_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_2_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh3:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_3_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_3_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_3_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_3_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_3_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh4:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_4_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_4_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_4_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_4_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_4_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh5:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_5_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_5_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_5_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_5_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_5_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh6:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_6_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_6_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_6_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_6_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_6_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh7:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_7_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_7_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_7_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_7_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_7_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_7_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		case eCommSpwCh8:
 			pxRmapCh->xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
+			pxRmapCh->xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_8_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			pxRmapCh->xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_8_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_8_BASE_ADDR);
+			vpxCommChannel->xRmap.xRmapDevAddr.uliRmapBaseAddr = (alt_u32) COMM_CHANNEL_8_BASE_ADDR;
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_8_BASE_ADDR + COMM_RMAP_MEMAREA_CONFIG_OFST);
+			vpxCommChannel->xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr = (alt_u32*) (COMM_CHANNEL_8_BASE_ADDR + COMM_RMAP_MEMAREA_HK_OFST);
 			bValidCh = TRUE;
 			break;
 		default:
@@ -670,69 +717,4 @@ alt_u32 uliRmapReadReg(alt_u32 *puliAddr, alt_u32 uliOffset) {
 	return uliValue;
 }
 
-static alt_u32 uliConvRmapCfgAddr(alt_u32 puliRmapAddr) {
-	alt_u32 uliValue;
-
-	switch (puliRmapAddr) {
-	case 0x00000000:
-		uliValue = 0x00000040;
-		break;
-	case 0x00000004:
-		uliValue = 0x00000041;
-		break;
-	case 0x00000008:
-		uliValue = 0x00000042;
-		break;
-	case 0x0000000C:
-		uliValue = 0x00000043;
-		break;
-	case 0x00000010:
-		uliValue = 0x00000044;
-		break;
-	case 0x00000014:
-		uliValue = 0x00000045;
-		break;
-	case 0x00000018:
-		uliValue = 0x00000046;
-		break;
-	case 0x0000001C:
-		uliValue = 0x00000047;
-		break;
-	case 0x00000020:
-		uliValue = 0x00000048;
-		break;
-	case 0x00000024:
-		uliValue = 0x00000049;
-		break;
-	case 0x00000028:
-		uliValue = 0x0000004A;
-		break;
-	case 0x0000002C:
-		uliValue = 0x0000004B;
-		break;
-	case 0x00000038:
-		uliValue = 0x0000004C;
-		break;
-	case 0x0000003C:
-		uliValue = 0x0000004D;
-		break;
-	case 0x00000040:
-		uliValue = 0x0000004E;
-		break;
-	case 0x00000044:
-		uliValue = 0x0000004F;
-		break;
-	case 0x00000048:
-		uliValue = 0x00000050;
-		break;
-	case 0x0000004C:
-		uliValue = 0x00000051;
-		break;
-	default:
-		uliValue = 0x00000000;
-		break;
-	}
-
-	return uliValue;
-}
 //! [private functions]
