@@ -18,33 +18,34 @@ use work.ftdi_data_avalon_mm_pkg.all;
 
 entity USB_3_FTDI_top is
 	port(
-		clock_sink_clk                  : in    std_logic                      := '0'; --          --          clock_sink.clk
-		reset_sink_reset                : in    std_logic                      := '0'; --          --          reset_sink.reset
-		umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --   conduit_umft_pins.umft_data_signal
-		umft_reset_n_pin                : out   std_logic; --                                      --                    .umft_reset_n_signal
-		umft_rxf_n_pin                  : in    std_logic                      := '1'; --          --                    .umft_rxf_n_signal
-		umft_clock_pin                  : in    std_logic                      := '1'; --          --                    .umft_clock_signal
-		umft_wakeup_n_pin               : inout std_logic                      := 'Z'; --          --                    .umft_wakeup_n_signal
-		umft_be_bus                     : inout std_logic_vector(3 downto 0)   := (others => 'Z'); --                    .umft_be_signal
-		umft_txe_n_pin                  : in    std_logic                      := '1'; --          --                    .umft_txe_n_signal
-		umft_gpio_bus                   : inout std_logic_vector(1 downto 0)   := (others => 'Z'); --                    .umft_gpio_bus_signal
-		umft_wr_n_pin                   : out   std_logic; --                                      --                    .umft_wr_n_signal
-		umft_rd_n_pin                   : out   std_logic; --                                      --                    .umft_rd_n_signal
-		umft_oe_n_pin                   : out   std_logic; --                                      --                    .umft_oe_n_signal
-		umft_siwu_n_pin                 : out   std_logic; --                                      --                    .umft_siwu_n_signal
-		avalon_slave_config_address     : in    std_logic_vector(7 downto 0)   := (others => '0'); -- avalon_slave_config.address
-		avalon_slave_config_write       : in    std_logic                      := '0'; --          --                    .write
-		avalon_slave_config_read        : in    std_logic                      := '0'; --          --                    .read
-		avalon_slave_config_readdata    : out   std_logic_vector(31 downto 0); --                  --                    .readdata
-		avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                    .writedata
-		avalon_slave_config_waitrequest : out   std_logic; --                                      --                    .waitrequest
-		avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                    .byteenable
-		avalon_slave_data_address       : in    std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_data.address
-		avalon_slave_data_write         : in    std_logic                      := '0'; --          --                    .write
-		avalon_slave_data_read          : in    std_logic                      := '0'; --          --                    .read
-		avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => '0'); --                    .writedata
-		avalon_slave_data_readdata      : out   std_logic_vector(255 downto 0); --                 --                    .readdata
-		avalon_slave_data_waitrequest   : out   std_logic --                                       --                    .waitrequest
+		clock_sink_clk                  : in    std_logic                      := '0'; --          --            clock_sink.clk
+		reset_sink_reset                : in    std_logic                      := '0'; --          --            reset_sink.reset
+		umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --     conduit_umft_pins.umft_data_signal
+		umft_reset_n_pin                : out   std_logic; --                                      --                      .umft_reset_n_signal
+		umft_rxf_n_pin                  : in    std_logic                      := '1'; --          --                      .umft_rxf_n_signal
+		umft_clock_pin                  : in    std_logic                      := '1'; --          --                      .umft_clock_signal
+		umft_wakeup_n_pin               : inout std_logic                      := 'Z'; --          --                      .umft_wakeup_n_signal
+		umft_be_bus                     : inout std_logic_vector(3 downto 0)   := (others => 'Z'); --                      .umft_be_signal
+		umft_txe_n_pin                  : in    std_logic                      := '1'; --          --                      .umft_txe_n_signal
+		umft_gpio_bus                   : inout std_logic_vector(1 downto 0)   := (others => 'Z'); --                      .umft_gpio_bus_signal
+		umft_wr_n_pin                   : out   std_logic; --                                      --                      .umft_wr_n_signal
+		umft_rd_n_pin                   : out   std_logic; --                                      --                      .umft_rd_n_signal
+		umft_oe_n_pin                   : out   std_logic; --                                      --                      .umft_oe_n_signal
+		umft_siwu_n_pin                 : out   std_logic; --                                      --                      .umft_siwu_n_signal
+		avalon_slave_config_address     : in    std_logic_vector(7 downto 0)   := (others => '0'); --   avalon_slave_config.address
+		avalon_slave_config_write       : in    std_logic                      := '0'; --          --                      .write
+		avalon_slave_config_read        : in    std_logic                      := '0'; --          --                      .read
+		avalon_slave_config_readdata    : out   std_logic_vector(31 downto 0); --                  --                      .readdata
+		avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                      .writedata
+		avalon_slave_config_waitrequest : out   std_logic; --                                      --                      .waitrequest
+		avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                      .byteenable
+		avalon_slave_data_address       : in    std_logic_vector(7 downto 0)   := (others => '0'); --     avalon_slave_data.address
+		avalon_slave_data_write         : in    std_logic                      := '0'; --          --                      .write
+		avalon_slave_data_read          : in    std_logic                      := '0'; --          --                      .read
+		avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => '0'); --                      .writedata
+		avalon_slave_data_readdata      : out   std_logic_vector(255 downto 0); --                 --                      .readdata
+		avalon_slave_data_waitrequest   : out   std_logic; --                                      --                      .waitrequest
+		ftdi_interrupt_sender_irq       : out   std_logic --                                       -- ftdi_interrupt_sender.irq
 	);
 end entity USB_3_FTDI_top;
 
@@ -677,10 +678,16 @@ begin
 
 		end if;
 	end process p_rx_buffer_irq_manager;
-	--	buffers_interrupt_sender_irq <= ('0') when (a_reset = '1')
-	--		else ('1') when ((s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_0_empty_flag = '1') or (s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_right_buffer_1_empty_flag = '1') or (s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_0_empty_flag = '1') or (s_spacewire_read_registers.fee_buffers_irq_flags_reg.fee_left_buffer_1_empty_flag = '1'))
-	--		else ('0');
-
+	ftdi_interrupt_sender_irq <= ('0') when (a_reset = '1')
+		else ('1') when (
+		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or 
+		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or 
+		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or 
+		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or
+		(s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1')
+		)
+		else ('0');
+	
 	-- Signals Assignments --
 
 	-- Config Avalon Assignments

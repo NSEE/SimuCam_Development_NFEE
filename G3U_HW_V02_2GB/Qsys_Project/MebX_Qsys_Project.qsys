@@ -3163,7 +3163,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="127" />
+  <parameter name="internalIrqMaskSystemInfo" value="255" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -4753,6 +4753,13 @@
    start="nios2_gen2_0.irq"
    end="dma_DDR_M2.csr_irq">
   <parameter name="irqNumber" value="1" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="USB_3_FTDI_0.ftdi_interrupt_sender">
+  <parameter name="irqNumber" value="7" />
  </connection>
  <connection
    kind="interrupt"

@@ -176,8 +176,60 @@ void vFillCheckMemoryPattern(alt_u32 uliMemReplyOffset, alt_u32 uliMemPayloadOff
 //alt_u32 uliLittleToBigEndian(alt_u32 uliLittleEndianDword);
 alt_u32 uliLittleToBigEndianPixel(alt_u32 uliLittleEndianDword);
 void vLittleToBigEndianMask(alt_u32 uliLittleEndianDword[2]);
+bool vFtdiInitIrq(void) ;
 
 alt_u32 uliInitialState;
+
+static volatile int viFtdiHoldContext;
+
+void vFtdiHandleIrq(void* pvContext) {
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *)USB_3_FTDI_0_BASE;
+	alt_u32 uliPaylodOffset = 0;
+	alt_u32 uliTransferSize = 0;
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr = TRUE;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastEmptyIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
+
+		uliTransferSize = 0;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxCommErrIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
+
+		uliTransferSize = 0;
+
+	}
+
+}
 
 int main() {
 	printf("Hello from Nios II!\n\n");
@@ -206,6 +258,7 @@ int main() {
 	pxFtdi->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = TRUE;
 	pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn = TRUE;
 	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
+	vFtdiInitIrq();
 
 	usleep(1*1000*1000);
 
@@ -227,9 +280,9 @@ int main() {
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
 			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 100, 100, usiExpNumCnt, FALSE, FALSE);
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 100, 100, usiExpNumCnt, FALSE, FALSE);
 			}
 		}
 
@@ -272,6 +325,20 @@ int main() {
 	while (1) {}
 
 	return 0;
+}
+
+bool vFtdiInitIrq(void) {
+	bool bStatus = FALSE;
+	void* pvHoldContext;
+
+	// Recast the hold_context pointer to match the alt_irq_register() function
+	// prototype.
+	pvHoldContext = (void*) &viFtdiHoldContext;
+	// Register the interrupt handler
+	alt_irq_register(7, pvHoldContext, vFtdiHandleIrq);
+	bStatus = TRUE;
+
+	return bStatus;
 }
 
 //void vProtocolUsbTestNack(void){
@@ -636,6 +703,8 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 //	while (pxFtdi->xFtdiHalfCcdReplyStatus.bHalfCcdControllerBusy) {
 //
 //	}
+
+	while (1) {}
 
 	while ((pxFtdi->xFtdiRxBufferStatus.bRxBuff0Full == FALSE) && (pxFtdi->xFtdiRxBufferStatus.bRxBuff1Full == FALSE)) {}
 

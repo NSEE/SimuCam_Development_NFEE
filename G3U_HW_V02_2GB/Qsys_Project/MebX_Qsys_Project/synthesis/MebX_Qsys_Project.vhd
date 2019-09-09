@@ -171,7 +171,8 @@ architecture rtl of MebX_Qsys_Project is
 			avalon_slave_data_read          : in    std_logic                      := 'X';             -- read
 			avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => 'X'); -- writedata
 			avalon_slave_data_readdata      : out   std_logic_vector(255 downto 0);                    -- readdata
-			avalon_slave_data_waitrequest   : out   std_logic                                          -- waitrequest
+			avalon_slave_data_waitrequest   : out   std_logic;                                         -- waitrequest
+			ftdi_interrupt_sender_irq       : out   std_logic                                          -- irq
 		);
 	end component USB_3_FTDI_top;
 
@@ -1051,6 +1052,7 @@ architecture rtl of MebX_Qsys_Project is
 			receiver4_irq : in  std_logic                     := 'X'; -- irq
 			receiver5_irq : in  std_logic                     := 'X'; -- irq
 			receiver6_irq : in  std_logic                     := 'X'; -- irq
+			receiver7_irq : in  std_logic                     := 'X'; -- irq
 			sender_irq    : out std_logic_vector(31 downto 0)         -- irq
 		);
 	end component MebX_Qsys_Project_irq_mapper;
@@ -1672,15 +1674,16 @@ architecture rtl of MebX_Qsys_Project is
 	signal m1_ddr2_memory_afi_clk_clk                                                             : std_logic;                      -- m1_ddr2_memory:afi_clk -> [mm_interconnect_3:m1_ddr2_memory_afi_clk_clk, rst_controller_005:clk]
 	signal irq_mapper_receiver0_irq                                                               : std_logic;                      -- dma_DDR_M1:csr_irq_irq -> irq_mapper:receiver0_irq
 	signal irq_mapper_receiver1_irq                                                               : std_logic;                      -- dma_DDR_M2:csr_irq_irq -> irq_mapper:receiver1_irq
-	signal irq_mapper_receiver2_irq                                                               : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver2_irq
+	signal irq_mapper_receiver2_irq                                                               : std_logic;                      -- USB_3_FTDI_0:ftdi_interrupt_sender_irq -> irq_mapper:receiver2_irq
+	signal irq_mapper_receiver3_irq                                                               : std_logic;                      -- jtag_uart_0:av_irq -> irq_mapper:receiver3_irq
 	signal nios2_gen2_0_irq_irq                                                                   : std_logic_vector(31 downto 0);  -- irq_mapper:sender_irq -> nios2_gen2_0:irq
-	signal irq_mapper_receiver3_irq                                                               : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver3_irq
+	signal irq_mapper_receiver4_irq                                                               : std_logic;                      -- irq_synchronizer:sender_irq -> irq_mapper:receiver4_irq
 	signal irq_synchronizer_receiver_irq                                                          : std_logic_vector(0 downto 0);   -- rs232_uart:irq -> irq_synchronizer:receiver_irq
-	signal irq_mapper_receiver4_irq                                                               : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver4_irq
+	signal irq_mapper_receiver5_irq                                                               : std_logic;                      -- irq_synchronizer_001:sender_irq -> irq_mapper:receiver5_irq
 	signal irq_synchronizer_001_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- timer_1ms:irq -> irq_synchronizer_001:receiver_irq
-	signal irq_mapper_receiver5_irq                                                               : std_logic;                      -- irq_synchronizer_002:sender_irq -> irq_mapper:receiver5_irq
+	signal irq_mapper_receiver6_irq                                                               : std_logic;                      -- irq_synchronizer_002:sender_irq -> irq_mapper:receiver6_irq
 	signal irq_synchronizer_002_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- timer_1us:irq -> irq_synchronizer_002:receiver_irq
-	signal irq_mapper_receiver6_irq                                                               : std_logic;                      -- irq_synchronizer_003:sender_irq -> irq_mapper:receiver6_irq
+	signal irq_mapper_receiver7_irq                                                               : std_logic;                      -- irq_synchronizer_003:sender_irq -> irq_mapper:receiver7_irq
 	signal irq_synchronizer_003_receiver_irq                                                      : std_logic_vector(0 downto 0);   -- pio_EXT:irq -> irq_synchronizer_003:receiver_irq
 	signal rst_controller_reset_out_reset                                                         : std_logic;                      -- rst_controller:reset_out -> [SEVEN_SEGMENT_CONTROLLER_0:RST, clock_bridge_afi_50:m0_reset, irq_synchronizer:receiver_reset, irq_synchronizer_001:receiver_reset, irq_synchronizer_002:receiver_reset, irq_synchronizer_003:receiver_reset, mm_interconnect_2:clock_bridge_afi_50_m0_reset_reset_bridge_in_reset_reset, rst_controller_reset_out_reset:in]
 	signal rst_controller_001_reset_out_reset                                                     : std_logic;                      -- rst_controller_001:reset_out -> [USB_3_FTDI_0:reset_sink_reset, clock_bridge_afi_50:s0_reset, ddr2_address_span_extender:reset, m1_clock_bridge:s0_reset, mm_interconnect_0:jtag_uart_0_reset_reset_bridge_in_reset_reset, mm_interconnect_1:ddr2_address_span_extender_reset_reset_bridge_in_reset_reset, mm_interconnect_1:m1_clock_bridge_s0_reset_reset_bridge_in_reset_reset, onchip_memory:reset, rst_controller_001_reset_out_reset:in, rst_translator:in_reset]
@@ -1753,33 +1756,34 @@ begin
 
 	usb_3_ftdi_0 : component USB_3_FTDI_top
 		port map (
-			clock_sink_clk                  => m2_ddr2_memory_afi_half_clk_clk,                                --          clock_sink.clk
-			reset_sink_reset                => rst_controller_001_reset_out_reset,                             --          reset_sink.reset
-			umft_data_bus                   => ftdi_0_conduit_umft_pins_umft_data_signal,                      --   conduit_umft_pins.umft_data_signal
-			umft_reset_n_pin                => ftdi_0_conduit_umft_pins_umft_reset_n_signal,                   --                    .umft_reset_n_signal
-			umft_rxf_n_pin                  => ftdi_0_conduit_umft_pins_umft_rxf_n_signal,                     --                    .umft_rxf_n_signal
-			umft_clock_pin                  => ftdi_0_conduit_umft_pins_umft_clock_signal,                     --                    .umft_clock_signal
-			umft_wakeup_n_pin               => ftdi_0_conduit_umft_pins_umft_wakeup_n_signal,                  --                    .umft_wakeup_n_signal
-			umft_be_bus                     => ftdi_0_conduit_umft_pins_umft_be_signal,                        --                    .umft_be_signal
-			umft_txe_n_pin                  => ftdi_0_conduit_umft_pins_umft_txe_n_signal,                     --                    .umft_txe_n_signal
-			umft_gpio_bus                   => ftdi_0_conduit_umft_pins_umft_gpio_bus_signal,                  --                    .umft_gpio_bus_signal
-			umft_wr_n_pin                   => ftdi_0_conduit_umft_pins_umft_wr_n_signal,                      --                    .umft_wr_n_signal
-			umft_rd_n_pin                   => ftdi_0_conduit_umft_pins_umft_rd_n_signal,                      --                    .umft_rd_n_signal
-			umft_oe_n_pin                   => ftdi_0_conduit_umft_pins_umft_oe_n_signal,                      --                    .umft_oe_n_signal
-			umft_siwu_n_pin                 => ftdi_0_conduit_umft_pins_umft_siwu_n_signal,                    --                    .umft_siwu_n_signal
-			avalon_slave_config_address     => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_address,     -- avalon_slave_config.address
-			avalon_slave_config_write       => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_write,       --                    .write
-			avalon_slave_config_read        => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_read,        --                    .read
-			avalon_slave_config_readdata    => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_readdata,    --                    .readdata
-			avalon_slave_config_writedata   => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_writedata,   --                    .writedata
-			avalon_slave_config_waitrequest => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_waitrequest, --                    .waitrequest
-			avalon_slave_config_byteenable  => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_byteenable,  --                    .byteenable
-			avalon_slave_data_address       => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_address,       --   avalon_slave_data.address
-			avalon_slave_data_write         => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_write,         --                    .write
-			avalon_slave_data_read          => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_read,          --                    .read
-			avalon_slave_data_writedata     => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_writedata,     --                    .writedata
-			avalon_slave_data_readdata      => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_readdata,      --                    .readdata
-			avalon_slave_data_waitrequest   => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_waitrequest    --                    .waitrequest
+			clock_sink_clk                  => m2_ddr2_memory_afi_half_clk_clk,                                --            clock_sink.clk
+			reset_sink_reset                => rst_controller_001_reset_out_reset,                             --            reset_sink.reset
+			umft_data_bus                   => ftdi_0_conduit_umft_pins_umft_data_signal,                      --     conduit_umft_pins.umft_data_signal
+			umft_reset_n_pin                => ftdi_0_conduit_umft_pins_umft_reset_n_signal,                   --                      .umft_reset_n_signal
+			umft_rxf_n_pin                  => ftdi_0_conduit_umft_pins_umft_rxf_n_signal,                     --                      .umft_rxf_n_signal
+			umft_clock_pin                  => ftdi_0_conduit_umft_pins_umft_clock_signal,                     --                      .umft_clock_signal
+			umft_wakeup_n_pin               => ftdi_0_conduit_umft_pins_umft_wakeup_n_signal,                  --                      .umft_wakeup_n_signal
+			umft_be_bus                     => ftdi_0_conduit_umft_pins_umft_be_signal,                        --                      .umft_be_signal
+			umft_txe_n_pin                  => ftdi_0_conduit_umft_pins_umft_txe_n_signal,                     --                      .umft_txe_n_signal
+			umft_gpio_bus                   => ftdi_0_conduit_umft_pins_umft_gpio_bus_signal,                  --                      .umft_gpio_bus_signal
+			umft_wr_n_pin                   => ftdi_0_conduit_umft_pins_umft_wr_n_signal,                      --                      .umft_wr_n_signal
+			umft_rd_n_pin                   => ftdi_0_conduit_umft_pins_umft_rd_n_signal,                      --                      .umft_rd_n_signal
+			umft_oe_n_pin                   => ftdi_0_conduit_umft_pins_umft_oe_n_signal,                      --                      .umft_oe_n_signal
+			umft_siwu_n_pin                 => ftdi_0_conduit_umft_pins_umft_siwu_n_signal,                    --                      .umft_siwu_n_signal
+			avalon_slave_config_address     => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_address,     --   avalon_slave_config.address
+			avalon_slave_config_write       => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_write,       --                      .write
+			avalon_slave_config_read        => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_read,        --                      .read
+			avalon_slave_config_readdata    => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_readdata,    --                      .readdata
+			avalon_slave_config_writedata   => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_writedata,   --                      .writedata
+			avalon_slave_config_waitrequest => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_waitrequest, --                      .waitrequest
+			avalon_slave_config_byteenable  => mm_interconnect_0_usb_3_ftdi_0_avalon_slave_config_byteenable,  --                      .byteenable
+			avalon_slave_data_address       => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_address,       --     avalon_slave_data.address
+			avalon_slave_data_write         => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_write,         --                      .write
+			avalon_slave_data_read          => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_read,          --                      .read
+			avalon_slave_data_writedata     => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_writedata,     --                      .writedata
+			avalon_slave_data_readdata      => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_readdata,      --                      .readdata
+			avalon_slave_data_waitrequest   => mm_interconnect_1_usb_3_ftdi_0_avalon_slave_data_waitrequest,   --                      .waitrequest
+			ftdi_interrupt_sender_irq       => irq_mapper_receiver2_irq                                        -- ftdi_interrupt_sender.irq
 		);
 
 	clock_bridge_afi_50 : component mebx_qsys_project_clock_bridge_afi_50
@@ -2048,7 +2052,7 @@ begin
 			av_write_n     => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_write_ports_inv, --                  .write_n
 			av_writedata   => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_writedata,       --                  .writedata
 			av_waitrequest => mm_interconnect_0_jtag_uart_0_avalon_jtag_slave_waitrequest,     --                  .waitrequest
-			av_irq         => irq_mapper_receiver2_irq                                         --               irq.irq
+			av_irq         => irq_mapper_receiver3_irq                                         --               irq.irq
 		);
 
 	m1_clock_bridge : component mebx_qsys_project_m1_clock_bridge
@@ -2853,6 +2857,7 @@ begin
 			receiver4_irq => irq_mapper_receiver4_irq,           -- receiver4.irq
 			receiver5_irq => irq_mapper_receiver5_irq,           -- receiver5.irq
 			receiver6_irq => irq_mapper_receiver6_irq,           -- receiver6.irq
+			receiver7_irq => irq_mapper_receiver7_irq,           -- receiver7.irq
 			sender_irq    => nios2_gen2_0_irq_irq                --    sender.irq
 		);
 
@@ -2866,7 +2871,7 @@ begin
 			receiver_reset => rst_controller_reset_out_reset,     -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_002_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_receiver_irq,      --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver3_irq            --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver4_irq            --             sender.irq
 		);
 
 	irq_synchronizer_001 : component altera_irq_clock_crosser
@@ -2879,7 +2884,7 @@ begin
 			receiver_reset => rst_controller_reset_out_reset,     -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_002_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_001_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver4_irq            --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver5_irq            --             sender.irq
 		);
 
 	irq_synchronizer_002 : component altera_irq_clock_crosser
@@ -2892,7 +2897,7 @@ begin
 			receiver_reset => rst_controller_reset_out_reset,     -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_002_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_002_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver5_irq            --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver6_irq            --             sender.irq
 		);
 
 	irq_synchronizer_003 : component altera_irq_clock_crosser
@@ -2905,7 +2910,7 @@ begin
 			receiver_reset => rst_controller_reset_out_reset,     -- receiver_clk_reset.reset
 			sender_reset   => rst_controller_002_reset_out_reset, --   sender_clk_reset.reset
 			receiver_irq   => irq_synchronizer_003_receiver_irq,  --           receiver.irq
-			sender_irq(0)  => irq_mapper_receiver6_irq            --             sender.irq
+			sender_irq(0)  => irq_mapper_receiver7_irq            --             sender.irq
 		);
 
 	rst_controller : component mebx_qsys_project_rst_controller

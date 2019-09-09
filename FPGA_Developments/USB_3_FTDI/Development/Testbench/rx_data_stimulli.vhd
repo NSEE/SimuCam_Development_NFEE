@@ -22,6 +22,9 @@ architecture RTL of rx_data_stimulli is
 	signal s_counter : natural                                         := 0;
 	signal s_times   : natural                                         := 0;
 	signal s_rd_addr : natural range 0 to ((2 ** g_ADDRESS_WIDTH) - 1) := 0;
+	
+	constant c_START_CNT : natural := 7000;
+	
 
 begin
 
@@ -39,27 +42,27 @@ begin
 
 			avalon_mm_address_o <= (others => '0');
 			avalon_mm_read_o    <= '0';
---			s_counter           <= s_counter + 1;
+			s_counter           <= s_counter + 1;
 
 			case s_counter is
 
-				when 20000 to 20001 =>
+				when c_START_CNT to (c_START_CNT+1) =>
 					-- register read
 					--					avalon_mm_address_o                 <= std_logic_vector(to_unsigned(16#00#, g_ADDRESS_WIDTH));
 					avalon_mm_address_o <= std_logic_vector(to_unsigned(s_rd_addr, g_ADDRESS_WIDTH));
 					avalon_mm_read_o    <= '1';
-					if (s_counter = 20001) then
-						if (s_rd_addr < 1023) then
+					if (s_counter = (c_START_CNT+1)) then
+						if (s_rd_addr < 255) then
 							s_rd_addr <= s_rd_addr + 1;
-							s_counter <= 20000 - 1;
+							s_counter <= c_START_CNT - 1;
 						else
 							s_rd_addr <= 0;
-							if (s_times >= (4 - 1)) then
+							if (s_times >= (10 - 1)) then
 								s_times   <= 0;
-								s_counter <= 20000 + 2;
+								s_counter <= c_START_CNT + 2;
 							else
 								s_times   <= s_times + 1;
-								s_counter <= 20000 - 5000 - 1;
+								s_counter <= c_START_CNT - 5000 - 1;
 							end if;
 						end if;
 					end if;
