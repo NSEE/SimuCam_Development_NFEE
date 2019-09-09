@@ -2382,9 +2382,10 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+//	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
 	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x08://0x00000008: reg_2_config
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
 			break;
 		default:
 			break;

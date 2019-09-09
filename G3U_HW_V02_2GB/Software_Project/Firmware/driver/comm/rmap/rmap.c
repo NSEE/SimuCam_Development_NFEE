@@ -45,6 +45,8 @@ void vRmapCh1HandleIrq(void* pvContext) {
 
 	/* Warnning simplification: For now all address is lower than 1 bytes  */
 
+	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
+
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 		fprintf(fp,"IRQ RMAP.\n");
@@ -68,8 +70,6 @@ void vRmapCh1HandleIrq(void* pvContext) {
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendRMAPFromIRQ( 0 );
 	}
-
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh2HandleIrq(void* pvContext) {
@@ -78,6 +78,8 @@ void vRmapCh2HandleIrq(void* pvContext) {
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_2_BASE_ADDR);
+
+	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -103,8 +105,6 @@ void vRmapCh2HandleIrq(void* pvContext) {
 		vFailSendRMAPFromIRQ( 1 );
 	}
 
-
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh3HandleIrq(void* pvContext) {
@@ -113,6 +113,8 @@ void vRmapCh3HandleIrq(void* pvContext) {
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_3_BASE_ADDR);
+
+	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -138,7 +140,6 @@ void vRmapCh3HandleIrq(void* pvContext) {
 		vFailSendRMAPFromIRQ( 2 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh4HandleIrq(void* pvContext) {
@@ -147,6 +148,8 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_4_BASE_ADDR);
+
+	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -171,8 +174,6 @@ void vRmapCh4HandleIrq(void* pvContext) {
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendRMAPFromIRQ( 3 );
 	}
-
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh5HandleIrq(void* pvContext) {
@@ -181,6 +182,8 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_5_BASE_ADDR);
+
+	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -205,8 +208,6 @@ void vRmapCh5HandleIrq(void* pvContext) {
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendRMAPFromIRQ( 4 );
 	}
-
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh6HandleIrq(void* pvContext) {
@@ -215,6 +216,8 @@ void vRmapCh6HandleIrq(void* pvContext) {
 	INT8U error_codel;
 
 	volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_6_BASE_ADDR);
+
+	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 
 #if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -240,7 +243,6 @@ void vRmapCh6HandleIrq(void* pvContext) {
 		vFailSendRMAPFromIRQ( 5 );
 	}
 
-	vpxCommChannel->xRmap.xRmapIrqFlagClr.bWriteCmdFlagClr = TRUE;
 }
 
 void vRmapCh7HandleIrq(void* pvContext) {
