@@ -77,6 +77,12 @@ void vSimMebTask(void *task_data) {
 
 			case sMebConfig:
 
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
+				#endif
+				break;
+
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					/* Threat the command received in the Queue Message */
@@ -88,6 +94,12 @@ void vSimMebTask(void *task_data) {
 				break;
 
 			case sMebRun:
+
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+					fprintf(fp,"MEB Task: sMebRun - Waiting for command.");
+				#endif
+				break;
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -193,6 +205,11 @@ void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLoc
 
 	uiCmdLocal.ulWord = uiCmdParam;
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+	fprintf(fp,"MEB Task: vPerformActionMebInConfig - CMD.ulWord:0x%08x ",uiCmdLocal.ulWord );
+#endif
+
 	/* Check if the command is for MEB */
 	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
 
@@ -258,6 +275,11 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	unsigned char ucIL;
 	static tTMPus xPusLocal;
 
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+		fprintf(fp,"MEB Task: vPusMebTask");
+	#endif
+
 	bSuccess = FALSE;
 	OSMutexPend(xMutexPus, 2, &error_code);
 	if ( error_code == OS_ERR_NONE ) {
@@ -276,17 +298,24 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	} else
 		vCouldNotGetMutexMebPus();
 
-	if ( bSuccess ) {
+	if ( bSuccess == TRUE ) {
 		switch (pxMebCLocal->eMode) {
 			case sMebConfig:
+			case sMebToConfig:
 				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
 				break;
 			case sMebRun:
+			case sMebToRun:
 				vPusMebInTaskRunningMode(pxMebCLocal, &xPusLocal);
 				break;
 			default:
 				break;
 		}
+	} else {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+			fprintf(fp,"MEB Task: vPusMebTask - Don't found Pus command in xPus.");
+		#endif
 	}
 }
 
@@ -319,6 +348,11 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
 	unsigned short int param1 =0;
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+		fprintf(fp,"MEB Task: vPusType250conf - Command: %hhu.", xPusL->usiSubType);
+	#endif
 
 	param1 = xPusL->usiValues[0];
 
