@@ -16,44 +16,14 @@
 //! [constants definition]
 
 enum DpktMode {
-	eDpktStandBy          = 0,
-	eDpktFullImage        = 8, // First bit is used to indicate non standby. The modes start in 0b1000 = 8.
-    eDpktFullImagePattern ,
-    eDpktWindowing        ,
-    eDpktWindowingPattern ,
-    eDpktPartialReadOut   ,
+	eDpktStandBy = 0, eDpktFullImage = 8, // First bit is used to indicate non standby. The modes start in 0b1000 = 8.
+	eDpktFullImagePattern,
+	eDpktWindowing,
+	eDpktWindowingPattern,
+	eDpktPartialReadOut,
 } EDpktMode;
 
-
 //! [public module structs definition]
-typedef struct DpktDataPacketConfig {
-	alt_u16 usiCcdXSize;
-	alt_u16 usiCcdYSize;
-	alt_u16 usiDataYSize;
-	alt_u16 usiOverscanYSize;
-	alt_u16 usiPacketLength;
-	alt_u8 ucFeeMode;
-	alt_u8 ucCcdNumber;
-	alt_u8 ucProtocolId;
-	alt_u8 ucLogicalAddr;
-} TDpktDataPacketConfig;
-typedef struct DpktDataPacketHeader {
-	alt_u16 usiLength;
-	alt_u16 usiType;
-	alt_u16 usiFrameCounter;
-	alt_u16 usiSequenceCounter;
-} TDpktDataPacketHeader;
-typedef struct DpktPixelDelay {
-	alt_u16 usiLineDelay;
-	alt_u16 usiColumnDelay;
-	alt_u16 usiAdcDelay;
-} TDpktPixelDelay;
-typedef struct DpktChannel {
-	alt_u32 *puliDpktChAddr;
-	TDpktDataPacketConfig xDpktDataPacketConfig;
-	TDpktDataPacketHeader xDpktDataPacketHeader;
-	TDpktPixelDelay xDpktPixelDelay;
-} TDpktChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]

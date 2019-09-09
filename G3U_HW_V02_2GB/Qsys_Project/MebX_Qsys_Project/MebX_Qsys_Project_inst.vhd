@@ -117,6 +117,14 @@
 			ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                            : out   std_logic;                                        -- conduit
+			sync_spwa_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwb_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwc_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwd_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwe_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwf_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwg_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spwh_conduit                                           : out   std_logic;                                        -- conduit
 			temp_scl_export                                             : out   std_logic;                                        -- export
 			temp_sda_export                                             : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                              : out   std_logic;                                        -- export
@@ -125,15 +133,7 @@
 			tristate_conduit_tcm_read_n_out                             : out   std_logic_vector(0 downto 0);                     -- tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                            : out   std_logic_vector(0 downto 0);                     -- tcm_write_n_out
 			tristate_conduit_tcm_data_out                               : inout std_logic_vector(15 downto 0) := (others => 'X'); -- tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0);                     -- tcm_chipselect_n_out
-			sync_spw1_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw2_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw3_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw4_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw5_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw6_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw7_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw8_conduit                                           : out   std_logic                                         -- conduit
+			tristate_conduit_tcm_chipselect_n_out                       : out   std_logic_vector(0 downto 0)                      -- tcm_chipselect_n_out
 		);
 	end component MebX_Qsys_Project;
 
@@ -256,6 +256,14 @@
 			ssdp_ssdp1                                                  => CONNECTED_TO_ssdp_ssdp1,                                                  --                                .ssdp1
 			sync_in_conduit                                             => CONNECTED_TO_sync_in_conduit,                                             --                         sync_in.conduit
 			sync_out_conduit                                            => CONNECTED_TO_sync_out_conduit,                                            --                        sync_out.conduit
+			sync_spwa_conduit                                           => CONNECTED_TO_sync_spwa_conduit,                                           --                       sync_spwa.conduit
+			sync_spwb_conduit                                           => CONNECTED_TO_sync_spwb_conduit,                                           --                       sync_spwb.conduit
+			sync_spwc_conduit                                           => CONNECTED_TO_sync_spwc_conduit,                                           --                       sync_spwc.conduit
+			sync_spwd_conduit                                           => CONNECTED_TO_sync_spwd_conduit,                                           --                       sync_spwd.conduit
+			sync_spwe_conduit                                           => CONNECTED_TO_sync_spwe_conduit,                                           --                       sync_spwe.conduit
+			sync_spwf_conduit                                           => CONNECTED_TO_sync_spwf_conduit,                                           --                       sync_spwf.conduit
+			sync_spwg_conduit                                           => CONNECTED_TO_sync_spwg_conduit,                                           --                       sync_spwg.conduit
+			sync_spwh_conduit                                           => CONNECTED_TO_sync_spwh_conduit,                                           --                       sync_spwh.conduit
 			temp_scl_export                                             => CONNECTED_TO_temp_scl_export,                                             --                        temp_scl.export
 			temp_sda_export                                             => CONNECTED_TO_temp_sda_export,                                             --                        temp_sda.export
 			timer_1ms_external_port_export                              => CONNECTED_TO_timer_1ms_external_port_export,                              --         timer_1ms_external_port.export
@@ -264,14 +272,6 @@
 			tristate_conduit_tcm_read_n_out                             => CONNECTED_TO_tristate_conduit_tcm_read_n_out,                             --                                .tcm_read_n_out
 			tristate_conduit_tcm_write_n_out                            => CONNECTED_TO_tristate_conduit_tcm_write_n_out,                            --                                .tcm_write_n_out
 			tristate_conduit_tcm_data_out                               => CONNECTED_TO_tristate_conduit_tcm_data_out,                               --                                .tcm_data_out
-			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out,                       --                                .tcm_chipselect_n_out
-			sync_spw1_conduit                                           => CONNECTED_TO_sync_spw1_conduit,                                           --                       sync_spw1.conduit
-			sync_spw2_conduit                                           => CONNECTED_TO_sync_spw2_conduit,                                           --                       sync_spw2.conduit
-			sync_spw3_conduit                                           => CONNECTED_TO_sync_spw3_conduit,                                           --                       sync_spw3.conduit
-			sync_spw4_conduit                                           => CONNECTED_TO_sync_spw4_conduit,                                           --                       sync_spw4.conduit
-			sync_spw5_conduit                                           => CONNECTED_TO_sync_spw5_conduit,                                           --                       sync_spw5.conduit
-			sync_spw6_conduit                                           => CONNECTED_TO_sync_spw6_conduit,                                           --                       sync_spw6.conduit
-			sync_spw7_conduit                                           => CONNECTED_TO_sync_spw7_conduit,                                           --                       sync_spw7.conduit
-			sync_spw8_conduit                                           => CONNECTED_TO_sync_spw8_conduit                                            --                       sync_spw8.conduit
+			tristate_conduit_tcm_chipselect_n_out                       => CONNECTED_TO_tristate_conduit_tcm_chipselect_n_out                        --                                .tcm_chipselect_n_out
 		);
 

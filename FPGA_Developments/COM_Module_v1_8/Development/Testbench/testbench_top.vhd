@@ -143,6 +143,7 @@ begin
 			avalon_slave_windowing_readdata    => s_config_avalon_stimuli_mm_readdata,
 			avalon_slave_windowing_writedata   => s_config_avalon_stimuli_mm_writedata,
 			avalon_slave_windowing_waitrequest => s_config_avalon_stimuli_mm_waitrequest,
+			avalon_slave_windowing_byteenable  => "1111",
 			avalon_slave_L_buffer_address      => s_avalon_buffer_L_stimuli_mm_address,
 			avalon_slave_L_buffer_waitrequest  => s_avalon_buffer_L_stimuli_mm_waitrequest,
 			avalon_slave_L_buffer_write        => s_avalon_buffer_L_stimuli_mm_write,
@@ -167,13 +168,13 @@ begin
 		elsif rising_edge(clk100) then
 			if (v_sync_div_cnt = 10000) then
 				if (s_sync = '0') then
-					s_sync <= '1';
+					s_sync         <= '1';
 					v_sync_div_cnt := 0;
 				else
-					s_sync <= '0';
+					s_sync         <= '0';
 					v_sync_div_cnt := 10001;
 				end if;
---				v_sync_div_cnt := 0;
+				--				v_sync_div_cnt := 0;
 			end if;
 			v_sync_div_cnt := v_sync_div_cnt + 1;
 			--			s_sync         <= '0';

@@ -117,6 +117,14 @@ module MebX_Qsys_Project (
 	ssdp_ssdp1,
 	sync_in_conduit,
 	sync_out_conduit,
+	sync_spwa_conduit,
+	sync_spwb_conduit,
+	sync_spwc_conduit,
+	sync_spwd_conduit,
+	sync_spwe_conduit,
+	sync_spwf_conduit,
+	sync_spwg_conduit,
+	sync_spwh_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -125,15 +133,7 @@ module MebX_Qsys_Project (
 	tristate_conduit_tcm_read_n_out,
 	tristate_conduit_tcm_write_n_out,
 	tristate_conduit_tcm_data_out,
-	tristate_conduit_tcm_chipselect_n_out,
-	sync_spw1_conduit,
-	sync_spw2_conduit,
-	sync_spw3_conduit,
-	sync_spw4_conduit,
-	sync_spw5_conduit,
-	sync_spw6_conduit,
-	sync_spw7_conduit,
-	sync_spw8_conduit);	
+	tristate_conduit_tcm_chipselect_n_out);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -252,6 +252,14 @@ module MebX_Qsys_Project (
 	output	[7:0]	ssdp_ssdp1;
 	input		sync_in_conduit;
 	output		sync_out_conduit;
+	output		sync_spwa_conduit;
+	output		sync_spwb_conduit;
+	output		sync_spwc_conduit;
+	output		sync_spwd_conduit;
+	output		sync_spwe_conduit;
+	output		sync_spwf_conduit;
+	output		sync_spwg_conduit;
+	output		sync_spwh_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;
@@ -261,12 +269,4 @@ module MebX_Qsys_Project (
 	output	[0:0]	tristate_conduit_tcm_write_n_out;
 	inout	[15:0]	tristate_conduit_tcm_data_out;
 	output	[0:0]	tristate_conduit_tcm_chipselect_n_out;
-	output		sync_spw1_conduit;
-	output		sync_spw2_conduit;
-	output		sync_spw3_conduit;
-	output		sync_spw4_conduit;
-	output		sync_spw5_conduit;
-	output		sync_spw6_conduit;
-	output		sync_spw7_conduit;
-	output		sync_spw8_conduit;
 endmodule

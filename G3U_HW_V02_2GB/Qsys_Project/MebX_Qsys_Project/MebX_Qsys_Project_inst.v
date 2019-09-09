@@ -116,6 +116,14 @@
 		.ssdp_ssdp1                                                  (<connected-to-ssdp_ssdp1>),                                                  //                                .ssdp1
 		.sync_in_conduit                                             (<connected-to-sync_in_conduit>),                                             //                         sync_in.conduit
 		.sync_out_conduit                                            (<connected-to-sync_out_conduit>),                                            //                        sync_out.conduit
+		.sync_spwa_conduit                                           (<connected-to-sync_spwa_conduit>),                                           //                       sync_spwa.conduit
+		.sync_spwb_conduit                                           (<connected-to-sync_spwb_conduit>),                                           //                       sync_spwb.conduit
+		.sync_spwc_conduit                                           (<connected-to-sync_spwc_conduit>),                                           //                       sync_spwc.conduit
+		.sync_spwd_conduit                                           (<connected-to-sync_spwd_conduit>),                                           //                       sync_spwd.conduit
+		.sync_spwe_conduit                                           (<connected-to-sync_spwe_conduit>),                                           //                       sync_spwe.conduit
+		.sync_spwf_conduit                                           (<connected-to-sync_spwf_conduit>),                                           //                       sync_spwf.conduit
+		.sync_spwg_conduit                                           (<connected-to-sync_spwg_conduit>),                                           //                       sync_spwg.conduit
+		.sync_spwh_conduit                                           (<connected-to-sync_spwh_conduit>),                                           //                       sync_spwh.conduit
 		.temp_scl_export                                             (<connected-to-temp_scl_export>),                                             //                        temp_scl.export
 		.temp_sda_export                                             (<connected-to-temp_sda_export>),                                             //                        temp_sda.export
 		.timer_1ms_external_port_export                              (<connected-to-timer_1ms_external_port_export>),                              //         timer_1ms_external_port.export
@@ -124,14 +132,6 @@
 		.tristate_conduit_tcm_read_n_out                             (<connected-to-tristate_conduit_tcm_read_n_out>),                             //                                .tcm_read_n_out
 		.tristate_conduit_tcm_write_n_out                            (<connected-to-tristate_conduit_tcm_write_n_out>),                            //                                .tcm_write_n_out
 		.tristate_conduit_tcm_data_out                               (<connected-to-tristate_conduit_tcm_data_out>),                               //                                .tcm_data_out
-		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>),                       //                                .tcm_chipselect_n_out
-		.sync_spw1_conduit                                           (<connected-to-sync_spw1_conduit>),                                           //                       sync_spw1.conduit
-		.sync_spw2_conduit                                           (<connected-to-sync_spw2_conduit>),                                           //                       sync_spw2.conduit
-		.sync_spw3_conduit                                           (<connected-to-sync_spw3_conduit>),                                           //                       sync_spw3.conduit
-		.sync_spw4_conduit                                           (<connected-to-sync_spw4_conduit>),                                           //                       sync_spw4.conduit
-		.sync_spw5_conduit                                           (<connected-to-sync_spw5_conduit>),                                           //                       sync_spw5.conduit
-		.sync_spw6_conduit                                           (<connected-to-sync_spw6_conduit>),                                           //                       sync_spw6.conduit
-		.sync_spw7_conduit                                           (<connected-to-sync_spw7_conduit>),                                           //                       sync_spw7.conduit
-		.sync_spw8_conduit                                           (<connected-to-sync_spw8_conduit>)                                            //                       sync_spw8.conduit
+		.tristate_conduit_tcm_chipselect_n_out                       (<connected-to-tristate_conduit_tcm_chipselect_n_out>)                        //                                .tcm_chipselect_n_out
 	);
 

@@ -16,38 +16,6 @@
 //! [constants definition]
 
 //! [public module structs definition]
-typedef struct SpwcLinkConfig {
-	bool bAutostart;
-	bool bLinkStart;
-	bool bDisconnect;
-	alt_u8 ucTxDivCnt;
-} TSpwcLinkConfig;
-
-typedef struct SpwcLinkError {
-	bool bDisconnect;
-	bool bParity;
-	bool bEscape;
-	bool bCredit;
-} TSpwcLinkError;
-
-typedef struct SpwcLinkStatus {
-	bool bStarted;
-	bool bConnecting;
-	bool bRunning;
-} TSpwcLinkStatus;
-
-typedef struct SpwcTimecode {
-	alt_u8 ucControl;
-	alt_u8 ucCounter;
-} TSpwcTimecode;
-
-typedef struct SpwcChannel {
-	alt_u32 *puliSpwcChAddr;
-	TSpwcLinkConfig xLinkConfig;
-	TSpwcLinkError xLinkError;
-	TSpwcLinkStatus xLinkStatus;
-	TSpwcTimecode xTimecode;
-} TSpwcChannel;
 //! [public module structs definition]
 
 //! [public function prototypes]
@@ -65,6 +33,7 @@ bool bSpwcGetLinkStatus(TSpwcChannel *pxSpwcCh);
 bool bSpwcGetTimecode(TSpwcChannel *pxSpwcCh);
 
 bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
+bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable);
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
 //! [public function prototypes]
