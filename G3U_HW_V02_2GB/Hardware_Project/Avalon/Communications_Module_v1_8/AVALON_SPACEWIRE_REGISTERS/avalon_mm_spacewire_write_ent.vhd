@@ -39,8 +39,8 @@ begin
 			spacewire_write_registers_o.fee_machine_config_reg.fee_machine_stop                             <= '0';
 			spacewire_write_registers_o.fee_machine_config_reg.fee_machine_start                            <= '0';
 			spacewire_write_registers_o.fee_machine_config_reg.fee_data_controller_en                       <= '1';
-			spacewire_write_registers_o.fee_machine_config_reg.fee_digitalise_en                            <= '0';
-			spacewire_write_registers_o.fee_machine_config_reg.fee_windowing_en                             <= '1';
+			spacewire_write_registers_o.fee_machine_config_reg.fee_digitalise_en                            <= '1';
+			spacewire_write_registers_o.fee_machine_config_reg.fee_windowing_en                             <= '0';
 			spacewire_write_registers_o.fee_buffers_config_reg.fee_right_buffer_size                        <= (others => '1');
 			spacewire_write_registers_o.fee_buffers_config_reg.fee_left_buffer_size                         <= (others => '1');
 			spacewire_write_registers_o.fee_buffers_irq_control_reg.fee_right_buffer_empty_en               <= '0';
