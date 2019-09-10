@@ -553,17 +553,21 @@ void vFeeTaskV2(void *task_data) {
 				vResetMemCCDFEE( pxNFee );
 
 				/*Since the default value of SensorSel Reg is both, need check if is some of Windowing Mode, otherwise overwrite with left*/
-				if ( (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == sBoth) ) {
+				if ( (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == eRmapSenSelEFBoth) ) { //both
 					if ( (pxNFee->xControl.eMode == sWindowing) || (pxNFee->xControl.eMode == sWinPattern)){
-						xTrans.side = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel;
+						xTrans.side = sBoth;
 					} else {
 						xTrans.side = sLeft; /*sLeft = 0*/
-						pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel = 0;
+						pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel = eRmapSenSelELeft;
 					}
 				} else {
-					xTrans.side = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel;
+					if ( pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == eRmapSenSelELeft ) {
+						xTrans.side = sLeft; /*sLeft = 0*/
+					} else {
+						// todo: error if a reserved value is used [rfranca]
+						xTrans.side = sRight; /*sRight = 1*/
+					}
 				}
-
 
 				/* Check which CCD should be send due to the configured readout order*/
 				ucEL = (xGlobal.ucEP0_3 + 1) % 4;
