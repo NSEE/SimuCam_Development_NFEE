@@ -20,9 +20,6 @@ union LastMask{
 
 /* There's a left and right side for each CCD, and CcdMemMap has an instance for each half CCD */
 typedef struct CcdMemMap{
-    unsigned long ulVStart;	/* (bytes) Add transparency to the start and end of the CCD transmission */
-    unsigned long ulVEnd;	/* (bytes) Add transparency to the start and end of the CCD transmission */
-    unsigned long ulHEnd;	/* (bytes) Add transparency to the start and end of the CCD transmission */
 	unsigned long ulOffsetAddr;     /* (bytes) Initial Addrs for the ccd in the DDR memory */
 	unsigned long ulBlockI;         /* (blocks) The index block counting that was already sent to the SPW buffer */
     unsigned long ulAddrI;          /* (bytes) The index of the beggining of the next block */
@@ -39,6 +36,10 @@ typedef struct CcdMemDef{
 	unsigned long usiTotalBytes;            /* Total os bytes of a half CCD including the mask lines */
     unsigned char ucPaddingBytes;           /* How many bytes need to be filled with zero padding in the last memory line that has pixels */
     union LastMask ucPaddingMask;	        /* Last mask with zero padding */
+    unsigned long ulVStart;	/* (bytes) Add transparency to the start and end of the CCD transmission */
+    unsigned long ulVEnd;	/* (bytes) Add transparency to the start and end of the CCD transmission */
+    unsigned long ulHStart;	/* (bytes) Add transparency to the start and end of the CCD transmission */
+    unsigned long ulHEnd;	/* (bytes) Add transparency to the start and end of the CCD transmission */
 } TCcdMemDef;
 
 /* One CCD Info per FEE */

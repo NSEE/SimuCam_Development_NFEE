@@ -49,7 +49,7 @@ bool bSendRequestNFeeCtrl_Front( unsigned char ucCMD, unsigned char ucSUBType, u
 bool bSendRequestNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bSendMSGtoMebTask( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh );
-bool bEnableDbBuffer( TFeebChannel *pxFeebCh );
+bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh );
 bool bEnableSPWChannel( TSpwcChannel *xSPW );
 bool bDisableSPWChannel( TSpwcChannel *xSPW );
 bool bEnableRmapIRQ( TRmapChannel *pxRmapCh, unsigned char ucId );

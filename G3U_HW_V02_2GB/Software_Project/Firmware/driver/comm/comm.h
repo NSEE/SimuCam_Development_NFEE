@@ -317,7 +317,10 @@ typedef struct RmapMemAreaConfig {
   alt_u16 usiChargeInjectionGap; /* Charge Injection Gap Config Field */
   alt_u16 usiParallelToiPeriod; /* Parallel Toi Period Config Field */
   alt_u16 usiParallelClkOverlap; /* Parallel Clock Overlap Config Field */
-  alt_u8 ucCcdReadoutOrder; /* CCD Readout Order Config Field */
+  alt_u8 ucCcdReadoutOrder1stCcd; /* CCD Readout Order Config Field (1st CCD) */
+  alt_u8 ucCcdReadoutOrder2ndCcd; /* CCD Readout Order Config Field (2nd CCD) */
+  alt_u8 ucCcdReadoutOrder3rdCcd; /* CCD Readout Order Config Field (3rd CCD) */
+  alt_u8 ucCcdReadoutOrder4thCcd; /* CCD Readout Order Config Field (4th CCD) */
   alt_u16 usiNFinalDump; /* N Final Dump Config Field */
   alt_u16 usiHEnd; /* H End Config Field */
   bool bChargeInjectionEn; /* Charge Injection Enable Config Field */

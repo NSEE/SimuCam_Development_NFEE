@@ -47,6 +47,22 @@ void vFeeTaskV2(void *task_data) {
 				/* Change the configuration of RMAP for a particular FEE*/
 				vInitialConfig_RMAPCodecConfig( pxNFee );
 
+				/*0..4509*/
+				pxNFee->xMemMap.xCommon.ulVStart = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+				pxNFee->xMemMap.xCommon.ulVEnd = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+				/*0..2294*/
+				pxNFee->xMemMap.xCommon.ulHStart = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+				pxNFee->xMemMap.xCommon.ulHEnd = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+
+
+
+				bFeebGetMachineControl(&pxNFee->xChannel.xFeeBuffer);
+				//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
+				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDataControllerEn = xDefaults.bDataPacket;
+				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = TRUE;
+				pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
+
 				pxNFee->xControl.eState = sConfig_Enter;
 				break;
 			case sConfig_Enter:/* Transition */
@@ -536,10 +552,18 @@ void vFeeTaskV2(void *task_data) {
 				/* Reset the memory control variables thats is used in the transmission*/
 				vResetMemCCDFEE( pxNFee );
 
-				//todo: Pegar com o Franï¿½a qual como ler esse registrador
-				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
-				//if pxNFee->xChannel.xRmap.xRmapMemConfigArea.sync_sel ; //todo: aqui serï¿½ preciso alterar o mapa do RMAP (sensor_sel)
-				xTrans.side = sLeft; //todo: Hardcoded por enquanto
+				/*Since the default value of SensorSel Reg is both, need check if is some of Windowing Mode, otherwise overwrite with left*/
+				if ( (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == sBoth) ) {
+					if ( (pxNFee->xControl.eMode == sWindowing) || (pxNFee->xControl.eMode == sWinPattern)){
+						xTrans.side = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel;
+					} else {
+						xTrans.side = sLeft; /*sLeft = 0*/
+						pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel = 0;
+					}
+				} else {
+					xTrans.side = pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel;
+				}
+
 
 				/* Check which CCD should be send due to the configured readout order*/
 				ucEL = (xGlobal.ucEP0_3 + 1) % 4;
@@ -567,24 +591,30 @@ void vFeeTaskV2(void *task_data) {
 				vSetDoubleBufferRightSize( xTrans.ulSMD_MAX_BLOCKS, pxNFee->ucSPWId );
 
 				/* Enable IRQ and clear the Double Buffer */
-				bEnableDbBuffer(&pxNFee->xChannel.xFeeBuffer);
+				bEnableDbBuffer(pxNFee, &pxNFee->xChannel.xFeeBuffer);
 
 
 				/* Update DataPacket with the information of actual readout information*/
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
+				bFeebGetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = xTrans.ucCcdNumber;
 				switch (pxNFee->xControl.eMode) {
 					case sFullPattern:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImagePattern;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sWinPattern:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowingPattern;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						break;
 					case sFullImage:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImage;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					case sWindowing:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowing;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
+
 						break;
 					case sParTrap1:
 					case sParTrap2:
@@ -602,7 +632,7 @@ void vFeeTaskV2(void *task_data) {
 						#endif
 						break;
 				}
-
+				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 
@@ -641,15 +671,6 @@ void vFeeTaskV2(void *task_data) {
 						/* Try to get the Mutex */
 						OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
-
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", pxNFee->ucId, ucSideFromMSG);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI);
-#endif
-
-
 							/* Schedule the DMA to fill the double buffer for this FEE*/
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bPrepareDoubleBuffer( xTrans.xCcdMapLocal[ucSideFromMSG], xTrans.ucMemory, pxNFee->ucId, pxNFee, ucSideFromMSG, xTrans );
 
@@ -662,12 +683,6 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 
 							pxNFee->xControl.eState = redoutWaitSync;
 							pxNFee->xControl.eNextMode = redoutTransmission;
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", pxNFee->ucId, ucSideFromMSG);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI);
-#endif
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -676,12 +691,6 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 							#endif
 						} else {
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", pxNFee->ucId, ucSideFromMSG);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI);
-#endif
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
@@ -724,14 +733,6 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 
 							/* Is this the last block? */
 							if ( (xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI + xTrans.ulSMD_MAX_BLOCKS) >= xTrans.ulTotalBlocks ) {
-
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"\nN-%hu: Trans ucSideFromMSG = %hhu \n", pxNFee->ucId, ucSideFromMSG);
-	fprintf(fp,"\nN-%hu: Trans xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI = %lu \n", pxNFee->ucId, xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI);
-	fprintf(fp,"\nN-%hu: Trans xTrans.ulSMD_MAX_BLOCKS = %lu \n\n", pxNFee->ucId, xTrans.ulSMD_MAX_BLOCKS);
-	fprintf(fp,"\nN-%hu: Trans xTrans.ulTotalBlocks = %lu \n", pxNFee->ucId, xTrans.ulTotalBlocks);
-#endif
 
 								/* Define the size of the data in the double buffer (need this to create the interrupt right)*/
 								usiLenLastBlocks = xTrans.ulTotalBlocks - xTrans.xCcdMapLocal[ucSideFromMSG]->ulBlockI;
@@ -841,11 +842,7 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					vQCmdFEEinReadoutSync( pxNFee, uiCmdFEE.ulWord  );
 				}
 
-
-				//todo: o valor do uliCurrentMode, vai para qual registrador? ccd_mode_config? lï¿½ nao apenas indica para onde deve ir o FEE?
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
-				/*ccd_mode_config[3:0]*/
-				/*Trying to save some processing*/
 				if (xTrans.bFirstT == TRUE) {
 					xTrans.bFirstT = FALSE;
 					bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
@@ -938,7 +935,9 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 			case M_FEE_ON_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sConfig_Enter;
 				pxNFeeP->xControl.eMode = sOn;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 
 				break;
@@ -1003,10 +1002,24 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				}
 				#endif
 				break;
-			default:
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Unexpected command for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
 				}
 				#endif
 				break;
@@ -1031,7 +1044,9 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				break;
 			case M_FEE_ON_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sConfig_Enter;
 				pxNFeeP->xControl.eMode = sOn;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 
 				break;
@@ -1040,6 +1055,7 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+
 
 				} else {
 					#if DEBUG_ON
@@ -1054,11 +1070,7 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
 					pxNFeeP->xControl.bWatingSync = TRUE;
 					pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
-					pxNFeeP->xControl.eState = redoutWaitSync;
 
-					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
-					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				} else {
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
@@ -1085,6 +1097,20 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"NFEE %hhu Task: CRITICAL! Don't expect to receive sync before finish the transmission (in redoutTransmission)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
 				}
 				#endif
 				break;
@@ -1136,10 +1162,11 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				}
 				break;
 			case M_FEE_ON_FORCED:
-
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sConfig_Enter;
+				pxNFeeP->xControl.eMode = sOn;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
-
 				break;
 
 			case M_FEE_STANDBY:
@@ -1161,7 +1188,7 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_FEE_RMAP:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\nNFEE %hhu Task: RMAP Message\n", pxNFeeP->ucId);
 				}
 				#endif
@@ -1170,6 +1197,15 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 			case M_BEFORE_SYNC:
 				/*Do nothing for now*/
+
+				if ( pxNFeeP->xControl.eLastMode == pxNFeeP->xControl.eNextMode ) {
+					/* If a transition to On was requested when the FEE is waiting to go to Calibration,
+					 * configure the hardware to not send any data in the next sync */
+					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+				}
+
 				break;
 
 			case M_SYNC:
@@ -1183,10 +1219,24 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task:  Unexpected command for this mode \n", pxNFeeP->ucId);
 				}
 				#endif
 				break;
@@ -1194,6 +1244,7 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	}
 }
 
+/*Not in use for now*/
 /* Threat income command while the Fee is waiting for sync*/
 void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
@@ -1214,14 +1265,16 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_FEE_ON_FORCED:
-
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sConfig_Enter;
+				pxNFeeP->xControl.eMode = sOn;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 				break;
 
 			case M_FEE_RMAP:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\nNFEE %hhu Task: RMAP Message\n", pxNFeeP->ucId);
 				}
 				#endif
@@ -1242,6 +1295,22 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_FEE_DMA_ACCESS:
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
+				break;
+			case M_FEE_STANDBY:
+			case M_FEE_ON:
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed, already processing a changing action (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				}
+				#endif
 				break;
 			default:
 				#if DEBUG_ON
@@ -1381,13 +1450,20 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, uiCmdFEEL.ucByte[1], pxNFeeP->ucId);
 				break;
-			default:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN_PATTERN:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"NFEE %hhu Task: Command not allowed in this mode (StandBy, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
 				}
 				#endif
 				break;
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Unexpected command for this mode (StandBy, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+				}
+				#endif
 				break;
 		}
 	}
@@ -1470,13 +1546,24 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, uiCmdFEEL.ucByte[1], pxNFeeP->ucId);
 				break;
-			default:
+			case M_FEE_FULL:
+			case M_FEE_WIN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"NFEE %hhu Task: Command not allowed in this mode (ON, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
 				}
 				#endif
 				break;
+			default:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Unexpected command for this mode (ON, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+				}
+				#endif
 				break;
 		}
 	}
@@ -1501,6 +1588,7 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				/* Real Fee State (graph) */
 				pxNFeeP->xControl.eLastMode = sConfig_Enter;
 				pxNFeeP->xControl.eMode = sConfig;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				/* Real State */
 				pxNFeeP->xControl.eState = sOn_Enter;
 				break;
@@ -1522,10 +1610,24 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_MASTER_SYNC:
 				/* Do nothing for now */
 				break;
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"NFEE %hhu Task: Command not allowed in this mode (Config, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+					fprintf(fp,"NFEE %hhu Task: Unexpected command for this mode (Config, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
 				}
 				#endif
 				break;
@@ -1560,8 +1662,10 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				break;
 
 			case M_FEE_ON_FORCED:
+				pxNFeeP->xControl.eLastMode = sConfig_Enter;
 				pxNFeeP->xControl.bWatingSync = FALSE;
 				pxNFeeP->xControl.eMode = sOn;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 				break;
 
@@ -1625,10 +1729,24 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"NFEE %hhu Task: Command not allowed in this mode (Readout Cycle, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
+					fprintf(fp,"NFEE %hhu Task: Unexpected command for in this mode (Readout Cycle, cmd=%hhu )\n", pxNFeeP->ucId, uiCmdFEEL.ucByte[2]);
 				}
 				#endif
 		}
@@ -1682,9 +1800,10 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_FEE_ON_FORCED:
 
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sConfig_Enter;
 				pxNFeeP->xControl.eMode = sOn;
+				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
-
 				break;
 
 			case M_FEE_STANDBY:
@@ -1706,7 +1825,7 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 
 			case M_FEE_RMAP:
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 					fprintf(fp,"\nNFEE %hhu Task: RMAP Message\n", pxNFeeP->ucId);
 				}
 				#endif
@@ -1735,10 +1854,24 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				/* Send message telling to controller that is not using the DMA any more */
 				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
+			case M_FEE_FULL:
+			case M_FEE_FULL_PATTERN:
+			case M_FEE_WIN:
+			case M_FEE_WIN_PATTERN:
+			case M_FEE_PAR_TRAP_1:
+			case M_FEE_PAR_TRAP_2:
+			case M_FEE_SERIAL_TRAP_1:
+			case M_FEE_SERIAL_TRAP_2:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+					fprintf(fp,"NFEE %hhu Task: Command not allowed for this mode (in redoutPreparingDB)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-					fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode \n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task: Unexpected command for this mode \n", pxNFeeP->ucId);
 				}
 				#endif
 				break;
@@ -2071,14 +2204,6 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId);
 	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"bPrepareDoubleBuffer\n");
-	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", ucSide, ucSide);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", ucSide, xCcdMapLocal->ulBlockI);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", ucSide, xCcdMapLocal->ulAddrI);
-	fprintf(fp,"\nN-%hu: ulLengthBlocks = %lu \n", ucSide, ulLengthBlocks);
-#endif
 
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
@@ -2105,15 +2230,6 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 
 	vSetDoubleBufferLeftSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
 	vSetDoubleBufferRightSize( (unsigned char)ulLengthBlocks, pxNFee->ucSPWId );
-
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"bPrepareDoubleBuffer\n");
-	fprintf(fp,"\nN-%hu: ucSide = %hhu \n", ucSide, ucSide);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulBlockI = %lu \n", ucSide, xCcdMapLocal->ulBlockI);
-	fprintf(fp,"\nN-%hu: xTrans.xCcdMapLocal[ucSide]->ulAddrI = %lu \n", ucSide, xCcdMapLocal->ulAddrI);
-	fprintf(fp,"\nN-%hu: ulLengthBlocks = %lu \n", ucSide, ulLengthBlocks);
-#endif
 
 	if (  ucMem == 0  ) {
 		bDmaReturn = bSdmaDmaM1Transfer((alt_u32 *)xCcdMapLocal->ulAddrI, (alt_u16)ulLengthBlocks, ucSide, pxNFee->ucSPWId);
@@ -2282,7 +2398,7 @@ bool bEnableSPWChannel( TSpwcChannel *xSPW ) {
 	return TRUE;
 }
 
-bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
+bool bEnableDbBuffer( TNFee *pxNFeeP, TFeebChannel *pxFeebCh ) {
 	/* Stop the module Double Buffer */
 	bFeebStopCh(pxFeebCh);
 	/* Clear all buffer form the Double Buffer */
@@ -2294,8 +2410,7 @@ bool bEnableDbBuffer( TFeebChannel *pxFeebCh ) {
 	bFeebGetMachineControl(pxFeebCh);
 	//pxFeebCh->xWindowingConfig.bMasking = DATA_PACKET;/* True= data packet;    FALSE= Transparent mode */
 	pxFeebCh->xFeebMachineControl.bDataControllerEn = xDefaults.bDataPacket;
-	pxFeebCh->xFeebMachineControl.bDigitaliseEn = TRUE; //todo: não deixar hardcoded
-	pxFeebCh->xFeebMachineControl.bWindowingEn = FALSE;
+	pxFeebCh->xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
 	bFeebSetMachineControl(pxFeebCh);
 
 	/*Enable IRQ of FEE Buffer*/
@@ -2329,132 +2444,979 @@ bool bDisAndClrDbBuffer( TFeebChannel *pxFeebCh ) {
 }
 
 
-
-//todo: Sera implementado apos mudancas nos registradores do RMAP
-/* RMAP command received, while waiting for sync*/
-void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
-	tQMask uiCmdFEEL;
-	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
-
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
-	uiCmdFEEL.ulWord = cmd;
-	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
-	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
-			break;
-		default:
-			break;
-	}
-}
-
-
-
-//todo: Sera implementado apos mudancas nos registradores do RMAP
-/* RMAP command received, while waiting for sync*/
-void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
-	tQMask uiCmdFEEL;
-	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
-
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
-	uiCmdFEEL.ulWord = cmd;
-	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
-	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
-			break;
-		default:
-			break;
-	}
-}
-
-
-//todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinModeOn( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
 	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+
 	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Already in this mode. (Mode On)\n\n");
+					}
+					#endif
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sOn_Enter;
+					pxNFeeP->xControl.eMode = sFullPattern;
+					/* Real State */
+					pxNFeeP->xControl.eState = sFullPattern_Enter;
+					break;
+				case 0x02: /*Windowing-Pattern-Mode*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sOn_Enter;
+					pxNFeeP->xControl.eMode = sWinPattern;
+					/* Real State */
+					pxNFeeP->xControl.eState = sWinPattern_Enter;
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sOn_Enter;
+					pxNFeeP->xControl.eMode = sStandBy;
+					pxNFeeP->xControl.eNextMode = sStandby_Enter;
+					/* Real State */
+					pxNFeeP->xControl.eState = sWaitSync;
+					break;
+				case 0x05: /*Windowing-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
+					}
+					#endif
+					break;
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Mode On)\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Already in this mode. (Mode On)\n\n");
+					}
+					#endif
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+	}
+}
+
+/* RMAP command received, while waiting for sync*/
+void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
+	tQMask uiCmdFEEL;
+	INT8U ucADDRReg;
+
+	uiCmdFEEL.ulWord = cmd;
+	ucADDRReg = uiCmdFEEL.ucByte[1];
+
+	switch (ucADDRReg) {
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
+
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						/* If a transition to On was requested when the FEE is waiting to go to Calibration,
+						 * configure the hardware to not send any data in the next sync */
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+						pxNFeeP->xControl.eState = redoutWaitSync;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+						pxNFeeP->xControl.eState = redoutWaitSync;
+
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+							fprintf(fp,"NFEE %hhu Task:  Command not allowed for this mode (in redoutTransmission)\n", pxNFeeP->ucId);
+						#endif
+					}
+					break;
+				case 0x05: /*Windowing-Mode*/
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sConfig_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+					break;
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		}
+}
+
+
+/* RMAP command received, while waiting for sync*/
+void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
+	tQMask uiCmdFEEL;
+	INT8U ucADDRReg;
+
+	uiCmdFEEL.ulWord = cmd;
+	ucADDRReg = uiCmdFEEL.ucByte[1];
+
+	switch (ucADDRReg) {
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					/*BEfore sync, so it need to end the transmission/double buffer and wait for the sync*/
+					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
+
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+						pxNFeeP->xControl.eState = redoutWaitSync;
+
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+						pxNFeeP->xControl.eState = redoutWaitSync;
+
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x05: /*Windowing-Mode*/
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sConfig_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+					break;
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 	}
 }
 
 
-//todo: Sera implementado apos mudancas nos registradores do RMAP
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPinStandBy( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
 	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+
 	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					/* Real State */
+					pxNFeeP->xControl.eState = sWaitSync;
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode. (Stand-By Mode)\n\n");
+					}
+					#endif
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Already in this mode. (Stand-By Mode)\n\n");
+					}
+					#endif
+					break;
+				case 0x05: /*Windowing-Mode*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sWindowing;
+					/* Real State */
+					pxNFeeP->xControl.eState = sWindowing_Enter;
+					break;
+				case 0x06: /*Full Image Mode*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sFullImage;
+					/* Real State */
+					pxNFeeP->xControl.eState = sFullImage_Enter;
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sParTrap1;
+					/* Real State */
+					pxNFeeP->xControl.eState = sParTrap1_Enter;
+					break;
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sParTrap2;
+					/* Real State */
+					pxNFeeP->xControl.eState = sParTrap2_Enter;
+					break;
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sSerialTrap1;
+					/* Real State */
+					pxNFeeP->xControl.eState = sSerialTrap1_Enter;
+					break;
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					pxNFeeP->xControl.bWatingSync = TRUE;
+					/* Real Fee State (graph) */
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sSerialTrap2;
+					/* Real State */
+					pxNFeeP->xControl.eState = sSerialTrap2_Enter;
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sStandby_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					/* Real State */
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
-	}
+		}
+
 }
 
-//todo: Sera implementado apos mudancas nos registradores do RMAP
+
 /* RMAP command received, while waiting for sync*/
 void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
 	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+
 	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+				case 0x04: /*Stand-By-Mode*/
+				case 0x05: /*Windowing-Mode*/
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Can't perform this command, already processing a changing action.\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sConfig_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 	}
 }
@@ -2465,23 +3427,200 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
 	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-//	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+
 	switch (ucADDRReg) {
-		case 0x08://0x00000008: reg_2_config
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
 			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
 			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
+
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						/* If a transition to On was requested when the FEE is waiting to go to Calibration,
+						 * configure the hardware to not send any data in the next sync */
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+						pxNFeeP->xControl.eState = redoutWaitSync;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+						pxNFeeP->xControl.eState = redoutWaitSync;
+
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x05: /*Windowing-Mode*/
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sConfig_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
 		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 	}
 }
@@ -2493,22 +3632,190 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
 	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+
+
 	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
+
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x05: /*Windowing-Mode*/
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sConfig_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 	}
 }
@@ -2519,22 +3826,200 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 	tQMask uiCmdFEEL;
 	INT8U ucADDRReg;
-	INT8U ucValueReg;
-	INT32U ucValueMasked;
-	INT32U ucValueMasked2;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-		fprintf(fp,"\nNFEE %hhu Task: RMAP msg received\n", pxNFeeP->ucId);
-	}
-	#endif
 	uiCmdFEEL.ulWord = cmd;
 	ucADDRReg = uiCmdFEEL.ucByte[1];
-	ucValueReg = uliRmapReadReg((alt_u32*)(pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr),  ucADDRReg);
+
 	switch (ucADDRReg) {
-		case 0x40://0x00000000: ccd_seq_1_config
+		case 0x00:// reg_0_config (v_start and v_end)
+			pxNFeeP->xMemMap.xCommon.ulVStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVStart;
+			pxNFeeP->xMemMap.xCommon.ulVEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiVEnd;
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+
+			break;
+		case 0x04:// reg_1_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x08:// reg_2_config -> ccd_readout_order[7:0]
+			pxNFeeP->xControl.ucROutOrder[0] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder1stCcd;
+			pxNFeeP->xControl.ucROutOrder[1] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder2ndCcd;
+			pxNFeeP->xControl.ucROutOrder[2] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder3rdCcd;
+			pxNFeeP->xControl.ucROutOrder[3] = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder4thCcd;
+			//val = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdReadoutOrder;
+			break;
+		case 0x0C:// reg_3_config
+			pxNFeeP->xMemMap.xCommon.ulHEnd = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHEnd;
+			break;
+		case 0x10:// reg_4_config -> packet_size[15:0]
+			bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+			pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiPacketSize;
+			bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+
+			break;
+		case 0x14:// reg_5_config -> sync_sel[0] , sensor_sel[1:0], digitise_en[0]
+
+			//todo: Tiago sync_sel[0] not implemented yet
+
+			/*Enable IRQ of FEE Buffer*/
+			bFeebGetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			pxNFeeP->xChannel.xFeeBuffer.xFeebMachineControl.bDigitaliseEn = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->bDigitiseEn;
+			bFeebSetMachineControl(&pxNFeeP->xChannel.xFeeBuffer);
+			break;
+		case 0x18:// reg_6_config
+		case 0x1C:// reg_7_config
+		case 0x20:// reg_8_config
+		case 0x24:// reg_9_config
+		case 0x28:// reg_10_config
+		case 0x2C:// reg_11_config
+		case 0x30:// reg_12_config
+		case 0x34:// reg_13_config
+		case 0x38:// reg_14_config
+		case 0x3C:// reg_15_config
+		case 0x40:// reg_16_config
+		case 0x44:// reg_17_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x48:// reg_18_config
+		case 0x4C:// reg_19_config
+		case 0x50:// reg_20_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not implemented in this version.\n\n", ucADDRReg);
+			}
+			#endif
+			break;
+		case 0x54:// reg_21_config -> h_start[11:0], ccd_mode_config[3:0], reg_21_config_reserved[2:0], clear_error_flag(0)
+			pxNFeeP->xMemMap.xCommon.ulHStart = pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->usiHStart;
+
+			switch ( pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig ) {
+				case 0x00: /*Mode On*/
+					/*BEfore sync, so it need to end the transmission/double buffer and wait for the sync*/
+					if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
+
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+						pxNFeeP->xControl.eState = redoutWaitSync;
+
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x01: /*Full Image Pattern Mode*/
+				case 0x02: /*Windowing-Pattern-Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x04: /*Stand-By-Mode*/
+					if (( pxNFeeP->xControl.eMode == sFullImage ) || (pxNFeeP->xControl.eMode == sWindowing) || (pxNFeeP->xControl.eMode == sParTrap1) || (pxNFeeP->xControl.eMode == sParTrap2) || (pxNFeeP->xControl.eMode == sSerialTrap1) || (pxNFeeP->xControl.eMode == sSerialTrap2)){
+						pxNFeeP->xControl.bWatingSync = TRUE;
+						pxNFeeP->xControl.eNextMode = pxNFeeP->xControl.eLastMode;
+						pxNFeeP->xControl.eState = redoutWaitSync;
+
+						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
+					} else {
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+						}
+						#endif
+					}
+					break;
+				case 0x05: /*Windowing-Mode*/
+				case 0x06: /*Full Image Mode*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x07: /*Performance test mode -windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Performance test mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x08: /*Slow Readout-Windowing*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Slow Readout-Windowing Mode not implemented.\n\n");
+					}
+					#endif
+					break;
+				case 0x09: /*Parallel trap pumping mode 1 - Full-Image*/
+				case 0x0A: /*Parallel trap pumping mode 2 - Full-Image*/
+				case 0x0B: /*Serial trap pumping mode 1- Full Image*/
+				case 0x0C: /*Serial trap pumping mode 2- Full Image*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Transition not allowed from this mode.\n\n");
+					}
+					#endif
+					break;
+				case 0x0D: /*Immediate On-Mode*/
+					pxNFeeP->xControl.bWatingSync = FALSE;
+					pxNFeeP->xControl.eLastMode = sConfig_Enter;
+					pxNFeeP->xControl.eMode = sOn;
+					pxNFeeP->xControl.eNextMode = sOn_Enter;
+					pxNFeeP->xControl.eState = sOn_Enter;
+					break;
+				case 0x0E: /*Reserved*/
+				case 0x0F: /*Reserved*/
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP Mode op: Reserved.\n\n");
+					}
+					#endif
+					break;
+				default:
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+						fprintf(fp,"RMAP ccd_mode_config (%hhu): Mode not defined, keeping in the same mode.\n\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucCcdModeConfig);
+					}
+					#endif
+					break;
+			}
+			break;
+		case 0x58:// reg_22_config
+		case 0x5C:// reg_23_config
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Reserved area.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+				fprintf(fp,"RMAP Reg (%hhu): Cmd not recognised.\n\n", ucADDRReg);
+			}
+			#endif
 			break;
 	}
 }
