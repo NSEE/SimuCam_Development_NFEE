@@ -1272,7 +1272,7 @@ bool bFeebInitCh(TFeebChannel *pxFeebCh, alt_u8 ucCommCh) {
 		switch (ucCommCh) {
 		case eCommSpwCh1:
 			pxFeebCh->xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
-			volatile TCommChannel *vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
+			vpxCommChannel = (TCommChannel *)(COMM_CHANNEL_1_BASE_ADDR);
 			vpxCommChannel->xFeeBuffer.xFeebDevAddr.uliFeebBaseAddr = (alt_u32) COMM_CHANNEL_1_BASE_ADDR;
 			bValidCh = TRUE;
 			break;
