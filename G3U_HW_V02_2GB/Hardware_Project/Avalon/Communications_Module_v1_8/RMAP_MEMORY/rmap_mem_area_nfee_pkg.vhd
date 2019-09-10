@@ -26,9 +26,12 @@ package rmap_mem_area_nfee_pkg is
 
 	-- RMAP Area Config Register 2
 	type t_reg_2_config_wr_reg is record
-		parallel_toi_period  : std_logic_vector(11 downto 0); -- Parallel Toi Period Config Field
-		parallel_clk_overlap : std_logic_vector(11 downto 0); -- Parallel Clock Overlap Config Field
-		ccd_readout_order    : std_logic_vector(7 downto 0); -- CCD Readout Order Config Field
+		parallel_toi_period       : std_logic_vector(11 downto 0); -- Parallel Toi Period Config Field
+		parallel_clk_overlap      : std_logic_vector(11 downto 0); -- Parallel Clock Overlap Config Field
+		ccd_readout_order_1st_ccd : std_logic_vector(1 downto 0); -- CCD Readout Order Config Field (1st CCD)
+		ccd_readout_order_2nd_ccd : std_logic_vector(1 downto 0); -- CCD Readout Order Config Field (2nd CCD)
+		ccd_readout_order_3rd_ccd : std_logic_vector(1 downto 0); -- CCD Readout Order Config Field (3rd CCD)
+		ccd_readout_order_4th_ccd : std_logic_vector(1 downto 0); -- CCD Readout Order Config Field (4th CCD)
 	end record t_reg_2_config_wr_reg;
 
 	-- RMAP Area Config Register 3

@@ -11,6 +11,7 @@ entity fee_master_data_manager_ent is
 		fee_clear_signal_i                   : in  std_logic;
 		fee_stop_signal_i                    : in  std_logic;
 		fee_start_signal_i                   : in  std_logic;
+		fee_digitalise_en_i                  : in  std_logic;
 		fee_manager_sync_i                   : in  std_logic;
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
@@ -437,10 +438,18 @@ begin
 					-- check if the data transmitter is finished
 					if (data_transmitter_finished_i = '1') then
 						-- data transmitter finished
-						-- signal the start of the imgdata cycle
-						imgdata_start_o          <= '1';
-						-- go to img header start
-						s_fee_data_manager_state <= WAITING_IMG_DATA_START;
+						-- TODO: modify later to support windowing
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, normal operation
+							-- signal the start of the imgdata cycle
+							imgdata_start_o          <= '1';
+							-- go to img header start
+							s_fee_data_manager_state <= WAITING_IMG_DATA_START;
+						else
+							-- digitalise disabled, only send hk
+							s_fee_data_manager_state <= FINISH_FEE_OPERATION;
+						end if;
 					end if;
 
 				when WAITING_IMG_DATA_START =>
