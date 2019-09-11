@@ -1,0 +1,9 @@
+set_global_assignment -name IP_TOOL_NAME "ALTIOBUF"
+set_global_assignment -name IP_TOOL_VERSION "18.1"
+set_global_assignment -name IP_GENERATED_DEVICE_FAMILY "{Stratix IV}"
+set_global_assignment -name VHDL_FILE [file join $::quartus(qip_path) "ftdi_inout_io_buffer_39b.vhd"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ftdi_inout_io_buffer_39b.bsf"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ftdi_inout_io_buffer_39b_inst.vhd"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ftdi_inout_io_buffer_39b.inc"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ftdi_inout_io_buffer_39b.cmp"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "ftdi_inout_io_buffer_39b_syn.v"]

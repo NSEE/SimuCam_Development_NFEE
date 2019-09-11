@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.09.09.15:20:14 -->
+ <!-- 2019.09.10.23:32:13 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1568053213</value>
+  <value>1568169133</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -10330,7 +10330,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10340,7 +10340,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH">
    <type>com.altera.entityinterfaces.moduleext.AddressWidthType</type>
-   <value>AddressWidth = 38</value>
+   <value>AddressWidth = 34</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10350,7 +10350,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10360,7 +10360,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH">
    <type>com.altera.entityinterfaces.moduleext.AddressWidthType</type>
-   <value>AddressWidth = 38</value>
+   <value>AddressWidth = 34</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -10690,7 +10690,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_address</name>
     <direction>Output</direction>
-    <width>38</width>
+    <width>34</width>
     <role>address</role>
    </port>
    <port>
@@ -10728,7 +10728,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>USB_3_FTDI_0</moduleName>
     <slaveName>avalon_slave_data</slaveName>
     <name>USB_3_FTDI_0.avalon_slave_data</name>
-    <baseAddress>137438953472</baseAddress>
+    <baseAddress>8589934592</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -11013,7 +11013,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_address</name>
     <direction>Output</direction>
-    <width>38</width>
+    <width>34</width>
     <role>address</role>
    </port>
    <port>
@@ -11045,7 +11045,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>USB_3_FTDI_0</moduleName>
     <slaveName>avalon_slave_data</slaveName>
     <name>USB_3_FTDI_0.avalon_slave_data</name>
-    <baseAddress>137438953472</baseAddress>
+    <baseAddress>8589934592</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -12351,7 +12351,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12361,7 +12361,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH">
    <type>com.altera.entityinterfaces.moduleext.AddressWidthType</type>
-   <value>AddressWidth = 38</value>
+   <value>AddressWidth = 34</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12371,7 +12371,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_MAP">
    <type>com.altera.entityinterfaces.moduleext.AddressMap</type>
-   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></value>
+   <value><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12381,7 +12381,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH">
    <type>com.altera.entityinterfaces.moduleext.AddressWidthType</type>
-   <value>AddressWidth = 38</value>
+   <value>AddressWidth = 34</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -12711,7 +12711,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_read_address</name>
     <direction>Output</direction>
-    <width>38</width>
+    <width>34</width>
     <role>address</role>
    </port>
    <port>
@@ -12749,7 +12749,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>USB_3_FTDI_0</moduleName>
     <slaveName>avalon_slave_data</slaveName>
     <name>USB_3_FTDI_0.avalon_slave_data</name>
-    <baseAddress>137438953472</baseAddress>
+    <baseAddress>8589934592</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -13026,7 +13026,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>mm_write_address</name>
     <direction>Output</direction>
-    <width>38</width>
+    <width>34</width>
     <role>address</role>
    </port>
    <port>
@@ -13058,7 +13058,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>USB_3_FTDI_0</moduleName>
     <slaveName>avalon_slave_data</slaveName>
     <name>USB_3_FTDI_0.avalon_slave_data</name>
-    <baseAddress>137438953472</baseAddress>
+    <baseAddress>8589934592</baseAddress>
     <span>8192</span>
    </memoryBlock>
    <memoryBlock>
@@ -61875,7 +61875,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1568053213</value>
+   <value>1568169133</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -61895,7 +61895,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1568053213</value>
+   <value>1568169133</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -61911,7 +61911,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1568053213</value>
+   <value>1568169133</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -68261,7 +68261,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000002000000000</value>
+   <value>0x0000000200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -68312,7 +68312,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000002000000000</value>
+   <value>0x0000000200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -68465,7 +68465,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000002000000000</value>
+   <value>0x0000000200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -68516,7 +68516,7 @@ parameters are a RESULT of the module parameters. -->
   </parameter>
   <parameter name="baseAddress">
    <type>java.math.BigInteger</type>
-   <value>0x0000002000000000</value>
+   <value>0x0000000200000000</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>

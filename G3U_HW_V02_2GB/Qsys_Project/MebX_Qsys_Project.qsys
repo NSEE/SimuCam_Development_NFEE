@@ -492,12 +492,12 @@
    {
       datum _lockedAddress
       {
-         value = "1";
+         value = "0";
          type = "boolean";
       }
       datum baseAddress
       {
-         value = "137438953472";
+         value = "8589934592";
          type = "String";
       }
    }
@@ -2219,10 +2219,10 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 38" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 38" />
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
@@ -2262,10 +2262,10 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX230KF40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 38" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x2000000000' end='0x2000002000' /></address-map>]]></parameter>
-  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 38" />
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
   <parameter name="CHANNEL_ENABLE" value="0" />
@@ -4102,7 +4102,7 @@
    start="dma_DDR_M2.mm_read"
    end="USB_3_FTDI_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000002000000000" />
+  <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4111,7 +4111,7 @@
    start="dma_DDR_M1.mm_read"
    end="USB_3_FTDI_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000002000000000" />
+  <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4426,7 +4426,7 @@
    start="dma_DDR_M2.mm_write"
    end="USB_3_FTDI_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000002000000000" />
+  <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -4435,7 +4435,7 @@
    start="dma_DDR_M1.mm_write"
    end="USB_3_FTDI_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
-  <parameter name="baseAddress" value="0x0000002000000000" />
+  <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection

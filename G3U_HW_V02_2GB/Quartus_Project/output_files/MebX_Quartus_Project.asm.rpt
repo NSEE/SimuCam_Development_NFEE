@@ -1,5 +1,5 @@
 Assembler report for MebX_Quartus_Project
-Mon Sep 09 16:05:29 2019
+Wed Sep 11 12:04:57 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -38,7 +38,7 @@ refer to the applicable agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Mon Sep 09 16:05:29 2019 ;
+; Assembler Status      ; Successful - Wed Sep 11 12:04:57 2019 ;
 ; Revision Name         ; MebX_Quartus_Project                  ;
 ; Top-level Entity Name ; MebX_TopLevel                         ;
 ; Family                ; Stratix IV                            ;
@@ -78,8 +78,8 @@ refer to the applicable agreement for further details.
 +----------------+---------------------------------------------------------------------------------------------------------------------------------------+
 ; Option         ; Setting                                                                                                                               ;
 +----------------+---------------------------------------------------------------------------------------------------------------------------------------+
-; JTAG usercode  ; 0x099F4127                                                                                                                            ;
-; Checksum       ; 0x099F4127                                                                                                                            ;
+; JTAG usercode  ; 0x09A1D8F2                                                                                                                            ;
+; Checksum       ; 0x09A1D8F2                                                                                                                            ;
 +----------------+---------------------------------------------------------------------------------------------------------------------------------------+
 
 
@@ -89,14 +89,14 @@ refer to the applicable agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus Prime Assembler
     Info: Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
-    Info: Processing started: Mon Sep 09 16:05:00 2019
+    Info: Processing started: Wed Sep 11 12:04:22 2019
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off MebX_Quartus_Project -c MebX_Quartus_Project
 Info (115031): Writing out detailed assembly data for power analysis
 Info (115030): Assembler is generating device programming files
 Info: Quartus Prime Assembler was successful. 0 errors, 0 warnings
-    Info: Peak virtual memory: 1080 megabytes
-    Info: Processing ended: Mon Sep 09 16:05:30 2019
-    Info: Elapsed time: 00:00:30
-    Info: Total CPU time (on all processors): 00:00:28
+    Info: Peak virtual memory: 1092 megabytes
+    Info: Processing ended: Wed Sep 11 12:04:57 2019
+    Info: Elapsed time: 00:00:35
+    Info: Total CPU time (on all processors): 00:00:30
 
 

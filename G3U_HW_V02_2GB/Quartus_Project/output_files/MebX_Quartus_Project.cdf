@@ -4,7 +4,7 @@ JedecChain;
 	DefaultMfr(6E);
 
 	P ActionCode(Cfg)
-		Device PartName(EP4SGX230KF40) Path("C:/Users/rfranca/Development/GitLab/simutemp2/G3U_HW_V02_2GB/Quartus_Project/output_files/") File("MebX_Quartus_Project.sof") MfrSpec(OpMask(1));
+		Device PartName(EP4SGX230KF40) Path("C:/Users/rfranca/Development/GitHub/SimuCam_Development/G3U_HW_V02_2GB/Quartus_Project/output_files/") File("MebX_Quartus_Project.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

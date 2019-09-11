@@ -115,7 +115,7 @@ int main() {
 	pxFtdi->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn = TRUE;
 	pxFtdi->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = TRUE;
 	pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn = TRUE;
-	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
+//	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
 	vFtdiInitIrq();
 
 	usleep(1*1000*1000);
@@ -138,9 +138,9 @@ int main() {
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
 			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 100, 100, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 50, 50, usiExpNumCnt, FALSE, FALSE);
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 100, 100, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 50, 50, usiExpNumCnt, FALSE, FALSE);
 			}
 		}
 
@@ -552,6 +552,39 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiExpNum;
 	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = 0;
 	pxFtdi->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
+
+//	while (1) {}
+
+//	printf("0x00: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn)));
+//	printf("0x01: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuff0RdableIrqEn)));
+//	printf("0x02: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuff1RdableIrqEn)));
+//	printf("0x03: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn)));
+//	printf("0x04: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn)));
+//	printf("0x05: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn)));
+//	printf("0x06: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag)));
+//	printf("0x07: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag)));
+//	printf("0x08: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag)));
+//	printf("0x09: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuffLastEmptyIrqFlag)));
+//	printf("0x0A: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxCommErrIrqFlag)));
+//	printf("0x0B: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr)));
+//	printf("0x0C: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr)));
+//	printf("0x0D: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr)));
+//	printf("0x0E: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr)));
+//	printf("0x0F: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr)));
+//	printf("0x10: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleStart)));
+//	printf("0x11: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleStop)));
+//	printf("0x12: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleClear)));
+//	printf("0x13: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleLoopbackEn)));
+//	printf("0x14: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout)));
+//	printf("0x14: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber)));
+//	printf("0x14: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber)));
+//	printf("0x15: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide)));
+//	printf("0x15: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight)));
+//	printf("0x16: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth)));
+//	printf("0x16: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber)));
+//	printf("0x17: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bRequestHalfCcd)));
+//	printf("0x18: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bAbortHalfCcdReq)));
+//	printf("0x19: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bRstHalfCcdController)));
 
 	// Wait for an error or Rx Data
 	bool bStopRx = FALSE;

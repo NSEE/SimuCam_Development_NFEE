@@ -17,6 +17,9 @@ use work.ftdi_config_avalon_mm_registers_pkg.all;
 use work.ftdi_data_avalon_mm_pkg.all;
 
 entity USB_3_FTDI_top is
+	generic(
+		g_FTDI_TESTBENCH_MODE : std_logic := '0'
+	);
 	port(
 		clock_sink_clk                  : in    std_logic                      := '0'; --          --            clock_sink.clk
 		reset_sink_reset                : in    std_logic                      := '0'; --          --            reset_sink.reset
@@ -162,32 +165,51 @@ architecture rtl of USB_3_FTDI_top is
 
 begin
 
-	-- Config Avalon MM Read Instantiation
-	ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
-		port map(
-			clk_i                               => a_avs_clock,
-			rst_i                               => a_reset,
-			ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
-			ftdi_config_avalon_mm_i.read        => avalon_slave_config_read,
-			ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
-			ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata,
-			ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
-			ftdi_config_wr_regs_i               => s_config_write_registers,
-			ftdi_config_rd_regs_i               => s_config_read_registers
-		);
+--	-- Config Avalon MM Testbench Stimulli Generate
+--	g_ftdi_avs_config_testbench_stimulli : if (g_FTDI_TESTBENCH_MODE = '1') generate
+--
+--		-- Config Avalon MM Testbench Stimulli
+--		ftdi_avs_config_stimulli_inst : entity work.ftdi_avs_config_stimulli
+--			port map(
+--				clk_i                => a_avs_clock,
+--				rst_i                => a_reset,
+--				avs_config_rd_regs_i => s_config_read_registers,
+--				avs_config_wr_regs_o => s_config_write_registers
+--			);
+--
+--	end generate g_ftdi_avs_config_testbench_stimulli;
 
-	-- Config Avalon MM Write Instantiation
-	ftdi_config_avalon_mm_write_ent_inst : entity work.ftdi_config_avalon_mm_write_ent
-		port map(
-			clk_i                               => a_avs_clock,
-			rst_i                               => a_reset,
-			ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
-			ftdi_config_avalon_mm_i.write       => avalon_slave_config_write,
-			ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata,
-			ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
-			ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
-			ftdi_config_wr_regs_o               => s_config_write_registers
-		);
+	-- Config Avalon MM Read and Write Generate
+--	g_ftdi_avs_config_read_write : if (g_FTDI_TESTBENCH_MODE = '0') generate
+
+		-- Config Avalon MM Read Instantiation
+		ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
+			port map(
+				clk_i                               => a_avs_clock,
+				rst_i                               => a_reset,
+				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.read        => avalon_slave_config_read,
+				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata,
+				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
+				ftdi_config_wr_regs_i               => s_config_write_registers,
+				ftdi_config_rd_regs_i               => s_config_read_registers
+			);
+
+		-- Config Avalon MM Write Instantiation
+		ftdi_config_avalon_mm_write_ent_inst : entity work.ftdi_config_avalon_mm_write_ent
+			port map(
+				clk_i                               => a_avs_clock,
+				rst_i                               => a_reset,
+				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.write       => avalon_slave_config_write,
+				ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata,
+				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
+				ftdi_config_wr_regs_o               => s_config_write_registers
+			);
+
+--	end generate g_ftdi_avs_config_read_write;
 
 	-- Tx Data Avalon MM Write Instantiation
 	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
@@ -679,15 +701,9 @@ begin
 		end if;
 	end process p_rx_buffer_irq_manager;
 	ftdi_interrupt_sender_irq <= ('0') when (a_reset = '1')
-		else ('1') when (
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or 
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or 
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or 
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or
-		(s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1')
-		)
+		else ('1') when ((s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1'))
 		else ('0');
-	
+
 	-- Signals Assignments --
 
 	-- Config Avalon Assignments

@@ -101,8 +101,6 @@ begin
 			ftdi_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop                 <= '0';
 			-- FTDI Module Control Register : Clear Module Memories
 			ftdi_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear                <= '0';
-			-- FTDI Module Control Register : Enable Module USB Loopback
-			ftdi_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_loopback_en          <= '0';
 			-- FTDI Half-CCD Request Control Register : Request Half-CCD
 			ftdi_config_wr_regs_o.hccd_req_control_reg.req_request_hccd                    <= '0';
 			-- FTDI Half-CCD Request Control Register : Abort Half-CCD Request
@@ -217,35 +215,29 @@ begin
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_req_timeout(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
 					end if;
+					-- FTDI Half-CCD Request Control Register : Half-CCD FEE Number
+					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_fee_number <= ftdi_config_avalon_mm_i.writedata(18 downto 16);
+					end if;
+					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Number
+					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_number <= ftdi_config_avalon_mm_i.writedata(25 downto 24);
+					end if;
 
 				when (16#15#) =>
-					-- FTDI Half-CCD Request Control Register : Half-CCD FEE Number
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_fee_number <= ftdi_config_avalon_mm_i.writedata(2 downto 0);
-					end if;
-
-				when (16#16#) =>
-					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Number
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_number <= ftdi_config_avalon_mm_i.writedata(1 downto 0);
-					end if;
-
-				when (16#17#) =>
 					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Side
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_side <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
-
-				when (16#18#) =>
 					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Height
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
 					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(12 downto 8) <= ftdi_config_avalon_mm_i.writedata(12 downto 8);
+					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(12 downto 8) <= ftdi_config_avalon_mm_i.writedata(28 downto 24);
 					end if;
 
-				when (16#19#) =>
+				when (16#16#) =>
 					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Width
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
@@ -253,29 +245,27 @@ begin
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width(11 downto 8) <= ftdi_config_avalon_mm_i.writedata(11 downto 8);
 					end if;
-
-				when (16#1A#) =>
 					-- FTDI Half-CCD Request Control Register : Half-CCD Exposure Number
-					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(7 downto 0);
+					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
 					end if;
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
+					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number(15 downto 8) <= ftdi_config_avalon_mm_i.writedata(31 downto 24);
 					end if;
 
-				when (16#1B#) =>
+				when (16#17#) =>
 					-- FTDI Half-CCD Request Control Register : Request Half-CCD
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_request_hccd <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
-				when (16#1C#) =>
+				when (16#18#) =>
 					-- FTDI Half-CCD Request Control Register : Abort Half-CCD Request
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_abort_hccd_req <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 
-				when (16#1D#) =>
+				when (16#19#) =>
 					-- FTDI Half-CCD Request Control Register : Reset Half-CCD Controller
 					if (ftdi_config_avalon_mm_i.byteenable(0) = '1') then
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_reset_hccd_controller <= ftdi_config_avalon_mm_i.writedata(0);
