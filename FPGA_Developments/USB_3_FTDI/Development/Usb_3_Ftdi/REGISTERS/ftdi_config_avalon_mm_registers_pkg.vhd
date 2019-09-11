@@ -8,7 +8,7 @@ package ftdi_config_avalon_mm_registers_pkg is
 
 	-- Allowed Addresses
 	constant c_AVALON_MM_CONFIG_MAX_ADDR : natural range 0 to 255 := 16#00#;
-	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#53#;
+	constant c_AVALON_MM_CONFIG_MIN_ADDR : natural range 0 to 255 := 16#4C#;
 
 	-- Registers Types
 

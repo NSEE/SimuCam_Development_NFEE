@@ -45,8 +45,6 @@ architecture RTL of testbench_top is
 	signal s_tx_avalon_slave_data_address : std_logic_vector(7 downto 0);
 	signal s_rx_avalon_slave_data_address : std_logic_vector(7 downto 0);
 
-	signal s_avs_config_wr_regs : t_ftdi_config_wr_registers;
-
 	--dummy
 
 begin
@@ -54,13 +52,6 @@ begin
 	clk100Avs  <= not clk100Avs after 5 ns; -- 100 MHz
 	clk100Ftdi <= not clk100Ftdi after 5 ns; -- 100 MHz
 	rst        <= '0' after 100 ns;
-
-	avs_config_stimulli_inst : entity work.avs_config_stimulli
-		port map(
-			clk_i                => clk100Avs,
-			rst_i                => rst,
-			avs_config_wr_regs_o => s_avs_config_wr_regs
-		);
 
 	tx_data_stimulli_inst : entity work.tx_data_stimulli
 		generic map(
@@ -108,8 +99,10 @@ begin
 		);
 
 	USB_3_FTDI_top_inst : entity work.USB_3_FTDI_top
+		generic map(
+			g_FTDI_TESTBENCH_MODE => '1'
+		)
 		port map(
-			testbench_debug_wr_regs         => s_avs_config_wr_regs,
 			clock_sink_clk                  => clk100Avs,
 			reset_sink_reset                => rst,
 			umft_data_bus                   => s_umft_data_bus,

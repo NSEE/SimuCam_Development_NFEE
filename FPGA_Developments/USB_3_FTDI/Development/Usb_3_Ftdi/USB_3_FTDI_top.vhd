@@ -17,10 +17,10 @@ use work.ftdi_config_avalon_mm_registers_pkg.all;
 use work.ftdi_data_avalon_mm_pkg.all;
 
 entity USB_3_FTDI_top is
+	generic(
+		g_FTDI_TESTBENCH_MODE : std_logic := '0'
+	);
 	port(
-		-- TODO: Debug/Testbench Purposes, remove for Shyntesis [rfranca] --
-		testbench_debug_wr_regs         : in    t_ftdi_config_wr_registers;
-		--------------------------------------------------------------------
 		clock_sink_clk                  : in    std_logic                      := '0'; --          --            clock_sink.clk
 		reset_sink_reset                : in    std_logic                      := '0'; --          --            reset_sink.reset
 		umft_data_bus                   : inout std_logic_vector(31 downto 0)  := (others => 'Z'); --     conduit_umft_pins.umft_data_signal
@@ -165,32 +165,51 @@ architecture rtl of USB_3_FTDI_top is
 
 begin
 
-	-- Config Avalon MM Read Instantiation
-	ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
-		port map(
-			clk_i                               => a_avs_clock,
-			rst_i                               => a_reset,
-			ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
-			ftdi_config_avalon_mm_i.read        => avalon_slave_config_read,
-			ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
-			ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata,
-			ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
-			ftdi_config_wr_regs_i               => s_config_write_registers,
-			ftdi_config_rd_regs_i               => s_config_read_registers
-		);
+	-- Config Avalon MM Testbench Stimulli Generate
+	g_ftdi_avs_config_testbench_stimulli : if (g_FTDI_TESTBENCH_MODE = '1') generate
 
-	-- Config Avalon MM Write Instantiation
-	ftdi_config_avalon_mm_write_ent_inst : entity work.ftdi_config_avalon_mm_write_ent
-		port map(
-			clk_i                               => a_avs_clock,
-			rst_i                               => a_reset,
-			ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
-			ftdi_config_avalon_mm_i.write       => avalon_slave_config_write,
-			ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata,
-			ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
-			ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
-			ftdi_config_wr_regs_o               => s_config_write_registers
-		);
+		-- Config Avalon MM Testbench Stimulli
+		ftdi_avs_config_stimulli_inst : entity work.ftdi_avs_config_stimulli
+			port map(
+				clk_i                => a_avs_clock,
+				rst_i                => a_reset,
+				avs_config_rd_regs_i => s_config_read_registers,
+				avs_config_wr_regs_o => s_config_write_registers
+			);
+
+	end generate g_ftdi_avs_config_testbench_stimulli;
+
+	-- Config Avalon MM Read and Write Generate
+	g_ftdi_avs_config_read_write : if (g_FTDI_TESTBENCH_MODE = '0') generate
+
+		-- Config Avalon MM Read Instantiation
+		ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
+			port map(
+				clk_i                               => a_avs_clock,
+				rst_i                               => a_reset,
+				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.read        => avalon_slave_config_read,
+				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata,
+				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
+				ftdi_config_wr_regs_i               => s_config_write_registers,
+				ftdi_config_rd_regs_i               => s_config_read_registers
+			);
+
+		-- Config Avalon MM Write Instantiation
+		ftdi_config_avalon_mm_write_ent_inst : entity work.ftdi_config_avalon_mm_write_ent
+			port map(
+				clk_i                               => a_avs_clock,
+				rst_i                               => a_reset,
+				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.write       => avalon_slave_config_write,
+				ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata,
+				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
+				ftdi_config_wr_regs_o               => s_config_write_registers
+			);
+
+	end generate g_ftdi_avs_config_read_write;
 
 	-- Tx Data Avalon MM Write Instantiation
 	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
@@ -213,9 +232,9 @@ begin
 		port map(
 			clk_i                      => a_avs_clock,
 			rst_i                      => a_reset,
-			double_buffer_clear_i      => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear,
-			double_buffer_stop_i       => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop,
-			double_buffer_start_i      => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start,
+			double_buffer_clear_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
+			double_buffer_stop_i       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			double_buffer_start_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 			buffer_data_loaded_i       => s_tx_dbuffer_data_loaded,
 			buffer_cfg_length_i        => "100000000",
 			buffer_wrdata_i            => s_tx_dbuffer_wrdata,
@@ -254,8 +273,8 @@ begin
 	--		port map(
 	--			clk_i                         => a_avs_clock,
 	--			rst_i                         => a_reset,
-	--			data_tx_stop_i                => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop,
-	--			data_tx_start_i               => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start,
+	--			data_tx_stop_i                => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+	--			data_tx_start_i               => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 	--			buffer_stat_empty_i           => s_tx_dbuffer_stat_empty,
 	--			buffer_rddata_i               => s_tx_dbuffer_rddata,
 	--			buffer_rdready_i              => s_tx_dbuffer_rdready,
@@ -289,9 +308,9 @@ begin
 		port map(
 			clk_i                      => a_avs_clock,
 			rst_i                      => a_reset,
-			double_buffer_clear_i      => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear,
-			double_buffer_stop_i       => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop,
-			double_buffer_start_i      => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start,
+			double_buffer_clear_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
+			double_buffer_stop_i       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			double_buffer_start_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 			buffer_data_loaded_i       => s_rx_dbuffer_data_loaded,
 			buffer_cfg_length_i        => "100000000",
 			buffer_wrdata_i            => s_rx_dbuffer_wrdata,
@@ -330,8 +349,8 @@ begin
 	--		port map(
 	--			clk_i                         => a_avs_clock,
 	--			rst_i                         => a_reset,
-	--			data_rx_stop_i                => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop,
-	--			data_rx_start_i               => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start,
+	--			data_rx_stop_i                => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+	--			data_rx_start_i               => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 	--			rx_dc_data_fifo_rddata_data_i => s_avalon_rx_dc_data_fifo_rddata_data,
 	--			rx_dc_data_fifo_rddata_be_i   => s_avalon_rx_dc_data_fifo_rddata_be,
 	--			rx_dc_data_fifo_rdempty_i     => s_avalon_rx_dc_data_fifo_rdempty,
@@ -349,8 +368,8 @@ begin
 	--		port map(
 	--			clk_i                                              => a_avs_clock,
 	--			rst_i                                              => a_reset,
-	--			data_stop_i                                        => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop,
-	--			data_start_i                                       => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start,
+	--			data_stop_i                                        => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+	--			data_start_i                                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 	--			half_ccd_request_start_i                           => '1',
 	--			half_ccd_request_data_i.image_selection.fee_number => std_logic_vector(to_unsigned(3, 3)),
 	--			half_ccd_request_data_i.image_selection.ccd_number => std_logic_vector(to_unsigned(2, 2)),
@@ -387,18 +406,18 @@ begin
 		port map(
 			clk_i                                => a_avs_clock,
 			rst_i                                => a_reset,
-			ftdi_module_stop_i                   => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop,
-			ftdi_module_start_i                  => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start,
-			req_half_ccd_request_timeout_i       => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_req_timeout,
-			req_half_ccd_fee_number_i            => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_fee_number,
-			req_half_ccd_ccd_number_i            => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_ccd_number,
-			req_half_ccd_ccd_side_i              => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_ccd_side,
-			req_half_ccd_height_i                => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_ccd_height,
-			req_half_ccd_width_i                 => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_ccd_width,
-			req_half_ccd_exposure_number_i       => testbench_debug_wr_regs.hccd_req_control_reg.req_hccd_exposure_number,
-			req_half_ccd_request_i               => testbench_debug_wr_regs.hccd_req_control_reg.req_request_hccd,
-			req_half_ccd_abort_request_i         => testbench_debug_wr_regs.hccd_req_control_reg.req_abort_hccd_req,
-			req_half_ccd_reset_controller_i      => testbench_debug_wr_regs.hccd_req_control_reg.req_reset_hccd_controller,
+			ftdi_module_stop_i                   => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			ftdi_module_start_i                  => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			req_half_ccd_request_timeout_i       => s_config_write_registers.hccd_req_control_reg.req_hccd_req_timeout,
+			req_half_ccd_fee_number_i            => s_config_write_registers.hccd_req_control_reg.req_hccd_fee_number,
+			req_half_ccd_ccd_number_i            => s_config_write_registers.hccd_req_control_reg.req_hccd_ccd_number,
+			req_half_ccd_ccd_side_i              => s_config_write_registers.hccd_req_control_reg.req_hccd_ccd_side,
+			req_half_ccd_height_i                => s_config_write_registers.hccd_req_control_reg.req_hccd_ccd_height,
+			req_half_ccd_width_i                 => s_config_write_registers.hccd_req_control_reg.req_hccd_ccd_width,
+			req_half_ccd_exposure_number_i       => s_config_write_registers.hccd_req_control_reg.req_hccd_exposure_number,
+			req_half_ccd_request_i               => s_config_write_registers.hccd_req_control_reg.req_request_hccd,
+			req_half_ccd_abort_request_i         => s_config_write_registers.hccd_req_control_reg.req_abort_hccd_req,
+			req_half_ccd_reset_controller_i      => s_config_write_registers.hccd_req_control_reg.req_reset_hccd_controller,
 			tx_dc_data_fifo_wrempty_i            => s_avalon_tx_dc_data_fifo_wrempty,
 			tx_dc_data_fifo_wrfull_i             => s_avalon_tx_dc_data_fifo_wrfull,
 			tx_dc_data_fifo_wrusedw_i            => s_avalon_tx_dc_data_fifo_wrusedw,
@@ -515,7 +534,7 @@ begin
 		port map(
 			clk_i                         => a_avs_clock,
 			rst_i                         => a_reset,
-			clr_i                         => testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear,
+			clr_i                         => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
 			umft_rxf_n_pin_i              => umft_rxf_n_pin,
 			umft_clock_pin_i              => umft_clock_pin,
 			umft_txe_n_pin_i              => umft_txe_n_pin,
@@ -551,7 +570,7 @@ begin
 	--			data(35 downto 4) => s_tx_dc_data_fifo_wrdata_data,
 	--			data(3 downto 0)  => s_tx_dc_data_fifo_wrdata_be,
 	--			rdclk             => a_avs_clock,
-	--			rdreq             => testbench_debug_wr_regs.test_fifo_control_reg.tx_rdreq,
+	--			rdreq             => s_config_write_registers.test_fifo_control_reg.tx_rdreq,
 	--			wrclk             => a_avs_clock,
 	--			wrreq             => s_tx_dc_data_fifo_wrreq,
 	--			q(35 downto 4)    => s_config_read_registers.test_fifo_status_reg.tx_rddata_data,
@@ -563,18 +582,18 @@ begin
 	--			wrfull            => s_tx_dc_data_fifo_wrfull,
 	--			wrusedw           => s_tx_dc_data_fifo_wrusedw
 	--		);
-	--	s_test_tx_dc_data_fifo_aclr <= (a_reset) or (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear);
+	--	s_test_tx_dc_data_fifo_aclr <= (a_reset) or (s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear);
 	--
 	--	-- rx dc data fifo instantiation, for data synchronization (fpga <-- umft601a)
 	--	ftdi_rx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
 	--		port map(
 	--			aclr              => s_test_rx_dc_data_fifo_aclr,
-	--			data(35 downto 4) => testbench_debug_wr_regs.test_fifo_control_reg.rx_wrdata_data,
-	--			data(3 downto 0)  => testbench_debug_wr_regs.test_fifo_control_reg.rx_wrdata_be,
+	--			data(35 downto 4) => s_config_write_registers.test_fifo_control_reg.rx_wrdata_data,
+	--			data(3 downto 0)  => s_config_write_registers.test_fifo_control_reg.rx_wrdata_be,
 	--			rdclk             => a_avs_clock,
 	--			rdreq             => s_rx_dc_data_fifo_rdreq,
 	--			wrclk             => a_avs_clock,
-	--			wrreq             => testbench_debug_wr_regs.test_fifo_control_reg.rx_wrreq,
+	--			wrreq             => s_config_write_registers.test_fifo_control_reg.rx_wrreq,
 	--			q(35 downto 4)    => s_rx_dc_data_fifo_rddata_data,
 	--			q(3 downto 0)     => s_rx_dc_data_fifo_rddata_be,
 	--			rdempty           => s_rx_dc_data_fifo_rdempty,
@@ -584,7 +603,7 @@ begin
 	--			wrfull            => s_config_read_registers.test_fifo_status_reg.rx_wrfull,
 	--			wrusedw           => s_config_read_registers.test_fifo_status_reg.rx_wrusedw
 	--		);
-	--	s_test_rx_dc_data_fifo_aclr <= (a_reset) or (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear);
+	--	s_test_rx_dc_data_fifo_aclr <= (a_reset) or (s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear);
 
 	-- IRQ Manager (need to become a module)
 	p_rx_buffer_irq_manager : process(a_avs_clock, a_reset) is
@@ -605,9 +624,9 @@ begin
 			v_last_buffer_full                                                     := '0';
 		elsif rising_edge(a_avs_clock) then
 
-			if (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_start = '1') then
+			if (s_config_write_registers.ftdi_module_control_reg.ftdi_module_start = '1') then
 				v_started := '1';
-			elsif ((testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_stop = '1') or (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_clear = '1')) then
+			elsif ((s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop = '1') or (s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear = '1')) then
 				v_started := '0';
 			end if;
 
@@ -620,50 +639,50 @@ begin
 				s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
 			else
 				-- clear flags --
-				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr = '1') then
+				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr = '1') then
 					s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '0';
 				end if;
-				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr = '1') then
+				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_buffer_1_rdable_irq_flag_clr = '1') then
 					s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '0';
 				end if;
-				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_last_rdable_irq_flag_clr = '1') then
+				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_buffer_last_rdable_irq_flag_clr = '1') then
 					s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
 				end if;
-				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr = '1') then
+				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_buffer_last_empty_irq_flag_clr = '1') then
 					s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '0';
 				end if;
-				if (testbench_debug_wr_regs.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr = '1') then
+				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_comm_err_irq_flag_clr = '1') then
 					s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag <= '0';
 				end if;
 				-- set flags --
 				-- check if the global interrupt is enabled
-				if (testbench_debug_wr_regs.ftdi_irq_control_reg.ftdi_global_irq_en = '1') then
-					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_0_rdable_irq_en = '1') then
+				if (s_config_write_registers.ftdi_irq_control_reg.ftdi_global_irq_en = '1') then
+					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_0_rdable_irq_en = '1') then
 						if ((s_rx_buffer_0_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '0')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '1';
 						end if;
 					end if;
-					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_1_rdable_irq_en = '1') then
+					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_1_rdable_irq_en = '1') then
 						if ((s_rx_buffer_1_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '0')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '1';
 						end if;
 
 					end if;
-					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_last_rdable_irq_en = '1') then
+					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_rdable_irq_en = '1') then
 						if ((s_rx_dbuffer_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '1')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '1';
 							v_last_buffer_full                                                     := '1';
 						end if;
 
 					end if;
-					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_buffer_last_empty_irq_en = '1') then
+					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_empty_irq_en = '1') then
 						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (v_last_buffer_full = '1')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '1';
 							v_last_buffer_full                                                    := '0';
 						end if;
 
 					end if;
-					if (testbench_debug_wr_regs.rx_irq_control_reg.rx_comm_err_irq_en = '1') then
+					if (s_config_write_registers.rx_irq_control_reg.rx_comm_err_irq_en = '1') then
 						if ((s_rx_comm_err_delayed = '0') and (s_config_read_registers.rx_comm_error_reg.rx_comm_err_state = '1')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag <= '1';
 						end if;
@@ -682,15 +701,9 @@ begin
 		end if;
 	end process p_rx_buffer_irq_manager;
 	ftdi_interrupt_sender_irq <= ('0') when (a_reset = '1')
-		else ('1') when (
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or 
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or 
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or 
-		(s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or
-		(s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1')
-		)
+		else ('1') when ((s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1'))
 		else ('0');
-	
+
 	-- Signals Assignments --
 
 	-- Config Avalon Assignments
@@ -700,8 +713,8 @@ begin
 	avalon_slave_data_waitrequest <= ((s_data_avalon_mm_read_waitrequest) and (s_data_avalon_mm_write_waitrequest)) when (a_reset = '0') else ('1');
 
 	-- Tx/Rx Mux Assignments
-	s_tx_mux_select <= ("01") when (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
-	s_rx_mux_select <= ("01") when (testbench_debug_wr_regs.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
+	s_tx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
+	s_rx_mux_select <= ("01") when (s_config_write_registers.ftdi_module_control_reg.ftdi_module_loopback_en = '1') else ("00");
 
 	-- Reserved Signals Assignments
 	s_config_read_registers.reserved_reg.tx_buffer_0_empty_irq    <= '0';

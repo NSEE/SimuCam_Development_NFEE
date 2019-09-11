@@ -4,22 +4,23 @@ use ieee.numeric_std.all;
 
 use work.ftdi_config_avalon_mm_registers_pkg.all;
 
-entity avs_config_stimulli is
+entity ftdi_avs_config_stimulli is
 	port(
 		clk_i                : in  std_logic;
 		rst_i                : in  std_logic;
+		avs_config_rd_regs_i : in  t_ftdi_config_rd_registers;
 		avs_config_wr_regs_o : out t_ftdi_config_wr_registers
 	);
-end entity avs_config_stimulli;
+end entity ftdi_avs_config_stimulli;
 
-architecture RTL of avs_config_stimulli is
+architecture RTL of ftdi_avs_config_stimulli is
 
 	signal s_counter : natural := 0;
 	signal s_times   : natural := 0;
 
 begin
 
-	p_avs_config_stimulli : process(clk_i, rst_i) is
+	p_ftdi_avs_config_stimulli : process(clk_i, rst_i) is
 		procedure p_reset_registers is
 		begin
 
@@ -98,8 +99,6 @@ begin
 			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_stop                 <= '0';
 			-- FTDI Module Control Register : Clear Module Memories
 			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_clear                <= '0';
-			-- FTDI Module Control Register : Enable Module USB Loopback
-			avs_config_wr_regs_o.ftdi_module_control_reg.ftdi_module_loopback_en          <= '0';
 			-- FTDI Half-CCD Request Control Register : Request Half-CCD
 			avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd                    <= '0';
 			-- FTDI Half-CCD Request Control Register : Abort Half-CCD Request
@@ -198,6 +197,6 @@ begin
 			end case;
 
 		end if;
-	end process p_avs_config_stimulli;
+	end process p_ftdi_avs_config_stimulli;
 
 end architecture RTL;
