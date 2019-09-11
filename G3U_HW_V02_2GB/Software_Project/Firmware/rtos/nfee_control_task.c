@@ -115,7 +115,7 @@ void vNFeeControlTask(void *task_data) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
 						ucSide = uiCmdNFC.ucByte[1];
 						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
-							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, ucSide, ucFeeInstL );
+							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, ucSide, ucFeeInstL);
 							if ( bCmdSent == TRUE ) {
 								bDmaBack = FALSE;
 								ucWhoGetDMA = ucFeeInstL;

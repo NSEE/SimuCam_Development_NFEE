@@ -56,7 +56,7 @@ void vSimMebTask(void *task_data) {
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
-				vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
+				//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
 
@@ -77,17 +77,29 @@ void vSimMebTask(void *task_data) {
 
 			case sMebConfig:
 
+/*				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+					fprintf(fp,"MEB Task: sMebConfig - Waiting for command.");
+				#endif
+				break;*/
+
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
 					/* Threat the command received in the Queue Message */
 					vPerformActionMebInConfig( uiCmdMeb.ulWord, pxMebC);
 				} else {
-					/* Should never get here (blocking operation), critical fail */
+					/* Should never get here (blocking operation), critical failure */
 					vCouldNotGetCmdQueueMeb();
 				}
 				break;
 
 			case sMebRun:
+
+/*				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+					fprintf(fp,"MEB Task: sMebRun - Waiting for command.");
+				#endif
+				break;*/
 
 				uiCmdMeb.ulWord = (unsigned int)OSQPend(xMebQ, 0, &error_code); /* Blocking operation */
 				if ( error_code == OS_ERR_NONE ) {
@@ -193,6 +205,11 @@ void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLoc
 
 	uiCmdLocal.ulWord = uiCmdParam;
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+	fprintf(fp,"MEB Task: vPerformActionMebInConfig - CMD.ulWord:0x%08x ",uiCmdLocal.ulWord );
+#endif
+
 	/* Check if the command is for MEB */
 	if ( uiCmdLocal.ucByte[3] == M_MEB_ADDR ) {
 
@@ -258,6 +275,11 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	unsigned char ucIL;
 	static tTMPus xPusLocal;
 
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+		fprintf(fp,"MEB Task: vPusMebTask\n");
+	#endif
+
 	bSuccess = FALSE;
 	OSMutexPend(xMutexPus, 2, &error_code);
 	if ( error_code == OS_ERR_NONE ) {
@@ -276,17 +298,24 @@ void vPusMebTask( TSimucam_MEB *pxMebCLocal ) {
 	} else
 		vCouldNotGetMutexMebPus();
 
-	if ( bSuccess ) {
+	if ( bSuccess == TRUE ) {
 		switch (pxMebCLocal->eMode) {
 			case sMebConfig:
+			case sMebToConfig:
 				vPusMebInTaskConfigMode(pxMebCLocal, &xPusLocal);
 				break;
 			case sMebRun:
+			case sMebToRun:
 				vPusMebInTaskRunningMode(pxMebCLocal, &xPusLocal);
 				break;
 			default:
 				break;
 		}
+	} else {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+			fprintf(fp,"MEB Task: vPusMebTask - Don't found Pus command in xPus.");
+		#endif
 	}
 }
 
@@ -319,6 +348,11 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
 	unsigned short int param1 =0;
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+		fprintf(fp,"MEB Task: vPusType250conf - Command: %hhu.", xPusL->usiSubType);
+	#endif
 
 	param1 = xPusL->usiValues[0];
 
@@ -520,7 +554,11 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
 			break;
-		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_1_ENTER */
+		/* NFEE_ON */
+		case 11:
+			/* Using QMASK send to NfeeControl that will foward */
+			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_ON, 0, usiFeeInstL );
+			break;
 		case 12:
 			/* Using QMASK send to NfeeControl that will foward */
 			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
@@ -752,7 +790,7 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
 	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
 
-	vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
+	//vSendMessageNUCModeMEBChange( 1 ); /*1: Config*/
 
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 250);

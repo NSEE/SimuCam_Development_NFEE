@@ -21,7 +21,7 @@ typedef enum { sMebInit  = 0, sMebConfig, sMebRun, sMebToConfig, sMebToRun } tSi
 /* Definition of offset for each FEE in the DDR Memory */
 /* Worksheet: ccd_logic_math.xlsx */
 /* OFFESETs = [ 0, 224907824, 449815648, 674723472, 899631296, 1124539120, 1349446944, 1574354768  ] */
-#define OFFSET_STEP_FEE         224907824
+#define OFFSET_STEP_FEE         224907840
 #define LUT_SIZE                10485760
 #define LUT_INITIAL_ADDR        ( OFFSET_STEP_FEE - LUT_SIZE )
 #define RESERVED_FEE_X          1048576

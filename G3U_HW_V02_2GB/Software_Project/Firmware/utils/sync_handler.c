@@ -35,6 +35,12 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"xDefaults.usiPreBtSync = %hu\n", xDefaults.usiPreBtSync);
+	}
+	#endif
+
 	bSuccess = bSyncSetPreBt( uliPerCalcPeriodMs( xDefaults.usiPreBtSync ) );
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
