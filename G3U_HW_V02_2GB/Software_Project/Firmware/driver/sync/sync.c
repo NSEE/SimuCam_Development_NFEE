@@ -41,7 +41,7 @@ static volatile int viPreSyncHoldContext;
  */
 void vSyncHandleIrq(void* pvContext) {
 	volatile unsigned char ucIL;
-	volatile unsigned char ucSyncL;
+//	volatile unsigned char ucSyncL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
