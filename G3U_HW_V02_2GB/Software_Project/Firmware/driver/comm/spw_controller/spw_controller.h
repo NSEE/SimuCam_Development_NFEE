@@ -9,6 +9,7 @@
 #define SPW_CONTROLLER_H_
 
 #include "../comm.h"
+#include <math.h>
 
 //! [constants definition]
 // address
@@ -36,6 +37,8 @@ bool bSpwcClearTimecode(TSpwcChannel *pxSpwcCh);
 bool bSpwcEnableTimecode(TSpwcChannel *pxSpwcCh, bool bEnable);
 
 bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh);
+
+alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

@@ -225,6 +225,18 @@ bool bSpwcInitCh(TSpwcChannel *pxSpwcCh, alt_u8 ucCommCh) {
 	}
 	return bStatus;
 }
+
+alt_u8 ucSpwcCalculateLinkDiv(alt_8 ucLinkSpeed){
+	alt_u8 ucLinkDiv;
+
+	if (ucLinkSpeed < 100) {
+		ucLinkDiv = (alt_u8)(round(200.0/((float)ucLinkSpeed))) - 1;
+	} else {
+		ucLinkDiv = 1;
+	}
+
+	return (ucLinkDiv);
+}
 //! [public functions]
 
 //! [private functions]

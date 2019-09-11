@@ -75,6 +75,7 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_current_frame_counter              : std_logic_vector(15 downto 0);
 	-- masking machine signals
 	signal s_masking_machine_hold               : std_logic;
+	signal s_masking_machine_finished           : std_logic;
 	--	signal s_masking_buffer_clear               : std_logic;
 	signal s_masking_buffer_rdreq               : std_logic;
 	signal s_masking_buffer_almost_empty        : std_logic;
@@ -181,7 +182,7 @@ begin
 			window_data_ready_i           => fee_window_data_ready_i,
 			window_mask_ready_i           => fee_window_mask_ready_i,
 			masking_buffer_rdreq_i        => s_masking_buffer_rdreq,
-			masking_machine_finished_o    => open,
+			masking_machine_finished_o    => s_masking_machine_finished,
 			window_data_read_o            => fee_window_data_read_o,
 			window_mask_read_o            => fee_window_mask_read_o,
 			masking_buffer_almost_empty_o => s_masking_buffer_almost_empty,
@@ -210,6 +211,7 @@ begin
 			fee_fee_mode_i                       => s_registered_fee_fee_mode,
 			fee_ccd_number_i                     => s_registered_fee_ccd_number,
 			fee_ccd_side_i                       => g_FEE_CCD_SIDE,
+			imgdata_finished_i                   => s_masking_machine_finished,
 			header_gen_finished_i                => s_header_gen_finished,
 			housekeeping_wr_finished_i           => s_housekeeping_wr_finished,
 			data_wr_finished_i                   => s_data_wr_finished,
