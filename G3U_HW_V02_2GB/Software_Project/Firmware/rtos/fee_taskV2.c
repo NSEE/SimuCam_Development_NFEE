@@ -465,7 +465,7 @@ void vFeeTaskV2(void *task_data) {
 				if (xGlobal.bJustBeforSync == FALSE)
 					pxNFee->xControl.eState = redoutWaitBeforeSyncSignal;
 				else
-					pxNFee->xControl.eState = redoutCheckDTCUpdate;
+					pxNFee->xControl.eState = redoutCheckRestr;
 
 				break;
 
@@ -499,7 +499,7 @@ void vFeeTaskV2(void *task_data) {
 				if ( xGlobal.bPreMaster == FALSE ) {
 					pxNFee->xControl.eState = redoutCheckRestr;
 				} else {
-					if ( xGlobal.bDTCFinished == TRUE ) {
+					if ( (xGlobal.bDTCFinished == TRUE) || (xGlobal.bJustBeforSync == TRUE) ) {
 						/*If DTC already updated the memory then can go*/
 						pxNFee->xControl.eState = redoutCheckRestr;
 					} else {
@@ -618,16 +618,13 @@ void vFeeTaskV2(void *task_data) {
 					case sWindowing:
 						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktWindowing;
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
-
 						break;
 					case sParTrap1:
 					case sParTrap2:
 					case sSerialTrap1:
 					case sSerialTrap2:
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-							fprintf(fp,"\nNFEE-%hu Task: CRITICAL! NEED to UPDATE ucFeeMode in the xDpktDataPacketConfig (Data Packet) \n", pxNFee->ucId);
-						#endif
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImage;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					default:
 						#if DEBUG_ON
@@ -638,7 +635,6 @@ void vFeeTaskV2(void *task_data) {
 				}
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
-
 
 				xTrans.bDmaReturn[0] = TRUE;
 				xTrans.bDmaReturn[1] = TRUE;
@@ -697,9 +693,15 @@ void vFeeTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"\nNFEE-%hu Task: Could not prepare the double buffer\n", pxNFee->ucId);
+								fprintf(fp,"\nNFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
+								fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
 							}
 							#endif
+							/*Back to Config*/
+							pxNFee->xControl.bWatingSync = FALSE;
+							pxNFee->xControl.eLastMode = sInit;
+							pxNFee->xControl.eMode = sConfig;
+							pxNFee->xControl.eState = sConfig_Enter;
 						}
 					} else {
 						/* Is not access to DMA, so we need to check what is this received command */
@@ -784,9 +786,8 @@ void vFeeTaskV2(void *task_data) {
 							}
 						}
 					} else {
-						//todo: TIAGO TIAGO CONTINUAR AQUI CONTINUAR AQUI
 						/* Is not an access DMA command, check what is?*/
-						vQCmdFEEinReadoutTrans( pxNFee, uiCmdFEE.ulWord );//todo: � preciso avaliar!!!!!!!!!!!!!
+						vQCmdFEEinReadoutTrans( pxNFee, uiCmdFEE.ulWord );
 					}
 				} else {
 					/* Queue error*/
@@ -811,8 +812,12 @@ void vFeeTaskV2(void *task_data) {
 				xTrans.bFinal[1] = FALSE;
 				vResetMemCCDFEE(pxNFee);
 
-				/*Check if need to back to the previous mode: On or StandBy*/
-				pxNFee->xControl.eState = redoutWaitBeforeSyncSignal;
+
+				if ((xGlobal.bJustBeforSync == TRUE)) {
+					pxNFee->xControl.eState = redoutCheckRestr;
+				} else {
+					pxNFee->xControl.eState = redoutWaitBeforeSyncSignal;
+				}
 				break;
 
 			case redoutCycle_Out:
@@ -931,6 +936,9 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1003,8 +1011,13 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"NFEE %hhu Task: CRITICAL! Don't expect to receive sync before finish the transmission (in redoutPreparingDB)\n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFeeP->ucId);
 				}
 				#endif
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
+				pxNFeeP->xControl.eMode = sConfig;
+				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
 			case M_FEE_FULL:
 			case M_FEE_FULL_PATTERN:
@@ -1040,9 +1053,13 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
@@ -1101,8 +1118,13 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"NFEE %hhu Task: CRITICAL! Don't expect to receive sync before finish the transmission (in redoutTransmission)\n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFeeP->ucId);
 				}
 				#endif
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
+				pxNFeeP->xControl.eMode = sConfig;
+				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
 			case M_FEE_FULL:
 			case M_FEE_FULL_PATTERN:
@@ -1139,9 +1161,13 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED: /* to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
@@ -1259,12 +1285,14 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
-				/* Real Fee State (graph) */
+				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
-				/* Real State */
 				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
 
@@ -1337,6 +1365,9 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+		case M_FEE_CAN_ACCESS_NEXT_MEM:
+			/*Do nothing*/
+			break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1484,6 +1515,9 @@ void vQCmdFEEinOn( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED: /* Standby to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1583,6 +1617,14 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CONFIG:
+			case M_FEE_CONFIG_FORCED:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"NFEE %hhu Task: Already in Config Mode (Config)\n", pxNFeeP->ucId);
+				}
+				#endif
+				break;
 			case M_FEE_ON:
 			case M_FEE_ON_FORCED:
 			case M_FEE_RUN:
@@ -1657,6 +1699,7 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
@@ -1729,9 +1772,15 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 			case M_MASTER_SYNC:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"NFEE %hhu Task: Fee stuck waiting for DTC. CRITICAL, check this condition (Readout Cycle)\n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task: CRITICAL! Sync arrive and still waiting for DTC complete the memory update. (Readout Cycle)\n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFeeP->ucId);
 				}
 				#endif
+				/*Back to Config*/
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
+				pxNFeeP->xControl.eMode = sConfig;
+				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
 			case M_FEE_FULL:
 			case M_FEE_FULL_PATTERN:
@@ -1774,9 +1823,13 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 	if ( (uiCmdFEEL.ucByte[3] == ( M_NFEE_BASE_ADDR + pxNFeeP->ucId)) ) {
 
 		switch (uiCmdFEEL.ucByte[2]) {
+			case M_FEE_CAN_ACCESS_NEXT_MEM:
+				/*Do nothing*/
+				break;
 			case M_FEE_CONFIG:
 			case M_FEE_CONFIG_FORCED: /* to Config is always forced mode */
 				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
@@ -1850,8 +1903,14 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					fprintf(fp,"NFEE %hhu Task: CRITICAL! Something went wrong, no expected sync before the 'Before Sync Signal'  \n", pxNFeeP->ucId);
+					fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFeeP->ucId);
 				}
 				#endif
+				/*Back to Config*/
+				pxNFeeP->xControl.bWatingSync = FALSE;
+				pxNFeeP->xControl.eLastMode = sInit;
+				pxNFeeP->xControl.eMode = sConfig;
+				pxNFeeP->xControl.eState = sConfig_Enter;
 				break;
 
 			case M_FEE_DMA_ACCESS:
