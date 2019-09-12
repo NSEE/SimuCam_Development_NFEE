@@ -34,7 +34,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "15";
          type = "int";
       }
       datum sopceditor_expanded
@@ -76,7 +76,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "16";
          type = "int";
       }
       datum sopceditor_expanded
@@ -123,7 +123,7 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "17";
          type = "int";
       }
       datum sopceditor_expanded
@@ -165,7 +165,7 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "18";
          type = "int";
       }
       datum sopceditor_expanded
@@ -202,7 +202,7 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "19";
          type = "int";
       }
       datum sopceditor_expanded
@@ -239,7 +239,7 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "20";
          type = "int";
       }
       datum sopceditor_expanded
@@ -276,7 +276,7 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "21";
          type = "int";
       }
       datum sopceditor_expanded
@@ -310,7 +310,7 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "22";
          type = "int";
       }
       datum sopceditor_expanded
@@ -333,6 +333,48 @@
       {
          value = "1";
          type = "boolean";
+      }
+   }
+   element FTDI_USB3_0
+   {
+      datum _sortIndex
+      {
+         value = "23";
+         type = "int";
+      }
+   }
+   element FTDI_USB3_0.avalon_slave_config
+   {
+      datum _lockedAddress
+      {
+         value = "0";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "2147485696";
+         type = "String";
+      }
+   }
+   element FTDI_USB3_0.avalon_slave_data
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "8589934592";
+         type = "String";
+      }
+   }
+   element MebX_Qsys_Project
+   {
+      datum _originalDeviceFamily
+      {
+         value = "Stratix IV";
+         type = "String";
       }
    }
    element MebX_Qsys_Project
@@ -394,14 +436,6 @@
       {
          value = "2576";
          type = "String";
-      }
-   }
-   element USB_3_FTDI_0
-   {
-      datum _sortIndex
-      {
-         value = "15";
-         type = "int";
       }
    }
    element USB_3_FTDI_0.avalon_slave_config
@@ -1797,14 +1831,22 @@
    dir="end" />
  <interface name="sync_in" internal="sync.sync_in" type="conduit" dir="end" />
  <interface name="sync_out" internal="sync.sync_out" type="conduit" dir="end" />
- <interface name="sync_spwa" internal="sync.sync_spwa" type="conduit" dir="end" />
- <interface name="sync_spwb" internal="sync.sync_spwb" type="conduit" dir="end" />
- <interface name="sync_spwc" internal="sync.sync_spwc" type="conduit" dir="end" />
- <interface name="sync_spwd" internal="sync.sync_spwd" type="conduit" dir="end" />
- <interface name="sync_spwe" internal="sync.sync_spwe" type="conduit" dir="end" />
- <interface name="sync_spwf" internal="sync.sync_spwf" type="conduit" dir="end" />
- <interface name="sync_spwg" internal="sync.sync_spwg" type="conduit" dir="end" />
- <interface name="sync_spwh" internal="sync.sync_spwh" type="conduit" dir="end" />
+ <interface name="sync_spw1" internal="sync.sync_spw1" type="conduit" dir="end" />
+ <interface name="sync_spw2" internal="sync.sync_spw2" type="conduit" dir="end" />
+ <interface name="sync_spw3" internal="sync.sync_spw3" type="conduit" dir="end" />
+ <interface name="sync_spw4" internal="sync.sync_spw4" type="conduit" dir="end" />
+ <interface name="sync_spw5" internal="sync.sync_spw5" type="conduit" dir="end" />
+ <interface name="sync_spw6" internal="sync.sync_spw6" type="conduit" dir="end" />
+ <interface name="sync_spw7" internal="sync.sync_spw7" type="conduit" dir="end" />
+ <interface name="sync_spw8" internal="sync.sync_spw8" type="conduit" dir="end" />
+ <interface name="sync_spwa" internal="sync.sync_spwa" />
+ <interface name="sync_spwb" internal="sync.sync_spwb" />
+ <interface name="sync_spwc" internal="sync.sync_spwc" />
+ <interface name="sync_spwd" internal="sync.sync_spwd" />
+ <interface name="sync_spwe" internal="sync.sync_spwe" />
+ <interface name="sync_spwf" internal="sync.sync_spwf" />
+ <interface name="sync_spwg" internal="sync.sync_spwg" />
+ <interface name="sync_spwh" internal="sync.sync_spwh" />
  <interface
    name="temp_scl"
    internal="temp_scl.external_connection"
@@ -1832,7 +1874,7 @@
    dir="end" />
  <interface
    name="umft601a_pins"
-   internal="USB_3_FTDI_0.conduit_umft_pins"
+   internal="FTDI_USB3_0.conduit_umft_pins"
    type="conduit"
    dir="end" />
  <module
@@ -1883,12 +1925,12 @@
    kind="COMM_Pedreiro_v1_01"
    version="1.9"
    enabled="0" />
+ <module name="FTDI_USB3_0" kind="FTDI_USB3" version="1.5" enabled="1" />
  <module
    name="SEVEN_SEGMENT_CONTROLLER_0"
    kind="SEVEN_SEGMENT_CONTROLLER"
    version="1.0"
    enabled="1" />
- <module name="USB_3_FTDI_0" kind="USB_3_FTDI" version="1.4" enabled="1" />
  <module name="clk_100" kind="clock_source" version="18.1" enabled="1">
   <parameter name="clockFrequency" value="100000000" />
   <parameter name="clockFrequencyKnown" value="true" />
@@ -2028,9 +2070,9 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m1_ddr2_memory.avl' start='0x0' end='0x80000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
@@ -2071,9 +2113,9 @@
   <parameter name="AUTO_DEVICE" value="EP4SGX530KH40C2" />
   <parameter name="AUTO_DEVICE_FAMILY" value="Stratix IV" />
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="2" />
-  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_READ_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_READ_ADDRESS_WIDTH" value="AddressWidth = 34" />
-  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='USB_3_FTDI_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
+  <parameter name="AUTO_MM_WRITE_ADDRESS_MAP"><![CDATA[<address-map><slave name='m2_ddr2_memory.avl' start='0x80000000' end='0x100000000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_L_buffer' start='0x100000000' end='0x100002000' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_R_buffer' start='0x100008000' end='0x10000A000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_L_buffer' start='0x100010000' end='0x100012000' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_R_buffer' start='0x100018000' end='0x10001A000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_L_buffer' start='0x100020000' end='0x100022000' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_R_buffer' start='0x100028000' end='0x10002A000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_L_buffer' start='0x100030000' end='0x100032000' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_R_buffer' start='0x100038000' end='0x10003A000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_L_buffer' start='0x100040000' end='0x100042000' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_R_buffer' start='0x100048000' end='0x10004A000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_L_buffer' start='0x100050000' end='0x100052000' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_R_buffer' start='0x100058000' end='0x10005A000' /><slave name='FTDI_USB3_0.avalon_slave_data' start='0x200000000' end='0x200002000' /></address-map>]]></parameter>
   <parameter name="AUTO_MM_WRITE_ADDRESS_WIDTH" value="AddressWidth = 34" />
   <parameter name="BURST_ENABLE" value="0" />
   <parameter name="BURST_WRAPPING_SUPPORT" value="0" />
@@ -2926,7 +2968,7 @@
   <parameter name="dataAddrWidth" value="32" />
   <parameter name="dataMasterHighPerformanceAddrWidth" value="1" />
   <parameter name="dataMasterHighPerformanceMapParam" value="" />
-  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='USB_3_FTDI_0.avalon_slave_config' start='0x80000800' end='0x80000C00' type='USB_3_FTDI.avalon_slave_config' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_windowing' start='0x80000C00' end='0x80001000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_windowing' start='0x80001000' end='0x80001400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x80001400' end='0x80001800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x80001800' end='0x80001C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x80001C00' end='0x80002000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x80002000' end='0x80002400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x80002400' end='0x80002420' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x80002420' end='0x80002440' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x80002440' end='0x80002460' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x80002460' end='0x80002480' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x80002480' end='0x80002488' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x80002488' end='0x80002490' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80002490' end='0x80002498' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='onchip_memory.s1' start='0x80200000' end='0x80300000' type='altera_avalon_onchip_memory2.s1' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x81000000' end='0x81000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x81000400' end='0x81000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x81000800' end='0x81000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x81000840' end='0x81000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x81000860' end='0x81000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x81000880' end='0x810008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x810008A0' end='0x810008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x810008B0' end='0x810008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x810008C0' end='0x810008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x810008D0' end='0x810008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x810008E0' end='0x810008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x810008F0' end='0x81000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x81000900' end='0x81000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x81000910' end='0x81000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x81000920' end='0x81000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x81000930' end='0x81000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x81000940' end='0x81000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x81000950' end='0x81000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x81000960' end='0x81000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x81000970' end='0x81000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x81000980' end='0x81000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x81000990' end='0x810009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x810009A0' end='0x810009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x810009B0' end='0x810009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x810009C0' end='0x810009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x810009D0' end='0x810009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x810009E0' end='0x810009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x810009F0' end='0x81000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x81000A00' end='0x81000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x81000A10' end='0x81000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
+  <parameter name="dataSlaveMapParam"><![CDATA[<address-map><slave name='ddr2_address_span_extender.windowed_slave' start='0x0' end='0x80000000' type='altera_address_span_extender.windowed_slave' /><slave name='nios2_gen2_0.debug_mem_slave' start='0x80000000' end='0x80000800' type='altera_nios2_gen2.debug_mem_slave' /><slave name='FTDI_USB3_0.avalon_slave_config' start='0x80000800' end='0x80000C00' type='FTDI_USB3.avalon_slave_config' /><slave name='COMM_Pedreiro_v1_01_F.avalon_slave_windowing' start='0x80000C00' end='0x80001000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_E.avalon_slave_windowing' start='0x80001000' end='0x80001400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_D.avalon_slave_windowing' start='0x80001400' end='0x80001800' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_C.avalon_slave_windowing' start='0x80001800' end='0x80001C00' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_B.avalon_slave_windowing' start='0x80001C00' end='0x80002000' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='COMM_Pedreiro_v1_01_A.avalon_slave_windowing' start='0x80002000' end='0x80002400' type='COMM_Pedreiro_v1_01.avalon_slave_windowing' /><slave name='dma_DDR_M2.descriptor_slave' start='0x80002400' end='0x80002420' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M1.descriptor_slave' start='0x80002420' end='0x80002440' type='altera_msgdma.descriptor_slave' /><slave name='dma_DDR_M2.csr' start='0x80002440' end='0x80002460' type='altera_msgdma.csr' /><slave name='dma_DDR_M1.csr' start='0x80002460' end='0x80002480' type='altera_msgdma.csr' /><slave name='sysid_qsys.control_slave' start='0x80002480' end='0x80002488' type='altera_avalon_sysid_qsys.control_slave' /><slave name='ddr2_address_span_extender.cntl' start='0x80002488' end='0x80002490' type='altera_address_span_extender.cntl' /><slave name='jtag_uart_0.avalon_jtag_slave' start='0x80002490' end='0x80002498' type='altera_avalon_jtag_uart.avalon_jtag_slave' /><slave name='onchip_memory.s1' start='0x80200000' end='0x80300000' type='altera_avalon_onchip_memory2.s1' /><slave name='Altera_UP_SD_Card_Avalon_Interface_0.avalon_sdcard_slave' start='0x81000000' end='0x81000400' type='Altera_UP_SD_Card_Avalon_Interface.avalon_sdcard_slave' /><slave name='sync.avalon_mm_slave' start='0x81000400' end='0x81000800' type='Sync.avalon_mm_slave' /><slave name='rst_controller.avalon_rst_controller_slave' start='0x81000800' end='0x81000840' type='rst_controller.avalon_rst_controller_slave' /><slave name='rs232_uart.s1' start='0x81000840' end='0x81000860' type='altera_avalon_uart.s1' /><slave name='timer_1us.s1' start='0x81000860' end='0x81000880' type='altera_avalon_timer.s1' /><slave name='timer_1ms.s1' start='0x81000880' end='0x810008A0' type='altera_avalon_timer.s1' /><slave name='pio_ctrl_io_lvds.s1' start='0x810008A0' end='0x810008B0' type='altera_avalon_pio.s1' /><slave name='rtcc_cs_n.s1' start='0x810008B0' end='0x810008C0' type='altera_avalon_pio.s1' /><slave name='rtcc_sck.s1' start='0x810008C0' end='0x810008D0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdi.s1' start='0x810008D0' end='0x810008E0' type='altera_avalon_pio.s1' /><slave name='rtcc_sdo.s1' start='0x810008E0' end='0x810008F0' type='altera_avalon_pio.s1' /><slave name='rtcc_alarm.s1' start='0x810008F0' end='0x81000900' type='altera_avalon_pio.s1' /><slave name='pio_LED_painel.s1' start='0x81000900' end='0x81000910' type='altera_avalon_pio.s1' /><slave name='csense_adc_fo.s1' start='0x81000910' end='0x81000920' type='altera_avalon_pio.s1' /><slave name='csense_cs_n.s1' start='0x81000920' end='0x81000930' type='altera_avalon_pio.s1' /><slave name='csense_sck.s1' start='0x81000930' end='0x81000940' type='altera_avalon_pio.s1' /><slave name='csense_sdi.s1' start='0x81000940' end='0x81000950' type='altera_avalon_pio.s1' /><slave name='csense_sdo.s1' start='0x81000950' end='0x81000960' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_scl.s1' start='0x81000960' end='0x81000970' type='altera_avalon_pio.s1' /><slave name='m2_ddr2_i2c_sda.s1' start='0x81000970' end='0x81000980' type='altera_avalon_pio.s1' /><slave name='temp_sda.s1' start='0x81000980' end='0x81000990' type='altera_avalon_pio.s1' /><slave name='temp_scl.s1' start='0x81000990' end='0x810009A0' type='altera_avalon_pio.s1' /><slave name='sd_card_wp_n.s1' start='0x810009A0' end='0x810009B0' type='altera_avalon_pio.s1' /><slave name='pio_EXT.s1' start='0x810009B0' end='0x810009C0' type='altera_avalon_pio.s1' /><slave name='pio_DIP.s1' start='0x810009C0' end='0x810009D0' type='altera_avalon_pio.s1' /><slave name='pio_LED.s1' start='0x810009D0' end='0x810009E0' type='altera_avalon_pio.s1' /><slave name='pio_BUTTON.s1' start='0x810009E0' end='0x810009F0' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_scl.s1' start='0x810009F0' end='0x81000A00' type='altera_avalon_pio.s1' /><slave name='m1_ddr2_i2c_sda.s1' start='0x81000A00' end='0x81000A10' type='altera_avalon_pio.s1' /><slave name='SEVEN_SEGMENT_CONTROLLER_0.SSDP_avalon_slave' start='0x81000A10' end='0x81000A18' type='SEVEN_SEGMENT_CONTROLLER.SSDP_avalon_slave' /><slave name='ext_flash.uas' start='0x84000000' end='0x88000000' type='altera_generic_tristate_controller.uas' /></address-map>]]></parameter>
   <parameter name="data_master_high_performance_paddr_base" value="0" />
   <parameter name="data_master_high_performance_paddr_size" value="0" />
   <parameter name="data_master_paddr_base" value="0" />
@@ -2972,7 +3014,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="10481663" />
+  <parameter name="internalIrqMaskSystemInfo" value="10485759" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -3317,7 +3359,10 @@
   <parameter name="simDrivenValue" value="0" />
   <parameter name="width" value="1" />
  </module>
- <module name="sync" kind="Sync" version="1.2" enabled="1" />
+ <module name="sync" kind="Sync" version="1.4" enabled="1">
+  <parameter name="g_PRE_SYNC_IRQ_NUMBER" value="12" />
+  <parameter name="g_SYNC_IRQ_NUMBER" value="11" />
+ </module>
  <module
    name="sysid_qsys"
    kind="altera_avalon_sysid_qsys"
@@ -3405,7 +3450,7 @@
    kind="avalon"
    version="18.1"
    start="nios2_gen2_0.data_master"
-   end="USB_3_FTDI_0.avalon_slave_config">
+   end="FTDI_USB3_0.avalon_slave_config">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x80000800" />
   <parameter name="defaultConnection" value="false" />
@@ -3908,8 +3953,8 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="dma_DDR_M2.mm_read"
-   end="USB_3_FTDI_0.avalon_slave_data">
+   start="dma_DDR_M1.mm_read"
+   end="FTDI_USB3_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
@@ -3917,8 +3962,8 @@
  <connection
    kind="avalon"
    version="18.1"
-   start="dma_DDR_M1.mm_read"
-   end="USB_3_FTDI_0.avalon_slave_data">
+   start="dma_DDR_M2.mm_read"
+   end="FTDI_USB3_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
@@ -4242,7 +4287,7 @@
    kind="avalon"
    version="18.1"
    start="dma_DDR_M1.mm_write"
-   end="USB_3_FTDI_0.avalon_slave_data">
+   end="FTDI_USB3_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
@@ -4251,7 +4296,7 @@
    kind="avalon"
    version="18.1"
    start="dma_DDR_M2.mm_write"
-   end="USB_3_FTDI_0.avalon_slave_data">
+   end="FTDI_USB3_0.avalon_slave_data">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000000200000000" />
   <parameter name="defaultConnection" value="false" />
@@ -4401,7 +4446,7 @@
    kind="clock"
    version="18.1"
    start="clk_100.clk"
-   end="USB_3_FTDI_0.clock_sink" />
+   end="FTDI_USB3_0.clock_sink" />
  <connection
    kind="clock"
    version="18.1"
@@ -4571,14 +4616,7 @@
    kind="interrupt"
    version="18.1"
    start="nios2_gen2_0.irq"
-   end="USB_3_FTDI_0.ftdi_interrupt_sender">
-  <parameter name="irqNumber" value="11" />
- </connection>
- <connection
-   kind="interrupt"
-   version="18.1"
-   start="nios2_gen2_0.irq"
-   end="sync.interrupt_sender">
+   end="FTDI_USB3_0.ftdi_interrupt_sender">
   <parameter name="irqNumber" value="4" />
  </connection>
  <connection
@@ -4615,6 +4653,13 @@
    start="nios2_gen2_0.irq"
    end="rs232_uart.irq">
   <parameter name="irqNumber" value="13" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="sync.pre_sync_interrupt_sender">
+  <parameter name="irqNumber" value="12" />
  </connection>
  <connection
    kind="interrupt"
@@ -4671,6 +4716,13 @@
    start="nios2_gen2_0.irq"
    end="COMM_Pedreiro_v1_01_F.rmap_interrupt_sender">
   <parameter name="irqNumber" value="20" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="18.1"
+   start="nios2_gen2_0.irq"
+   end="sync.sync_interrupt_sender">
+  <parameter name="irqNumber" value="11" />
  </connection>
  <connection
    kind="reset"
@@ -4947,7 +4999,7 @@
    kind="reset"
    version="18.1"
    start="clk_50.clk_reset"
-   end="USB_3_FTDI_0.reset_sink" />
+   end="FTDI_USB3_0.reset_sink" />
  <connection
    kind="reset"
    version="18.1"
@@ -5267,7 +5319,7 @@
    kind="reset"
    version="18.1"
    start="rst_controller.reset_source_simucam"
-   end="USB_3_FTDI_0.reset_sink" />
+   end="FTDI_USB3_0.reset_sink" />
  <connection
    kind="reset"
    version="18.1"

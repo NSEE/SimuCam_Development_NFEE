@@ -212,6 +212,19 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		input  wire         ext_flash_uas_waitrequest,                                       //                                                          .waitrequest
 		output wire         ext_flash_uas_lock,                                              //                                                          .lock
 		output wire         ext_flash_uas_debugaccess,                                       //                                                          .debugaccess
+		output wire [7:0]   FTDI_USB3_0_avalon_slave_config_address,                         //                           FTDI_USB3_0_avalon_slave_config.address
+		output wire         FTDI_USB3_0_avalon_slave_config_write,                           //                                                          .write
+		output wire         FTDI_USB3_0_avalon_slave_config_read,                            //                                                          .read
+		input  wire [31:0]  FTDI_USB3_0_avalon_slave_config_readdata,                        //                                                          .readdata
+		output wire [31:0]  FTDI_USB3_0_avalon_slave_config_writedata,                       //                                                          .writedata
+		output wire [3:0]   FTDI_USB3_0_avalon_slave_config_byteenable,                      //                                                          .byteenable
+		input  wire         FTDI_USB3_0_avalon_slave_config_waitrequest,                     //                                                          .waitrequest
+		output wire [7:0]   FTDI_USB3_0_avalon_slave_data_address,                           //                             FTDI_USB3_0_avalon_slave_data.address
+		output wire         FTDI_USB3_0_avalon_slave_data_write,                             //                                                          .write
+		output wire         FTDI_USB3_0_avalon_slave_data_read,                              //                                                          .read
+		input  wire [255:0] FTDI_USB3_0_avalon_slave_data_readdata,                          //                                                          .readdata
+		output wire [255:0] FTDI_USB3_0_avalon_slave_data_writedata,                         //                                                          .writedata
+		input  wire         FTDI_USB3_0_avalon_slave_data_waitrequest,                       //                                                          .waitrequest
 		output wire [0:0]   jtag_uart_0_avalon_jtag_slave_address,                           //                             jtag_uart_0_avalon_jtag_slave.address
 		output wire         jtag_uart_0_avalon_jtag_slave_write,                             //                                                          .write
 		output wire         jtag_uart_0_avalon_jtag_slave_read,                              //                                                          .read
@@ -255,20 +268,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire         onchip_memory_s1_chipselect,                                     //                                                          .chipselect
 		output wire         onchip_memory_s1_clken,                                          //                                                          .clken
 		output wire [0:0]   sysid_qsys_control_slave_address,                                //                                  sysid_qsys_control_slave.address
-		input  wire [31:0]  sysid_qsys_control_slave_readdata,                               //                                                          .readdata
-		output wire [7:0]   USB_3_FTDI_0_avalon_slave_config_address,                        //                          USB_3_FTDI_0_avalon_slave_config.address
-		output wire         USB_3_FTDI_0_avalon_slave_config_write,                          //                                                          .write
-		output wire         USB_3_FTDI_0_avalon_slave_config_read,                           //                                                          .read
-		input  wire [31:0]  USB_3_FTDI_0_avalon_slave_config_readdata,                       //                                                          .readdata
-		output wire [31:0]  USB_3_FTDI_0_avalon_slave_config_writedata,                      //                                                          .writedata
-		output wire [3:0]   USB_3_FTDI_0_avalon_slave_config_byteenable,                     //                                                          .byteenable
-		input  wire         USB_3_FTDI_0_avalon_slave_config_waitrequest,                    //                                                          .waitrequest
-		output wire [7:0]   USB_3_FTDI_0_avalon_slave_data_address,                          //                            USB_3_FTDI_0_avalon_slave_data.address
-		output wire         USB_3_FTDI_0_avalon_slave_data_write,                            //                                                          .write
-		output wire         USB_3_FTDI_0_avalon_slave_data_read,                             //                                                          .read
-		input  wire [255:0] USB_3_FTDI_0_avalon_slave_data_readdata,                         //                                                          .readdata
-		output wire [255:0] USB_3_FTDI_0_avalon_slave_data_writedata,                        //                                                          .writedata
-		input  wire         USB_3_FTDI_0_avalon_slave_data_waitrequest                       //                                                          .waitrequest
+		input  wire [31:0]  sysid_qsys_control_slave_readdata                                //                                                          .readdata
 	);
 
 	wire          nios2_gen2_0_data_master_translator_avalon_universal_master_0_waitrequest;                            // nios2_gen2_0_data_master_agent:av_waitrequest -> nios2_gen2_0_data_master_translator:uav_waitrequest
@@ -393,33 +393,33 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	wire   [33:0] cmd_mux_src_channel;                                                                                  // cmd_mux:src_channel -> jtag_uart_0_avalon_jtag_slave_agent:cp_channel
 	wire          cmd_mux_src_startofpacket;                                                                            // cmd_mux:src_startofpacket -> jtag_uart_0_avalon_jtag_slave_agent:cp_startofpacket
 	wire          cmd_mux_src_endofpacket;                                                                              // cmd_mux:src_endofpacket -> jtag_uart_0_avalon_jtag_slave_agent:cp_endofpacket
-	wire   [31:0] usb_3_ftdi_0_avalon_slave_config_agent_m0_readdata;                                                   // USB_3_FTDI_0_avalon_slave_config_translator:uav_readdata -> USB_3_FTDI_0_avalon_slave_config_agent:m0_readdata
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_m0_waitrequest;                                                // USB_3_FTDI_0_avalon_slave_config_translator:uav_waitrequest -> USB_3_FTDI_0_avalon_slave_config_agent:m0_waitrequest
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_m0_debugaccess;                                                // USB_3_FTDI_0_avalon_slave_config_agent:m0_debugaccess -> USB_3_FTDI_0_avalon_slave_config_translator:uav_debugaccess
-	wire   [33:0] usb_3_ftdi_0_avalon_slave_config_agent_m0_address;                                                    // USB_3_FTDI_0_avalon_slave_config_agent:m0_address -> USB_3_FTDI_0_avalon_slave_config_translator:uav_address
-	wire    [3:0] usb_3_ftdi_0_avalon_slave_config_agent_m0_byteenable;                                                 // USB_3_FTDI_0_avalon_slave_config_agent:m0_byteenable -> USB_3_FTDI_0_avalon_slave_config_translator:uav_byteenable
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_m0_read;                                                       // USB_3_FTDI_0_avalon_slave_config_agent:m0_read -> USB_3_FTDI_0_avalon_slave_config_translator:uav_read
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_m0_readdatavalid;                                              // USB_3_FTDI_0_avalon_slave_config_translator:uav_readdatavalid -> USB_3_FTDI_0_avalon_slave_config_agent:m0_readdatavalid
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_m0_lock;                                                       // USB_3_FTDI_0_avalon_slave_config_agent:m0_lock -> USB_3_FTDI_0_avalon_slave_config_translator:uav_lock
-	wire   [31:0] usb_3_ftdi_0_avalon_slave_config_agent_m0_writedata;                                                  // USB_3_FTDI_0_avalon_slave_config_agent:m0_writedata -> USB_3_FTDI_0_avalon_slave_config_translator:uav_writedata
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_m0_write;                                                      // USB_3_FTDI_0_avalon_slave_config_agent:m0_write -> USB_3_FTDI_0_avalon_slave_config_translator:uav_write
-	wire    [2:0] usb_3_ftdi_0_avalon_slave_config_agent_m0_burstcount;                                                 // USB_3_FTDI_0_avalon_slave_config_agent:m0_burstcount -> USB_3_FTDI_0_avalon_slave_config_translator:uav_burstcount
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rf_source_valid;                                               // USB_3_FTDI_0_avalon_slave_config_agent:rf_source_valid -> USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:in_valid
-	wire  [129:0] usb_3_ftdi_0_avalon_slave_config_agent_rf_source_data;                                                // USB_3_FTDI_0_avalon_slave_config_agent:rf_source_data -> USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:in_data
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rf_source_ready;                                               // USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:in_ready -> USB_3_FTDI_0_avalon_slave_config_agent:rf_source_ready
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rf_source_startofpacket;                                       // USB_3_FTDI_0_avalon_slave_config_agent:rf_source_startofpacket -> USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:in_startofpacket
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rf_source_endofpacket;                                         // USB_3_FTDI_0_avalon_slave_config_agent:rf_source_endofpacket -> USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:in_endofpacket
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_valid;                                            // USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:out_valid -> USB_3_FTDI_0_avalon_slave_config_agent:rf_sink_valid
-	wire  [129:0] usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_data;                                             // USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:out_data -> USB_3_FTDI_0_avalon_slave_config_agent:rf_sink_data
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_ready;                                            // USB_3_FTDI_0_avalon_slave_config_agent:rf_sink_ready -> USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:out_ready
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_startofpacket;                                    // USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:out_startofpacket -> USB_3_FTDI_0_avalon_slave_config_agent:rf_sink_startofpacket
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_endofpacket;                                      // USB_3_FTDI_0_avalon_slave_config_agent_rsp_fifo:out_endofpacket -> USB_3_FTDI_0_avalon_slave_config_agent:rf_sink_endofpacket
-	wire          cmd_mux_001_src_valid;                                                                                // cmd_mux_001:src_valid -> USB_3_FTDI_0_avalon_slave_config_agent:cp_valid
-	wire  [128:0] cmd_mux_001_src_data;                                                                                 // cmd_mux_001:src_data -> USB_3_FTDI_0_avalon_slave_config_agent:cp_data
-	wire          cmd_mux_001_src_ready;                                                                                // USB_3_FTDI_0_avalon_slave_config_agent:cp_ready -> cmd_mux_001:src_ready
-	wire   [33:0] cmd_mux_001_src_channel;                                                                              // cmd_mux_001:src_channel -> USB_3_FTDI_0_avalon_slave_config_agent:cp_channel
-	wire          cmd_mux_001_src_startofpacket;                                                                        // cmd_mux_001:src_startofpacket -> USB_3_FTDI_0_avalon_slave_config_agent:cp_startofpacket
-	wire          cmd_mux_001_src_endofpacket;                                                                          // cmd_mux_001:src_endofpacket -> USB_3_FTDI_0_avalon_slave_config_agent:cp_endofpacket
+	wire   [31:0] ftdi_usb3_0_avalon_slave_config_agent_m0_readdata;                                                    // FTDI_USB3_0_avalon_slave_config_translator:uav_readdata -> FTDI_USB3_0_avalon_slave_config_agent:m0_readdata
+	wire          ftdi_usb3_0_avalon_slave_config_agent_m0_waitrequest;                                                 // FTDI_USB3_0_avalon_slave_config_translator:uav_waitrequest -> FTDI_USB3_0_avalon_slave_config_agent:m0_waitrequest
+	wire          ftdi_usb3_0_avalon_slave_config_agent_m0_debugaccess;                                                 // FTDI_USB3_0_avalon_slave_config_agent:m0_debugaccess -> FTDI_USB3_0_avalon_slave_config_translator:uav_debugaccess
+	wire   [33:0] ftdi_usb3_0_avalon_slave_config_agent_m0_address;                                                     // FTDI_USB3_0_avalon_slave_config_agent:m0_address -> FTDI_USB3_0_avalon_slave_config_translator:uav_address
+	wire    [3:0] ftdi_usb3_0_avalon_slave_config_agent_m0_byteenable;                                                  // FTDI_USB3_0_avalon_slave_config_agent:m0_byteenable -> FTDI_USB3_0_avalon_slave_config_translator:uav_byteenable
+	wire          ftdi_usb3_0_avalon_slave_config_agent_m0_read;                                                        // FTDI_USB3_0_avalon_slave_config_agent:m0_read -> FTDI_USB3_0_avalon_slave_config_translator:uav_read
+	wire          ftdi_usb3_0_avalon_slave_config_agent_m0_readdatavalid;                                               // FTDI_USB3_0_avalon_slave_config_translator:uav_readdatavalid -> FTDI_USB3_0_avalon_slave_config_agent:m0_readdatavalid
+	wire          ftdi_usb3_0_avalon_slave_config_agent_m0_lock;                                                        // FTDI_USB3_0_avalon_slave_config_agent:m0_lock -> FTDI_USB3_0_avalon_slave_config_translator:uav_lock
+	wire   [31:0] ftdi_usb3_0_avalon_slave_config_agent_m0_writedata;                                                   // FTDI_USB3_0_avalon_slave_config_agent:m0_writedata -> FTDI_USB3_0_avalon_slave_config_translator:uav_writedata
+	wire          ftdi_usb3_0_avalon_slave_config_agent_m0_write;                                                       // FTDI_USB3_0_avalon_slave_config_agent:m0_write -> FTDI_USB3_0_avalon_slave_config_translator:uav_write
+	wire    [2:0] ftdi_usb3_0_avalon_slave_config_agent_m0_burstcount;                                                  // FTDI_USB3_0_avalon_slave_config_agent:m0_burstcount -> FTDI_USB3_0_avalon_slave_config_translator:uav_burstcount
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rf_source_valid;                                                // FTDI_USB3_0_avalon_slave_config_agent:rf_source_valid -> FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:in_valid
+	wire  [129:0] ftdi_usb3_0_avalon_slave_config_agent_rf_source_data;                                                 // FTDI_USB3_0_avalon_slave_config_agent:rf_source_data -> FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:in_data
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rf_source_ready;                                                // FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:in_ready -> FTDI_USB3_0_avalon_slave_config_agent:rf_source_ready
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rf_source_startofpacket;                                        // FTDI_USB3_0_avalon_slave_config_agent:rf_source_startofpacket -> FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:in_startofpacket
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rf_source_endofpacket;                                          // FTDI_USB3_0_avalon_slave_config_agent:rf_source_endofpacket -> FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:in_endofpacket
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_valid;                                             // FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:out_valid -> FTDI_USB3_0_avalon_slave_config_agent:rf_sink_valid
+	wire  [129:0] ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_data;                                              // FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:out_data -> FTDI_USB3_0_avalon_slave_config_agent:rf_sink_data
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_ready;                                             // FTDI_USB3_0_avalon_slave_config_agent:rf_sink_ready -> FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:out_ready
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_startofpacket;                                     // FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:out_startofpacket -> FTDI_USB3_0_avalon_slave_config_agent:rf_sink_startofpacket
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_endofpacket;                                       // FTDI_USB3_0_avalon_slave_config_agent_rsp_fifo:out_endofpacket -> FTDI_USB3_0_avalon_slave_config_agent:rf_sink_endofpacket
+	wire          cmd_mux_001_src_valid;                                                                                // cmd_mux_001:src_valid -> FTDI_USB3_0_avalon_slave_config_agent:cp_valid
+	wire  [128:0] cmd_mux_001_src_data;                                                                                 // cmd_mux_001:src_data -> FTDI_USB3_0_avalon_slave_config_agent:cp_data
+	wire          cmd_mux_001_src_ready;                                                                                // FTDI_USB3_0_avalon_slave_config_agent:cp_ready -> cmd_mux_001:src_ready
+	wire   [33:0] cmd_mux_001_src_channel;                                                                              // cmd_mux_001:src_channel -> FTDI_USB3_0_avalon_slave_config_agent:cp_channel
+	wire          cmd_mux_001_src_startofpacket;                                                                        // cmd_mux_001:src_startofpacket -> FTDI_USB3_0_avalon_slave_config_agent:cp_startofpacket
+	wire          cmd_mux_001_src_endofpacket;                                                                          // cmd_mux_001:src_endofpacket -> FTDI_USB3_0_avalon_slave_config_agent:cp_endofpacket
 	wire   [31:0] comm_pedreiro_v1_01_a_avalon_slave_windowing_agent_m0_readdata;                                       // COMM_Pedreiro_v1_01_A_avalon_slave_windowing_translator:uav_readdata -> COMM_Pedreiro_v1_01_A_avalon_slave_windowing_agent:m0_readdata
 	wire          comm_pedreiro_v1_01_a_avalon_slave_windowing_agent_m0_waitrequest;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_windowing_translator:uav_waitrequest -> COMM_Pedreiro_v1_01_A_avalon_slave_windowing_agent:m0_waitrequest
 	wire          comm_pedreiro_v1_01_a_avalon_slave_windowing_agent_m0_debugaccess;                                    // COMM_Pedreiro_v1_01_A_avalon_slave_windowing_agent:m0_debugaccess -> COMM_Pedreiro_v1_01_A_avalon_slave_windowing_translator:uav_debugaccess
@@ -879,36 +879,36 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	wire   [33:0] cmd_mux_018_src_channel;                                                                              // cmd_mux_018:src_channel -> ddr2_address_span_extender_windowed_slave_agent:cp_channel
 	wire          cmd_mux_018_src_startofpacket;                                                                        // cmd_mux_018:src_startofpacket -> ddr2_address_span_extender_windowed_slave_agent:cp_startofpacket
 	wire          cmd_mux_018_src_endofpacket;                                                                          // cmd_mux_018:src_endofpacket -> ddr2_address_span_extender_windowed_slave_agent:cp_endofpacket
-	wire  [255:0] usb_3_ftdi_0_avalon_slave_data_agent_m0_readdata;                                                     // USB_3_FTDI_0_avalon_slave_data_translator:uav_readdata -> USB_3_FTDI_0_avalon_slave_data_agent:m0_readdata
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_m0_waitrequest;                                                  // USB_3_FTDI_0_avalon_slave_data_translator:uav_waitrequest -> USB_3_FTDI_0_avalon_slave_data_agent:m0_waitrequest
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_m0_debugaccess;                                                  // USB_3_FTDI_0_avalon_slave_data_agent:m0_debugaccess -> USB_3_FTDI_0_avalon_slave_data_translator:uav_debugaccess
-	wire   [33:0] usb_3_ftdi_0_avalon_slave_data_agent_m0_address;                                                      // USB_3_FTDI_0_avalon_slave_data_agent:m0_address -> USB_3_FTDI_0_avalon_slave_data_translator:uav_address
-	wire   [31:0] usb_3_ftdi_0_avalon_slave_data_agent_m0_byteenable;                                                   // USB_3_FTDI_0_avalon_slave_data_agent:m0_byteenable -> USB_3_FTDI_0_avalon_slave_data_translator:uav_byteenable
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_m0_read;                                                         // USB_3_FTDI_0_avalon_slave_data_agent:m0_read -> USB_3_FTDI_0_avalon_slave_data_translator:uav_read
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_m0_readdatavalid;                                                // USB_3_FTDI_0_avalon_slave_data_translator:uav_readdatavalid -> USB_3_FTDI_0_avalon_slave_data_agent:m0_readdatavalid
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_m0_lock;                                                         // USB_3_FTDI_0_avalon_slave_data_agent:m0_lock -> USB_3_FTDI_0_avalon_slave_data_translator:uav_lock
-	wire  [255:0] usb_3_ftdi_0_avalon_slave_data_agent_m0_writedata;                                                    // USB_3_FTDI_0_avalon_slave_data_agent:m0_writedata -> USB_3_FTDI_0_avalon_slave_data_translator:uav_writedata
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_m0_write;                                                        // USB_3_FTDI_0_avalon_slave_data_agent:m0_write -> USB_3_FTDI_0_avalon_slave_data_translator:uav_write
-	wire    [5:0] usb_3_ftdi_0_avalon_slave_data_agent_m0_burstcount;                                                   // USB_3_FTDI_0_avalon_slave_data_agent:m0_burstcount -> USB_3_FTDI_0_avalon_slave_data_translator:uav_burstcount
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rf_source_valid;                                                 // USB_3_FTDI_0_avalon_slave_data_agent:rf_source_valid -> USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:in_valid
-	wire  [381:0] usb_3_ftdi_0_avalon_slave_data_agent_rf_source_data;                                                  // USB_3_FTDI_0_avalon_slave_data_agent:rf_source_data -> USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:in_data
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rf_source_ready;                                                 // USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:in_ready -> USB_3_FTDI_0_avalon_slave_data_agent:rf_source_ready
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rf_source_startofpacket;                                         // USB_3_FTDI_0_avalon_slave_data_agent:rf_source_startofpacket -> USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:in_startofpacket
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rf_source_endofpacket;                                           // USB_3_FTDI_0_avalon_slave_data_agent:rf_source_endofpacket -> USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:in_endofpacket
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_valid;                                              // USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:out_valid -> USB_3_FTDI_0_avalon_slave_data_agent:rf_sink_valid
-	wire  [381:0] usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_data;                                               // USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:out_data -> USB_3_FTDI_0_avalon_slave_data_agent:rf_sink_data
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_ready;                                              // USB_3_FTDI_0_avalon_slave_data_agent:rf_sink_ready -> USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:out_ready
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_startofpacket;                                      // USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:out_startofpacket -> USB_3_FTDI_0_avalon_slave_data_agent:rf_sink_startofpacket
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_endofpacket;                                        // USB_3_FTDI_0_avalon_slave_data_agent_rsp_fifo:out_endofpacket -> USB_3_FTDI_0_avalon_slave_data_agent:rf_sink_endofpacket
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_valid;                                            // USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_src_valid -> USB_3_FTDI_0_avalon_slave_data_agent_rdata_fifo:in_valid
-	wire  [257:0] usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_data;                                             // USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_src_data -> USB_3_FTDI_0_avalon_slave_data_agent_rdata_fifo:in_data
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_ready;                                            // USB_3_FTDI_0_avalon_slave_data_agent_rdata_fifo:in_ready -> USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_src_ready
-	wire          cmd_mux_019_src_valid;                                                                                // cmd_mux_019:src_valid -> USB_3_FTDI_0_avalon_slave_data_agent:cp_valid
-	wire  [380:0] cmd_mux_019_src_data;                                                                                 // cmd_mux_019:src_data -> USB_3_FTDI_0_avalon_slave_data_agent:cp_data
-	wire          cmd_mux_019_src_ready;                                                                                // USB_3_FTDI_0_avalon_slave_data_agent:cp_ready -> cmd_mux_019:src_ready
-	wire   [33:0] cmd_mux_019_src_channel;                                                                              // cmd_mux_019:src_channel -> USB_3_FTDI_0_avalon_slave_data_agent:cp_channel
-	wire          cmd_mux_019_src_startofpacket;                                                                        // cmd_mux_019:src_startofpacket -> USB_3_FTDI_0_avalon_slave_data_agent:cp_startofpacket
-	wire          cmd_mux_019_src_endofpacket;                                                                          // cmd_mux_019:src_endofpacket -> USB_3_FTDI_0_avalon_slave_data_agent:cp_endofpacket
+	wire  [255:0] ftdi_usb3_0_avalon_slave_data_agent_m0_readdata;                                                      // FTDI_USB3_0_avalon_slave_data_translator:uav_readdata -> FTDI_USB3_0_avalon_slave_data_agent:m0_readdata
+	wire          ftdi_usb3_0_avalon_slave_data_agent_m0_waitrequest;                                                   // FTDI_USB3_0_avalon_slave_data_translator:uav_waitrequest -> FTDI_USB3_0_avalon_slave_data_agent:m0_waitrequest
+	wire          ftdi_usb3_0_avalon_slave_data_agent_m0_debugaccess;                                                   // FTDI_USB3_0_avalon_slave_data_agent:m0_debugaccess -> FTDI_USB3_0_avalon_slave_data_translator:uav_debugaccess
+	wire   [33:0] ftdi_usb3_0_avalon_slave_data_agent_m0_address;                                                       // FTDI_USB3_0_avalon_slave_data_agent:m0_address -> FTDI_USB3_0_avalon_slave_data_translator:uav_address
+	wire   [31:0] ftdi_usb3_0_avalon_slave_data_agent_m0_byteenable;                                                    // FTDI_USB3_0_avalon_slave_data_agent:m0_byteenable -> FTDI_USB3_0_avalon_slave_data_translator:uav_byteenable
+	wire          ftdi_usb3_0_avalon_slave_data_agent_m0_read;                                                          // FTDI_USB3_0_avalon_slave_data_agent:m0_read -> FTDI_USB3_0_avalon_slave_data_translator:uav_read
+	wire          ftdi_usb3_0_avalon_slave_data_agent_m0_readdatavalid;                                                 // FTDI_USB3_0_avalon_slave_data_translator:uav_readdatavalid -> FTDI_USB3_0_avalon_slave_data_agent:m0_readdatavalid
+	wire          ftdi_usb3_0_avalon_slave_data_agent_m0_lock;                                                          // FTDI_USB3_0_avalon_slave_data_agent:m0_lock -> FTDI_USB3_0_avalon_slave_data_translator:uav_lock
+	wire  [255:0] ftdi_usb3_0_avalon_slave_data_agent_m0_writedata;                                                     // FTDI_USB3_0_avalon_slave_data_agent:m0_writedata -> FTDI_USB3_0_avalon_slave_data_translator:uav_writedata
+	wire          ftdi_usb3_0_avalon_slave_data_agent_m0_write;                                                         // FTDI_USB3_0_avalon_slave_data_agent:m0_write -> FTDI_USB3_0_avalon_slave_data_translator:uav_write
+	wire    [5:0] ftdi_usb3_0_avalon_slave_data_agent_m0_burstcount;                                                    // FTDI_USB3_0_avalon_slave_data_agent:m0_burstcount -> FTDI_USB3_0_avalon_slave_data_translator:uav_burstcount
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rf_source_valid;                                                  // FTDI_USB3_0_avalon_slave_data_agent:rf_source_valid -> FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:in_valid
+	wire  [381:0] ftdi_usb3_0_avalon_slave_data_agent_rf_source_data;                                                   // FTDI_USB3_0_avalon_slave_data_agent:rf_source_data -> FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:in_data
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rf_source_ready;                                                  // FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:in_ready -> FTDI_USB3_0_avalon_slave_data_agent:rf_source_ready
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rf_source_startofpacket;                                          // FTDI_USB3_0_avalon_slave_data_agent:rf_source_startofpacket -> FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:in_startofpacket
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rf_source_endofpacket;                                            // FTDI_USB3_0_avalon_slave_data_agent:rf_source_endofpacket -> FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:in_endofpacket
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_valid;                                               // FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:out_valid -> FTDI_USB3_0_avalon_slave_data_agent:rf_sink_valid
+	wire  [381:0] ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_data;                                                // FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:out_data -> FTDI_USB3_0_avalon_slave_data_agent:rf_sink_data
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_ready;                                               // FTDI_USB3_0_avalon_slave_data_agent:rf_sink_ready -> FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:out_ready
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_startofpacket;                                       // FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:out_startofpacket -> FTDI_USB3_0_avalon_slave_data_agent:rf_sink_startofpacket
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_endofpacket;                                         // FTDI_USB3_0_avalon_slave_data_agent_rsp_fifo:out_endofpacket -> FTDI_USB3_0_avalon_slave_data_agent:rf_sink_endofpacket
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_valid;                                             // FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_src_valid -> FTDI_USB3_0_avalon_slave_data_agent_rdata_fifo:in_valid
+	wire  [257:0] ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_data;                                              // FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_src_data -> FTDI_USB3_0_avalon_slave_data_agent_rdata_fifo:in_data
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_ready;                                             // FTDI_USB3_0_avalon_slave_data_agent_rdata_fifo:in_ready -> FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_src_ready
+	wire          cmd_mux_019_src_valid;                                                                                // cmd_mux_019:src_valid -> FTDI_USB3_0_avalon_slave_data_agent:cp_valid
+	wire  [380:0] cmd_mux_019_src_data;                                                                                 // cmd_mux_019:src_data -> FTDI_USB3_0_avalon_slave_data_agent:cp_data
+	wire          cmd_mux_019_src_ready;                                                                                // FTDI_USB3_0_avalon_slave_data_agent:cp_ready -> cmd_mux_019:src_ready
+	wire   [33:0] cmd_mux_019_src_channel;                                                                              // cmd_mux_019:src_channel -> FTDI_USB3_0_avalon_slave_data_agent:cp_channel
+	wire          cmd_mux_019_src_startofpacket;                                                                        // cmd_mux_019:src_startofpacket -> FTDI_USB3_0_avalon_slave_data_agent:cp_startofpacket
+	wire          cmd_mux_019_src_endofpacket;                                                                          // cmd_mux_019:src_endofpacket -> FTDI_USB3_0_avalon_slave_data_agent:cp_endofpacket
 	wire   [63:0] m1_clock_bridge_s0_agent_m0_readdata;                                                                 // m1_clock_bridge_s0_translator:uav_readdata -> m1_clock_bridge_s0_agent:m0_readdata
 	wire          m1_clock_bridge_s0_agent_m0_waitrequest;                                                              // m1_clock_bridge_s0_translator:uav_waitrequest -> m1_clock_bridge_s0_agent:m0_waitrequest
 	wire          m1_clock_bridge_s0_agent_m0_debugaccess;                                                              // m1_clock_bridge_s0_agent:m0_debugaccess -> m1_clock_bridge_s0_translator:uav_debugaccess
@@ -1387,11 +1387,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	wire   [33:0] router_007_src_channel;                                                                               // router_007:src_channel -> rsp_demux:sink_channel
 	wire          router_007_src_startofpacket;                                                                         // router_007:src_startofpacket -> rsp_demux:sink_startofpacket
 	wire          router_007_src_endofpacket;                                                                           // router_007:src_endofpacket -> rsp_demux:sink_endofpacket
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rp_valid;                                                      // USB_3_FTDI_0_avalon_slave_config_agent:rp_valid -> router_008:sink_valid
-	wire  [128:0] usb_3_ftdi_0_avalon_slave_config_agent_rp_data;                                                       // USB_3_FTDI_0_avalon_slave_config_agent:rp_data -> router_008:sink_data
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rp_ready;                                                      // router_008:sink_ready -> USB_3_FTDI_0_avalon_slave_config_agent:rp_ready
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rp_startofpacket;                                              // USB_3_FTDI_0_avalon_slave_config_agent:rp_startofpacket -> router_008:sink_startofpacket
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rp_endofpacket;                                                // USB_3_FTDI_0_avalon_slave_config_agent:rp_endofpacket -> router_008:sink_endofpacket
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rp_valid;                                                       // FTDI_USB3_0_avalon_slave_config_agent:rp_valid -> router_008:sink_valid
+	wire  [128:0] ftdi_usb3_0_avalon_slave_config_agent_rp_data;                                                        // FTDI_USB3_0_avalon_slave_config_agent:rp_data -> router_008:sink_data
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rp_ready;                                                       // router_008:sink_ready -> FTDI_USB3_0_avalon_slave_config_agent:rp_ready
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rp_startofpacket;                                               // FTDI_USB3_0_avalon_slave_config_agent:rp_startofpacket -> router_008:sink_startofpacket
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rp_endofpacket;                                                 // FTDI_USB3_0_avalon_slave_config_agent:rp_endofpacket -> router_008:sink_endofpacket
 	wire          router_008_src_valid;                                                                                 // router_008:src_valid -> rsp_demux_001:sink_valid
 	wire  [128:0] router_008_src_data;                                                                                  // router_008:src_data -> rsp_demux_001:sink_data
 	wire          router_008_src_ready;                                                                                 // rsp_demux_001:sink_ready -> router_008:src_ready
@@ -1585,11 +1585,11 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	wire   [33:0] router_025_src_channel;                                                                               // router_025:src_channel -> rsp_demux_018:sink_channel
 	wire          router_025_src_startofpacket;                                                                         // router_025:src_startofpacket -> rsp_demux_018:sink_startofpacket
 	wire          router_025_src_endofpacket;                                                                           // router_025:src_endofpacket -> rsp_demux_018:sink_endofpacket
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rp_valid;                                                        // USB_3_FTDI_0_avalon_slave_data_agent:rp_valid -> router_026:sink_valid
-	wire  [380:0] usb_3_ftdi_0_avalon_slave_data_agent_rp_data;                                                         // USB_3_FTDI_0_avalon_slave_data_agent:rp_data -> router_026:sink_data
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rp_ready;                                                        // router_026:sink_ready -> USB_3_FTDI_0_avalon_slave_data_agent:rp_ready
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rp_startofpacket;                                                // USB_3_FTDI_0_avalon_slave_data_agent:rp_startofpacket -> router_026:sink_startofpacket
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rp_endofpacket;                                                  // USB_3_FTDI_0_avalon_slave_data_agent:rp_endofpacket -> router_026:sink_endofpacket
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rp_valid;                                                         // FTDI_USB3_0_avalon_slave_data_agent:rp_valid -> router_026:sink_valid
+	wire  [380:0] ftdi_usb3_0_avalon_slave_data_agent_rp_data;                                                          // FTDI_USB3_0_avalon_slave_data_agent:rp_data -> router_026:sink_data
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rp_ready;                                                         // router_026:sink_ready -> FTDI_USB3_0_avalon_slave_data_agent:rp_ready
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rp_startofpacket;                                                 // FTDI_USB3_0_avalon_slave_data_agent:rp_startofpacket -> router_026:sink_startofpacket
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rp_endofpacket;                                                   // FTDI_USB3_0_avalon_slave_data_agent:rp_endofpacket -> router_026:sink_endofpacket
 	wire          router_026_src_valid;                                                                                 // router_026:src_valid -> rsp_demux_019:sink_valid
 	wire  [380:0] router_026_src_data;                                                                                  // router_026:src_data -> rsp_demux_019:sink_data
 	wire          router_026_src_ready;                                                                                 // rsp_demux_019:sink_ready -> router_026:src_ready
@@ -2777,13 +2777,13 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	wire   [33:0] avalon_st_adapter_out_0_data;                                                                         // avalon_st_adapter:out_0_data -> jtag_uart_0_avalon_jtag_slave_agent:rdata_fifo_sink_data
 	wire          avalon_st_adapter_out_0_ready;                                                                        // jtag_uart_0_avalon_jtag_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter:out_0_ready
 	wire    [0:0] avalon_st_adapter_out_0_error;                                                                        // avalon_st_adapter:out_0_error -> jtag_uart_0_avalon_jtag_slave_agent:rdata_fifo_sink_error
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_valid;                                          // USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_src_valid -> avalon_st_adapter_001:in_0_valid
-	wire   [33:0] usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_data;                                           // USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_src_data -> avalon_st_adapter_001:in_0_data
-	wire          usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_ready;                                          // avalon_st_adapter_001:in_0_ready -> USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_src_ready
-	wire          avalon_st_adapter_001_out_0_valid;                                                                    // avalon_st_adapter_001:out_0_valid -> USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_sink_valid
-	wire   [33:0] avalon_st_adapter_001_out_0_data;                                                                     // avalon_st_adapter_001:out_0_data -> USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_sink_data
-	wire          avalon_st_adapter_001_out_0_ready;                                                                    // USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_sink_ready -> avalon_st_adapter_001:out_0_ready
-	wire    [0:0] avalon_st_adapter_001_out_0_error;                                                                    // avalon_st_adapter_001:out_0_error -> USB_3_FTDI_0_avalon_slave_config_agent:rdata_fifo_sink_error
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_valid;                                           // FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_src_valid -> avalon_st_adapter_001:in_0_valid
+	wire   [33:0] ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_data;                                            // FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_src_data -> avalon_st_adapter_001:in_0_data
+	wire          ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_ready;                                           // avalon_st_adapter_001:in_0_ready -> FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_src_ready
+	wire          avalon_st_adapter_001_out_0_valid;                                                                    // avalon_st_adapter_001:out_0_valid -> FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_sink_valid
+	wire   [33:0] avalon_st_adapter_001_out_0_data;                                                                     // avalon_st_adapter_001:out_0_data -> FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_sink_data
+	wire          avalon_st_adapter_001_out_0_ready;                                                                    // FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_sink_ready -> avalon_st_adapter_001:out_0_ready
+	wire    [0:0] avalon_st_adapter_001_out_0_error;                                                                    // avalon_st_adapter_001:out_0_error -> FTDI_USB3_0_avalon_slave_config_agent:rdata_fifo_sink_error
 	wire          comm_pedreiro_v1_01_a_avalon_slave_windowing_agent_rdata_fifo_src_valid;                              // COMM_Pedreiro_v1_01_A_avalon_slave_windowing_agent:rdata_fifo_src_valid -> avalon_st_adapter_002:in_0_valid
 	wire   [33:0] comm_pedreiro_v1_01_a_avalon_slave_windowing_agent_rdata_fifo_src_data;                               // COMM_Pedreiro_v1_01_A_avalon_slave_windowing_agent:rdata_fifo_src_data -> avalon_st_adapter_002:in_0_data
 	wire          comm_pedreiro_v1_01_a_avalon_slave_windowing_agent_rdata_fifo_src_ready;                              // avalon_st_adapter_002:in_0_ready -> COMM_Pedreiro_v1_01_A_avalon_slave_windowing_agent:rdata_fifo_src_ready
@@ -2903,13 +2903,13 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	wire   [33:0] avalon_st_adapter_018_out_0_data;                                                                     // avalon_st_adapter_018:out_0_data -> ddr2_address_span_extender_windowed_slave_agent:rdata_fifo_sink_data
 	wire          avalon_st_adapter_018_out_0_ready;                                                                    // ddr2_address_span_extender_windowed_slave_agent:rdata_fifo_sink_ready -> avalon_st_adapter_018:out_0_ready
 	wire    [0:0] avalon_st_adapter_018_out_0_error;                                                                    // avalon_st_adapter_018:out_0_error -> ddr2_address_span_extender_windowed_slave_agent:rdata_fifo_sink_error
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_valid;                                            // USB_3_FTDI_0_avalon_slave_data_agent_rdata_fifo:out_valid -> avalon_st_adapter_019:in_0_valid
-	wire  [257:0] usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_data;                                             // USB_3_FTDI_0_avalon_slave_data_agent_rdata_fifo:out_data -> avalon_st_adapter_019:in_0_data
-	wire          usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_ready;                                            // avalon_st_adapter_019:in_0_ready -> USB_3_FTDI_0_avalon_slave_data_agent_rdata_fifo:out_ready
-	wire          avalon_st_adapter_019_out_0_valid;                                                                    // avalon_st_adapter_019:out_0_valid -> USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_sink_valid
-	wire  [257:0] avalon_st_adapter_019_out_0_data;                                                                     // avalon_st_adapter_019:out_0_data -> USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_sink_data
-	wire          avalon_st_adapter_019_out_0_ready;                                                                    // USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_sink_ready -> avalon_st_adapter_019:out_0_ready
-	wire    [0:0] avalon_st_adapter_019_out_0_error;                                                                    // avalon_st_adapter_019:out_0_error -> USB_3_FTDI_0_avalon_slave_data_agent:rdata_fifo_sink_error
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_valid;                                             // FTDI_USB3_0_avalon_slave_data_agent_rdata_fifo:out_valid -> avalon_st_adapter_019:in_0_valid
+	wire  [257:0] ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_data;                                              // FTDI_USB3_0_avalon_slave_data_agent_rdata_fifo:out_data -> avalon_st_adapter_019:in_0_data
+	wire          ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_ready;                                             // avalon_st_adapter_019:in_0_ready -> FTDI_USB3_0_avalon_slave_data_agent_rdata_fifo:out_ready
+	wire          avalon_st_adapter_019_out_0_valid;                                                                    // avalon_st_adapter_019:out_0_valid -> FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_sink_valid
+	wire  [257:0] avalon_st_adapter_019_out_0_data;                                                                     // avalon_st_adapter_019:out_0_data -> FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_sink_data
+	wire          avalon_st_adapter_019_out_0_ready;                                                                    // FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_sink_ready -> avalon_st_adapter_019:out_0_ready
+	wire    [0:0] avalon_st_adapter_019_out_0_error;                                                                    // avalon_st_adapter_019:out_0_error -> FTDI_USB3_0_avalon_slave_data_agent:rdata_fifo_sink_error
 	wire          m1_clock_bridge_s0_agent_rdata_fifo_out_valid;                                                        // m1_clock_bridge_s0_agent_rdata_fifo:out_valid -> avalon_st_adapter_020:in_0_valid
 	wire   [65:0] m1_clock_bridge_s0_agent_rdata_fifo_out_data;                                                         // m1_clock_bridge_s0_agent_rdata_fifo:out_data -> avalon_st_adapter_020:in_0_data
 	wire          m1_clock_bridge_s0_agent_rdata_fifo_out_ready;                                                        // avalon_st_adapter_020:in_0_ready -> m1_clock_bridge_s0_agent_rdata_fifo:out_ready
@@ -3519,42 +3519,42 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) usb_3_ftdi_0_avalon_slave_config_translator (
-		.clk                    (clk_100_clk_clk),                                         //                      clk.clk
-		.reset                  (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),          //                    reset.reset
-		.uav_address            (usb_3_ftdi_0_avalon_slave_config_agent_m0_address),       // avalon_universal_slave_0.address
-		.uav_burstcount         (usb_3_ftdi_0_avalon_slave_config_agent_m0_burstcount),    //                         .burstcount
-		.uav_read               (usb_3_ftdi_0_avalon_slave_config_agent_m0_read),          //                         .read
-		.uav_write              (usb_3_ftdi_0_avalon_slave_config_agent_m0_write),         //                         .write
-		.uav_waitrequest        (usb_3_ftdi_0_avalon_slave_config_agent_m0_waitrequest),   //                         .waitrequest
-		.uav_readdatavalid      (usb_3_ftdi_0_avalon_slave_config_agent_m0_readdatavalid), //                         .readdatavalid
-		.uav_byteenable         (usb_3_ftdi_0_avalon_slave_config_agent_m0_byteenable),    //                         .byteenable
-		.uav_readdata           (usb_3_ftdi_0_avalon_slave_config_agent_m0_readdata),      //                         .readdata
-		.uav_writedata          (usb_3_ftdi_0_avalon_slave_config_agent_m0_writedata),     //                         .writedata
-		.uav_lock               (usb_3_ftdi_0_avalon_slave_config_agent_m0_lock),          //                         .lock
-		.uav_debugaccess        (usb_3_ftdi_0_avalon_slave_config_agent_m0_debugaccess),   //                         .debugaccess
-		.av_address             (USB_3_FTDI_0_avalon_slave_config_address),                //      avalon_anti_slave_0.address
-		.av_write               (USB_3_FTDI_0_avalon_slave_config_write),                  //                         .write
-		.av_read                (USB_3_FTDI_0_avalon_slave_config_read),                   //                         .read
-		.av_readdata            (USB_3_FTDI_0_avalon_slave_config_readdata),               //                         .readdata
-		.av_writedata           (USB_3_FTDI_0_avalon_slave_config_writedata),              //                         .writedata
-		.av_byteenable          (USB_3_FTDI_0_avalon_slave_config_byteenable),             //                         .byteenable
-		.av_waitrequest         (USB_3_FTDI_0_avalon_slave_config_waitrequest),            //                         .waitrequest
-		.av_begintransfer       (),                                                        //              (terminated)
-		.av_beginbursttransfer  (),                                                        //              (terminated)
-		.av_burstcount          (),                                                        //              (terminated)
-		.av_readdatavalid       (1'b0),                                                    //              (terminated)
-		.av_writebyteenable     (),                                                        //              (terminated)
-		.av_lock                (),                                                        //              (terminated)
-		.av_chipselect          (),                                                        //              (terminated)
-		.av_clken               (),                                                        //              (terminated)
-		.uav_clken              (1'b0),                                                    //              (terminated)
-		.av_debugaccess         (),                                                        //              (terminated)
-		.av_outputenable        (),                                                        //              (terminated)
-		.uav_response           (),                                                        //              (terminated)
-		.av_response            (2'b00),                                                   //              (terminated)
-		.uav_writeresponsevalid (),                                                        //              (terminated)
-		.av_writeresponsevalid  (1'b0)                                                     //              (terminated)
+	) ftdi_usb3_0_avalon_slave_config_translator (
+		.clk                    (clk_100_clk_clk),                                        //                      clk.clk
+		.reset                  (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),         //                    reset.reset
+		.uav_address            (ftdi_usb3_0_avalon_slave_config_agent_m0_address),       // avalon_universal_slave_0.address
+		.uav_burstcount         (ftdi_usb3_0_avalon_slave_config_agent_m0_burstcount),    //                         .burstcount
+		.uav_read               (ftdi_usb3_0_avalon_slave_config_agent_m0_read),          //                         .read
+		.uav_write              (ftdi_usb3_0_avalon_slave_config_agent_m0_write),         //                         .write
+		.uav_waitrequest        (ftdi_usb3_0_avalon_slave_config_agent_m0_waitrequest),   //                         .waitrequest
+		.uav_readdatavalid      (ftdi_usb3_0_avalon_slave_config_agent_m0_readdatavalid), //                         .readdatavalid
+		.uav_byteenable         (ftdi_usb3_0_avalon_slave_config_agent_m0_byteenable),    //                         .byteenable
+		.uav_readdata           (ftdi_usb3_0_avalon_slave_config_agent_m0_readdata),      //                         .readdata
+		.uav_writedata          (ftdi_usb3_0_avalon_slave_config_agent_m0_writedata),     //                         .writedata
+		.uav_lock               (ftdi_usb3_0_avalon_slave_config_agent_m0_lock),          //                         .lock
+		.uav_debugaccess        (ftdi_usb3_0_avalon_slave_config_agent_m0_debugaccess),   //                         .debugaccess
+		.av_address             (FTDI_USB3_0_avalon_slave_config_address),                //      avalon_anti_slave_0.address
+		.av_write               (FTDI_USB3_0_avalon_slave_config_write),                  //                         .write
+		.av_read                (FTDI_USB3_0_avalon_slave_config_read),                   //                         .read
+		.av_readdata            (FTDI_USB3_0_avalon_slave_config_readdata),               //                         .readdata
+		.av_writedata           (FTDI_USB3_0_avalon_slave_config_writedata),              //                         .writedata
+		.av_byteenable          (FTDI_USB3_0_avalon_slave_config_byteenable),             //                         .byteenable
+		.av_waitrequest         (FTDI_USB3_0_avalon_slave_config_waitrequest),            //                         .waitrequest
+		.av_begintransfer       (),                                                       //              (terminated)
+		.av_beginbursttransfer  (),                                                       //              (terminated)
+		.av_burstcount          (),                                                       //              (terminated)
+		.av_readdatavalid       (1'b0),                                                   //              (terminated)
+		.av_writebyteenable     (),                                                       //              (terminated)
+		.av_lock                (),                                                       //              (terminated)
+		.av_chipselect          (),                                                       //              (terminated)
+		.av_clken               (),                                                       //              (terminated)
+		.uav_clken              (1'b0),                                                   //              (terminated)
+		.av_debugaccess         (),                                                       //              (terminated)
+		.av_outputenable        (),                                                       //              (terminated)
+		.uav_response           (),                                                       //              (terminated)
+		.av_response            (2'b00),                                                  //              (terminated)
+		.uav_writeresponsevalid (),                                                       //              (terminated)
+		.av_writeresponsevalid  (1'b0)                                                    //              (terminated)
 	);
 
 	altera_merlin_slave_translator #(
@@ -4671,42 +4671,42 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.AV_WRITE_WAIT_CYCLES           (0),
 		.AV_SETUP_WAIT_CYCLES           (0),
 		.AV_DATA_HOLD_CYCLES            (0)
-	) usb_3_ftdi_0_avalon_slave_data_translator (
-		.clk                    (clk_100_clk_clk),                                       //                      clk.clk
-		.reset                  (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),        //                    reset.reset
-		.uav_address            (usb_3_ftdi_0_avalon_slave_data_agent_m0_address),       // avalon_universal_slave_0.address
-		.uav_burstcount         (usb_3_ftdi_0_avalon_slave_data_agent_m0_burstcount),    //                         .burstcount
-		.uav_read               (usb_3_ftdi_0_avalon_slave_data_agent_m0_read),          //                         .read
-		.uav_write              (usb_3_ftdi_0_avalon_slave_data_agent_m0_write),         //                         .write
-		.uav_waitrequest        (usb_3_ftdi_0_avalon_slave_data_agent_m0_waitrequest),   //                         .waitrequest
-		.uav_readdatavalid      (usb_3_ftdi_0_avalon_slave_data_agent_m0_readdatavalid), //                         .readdatavalid
-		.uav_byteenable         (usb_3_ftdi_0_avalon_slave_data_agent_m0_byteenable),    //                         .byteenable
-		.uav_readdata           (usb_3_ftdi_0_avalon_slave_data_agent_m0_readdata),      //                         .readdata
-		.uav_writedata          (usb_3_ftdi_0_avalon_slave_data_agent_m0_writedata),     //                         .writedata
-		.uav_lock               (usb_3_ftdi_0_avalon_slave_data_agent_m0_lock),          //                         .lock
-		.uav_debugaccess        (usb_3_ftdi_0_avalon_slave_data_agent_m0_debugaccess),   //                         .debugaccess
-		.av_address             (USB_3_FTDI_0_avalon_slave_data_address),                //      avalon_anti_slave_0.address
-		.av_write               (USB_3_FTDI_0_avalon_slave_data_write),                  //                         .write
-		.av_read                (USB_3_FTDI_0_avalon_slave_data_read),                   //                         .read
-		.av_readdata            (USB_3_FTDI_0_avalon_slave_data_readdata),               //                         .readdata
-		.av_writedata           (USB_3_FTDI_0_avalon_slave_data_writedata),              //                         .writedata
-		.av_waitrequest         (USB_3_FTDI_0_avalon_slave_data_waitrequest),            //                         .waitrequest
-		.av_begintransfer       (),                                                      //              (terminated)
-		.av_beginbursttransfer  (),                                                      //              (terminated)
-		.av_burstcount          (),                                                      //              (terminated)
-		.av_byteenable          (),                                                      //              (terminated)
-		.av_readdatavalid       (1'b0),                                                  //              (terminated)
-		.av_writebyteenable     (),                                                      //              (terminated)
-		.av_lock                (),                                                      //              (terminated)
-		.av_chipselect          (),                                                      //              (terminated)
-		.av_clken               (),                                                      //              (terminated)
-		.uav_clken              (1'b0),                                                  //              (terminated)
-		.av_debugaccess         (),                                                      //              (terminated)
-		.av_outputenable        (),                                                      //              (terminated)
-		.uav_response           (),                                                      //              (terminated)
-		.av_response            (2'b00),                                                 //              (terminated)
-		.uav_writeresponsevalid (),                                                      //              (terminated)
-		.av_writeresponsevalid  (1'b0)                                                   //              (terminated)
+	) ftdi_usb3_0_avalon_slave_data_translator (
+		.clk                    (clk_100_clk_clk),                                      //                      clk.clk
+		.reset                  (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),       //                    reset.reset
+		.uav_address            (ftdi_usb3_0_avalon_slave_data_agent_m0_address),       // avalon_universal_slave_0.address
+		.uav_burstcount         (ftdi_usb3_0_avalon_slave_data_agent_m0_burstcount),    //                         .burstcount
+		.uav_read               (ftdi_usb3_0_avalon_slave_data_agent_m0_read),          //                         .read
+		.uav_write              (ftdi_usb3_0_avalon_slave_data_agent_m0_write),         //                         .write
+		.uav_waitrequest        (ftdi_usb3_0_avalon_slave_data_agent_m0_waitrequest),   //                         .waitrequest
+		.uav_readdatavalid      (ftdi_usb3_0_avalon_slave_data_agent_m0_readdatavalid), //                         .readdatavalid
+		.uav_byteenable         (ftdi_usb3_0_avalon_slave_data_agent_m0_byteenable),    //                         .byteenable
+		.uav_readdata           (ftdi_usb3_0_avalon_slave_data_agent_m0_readdata),      //                         .readdata
+		.uav_writedata          (ftdi_usb3_0_avalon_slave_data_agent_m0_writedata),     //                         .writedata
+		.uav_lock               (ftdi_usb3_0_avalon_slave_data_agent_m0_lock),          //                         .lock
+		.uav_debugaccess        (ftdi_usb3_0_avalon_slave_data_agent_m0_debugaccess),   //                         .debugaccess
+		.av_address             (FTDI_USB3_0_avalon_slave_data_address),                //      avalon_anti_slave_0.address
+		.av_write               (FTDI_USB3_0_avalon_slave_data_write),                  //                         .write
+		.av_read                (FTDI_USB3_0_avalon_slave_data_read),                   //                         .read
+		.av_readdata            (FTDI_USB3_0_avalon_slave_data_readdata),               //                         .readdata
+		.av_writedata           (FTDI_USB3_0_avalon_slave_data_writedata),              //                         .writedata
+		.av_waitrequest         (FTDI_USB3_0_avalon_slave_data_waitrequest),            //                         .waitrequest
+		.av_begintransfer       (),                                                     //              (terminated)
+		.av_beginbursttransfer  (),                                                     //              (terminated)
+		.av_burstcount          (),                                                     //              (terminated)
+		.av_byteenable          (),                                                     //              (terminated)
+		.av_readdatavalid       (1'b0),                                                 //              (terminated)
+		.av_writebyteenable     (),                                                     //              (terminated)
+		.av_lock                (),                                                     //              (terminated)
+		.av_chipselect          (),                                                     //              (terminated)
+		.av_clken               (),                                                     //              (terminated)
+		.uav_clken              (1'b0),                                                 //              (terminated)
+		.av_debugaccess         (),                                                     //              (terminated)
+		.av_outputenable        (),                                                     //              (terminated)
+		.uav_response           (),                                                     //              (terminated)
+		.av_response            (2'b00),                                                //              (terminated)
+		.uav_writeresponsevalid (),                                                     //              (terminated)
+		.av_writeresponsevalid  (1'b0)                                                  //              (terminated)
 	);
 
 	altera_merlin_slave_translator #(
@@ -6335,50 +6335,50 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
-	) usb_3_ftdi_0_avalon_slave_config_agent (
-		.clk                     (clk_100_clk_clk),                                                   //             clk.clk
-		.reset                   (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                    //       clk_reset.reset
-		.m0_address              (usb_3_ftdi_0_avalon_slave_config_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (usb_3_ftdi_0_avalon_slave_config_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (usb_3_ftdi_0_avalon_slave_config_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (usb_3_ftdi_0_avalon_slave_config_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (usb_3_ftdi_0_avalon_slave_config_agent_m0_lock),                    //                .lock
-		.m0_readdata             (usb_3_ftdi_0_avalon_slave_config_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (usb_3_ftdi_0_avalon_slave_config_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (usb_3_ftdi_0_avalon_slave_config_agent_m0_read),                    //                .read
-		.m0_waitrequest          (usb_3_ftdi_0_avalon_slave_config_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (usb_3_ftdi_0_avalon_slave_config_agent_m0_writedata),               //                .writedata
-		.m0_write                (usb_3_ftdi_0_avalon_slave_config_agent_m0_write),                   //                .write
-		.rp_endofpacket          (usb_3_ftdi_0_avalon_slave_config_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (usb_3_ftdi_0_avalon_slave_config_agent_rp_ready),                   //                .ready
-		.rp_valid                (usb_3_ftdi_0_avalon_slave_config_agent_rp_valid),                   //                .valid
-		.rp_data                 (usb_3_ftdi_0_avalon_slave_config_agent_rp_data),                    //                .data
-		.rp_startofpacket        (usb_3_ftdi_0_avalon_slave_config_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_001_src_ready),                                             //              cp.ready
-		.cp_valid                (cmd_mux_001_src_valid),                                             //                .valid
-		.cp_data                 (cmd_mux_001_src_data),                                              //                .data
-		.cp_startofpacket        (cmd_mux_001_src_startofpacket),                                     //                .startofpacket
-		.cp_endofpacket          (cmd_mux_001_src_endofpacket),                                       //                .endofpacket
-		.cp_channel              (cmd_mux_001_src_channel),                                           //                .channel
-		.rf_sink_ready           (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_001_out_0_ready),                                 // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_001_out_0_valid),                                 //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_001_out_0_data),                                  //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_001_out_0_error),                                 //                .error
-		.rdata_fifo_src_ready    (usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                             //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                               //     (terminated)
+	) ftdi_usb3_0_avalon_slave_config_agent (
+		.clk                     (clk_100_clk_clk),                                                  //             clk.clk
+		.reset                   (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                   //       clk_reset.reset
+		.m0_address              (ftdi_usb3_0_avalon_slave_config_agent_m0_address),                 //              m0.address
+		.m0_burstcount           (ftdi_usb3_0_avalon_slave_config_agent_m0_burstcount),              //                .burstcount
+		.m0_byteenable           (ftdi_usb3_0_avalon_slave_config_agent_m0_byteenable),              //                .byteenable
+		.m0_debugaccess          (ftdi_usb3_0_avalon_slave_config_agent_m0_debugaccess),             //                .debugaccess
+		.m0_lock                 (ftdi_usb3_0_avalon_slave_config_agent_m0_lock),                    //                .lock
+		.m0_readdata             (ftdi_usb3_0_avalon_slave_config_agent_m0_readdata),                //                .readdata
+		.m0_readdatavalid        (ftdi_usb3_0_avalon_slave_config_agent_m0_readdatavalid),           //                .readdatavalid
+		.m0_read                 (ftdi_usb3_0_avalon_slave_config_agent_m0_read),                    //                .read
+		.m0_waitrequest          (ftdi_usb3_0_avalon_slave_config_agent_m0_waitrequest),             //                .waitrequest
+		.m0_writedata            (ftdi_usb3_0_avalon_slave_config_agent_m0_writedata),               //                .writedata
+		.m0_write                (ftdi_usb3_0_avalon_slave_config_agent_m0_write),                   //                .write
+		.rp_endofpacket          (ftdi_usb3_0_avalon_slave_config_agent_rp_endofpacket),             //              rp.endofpacket
+		.rp_ready                (ftdi_usb3_0_avalon_slave_config_agent_rp_ready),                   //                .ready
+		.rp_valid                (ftdi_usb3_0_avalon_slave_config_agent_rp_valid),                   //                .valid
+		.rp_data                 (ftdi_usb3_0_avalon_slave_config_agent_rp_data),                    //                .data
+		.rp_startofpacket        (ftdi_usb3_0_avalon_slave_config_agent_rp_startofpacket),           //                .startofpacket
+		.cp_ready                (cmd_mux_001_src_ready),                                            //              cp.ready
+		.cp_valid                (cmd_mux_001_src_valid),                                            //                .valid
+		.cp_data                 (cmd_mux_001_src_data),                                             //                .data
+		.cp_startofpacket        (cmd_mux_001_src_startofpacket),                                    //                .startofpacket
+		.cp_endofpacket          (cmd_mux_001_src_endofpacket),                                      //                .endofpacket
+		.cp_channel              (cmd_mux_001_src_channel),                                          //                .channel
+		.rf_sink_ready           (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_ready),         //         rf_sink.ready
+		.rf_sink_valid           (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_valid),         //                .valid
+		.rf_sink_startofpacket   (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_startofpacket), //                .startofpacket
+		.rf_sink_endofpacket     (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
+		.rf_sink_data            (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_data),          //                .data
+		.rf_source_ready         (ftdi_usb3_0_avalon_slave_config_agent_rf_source_ready),            //       rf_source.ready
+		.rf_source_valid         (ftdi_usb3_0_avalon_slave_config_agent_rf_source_valid),            //                .valid
+		.rf_source_startofpacket (ftdi_usb3_0_avalon_slave_config_agent_rf_source_startofpacket),    //                .startofpacket
+		.rf_source_endofpacket   (ftdi_usb3_0_avalon_slave_config_agent_rf_source_endofpacket),      //                .endofpacket
+		.rf_source_data          (ftdi_usb3_0_avalon_slave_config_agent_rf_source_data),             //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_001_out_0_ready),                                // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_001_out_0_valid),                                //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_001_out_0_data),                                 //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_001_out_0_error),                                //                .error
+		.rdata_fifo_src_ready    (ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_valid),       //                .valid
+		.rdata_fifo_src_data     (ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_data),        //                .data
+		.m0_response             (2'b00),                                                            //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                              //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -6394,32 +6394,32 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo (
-		.clk               (clk_100_clk_clk),                                                   //       clk.clk
-		.reset             (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                    // clk_reset.reset
-		.in_data           (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_data),             //        in.data
-		.in_valid          (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_valid),            //          .valid
-		.in_ready          (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_ready),            //          .ready
-		.in_startofpacket  (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_startofpacket),    //          .startofpacket
-		.in_endofpacket    (usb_3_ftdi_0_avalon_slave_config_agent_rf_source_endofpacket),      //          .endofpacket
-		.out_data          (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_data),          //       out.data
-		.out_valid         (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_valid),         //          .valid
-		.out_ready         (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_ready),         //          .ready
-		.out_startofpacket (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_startofpacket), //          .startofpacket
-		.out_endofpacket   (usb_3_ftdi_0_avalon_slave_config_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
-		.csr_address       (2'b00),                                                             // (terminated)
-		.csr_read          (1'b0),                                                              // (terminated)
-		.csr_write         (1'b0),                                                              // (terminated)
-		.csr_readdata      (),                                                                  // (terminated)
-		.csr_writedata     (32'b00000000000000000000000000000000),                              // (terminated)
-		.almost_full_data  (),                                                                  // (terminated)
-		.almost_empty_data (),                                                                  // (terminated)
-		.in_empty          (1'b0),                                                              // (terminated)
-		.out_empty         (),                                                                  // (terminated)
-		.in_error          (1'b0),                                                              // (terminated)
-		.out_error         (),                                                                  // (terminated)
-		.in_channel        (1'b0),                                                              // (terminated)
-		.out_channel       ()                                                                   // (terminated)
+	) ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo (
+		.clk               (clk_100_clk_clk),                                                  //       clk.clk
+		.reset             (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                   // clk_reset.reset
+		.in_data           (ftdi_usb3_0_avalon_slave_config_agent_rf_source_data),             //        in.data
+		.in_valid          (ftdi_usb3_0_avalon_slave_config_agent_rf_source_valid),            //          .valid
+		.in_ready          (ftdi_usb3_0_avalon_slave_config_agent_rf_source_ready),            //          .ready
+		.in_startofpacket  (ftdi_usb3_0_avalon_slave_config_agent_rf_source_startofpacket),    //          .startofpacket
+		.in_endofpacket    (ftdi_usb3_0_avalon_slave_config_agent_rf_source_endofpacket),      //          .endofpacket
+		.out_data          (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_data),          //       out.data
+		.out_valid         (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_valid),         //          .valid
+		.out_ready         (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_ready),         //          .ready
+		.out_startofpacket (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_startofpacket), //          .startofpacket
+		.out_endofpacket   (ftdi_usb3_0_avalon_slave_config_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
+		.csr_address       (2'b00),                                                            // (terminated)
+		.csr_read          (1'b0),                                                             // (terminated)
+		.csr_write         (1'b0),                                                             // (terminated)
+		.csr_readdata      (),                                                                 // (terminated)
+		.csr_writedata     (32'b00000000000000000000000000000000),                             // (terminated)
+		.almost_full_data  (),                                                                 // (terminated)
+		.almost_empty_data (),                                                                 // (terminated)
+		.in_empty          (1'b0),                                                             // (terminated)
+		.out_empty         (),                                                                 // (terminated)
+		.in_error          (1'b0),                                                             // (terminated)
+		.out_error         (),                                                                 // (terminated)
+		.in_channel        (1'b0),                                                             // (terminated)
+		.out_channel       ()                                                                  // (terminated)
 	);
 
 	altera_merlin_slave_agent #(
@@ -8831,50 +8831,50 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.USE_READRESPONSE          (0),
 		.USE_WRITERESPONSE         (0),
 		.ECC_ENABLE                (0)
-	) usb_3_ftdi_0_avalon_slave_data_agent (
-		.clk                     (clk_100_clk_clk),                                                 //             clk.clk
-		.reset                   (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                  //       clk_reset.reset
-		.m0_address              (usb_3_ftdi_0_avalon_slave_data_agent_m0_address),                 //              m0.address
-		.m0_burstcount           (usb_3_ftdi_0_avalon_slave_data_agent_m0_burstcount),              //                .burstcount
-		.m0_byteenable           (usb_3_ftdi_0_avalon_slave_data_agent_m0_byteenable),              //                .byteenable
-		.m0_debugaccess          (usb_3_ftdi_0_avalon_slave_data_agent_m0_debugaccess),             //                .debugaccess
-		.m0_lock                 (usb_3_ftdi_0_avalon_slave_data_agent_m0_lock),                    //                .lock
-		.m0_readdata             (usb_3_ftdi_0_avalon_slave_data_agent_m0_readdata),                //                .readdata
-		.m0_readdatavalid        (usb_3_ftdi_0_avalon_slave_data_agent_m0_readdatavalid),           //                .readdatavalid
-		.m0_read                 (usb_3_ftdi_0_avalon_slave_data_agent_m0_read),                    //                .read
-		.m0_waitrequest          (usb_3_ftdi_0_avalon_slave_data_agent_m0_waitrequest),             //                .waitrequest
-		.m0_writedata            (usb_3_ftdi_0_avalon_slave_data_agent_m0_writedata),               //                .writedata
-		.m0_write                (usb_3_ftdi_0_avalon_slave_data_agent_m0_write),                   //                .write
-		.rp_endofpacket          (usb_3_ftdi_0_avalon_slave_data_agent_rp_endofpacket),             //              rp.endofpacket
-		.rp_ready                (usb_3_ftdi_0_avalon_slave_data_agent_rp_ready),                   //                .ready
-		.rp_valid                (usb_3_ftdi_0_avalon_slave_data_agent_rp_valid),                   //                .valid
-		.rp_data                 (usb_3_ftdi_0_avalon_slave_data_agent_rp_data),                    //                .data
-		.rp_startofpacket        (usb_3_ftdi_0_avalon_slave_data_agent_rp_startofpacket),           //                .startofpacket
-		.cp_ready                (cmd_mux_019_src_ready),                                           //              cp.ready
-		.cp_valid                (cmd_mux_019_src_valid),                                           //                .valid
-		.cp_data                 (cmd_mux_019_src_data),                                            //                .data
-		.cp_startofpacket        (cmd_mux_019_src_startofpacket),                                   //                .startofpacket
-		.cp_endofpacket          (cmd_mux_019_src_endofpacket),                                     //                .endofpacket
-		.cp_channel              (cmd_mux_019_src_channel),                                         //                .channel
-		.rf_sink_ready           (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_ready),         //         rf_sink.ready
-		.rf_sink_valid           (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_valid),         //                .valid
-		.rf_sink_startofpacket   (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_startofpacket), //                .startofpacket
-		.rf_sink_endofpacket     (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
-		.rf_sink_data            (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_data),          //                .data
-		.rf_source_ready         (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_ready),            //       rf_source.ready
-		.rf_source_valid         (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_valid),            //                .valid
-		.rf_source_startofpacket (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_startofpacket),    //                .startofpacket
-		.rf_source_endofpacket   (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_endofpacket),      //                .endofpacket
-		.rf_source_data          (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_data),             //                .data
-		.rdata_fifo_sink_ready   (avalon_st_adapter_019_out_0_ready),                               // rdata_fifo_sink.ready
-		.rdata_fifo_sink_valid   (avalon_st_adapter_019_out_0_valid),                               //                .valid
-		.rdata_fifo_sink_data    (avalon_st_adapter_019_out_0_data),                                //                .data
-		.rdata_fifo_sink_error   (avalon_st_adapter_019_out_0_error),                               //                .error
-		.rdata_fifo_src_ready    (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
-		.rdata_fifo_src_valid    (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_valid),       //                .valid
-		.rdata_fifo_src_data     (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_data),        //                .data
-		.m0_response             (2'b00),                                                           //     (terminated)
-		.m0_writeresponsevalid   (1'b0)                                                             //     (terminated)
+	) ftdi_usb3_0_avalon_slave_data_agent (
+		.clk                     (clk_100_clk_clk),                                                //             clk.clk
+		.reset                   (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                 //       clk_reset.reset
+		.m0_address              (ftdi_usb3_0_avalon_slave_data_agent_m0_address),                 //              m0.address
+		.m0_burstcount           (ftdi_usb3_0_avalon_slave_data_agent_m0_burstcount),              //                .burstcount
+		.m0_byteenable           (ftdi_usb3_0_avalon_slave_data_agent_m0_byteenable),              //                .byteenable
+		.m0_debugaccess          (ftdi_usb3_0_avalon_slave_data_agent_m0_debugaccess),             //                .debugaccess
+		.m0_lock                 (ftdi_usb3_0_avalon_slave_data_agent_m0_lock),                    //                .lock
+		.m0_readdata             (ftdi_usb3_0_avalon_slave_data_agent_m0_readdata),                //                .readdata
+		.m0_readdatavalid        (ftdi_usb3_0_avalon_slave_data_agent_m0_readdatavalid),           //                .readdatavalid
+		.m0_read                 (ftdi_usb3_0_avalon_slave_data_agent_m0_read),                    //                .read
+		.m0_waitrequest          (ftdi_usb3_0_avalon_slave_data_agent_m0_waitrequest),             //                .waitrequest
+		.m0_writedata            (ftdi_usb3_0_avalon_slave_data_agent_m0_writedata),               //                .writedata
+		.m0_write                (ftdi_usb3_0_avalon_slave_data_agent_m0_write),                   //                .write
+		.rp_endofpacket          (ftdi_usb3_0_avalon_slave_data_agent_rp_endofpacket),             //              rp.endofpacket
+		.rp_ready                (ftdi_usb3_0_avalon_slave_data_agent_rp_ready),                   //                .ready
+		.rp_valid                (ftdi_usb3_0_avalon_slave_data_agent_rp_valid),                   //                .valid
+		.rp_data                 (ftdi_usb3_0_avalon_slave_data_agent_rp_data),                    //                .data
+		.rp_startofpacket        (ftdi_usb3_0_avalon_slave_data_agent_rp_startofpacket),           //                .startofpacket
+		.cp_ready                (cmd_mux_019_src_ready),                                          //              cp.ready
+		.cp_valid                (cmd_mux_019_src_valid),                                          //                .valid
+		.cp_data                 (cmd_mux_019_src_data),                                           //                .data
+		.cp_startofpacket        (cmd_mux_019_src_startofpacket),                                  //                .startofpacket
+		.cp_endofpacket          (cmd_mux_019_src_endofpacket),                                    //                .endofpacket
+		.cp_channel              (cmd_mux_019_src_channel),                                        //                .channel
+		.rf_sink_ready           (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_ready),         //         rf_sink.ready
+		.rf_sink_valid           (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_valid),         //                .valid
+		.rf_sink_startofpacket   (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_startofpacket), //                .startofpacket
+		.rf_sink_endofpacket     (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_endofpacket),   //                .endofpacket
+		.rf_sink_data            (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_data),          //                .data
+		.rf_source_ready         (ftdi_usb3_0_avalon_slave_data_agent_rf_source_ready),            //       rf_source.ready
+		.rf_source_valid         (ftdi_usb3_0_avalon_slave_data_agent_rf_source_valid),            //                .valid
+		.rf_source_startofpacket (ftdi_usb3_0_avalon_slave_data_agent_rf_source_startofpacket),    //                .startofpacket
+		.rf_source_endofpacket   (ftdi_usb3_0_avalon_slave_data_agent_rf_source_endofpacket),      //                .endofpacket
+		.rf_source_data          (ftdi_usb3_0_avalon_slave_data_agent_rf_source_data),             //                .data
+		.rdata_fifo_sink_ready   (avalon_st_adapter_019_out_0_ready),                              // rdata_fifo_sink.ready
+		.rdata_fifo_sink_valid   (avalon_st_adapter_019_out_0_valid),                              //                .valid
+		.rdata_fifo_sink_data    (avalon_st_adapter_019_out_0_data),                               //                .data
+		.rdata_fifo_sink_error   (avalon_st_adapter_019_out_0_error),                              //                .error
+		.rdata_fifo_src_ready    (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_ready),       //  rdata_fifo_src.ready
+		.rdata_fifo_src_valid    (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_valid),       //                .valid
+		.rdata_fifo_src_data     (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_data),        //                .data
+		.m0_response             (2'b00),                                                          //     (terminated)
+		.m0_writeresponsevalid   (1'b0)                                                            //     (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -8890,32 +8890,32 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo (
-		.clk               (clk_100_clk_clk),                                                 //       clk.clk
-		.reset             (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                  // clk_reset.reset
-		.in_data           (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_data),             //        in.data
-		.in_valid          (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_valid),            //          .valid
-		.in_ready          (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_ready),            //          .ready
-		.in_startofpacket  (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_startofpacket),    //          .startofpacket
-		.in_endofpacket    (usb_3_ftdi_0_avalon_slave_data_agent_rf_source_endofpacket),      //          .endofpacket
-		.out_data          (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_data),          //       out.data
-		.out_valid         (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_valid),         //          .valid
-		.out_ready         (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_ready),         //          .ready
-		.out_startofpacket (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_startofpacket), //          .startofpacket
-		.out_endofpacket   (usb_3_ftdi_0_avalon_slave_data_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
-		.csr_address       (2'b00),                                                           // (terminated)
-		.csr_read          (1'b0),                                                            // (terminated)
-		.csr_write         (1'b0),                                                            // (terminated)
-		.csr_readdata      (),                                                                // (terminated)
-		.csr_writedata     (32'b00000000000000000000000000000000),                            // (terminated)
-		.almost_full_data  (),                                                                // (terminated)
-		.almost_empty_data (),                                                                // (terminated)
-		.in_empty          (1'b0),                                                            // (terminated)
-		.out_empty         (),                                                                // (terminated)
-		.in_error          (1'b0),                                                            // (terminated)
-		.out_error         (),                                                                // (terminated)
-		.in_channel        (1'b0),                                                            // (terminated)
-		.out_channel       ()                                                                 // (terminated)
+	) ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo (
+		.clk               (clk_100_clk_clk),                                                //       clk.clk
+		.reset             (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),                 // clk_reset.reset
+		.in_data           (ftdi_usb3_0_avalon_slave_data_agent_rf_source_data),             //        in.data
+		.in_valid          (ftdi_usb3_0_avalon_slave_data_agent_rf_source_valid),            //          .valid
+		.in_ready          (ftdi_usb3_0_avalon_slave_data_agent_rf_source_ready),            //          .ready
+		.in_startofpacket  (ftdi_usb3_0_avalon_slave_data_agent_rf_source_startofpacket),    //          .startofpacket
+		.in_endofpacket    (ftdi_usb3_0_avalon_slave_data_agent_rf_source_endofpacket),      //          .endofpacket
+		.out_data          (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_data),          //       out.data
+		.out_valid         (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_valid),         //          .valid
+		.out_ready         (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_ready),         //          .ready
+		.out_startofpacket (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_startofpacket), //          .startofpacket
+		.out_endofpacket   (ftdi_usb3_0_avalon_slave_data_agent_rsp_fifo_out_endofpacket),   //          .endofpacket
+		.csr_address       (2'b00),                                                          // (terminated)
+		.csr_read          (1'b0),                                                           // (terminated)
+		.csr_write         (1'b0),                                                           // (terminated)
+		.csr_readdata      (),                                                               // (terminated)
+		.csr_writedata     (32'b00000000000000000000000000000000),                           // (terminated)
+		.almost_full_data  (),                                                               // (terminated)
+		.almost_empty_data (),                                                               // (terminated)
+		.in_empty          (1'b0),                                                           // (terminated)
+		.out_empty         (),                                                               // (terminated)
+		.in_error          (1'b0),                                                           // (terminated)
+		.out_error         (),                                                               // (terminated)
+		.in_channel        (1'b0),                                                           // (terminated)
+		.out_channel       ()                                                                // (terminated)
 	);
 
 	altera_avalon_sc_fifo #(
@@ -8931,32 +8931,32 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.USE_STORE_FORWARD   (0),
 		.USE_ALMOST_FULL_IF  (0),
 		.USE_ALMOST_EMPTY_IF (0)
-	) usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo (
-		.clk               (clk_100_clk_clk),                                           //       clk.clk
-		.reset             (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),            // clk_reset.reset
-		.in_data           (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_data),  //        in.data
-		.in_valid          (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_valid), //          .valid
-		.in_ready          (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_src_ready), //          .ready
-		.out_data          (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_data),  //       out.data
-		.out_valid         (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_valid), //          .valid
-		.out_ready         (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_ready), //          .ready
-		.csr_address       (2'b00),                                                     // (terminated)
-		.csr_read          (1'b0),                                                      // (terminated)
-		.csr_write         (1'b0),                                                      // (terminated)
-		.csr_readdata      (),                                                          // (terminated)
-		.csr_writedata     (32'b00000000000000000000000000000000),                      // (terminated)
-		.almost_full_data  (),                                                          // (terminated)
-		.almost_empty_data (),                                                          // (terminated)
-		.in_startofpacket  (1'b0),                                                      // (terminated)
-		.in_endofpacket    (1'b0),                                                      // (terminated)
-		.out_startofpacket (),                                                          // (terminated)
-		.out_endofpacket   (),                                                          // (terminated)
-		.in_empty          (1'b0),                                                      // (terminated)
-		.out_empty         (),                                                          // (terminated)
-		.in_error          (1'b0),                                                      // (terminated)
-		.out_error         (),                                                          // (terminated)
-		.in_channel        (1'b0),                                                      // (terminated)
-		.out_channel       ()                                                           // (terminated)
+	) ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo (
+		.clk               (clk_100_clk_clk),                                          //       clk.clk
+		.reset             (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),           // clk_reset.reset
+		.in_data           (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_data),  //        in.data
+		.in_valid          (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_valid), //          .valid
+		.in_ready          (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_src_ready), //          .ready
+		.out_data          (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_data),  //       out.data
+		.out_valid         (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_valid), //          .valid
+		.out_ready         (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_ready), //          .ready
+		.csr_address       (2'b00),                                                    // (terminated)
+		.csr_read          (1'b0),                                                     // (terminated)
+		.csr_write         (1'b0),                                                     // (terminated)
+		.csr_readdata      (),                                                         // (terminated)
+		.csr_writedata     (32'b00000000000000000000000000000000),                     // (terminated)
+		.almost_full_data  (),                                                         // (terminated)
+		.almost_empty_data (),                                                         // (terminated)
+		.in_startofpacket  (1'b0),                                                     // (terminated)
+		.in_endofpacket    (1'b0),                                                     // (terminated)
+		.out_startofpacket (),                                                         // (terminated)
+		.out_endofpacket   (),                                                         // (terminated)
+		.in_empty          (1'b0),                                                     // (terminated)
+		.out_empty         (),                                                         // (terminated)
+		.in_error          (1'b0),                                                     // (terminated)
+		.out_error         (),                                                         // (terminated)
+		.in_channel        (1'b0),                                                     // (terminated)
+		.out_channel       ()                                                          // (terminated)
 	);
 
 	altera_merlin_slave_agent #(
@@ -11412,19 +11412,19 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_router_007 router_008 (
-		.sink_ready         (usb_3_ftdi_0_avalon_slave_config_agent_rp_ready),         //      sink.ready
-		.sink_valid         (usb_3_ftdi_0_avalon_slave_config_agent_rp_valid),         //          .valid
-		.sink_data          (usb_3_ftdi_0_avalon_slave_config_agent_rp_data),          //          .data
-		.sink_startofpacket (usb_3_ftdi_0_avalon_slave_config_agent_rp_startofpacket), //          .startofpacket
-		.sink_endofpacket   (usb_3_ftdi_0_avalon_slave_config_agent_rp_endofpacket),   //          .endofpacket
-		.clk                (clk_100_clk_clk),                                         //       clk.clk
-		.reset              (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),          // clk_reset.reset
-		.src_ready          (router_008_src_ready),                                    //       src.ready
-		.src_valid          (router_008_src_valid),                                    //          .valid
-		.src_data           (router_008_src_data),                                     //          .data
-		.src_channel        (router_008_src_channel),                                  //          .channel
-		.src_startofpacket  (router_008_src_startofpacket),                            //          .startofpacket
-		.src_endofpacket    (router_008_src_endofpacket)                               //          .endofpacket
+		.sink_ready         (ftdi_usb3_0_avalon_slave_config_agent_rp_ready),         //      sink.ready
+		.sink_valid         (ftdi_usb3_0_avalon_slave_config_agent_rp_valid),         //          .valid
+		.sink_data          (ftdi_usb3_0_avalon_slave_config_agent_rp_data),          //          .data
+		.sink_startofpacket (ftdi_usb3_0_avalon_slave_config_agent_rp_startofpacket), //          .startofpacket
+		.sink_endofpacket   (ftdi_usb3_0_avalon_slave_config_agent_rp_endofpacket),   //          .endofpacket
+		.clk                (clk_100_clk_clk),                                        //       clk.clk
+		.reset              (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),         // clk_reset.reset
+		.src_ready          (router_008_src_ready),                                   //       src.ready
+		.src_valid          (router_008_src_valid),                                   //          .valid
+		.src_data           (router_008_src_data),                                    //          .data
+		.src_channel        (router_008_src_channel),                                 //          .channel
+		.src_startofpacket  (router_008_src_startofpacket),                           //          .startofpacket
+		.src_endofpacket    (router_008_src_endofpacket)                              //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_router_007 router_009 (
@@ -11700,19 +11700,19 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_router_026 router_026 (
-		.sink_ready         (usb_3_ftdi_0_avalon_slave_data_agent_rp_ready),         //      sink.ready
-		.sink_valid         (usb_3_ftdi_0_avalon_slave_data_agent_rp_valid),         //          .valid
-		.sink_data          (usb_3_ftdi_0_avalon_slave_data_agent_rp_data),          //          .data
-		.sink_startofpacket (usb_3_ftdi_0_avalon_slave_data_agent_rp_startofpacket), //          .startofpacket
-		.sink_endofpacket   (usb_3_ftdi_0_avalon_slave_data_agent_rp_endofpacket),   //          .endofpacket
-		.clk                (clk_100_clk_clk),                                       //       clk.clk
-		.reset              (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),        // clk_reset.reset
-		.src_ready          (router_026_src_ready),                                  //       src.ready
-		.src_valid          (router_026_src_valid),                                  //          .valid
-		.src_data           (router_026_src_data),                                   //          .data
-		.src_channel        (router_026_src_channel),                                //          .channel
-		.src_startofpacket  (router_026_src_startofpacket),                          //          .startofpacket
-		.src_endofpacket    (router_026_src_endofpacket)                             //          .endofpacket
+		.sink_ready         (ftdi_usb3_0_avalon_slave_data_agent_rp_ready),         //      sink.ready
+		.sink_valid         (ftdi_usb3_0_avalon_slave_data_agent_rp_valid),         //          .valid
+		.sink_data          (ftdi_usb3_0_avalon_slave_data_agent_rp_data),          //          .data
+		.sink_startofpacket (ftdi_usb3_0_avalon_slave_data_agent_rp_startofpacket), //          .startofpacket
+		.sink_endofpacket   (ftdi_usb3_0_avalon_slave_data_agent_rp_endofpacket),   //          .endofpacket
+		.clk                (clk_100_clk_clk),                                      //       clk.clk
+		.reset              (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),       // clk_reset.reset
+		.src_ready          (router_026_src_ready),                                 //       src.ready
+		.src_valid          (router_026_src_valid),                                 //          .valid
+		.src_data           (router_026_src_data),                                  //          .data
+		.src_channel        (router_026_src_channel),                               //          .channel
+		.src_startofpacket  (router_026_src_startofpacket),                         //          .startofpacket
+		.src_endofpacket    (router_026_src_endofpacket)                            //          .endofpacket
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_router_027 router_027 (
@@ -16384,15 +16384,15 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.outUseReady     (1),
 		.outReadyLatency (0)
 	) avalon_st_adapter_001 (
-		.in_clk_0_clk   (clk_100_clk_clk),                                             // in_clk_0.clk
-		.in_rst_0_reset (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),              // in_rst_0.reset
-		.in_0_data      (usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_data),  //     in_0.data
-		.in_0_valid     (usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_valid), //         .valid
-		.in_0_ready     (usb_3_ftdi_0_avalon_slave_config_agent_rdata_fifo_src_ready), //         .ready
-		.out_0_data     (avalon_st_adapter_001_out_0_data),                            //    out_0.data
-		.out_0_valid    (avalon_st_adapter_001_out_0_valid),                           //         .valid
-		.out_0_ready    (avalon_st_adapter_001_out_0_ready),                           //         .ready
-		.out_0_error    (avalon_st_adapter_001_out_0_error)                            //         .error
+		.in_clk_0_clk   (clk_100_clk_clk),                                            // in_clk_0.clk
+		.in_rst_0_reset (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),             // in_rst_0.reset
+		.in_0_data      (ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_data),  //     in_0.data
+		.in_0_valid     (ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_valid), //         .valid
+		.in_0_ready     (ftdi_usb3_0_avalon_slave_config_agent_rdata_fifo_src_ready), //         .ready
+		.out_0_data     (avalon_st_adapter_001_out_0_data),                           //    out_0.data
+		.out_0_valid    (avalon_st_adapter_001_out_0_valid),                          //         .valid
+		.out_0_ready    (avalon_st_adapter_001_out_0_ready),                          //         .ready
+		.out_0_error    (avalon_st_adapter_001_out_0_error)                           //         .error
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter #(
@@ -16906,15 +16906,15 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		.outUseReady     (1),
 		.outReadyLatency (0)
 	) avalon_st_adapter_019 (
-		.in_clk_0_clk   (clk_100_clk_clk),                                           // in_clk_0.clk
-		.in_rst_0_reset (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),            // in_rst_0.reset
-		.in_0_data      (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_data),  //     in_0.data
-		.in_0_valid     (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_valid), //         .valid
-		.in_0_ready     (usb_3_ftdi_0_avalon_slave_data_agent_rdata_fifo_out_ready), //         .ready
-		.out_0_data     (avalon_st_adapter_019_out_0_data),                          //    out_0.data
-		.out_0_valid    (avalon_st_adapter_019_out_0_valid),                         //         .valid
-		.out_0_ready    (avalon_st_adapter_019_out_0_ready),                         //         .ready
-		.out_0_error    (avalon_st_adapter_019_out_0_error)                          //         .error
+		.in_clk_0_clk   (clk_100_clk_clk),                                          // in_clk_0.clk
+		.in_rst_0_reset (dma_DDR_M1_reset_n_reset_bridge_in_reset_reset),           // in_rst_0.reset
+		.in_0_data      (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_data),  //     in_0.data
+		.in_0_valid     (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_valid), //         .valid
+		.in_0_ready     (ftdi_usb3_0_avalon_slave_data_agent_rdata_fifo_out_ready), //         .ready
+		.out_0_data     (avalon_st_adapter_019_out_0_data),                         //    out_0.data
+		.out_0_valid    (avalon_st_adapter_019_out_0_valid),                        //         .valid
+		.out_0_ready    (avalon_st_adapter_019_out_0_ready),                        //         .ready
+		.out_0_error    (avalon_st_adapter_019_out_0_error)                         //         .error
 	);
 
 	MebX_Qsys_Project_mm_interconnect_0_avalon_st_adapter_008 #(

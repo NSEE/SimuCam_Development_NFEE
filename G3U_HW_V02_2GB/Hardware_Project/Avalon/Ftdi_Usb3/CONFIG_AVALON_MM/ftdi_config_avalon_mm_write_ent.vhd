@@ -230,11 +230,11 @@ begin
 						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_side <= ftdi_config_avalon_mm_i.writedata(0);
 					end if;
 					-- FTDI Half-CCD Request Control Register : Half-CCD CCD Height
-					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(15 downto 8);
-					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(2) = '1') then
-						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(12 downto 8) <= ftdi_config_avalon_mm_i.writedata(20 downto 16);
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(7 downto 0) <= ftdi_config_avalon_mm_i.writedata(23 downto 16);
+					end if;
+					if (ftdi_config_avalon_mm_i.byteenable(3) = '1') then
+						ftdi_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height(12 downto 8) <= ftdi_config_avalon_mm_i.writedata(28 downto 24);
 					end if;
 
 				when (16#16#) =>
