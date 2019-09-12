@@ -455,7 +455,7 @@ void vVariablesInitialization ( void ) {
 }
 
 void vFillMemmoryPattern( TSimucam_MEB *xSimMebL );
-
+void bInitFTDI(void);
 
 /* Entry point */
 int main(void)
@@ -607,6 +607,9 @@ int main(void)
 
 	bInitSync();
 
+	bInitFTDI();
+
+
 	vFillMemmoryPattern( &xSimMeb );
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
@@ -719,4 +722,14 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 	}
 #endif
 
+}
+
+void bInitFTDI(void){
+	vFTDIIrqGlobalEn(TRUE);
+	vFTDIIrqRxBuff0RdableEn(TRUE);
+	vFTDIIrqRxBuff1RdableEn(TRUE);
+	vFTDIIrqRxBuffLastRdableEn(TRUE);
+	vFTDIIrqRxBuffLastEmptyEn(TRUE);
+	vFTDIIrqRxCommErrEn(TRUE);
+	vFTDIIrqRxBuffInit();
 }

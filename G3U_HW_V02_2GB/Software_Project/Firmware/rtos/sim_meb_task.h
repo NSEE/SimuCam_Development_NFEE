@@ -20,6 +20,7 @@
 #include "../driver/comm/rmap/rmap.h"
 #include "../driver/comm/comm_channel.h"
 #include "../driver/ctrl_io_lvds/ctrl_io_lvds.h"
+#include "fee_taskV2.h"
 
 
 void vSimMebTask(void *task_data);

@@ -127,7 +127,6 @@ void vSimMebTask(void *task_data) {
 
 void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal ) {
 	tQMask uiCmdLocal;
-	unsigned char ucFeeInst;
 	unsigned char ucIL =0;
 
 	uiCmdLocal.ulWord = uiCmdParam;

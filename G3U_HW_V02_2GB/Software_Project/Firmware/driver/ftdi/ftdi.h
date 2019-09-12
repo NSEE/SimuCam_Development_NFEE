@@ -9,6 +9,10 @@
 #define DRIVER_FTDI_FTDI_H_
 
 #include "../../simucam_definitions.h"
+#include "../../utils/queue_commands_list.h"
+#include "../../utils/meb.h"
+#include "../../utils/communication_configs.h"
+#include "../../rtos/tasks_configurations.h"
 
 //! [constants definition]
 #define FTDI_RX_BUFFER_IRQ               4

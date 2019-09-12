@@ -91,6 +91,8 @@ void vFTDIResetFullImage( void ){
 }
 
 void vFTDIRxBufferIRQHandler(void* pvContext) {
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
 	// Cast context to hold_context's type. It is important that this be
 	// declared volatile to avoid unwanted compiler optimization.
 	//volatile int* viRxBuffHoldContext = (volatile int*) pvContext;
@@ -105,7 +107,16 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 	if (pxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
 		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
 
-		/* Rx Buffer 0 Readable flag treatment */
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_FULL;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = 0;
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendBufferFullIRQtoDTC();
+		}
 
 
 	}
@@ -114,7 +125,16 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 	if (pxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
 		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
 
-		/* Rx Buffer 1 Readable flag treatment */
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_FULL;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = 0;
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendBufferFullIRQtoDTC();
+		}
 
 
 	}
@@ -124,7 +144,16 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr = TRUE;
 
 		/* Rx Buffer Last Readable flag treatment */
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_LAST;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = 0;
 
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendBufferLastIRQtoDTC();
+		}
 
 	}
 
@@ -133,6 +162,16 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
 
 		/* Rx Buffer Last Empty flag treatment */
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_EMPTY;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = 0;
+
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailSendBufferEmptyIRQtoDTC();
+		}
 
 
 	}
@@ -142,7 +181,16 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 		pxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
 
 		/* Rx Communication Error flag treatment */
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_ERROR;
+		uiCmdtoSend.ucByte[1] = 0;
+		uiCmdtoSend.ucByte[0] = ucFTDIGetError();
 
+		/*Sync the Meb task and tell that has a PUS command waiting*/
+		error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
+		if (error_codel != OS_ERR_NONE) {
+			vFailFtdiErrorIRQtoDTC();
+		}
 
 	}
 

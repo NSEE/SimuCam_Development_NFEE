@@ -39,7 +39,7 @@ void vDataControlTask(void *task_data) {
 	unsigned char ucMemUsing = 0;
 	bool bA, bB, bC, bD, bE;
 	bool bDmaReturn = FALSE;
-	TCcdMemMap *xCCDMemMapL;
+	TCcdMemMap *xCCDMemMapL=0;
 
 	pxDataC = (TNData_Control *) task_data;
 
@@ -192,6 +192,7 @@ void vDataControlTask(void *task_data) {
 							/* Send Clear command to the FTDI Control Block */
 							vFTDIClear();
 							/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
+							vFTDIResetFullImage();
 							bSuccess = bFTDIRequestFullImage( ucSubReqIFEE, ucSubReqICCD, ucSubCCDSide, pxDataC->usiEPn, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight );
 							if ( bSuccess == FALSE ) {
 								/* Fail */
@@ -245,9 +246,9 @@ void vDataControlTask(void *task_data) {
 					case sSubScheduleDMA:
 
 						if ( ucMemUsing == 0 )
-							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER);
+							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
 						else
-							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER);
+							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
 
 						/* Check if was possible to schedule the transfer in the DMA*/
 						if ( bDmaReturn == TRUE ) {
@@ -268,12 +269,12 @@ void vDataControlTask(void *task_data) {
 						break;
 					case sSubLastPckt:
 
-						usiNByterLeft = usiFTDInDataLeftInBuffer();
+						usiNByterLeft = (alt_u16)uliFTDInDataLeftInBuffer();
 
 						if ( ucMemUsing == 0 )
-							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, usiNByterLeft);
+							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, usiNByterLeft, eSdmaRxFtdi);
 						else
-							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, usiNByterLeft);
+							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, usiNByterLeft, eSdmaRxFtdi);
 
 						/* Check if was possible to schedule the transfer in the DMA*/
 						if ( bDmaReturn == TRUE ) {
