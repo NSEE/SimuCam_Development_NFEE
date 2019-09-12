@@ -11,6 +11,7 @@ entity fee_master_data_manager_ent is
 		fee_clear_signal_i                   : in  std_logic;
 		fee_stop_signal_i                    : in  std_logic;
 		fee_start_signal_i                   : in  std_logic;
+		fee_digitalise_en_i                  : in  std_logic;
 		fee_manager_sync_i                   : in  std_logic;
 		current_frame_number_i               : in  std_logic_vector(1 downto 0);
 		current_frame_counter_i              : in  std_logic_vector(15 downto 0);
@@ -25,6 +26,8 @@ entity fee_master_data_manager_ent is
 		fee_fee_mode_i                       : in  std_logic_vector(2 downto 0);
 		fee_ccd_number_i                     : in  std_logic_vector(1 downto 0);
 		fee_ccd_side_i                       : in  std_logic;
+		-- masking machine status
+		imgdata_finished_i                   : in  std_logic;
 		-- header generator status
 		--		header_gen_busy_i                    : in  std_logic;
 		header_gen_finished_i                : in  std_logic;
@@ -115,6 +118,7 @@ architecture RTL of fee_master_data_manager_ent is
 		WAITING_OVER_DATA_FINISH,
 		WAITING_DATA_TRANSMITTER_FINISH,
 		WAITING_SEND_DOUBLE_BUFFER_EMPTY,
+		WAITING_DIGITALISE_FINISH,
 		FINISH_FEE_OPERATION
 	);
 
@@ -437,10 +441,21 @@ begin
 					-- check if the data transmitter is finished
 					if (data_transmitter_finished_i = '1') then
 						-- data transmitter finished
-						-- signal the start of the imgdata cycle
-						imgdata_start_o          <= '1';
-						-- go to img header start
-						s_fee_data_manager_state <= WAITING_IMG_DATA_START;
+						-- TODO: modify later to support windowing
+						-- check if the digitalise is enabled
+						if (fee_digitalise_en_i = '1') then
+							-- digitalise enabled, normal operation
+							-- signal the start of the imgdata cycle
+							imgdata_start_o          <= '1';
+							-- go to img header start
+							s_fee_data_manager_state <= WAITING_IMG_DATA_START;
+						else
+							-- digitalise disabled, only send hk
+							-- signal the start of the imgdata cycle
+							imgdata_start_o          <= '1';
+							-- go to waiting dgitalise finish
+							s_fee_data_manager_state <= WAITING_DIGITALISE_FINISH;
+						end if;
 					end if;
 
 				when WAITING_IMG_DATA_START =>
@@ -844,6 +859,32 @@ begin
 					masking_machine_hold_o               <= '0';
 					-- check if the double buffer is completely empty (all data transmitted)
 					if (send_double_buffer_empty_i = '1') then
+						-- go to finish fee operation
+						s_fee_data_manager_state <= FINISH_FEE_OPERATION;
+					end if;
+
+				when WAITING_DIGITALISE_FINISH =>
+					-- wait for all of the ccd data to be consumed
+					s_fee_data_manager_state       <= WAITING_DIGITALISE_FINISH;
+					s_fee_remaining_data_bytes     <= (others => '0');
+					s_fee_sequence_counter         <= (others => '0');
+					s_fee_current_packet_data_size <= (others => '0');
+					s_last_packet_flag             <= '0';
+					fee_data_manager_busy_o        <= '1';
+					header_gen_send_o              <= '0';
+					header_gen_reset_o             <= '0';
+					housekeeping_wr_start_o        <= '0';
+					housekeeping_wr_reset_o        <= '0';
+					data_wr_start_o                <= '0';
+					data_wr_reset_o                <= '0';
+					data_wr_length_o               <= (others => '0');
+					send_buffer_fee_data_loaded_o  <= '0';
+					imgdata_start_o                <= '0';
+					-- keep the masking machine released
+					masking_machine_hold_o         <= '0';
+					-- check if the masking machine is finished
+					if (imgdata_finished_i = '1') then
+						-- masking machine finished
 						-- go to finish fee operation
 						s_fee_data_manager_state <= FINISH_FEE_OPERATION;
 					end if;

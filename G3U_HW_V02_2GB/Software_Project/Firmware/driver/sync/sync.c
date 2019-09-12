@@ -8,8 +8,6 @@
 
 #include "sync.h"
 
-
-
 //! [data memory public global variables]
 volatile alt_u8 vucN;
 //! [data memory public global variables]
@@ -18,9 +16,9 @@ volatile alt_u8 vucN;
 //! [program memory public global variables]
 
 //! [data memory private global variables]
-const alt_u8 ucSyncIrqFlagsQtd = 5;
 // A variable to hold the context of interrupt
-static volatile int viHoldContext;
+static volatile int viSyncHoldContext;
+static volatile int viPreSyncHoldContext;
 //! [data memory private global variables]
 
 //! [program memory private global variables]
@@ -33,7 +31,7 @@ static volatile int viHoldContext;
  * @brief
  * @ingroup sync
  *
- * Handle interrupt from sync ip
+ * Handle sync interrupt from sync ip
  * The value stored in *context is used to control program flow
  * in the rest of this program's routines
  *
@@ -43,82 +41,130 @@ static volatile int viHoldContext;
  */
 void vSyncHandleIrq(void* pvContext) {
 	volatile unsigned char ucIL;
-	volatile unsigned char ucSyncL;
+//	volatile unsigned char ucSyncL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
 
-//	volatile int* pviHoldContext = (volatile int*) pvContext;
+//	volatile int* pviSyncHoldContext = (volatile int*) pvContext;
 
-	// Get Sync Irq Flags
-	bool bSyncIrqFlags[ucSyncIrqFlagsQtd];
-	vSyncIrqGetFlags(bSyncIrqFlags);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+
+	uiCmdtoSend.ulWord = 0;
+	xGlobal.bJustBeforSync = FALSE;
 
 	// Check Sync Irq Flags
-	if (bSyncIrqFlags[eSyncIrqErrorFlag]) {
-
-		/* Sync Error IRQ routine */
-
-		vSyncIrqClrFlag(eSyncIrqErrorFlag);
-	}
-	if (bSyncIrqFlags[eSyncIrqBlankPulseFlag]) {
-
-		/* Sync Blank Pulse IRQ routine */
-
-		uiCmdtoSend.ulWord = 0;
-		/* MasterSync? */
-		ucSyncL = (vucN % 4);
-		if ( ucSyncL == 0 )
-			uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
-		else if ( ucSyncL == 3 ) {
-			uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
-		} else
-			uiCmdtoSend.ucByte[2] = M_SYNC;
-
-		uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
-
-		/* Send Priority message to the Meb Task to indicate the Master Sync */
-		error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
-		if ( error_codel != OS_ERR_NONE ) {
-			vFailSendMsgMasterSyncMeb( );
-		}
-
-		for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-			if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
-				uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-				error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-				if ( error_codel != OS_ERR_NONE ) {
-					vFailSendMsgSync( ucIL );
-				}
-			}
-		}
-
-		vucN += 1;
-
-		vSyncIrqClrFlag(eSyncIrqBlankPulseFlag);
-	}
-	if (bSyncIrqFlags[eSyncIrqMasterPulseFlag]) {
-
-		/* Sync Master Pulse IRQ routine */
-
-		vSyncIrqClrFlag(eSyncIrqMasterPulseFlag);
-	}
-	if (bSyncIrqFlags[eSyncIrqNormalPulseFlag]) {
+	//	if (vpxSyncModule->xSyncIrqFlag.bErrorIrqFlag) {
+	//
+	//		/* Sync Error IRQ routine */
+	//
+	//		vpxSyncModule->xSyncIrqFlagClr.bErrorIrqFlagClr = TRUE;
+	//	}
+	//	if (vpxSyncModule->xSyncIrqFlag.bBlankPulseIrqFlag) {
+	//
+	//		/* Sync Blank Pulse IRQ routine */
+	//
+	//		vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
+	//	}
+	if (vpxSyncModule->xSyncIrqFlag.bNormalPulseIrqFlag) {
 
 		/* Sync Normal Pulse IRQ routine */
+		
+		uiCmdtoSend.ucByte[2] = M_SYNC;
+		xGlobal.bPreMaster = FALSE;
+		xGlobal.ucEP0_3++;
 
-		vSyncIrqClrFlag(eSyncIrqNormalPulseFlag);
-	}
-	if (bSyncIrqFlags[eSyncIrqLastPulseFlag]) {
+		vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
+	} else if (vpxSyncModule->xSyncIrqFlag.bMasterPulseIrqFlag) {
+
+		/* Sync Master Pulse IRQ routine */
+		
+		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
+		xGlobal.bPreMaster = FALSE;
+		xGlobal.ucEP0_3 = 0;
+
+		vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
+	} else if (vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag) {
 
 		/* Sync Last Pulse IRQ routine */
+		uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
+		xGlobal.bPreMaster = TRUE;
+		xGlobal.ucEP0_3 = 3;
 
-		vSyncIrqClrFlag(eSyncIrqLastPulseFlag);
+		vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
 	}
 
-	if ( vucN >= 252 ) /*Precisa zerar no módulo 4*/
-		vucN = 0;
-	else
-		vucN += 1;
+	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
+
+	/* Send Priority message to the Meb Task to indicate the Sync */
+	error_codel = OSQPostFront(xMebQ, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgMasterSyncMeb( );
+	}
+
+	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
+		}
+	}
+
+}
+
+/**
+ * @name    vSyncPreHandleIrq
+ * @brief
+ * @ingroup sync
+ *
+ * Handle pre-sync interrupt from sync ip
+ * The value stored in *context is used to control program flow
+ * in the rest of this program's routines
+ *
+ * @param [in] void* context
+ *
+ * @retval void
+ */
+void vSyncPreHandleIrq(void* pvContext) {
+	volatile unsigned char ucIL;
+	unsigned char error_codel;
+	tQMask uiCmdtoSend;
+	
+//	volatile int* pviPreSyncHoldContext = (volatile int*) pvContext;
+
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"Pre-Sync Signal\n");
+	}
+	#endif
+
+	
+	uiCmdtoSend.ulWord = 0;
+	xGlobal.bJustBeforSync = TRUE;
+
+	// Check Sync Irq Flags
+	if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
+
+		/* Pre-Sync Blank Pulse IRQ routine */
+		
+		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
+
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
+	}
+
+	
+	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
+		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
+			uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
+			error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
+			if ( error_codel != OS_ERR_NONE ) {
+				vFailSendMsgSync( ucIL );
+			}
+		}
+	}
 
 }
 
@@ -133,104 +179,39 @@ void vSyncClearCounter(void) {
  * @brief
  * @ingroup sync
  *
- * Make interrupt initialization
+ * Make sync interrupt initialization
  *
  * @param [in] void
  *
  * @retval void
  */
 void vSyncInitIrq(void) {
-	// Recast the viHoldContext pointer to match the alt_irq_register() function
+	// Recast the viSyncHoldContext pointer to match the alt_irq_register() function
 	// prototype.
-	void* hold_context_ptr = (void*) &viHoldContext;
+	void* hold_context_ptr = (void*) &viSyncHoldContext;
 	// Register the interrupt handler
-	alt_irq_register(SYNC_IRQ, hold_context_ptr, vSyncHandleIrq);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliSyncIrqNumber, hold_context_ptr, vSyncHandleIrq);
 }
 
 /**
- * @name    vSyncIrqGetFlags
+ * @name    vSyncPreInitIrq
  * @brief
  * @ingroup sync
  *
- * Get all sync irq flags
+ * Make pre-sync interrupt initialization
  *
- * @param [in] bool *pbSyncIrqFlags
- *
- * @retval void
- */
-void vSyncIrqGetFlags(bool *pbSyncIrqFlags) {
-	alt_u32 uliIrqFlagsReg = 0;
-
-	if (pbSyncIrqFlags != NULL) {
-
-		uliIrqFlagsReg = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
-		if (uliIrqFlagsReg & (alt_u32) SYNC_IRQ_FLAG_ERROR_MSK) {
-			pbSyncIrqFlags[eSyncIrqErrorFlag] = TRUE;
-		} else {
-			pbSyncIrqFlags[eSyncIrqErrorFlag] = FALSE;
-		}
-		if (uliIrqFlagsReg & (alt_u32) SYNC_IRQ_FLAG_BLANK_MSK) {
-			pbSyncIrqFlags[eSyncIrqBlankPulseFlag] = TRUE;
-		} else {
-			pbSyncIrqFlags[eSyncIrqBlankPulseFlag] = FALSE;
-		}
-		if (uliIrqFlagsReg & (alt_u32) SYNC_IRQ_FLAG_MASTER_MSK) {
-			pbSyncIrqFlags[eSyncIrqMasterPulseFlag] = TRUE;
-		} else {
-			pbSyncIrqFlags[eSyncIrqMasterPulseFlag] = FALSE;
-		}
-		if (uliIrqFlagsReg & (alt_u32) SYNC_IRQ_FLAG_NORMAL_MSK) {
-			pbSyncIrqFlags[eSyncIrqNormalPulseFlag] = TRUE;
-		} else {
-			pbSyncIrqFlags[eSyncIrqNormalPulseFlag] = FALSE;
-		}
-		if (uliIrqFlagsReg & (alt_u32) SYNC_IRQ_FLAG_LAST_MSK) {
-			pbSyncIrqFlags[eSyncIrqLastPulseFlag] = TRUE;
-		} else {
-			pbSyncIrqFlags[eSyncIrqLastPulseFlag] = FALSE;
-		}
-
-	}
-}
-
-/**
- * @name    vSyncIrqClrFlag
- * @brief
- * @ingroup sync
- *
- * Clear selected sync irq flag
- *
- * @param [in] alt_u8 ucSyncIrqFlag
+ * @param [in] void
  *
  * @retval void
  */
-void vSyncIrqClrFlag(alt_u8 ucSyncIrqFlag) {
-
-	alt_u32 uliIrqFlagClearMask = 0;
-
-	switch (ucSyncIrqFlag) {
-	case eSyncIrqErrorFlag:
-		uliIrqFlagClearMask = (alt_u32) SYNC_IRQ_FLAG_CLR_ERROR_MSK;
-		break;
-	case eSyncIrqBlankPulseFlag:
-		uliIrqFlagClearMask = (alt_u32) SYNC_IRQ_FLAG_CLR_BLANK_MSK;
-		break;
-	case eSyncIrqMasterPulseFlag:
-		uliIrqFlagClearMask = (alt_u32) SYNC_IRQ_FLAG_CLR_MASTER_MSK;
-		break;
-	case eSyncIrqNormalPulseFlag:
-		uliIrqFlagClearMask = (alt_u32) SYNC_IRQ_FLAG_CLR_NORMAL_MSK;
-		break;
-	case eSyncIrqLastPulseFlag:
-		uliIrqFlagClearMask = (alt_u32) SYNC_IRQ_FLAG_CLR_LAST_MSK;
-		break;
-	default:
-		uliIrqFlagClearMask = 0;
-		break;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliIrqFlagClearMask);
-
+void vSyncPreInitIrq(void) {
+	// Recast the viPreSyncHoldContext pointer to match the alt_irq_register() function
+	// prototype.
+	void* hold_context_ptr = (void*) &viPreSyncHoldContext;
+	// Register the interrupt handler
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	alt_irq_register(vpxSyncModule->xSyncIRQNumber.uliPreSyncIrqNumber, hold_context_ptr, vSyncPreHandleIrq);
 }
 
 // Status reg
@@ -246,16 +227,9 @@ void vSyncIrqClrFlag(alt_u8 ucSyncIrqFlag) {
  * @retval bool result
  */
 bool bSyncStatusExtnIrq(void) {
-	alt_u32 uliAux;
 	bool bResult;
-
-	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
-
-	if (uliAux & SYNC_STAT_EXTN_IRQ_MSK) {
-		bResult = TRUE;
-	} else {
-		bResult = FALSE;
-	}
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xSyncStatus.bIntExtN;
 	return bResult;
 }
 
@@ -271,11 +245,9 @@ bool bSyncStatusExtnIrq(void) {
  * @retval alt_u8 result
  */
 alt_u8 ucSyncStatusState(void) {
-	alt_u32 uliAux;
 	alt_u8 ucResult;
-
-	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
-	ucResult = (alt_u8) ((uliAux & SYNC_STAT_STATE_MSK) >> 16);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	ucResult = vpxSyncModule->xSyncStatus.ucState;
 	return ucResult;
 }
 
@@ -291,11 +263,9 @@ alt_u8 ucSyncStatusState(void) {
  * @retval alt_u8 result
  */
 alt_u8 ucSyncStatusErrorCode(void) {
-	alt_u32 uliAux;
 	alt_u8 ucResult;
-
-	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
-	ucResult = (alt_u8) ((uliAux & SYNC_STAT_ERROR_CODE_MSK) >> 8);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	ucResult = vpxSyncModule->xSyncStatus.ucErrorCode;
 	return ucResult;
 }
 
@@ -311,11 +281,9 @@ alt_u8 ucSyncStatusErrorCode(void) {
  * @retval alt_u8 result
  */
 alt_u8 ucSyncStatusCycleNumber(void) {
-	alt_u32 uliAux;
 	alt_u8 ucResult;
-
-	uliAux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
-	ucResult = (alt_u8) ((uliAux & SYNC_STAT_CYCLE_NUMBER_MSK) >> 0);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	ucResult = vpxSyncModule->xSyncStatus.ucCycleNumber;
 	return ucResult;
 }
 
@@ -332,7 +300,8 @@ alt_u8 ucSyncStatusCycleNumber(void) {
  * @retval bool TRUE
  */
 bool bSyncSetMbt(alt_u32 uliValue) {
-	bSyncWriteReg(SYNC_CONFIG_MBT_REG_OFFSET, uliValue);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncConfig.uliMasterBlankTime = uliValue;
 	return TRUE;
 }
 
@@ -348,7 +317,25 @@ bool bSyncSetMbt(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetBt(alt_u32 uliValue) {
-	bSyncWriteReg(SYNC_CONFIG_BT_REG_OFFSET, uliValue);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncConfig.uliBlankTime = uliValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncSetPreBt
+ * @brief
+ * @ingroup sync
+ *
+ * Write an alt_u32 value into pre-blank time register (pulse duration = value * 20 ns)
+ *
+ * @param [in] alt_u32 value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncSetPreBt(alt_u32 uliValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncConfig.uliPreBlankTime = uliValue;
 	return TRUE;
 }
 
@@ -364,7 +351,8 @@ bool bSyncSetBt(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetPer(alt_u32 uliValue) {
-	bSyncWriteReg(SYNC_CONFIG_PER_REG_OFFSET, uliValue);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncConfig.uliPeriod = uliValue;
 	return TRUE;
 }
 
@@ -380,7 +368,8 @@ bool bSyncSetPer(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetOst(alt_u32 uliValue) {
-	bSyncWriteReg(SYNC_CONFIG_OST_REG_OFFSET, uliValue);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncConfig.uliOneShotTime = uliValue;
 	return TRUE;
 }
 
@@ -396,17 +385,8 @@ bool bSyncSetOst(alt_u32 uliValue) {
  * @retval bool TRUE
  */
 bool bSyncSetPolarity(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CONFIG_GENERAL_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CONFIG_GEN_POLARITY_MSK;
-	} else {
-		uliAux |= SYNC_CONFIG_GEN_POLARITY_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CONFIG_GENERAL_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncGeneralConfig.bSignalPolarity = bValue;
 	return TRUE;
 }
 
@@ -417,20 +397,15 @@ bool bSyncSetPolarity(bool bValue) {
  *
  * Write an alt_u8 value into nCycles field of general config register.
  * This field defines the number of cycles of a "major cycle".
- * '0' is allowed, but itÂ´s equivalent to '1'.
+ * '0' is allowed, but it´s equivalent to '1'.
  *
  * @param [in] alt_u8 value
  *
  * @retval bool TRUE
  */
 bool bSyncSetNCycles(alt_u8 ucValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CONFIG_GENERAL_REG_OFFSET);
-	uliAux &= ~SYNC_CONFIG_GEN_N_CYCLES_MSK;
-	uliAux |= (alt_u32) ucValue;
-
-	bSyncWriteReg(SYNC_CONFIG_GENERAL_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncGeneralConfig.ucNumberOfCycles = ucValue;
 	return TRUE;
 }
 
@@ -448,7 +423,8 @@ bool bSyncSetNCycles(alt_u8 ucValue) {
 alt_u32 uliSyncGetMbt(void) {
 	alt_u32 uliAux;
 
-	uliAux = uliSyncReadReg(SYNC_CONFIG_MBT_REG_OFFSET);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	uliAux = vpxSyncModule->xSyncConfig.uliMasterBlankTime;
 	return uliAux;
 }
 
@@ -466,7 +442,8 @@ alt_u32 uliSyncGetMbt(void) {
 alt_u32 uliSyncGetBt(void) {
 	alt_u32 uliAux;
 
-	uliAux = uliSyncReadReg(SYNC_CONFIG_BT_REG_OFFSET);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	uliAux = vpxSyncModule->xSyncConfig.uliBlankTime;
 	return uliAux;
 }
 
@@ -484,7 +461,8 @@ alt_u32 uliSyncGetBt(void) {
 alt_u32 uliSyncGetPer(void) {
 	alt_u32 uliAux;
 
-	uliAux = uliSyncReadReg(SYNC_CONFIG_PER_REG_OFFSET);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	uliAux = vpxSyncModule->xSyncConfig.uliPeriod;
 	return uliAux;
 }
 
@@ -502,25 +480,8 @@ alt_u32 uliSyncGetPer(void) {
 alt_u32 uliSyncGetOst(void) {
 	alt_u32 uliAux;
 
-	uliAux = uliSyncReadReg(SYNC_CONFIG_OST_REG_OFFSET);
-	return uliAux;
-}
-
-/**
- * @name    uliSyncGetGeneral
- * @brief
- * @ingroup sync
- *
- * Read general config register.
- *
- * @param [in] void
- *
- * @retval alt_u32 value
- */
-alt_u32 uliSyncGetGeneral(void) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CONFIG_GENERAL_REG_OFFSET);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	uliAux = vpxSyncModule->xSyncConfig.uliOneShotTime;
 	return uliAux;
 }
 
@@ -538,13 +499,14 @@ alt_u32 uliSyncGetGeneral(void) {
  * @retval bool TRUE
  */
 bool bSyncErrInj(alt_u32 uliValue) {
-	bSyncWriteReg(SYNC_ERR_INJ_REG_OFFSET, uliValue);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncErrorInjection.uliErrorInjection = uliValue;
 	return TRUE;
 }
 
 // Control reg
 /**
- * @name    bSyncCtrExtnIrq
+ * @name    bSyncCtrExtn
  * @brief
  * @ingroup sync
  *
@@ -554,18 +516,9 @@ bool bSyncErrInj(alt_u32 uliValue) {
  *
  * @retval bool TRUE
  */
-bool bSyncCtrExtnIrq(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_EXTN_INT_MSK;
-	} else {
-		uliAux |= SYNC_CTR_EXTN_INT_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+bool bSyncCtrIntern(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bIntExtN = bValue;
 	return TRUE;
 }
 
@@ -582,13 +535,8 @@ bool bSyncCtrExtnIrq(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrStart(void) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	uliAux |= SYNC_CTR_START_MSK;
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bStart = SYNC_BIT_ON;
 	return TRUE;
 }
 
@@ -605,13 +553,8 @@ bool bSyncCtrStart(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrReset(void) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	uliAux |= SYNC_CTR_RESET_MSK;
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bReset = SYNC_BIT_ON;
 	return TRUE;
 }
 
@@ -628,13 +571,8 @@ bool bSyncCtrReset(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrOneShot(void) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	uliAux |= SYNC_CTR_ONE_SHOT_MSK;
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bOneShot = SYNC_BIT_ON;
 	return TRUE;
 }
 
@@ -651,13 +589,8 @@ bool bSyncCtrOneShot(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrErrInj(void) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	uliAux |= SYNC_CTR_ERR_INJ_MSK;
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bErrInj = SYNC_BIT_ON;
 	return TRUE;
 }
 
@@ -673,17 +606,8 @@ bool bSyncCtrErrInj(void) {
  * @retval bool TRUE
  */
 bool bSyncCtrSyncOutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_SYNC_OUT_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_SYNC_OUT_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bOutEn = bValue;
 	return TRUE;
 }
 
@@ -699,17 +623,8 @@ bool bSyncCtrSyncOutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh1OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHA_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHA_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel1En = bValue;
 	return TRUE;
 }
 
@@ -725,17 +640,8 @@ bool bSyncCtrCh1OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh2OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHB_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHB_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel2En = bValue;
 	return TRUE;
 }
 
@@ -751,17 +657,8 @@ bool bSyncCtrCh2OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh3OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHC_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHC_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel3En = bValue;
 	return TRUE;
 }
 
@@ -777,17 +674,8 @@ bool bSyncCtrCh3OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh4OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHD_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHD_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel4En = bValue;
 	return TRUE;
 }
 
@@ -803,17 +691,8 @@ bool bSyncCtrCh4OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh5OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHE_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHE_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel5En = bValue;
 	return TRUE;
 }
 
@@ -829,17 +708,8 @@ bool bSyncCtrCh5OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh6OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHF_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHF_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel6En = bValue;
 	return TRUE;
 }
 
@@ -855,17 +725,8 @@ bool bSyncCtrCh6OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh7OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHG_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHG_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel7En = bValue;
 	return TRUE;
 }
 
@@ -881,44 +742,26 @@ bool bSyncCtrCh7OutEnable(bool bValue) {
  * @retval bool TRUE
  */
 bool bSyncCtrCh8OutEnable(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_CTR_CHH_EN_MSK;
-	} else {
-		uliAux |= SYNC_CTR_CHH_EN_MSK;
-	}
-
-	bSyncWriteReg(SYNC_CTR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncControl.bChannel8En = bValue;
 	return TRUE;
 }
 
-// Int enable register
+// Irq enable register
 /**
  * @name    bSyncIrqEnableError
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int error enable bit of int enable register (0 -> int error disable / 1 -> int error enable)
+ * Write a bool value into irq error enable bit of irq enable register (0 -> irq error disable / 1 -> irq error enable)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqEnableError(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_ENABLE_ERROR_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_ENABLE_ERROR_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqEn.bErrorIrqEn = bValue;
 	return TRUE;
 }
 
@@ -927,24 +770,15 @@ bool bSyncIrqEnableError(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int blank pulse enable bit of int enable register (0 -> int blank pulse disable / 1 -> int blank pulse enable)
+ * Write a bool value into irq blank pulse enable bit of irq enable register (0 -> irq blank pulse disable / 1 -> irq blank pulse enable)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqEnableBlankPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_ENABLE_BLANK_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_ENABLE_BLANK_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqEn.bBlankPulseIrqEn = bValue;
 	return TRUE;
 }
 
@@ -953,24 +787,15 @@ bool bSyncIrqEnableBlankPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int master pulse enable bit of int enable register (0 -> int master pulse disable / 1 -> int master pulse enable)
+ * Write a bool value into irq master pulse enable bit of irq enable register (0 -> irq master pulse disable / 1 -> irq master pulse enable)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqEnableMasterPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_ENABLE_MASTER_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_ENABLE_MASTER_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqEn.bMasterPulseIrqEn = bValue;
 	return TRUE;
 }
 
@@ -979,24 +804,15 @@ bool bSyncIrqEnableMasterPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int normal pulse enable bit of int enable register (0 -> int blank normal disable / 1 -> int blank normal enable)
+ * Write a bool value into irq normal pulse enable bit of irq enable register (0 -> irq normal pulse disable / 1 -> irq normal pulse enable)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqEnableNormalPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_ENABLE_NORMAL_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_ENABLE_NORMAL_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqEn.bNormalPulseIrqEn = bValue;
 	return TRUE;
 }
 
@@ -1005,51 +821,33 @@ bool bSyncIrqEnableNormalPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into int last pulse enable bit of int enable register (0 -> int blank last disable / 1 -> int blank last enable)
+ * Write a bool value into irq last pulse enable bit of irq enable register (0 -> irq last pulse disable / 1 -> irq last pulse enable)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqEnableLastPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_ENABLE_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_ENABLE_LAST_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_ENABLE_LAST_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_ENABLE_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqEn.bLastPulseIrqEn = bValue;
 	return TRUE;
 }
 
-// Int flag clear register
+// Irq flag clear register
 /**
  * @name    bSyncIrqFlagClrError
  * @brief
  * @ingroup sync
  *
- * Write a bool value into error bit of int flag clear register (0 -> keep int error flag unchanged / 1 -> clear int error flag)
+ * Write a bool value into error bit of irq flag clear register (0 -> keep irq error flag unchanged / 1 -> clear irq error flag)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrError(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_FLAG_CLR_ERROR_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_FLAG_CLR_ERROR_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqFlagClr.bErrorIrqFlagClr = bValue;
 	return TRUE;
 }
 
@@ -1058,24 +856,15 @@ bool bSyncIrqFlagClrError(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into blank pulse bit of int flag clear register (0 -> keep int blank pulse flag unchanged / 1 -> clear int blank pulse flag)
+ * Write a bool value into blank pulse bit of irq flag clear register (0 -> keep irq blank pulse flag unchanged / 1 -> clear irq blank pulse flag)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrBlankPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_FLAG_CLR_BLANK_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_FLAG_CLR_BLANK_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = bValue;
 	return TRUE;
 }
 
@@ -1084,24 +873,15 @@ bool bSyncIrqFlagClrBlankPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into master pulse bit of int flag clear register (0 -> keep int master pulse flag unchanged / 1 -> clear int master pulse flag)
+ * Write a bool value into master pulse bit of irq flag clear register (0 -> keep irq master pulse flag unchanged / 1 -> clear irq master pulse flag)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrMasterPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_FLAG_CLR_MASTER_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_FLAG_CLR_MASTER_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = bValue;
 	return TRUE;
 }
 
@@ -1110,24 +890,15 @@ bool bSyncIrqFlagClrMasterPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into normal pulse bit of int flag clear register (0 -> keep int normal pulse flag unchanged / 1 -> clear int normal pulse flag)
+ * Write a bool value into normal pulse bit of irq flag clear register (0 -> keep irq normal pulse flag unchanged / 1 -> clear irq normal pulse flag)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrNormalPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_FLAG_CLR_NORMAL_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_FLAG_CLR_NORMAL_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = bValue;
 	return TRUE;
 }
 
@@ -1136,50 +907,34 @@ bool bSyncIrqFlagClrNormalPulse(bool bValue) {
  * @brief
  * @ingroup sync
  *
- * Write a bool value into last pulse bit of int flag clear register (0 -> keep int last pulse flag unchanged / 1 -> clear int last pulse flag)
+ * Write a bool value into last pulse bit of irq flag clear register (0 -> keep irq last pulse flag unchanged / 1 -> clear irq last pulse flag)
  *
  * @param [in] bool value
  *
  * @retval bool TRUE
  */
 bool bSyncIrqFlagClrLastPulse(bool bValue) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET);
-
-	if (bValue == SYNC_BIT_OFF) {
-		uliAux &= ~SYNC_IRQ_FLAG_CLR_LAST_MSK;
-	} else {
-		uliAux |= SYNC_IRQ_FLAG_CLR_LAST_MSK;
-	}
-
-	bSyncWriteReg(SYNC_IRQ_FLAG_CLR_REG_OFFSET, uliAux);
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = bValue;
 	return TRUE;
 }
 
-// Int flag reg
+// Irq flag reg
 /**
  * @name    bSyncIrqFlagError
  * @brief
  * @ingroup sync
  *
- * Read int error flag bit of int flag reg (0 -> no error int. occured / 1 -> error int. occured)
+ * Read irq error flag bit of irq flag reg (0 -> no error int. occured / 1 -> error int. occured)
  *
  * @param [in] void
  *
  * @retval bool result
  */
 bool bSyncIrqFlagError(void) {
-	alt_u32 uliAux;
 	bool bResult;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
-
-	if (uliAux & SYNC_IRQ_FLAG_ERROR_MSK) {
-		bResult = TRUE;
-	} else {
-		bResult = FALSE;
-	}
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xSyncIrqFlag.bErrorIrqFlag;
 	return bResult;
 }
 
@@ -1188,23 +943,16 @@ bool bSyncIrqFlagError(void) {
  * @brief
  * @ingroup sync
  *
- * Read int blank pulse flag bit of int flag reg (0 -> no int blank pulse occured / 1 -> int error occured)
+ * Read irq blank pulse flag bit of irq flag reg (0 -> no irq blank pulse occured / 1 -> irq blank pulse occured)
  *
  * @param [in] void
  *
  * @retval bool result
  */
 bool bSyncIrqFlagBlankPulse(void) {
-	alt_u32 uliAux;
 	bool bResult;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
-
-	if (uliAux & SYNC_IRQ_FLAG_BLANK_MSK) {
-		bResult = TRUE;
-	} else {
-		bResult = FALSE;
-	}
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xSyncIrqFlag.bBlankPulseIrqFlag;
 	return bResult;
 }
 
@@ -1213,23 +961,16 @@ bool bSyncIrqFlagBlankPulse(void) {
  * @brief
  * @ingroup sync
  *
- * Read int master pulse flag bit of int flag reg (0 -> no int master pulse occured / 1 -> int error occured)
+ * Read irq master pulse flag bit of irq flag reg (0 -> no irq master pulse occured / 1 -> irq master pulse occured)
  *
  * @param [in] void
  *
  * @retval bool result
  */
 bool bSyncIrqFlagMasterPulse(void) {
-	alt_u32 uliAux;
 	bool bResult;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
-
-	if (uliAux & SYNC_IRQ_FLAG_MASTER_MSK) {
-		bResult = TRUE;
-	} else {
-		bResult = FALSE;
-	}
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xSyncIrqFlag.bMasterPulseIrqFlag;
 	return bResult;
 }
 
@@ -1238,23 +979,16 @@ bool bSyncIrqFlagMasterPulse(void) {
  * @brief
  * @ingroup sync
  *
- * Read int normal pulse flag bit of int flag reg (0 -> no int normal pulse occured / 1 -> int error occured)
+ * Read irq normal pulse flag bit of irq flag reg (0 -> no irq normal pulse occured / 1 -> irq normal pulse occured)
  *
  * @param [in] void
  *
  * @retval bool result
  */
 bool bSyncIrqFlagNormalPulse(void) {
-	alt_u32 uliAux;
 	bool bResult;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
-
-	if (uliAux & SYNC_IRQ_FLAG_NORMAL_MSK) {
-		bResult = TRUE;
-	} else {
-		bResult = FALSE;
-	}
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xSyncIrqFlag.bNormalPulseIrqFlag;
 	return bResult;
 }
 
@@ -1263,100 +997,229 @@ bool bSyncIrqFlagNormalPulse(void) {
  * @brief
  * @ingroup sync
  *
- * Read int last pulse flag bit of int flag reg (0 -> no int last pulse occured / 1 -> int error occured)
+ * Read irq last pulse flag bit of irq flag reg (0 -> no irq last pulse occured / 1 -> irq last pulse occured)
  *
  * @param [in] void
  *
  * @retval bool result
  */
 bool bSyncIrqFlagLastPulse(void) {
-	alt_u32 uliAux;
 	bool bResult;
-
-	uliAux = uliSyncReadReg(SYNC_IRQ_FLAG_REG_OFFSET);
-
-	if (uliAux & SYNC_IRQ_FLAG_LAST_MSK) {
-		bResult = TRUE;
-	} else {
-		bResult = FALSE;
-	}
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag;
 	return bResult;
 }
 
 /**
- * @name    uliSyncGetCtr
+ * @name    bSyncPreIrqEnableBlankPulse
  * @brief
  * @ingroup sync
  *
- * Read control reg
+ * Write a bool value into irq pre-blank pulse enable bit of irq enable register (0 -> irq pre-blank pulse disable / 1 -> irq pre-blank pulse enable)
  *
- * @param [in] void
+ * @param [in] bool value
  *
- * @retval alt_u32 value
+ * @retval bool TRUE
  */
-alt_u32 uliSyncGetCtr(void) {
-	alt_u32 uliAux;
-
-	uliAux = uliSyncReadReg(SYNC_CTR_REG_OFFSET);
-	return uliAux;
-}
-
-/**
- * @name    uliSyncReadStatus
- * @brief
- * @ingroup sync
- *
- * Read status reg
- *
- * @param [in] void
- *
- * @retval alt_u32 value
- */
-alt_u32 uliSyncReadStatus(void) {
-	alt_u32 aux;
-
-	aux = uliSyncReadReg(SYNC_STAT_REG_OFFSET);
-	return aux;
-}
-//! [public functions]
-
-//! [private functions]
-/**
- * @name    bSyncWriteReg
- * @brief
- * @ingroup sync
- *
- * Write 32 bits value in a reg
- *
- * @param [in] alt_u32 offset
- * @param [in] alt_u32 value
- *
- * @retval TRUE -> success
- */
-bool bSyncWriteReg(alt_u32 uliOffset, alt_u32 uliValue) {
-	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
-	*(p_addr + uliOffset) = uliValue;
+bool bSyncPreIrqEnableBlankPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreBlankPulseIrqEn = bValue;
 	return TRUE;
 }
 
 /**
- * @name    uliSyncReadReg
+ * @name    bSyncPreIrqEnableMasterPulse
  * @brief
  * @ingroup sync
  *
- * Read 32 bits reg
+ * Write a bool value into irq pre-master pulse enable bit of irq enable register (0 -> irq pre-master pulse disable / 1 -> irq pre-master pulse enable)
  *
- * @param [in] alt_u32 offset
+ * @param [in] bool value
  *
- * @retval alt_u32 value -> reg
+ * @retval bool TRUE
  */
-alt_u32 uliSyncReadReg(alt_u32 uliOffset) {
-	alt_u32 value;
-
-	alt_u32 *p_addr = (alt_u32 *) SYNC_BASE_ADDR;
-	value = *(p_addr + uliOffset);
-	return value;
+bool bSyncPreIrqEnableMasterPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreMasterPulseIrqEn = bValue;
+	return TRUE;
 }
+
+/**
+ * @name    bSyncPreIrqEnableNormalPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into irq pre-normal pulse enable bit of irq enable register (0 -> irq pre-normal pulse disable / 1 -> irq pre-normal pulse enable)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqEnableNormalPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreNormalPulseIrqEn = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqEnableLastPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into irq pre-last pulse enable bit of irq enable register (0 -> irq blank pre-last pulse disable / 1 -> irq blank pre-last pulse enable)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqEnableLastPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqEn.bPreLastPulseIrqEn = bValue;
+	return TRUE;
+}
+
+// Irq flag clear register
+/**
+ * @name    bSyncPreIrqFlagClrBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-blank pulse bit of irq flag clear register (0 -> keep irq pre-blank pulse flag unchanged / 1 -> clear irq pre-blank pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrBlankPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqFlagClrMasterPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-master pulse bit of irq flag clear register (0 -> keep irq pre-master pulse flag unchanged / 1 -> clear irq pre-master pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrMasterPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreMasterPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqFlagClrNormalPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-normal pulse bit of irq flag clear register (0 -> keep irq pre-normal pulse flag unchanged / 1 -> clear irq pre-normal pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrNormalPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreNormalPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+/**
+ * @name    bSyncPreIrqFlagClrLastPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Write a bool value into pre-last pulse bit of irq flag clear register (0 -> keep irq pre-last pulse flag unchanged / 1 -> clear irq pre-last pulse flag)
+ *
+ * @param [in] bool value
+ *
+ * @retval bool TRUE
+ */
+bool bSyncPreIrqFlagClrLastPulse(bool bValue) {
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	vpxSyncModule->xPreSyncIrqFlagClr.bPreLastPulseIrqFlagClr = bValue;
+	return TRUE;
+}
+
+// Irq flag reg
+/**
+ * @name    bSyncPreIrqFlagBlankPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-blank pulse flag bit of irq flag reg (0 -> no irq pre-blank pulse occured / 1 -> irq pre-blank pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagBlankPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqFlagMasterPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-master pulse flag bit of irq flag reg (0 -> no irq pre-master pulse occured / 1 -> irq pre-master pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagMasterPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreMasterPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqFlagNormalPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-normal pulse flag bit of irq flag reg (0 -> no irq pre-normal pulse occured / 1 -> irq pre-normal pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagNormalPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreNormalPulseIrqFlag;
+	return bResult;
+}
+
+/**
+ * @name    bSyncPreIrqFlagLastPulse
+ * @brief
+ * @ingroup sync
+ *
+ * Read irq pre-last pulse flag bit of irq flag reg (0 -> no irq pre-last pulse occured / 1 -> irq pre-last pulse occured)
+ *
+ * @param [in] void
+ *
+ * @retval bool result
+ */
+bool bSyncPreIrqFlagLastPulse(void) {
+	bool bResult;
+	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
+	bResult = vpxSyncModule->xPreSyncIrqFlag.bPreLastPulseIrqFlag;
+	return bResult;
+}
+
 //! [private functions]
 
 /*

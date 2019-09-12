@@ -20,6 +20,8 @@ entity fee_slave_data_controller_top is
 		fee_machine_clear_i        : in  std_logic;
 		fee_machine_stop_i         : in  std_logic;
 		fee_machine_start_i        : in  std_logic;
+		fee_digitalise_en_i        : in  std_logic;
+		fee_windowing_en_i         : in  std_logic;
 		-- fee windowing buffer status
 		fee_window_data_i          : in  std_logic_vector(63 downto 0);
 		fee_window_mask_i          : in  std_logic_vector(63 downto 0);
@@ -113,6 +115,9 @@ architecture RTL of fee_slave_data_controller_top is
 	signal s_registered_fee_packet_length_i     : std_logic_vector(15 downto 0);
 	signal s_registered_fee_fee_mode_i          : std_logic_vector(2 downto 0);
 	signal s_registered_fee_ccd_number_i        : std_logic_vector(1 downto 0);
+	-- registered masking settings signals (for the entire read-out)
+	signal s_registered_fee_digitalise_en       : std_logic;
+	signal s_registered_fee_windowing_en        : std_logic;
 
 begin
 
@@ -130,6 +135,8 @@ begin
 			fee_clear_signal_i            => fee_machine_clear_i,
 			fee_stop_signal_i             => fee_machine_stop_i,
 			fee_start_signal_i            => fee_machine_start_i,
+			fee_digitalise_en_i           => s_registered_fee_digitalise_en,
+			fee_windowing_en_i            => s_registered_fee_windowing_en,
 			fee_start_masking_i           => fee_slave_imgdata_start_i,
 			masking_machine_hold_i        => s_masking_machine_hold,
 			fee_ccd_x_size_i              => data_pkt_ccd_x_size_i,
@@ -301,6 +308,8 @@ begin
 			s_registered_fee_packet_length_i   <= std_logic_vector(to_unsigned(32768, 16));
 			s_registered_fee_fee_mode_i        <= std_logic_vector(to_unsigned(1, 3));
 			s_registered_fee_ccd_number_i      <= std_logic_vector(to_unsigned(0, 2));
+			s_registered_fee_digitalise_en     <= '0';
+			s_registered_fee_windowing_en      <= '1';
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
@@ -311,6 +320,8 @@ begin
 				s_registered_fee_packet_length_i   <= data_pkt_packet_length_i;
 				s_registered_fee_fee_mode_i        <= data_pkt_fee_mode_i;
 				s_registered_fee_ccd_number_i      <= data_pkt_ccd_number_i;
+				s_registered_fee_digitalise_en     <= fee_digitalise_en_i;
+				s_registered_fee_windowing_en      <= fee_windowing_en_i;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;

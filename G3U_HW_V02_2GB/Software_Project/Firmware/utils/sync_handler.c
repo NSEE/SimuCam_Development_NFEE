@@ -14,6 +14,7 @@ bool bInitSync( void ) {
 	bool	bSuccess;
 
 	vSyncInitIrq();
+	vSyncPreInitIrq();
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
@@ -30,6 +31,17 @@ bool bInitSync( void ) {
 
 	// BT => 200 ms @ 20 ns (50 MHz)
 	bSuccess = bSyncSetBt(BT);
+	if ( bSuccess == FALSE ) {
+		return bSuccess;
+	}
+
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"xDefaults.usiPreBtSync = %hu\n", xDefaults.usiPreBtSync);
+	}
+	#endif
+
+	bSuccess = bSyncSetPreBt( uliPerCalcPeriodMs( xDefaults.usiPreBtSync ) );
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
@@ -59,8 +71,8 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
-	// Altera mux para sync interno
-	bSuccess = bSyncCtrExtnIrq(TRUE);
+	// Altera mux para sync intern
+	bSuccess = bSyncCtrIntern(TRUE);
 	if ( bSuccess == FALSE ) {
 		return bSuccess;
 	}
@@ -108,9 +120,16 @@ bool bInitSync( void ) {
 		return bSuccess;
 	}
 
+
+
 	bSuccess = bSyncCtrStart();
 	bSyncCtrReset();
-	bSyncIrqEnableBlankPulse(TRUE);
+	bSyncIrqEnableMasterPulse(TRUE);
+	bSyncIrqEnableNormalPulse(TRUE);
+	bSyncIrqEnableLastPulse(TRUE);
+
+	bSyncPreIrqEnableBlankPulse(TRUE);
+
 
 	return bSuccess;
 }

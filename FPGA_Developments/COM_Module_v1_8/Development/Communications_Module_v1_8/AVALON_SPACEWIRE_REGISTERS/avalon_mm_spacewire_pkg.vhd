@@ -11,8 +11,9 @@ package avalon_mm_spacewire_pkg is
 	subtype t_avalon_mm_spacewire_address is natural range 0 to ((2 ** c_AVALON_MM_SPACEWIRE_ADRESS_SIZE) - 1);
 
 	type t_avalon_mm_spacewire_read_in is record
-		address : std_logic_vector((c_AVALON_MM_SPACEWIRE_ADRESS_SIZE - 1) downto 0);
-		read    : std_logic;
+		address    : std_logic_vector((c_AVALON_MM_SPACEWIRE_ADRESS_SIZE - 1) downto 0);
+		read       : std_logic;
+		byteenable : std_logic_vector(((c_AVALON_MM_SPACEWIRE_DATA_SIZE / c_AVALON_MM_SPACEWIRE_SYMBOL_SIZE) - 1) downto 0);
 	end record t_avalon_mm_spacewire_read_in;
 
 	type t_avalon_mm_spacewire_read_out is record
@@ -21,9 +22,10 @@ package avalon_mm_spacewire_pkg is
 	end record t_avalon_mm_spacewire_read_out;
 
 	type t_avalon_mm_spacewire_write_in is record
-		address   : std_logic_vector((c_AVALON_MM_SPACEWIRE_ADRESS_SIZE - 1) downto 0);
-		write     : std_logic;
-		writedata : std_logic_vector((c_AVALON_MM_SPACEWIRE_DATA_SIZE - 1) downto 0);
+		address    : std_logic_vector((c_AVALON_MM_SPACEWIRE_ADRESS_SIZE - 1) downto 0);
+		write      : std_logic;
+		writedata  : std_logic_vector((c_AVALON_MM_SPACEWIRE_DATA_SIZE - 1) downto 0);
+		byteenable : std_logic_vector(((c_AVALON_MM_SPACEWIRE_DATA_SIZE / c_AVALON_MM_SPACEWIRE_SYMBOL_SIZE) - 1) downto 0);
 	end record t_avalon_mm_spacewire_write_in;
 
 	type t_avalon_mm_spacewire_write_out is record

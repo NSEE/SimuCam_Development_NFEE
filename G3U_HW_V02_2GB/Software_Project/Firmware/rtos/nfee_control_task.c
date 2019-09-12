@@ -12,7 +12,7 @@ void vNFeeControlTask(void *task_data) {
 	tQMask uiCmdNFC;
 	bool bCmdSent;
 	INT8U error_codeCtrl;
-	unsigned char ucFeeInstL;
+	unsigned char ucFeeInstL = 0, ucSide = 0;
 	static bool bDmaBack;
 	static unsigned char ucWhoGetDMA;
 	unsigned char ucIL;
@@ -113,9 +113,9 @@ void vNFeeControlTask(void *task_data) {
 					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 4, &error_codeCtrl);
 					if ( error_codeCtrl == OS_ERR_NONE ) {
 						ucFeeInstL = uiCmdNFC.ucByte[0];
-
+						ucSide = uiCmdNFC.ucByte[1];
 						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
-							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, 0, ucFeeInstL );
+							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, ucSide, ucFeeInstL);
 							if ( bCmdSent == TRUE ) {
 								bDmaBack = FALSE;
 								ucWhoGetDMA = ucFeeInstL;

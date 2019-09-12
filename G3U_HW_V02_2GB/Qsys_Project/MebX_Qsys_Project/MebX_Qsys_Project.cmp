@@ -117,14 +117,14 @@
 			ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                            : out   std_logic;                                        -- conduit
-			sync_spwa_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwb_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwc_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwd_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwe_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwf_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwg_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spwh_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw1_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw2_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw3_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw4_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw5_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw6_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw7_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw8_conduit                                           : out   std_logic;                                        -- conduit
 			temp_scl_export                                             : out   std_logic;                                        -- export
 			temp_sda_export                                             : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                              : out   std_logic;                                        -- export
