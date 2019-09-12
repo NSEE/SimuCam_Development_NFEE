@@ -609,8 +609,9 @@ begin
 
 	-- IRQ Manager (need to become a module)
 	p_rx_buffer_irq_manager : process(a_avs_clock, a_reset) is
-		variable v_started          : std_logic := '0';
-		variable v_last_buffer_full : std_logic := '0';
+		variable v_started             : std_logic := '0';
+		variable v_last_rx_buffer      : std_logic := '0';
+		variable v_last_rx_buffer_full : std_logic := '0';
 	begin
 		if (a_reset) = '1' then
 			s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag    <= '0';
@@ -623,7 +624,8 @@ begin
 			s_rx_buffer_empty_delayed                                              <= '0';
 			s_rx_comm_err_delayed                                                  <= '0';
 			v_started                                                              := '0';
-			v_last_buffer_full                                                     := '0';
+			v_last_rx_buffer                                                       := '0';
+			v_last_rx_buffer_full                                                  := '0';
 		elsif rising_edge(a_avs_clock) then
 
 			if (s_config_write_registers.ftdi_module_control_reg.ftdi_module_start = '1') then
@@ -639,6 +641,8 @@ begin
 				s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '0';
 				s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag  <= '0';
 				s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag           <= '0';
+				v_last_rx_buffer                                                       := '0';
+				v_last_rx_buffer_full                                                  := '0';
 			else
 				-- clear flags --
 				if (s_config_write_registers.rx_irq_flag_clear_reg.rx_buffer_0_rdable_irq_flag_clr = '1') then
@@ -660,27 +664,29 @@ begin
 				-- check if the global interrupt is enabled
 				if (s_config_write_registers.ftdi_irq_control_reg.ftdi_global_irq_en = '1') then
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_0_rdable_irq_en = '1') then
-						if ((s_rx_buffer_0_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '0')) then
+						if ((s_rx_buffer_0_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_0_rdable = '1') and (v_last_rx_buffer = '0')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag <= '1';
 						end if;
 					end if;
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_1_rdable_irq_en = '1') then
-						if ((s_rx_buffer_1_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '0')) then
+						if ((s_rx_buffer_1_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_buffer_1_rdable = '1') and (v_last_rx_buffer = '0')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag <= '1';
 						end if;
 
 					end if;
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_rdable_irq_en = '1') then
-						if ((s_rx_dbuffer_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable = '1') and (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '1')) then
+						if ((s_rx_dbuffer_rdable_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_rdable = '1') and (v_last_rx_buffer = '1')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag <= '1';
-							v_last_buffer_full                                                     := '1';
+							v_last_rx_buffer                                                       := '0';
+							v_last_rx_buffer_full                                                  := '1';
 						end if;
 
 					end if;
 					if (s_config_write_registers.rx_irq_control_reg.rx_buffer_last_empty_irq_en = '1') then
-						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (v_last_buffer_full = '1')) then
+						if ((s_rx_buffer_empty_delayed = '0') and (s_config_read_registers.rx_buffer_status_reg.rx_dbuffer_empty = '1') and (v_last_rx_buffer_full = '1')) then
 							s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag <= '1';
-							v_last_buffer_full                                                    := '0';
+							v_last_rx_buffer                                                      := '0';
+							v_last_rx_buffer_full                                                 := '0';
 						end if;
 
 					end if;
@@ -691,6 +697,11 @@ begin
 
 					end if;
 				end if;
+			end if;
+
+			-- set last buffer variable
+			if (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '1') then
+				v_last_rx_buffer := '1';
 			end if;
 
 			-- delay signals
