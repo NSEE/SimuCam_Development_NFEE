@@ -98,7 +98,7 @@ begin
 			umft_txe_n_pin_o     => s_umft_txe_n_pin
 		);
 
-	USB_3_FTDI_top_inst : entity work.USB_3_FTDI_top
+	USB_3_FTDI_top_inst : entity work.ftdi_usb3_top
 		generic map(
 			g_FTDI_TESTBENCH_MODE => '1'
 		)
