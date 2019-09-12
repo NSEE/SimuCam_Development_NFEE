@@ -165,22 +165,22 @@ architecture rtl of ftdi_usb3_top is
 
 begin
 
-	-- Config Avalon MM Testbench Stimulli Generate
-	g_ftdi_avs_config_testbench_stimulli : if (g_FTDI_TESTBENCH_MODE = '1') generate
+--	-- Config Avalon MM Testbench Stimulli Generate
+--	g_ftdi_avs_config_testbench_stimulli : if (g_FTDI_TESTBENCH_MODE = '1') generate
+--
+--		-- Config Avalon MM Testbench Stimulli
+--		ftdi_config_avalon_mm_stimulli_inst : entity work.ftdi_config_avalon_mm_stimulli
+--			port map(
+--				clk_i                => a_avs_clock,
+--				rst_i                => a_reset,
+--				avs_config_rd_regs_i => s_config_read_registers,
+--				avs_config_wr_regs_o => s_config_write_registers
+--			);
+--
+--	end generate g_ftdi_avs_config_testbench_stimulli;
 
-		-- Config Avalon MM Testbench Stimulli
-		ftdi_config_avalon_mm_stimulli_inst : entity work.ftdi_config_avalon_mm_stimulli
-			port map(
-				clk_i                => a_avs_clock,
-				rst_i                => a_reset,
-				avs_config_rd_regs_i => s_config_read_registers,
-				avs_config_wr_regs_o => s_config_write_registers
-			);
-
-	end generate g_ftdi_avs_config_testbench_stimulli;
-
-	-- Config Avalon MM Read and Write Generate
-	g_ftdi_avs_config_read_write : if (g_FTDI_TESTBENCH_MODE = '0') generate
+--	-- Config Avalon MM Read and Write Generate
+--	g_ftdi_avs_config_read_write : if (g_FTDI_TESTBENCH_MODE = '0') generate
 
 		-- Config Avalon MM Read Instantiation
 		ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
@@ -209,7 +209,7 @@ begin
 				ftdi_config_wr_regs_o               => s_config_write_registers
 			);
 
-	end generate g_ftdi_avs_config_read_write;
+--	end generate g_ftdi_avs_config_read_write;
 
 	-- Tx Data Avalon MM Write Instantiation
 	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
