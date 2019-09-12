@@ -1322,6 +1322,20 @@ void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp)
 	 */
 }
 
+
+void vFailSendMsgMasterSyncDTC( void )
+{
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		fprintf(fp,"vFailSendMsgMasterSyncDTC \n");
+	}
+	#endif
+	/*
+	 * Implementa��o de indica��o de falha antes de finalizar a execu��o
+	 * Indicar falha com LEDs pois � o unico HW inicializada at� o momento
+	 */
+}
+
 void vFailSendMsgMasterSyncMeb( void )
 {
 	#if DEBUG_ON

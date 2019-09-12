@@ -112,6 +112,7 @@ void vFailFlushQueueData( void );
 void vFailFlushNFEEQueue( void );
 void vFailCreateNFEESyncQueue( unsigned char ucID );
 void vFailSendMsgSync( unsigned char ucTemp);
+void vFailSendMsgMasterSyncDTC( void );
 void vFailSendMsgMasterSyncMeb( void );
 void vFailRequestDMAFromIRQ( unsigned char ucTemp);
 void vFailSendRMAPFromIRQ( unsigned char ucTemp);

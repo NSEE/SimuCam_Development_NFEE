@@ -142,14 +142,10 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				break;
 
 			case M_PRE_MASTER:
-				pxMebCLocal->xSwapControl.lastReadOut = TRUE;
-				pxMebCLocal->xSwapControl.end = 0x00; /* 0x7F for N-FEE, need to adjust to F-FEE */
-				vDebugSyncTimeCode(pxMebCLocal);
+
 				break;
 
 			case M_MASTER_SYNC:
-
-				pxMebCLocal->xSwapControl.lastReadOut = FALSE;
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
 				vDebugSyncTimeCode(pxMebCLocal);
@@ -159,21 +155,11 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
-			case Q_MEB_DATA_MEM_IN_USE:
-				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end | (0x01<<6);
-				break;
-
-			case Q_MEB_FEE_MEM_IN_USE:
-				ucFeeInst = uiCmdLocal.ucByte[0];
-				pxMebCLocal->xSwapControl.end = pxMebCLocal->xSwapControl.end | (0x01<<ucFeeInst);
-				break;
-
 			case Q_MEB_DATA_MEM_UPD_FIN:
 
 				/*Check if is already the sync before Master Sync*/
 				if ( xGlobal.bPreMaster == TRUE ) {
-
-					/*Maybe have some FEE instances loked in reading queue, waiting for a message that DTC finishes the upload of the memory*/
+					/*Maybe have some FEE instances locked in reading queue, waiting for a message that DTC finishes the upload of the memory*/
 					/*So, need to send them a message to inform*/
 					/* Using QMASK send to NfeeControl that will foward */
 					for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
@@ -750,7 +736,7 @@ void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = ucCMD;
 	uiCmdtoSend.ucByte[1] = ucSUBType;
 	uiCmdtoSend.ucByte[0] = ucValue;

@@ -82,6 +82,14 @@ void vSyncHandleIrq(void* pvContext) {
 		xGlobal.bPreMaster = FALSE;
 		xGlobal.ucEP0_3 = 0;
 
+		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+
+		/* Send Priority message to the Meb Task to indicate the Sync */
+		error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
+		if ( error_codel != OS_ERR_NONE ) {
+			vFailSendMsgMasterSyncDTC( );
+		}
+
 		vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
 	} else if (vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag) {
 
