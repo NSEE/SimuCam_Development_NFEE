@@ -10,23 +10,19 @@
 #include "data_control_task.h"
 
 
-void vFTDIClear( void );
-void vFTDIAbort( void );
-alt_u8 ucGetError( void );
-alt_u16 usiFTDInDataLeftInBuffer( void );
-bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
-bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
-bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vRxBuffer0FullIRQHandler(void);
-void vRxBuffer1FullIRQHandler(void);
-void vRxLastBufferFullIRQHandler(void);
-void vRxEmptyBufferFullIRQHandler(void);
-void vRxCommErrorIRQHandler(void);
-
-/* todo: Should be define by R.França */
-#define FTDI_BUFFER_SIZE_TRANSFER	4096
-
+//void vFTDIClear( void );
+//void vFTDIAbort( void );
+//alt_u8 ucGetError( void );
+//alt_u16 usiFTDInDataLeftInBuffer( void );
+//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
+//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes);
+//bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
+//bool bSendMSGtoSimMebTaskDTC( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+//void vRxBuffer0FullIRQHandler(void);
+//void vRxBuffer1FullIRQHandler(void);
+//void vRxLastBufferFullIRQHandler(void);
+//void vRxEmptyBufferFullIRQHandler(void);
+//void vRxCommErrorIRQHandler(void);
 
 /* 0% Ready! */
 void vDataControlTask(void *task_data) {
@@ -584,7 +580,7 @@ void vRxCommErrorIRQHandler(void) {
 	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 	uiCmdtoSend.ucByte[2] = M_DATA_FTDI_ERROR;
 	uiCmdtoSend.ucByte[1] = 0;
-	uiCmdtoSend.ucByte[0] = ucGetError();
+	uiCmdtoSend.ucByte[0] = ucFTDIGetError();
 
 	/*Sync the Meb task and tell that has a PUS command waiting*/
 	error_codel = OSQPost(xQMaskDataCtrl, (void *) uiCmdtoSend.ulWord);
@@ -595,10 +591,10 @@ void vRxCommErrorIRQHandler(void) {
 }
 
 /* Mocsk */
-void vFTDIClear( void ){}
-void vFTDIAbort( void ){}
-alt_u8 ucGetError( void ){return 20;}
-alt_u16 usiFTDInDataLeftInBuffer( void ){return 20;}
-bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
-bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){return TRUE;}
+//void vFTDIClear( void ){}
+//void vFTDIAbort( void ){}
+//alt_u8 ucGetError( void ){return 20;}
+//alt_u16 usiFTDInDataLeftInBuffer( void ){return 20;}
+//bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
+//bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes){return TRUE;}
+//bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){return TRUE;}
