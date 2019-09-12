@@ -41,7 +41,7 @@ void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mod
 void vSetDoubleBufferLeftSize( unsigned char ucLength, unsigned char ucId );
 void vSetDoubleBufferRightSize( unsigned char ucLength, unsigned char ucId );
 void vWaitUntilBufferEmpty( unsigned char ucId );
-inline unsigned long int uliReturnMaskR( unsigned char ucChannel );
+unsigned long int uliReturnMaskR( unsigned char ucChannel );
 unsigned long int uliReturnMaskG( unsigned char ucChannel );
 bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsigned char ucID, TNFee *pxNFee, unsigned char ucSide, TFEETransmission xTransL );
 bool bSendGiveBackNFeeCtrl( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );

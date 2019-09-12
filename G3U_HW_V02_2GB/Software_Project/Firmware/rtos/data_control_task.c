@@ -60,11 +60,6 @@ void vDataControlTask(void *task_data) {
 //			case sMebInit:
 //				/* Starting the Data Controller */
 //
-//				/* Clear the CMD Queue */
-//				error_code = OSQFlush(xQMaskDataCtrl);
-//				if ( error_code != OS_NO_ERR ) {
-//					vFailFlushQueueData();
-//				}
 //				pxDataC->sMode = sMebToConfig;
 //				break;
 //
@@ -78,6 +73,12 @@ void vDataControlTask(void *task_data) {
 //				/* Anything that need be executed only once before the COnfig Mode
 //				Should be put here!*/
 //				pxDataC->usiEPn = 0;
+//
+//				/* Clear the CMD Queue */
+//				error_code = OSQFlush(xQMaskDataCtrl);
+//				if ( error_code != OS_NO_ERR ) {
+//					vFailFlushQueueData();
+//				}
 //
 //				pxDataC->sMode = sMebConfig;
 //				break;
@@ -151,6 +152,7 @@ void vDataControlTask(void *task_data) {
 //					case sSubSetupEpoch:
 //						/* Indicates that the memory update is not completed, at this moment just start */
 //						pxDataC->bUpdateComplete = FALSE;
+//						xGlobal.bDTCFinished = FALSE;
 //						bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_IN_USE, 0, 0); /*todo: Tratar retorno*/
 //
 //						/* todo: For now, this 'toca' implementation will always update all CCDs of all FEE.
