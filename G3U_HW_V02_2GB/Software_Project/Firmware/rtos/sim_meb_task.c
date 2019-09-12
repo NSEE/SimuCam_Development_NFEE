@@ -56,6 +56,9 @@ void vSimMebTask(void *task_data) {
 				/* Transition to Run Mode (Starting the Simulation) */
 				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
+
+				/* Give time to DTC and NFEE controller to start all processe before the first master sync */
+				OSTimeDlyHMSM(0, 0, 0, 100);
 				//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
 				/* Give time to all tasks receive the command */
 				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
@@ -140,17 +143,24 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vPusMebTask( pxMebCLocal );
 				break;
 
-			case M_PRE_MASTER:
-
-				break;
-
 			case M_MASTER_SYNC:
 				/* Perform memory SWAP */
 				vSwapMemmory(pxMebCLocal);
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"\nMaster Sync\n");
+				}
+				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
 			case M_SYNC:
+			case M_PRE_MASTER:
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					fprintf(fp,"\nSync\n");
+				}
+				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
 				break;
 
@@ -236,17 +246,14 @@ void vDebugSyncTimeCode( TSimucam_MEB *pxMebCLocal ) {
 
 
 	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		fprintf(fp,"\n\nSync\n");
-		if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-			bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
-			tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
-			tCodeNext = ( tCode ) % 4;
-			fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
-			bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
-			ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucFrameNumber;
-			fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
-		}
+	if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+		bSpwcGetTimecode(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire);
+		tCode = ( pxMebCLocal->xFeeControl.xNfee[0].xChannel.xSpacewire.xSpwcTimecodeStatus.ucTime);
+		tCodeNext = ( tCode ) % 4;
+		fprintf(fp,"TC: %hhu ( %hhu )\n ", tCode, tCodeNext);
+		bRmapGetMemConfigArea(&pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap);
+		ucFrameNumber = pxMebCLocal->xFeeControl.xNfee[0].xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucFrameNumber;
+		fprintf(fp,"MEB TASK:  Frame Number: %hhu \n ", ucFrameNumber);
 	}
 	#endif
 }

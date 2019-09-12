@@ -62,13 +62,14 @@ void vDataControlTask(void *task_data) {
 			case sMebToConfig:
 				/* Transition state */
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"NFEE Controller Task: Config Mode\n");
 				#endif
 
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
+				pxDataC->bFirstMaster = TRUE;
 
 				/* Clear the CMD Queue */
 				error_code = OSQFlush(xQMaskDataCtrl);
@@ -99,11 +100,14 @@ void vDataControlTask(void *task_data) {
 			case sMebToRun:
 				vEvtChangeDataControllerMode();
 				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
 					fprintf(fp,"Data Controller Task: RUN Mode\n");
 				#endif
 				/* Anything that need be executed only once before the Run Mode
 				Should be put here!*/
+				pxDataC->usiEPn = 0;
+				pxDataC->bFirstMaster = TRUE;
+
 				vFTDIClear();
 				vFTDIStart();
 
@@ -135,7 +139,7 @@ void vDataControlTask(void *task_data) {
 
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\nDTC: Mem. Updated\n");
+							fprintf(fp,"\nDTC: Mem. Updated state\n");
 						}
 						#endif
 
@@ -152,6 +156,12 @@ void vDataControlTask(void *task_data) {
 						break;
 
 					case sSubSetupEpoch:
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"DTC: Setup Epoch %hhu\n", pxDataC->usiEPn);
+						}
+						#endif
+
 						/* Indicates that the memory update is not completed, at this moment just start */
 						pxDataC->bUpdateComplete = FALSE;
 						xGlobal.bDTCFinished = FALSE;
@@ -164,9 +174,10 @@ void vDataControlTask(void *task_data) {
 							bA = (*pxDataC->xReadOnlyFeeControl.pbEnabledNFEEs[ucIL]); /* Fee is enable? */
 							bB = TRUE; /* Is in pattern? (todo:Hard coded for now)*/
 							bC = TRUE; /* Updated LUT? */
-							bD = ( !bB || bC ); /* If in pattern, Need to be update? Had any LUT update?(todo:Hard coded for now) */
+							bD = TRUE;//( !bB || bC ); /* If in pattern, Need to be update? Had any LUT update?(todo:Hard coded for now) */
 							bE = TRUE; /* todo: Nay future implementation */
-							pxDataC->bInsgestionSchedule[ucIL] = ( bA && bD && bE );
+							//pxDataC->bInsgestionSchedule[ucIL] = ( bA && bD && bE );
+							pxDataC->bInsgestionSchedule[ucIL] = TRUE; /*todo: Tiago Temporary Hard Coded*/
 							if ( TRUE == pxDataC->bInsgestionSchedule[ucIL] ) {
 								/* Copy all data control of the NFEEs for consistency. If some RMAP command change the side or the size, it will only take effect
 								in the Next Master Sync. */
@@ -195,6 +206,14 @@ void vDataControlTask(void *task_data) {
 					case sSubRequest:
 
 						if ( TRUE == pxDataC->bInsgestionSchedule[ucSubReqIFEE] ) {
+
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"DTC: EP %hhu\n", pxDataC->usiEPn);
+								fprintf(fp,"DTC: Request to NUC: FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
+							}
+							#endif
+
 							/* Send Clear command to the FTDI Control Block */
 							vFTDIClear();
 							/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
@@ -208,8 +227,7 @@ void vDataControlTask(void *task_data) {
 
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-									fprintf(fp,"DTC: EP %hhu\n", pxDataC->usiEPn);
-									fprintf(fp,"DTC: Request to NUC: FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
+									fprintf(fp,"DTC: Request Sucess");
 								}
 								#endif
 
@@ -275,6 +293,13 @@ void vDataControlTask(void *task_data) {
 						break;
 					case sSubLastPckt:
 
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"DTC: Last Packet\n");
+						}
+						#endif
+
+
 						usiNByterLeft = (alt_u16)uliFTDInDataLeftInBuffer();
 
 						if ( ucMemUsing == 0 )
@@ -339,13 +364,14 @@ void vDataControlTask(void *task_data) {
 		}
 
 		//todo: Implementação temporaria
-		pxDataC->bUpdateComplete = TRUE;
+		/*pxDataC->bUpdateComplete = TRUE;
 		xGlobal.bDTCFinished = TRUE;
 		OSTimeDlyHMSM(0, 0, 5, 0);
 		error_code = OSQFlush(xQMaskDataCtrl);
 		if ( error_code != OS_NO_ERR ) {
 			vFailFlushQueueData();
 		}
+		*/
 
 	}
 }
@@ -366,20 +392,20 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				debug(fp,"Data Controller Task: DTC already in the Running Mode\n");
 			}
 			#endif
 			/* Do nothing for now */
 			break;
-		case M_SYNC:
+		case M_MASTER_SYNC:
 			
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
 			/* For now, critical failure! */
 			vCriticalFailUpdateMemoreDTController();
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				debug(fp,"Data Controller Task: CRITICAL! Received Sync during update process.\n");
 				debug(fp,"Data Controller Task: Ending the upload process. DTC going to Config.\n");
 			}
@@ -437,14 +463,15 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 				debug(fp,"Data Controller Task: DTC already in the Running Mode\n");
 			}
 			#endif
 			/* Do nothing for now */
 			break;
 		case M_MASTER_SYNC:
-			pxFeeCP->usiEPn++;
+			if ( pxFeeCP->bFirstMaster == FALSE )
+				pxFeeCP->usiEPn++;
 			xGlobal.bDTCFinished = FALSE;
 			pxFeeCP->sRunMode = sSubSetupEpoch;
 			break;
@@ -475,6 +502,13 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP )
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			pxFeeCP->sMode = sMebToRun;
+			break;
+
+		case M_MASTER_SYNC:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+				debug(fp,"Data Controller Task: Sync received but DTC is in Config Mode .\n");
+			#endif
 			break;
 		default:
 			#if DEBUG_ON

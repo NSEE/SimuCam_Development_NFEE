@@ -66,7 +66,7 @@ void vFailSendRequestDTController( void )
 {
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-		debug(fp,"vFailSendRequestDTController. (exit)\n");
+		debug(fp,"bFTDIRequestFullImage returned FALSE. (exit)\n");
 	}
 	#endif
 	/*

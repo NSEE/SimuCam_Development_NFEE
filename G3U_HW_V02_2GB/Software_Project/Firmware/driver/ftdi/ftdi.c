@@ -26,68 +26,51 @@ static volatile int viRxBuffHoldContext;
 
 //! [public functions]
 void vFTDIStop( void ){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiFtdiModuleControl.bModuleStop = TRUE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiFtdiModuleControl.bModuleStop = TRUE;
 }
-
 void vFTDIStart( void ){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiFtdiModuleControl.bModuleStart = TRUE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiFtdiModuleControl.bModuleStart = TRUE;
 }
-
 void vFTDIClear( void ){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiFtdiModuleControl.bModuleClear = TRUE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 }
-
 void vFTDIAbort( void ){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiHalfCcdReqControl.bAbortHalfCcdReq = TRUE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiHalfCcdReqControl.bAbortHalfCcdReq = TRUE;
 }
-
 alt_u8 ucFTDIGetError( void ){
-	alt_u8 ucErrorCode = 0;
-
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	ucErrorCode = (alt_u8)(pxFtdiModule->xFtdiRxCommError.usiRxCommErrCode);
-
-	return ucErrorCode;
+    alt_u8 ucErrorCode = 0;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    ucErrorCode = (alt_u8)(vpxFtdiModule->xFtdiRxCommError.usiRxCommErrCode);
+    return ucErrorCode;
 }
-
 alt_u32 uliFTDInDataLeftInBuffer( void ){
-	alt_u32 uliBufferUsedBytes = 0;
-
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	uliBufferUsedBytes = pxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
-
-	return uliBufferUsedBytes;
+    alt_u32 uliBufferUsedBytes = 0;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    uliBufferUsedBytes = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
+    return uliBufferUsedBytes;
 }
-
 bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){
-	bool bStatus = FALSE;
-
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-
-	if ((ucFee < 6) && (ucCCD < 4) && (ucSide < 2) && (usiHalfWidth <= 4540 ) && (usiHeight <= 2295)) {
-
-		pxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber = ucFee;
-		pxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber = ucCCD;
-		pxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucSide;
-		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiEP;
-		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiHalfWidth;
-		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
-
-		pxFtdiModule->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
-
-		bStatus = TRUE;
-	}
-
-	return bStatus;
+    bool bStatus = FALSE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    if ((ucFee < 6) && (ucCCD < 4) && (ucSide < 2) && (usiHalfWidth <= 2295 ) && (usiHeight <= 4540)) {
+        vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber = ucFee;
+        vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber = ucCCD;
+        vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucSide;
+        vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiEP;
+        vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiHalfWidth;
+        vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
+        vpxFtdiModule->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
+        bStatus = TRUE;
+    }
+    return bStatus;
 }
-
 void vFTDIResetFullImage( void ){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiHalfCcdReqControl.bRstHalfCcdController = TRUE;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiHalfCcdReqControl.bRstHalfCcdController = TRUE;
 }
 
 void vFTDIRxBufferIRQHandler(void* pvContext) {
@@ -101,11 +84,17 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 	// if (*viRxBuffHoldContext == '0') {}...
 	// App logic sequence...
 
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"FTDI Irq 0\n");
+}
+#endif
 
 	/* Rx Buffer 0 Readable Flag */
-	if (pxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
-		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_FULL;
@@ -118,12 +107,17 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 			vFailSendBufferFullIRQtoDTC();
 		}
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"FTDI Irq Rd 0\n");
+}
+#endif
 
 	}
 
 	/* Rx Buffer 1 Readable Flag */
-	if (pxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
-		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
 
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
 		uiCmdtoSend.ucByte[2] = M_DATA_FTDI_BUFFER_FULL;
@@ -136,12 +130,17 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 			vFailSendBufferFullIRQtoDTC();
 		}
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"FTDI Irq Rd 1\n");
+}
+#endif
 
 	}
 
 	/* Rx Buffer Last Readable Flag */
-	if (pxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag) {
-		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr = TRUE;
 
 		/* Rx Buffer Last Readable flag treatment */
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
@@ -155,11 +154,17 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 			vFailSendBufferLastIRQtoDTC();
 		}
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"FTDI Irq Rd Last\n");
+}
+#endif
+
 	}
 
 	/* Rx Buffer Last Empty Flag */
-	if (pxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastEmptyIrqFlag) {
-		pxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastEmptyIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
 
 		/* Rx Buffer Last Empty flag treatment */
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
@@ -173,12 +178,17 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 			vFailSendBufferEmptyIRQtoDTC();
 		}
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"FTDI Irq Empty 0\n");
+}
+#endif
 
 	}
 
 	/* Rx Communication Error Flag */
-	if (pxFtdiModule->xFtdiRxIrqFlag.bRxCommErrIrqFlag) {
-		pxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxCommErrIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
 
 		/* Rx Communication Error flag treatment */
 		uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
@@ -192,49 +202,51 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 			vFailFtdiErrorIRQtoDTC();
 		}
 
+#if DEBUG_ON
+if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+	fprintf(fp,"FTDI Irq Err 0\n");
+}
+#endif
+
 	}
 
 }
 
-void vFTDIIrqRxBuffInit(void) {
-	void* pvHoldContext;
-
-	// Recast the hold_context pointer to match the alt_irq_register() function
-	// prototype.
-	pvHoldContext = (void*) &viRxBuffHoldContext;
-	// Register the interrupt handler
-	alt_irq_register(FTDI_RX_BUFFER_IRQ, pvHoldContext, vFTDIRxBufferIRQHandler);
-
+bool bFTDIIrqRxBuffInit(void) {
+    bool bStatus = FALSE;
+    void* pvHoldContext;
+    // Recast the hold_context pointer to match the alt_irq_register() function
+    // prototype.
+    pvHoldContext = (void*) &viRxBuffHoldContext;
+    // Register the interrupt handler
+    if (0 == alt_irq_register(FTDI_RX_BUFFER_IRQ, pvHoldContext, vFTDIRxBufferIRQHandler)){
+        bStatus = TRUE;
+    }
+    return bStatus;
 }
-
 void vFTDIIrqGlobalEn(bool bEnable){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = bEnable;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = bEnable;
 }
-
 void vFTDIIrqRxBuff0RdableEn(bool bEnable){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiRxIrqControl.bRxBuff0RdableIrqEn = bEnable;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiRxIrqControl.bRxBuff0RdableIrqEn = bEnable;
 }
-
 void vFTDIIrqRxBuff1RdableEn(bool bEnable){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiRxIrqControl.bRxBuff1RdableIrqEn = bEnable;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiRxIrqControl.bRxBuff1RdableIrqEn = bEnable;
 }
-
 void vFTDIIrqRxBuffLastRdableEn(bool bEnable){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn = bEnable;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn = bEnable;
 }
-
 void vFTDIIrqRxBuffLastEmptyEn(bool bEnable){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = bEnable;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = bEnable;
 }
-
 void vFTDIIrqRxCommErrEn(bool bEnable){
-	TFtdiModule *pxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-	pxFtdiModule->xFtdiRxIrqControl.bRxCommErrIrqEn = bEnable;
+    volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
+    vpxFtdiModule->xFtdiRxIrqControl.bRxCommErrIrqEn = bEnable;
 }
 
 //! [public functions]

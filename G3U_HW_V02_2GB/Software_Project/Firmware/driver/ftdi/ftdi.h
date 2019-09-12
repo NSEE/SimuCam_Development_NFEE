@@ -175,7 +175,7 @@ alt_u32 uliFTDInDataLeftInBuffer(void);
 bool bFTDIRequestFullImage(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
 void vFTDIResetFullImage(void);
 void vFTDIRxBufferIRQHandler(void* pvContext);
-void vFTDIIrqRxBuffInit(void);
+bool bFTDIIrqRxBuffInit(void);
 void vFTDIIrqGlobalEn(bool bEnable);
 void vFTDIIrqRxBuff0RdableEn(bool bEnable);
 void vFTDIIrqRxBuff1RdableEn(bool bEnable);

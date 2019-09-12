@@ -463,7 +463,6 @@ int main(void)
 	INT8U error_code;
 	bool bIniSimucamStatus = FALSE;
 	
-
 	/* Debug device initialization - JTAG USB */
 	#if DEBUG_ON
 		fp = fopen(JTAG_UART_0_NAME, "r+");
@@ -725,11 +724,13 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 }
 
 void bInitFTDI(void){
-	vFTDIIrqGlobalEn(TRUE);
+
 	vFTDIIrqRxBuff0RdableEn(TRUE);
 	vFTDIIrqRxBuff1RdableEn(TRUE);
 	vFTDIIrqRxBuffLastRdableEn(TRUE);
 	vFTDIIrqRxBuffLastEmptyEn(TRUE);
 	vFTDIIrqRxCommErrEn(TRUE);
-	vFTDIIrqRxBuffInit();
+	vFTDIIrqGlobalEn(TRUE);
+	bFTDIIrqRxBuffInit();
+
 }

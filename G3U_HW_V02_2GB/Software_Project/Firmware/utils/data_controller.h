@@ -36,6 +36,7 @@ typedef struct NData_Control {
 	unsigned char *pNextMem;				/* Point to the actual memory in simulation */
 	TNFee   xCopyNfee[N_OF_NFEE];           /* All instances of control for the NFEE */
 	unsigned short int usiEPn;
+	bool bFirstMaster;
 } TNData_Control; /* Read Only Structure */
 
 void vDataControllerInit( TNData_Control *xDataControlL, TNFee_Control *xNfeeCOntrolL );

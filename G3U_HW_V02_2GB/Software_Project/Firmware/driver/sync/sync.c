@@ -66,16 +66,15 @@ void vSyncHandleIrq(void* pvContext) {
 	//		vpxSyncModule->xSyncIrqFlagClr.bBlankPulseIrqFlagClr = TRUE;
 	//	}
 	if (vpxSyncModule->xSyncIrqFlag.bNormalPulseIrqFlag) {
-
+		vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
 		/* Sync Normal Pulse IRQ routine */
 		
 		uiCmdtoSend.ucByte[2] = M_SYNC;
 		xGlobal.bPreMaster = FALSE;
 		xGlobal.ucEP0_3++;
 
-		vpxSyncModule->xSyncIrqFlagClr.bNormalPulseIrqFlagClr = TRUE;
 	} else if (vpxSyncModule->xSyncIrqFlag.bMasterPulseIrqFlag) {
-
+		vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
 		/* Sync Master Pulse IRQ routine */
 		
 		uiCmdtoSend.ucByte[2] = M_MASTER_SYNC;
@@ -89,16 +88,13 @@ void vSyncHandleIrq(void* pvContext) {
 		if ( error_codel != OS_ERR_NONE ) {
 			vFailSendMsgMasterSyncDTC( );
 		}
-
-		vpxSyncModule->xSyncIrqFlagClr.bMasterPulseIrqFlagClr = TRUE;
 	} else if (vpxSyncModule->xSyncIrqFlag.bLastPulseIrqFlag) {
-
+		vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
 		/* Sync Last Pulse IRQ routine */
 		uiCmdtoSend.ucByte[2] = M_PRE_MASTER;
 		xGlobal.bPreMaster = TRUE;
 		xGlobal.ucEP0_3 = 3;
 
-		vpxSyncModule->xSyncIrqFlagClr.bLastPulseIrqFlagClr = TRUE;
 	}
 
 	uiCmdtoSend.ucByte[3] = M_MEB_ADDR;
@@ -143,24 +139,22 @@ void vSyncPreHandleIrq(void* pvContext) {
 
 	volatile TSyncModule *vpxSyncModule = (TSyncModule *)SYNC_BASE_ADDR;
 
-	#if DEBUG_ON
-	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-		fprintf(fp,"Pre-Sync Signal\n");
-	}
-	#endif
 
-	
 	uiCmdtoSend.ulWord = 0;
 	xGlobal.bJustBeforSync = TRUE;
 
 	// Check Sync Irq Flags
 	if (vpxSyncModule->xPreSyncIrqFlag.bPreBlankPulseIrqFlag) {
+		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
 
 		/* Pre-Sync Blank Pulse IRQ routine */
-		
-		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+			fprintf(fp,"Pre-Sync Signal\n");
+		}
+		#endif
 
-		vpxSyncModule->xPreSyncIrqFlagClr.bPreBlankPulseIrqFlagClr = TRUE;
+		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
 	}
 
 	
