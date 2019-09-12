@@ -76,6 +76,9 @@ void vDataControlTask(void *task_data) {
 					vFailFlushQueueData();
 				}
 
+				vFTDIStop();
+				vFTDIClear();
+
 				pxDataC->sMode = sMebConfig;
 				break;
 
@@ -101,6 +104,9 @@ void vDataControlTask(void *task_data) {
 				#endif
 				/* Anything that need be executed only once before the Run Mode
 				Should be put here!*/
+				vFTDIClear();
+				vFTDIStart();
+
 				pxDataC->sMode = sMebRun;
 				pxDataC->sRunMode = sSubInit;
 				break;
