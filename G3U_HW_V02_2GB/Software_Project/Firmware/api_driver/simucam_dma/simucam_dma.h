@@ -70,6 +70,10 @@
 #define SDMA_CH_8_R_BUFF_BASE_ADDR_LOW  0x00078000
 #define SDMA_CH_8_R_BUFF_BASE_ADDR_HIGH 0x00000001
 #define SDMA_CH_8_R_BUFF_SPAN           0x1FFF
+// ftdi tx/rx buffer
+#define SDMA_FTDI_BUFF_BASE_ADDR_LOW    0x00000000
+#define SDMA_FTDI_BUFF_BASE_ADDR_HIGH   0x00000002
+#define SDMA_FTDI_BUFF_SPAN             0x1FFF
 // ddr mem
 #define SDMA_M1_BASE_ADDR_LOW           0x00000000
 #define SDMA_M1_BASE_ADDR_HIGH          0x00000000
@@ -114,6 +118,10 @@ enum SdmaChBufferId {
 	eSdmaCh7Buffer = 6,
 	eSdmaCh8Buffer = 7
 } ESdmaChBufferId;
+
+enum SdmaFtdiOperation {
+	eSdmaTxFtdi = 0, eSdmaRxFtdi,
+} ESdmaFtdiOperation;
 //! [public module structs definition]
 
 //! [public function prototypes]
@@ -124,6 +132,8 @@ bool bSdmaDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlo
 bool bSdmaDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBlocks,
 		alt_u8 ucBufferSide, alt_u8 ucChBufferId);
 bool bSdmaSetBufferSize(alt_u8 ucBufferSizeInBlocks, alt_u8 ucBufferSide, alt_u8 ucChBufferId);
+bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes, alt_u8 ucFtdiOperation);
+bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInBytes, alt_u8 ucFtdiOperation);
 //! [public function prototypes]
 
 //! [data memory public global variables - use extern]

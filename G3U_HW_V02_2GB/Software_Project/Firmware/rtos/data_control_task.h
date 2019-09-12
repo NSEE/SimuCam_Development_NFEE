@@ -14,6 +14,7 @@
 #include "../utils/queue_commands_list.h"
 #include "../utils/communication_configs.h"
 #include "../utils/events_handler.h"
+#include "../driver/ftdi/ftdi.h"
 
 
 void vDataControlTask(void *task_data);
