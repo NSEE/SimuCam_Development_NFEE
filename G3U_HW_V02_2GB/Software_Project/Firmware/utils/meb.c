@@ -136,10 +136,18 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 
 
 /* Only in MEB_RUNNING */
-/* Synchronization Reset [bndky] incluir no fim */
-INT8U vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
+/**
+ * @author bndky
+ * @name vSyncReset
+ * @brief Function that coordinates the Synchronization Reset function.
+ *
+ * @param 	[in]	unsigned short int  ufSynchDelayL
+ * @param	[in]	TNFee_Control 	    *pxFeeCP	
+ *
+ * @retval void
+ **/
+void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
     INT8U iErrorCodeL = 0;
-    INT8U iReturnError = 0;
     int i = 0;
 
     /* Send message to task queue */
@@ -157,7 +165,6 @@ INT8U vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
                         bSendCmdQToNFeeInst_Prio( i, M_FEE_STANDBY, 0, i  );
                     }
                 }
-
         }else{
             #if DEBUG_ON
                 if ( xDefaults.usiDebugLevel <= dlMajorMessage )
