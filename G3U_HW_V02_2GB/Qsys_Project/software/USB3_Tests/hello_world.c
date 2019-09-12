@@ -38,18 +38,33 @@ bool vFtdiInitIrq(void) ;
 
 alt_u32 uliInitialState;
 
+volatile alt_u32 uliPaylodOffset;
+volatile bool bStopRx;
+
+typedef struct PixelBlock {
+	alt_u16 usiPixels[64];
+	alt_u64 ulliMask;
+} TPixelBlock;
+
+typedef struct HalfCcdImage {
+	TPixelBlock xPixelBlocks[162802];
+} THalfCcdImage;
+
 static volatile int viFtdiHoldContext;
 
 void vFtdiHandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *)USB_3_FTDI_0_BASE;
-	alt_u32 uliPaylodOffset = 0;
 	alt_u32 uliTransferSize = 0;
 
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
 		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
 
 		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
 
@@ -77,6 +92,7 @@ void vFtdiHandleIrq(void* pvContext) {
 		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
 
 		uliTransferSize = 0;
+		bStopRx = TRUE;
 
 	}
 
@@ -84,6 +100,7 @@ void vFtdiHandleIrq(void* pvContext) {
 		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
 
 		uliTransferSize = 0;
+		bStopRx = TRUE;
 
 	}
 
@@ -91,6 +108,8 @@ void vFtdiHandleIrq(void* pvContext) {
 
 int main() {
 	printf("Hello from Nios II!\n\n");
+
+	THalfCcdImage *pxHalfCcdImage = (THalfCcdImage *) DDR2_EXT_ADDR_WINDOWED_BASE;
 
 	TFtdiModule *pxFtdi = (TFtdiModule *) USB_3_FTDI_0_BASE;
 
@@ -115,8 +134,15 @@ int main() {
 	pxFtdi->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn = TRUE;
 	pxFtdi->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = TRUE;
 	pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn = TRUE;
-//	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
+	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
 	vFtdiInitIrq();
+
+	alt_u32 uliDataCnt = 0;
+	alt_u64 *pulliDataAddr = (alt_u64 *)DDR2_EXT_ADDR_WINDOWED_BASE;
+	for (uliDataCnt = 0; uliDataCnt < 2767634; uliDataCnt++) {
+		*pulliDataAddr = 0x5555555555555555;
+		pulliDataAddr++;
+	}
 
 	usleep(1*1000*1000);
 
@@ -138,7 +164,8 @@ int main() {
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
 			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 50, 50, usiExpNumCnt, FALSE, FALSE);
+//				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 50, 50, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, 3, 2, 1, 100, 50, 5, FALSE, FALSE);
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
 				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 50, 50, usiExpNumCnt, FALSE, FALSE);
 			}
@@ -533,8 +560,9 @@ bool vFtdiInitIrq(void) {
 void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMemId, alt_u8 ucFee, alt_u8 ucCcd, alt_u8 ucSide, alt_u16 usiHeight, alt_u16 usiWidth, alt_u16 usiExpNum, bool bMemDump, bool bVerbose){
 
 	TFtdiModule *pxFtdi = (TFtdiModule *) USB_3_FTDI_0_BASE;
+	THalfCcdImage *pxHalfCcdImage = (THalfCcdImage *) DDR2_EXT_ADDR_WINDOWED_BASE;
 
-	alt_u32 uliPaylodOffset = uliMemOffset;
+	uliPaylodOffset = uliMemOffset;
 	alt_u32 uliPatternOff = uliPaylodOffset + uliMemOffInc;
 
 	// Start Channel
@@ -587,13 +615,25 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 //	printf("0x19: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bRstHalfCcdController)));
 
 	// Wait for an error or Rx Data
-	bool bStopRx = FALSE;
+	bStopRx = FALSE;
 	alt_u32 uliTransferSize = 0;
 	alt_u32 uliTransferCnt = 0;
 
 //	while (pxFtdi->xFtdiHalfCcdReplyStatus.bHalfCcdControllerBusy) {
 //
 //	}
+
+	while (!bStopRx) {}
+
+	alt_u32 uliDataCnt = 0;
+	alt_u16 *pusiDataAddr = (alt_u16 *)uliMemOffset;
+	for (uliDataCnt = 0; uliDataCnt < pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 + 64; uliDataCnt++) {
+//		if (uliDataCnt > (pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 - 64)) {
+		if (uliDataCnt < 128) {
+			printf("Addr: 0x%08lX ; Data: 0x%04X \n", (alt_u32)pusiDataAddr, (*pusiDataAddr));
+		}
+		pusiDataAddr++;
+	}
 
 	while (1) {}
 

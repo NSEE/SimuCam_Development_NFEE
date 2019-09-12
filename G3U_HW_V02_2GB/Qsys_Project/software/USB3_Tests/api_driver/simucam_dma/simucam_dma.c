@@ -617,7 +617,7 @@ bool bSdmaDmaM2FtdiTransfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeI
 		bAddressFlag = TRUE;
 	}
 
-	if ((bOperationFlag) && (bAddressFlag) && (usiRoundedTransferSizeInBytes <= 8192)) {
+	if ((bOperationFlag) && (bAddressFlag) && (usiRoundedTransferSizeInBytes <= 8192 + 32)) {
 		if (pxDmaM2Dev != NULL) {
 
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {

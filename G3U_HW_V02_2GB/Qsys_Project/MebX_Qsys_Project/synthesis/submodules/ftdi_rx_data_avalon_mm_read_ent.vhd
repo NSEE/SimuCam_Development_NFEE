@@ -48,11 +48,11 @@ begin
 		begin
 			buffer_rdreq_o  <= '0';
 			buffer_change_o <= '0';
-			-- check if there is no data fetched and if the tx data buffer is ready and not empty
-			if ((s_readdata_fetched = '0') and (buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
-				s_readdata_fetched <= '1';
-				buffer_rdreq_o     <= '1';
-			end if;
+			--			-- check if there is no data fetched and if the tx data buffer is ready and not empty
+			--			if ((s_readdata_fetched = '0') and (buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
+			--				s_readdata_fetched <= '1';
+			--				buffer_rdreq_o     <= '1';
+			--			end if;
 		end procedure p_buffer_control;
 
 		procedure p_readdata(read_address_i : t_ftdi_data_avalon_mm_address) is
@@ -72,6 +72,20 @@ begin
 						buffer_rdreq_o                    <= '0';
 						buffer_change_o                   <= '0';
 						-- check if the tx data buffer is empty
+						if (buffer_stat_empty_i = '1') then
+							buffer_change_o <= '1';
+						-- check if the tx data buffer is ready and not empty
+						elsif ((buffer_rdready_i = '1') and (buffer_stat_empty_i = '0')) then
+							s_readdata_fetched <= '1';
+							buffer_rdreq_o     <= '1';
+						end if;
+					else
+						-- readdata not fetch
+						buffer_rdreq_o                       <= '0';
+						buffer_change_o                      <= '0';
+						s_ftdi_rx_data_avalon_mm_read_state  <= IDLE;
+						ftdi_rx_data_avalon_mm_o.readdata    <= (others => '0');
+						ftdi_rx_data_avalon_mm_o.waitrequest <= '1';
 						if (buffer_stat_empty_i = '1') then
 							buffer_change_o <= '1';
 						-- check if the tx data buffer is ready and not empty
