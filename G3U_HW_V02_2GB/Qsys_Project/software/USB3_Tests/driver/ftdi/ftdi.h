@@ -59,13 +59,13 @@ typedef struct FtdiFtdiModuleControl {
 
 /* FTDI Half-CCD Request Control Register Struct */
 typedef struct FtdiHalfCcdReqControl {
-	alt_u32 usiHalfCcdReqTimeout; /* Half-CCD Request Timeout */
-	alt_u32 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
-	alt_u32 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
-	alt_u32 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
-	alt_u32 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
-	alt_u32 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
-	alt_u32 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
+	alt_u16 usiHalfCcdReqTimeout; /* Half-CCD Request Timeout */
+	alt_u8 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
+	alt_u8 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
+	alt_u8 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
+	alt_u16 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
+	alt_u16 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
+	alt_u16 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
 	bool bRequestHalfCcd; /* Request Half-CCD */
 	bool bAbortHalfCcdReq; /* Abort Half-CCD Request */
 	bool bRstHalfCcdController; /* Reset Half-CCD Controller */
@@ -73,12 +73,12 @@ typedef struct FtdiHalfCcdReqControl {
 
 /* FTDI Half-CCD Reply Status Register Struct */
 typedef struct FtdiHalfCcdReplyStatus {
-	alt_u32 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
-	alt_u32 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
-	alt_u32 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
-	alt_u32 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
-	alt_u32 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
-	alt_u32 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
+	alt_u8 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
+	alt_u8 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
+	alt_u8 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
+	alt_u16 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
+	alt_u16 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
+	alt_u16 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
 	alt_u32 uliHalfCcdImgLengthBytes; /* Half-CCD Image Length [Bytes] */
 	bool bHalfCcdReceived; /* Half-CCD Received */
 	bool bHalfCcdControllerBusy; /* Half-CCD Controller Busy */
@@ -89,15 +89,15 @@ typedef struct FtdiHalfCcdReplyStatus {
 typedef struct FtdiRxBufferStatus {
 	bool bRxBuff0Rdable; /* Rx Buffer 0 Readable */
 	bool bRxBuff0Empty; /* Rx Buffer 0 Empty */
-	alt_u32 usiRxBuff0UsedBytes; /* Rx Buffer 0 Used [Bytes] */
+	alt_u16 usiRxBuff0UsedBytes; /* Rx Buffer 0 Used [Bytes] */
 	bool bRxBuff0Full; /* Rx Buffer 0 Full */
 	bool bRxBuff1Rdable; /* Rx Buffer 1 Readable */
 	bool bRxBuff1Empty; /* Rx Buffer 1 Empty */
-	alt_u32 usiRxBuff1UsedBytes; /* Rx Buffer 1 Used [Bytes] */
+	alt_u16 usiRxBuff1UsedBytes; /* Rx Buffer 1 Used [Bytes] */
 	bool bRxBuff1Full; /* Rx Buffer 1 Full */
 	bool bRxDbuffRdable; /* Rx Double Buffer Readable */
 	bool bRxDbuffEmpty; /* Rx Double Buffer Empty */
-	alt_u32 usiRxDbuffUsedBytes; /* Rx Double Buffer Used [Bytes] */
+	alt_u16 usiRxDbuffUsedBytes; /* Rx Double Buffer Used [Bytes] */
 	bool bRxDbuffFull; /* Rx Double Buffer Full */
 } TFtdiRxBufferStatus;
 
@@ -105,15 +105,15 @@ typedef struct FtdiRxBufferStatus {
 typedef struct FtdiTxBufferStatus {
 	bool bTxBuff0Wrable; /* Tx Buffer 0 Writeable */
 	bool bTxBuff0Empty; /* Tx Buffer 0 Empty */
-	alt_u32 usiTxBuff0SpaceBytes; /* Tx Buffer 0 Space [Bytes] */
+	alt_u16 usiTxBuff0SpaceBytes; /* Tx Buffer 0 Space [Bytes] */
 	bool bTxBuff0Full; /* Tx Buffer 0 Full */
 	bool bTxBuff1Wrable; /* Tx Buffer 1 Writeable */
 	bool bTxBuff1Empty; /* Tx Buffer 1 Empty */
-	alt_u32 usiTxBuff1SpaceBytes; /* Tx Buffer 1 Space [Bytes] */
+	alt_u16 usiTxBuff1SpaceBytes; /* Tx Buffer 1 Space [Bytes] */
 	bool bTxBuff1Full; /* Tx Buffer 1 Full */
 	bool bTxDbuffWrable; /* Tx Double Buffer Writeable */
 	bool bTxDbuffEmpty; /* Tx Double Buffer Empty */
-	alt_u32 usiTxDbuffSpaceBytes; /* Tx Double Buffer Space [Bytes] */
+	alt_u16 usiTxDbuffSpaceBytes; /* Tx Double Buffer Space [Bytes] */
 	bool bTxDbuffFull; /* Tx Double Buffer Full */
 } TFtdiTxBufferStatus;
 
@@ -162,14 +162,14 @@ typedef struct FtdiModule {
 //! [public module structs definition]
 
 //! [public function prototypes]
-void vFTDIStop( void );
-void vFTDIStart( void );
-void vFTDIClear( void );
-void vFTDIAbort( void );
-alt_u8 ucFTDIGetError( void );
-alt_u32 uliFTDInDataLeftInBuffer( void );
-bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight );
-void vFTDIResetFullImage( void );
+void vFTDIStop(void);
+void vFTDIStart(void);
+void vFTDIClear(void);
+void vFTDIAbort(void);
+alt_u8 ucFTDIGetError(void);
+alt_u32 uliFTDInDataLeftInBuffer(void);
+bool bFTDIRequestFullImage(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
+void vFTDIResetFullImage(void);
 void vFTDIRxBufferIRQHandler(void* pvContext);
 void vFTDIIrqRxBuffInit(void);
 void vFTDIIrqGlobalEn(bool bEnable);

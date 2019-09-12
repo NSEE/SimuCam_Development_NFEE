@@ -19,153 +19,11 @@
 #include "simucam_definitions.h"
 #include "api_driver/ddr2/ddr2.h"
 #include "api_driver/simucam_dma/simucam_dma.h"
+#include "driver/ftdi/ftdi.h"
 #include "crc.h"
 #include "pattern.h"
 
 FILE* fp;
-
-/* FTDI IRQ Control Register Struct */
-typedef struct FtdiFtdiIrqControl {
- bool bFtdiGlobalIrqEn; /* FTDI Global IRQ Enable */
-} TFtdiFtdiIrqControl;
-
-/* FTDI Rx IRQ Control Register Struct */
-typedef struct FtdiRxIrqControl {
- bool bRxBuff0RdableIrqEn; /* Rx Buffer 0 Readable IRQ Enable */
- bool bRxBuff1RdableIrqEn; /* Rx Buffer 1 Readable IRQ Enable */
- bool bRxBuffLastRdableIrqEn; /* Rx Last Buffer Readable IRQ Enable */
- bool bRxBuffLastEmptyIrqEn; /* Rx Last Buffer Empty IRQ Enable */
- bool bRxCommErrIrqEn; /* Rx Communication Error IRQ Enable */
-} TFtdiRxIrqControl;
-
-/* FTDI Rx IRQ Flag Register Struct */
-typedef struct FtdiRxIrqFlag {
- bool bRxBuff0RdableIrqFlag; /* Rx Buffer 0 Readable IRQ Flag */
- bool bRxBuff1RdableIrqFlag; /* Rx Buffer 1 Readable IRQ Flag */
- bool bRxBuffLastRdableIrqFlag; /* Rx Last Buffer Readable IRQ Flag */
- bool bRxBuffLastEmptyIrqFlag; /* Rx Last Buffer Empty IRQ Flag */
- bool bRxCommErrIrqFlag; /* Rx Communication Error IRQ Flag */
-} TFtdiRxIrqFlag;
-
-/* FTDI Rx IRQ Flag Clear Register Struct */
-typedef struct FtdiRxIrqFlagClr {
- bool bRxBuff0RdableIrqFlagClr; /* Rx Buffer 0 Readable IRQ Flag Clear */
- bool bRxBuff1RdableIrqFlagClr; /* Rx Buffer 1 Readable IRQ Flag Clear */
- bool bRxBuffLastRdableIrqFlagClr; /* Rx Last Buffer Readable IRQ Flag Clear */
- bool bRxBuffLastEmptyIrqFlagClr; /* Rx Last Buffer Empty IRQ Flag Clear */
- bool bRxCommErrIrqFlagClr; /* Rx Communication Error IRQ Flag Clear */
-} TFtdiRxIrqFlagClr;
-
-/* FTDI Module Control Register Struct */
-typedef struct FtdiFtdiModuleControl {
- bool bModuleStart; /* Stop Module Operation */
- bool bModuleStop; /* Start Module Operation */
- bool bModuleClear; /* Clear Module Memories */
- bool bModuleLoopbackEn; /* Enable Module USB Loopback */
-} TFtdiFtdiModuleControl;
-
-/* FTDI Half-CCD Request Control Register Struct */
-typedef struct FtdiHalfCcdReqControl {
- alt_u32 usiHalfCcdReqTimeout; /* Half-CCD Request Timeout */
- alt_u32 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
- alt_u32 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
- alt_u32 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
- alt_u32 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
- alt_u32 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
- alt_u32 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
- bool bRequestHalfCcd; /* Request Half-CCD */
- bool bAbortHalfCcdReq; /* Abort Half-CCD Request */
- bool bRstHalfCcdController; /* Reset Half-CCD Controller */
-} TFtdiHalfCcdReqControl;
-
-/* FTDI Half-CCD Reply Status Register Struct */
-typedef struct FtdiHalfCcdReplyStatus {
- alt_u32 ucHalfCcdFeeNumber; /* Half-CCD FEE Number */
- alt_u32 ucHalfCcdCcdNumber; /* Half-CCD CCD Number */
- alt_u32 ucHalfCcdCcdSide; /* Half-CCD CCD Side */
- alt_u32 usiHalfCcdCcdHeight; /* Half-CCD CCD Height */
- alt_u32 usiHalfCcdCcdWidth; /* Half-CCD CCD Width */
- alt_u32 usiHalfCcdExpNumber; /* Half-CCD Exposure Number */
- alt_u32 uliHalfCcdImgLengthBytes; /* Half-CCD Image Length [Bytes] */
- bool bHalfCcdReceived; /* Half-CCD Received */
- bool bHalfCcdControllerBusy; /* Half-CCD Controller Busy */
- bool bHalfCcdLastRxBuff; /* Half-CCD Last Rx Buffer */
-} TFtdiHalfCcdReplyStatus;
-
-/* FTDI Rx Buffer Status Register Struct */
-typedef struct FtdiRxBufferStatus {
- bool bRxBuff0Rdable; /* Rx Buffer 0 Readable */
- bool bRxBuff0Empty; /* Rx Buffer 0 Empty */
- alt_u32 usiRxBuff0UsedBytes; /* Rx Buffer 0 Used [Bytes] */
- bool bRxBuff0Full; /* Rx Buffer 0 Full */
- bool bRxBuff1Rdable; /* Rx Buffer 1 Readable */
- bool bRxBuff1Empty; /* Rx Buffer 1 Empty */
- alt_u32 usiRxBuff1UsedBytes; /* Rx Buffer 1 Used [Bytes] */
- bool bRxBuff1Full; /* Rx Buffer 1 Full */
- bool bRxDbuffRdable; /* Rx Double Buffer Readable */
- bool bRxDbuffEmpty; /* Rx Double Buffer Empty */
- alt_u32 usiRxDbuffUsedBytes; /* Rx Double Buffer Used [Bytes] */
- bool bRxDbuffFull; /* Rx Double Buffer Full */
-} TFtdiRxBufferStatus;
-
-/* FTDI Tx Buffer Status Register Struct */
-typedef struct FtdiTxBufferStatus {
- bool bTxBuff0Wrable; /* Tx Buffer 0 Writeable */
- bool bTxBuff0Empty; /* Tx Buffer 0 Empty */
- alt_u32 usiTxBuff0SpaceBytes; /* Tx Buffer 0 Space [Bytes] */
- bool bTxBuff0Full; /* Tx Buffer 0 Full */
- bool bTxBuff1Wrable; /* Tx Buffer 1 Writeable */
- bool bTxBuff1Empty; /* Tx Buffer 1 Empty */
- alt_u32 usiTxBuff1SpaceBytes; /* Tx Buffer 1 Space [Bytes] */
- bool bTxBuff1Full; /* Tx Buffer 1 Full */
- bool bTxDbuffWrable; /* Tx Double Buffer Writeable */
- bool bTxDbuffEmpty; /* Tx Double Buffer Empty */
- alt_u32 usiTxDbuffSpaceBytes; /* Tx Double Buffer Space [Bytes] */
- bool bTxDbuffFull; /* Tx Double Buffer Full */
-} TFtdiTxBufferStatus;
-
-/* FTDI Rx Communication Error Register Struct */
-typedef struct FtdiRxCommError {
- bool bRxCommErrState; /* Rx Communication Error State */
- alt_u16 usiRxCommErrCode; /* Rx Communication Error Code */
- bool bHalfCcdReqNackErr; /* Half-CCD Request Nack Error */
- bool bHalfCcdReplyHeadCrcErr; /* Half-CCD Reply Wrong Header CRC Error */
- bool bHalfCcdReplyHeadEohErr; /* Half-CCD Reply End of Header Error */
- bool bHalfCcdReplyPayCrcErr; /* Half-CCD Reply Wrong Payload CRC Error */
- bool bHalfCcdReplyPayEopErr; /* Half-CCD Reply End of Payload Error */
- bool bHalfCcdReqMaxTriesErr; /* Half-CCD Request Maximum Tries Error */
- bool bHalfCcdReplyCcdSizeErr; /* Half-CCD Request CCD Size Error */
- bool bHalfCcdReqTimeoutErr; /* Half-CCD Request Timeout Error */
-} TFtdiRxCommError;
-
-/* FTDI Reserved Register Struct */
-typedef struct FtdiReserved {
- bool bTxBuff0EmptyIrq; /* Tx Buffer 0 Empty Irq */
- bool bTxBuff1EmptyIrq; /* Tx Buffer 1 Empty Irq */
- bool bLutTransmittedIrq; /* LUT Transmitted Irq */
- bool bTxCommProtocolErrIrq; /* Tx Communication Protocol Error Irq */
- alt_u32 uliLutLengthBytes; /* LUT Length Bytes */
- bool bTransmitLut; /* Transmit LUT */
- bool bLutLastBuffer; /* LUT Last Buffer */
- bool bLutTransmitted; /* LUT Transmitted */
- bool bTxBusy; /* Tx Busy */
- bool bTxBuffEmpty; /* Tx Buffer Empty */
-} TFtdiReserved;
-
-/* General Struct for Registers Access */
-typedef struct FtdiModule {
- TFtdiFtdiIrqControl xFtdiFtdiIrqControl;
- TFtdiRxIrqControl xFtdiRxIrqControl;
- TFtdiRxIrqFlag xFtdiRxIrqFlag;
- TFtdiRxIrqFlagClr xFtdiRxIrqFlagClr;
- TFtdiFtdiModuleControl xFtdiFtdiModuleControl;
- TFtdiHalfCcdReqControl xFtdiHalfCcdReqControl;
- TFtdiHalfCcdReplyStatus xFtdiHalfCcdReplyStatus;
- TFtdiRxBufferStatus xFtdiRxBufferStatus;
- TFtdiTxBufferStatus xFtdiTxBufferStatus;
- TFtdiRxCommError xFtdiRxCommError;
- TFtdiReserved xFtdiReserved;
-} TFtdiModule;
 
 int iTimeStart, iTimeElapsed = 0;
 
@@ -176,11 +34,82 @@ void vFillCheckMemoryPattern(alt_u32 uliMemReplyOffset, alt_u32 uliMemPayloadOff
 //alt_u32 uliLittleToBigEndian(alt_u32 uliLittleEndianDword);
 alt_u32 uliLittleToBigEndianPixel(alt_u32 uliLittleEndianDword);
 void vLittleToBigEndianMask(alt_u32 uliLittleEndianDword[2]);
+bool vFtdiInitIrq(void) ;
 
 alt_u32 uliInitialState;
 
+volatile alt_u32 uliPaylodOffset;
+volatile bool bStopRx;
+
+typedef struct PixelBlock {
+	alt_u16 usiPixels[64];
+	alt_u64 ulliMask;
+} TPixelBlock;
+
+typedef struct HalfCcdImage {
+	TPixelBlock xPixelBlocks[162802];
+} THalfCcdImage;
+
+static volatile int viFtdiHoldContext;
+
+void vFtdiHandleIrq(void* pvContext) {
+	//volatile int* pviHoldContext = (volatile int*) pvContext;
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *)USB_3_FTDI_0_BASE;
+	alt_u32 uliTransferSize = 0;
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr = TRUE;
+
+		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
+		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+		uliPaylodOffset += uliTransferSize;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastEmptyIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr = TRUE;
+
+		uliTransferSize = 0;
+		bStopRx = TRUE;
+
+	}
+
+	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxCommErrIrqFlag) {
+		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr = TRUE;
+
+		uliTransferSize = 0;
+		bStopRx = TRUE;
+
+	}
+
+}
+
 int main() {
 	printf("Hello from Nios II!\n\n");
+
+	THalfCcdImage *pxHalfCcdImage = (THalfCcdImage *) DDR2_EXT_ADDR_WINDOWED_BASE;
 
 	TFtdiModule *pxFtdi = (TFtdiModule *) USB_3_FTDI_0_BASE;
 
@@ -206,6 +135,14 @@ int main() {
 	pxFtdi->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn = TRUE;
 	pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn = TRUE;
 	pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn = TRUE;
+	vFtdiInitIrq();
+
+	alt_u32 uliDataCnt = 0;
+	alt_u64 *pulliDataAddr = (alt_u64 *)DDR2_EXT_ADDR_WINDOWED_BASE;
+	for (uliDataCnt = 0; uliDataCnt < 2767634; uliDataCnt++) {
+		*pulliDataAddr = 0x5555555555555555;
+		pulliDataAddr++;
+	}
 
 	usleep(1*1000*1000);
 
@@ -227,9 +164,10 @@ int main() {
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
 			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
+//				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 50, 50, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, 3, 2, 1, 100, 50, 5, FALSE, FALSE);
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 50, 50, usiExpNumCnt, FALSE, FALSE);
 			}
 		}
 
@@ -272,6 +210,20 @@ int main() {
 	while (1) {}
 
 	return 0;
+}
+
+bool vFtdiInitIrq(void) {
+	bool bStatus = FALSE;
+	void* pvHoldContext;
+
+	// Recast the hold_context pointer to match the alt_irq_register() function
+	// prototype.
+	pvHoldContext = (void*) &viFtdiHoldContext;
+	// Register the interrupt handler
+	alt_irq_register(7, pvHoldContext, vFtdiHandleIrq);
+	bStatus = TRUE;
+
+	return bStatus;
 }
 
 //void vProtocolUsbTestNack(void){
@@ -608,8 +560,9 @@ int main() {
 void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMemId, alt_u8 ucFee, alt_u8 ucCcd, alt_u8 ucSide, alt_u16 usiHeight, alt_u16 usiWidth, alt_u16 usiExpNum, bool bMemDump, bool bVerbose){
 
 	TFtdiModule *pxFtdi = (TFtdiModule *) USB_3_FTDI_0_BASE;
+	THalfCcdImage *pxHalfCcdImage = (THalfCcdImage *) DDR2_EXT_ADDR_WINDOWED_BASE;
 
-	alt_u32 uliPaylodOffset = uliMemOffset;
+	uliPaylodOffset = uliMemOffset;
 	alt_u32 uliPatternOff = uliPaylodOffset + uliMemOffInc;
 
 	// Start Channel
@@ -628,14 +581,61 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = 0;
 	pxFtdi->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
 
+//	while (1) {}
+
+//	printf("0x00: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiIrqControl.bFtdiGlobalIrqEn)));
+//	printf("0x01: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuff0RdableIrqEn)));
+//	printf("0x02: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuff1RdableIrqEn)));
+//	printf("0x03: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuffLastRdableIrqEn)));
+//	printf("0x04: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxBuffLastEmptyIrqEn)));
+//	printf("0x05: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqControl.bRxCommErrIrqEn)));
+//	printf("0x06: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag)));
+//	printf("0x07: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag)));
+//	printf("0x08: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag)));
+//	printf("0x09: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxBuffLastEmptyIrqFlag)));
+//	printf("0x0A: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlag.bRxCommErrIrqFlag)));
+//	printf("0x0B: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr)));
+//	printf("0x0C: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr)));
+//	printf("0x0D: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuffLastRdableIrqFlagClr)));
+//	printf("0x0E: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxBuffLastEmptyIrqFlagClr)));
+//	printf("0x0F: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiRxIrqFlagClr.bRxCommErrIrqFlagClr)));
+//	printf("0x10: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleStart)));
+//	printf("0x11: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleStop)));
+//	printf("0x12: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleClear)));
+//	printf("0x13: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiFtdiModuleControl.bModuleLoopbackEn)));
+//	printf("0x14: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout)));
+//	printf("0x14: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber)));
+//	printf("0x14: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber)));
+//	printf("0x15: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide)));
+//	printf("0x15: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight)));
+//	printf("0x16: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth)));
+//	printf("0x16: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber)));
+//	printf("0x17: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bRequestHalfCcd)));
+//	printf("0x18: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bAbortHalfCcdReq)));
+//	printf("0x19: 0x%08lX \n",(alt_u32)(&(pxFtdi->xFtdiHalfCcdReqControl.bRstHalfCcdController)));
+
 	// Wait for an error or Rx Data
-	bool bStopRx = FALSE;
+	bStopRx = FALSE;
 	alt_u32 uliTransferSize = 0;
 	alt_u32 uliTransferCnt = 0;
 
 //	while (pxFtdi->xFtdiHalfCcdReplyStatus.bHalfCcdControllerBusy) {
 //
 //	}
+
+	while (!bStopRx) {}
+
+	alt_u32 uliDataCnt = 0;
+	alt_u16 *pusiDataAddr = (alt_u16 *)uliMemOffset;
+	for (uliDataCnt = 0; uliDataCnt < pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 + 64; uliDataCnt++) {
+//		if (uliDataCnt > (pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 - 64)) {
+		if (uliDataCnt < 128) {
+			printf("Addr: 0x%08lX ; Data: 0x%04X \n", (alt_u32)pusiDataAddr, (*pusiDataAddr));
+		}
+		pusiDataAddr++;
+	}
+
+	while (1) {}
 
 	while ((pxFtdi->xFtdiRxBufferStatus.bRxBuff0Full == FALSE) && (pxFtdi->xFtdiRxBufferStatus.bRxBuff1Full == FALSE)) {}
 

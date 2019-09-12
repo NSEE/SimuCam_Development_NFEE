@@ -152,6 +152,7 @@ C_SRCS += driver/power_spi/power_spi.c
 C_SRCS += driver/seven_seg/seven_seg.c
 C_SRCS += crc.c
 C_SRCS += pattern.c
+C_SRCS += driver/ftdi/ftdi.c
 CXX_SRCS :=
 ASM_SRCS :=
 

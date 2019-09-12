@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>hal</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Sep 3, 2019 12:03:44 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1567523024143</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>C:\Users\rfranca\Development\GitLab\simutemp2\G3U_HW_V02_2GB\Qsys_Project\software\USB3_Tests_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Sep 11, 2019 1:22:09 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1568218929704</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
