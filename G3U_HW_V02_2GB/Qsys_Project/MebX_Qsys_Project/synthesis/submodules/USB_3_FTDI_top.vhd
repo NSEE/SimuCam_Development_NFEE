@@ -292,6 +292,8 @@ begin
 		port map(
 			clk_i                                => a_avs_clock,
 			rst_i                                => a_reset,
+			data_rx_stop_i                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			data_rx_start_i                      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 			ftdi_rx_data_avalon_mm_i.address     => avalon_slave_data_address,
 			ftdi_rx_data_avalon_mm_i.read        => avalon_slave_data_read,
 			buffer_stat_empty_i                  => s_rx_dbuffer_stat_empty,
