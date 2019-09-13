@@ -223,6 +223,8 @@ if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 					fprintf(fp,"MEB Task: WARNING Should not have sync in Meb Config Mode (Check it please)");
 				#endif
 				break;
+			case Q_MEB_DATA_MEM_UPD_FIN:
+				break;
 
 			default:
 				#if DEBUG_ON
