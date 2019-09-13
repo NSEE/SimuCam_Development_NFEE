@@ -1,5 +1,5 @@
 Flow report for MebX_Quartus_Project
-Tue Sep 03 14:21:06 2019
+Fri Sep 13 16:14:27 2019
 Quartus Prime Version 18.1.0 Build 625 09/12/2018 SJ Standard Edition
 
 
@@ -40,7 +40,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +-----------------------------------+-------------------------------------------------+
-; Flow Status                       ; Successful - Tue Sep 03 14:21:06 2019           ;
+; Flow Status                       ; Successful - Fri Sep 13 16:14:27 2019           ;
 ; Quartus Prime Version             ; 18.1.0 Build 625 09/12/2018 SJ Standard Edition ;
 ; Revision Name                     ; MebX_Quartus_Project                            ;
 ; Top-level Entity Name             ; MebX_TopLevel                                   ;
@@ -70,7 +70,7 @@ refer to the applicable agreement for further details.
 +-------------------+----------------------+
 ; Option            ; Setting              ;
 +-------------------+----------------------+
-; Start date & time ; 09/03/2019 13:16:24  ;
+; Start date & time ; 09/13/2019 15:04:54  ;
 ; Main task         ; Compilation          ;
 ; Revision Name     ; MebX_Quartus_Project ;
 +-------------------+----------------------+
@@ -82,7 +82,7 @@ refer to the applicable agreement for further details.
 ; Assignment Name                                   ; Value                                                                         ; Default Value                        ; Entity Name       ; Section Id     ;
 +---------------------------------------------------+-------------------------------------------------------------------------------+--------------------------------------+-------------------+----------------+
 ; ADV_NETLIST_OPT_SYNTH_WYSIWYG_REMAP               ; On                                                                            ; Off                                  ; --                ; --             ;
-; COMPILER_SIGNATURE_ID                             ; 268891678741550.156752738416284                                               ; --                                   ; --                ; --             ;
+; COMPILER_SIGNATURE_ID                             ; 66485671440360.156839788610656                                                ; --                                   ; --                ; --             ;
 ; ECO_REGENERATE_REPORT                             ; On                                                                            ; Off                                  ; --                ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT                            ; Vhdl                                                                          ; --                                   ; --                ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                               ; ModelSim-Altera (VHDL)                                                        ; <None>                               ; --                ; --             ;
@@ -154,28 +154,28 @@ refer to the applicable agreement for further details.
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name             ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis    ; 00:15:26     ; 1.0                     ; 7675 MB             ; 00:15:45                           ;
-; I/O Assignment Analysis ; 00:03:00     ; 1.0                     ; 5807 MB             ; 00:02:58                           ;
-; Fitter                  ; 00:38:16     ; 1.1                     ; 9130 MB             ; 01:20:32                           ;
-; Assembler               ; 00:00:58     ; 1.0                     ; 5783 MB             ; 00:00:57                           ;
-; Timing Analyzer         ; 00:03:05     ; 1.2                     ; 6970 MB             ; 00:03:33                           ;
-; EDA Netlist Writer      ; 00:02:20     ; 1.0                     ; 6082 MB             ; 00:02:13                           ;
-; Total                   ; 01:03:05     ; --                      ; --                  ; 01:45:58                           ;
+; Analysis & Synthesis    ; 00:15:31     ; 1.0                     ; 4077 MB             ; 00:15:59                           ;
+; I/O Assignment Analysis ; 00:03:13     ; 1.0                     ; 1918 MB             ; 00:03:12                           ;
+; Fitter                  ; 00:43:14     ; 1.2                     ; 5238 MB             ; 01:33:25                           ;
+; Assembler               ; 00:00:58     ; 1.0                     ; 1634 MB             ; 00:00:56                           ;
+; Timing Analyzer         ; 00:03:05     ; 1.3                     ; 2818 MB             ; 00:03:39                           ;
+; EDA Netlist Writer      ; 00:02:18     ; 1.0                     ; 1932 MB             ; 00:02:14                           ;
+; Total                   ; 01:08:19     ; --                      ; --                  ; 01:59:25                           ;
 +-------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 
-+---------------------------------------------------------------------------------------+
-; Flow OS Summary                                                                       ;
-+-------------------------+------------------+------------+------------+----------------+
-; Module Name             ; Machine Hostname ; OS Name    ; OS Version ; Processor type ;
-+-------------------------+------------------+------------+------------+----------------+
-; Analysis & Synthesis    ; NSEE-H125-04     ; Windows 10 ; 10.0       ; x86_64         ;
-; I/O Assignment Analysis ; NSEE-H125-04     ; Windows 10 ; 10.0       ; x86_64         ;
-; Fitter                  ; NSEE-H125-04     ; Windows 10 ; 10.0       ; x86_64         ;
-; Assembler               ; NSEE-H125-04     ; Windows 10 ; 10.0       ; x86_64         ;
-; Timing Analyzer         ; NSEE-H125-04     ; Windows 10 ; 10.0       ; x86_64         ;
-; EDA Netlist Writer      ; NSEE-H125-04     ; Windows 10 ; 10.0       ; x86_64         ;
-+-------------------------+------------------+------------+------------+----------------+
++--------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                      ;
++-------------------------+------------------+-----------+------------+----------------+
+; Module Name             ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++-------------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis    ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; I/O Assignment Analysis ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; Fitter                  ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; Assembler               ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; Timing Analyzer         ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
+; EDA Netlist Writer      ; NSEE-H125-01     ; Windows 7 ; 6.1        ; x86_64         ;
++-------------------------+------------------+-----------+------------+----------------+
 
 
 ------------
