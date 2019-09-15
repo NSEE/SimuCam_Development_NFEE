@@ -64,10 +64,6 @@ void vFtdiHandleIrq(void* pvContext) {
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
 
-		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
-		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
-		uliPaylodOffset += uliTransferSize;
-
 	}
 
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
@@ -77,6 +73,10 @@ void vFtdiHandleIrq(void* pvContext) {
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
 
+		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
+			bStopRx = TRUE;
+		}
+
 	}
 
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag) {
@@ -85,6 +85,10 @@ void vFtdiHandleIrq(void* pvContext) {
 		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
+
+		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
+			bStopRx = TRUE;
+		}
 
 	}
 
@@ -121,12 +125,14 @@ int main() {
 	pxFtdi->xFtdiFtdiModuleControl.bModuleStop = TRUE;
 	pxFtdi->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 
-	// Start Channel
+//	// Start Channel
 //	pxFtdi->xFtdiFtdiModuleControl.bModuleStart = TRUE;
-
-	// Enable Loopback
+//
+//	// Enable Loopback
 //	pxFtdi->xFtdiFtdiModuleControl.bModuleLoopbackEn = TRUE;
 //	printf("Loopback Enabled! \n");
+//
+//	while (1) {}
 
 	//Enable IRQs
 	pxFtdi->xFtdiRxIrqControl.bRxBuff0RdableIrqEn = TRUE;
@@ -625,45 +631,45 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 
 	while (!bStopRx) {}
 
-	alt_u32 uliDataCnt = 0;
-	alt_u16 *pusiDataAddr = (alt_u16 *)uliMemOffset;
-	for (uliDataCnt = 0; uliDataCnt < pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 + 64; uliDataCnt++) {
-//		if (uliDataCnt > (pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 - 64)) {
-		if (uliDataCnt < 128) {
-			printf("Addr: 0x%08lX ; Data: 0x%04X \n", (alt_u32)pusiDataAddr, (*pusiDataAddr));
-		}
-		pusiDataAddr++;
-	}
+//	alt_u32 uliDataCnt = 0;
+//	alt_u16 *pusiDataAddr = (alt_u16 *)uliMemOffset;
+//	for (uliDataCnt = 0; uliDataCnt < pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 + 64; uliDataCnt++) {
+////		if (uliDataCnt > (pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes/2 - 64)) {
+//		if (uliDataCnt < 128) {
+//			printf("Addr: 0x%08lX ; Data: 0x%04X \n", (alt_u32)pusiDataAddr, (*pusiDataAddr));
+//		}
+//		pusiDataAddr++;
+//	}
+//
+//	while (1) {}
 
-	while (1) {}
-
-	while ((pxFtdi->xFtdiRxBufferStatus.bRxBuff0Full == FALSE) && (pxFtdi->xFtdiRxBufferStatus.bRxBuff1Full == FALSE)) {}
+//	while ((pxFtdi->xFtdiRxBufferStatus.bRxBuff0Full == FALSE) && (pxFtdi->xFtdiRxBufferStatus.bRxBuff1Full == FALSE)) {}
 
 //	iTimeStart = alt_nticks();
 
-	while ((pxFtdi->xFtdiHalfCcdReplyStatus.bHalfCcdControllerBusy)) {
-//	while ((!bStopRx)) {
-
-//		if (pxFtdi->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
-		if (pxFtdi->xFtdiRxBufferStatus.bRxBuff0Full) {
-
-//			pxFtdi->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
-			uliTransferSize = pxFtdi->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
-			bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
-			uliPaylodOffset += uliTransferSize;
-			uliTransferCnt++;
-
-		}
-//		if (pxFtdi->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
-		if (pxFtdi->xFtdiRxBufferStatus.bRxBuff1Full) {
-
-//			pxFtdi->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
-			uliTransferSize = pxFtdi->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
-			bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
-			uliPaylodOffset += uliTransferSize;
-			uliTransferCnt++;
-
-		}
+//	while ((pxFtdi->xFtdiHalfCcdReplyStatus.bHalfCcdControllerBusy)) {
+////	while ((!bStopRx)) {
+//
+////		if (pxFtdi->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
+//		if (pxFtdi->xFtdiRxBufferStatus.bRxBuff0Full) {
+//
+////			pxFtdi->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
+//			uliTransferSize = pxFtdi->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
+//			bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+//			uliPaylodOffset += uliTransferSize;
+//			uliTransferCnt++;
+//
+//		}
+////		if (pxFtdi->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
+//		if (pxFtdi->xFtdiRxBufferStatus.bRxBuff1Full) {
+//
+////			pxFtdi->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
+//			uliTransferSize = pxFtdi->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
+//			bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
+//			uliPaylodOffset += uliTransferSize;
+//			uliTransferCnt++;
+//
+//		}
 //		if (pxFtdi->xFtdiRxIrqFlag.bRxBuffLastRdableIrqFlag) {
 ////		if ((uliTransferCnt == 3890) && ((pxFtdi->xFtdiRxBufferStatus.usiRxBuff0UsedBytes == 8128) || (pxFtdi->xFtdiRxBufferStatus.usiRxBuff1UsedBytes == 8128))) {
 ////		if ((uliTransferCnt == 64849) && ((pxFtdi->xFtdiRxBufferStatus.usiRxBuff0UsedBytes == 7008) || (pxFtdi->xFtdiRxBufferStatus.usiRxBuff1UsedBytes == 7008))) {
@@ -693,10 +699,10 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 //
 //		}
 
-	}
+//	}
 
 	// Check Contents
-//	vFillCheckMemoryPattern(uliPatternOff, uliMemOffset, pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes, ucMemId, ucCcd, ucSide, usiHeight, usiWidth, usiExpNum, bMemDump);
+	vFillCheckMemoryPattern(uliPatternOff, uliMemOffset, pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes, ucMemId, ucCcd, ucSide, usiHeight, usiWidth, usiExpNum, bMemDump);
 
 	pxFtdi->xFtdiHalfCcdReqControl.bRstHalfCcdController = TRUE;
 
@@ -723,7 +729,7 @@ void vFillCheckMemoryPattern(alt_u32 uliMemPatternOffset, alt_u32 uliMemPayloadO
 	alt_u32 ucDataCnt = 0;
 	alt_u64 *puliDataAddr = (alt_u64 *)uliMemPatternOffset;
 	alt_u64 *puliPayloadAddr = (alt_u64 *)uliMemPayloadOffset;
-	puliPayloadAddr += 4;
+//	puliPayloadAddr += 4;
 	for (ucDataCnt = 0; ucDataCnt < (uliPayloadLength)/8; ucDataCnt++) {
 		if (bMemDump) {
 //			printf("Addr: 0x%08lX, Data: 0x%016llX \n", (alt_u32)puliDataAddr, (alt_u64)(*puliDataAddr));
