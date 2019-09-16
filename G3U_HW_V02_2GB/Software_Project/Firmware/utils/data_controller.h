@@ -32,7 +32,7 @@ typedef struct NData_Control {
 	TNFee_CtrlReadOnly xReadOnlyFeeControl;
 	bool bUpdateComplete;
 	tSimucamStates sMode;
-	tDTCSubStates sRunMode;
+	volatile tDTCSubStates sRunMode;
 	unsigned char *pNextMem;				/* Point to the actual memory in simulation */
 	TNFee   xCopyNfee[N_OF_NFEE];           /* All instances of control for the NFEE */
 	unsigned short int usiEPn;

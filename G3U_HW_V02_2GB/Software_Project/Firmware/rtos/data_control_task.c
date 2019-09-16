@@ -69,7 +69,6 @@ void vDataControlTask(void *task_data) {
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
-				pxDataC->bFirstMaster = TRUE;
 
 				/* Clear the CMD Queue */
 				error_code = OSQFlush(xQMaskDataCtrl);
@@ -80,7 +79,7 @@ void vDataControlTask(void *task_data) {
 				vFTDIStop();
 				vFTDIClear();
 
-				pxDataC->bFirstMaster = TRUE;
+				pxDataC->bFirstMaster = FALSE; //todo: Tiago, voltar para TRUE caso precise da epoca ZERO
 
 				pxDataC->sMode = sMebConfig;
 				break;
@@ -108,8 +107,9 @@ void vDataControlTask(void *task_data) {
 				/* Anything that need be executed only once before the Run Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
-				pxDataC->bFirstMaster = TRUE;
+				pxDataC->bFirstMaster = FALSE; //todo: Tiago, voltar para TRUE caso precise da epoca ZERO
 
+				vFTDIStop(); // [rfranca]
 				vFTDIClear();
 				vFTDIStart();
 
@@ -217,6 +217,7 @@ void vDataControlTask(void *task_data) {
 							#endif
 
 							/* Send Clear command to the FTDI Control Block */
+							vFTDIStop(); // [rfranca]
 							vFTDIClear();
 							vFTDIStart();
 							/* Request command to the FTDI Control Block in order to request NUC through USB 3.0 protocol*/
@@ -228,13 +229,11 @@ void vDataControlTask(void *task_data) {
 								pxDataC->sRunMode = sSubMemUpdated;
 							} else {
 
-/*
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 									fprintf(fp,"DTC: Request Success");
 								}
 								#endif
-*/
 
 								pxDataC->sRunMode = sSubWaitIRQBuffer;
 								if ( ucSubCCDSide == 0 ) {
@@ -275,9 +274,9 @@ void vDataControlTask(void *task_data) {
 					case sSubScheduleDMA:
 
 						if ( ucMemUsing == 0 )
-							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
+							bDmaReturn = bFTDIDmaM1Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u16)FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
 						else
-							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
+							bDmaReturn = bFTDIDmaM2Transfer((alt_u32 *)xCCDMemMapL->ulAddrI, (alt_u16)FTDI_BUFFER_SIZE_TRANSFER, eSdmaRxFtdi);
 
 						/* Check if was possible to schedule the transfer in the DMA*/
 						if ( bDmaReturn == TRUE ) {
@@ -306,13 +305,11 @@ void vDataControlTask(void *task_data) {
 						break;
 					case sSubLastPckt:
 
-/*
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 							fprintf(fp,"DTC: Last Packet\n");
 						}
 						#endif
-*/
 
 						usiNByterLeft = (alt_u16)uliFTDInDataLeftInBuffer();
 
@@ -421,6 +418,31 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 			#endif
 			/* Do nothing for now */
 			break;
+
+		case M_BEFORE_SYNC:
+
+			if ( xGlobal.bPreMaster == TRUE ) {
+				/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
+				/* For now, critical failure! */
+				vCriticalFailUpdateMemoreDTController();
+				/* Stop the simulation for the Data Controller */
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+					debug(fp,"\n\nData Controller Task: CRITICAL! Could not finished the upload.\n");
+					debug(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
+				}
+				#endif
+
+				/*If Master sync arrives earlier, send message but restart the update, don't back to config*/
+				vFTDIAbort();
+				vFTDIStop(); //todo: RFranca
+				vFTDIClear();
+				vFTDIStart();
+
+				pxFeeCP->sRunMode = sSubMemUpdated;
+			}
+			break;
+
 		case M_MASTER_SYNC:
 			
 			/* todo: If a MasterSync arrive before finish the memory filling, throw some error. Need to check later what to do */
@@ -445,6 +467,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 				pxFeeCP->bFirstMaster = FALSE;
 
 			xGlobal.bDTCFinished = FALSE;
+			pxFeeCP->sMode = sMebRun;
 			pxFeeCP->sRunMode = sSubSetupEpoch;
 
 
@@ -512,6 +535,10 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
 			#endif
 			/* Do nothing for now */
 			break;
+		case M_BEFORE_SYNC:
+
+			break;
+
 		case M_MASTER_SYNC:
 			if ( pxFeeCP->bFirstMaster == FALSE )
 				pxFeeCP->usiEPn++;
