@@ -150,6 +150,12 @@ architecture RTL of fee_master_data_controller_top is
 	-- registered masking settings signals (for the entire read-out)
 	signal s_registered_fee_digitalise_en       : std_logic;
 	signal s_registered_fee_windowing_en        : std_logic;
+	signal s_registered_fee_pattern_en          : std_logic;
+	-- fee mode constants
+	constant c_FEE_FULLIMAGE_MODE               : std_logic_vector(2 downto 0) := "000";
+	constant c_FEE_FULLIMAGE_PATTERN_MODE       : std_logic_vector(2 downto 0) := "001";
+	constant c_FEE_WINDOWING_MODE               : std_logic_vector(2 downto 0) := "010";
+	constant c_FEE_WINDOWING_PATTERN_MODE       : std_logic_vector(2 downto 0) := "011";
 
 begin
 
@@ -169,6 +175,7 @@ begin
 			fee_start_signal_i            => fee_machine_start_i,
 			fee_digitalise_en_i           => s_registered_fee_digitalise_en,
 			fee_windowing_en_i            => s_registered_fee_windowing_en,
+			fee_pattern_en_i              => s_registered_fee_pattern_en,
 			fee_start_masking_i           => s_start_masking,
 			masking_machine_hold_i        => s_masking_machine_hold,
 			fee_ccd_x_size_i              => s_registered_fee_ccd_x_size,
@@ -177,6 +184,8 @@ begin
 			fee_column_delay_i            => data_pkt_column_delay_i,
 			fee_adc_delay_i               => data_pkt_adc_delay_i,
 			current_timecode_i            => fee_current_timecode_i,
+			current_ccd_i                 => s_registered_fee_ccd_number,
+			current_side_i                => g_FEE_CCD_SIDE,
 			window_data_i                 => fee_window_data_i,
 			window_mask_i                 => fee_window_mask_i,
 			window_data_ready_i           => fee_window_data_ready_i,
@@ -484,8 +493,9 @@ begin
 			s_registered_fee_packet_length   <= std_logic_vector(to_unsigned(32768, 16));
 			s_registered_fee_fee_mode        <= std_logic_vector(to_unsigned(1, 3));
 			s_registered_fee_ccd_number      <= std_logic_vector(to_unsigned(0, 2));
-			s_registered_fee_digitalise_en   <= '0';
-			s_registered_fee_windowing_en    <= '1';
+			s_registered_fee_digitalise_en   <= '1';
+			s_registered_fee_windowing_en    <= '0';
+			s_registered_fee_pattern_en      <= '1';
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
@@ -501,7 +511,23 @@ begin
 				s_registered_fee_ccd_number      <= data_pkt_ccd_number_i;
 				-- register masking settings
 				s_registered_fee_digitalise_en   <= fee_digitalise_en_i;
-				s_registered_fee_windowing_en    <= fee_windowing_en_i;
+				case (data_pkt_fee_mode_i(2 downto 0)) is
+					when c_FEE_FULLIMAGE_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_FULLIMAGE_PATTERN_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '1';
+					when c_FEE_WINDOWING_MODE =>
+						s_registered_fee_windowing_en <= '1';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_WINDOWING_PATTERN_MODE =>
+						s_registered_fee_windowing_en <= '1';
+						s_registered_fee_pattern_en   <= '1';
+					when others =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '1';
+				end case;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;
