@@ -18,6 +18,7 @@ entity masking_machine_ent is
 		fee_start_signal_i            : in  std_logic;
 		fee_digitalise_en_i           : in  std_logic;
 		fee_windowing_en_i            : in  std_logic;
+		fee_pattern_en_i              : in  std_logic;
 		-- others
 		fee_start_masking_i           : in  std_logic;
 		masking_machine_hold_i        : in  std_logic;
@@ -27,6 +28,8 @@ entity masking_machine_ent is
 		fee_column_delay_i            : in  std_logic_vector(15 downto 0);
 		fee_adc_delay_i               : in  std_logic_vector(15 downto 0);
 		current_timecode_i            : in  std_logic_vector(7 downto 0);
+		current_ccd_i                 : in  std_logic_vector(1 downto 0);
+		current_side_i                : in  std_logic;
 		window_data_i                 : in  std_logic_vector(63 downto 0);
 		window_mask_i                 : in  std_logic_vector(63 downto 0);
 		window_data_ready_i           : in  std_logic;
@@ -44,10 +47,9 @@ end entity masking_machine_ent;
 
 architecture RTL of masking_machine_ent is
 
-	-- function to change the timecode from the pattern pixels
-	function f_pixel_msb_change_timecode(pixel_msb_i : in std_logic_vector; timecode_i : in std_logic_vector) return std_logic_vector is
-		variable v_new_pixel_msb : std_logic_vector(7 downto 0);
-		variable v_old_pixel_msb : std_logic_vector(7 downto 0);
+	-- function to generate the msb pixel pattern
+	function f_pixel_msb_generate_pattern(timecode_i : in std_logic_vector; ccd_i : in std_logic_vector; side_i : in std_logic; row_i : in std_logic_vector; column_i : in std_logic_vector) return std_logic_vector is
+		variable v_pixel_msb : std_logic_vector(7 downto 0);
 	begin
 
 		-- generic pixel pattern (according to PLATO-DLR-PL-ICD-0002, issue 1.2):
@@ -61,19 +63,39 @@ architecture RTL of masking_machine_ent is
 		-- pixel lsb pattern:
 		-- |    row[2:0]    |   column[4:0]  |
 		-- |   7 downto  5  |   4 downto  0  |
+
+		-- pattern pixel msb set:
+		v_pixel_msb(7 downto 5) := timecode_i(2 downto 0);
+		v_pixel_msb(4 downto 3) := ccd_i(1 downto 0);
+		v_pixel_msb(2)          := side_i;
+		v_pixel_msb(1 downto 0) := row_i(4 downto 3);
+
+		return v_pixel_msb;
+	end function f_pixel_msb_generate_pattern;
+
+	-- function to generate the msb pixel pattern
+	function f_pixel_lsb_generate_pattern(timecode_i : in std_logic_vector; ccd_i : in std_logic_vector; side_i : in std_logic; row_i : in std_logic_vector; column_i : in std_logic_vector) return std_logic_vector is
+		variable v_pixel_lsb : std_logic_vector(7 downto 0);
+	begin
+
+		-- generic pixel pattern (according to PLATO-DLR-PL-ICD-0002, issue 1.2):
+		-- |  timecode[2:0] |       ccd      |      side      |    row[4:0]    |   column[4:0]  |
+		-- |  15 downto 13  |  12 downto 11  |       10       |   9 downto  5  |   4 downto  0  |
 		--
-		-- timecode pixel msb replacement:
-		-- s_new_pixel_msb(7 downto 5) <= s_timecode(2 downto 0);
-		-- s_new_pixel_msb(4 downto 0) <= s_old_pixel_msb(4 downto 0);
+		-- pixel msb pattern:
+		-- |  timecode[2:0] |       ccd      |      side      |    row[4:3]    |
+		-- |   7 downto  5  |   4 downto  3  |        2       |   1 downto  0  |
+		--
+		-- pixel lsb pattern:
+		-- |    row[2:0]    |   column[4:0]  |
+		-- |   7 downto  5  |   4 downto  0  |
 
-		-- set old pixel data (vector slide conflict resolution)
-		v_old_pixel_msb             := pixel_msb_i;
-		-- timecode pixel msb replacement:
-		v_new_pixel_msb(7 downto 5) := timecode_i(2 downto 0);
-		v_new_pixel_msb(4 downto 0) := v_old_pixel_msb(4 downto 0);
+		-- pattern pixel msb set:
+		v_pixel_lsb(7 downto 5) := row_i(2 downto 0);
+		v_pixel_lsb(4 downto 0) := column_i(4 downto 0);
 
-		return v_new_pixel_msb;
-	end function f_pixel_msb_change_timecode;
+		return v_pixel_lsb;
+	end function f_pixel_lsb_generate_pattern;
 
 	-- masking fifo record type
 	type t_masking_fifo is record
@@ -136,6 +158,18 @@ architecture RTL of masking_machine_ent is
 
 	-- column counter
 	signal s_ccd_column_cnt : std_logic_vector((fee_ccd_x_size_i'length - 1) downto 0);
+	-- row counter
+	signal s_ccd_row_cnt    : std_logic_vector((fee_ccd_y_size_i'length - 1) downto 0);
+
+	-- pixels bytes alias
+	alias a_pixel_0_msb is s_registered_window_data(7 downto 0);
+	alias a_pixel_0_lsb is s_registered_window_data(15 downto 8);
+	alias a_pixel_1_msb is s_registered_window_data(23 downto 16);
+	alias a_pixel_1_lsb is s_registered_window_data(31 downto 24);
+	alias a_pixel_2_msb is s_registered_window_data(39 downto 32);
+	alias a_pixel_2_lsb is s_registered_window_data(47 downto 40);
+	alias a_pixel_3_msb is s_registered_window_data(55 downto 48);
+	alias a_pixel_3_lsb is s_registered_window_data(63 downto 56);
 
 begin
 
@@ -211,6 +245,7 @@ begin
 			s_delay                        <= '0';
 			s_fee_remaining_data_bytes     <= (others => '0');
 			s_ccd_column_cnt               <= (others => '0');
+			s_ccd_row_cnt                  <= (others => '0');
 			s_adc_delay_trigger            <= '0';
 			s_adc_delay_timer              <= (others => '0');
 			s_line_delay_trigger           <= '0';
@@ -239,6 +274,7 @@ begin
 					s_delay                        <= '0';
 					s_fee_remaining_data_bytes     <= (others => '0');
 					s_ccd_column_cnt               <= (others => '0');
+					s_ccd_row_cnt                  <= (others => '0');
 					s_line_delay_trigger           <= '0';
 					s_line_delay_timer             <= (others => '0');
 					s_column_delay_trigger         <= '0';
@@ -265,6 +301,7 @@ begin
 					s_delay                        <= '0';
 					s_fee_remaining_data_bytes     <= (others => '0');
 					s_ccd_column_cnt               <= (others => '0');
+					s_ccd_row_cnt                  <= (others => '0');
 					s_line_delay_trigger           <= '0';
 					s_line_delay_timer             <= (others => '0');
 					s_column_delay_trigger         <= '0';
@@ -275,6 +312,7 @@ begin
 					if (fee_start_masking_i = '1') then
 						-- set ccd column counter to execute the first ccd line delay
 						s_ccd_column_cnt           <= std_logic_vector(unsigned(fee_ccd_x_size_i) - 1);
+						s_ccd_row_cnt              <= std_logic_vector(unsigned(fee_ccd_y_size_i) - 1);
 						-- set the remaining data bytes counter to the ccd size 
 						s_fee_remaining_data_bytes <= std_logic_vector(resize((unsigned(fee_ccd_x_size_i) * unsigned(fee_ccd_y_size_i) * 2) - 1, s_fee_remaining_data_bytes'length));
 						-- go to idle
@@ -358,13 +396,19 @@ begin
 							s_masking_machine_state <= LINE_DELAY;
 							s_line_delay_trigger    <= '1';
 							s_line_delay_timer      <= fee_line_delay_i;
+							s_ccd_column_cnt        <= (others => '0');
+							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+								s_ccd_row_cnt <= (others => '0');
+							else
+								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+							end if;
 						else
 							-- middle of a line, go to column delay
 							s_masking_machine_state <= COLUMN_DELAY;
 							s_column_delay_trigger  <= '1';
 							s_column_delay_timer    <= fee_column_delay_i;
+							s_ccd_column_cnt        <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						end if;
-						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 					else
 						-- delay not happened yet
 						s_delay                 <= '1';
@@ -391,18 +435,18 @@ begin
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(7 downto 0), current_timecode_i);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(7 downto 0), current_timecode_i);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_msb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_0_msb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -440,28 +484,34 @@ begin
 							s_masking_machine_state <= LINE_DELAY;
 							s_line_delay_trigger    <= '1';
 							s_line_delay_timer      <= fee_line_delay_i;
+							s_ccd_column_cnt        <= (others => '0');
+							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+								s_ccd_row_cnt <= (others => '0');
+							else
+								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+							end if;
 						else
 							-- middle of a line, go to column delay
 							s_masking_machine_state <= COLUMN_DELAY;
 							s_column_delay_trigger  <= '1';
 							s_column_delay_timer    <= fee_column_delay_i;
+							s_ccd_column_cnt        <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						end if;
-						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= s_registered_window_data(15 downto 8);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= s_registered_window_data(15 downto 8);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_0_lsb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -502,18 +552,18 @@ begin
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(23 downto 16), current_timecode_i);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(23 downto 16), current_timecode_i);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_msb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_1_msb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -552,28 +602,34 @@ begin
 							s_masking_machine_state <= LINE_DELAY;
 							s_line_delay_trigger    <= '1';
 							s_line_delay_timer      <= fee_line_delay_i;
+							s_ccd_column_cnt        <= (others => '0');
+							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+								s_ccd_row_cnt <= (others => '0');
+							else
+								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+							end if;
 						else
 							-- middle of a line, go to column delay
 							s_masking_machine_state <= COLUMN_DELAY;
 							s_column_delay_trigger  <= '1';
 							s_column_delay_timer    <= fee_column_delay_i;
+							s_ccd_column_cnt        <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						end if;
-						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= s_registered_window_data(31 downto 24);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= s_registered_window_data(31 downto 24);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_1_lsb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -612,18 +668,18 @@ begin
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(39 downto 32), current_timecode_i);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(39 downto 32), current_timecode_i);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_msb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_2_msb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -662,28 +718,34 @@ begin
 							s_masking_machine_state <= LINE_DELAY;
 							s_line_delay_trigger    <= '1';
 							s_line_delay_timer      <= fee_line_delay_i;
+							s_ccd_column_cnt        <= (others => '0');
+							if (s_ccd_row_cnt = std_logic_vector(unsigned(fee_ccd_y_size_i) - 1)) then
+								s_ccd_row_cnt <= (others => '0');
+							else
+								s_ccd_row_cnt <= std_logic_vector(unsigned(s_ccd_row_cnt) + 1);
+							end if;
 						else
 							-- middle of a line, go to column delay
 							s_masking_machine_state <= COLUMN_DELAY;
 							s_column_delay_trigger  <= '1';
 							s_column_delay_timer    <= fee_column_delay_i;
+							s_ccd_column_cnt        <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						end if;
-						s_ccd_column_cnt               <= std_logic_vector(unsigned(s_ccd_column_cnt) + 1);
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= s_registered_window_data(47 downto 40);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= s_registered_window_data(47 downto 40);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_2_lsb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -722,18 +784,18 @@ begin
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(55 downto 48), current_timecode_i);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= f_pixel_msb_change_timecode(s_registered_window_data(55 downto 48), current_timecode_i);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_msb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_3_msb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -766,18 +828,18 @@ begin
 						-- check if the digitalise is enabled
 						if (fee_digitalise_en_i = '1') then
 							-- digitalise enabled, digitalise data
-							-- check if the windowing is enabled
-							if (fee_windowing_en_i = '1') then
-								-- windowing enabled, perform windowing operation
-								-- check if the bit is masked
-								if (s_registered_window_mask(s_mask_counter) = '1') then
-									s_masking_fifo.wrreq <= '1';
-									s_masking_fifo.data  <= s_registered_window_data(63 downto 56);
-								end if;
-							else
-								-- windowing disabled, do not mask any pixel
+							-- check if (the windowing is disabled) or (the windowing is enabled and the pixel is transmitted)
+							if ((fee_windowing_en_i = '0') or ((fee_windowing_en_i = '1') and (s_registered_window_mask(s_mask_counter) = '1'))) then
+								-- windowing disabled or is enabled and pixel is transmitted
 								s_masking_fifo.wrreq <= '1';
-								s_masking_fifo.data  <= s_registered_window_data(63 downto 56);
+								-- check if the pattern is enabled
+								if (fee_pattern_en_i = '1') then
+									-- pattern enabled, generate pattern
+									s_masking_fifo.data <= f_pixel_lsb_generate_pattern(current_timecode_i, current_ccd_i, current_side_i, s_ccd_row_cnt, s_ccd_column_cnt);
+								else
+									-- pattern disabled, use window data
+									s_masking_fifo.data <= a_pixel_3_lsb;
+								end if;
 							end if;
 						end if;
 						-- check if data bytes for the read-out cycle ended
@@ -795,7 +857,6 @@ begin
 						else
 							s_mask_counter <= 0;
 						end if;
-
 						-- check if the windowing buffer is ready
 						if (window_data_ready_i = '1') then
 							-- fetch mask and data
@@ -834,7 +895,6 @@ begin
 					masking_machine_finished_o <= '0';
 					s_masking_fifo.data        <= (others => '0');
 					s_masking_fifo.wrreq       <= '0';
-					s_ccd_column_cnt           <= (others => '0');
 					s_line_delay_trigger       <= '0';
 					s_line_delay_timer         <= (others => '0');
 					s_column_delay_trigger     <= '0';
@@ -908,7 +968,7 @@ begin
 
 	-- masking fifo almost empty signal
 	masking_buffer_almost_empty_o <= ('0') when (rst_i = '1')
-		else ('1') when (s_masking_fifo.usedw = std_logic_vector(to_unsigned(1, s_masking_fifo.usedw'length)))
-		else ('0');
+	                                 else ('1') when (s_masking_fifo.usedw = std_logic_vector(to_unsigned(1, s_masking_fifo.usedw'length)))
+	                                 else ('0');
 
 end architecture RTL;

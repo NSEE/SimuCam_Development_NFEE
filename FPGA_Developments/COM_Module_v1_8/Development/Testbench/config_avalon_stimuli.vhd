@@ -190,7 +190,7 @@ begin
 					avalon_mm_address_o      <= std_logic_vector(to_unsigned(16#16#, g_ADDRESS_WIDTH));
 					avalon_mm_write_o        <= '1';
 					avalon_mm_writedata_o    <= (others => '0');
-					avalon_mm_writedata_o(0) <= '0'; -- FEE Digitalise Enable
+					avalon_mm_writedata_o(0) <= '1'; -- FEE Digitalise Enable
 					avalon_mm_read_o         <= '0';
 
 				--					

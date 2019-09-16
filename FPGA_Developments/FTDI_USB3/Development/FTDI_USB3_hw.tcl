@@ -107,16 +107,6 @@ add_fileset_file ftdi_usb3_top.vhd VHDL PATH Ftdi_Usb3/ftdi_usb3_top.vhd TOP_LEV
 # 
 # parameters
 # 
-add_parameter g_FTDI_TESTBENCH_MODE STD_LOGIC 0 "FTDI Module Testbench Mode"
-set_parameter_property g_FTDI_TESTBENCH_MODE DEFAULT_VALUE 0
-set_parameter_property g_FTDI_TESTBENCH_MODE DISPLAY_NAME g_FTDI_TESTBENCH_MODE
-set_parameter_property g_FTDI_TESTBENCH_MODE WIDTH ""
-set_parameter_property g_FTDI_TESTBENCH_MODE TYPE STD_LOGIC
-set_parameter_property g_FTDI_TESTBENCH_MODE UNITS None
-set_parameter_property g_FTDI_TESTBENCH_MODE ALLOWED_RANGES 0:1
-set_parameter_property g_FTDI_TESTBENCH_MODE HDL_PARAMETER true
-set_parameter_property g_FTDI_TESTBENCH_MODE DESCRIPTION "FTDI Module Testbench Mode"
-set_parameter_property g_FTDI_TESTBENCH_MODE AFFECTS_GENERATION false
 
 
 # 
