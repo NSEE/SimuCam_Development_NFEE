@@ -670,14 +670,14 @@ begin
 							-- send a NACK
 							s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_PAYLOAD;
 							v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_PAYLOAD;
-							s_general_error              <= '1';
+							s_err_half_ccd_reply_eop_err <= '1';
 						end if;
 					else
 						-- Package CRC does not match
 						-- send a NACK
-						s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_PAYLOAD;
-						s_general_error              <= '1';
+						s_ftdi_prot_controller_state         <= HFCCD_NACK_SEND_TX_PAYLOAD;
+						v_ftdi_prot_controller_state         := HFCCD_NACK_SEND_TX_PAYLOAD;
+						s_err_half_ccd_reply_payload_crc_err <= '1';
 					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"

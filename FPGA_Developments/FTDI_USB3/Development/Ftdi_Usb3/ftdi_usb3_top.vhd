@@ -185,28 +185,28 @@ begin
 		-- Config Avalon MM Read Instantiation
 		ftdi_config_avalon_mm_read_ent_inst : entity work.ftdi_config_avalon_mm_read_ent
 			port map(
-				clk_i                               => a_avs_clock,
-				rst_i                               => a_reset,
-				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
-				ftdi_config_avalon_mm_i.read        => avalon_slave_config_read,
-				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
-				ftdi_config_avalon_mm_o.readdata    => avalon_slave_config_readdata,
-				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_read_waitrequest,
-				ftdi_config_wr_regs_i               => s_config_write_registers,
-				ftdi_config_rd_regs_i               => s_config_read_registers
+				clk_i                 => a_avs_clock,
+				rst_i                 => a_reset,
+				ftdi_config_avalon_mm_i.address                                                                                                                                     => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.read                                                                                                                                                                                                           => avalon_slave_config_read,
+				ftdi_config_avalon_mm_i.byteenable                                                                                                                                                                                                                                                                  => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.readdata                                                                                                                                                                                                                                                                                                                                             => avalon_slave_config_readdata,
+				ftdi_config_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                               => s_config_avalon_mm_read_waitrequest,
+				ftdi_config_wr_regs_i => s_config_write_registers,
+				ftdi_config_rd_regs_i => s_config_read_registers
 			);
 
 		-- Config Avalon MM Write Instantiation
 		ftdi_config_avalon_mm_write_ent_inst : entity work.ftdi_config_avalon_mm_write_ent
 			port map(
-				clk_i                               => a_avs_clock,
-				rst_i                               => a_reset,
-				ftdi_config_avalon_mm_i.address     => avalon_slave_config_address,
-				ftdi_config_avalon_mm_i.write       => avalon_slave_config_write,
-				ftdi_config_avalon_mm_i.writedata   => avalon_slave_config_writedata,
-				ftdi_config_avalon_mm_i.byteenable  => avalon_slave_config_byteenable,
-				ftdi_config_avalon_mm_o.waitrequest => s_config_avalon_mm_write_waitrequest,
-				ftdi_config_wr_regs_o               => s_config_write_registers
+				clk_i                 => a_avs_clock,
+				rst_i                 => a_reset,
+				ftdi_config_avalon_mm_i.address                                                                                                                                       => avalon_slave_config_address,
+				ftdi_config_avalon_mm_i.write                                                                                                                                                                                                            => avalon_slave_config_write,
+				ftdi_config_avalon_mm_i.writedata                                                                                                                                                                                                                                                                       => avalon_slave_config_writedata,
+				ftdi_config_avalon_mm_i.byteenable                                                                                                                                                                                                                                                                                                                                             => avalon_slave_config_byteenable,
+				ftdi_config_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                                     => s_config_avalon_mm_write_waitrequest,
+				ftdi_config_wr_regs_o => s_config_write_registers
 			);
 
 	end generate g_ftdi_avs_config_read_write;
@@ -214,17 +214,17 @@ begin
 	-- Tx Data Avalon MM Write Instantiation
 	ftdi_tx_data_avalon_mm_write_ent_inst : entity work.ftdi_tx_data_avalon_mm_write_ent
 		port map(
-			clk_i                                => a_avs_clock,
-			rst_i                                => a_reset,
-			ftdi_tx_data_avalon_mm_i.address     => avalon_slave_data_address,
-			ftdi_tx_data_avalon_mm_i.write       => avalon_slave_data_write,
-			ftdi_tx_data_avalon_mm_i.writedata   => avalon_slave_data_writedata,
-			buffer_stat_full_i                   => s_tx_dbuffer_stat_full,
-			buffer_wrready_i                     => s_tx_dbuffer_wrready,
-			ftdi_tx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_write_waitrequest,
-			buffer_data_loaded_o                 => s_tx_dbuffer_data_loaded,
-			buffer_wrdata_o                      => s_tx_dbuffer_wrdata,
-			buffer_wrreq_o                       => s_tx_dbuffer_wrreq
+			clk_i                => a_avs_clock,
+			rst_i                => a_reset,
+			ftdi_tx_data_avalon_mm_i.address                                                                                                                                       => avalon_slave_data_address,
+			ftdi_tx_data_avalon_mm_i.write                                                                                                                                                                                                           => avalon_slave_data_write,
+			ftdi_tx_data_avalon_mm_i.writedata                                                                                                                                                                                                                                                                     => avalon_slave_data_writedata,
+			buffer_stat_full_i   => s_tx_dbuffer_stat_full,
+			buffer_wrready_i     => s_tx_dbuffer_wrready,
+			ftdi_tx_data_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                                                       => s_data_avalon_mm_write_waitrequest,
+			buffer_data_loaded_o => s_tx_dbuffer_data_loaded,
+			buffer_wrdata_o      => s_tx_dbuffer_wrdata,
+			buffer_wrreq_o       => s_tx_dbuffer_wrreq
 		);
 
 	-- Tx (Double) Data Buffer Instantiation (Tx: FPGA => FTDI)	
@@ -290,19 +290,19 @@ begin
 	-- Rx Data Avalon MM Read Instantiation
 	ftdi_rx_data_avalon_mm_read_ent_inst : entity work.ftdi_rx_data_avalon_mm_read_ent
 		port map(
-			clk_i                                => a_avs_clock,
-			rst_i                                => a_reset,
-			data_rx_stop_i                       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
-			data_rx_start_i                      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
-			ftdi_rx_data_avalon_mm_i.address     => avalon_slave_data_address,
-			ftdi_rx_data_avalon_mm_i.read        => avalon_slave_data_read,
-			buffer_stat_empty_i                  => s_rx_dbuffer_stat_empty,
-			buffer_rddata_i                      => s_rx_dbuffer_rddata,
-			buffer_rdready_i                     => s_rx_dbuffer_rdready,
-			ftdi_rx_data_avalon_mm_o.readdata    => avalon_slave_data_readdata,
-			ftdi_rx_data_avalon_mm_o.waitrequest => s_data_avalon_mm_read_waitrequest,
-			buffer_rdreq_o                       => s_rx_dbuffer_rdreq,
-			buffer_change_o                      => s_rx_dbuffer_change
+			clk_i               => a_avs_clock,
+			rst_i               => a_reset,
+			data_rx_stop_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			data_rx_start_i     => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
+			ftdi_rx_data_avalon_mm_i.address                                                                                                                                                                                                                                                                                                                      => avalon_slave_data_address,
+			ftdi_rx_data_avalon_mm_i.read                                                                                                                                                                                                                                                                                                                                                                                           => avalon_slave_data_read,
+			buffer_stat_empty_i => s_rx_dbuffer_stat_empty,
+			buffer_rddata_i     => s_rx_dbuffer_rddata,
+			buffer_rdready_i    => s_rx_dbuffer_rdready,
+			ftdi_rx_data_avalon_mm_o.readdata                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              => avalon_slave_data_readdata,
+			ftdi_rx_data_avalon_mm_o.waitrequest                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               => s_data_avalon_mm_read_waitrequest,
+			buffer_rdreq_o      => s_rx_dbuffer_rdreq,
+			buffer_change_o     => s_rx_dbuffer_change
 		);
 
 	-- Rx (Double) Data Buffer Instantiation (Rx: FTDI => FPGA)
@@ -536,7 +536,9 @@ begin
 		port map(
 			clk_i                         => a_avs_clock,
 			rst_i                         => a_reset,
-			clr_i                         => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
+			ftdi_module_clear_i           => s_config_write_registers.ftdi_module_control_reg.ftdi_module_clear,
+			ftdi_module_stop_i            => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
+			ftdi_module_start_i           => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 			umft_rxf_n_pin_i              => umft_rxf_n_pin,
 			umft_clock_pin_i              => umft_clock_pin,
 			umft_txe_n_pin_i              => umft_txe_n_pin,
@@ -634,7 +636,7 @@ begin
 			elsif (s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop = '1') then
 				v_started := '0';
 			end if;
-			
+
 			-- set last buffer variable
 			if (s_config_read_registers.hccd_reply_status_reg.rly_hccd_last_rx_buffer = '1') then
 				v_last_rx_buffer := '1';
@@ -715,8 +717,8 @@ begin
 		end if;
 	end process p_rx_buffer_irq_manager;
 	ftdi_interrupt_sender_irq <= ('0') when (a_reset = '1')
-		else ('1') when ((s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1'))
-		else ('0');
+	                             else ('1') when ((s_config_read_registers.rx_irq_flag_reg.rx_buffer_0_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_1_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_rdable_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_buffer_last_empty_irq_flag = '1') or (s_config_read_registers.rx_irq_flag_reg.rx_comm_err_irq_flag = '1'))
+	                             else ('0');
 
 	-- Signals Assignments --
 
