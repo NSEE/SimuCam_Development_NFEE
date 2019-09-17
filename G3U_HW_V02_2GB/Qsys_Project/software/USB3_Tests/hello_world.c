@@ -126,9 +126,9 @@ int main() {
 	pxFtdi->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 
 //	// Start Channel
-//	pxFtdi->xFtdiFtdiModuleControl.bModuleStart = TRUE;
+	pxFtdi->xFtdiFtdiModuleControl.bModuleStart = TRUE;
 //
-//	// Enable Loopback
+////	// Enable Loopback
 //	pxFtdi->xFtdiFtdiModuleControl.bModuleLoopbackEn = TRUE;
 //	printf("Loopback Enabled! \n");
 //
@@ -164,7 +164,7 @@ int main() {
 	int iTimeSync = 0;
 	int iTimeSyncElapsed = 0;
 
-	for (usiExpNumCnt = 0; usiExpNumCnt < 28; usiExpNumCnt++) {
+	for (usiExpNumCnt = 0; usiExpNumCnt < 65535; usiExpNumCnt++) {
 		iTimeStart = alt_nticks();
 		iTimeSync = alt_nticks();
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
@@ -572,6 +572,8 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 	alt_u32 uliPatternOff = uliPaylodOffset + uliMemOffInc;
 
 	// Start Channel
+//	pxFtdi->xFtdiFtdiModuleControl.bModuleStop = TRUE;
+	pxFtdi->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 	pxFtdi->xFtdiFtdiModuleControl.bModuleStart = TRUE;
 
 	printf("Starting Full-Image Request test: \n");
@@ -708,7 +710,7 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 
 	usleep(1);
 
-	pxFtdi->xFtdiFtdiModuleControl.bModuleStop = TRUE;
+//	pxFtdi->xFtdiFtdiModuleControl.bModuleStop = TRUE;
 	pxFtdi->xFtdiFtdiModuleControl.bModuleClear = TRUE;
 
 //		usleep(1*1000*1000);
