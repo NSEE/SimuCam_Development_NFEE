@@ -54,7 +54,7 @@ static volatile int viFtdiHoldContext;
 
 void vFtdiHandleIrq(void* pvContext) {
 	//volatile int* pviHoldContext = (volatile int*) pvContext;
-	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *)USB_3_FTDI_0_BASE;
+	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *)FTDI_MODULE_BASE_ADDR;
 	alt_u32 uliTransferSize = 0;
 
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
@@ -63,6 +63,10 @@ void vFtdiHandleIrq(void* pvContext) {
 		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
+
+		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
+			bStopRx = TRUE;
+		}
 
 	}
 
@@ -85,10 +89,6 @@ void vFtdiHandleIrq(void* pvContext) {
 		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
-
-		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
-			bStopRx = TRUE;
-		}
 
 	}
 
@@ -115,7 +115,7 @@ int main() {
 
 	THalfCcdImage *pxHalfCcdImage = (THalfCcdImage *) DDR2_EXT_ADDR_WINDOWED_BASE;
 
-	TFtdiModule *pxFtdi = (TFtdiModule *) USB_3_FTDI_0_BASE;
+	TFtdiModule *pxFtdi = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 
 	bDdr2SwitchMemory(DDR2_M2_ID);
 	bSdmaInitM2Dma();
@@ -170,10 +170,10 @@ int main() {
 		for (ucFeeCnt = 0; ucFeeCnt < 6; ucFeeCnt++) {
 			for (ucCcdCnt = 0; ucCcdCnt < 4; ucCcdCnt++) {
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-//				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 50, 50, usiExpNumCnt, FALSE, FALSE);
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, 3, 2, 1, 100, 50, 5, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 0, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
+//				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, 3, 2, 1, 100, 50, 5, FALSE, FALSE);
 				printf("Transaction: %ld \n", uliTransactionCnt); uliTransactionCnt++;
-				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 50, 50, usiExpNumCnt, FALSE, FALSE);
+				vProtocolUsbTestAck(DDR2_EXT_ADDR_WINDOWED_BASE, 0x4000000, DDR2_M2_ID, ucFeeCnt, ucCcdCnt, 1, 4540, 2295, usiExpNumCnt, FALSE, FALSE);
 			}
 		}
 
@@ -226,7 +226,7 @@ bool vFtdiInitIrq(void) {
 	// prototype.
 	pvHoldContext = (void*) &viFtdiHoldContext;
 	// Register the interrupt handler
-	alt_irq_register(7, pvHoldContext, vFtdiHandleIrq);
+	alt_irq_register(4, pvHoldContext, vFtdiHandleIrq);
 	bStatus = TRUE;
 
 	return bStatus;
@@ -234,7 +234,7 @@ bool vFtdiInitIrq(void) {
 
 //void vProtocolUsbTestNack(void){
 //
-//	TFtdiRegisters *pxFtdi = (TFtdiRegisters *) USB_3_FTDI_0_BASE;
+//	TFtdiRegisters *pxFtdi = (TFtdiRegisters *) FTDI_MODULE_BASE_ADDR;
 //	TFtdiProtocolHeader *pxFtdiProtHeader = (TFtdiProtocolHeader *) DDR2_EXT_ADDR_WINDOWED_BASE;
 //	TFtdiProtocolHeader *pxFtdiProtReply = (TFtdiProtocolHeader *) DDR2_EXT_ADDR_WINDOWED_BASE;
 //
@@ -432,7 +432,7 @@ bool vFtdiInitIrq(void) {
 //
 //void vProtocolUsbTestWrongCrc(void){
 //
-//	TFtdiRegisters *pxFtdi = (TFtdiRegisters *) USB_3_FTDI_0_BASE;
+//	TFtdiRegisters *pxFtdi = (TFtdiRegisters *) FTDI_MODULE_BASE_ADDR;
 //	TFtdiProtocolHeader *pxFtdiProtHeader = (TFtdiProtocolHeader *) DDR2_EXT_ADDR_WINDOWED_BASE;
 ////	TFtdiProtocolHeader *pxFtdiProtReply = (TFtdiProtocolHeader *) DDR2_EXT_ADDR_WINDOWED_BASE;
 //
@@ -565,7 +565,7 @@ bool vFtdiInitIrq(void) {
 
 void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMemId, alt_u8 ucFee, alt_u8 ucCcd, alt_u8 ucSide, alt_u16 usiHeight, alt_u16 usiWidth, alt_u16 usiExpNum, bool bMemDump, bool bVerbose){
 
-	TFtdiModule *pxFtdi = (TFtdiModule *) USB_3_FTDI_0_BASE;
+	TFtdiModule *pxFtdi = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
 	THalfCcdImage *pxHalfCcdImage = (THalfCcdImage *) DDR2_EXT_ADDR_WINDOWED_BASE;
 
 	uliPaylodOffset = uliMemOffset;
@@ -702,7 +702,7 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 //	}
 
 	// Check Contents
-	vFillCheckMemoryPattern(uliPatternOff, uliMemOffset, pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes, ucMemId, ucCcd, ucSide, usiHeight, usiWidth, usiExpNum, bMemDump);
+//	vFillCheckMemoryPattern(uliPatternOff, uliMemOffset, pxFtdi->xFtdiHalfCcdReplyStatus.uliHalfCcdImgLengthBytes, ucMemId, ucCcd, ucSide, usiHeight, usiWidth, usiExpNum, bMemDump);
 
 	pxFtdi->xFtdiHalfCcdReqControl.bRstHalfCcdController = TRUE;
 
