@@ -144,14 +144,6 @@ begin
 			rly_half_ccd_image_length_bytes_o    <= (others => '0');
 			rly_half_ccd_received_o              <= '0';
 			rly_half_ccd_controller_busy_o       <= '0';
-			err_half_ccd_request_nack_err_o      <= '0';
-			err_half_ccd_reply_header_crc_err_o  <= '0';
-			err_half_ccd_reply_eoh_err_o         <= '0';
-			err_half_ccd_reply_payload_crc_err_o <= '0';
-			err_half_ccd_reply_eop_err_o         <= '0';
-			err_half_ccd_req_max_tries_err_o     <= '0';
-			err_half_ccd_reply_ccd_size_err_o    <= '0';
-			err_half_ccd_req_timeout_err_o       <= '0';
 			header_generator_start_o             <= '0';
 			header_generator_reset_o             <= '0';
 			header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -400,9 +392,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -418,9 +407,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -443,9 +429,6 @@ begin
 					s_request_tries                      <= 2;
 					s_parsed_reply_header_data           <= header_parser_data_i;
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -490,9 +473,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -508,9 +488,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -531,9 +508,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -549,9 +523,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -567,9 +538,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -590,9 +558,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_RECEIVE_RX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -608,9 +573,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -626,9 +588,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -649,9 +608,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_SEND_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -688,9 +644,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -706,9 +659,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -729,9 +679,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -747,9 +694,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -765,9 +709,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -788,9 +729,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -807,9 +745,6 @@ begin
 					-- default internal signal values
 					s_request_tries                      <= 0;
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -863,14 +798,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '0';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -897,14 +824,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '0';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -931,14 +850,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -965,14 +876,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '1';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= s_registered_request_data;
@@ -999,14 +902,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1033,14 +928,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '1';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1067,14 +954,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1101,14 +980,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1135,14 +1006,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1169,14 +1032,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1203,14 +1058,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1237,14 +1084,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1271,14 +1110,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '1';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_ACK_OK;
@@ -1305,14 +1136,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1339,14 +1162,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '1';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1373,14 +1188,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '1';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_NACK_ERROR;
@@ -1407,14 +1214,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1441,14 +1240,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '1';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1475,14 +1266,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1509,14 +1292,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1543,14 +1318,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1577,14 +1344,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '1';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_ACK_OK;
@@ -1611,14 +1370,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1645,14 +1396,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '1';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1679,14 +1422,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '1';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_NACK_ERROR;
@@ -1713,14 +1448,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1747,14 +1474,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= (others => '0');
 					rly_half_ccd_received_o              <= '0';
 					rly_half_ccd_controller_busy_o       <= '1';
-					err_half_ccd_request_nack_err_o      <= '0';
-					err_half_ccd_reply_header_crc_err_o  <= '0';
-					err_half_ccd_reply_eoh_err_o         <= '0';
-					err_half_ccd_reply_payload_crc_err_o <= '0';
-					err_half_ccd_reply_eop_err_o         <= '0';
-					err_half_ccd_req_max_tries_err_o     <= '0';
-					err_half_ccd_reply_ccd_size_err_o    <= '0';
-					err_half_ccd_req_timeout_err_o       <= '0';
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '1';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1781,14 +1500,6 @@ begin
 					rly_half_ccd_image_length_bytes_o    <= s_parsed_reply_header_data.payload_length;
 					rly_half_ccd_received_o              <= '1';
 					rly_half_ccd_controller_busy_o       <= '0';
-					err_half_ccd_request_nack_err_o      <= s_err_half_ccd_request_nack_err;
-					err_half_ccd_reply_header_crc_err_o  <= s_err_half_ccd_reply_header_crc_err;
-					err_half_ccd_reply_eoh_err_o         <= s_err_half_ccd_reply_eoh_err;
-					err_half_ccd_reply_payload_crc_err_o <= s_err_half_ccd_reply_payload_crc_err;
-					err_half_ccd_reply_eop_err_o         <= s_err_half_ccd_reply_eop_err;
-					err_half_ccd_req_max_tries_err_o     <= s_err_half_ccd_req_max_tries_err;
-					err_half_ccd_reply_ccd_size_err_o    <= s_err_half_ccd_reply_ccd_size_err;
-					err_half_ccd_req_timeout_err_o       <= s_err_half_ccd_req_timeout_err;
 					header_generator_start_o             <= '0';
 					header_generator_reset_o             <= '0';
 					header_generator_data_o              <= c_FTDI_PROT_HEADER_RESET;
@@ -1821,5 +1532,14 @@ begin
 	err_rx_comm_err_code_o(6)           <= s_err_half_ccd_reply_ccd_size_err;
 	err_rx_comm_err_code_o(7)           <= s_err_half_ccd_req_timeout_err;
 	err_rx_comm_err_code_o(15 downto 8) <= (others => '0');
+	-- Error Signals Assigments
+						err_half_ccd_request_nack_err_o      <= s_err_half_ccd_request_nack_err;
+					err_half_ccd_reply_header_crc_err_o  <= s_err_half_ccd_reply_header_crc_err;
+					err_half_ccd_reply_eoh_err_o         <= s_err_half_ccd_reply_eoh_err;
+					err_half_ccd_reply_payload_crc_err_o <= s_err_half_ccd_reply_payload_crc_err;
+					err_half_ccd_reply_eop_err_o         <= s_err_half_ccd_reply_eop_err;
+					err_half_ccd_req_max_tries_err_o     <= s_err_half_ccd_req_max_tries_err;
+					err_half_ccd_reply_ccd_size_err_o    <= s_err_half_ccd_reply_ccd_size_err;
+					err_half_ccd_req_timeout_err_o       <= s_err_half_ccd_req_timeout_err;
 
 end architecture RTL;

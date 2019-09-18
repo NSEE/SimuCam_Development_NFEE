@@ -1509,6 +1509,24 @@ begin
 													s_umft601a_be_out       <= (others => '0');
 													s_umft601a_gpio_out     <= (others => '1');
 													v_data_cnt              := 0;
+													
+												when 70000 to 70002 =>
+													umft_rxf_n_pin_o        <= '1';
+													umft_txe_n_pin_o        <= '0';
+													s_umft601a_data_out     <= (others => '0');
+													s_umft601a_wakeup_n_out <= '1';
+													s_umft601a_be_out       <= (others => '0');
+													s_umft601a_gpio_out     <= (others => '1');
+													v_data_cnt              := 0;
+								
+												when 70003 to (70003 - 1 + 1024) =>
+													umft_rxf_n_pin_o        <= '1';
+													umft_txe_n_pin_o        <= '0';
+													s_umft601a_data_out     <= (others => '0');
+													s_umft601a_wakeup_n_out <= '1';
+													s_umft601a_be_out       <= (others => '0');
+													s_umft601a_gpio_out     <= (others => '1');
+													v_data_cnt              := 0;
 
 				--				when (60003 + 1024) =>
 				--					if (s_times_cnt >= (8 - 1)) then

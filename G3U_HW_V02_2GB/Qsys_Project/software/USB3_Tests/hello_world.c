@@ -60,26 +60,28 @@ void vFtdiHandleIrq(void* pvContext) {
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
 		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff0RdableIrqFlagClr = TRUE;
 
-		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
+//		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff0UsedBytes;
+		uliTransferSize = FTDI_BUFFER_SIZE_TRANSFER;
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
 
-		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
-			bStopRx = TRUE;
-		}
+//		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
+//			bStopRx = TRUE;
+//		}
 
 	}
 
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff1RdableIrqFlag) {
 		vpxFtdiModule->xFtdiRxIrqFlagClr.bRxBuff1RdableIrqFlagClr = TRUE;
 
-		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
+//		uliTransferSize = vpxFtdiModule->xFtdiRxBufferStatus.usiRxBuff1UsedBytes;
+		uliTransferSize = FTDI_BUFFER_SIZE_TRANSFER;
 		bSdmaDmaM2FtdiTransfer((alt_u32 *)uliPaylodOffset, uliTransferSize, eSdmaRxFtdi);
 		uliPaylodOffset += uliTransferSize;
 
-		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
-			bStopRx = TRUE;
-		}
+//		if (uliTransferSize < FTDI_BUFFER_SIZE_TRANSFER) {
+//			bStopRx = TRUE;
+//		}
 
 	}
 
@@ -180,11 +182,11 @@ int main() {
 		iTimeElapsed = alt_nticks() - iTimeStart;
 		printf("USB data written, size=%d bytes, %.3f sec\n", 0, (float) iTimeElapsed / (float) alt_ticks_per_second());
 
-		iTimeSyncElapsed = alt_nticks() - iTimeSync;
-		while (((float) iTimeSyncElapsed / (float) alt_ticks_per_second()) < 25.0) {
-			usleep(1000);
-			iTimeSyncElapsed = alt_nticks() - iTimeSync;
-		}
+//		iTimeSyncElapsed = alt_nticks() - iTimeSync;
+//		while (((float) iTimeSyncElapsed / (float) alt_ticks_per_second()) < 25.0) {
+//			usleep(1000);
+//			iTimeSyncElapsed = alt_nticks() - iTimeSync;
+//		}
 
 	}
 
@@ -585,7 +587,8 @@ void vProtocolUsbTestAck(alt_u32 uliMemOffset, alt_u32 uliMemOffInc, alt_u8 ucMe
 	pxFtdi->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucSide;
 	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
 	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiWidth;
-	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiExpNum;
+//	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiExpNum;
+	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = 0;
 	pxFtdi->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = 0;
 	pxFtdi->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
 

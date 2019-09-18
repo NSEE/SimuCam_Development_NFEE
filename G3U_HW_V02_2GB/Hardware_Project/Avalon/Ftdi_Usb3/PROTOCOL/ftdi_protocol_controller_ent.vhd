@@ -400,9 +400,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -418,9 +415,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -443,9 +437,6 @@ begin
 					s_request_tries                      <= 2;
 					s_parsed_reply_header_data           <= header_parser_data_i;
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -490,9 +481,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -508,9 +496,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -531,9 +516,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -549,9 +531,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -567,9 +546,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -590,9 +566,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_RECEIVE_RX_HEADER;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -608,9 +581,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -626,9 +596,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -649,9 +616,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_SEND_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -688,9 +652,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -706,9 +667,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -729,9 +687,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -747,9 +702,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -765,9 +717,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -788,9 +737,6 @@ begin
 					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
 					-- default internal signal values
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -807,9 +753,6 @@ begin
 					-- default internal signal values
 					s_request_tries                      <= 0;
 					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
