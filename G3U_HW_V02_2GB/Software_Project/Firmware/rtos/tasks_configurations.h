@@ -63,9 +63,9 @@
     #define   FEE_TASK_STACKSIZE      1024
     #define   HEAVY_TASK_STACKSIZE    1536
 #else
-    #define   TASK_STACKSIZE          1024
-    #define   FEE_TASK_STACKSIZE      1024
-    #define   HEAVY_TASK_STACKSIZE    1536
+    #define   TASK_STACKSIZE          1536//1024
+    #define   FEE_TASK_STACKSIZE      1536//1024
+    #define   HEAVY_TASK_STACKSIZE    2048//1536
 #endif
 
 /* Are equal only during the development */

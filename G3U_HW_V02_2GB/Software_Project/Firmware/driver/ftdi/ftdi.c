@@ -85,12 +85,13 @@ void vFTDIRxBufferIRQHandler(void* pvContext) {
 	// App logic sequence...
 
 	volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-
+/*
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 	fprintf(fp,"FTDI Irq 0\n");
 }
 #endif
+*/
 
 	/* Rx Buffer 0 Readable Flag */
 	if (vpxFtdiModule->xFtdiRxIrqFlag.bRxBuff0RdableIrqFlag) {
@@ -106,12 +107,13 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		if (error_codel != OS_ERR_NONE) {
 			vFailSendBufferFullIRQtoDTC();
 		}
-
+/*
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 	fprintf(fp,"FTDI Irq Rd 0\n");
 }
 #endif
+*/
 
 	}
 
@@ -129,13 +131,13 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		if (error_codel != OS_ERR_NONE) {
 			vFailSendBufferFullIRQtoDTC();
 		}
-
+/*
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 	fprintf(fp,"FTDI Irq Rd 1\n");
 }
 #endif
-
+*/
 	}
 
 	/* Rx Buffer Last Readable Flag */
@@ -156,9 +158,10 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	fprintf(fp,"FTDI Irq Rd Last\n");
+	fprintf(fp,"FTDI Irq Last\n");
 }
 #endif
+
 
 	}
 
@@ -177,12 +180,13 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		if (error_codel != OS_ERR_NONE) {
 			vFailSendBufferEmptyIRQtoDTC();
 		}
-
+/*
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 	fprintf(fp,"FTDI Irq Empty 0\n");
 }
 #endif
+*/
 
 	}
 
@@ -204,7 +208,9 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	fprintf(fp,"FTDI Irq Err 0\n");
+	fprintf(fp,"FTDI Irq Err \n");
+	fprintf(fp,"FTDI Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);
+	fprintf(fp,"FTDI Irq Err : Payload EOP %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayEopErr);
 }
 #endif
 

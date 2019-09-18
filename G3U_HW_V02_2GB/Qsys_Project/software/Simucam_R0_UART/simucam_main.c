@@ -667,7 +667,7 @@ void vFillMemmoryPattern( TSimucam_MEB *xSimMebL ) {
 #endif
 
 	/* memory 0 and 1*/
-	for ( mem_number = 0; mem_number < 2; mem_number++ ){
+	for ( mem_number = 0; mem_number < 1; mem_number++ ){
 		/* n NFEE */
 		#if DEBUG_ON
 		if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
