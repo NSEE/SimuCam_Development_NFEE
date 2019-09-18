@@ -145,6 +145,12 @@ void vDataControlTask(void *task_data) {
 						}
 						#endif
 
+						/* Clear the CMD Queue */
+						error_code = OSQFlush(xQMaskDataCtrl);
+						if ( error_code != OS_NO_ERR ) {
+							vFailFlushQueueData();
+						}
+
 						uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
 						if ( error_code == OS_ERR_NONE ) {
 							/* Check if the command is for NFEE Controller */
@@ -215,6 +221,12 @@ void vDataControlTask(void *task_data) {
 								fprintf(fp,"DTC: Req to NUC: FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
 							}
 							#endif
+
+							/* Clear the CMD Queue */
+							error_code = OSQFlush(xQMaskDataCtrl);
+							if ( error_code != OS_NO_ERR ) {
+								vFailFlushQueueData();
+							}
 
 							/* Send Clear command to the FTDI Control Block */
 							vFTDIStop(); // [rfranca]
@@ -346,6 +358,8 @@ void vDataControlTask(void *task_data) {
 
 				case sWaitForEmptyBufferIRQ:
 
+					vFTDIClear(); // [rfranca]
+
 					/* Default: 0-> left; 1-> right; */
 					ucSubCCDSide = ( ucSubCCDSide + 1 ) % 2;
 
@@ -367,7 +381,7 @@ void vDataControlTask(void *task_data) {
 				default:
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						debug(fp,"NFEE Controller Task: Unknown SUB state in running mode.\n");
+						fprintf(fp,"Data Controller Task: Unknown SUB state in running mode.\n");
 					#endif
 					/* Back to Config Mode */
 					pxDataC->sMode = sMebToConfig;
@@ -377,7 +391,7 @@ void vDataControlTask(void *task_data) {
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				debug(fp,"NFEE Controller Task: Unknown state, backing to Config Mode.\n");
+				fprintf(fp,"Data Controller Task: Unknown state, backing to Config Mode.\n");
 			#endif
 			/* Back to Config Mode */
 			pxDataC->sMode = sMebToConfig;
@@ -397,7 +411,7 @@ void vDataControlTask(void *task_data) {
 }
 
 
-void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
+void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 	tQMask uiCmdLocal;
 
 	uiCmdLocal.ulWord = uiCmdParam;
@@ -406,17 +420,20 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 		case M_DATA_CONFIG_FORCED:
 		case M_DATA_CONFIG:
 			vFTDIAbort();
-			pxFeeCP->sMode = sMebToConfig;
+			pxDTCP->sMode = sMebToConfig;
 			break;
 
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-				debug(fp,"Data Controller Task: DTC already in the Running Mode\n");
+				fprintf(fp,"Data Controller Task: DTC already in the Running Mode\n");
 			}
 			#endif
 			/* Do nothing for now */
+			break;
+
+		case M_PRE_MASTER:
 			break;
 
 		case M_BEFORE_SYNC:
@@ -428,8 +445,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 				/* Stop the simulation for the Data Controller */
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					debug(fp,"\n\nData Controller Task: CRITICAL! Could not finished the upload.\n");
-					debug(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
+					fprintf(fp,"\n\nData Controller Task: CRITICAL! Could not finished the upload.\n");
+					fprintf(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
 				}
 				#endif
 
@@ -439,7 +456,7 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 				vFTDIClear();
 				vFTDIStart();
 
-				pxFeeCP->sRunMode = sSubMemUpdated;
+				pxDTCP->sRunMode = sSubMemUpdated;
 			}
 			break;
 
@@ -451,8 +468,8 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 			/* Stop the simulation for the Data Controller */
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-				debug(fp,"\n\nData Controller Task: CRITICAL! Received Sync during update process.\n");
-				debug(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
+				fprintf(fp,"\n\nData Controller Task: CRITICAL! Received Sync during update process.\n");
+				fprintf(fp,"Data Controller Task: Ending the actual process, will proceed to the next EP memory update.\n\n");
 			}
 			#endif
 
@@ -461,14 +478,14 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 			vFTDIStop(); //todo: RFranca
 			vFTDIClear();
 			vFTDIStart();
-			if ( pxFeeCP->bFirstMaster == FALSE )
-				pxFeeCP->usiEPn++;
+			if ( pxDTCP->bFirstMaster == FALSE )
+				pxDTCP->usiEPn++;
 			else
-				pxFeeCP->bFirstMaster = FALSE;
+				pxDTCP->bFirstMaster = FALSE;
 
 			xGlobal.bDTCFinished = FALSE;
-			pxFeeCP->sMode = sMebRun;
-			pxFeeCP->sRunMode = sSubSetupEpoch;
+			pxDTCP->sMode = sMebRun;
+			pxDTCP->sRunMode = sSubSetupEpoch;
 
 
 			//pxFeeCP->sMode = sMebToConfig;
@@ -476,15 +493,15 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 			break;
 
 		case M_DATA_FTDI_BUFFER_FULL:
-			pxFeeCP->sRunMode = sSubScheduleDMA;
+			pxDTCP->sRunMode = sSubScheduleDMA;
 			break;
 
 		case M_DATA_FTDI_BUFFER_LAST:
-			pxFeeCP->sRunMode = sSubLastPckt;
+			pxDTCP->sRunMode = sSubLastPckt;
 			break;
 
 		case M_DATA_FTDI_BUFFER_EMPTY:
-			pxFeeCP->sRunMode = sWaitForEmptyBufferIRQ;
+			pxDTCP->sRunMode = sWaitForEmptyBufferIRQ;
 			break;
 
 		case M_DATA_FTDI_ERROR:
@@ -492,9 +509,9 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 			/* todo: What is the reason of failure? Can we keep going? */
 			vCommunicationErrorUSB3DTController();
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-				debug(fp,"\nData Controller Task: CRITICAL! Receive error from USB HW.\n");
-				debug(fp,"Data Controller Task: Ending the actual half CCD loading, DTC going to the next one.\n\n");
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"\nData Controller Task: CRITICAL! Receive error from USB HW.\n");
+				fprintf(fp,"Data Controller Task: Ending the actual half CCD loading, DTC going to the next one.\n\n");
 			}
 			#endif
 
@@ -503,18 +520,18 @@ void vPerformActionDTCFillingMem( unsigned int uiCmdParam, TNData_Control *pxFee
 			vFTDIStop(); //todo: RFranca
 			vFTDIClear();
 			vFTDIStart();
-			pxFeeCP->sMode = sWaitForEmptyBufferIRQ;
+			pxDTCP->sRunMode = sWaitForEmptyBufferIRQ;
 			break;
 
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				debug(fp,"Data Controller Task: Unknown Command.\n");
+				fprintf(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}
 }
 
-void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
+void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 	tQMask uiCmdLocal;
 
 	uiCmdLocal.ulWord = uiCmdParam;
@@ -523,40 +540,41 @@ void vPerformActionDTCRun( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
 		case M_DATA_CONFIG_FORCED:
 		case M_DATA_CONFIG:
 
-			pxFeeCP->sMode = sMebToConfig;
+			pxDTCP->sMode = sMebToConfig;
 			break;
 
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-				debug(fp,"Data Controller Task: DTC already in the Running Mode\n");
+				fprintf(fp,"Data Controller Task: DTC already in the Running Mode\n");
 			}
 			#endif
 			/* Do nothing for now */
 			break;
+		case M_PRE_MASTER:
 		case M_BEFORE_SYNC:
 
 			break;
 
 		case M_MASTER_SYNC:
-			if ( pxFeeCP->bFirstMaster == FALSE )
-				pxFeeCP->usiEPn++;
+			if ( pxDTCP->bFirstMaster == FALSE )
+				pxDTCP->usiEPn++;
 			else
-				pxFeeCP->bFirstMaster = FALSE;
+				pxDTCP->bFirstMaster = FALSE;
 
 			xGlobal.bDTCFinished = FALSE;
-			pxFeeCP->sRunMode = sSubSetupEpoch;
+			pxDTCP->sRunMode = sSubSetupEpoch;
 			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				debug(fp,"Data Controller Task: Unknown Command.\n");
+				fprintf(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}
 }
 
-void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP ) {
+void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxDTCP ) {
 	tQMask uiCmdLocal;
 
 	uiCmdLocal.ulWord = uiCmdParam;
@@ -565,8 +583,8 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP )
 		case M_DATA_CONFIG_FORCED:
 		case M_DATA_CONFIG:
 			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
-				debug(fp,"Data Controller Task: DTC already in the Config Mode\n");
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"Data Controller Task: DTC already in the Config Mode\n");
 			}
 			#endif
 			/* Do nothing for now */
@@ -574,19 +592,21 @@ void vPerformActionDTCConfig( unsigned int uiCmdParam, TNData_Control *pxFeeCP )
 
 		case M_DATA_RUN_FORCED:
 		case M_DATA_RUN:
-			pxFeeCP->sMode = sMebToRun;
+			pxDTCP->sMode = sMebToRun;
+			break;
+		case M_PRE_MASTER:
 			break;
 
 		case M_MASTER_SYNC:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				debug(fp,"Data Controller Task: Sync received but DTC is in Config Mode .\n");
+				fprintf(fp,"Data Controller Task: Sync received but DTC is in Config Mode .\n");
 			#endif
 			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				debug(fp,"Data Controller Task: Unknown Command.\n");
+				fprintf(fp,"Data Controller Task: Unknown Command.\n");
 			#endif
 	}
 }

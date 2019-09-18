@@ -205,12 +205,14 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 		if (error_codel != OS_ERR_NONE) {
 			vFailFtdiErrorIRQtoDTC();
 		}
-/*
+
 #if DEBUG_ON
 if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	fprintf(fp,"FTDI Irq Err 0\n");
+	fprintf(fp,"FTDI Irq Err \n");
+	fprintf(fp,"FTDI Irq Err : Payload CRC %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayCrcErr);
+	fprintf(fp,"FTDI Irq Err : Payload EOP %d\n", vpxFtdiModule->xFtdiRxCommError.bHalfCcdReplyPayEopErr);
 }
-#endif*/
+#endif
 
 	}
 
