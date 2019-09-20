@@ -17,7 +17,6 @@
 //! [constants definition]
 #define FTDI_RX_BUFFER_IRQ               4
 #define FTDI_MODULE_BASE_ADDR            FTDI_USB3_0_BASE
-#define FTDI_BUFFER_SIZE_TRANSFER	     8192
 //! [constants definition]
 
 //! [public module structs definition]

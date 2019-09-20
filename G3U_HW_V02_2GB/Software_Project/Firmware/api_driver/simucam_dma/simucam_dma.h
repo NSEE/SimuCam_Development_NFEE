@@ -85,11 +85,12 @@
 #define SDMA_DMA_M1_NAME                DMA_DDR_M1_CSR_NAME
 #define SDMA_DMA_M2_NAME                DMA_DDR_M2_CSR_NAME
 //
-#define SDMA_PIXEL_BLOCK_SIZE_BYTES     (unsigned long)136u
-#define SDMA_MAX_BLOCKS					(unsigned long)16u
+#define SDMA_PIXEL_BLOCK_SIZE_BYTES     (alt_u16)136u
+#define SDMA_MAX_BLOCKS					(alt_u16)16u
 
-#define SDMA_BUFFER_SIZE_BYTES          (unsigned long)(SDMA_PIXEL_BLOCK_SIZE_BYTES * SDMA_MAX_BLOCKS)
+#define SDMA_BUFFER_SIZE_BYTES          (alt_u16)(SDMA_PIXEL_BLOCK_SIZE_BYTES * SDMA_MAX_BLOCKS)
 
+#define FTDI_BUFFER_SIZE_TRANSFER	     8192
 
 // bit masks
 //! [constants definition]
@@ -103,6 +104,14 @@ typedef struct SdmaPixelDataBlock {
 typedef struct SdmaBufferDataBlock {
 	TSdmaPixelDataBlock xPixelDataBlock[16];
 } TSdmaBufferDataBlock;
+
+enum SdmaMemoryId {
+	eSdmaMemory0 = 0, eSdmaMemory1,
+} ESdmaMemoryId;
+
+enum SdmaAddrDword {
+	eSdmaDwordLow = 0, eSdmaDwordHigh,
+} ESdmaAddrDword;
 
 enum SdmaBufferSide {
 	eSdmaLeftBuffer = 0, eSdmaRightBuffer, 
