@@ -609,7 +609,7 @@ int main(void)
 	bInitFTDI();
 
 
-	vFillMemmoryPattern( &xSimMeb );
+	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
 
