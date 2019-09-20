@@ -270,7 +270,7 @@ void vInitialTask(void *task_data)
 
 	/* Create the first NFee Controller Task */
 	#if ( STACK_MONITOR == 1)
-		error_code = OSTaskCreateExt(vNFeeControlTask,
+		error_code = OSTaskCreateExt(vNFeeControlTaskV2,
 									&xSimMeb.xFeeControl,
 									(void *)&vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE-1],
 									FEE_COTROL_TASK_PRIO,
@@ -280,7 +280,7 @@ void vInitialTask(void *task_data)
 									NULL,
 									OS_TASK_OPT_STK_CLR + OS_TASK_OPT_STK_CHK);
 	#else
-		error_code = OSTaskCreateExt(vNFeeControlTask,
+		error_code = OSTaskCreateExt(vNFeeControlTaskV2,
 									&xSimMeb.xFeeControl,
 									(void *)&vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE-1],
 									FEE_COTROL_TASK_PRIO,

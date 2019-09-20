@@ -77,7 +77,7 @@
 #define SENDER_TASK_SIZE            TASK_STACKSIZE
 #define TIMEOUT_CHECKER_SIZE        TASK_STACKSIZE
 #define STACK_MONITOR_SIZE          TASK_STACKSIZE
-#define FEE_CONTROL_STACK_SIZE      TASK_STACKSIZE
+#define FEE_CONTROL_STACK_SIZE      HEAVY_TASK_STACKSIZE
 #define DATA_CONTROL_STACK_SIZE     FEE_TASK_STACKSIZE /*todo: Maybe should increase in later versions*/
 #define FEES_STACK_SIZE             FEE_TASK_STACKSIZE
 #define MEB_STACK_SIZE              FEE_TASK_STACKSIZE /*todo: Maybe should increase in later versions*/

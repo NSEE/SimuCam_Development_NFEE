@@ -20,7 +20,7 @@
 
 //#define N_MSG_SYNC		8	/* The FEE entities will receive comands through the Queue, and this define is the length */
 
-#define N_OF_MSG_QUEUE_MASK 	16 	/* N of commands in the Queue to Data controller and NFEE Controller */
+#define N_OF_MSG_QUEUE_MASK 	64 	/* N of commands in the Queue to Data controller and NFEE Controller */
 
 typedef struct NFee_Control {
 	TNFee   xNfee[N_OF_NFEE];               /* All instances of control for the NFEE */

@@ -173,7 +173,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 					/* Using QMASK send to NfeeControl that will foward */
 					for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
 						if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
-							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
+							vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
 						}
 					}
 				}
@@ -514,63 +514,63 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
+	unsigned char ucFeeInstL;
 
-	usiFeeInstL = xPusL->usiValues[0];
+	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_FEE_CONFIG_ENTER */
 		case 1:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_CONFIG, 0, ucFeeInstL );
 			break;
 		/* TC_SCAM_FEE_STANDBY_ENTER */
 		case 2:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_STANDBY, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_STANDBY, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_ENTER */
 		case 3:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING _ENTER */
 		case 4:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL_PATTERN, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_ON */
 		case 11:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_ON, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_ON, 0, ucFeeInstL );
 			break;
 		case 12:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
 		case 13:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_2, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_2, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
 		case 14:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_1, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
 		case 15:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_2, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_2, 0, ucFeeInstL );
 			break;
 		case 0:
 		default:
@@ -700,22 +700,29 @@ void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
 }
 
 
-/* Send to FEEs using the NFEE Controller */
-void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+/* Send to FEEs using the NFEE Controller vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );*/
+void vSendCmdQToNFeeCTRL_GEN( unsigned char usiFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
 {
 	INT8U error_codel;
 	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = ADDR;
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + usiFeeInstP;
 	uiCmdtoSend.ucByte[2] = ucCMD;
 	uiCmdtoSend.ucByte[1] = ucSUBType;
 	uiCmdtoSend.ucByte[0] = ucValue;
 
+
 	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	error_codel = OSQPost(xFeeQ[ usiFeeInstP ], (void *)uiCmdtoSend.ulWord);
 	if ( error_codel != OS_ERR_NONE ) {
 		vFailSendMsgFeeCTRL();
 	}

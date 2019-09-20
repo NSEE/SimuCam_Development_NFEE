@@ -10,7 +10,7 @@
 
 #include <ucos_ii.h>
 #include "tasks_configurations.h"
-#include "nfee_control_task.h"
+#include "nfee_control_taskV2.h"
 #include "data_control_task.h"
 #include "fee_taskV2.h"
 #include "sim_meb_task.h"

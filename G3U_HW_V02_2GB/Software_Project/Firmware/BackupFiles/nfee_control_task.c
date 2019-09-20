@@ -10,11 +10,11 @@
 void vNFeeControlTask(void *task_data) {
 	TNFee_Control * pxFeeC;
 	tQMask uiCmdNFC;
-	bool bCmdSent;
 	INT8U error_codeCtrl;
 	unsigned char ucFeeInstL = 0, ucSide = 0;
-	static bool bDmaBack;
-	static unsigned char ucWhoGetDMA;
+	volatile unsigned char ucWhoGetDMA;
+	volatile bool bDmaBack;
+	volatile bool bCmdSent;
 	unsigned char ucIL;
 
 	pxFeeC = (TNFee_Control *) task_data;
@@ -30,11 +30,7 @@ void vNFeeControlTask(void *task_data) {
 			case sMebInit:
 				/* Starting the NFEE Controller */
 
-				/* Clear in CMD Queue  */
-				error_codeCtrl = OSQFlush(xQMaskFeeCtrl);
-				if ( error_codeCtrl != OS_NO_ERR ) {
-					vFailFlushQueue();
-				}
+				/* Put initialization only, here*/
 
 				pxFeeC->sMode = sMebToConfig;
 				break;
@@ -48,6 +44,12 @@ void vNFeeControlTask(void *task_data) {
 
 				/* Clear Queue that is responsible to schedule the DMA access */
 				error_codeCtrl = OSQFlush(xNfeeSchedule);
+				if ( error_codeCtrl != OS_NO_ERR ) {
+					vFailFlushQueue();
+				}
+
+				/* Clear in CMD Queue  */
+				error_codeCtrl = OSQFlush(xQMaskFeeCtrl);
 				if ( error_codeCtrl != OS_NO_ERR ) {
 					vFailFlushQueue();
 				}

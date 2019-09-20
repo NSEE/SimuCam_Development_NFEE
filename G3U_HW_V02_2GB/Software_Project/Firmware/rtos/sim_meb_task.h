@@ -51,7 +51,7 @@ void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 
 void vMebChangeToConfig( TSimucam_MEB *pxMebCLocal );
 void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal );
-void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vSendCmdQToNFeeCTRL_GEN( unsigned char usiFeeInstP,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 void vMebInit(TSimucam_MEB *pxMebCLocal);
 //void vReleaseSyncMessages(void);
