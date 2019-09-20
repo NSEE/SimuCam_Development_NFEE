@@ -65,9 +65,9 @@ VleeJCVmgnRND<FcHkk>Ro1
 !s100 5h=^Jo2Bi:HR`^XS7ToF:0
 R8
 32
-Z19 !s110 1568764758
+Z19 !s110 1568825559
 !i10b 1
-Z20 !s108 1568764758.000000
+Z20 !s108 1568825559.000000
 Z21 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd|
 Z22 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_BUFFERS/data_buffer_ent.vhd|
 !i113 1
@@ -146,9 +146,9 @@ V=AbCOmb5a3CkS]^E=:c]H0
 !s100 KQ4oi::L4DT5YC6S<6;IZ3
 R8
 32
-Z32 !s110 1568764759
+Z32 !s110 1568825561
 !i10b 1
-Z33 !s108 1568764759.000000
+Z33 !s108 1568825561.000000
 Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/flipflop_synchronizer_ent.vhd|
 Z35 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/flipflop_synchronizer_ent.vhd|
 !i113 1
@@ -230,9 +230,9 @@ V<h7amP^8j`WU>k4>;biJn3
 !s100 JWEfkTMXV_VR2]7>Q735[2
 R8
 32
-Z41 !s110 1568764757
+R19
 !i10b 1
-Z42 !s108 1568764757.000000
+R20
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd|
 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_pkg.vhd|
 !i113 1
@@ -241,45 +241,45 @@ R14
 Eftdi_config_avalon_mm_read_ent
 R15
 R1
-Z43 DPx4 work 25 ftdi_config_avalon_mm_pkg 0 22 <h7amP^8j`WU>k4>;biJn3
+Z41 DPx4 work 25 ftdi_config_avalon_mm_pkg 0 22 <h7amP^8j`WU>k4>;biJn3
 R2
 R3
 R4
 R16
-Z44 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
-Z45 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
+Z42 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
+Z43 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd
 l0
 L8
 V@h4^C<O`ElS2gZ`:;eQ8;3
 !s100 9J<VfQ]E`hk>SnebMm1Bb3
 R8
 32
-R41
+R19
 !i10b 1
-R42
-Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd|
-Z47 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd|
+R20
+Z44 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd|
+Z45 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_read_ent.vhd|
 !i113 1
 R13
 R14
 Artl
 R1
-R43
+R41
 R2
 R3
 R4
-Z48 DEx4 work 30 ftdi_config_avalon_mm_read_ent 0 22 @h4^C<O`ElS2gZ`:;eQ8;3
+Z46 DEx4 work 30 ftdi_config_avalon_mm_read_ent 0 22 @h4^C<O`ElS2gZ`:;eQ8;3
 l21
 L19
 VT;VE6S8IcA`<eYc2@Rkg02
 !s100 ^<k<ic9QoR7`@:449QzKn0
 R8
 32
-R41
+R19
 !i10b 1
-R42
-R46
-R47
+R20
+R44
+R45
 !i113 1
 R13
 R14
@@ -289,19 +289,19 @@ R3
 R4
 R15
 R16
-Z49 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd
-Z50 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd
+Z47 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd
+Z48 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd
 l0
 L5
 VF4V=2EFHISg_X=6CeShoC2
 !s100 @H9F1=6EIUmU8Z5nYEDB:0
 R8
 32
-R41
+R19
 !i10b 1
-R42
-Z51 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd|
-Z52 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd|
+R20
+Z49 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd|
+Z50 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/REGISTERS/ftdi_config_avalon_mm_registers_pkg.vhd|
 !i113 1
 R13
 R14
@@ -316,23 +316,23 @@ VGX1zk6Rl>fY1Hg]ISFZjc0
 !s100 g<zB@42]XjTFIYhMO5V_a3
 R8
 32
-R41
+R19
 !i10b 1
-R42
-R51
-R52
+R20
+R49
+R50
 !i113 1
 R13
 R14
 Eftdi_config_avalon_mm_stimulli
-Z53 w1568639963
+Z51 w1568639963
 R1
 R2
 R3
 R4
 R16
-Z54 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd
-Z55 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd
+Z52 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd
+Z53 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd
 l0
 L7
 V:=S`P?:K>SUYZTOE@j2di2
@@ -342,8 +342,8 @@ R8
 R32
 !i10b 1
 R33
-Z56 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd|
-Z57 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd|
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd|
+Z55 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/ftdi_config_avalon_mm_stimulli.vhd|
 !i113 1
 R13
 R14
@@ -352,7 +352,7 @@ R1
 R2
 R3
 R4
-Z58 DEx4 work 30 ftdi_config_avalon_mm_stimulli 0 22 :=S`P?:K>SUYZTOE@j2di2
+Z56 DEx4 work 30 ftdi_config_avalon_mm_stimulli 0 22 :=S`P?:K>SUYZTOE@j2di2
 l21
 L16
 V`ECWO^djkPEP?9bb5BXnF1
@@ -362,53 +362,53 @@ R8
 R32
 !i10b 1
 R33
-R56
-R57
+R54
+R55
 !i113 1
 R13
 R14
 Eftdi_config_avalon_mm_write_ent
 R15
 R1
-R43
+R41
 R2
 R3
 R4
 R16
-Z59 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
-Z60 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
+Z57 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
+Z58 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd
 l0
 L8
 V<lWEadfA@fA]`d0MRe0ni0
 !s100 `9X@=:MYle9K`1cX?VO?j0
 R8
 32
-R41
+R19
 !i10b 1
-R42
-Z61 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd|
-Z62 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd|
+R20
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd|
+Z60 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/CONFIG_AVALON_MM/ftdi_config_avalon_mm_write_ent.vhd|
 !i113 1
 R13
 R14
 Artl
 R1
-R43
+R41
 R2
 R3
 R4
-Z63 DEx4 work 31 ftdi_config_avalon_mm_write_ent 0 22 <lWEadfA@fA]`d0MRe0ni0
+Z61 DEx4 work 31 ftdi_config_avalon_mm_write_ent 0 22 <lWEadfA@fA]`d0MRe0ni0
 l22
 L18
 VRO:]eYQ8FQUo3Z5E@97=70
 !s100 [T;kDOI;VWZCeikk[>aG61
 R8
 32
-R41
+R19
 !i10b 1
-R42
-R61
-R62
+R20
+R59
+R60
 !i113 1
 R13
 R14
@@ -426,9 +426,9 @@ VSXL3aO54fQk?HM`og[?Ka1
 !s100 c3oZkzz^W7P[6kNQTMXiA0
 R8
 32
-R41
+R19
 !i10b 1
-R42
+R20
 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd|
 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_data_avalon_mm_pkg.vhd|
 !i113 1
@@ -439,8 +439,8 @@ R15
 R3
 R4
 R16
-Z64 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
-Z65 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
+Z62 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
+Z63 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd
 l0
 L42
 VAW1dZI5XkX1S4>X7KLRD<3
@@ -449,16 +449,16 @@ R8
 32
 R32
 !i10b 1
-R33
-Z66 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd|
-Z67 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd|
+Z64 !s108 1568825560.000000
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd|
+Z66 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/dcfifo/ftdi_data_dc_fifo/ftdi_data_dc_fifo.vhd|
 !i113 1
 R13
 R14
 Asyn
 R3
 R4
-Z68 DEx4 work 17 ftdi_data_dc_fifo 0 22 AW1dZI5XkX1S4>X7KLRD<3
+Z67 DEx4 work 17 ftdi_data_dc_fifo 0 22 AW1dZI5XkX1S4>X7KLRD<3
 l107
 L62
 V3zGn=X9R:3kQ5H8?nJfaz1
@@ -467,9 +467,9 @@ R8
 32
 R32
 !i10b 1
-R33
+R64
+R65
 R66
-R67
 !i113 1
 R13
 R14
@@ -479,17 +479,17 @@ R2
 R3
 R4
 R16
-Z69 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
-Z70 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
+Z68 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
+Z69 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
 l0
 L5
 V10dnZWZf>lZz[nlR_^^0a3
 !s100 e?QWWMeiGoPG;0N<U`XRi0
 R8
 32
-R32
+Z70 !s110 1568825560
 !i10b 1
-R33
+R64
 Z71 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd|
 Z72 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd|
 !i113 1
@@ -506,9 +506,9 @@ VFH[fIAFhez4IjQ0b8eUc30
 !s100 mX_2?n9KJ4ga1nCZjX1M30
 R8
 32
-R32
+R70
 !i10b 1
-R33
+R64
 R71
 R72
 !i113 1
@@ -569,7 +569,7 @@ Vf]QOQ8=bOJ=J9]<X77GO>2
 !s100 hZ5WIio_`JAo@@dL`9@dK3
 R8
 32
-R19
+R70
 !i10b 1
 R20
 Z80 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_transmitter_ent.vhd|
@@ -588,7 +588,7 @@ VD>e_Z2mm5dgWci:O;9Q752
 !s100 dakG0G>bd2NRoUMH9T8De0
 R8
 32
-R19
+R70
 !i10b 1
 R20
 R80
@@ -831,8 +831,8 @@ R95
 R13
 R14
 Eftdi_protocol_controller_ent
-Z97 w1568768413
-Z98 DPx4 work 17 ftdi_protocol_pkg 0 22 iQe?oAeQEF7:>?^onc6Pc1
+Z97 w1568773160
+Z98 DPx4 work 17 ftdi_protocol_pkg 0 22 a:0CCV;X_k=KFC:^`ehe[3
 R2
 R3
 R4
@@ -845,11 +845,11 @@ V>P;0=EhheJlzO:WNFS<Lo3
 !s100 M9e8hdCPoVUE2<8NFld<B1
 R8
 32
-Z101 !s110 1568768423
+R70
 !i10b 1
-Z102 !s108 1568768423.000000
-Z103 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_controller_ent.vhd|
-Z104 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_controller_ent.vhd|
+R64
+Z101 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_controller_ent.vhd|
+Z102 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_controller_ent.vhd|
 !i113 1
 R13
 R14
@@ -858,18 +858,18 @@ R98
 R2
 R3
 R4
-Z105 DEx4 work 28 ftdi_protocol_controller_ent 0 22 >P;0=EhheJlzO:WNFS<Lo3
+Z103 DEx4 work 28 ftdi_protocol_controller_ent 0 22 >P;0=EhheJlzO:WNFS<Lo3
 l115
 L65
-Vb?>mm?4=M<]5;bEm7A`Mc0
-!s100 ZVhIcRGVJTYmbVNFejKZX2
+Va6jE6nLQfcA3[R3I]K^6k0
+!s100 LK[hGX]DNeREbh4CaIoO03
 R8
 32
-R101
+R70
 !i10b 1
+R64
+R101
 R102
-R103
-R104
 !i113 1
 R13
 R14
@@ -879,8 +879,8 @@ R3
 R4
 R15
 R16
-Z106 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
-Z107 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
+Z104 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
+Z105 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd
 l0
 L5
 VP`aB59G9gC;9;8OjB:JT=1
@@ -888,16 +888,16 @@ VP`aB59G9gC;9;8OjB:JT=1
 R8
 32
 b1
-R19
+R70
 !i10b 1
-R20
-Z108 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd|
-Z109 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd|
+R64
+Z106 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd|
+Z107 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_crc_pkg.vhd|
 !i113 1
 R13
 R14
 Bbody
-Z110 DPx4 work 21 ftdi_protocol_crc_pkg 0 22 P`aB59G9gC;9;8OjB:JT=1
+Z108 DPx4 work 21 ftdi_protocol_crc_pkg 0 22 P`aB59G9gC;9;8OjB:JT=1
 R2
 R3
 R4
@@ -907,11 +907,11 @@ V?n^UoPZD`<[N1HzN?HDE01
 !s100 jgelNPX:MmgIIbbGRP`Gh1
 R8
 32
-R19
+R70
 !i10b 1
-R20
-R108
-R109
+R64
+R106
+R107
 !i113 1
 R13
 R14
@@ -919,21 +919,21 @@ Pftdi_protocol_pkg
 R2
 R3
 R4
-R15
+Z109 w1568823895
 R16
-Z111 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
-Z112 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
+Z110 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
+Z111 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 l0
 L5
-ViQe?oAeQEF7:>?^onc6Pc1
-!s100 Hnn9TKTGkm3hB]0?1H]6j0
+Va:0CCV;X_k=KFC:^`ehe[3
+!s100 Wb=DoIzfbodelzM>Yek2l1
 R8
 32
-R19
+R70
 !i10b 1
-R20
-Z113 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd|
-Z114 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd|
+R64
+Z112 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd|
+Z113 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd|
 !i113 1
 R13
 R14
@@ -943,16 +943,16 @@ R2
 R3
 R4
 l0
-L115
-VY?3_6TUIkDekCl`2Kc5@c2
-!s100 =@ORQ64EHHMPzo@M^alX<3
+L116
+V:7zA]Rm<1XHF@??SJ:n7`2
+!s100 Wd27EdSgZ_4b@h8QlSGg^3
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
+R112
 R113
-R114
 !i113 1
 R13
 R14
@@ -963,88 +963,88 @@ R2
 R3
 R4
 R16
-Z115 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
-Z116 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
+Z114 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
+Z115 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
 l0
 L7
 V;`aTC`_eoe4PDV9;7XL_W1
 !s100 aFZ=AiLOHHd7R47UbK6V[0
 R8
 32
-R32
+R70
 !i10b 1
-R20
-Z117 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd|
-Z118 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd|
+R64
+Z116 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd|
+Z117 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd|
 !i113 1
 R13
 R14
 Artl
-Z119 DEx4 work 35 ftdi_rx_protocol_payload_reader_ent 0 22 3cU`3hfbQZUK9Ac4[@]f43
-Z120 DEx4 work 35 ftdi_tx_protocol_payload_writer_ent 0 22 5XDl=:I<]`Xg6hd<006;m0
-Z121 DEx4 work 34 ftdi_rx_protocol_header_parser_ent 0 22 :ij<e1>RjgXLEHeJ7Qf8^2
-R110
-Z122 DEx4 work 37 ftdi_tx_protocol_header_generator_ent 0 22 EbNcMkA2OTBc]N?gHFdFF1
-R105
+Z118 DEx4 work 35 ftdi_rx_protocol_payload_reader_ent 0 22 3cU`3hfbQZUK9Ac4[@]f43
+Z119 DEx4 work 35 ftdi_tx_protocol_payload_writer_ent 0 22 5XDl=:I<]`Xg6hd<006;m0
+Z120 DEx4 work 34 ftdi_rx_protocol_header_parser_ent 0 22 :ij<e1>RjgXLEHeJ7Qf8^2
+R108
+Z121 DEx4 work 37 ftdi_tx_protocol_header_generator_ent 0 22 EbNcMkA2OTBc]N?gHFdFF1
+R103
 R98
 R2
 R3
 R4
-Z123 DEx4 work 17 ftdi_protocol_top 0 22 ;`aTC`_eoe4PDV9;7XL_W1
+Z122 DEx4 work 17 ftdi_protocol_top 0 22 ;`aTC`_eoe4PDV9;7XL_W1
 l120
 L68
 V;gzihdbE^mQCfNXIcPdn=2
 !s100 e2Dzb1Y282mRhIZhdW_9z1
 R8
 32
-R32
+R70
 !i10b 1
-R20
+R64
+R116
 R117
-R118
 !i113 1
 R13
 R14
 Eftdi_rx_data_avalon_mm_read_ent
 R15
-Z124 DPx4 work 23 ftdi_data_avalon_mm_pkg 0 22 SXL3aO54fQk?HM`og[?Ka1
+Z123 DPx4 work 23 ftdi_data_avalon_mm_pkg 0 22 SXL3aO54fQk?HM`og[?Ka1
 R2
 R3
 R4
 R16
-Z125 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
-Z126 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
+Z124 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
+Z125 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd
 l0
 L7
 VGJHE>::FJMh8Ic0`j4i^<2
 !s100 Xl]3Rif;Of4@QLZ37XaDe1
 R8
 32
-R41
+R19
 !i10b 1
-R42
-Z127 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd|
-Z128 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd|
+R20
+Z126 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd|
+Z127 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_AVALON_MM/ftdi_rx_data_avalon_mm_read_ent.vhd|
 !i113 1
 R13
 R14
 Artl
-R124
+R123
 R2
 R3
 R4
-Z129 DEx4 work 31 ftdi_rx_data_avalon_mm_read_ent 0 22 GJHE>::FJMh8Ic0`j4i^<2
+Z128 DEx4 work 31 ftdi_rx_data_avalon_mm_read_ent 0 22 GJHE>::FJMh8Ic0`j4i^<2
 l36
 L23
 VW2EHKVJ0V8E5=acP6kO2b1
 !s100 2a<<eg;`LdK3SD:gAWMEF2
 R8
 32
-R41
+R19
 !i10b 1
-R42
+R20
+R126
 R127
-R128
 !i113 1
 R13
 R14
@@ -1054,19 +1054,19 @@ R2
 R3
 R4
 R16
-Z130 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
-Z131 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+Z129 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+Z130 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
 l0
 L5
 V=1nl2P`5BTg0]hNf>T0^O3
 !s100 CX[:Oi0O_kABiHa<hOT]32
 R8
 32
-R32
+R70
 !i10b 1
-R33
-Z132 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd|
-Z133 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd|
+R64
+Z131 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd|
+Z132 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd|
 !i113 1
 R13
 R14
@@ -1074,69 +1074,69 @@ Artl
 R2
 R3
 R4
-Z134 DEx4 work 20 ftdi_rx_data_mux_ent 0 22 =1nl2P`5BTg0]hNf>T0^O3
+Z133 DEx4 work 20 ftdi_rx_data_mux_ent 0 22 =1nl2P`5BTg0]hNf>T0^O3
 l45
 L36
 Vz6Yz_9W028eBAndG[RGbT0
 !s100 7;99MIm_8dghQ7DWWbO:G3
 R8
 32
-R32
+R70
 !i10b 1
-R33
+R64
+R131
 R132
-R133
 !i113 1
 R13
 R14
 Eftdi_rx_protocol_header_parser_ent
 R15
-R110
+R108
 R98
 R2
 R3
 R4
 R16
-Z135 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
-Z136 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
+Z134 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
+Z135 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
 l0
 L8
 V:ij<e1>RjgXLEHeJ7Qf8^2
 !s100 8D6Eo[0PAbLGIMh@loDoS0
 R8
 32
-R19
+R70
 !i10b 1
-R20
-Z137 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd|
-Z138 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd|
+R64
+Z136 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd|
+Z137 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd|
 !i113 1
 R13
 R14
 Artl
-R110
+R108
 R98
 R2
 R3
 R4
-R121
+R120
 l56
 L31
 VMQVO2OZ6905AZO_?ZiCmn0
 !s100 =cZFVUNomHhzUc_0L2<f=3
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
+R136
 R137
-R138
 !i113 1
 R13
 R14
 Eftdi_rx_protocol_payload_reader_ent
-R15
-R110
+Z138 w1568825551
+R108
 R98
 R2
 R3
@@ -1150,30 +1150,30 @@ V3cU`3hfbQZUK9Ac4[@]f43
 !s100 GdK^B;mN?]g?omd;oa7381
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
 Z141 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd|
 Z142 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_payload_reader_ent.vhd|
 !i113 1
 R13
 R14
 Artl
-R110
+R108
 R98
 R2
 R3
 R4
-R119
-l78
+R118
+l80
 L37
-V0N?jX6k@Yh17oe^3?0?hG0
-!s100 Y:1kSAzJdLWQl37T5?dMQ1
+V5cSCK0K8eJODf7^Jl:SW[3
+!s100 =RK8`LlL9jSV8i@2C8aWd0
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
 R141
 R142
 !i113 1
@@ -1181,7 +1181,7 @@ R13
 R14
 Eftdi_tx_data_avalon_mm_write_ent
 R15
-R124
+R123
 R2
 R3
 R4
@@ -1203,7 +1203,7 @@ Z146 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developm
 R13
 R14
 Artl
-R124
+R123
 R2
 R3
 R4
@@ -1236,9 +1236,9 @@ VhWKmlc8F=^mkMQ0;EZ?dF3
 !s100 oRL;5aE[MInUB8G?JNLL;3
 R8
 32
-R32
+R70
 !i10b 1
-R33
+R64
 Z150 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd|
 Z151 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd|
 !i113 1
@@ -1255,9 +1255,9 @@ VfM`JeHaUeDW5GXea8^:m91
 !s100 7QzLF3kOZniP7^U0L:7D53
 R8
 32
-R32
+R70
 !i10b 1
-R33
+R64
 R150
 R151
 !i113 1
@@ -1265,7 +1265,7 @@ R13
 R14
 Eftdi_tx_protocol_header_generator_ent
 R15
-R110
+R108
 R98
 R2
 R3
@@ -1279,30 +1279,30 @@ VEbNcMkA2OTBc]N?gHFdFF1
 !s100 C4Y:ARfSNzDcfci@Q`8D]0
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
 Z155 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd|
 Z156 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_header_generator_ent.vhd|
 !i113 1
 R13
 R14
 Artl
-R110
+R108
 R98
 R2
 R3
 R4
-R122
+R121
 l50
 L29
 VOjR0D]Q6O4N:^2416LWNB1
 !s100 FcO@`F95TPS;ZK=gCi;H30
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
 R155
 R156
 !i113 1
@@ -1310,7 +1310,7 @@ R13
 R14
 Eftdi_tx_protocol_payload_writer_ent
 R15
-R110
+R108
 R98
 R2
 R3
@@ -1324,37 +1324,37 @@ V5XDl=:I<]`Xg6hd<006;m0
 !s100 8:Yfbe7MgRoZ6gODRQ^042
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
 Z159 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd|
 Z160 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/PROTOCOL/ftdi_tx_protocol_payload_writer_ent.vhd|
 !i113 1
 R13
 R14
 Artl
-R110
+R108
 R98
 R2
 R3
 R4
-R120
+R119
 l72
 L34
 VR2Fb2A9KI6@6_Ej4;noEB1
 !s100 _LmPO^P1SiJ^A`0QZX:Eh1
 R8
 32
-R19
+R70
 !i10b 1
-R20
+R64
 R159
 R160
 !i113 1
 R13
 R14
 Eftdi_umft601a_controller_ent
-Z161 w1568768747
+Z161 w1568769178
 R2
 R3
 R4
@@ -1367,11 +1367,11 @@ VoW9kd7<E4V?gf@UeZ:hPV3
 !s100 3z9nX`GI_26VNb<znfXkC3
 R8
 32
-Z164 !s110 1568768750
+R32
 !i10b 1
-Z165 !s108 1568768750.000000
-Z166 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd|
-Z167 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd|
+R33
+Z164 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd|
+Z165 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd|
 !i113 1
 R13
 R14
@@ -1380,36 +1380,36 @@ R36
 R96
 R91
 R86
-R68
+R67
 R2
 R3
 R4
-Z168 DEx4 work 28 ftdi_umft601a_controller_ent 0 22 oW9kd7<E4V?gf@UeZ:hPV3
+Z166 DEx4 work 28 ftdi_umft601a_controller_ent 0 22 oW9kd7<E4V?gf@UeZ:hPV3
 l154
 L47
-VPUF[_nl[o9CMfaI>F_FU=0
-!s100 4]BGA29iII2[SFDf0NV;93
+V:[Rc2BgXdKLU5LFTUiYV:2
+!s100 56@a1_=7KNR>4KT]OaTaz2
 R8
 32
-R164
+R32
 !i10b 1
+R33
+R164
 R165
-R166
-R167
 !i113 1
 R13
 R14
 Eftdi_usb3_top
 R29
-R124
+R123
 R1
-R43
+R41
 R2
 R3
 R4
 R16
-Z169 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd
-Z170 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd
+Z167 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd
+Z168 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd
 l0
 L19
 VXEGREj9JVlPOYafUQX6W?2
@@ -1419,31 +1419,31 @@ R8
 R32
 !i10b 1
 R33
-Z171 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd|
-Z172 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd|
+Z169 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd|
+Z170 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Ftdi_Usb3/ftdi_usb3_top.vhd|
 !i113 1
 R13
 R14
 Artl
-R168
-R134
+R166
+R133
 R152
 R73
 R98
-R123
-R129
+R122
+R128
 R24
 R147
-R63
-R48
-R58
-R124
+R61
+R46
+R56
+R123
 R1
-R43
+R41
 R2
 R3
 R4
-Z173 DEx4 work 13 ftdi_usb3_top 0 22 XEGREj9JVlPOYafUQX6W?2
+Z171 DEx4 work 13 ftdi_usb3_top 0 22 XEGREj9JVlPOYafUQX6W?2
 l166
 L55
 Vo?6Z^I;V@Lf;_Yi92_H?S1
@@ -1453,8 +1453,8 @@ R8
 R32
 !i10b 1
 R33
-R171
-R172
+R169
+R170
 !i113 1
 R13
 R14
@@ -1464,19 +1464,19 @@ R2
 R3
 R4
 R16
-Z174 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd
-Z175 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd
+Z172 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd
+Z173 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd
 l0
 L5
 Vi6bK1<WHE;gWJ_c]3OYFG3
 !s100 WghC[>oO5P=o]14:G=RP>3
 R8
 32
-Z176 !s110 1568764760
+R32
 !i10b 1
-Z177 !s108 1568764760.000000
-Z178 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd|
-Z179 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd|
+R33
+Z174 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd|
+Z175 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/rx_data_stimulli.vhd|
 !i113 1
 R13
 R14
@@ -1484,18 +1484,18 @@ Artl
 R2
 R3
 R4
-Z180 DEx4 work 16 rx_data_stimulli 0 22 i6bK1<WHE;gWJ_c]3OYFG3
+Z176 DEx4 work 16 rx_data_stimulli 0 22 i6bK1<WHE;gWJ_c]3OYFG3
 l28
 L20
 V`Yj^b7?MQO06GOf[^3>8m3
 !s100 o5:XK7[1DK^j^9E9@B7XQ3
 R8
 32
-R176
+R32
 !i10b 1
-R177
-R178
-R179
+R33
+R174
+R175
 !i113 1
 R13
 R14
@@ -1506,45 +1506,45 @@ R2
 R3
 R4
 R16
-Z181 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd
-Z182 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd
+Z177 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd
+Z178 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd
 l0
 L7
 V2V;6JdbMeYAH4:QUNE_Rm1
 !s100 J]bmDFhUmH=XZlnPcP49]3
 R8
 32
-R176
+R32
 !i10b 1
-R177
-Z183 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd|
-Z184 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd|
+R33
+Z179 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd|
+Z180 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/testbench_top.vhd|
 !i113 1
 R13
 R14
 Artl
-R124
-R43
-R173
-Z185 DEx4 work 24 usb3_fifo_master_stimuli 0 22 m]k0=k_1Nf`MoVdV^GQWj1
-R180
-Z186 DEx4 work 16 tx_data_stimulli 0 22 ;Mdj:0C6jdza]RAe_OW[03
+R123
+R41
+R171
+Z181 DEx4 work 24 usb3_fifo_master_stimuli 0 22 m]k0=k_1Nf`MoVdV^GQWj1
+R176
+Z182 DEx4 work 16 tx_data_stimulli 0 22 ;Mdj:0C6jdza]RAe_OW[03
 R1
 R2
 R3
 R4
-DEx4 work 13 testbench_top 0 22 2V;6JdbMeYAH4:QUNE_Rm1
+Z183 DEx4 work 13 testbench_top 0 22 2V;6JdbMeYAH4:QUNE_Rm1
 l50
 L10
-VZ5hzNbO:ZgC>FVVd8e]7D2
-!s100 08fG06RkLZ9BEF=SbgUTX3
+Z184 VZ5hzNbO:ZgC>FVVd8e]7D2
+Z185 !s100 08fG06RkLZ9BEF=SbgUTX3
 R8
 32
-R176
+R32
 !i10b 1
-R177
-R183
-R184
+R33
+R179
+R180
 !i113 1
 R13
 R14
@@ -1554,19 +1554,19 @@ R2
 R3
 R4
 R16
-Z187 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd
-Z188 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd
+Z186 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd
+Z187 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd
 l0
 L5
 V;Mdj:0C6jdza]RAe_OW[03
 !s100 8?keG=FY@B8]HddEO<i;^3
 R8
 32
-R176
+R32
 !i10b 1
-R177
-Z189 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd|
-Z190 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd|
+R33
+Z188 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd|
+Z189 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/tx_data_stimulli.vhd|
 !i113 1
 R13
 R14
@@ -1574,40 +1574,40 @@ Artl
 R2
 R3
 R4
-R186
+R182
 l39
 L20
 VR];L^?k^G_ULjY^f@67YO0
 !s100 UI`6RO6C>Y;n0jn6S<G`j0
 R8
 32
-R176
+R32
 !i10b 1
-R177
+R33
+R188
 R189
-R190
 !i113 1
 R13
 R14
 Eusb3_fifo_master_stimuli
-Z191 w1568765013
+Z190 w1568765013
 R2
 R3
 R4
 R16
-Z192 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd
-Z193 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd
+Z191 8C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd
+Z192 FC:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd
 l0
 L5
 Vm]k0=k_1Nf`MoVdV^GQWj1
 !s100 i=iC^_3PXO5h995bC=5``2
 R8
 32
-Z194 !s110 1568765014
+R32
 !i10b 1
-Z195 !s108 1568765014.000000
-Z196 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd|
-Z197 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd|
+R33
+Z193 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd|
+Z194 !s107 C:/Users/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/FTDI_USB3/Development/Testbench/usb3_fifo_master_stimuli.vhd|
 !i113 1
 R13
 R14
@@ -1616,32 +1616,32 @@ R91
 R2
 R3
 R4
-R185
+R181
 l1157
 L21
 VZQaIH`ahaIGaSRTX@_SQJ3
 !s100 2AJ0NZPTU3lFXlAR[Ez<V3
 R8
 32
-R194
+R32
 !i10b 1
-R195
-R196
-R197
+R33
+R193
+R194
 !i113 1
 R13
 R14
 Eusb_3_ftdi_top
-Z198 w1568167562
-R124
+Z195 w1568167562
+R123
 R1
-R43
+R41
 R2
 R3
 R4
 R5
-Z199 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
-Z200 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
+Z196 8D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
+Z197 FD:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd
 l0
 L19
 VDC]WVW?jd7O:l_ame_PL42
@@ -1651,27 +1651,27 @@ R8
 R38
 !i10b 1
 R39
-Z201 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd|
-Z202 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd|
+Z198 !s90 -reportprogress|300|-work|work|-2002|-explicit|-stats=none|D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd|
+Z199 !s107 D:/rfranca/Development/GitHub/SimuCam_Development/FPGA_Developments/USB_3_FTDI/Development/Usb_3_Ftdi/USB_3_FTDI_top.vhd|
 !i113 1
 R13
 R14
 Artl
 DEx4 work 28 ftdi_umft601a_controller_ent 0 22 kmYa^65f13O;h[XeD@T_S2
-R134
+R133
 R152
 R73
-R98
-R123
+DPx4 work 17 ftdi_protocol_pkg 0 22 iQe?oAeQEF7:>?^onc6Pc1
+R122
 DEx4 work 31 ftdi_rx_data_avalon_mm_read_ent 0 22 7:BBQci1TdfBRe4GFNIQK2
 R24
 R147
-R63
-R48
+R61
+R46
 R40
-R124
+R123
 R1
-R43
+R41
 R2
 R3
 R4
@@ -1685,8 +1685,8 @@ R8
 R38
 !i10b 1
 R39
-R201
-R202
+R198
+R199
 !i113 1
 R13
 R14

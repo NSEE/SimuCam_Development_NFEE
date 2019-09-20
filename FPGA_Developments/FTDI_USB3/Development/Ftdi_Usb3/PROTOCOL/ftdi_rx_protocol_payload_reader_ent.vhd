@@ -45,7 +45,7 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 		STOPPED,                        -- payload reader stopped
 		IDLE,                           -- payload reader in idle
 		WAITING_RX_DATA_SOP,            -- wait until the rx fifo have data
-		PAYLOAD_RX_START_OF_PAYLOAD,     -- parse a start of payload from the rx fifo (discard all data until a sop)
+		PAYLOAD_RX_START_OF_PAYLOAD,    -- parse a start of payload from the rx fifo (discard all data until a sop)
 		WAITING_RX_READY,               -- wait until there is data to be fetched and space to write
 		PRE_FETCH_DELAY,                -- pre fetch delay
 		FETCH_RX_DWORD_0,               -- fetch rx dword data 0 (32b)
@@ -169,32 +169,32 @@ begin
 				when WAITING_RX_DATA_SOP =>
 					-- wait until the rx fifo have data
 					-- default state transition
-					s_ftdi_tx_prot_header_parser_state <= WAITING_RX_DATA_SOP;
-					v_ftdi_tx_prot_header_parser_state := WAITING_RX_DATA_SOP;
+					s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_SOP;
+					v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_SOP;
 					-- default internal signal values
-					s_header_crc32_match               <= '0';
-					s_header_eoh_error                 <= '0';
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
 					-- conditional state transition
 					-- check if the rx dc data fifo is not empty 
 					if (rx_dc_data_fifo_rdempty_i = '0') then
-						s_ftdi_tx_prot_header_parser_state <= PAYLOAD_RX_START_OF_PAYLOAD;
-						v_ftdi_tx_prot_header_parser_state := PAYLOAD_RX_START_OF_PAYLOAD;
+						s_ftdi_tx_prot_payload_reader_state <= PAYLOAD_RX_START_OF_PAYLOAD;
+						v_ftdi_tx_prot_payload_reader_state := PAYLOAD_RX_START_OF_PAYLOAD;
 					end if;
 
 				-- state "PAYLOAD_RX_START_OF_PAYLOAD"
 				when PAYLOAD_RX_START_OF_PAYLOAD =>
 					-- parse a start of payload from the rx fifo (discard all data until a sop)
 					-- default state transition
-					s_ftdi_tx_prot_header_parser_state <= WAITING_RX_DATA_SOP;
-					v_ftdi_tx_prot_header_parser_state := WAITING_RX_DATA_SOP;
+					s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_SOP;
+					v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_SOP;
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
 					-- conditional state transition
 					-- check if a start of package was detected
 					if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PAYLOAD) then
-						s_ftdi_tx_prot_header_parser_state <= WAITING_RX_READY;
-						v_ftdi_tx_prot_header_parser_state := WAITING_RX_READY;
+						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_READY;
+						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_READY;
 					end if;
 
 				-- state "WAITING_RX_READY"
