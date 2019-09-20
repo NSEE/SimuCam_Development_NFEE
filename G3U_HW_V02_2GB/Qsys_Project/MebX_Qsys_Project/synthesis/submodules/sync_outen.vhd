@@ -20,7 +20,7 @@ use work.sync_outen_pkg.all;
 --
 --! @brief 
 --
---! @author Rodrigo França (rodrigo.franca@maua.br)
+--! @author Rodrigo FranÃ§a (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --
@@ -68,76 +68,89 @@ architecture rtl of sync_outen is
 	--============================================================================
 	-- architecture begin
 	--============================================================================
+
+	signal s_sync_out : t_sync_outen_output;
+
 begin
-	p_sync_outen : process(clk_i, reset_n_i, sync_pol_i) is
+	p_sync_outen : process(clk_i, reset_n_i) is
 	begin
 		if (reset_n_i = '0') then
-			sync_channels_o.channel_1_signal <= not (sync_pol_i);
-			sync_channels_o.channel_2_signal <= not (sync_pol_i);
-			sync_channels_o.channel_3_signal <= not (sync_pol_i);
-			sync_channels_o.channel_4_signal <= not (sync_pol_i);
-			sync_channels_o.channel_5_signal <= not (sync_pol_i);
-			sync_channels_o.channel_6_signal <= not (sync_pol_i);
-			sync_channels_o.channel_7_signal <= not (sync_pol_i);
-			sync_channels_o.channel_8_signal <= not (sync_pol_i);
-			sync_channels_o.sync_out_signal  <= not (sync_pol_i);
+			s_sync_out.channel_1_signal <= '0';
+			s_sync_out.channel_2_signal <= '0';
+			s_sync_out.channel_3_signal <= '0';
+			s_sync_out.channel_4_signal <= '0';
+			s_sync_out.channel_5_signal <= '0';
+			s_sync_out.channel_6_signal <= '0';
+			s_sync_out.channel_7_signal <= '0';
+			s_sync_out.channel_8_signal <= '0';
+			s_sync_out.sync_out_signal  <= '0';
 
 		elsif (rising_edge(clk_i)) then
 			if (sync_control_i.channel_1_enable = '1') then
-				sync_channels_o.channel_1_signal <= sync_signal_i;
+				s_sync_out.channel_1_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_1_signal <= not (sync_pol_i);
+				s_sync_out.channel_1_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_2_enable = '1') then
-				sync_channels_o.channel_2_signal <= sync_signal_i;
+				s_sync_out.channel_2_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_2_signal <= not (sync_pol_i);
+				s_sync_out.channel_2_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_3_enable = '1') then
-				sync_channels_o.channel_3_signal <= sync_signal_i;
+				s_sync_out.channel_3_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_3_signal <= not (sync_pol_i);
+				s_sync_out.channel_3_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_4_enable = '1') then
-				sync_channels_o.channel_4_signal <= sync_signal_i;
+				s_sync_out.channel_4_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_4_signal <= not (sync_pol_i);
+				s_sync_out.channel_4_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_5_enable = '1') then
-				sync_channels_o.channel_5_signal <= sync_signal_i;
+				s_sync_out.channel_5_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_5_signal <= not (sync_pol_i);
+				s_sync_out.channel_5_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_6_enable = '1') then
-				sync_channels_o.channel_6_signal <= sync_signal_i;
+				s_sync_out.channel_6_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_6_signal <= not (sync_pol_i);
+				s_sync_out.channel_6_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_7_enable = '1') then
-				sync_channels_o.channel_7_signal <= sync_signal_i;
+				s_sync_out.channel_7_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_7_signal <= not (sync_pol_i);
+				s_sync_out.channel_7_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.channel_8_enable = '1') then
-				sync_channels_o.channel_8_signal <= sync_signal_i;
+				s_sync_out.channel_8_signal <= sync_signal_i;
 			else
-				sync_channels_o.channel_8_signal <= not (sync_pol_i);
+				s_sync_out.channel_8_signal <= not (sync_pol_i);
 			end if;
 
 			if (sync_control_i.sync_out_enable = '1') then
-				sync_channels_o.sync_out_signal <= sync_signal_i;
+				s_sync_out.sync_out_signal <= sync_signal_i;
 			else
-				sync_channels_o.sync_out_signal <= not (sync_pol_i);
+				s_sync_out.sync_out_signal <= not (sync_pol_i);
 			end if;
 		end if;
 	end process p_sync_outen;
+
+	sync_channels_o.channel_1_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_1_signal);
+	sync_channels_o.channel_2_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_2_signal);
+	sync_channels_o.channel_3_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_3_signal);
+	sync_channels_o.channel_4_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_4_signal);
+	sync_channels_o.channel_5_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_5_signal);
+	sync_channels_o.channel_6_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_6_signal);
+	sync_channels_o.channel_7_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_7_signal);
+	sync_channels_o.channel_8_signal <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.channel_8_signal);
+	sync_channels_o.sync_out_signal  <= (not (sync_pol_i)) when (reset_n_i = '0') else (s_sync_out.sync_out_signal);
 
 end architecture rtl;
 --============================================================================

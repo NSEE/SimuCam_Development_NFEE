@@ -138,6 +138,8 @@ BEGIN
 			SEG1_ENABLE <= '0';
 			SEG0_ENABLE <= '0';
 			STATE_MACHINE <= S_STANDBY;
+			SEVEN_SEG_DSP1_OUT <= X"FF";
+			SEVEN_SEG_DSP0_OUT <= X"FF";
 		ELSIF (RISING_EDGE(CLK)) THEN
 			CASE STATE_MACHINE IS
 			
@@ -183,17 +185,28 @@ BEGIN
 					STATE_MACHINE <= S_STANDBY;
 					
 			END CASE;
+			
+			IF (SEG1_ON_OFF = '1') THEN
+				IF (SEG1_TEST = '1') THEN
+					SEVEN_SEG_DSP1_OUT <= X"00";
+				ELSE
+					SEVEN_SEG_DSP1_OUT <= SEG1_DBITS_OUT;
+				END IF;
+			ELSE
+				SEVEN_SEG_DSP1_OUT <= X"FF";
+			END IF;
+			
+			IF (SEG0_ON_OFF = '1') THEN
+				IF (SEG0_TEST = '1') THEN
+					SEVEN_SEG_DSP0_OUT <= X"00";
+				ELSE
+					SEVEN_SEG_DSP0_OUT <= SEG0_DBITS_OUT;
+				END IF;
+			ELSE
+				SEVEN_SEG_DSP0_OUT <= X"FF";
+			END IF;
+		
 		END IF;
 	END PROCESS GLOBAL;
-	
-	SEVEN_SEG_DSP1_OUT <= 
-		X"FF"          WHEN (SEG1_ON_OFF = '0')                         ELSE
-		X"00"          WHEN ((SEG1_ON_OFF = '1') AND (SEG1_TEST = '1')) ELSE
-		SEG1_DBITS_OUT WHEN ((SEG1_ON_OFF = '1') AND (SEG1_TEST = '0'));
-		
-	SEVEN_SEG_DSP0_OUT <= 
-		X"FF"          WHEN (SEG0_ON_OFF = '0')                         ELSE
-		X"00"          WHEN ((SEG0_ON_OFF = '1') AND (SEG0_TEST = '1')) ELSE
-		SEG0_DBITS_OUT WHEN ((SEG0_ON_OFF = '1') AND (SEG0_TEST = '0'));
 	
 END ARCHITECTURE TOP;
