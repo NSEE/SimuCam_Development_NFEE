@@ -37,11 +37,11 @@ void vSyncResetTask( void *task_data ){
 
         /* Receive delay time via qck */
         usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 0, &iErrorCodeL);
-        
+
         if (iErrorCodeL == OS_ERR_NONE) {
 
             /* Format the delay time */
-            xDlyAdjusted = div (usiResetDelayL, 1000);
+            xDlyAdjusted = div ((usiResetDelayL - usiPreSyncTimeDif), 1000);
 
             /* Disable Sync */
             iErrorCodeL = bStopSync();
@@ -52,11 +52,15 @@ void vSyncResetTask( void *task_data ){
                 pxMeb->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0; 
             }
 
-
             /* Wait ufSynchDelay milliseconds adjusted minus the time needed for pre-sync*/ 
-            OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, (xDlyAdjusted.rem - usiPreSyncTimeDif));
+            OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, (xDlyAdjusted.rem));
 
             /* Sending pre-sync */
+            #if DEBUG_ON
+            if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+                fprintf(fp,"Pre-Sync Signal\n");
+            }
+            #endif
             
             uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
             
@@ -67,8 +71,9 @@ void vSyncResetTask( void *task_data ){
                     vFailSendMsgSync( ucIL );
                 }
             }
+
             /* Wait the rest of the time */
-//            OSTimeDlyHMSM(0,0,0,usiPreSyncTimeDif);
+            OSTimeDlyHMSM(0,0,0,usiPreSyncTimeDif);
 
             /* Enable Sync */
             bStartSync();

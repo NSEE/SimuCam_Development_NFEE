@@ -138,6 +138,18 @@ void vParserCommTask(void *task_data) {
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
+							case 31: /* TC_SYNCH_RESET [bndky]*/
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp,"Parser Task: TC_SYNCH_RESET\n");
+								#endif
+								/* Get the value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
+
 							case 59: /* TC_SCAM_RESET */
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )

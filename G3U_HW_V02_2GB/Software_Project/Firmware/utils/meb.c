@@ -159,12 +159,12 @@ void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
 
         if (iErrorCodeL == OS_NO_ERR){
             /* Put all NFEE in Stand-by mode, if not in Config mode */
-
-            for( i = 0; i < N_OF_NFEE; i++){
-                    if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
-                        bSendCmdQToNFeeInst_Prio( i, M_FEE_STANDBY, 0, i  );
-                    }
-                }
+            /* TODO: Tiago put all FEEs in anterior mode */
+            // for( i = 0; i < N_OF_NFEE; i++){
+            //         if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
+            //             bSendCmdQToNFeeInst_Prio( i, M_FEE_STANDBY_FORCED, 0, i  );
+            //         }
+            //     }
         }else{
             #if DEBUG_ON
                 if ( xDefaults.usiDebugLevel <= dlMajorMessage )
