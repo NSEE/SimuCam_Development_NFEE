@@ -44,6 +44,8 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 	type t_ftdi_tx_prot_payload_reader_fsm is (
 		STOPPED,                        -- payload reader stopped
 		IDLE,                           -- payload reader in idle
+		WAITING_RX_DATA_SOP,            -- wait until the rx fifo have data
+		PAYLOAD_RX_START_OF_PAYLOAD,    -- parse a start of payload from the rx fifo (discard all data until a sop)
 		WAITING_RX_READY,               -- wait until there is data to be fetched and space to write
 		PRE_FETCH_DELAY,                -- pre fetch delay
 		FETCH_RX_DWORD_0,               -- fetch rx dword data 0 (32b)
@@ -153,14 +155,46 @@ begin
 					-- conditional state transition
 					-- check if a payload writer start was issued
 					if (payload_reader_start_i = '1') then
-						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_READY;
-						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_READY;
+						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_SOP;
+						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_SOP;
 						if (unsigned(payload_length_bytes_i) >= 4) then
 							s_payload_length_cnt <= payload_length_bytes_i;
 						else
 							s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_EOP;
 							v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_EOP;
 						end if;
+					end if;
+
+				-- state "WAITING_RX_DATA_SOP"
+				when WAITING_RX_DATA_SOP =>
+					-- wait until the rx fifo have data
+					-- default state transition
+					s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_SOP;
+					v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_SOP;
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					-- conditional state transition
+					-- check if the rx dc data fifo is not empty 
+					if (rx_dc_data_fifo_rdempty_i = '0') then
+						s_ftdi_tx_prot_payload_reader_state <= PAYLOAD_RX_START_OF_PAYLOAD;
+						v_ftdi_tx_prot_payload_reader_state := PAYLOAD_RX_START_OF_PAYLOAD;
+					end if;
+
+				-- state "PAYLOAD_RX_START_OF_PAYLOAD"
+				when PAYLOAD_RX_START_OF_PAYLOAD =>
+					-- parse a start of payload from the rx fifo (discard all data until a sop)
+					-- default state transition
+					s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_DATA_SOP;
+					v_ftdi_tx_prot_payload_reader_state := WAITING_RX_DATA_SOP;
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					-- conditional state transition
+					-- check if a start of package was detected
+					if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PAYLOAD) then
+						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_READY;
+						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_READY;
 					end if;
 
 				-- state "WAITING_RX_READY"
@@ -690,6 +724,52 @@ begin
 					payload_eop_error_o      <= '0';
 					payload_last_rx_buffer_o <= '0';
 					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
+				-- conditional output signals
+
+				-- state "WAITING_RX_DATA_SOP"
+				when WAITING_RX_DATA_SOP =>
+					-- wait until the rx fifo have data
+					-- default output signals
+					payload_reader_busy_o    <= '1';
+					s_payload_crc32          <= c_FTDI_PROT_CRC32_START;
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
+				-- conditional output signals
+
+				-- state "PAYLOAD_RX_START_OF_PAYLOAD"
+				when PAYLOAD_RX_START_OF_PAYLOAD =>
+					-- parse a start of payload from the rx fifo (discard all data until a sop)
+					-- default output signals
+					payload_reader_busy_o    <= '1';
+					s_payload_crc32          <= c_FTDI_PROT_CRC32_START;
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '1';
 					buffer_data_loaded_o     <= '0';
 					buffer_wrdata_o          <= (others => '0');
 					buffer_wrreq_o           <= '0';
