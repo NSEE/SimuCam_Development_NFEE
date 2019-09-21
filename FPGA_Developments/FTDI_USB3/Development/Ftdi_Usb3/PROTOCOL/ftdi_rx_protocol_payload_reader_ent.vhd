@@ -769,6 +769,7 @@ begin
 					payload_crc32_match_o    <= '0';
 					payload_eop_error_o      <= '0';
 					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '1';
 					buffer_data_loaded_o     <= '0';
 					buffer_wrdata_o          <= (others => '0');
 					buffer_wrreq_o           <= '0';
