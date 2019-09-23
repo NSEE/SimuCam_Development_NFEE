@@ -43,8 +43,25 @@ architecture RTL of usb3_fifo_master_stimuli is
 		x"00000000",
 		x"00000000",
 		x"00000000",
-		x"58374840",
-		x"33333333"
+		x"58374840", x"33333333"
+--		x"00000000", x"33333333"
+--		x"58374840", x"00000000"
+--		x"00000000", x"00000000"
+	);
+	
+	-- NACK Package
+	type t_ftdi_prot_nack_package is array (0 to 7) of std_logic_vector(31 downto 0);
+	constant c_FTDI_PROT_NACK_PACKAGE : t_ftdi_prot_nack_package := (
+		x"55555555",
+		x"10101010",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"00000000",
+		x"C7CEA3C5", x"33333333"
+--		x"00000000", x"33333333"
+--		x"C7CEA3C5", x"00000000"
+--		x"00000000", x"00000000"
 	);
 
 	-- Reply Package
@@ -56,8 +73,10 @@ architecture RTL of usb3_fifo_master_stimuli is
 		x"07001000",
 		x"6B030000",
 		x"00880000",
-		x"56E8791C",
-		x"33333333"
+		x"56E8791C", x"33333333"
+--		x"00000000", x"33333333"
+--		x"56E8791C", x"00000000"
+--		x"00000000", x"00000000"
 	);
 
 	-- Reply Payload
@@ -1154,6 +1173,9 @@ architecture RTL of usb3_fifo_master_stimuli is
 		x"E43FE53F", x"E63FE73F", x"E83FE93F", x"EA3FEB3F", x"EC3FED3F", x"EE3FEF3F", x"F03FF13F", x"F23FF33F",
 		x"F43FF53F", x"F63FF73F", x"F83FF93F", x"FA3FFB3F", x"FC3FFD3F", x"FE3FFF3F", x"FFFFFFFF", x"FFFFFFFF",
 		x"A68EFDA1", x"77777777"
+--		x"00000000", x"77777777"
+--		x"A68EFDA1", x"00000000"
+--		x"00000000", x"00000000"
 	);
 
 begin
@@ -1257,6 +1279,7 @@ begin
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= c_FTDI_PROT_ACK_PACKAGE(v_data_cnt);
+--					s_umft601a_data_out     <= c_FTDI_PROT_NACK_PACKAGE(v_data_cnt);
 					v_data_cnt              := v_data_cnt + 1;
 					s_umft601a_wakeup_n_out <= '1';
 					s_umft601a_be_out       <= (others => '1');
@@ -1270,6 +1293,7 @@ begin
 					s_umft601a_be_out       <= (others => '0');
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
+--					s_counter               <= 10;
 
 				when 70 to 72 =>
 					umft_rxf_n_pin_o        <= '0';
@@ -1297,8 +1321,8 @@ begin
 					s_umft601a_be_out       <= (others => '0');
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
-					s_counter               <= 5000;
-
+--					s_counter               <= 50;
+					
 				when 5100 to 5102 =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';

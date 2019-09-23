@@ -102,7 +102,7 @@ architecture RTL of ftdi_protocol_controller_ent is
 	signal s_registered_request_data  : t_ftdi_prot_header_fields;
 	signal s_parsed_reply_header_data : t_ftdi_prot_header_fields;
 
-	signal s_request_tries : natural range 0 to 2;
+	signal s_request_tries : natural range 0 to 3;
 
 	signal s_general_error : std_logic;
 
@@ -358,33 +358,66 @@ begin
 					s_err_half_ccd_request_nack_err     <= '0';
 					s_err_half_ccd_reply_header_crc_err <= '0';
 					s_err_half_ccd_reply_eoh_err        <= '0';
+					s_err_half_ccd_req_max_tries_err    <= '0';
 					s_timeout_delay_clear               <= '0';
 					s_timeout_delay_trigger             <= '0';
 					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
-					-- check if the arriving package passed the CRC check
-					if ((header_parser_crc32_match_i = '1') and (header_parser_eoh_error_i = '0')) then
+					-- check if a complete header arrived and the CRC matched
+					if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
 						-- CRC matched and End of Header error not ocurred, package is reliable
 						-- check if the arriving package is a ACK or NACK
 						if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_ACK_OK) then
 							-- ACK received
 							s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
 							v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+							s_request_tries              <= 3;
 						elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_NACK_ERROR) then
 							-- NACK received
-							s_err_half_ccd_request_nack_err <= '1';
-							-- check if maximum amout of tries was attempted (3 tries)
-							if (s_request_tries > 0) then
+							-- check if the number of requiest tries ended
+							if (s_request_tries = 0) then
+								-- no more tries, go to finish
+								s_ftdi_prot_controller_state     <= HFCCD_REQ_FINISH;
+								v_ftdi_prot_controller_state     := HFCCD_REQ_FINISH;
+								s_err_half_ccd_req_max_tries_err <= '1';
+							else
+								-- send another request
 								s_ftdi_prot_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
 								v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
 								s_request_tries              <= s_request_tries - 1;
 							end if;
+							s_err_half_ccd_request_nack_err     <= '1';
 						else
-							-- Unexpected package received
-							s_general_error <= '1';
+							-- Unknown packet received
+							-- send another request
+							-- check if the number of requiest tries ended
+							if (s_request_tries = 0) then
+								-- no more tries, go to finish
+								s_ftdi_prot_controller_state     <= HFCCD_REQ_FINISH;
+								v_ftdi_prot_controller_state     := HFCCD_REQ_FINISH;
+								s_err_half_ccd_req_max_tries_err <= '1';
+							else
+								-- send another request
+								s_ftdi_prot_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+								v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
+								s_request_tries              <= s_request_tries - 1;
+							end if;
 						end if;
 					else
-						-- Package CRC does not match or End of Header error ocurred
+						-- error with the received package
+						-- send another request
+						-- check if the number of requiest tries ended
+						if (s_request_tries = 0) then
+							-- no more tries, go to finish
+							s_ftdi_prot_controller_state     <= HFCCD_REQ_FINISH;
+							v_ftdi_prot_controller_state     := HFCCD_REQ_FINISH;
+							s_err_half_ccd_req_max_tries_err <= '1';
+						else
+							-- send another request
+							s_ftdi_prot_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+							v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
+							s_request_tries              <= s_request_tries - 1;
+						end if;
 						s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
 						s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
 					end if;
@@ -424,44 +457,50 @@ begin
 				when HFCCD_REPLY_PARSE_RX_HEADER =>
 					-- half-ccd request parse reply header
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
-					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
+					s_ftdi_prot_controller_state        <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state        := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					s_request_tries              <= 2;
-					s_parsed_reply_header_data   <= header_parser_data_i;
-					s_general_error              <= '0';
-					s_timeout_delay_clear        <= '0';
-					s_timeout_delay_trigger      <= '0';
-					s_timeout_delay_timer        <= (others => '0');
+					s_request_tries                     <= 3;
+					s_parsed_reply_header_data          <= header_parser_data_i;
+					s_err_half_ccd_reply_header_crc_err <= '0';
+					s_err_half_ccd_reply_eoh_err        <= '0';
+					s_err_half_ccd_reply_ccd_size_err   <= '0';
+					s_general_error                     <= '0';
+					s_timeout_delay_clear               <= '0';
+					s_timeout_delay_trigger             <= '0';
+					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
-					-- check if the arriving package passed the CRC check
-					if (header_parser_crc32_match_i = '1') then
-						-- CRC matched, package is reliable
-						-- check if an error was not detected
-						if (header_parser_eoh_error_i = '0') then
+					-- check if a complete header arrived and the CRC matched
+					if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
+						-- CRC matched and End of Header error not ocurred, package is reliable
+						-- check if a Half-CCD Reply was received
+						if (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_HALF_CCD_REPLY) then
+							-- Half-CCD Reply received
 							-- send a ACK
 							s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_HEADER;
 							v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_HEADER;
+						-- check if a Wrong Image Size was received
+						elsif (header_parser_data_i.package_id = c_FTDI_PROT_PKG_ID_WRONG_IMG_SIZE) then
+							-- Wrong Image Size received
+							-- send a NACK
+							s_ftdi_prot_controller_state        <= HFCCD_NACK_SEND_TX_HEADER;
+							v_ftdi_prot_controller_state        := HFCCD_NACK_SEND_TX_HEADER;
+							s_request_tries                     <= s_request_tries - 1;
+							s_err_half_ccd_reply_ccd_size_err   <= '1';
 						else
-							-- check if maximum amout of tries was attempted (3 tries)
-							if (s_request_tries > 0) then
-								-- send a NACK
-								s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
-								v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_HEADER;
-								s_request_tries              <= s_request_tries - 1;
-								s_general_error              <= '1';
-							end if;
+							-- Unknown package received
+							-- send a NACK
+							s_ftdi_prot_controller_state        <= HFCCD_NACK_SEND_TX_HEADER;
+							v_ftdi_prot_controller_state        := HFCCD_NACK_SEND_TX_HEADER;
+							s_request_tries                     <= s_request_tries - 1;
 						end if;
 					else
-						-- Package CRC does not match
-						-- check if maximum amout of tries was attempted (3 tries)
-						if (s_request_tries > 0) then
-							-- send a NACK
-							s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
-							v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_HEADER;
-							s_request_tries              <= s_request_tries - 1;
-							s_general_error              <= '1';
-						end if;
+						-- send a NACK
+						s_ftdi_prot_controller_state        <= HFCCD_NACK_SEND_TX_HEADER;
+						v_ftdi_prot_controller_state        := HFCCD_NACK_SEND_TX_HEADER;
+						s_request_tries                     <= s_request_tries - 1;
+						s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
+						s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
 					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_HEADER"
@@ -543,14 +582,21 @@ begin
 				when HFCCD_NACK_RESET_TX_HEADER =>
 					-- half-ccd request reset reply nack
 					-- default state transition
-					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
-					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
+					s_ftdi_prot_controller_state     <= HFCCD_REPLY_RECEIVE_RX_HEADER;
+					v_ftdi_prot_controller_state     := HFCCD_REPLY_RECEIVE_RX_HEADER;
 					-- default internal signal values
-					s_general_error              <= '0';
-					s_timeout_delay_clear        <= '0';
-					s_timeout_delay_trigger      <= '0';
-					s_timeout_delay_timer        <= (others => '0');
-				-- conditional state transition
+					s_err_half_ccd_req_max_tries_err <= '0';
+					s_timeout_delay_clear            <= '0';
+					s_timeout_delay_trigger          <= '0';
+					s_timeout_delay_timer            <= (others => '0');
+					-- conditional state transition
+					-- check if the number of requiest tries ended
+					if (s_request_tries = 0) then
+						-- no more tries, go to finish
+						s_ftdi_prot_controller_state     <= HFCCD_REQ_FINISH;
+						v_ftdi_prot_controller_state     := HFCCD_REQ_FINISH;
+						s_err_half_ccd_req_max_tries_err <= '1';
+					end if;
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
 				when HFCCD_REPLY_RECEIVE_RX_PAYLOAD =>
@@ -597,26 +643,18 @@ begin
 					s_timeout_delay_trigger              <= '0';
 					s_timeout_delay_timer                <= (others => '0');
 					-- conditional state transition
-					-- check if the arriving package passed the CRC check
-					if (payload_reader_crc32_match_i = '1') then
-						-- CRC matched, package is reliable
-						-- check if an error was not detected
-						if (payload_reader_eop_error_i = '0') then
-							-- send a ACK
-							s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
-							v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
-						else
-							-- send a NACK
-							s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_PAYLOAD;
-							v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_PAYLOAD;
-							s_err_half_ccd_reply_eop_err <= '1';
-						end if;
+					-- check if a full package arrived and the CRC matched
+					if ((payload_reader_eop_error_i = '0') and (payload_reader_crc32_match_i = '1')) then
+						-- send an ACK
+						s_ftdi_prot_controller_state <= HFCCD_ACK_SEND_TX_PAYLOAD;
+						v_ftdi_prot_controller_state := HFCCD_ACK_SEND_TX_PAYLOAD;
 					else
-						-- Package CRC does not match
 						-- send a NACK
 						s_ftdi_prot_controller_state         <= HFCCD_NACK_SEND_TX_PAYLOAD;
 						v_ftdi_prot_controller_state         := HFCCD_NACK_SEND_TX_PAYLOAD;
-						s_err_half_ccd_reply_payload_crc_err <= '1';
+						-- get errors flags
+						s_err_half_ccd_reply_payload_crc_err <= not (payload_reader_crc32_match_i);
+						s_err_half_ccd_reply_eop_err         <= payload_reader_eop_error_i;
 					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
