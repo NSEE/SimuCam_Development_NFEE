@@ -62,6 +62,14 @@ void vParserCommTask(void *task_data) {
 				{
 					case ETH_CMD: /*NUC requested the ETH Configuration*/
 						vSendEthConf();
+
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
+						}
+						#endif
+
+
 						eParserMode = sWaitingMessage;
 						break;
 

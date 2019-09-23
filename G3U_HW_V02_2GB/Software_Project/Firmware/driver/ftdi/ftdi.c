@@ -156,11 +156,11 @@ if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 			vFailSendBufferLastIRQtoDTC();
 		}
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-	fprintf(fp,"FTDI Irq Last\n");
-}
-#endif
+//#if DEBUG_ON
+//if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//	fprintf(fp,"FTDI Irq Last\n");
+//}
+//#endif
 
 
 	}

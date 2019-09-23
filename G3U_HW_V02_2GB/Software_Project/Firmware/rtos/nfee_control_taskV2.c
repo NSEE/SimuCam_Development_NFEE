@@ -30,7 +30,7 @@ void vNFeeControlTaskV2(void *task_data) {
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-        debug(fp,"NFee Controller Task. (Task on)\n");
+        debug(fp,"FEE Controller Task. (Task on)\n");
     #endif
 
 	for (;;) {

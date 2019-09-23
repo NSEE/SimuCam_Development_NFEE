@@ -22,7 +22,7 @@ void vSimMebTask(void *task_data) {
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-        fprintf(fp,"Sim-Meb Controller Task. (Task on)\n");
+        fprintf(fp,"MEB Controller Task. (Task on)\n");
     #endif
 
 
@@ -49,33 +49,71 @@ void vSimMebTask(void *task_data) {
 				bEnableIsoDrivers();
 				bEnableLvdsBoard();
 
+				pxMebC->ucActualDDR = 1;
+				pxMebC->ucNextDDR = 0;
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-					fprintf(fp,"MEB Task: Run Mode\n");
+					fprintf(fp,"\nMEB Task: Going to Run Mode\n");
 				#endif
-				/* Transition to Run Mode (Starting the Simulation) */
-				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+					fprintf(fp,"MEB Task: First DTC will load at least one full sky from SSD.\n");
+					fprintf(fp,"MEB Task: All other modules will wait until DTC finishes.\n");
+				#endif
+
+				/*Time to read, remover later*/ //todo: Remove later releases
+				OSTimeDlyHMSM(0, 0, 3, 0);
+
+
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
 
-				/* Give time to DTC and NFEE controller to start all processe before the first master sync */
-				OSTimeDlyHMSM(0, 0, 0, 100);
-				//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
-				/* Give time to all tasks receive the command */
-				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+				OSSemPend(xSemCommInit, 0, &error_code); /*Blocking*/
+				if ( error_code == OS_ERR_NONE ) {
 
-				/* Clear the timecode of the channel SPW (for now is for spw channel) */
-				for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
-					bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
-					pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+						fprintf(fp,"MEB Task: FEE Controller and FEEs to RUN.\n");
+					#endif
+
+
+					/* Transition to Run Mode (Starting the Simulation) */
+					vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+
+					/* Give time to DTC and NFEE controller to start all processe before the first master sync */
+					OSTimeDlyHMSM(0, 0, 0, 250);
+					//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
+					/* Give time to all tasks receive the command */
+					//OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+
+					/* Clear the timecode of the channel SPW (for now is for spw channel) */
+					for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
+						pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+					}
+
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds");
+						OSTimeDlyHMSM(0, 0, 5, 200);
+					#endif
+
+					/*This sequence start the HW sync module*/
+					bSyncCtrReset();
+					vSyncClearCounter();
+					bStartSync();
+
+					vEvtChangeMebMode();
+					pxMebC->eMode = sMebRun;
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync sem from DTC, backing to Config Mode\n");
+					#endif
+					pxMebC->eMode = sMebToConfig;
 				}
 
-				/*This sequence start the HW sync module*/
-				bSyncCtrReset();
-				vSyncClearCounter();
-				bStartSync();
-
-				vEvtChangeMebMode();
-				pxMebC->eMode = sMebRun;
 				break;
 
 			case sMebConfig:
@@ -148,7 +186,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vSwapMemmory(pxMebCLocal);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nMaster Sync\n");
+					fprintf(fp,"\n============== Master Sync ==============\n\n");
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
@@ -158,7 +196,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_PRE_MASTER:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nSync\n");
+					fprintf(fp,"\n-------------- Sync --------------\n");
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
@@ -767,8 +805,8 @@ void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, uns
 void vMebInit(TSimucam_MEB *pxMebCLocal) {
 	INT8U errorCodeL;
 
-	pxMebCLocal->ucActualDDR = 0;
-	pxMebCLocal->ucNextDDR = 1;
+	pxMebCLocal->ucActualDDR = 1;
+	pxMebCLocal->ucNextDDR = 0;
 	/* Flush all communication Queues */
 	errorCodeL = OSQFlush(xMebQ);
 	if ( errorCodeL != OS_NO_ERR ) {

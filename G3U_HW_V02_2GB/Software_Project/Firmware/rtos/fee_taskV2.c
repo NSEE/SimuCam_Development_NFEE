@@ -458,11 +458,11 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCycle_Enter:
 				/* Debug only*/
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutCycle_Enter\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutCycle_Enter\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/* Indicates that this FEE will now need to use DMA*/
 				pxNFee->xControl.bUsingDMA = TRUE;
@@ -495,11 +495,11 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCheckDTCUpdate:
 
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutCheckDTCUpdate\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutCheckDTCUpdate\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/*Check if is needed wait the update of the memory, need only in the last readout cycle */
 				if ( xGlobal.bPreMaster == FALSE ) {
@@ -526,11 +526,11 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCheckRestr:
 
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutCheckRestr\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutCheckRestr\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/*The Meb My have sent a message to inform the finish of the update of the image*/
 				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
@@ -549,11 +549,11 @@ void vFeeTaskV2(void *task_data) {
 
 
 			case redoutConfigureTrans:
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutConfigureTrans\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutConfigureTrans\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/* Reset the memory control variables thats is used in the transmission*/
 				vResetMemCCDFEE( pxNFee );
@@ -694,7 +694,7 @@ void vFeeTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+								fprintf(fp,"\nNFEE-%hu Task: D. B. prepared\n", pxNFee->ucId);
 							}
 							#endif
 						} else {
@@ -811,8 +811,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Debug purposes only*/
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nEnd of transmission NFEE-%hhu -> CCD %hhu\n", pxNFee->ucId, xTrans.ucCcdNumber);
-					fprintf(fp,"Memory used: %u\n", xTrans.ucMemory);
+					fprintf(fp,"\nNFEE-%hu Task: End of transmission -> CCD %hhu; Mem Used:%u\n", pxNFee->ucId, xTrans.ucCcdNumber, xTrans.ucMemory);
 				}
 				#endif
 
@@ -2353,10 +2352,10 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 			return bDmaReturn;
 	}
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"\nDoubleBufferP \n");
-#endif
+//#if DEBUG_ON
+//if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+//	fprintf(fp,"\nDoubleBufferP \n");
+//#endif
 
 	return bDmaReturn;
 }

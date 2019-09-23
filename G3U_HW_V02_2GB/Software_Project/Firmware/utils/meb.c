@@ -31,8 +31,8 @@ void vSimucamStructureInit( TSimucam_MEB *xMeb ) {
     xMeb->usiDelaySyncReset = 500; /* milliseconds */
 
     /* Reseting swap memory mechanism */
-    xMeb->ucActualDDR = 0;
-    xMeb->ucNextDDR = 1;
+    xMeb->ucActualDDR = 1;
+    xMeb->ucNextDDR = 0;
     xMeb->xSwapControl.end = 0x00; /* 0x7F for N-FEE, need to adjust to F-FEE */
     xMeb->xSwapControl.lastReadOut = FALSE;
 

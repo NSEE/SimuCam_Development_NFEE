@@ -571,6 +571,13 @@ void vInitialTask(void *task_data)
 	#endif
 
 
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+		fprintf(fp,"\n__________ Waiting NUC load _________ \n\n");
+	}
+	#endif
+
+
 
 	if ( error_code != OS_ERR_NONE) {
 		/* Can't create Task for sender comm packets */
