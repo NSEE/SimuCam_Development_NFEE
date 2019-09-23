@@ -121,6 +121,9 @@ begin
 
 	-- FTDI Protocol Controller Instantiation
 	ftdi_protocol_controller_ent_inst : entity work.ftdi_protocol_controller_ent
+		generic map(
+			g_DELAY_TIMEOUT_CLKDIV => 49999 -- [100 MHz / 50000 = 2 kHz = 0,5 ms]
+		)
 		port map(
 			clk_i                                => clk_i,
 			rst_i                                => rst_i,

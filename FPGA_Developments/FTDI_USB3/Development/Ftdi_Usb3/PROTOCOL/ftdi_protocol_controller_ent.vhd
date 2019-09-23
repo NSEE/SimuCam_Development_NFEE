@@ -5,6 +5,9 @@ use ieee.numeric_std.all;
 use work.ftdi_protocol_pkg.all;
 
 entity ftdi_protocol_controller_ent is
+	generic(
+		g_DELAY_TIMEOUT_CLKDIV : natural range 0 to 65535 := 49999 -- [100 MHz / 50000 = 2 kHz = 0,5 ms]
+	);
 	port(
 		clk_i                                : in  std_logic;
 		rst_i                                : in  std_logic;
@@ -112,7 +115,28 @@ architecture RTL of ftdi_protocol_controller_ent is
 	signal s_err_half_ccd_reply_ccd_size_err    : std_logic;
 	signal s_err_half_ccd_req_timeout_err       : std_logic;
 
+	signal s_timeout_delay_clear    : std_logic;
+	signal s_timeout_delay_trigger  : std_logic;
+	signal s_timeout_delay_timer    : std_logic_vector(15 downto 0);
+	signal s_timeout_delay_busy     : std_logic;
+	signal s_timeout_delay_finished : std_logic;
+
 begin
+
+	timeout_delay_block_ent_inst : entity work.delay_block_ent
+		generic map(
+			g_CLKDIV      => std_logic_vector(to_unsigned(g_DELAY_TIMEOUT_CLKDIV, 16)),
+			g_TIMER_WIDTH => s_timeout_delay_timer'length
+		)
+		port map(
+			clk_i            => clk_i,
+			rst_i            => rst_i,
+			clr_i            => s_timeout_delay_clear,
+			delay_trigger_i  => s_timeout_delay_trigger,
+			delay_timer_i    => s_timeout_delay_timer,
+			delay_busy_o     => s_timeout_delay_busy,
+			delay_finished_o => s_timeout_delay_finished
+		);
 
 	p_ftdi_protocol_controller : process(clk_i, rst_i) is
 		variable v_ftdi_prot_controller_state : t_ftdi_prot_controller_fsm := STOPPED;
@@ -134,6 +158,9 @@ begin
 			s_err_half_ccd_req_max_tries_err     <= '0';
 			s_err_half_ccd_reply_ccd_size_err    <= '0';
 			s_err_half_ccd_req_timeout_err       <= '0';
+			s_timeout_delay_clear                <= '0';
+			s_timeout_delay_trigger              <= '0';
+			s_timeout_delay_timer                <= (others => '0');
 			-- outputs reset
 			rly_half_ccd_fee_number_o            <= (others => '0');
 			rly_half_ccd_ccd_number_o            <= (others => '0');
@@ -179,6 +206,9 @@ begin
 					s_err_half_ccd_req_max_tries_err     <= '0';
 					s_err_half_ccd_reply_ccd_size_err    <= '0';
 					s_err_half_ccd_req_timeout_err       <= '0';
+					s_timeout_delay_trigger              <= '0';
+					s_timeout_delay_timer                <= (others => '0');
+					s_timeout_delay_clear                <= '0';
 					-- conditional state transition
 					-- check if a start command was issued
 					if (data_start_i = '1') then
@@ -205,6 +235,9 @@ begin
 					s_err_half_ccd_req_max_tries_err     <= '0';
 					s_err_half_ccd_reply_ccd_size_err    <= '0';
 					s_err_half_ccd_req_timeout_err       <= '0';
+					s_timeout_delay_trigger              <= '0';
+					s_timeout_delay_timer                <= (others => '0');
+					s_timeout_delay_clear                <= '0';
 					-- conditional state transition
 					-- check if a header generator start was issued
 					if (req_half_ccd_request_i = '1') then
@@ -218,37 +251,51 @@ begin
 						s_registered_request_data.image_size.ccd_width       <= req_half_ccd_width_i;
 						s_registered_request_data.exposure_number            <= req_half_ccd_exposure_number_i;
 						s_registered_request_data.payload_length             <= (others => '0');
+						-- check if a timeout was requested
+						if (req_half_ccd_request_timeout_i /= std_logic_vector(to_unsigned(0, req_half_ccd_request_timeout_i'length))) then
+							s_timeout_delay_trigger <= '1';
+							s_timeout_delay_timer   <= req_half_ccd_request_timeout_i;
+						end if;
 					end if;
 
 				-- state "HFCCD_REQ_START"
 				when HFCCD_REQ_START =>
 					-- half-ccd request start
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_SEND_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_SEND_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_SEND_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REQ_SEND_TX_HEADER;
 					-- default internal signal values
-					s_request_tries                      <= 2;
+					s_request_tries              <= 2;
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_REQ_SEND_TX_HEADER"
 				when HFCCD_REQ_SEND_TX_HEADER =>
 					-- half-ccd request transmit request header
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_WAIT_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REQ_WAIT_TX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_REQ_WAIT_TX_HEADER"
 				when HFCCD_REQ_WAIT_TX_HEADER =>
 					-- half-ccd request wait request header
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_WAIT_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REQ_WAIT_TX_HEADER;
 					-- default internal signal values
 					-- conditional state transition
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- check if the transmission of the request header is finished
 					if (header_generator_busy_i = '0') then
 						s_ftdi_prot_controller_state <= HFCCD_REQ_RESET_TX_HEADER;
@@ -259,30 +306,39 @@ begin
 				when HFCCD_REQ_RESET_TX_HEADER =>
 					-- half-ccd request reset request header
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_RECEIVE_RX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_RECEIVE_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_RECEIVE_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_RECEIVE_RX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_ACK_RECEIVE_RX_HEADER"
 				when HFCCD_ACK_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive request ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_WAIT_RX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_RX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_ACK_WAIT_RX_HEADER"
 				when HFCCD_ACK_WAIT_RX_HEADER =>
 					-- half-ccd request wait request ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_WAIT_RX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_RX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the receival of the request ack/nack is finished
 					if (header_parser_busy_i = '0') then
@@ -294,14 +350,17 @@ begin
 				when HFCCD_ACK_PARSE_RX_HEADER =>
 					-- half-ccd request parse request ack/nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_FINISH;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
+					s_ftdi_prot_controller_state        <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state        := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					s_request_tries                      <= 2;
-					s_general_error                      <= '0';
-					s_err_half_ccd_request_nack_err      <= '0';
-					s_err_half_ccd_reply_header_crc_err  <= '0';
-					s_err_half_ccd_reply_eoh_err         <= '0';
+					s_request_tries                     <= 2;
+					s_general_error                     <= '0';
+					s_err_half_ccd_request_nack_err     <= '0';
+					s_err_half_ccd_reply_header_crc_err <= '0';
+					s_err_half_ccd_reply_eoh_err        <= '0';
+					s_timeout_delay_clear               <= '0';
+					s_timeout_delay_trigger             <= '0';
+					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
 					-- check if the arriving package passed the CRC check
 					if ((header_parser_crc32_match_i = '1') and (header_parser_eoh_error_i = '0')) then
@@ -334,20 +393,26 @@ begin
 				when HFCCD_REPLY_RECEIVE_RX_HEADER =>
 					-- half-ccd request receive reply header
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REPLY_WAIT_RX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_REPLY_WAIT_RX_HEADER"
 				when HFCCD_REPLY_WAIT_RX_HEADER =>
 					-- half-ccd request wait reply header
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REPLY_WAIT_RX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the receival of the request reply is finished
 					if (header_parser_busy_i = '0') then
@@ -359,12 +424,15 @@ begin
 				when HFCCD_REPLY_PARSE_RX_HEADER =>
 					-- half-ccd request parse reply header
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_FINISH;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					s_request_tries                      <= 2;
-					s_parsed_reply_header_data           <= header_parser_data_i;
-					s_general_error                      <= '0';
+					s_request_tries              <= 2;
+					s_parsed_reply_header_data   <= header_parser_data_i;
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the arriving package passed the CRC check
 					if (header_parser_crc32_match_i = '1') then
@@ -400,20 +468,26 @@ begin
 				when HFCCD_ACK_SEND_TX_HEADER =>
 					-- half-ccd request transmit reply ack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_ACK_WAIT_TX_HEADER"
 				when HFCCD_ACK_WAIT_TX_HEADER =>
 					-- half-ccd request wait reply ack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the transmission of the reply ack/nack is finished
 					if (header_generator_busy_i = '0') then
@@ -425,30 +499,39 @@ begin
 				when HFCCD_ACK_RESET_TX_HEADER =>
 					-- half-ccd request reset reply ack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_NACK_SEND_TX_HEADER"
 				when HFCCD_NACK_SEND_TX_HEADER =>
 					-- half-ccd request transmit reply nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_NACK_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_NACK_WAIT_TX_HEADER"
 				when HFCCD_NACK_WAIT_TX_HEADER =>
 					-- half-ccd request wait reply nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_NACK_WAIT_TX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the transmission of the reply ack/nack is finished
 					if (header_generator_busy_i = '0') then
@@ -460,30 +543,39 @@ begin
 				when HFCCD_NACK_RESET_TX_HEADER =>
 					-- half-ccd request reset reply nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REPLY_RECEIVE_RX_HEADER;
-					v_ftdi_prot_controller_state         := HFCCD_REPLY_RECEIVE_RX_HEADER;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_RECEIVE_RX_HEADER;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_RECEIVE_RX_HEADER;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
 				when HFCCD_REPLY_RECEIVE_RX_PAYLOAD =>
 					-- half-ccd request receive reply payload
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_REPLY_WAIT_RX_PAYLOAD"
 				when HFCCD_REPLY_WAIT_RX_PAYLOAD =>
 					-- half-ccd request wait reply payload
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_REPLY_WAIT_RX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_REPLY_WAIT_RX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the receival of the reply payload is finished
 					if (payload_reader_busy_i = '0') then
@@ -501,6 +593,9 @@ begin
 					s_general_error                      <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
+					s_timeout_delay_clear                <= '0';
+					s_timeout_delay_trigger              <= '0';
+					s_timeout_delay_timer                <= (others => '0');
 					-- conditional state transition
 					-- check if the arriving package passed the CRC check
 					if (payload_reader_crc32_match_i = '1') then
@@ -528,20 +623,26 @@ begin
 				when HFCCD_ACK_SEND_TX_PAYLOAD =>
 					-- half-ccd request transmit payload ack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_WAIT_TX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_ACK_WAIT_TX_PAYLOAD"
 				when HFCCD_ACK_WAIT_TX_PAYLOAD =>
 					-- half-ccd request wait payload ack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_ACK_WAIT_TX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_ACK_WAIT_TX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_ACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_ACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the transmission of the payload ack/nack is finished
 					if (header_generator_busy_i = '0') then
@@ -553,30 +654,39 @@ begin
 				when HFCCD_ACK_RESET_TX_PAYLOAD =>
 					-- half-ccd request reset payload ack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_FINISH;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_NACK_SEND_TX_PAYLOAD"
 				when HFCCD_NACK_SEND_TX_PAYLOAD =>
 					-- half-ccd request transmit payload nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_NACK_WAIT_TX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_NACK_WAIT_TX_PAYLOAD"
 				when HFCCD_NACK_WAIT_TX_PAYLOAD =>
 					-- half-ccd request wait payload nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_NACK_WAIT_TX_PAYLOAD;
-					v_ftdi_prot_controller_state         := HFCCD_NACK_WAIT_TX_PAYLOAD;
+					s_ftdi_prot_controller_state <= HFCCD_NACK_WAIT_TX_PAYLOAD;
+					v_ftdi_prot_controller_state := HFCCD_NACK_WAIT_TX_PAYLOAD;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if the transmission of the payload ack/nack is finished
 					if (header_generator_busy_i = '0') then
@@ -588,21 +698,27 @@ begin
 				when HFCCD_NACK_RESET_TX_PAYLOAD =>
 					-- half-ccd request reset payload nack
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_FINISH;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					s_general_error                      <= '0';
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 				-- conditional state transition
 
 				-- state "HFCCD_REQ_FINISH"
 				when HFCCD_REQ_FINISH =>
 					-- half-ccd request finish
 					-- default state transition
-					s_ftdi_prot_controller_state         <= HFCCD_REQ_FINISH;
-					v_ftdi_prot_controller_state         := HFCCD_REQ_FINISH;
+					s_ftdi_prot_controller_state <= HFCCD_REQ_FINISH;
+					v_ftdi_prot_controller_state := HFCCD_REQ_FINISH;
 					-- default internal signal values
-					s_request_tries                      <= 0;
-					s_general_error                      <= '0';
+					s_request_tries              <= 0;
+					s_general_error              <= '0';
+					s_timeout_delay_clear        <= '0';
+					s_timeout_delay_trigger      <= '0';
+					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
 					-- check if a reset was requested
 					if (req_half_ccd_reset_controller_i = '1') then
