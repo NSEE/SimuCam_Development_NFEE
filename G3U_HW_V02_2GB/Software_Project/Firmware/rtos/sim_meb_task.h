@@ -44,11 +44,6 @@ void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL );
 
 
-void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
-
 void vMebChangeToConfig( TSimucam_MEB *pxMebCLocal );
 void vMebChangeToRunning( TSimucam_MEB *pxMebCLocal );
 void vSendCmdQToNFeeCTRL_GEN( unsigned char usiFeeInstP,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );

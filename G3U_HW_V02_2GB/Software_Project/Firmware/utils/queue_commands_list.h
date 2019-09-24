@@ -90,6 +90,8 @@ typedef union qMask{
 #define M_NFC_CONFIG_FORCED 0xA1 /* Indicates that should go to Config Mode - Forced */
 #define M_NFC_RUN_FORCED    0xA2 /* Indicates that should go to Run Mode - Forced */
 
+#define M_NFC_CONFIG_RESET    0xA3 /* Indicates that should go to Run Mode - Forced */
+
 #define M_NFC_DMA_GIVEBACK  0x81
 #define M_NFC_DMA_REQUEST   0x80 /* DO NOT ATTRIBUTE 0x80 TO ANY OTHER COMMAND */
 /*=====================================================================================================================*/

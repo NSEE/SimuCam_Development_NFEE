@@ -26,7 +26,7 @@ void vSyncResetTask( void *task_data ){
     volatile unsigned char ucIL;
 	unsigned char error_codel;
 	tQMask uiCmdtoSend;
-    unsigned short int usiPreSyncTimeDif = xDefaults.usiPreBtSync;
+    unsigned short int usiPreSyncTimeDif = 200; /*Sum of all Delays*/
     uiCmdtoSend.ulWord = 0;
     xGlobal.bJustBeforSync = TRUE;
 
@@ -36,50 +36,75 @@ void vSyncResetTask( void *task_data ){
         OSTaskSuspend(SYNC_RESET_HIGH_PRIO);
 
         /* Receive delay time via qck */
-        usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 0, &iErrorCodeL);
+        usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 10, &iErrorCodeL);
 
         if (iErrorCodeL == OS_ERR_NONE) {
 
-            /* Format the delay time */
-            xDlyAdjusted = div ((usiResetDelayL - usiPreSyncTimeDif), 1000);
+        	/* Stop the Sync (Stopping the simulation) */
+        	bStopSync();
+        	vSyncClearCounter();
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"++++ Sync Stopped\n");
+			}
+			#endif
 
-            /* Disable Sync */
-            iErrorCodeL = bStopSync();
+        	pxMeb->ucActualDDR = 0;
+        	pxMeb->ucNextDDR = 1;
 
-            /* Reset the time code */
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"++++ Force Reset Internals\n");
+			}
+			#endif
+        	/* Send a message to the NFEE Controller forcing the mode */
+        	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_RESET, 0, 0 );
+        	vSendCmdQToDataCTRL_PRIO( M_DATA_CONFIG_FORCED, 0, 0 );
+        	/* Give time to all tasks receive the command */
+        	OSTimeDlyHMSM(0, 0, 0, 50);
+
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"++++ Setting all FEEs to mode ON\n");
+			}
+			#endif
             for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
+
+            	vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_ON_FORCED, 0, ucIL );
+
+            	/* Reset the time code */
                 bSpwcClearTimecode(&pxMeb->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
                 pxMeb->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
             }
 
+            /*Giving time to all FEE*/
+            OSTimeDlyHMSM(0, 0, 0, 100);
+
+        	/* Send a message to the NFEE Controller forcing the mode */
+        	vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+				fprintf(fp,"++++ Restarting the sky to EP 0\n");
+			}
+			#endif
+        	vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
+        	OSTimeDlyHMSM(0, 0, 0, 50);
+
+
+            /* Format the delay time */
+            xDlyAdjusted = div ((usiResetDelayL - usiPreSyncTimeDif), 1000);
+
             /* Wait ufSynchDelay milliseconds adjusted minus the time needed for pre-sync*/
             OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, (xDlyAdjusted.rem));
 
-            /* Sending pre-sync */
-            #if DEBUG_ON
-            if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-                fprintf(fp,"Pre-Sync Signal\n");
-            }
-            #endif
-
-            uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
-
-            for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
-                uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + ucIL;
-                error_codel = OSQPostFront(xFeeQ[ ucIL ], (void *)uiCmdtoSend.ulWord);
-                if ( error_codel != OS_ERR_NONE ) {
-                    vFailSendMsgSync( ucIL );
-                }
-            }
-
-            /* Wait the rest of the time */
-            OSTimeDlyHMSM(0,0,0,usiPreSyncTimeDif);
-
             /* Enable Sync */
-            bStartSync();
+			bSyncCtrReset();
+			vSyncClearCounter();
+			bStartSync();
         } else{
             #if DEBUG_ON        //TODO verif se esta tudo certo com o erro
-                if ( xDefaults.usiDebugLevel <= dlMajorMessage ){
+                if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
                     fprintf(fp,"Sync Reset: Sync Reset Error\n");
                 }
             #endif

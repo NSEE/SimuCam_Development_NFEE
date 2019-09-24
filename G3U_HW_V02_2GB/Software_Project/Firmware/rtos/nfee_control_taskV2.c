@@ -197,6 +197,9 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
+	case M_NFC_CONFIG_RESET:
+
+		break;
 		case M_NFC_CONFIG_FORCED:
 		case M_NFC_CONFIG:
 			#if DEBUG_ON
@@ -229,6 +232,10 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
+		case M_NFC_CONFIG_RESET:
+			pxFeeCP->sMode = sMebToConfig;
+			break;
+
 		case M_NFC_CONFIG:
 		case M_NFC_CONFIG_FORCED:
 
@@ -236,7 +243,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 
 			/* Change all NFEEs to Config mode */
 			for( i = 0; i < N_OF_NFEE; i++) {
-				if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
+				if ( (pxFeeCP->xNfee[i].xControl.bSimulating) == TRUE ) {
 					bSendCmdQToNFeeInst_Prio( i, M_FEE_CONFIG_FORCED, 0, i  );
 				}
 			}

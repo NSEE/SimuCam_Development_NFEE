@@ -16,8 +16,6 @@
 
 /* Used to get the priorities needed for the sync-reset function [bndky] */
 #include "../rtos/tasks_configurations.h"
-/* Used to send the NFEEs to standby [bndky]*/
-//#include "../rtos/nfee_control_taskV2.h"
 
 
 
@@ -73,5 +71,10 @@ void vLoadDefaultAutoResetSync( TSimucam_MEB *xMeb );
 void vChangeAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset );
 void vSyncReset( unsigned short int ufSynchDelay, TNFee_Control *pxFeeCP ); /* [bndky] */
+
+void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
+void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue );
 
 #endif /* MEB_H_ */

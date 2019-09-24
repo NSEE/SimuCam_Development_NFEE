@@ -146,35 +146,126 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
  *
  * @retval void
  **/
-void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
+void vSyncReset( unsigned short int usiSynchDelayL, TNFee_Control *pxFeeCP ) {
     INT8U iErrorCodeL = 0;
-    int i = 0;
 
     /* Send message to task queue */
-    iErrorCodeL = OSQPost(xQueueSyncReset, ufSynchDelayL);
+    iErrorCodeL = OSQPost(xQueueSyncReset, usiSynchDelayL);
     if (iErrorCodeL == OS_ERR_NONE){
+
+		#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				fprintf(fp,"\n\n+++++++++++++++++++ Sync Reset: T = %hu ms+++++++++++++++++++++\n\n\n", usiSynchDelayL);
+		#endif
 
         /* Resume sync reset task */
         iErrorCodeL = OSTaskResume(SYNC_RESET_HIGH_PRIO);
 
-        if (iErrorCodeL == OS_NO_ERR){
-            /* Put all NFEE in Stand-by mode, if not in Config mode */
-            /* TODO: Tiago put all FEEs in anterior mode */
-            // for( i = 0; i < N_OF_NFEE; i++){
-            //         if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
-            //             bSendCmdQToNFeeInst_Prio( i, M_FEE_STANDBY_FORCED, 0, i  );
-            //         }
-            //     }
-        }else{
+        if (iErrorCodeL != OS_NO_ERR){
             #if DEBUG_ON
-                if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+                if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
                     fprintf(fp,"Sync Reset: Sync Reset Error\n");
             #endif
         }
     } else{
         #if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
 				fprintf(fp,"Sync Reset: Sync Reset Error\n");
 		#endif
     }
+}
+
+void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
+}
+
+void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPostFront(xNfeeSchedule, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
+}
+
+
+/* Send to FEEs using the NFEE Controller vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );*/
+void vSendCmdQToNFeeCTRL_GEN( unsigned char usiFeeInstP, unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_NFEE_BASE_ADDR + usiFeeInstP;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+
+	/* Sync the Meb task and tell that has a PUS command waiting */
+	error_codel = OSQPost(xFeeQ[ usiFeeInstP ], (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
+}
+
+
+void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/*Send a command to other entities (Data Controller) */
+	error_codel = OSQPost(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgDataCTRL();
+	}
+}
+
+void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
+{
+	INT8U error_codel;
+	tQMask uiCmdtoSend;
+
+	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
+	uiCmdtoSend.ucByte[2] = ucCMD;
+	uiCmdtoSend.ucByte[1] = ucSUBType;
+	uiCmdtoSend.ucByte[0] = ucValue;
+
+	/*Send a command to other entities (Data Controller) */
+	error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgFeeCTRL();
+	}
 }

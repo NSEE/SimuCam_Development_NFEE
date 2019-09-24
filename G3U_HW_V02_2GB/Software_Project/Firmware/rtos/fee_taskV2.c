@@ -1655,8 +1655,9 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case M_FEE_ON:
 			case M_FEE_ON_FORCED:
+				break;
+			case M_FEE_ON:
 			case M_FEE_RUN:
 			case M_FEE_RUN_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
