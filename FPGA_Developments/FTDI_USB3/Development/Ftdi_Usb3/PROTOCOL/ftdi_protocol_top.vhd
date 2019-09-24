@@ -79,7 +79,8 @@ architecture RTL of ftdi_protocol_top is
 	signal s_header_generator_data  : t_ftdi_prot_header_fields;
 	signal s_header_generator_busy  : std_logic;
 
-	-- FTDI Rx Header Parser Signals			
+	-- FTDI Rx Header Parser Signals
+	signal s_header_parser_abort       : std_logic;
 	signal s_header_parser_start       : std_logic;
 	signal s_header_parser_reset       : std_logic;
 	signal s_header_parser_busy        : std_logic;
@@ -94,6 +95,7 @@ architecture RTL of ftdi_protocol_top is
 	signal s_payload_writer_busy         : std_logic;
 
 	-- FTDI Rx Payload Reader Signals
+	signal s_payload_reader_abort        : std_logic;
 	signal s_payload_reader_start        : std_logic;
 	signal s_payload_reader_reset        : std_logic;
 	signal s_payload_reader_length_bytes : std_logic_vector(31 downto 0);
@@ -170,11 +172,13 @@ begin
 			header_generator_start_o             => s_header_generator_start,
 			header_generator_reset_o             => s_header_generator_reset,
 			header_generator_data_o              => s_header_generator_data,
+			header_parser_abort_o                => s_header_parser_abort,
 			header_parser_start_o                => s_header_parser_start,
 			header_parser_reset_o                => s_header_parser_reset,
 			payload_writer_start_o               => s_payload_writer_start,
 			payload_writer_reset_o               => s_payload_writer_reset,
 			payload_writer_length_bytes_o        => s_payload_writer_length_bytes,
+			payload_reader_abort_o               => s_payload_reader_abort,
 			payload_reader_start_o               => s_payload_reader_start,
 			payload_reader_reset_o               => s_payload_reader_reset,
 			payload_reader_length_bytes_o        => s_payload_reader_length_bytes
@@ -206,6 +210,7 @@ begin
 			rst_i                         => rst_i,
 			data_rx_stop_i                => ftdi_module_stop_i,
 			data_rx_start_i               => ftdi_module_start_i,
+			header_parser_abort_i         => s_header_parser_abort,
 			header_parser_start_i         => s_header_parser_start,
 			header_parser_reset_i         => s_header_parser_reset,
 			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
@@ -251,6 +256,7 @@ begin
 			rst_i                         => rst_i,
 			data_rx_stop_i                => ftdi_module_stop_i,
 			data_rx_start_i               => ftdi_module_start_i,
+			payload_reader_abort_i        => s_payload_reader_abort,
 			payload_reader_start_i        => s_payload_reader_start,
 			payload_reader_reset_i        => s_payload_reader_reset,
 			payload_length_bytes_i        => s_payload_reader_length_bytes,
