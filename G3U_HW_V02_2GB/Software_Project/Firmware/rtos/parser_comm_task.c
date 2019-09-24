@@ -163,7 +163,7 @@ void vParserCommTask(void *task_data) {
 								/* HK ID */
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
 								xTcPusL.ucNofValues++;
-								/* HK Value float */
+								/* HK Value */
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
 								xTcPusL.ucNofValues++;
 								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];

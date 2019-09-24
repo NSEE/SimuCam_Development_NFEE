@@ -77,7 +77,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue); /* [bndky] */
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliValue); /* [bndky] */
 
 
 

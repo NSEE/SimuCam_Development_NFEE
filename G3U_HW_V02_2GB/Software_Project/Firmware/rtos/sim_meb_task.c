@@ -905,11 +905,11 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
 void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
 	union HkValue u_HKValue;
 	
-	/* converting from usi to float */
+	/* converting from usi to uli */
 	u_HKValue.usiValues[0] = xPus->usiValues[3];
 	u_HKValue.usiValues[1] = xPus->usiValues[2];
 
-	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.fValue);
+	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.uliValue);
 
 }
 

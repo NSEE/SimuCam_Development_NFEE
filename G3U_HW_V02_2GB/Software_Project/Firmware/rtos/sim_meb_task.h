@@ -68,7 +68,7 @@ void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
 union HkValue
 {
     unsigned short int  usiValues[2];
-    float               fValue;
+    alt_u32             uliValue;
 };
 
 #endif /* SIM_MEB_TASK_H_ */

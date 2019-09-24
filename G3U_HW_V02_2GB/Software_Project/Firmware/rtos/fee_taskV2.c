@@ -2096,19 +2096,20 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
  *
  * @param 	[in]	TNFee 			*FeeInstance
  * @param	[in]	usi 	usiID		(0 - 63)
- * @param	[in]	float			fValue
+ * @param	[in]	alt_u32			fValue
  *
  * @retval void
  **/
-void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue){
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliValue){
 	
 	unsigned short int usiValue;
 	/* Approx. float to usi */
-	usiValue = (unsigned short int) fValue;
+	usiValue = (unsigned short int) uliValue;
 
 	/* Load current values */
 	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
 
+	/* TODO: Verif which HK is 32bit */
 	/* Switch case to assign value to register */
 	switch(usiID){
 		case usiTouSense1:
