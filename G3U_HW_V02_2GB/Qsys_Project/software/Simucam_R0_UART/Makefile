@@ -193,6 +193,7 @@ C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
 C_SRCS += driver/ftdi/ftdi.c
 C_SRCS += rtos/nfee_control_taskV2.c
+C_SRCS += rtos/sync_reset_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 
