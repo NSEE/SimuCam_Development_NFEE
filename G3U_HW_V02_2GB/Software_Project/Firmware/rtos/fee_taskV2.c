@@ -2109,6 +2109,8 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue
 
 	/* Load current values */
 	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+	fprintf(fp, "BEFORE HK update: value: %hu;\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB );
+
 
 	/* Switch case to assign value to register */
 	switch(usiID){
@@ -2313,6 +2315,10 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue
 	}
 
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+
+	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+	fprintf(fp, "AFTER HK update: value: %hu;\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB );
+
 
 }
 
