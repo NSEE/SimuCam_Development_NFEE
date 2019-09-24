@@ -156,57 +156,57 @@ begin
 	-- tx dc data fifo instantiation, for data synchronization (fpga --> umft601a)
 	ftdi_tx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
 		port map(
-			aclr              => s_tx_dc_data_fifo.aclr,
-			data(35 downto 4) => tx_dc_data_fifo_wrdata_data_i,
-			data(3 downto 0)  => tx_dc_data_fifo_wrdata_be_i,
-			rdclk             => s_umft601a_clock,
-			rdreq             => s_tx_rdreq_protected,
-			wrclk             => clk_i,
-			wrreq             => tx_dc_data_fifo_wrreq_i,
-			q(35 downto 4)    => s_tx_dc_data_fifo.rddata_data,
-			q(3 downto 0)     => s_tx_dc_data_fifo.rddata_be,
+			aclr    => s_tx_dc_data_fifo.aclr,
+			data(35 downto 4)                                                                                                   => tx_dc_data_fifo_wrdata_data_i,
+			data(3 downto 0)                                                                                                                                                           => tx_dc_data_fifo_wrdata_be_i,
+			rdclk   => s_umft601a_clock,
+			rdreq   => s_tx_rdreq_protected,
+			wrclk   => clk_i,
+			wrreq   => tx_dc_data_fifo_wrreq_i,
+			q(35 downto 4)                                                                                                                                                                                                                                                                                                                                         => s_tx_dc_data_fifo.rddata_data,
+			q(3 downto 0)                                                                                                                                                                                                                                                                                                                                                                                              => s_tx_dc_data_fifo.rddata_be,
 			--			q(35 downto 4)    => s_umft601a_buffered_pins.data_out,
 			--			q(3 downto 0)     => s_umft601a_buffered_pins.be_out,
 			--			q(35 downto 4)    => s_tx_dc_data_little_endian,
 			--			q(3 downto 0)     => s_tx_dc_be_little_endian,
-			rdempty           => s_tx_dc_data_fifo.rdempty,
-			rdfull            => s_tx_dc_data_fifo.rdfull,
-			rdusedw           => s_tx_dc_data_fifo.rdusedw,
-			wrempty           => tx_dc_data_fifo_wrempty_o,
-			wrfull            => tx_dc_data_fifo_wrfull_o,
-			wrusedw           => tx_dc_data_fifo_wrusedw_o
+			rdempty => s_tx_dc_data_fifo.rdempty,
+			rdfull  => s_tx_dc_data_fifo.rdfull,
+			rdusedw => s_tx_dc_data_fifo.rdusedw,
+			wrempty => tx_dc_data_fifo_wrempty_o,
+			wrfull  => tx_dc_data_fifo_wrfull_o,
+			wrusedw => tx_dc_data_fifo_wrusedw_o
 		);
 
 	-- rx dc data fifo instantiation, for data synchronization (fpga <-- umft601a)
 	ftdi_rx_data_dc_fifo_inst : entity work.ftdi_data_dc_fifo
 		port map(
-			aclr              => s_rx_dc_data_fifo.aclr,
-			data(35 downto 4) => s_rx_dc_data_fifo.wrdata_data,
-			data(3 downto 0)  => s_rx_dc_data_fifo.wrdata_be,
+			aclr    => s_rx_dc_data_fifo.aclr,
+			data(35 downto 4)                                                                                                   => s_rx_dc_data_fifo.wrdata_data,
+			data(3 downto 0)                                                                                                                                                           => s_rx_dc_data_fifo.wrdata_be,
 			--			data(35 downto 4) => s_umft601a_buffered_pins.data_in,
 			--			data(3 downto 0)  => s_umft601a_buffered_pins.be_in,
 			--			data(35 downto 4) => s_rx_dc_data_little_endian,
 			--			data(3 downto 0)  => s_rx_dc_be_little_endian,
-			rdclk             => clk_i,
-			rdreq             => rx_dc_data_fifo_rdreq_i,
-			wrclk             => s_umft601a_clock,
-			wrreq             => s_rx_wrreq_protected,
-			q(35 downto 4)    => rx_dc_data_fifo_rddata_data_o,
-			q(3 downto 0)     => rx_dc_data_fifo_rddata_be_o,
-			rdempty           => rx_dc_data_fifo_rdempty_o,
-			rdfull            => rx_dc_data_fifo_rdfull_o,
-			rdusedw           => rx_dc_data_fifo_rdusedw_o,
-			wrempty           => s_rx_dc_data_fifo.wrempty,
-			wrfull            => s_rx_dc_data_fifo.wrfull,
-			wrusedw           => s_rx_dc_data_fifo.wrusedw
+			rdclk   => clk_i,
+			rdreq   => rx_dc_data_fifo_rdreq_i,
+			wrclk   => s_umft601a_clock,
+			wrreq   => s_rx_wrreq_protected,
+			q(35 downto 4)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     => rx_dc_data_fifo_rddata_data_o,
+			q(3 downto 0)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          => rx_dc_data_fifo_rddata_be_o,
+			rdempty => rx_dc_data_fifo_rdempty_o,
+			rdfull  => rx_dc_data_fifo_rdfull_o,
+			rdusedw => rx_dc_data_fifo_rdusedw_o,
+			wrempty => s_rx_dc_data_fifo.wrempty,
+			wrfull  => s_rx_dc_data_fifo.wrfull,
+			wrusedw => s_rx_dc_data_fifo.wrusedw
 		);
 
 	-- input io buffer instantiation, for the umft601a module pins (fpga <-- umft601a)
 	ftdi_in_io_buffer_3b_inst : entity work.ftdi_in_io_buffer_3b
 		port map(
-			datain(2)  => umft_rxf_n_pin_i,
-			datain(1)  => umft_clock_pin_i,
-			datain(0)  => umft_txe_n_pin_i,
+			datain(2) => umft_rxf_n_pin_i,
+			datain(1) => umft_clock_pin_i,
+			datain(0) => umft_txe_n_pin_i,
 			dataout(2) => s_umft601a_buffered_pins.rxf_n,
 			dataout(1) => s_umft601a_buffered_pins.clock,
 			dataout(0) => s_umft601a_buffered_pins.txe_n
@@ -215,67 +215,67 @@ begin
 	-- bidir io buffer instantiation, for the umft601a module pins (fpga <--> umft601a)
 	ftdi_inout_io_buffer_39b_inst : entity work.ftdi_inout_io_buffer_39b
 		port map(
-			datain(38 downto 7)  => s_tx_data_protected,
-			datain(6)            => s_umft601a_buffered_pins.wakeup_n_out,
-			datain(5 downto 2)   => s_tx_be_protected,
-			datain(1 downto 0)   => s_umft601a_buffered_pins.gpio_out,
-			oe(38)               => s_io_inout_buffer_output_enable,
-			oe(37)               => s_io_inout_buffer_output_enable,
-			oe(36)               => s_io_inout_buffer_output_enable,
-			oe(35)               => s_io_inout_buffer_output_enable,
-			oe(34)               => s_io_inout_buffer_output_enable,
-			oe(33)               => s_io_inout_buffer_output_enable,
-			oe(32)               => s_io_inout_buffer_output_enable,
-			oe(31)               => s_io_inout_buffer_output_enable,
-			oe(30)               => s_io_inout_buffer_output_enable,
-			oe(29)               => s_io_inout_buffer_output_enable,
-			oe(28)               => s_io_inout_buffer_output_enable,
-			oe(27)               => s_io_inout_buffer_output_enable,
-			oe(26)               => s_io_inout_buffer_output_enable,
-			oe(25)               => s_io_inout_buffer_output_enable,
-			oe(24)               => s_io_inout_buffer_output_enable,
-			oe(23)               => s_io_inout_buffer_output_enable,
-			oe(22)               => s_io_inout_buffer_output_enable,
-			oe(21)               => s_io_inout_buffer_output_enable,
-			oe(20)               => s_io_inout_buffer_output_enable,
-			oe(19)               => s_io_inout_buffer_output_enable,
-			oe(18)               => s_io_inout_buffer_output_enable,
-			oe(17)               => s_io_inout_buffer_output_enable,
-			oe(16)               => s_io_inout_buffer_output_enable,
-			oe(15)               => s_io_inout_buffer_output_enable,
-			oe(14)               => s_io_inout_buffer_output_enable,
-			oe(13)               => s_io_inout_buffer_output_enable,
-			oe(12)               => s_io_inout_buffer_output_enable,
-			oe(11)               => s_io_inout_buffer_output_enable,
-			oe(10)               => s_io_inout_buffer_output_enable,
-			oe(9)                => s_io_inout_buffer_output_enable,
-			oe(8)                => s_io_inout_buffer_output_enable,
-			oe(7)                => s_io_inout_buffer_output_enable,
-			oe(6)                => s_io_inout_buffer_output_enable,
-			oe(5)                => s_io_inout_buffer_output_enable,
-			oe(4)                => s_io_inout_buffer_output_enable,
-			oe(3)                => s_io_inout_buffer_output_enable,
-			oe(2)                => s_io_inout_buffer_output_enable,
-			oe(1)                => s_io_inout_buffer_output_enable,
-			oe(0)                => s_io_inout_buffer_output_enable,
-			dataio(38 downto 7)  => umft_data_bus_io,
-			dataio(6)            => umft_wakeup_n_pin_io,
-			dataio(5 downto 2)   => umft_be_bus_io,
-			dataio(1 downto 0)   => umft_gpio_bus_io,
+			datain(38 downto 7) => s_tx_data_protected,
+			datain(6) => s_umft601a_buffered_pins.wakeup_n_out,
+			datain(5 downto 2) => s_tx_be_protected,
+			datain(1 downto 0) => s_umft601a_buffered_pins.gpio_out,
+			oe(38) => s_io_inout_buffer_output_enable,
+			oe(37) => s_io_inout_buffer_output_enable,
+			oe(36) => s_io_inout_buffer_output_enable,
+			oe(35) => s_io_inout_buffer_output_enable,
+			oe(34) => s_io_inout_buffer_output_enable,
+			oe(33) => s_io_inout_buffer_output_enable,
+			oe(32) => s_io_inout_buffer_output_enable,
+			oe(31) => s_io_inout_buffer_output_enable,
+			oe(30) => s_io_inout_buffer_output_enable,
+			oe(29) => s_io_inout_buffer_output_enable,
+			oe(28) => s_io_inout_buffer_output_enable,
+			oe(27) => s_io_inout_buffer_output_enable,
+			oe(26) => s_io_inout_buffer_output_enable,
+			oe(25) => s_io_inout_buffer_output_enable,
+			oe(24) => s_io_inout_buffer_output_enable,
+			oe(23) => s_io_inout_buffer_output_enable,
+			oe(22) => s_io_inout_buffer_output_enable,
+			oe(21) => s_io_inout_buffer_output_enable,
+			oe(20) => s_io_inout_buffer_output_enable,
+			oe(19) => s_io_inout_buffer_output_enable,
+			oe(18) => s_io_inout_buffer_output_enable,
+			oe(17) => s_io_inout_buffer_output_enable,
+			oe(16) => s_io_inout_buffer_output_enable,
+			oe(15) => s_io_inout_buffer_output_enable,
+			oe(14) => s_io_inout_buffer_output_enable,
+			oe(13) => s_io_inout_buffer_output_enable,
+			oe(12) => s_io_inout_buffer_output_enable,
+			oe(11) => s_io_inout_buffer_output_enable,
+			oe(10) => s_io_inout_buffer_output_enable,
+			oe(9) => s_io_inout_buffer_output_enable,
+			oe(8) => s_io_inout_buffer_output_enable,
+			oe(7) => s_io_inout_buffer_output_enable,
+			oe(6) => s_io_inout_buffer_output_enable,
+			oe(5) => s_io_inout_buffer_output_enable,
+			oe(4) => s_io_inout_buffer_output_enable,
+			oe(3) => s_io_inout_buffer_output_enable,
+			oe(2) => s_io_inout_buffer_output_enable,
+			oe(1) => s_io_inout_buffer_output_enable,
+			oe(0) => s_io_inout_buffer_output_enable,
+			dataio(38 downto 7) => umft_data_bus_io,
+			dataio(6) => umft_wakeup_n_pin_io,
+			dataio(5 downto 2) => umft_be_bus_io,
+			dataio(1 downto 0) => umft_gpio_bus_io,
 			dataout(38 downto 7) => s_umft601a_buffered_pins.data_in,
-			dataout(6)           => s_umft601a_buffered_pins.wakeup_n_in,
-			dataout(5 downto 2)  => s_umft601a_buffered_pins.be_in,
-			dataout(1 downto 0)  => s_umft601a_buffered_pins.gpio_in
+			dataout(6) => s_umft601a_buffered_pins.wakeup_n_in,
+			dataout(5 downto 2) => s_umft601a_buffered_pins.be_in,
+			dataout(1 downto 0) => s_umft601a_buffered_pins.gpio_in
 		);
 
 	-- output io buffer instantiation, for the umft601a module pins (fpga --> umft601a)
 	ftdi_out_io_buffer_5b_inst : entity work.ftdi_out_io_buffer_5b
 		port map(
-			datain(4)  => s_umft601a_buffered_pins.reset_n,
-			datain(3)  => s_tx_wr_n_protected,
-			datain(2)  => s_rx_rd_n_protected,
-			datain(1)  => s_umft601a_buffered_pins.oe_n,
-			datain(0)  => s_umft601a_buffered_pins.siwu_n,
+			datain(4) => s_umft601a_buffered_pins.reset_n,
+			datain(3) => s_tx_wr_n_protected,
+			datain(2) => s_rx_rd_n_protected,
+			datain(1) => s_umft601a_buffered_pins.oe_n,
+			datain(0) => s_umft601a_buffered_pins.siwu_n,
 			dataout(4) => umft_reset_n_pin_o,
 			dataout(3) => umft_wr_n_pin_o,
 			dataout(2) => umft_rd_n_pin_o,
@@ -291,18 +291,18 @@ begin
 			g_SYNCHRONIZATION_STAGES    => 3
 		)
 		port map(
-			wrclk_i     => clk_i,
-			rdclk_i     => s_umft601a_clock,
-			rst_i       => rst_i,
-			rstsig_i(0) => '0',
-			rstsig_i(1) => '0',
-			rstsig_i(2) => '0',
-			wrsig_i(0)  => ftdi_module_clear_i,
-			wrsig_i(1)  => ftdi_module_stop_i,
-			wrsig_i(2)  => ftdi_module_start_i,
-			rdsig_o(0)  => s_synchronized_clear,
-			rdsig_o(1)  => s_synchronized_stop,
-			rdsig_o(2)  => s_synchronized_start
+			wrclk_i => clk_i,
+			rdclk_i => s_umft601a_clock,
+			rst_i   => rst_i,
+			rstsig_i(0)                                                                                                                                                                                                                                                  => '0',
+			rstsig_i(1)                                                                                                                                                                                                                                                                         => '0',
+			rstsig_i(2)                                                                                                                                                                                                                                                                                                => '0',
+			wrsig_i(0)                                                                                                                                                                                                                                                                                                                        => ftdi_module_clear_i,
+			wrsig_i(1)                                                                                                                                                                                                                                                                                                                                                              => ftdi_module_stop_i,
+			wrsig_i(2)                                                                                                                                                                                                                                                                                                                                                                                                   => ftdi_module_start_i,
+			rdsig_o(0)                                                                                                                                                                                                                                                                                                                                                                                                                                         => s_synchronized_clear,
+			rdsig_o(1)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                => s_synchronized_stop,
+			rdsig_o(2)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      => s_synchronized_start
 		);
 
 	-- ftdi umft601a controller fsm process (245 Synchronous FIFO mode Protocols)
@@ -552,20 +552,20 @@ begin
 						-- tx dc fifo still have no more data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
 						v_ftdi_umft601a_controller_state := TX_FILLING;
---						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+					--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					else
 						-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
---						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+						--						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
 						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							--						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							-- umft601a module can still receive data
 							s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
 							v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
---							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
---						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
---						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
---							s_ftdi_umft601a_controller_state <= IDLE;
---							v_ftdi_umft601a_controller_state := IDLE;
+						--							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+						--						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
+						--						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
+						--							s_ftdi_umft601a_controller_state <= IDLE;
+						--							v_ftdi_umft601a_controller_state := IDLE;
 						else
 							s_tx_interrupted      <= '1';
 							s_tx_interrupted_data <= s_tx_dc_data_fifo.rddata_data;
@@ -585,13 +585,13 @@ begin
 					s_tx_words_cnt                   <= 0;
 					-- conditional state transition and internal signal values
 					-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
---					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+					--					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
 					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						--					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						-- umft601a module can still receive data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
 						v_ftdi_umft601a_controller_state := TX_FILLING;
---						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+						--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					end if;
 
 				-- all the other states (not defined)
@@ -604,8 +604,8 @@ begin
 
 			-- check if a stop command was issued
 			if (s_synchronized_stop = '1') then
---				s_ftdi_umft601a_controller_state <= STOPPED;
---				v_ftdi_umft601a_controller_state := STOPPED;
+				--				s_ftdi_umft601a_controller_state <= STOPPED;
+				--				v_ftdi_umft601a_controller_state := STOPPED;
 				null;
 			-- check if a clear command was issued
 			elsif (s_synchronized_clear = '1') then

@@ -267,16 +267,16 @@ entity MebX_TopLevel is
 		--		JP3_GPIO0_D23_IO       : inout std_logic;
 		--		JP3_GPIO0_D24_IO       : inout std_logic;
 		--		JP3_GPIO0_D25_IO       : inout std_logic;
-		--		JP3_GPIO0_D26_IO       : inout std_logic;
-		--		JP3_GPIO0_D27_IO       : inout std_logic;
-		--		JP3_GPIO0_D28_IO       : inout std_logic;
-		--		JP3_GPIO0_D29_IO       : inout std_logic;
-		--		JP3_GPIO0_D30_IO       : inout std_logic;
-		--		JP3_GPIO0_D31_IO       : inout std_logic;
-		--		JP3_GPIO0_D32_IO       : inout std_logic;
-		--		JP3_GPIO0_D33_IO       : inout std_logic;
-		--		JP3_GPIO0_D34_IO       : inout std_logic;
-		--		JP3_GPIO0_D35_IO       : inout std_logic;
+		JP3_GPIO0_D26_IO       : out std_logic;
+		JP3_GPIO0_D27_IO       : out std_logic;
+		JP3_GPIO0_D28_IO       : out std_logic;
+		JP3_GPIO0_D29_IO       : out std_logic;
+		JP3_GPIO0_D30_IO       : out std_logic;
+		JP3_GPIO0_D31_IO       : out std_logic;
+		JP3_GPIO0_D32_IO       : out std_logic;
+		JP3_GPIO0_D33_IO       : out std_logic;
+		JP3_GPIO0_D34_IO       : out std_logic;
+		JP3_GPIO0_D35_IO       : out std_logic;
 		-- FTDI UMFT601A Module Pins
 		FTDI_DATA              : inout std_logic_vector(31 downto 0);
 		FTDI_BE                : inout std_logic_vector(3 downto 0);
@@ -397,6 +397,11 @@ architecture bhv of MebX_TopLevel is
 	-----------------------------------------
 	signal s_sync_out : std_logic := '0';
 	signal s_sync_in  : std_logic := '0';
+
+	-----------------------------------------
+	-- Debug IO
+	-----------------------------------------
+	signal s_debug_io : std_logic_vector(9 downto 0);
 
 	-----------------------------------------
 	-- Component
@@ -557,6 +562,8 @@ architecture bhv of MebX_TopLevel is
 			--
 			rs232_uart_rxd                                              : in    std_logic                     := 'X'; -- rxd
 			rs232_uart_txd                                              : out   std_logic; --                         -- txd
+			--
+			pio_debug_io_export                                         : out   std_logic_vector(9 downto 0); --                  -- export
 			--
 			umft601a_pins_umft_data_signal                              : inout std_logic_vector(31 downto 0) := (others => 'X'); -- umft_data_signal
 			umft601a_pins_umft_reset_n_signal                           : out   std_logic; --                                     -- umft_reset_n_signal
@@ -750,6 +757,8 @@ begin
 			rs232_uart_rxd                                              => I_RS232_UART_RXD, -- --                            rs232_uart.rxd
 			rs232_uart_txd                                              => O_RS232_UART_TXD, -- --                                      .txd
 			--
+			pio_debug_io_export                                         => s_debug_io, --       --                          pio_debug_io.export
+			--
 			umft601a_pins_umft_data_signal                              => FTDI_DATA, --        --                         umft601a_pins.umft_data_signal
 			--			umft601a_pins_umft_reset_n_signal                           => FTDI_RESET_N, --     --                                      .umft_reset_n_signal
 			umft601a_pins_umft_rxf_n_signal                             => FTDI_RXF_N, --       --                                      .umft_rxf_n_signal
@@ -821,6 +830,18 @@ begin
 	JP3_GPIO0_D11_IO <= spw_f_measure(1);
 	JP3_GPIO0_D12_IO <= spw_f_measure(2);
 	JP3_GPIO0_D13_IO <= spw_f_measure(3);
+
+	-- Debug IO
+	JP3_GPIO0_D26_IO <= s_debug_io(0);
+	JP3_GPIO0_D27_IO <= s_debug_io(1);
+	JP3_GPIO0_D28_IO <= s_debug_io(2);
+	JP3_GPIO0_D29_IO <= s_debug_io(3);
+	JP3_GPIO0_D30_IO <= s_debug_io(4);
+	JP3_GPIO0_D31_IO <= s_debug_io(5);
+	JP3_GPIO0_D32_IO <= s_debug_io(6);
+	JP3_GPIO0_D33_IO <= s_debug_io(7);
+	JP3_GPIO0_D34_IO <= s_debug_io(8);
+	JP3_GPIO0_D35_IO <= s_debug_io(9);
 
 	--==========--
 	-- eth

@@ -116,6 +116,14 @@
 		.ssdp_ssdp1                                                  (<connected-to-ssdp_ssdp1>),                                                  //                                .ssdp1
 		.sync_in_conduit                                             (<connected-to-sync_in_conduit>),                                             //                         sync_in.conduit
 		.sync_out_conduit                                            (<connected-to-sync_out_conduit>),                                            //                        sync_out.conduit
+		.sync_spw1_conduit                                           (<connected-to-sync_spw1_conduit>),                                           //                       sync_spw1.conduit
+		.sync_spw2_conduit                                           (<connected-to-sync_spw2_conduit>),                                           //                       sync_spw2.conduit
+		.sync_spw3_conduit                                           (<connected-to-sync_spw3_conduit>),                                           //                       sync_spw3.conduit
+		.sync_spw4_conduit                                           (<connected-to-sync_spw4_conduit>),                                           //                       sync_spw4.conduit
+		.sync_spw5_conduit                                           (<connected-to-sync_spw5_conduit>),                                           //                       sync_spw5.conduit
+		.sync_spw6_conduit                                           (<connected-to-sync_spw6_conduit>),                                           //                       sync_spw6.conduit
+		.sync_spw7_conduit                                           (<connected-to-sync_spw7_conduit>),                                           //                       sync_spw7.conduit
+		.sync_spw8_conduit                                           (<connected-to-sync_spw8_conduit>),                                           //                       sync_spw8.conduit
 		.temp_scl_export                                             (<connected-to-temp_scl_export>),                                             //                        temp_scl.export
 		.temp_sda_export                                             (<connected-to-temp_sda_export>),                                             //                        temp_sda.export
 		.timer_1ms_external_port_export                              (<connected-to-timer_1ms_external_port_export>),                              //         timer_1ms_external_port.export
@@ -137,13 +145,6 @@
 		.umft601a_pins_umft_rd_n_signal                              (<connected-to-umft601a_pins_umft_rd_n_signal>),                              //                                .umft_rd_n_signal
 		.umft601a_pins_umft_oe_n_signal                              (<connected-to-umft601a_pins_umft_oe_n_signal>),                              //                                .umft_oe_n_signal
 		.umft601a_pins_umft_siwu_n_signal                            (<connected-to-umft601a_pins_umft_siwu_n_signal>),                            //                                .umft_siwu_n_signal
-		.sync_spw1_conduit                                           (<connected-to-sync_spw1_conduit>),                                           //                       sync_spw1.conduit
-		.sync_spw2_conduit                                           (<connected-to-sync_spw2_conduit>),                                           //                       sync_spw2.conduit
-		.sync_spw3_conduit                                           (<connected-to-sync_spw3_conduit>),                                           //                       sync_spw3.conduit
-		.sync_spw4_conduit                                           (<connected-to-sync_spw4_conduit>),                                           //                       sync_spw4.conduit
-		.sync_spw5_conduit                                           (<connected-to-sync_spw5_conduit>),                                           //                       sync_spw5.conduit
-		.sync_spw6_conduit                                           (<connected-to-sync_spw6_conduit>),                                           //                       sync_spw6.conduit
-		.sync_spw7_conduit                                           (<connected-to-sync_spw7_conduit>),                                           //                       sync_spw7.conduit
-		.sync_spw8_conduit                                           (<connected-to-sync_spw8_conduit>)                                            //                       sync_spw8.conduit
+		.pio_debug_io_export                                         (<connected-to-pio_debug_io_export>)                                          //                    pio_debug_io.export
 	);
 

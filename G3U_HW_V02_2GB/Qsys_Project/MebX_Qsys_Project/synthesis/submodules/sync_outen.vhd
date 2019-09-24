@@ -20,7 +20,7 @@ use work.sync_outen_pkg.all;
 --
 --! @brief 
 --
---! @author Rodrigo FranÃ§a (rodrigo.franca@maua.br)
+--! @author Rodrigo França (rodrigo.franca@maua.br)
 --
 --! @date 06\02\2018
 --

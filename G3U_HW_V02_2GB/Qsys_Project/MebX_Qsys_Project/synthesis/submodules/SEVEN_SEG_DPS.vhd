@@ -48,11 +48,11 @@ USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 USE WORK.ALL;
 ENTITY SEVEN_SEG_DPS IS
-	PORT (
-		CLK           : IN STD_LOGIC;
-		RST           : IN STD_LOGIC;
-		SEG_ENABLE    : IN STD_LOGIC;
-		SEG_BCD_IN    : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+	PORT(
+		CLK           : IN  STD_LOGIC;
+		RST           : IN  STD_LOGIC;
+		SEG_ENABLE    : IN  STD_LOGIC;
+		SEG_BCD_IN    : IN  STD_LOGIC_VECTOR(3 DOWNTO 0);
 		SEG_DBITS_OUT : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
 	);
 END ENTITY SEVEN_SEG_DPS;
@@ -76,51 +76,51 @@ ARCHITECTURE BEHAVIOUR OF SEVEN_SEG_DPS IS
 	CONSTANT DSP_E : STD_LOGIC_VECTOR(7 DOWNTO 0) := "10000110";
 	CONSTANT DSP_F : STD_LOGIC_VECTOR(7 DOWNTO 0) := "10001110";
 
-	BEGIN
+BEGIN
 
-		GLOBAL : PROCESS (CLK, RST) IS
-		BEGIN
-			IF (RST = '1') THEN
-				SEG_DBITS_OUT <= (OTHERS => '1');
-			ELSIF (RISING_EDGE(CLK)) THEN
-				IF (SEG_ENABLE = '1') THEN
-					CASE SEG_BCD_IN IS
-						WHEN "0000" => 
-							SEG_DBITS_OUT <= DSP_0;
-						WHEN "0001" => 
-							SEG_DBITS_OUT <= DSP_1;
-						WHEN "0010" => 
-							SEG_DBITS_OUT <= DSP_2;
-						WHEN "0011" => 
-							SEG_DBITS_OUT <= DSP_3;
-						WHEN "0100" => 
-							SEG_DBITS_OUT <= DSP_4;
-						WHEN "0101" => 
-							SEG_DBITS_OUT <= DSP_5;
-						WHEN "0110" => 
-							SEG_DBITS_OUT <= DSP_6;
-						WHEN "0111" => 
-							SEG_DBITS_OUT <= DSP_7;
-						WHEN "1000" => 
-							SEG_DBITS_OUT <= DSP_8;
-						WHEN "1001" => 
-							SEG_DBITS_OUT <= DSP_9;
-						WHEN "1010" => 
-							SEG_DBITS_OUT <= DSP_A;
-						WHEN "1011" => 
-							SEG_DBITS_OUT <= DSP_B;
-						WHEN "1100" => 
-							SEG_DBITS_OUT <= DSP_C;
-						WHEN "1101" => 
-							SEG_DBITS_OUT <= DSP_D;
-						WHEN "1110" => 
-							SEG_DBITS_OUT <= DSP_E;
-						WHEN "1111" => 
-							SEG_DBITS_OUT <= DSP_F;
-						WHEN OTHERS => NULL;
-					END CASE;
-				END IF;
+	GLOBAL : PROCESS(CLK, RST) IS
+	BEGIN
+		IF (RST = '1') THEN
+			SEG_DBITS_OUT <= (OTHERS => '1');
+		ELSIF (RISING_EDGE(CLK)) THEN
+			IF (SEG_ENABLE = '1') THEN
+				CASE SEG_BCD_IN IS
+					WHEN "0000" =>
+						SEG_DBITS_OUT <= DSP_0;
+					WHEN "0001" =>
+						SEG_DBITS_OUT <= DSP_1;
+					WHEN "0010" =>
+						SEG_DBITS_OUT <= DSP_2;
+					WHEN "0011" =>
+						SEG_DBITS_OUT <= DSP_3;
+					WHEN "0100" =>
+						SEG_DBITS_OUT <= DSP_4;
+					WHEN "0101" =>
+						SEG_DBITS_OUT <= DSP_5;
+					WHEN "0110" =>
+						SEG_DBITS_OUT <= DSP_6;
+					WHEN "0111" =>
+						SEG_DBITS_OUT <= DSP_7;
+					WHEN "1000" =>
+						SEG_DBITS_OUT <= DSP_8;
+					WHEN "1001" =>
+						SEG_DBITS_OUT <= DSP_9;
+					WHEN "1010" =>
+						SEG_DBITS_OUT <= DSP_A;
+					WHEN "1011" =>
+						SEG_DBITS_OUT <= DSP_B;
+					WHEN "1100" =>
+						SEG_DBITS_OUT <= DSP_C;
+					WHEN "1101" =>
+						SEG_DBITS_OUT <= DSP_D;
+					WHEN "1110" =>
+						SEG_DBITS_OUT <= DSP_E;
+					WHEN "1111" =>
+						SEG_DBITS_OUT <= DSP_F;
+					WHEN OTHERS => NULL;
+				END CASE;
 			END IF;
-		END PROCESS GLOBAL;
-	
+		END IF;
+	END PROCESS GLOBAL;
+
 END BEHAVIOUR;

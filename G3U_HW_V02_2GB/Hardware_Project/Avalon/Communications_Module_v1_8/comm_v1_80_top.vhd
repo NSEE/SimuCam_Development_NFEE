@@ -1009,6 +1009,45 @@ begin
 		end if;
 	end process p_sync_in_triger;
 
+	-- rmap error clear manager
+	p_rmap_error_clear_manager : process(a_avs_clock, a_reset) is
+	begin
+		if (a_reset) = '1' then
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error                                  <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error                                  <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error                                  <= '0';
+		elsif rising_edge(a_avs_clock) then
+			-- get error values to the rmap memory area
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
+			s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
+			if (s_spacewire_read_registers.spw_link_status_reg.spw_err_parity = '1') then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error <= '1';
+			end if;
+			if (s_spacewire_read_registers.spw_link_status_reg.spw_err_credit = '1') then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error <= '1';
+			end if;
+			if (s_spacewire_read_registers.spw_link_status_reg.spw_err_escape = '1') then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error <= '1';
+			end if;
+			-- check if a error clear was requested
+			if (s_rmap_mem_wr_area.reg_21_config.clear_error_flag = '1') then
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error                                  <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error                                  <= '0';
+				s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error                                  <= '0';
+			end if;
+		end if;
+	end process p_rmap_error_clear_manager;
+
 	-- measurements channel outputs
 	-- measurement 0 : right empty buffer signal
 	measurements_channel(0)          <= s_spacewire_read_registers.fee_buffers_status_reg.fee_right_buffer_empty;
@@ -1026,23 +1065,16 @@ begin
 	s_spacewire_read_registers.rmap_irq_number_reg.rmap_irq_number               <= (others => '0');
 
 	-- rmap read area
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(7 downto 6)                                      <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(5 downto 0)                                      <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_status                                                 <= x"00";
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_indicate                                               <= '0';
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error                                             <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error                                             <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error                                             <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect                                               <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
-	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running                                                  <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
-	s_rmap_mem_rd_area.reg_33_hk.frame_counter                                                                 <= s_fee_slave_frame_counter;
-	s_rmap_mem_rd_area.reg_33_hk.frame_number                                                                  <= s_fee_slave_frame_number;
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_f_side_pixel_external_sram_buffer_is_full                         <= '0';
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_e_side_pixel_external_sram_buffer_is_full                         <= '0';
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_y_coordinate <= '0';
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_window_pixels_fall_outside_cdd_boundary_due_to_wrong_x_coordinate <= '0';
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_parity_error                                  <= '0';
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_credit_error                                  <= '0';
-	s_rmap_mem_rd_area.reg_34_hk.error_flags_spacewire_stat_link_escape_error                                  <= '0';
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(7 downto 6) <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_control;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_timecode_from_spw(5 downto 0) <= s_spacewire_read_registers.spw_timecode_status_reg.timecode_time;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_status            <= x"00";
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_rmap_target_indicate          <= '0';
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_escape_error        <= s_spacewire_read_registers.spw_link_status_reg.spw_err_escape;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_credit_error        <= s_spacewire_read_registers.spw_link_status_reg.spw_err_credit;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_parity_error        <= s_spacewire_read_registers.spw_link_status_reg.spw_err_parity;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_disconnect          <= s_spacewire_read_registers.spw_link_status_reg.spw_err_disconnect;
+	s_rmap_mem_rd_area.reg_32_hk.spw_status_stat_link_running             <= s_spacewire_read_registers.spw_link_status_reg.spw_link_running;
+	s_rmap_mem_rd_area.reg_33_hk.frame_counter                            <= s_fee_slave_frame_counter;
+	s_rmap_mem_rd_area.reg_33_hk.frame_number                             <= s_fee_slave_frame_number;
 
 end architecture rtl;                   -- of comm_v1_80_top

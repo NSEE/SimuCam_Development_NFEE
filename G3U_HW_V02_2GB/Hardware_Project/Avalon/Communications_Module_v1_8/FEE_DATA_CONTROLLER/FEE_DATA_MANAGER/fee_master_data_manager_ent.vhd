@@ -23,7 +23,7 @@ entity fee_master_data_manager_ent is
 		fee_data_y_size_i                    : in  std_logic_vector(15 downto 0);
 		fee_overscan_y_size_i                : in  std_logic_vector(15 downto 0);
 		fee_packet_length_i                  : in  std_logic_vector(15 downto 0);
-		fee_fee_mode_i                       : in  std_logic_vector(2 downto 0);
+		fee_fee_mode_i                       : in  std_logic_vector(3 downto 0);
 		fee_ccd_number_i                     : in  std_logic_vector(1 downto 0);
 		fee_ccd_side_i                       : in  std_logic;
 		-- masking machine status
@@ -54,7 +54,7 @@ entity fee_master_data_manager_ent is
 		headerdata_logical_address_o         : out std_logic_vector(7 downto 0);
 		headerdata_protocol_id_o             : out std_logic_vector(7 downto 0);
 		headerdata_length_field_o            : out std_logic_vector(15 downto 0);
-		headerdata_type_field_mode_o         : out std_logic_vector(2 downto 0);
+		headerdata_type_field_mode_o         : out std_logic_vector(3 downto 0);
 		headerdata_type_field_last_packet_o  : out std_logic;
 		headerdata_type_field_ccd_side_o     : out std_logic;
 		headerdata_type_field_ccd_number_o   : out std_logic_vector(1 downto 0);
