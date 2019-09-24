@@ -54,7 +54,7 @@ BEGIN
 			SEG0_TEST   <= '0';
 			SEG0_UPDATE <= '0';
 			SEG0_ON_OFF <= '0';
-			SEG_DATA    <= UNSIGNED(x"00");
+			SEG_DATA    <= (others => '0');
 
 		ELSIF (RISING_EDGE(CLK)) THEN
 			IF (ENABLE_DATA_IN_AVALON = '1') THEN
@@ -78,4 +78,3 @@ BEGIN
 	END PROCESS;
 
 END ARCHITECTURE BEHAVIOUR;
-
