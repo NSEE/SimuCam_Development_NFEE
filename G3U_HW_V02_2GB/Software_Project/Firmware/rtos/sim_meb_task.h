@@ -62,6 +62,8 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  );
 void vPerformActionMebInConfig( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
 void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLocal );
 
+void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL); /* [bndky] */
+
 /* Float consuption for HK update [bndky] */
 union HkValue
 {

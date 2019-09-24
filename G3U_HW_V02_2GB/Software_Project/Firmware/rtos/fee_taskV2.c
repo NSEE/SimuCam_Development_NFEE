@@ -2096,7 +2096,7 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
  *
  * @param 	[in]	TNFee 			*FeeInstance
  * @param	[in]	unsigned short 	usiID		(0 - 63)
- * @param	[in]	unsigned short	usiValue
+ * @param	[in]	float			fValue
  *
  * @retval void
  **/

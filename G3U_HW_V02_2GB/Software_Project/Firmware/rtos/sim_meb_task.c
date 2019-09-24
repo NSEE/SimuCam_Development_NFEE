@@ -380,7 +380,6 @@ void vPusMebInTaskConfigMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI = 0;
 	unsigned short int param1 =0;
-	union HkValue u_HKValue; /* [bndky] */
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -397,14 +396,7 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
-			/* converting from usi to float */
-			u_HKValue.usiValues[0] = xPus->usiValues[3];
-			u_HKValue.usiValues[1] = xPus->usiValues[2];
-			param1 = (unsigned short int) u_HKValue.fValue;
-			fprintf(fp, "TC_SCAM_FEE_HK_UPDATE_VALUE FEE: %hu ID: %hu; value: %hu\n",xPus->usiValues[0], xPus->usiValues[1], param1 );
-
-			vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.fValue);
-
+			vSendHKUpdate(pxMebCLocal, xPus);
 			break;
 
 
@@ -529,21 +521,14 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	
-	union HkValue u_HKValue; /* [bndky] */
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
+			vSendHKUpdate(pxMebCLocal, xPus);
+			break;
 
-				/* converting from usi to float */
-				u_HKValue.usiValues[0] = xPus->usiValues[2];
-				u_HKValue.usiValues[1] = xPus->usiValues[3];
-
-				vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.fValue);
-
-				break;
-				
 		/* TC_SCAM_CONFIG */
 		case 60:
 			pxMebCLocal->eMode = sMebToConfig;
@@ -904,6 +889,17 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
 		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
 		vFailGetxMutexSenderBuffer128();
 	}
+}
+
+
+void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
+	union HkValue u_HKValue;
+	/* converting from usi to float */
+	u_HKValue.usiValues[0] = xPus->usiValues[3];
+	u_HKValue.usiValues[1] = xPus->usiValues[2];
+
+	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.fValue);
+
 }
 
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */
