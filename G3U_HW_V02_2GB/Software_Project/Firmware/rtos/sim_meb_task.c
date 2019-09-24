@@ -109,7 +109,7 @@ void vSimMebTask(void *task_data) {
 				} else {
 					#if DEBUG_ON
 					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync sem from DTC, backing to Config Mode\n");
+						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync semaphore from DTC, backing to Config Mode\n");
 					#endif
 					pxMebC->eMode = sMebToConfig;
 				}
@@ -196,7 +196,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_PRE_MASTER:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\n-------------- Sync --------------\n");
+					fprintf(fp,"\n-------------- Sync --------------\n\n");
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);

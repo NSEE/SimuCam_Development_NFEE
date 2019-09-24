@@ -701,7 +701,7 @@ void vFeeTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"\nNFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
+								fprintf(fp,"NFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
 								fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
 							}
 							#endif
@@ -811,7 +811,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Debug purposes only*/
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nNFEE-%hu Task: End of transmission -> CCD %hhu; Mem Used:%u\n", pxNFee->ucId, xTrans.ucCcdNumber, xTrans.ucMemory);
+					fprintf(fp,"NFEE-%hu Task: End of transmission -> CCD %hhu; Mem Used:%u\n", pxNFee->ucId, xTrans.ucCcdNumber, xTrans.ucMemory);
 				}
 				#endif
 
