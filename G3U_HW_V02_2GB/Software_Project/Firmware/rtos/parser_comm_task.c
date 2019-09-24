@@ -149,6 +149,7 @@ void vParserCommTask(void *task_data) {
 							case 58: /* Update HK [bndky] */
 
 								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
 								if ( usiFeeInstL > N_OF_NFEE ) {
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMajorMessage )

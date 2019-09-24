@@ -891,9 +891,20 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
 	}
 }
 
-
+/**
+ * @name vSendHKUpdate
+ * @author bndky
+ * @brief Prepare the data and send to updateHK fukction
+ * @ingroup rtos
+ *
+ * @param 	[in]	TSimucam_MEB 	*pxMebCLocal
+ * @param	[in]	tTMPus 			*xPusL
+ *
+ * @retval void
+ **/
 void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
 	union HkValue u_HKValue;
+	
 	/* converting from usi to float */
 	u_HKValue.usiValues[0] = xPus->usiValues[3];
 	u_HKValue.usiValues[1] = xPus->usiValues[2];

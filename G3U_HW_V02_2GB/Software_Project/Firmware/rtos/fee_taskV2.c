@@ -2089,13 +2089,13 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 }
 
 /**
- * @name long_to_int
+ * @name vUpdateFeeHKValue
  * @author bndky
  * @brief Update HK function for simulated FEE
  * @ingroup rtos
  *
  * @param 	[in]	TNFee 			*FeeInstance
- * @param	[in]	unsigned short 	usiID		(0 - 63)
+ * @param	[in]	usi 	usiID		(0 - 63)
  * @param	[in]	float			fValue
  *
  * @retval void
@@ -2103,14 +2103,11 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue){
 	
 	unsigned short int usiValue;
+	/* Approx. float to usi */
 	usiValue = (unsigned short int) fValue;
-
-	fprintf(fp, "HK update: ID: %hu; valuef: %f valueusi: %hu\n", usiID, fValue, usiValue );
 
 	/* Load current values */
 	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
-	fprintf(fp, "BEFORE HK update: value: %hu;\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB );
-
 
 	/* Switch case to assign value to register */
 	switch(usiID){
@@ -2315,11 +2312,6 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue
 	}
 
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
-
-	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
-	fprintf(fp, "AFTER HK update: value: %hu;\n", pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB );
-
-
 }
 
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {
