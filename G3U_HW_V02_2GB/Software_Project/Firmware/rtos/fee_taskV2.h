@@ -24,6 +24,21 @@
 #include "../utils/communication_configs.h"
 #include "../utils/error_handler_simucam.h"
 
+/* HK values enum [bndky] */
+
+enum FeeHKValues{
+    usiTouSense1 = 0, usiTouSense2, usiTouSense3, usiTouSense4, usiTouSense5, usiTouSense6,
+    usiCcd1Ts, usiCcd2Ts, usiCcd3Ts, usiCcd4Ts, usiPrt1, usiPrt2, usiPrt3, usiPrt4, usiPrt5,
+    usiZeroDiffAmp, usiCcd1VodMon, usiCcd1VogMon, usiCcd1VrdMonE, usiCcd2VodMon, usiCcd2VogMon,
+    usiCcd2VrdMonE, usiCcd3VodMon, usiCcd3VogMon, usiCcd3VrdMonE, usiCcd4VodMon, usiCcd4VogMon,
+    usiCcd4VrdMonE, usiVccd, usiVrclkMon, usiViclk, usiVrclkLow, usi5vbPosMon, usi5vbNegMon,
+    usi3v3bMon, usi2v5aMon, usi3v3dMon, usi2v5dMon, usi1v5dMon, usi5vrefMon, usiVccdPosRaw,
+    usiVclkPosRaw, usiVan1PosRaw, usiVan3NegMon, usiVan2PosRaw, usiVdigRaw, usiVdigRaw2,
+    usiViclkLow, usiCcd1VrdMonF, usiCcd1VddMon, usiCcd1VgdMon, usiCcd2VrdMonF, usiCcd2VddMon,
+    usiCcd2VgdMon, usiCcd3VrdMonF, usiCcd3VddMon, usiCcd3VgdMon, usiCcd4VrdMonF, usiCcd4VddMon,
+    usiCcd4VgdMon, usiIgHiMon, usiIgLoMon, usiTsenseA, usiTsenseB
+} EFeeHKValues;
+
 void vFeeTaskV2(void *task_data);
 void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
@@ -62,7 +77,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd );
 void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd );
-
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  float fValue); /* [bndky] */
 
 
 
