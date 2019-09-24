@@ -1440,3 +1440,16 @@ void vFailFlushNFEEQueue( void )
 	 * Indicar falha com LEDs pois ï¿½ o unico HW inicializada atï¿½ o momento
 	 */
 }
+
+/* [bndky] */
+void vFailSyncResetCreate( void ){
+	#if DEBUG_ON
+	if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+		debug(fp,"vSyncResetTask\n");
+	}
+	#endif
+	/*
+	*	TODO:
+	*	Implement some other form of advice?
+	*/
+}

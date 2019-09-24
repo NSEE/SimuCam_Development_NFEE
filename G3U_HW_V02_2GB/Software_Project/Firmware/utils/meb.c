@@ -135,21 +135,46 @@ void vChangeDefaultAutoResetSync( TSimucam_MEB *xMeb, bool bAutoReset ) {
 }
 
 
-/* Any mode */
-/* Synchronization Reset */
-void vSyncReset( TSimucam_MEB *xMeb, float ufSynchDelay ) {
-    
-    // Stop all transmission
+/* Only in MEB_RUNNING */
+/**
+ * @author bndky
+ * @name vSyncReset
+ * @brief Function that coordinates the Synchronization Reset function.
+ *
+ * @param 	[in]	unsigned short int  ufSynchDelayL
+ * @param	[in]	TNFee_Control 	    *pxFeeCP	
+ *
+ * @retval void
+ **/
+void vSyncReset( unsigned short int ufSynchDelayL, TNFee_Control *pxFeeCP ) {
+    INT8U iErrorCodeL = 0;
+    int i = 0;
 
-    // Put all NFEE in Stand-by mode, if not in Config mode
+    /* Send message to task queue */
+    iErrorCodeL = OSQPost(xQueueSyncReset, ufSynchDelayL);
+    if (iErrorCodeL == OS_ERR_NONE){
 
-    // Reset the time code
-    vResetTimeCode(&xMeb->xFeeControl);
+        /* Resume sync reset task */
+        iErrorCodeL = OSTaskResume(SYNC_RESET_HIGH_PRIO);
 
-    // Wait ufSynchDelay milliseconds
-
-    // Release a synchronization signal
-
-    // Start new cycle
-
+        if (iErrorCodeL == OS_NO_ERR){
+            /* Put all NFEE in Stand-by mode, if not in Config mode */
+            /* TODO: Tiago put all FEEs in anterior mode */
+            // for( i = 0; i < N_OF_NFEE; i++){
+            //         if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
+            //             bSendCmdQToNFeeInst_Prio( i, M_FEE_STANDBY_FORCED, 0, i  );
+            //         }
+            //     }
+        }else{
+            #if DEBUG_ON
+                if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+                    fprintf(fp,"Sync Reset: Sync Reset Error\n");
+            #endif
+        }
+    } else{
+        #if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				fprintf(fp,"Sync Reset: Sync Reset Error\n");
+		#endif
+    }
 }
