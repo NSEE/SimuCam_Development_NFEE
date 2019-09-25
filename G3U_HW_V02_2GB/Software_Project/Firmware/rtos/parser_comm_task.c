@@ -62,6 +62,14 @@ void vParserCommTask(void *task_data) {
 				{
 					case ETH_CMD: /*NUC requested the ETH Configuration*/
 						vSendEthConf();
+
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"\n__________ Load Completed, Simucam is ready to be used _________ \n\n");
+						}
+						#endif
+
+
 						eParserMode = sWaitingMessage;
 						break;
 
@@ -134,6 +142,18 @@ void vParserCommTask(void *task_data) {
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
 									fprintf(fp,"Parser Task: TC_SYNCH_SOURCE\n");
 								#endif
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								break;
+
+							case 31: /* TC_SYNCH_RESET [bndky]*/
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
+									fprintf(fp,"Parser Task: TC_SYNCH_RESET\n");
+								#endif
+								/* Get the value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[6];
+								xTcPusL.ucNofValues++;
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;

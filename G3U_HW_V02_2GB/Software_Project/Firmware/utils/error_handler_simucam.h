@@ -119,5 +119,7 @@ void vFailSendRMAPFromIRQ( unsigned char ucTemp);
 void vFailSendMsgSyncRMAPTRIGGER( unsigned char ucTemp);
 void vFailSDCard( void );
 void vCriticalErrorLedPanel( void );
+void vFailSendSemaphoreFromDTC( void );
+void vFailSyncResetCreate( void ); /* [bndky] */
 
 #endif /* ERROR_HANDLER_SIMUCAM_H_ */

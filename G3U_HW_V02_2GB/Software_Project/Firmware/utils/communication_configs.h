@@ -96,7 +96,7 @@ typedef struct {
 
 
 
-#define N_OF_MEB_MSG_QUEUE      16
+#define N_OF_MEB_MSG_QUEUE      32
 /* This Queue will synchronize the MEB task for any action that it should be aware (PUS, CHANGES in the FEE) */
 extern void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 extern OS_EVENT *xMebQ;	

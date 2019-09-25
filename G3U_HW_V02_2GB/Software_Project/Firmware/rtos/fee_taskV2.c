@@ -145,6 +145,12 @@ void vFeeTaskV2(void *task_data) {
 
 			case sOn_Enter:
 
+				/*Clear the queue message for this FEE*/
+				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
 				/* Write in the RMAP - UCL- NFEE ICD p. 49*/
 				bRmapGetMemConfigArea(&pxNFee->xChannel.xRmap);
 				pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->ucOpMode = 0x00; /*On mode*/
@@ -452,11 +458,11 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCycle_Enter:
 				/* Debug only*/
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutCycle_Enter\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutCycle_Enter\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/* Indicates that this FEE will now need to use DMA*/
 				pxNFee->xControl.bUsingDMA = TRUE;
@@ -489,11 +495,11 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCheckDTCUpdate:
 
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutCheckDTCUpdate\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutCheckDTCUpdate\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/*Check if is needed wait the update of the memory, need only in the last readout cycle */
 				if ( xGlobal.bPreMaster == FALSE ) {
@@ -520,11 +526,11 @@ void vFeeTaskV2(void *task_data) {
 
 			case redoutCheckRestr:
 
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutCheckRestr\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutCheckRestr\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/*The Meb My have sent a message to inform the finish of the update of the image*/
 				error_code = OSQFlush( xFeeQ[ pxNFee->ucId ] );
@@ -543,15 +549,17 @@ void vFeeTaskV2(void *task_data) {
 
 
 			case redoutConfigureTrans:
-				#if DEBUG_ON
-				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"N-%hu: redoutConfigureTrans\n", pxNFee->ucId);
-				}
-				#endif
+//				#if DEBUG_ON
+//				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//					fprintf(fp,"N-%hu: redoutConfigureTrans\n", pxNFee->ucId);
+//				}
+//				#endif
 
 				/* Reset the memory control variables thats is used in the transmission*/
 				vResetMemCCDFEE( pxNFee );
 
+
+				pxNFee->xControl.bUsingDMA = TRUE;
 				/*Since the default value of SensorSel Reg is both, need check if is some of Windowing Mode, otherwise overwrite with left*/
 				if ( (pxNFee->xChannel.xRmap.xRmapMemAreaAddr.puliConfigAreaBaseAddr->ucSensorSel == eRmapSenSelEFBoth) ) { //both
 					if ( (pxNFee->xControl.eMode == sWindowing) || (pxNFee->xControl.eMode == sWinPattern)){
@@ -697,14 +705,14 @@ void vFeeTaskV2(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"\nNFEE-%hu Task: Double buffer prepared\n", pxNFee->ucId);
+								fprintf(fp,"\nNFEE-%hu Task: D. B. prepared\n", pxNFee->ucId);
 							}
 							#endif
 						} else {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"\nNFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
+								fprintf(fp,"NFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
 								fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
 							}
 							#endif
@@ -814,8 +822,7 @@ void vFeeTaskV2(void *task_data) {
 				/* Debug purposes only*/
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nEnd of transmission NFEE-%hhu -> CCD %hhu\n", pxNFee->ucId, xTrans.ucCcdNumber);
-					fprintf(fp,"Memory used: %u\n", xTrans.ucMemory);
+					fprintf(fp,"NFEE-%hu Task: End of transmission -> CCD %hhu; Mem Used:%u\n", pxNFee->ucId, xTrans.ucCcdNumber, xTrans.ucMemory);
 				}
 				#endif
 
@@ -955,6 +962,9 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.bWatingSync = FALSE;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			case M_FEE_ON_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -963,6 +973,8 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			case M_FEE_ON:
 				/*BEfore sync, so it need to end the transmission/double buffer and wait for the sync*/
@@ -1073,6 +1085,9 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			case M_FEE_ON_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1081,6 +1096,8 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
 
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			case M_FEE_ON:
 				if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
@@ -1181,6 +1198,9 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			case M_FEE_ON:
 				if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
@@ -1208,6 +1228,9 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 
 			case M_FEE_STANDBY:
@@ -1305,6 +1328,9 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 
 			case M_FEE_ON_FORCED:
@@ -1313,6 +1339,9 @@ void vQCmdFEEinWaitingSync( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 
 			case M_FEE_RMAP:
@@ -1408,6 +1437,7 @@ void vQCmdFEEinStandBy( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				/* Real State */
 				pxNFeeP->xControl.eState = sOn_Enter;
+
 				break;
 
 			case M_FEE_FULL:
@@ -1636,8 +1666,9 @@ void vQCmdFEEinConfig( TNFee *pxNFeeP, unsigned int cmd ) {
 				}
 				#endif
 				break;
-			case M_FEE_ON:
 			case M_FEE_ON_FORCED:
+				break;
+			case M_FEE_ON:
 			case M_FEE_RUN:
 			case M_FEE_RUN_FORCED:
 				pxNFeeP->xControl.bWatingSync = FALSE;
@@ -1713,6 +1744,9 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 
 			case M_FEE_CAN_ACCESS_NEXT_MEM:
@@ -1725,6 +1759,9 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 
 			case M_FEE_ON:
@@ -1843,6 +1880,9 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eLastMode = sInit;
 				pxNFeeP->xControl.eMode = sConfig;
 				pxNFeeP->xControl.eState = sConfig_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 			case M_FEE_ON:
 				if (( pxNFeeP->xControl.eMode == sFullPattern ) || (pxNFeeP->xControl.eMode == sWinPattern)) {
@@ -1872,6 +1912,9 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 				pxNFeeP->xControl.eMode = sOn;
 				pxNFeeP->xControl.eNextMode = sOn_Enter;
 				pxNFeeP->xControl.eState = sOn_Enter;
+
+				/*don't need side*/
+				bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 				break;
 
 			case M_FEE_STANDBY:
@@ -2321,10 +2364,10 @@ bool bPrepareDoubleBuffer( TCcdMemMap *xCcdMapLocal, unsigned char ucMem, unsign
 			return bDmaReturn;
 	}
 
-#if DEBUG_ON
-if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-	fprintf(fp,"\nDoubleBufferP \n");
-#endif
+//#if DEBUG_ON
+//if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+//	fprintf(fp,"\nDoubleBufferP \n");
+//#endif
 
 	return bDmaReturn;
 }
@@ -2881,6 +2924,9 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/*don't need side*/
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/
@@ -3084,6 +3130,9 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/*don't need side*/
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/
@@ -3460,6 +3509,9 @@ void vQCmdFeeRMAPWaitingSync( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/*don't need side*/
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/
@@ -3664,6 +3716,9 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/*don't need side*/
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/
@@ -3859,6 +3914,9 @@ void vQCmdFeeRMAPinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/*don't need side*/
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/
@@ -4062,6 +4120,9 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eMode = sOn;
 					pxNFeeP->xControl.eNextMode = sOn_Enter;
 					pxNFeeP->xControl.eState = sOn_Enter;
+
+					/*don't need side*/
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, 0, pxNFeeP->ucId);
 					break;
 				case 0x0E: /*Reserved*/
 				case 0x0F: /*Reserved*/

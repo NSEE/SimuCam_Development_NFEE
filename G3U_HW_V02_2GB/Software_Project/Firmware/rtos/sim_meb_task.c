@@ -22,7 +22,7 @@ void vSimMebTask(void *task_data) {
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-        fprintf(fp,"Sim-Meb Controller Task. (Task on)\n");
+        fprintf(fp,"MEB Controller Task. (Task on)\n");
     #endif
 
 
@@ -49,33 +49,71 @@ void vSimMebTask(void *task_data) {
 				bEnableIsoDrivers();
 				bEnableLvdsBoard();
 
+				pxMebC->ucActualDDR = 1;
+				pxMebC->ucNextDDR = 0;
+
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-					fprintf(fp,"MEB Task: Run Mode\n");
+					fprintf(fp,"\nMEB Task: Going to Run Mode\n");
 				#endif
-				/* Transition to Run Mode (Starting the Simulation) */
-				vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+
+				#if DEBUG_ON
+				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+					fprintf(fp,"MEB Task: First DTC will load at least one full sky from SSD.\n");
+					fprintf(fp,"MEB Task: All other modules will wait until DTC finishes.\n");
+				#endif
+
+				/*Time to read, remover later*/ //todo: Remove later releases
+				OSTimeDlyHMSM(0, 0, 3, 0);
+
+
 				vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
 
-				/* Give time to DTC and NFEE controller to start all processe before the first master sync */
-				OSTimeDlyHMSM(0, 0, 0, 100);
-				//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
-				/* Give time to all tasks receive the command */
-				OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+				OSSemPend(xSemCommInit, 0, &error_code); /*Blocking*/
+				if ( error_code == OS_ERR_NONE ) {
 
-				/* Clear the timecode of the channel SPW (for now is for spw channel) */
-				for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
-					bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
-					pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+						fprintf(fp,"MEB Task: FEE Controller and FEEs to RUN.\n");
+					#endif
+
+
+					/* Transition to Run Mode (Starting the Simulation) */
+					vSendCmdQToNFeeCTRL_PRIO( M_NFC_RUN_FORCED, 0, 0 );
+
+					/* Give time to DTC and NFEE controller to start all processe before the first master sync */
+					OSTimeDlyHMSM(0, 0, 0, 250);
+					//vSendMessageNUCModeMEBChange( 2 ); /*2: Running*/
+					/* Give time to all tasks receive the command */
+					//OSTimeDlyHMSM(0, 0, 0, pxMebC->usiDelaySyncReset);
+
+					/* Clear the timecode of the channel SPW (for now is for spw channel) */
+					for (ucIL = 0; ucIL < N_OF_NFEE; ++ucIL) {
+						bSpwcClearTimecode(&pxMebC->xFeeControl.xNfee[ucIL].xChannel.xSpacewire);
+						pxMebC->xFeeControl.xNfee[ucIL].xControl.ucTimeCode = 0;
+					}
+
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+						fprintf(fp,"\nMEB Task: Releasing Sync Module in 5 seconds");
+						OSTimeDlyHMSM(0, 0, 5, 200);
+					#endif
+
+					/*This sequence start the HW sync module*/
+					bSyncCtrReset();
+					vSyncClearCounter();
+					bStartSync();
+
+					vEvtChangeMebMode();
+					pxMebC->eMode = sMebRun;
+				} else {
+					#if DEBUG_ON
+					if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
+						fprintf(fp,"MEB Task: CRITICAL! Could no receive the sync semaphore from DTC, backing to Config Mode\n");
+					#endif
+					pxMebC->eMode = sMebToConfig;
 				}
 
-				/*This sequence start the HW sync module*/
-				bSyncCtrReset();
-				vSyncClearCounter();
-				bStartSync();
-
-				vEvtChangeMebMode();
-				pxMebC->eMode = sMebRun;
 				break;
 
 			case sMebConfig:
@@ -148,7 +186,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 				vSwapMemmory(pxMebCLocal);
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nMaster Sync\n");
+					fprintf(fp,"\n============== Master Sync ==============\n\n");
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
@@ -158,7 +196,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 			case M_PRE_MASTER:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-					fprintf(fp,"\nSync\n");
+					fprintf(fp,"\n-------------- Sync --------------\n\n");
 				}
 				#endif
 				vDebugSyncTimeCode(pxMebCLocal);
@@ -173,7 +211,7 @@ void vPerformActionMebInRunning( unsigned int uiCmdParam, TSimucam_MEB *pxMebCLo
 					/* Using QMASK send to NfeeControl that will foward */
 					for (ucIL = 0; ucIL < N_OF_NFEE; ucIL++) {
 						if ( TRUE == pxMebCLocal->xFeeControl.xNfee[ucIL].xControl.bUsingDMA ) {
-							vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+ucIL), M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
+							vSendCmdQToNFeeCTRL_GEN(ucIL, M_FEE_CAN_ACCESS_NEXT_MEM, 0, ucIL );
 						}
 					}
 				}
@@ -479,6 +517,11 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
+		/* TC_SCAMxx_SYNCH_RST [bndky] */
+		case 31:
+			/* Send the wait time info to the sync reset function*/
+			vSyncReset( xPusL->usiValues[0], &(pxMebCLocal->xFeeControl)  );
+		break;
 		/* TC_SCAM_CONFIG */
 		case 60:
 			pxMebCLocal->eMode = sMebToConfig;
@@ -514,63 +557,63 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 void vPusType251run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-	unsigned short int usiFeeInstL;
+	unsigned char ucFeeInstL;
 
-	usiFeeInstL = xPusL->usiValues[0];
+	ucFeeInstL = (unsigned char)xPusL->usiValues[0];
 	switch (xPusL->usiSubType) {
 		/* TC_SCAM_FEE_CONFIG_ENTER */
 		case 1:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_CONFIG, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_CONFIG, 0, ucFeeInstL );
 			break;
 		/* TC_SCAM_FEE_STANDBY_ENTER */
 		case 2:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_STANDBY, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_STANDBY, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_ENTER */
 		case 3:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING _ENTER */
 		case 4:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_FULLIMAGE_PATTERN_ENTER */
 		case 5:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_FULL_PATTERN, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_FULL_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_WINDOWING_PATTERN_ENTER */
 		case 6:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_WIN_PATTERN, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_WIN_PATTERN, 0, ucFeeInstL );
 			break;
 		/* NFEE_ON */
 		case 11:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_ON, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_ON, 0, ucFeeInstL );
 			break;
 		case 12:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_1, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_PARALLEL_TRAP_PUMP_2_ENTER */
 		case 13:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_PAR_TRAP_2, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_PAR_TRAP_2, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_1_ENTER */
 		case 14:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_1, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_1, 0, ucFeeInstL );
 			break;
 		/* NFEE_RUNNING_SERIAL_TRAP_PUMP_2_ENTER */
 		case 15:
 			/* Using QMASK send to NfeeControl that will foward */
-			vSendCmdQToNFeeCTRL_GEN((M_NFEE_BASE_ADDR+usiFeeInstL), M_FEE_SERIAL_TRAP_2, 0, usiFeeInstL );
+			vSendCmdQToNFeeCTRL_GEN(ucFeeInstL, M_FEE_SERIAL_TRAP_2, 0, ucFeeInstL );
 			break;
 		case 0:
 		default:
@@ -668,100 +711,14 @@ void vPusType252run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 }
 
 
-void vSendCmdQToNFeeCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
-{
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
 
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = ucCMD;
-	uiCmdtoSend.ucByte[1] = ucSUBType;
-	uiCmdtoSend.ucByte[0] = ucValue;
-
-	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgFeeCTRL();
-	}
-}
-
-void vSendCmdQToNFeeCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
-{
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_FEE_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = ucCMD;
-	uiCmdtoSend.ucByte[1] = ucSUBType;
-	uiCmdtoSend.ucByte[0] = ucValue;
-
-	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgFeeCTRL();
-	}
-}
-
-
-/* Send to FEEs using the NFEE Controller */
-void vSendCmdQToNFeeCTRL_GEN( unsigned char ADDR,unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
-{
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = ADDR;
-	uiCmdtoSend.ucByte[2] = ucCMD;
-	uiCmdtoSend.ucByte[1] = ucSUBType;
-	uiCmdtoSend.ucByte[0] = ucValue;
-
-	/* Sync the Meb task and tell that has a PUS command waiting */
-	error_codel = OSQPost(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgFeeCTRL();
-	}
-}
-
-
-void vSendCmdQToDataCTRL( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
-{
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = ucCMD;
-	uiCmdtoSend.ucByte[1] = ucSUBType;
-	uiCmdtoSend.ucByte[0] = ucValue;
-
-	/*Send a command to other entities (Data Controller) */
-	error_codel = OSQPost(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgDataCTRL();
-	}
-}
-
-void vSendCmdQToDataCTRL_PRIO( unsigned char ucCMD, unsigned char ucSUBType, unsigned char ucValue )
-{
-	INT8U error_codel;
-	tQMask uiCmdtoSend;
-
-	uiCmdtoSend.ucByte[3] = M_DATA_CTRL_ADDR;
-	uiCmdtoSend.ucByte[2] = ucCMD;
-	uiCmdtoSend.ucByte[1] = ucSUBType;
-	uiCmdtoSend.ucByte[0] = ucValue;
-
-	/*Send a command to other entities (Data Controller) */
-	error_codel = OSQPostFront(xQMaskDataCtrl, (void *)uiCmdtoSend.ulWord);
-	if ( error_codel != OS_ERR_NONE ) {
-		vFailSendMsgFeeCTRL();
-	}
-}
 
 
 void vMebInit(TSimucam_MEB *pxMebCLocal) {
 	INT8U errorCodeL;
 
-	pxMebCLocal->ucActualDDR = 0;
-	pxMebCLocal->ucNextDDR = 1;
+	pxMebCLocal->ucActualDDR = 1;
+	pxMebCLocal->ucNextDDR = 0;
 	/* Flush all communication Queues */
 	errorCodeL = OSQFlush(xMebQ);
 	if ( errorCodeL != OS_NO_ERR ) {

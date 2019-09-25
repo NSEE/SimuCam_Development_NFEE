@@ -1,27 +1,36 @@
 /*
+ * nfee_control_taskV2.c
+ *
+ *  Created on: 20 de set de 2019
+ *      Author: Tiago-note
+ */
+
+
+/*
  * data_control_task.c
  *
  *  Created on: 22/01/2019
  *      Author: Tiago-note
  */
 
-#include "nfee_control_task.h"
+#include "nfee_control_taskV2.h"
 
-void vNFeeControlTask(void *task_data) {
+void vNFeeControlTaskV2(void *task_data) {
 	TNFee_Control * pxFeeC;
 	tQMask uiCmdNFC;
-	bool bCmdSent;
 	INT8U error_codeCtrl;
 	unsigned char ucFeeInstL = 0, ucSide = 0;
-	static bool bDmaBack;
-	static unsigned char ucWhoGetDMA;
+	volatile unsigned char ucWhoGetDMA;
+	volatile bool bDmaBack;
+	volatile bool bCmdSent;
 	unsigned char ucIL;
+	unsigned char ucCmd;
 
 	pxFeeC = (TNFee_Control *) task_data;
 
 	#if DEBUG_ON
 	if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-        debug(fp,"NFee Controller Task. (Task on)\n");
+        debug(fp,"FEE Controller Task. (Task on)\n");
     #endif
 
 	for (;;) {
@@ -30,11 +39,7 @@ void vNFeeControlTask(void *task_data) {
 			case sMebInit:
 				/* Starting the NFEE Controller */
 
-				/* Clear in CMD Queue  */
-				error_codeCtrl = OSQFlush(xQMaskFeeCtrl);
-				if ( error_codeCtrl != OS_NO_ERR ) {
-					vFailFlushQueue();
-				}
+				/* Put initialization only, here*/
 
 				pxFeeC->sMode = sMebToConfig;
 				break;
@@ -52,14 +57,17 @@ void vNFeeControlTask(void *task_data) {
 					vFailFlushQueue();
 				}
 
-				bCmdSent = FALSE;
-				bDmaBack = TRUE;
-				ucWhoGetDMA = 255;
+				/* Clear in CMD Queue  */
+				error_codeCtrl = OSQFlush(xQMaskFeeCtrl);
+				if ( error_codeCtrl != OS_NO_ERR ) {
+					vFailFlushQueue();
+				}
+
 				pxFeeC->sMode = sMebConfig;
 				break;
 
 			case sMebConfig:
-				
+
 				uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl); /* Blocking operation */
 				if ( error_codeCtrl == OS_ERR_NONE ) {
 					/* Check if the command is for NFEE Controller */
@@ -103,66 +111,80 @@ void vNFeeControlTask(void *task_data) {
 				break;
 
 			case sMebRun:
-				/* 	We have 2 importantes Queues here.  
+				/* 	We have 2 important Queues here.
 					xQMaskFeeCtrl is How NFEE Controller receive Commands in a fast way and
 					xNfeeSchedule that has the schedule of access to the DMA (this has priority)*/
-				
-				/* Get the id of the FEE that wants DMA access */
+
 				if ( bDmaBack == TRUE ) {
-
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 4, &error_codeCtrl);
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xNfeeSchedule, 0, &error_codeCtrl);
 					if ( error_codeCtrl == OS_ERR_NONE ) {
-						ucFeeInstL = uiCmdNFC.ucByte[0];
-						ucSide = uiCmdNFC.ucByte[1];
-						if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
-							bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, ucSide, ucFeeInstL);
-							if ( bCmdSent == TRUE ) {
-								bDmaBack = FALSE;
-								ucWhoGetDMA = ucFeeInstL;
+						ucCmd = uiCmdNFC.ucByte[2];
+						/*Check if is a schedule or sending the NFEE Controller to COnfig mode*/
+						if ( ucCmd == M_NFC_DMA_REQUEST ) {
+							ucFeeInstL = uiCmdNFC.ucByte[0];
+							ucSide = uiCmdNFC.ucByte[1];
+							if (  pxFeeC->xNfee[ucFeeInstL].xControl.bUsingDMA == TRUE ) {
+								bCmdSent = bSendCmdQToNFeeInst( ucFeeInstL, M_FEE_DMA_ACCESS, ucSide, ucFeeInstL);
+								if ( bCmdSent == TRUE ) {
+									bDmaBack = FALSE;
+									ucWhoGetDMA = ucFeeInstL;
+								}
 							}
-						}
-					}
-				} 
-
-				if ( bDmaBack == FALSE ) {
-					/* DMA with some NFEE instance */
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl);
-				} else {
-					/* If No FEE has the DMA */
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 4, &error_codeCtrl);
-				}
-
-				if ( error_codeCtrl == OS_ERR_NONE ){
-					/* Check if is some FEE giving the DMA back */
-					if ( uiCmdNFC.ucByte[2] == M_NFC_DMA_GIVEBACK ) {
-						if ( uiCmdNFC.ucByte[0] == ucWhoGetDMA ){
-							bDmaBack = TRUE;
-							ucFeeInstL = 255;
-						}
-
-					} else {
-
-						/* Check if the command is for NFEE Controller */
-						if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
-							vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
 						} else {
-							/* Check if the message if for any one of the instances of NFEE */
-							if ( (uiCmdNFC.ucByte[3] >= M_NFEE_BASE_ADDR) && ( uiCmdNFC.ucByte[3] <= (M_NFEE_BASE_ADDR+N_OF_NFEE) ) ) {
-								//todo: tratar retorno
-								bSendCmdQToNFeeInst( (uiCmdNFC.ucByte[3]-M_NFEE_BASE_ADDR), uiCmdNFC.ucByte[2], uiCmdNFC.ucByte[1], uiCmdNFC.ucByte[0] );
+							/*Check which command is*/
+							/* Check if the command is for NFEE Controller */
+							if (uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR){
+								vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
+							} else {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+									fprintf(fp,"NFEE Controller Task: Received a CMD with wrong addr. (xNfeeSchedule)\n");
+								}
+								#endif
 							}
 						}
+					} else {
+						bCmdSent = FALSE;
+						bDmaBack = TRUE;
+						ucWhoGetDMA = 255;
+					}
+				} else {
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl);
+					if ( error_codeCtrl == OS_ERR_NONE ) {
+					/* Check if is some FEE giving the DMA back */
+						if ( uiCmdNFC.ucByte[2] == M_NFC_DMA_GIVEBACK ) {
+							if ( uiCmdNFC.ucByte[0] == ucWhoGetDMA ){
+								/*Got back*/
+								bCmdSent = FALSE;
+								bDmaBack = TRUE;
+								ucFeeInstL = 255;
+							}
+						} else {
+							if ( uiCmdNFC.ucByte[3] == M_FEE_CTRL_ADDR ) {
+								vPerformActionNFCRunning(uiCmdNFC.ulWord, pxFeeC);
+							} else {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+									fprintf(fp,"NFEE Controller Task: Received a CMD with wrong addr. (xQMaskFeeCtrl)\n");
+								}
+								#endif
+							}
+						}
+					} else {
+						bCmdSent = FALSE;
+						bDmaBack = TRUE;
+						ucWhoGetDMA = 255;
 					}
 				}
-				
-				break;		
+
+				break;
 			default:
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 					debug(fp,"NFEE Controller Task: Unknown state, backing to Config Mode.\n");
 				}
 				#endif
-				
+
 				pxFeeC->sMode = sMebToConfig;
 		}
 	}
@@ -175,6 +197,9 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
+	case M_NFC_CONFIG_RESET:
+
+		break;
 		case M_NFC_CONFIG_FORCED:
 		case M_NFC_CONFIG:
 			#if DEBUG_ON
@@ -207,15 +232,18 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
+		case M_NFC_CONFIG_RESET:
+			pxFeeCP->sMode = sMebToConfig;
+			break;
+
 		case M_NFC_CONFIG:
 		case M_NFC_CONFIG_FORCED:
 
 			pxFeeCP->sMode = sMebToConfig;
 
 			/* Change all NFEEs to Config mode */
-			for( i = 0; i < N_OF_NFEE; i++)
-			{
-				if ( (*pxFeeCP->pbEnabledNFEEs[i]) == TRUE ) {
+			for( i = 0; i < N_OF_NFEE; i++) {
+				if ( (pxFeeCP->xNfee[i].xControl.bSimulating) == TRUE ) {
 					bSendCmdQToNFeeInst_Prio( i, M_FEE_CONFIG_FORCED, 0, i  );
 				}
 			}
@@ -226,19 +254,18 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {
 				debug(fp,"NFEE Controller Task: NFC already in the Running Mode\n");
 			}
-			#endif		
-			/* Do nothing for now */
-
+			#endif
 			break;
 		case M_NFC_DMA_GIVEBACK:
 		case M_NFC_DMA_REQUEST:
+			/* Do nothing for now */
 			break;
 		default:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
 				debug(fp,"NFEE Controller Task: Unknown Command.\n");
 			}
-			#endif	
+			#endif
 			break;
 	}
 }

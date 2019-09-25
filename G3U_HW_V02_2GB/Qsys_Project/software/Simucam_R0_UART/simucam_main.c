@@ -106,6 +106,10 @@ OS_EVENT *xQMaskDataCtrl;
 /* Comunication and syncronization of the Meb Task */
 void *xMebQTBL[N_OF_MEB_MSG_QUEUE];
 OS_EVENT *xMebQ;
+
+/* Sync Reset comm queue [bndky] */
+void *xQueueSyncResetTBL[N_MESG_SYNCRST];
+OS_EVENT *xQueueSyncReset;
 /* -------------- Definition of Queues -------------- */
 
 
@@ -122,6 +126,7 @@ OS_STK    vTimeoutCheckerTask_stk[TIMEOUT_CHECKER_SIZE];
 OS_STK    senderTask_stk[SENDER_TASK_SIZE];
 OS_STK    vStackMonitor_stk[STACK_MONITOR_SIZE];
 
+OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 
 /* Main application Tasks */
 OS_STK    vNFeeControlTask_stk[FEE_CONTROL_STACK_SIZE];
@@ -366,6 +371,13 @@ bool bResourcesInitRTOS( void ) {
 		bSuccess = FALSE;
 	}	
 
+	/* Create the sync reset control comm queue [bndky] */
+	xQueueSyncReset = OSQCreate(&xQueueSyncResetTBL[0], N_MESG_SYNCRST);		//TODO Change to define
+	if (!xQueueSyncReset) {
+		//vFailCreateSemaphoreResources(); TODO create error msg
+		bSuccess = FALSE;
+	}
+
 	return bSuccess;
 }
 
@@ -609,7 +621,7 @@ int main(void)
 	bInitFTDI();
 
 
-	vFillMemmoryPattern( &xSimMeb );
+	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
 

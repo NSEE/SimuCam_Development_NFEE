@@ -69,6 +69,7 @@ void vDataControlTask(void *task_data) {
 				/* Anything that need be executed only once before the COnfig Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
+				pxDataC->bFirstMaster = TRUE;
 
 				/* Clear the CMD Queue */
 				error_code = OSQFlush(xQMaskDataCtrl);
@@ -78,8 +79,6 @@ void vDataControlTask(void *task_data) {
 
 				vFTDIStop();
 				vFTDIClear();
-
-				pxDataC->bFirstMaster = FALSE; //todo: Tiago, voltar para TRUE caso precise da epoca ZERO
 
 				pxDataC->sMode = sMebConfig;
 				break;
@@ -107,7 +106,7 @@ void vDataControlTask(void *task_data) {
 				/* Anything that need be executed only once before the Run Mode
 				Should be put here!*/
 				pxDataC->usiEPn = 0;
-				pxDataC->bFirstMaster = FALSE; //todo: Tiago, voltar para TRUE caso precise da epoca ZERO
+				pxDataC->bFirstMaster = TRUE;
 
 				vFTDIStop(); // [rfranca]
 				vFTDIClear();
@@ -131,44 +130,70 @@ void vDataControlTask(void *task_data) {
 
 					case sSubMemUpdated:
 
-						/* Memory full updated, wait for MasterSync */
+						/*If EP == 0 then is the start of sky simulation (pxDataC->bFirstMaster) */
+						if (pxDataC->bFirstMaster == TRUE) {
 
-						/* Indicates that at any moment the memory could be swaped in order to the NFEEs prepare the first packet to send in the next M. Sync */
-						pxDataC->bUpdateComplete = TRUE;
-						xGlobal.bDTCFinished = TRUE;
-						bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_UPD_FIN, 0, 0); /*todo: Tratar retorno*/
-
-
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"\nDTC: Mem. Updated state\n");
-						}
-						#endif
-
-						/* Clear the CMD Queue */
-						error_code = OSQFlush(xQMaskDataCtrl);
-						if ( error_code != OS_NO_ERR ) {
-							vFailFlushQueueData();
-						}
-
-						uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
-						if ( error_code == OS_ERR_NONE ) {
-							/* Check if the command is for NFEE Controller */
-							if ( uiCmdDTC.ucByte[3] == M_DATA_CTRL_ADDR ) {
-								vPerformActionDTCRun(uiCmdDTC.ulWord, pxDataC);
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nDTC: Starting the Sky Simulation. All modules will wait until the load is done.\n");
 							}
+							#endif
+
+							/*Just a small time to*/
+							OSTimeDlyHMSM(0, 0, 0, 3000);
+							pxDataC->usiEPn = 0;
+							pxDataC->bUpdateComplete = FALSE;
+							xGlobal.bDTCFinished = FALSE;
+
+							/* Clear the CMD Queue */
+							error_code = OSQFlush(xQMaskDataCtrl);
+							if ( error_code != OS_NO_ERR ) {
+								vFailFlushQueueData();
+							}
+
+							pxDataC->sRunMode = sSubSetupEpoch;
+
 						} else {
-							/* Should never get here (blocking operation), critical fail */
-							vCouldNotGetQueueMaskDataCtrl();
+
+							/* Memory full updated, wait for MasterSync */
+
+							/* Indicates that at any moment the memory could be swaped in order to the NFEEs prepare the first packet to send in the next M. Sync */
+							pxDataC->bUpdateComplete = TRUE;
+							xGlobal.bDTCFinished = TRUE;
+							bSendMSGtoSimMebTaskDTC(Q_MEB_DATA_MEM_UPD_FIN, 0, 0); /*todo: Tratar retorno*/
+
+
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"\nDTC: Mem. Updated state\n");
+							}
+							#endif
+
+							/* Clear the CMD Queue */
+							error_code = OSQFlush(xQMaskDataCtrl);
+							if ( error_code != OS_NO_ERR ) {
+								vFailFlushQueueData();
+							}
+
+							uiCmdDTC.ulWord = (unsigned int)OSQPend(xQMaskDataCtrl, 0, &error_code); /* Blocking operation */
+							if ( error_code == OS_ERR_NONE ) {
+								/* Check if the command is for NFEE Controller */
+								if ( uiCmdDTC.ucByte[3] == M_DATA_CTRL_ADDR ) {
+									vPerformActionDTCRun(uiCmdDTC.ulWord, pxDataC);
+								}
+							} else {
+								/* Should never get here (blocking operation), critical fail */
+								vCouldNotGetQueueMaskDataCtrl();
+							}
 						}
 						break;
 
 					case sSubSetupEpoch:
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"DTC: Setup Epoch %hhu\n", pxDataC->usiEPn);
-						}
-						#endif
+//						#if DEBUG_ON
+//						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//							fprintf(fp,"DTC: Setup Epoch %hhu\n", pxDataC->usiEPn);
+//						}
+//						#endif
 
 						/* Indicates that the memory update is not completed, at this moment just start */
 						pxDataC->bUpdateComplete = FALSE;
@@ -207,6 +232,11 @@ void vDataControlTask(void *task_data) {
 						ucSubCCDSide = 0;
 						ucFailCount = 0;
 						ucMemUsing = (unsigned char) ( *pxDataC->pNextMem );
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+							fprintf(fp,"DTC: Setup Epoch %hhu Mem. used %hhu\n", pxDataC->usiEPn, ucMemUsing);
+						}
+						#endif
 
 						pxDataC->sRunMode = sSubRequest;
 						break;
@@ -217,8 +247,7 @@ void vDataControlTask(void *task_data) {
 
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-								fprintf(fp,"DTC: EP %hhu\n", pxDataC->usiEPn);
-								fprintf(fp,"DTC: Req to NUC: FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
+								fprintf(fp,"DTC: Req: EP %hhu FEE %hhu, CCD %hhu (%hhux%hhu ), Side %hhu\n", pxDataC->usiEPn, ucSubReqIFEE, ucSubReqICCD, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHalfWidth, pxDataC->xCopyNfee[ucSubReqIFEE].xCcdInfo.usiHeight, ucSubCCDSide);
 							}
 							#endif
 
@@ -241,11 +270,11 @@ void vDataControlTask(void *task_data) {
 								pxDataC->sRunMode = sSubMemUpdated;
 							} else {
 
-								#if DEBUG_ON
-								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-									fprintf(fp,"DTC: Request Success");
-								}
-								#endif
+//								#if DEBUG_ON
+//								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//									fprintf(fp,"DTC: Request Success");
+//								}
+//								#endif
 
 								pxDataC->sRunMode = sSubWaitIRQBuffer;
 								if ( ucSubCCDSide == 0 ) {
@@ -317,11 +346,11 @@ void vDataControlTask(void *task_data) {
 						break;
 					case sSubLastPckt:
 
-						#if DEBUG_ON
-						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
-							fprintf(fp,"DTC: Last Packet\n");
-						}
-						#endif
+//						#if DEBUG_ON
+//						if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+//							fprintf(fp,"DTC: Last Packet\n");
+//						}
+//						#endif
 
 						usiNByterLeft = (alt_u16)uliFTDInDataLeftInBuffer();
 
@@ -372,9 +401,26 @@ void vDataControlTask(void *task_data) {
 						ucSubReqIFEE = ( ucSubReqIFEE + 1 ) % N_OF_NFEE;
 
 					/* if Fee = 0, than the update is completed */
-					if ( (ucSubReqIFEE == 0) && (ucSubReqICCD == 0) && (ucSubCCDSide == 0) )
+					if ( (ucSubReqIFEE == 0) && (ucSubReqICCD == 0) && (ucSubCCDSide == 0) ) {
 						pxDataC->sRunMode = sSubMemUpdated;
-					else
+
+						if (pxDataC->bFirstMaster == TRUE) {
+							pxDataC->bFirstMaster = FALSE;
+
+							#if DEBUG_ON
+							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+								fprintf(fp,"DTC: First Sky Loaded.\n\n");
+							}
+							#endif
+
+							/*Send The sem sync to Meb*/
+							error_code = OSSemPost(xSemCommInit);
+							if ( error_code != OS_ERR_NONE ) {
+								vFailSendSemaphoreFromDTC();
+							}
+						}
+
+					} else
 						pxDataC->sRunMode = sSubRequest;
 					break;
 

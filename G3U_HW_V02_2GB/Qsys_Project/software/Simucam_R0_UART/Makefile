@@ -167,7 +167,6 @@ C_SRCS += driver/sync/sync.c
 C_SRCS += rtos/data_control_task.c
 C_SRCS += rtos/in_ack_handler_task.c
 C_SRCS += rtos/initialization_task.c
-C_SRCS += rtos/nfee_control_task.c
 C_SRCS += rtos/out_ack_handler_task.c
 C_SRCS += rtos/parser_comm_task.c
 C_SRCS += rtos/receiver_uart_task.c
@@ -193,6 +192,8 @@ C_SRCS += utils/sync_handler.c
 C_SRCS += utils/test_module_simucam.c
 C_SRCS += utils/util.c
 C_SRCS += driver/ftdi/ftdi.c
+C_SRCS += rtos/nfee_control_taskV2.c
+C_SRCS += rtos/sync_reset_task.c
 CXX_SRCS :=
 ASM_SRCS :=
 

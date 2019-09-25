@@ -36,6 +36,10 @@
 #define PCP_MUTEX_SENDER_ACK            18   /* MUTEX Reader -> Ack receiver control*/
 #define PCP_MUTEX_TX_UART_PRIO          17   /* MUTEX TX UART*/
 
+/*  Sync reset task will have a very high priority
+ *  but will be suspended when not in use [bndky]
+ */
+#define SYNC_RESET_HIGH_PRIO            2
 
 /* Main application priority */
 /* FEE 11 .. 16 */
@@ -62,10 +66,12 @@
 	#define   TASK_STACKSIZE          1024
     #define   FEE_TASK_STACKSIZE      1024
     #define   HEAVY_TASK_STACKSIZE    1536
+    #define   TINY_TASK_STACKSIZE     512   /*[bndky]*/
 #else
     #define   TASK_STACKSIZE          1536//1024
     #define   FEE_TASK_STACKSIZE      1536//1024
     #define   HEAVY_TASK_STACKSIZE    2048//1536
+    #define   TINY_TASK_STACKSIZE     512   /*[bndky]*/
 #endif
 
 /* Are equal only during the development */
@@ -77,10 +83,11 @@
 #define SENDER_TASK_SIZE            TASK_STACKSIZE
 #define TIMEOUT_CHECKER_SIZE        TASK_STACKSIZE
 #define STACK_MONITOR_SIZE          TASK_STACKSIZE
-#define FEE_CONTROL_STACK_SIZE      TASK_STACKSIZE
+#define FEE_CONTROL_STACK_SIZE      HEAVY_TASK_STACKSIZE
 #define DATA_CONTROL_STACK_SIZE     FEE_TASK_STACKSIZE /*todo: Maybe should increase in later versions*/
 #define FEES_STACK_SIZE             FEE_TASK_STACKSIZE
 #define MEB_STACK_SIZE              FEE_TASK_STACKSIZE /*todo: Maybe should increase in later versions*/
+#define SYNC_RESET_STACK_SIZE       TINY_TASK_STACKSIZE /*[bndky]*/
 
 
 /* -------------- Definition of Stacks------------------ */
@@ -106,6 +113,7 @@ extern OS_STK    vFeeTask2_stk[FEES_STACK_SIZE];
 extern OS_STK    vFeeTask3_stk[FEES_STACK_SIZE];
 extern OS_STK    vFeeTask4_stk[FEES_STACK_SIZE];
 extern OS_STK    vFeeTask5_stk[FEES_STACK_SIZE];
+extern OS_STK    vSyncReset_stk[SYNC_RESET_STACK_SIZE]; /*[bndky]*/
 /* -------------- Definition of Stacks------------------ */
 
 
