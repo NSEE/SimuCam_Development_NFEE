@@ -2109,7 +2109,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliV
 	/* Load current values */
 	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
 
-	/* TODO: Verif which HK is 32bit */
+	/* TODO: Verif which HK is 32bit, future, for now all regs are 16bit */
 	/* Switch case to assign value to register */
 	switch(usiID){
 		case usiTouSense1:
@@ -2313,6 +2313,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliV
 	}
 
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+
 }
 
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {

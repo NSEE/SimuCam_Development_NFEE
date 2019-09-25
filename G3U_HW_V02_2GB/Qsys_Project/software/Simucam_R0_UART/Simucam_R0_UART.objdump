@@ -20022,7 +20022,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliV
 802085e0:	8809883a 	mov	r4,r17
 802085e4:	0204d780 	call	80204d78 <bRmapGetRmapMemHKArea>
 
-	/* TODO: Verif which HK is 32bit */
+	/* TODO: Verif which HK is 32bit, future, for now all regs are 16bit */
 	/* Switch case to assign value to register */
 	switch(usiID){
 802085e8:	80bfffcc 	andi	r2,r16,65535
@@ -20503,6 +20503,7 @@ void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliV
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
 80208a34:	8809883a 	mov	r4,r17
 80208a38:	0204d380 	call	80204d38 <bRmapSetRmapMemHKArea>
+
 }
 80208a3c:	dfc00417 	ldw	ra,16(sp)
 80208a40:	dcc00317 	ldw	r19,12(sp)
