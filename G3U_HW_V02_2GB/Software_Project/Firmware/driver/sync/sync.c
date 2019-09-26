@@ -165,6 +165,11 @@ void vSyncPreHandleIrq(void* pvContext) {
 		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
 	}
 
+	error_codel = OSQPostFront(xQMaskFeeCtrl, (void *)uiCmdtoSend.ulWord);
+	if ( error_codel != OS_ERR_NONE ) {
+		vFailSendMsgSync( 10 );
+	}
+
 	
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {

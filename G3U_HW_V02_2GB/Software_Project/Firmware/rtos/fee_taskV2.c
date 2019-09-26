@@ -677,12 +677,12 @@ void vFeeTaskV2(void *task_data) {
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
 						/* Try to get the Mutex */
-						OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
+						//OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
 							/* Schedule the DMA to fill the double buffer for this FEE*/
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bPrepareDoubleBuffer( xTrans.xCcdMapLocal[ucSideFromMSG], xTrans.ucMemory, pxNFee->ucId, pxNFee, ucSideFromMSG, xTrans );
 
-							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
+							//OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 						}
 						/* Send message telling to controller that is not using the DMA any more */
 						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
@@ -742,7 +742,7 @@ void vFeeTaskV2(void *task_data) {
 						xTrans.bFinal[ucSideFromMSG] = FALSE;
 
 						/* Try to get the Mutex */
-						OSMutexPend(xDma[xTrans.ucMemory].xMutexDMA, 0, &error_code); /* Blocking way */
+						//OSMutexPend(xDma[xTrans.ucMemory].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
 
 							/* Is this the last block? */
@@ -771,7 +771,7 @@ void vFeeTaskV2(void *task_data) {
 								xTrans.bDmaReturn[ucSideFromMSG] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u16)usiLenLastBlocks, ucSideFromMSG, pxNFee->ucSPWId);
 
 							/* Giving the mutex back*/
-							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
+							//OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 
 							/* Check if was possible to schedule the transfer in the DMA*/
 							if ( xTrans.bDmaReturn[ucSideFromMSG] == TRUE ) {
