@@ -2089,6 +2089,234 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
 }
 
+/**
+ * @name vUpdateFeeHKValue
+ * @author bndky
+ * @brief Update HK function for simulated FEE
+ * @ingroup rtos
+ *
+ * @param 	[in]	TNFee 			*FeeInstance
+ * @param	[in]	usi 	usiID		(0 - 63)
+ * @param	[in]	alt_u32			fValue
+ *
+ * @retval void
+ **/
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliValue){
+	
+	unsigned short int usiValue;
+	/* Approx. float to usi */
+	usiValue = (unsigned short int) uliValue;
+
+	/* Load current values */
+	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+
+	/* TODO: Verif which HK is 32bit, future, for now all regs are 16bit */
+	/* Switch case to assign value to register */
+	switch(usiID){
+		case usiTouSense1:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense1 = usiValue;
+		break;
+		case usiTouSense2:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense2 = usiValue;
+		break;
+		case usiTouSense3:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense3 = usiValue;
+		break;
+		case usiTouSense4:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense4 = usiValue;
+		break;
+		case usiTouSense5:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense5 = usiValue;
+		break;
+		case usiTouSense6:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense6 = usiValue;
+		break;
+		case usiCcd1Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1Ts = usiValue;
+		break;
+		case usiCcd2Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2Ts = usiValue;
+		break;
+		case usiCcd3Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3Ts = usiValue;
+		break;
+		case usiCcd4Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4Ts = usiValue;
+		break;
+		case usiPrt1:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt1 = usiValue;
+		break;
+		case usiPrt2:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt2 = usiValue;
+		break;
+		case usiPrt3:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt3 = usiValue;
+		break;
+		case usiPrt4:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt4 = usiValue;
+		break;
+		case usiPrt5:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt5 = usiValue;
+		break;
+		case usiZeroDiffAmp:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiZeroDiffAmp = usiValue;
+		break;
+		case usiCcd1VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VodMon = usiValue;
+		break;
+		case usiCcd1VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VogMon = usiValue;
+		break;
+		case usiCcd1VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VrdMonE = usiValue;
+		break;
+		case usiCcd2VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VodMon = usiValue;
+		break;
+		case usiCcd2VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VogMon = usiValue;
+		break;
+		case usiCcd2VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VrdMonE = usiValue;
+		break;
+		case usiCcd3VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VodMon = usiValue;
+		break;
+		case usiCcd3VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VogMon = usiValue;
+		break;
+		case usiCcd3VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VrdMonE = usiValue;
+		break;
+		case usiCcd4VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VodMon = usiValue;
+		break;
+		case usiCcd4VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VogMon = usiValue;
+		break;
+		case usiCcd4VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VrdMonE = usiValue;
+		break;
+		case usiVccd:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVccd = usiValue;
+		break;
+		case usiVrclkMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVrclkMon = usiValue;
+		break;
+		case usiViclk:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiViclk = usiValue;
+		break;
+		case usiVrclkLow:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVrclkLow = usiValue;
+		break;
+		case usi5vbPosMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vbPosMon = usiValue;
+		break;
+		case usi5vbNegMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vbNegMon = usiValue;
+		break;
+		case usi3v3bMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi3v3bMon = usiValue;
+		break;
+		case usi2v5aMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi2v5aMon = usiValue;
+		break;
+		case usi3v3dMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi3v3dMon = usiValue;
+		break;
+		case usi2v5dMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi2v5dMon = usiValue;
+		break;
+		case usi1v5dMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi1v5dMon = usiValue;
+		break;
+		case usi5vrefMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vrefMon = usiValue;
+		break;
+		case usiVccdPosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVccdPosRaw = usiValue;
+		break;
+		case usiVclkPosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVclkPosRaw = usiValue;
+		break;
+		case usiVan1PosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan1PosRaw = usiValue;
+		break;
+		case usiVan3NegMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan3NegMon = usiValue;
+		break;
+		case usiVan2PosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan2PosRaw = usiValue;
+		break;
+		case usiVdigRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVdigRaw = usiValue;
+		break;
+		case usiVdigRaw2:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVdigRaw2 = usiValue;
+		break;
+		case usiViclkLow:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiViclkLow = usiValue;
+		break;
+		case usiCcd1VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VrdMonF = usiValue;
+		break;
+		case usiCcd1VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VddMon = usiValue;
+		break;
+		case usiCcd1VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VgdMon = usiValue;
+		break;
+		case usiCcd2VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VrdMonF = usiValue;
+		break;
+		case usiCcd2VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VddMon = usiValue;
+		break;
+		case usiCcd2VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VgdMon = usiValue;
+		break;
+		case usiCcd3VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VrdMonF = usiValue;
+		break;
+		case usiCcd3VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VddMon = usiValue;
+		break;
+		case usiCcd3VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VgdMon = usiValue;
+		break;
+		case usiCcd4VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VrdMonF = usiValue;
+		break;
+		case usiCcd4VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VddMon = usiValue;
+		break;
+		case usiCcd4VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VgdMon = usiValue;
+		break;
+		case usiIgHiMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiIgHiMon = usiValue;
+		break;
+		case usiIgLoMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiIgLoMon = usiValue;
+		break;
+		case usiTsenseA:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseA = usiValue;
+		break;
+		case usiTsenseB:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB = usiValue;
+		break;
+		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				fprintf(fp, "HK update: HK ID out of bounds: %hu;\n", usiID );
+			#endif
+		break;
+	}
+
+	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+
+}
+
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {
 	INT8U error_code, i;
 	char cHeader[8] = "!F:%hhu:";
