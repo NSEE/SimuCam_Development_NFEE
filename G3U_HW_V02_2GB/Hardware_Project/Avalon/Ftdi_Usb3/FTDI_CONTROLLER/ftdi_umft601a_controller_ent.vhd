@@ -312,8 +312,8 @@ begin
 		-- on asynchronous reset in any state we jump to the idle state
 		if (rst_i = '1') then
 			-- states
-			s_ftdi_umft601a_controller_state      <= STOPPED;
-			v_ftdi_umft601a_controller_state      := STOPPED;
+			s_ftdi_umft601a_controller_state      <= IDLE;
+			v_ftdi_umft601a_controller_state      := IDLE;
 			-- internal signals
 			s_delay_cnt                           <= 0;
 			s_tx_priority                         <= '0';
@@ -552,19 +552,20 @@ begin
 						-- tx dc fifo still have no more data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
 						v_ftdi_umft601a_controller_state := TX_FILLING;
-						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					else
 						-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
-						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+--						if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							--						if ((s_umft601a_buffered_pins.txe_n = '0')) then
 							-- umft601a module can still receive data
 							s_ftdi_umft601a_controller_state <= TX_TRANSMITTING;
 							v_ftdi_umft601a_controller_state := TX_TRANSMITTING;
-							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
-						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
-						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
-							s_ftdi_umft601a_controller_state <= IDLE;
-							v_ftdi_umft601a_controller_state := IDLE;
+--							s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+--						-- check if the umft601a module can still receive data and if the tx words are over (force each write to have a maximum of 4096 Bytes)
+--						elsif ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt = 0)) then
+--							s_ftdi_umft601a_controller_state <= IDLE;
+--							v_ftdi_umft601a_controller_state := IDLE;
 						else
 							s_tx_interrupted      <= '1';
 							s_tx_interrupted_data <= s_tx_dc_data_fifo.rddata_data;
@@ -584,26 +585,28 @@ begin
 					s_tx_words_cnt                   <= 0;
 					-- conditional state transition and internal signal values
 					-- check if the umft601a module can still receive data and if the tx words are not over (force each write to have a maximum of 4096 Bytes)
-					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+--					if ((s_umft601a_buffered_pins.txe_n = '0') and (s_tx_words_cnt > 0)) then
+					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						--					if ((s_umft601a_buffered_pins.txe_n = '0')) then
 						-- umft601a module can still receive data
 						s_ftdi_umft601a_controller_state <= TX_FILLING;
 						v_ftdi_umft601a_controller_state := TX_FILLING;
-						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
+--						s_tx_words_cnt                   <= s_tx_words_cnt - 1;
 					end if;
 
 				-- all the other states (not defined)
 				when others =>
 					-- jump to save state (ERROR?!)
-					s_ftdi_umft601a_controller_state <= STOPPED;
-					v_ftdi_umft601a_controller_state := STOPPED;
+					s_ftdi_umft601a_controller_state <= IDLE;
+					v_ftdi_umft601a_controller_state := IDLE;
 
 			end case;
 
 			-- check if a stop command was issued
 			if (s_synchronized_stop = '1') then
-				s_ftdi_umft601a_controller_state <= STOPPED;
-				v_ftdi_umft601a_controller_state := STOPPED;
+--				s_ftdi_umft601a_controller_state <= STOPPED;
+--				v_ftdi_umft601a_controller_state := STOPPED;
+				null;
 			-- check if a clear command was issued
 			elsif (s_synchronized_clear = '1') then
 				s_ftdi_umft601a_controller_state <= IDLE;
