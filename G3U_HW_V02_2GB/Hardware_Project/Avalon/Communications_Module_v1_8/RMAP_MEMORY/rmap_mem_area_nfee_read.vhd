@@ -2523,11 +2523,11 @@ begin
 						avalon_mm_rmap_o.readdata(3 downto 0) <= rmap_registers_wr_i.reg_17_config.reg_17_config_reserved;
 					end if;
 					-- RMAP Area Config Register 18 : CCD Vod Configuration Config Field
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(15 downto 8) <= rmap_registers_wr_i.reg_18_config.ccd_vod_config(7 downto 0);
-					end if;
 					if (avalon_mm_rmap_i.byteenable(2) = '1') then
-						avalon_mm_rmap_o.readdata(19 downto 16) <= rmap_registers_wr_i.reg_18_config.ccd_vod_config(11 downto 8);
+						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.reg_18_config.ccd_vod_config(7 downto 0);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(3) = '1') then
+						avalon_mm_rmap_o.readdata(27 downto 24) <= rmap_registers_wr_i.reg_18_config.ccd_vod_config(11 downto 8);
 					end if;
 
 				when (16#9F#) =>
@@ -3221,11 +3221,11 @@ begin
 						avalon_mm_rmap_o.readdata(3 downto 0) <= rmap_registers_wr_i.reg_33_hk.op_mode;
 					end if;
 					-- RMAP Area HK Register 33 : Register 33 HK Reserved
-					if (avalon_mm_rmap_i.byteenable(1) = '1') then
-						avalon_mm_rmap_o.readdata(15 downto 8) <= rmap_registers_wr_i.reg_33_hk.reg_33_hk_reserved(7 downto 0);
-					end if;
 					if (avalon_mm_rmap_i.byteenable(2) = '1') then
-						avalon_mm_rmap_o.readdata(17 downto 16) <= rmap_registers_wr_i.reg_33_hk.reg_33_hk_reserved(9 downto 8);
+						avalon_mm_rmap_o.readdata(23 downto 16) <= rmap_registers_wr_i.reg_33_hk.reg_33_hk_reserved(7 downto 0);
+					end if;
+					if (avalon_mm_rmap_i.byteenable(3) = '1') then
+						avalon_mm_rmap_o.readdata(25 downto 24) <= rmap_registers_wr_i.reg_33_hk.reg_33_hk_reserved(9 downto 8);
 					end if;
 
 				when (16#CF#) =>
@@ -3314,6 +3314,7 @@ begin
 					end if;
 
 				when others =>
+					-- No register associated to the address, return with 0x00000000
 					avalon_mm_rmap_o.readdata <= (others => '0');
 
 			end case;

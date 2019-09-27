@@ -272,12 +272,13 @@ begin
 
 	delay_block_ent_inst : entity work.delay_block_ent
 		generic map(
-			g_CLKDIV      => std_logic_vector(to_unsigned(1, 8)),
+			g_CLKDIV      => std_logic_vector(to_unsigned(1, 16)),
 			g_TIMER_WIDTH => s_delay_timer'length
 		)
 		port map(
 			clk_i            => clk200,
 			rst_i            => rst,
+			clr_i            => '0',
 			delay_trigger_i  => s_delay_trigger,
 			delay_timer_i    => s_delay_timer,
 			delay_busy_o     => s_delay_busy,
