@@ -11,6 +11,7 @@ entity ftdi_rx_protocol_header_parser_ent is
 		rst_i                         : in  std_logic;
 		data_rx_stop_i                : in  std_logic;
 		data_rx_start_i               : in  std_logic;
+		header_parser_abort_i         : in  std_logic;
 		header_parser_start_i         : in  std_logic;
 		header_parser_reset_i         : in  std_logic;
 		rx_dc_data_fifo_rddata_data_i : in  std_logic_vector(31 downto 0);
@@ -49,6 +50,7 @@ architecture RTL of ftdi_rx_protocol_header_parser_ent is
 		HEADER_RX_PAYLOAD_LENGTH,       -- fetch and parse the payload length to the rx fifo
 		HEADER_RX_HEADER_CRC,           -- fetch and parse the header crc to the rx fifo
 		HEADER_RX_END_OF_HEADER,        -- fetch and parse a end of header to the rx fifo
+		HEADER_RX_ABORT,                -- abort a header receival (consume all data in the rx fifo)
 		FINISH_HEADER_RX                -- finish the header receival
 	);
 	signal s_ftdi_tx_prot_header_parser_state : t_ftdi_tx_prot_header_parser_fsm;
@@ -252,6 +254,23 @@ begin
 						s_header_eoh_error <= '1';
 					end if;
 
+				-- state "HEADER_RX_ABORT"
+				when HEADER_RX_ABORT =>
+					-- abort a header receival (consume all data in the rx fifo)
+					-- default state transition
+					s_ftdi_tx_prot_header_parser_state <= HEADER_RX_ABORT;
+					v_ftdi_tx_prot_header_parser_state := HEADER_RX_ABORT;
+					-- default internal signal values
+					s_header_crc32_match               <= '0';
+					s_header_eoh_error                 <= '0';
+					-- conditional state transition
+					-- check if the rx fifo is empty
+					if (rx_dc_data_fifo_rdempty_i = '1') then
+						-- rx fifo is empty, go to finish
+						s_ftdi_tx_prot_header_parser_state <= FINISH_HEADER_RX;
+						v_ftdi_tx_prot_header_parser_state := FINISH_HEADER_RX;
+					end if;
+
 				-- state "FINISH_HEADER_RX"
 				when FINISH_HEADER_RX =>
 					-- finish the header receival
@@ -274,6 +293,10 @@ begin
 			if (data_rx_stop_i = '1') then
 				s_ftdi_tx_prot_header_parser_state <= STOPPED;
 				v_ftdi_tx_prot_header_parser_state := STOPPED;
+			-- check if an abort was received and the header is not stopped or in idle or in abort or finished
+			elsif ((header_parser_abort_i = '1') and ((s_ftdi_tx_prot_header_parser_state /= STOPPED) and (s_ftdi_tx_prot_header_parser_state /= IDLE) and (s_ftdi_tx_prot_header_parser_state /= HEADER_RX_ABORT) and (s_ftdi_tx_prot_header_parser_state /= FINISH_HEADER_RX))) then
+				s_ftdi_tx_prot_header_parser_state <= HEADER_RX_ABORT;
+				v_ftdi_tx_prot_header_parser_state := HEADER_RX_ABORT;
 			end if;
 
 			-- Output generation FSM
@@ -439,6 +462,18 @@ begin
 				-- state "HEADER_RX_END_OF_HEADER"
 				when HEADER_RX_END_OF_HEADER =>
 					-- fetch and parse a end of header to the rx fifo
+					-- default output signals
+					header_parser_busy_o    <= '1';
+					header_data_o           <= c_FTDI_PROT_HEADER_RESET;
+					s_header_crc32          <= (others => '0');
+					header_crc32_match_o    <= '0';
+					header_eoh_error_o      <= '0';
+					rx_dc_data_fifo_rdreq_o <= '1';
+				-- conditional output signals
+
+				-- state "HEADER_RX_ABORT"
+				when HEADER_RX_ABORT =>
+					-- abort a header receival (consume all data in the rx fifo)
 					-- default output signals
 					header_parser_busy_o    <= '1';
 					header_data_o           <= c_FTDI_PROT_HEADER_RESET;
