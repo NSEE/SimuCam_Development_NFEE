@@ -195,7 +195,7 @@ begin
 					s_payload_eop_error                 <= '0';
 					-- conditional state transition
 					-- check if a start of package was detected
-					if (rx_dc_data_fifo_rddata_data_i = x"99999999") then
+					if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PAYLOAD) then
 						s_ftdi_tx_prot_payload_reader_state <= WAITING_RX_READY;
 						v_ftdi_tx_prot_payload_reader_state := WAITING_RX_READY;
 					end if;
