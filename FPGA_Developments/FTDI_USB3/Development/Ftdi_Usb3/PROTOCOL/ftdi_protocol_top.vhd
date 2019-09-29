@@ -79,7 +79,8 @@ architecture RTL of ftdi_protocol_top is
 	signal s_header_generator_data  : t_ftdi_prot_header_fields;
 	signal s_header_generator_busy  : std_logic;
 
-	-- FTDI Rx Header Parser Signals			
+	-- FTDI Rx Header Parser Signals
+	signal s_header_parser_abort       : std_logic;
 	signal s_header_parser_start       : std_logic;
 	signal s_header_parser_reset       : std_logic;
 	signal s_header_parser_busy        : std_logic;
@@ -94,6 +95,7 @@ architecture RTL of ftdi_protocol_top is
 	signal s_payload_writer_busy         : std_logic;
 
 	-- FTDI Rx Payload Reader Signals
+	signal s_payload_reader_abort        : std_logic;
 	signal s_payload_reader_start        : std_logic;
 	signal s_payload_reader_reset        : std_logic;
 	signal s_payload_reader_length_bytes : std_logic_vector(31 downto 0);
@@ -121,6 +123,9 @@ begin
 
 	-- FTDI Protocol Controller Instantiation
 	ftdi_protocol_controller_ent_inst : entity work.ftdi_protocol_controller_ent
+		generic map(
+			g_DELAY_TIMEOUT_CLKDIV => 49999 -- [100 MHz / 50000 = 2 kHz = 0,5 ms]
+		)
 		port map(
 			clk_i                                => clk_i,
 			rst_i                                => rst_i,
@@ -167,11 +172,13 @@ begin
 			header_generator_start_o             => s_header_generator_start,
 			header_generator_reset_o             => s_header_generator_reset,
 			header_generator_data_o              => s_header_generator_data,
+			header_parser_abort_o                => s_header_parser_abort,
 			header_parser_start_o                => s_header_parser_start,
 			header_parser_reset_o                => s_header_parser_reset,
 			payload_writer_start_o               => s_payload_writer_start,
 			payload_writer_reset_o               => s_payload_writer_reset,
 			payload_writer_length_bytes_o        => s_payload_writer_length_bytes,
+			payload_reader_abort_o               => s_payload_reader_abort,
 			payload_reader_start_o               => s_payload_reader_start,
 			payload_reader_reset_o               => s_payload_reader_reset,
 			payload_reader_length_bytes_o        => s_payload_reader_length_bytes

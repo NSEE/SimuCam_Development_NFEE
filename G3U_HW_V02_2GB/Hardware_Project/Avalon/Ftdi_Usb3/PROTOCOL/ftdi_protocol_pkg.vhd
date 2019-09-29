@@ -8,6 +8,7 @@ package ftdi_protocol_pkg is
 
 	constant c_FTDI_PROT_START_OF_PACKAGE : std_logic_vector(31 downto 0) := x"55555555";
 	constant c_FTDI_PROT_END_OF_HEADER    : std_logic_vector(31 downto 0) := x"33333333";
+	constant c_FTDI_PROT_START_OF_PAYLOAD : std_logic_vector(31 downto 0) := x"99999999";
 	constant c_FTDI_PROT_END_OF_PAYLOAD   : std_logic_vector(31 downto 0) := x"77777777";
 
 	constant c_FTDI_PROT_PKG_ID_HALF_CCD_REQUEST : std_logic_vector(31 downto 0) := x"01010101";

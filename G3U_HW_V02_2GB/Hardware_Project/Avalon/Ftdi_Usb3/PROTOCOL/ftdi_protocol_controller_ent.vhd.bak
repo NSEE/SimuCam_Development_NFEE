@@ -373,7 +373,7 @@ begin
 							end if;
 						else
 							-- Unexpected package received
-
+							s_general_error <= '1';
 						end if;
 					else
 						-- Package CRC does not match or End of Header error ocurred
@@ -419,7 +419,7 @@ begin
 					-- default internal signal values
 					s_request_tries                      <= 2;
 					s_parsed_reply_header_data           <= header_parser_data_i;
-
+					s_general_error                      <= '0';
 					s_err_half_ccd_reply_payload_crc_err <= '0';
 					s_err_half_ccd_reply_eop_err         <= '0';
 					s_err_half_ccd_req_max_tries_err     <= '0';
@@ -441,7 +441,7 @@ begin
 								s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
 								v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_HEADER;
 								s_request_tries              <= s_request_tries - 1;
-
+								s_general_error              <= '1';
 							end if;
 						end if;
 					else
@@ -452,7 +452,7 @@ begin
 							s_ftdi_prot_controller_state <= HFCCD_NACK_SEND_TX_HEADER;
 							v_ftdi_prot_controller_state := HFCCD_NACK_SEND_TX_HEADER;
 							s_request_tries              <= s_request_tries - 1;
-
+							s_general_error              <= '1';
 						end if;
 					end if;
 

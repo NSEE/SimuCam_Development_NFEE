@@ -54,6 +54,7 @@ add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLL
 add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
 add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
 add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
 add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
@@ -89,6 +90,7 @@ add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLL
 add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
 add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
 add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
 add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
