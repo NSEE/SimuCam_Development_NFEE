@@ -13,6 +13,7 @@
 void vFeeTaskV2(void *task_data) {
 	TNFee *pxNFee;
 	INT8U error_code;
+	volatile INT8U ucRetries;
 	tQMask uiCmdFEE;
 	TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
@@ -116,6 +117,8 @@ void vFeeTaskV2(void *task_data) {
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+
+				ucRetries = 0;
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sInit;
@@ -662,6 +665,8 @@ void vFeeTaskV2(void *task_data) {
 				xTrans.bFinal[0] = xTrans.bDmaReturn[0];
 				xTrans.bFinal[1] = xTrans.bDmaReturn[1];
 
+				ucRetries = 0;
+
 				pxNFee->xControl.eState = redoutPreLoadBuffer;
 				break;
 
@@ -677,15 +682,13 @@ void vFeeTaskV2(void *task_data) {
 						ucSideFromMSG = uiCmdFEE.ucByte[1];
 
 						/* Try to get the Mutex */
-						//OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
+						OSMutexPend(xDma[ xTrans.ucMemory ].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
 							/* Schedule the DMA to fill the double buffer for this FEE*/
 							xTrans.bDmaReturn[ ucSideFromMSG ] = bPrepareDoubleBuffer( xTrans.xCcdMapLocal[ucSideFromMSG], xTrans.ucMemory, pxNFee->ucId, pxNFee, ucSideFromMSG, xTrans );
 
-							//OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
+							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 						}
-						/* Send message telling to controller that is not using the DMA any more */
-						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 
 						if ( (xTrans.bDmaReturn[0] == TRUE) && (xTrans.bDmaReturn[1] == TRUE) ) {
 
@@ -702,19 +705,53 @@ void vFeeTaskV2(void *task_data) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"NFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
-								fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
 							}
 							#endif
-							/*Back to Config*/
-							pxNFee->xControl.bWatingSync = FALSE;
-							pxNFee->xControl.eLastMode = sInit;
-							pxNFee->xControl.eMode = sConfig;
-							pxNFee->xControl.eState = sConfig_Enter;
+
+							if ( ucRetries > 9) {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+									fprintf(fp,"NFEE-%hu Task: CRITICAL! D. B. Requested more than 3 times.\n", pxNFee->ucId);
+									fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
+								}
+								#endif
+
+								/*Back to Config*/
+								pxNFee->xControl.bWatingSync = FALSE;
+								pxNFee->xControl.eLastMode = sInit;
+								pxNFee->xControl.eMode = sConfig;
+								pxNFee->xControl.eState = sConfig_Enter;
+
+								ucRetries = 0;
+
+							} else {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+									fprintf(fp,"NFEE %hhu Task: Retry D.B. request.\n", pxNFee->ucId);
+								}
+								#endif
+
+								/* Stop the module Double Buffer */
+								bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
+								/* Clear all buffer form the Double Buffer */
+								bFeebClrCh(&pxNFee->xChannel.xFeeBuffer);
+								/* Start the module Double Buffer */
+								bFeebStartCh(&pxNFee->xChannel.xFeeBuffer);
+
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
+
+
+							}
+
+							ucRetries++;
+
 						}
 					} else {
 						/* Is not access to DMA, so we need to check what is this received command */
-						vQCmdFEEinPreLoadBuffer( pxNFee, uiCmdFEE.ulWord );//todo: fazer um leitor
+						vQCmdFEEinPreLoadBuffer( pxNFee, uiCmdFEE.ulWord );
 					}
+					/* Send message telling to controller that is not using the DMA any more */
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 				} else {
 					/* Error while trying to read from the Queue*/
 					#if DEBUG_ON
@@ -742,7 +779,7 @@ void vFeeTaskV2(void *task_data) {
 						xTrans.bFinal[ucSideFromMSG] = FALSE;
 
 						/* Try to get the Mutex */
-						//OSMutexPend(xDma[xTrans.ucMemory].xMutexDMA, 0, &error_code); /* Blocking way */
+						OSMutexPend(xDma[xTrans.ucMemory].xMutexDMA, 0, &error_code); /* Blocking way */
 						if ( error_code == OS_ERR_NONE ) {
 
 							/* Is this the last block? */
@@ -770,8 +807,6 @@ void vFeeTaskV2(void *task_data) {
 							else
 								xTrans.bDmaReturn[ucSideFromMSG] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u16)usiLenLastBlocks, ucSideFromMSG, pxNFee->ucSPWId);
 
-							/* Giving the mutex back*/
-							//OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 
 							/* Check if was possible to schedule the transfer in the DMA*/
 							if ( xTrans.bDmaReturn[ucSideFromMSG] == TRUE ) {
@@ -783,15 +818,22 @@ void vFeeTaskV2(void *task_data) {
 								/* Send the request for use the DMA, but to front of the QUEUE. Because will not have any other IRQ to set it for us */
 								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
 							}
+							/* Giving the mutex back*/
+							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 
 							/* Send message telling to controller that is not using the DMA any more */
 							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
+
+
 
 							/* Last Packet scheduled?*/
 							if ( (xTrans.bFinal[0] == TRUE) && (xTrans.bFinal[1] == TRUE) ) {
 								/* Changing the FEE state */
 								pxNFee->xControl.eState = redoutEndSch;
 							}
+						} else {
+							/* If you could not get the mutex sem. */
+
 						}
 					} else {
 						/* Is not an access DMA command, check what is?*/
@@ -1059,6 +1101,7 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 /* Threat income command while the Fee is on Readout Mode mode*/
 void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
+	unsigned char error_code;
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -1127,6 +1170,23 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				/* Perform some actions, check if is a valid command for this mode of operation  */
 				vQCmdFeeRMAPinReadoutTrans( pxNFeeP, cmd );//todo: dizem que nao vao enviar comando durante a transmissao, ignorar?
 
+				break;
+
+			case M_BEFORE_SYNC:
+				/* Stop the module Double Buffer */
+				bFeebStopCh(&pxNFeeP->xChannel.xFeeBuffer);
+				/* Clear all buffer form the Double Buffer */
+				bFeebClrCh(&pxNFeeP->xChannel.xFeeBuffer);
+				/* Start the module Double Buffer */
+				bFeebStartCh(&pxNFeeP->xChannel.xFeeBuffer);
+
+				/*The Meb My have sent a message to inform the finish of the update of the image*/
+				error_code = OSQFlush( xFeeQ[ pxNFeeP->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				pxNFeeP->xControl.eState = redoutConfigureTrans;
 				break;
 
 			case M_SYNC:
