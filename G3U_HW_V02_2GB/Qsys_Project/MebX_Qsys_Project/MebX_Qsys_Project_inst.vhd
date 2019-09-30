@@ -117,14 +117,6 @@
 			ssdp_ssdp1                                                  : out   std_logic_vector(7 downto 0);                     -- ssdp1
 			sync_in_conduit                                             : in    std_logic                     := 'X';             -- conduit
 			sync_out_conduit                                            : out   std_logic;                                        -- conduit
-			sync_spw1_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw2_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw3_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw4_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw5_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw6_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw7_conduit                                           : out   std_logic;                                        -- conduit
-			sync_spw8_conduit                                           : out   std_logic;                                        -- conduit
 			temp_scl_export                                             : out   std_logic;                                        -- export
 			temp_sda_export                                             : inout std_logic                     := 'X';             -- export
 			timer_1ms_external_port_export                              : out   std_logic;                                        -- export
@@ -146,7 +138,14 @@
 			umft601a_pins_umft_rd_n_signal                              : out   std_logic;                                        -- umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              : out   std_logic;                                        -- umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                            : out   std_logic;                                        -- umft_siwu_n_signal
-			pio_debug_io_export                                         : out   std_logic_vector(9 downto 0)                      -- export
+			sync_spw1_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw2_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw3_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw4_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw5_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw6_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw7_conduit                                           : out   std_logic;                                        -- conduit
+			sync_spw8_conduit                                           : out   std_logic                                         -- conduit
 		);
 	end component MebX_Qsys_Project;
 
@@ -269,14 +268,6 @@
 			ssdp_ssdp1                                                  => CONNECTED_TO_ssdp_ssdp1,                                                  --                                .ssdp1
 			sync_in_conduit                                             => CONNECTED_TO_sync_in_conduit,                                             --                         sync_in.conduit
 			sync_out_conduit                                            => CONNECTED_TO_sync_out_conduit,                                            --                        sync_out.conduit
-			sync_spw1_conduit                                           => CONNECTED_TO_sync_spw1_conduit,                                           --                       sync_spw1.conduit
-			sync_spw2_conduit                                           => CONNECTED_TO_sync_spw2_conduit,                                           --                       sync_spw2.conduit
-			sync_spw3_conduit                                           => CONNECTED_TO_sync_spw3_conduit,                                           --                       sync_spw3.conduit
-			sync_spw4_conduit                                           => CONNECTED_TO_sync_spw4_conduit,                                           --                       sync_spw4.conduit
-			sync_spw5_conduit                                           => CONNECTED_TO_sync_spw5_conduit,                                           --                       sync_spw5.conduit
-			sync_spw6_conduit                                           => CONNECTED_TO_sync_spw6_conduit,                                           --                       sync_spw6.conduit
-			sync_spw7_conduit                                           => CONNECTED_TO_sync_spw7_conduit,                                           --                       sync_spw7.conduit
-			sync_spw8_conduit                                           => CONNECTED_TO_sync_spw8_conduit,                                           --                       sync_spw8.conduit
 			temp_scl_export                                             => CONNECTED_TO_temp_scl_export,                                             --                        temp_scl.export
 			temp_sda_export                                             => CONNECTED_TO_temp_sda_export,                                             --                        temp_sda.export
 			timer_1ms_external_port_export                              => CONNECTED_TO_timer_1ms_external_port_export,                              --         timer_1ms_external_port.export
@@ -298,6 +289,13 @@
 			umft601a_pins_umft_rd_n_signal                              => CONNECTED_TO_umft601a_pins_umft_rd_n_signal,                              --                                .umft_rd_n_signal
 			umft601a_pins_umft_oe_n_signal                              => CONNECTED_TO_umft601a_pins_umft_oe_n_signal,                              --                                .umft_oe_n_signal
 			umft601a_pins_umft_siwu_n_signal                            => CONNECTED_TO_umft601a_pins_umft_siwu_n_signal,                            --                                .umft_siwu_n_signal
-			pio_debug_io_export                                         => CONNECTED_TO_pio_debug_io_export                                          --                    pio_debug_io.export
+			sync_spw1_conduit                                           => CONNECTED_TO_sync_spw1_conduit,                                           --                       sync_spw1.conduit
+			sync_spw2_conduit                                           => CONNECTED_TO_sync_spw2_conduit,                                           --                       sync_spw2.conduit
+			sync_spw3_conduit                                           => CONNECTED_TO_sync_spw3_conduit,                                           --                       sync_spw3.conduit
+			sync_spw4_conduit                                           => CONNECTED_TO_sync_spw4_conduit,                                           --                       sync_spw4.conduit
+			sync_spw5_conduit                                           => CONNECTED_TO_sync_spw5_conduit,                                           --                       sync_spw5.conduit
+			sync_spw6_conduit                                           => CONNECTED_TO_sync_spw6_conduit,                                           --                       sync_spw6.conduit
+			sync_spw7_conduit                                           => CONNECTED_TO_sync_spw7_conduit,                                           --                       sync_spw7.conduit
+			sync_spw8_conduit                                           => CONNECTED_TO_sync_spw8_conduit                                            --                       sync_spw8.conduit
 		);
 

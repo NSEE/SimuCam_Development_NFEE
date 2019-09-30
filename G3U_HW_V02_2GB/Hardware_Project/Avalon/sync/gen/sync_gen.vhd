@@ -94,8 +94,6 @@ architecture rtl of sync_gen is
 	signal s_next_sync_cycle_cnt : natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
 	-- registered config record
 	signal s_registered_configs  : t_sync_gen_config;
-	
-	signal s_sync_gen : std_logic;
 
 	--============================================================================
 	-- architecture begin
@@ -108,7 +106,7 @@ begin
 	-- read: clk_i, reset_n_i
 	-- write:
 	-- r/w: s_sync_gen_state
-	p_sync_gen_fsm_state : process(clk_i, reset_n_i, s_registered_configs)
+	p_sync_gen_fsm_state : process(clk_i, reset_n_i)
 		variable v_sync_gen_state  : t_sync_gen_state;
 		variable v_pre_sync_signal : std_logic;
 		variable v_sync_cycle      : natural range 0 to ((2 ** g_SYNC_CYCLE_NUMBER_WIDTH) - 1);
@@ -132,7 +130,7 @@ begin
 			v_sync_cycle                           := 0;
 			v_next_sync_cycle                      := 0;
 			-- outputs
-			s_sync_gen                             <= '0';
+			sync_gen_o                             <= not s_registered_configs.signal_polarity;
 			pre_sync_gen_o                         <= '0';
 			status_o.state                         <= (others => '0');
 			status_o.cycle_number                  <= (others => '0');
@@ -441,7 +439,7 @@ begin
 
 				-- state "IDLE"
 				when IDLE =>
-					s_sync_gen                 <= not s_registered_configs.signal_polarity;
+					sync_gen_o                 <= not s_registered_configs.signal_polarity;
 					pre_sync_gen_o             <= '0';
 					-- state: idle = 0
 					status_o.state             <= (others => '0');
@@ -450,7 +448,7 @@ begin
 
 				-- state "R_BLANK"
 				when R_BLANK =>
-					s_sync_gen                 <= s_registered_configs.signal_polarity;
+					sync_gen_o                 <= s_registered_configs.signal_polarity;
 					pre_sync_gen_o             <= '0';
 					-- state: running = 1
 					status_o.state             <= (0 => '1', others => '0');
@@ -459,7 +457,7 @@ begin
 
 				-- state "R_RELEASE"
 				when R_RELEASE =>
-					s_sync_gen                 <= not s_registered_configs.signal_polarity;
+					sync_gen_o                 <= not s_registered_configs.signal_polarity;
 					if (v_pre_sync_signal = '1') then
 						pre_sync_gen_o <= '1';
 					else
@@ -472,7 +470,7 @@ begin
 
 				-- state "ONE_SHOT"
 				when ONE_SHOT =>
-					s_sync_gen                 <= s_registered_configs.signal_polarity;
+					sync_gen_o                 <= s_registered_configs.signal_polarity;
 					pre_sync_gen_o             <= '0';
 					-- state: one shot = 2
 					status_o.state             <= (1 => '1', others => '0');
@@ -481,7 +479,7 @@ begin
 
 				-- state "E_BLANK"
 				when E_BLANK =>
-					s_sync_gen                 <= s_registered_configs.signal_polarity;
+					sync_gen_o                 <= s_registered_configs.signal_polarity;
 					pre_sync_gen_o             <= '0';
 					-- state: error injection = 3
 					status_o.state             <= (0 | 1 => '1', others => '0');
@@ -490,7 +488,7 @@ begin
 
 				-- state "E_RELEASE"
 				when E_RELEASE =>
-					s_sync_gen                 <= not s_registered_configs.signal_polarity;
+					sync_gen_o                 <= not s_registered_configs.signal_polarity;
 					pre_sync_gen_o             <= '0';
 					-- state: error injection = 3
 					status_o.state             <= (0 | 1 => '1', others => '0');
@@ -505,8 +503,6 @@ begin
 
 		end if;
 	end process p_sync_gen_fsm_state;
-	
-	sync_gen_o                             <= (not s_registered_configs.signal_polarity) when (reset_n_i = '0') else (s_sync_gen);
 
 end architecture rtl;
 --============================================================================

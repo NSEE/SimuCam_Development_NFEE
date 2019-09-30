@@ -313,12 +313,6 @@ begin
 					s_timeout_delay_trigger      <= '0';
 					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-					end if;
 
 				-- state "HFCCD_ACK_RECEIVE_RX_HEADER"
 				when HFCCD_ACK_RECEIVE_RX_HEADER =>
@@ -366,13 +360,6 @@ begin
 					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
 					-- check if a complete header arrived and the CRC matched
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-						s_timeout_delay_clear        <= '0';
-					else
 						if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
 							-- CRC matched and End of Header error not ocurred, package is reliable
 							-- check if the arriving package is a ACK or NACK
@@ -433,7 +420,6 @@ begin
 							s_err_half_ccd_reply_header_crc_err <= not (header_parser_crc32_match_i);
 							s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
 						end if;
-					end if;
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_HEADER"
 				when HFCCD_REPLY_RECEIVE_RX_HEADER =>
@@ -480,13 +466,6 @@ begin
 					s_timeout_delay_trigger             <= '0';
 					s_timeout_delay_timer               <= (others => '0');
 					-- conditional state transition
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-						s_timeout_delay_clear        <= '0';
-					else
 						-- check if a complete header arrived and the CRC matched
 						if ((header_parser_eoh_error_i = '0') and (header_parser_crc32_match_i = '1')) then
 							-- CRC matched and End of Header error not ocurred, package is reliable
@@ -523,7 +502,6 @@ begin
 							s_err_half_ccd_reply_eoh_err        <= header_parser_eoh_error_i;
 							s_timeout_delay_clear               <= '0';
 						end if;
-					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_HEADER"
 				when HFCCD_ACK_SEND_TX_HEADER =>
@@ -565,12 +543,6 @@ begin
 					s_timeout_delay_trigger      <= '0';
 					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-					end if;
 
 				-- state "HFCCD_NACK_SEND_TX_HEADER"
 				when HFCCD_NACK_SEND_TX_HEADER =>
@@ -613,12 +585,6 @@ begin
 					s_timeout_delay_trigger          <= '0';
 					s_timeout_delay_timer            <= (others => '0');
 					-- conditional state transition
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-					else
 						-- check if the number of requiest tries ended
 						if (s_request_tries = 0) then
 							-- no more tries, go to finish
@@ -626,7 +592,6 @@ begin
 							v_ftdi_prot_controller_state     := HFCCD_REQ_FINISH;
 							s_err_half_ccd_req_max_tries_err <= '1';
 							s_timeout_delay_clear            <= '1';
-						end if;
 					end if;
 
 				-- state "HFCCD_REPLY_RECEIVE_RX_PAYLOAD"
@@ -671,12 +636,6 @@ begin
 					s_timeout_delay_trigger              <= '0';
 					s_timeout_delay_timer                <= (others => '0');
 					-- conditional state transition
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-					else
 						-- check if a full package arrived and the CRC matched
 						if ((payload_reader_eop_error_i = '0') and (payload_reader_crc32_match_i = '1')) then
 							-- send an ACK
@@ -690,7 +649,6 @@ begin
 							s_err_half_ccd_reply_payload_crc_err <= not (payload_reader_crc32_match_i);
 							s_err_half_ccd_reply_eop_err         <= payload_reader_eop_error_i;
 						end if;
-					end if;
 
 				-- state "HFCCD_ACK_SEND_TX_PAYLOAD"
 				when HFCCD_ACK_SEND_TX_PAYLOAD =>
@@ -732,13 +690,6 @@ begin
 					s_timeout_delay_trigger      <= '0';
 					s_timeout_delay_timer        <= (others => '0');
 					-- conditional state transition
-					-- check if an abort command was received
-					if ((req_half_ccd_abort_request_i = '1') or (s_registered_abort = '1') or (s_timeout_delay_finished = '1')) then
-						-- abort received, go to finish
-						s_ftdi_prot_controller_state <= HFCCD_NACK_RESET_TX_PAYLOAD;
-						v_ftdi_prot_controller_state := HFCCD_NACK_RESET_TX_PAYLOAD;
-						s_timeout_delay_clear        <= '0';
-					end if;
 
 				-- state "HFCCD_NACK_SEND_TX_PAYLOAD"
 				when HFCCD_NACK_SEND_TX_PAYLOAD =>
@@ -824,15 +775,6 @@ begin
 				s_ftdi_prot_controller_state <= STOPPED;
 				v_ftdi_prot_controller_state := STOPPED;
 				s_timeout_delay_clear        <= '1';
-			end if;
-
-			-- register the abort command or a timeout
-			if (((req_half_ccd_abort_request_i = '1') or (s_timeout_delay_finished = '1')) and ((s_ftdi_prot_controller_state /= STOPPED) and (s_ftdi_prot_controller_state /= IDLE) and (s_ftdi_prot_controller_state /= HFCCD_REQ_FINISH))) then
-				s_registered_abort <= '1';
-				-- check if was a timeout
-				if (s_timeout_delay_finished = '1') then
-					s_err_half_ccd_req_timeout_err <= '1';
-				end if;
 			end if;
 
 			-- Output generation FSM

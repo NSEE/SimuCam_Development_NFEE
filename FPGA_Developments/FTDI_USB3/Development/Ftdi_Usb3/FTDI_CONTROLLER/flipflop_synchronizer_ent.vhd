@@ -26,7 +26,7 @@ architecture RTL of flipflop_synchronizer_ent is
 begin
 
 	-- flip-flop synchronization, write side (input)
-	p_wrclk_synchronization : process(wrclk_i, rst_i, rstsig_i) is
+	p_wrclk_synchronization : process(wrclk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
 			s_synchronization_stage_0 <= rstsig_i;
@@ -36,7 +36,7 @@ begin
 	end process p_wrclk_synchronization;
 
 	-- flip-flop synchronization, read side (output)
-	p_rdclk_synchronization : process(rdclk_i, rst_i, rstsig_i) is
+	p_rdclk_synchronization : process(rdclk_i, rst_i) is
 	begin
 		if (rst_i = '1') then
 			for stage in 1 to (g_SYNCHRONIZATION_STAGES - 1) loop
