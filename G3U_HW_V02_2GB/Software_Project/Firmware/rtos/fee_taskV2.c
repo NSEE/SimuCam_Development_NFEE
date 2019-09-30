@@ -13,6 +13,7 @@
 void vFeeTaskV2(void *task_data) {
 	TNFee *pxNFee;
 	INT8U error_code;
+	volatile INT8U ucRetries;
 	tQMask uiCmdFEE;
 	TFEETransmission xTrans;
 	unsigned char ucEL = 0, ucSideFromMSG = 0;
@@ -116,6 +117,8 @@ void vFeeTaskV2(void *task_data) {
 				if ( error_code != OS_NO_ERR ) {
 					vFailFlushNFEEQueue();
 				}
+
+				ucRetries = 0;
 
 				/* Real Fee State (graph) */
 				pxNFee->xControl.eLastMode = sInit;
@@ -541,7 +544,17 @@ void vFeeTaskV2(void *task_data) {
 				/* Wait until both buffers are empty  */
 				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
 				/* Guard time that HW MAYBE need, this will be used during the development, will be removed in some future version*/
-				OSTimeDlyHMSM(0, 0, 0, xDefaults.usiGuardNFEEDelay);
+				OSTimeDlyHMSM(0, 0, 0, min_sim(xDefaults.usiGuardNFEEDelay,5)); //todo: For now fixed in 5 ms
+
+				/*Reset Fee Buffer every Master Sync*/
+				if ( xGlobal.bPreMaster == TRUE ) {
+					/* Stop the module Double Buffer */
+					bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
+					/* Clear all buffer form the Double Buffer */
+					bFeebClrCh(&pxNFee->xChannel.xFeeBuffer);
+					/* Start the module Double Buffer */
+					bFeebStartCh(&pxNFee->xChannel.xFeeBuffer);
+				}
 
 				pxNFee->xControl.eState = redoutConfigureTrans;
 
@@ -673,6 +686,8 @@ void vFeeTaskV2(void *task_data) {
 				xTrans.bFinal[0] = xTrans.bDmaReturn[0];
 				xTrans.bFinal[1] = xTrans.bDmaReturn[1];
 
+				ucRetries = 0;
+
 				pxNFee->xControl.eState = redoutPreLoadBuffer;
 				break;
 
@@ -695,8 +710,6 @@ void vFeeTaskV2(void *task_data) {
 
 							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 						}
-						/* Send message telling to controller that is not using the DMA any more */
-						bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 
 						if ( (xTrans.bDmaReturn[0] == TRUE) && (xTrans.bDmaReturn[1] == TRUE) ) {
 
@@ -713,19 +726,53 @@ void vFeeTaskV2(void *task_data) {
 							#if DEBUG_ON
 							if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
 								fprintf(fp,"NFEE-%hu Task: CRITICAL! Could not prepare the double buffer.\n", pxNFee->ucId);
-								fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
 							}
 							#endif
-							/*Back to Config*/
-							pxNFee->xControl.bWatingSync = FALSE;
-							pxNFee->xControl.eLastMode = sInit;
-							pxNFee->xControl.eMode = sConfig;
-							pxNFee->xControl.eState = sConfig_Enter;
+
+							if ( ucRetries > 9) {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+									fprintf(fp,"NFEE-%hu Task: CRITICAL! D. B. Requested more than 3 times.\n", pxNFee->ucId);
+									fprintf(fp,"NFEE %hhu Task: Ending the simulation.\n", pxNFee->ucId);
+								}
+								#endif
+
+								/*Back to Config*/
+								pxNFee->xControl.bWatingSync = FALSE;
+								pxNFee->xControl.eLastMode = sInit;
+								pxNFee->xControl.eMode = sConfig;
+								pxNFee->xControl.eState = sConfig_Enter;
+
+								ucRetries = 0;
+
+							} else {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
+									fprintf(fp,"NFEE %hhu Task: Retry D.B. request.\n", pxNFee->ucId);
+								}
+								#endif
+
+								/* Stop the module Double Buffer */
+								bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
+								/* Clear all buffer form the Double Buffer */
+								bFeebClrCh(&pxNFee->xChannel.xFeeBuffer);
+								/* Start the module Double Buffer */
+								bFeebStartCh(&pxNFee->xChannel.xFeeBuffer);
+
+								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
+
+
+							}
+
+							ucRetries++;
+
 						}
 					} else {
 						/* Is not access to DMA, so we need to check what is this received command */
-						vQCmdFEEinPreLoadBuffer( pxNFee, uiCmdFEE.ulWord );//todo: fazer um leitor
+						vQCmdFEEinPreLoadBuffer( pxNFee, uiCmdFEE.ulWord );
 					}
+					/* Send message telling to controller that is not using the DMA any more */
+					bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
 				} else {
 					/* Error while trying to read from the Queue*/
 					#if DEBUG_ON
@@ -781,8 +828,6 @@ void vFeeTaskV2(void *task_data) {
 							else
 								xTrans.bDmaReturn[ucSideFromMSG] = bSdmaDmaM2Transfer((alt_u32 *)xTrans.xCcdMapLocal[ucSideFromMSG]->ulAddrI, (alt_u16)usiLenLastBlocks, ucSideFromMSG, pxNFee->ucSPWId);
 
-							/* Giving the mutex back*/
-							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 
 							/* Check if was possible to schedule the transfer in the DMA*/
 							if ( xTrans.bDmaReturn[ucSideFromMSG] == TRUE ) {
@@ -794,15 +839,22 @@ void vFeeTaskV2(void *task_data) {
 								/* Send the request for use the DMA, but to front of the QUEUE. Because will not have any other IRQ to set it for us */
 								bSendRequestNFeeCtrl_Front( M_NFC_DMA_REQUEST, ucSideFromMSG, pxNFee->ucId);
 							}
+							/* Giving the mutex back*/
+							OSMutexPost(xDma[xTrans.ucMemory].xMutexDMA);
 
 							/* Send message telling to controller that is not using the DMA any more */
 							bSendGiveBackNFeeCtrl( M_NFC_DMA_GIVEBACK, ucSideFromMSG, pxNFee->ucId);
+
+
 
 							/* Last Packet scheduled?*/
 							if ( (xTrans.bFinal[0] == TRUE) && (xTrans.bFinal[1] == TRUE) ) {
 								/* Changing the FEE state */
 								pxNFee->xControl.eState = redoutEndSch;
 							}
+						} else {
+							/* If you could not get the mutex sem. */
+
 						}
 					} else {
 						/* Is not an access DMA command, check what is?*/
@@ -1070,6 +1122,7 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 /* Threat income command while the Fee is on Readout Mode mode*/
 void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 	tQMask uiCmdFEEL;
+	unsigned char error_code;
 
 	uiCmdFEEL.ulWord = cmd;
 
@@ -1138,6 +1191,23 @@ void vQCmdFEEinReadoutTrans( TNFee *pxNFeeP, unsigned int cmd ){
 				/* Perform some actions, check if is a valid command for this mode of operation  */
 				vQCmdFeeRMAPinReadoutTrans( pxNFeeP, cmd );//todo: dizem que nao vao enviar comando durante a transmissao, ignorar?
 
+				break;
+
+			case M_BEFORE_SYNC:
+				/* Stop the module Double Buffer */
+				bFeebStopCh(&pxNFeeP->xChannel.xFeeBuffer);
+				/* Clear all buffer form the Double Buffer */
+				bFeebClrCh(&pxNFeeP->xChannel.xFeeBuffer);
+				/* Start the module Double Buffer */
+				bFeebStartCh(&pxNFeeP->xChannel.xFeeBuffer);
+
+				/*The Meb My have sent a message to inform the finish of the update of the image*/
+				error_code = OSQFlush( xFeeQ[ pxNFeeP->ucId ] );
+				if ( error_code != OS_NO_ERR ) {
+					vFailFlushNFEEQueue();
+				}
+
+				pxNFeeP->xControl.eState = redoutConfigureTrans;
 				break;
 
 			case M_SYNC:
@@ -2098,6 +2168,234 @@ void vInitialConfig_RmapMemHKArea( TNFee *pxNFeeP ) {
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseA = 0xFF3E;
 	pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB = 0xFF3F;
 	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+}
+
+/**
+ * @name vUpdateFeeHKValue
+ * @author bndky
+ * @brief Update HK function for simulated FEE
+ * @ingroup rtos
+ *
+ * @param 	[in]	TNFee 			*FeeInstance
+ * @param	[in]	usi 	usiID		(0 - 63)
+ * @param	[in]	alt_u32			fValue
+ *
+ * @retval void
+ **/
+void vUpdateFeeHKValue ( TNFee *pxNFeeP, unsigned short int usiID,  alt_u32 uliValue){
+	
+	unsigned short int usiValue;
+	/* Approx. float to usi */
+	usiValue = (unsigned short int) uliValue;
+
+	/* Load current values */
+	bRmapGetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+
+	/* TODO: Verif which HK is 32bit, future, for now all regs are 16bit */
+	/* Switch case to assign value to register */
+	switch(usiID){
+		case usiTouSense1:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense1 = usiValue;
+		break;
+		case usiTouSense2:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense2 = usiValue;
+		break;
+		case usiTouSense3:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense3 = usiValue;
+		break;
+		case usiTouSense4:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense4 = usiValue;
+		break;
+		case usiTouSense5:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense5 = usiValue;
+		break;
+		case usiTouSense6:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTouSense6 = usiValue;
+		break;
+		case usiCcd1Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1Ts = usiValue;
+		break;
+		case usiCcd2Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2Ts = usiValue;
+		break;
+		case usiCcd3Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3Ts = usiValue;
+		break;
+		case usiCcd4Ts:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4Ts = usiValue;
+		break;
+		case usiPrt1:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt1 = usiValue;
+		break;
+		case usiPrt2:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt2 = usiValue;
+		break;
+		case usiPrt3:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt3 = usiValue;
+		break;
+		case usiPrt4:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt4 = usiValue;
+		break;
+		case usiPrt5:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiPrt5 = usiValue;
+		break;
+		case usiZeroDiffAmp:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiZeroDiffAmp = usiValue;
+		break;
+		case usiCcd1VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VodMon = usiValue;
+		break;
+		case usiCcd1VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VogMon = usiValue;
+		break;
+		case usiCcd1VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VrdMonE = usiValue;
+		break;
+		case usiCcd2VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VodMon = usiValue;
+		break;
+		case usiCcd2VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VogMon = usiValue;
+		break;
+		case usiCcd2VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VrdMonE = usiValue;
+		break;
+		case usiCcd3VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VodMon = usiValue;
+		break;
+		case usiCcd3VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VogMon = usiValue;
+		break;
+		case usiCcd3VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VrdMonE = usiValue;
+		break;
+		case usiCcd4VodMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VodMon = usiValue;
+		break;
+		case usiCcd4VogMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VogMon = usiValue;
+		break;
+		case usiCcd4VrdMonE:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VrdMonE = usiValue;
+		break;
+		case usiVccd:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVccd = usiValue;
+		break;
+		case usiVrclkMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVrclkMon = usiValue;
+		break;
+		case usiViclk:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiViclk = usiValue;
+		break;
+		case usiVrclkLow:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVrclkLow = usiValue;
+		break;
+		case usi5vbPosMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vbPosMon = usiValue;
+		break;
+		case usi5vbNegMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vbNegMon = usiValue;
+		break;
+		case usi3v3bMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi3v3bMon = usiValue;
+		break;
+		case usi2v5aMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi2v5aMon = usiValue;
+		break;
+		case usi3v3dMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi3v3dMon = usiValue;
+		break;
+		case usi2v5dMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi2v5dMon = usiValue;
+		break;
+		case usi1v5dMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi1v5dMon = usiValue;
+		break;
+		case usi5vrefMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usi5vrefMon = usiValue;
+		break;
+		case usiVccdPosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVccdPosRaw = usiValue;
+		break;
+		case usiVclkPosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVclkPosRaw = usiValue;
+		break;
+		case usiVan1PosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan1PosRaw = usiValue;
+		break;
+		case usiVan3NegMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan3NegMon = usiValue;
+		break;
+		case usiVan2PosRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVan2PosRaw = usiValue;
+		break;
+		case usiVdigRaw:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVdigRaw = usiValue;
+		break;
+		case usiVdigRaw2:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiVdigRaw2 = usiValue;
+		break;
+		case usiViclkLow:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiViclkLow = usiValue;
+		break;
+		case usiCcd1VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VrdMonF = usiValue;
+		break;
+		case usiCcd1VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VddMon = usiValue;
+		break;
+		case usiCcd1VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd1VgdMon = usiValue;
+		break;
+		case usiCcd2VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VrdMonF = usiValue;
+		break;
+		case usiCcd2VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VddMon = usiValue;
+		break;
+		case usiCcd2VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd2VgdMon = usiValue;
+		break;
+		case usiCcd3VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VrdMonF = usiValue;
+		break;
+		case usiCcd3VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VddMon = usiValue;
+		break;
+		case usiCcd3VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd3VgdMon = usiValue;
+		break;
+		case usiCcd4VrdMonF:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VrdMonF = usiValue;
+		break;
+		case usiCcd4VddMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VddMon = usiValue;
+		break;
+		case usiCcd4VgdMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiCcd4VgdMon = usiValue;
+		break;
+		case usiIgHiMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiIgHiMon = usiValue;
+		break;
+		case usiIgLoMon:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiIgLoMon = usiValue;
+		break;
+		case usiTsenseA:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseA = usiValue;
+		break;
+		case usiTsenseB:
+			pxNFeeP->xChannel.xRmap.xRmapMemAreaAddr.puliHkAreaBaseAddr->usiTsenseB = usiValue;
+		break;
+		default:
+			#if DEBUG_ON
+			if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+				fprintf(fp, "HK update: HK ID out of bounds: %hu;\n", usiID );
+			#endif
+		break;
+	}
+
+	bRmapSetRmapMemHKArea(&pxNFeeP->xChannel.xRmap);
+
 }
 
 void vSendMessageNUCModeFeeChange( unsigned char usIdFee, unsigned short int mode  ) {

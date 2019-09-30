@@ -15,14 +15,15 @@
 
 #include "nfee_control_taskV2.h"
 
+volatile unsigned char ucWhoGetDMA;
+volatile bool bDmaBack;
+volatile bool bCmdSent;
+
 void vNFeeControlTaskV2(void *task_data) {
 	TNFee_Control * pxFeeC;
 	tQMask uiCmdNFC;
 	INT8U error_codeCtrl;
 	unsigned char ucFeeInstL = 0, ucSide = 0;
-	volatile unsigned char ucWhoGetDMA;
-	volatile bool bDmaBack;
-	volatile bool bCmdSent;
 	unsigned char ucIL;
 	unsigned char ucCmd;
 
@@ -149,7 +150,7 @@ void vNFeeControlTaskV2(void *task_data) {
 						ucWhoGetDMA = 255;
 					}
 				} else {
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl);
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 500, &error_codeCtrl);
 					if ( error_codeCtrl == OS_ERR_NONE ) {
 					/* Check if is some FEE giving the DMA back */
 						if ( uiCmdNFC.ucByte[2] == M_NFC_DMA_GIVEBACK ) {
@@ -174,6 +175,11 @@ void vNFeeControlTaskV2(void *task_data) {
 						bCmdSent = FALSE;
 						bDmaBack = TRUE;
 						ucWhoGetDMA = 255;
+						#if DEBUG_ON
+						if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+							fprintf(fp,"++++++++++++++++++++++++ NFEE Controller Task: Verification, Don't receive the DMA back. (xQMaskFeeCtrl)++++++++++++++++++++++++++++\n");
+						}
+						#endif
 					}
 				}
 
@@ -249,6 +255,7 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 			}
 
 			break;
+
 		case M_NFC_RUN:
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMinorMessage ) {

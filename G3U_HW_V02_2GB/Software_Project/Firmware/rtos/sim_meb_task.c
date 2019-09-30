@@ -393,6 +393,13 @@ void vPusType250conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		case 29:
 			bSyncCtrIntern(param1 == 0); /*True = Internal*/
 			break;
+
+		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
+		case 58:
+			vSendHKUpdate(pxMebCLocal, xPus);
+			break;
+
+
 		/* TC_SCAM_RUN */
 		case 61:
 			pxMebCLocal->eMode = sMebToRun;
@@ -464,6 +471,27 @@ void vPusType252conf( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			bRmapSetCodecConfig( &pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap );
 
 
+
+
+			bSpwcEnableTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire, xPusL->usiValues[11] == 1 );
+			bSpwcClearTimecode(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+
+			bSpwcGetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+			if ( xPusL->usiValues[7] == 0 ) { /*Auto Start*/
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = TRUE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = FALSE;
+			} else {
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bAutostart = FALSE;
+				pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.bLinkStart = TRUE;
+			}
+
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcLinkConfig.ucTxDivCnt = ucSpwcCalculateLinkDiv( (unsigned char)xPusL->usiValues[8] );
+
+			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire.xSpwcDevAddr.uliSpwcBaseAddr = xPusL->usiValues[10]; /*Dest Node*/
+
+			bSpwcSetLink(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xSpacewire);
+
+
 			/* Enable the RMAP interrupt */
 			bRmapGetIrqControl(&pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap);
 			pxMebCLocal->xFeeControl.xNfee[usiFeeInstL].xChannel.xRmap.xRmapIrqControl.bWriteCmdEn = TRUE;
@@ -513,7 +541,7 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 
 
 void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
-
+	
 	unsigned char ucShutDownI=0;
 
 	switch (xPusL->usiSubType) {
@@ -522,6 +550,11 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			/* Send the wait time info to the sync reset function*/
 			vSyncReset( xPusL->usiValues[0], &(pxMebCLocal->xFeeControl)  );
 		break;
+		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
+		case 58:
+			vSendHKUpdate(pxMebCLocal, xPusL);
+			break;
+
 		/* TC_SCAM_CONFIG */
 		case 60:
 			pxMebCLocal->eMode = sMebToConfig;
@@ -789,6 +822,28 @@ void vSendMessageNUCModeMEBChange(  unsigned short int mode  ) {
 		/* Couldn't get Mutex. (Should not get here since is a blocking call without timeout)*/
 		vFailGetxMutexSenderBuffer128();
 	}
+}
+
+/**
+ * @name vSendHKUpdate
+ * @author bndky
+ * @brief Prepare the data and send to updateHK fukction
+ * @ingroup rtos
+ *
+ * @param 	[in]	TSimucam_MEB 	*pxMebCLocal
+ * @param	[in]	tTMPus 			*xPusL
+ *
+ * @retval void
+ **/
+void vSendHKUpdate(TSimucam_MEB *pxMebCLocal, tTMPus *xPusL){
+	union HkValue u_HKValue;
+	
+	/* converting from usi to uli */
+	u_HKValue.usiValues[0] = xPus->usiValues[3];
+	u_HKValue.usiValues[1] = xPus->usiValues[2];
+
+	vUpdateFeeHKValue(&pxMebCLocal->xFeeControl.xNfee[xPus->usiValues[0]], xPus->usiValues[1], u_HKValue.uliValue);
+
 }
 
 /* After stop the Sync signal generation, maybe some FEE task could be locked waiting for this signal. So we send to everyone, and after that they will flush the queue */

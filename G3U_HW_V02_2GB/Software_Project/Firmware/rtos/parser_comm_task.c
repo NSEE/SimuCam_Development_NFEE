@@ -146,6 +146,7 @@ void vParserCommTask(void *task_data) {
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
 
+
 							case 31: /* TC_SYNCH_RESET [bndky]*/
 								#if DEBUG_ON
 								if ( xDefaults.usiDebugLevel <= dlMinorMessage )
@@ -157,6 +158,34 @@ void vParserCommTask(void *task_data) {
 								/*Send the command to the MEB task*/
 								bSendMessagePUStoMebTask(&xTcPusL);
 								break;
+
+							case 58: /* Update HK [bndky] */
+
+								usiFeeInstL = PreParsedLocal.usiValues[6];
+								/* Verify valid FEE */
+								if ( usiFeeInstL > N_OF_NFEE ) {
+								#if DEBUG_ON
+								if ( xDefaults.usiDebugLevel <= dlMajorMessage )
+									fprintf(fp, "Parser Task: Doesn't exist the Fee Instance number: %hu;\n", usiFeeInstL );
+								#endif
+								/* todo: Enviar mensagem de erro se aplicavel */
+								} else {
+									
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = usiFeeInstL;
+								xTcPusL.ucNofValues++;
+								/* HK ID */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[7];
+								xTcPusL.ucNofValues++;
+								/* HK Value */
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[8];
+								xTcPusL.ucNofValues++;
+								xTcPusL.usiValues[xTcPusL.ucNofValues] = PreParsedLocal.usiValues[9];
+								xTcPusL.ucNofValues++;
+
+								/*Send the command to the MEB task*/
+								bSendMessagePUStoMebTask(&xTcPusL);
+								}
+							break;
 
 							case 59: /* TC_SCAM_RESET */
 								#if DEBUG_ON

@@ -164,7 +164,6 @@ void vSyncPreHandleIrq(void* pvContext) {
 
 		uiCmdtoSend.ucByte[2] = M_BEFORE_SYNC;
 	}
-
 	
 	for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++ ){
 		if (xSimMeb.xFeeControl.xNfee[ucIL].xControl.bSimulating == TRUE) {
