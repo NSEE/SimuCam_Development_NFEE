@@ -37,7 +37,7 @@ void vDataControlTask(void *task_data) {
 	unsigned char ucSubReqICCD = 0;
 	unsigned char ucSubCCDSide = 0;
 	unsigned char ucMemUsing = 0;
-	bool bA, bB, bC, bD, bE;
+	//bool bA, bB, bC, bD, bE; //todo: Will be used in future implementations
 	bool bDmaReturn = FALSE;
 	TCcdMemMap *xCCDMemMapL=0;
 

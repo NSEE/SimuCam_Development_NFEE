@@ -20,14 +20,11 @@
 void vSyncResetTask( void *task_data ){
     TSimucam_MEB *pxMeb;
     pxMeb = (TSimucam_MEB *) task_data;
-    unsigned short int usiResetDelayL = 0;
+    unsigned int usiResetDelayL = 0;
     INT8U iErrorCodeL = 0;
     div_t xDlyAdjusted;
     volatile unsigned char ucIL;
-	unsigned char error_codel;
-	tQMask uiCmdtoSend;
-    unsigned short int usiPreSyncTimeDif = 200; /*Sum of all Delays*/
-    uiCmdtoSend.ulWord = 0;
+    unsigned int usiPreSyncTimeDif = 200; /*Sum of all Delays*/
     xGlobal.bJustBeforSync = TRUE;
 
 
@@ -36,7 +33,7 @@ void vSyncResetTask( void *task_data ){
         OSTaskSuspend(SYNC_RESET_HIGH_PRIO);
 
         /* Receive delay time via qck */
-        usiResetDelayL = (unsigned short int) OSQPend(xQueueSyncReset, 10, &iErrorCodeL);
+        usiResetDelayL = (unsigned int) OSQPend(xQueueSyncReset, 10, &iErrorCodeL);
 
         if (iErrorCodeL == OS_ERR_NONE) {
 
