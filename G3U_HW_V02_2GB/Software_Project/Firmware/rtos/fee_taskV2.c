@@ -544,7 +544,17 @@ void vFeeTaskV2(void *task_data) {
 				/* Wait until both buffers are empty  */
 				vWaitUntilBufferEmpty( pxNFee->ucSPWId );
 				/* Guard time that HW MAYBE need, this will be used during the development, will be removed in some future version*/
-				OSTimeDlyHMSM(0, 0, 0, xDefaults.usiGuardNFEEDelay);
+				OSTimeDlyHMSM(0, 0, 0, min_sim(xDefaults.usiGuardNFEEDelay,5)); //todo: For now fixed in 5 ms
+
+				/*Reset Fee Buffer every Master Sync*/
+				if ( xGlobal.bPreMaster == TRUE ) {
+					/* Stop the module Double Buffer */
+					bFeebStopCh(&pxNFee->xChannel.xFeeBuffer);
+					/* Clear all buffer form the Double Buffer */
+					bFeebClrCh(&pxNFee->xChannel.xFeeBuffer);
+					/* Start the module Double Buffer */
+					bFeebStartCh(&pxNFee->xChannel.xFeeBuffer);
+				}
 
 				pxNFee->xControl.eState = redoutConfigureTrans;
 
