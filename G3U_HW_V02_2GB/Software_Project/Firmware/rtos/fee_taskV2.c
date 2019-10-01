@@ -82,7 +82,7 @@ void vFeeTaskV2(void *task_data) {
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				/* Disable the link SPW */
@@ -162,7 +162,7 @@ void vFeeTaskV2(void *task_data) {
 				/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 				 * configure the hardware to not send any data in the next sync */
 				bDpktGetPacketConfig(&pxNFee->xChannel.xDataPacket);
-				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+				pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 				bDpktSetPacketConfig(&pxNFee->xChannel.xDataPacket);
 
 				/* Disable IRQ and clear the Double Buffer */
@@ -641,17 +641,28 @@ void vFeeTaskV2(void *task_data) {
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = TRUE;
 						break;
 					case sParTrap1:
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping1;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+						break;
 					case sParTrap2:
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktParallelTrapPumping2;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+						break;
 					case sSerialTrap1:
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktSerialTrapPumping1;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
+						break;
 					case sSerialTrap2:
-						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktFullImage;
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktSerialTrapPumping2;
 						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 					default:
 						#if DEBUG_ON
 						if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-							fprintf(fp,"\nNFEE-%hu Task: Mode not recognized: xDpktDataPacketConfig (Data Packet) \n", pxNFee->ucId);
+							fprintf(fp,"\nNFEE-%hu Task: Mode not recognized: xDpktDataPacketConfig (Data Packet). Configuring On Mode.\n", pxNFee->ucId);
 						#endif
+						pxNFee->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
+						pxNFee->xChannel.xFeeBuffer.xFeebMachineControl.bWindowingEn = FALSE;
 						break;
 				}
 				bFeebSetMachineControl(&pxNFee->xChannel.xFeeBuffer);
@@ -1026,7 +1037,7 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eState = redoutWaitSync;
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				} else {
@@ -1043,7 +1054,7 @@ void vQCmdFEEinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ){
 					pxNFeeP->xControl.eState = redoutWaitSync;
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				} else {
 					#if DEBUG_ON
@@ -1268,7 +1279,7 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 					 * configure the hardware to not send any data in the next sync */
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					pxNFeeP->xControl.eState = redoutWaitSync;
@@ -1299,7 +1310,7 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eState = redoutWaitSync;
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				} else {
 					#if DEBUG_ON
@@ -1325,7 +1336,7 @@ void vQCmdFEEinReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 					/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 					 * configure the hardware to not send any data in the next sync */
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				}
 
@@ -1835,7 +1846,7 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eState = redoutWaitSync;
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 				} else {
@@ -1853,7 +1864,7 @@ void vQCmdFEEinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eState = redoutWaitSync;
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				} else {
 					#if DEBUG_ON
@@ -1953,7 +1964,7 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 					/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 					 * configure the hardware to not send any data in the next sync */
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					pxNFeeP->xControl.eState = redoutWaitSync;
@@ -1986,7 +1997,7 @@ void vQCmdWaitBeforeSyncSignal( TNFee *pxNFeeP, unsigned int cmd ) {
 					pxNFeeP->xControl.eState = redoutWaitSync;
 
 					bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+					pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 					bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 				} else {
 					#if DEBUG_ON
@@ -2085,7 +2096,7 @@ void vInitialConfig_DpktPacket( TNFee *pxNFeeP ) {
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiOverscanYSize = pxNFeeP->xCcdInfo.usiOLN;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.usiPacketLength = xDefaults.usiSpwPLength;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucCcdNumber = pxNFeeP->xControl.ucROutOrder[0];
-	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy;
+	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOff;
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucProtocolId = xDefaults.usiDataProtId; /* 0xF0 ou  0x02*/
 	pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucLogicalAddr = xDefaults.usiDpuLogicalAddr;
 	bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
@@ -3138,7 +3149,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 						 * configure the hardware to not send any data in the next sync */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 						pxNFeeP->xControl.eState = redoutWaitSync;
@@ -3167,7 +3178,7 @@ void vQCmdFeeRMAPBeforeSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync;
 
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else {
 						#if DEBUG_ON
@@ -3346,7 +3357,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync;
 
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					} else {
@@ -3372,7 +3383,7 @@ void vQCmdFeeRMAPinWaitingMemUpdate( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync;
 
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else {
 						#if DEBUG_ON
@@ -3929,7 +3940,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						/* If a transition to On was requested when the FEE is waiting to go to Calibration,
 						 * configure the hardware to not send any data in the next sync */
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 						pxNFeeP->xControl.eState = redoutWaitSync;
@@ -3958,7 +3969,7 @@ void vQCmdFeeRMAPReadoutSync( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync;
 
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else {
 						#if DEBUG_ON
@@ -4336,7 +4347,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync;
 
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktOn;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 
 					} else {
@@ -4362,7 +4373,7 @@ void vQCmdFeeRMAPinPreLoadBuffer( TNFee *pxNFeeP, unsigned int cmd ) {
 						pxNFeeP->xControl.eState = redoutWaitSync;
 
 						bDpktGetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
-						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandBy; //todo: Trocar para Mode_on
+						pxNFeeP->xChannel.xDataPacket.xDpktDataPacketConfig.ucFeeMode = eDpktStandby;
 						bDpktSetPacketConfig(&pxNFeeP->xChannel.xDataPacket);
 					} else {
 						#if DEBUG_ON

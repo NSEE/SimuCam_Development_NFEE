@@ -16,12 +16,22 @@
 //! [constants definition]
 
 enum DpktMode {
-	eDpktStandBy = 0, eDpktFullImage = 8, // First bit is used to indicate non standby. The modes start in 0b1000 = 8.
-	eDpktFullImagePattern,
-	eDpktWindowing,
-	eDpktWindowingPattern,
-	eDpktPartialReadOut,
+	eDpktOn = 0,
+	eDpktFullImagePattern = 1,
+	eDpktWindowingPattern = 2,
+	eDpktStandby = 4,
+	eDpktFullImage = 5,
+	eDpktWindowing = 6,
+	eDpktPerformanceTest = 7,
+	eDpktParallelTrapPumping1 = 9,
+	eDpktParallelTrapPumping2 = 10,
+	eDpktSerialTrapPumping1 = 11,
+	eDpktSerialTrapPumping2 = 12,
+	eDpktOff = 15
 } EDpktMode;
+
+
+
 
 //! [public module structs definition]
 //! [public module structs definition]

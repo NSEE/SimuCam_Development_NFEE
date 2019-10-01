@@ -2,8 +2,8 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Sep 26, 2019 12:02:25 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1569510145757</BspGeneratedUnixTimeStamp>
+        <BspGeneratedTimeStamp>Sep 24, 2019 10:10:11 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1569373811185</BspGeneratedUnixTimeStamp>
         <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
@@ -1010,7 +1010,7 @@
                 <SettingName>ucosii.miscellaneous.os_max_events</SettingName>
                 <Identifier>OS_MAX_EVENTS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>128</Value>
+                <Value>64</Value>
                 <DefaultValue>60</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of event control blocks</Description>
@@ -1574,7 +1574,7 @@
                 <SettingName>ucosii.queue.os_max_qs</SettingName>
                 <Identifier>OS_MAX_QS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>64</Value>
+                <Value>32</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Queue Control Blocks</Description>
@@ -2036,6 +2036,12 @@
                 <slaveDescriptor>SEVEN_SEGMENT_CONTROLLER_0</slaveDescriptor>
                 <addressRange>0x81000A10 - 0x81000A17</addressRange>
                 <addressSpan>8</addressSpan>
+                <attributes/>
+        </MemoryMap>
+        <MemoryMap>
+                <slaveDescriptor>pio_debug_io</slaveDescriptor>
+                <addressRange>0x81000B00 - 0x81000B1F</addressRange>
+                <addressSpan>32</addressSpan>
                 <attributes/>
         </MemoryMap>
         <MemoryMap>

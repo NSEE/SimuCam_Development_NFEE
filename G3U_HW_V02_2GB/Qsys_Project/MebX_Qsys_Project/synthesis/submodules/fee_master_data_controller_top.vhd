@@ -87,7 +87,7 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_headerdata_logical_address         : std_logic_vector(7 downto 0);
 	signal s_headerdata_protocol_id             : std_logic_vector(7 downto 0);
 	signal s_headerdata_length_field            : std_logic_vector(15 downto 0);
-	signal s_headerdata_type_field_mode         : std_logic_vector(2 downto 0);
+	signal s_headerdata_type_field_mode         : std_logic_vector(3 downto 0);
 	signal s_headerdata_type_field_last_packet  : std_logic;
 	signal s_headerdata_type_field_ccd_side     : std_logic;
 	signal s_headerdata_type_field_ccd_number   : std_logic_vector(1 downto 0);
@@ -145,11 +145,25 @@ architecture RTL of fee_master_data_controller_top is
 	signal s_registered_fee_data_y_size         : std_logic_vector(15 downto 0);
 	signal s_registered_fee_overscan_y_size     : std_logic_vector(15 downto 0);
 	signal s_registered_fee_packet_length       : std_logic_vector(15 downto 0);
-	signal s_registered_fee_fee_mode            : std_logic_vector(2 downto 0);
+	signal s_registered_fee_fee_mode            : std_logic_vector(3 downto 0);
 	signal s_registered_fee_ccd_number          : std_logic_vector(1 downto 0);
 	-- registered masking settings signals (for the entire read-out)
 	signal s_registered_fee_digitalise_en       : std_logic;
 	signal s_registered_fee_windowing_en        : std_logic;
+	signal s_registered_fee_pattern_en          : std_logic;
+	-- fee mode constants
+	constant c_FEE_ON_MODE                      : std_logic_vector(3 downto 0) := "0000"; -- Mode ID 0
+	constant c_FEE_FULLIMAGE_PATTERN_MODE       : std_logic_vector(3 downto 0) := "0001"; -- Mode ID 1
+	constant c_FEE_WINDOWING_PATTERN_MODE       : std_logic_vector(3 downto 0) := "0010"; -- Mode ID 2
+	constant c_FEE_STANDBY_MODE                 : std_logic_vector(3 downto 0) := "0100"; -- Mode ID 4
+	constant c_FEE_FULLIMAGE_MODE               : std_logic_vector(3 downto 0) := "0101"; -- Mode ID 5
+	constant c_FEE_WINDOWING_MODE               : std_logic_vector(3 downto 0) := "0110"; -- Mode ID 6
+	constant c_FEE_PERFORMANCE_TEST_MODE        : std_logic_vector(3 downto 0) := "0111"; -- Mode ID 7
+	constant c_FEE_PARALLEL_TRAP_PUMPING_1_MODE : std_logic_vector(3 downto 0) := "1001"; -- Mode ID 9
+	constant c_FEE_PARALLEL_TRAP_PUMPING_2_MODE : std_logic_vector(3 downto 0) := "1010"; -- Mode ID 10
+	constant c_FEE_SERIAL_TRAP_PUMPING_1_MODE   : std_logic_vector(3 downto 0) := "1011"; -- Mode ID 11
+	constant c_FEE_SERIAL_TRAP_PUMPING_2_MODE   : std_logic_vector(3 downto 0) := "1100"; -- Mode ID 12
+	constant c_FEE_OFF_MODE                     : std_logic_vector(3 downto 0) := "1111"; -- Mode ID 15
 
 begin
 
@@ -169,6 +183,7 @@ begin
 			fee_start_signal_i            => fee_machine_start_i,
 			fee_digitalise_en_i           => s_registered_fee_digitalise_en,
 			fee_windowing_en_i            => s_registered_fee_windowing_en,
+			fee_pattern_en_i              => s_registered_fee_pattern_en,
 			fee_start_masking_i           => s_start_masking,
 			masking_machine_hold_i        => s_masking_machine_hold,
 			fee_ccd_x_size_i              => s_registered_fee_ccd_x_size,
@@ -177,6 +192,8 @@ begin
 			fee_column_delay_i            => data_pkt_column_delay_i,
 			fee_adc_delay_i               => data_pkt_adc_delay_i,
 			current_timecode_i            => fee_current_timecode_i,
+			current_ccd_i                 => s_registered_fee_ccd_number,
+			current_side_i                => g_FEE_CCD_SIDE,
 			window_data_i                 => fee_window_data_i,
 			window_mask_i                 => fee_window_mask_i,
 			window_data_ready_i           => fee_window_data_ready_i,
@@ -459,8 +476,8 @@ begin
 			if (s_header_gen_send = '1') then
 				-- header generator send requested, update the data pkt header
 				data_pkt_header_length_o             <= s_headerdata_length_field;
-				data_pkt_header_type_o(15 downto 11) <= (others => '0');
-				data_pkt_header_type_o(10 downto 8)  <= s_headerdata_type_field_mode;
+				data_pkt_header_type_o(15 downto 12) <= (others => '0');
+				data_pkt_header_type_o(11 downto 8)  <= s_headerdata_type_field_mode;
 				data_pkt_header_type_o(7)            <= s_headerdata_type_field_last_packet;
 				data_pkt_header_type_o(6)            <= s_headerdata_type_field_ccd_side;
 				data_pkt_header_type_o(5 downto 4)   <= s_headerdata_type_field_ccd_number;
@@ -482,10 +499,11 @@ begin
 			s_registered_fee_data_y_size     <= std_logic_vector(to_unsigned(4510, 16));
 			s_registered_fee_overscan_y_size <= std_logic_vector(to_unsigned(30, 16));
 			s_registered_fee_packet_length   <= std_logic_vector(to_unsigned(32768, 16));
-			s_registered_fee_fee_mode        <= std_logic_vector(to_unsigned(1, 3));
+			s_registered_fee_fee_mode        <= std_logic_vector(to_unsigned(15, 4));
 			s_registered_fee_ccd_number      <= std_logic_vector(to_unsigned(0, 2));
-			s_registered_fee_digitalise_en   <= '0';
-			s_registered_fee_windowing_en    <= '1';
+			s_registered_fee_digitalise_en   <= '1';
+			s_registered_fee_windowing_en    <= '0';
+			s_registered_fee_pattern_en      <= '1';
 		elsif rising_edge(clk_i) then
 			-- check if a sync signal was received
 			if (fee_sync_signal_i = '1') then
@@ -497,11 +515,51 @@ begin
 				s_registered_fee_data_y_size     <= data_pkt_data_y_size_i;
 				s_registered_fee_overscan_y_size <= data_pkt_overscan_y_size_i;
 				s_registered_fee_packet_length   <= data_pkt_packet_length_i;
-				s_registered_fee_fee_mode        <= data_pkt_fee_mode_i(2 downto 0);
+				s_registered_fee_fee_mode        <= data_pkt_fee_mode_i;
 				s_registered_fee_ccd_number      <= data_pkt_ccd_number_i;
 				-- register masking settings
 				s_registered_fee_digitalise_en   <= fee_digitalise_en_i;
-				s_registered_fee_windowing_en    <= fee_windowing_en_i;
+				case (data_pkt_fee_mode_i(3 downto 0)) is
+					when c_FEE_ON_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '1';
+					when c_FEE_FULLIMAGE_PATTERN_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '1';
+					when c_FEE_WINDOWING_PATTERN_MODE =>
+						s_registered_fee_windowing_en <= '1';
+						s_registered_fee_pattern_en   <= '1';
+					when c_FEE_STANDBY_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_FULLIMAGE_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_WINDOWING_MODE =>
+						s_registered_fee_windowing_en <= '1';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_PERFORMANCE_TEST_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when c_FEE_OFF_MODE =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+					when others =>
+						s_registered_fee_windowing_en <= '0';
+						s_registered_fee_pattern_en   <= '0';
+				end case;
 			end if;
 		end if;
 	end process p_register_data_pkt_config;
@@ -513,8 +571,37 @@ begin
 		elsif rising_edge(clk_i) then
 			s_data_manager_sync <= '0';
 			-- check if a sync signal was received and the side is active and the mode is valid
-			if ((fee_sync_signal_i = '1') and (fee_side_activated_i = '1') and (data_pkt_fee_mode_i(3) = '1')) then
-				s_data_manager_sync <= '1';
+			if ((fee_sync_signal_i = '1') and (fee_side_activated_i = '1')) then
+
+				case (data_pkt_fee_mode_i(3 downto 0)) is
+					when c_FEE_ON_MODE =>
+						s_data_manager_sync <= '0';
+					when c_FEE_FULLIMAGE_PATTERN_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_WINDOWING_PATTERN_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_STANDBY_MODE =>
+						s_data_manager_sync <= '0';
+					when c_FEE_FULLIMAGE_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_WINDOWING_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_PERFORMANCE_TEST_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_PARALLEL_TRAP_PUMPING_1_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_PARALLEL_TRAP_PUMPING_2_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_SERIAL_TRAP_PUMPING_1_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_SERIAL_TRAP_PUMPING_2_MODE =>
+						s_data_manager_sync <= '1';
+					when c_FEE_OFF_MODE =>
+						s_data_manager_sync <= '0';
+					when others =>
+						s_data_manager_sync <= '0';
+				end case;
+
 			end if;
 		end if;
 	end process p_data_manager_sync_gen;

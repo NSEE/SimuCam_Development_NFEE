@@ -18,11 +18,21 @@ bool bTestSimucamCriticalHW( void ) {
 
 	bSuccess = bSdmaInitM1Dma();
 	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMA for Memory 1.\n");
+		}
+		#endif
 		return bSuccess;
 	}
 
 	bSuccess = bSdmaInitM2Dma();
 	if (bSuccess==FALSE) {
+		#if DEBUG_ON
+		if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
+			debug(fp, "SimuCam Critical HW Test: CRITICAL! Could not initiate the DMA for Memory 2.\n");
+		}
+		#endif
 		return bSuccess;
 	}
 

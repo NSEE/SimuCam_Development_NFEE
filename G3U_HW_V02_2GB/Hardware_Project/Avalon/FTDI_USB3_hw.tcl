@@ -54,6 +54,7 @@ add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLL
 add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
 add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
 add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
 add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
@@ -66,6 +67,7 @@ add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/alter
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
 add_fileset_file ftdi_in_io_buffer_3b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
 add_fileset_file ftdi_out_io_buffer_5b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
+add_fileset_file flipflop_synchronizer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/flipflop_synchronizer_ent.vhd
 add_fileset_file ftdi_umft601a_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
 add_fileset_file ftdi_usb3_top.vhd VHDL PATH Ftdi_Usb3/ftdi_usb3_top.vhd TOP_LEVEL_FILE
 
@@ -88,6 +90,7 @@ add_fileset_file ftdi_data_transmitter_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLL
 add_fileset_file ftdi_data_loopback_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_data_loopback_ent.vhd
 add_fileset_file ftdi_tx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_tx_data_mux_ent.vhd
 add_fileset_file ftdi_rx_data_mux_ent.vhd VHDL PATH Ftdi_Usb3/DATA_CONTROLLER/ftdi_rx_data_mux_ent.vhd
+add_fileset_file delay_block_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/delay_block_ent.vhd
 add_fileset_file ftdi_protocol_pkg.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_pkg.vhd
 add_fileset_file ftdi_protocol_top.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_protocol_top.vhd
 add_fileset_file ftdi_rx_protocol_header_parser_ent.vhd VHDL PATH Ftdi_Usb3/PROTOCOL/ftdi_rx_protocol_header_parser_ent.vhd
@@ -100,6 +103,7 @@ add_fileset_file ftdi_data_dc_fifo.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/alter
 add_fileset_file ftdi_inout_io_buffer_39b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_inout_io_buffer_39b/ftdi_inout_io_buffer_39b.vhd
 add_fileset_file ftdi_in_io_buffer_3b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_in_io_buffer_3b/ftdi_in_io_buffer_3b.vhd
 add_fileset_file ftdi_out_io_buffer_5b.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/altera_ip/iobuffer/ftdi_out_io_buffer_5b/ftdi_out_io_buffer_5b.vhd
+add_fileset_file flipflop_synchronizer_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/flipflop_synchronizer_ent.vhd
 add_fileset_file ftdi_umft601a_controller_ent.vhd VHDL PATH Ftdi_Usb3/FTDI_CONTROLLER/ftdi_umft601a_controller_ent.vhd
 add_fileset_file ftdi_usb3_top.vhd VHDL PATH Ftdi_Usb3/ftdi_usb3_top.vhd TOP_LEVEL_FILE
 
