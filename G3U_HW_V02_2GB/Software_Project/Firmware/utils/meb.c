@@ -164,13 +164,13 @@ void vSyncReset( unsigned short int usiSynchDelayL, TNFee_Control *pxFeeCP ) {
         if (iErrorCodeL != OS_NO_ERR){
             #if DEBUG_ON
                 if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-                    fprintf(fp,"Sync Reset: Sync Reset Error\n");
+                    fprintf(fp,"Sync Reset: Sync Reset Error 1\n");
             #endif
         }
     } else{
         #if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlCriticalOnly )
-				fprintf(fp,"Sync Reset: Sync Reset Error\n");
+				fprintf(fp,"Sync Reset: Sync Reset Error 2\n");
 		#endif
     }
 }

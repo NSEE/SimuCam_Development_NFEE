@@ -777,8 +777,8 @@ void vEnterConfigRoutine( TSimucam_MEB *pxMebCLocal ) {
 	/* Give time to all tasks receive the command */
 	OSTimeDlyHMSM(0, 0, 0, 5);
 
-	pxMebCLocal->ucActualDDR = 0;
-	pxMebCLocal->ucNextDDR = 1;
+	pxMebCLocal->ucActualDDR = 1;
+	pxMebCLocal->ucNextDDR = 0;
 	/* Transition to Config Mode (Ending the simulation) */
 	/* Send a message to the NFEE Controller forcing the mode */
 	vSendCmdQToNFeeCTRL_PRIO( M_NFC_CONFIG_FORCED, 0, 0 );
