@@ -241,42 +241,42 @@ entity MebX_TopLevel is
 		I_RS232_UART_RXD       : in    std_logic;
 		O_RS232_UART_TXD       : out   std_logic;
 		-- GPIO Expansion Header (JP3) Pins
-		--		JP3_GPIO0_D0_IO        : inout std_logic;
-		--		JP3_GPIO0_D1_IO        : inout std_logic;
-		--		JP3_GPIO0_D2_IO        : inout std_logic;
-		--		JP3_GPIO0_D3_IO        : inout std_logic;
-		--		JP3_GPIO0_D4_IO        : inout std_logic;
-		--		JP3_GPIO0_D5_IO        : inout std_logic;
-		--		JP3_GPIO0_D6_IO        : inout std_logic;
-		--		JP3_GPIO0_D7_IO        : inout std_logic;
-		--		JP3_GPIO0_D8_IO        : inout std_logic;
-		--		JP3_GPIO0_D9_IO        : inout std_logic;
-		JP3_GPIO0_D10_IO       : out   std_logic;
-		JP3_GPIO0_D11_IO       : out   std_logic;
-		JP3_GPIO0_D12_IO       : out   std_logic;
-		JP3_GPIO0_D13_IO       : out   std_logic;
-		--		JP3_GPIO0_D14_IO       : inout std_logic;
-		--		JP3_GPIO0_D15_IO       : inout std_logic;
-		--		JP3_GPIO0_D16_IO       : inout std_logic;
-		--		JP3_GPIO0_D17_IO       : inout std_logic;
-		--		JP3_GPIO0_D18_IO       : inout std_logic;
-		--		JP3_GPIO0_D19_IO       : inout std_logic;
-		--		JP3_GPIO0_D20_IO       : inout std_logic;
-		--		JP3_GPIO0_D21_IO       : inout std_logic;
-		--		JP3_GPIO0_D22_IO       : inout std_logic;
-		--		JP3_GPIO0_D23_IO       : inout std_logic;
-		--		JP3_GPIO0_D24_IO       : inout std_logic;
-		--		JP3_GPIO0_D25_IO       : inout std_logic;
-		--		JP3_GPIO0_D26_IO       : inout std_logic;
-		--		JP3_GPIO0_D27_IO       : inout std_logic;
-		--		JP3_GPIO0_D28_IO       : inout std_logic;
-		--		JP3_GPIO0_D29_IO       : inout std_logic;
-		--		JP3_GPIO0_D30_IO       : inout std_logic;
-		--		JP3_GPIO0_D31_IO       : inout std_logic;
-		--		JP3_GPIO0_D32_IO       : inout std_logic;
-		--		JP3_GPIO0_D33_IO       : inout std_logic;
-		--		JP3_GPIO0_D34_IO       : inout std_logic;
-		--		JP3_GPIO0_D35_IO       : inout std_logic;
+--		JP3_GPIO0_D0_IO        : inout std_logic;
+--		JP3_GPIO0_D1_IO        : inout std_logic;
+--		JP3_GPIO0_D2_IO        : inout std_logic;
+--		JP3_GPIO0_D3_IO        : inout std_logic;
+--		JP3_GPIO0_D4_IO        : inout std_logic;
+--		JP3_GPIO0_D5_IO        : inout std_logic;
+--		JP3_GPIO0_D6_IO        : inout std_logic;
+--		JP3_GPIO0_D7_IO        : inout std_logic;
+--		JP3_GPIO0_D8_IO        : inout std_logic;
+--		JP3_GPIO0_D9_IO        : inout std_logic;
+--		JP3_GPIO0_D10_IO       : inout std_logic;
+--		JP3_GPIO0_D11_IO       : inout std_logic;
+--		JP3_GPIO0_D12_IO       : inout std_logic;
+--		JP3_GPIO0_D13_IO       : inout std_logic;
+		JP3_GPIO0_D14_IO       : out   std_logic;
+		JP3_GPIO0_D15_IO       : out   std_logic;
+		JP3_GPIO0_D16_IO       : out   std_logic;
+		JP3_GPIO0_D17_IO       : out   std_logic;
+		JP3_GPIO0_D18_IO       : out   std_logic;
+		JP3_GPIO0_D19_IO       : out   std_logic;
+		JP3_GPIO0_D20_IO       : out   std_logic;
+		JP3_GPIO0_D21_IO       : out   std_logic;
+		JP3_GPIO0_D22_IO       : out   std_logic;
+		JP3_GPIO0_D23_IO       : out   std_logic;
+		JP3_GPIO0_D24_IO       : out   std_logic;
+		JP3_GPIO0_D25_IO       : out   std_logic;
+--		JP3_GPIO0_D26_IO       : inout std_logic;
+--		JP3_GPIO0_D27_IO       : inout std_logic;
+--		JP3_GPIO0_D28_IO       : inout std_logic;
+--		JP3_GPIO0_D29_IO       : inout std_logic;
+		JP3_GPIO0_D30_IO       : out   std_logic;
+		JP3_GPIO0_D31_IO       : out   std_logic;
+		JP3_GPIO0_D32_IO       : out   std_logic;
+		JP3_GPIO0_D33_IO       : out   std_logic;
+		JP3_GPIO0_D34_IO       : out   std_logic;
+		JP3_GPIO0_D35_IO       : out   std_logic;
 		-- FTDI UMFT601A Module Pins
 		FTDI_DATA              : inout std_logic_vector(31 downto 0);
 		FTDI_BE                : inout std_logic_vector(3 downto 0);
@@ -516,11 +516,11 @@ architecture bhv of MebX_TopLevel is
 			--			comm_g_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			--			comm_h_sync_end_sync_channel_signal                         : in    std_logic                     := 'X'; -- sync_channel_signal
 			--
-			--			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			--			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			--			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			--			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
-			--			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_a_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_b_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_c_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_d_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
+			comm_e_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
 			comm_f_measurements_conduit_end_measurements_channel_signal : out   std_logic_vector(7 downto 0); -- measurements_channel_signal
 			--
 			temp_scl_export                                             : out   std_logic;
@@ -708,11 +708,11 @@ begin
 			--			comm_g_sync_end_sync_channel_signal                         => spw_7_sync, --       --                       comm_g_sync_end.sync_channel_signal
 			--			comm_h_sync_end_sync_channel_signal                         => spw_8_sync, --       --                       comm_h_sync_end.sync_channel_signal
 			--
-			--			comm_a_measurements_conduit_end_measurements_channel_signal => spw_a_measure, --    -- comm_a_measurements_conduit_end.measurements_channel_signal
-			--			comm_b_measurements_conduit_end_measurements_channel_signal => spw_b_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
-			--			comm_c_measurements_conduit_end_measurements_channel_signal => spw_c_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
-			--			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
-			--			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
+			comm_a_measurements_conduit_end_measurements_channel_signal => spw_a_measure, --    -- comm_a_measurements_conduit_end.measurements_channel_signal
+			comm_b_measurements_conduit_end_measurements_channel_signal => spw_b_measure, --    -- comm_b_measurements_conduit_end.measurements_channel_signal
+			comm_c_measurements_conduit_end_measurements_channel_signal => spw_c_measure, --    -- comm_c_measurements_conduit_end.measurements_channel_signal
+			comm_d_measurements_conduit_end_measurements_channel_signal => spw_d_measure, --    -- comm_d_measurements_conduit_end.measurements_channel_signal
+			comm_e_measurements_conduit_end_measurements_channel_signal => spw_e_measure, --    -- comm_e_measurements_conduit_end.measurements_channel_signal
 			comm_f_measurements_conduit_end_measurements_channel_signal => spw_f_measure, --    -- comm_f_measurements_conduit_end.measurements_channel_signal
 			--
 			temp_scl_export                                             => TEMP_SMCLK,
@@ -817,10 +817,26 @@ begin
 	LED_PAINEL_LED_ST4   <= ('1') when (rst = '0') else (leds_p(20));
 
 	-- SpW Channel Measurements
-	JP3_GPIO0_D10_IO <= spw_f_measure(0);
-	JP3_GPIO0_D11_IO <= spw_f_measure(1);
-	JP3_GPIO0_D12_IO <= spw_f_measure(2);
-	JP3_GPIO0_D13_IO <= spw_f_measure(3);
+	JP3_GPIO0_D22_IO <= spw_a_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D23_IO <= spw_b_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D18_IO <= spw_c_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D19_IO <= spw_d_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D14_IO <= spw_e_measure(4); -- measurement 4 : right fee busy signal
+	JP3_GPIO0_D15_IO <= spw_f_measure(4); -- measurement 4 : right fee busy signal
+	
+	JP3_GPIO0_D24_IO <= spw_a_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D25_IO <= spw_b_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D20_IO <= spw_c_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D21_IO <= spw_d_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D16_IO <= spw_e_measure(5); -- measurement 5 : left fee busy signal
+	JP3_GPIO0_D17_IO <= spw_f_measure(5); -- measurement 5 : left fee busy signal
+	
+	JP3_GPIO0_D34_IO <= spw_a_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D35_IO <= spw_b_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D32_IO <= spw_c_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D33_IO <= spw_d_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D30_IO <= spw_e_measure(6); -- measurement 6 : fee busy signal
+	JP3_GPIO0_D31_IO <= spw_f_measure(6); -- measurement 6 : fee busy signal
 
 	--==========--
 	-- eth
