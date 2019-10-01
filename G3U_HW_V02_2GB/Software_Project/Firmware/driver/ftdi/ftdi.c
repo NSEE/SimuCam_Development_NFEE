@@ -53,62 +53,18 @@ alt_u32 uliFTDInDataLeftInBuffer( void ){
     uliBufferUsedBytes = vpxFtdiModule->xFtdiRxBufferStatus.usiRxDbuffUsedBytes;
     return uliBufferUsedBytes;
 }
-bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight,  alt_u16 usiTimeoutMs ){
+bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight ){
     bool bStatus = FALSE;
     volatile TFtdiModule *vpxFtdiModule = (TFtdiModule *) FTDI_MODULE_BASE_ADDR;
-    if ((6 > ucFee) && (4 > ucCCD) && (2 > ucSide) && (xDefaults.usiCols >= usiHalfWidth) && ((xDefaults.usiRows + xDefaults.usiOLN) >= usiHeight) && (32500 >= usiTimeoutMs)) {
+    if ((ucFee < 6) && (ucCCD < 4) && (ucSide < 2) && (usiHalfWidth <= 2295 ) && (usiHeight <= 4540)) {
         vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdFeeNumber = ucFee;
         vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdNumber = ucCCD;
         vpxFtdiModule->xFtdiHalfCcdReqControl.ucHalfCcdCcdSide = ucSide;
         vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiEP;
         vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiHalfWidth;
         vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
-        vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = usiTimeoutMs * 2; /* usiHalfCcdReqTimeout is in units of 0.5 ms */
         vpxFtdiModule->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
         bStatus = TRUE;
-    } else {
-    	if (6 <= ucFee) {
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "FTDI USB3 Full-Image Request: CRITICAL! FEE %d does not exist.\n", ucFee);
-			}
-			#endif
-    	}
-    	if (4 <= ucCCD) {
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "FTDI USB3 Full-Image Request: CRITICAL! CCD %d does not exist.\n", ucCCD);
-			}
-			#endif
-    	}
-    	if (2 <= ucSide) {
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "FTDI USB3 Full-Image Request: CRITICAL! Side %d does not exist.\n", ucSide);
-			}
-			#endif
-    	}
-    	if (xDefaults.usiCols < usiHalfWidth) {
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "FTDI USB3 Full-Image Request: CRITICAL! CCD Half-Width of %d is larger than the maximum allowed of %d pixels.\n", usiHalfWidth, xDefaults.usiRows);
-			}
-			#endif
-    	}
-    	if ((xDefaults.usiRows + xDefaults.usiOLN) < usiHeight) {
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "FTDI USB3 Full-Image Request: CRITICAL! CCD Height of %d is larger than the maximum allowed of %d pixels.\n", usiHeight, (xDefaults.usiRows + xDefaults.usiOLN));
-			}
-			#endif
-    	}
-    	if (32500 < usiTimeoutMs) {
-			#if DEBUG_ON
-			if ( xDefaults.usiDebugLevel <= dlCriticalOnly ) {
-				fprintf(fp, "FTDI USB3 Full-Image Request: CRITICAL! Timeout of %d ms is larger than the maximum allowed of %d ms.\n", usiTimeoutMs, 32500);
-			}
-			#endif
-    	}
     }
     return bStatus;
 }

@@ -17,6 +17,7 @@
 //! [constants definition]
 #define FTDI_RX_BUFFER_IRQ               4
 #define FTDI_MODULE_BASE_ADDR            FTDI_USB3_0_BASE
+#define FTDI_BUFFER_SIZE_TRANSFER	     8192
 //! [constants definition]
 
 //! [public module structs definition]
@@ -171,7 +172,7 @@ void vFTDIClear(void);
 void vFTDIAbort(void);
 alt_u8 ucFTDIGetError(void);
 alt_u32 uliFTDInDataLeftInBuffer(void);
-bool bFTDIRequestFullImage(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight,  alt_u16 usiTimeoutMs);
+bool bFTDIRequestFullImage(alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 usiEP, alt_u16 usiHalfWidth, alt_u16 usiHeight);
 void vFTDIResetFullImage(void);
 void vFTDIRxBufferIRQHandler(void* pvContext);
 bool bFTDIIrqRxBuffInit(void);
