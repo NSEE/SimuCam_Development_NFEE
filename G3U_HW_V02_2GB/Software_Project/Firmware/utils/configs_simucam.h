@@ -30,6 +30,7 @@ typedef struct ConfEth{
 }TConfEth;
 
 typedef struct Globals{
+	bool bSyncReset;
 	bool bNormal;			/*Indicates if it is a normal or Fast FEE. Normal=1; Fast=0*/
 	bool bPreMaster;		/*Indicates if is the pre-master sync cycle*/
 	bool bDTCFinished;		/*Indicates if the DTC finishes to update the memory*/

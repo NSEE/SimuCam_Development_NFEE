@@ -547,8 +547,10 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 	switch (xPusL->usiSubType) {
 		/* TC_SCAMxx_SYNCH_RST [bndky] */
 		case 31:
-			/* Send the wait time info to the sync reset function*/
-			vSyncReset( xPusL->usiValues[0], &(pxMebCLocal->xFeeControl)  );
+			if ( xGlobal.bSyncReset == FALSE ) {
+				/* Send the wait time info to the sync reset function*/
+				vSyncReset( xPusL->usiValues[0], &(pxMebCLocal->xFeeControl)  );
+			}
 		break;
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:

@@ -25,17 +25,21 @@ void vSyncResetTask( void *task_data ){
     div_t xDlyAdjusted;
     volatile unsigned char ucIL;
     unsigned int usiPreSyncTimeDif = 200; /*Sum of all Delays*/
-    xGlobal.bJustBeforSync = TRUE;
+    /*xGlobal.bJustBeforSync = TRUE;*/
+
 
 
     for(;;){
         /* Suspend task because of it's high PRIO */
         OSTaskSuspend(SYNC_RESET_HIGH_PRIO);
 
+        xGlobal.bSyncReset = TRUE;
+
         /* Receive delay time via qck */
         usiResetDelayL = (unsigned int) OSQPend(xQueueSyncReset, 200, &iErrorCodeL);
 
         if (iErrorCodeL == OS_ERR_NONE) {
+
 
         	/* Stop the Sync (Stopping the simulation) */
         	bStopSync();
@@ -97,6 +101,7 @@ void vSyncResetTask( void *task_data ){
             /* Wait ufSynchDelay milliseconds adjusted minus the time needed for pre-sync*/
             OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, (xDlyAdjusted.rem));
 
+            xGlobal.bSyncReset = FALSE;
             /* Enable Sync */
 			bSyncCtrReset();
 			vSyncClearCounter();
