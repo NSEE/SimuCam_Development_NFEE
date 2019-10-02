@@ -525,7 +525,9 @@ void vPusMebInTaskRunningMode( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 			break;
 		/* srv-Type = 251 */
 		case 251:
-			vPusType251run(pxMebCLocal, xPusL);
+			if ( xGlobal.bSyncReset == FALSE ) {
+				vPusType251run(pxMebCLocal, xPusL);
+			}
 			break;
 		/* srv-Type = 252 */
 		case 252:
@@ -555,11 +557,14 @@ void vPusType250run( TSimucam_MEB *pxMebCLocal, tTMPus *xPusL ) {
 		/* TC_SCAM_FEE_HK_UPDATE_VALUE [bndky] */
 		case 58:
 			vSendHKUpdate(pxMebCLocal, xPusL);
+
 			break;
 
 		/* TC_SCAM_CONFIG */
 		case 60:
-			pxMebCLocal->eMode = sMebToConfig;
+			if ( xGlobal.bSyncReset == FALSE ) {
+				pxMebCLocal->eMode = sMebToConfig;
+			}
 			break;
 		/* TC_SCAM_TURNOFF */
 		case 62:
