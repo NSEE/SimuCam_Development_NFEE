@@ -5,11 +5,11 @@
  version="1.0"
  fabric="QSYS">
  <!-- Format version 18.1 625 (Future versions may contain additional information.) -->
- <!-- 2019.09.29.01:12:38 -->
+ <!-- 2019.10.03.02:11:11 -->
  <!-- A collection of modules and connections -->
  <parameter name="AUTO_GENERATION_ID">
   <type>java.lang.Integer</type>
-  <value>1569730357</value>
+  <value>1570079469</value>
   <derived>false</derived>
   <enabled>true</enabled>
   <visible>false</visible>
@@ -19651,7 +19651,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
-   <value>32</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DMA_MODE</name>
@@ -19783,7 +19783,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DESCRIPTOR_FIFO_DEPTH">
    <type>int</type>
-   <value>32</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -21776,7 +21776,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DESCRIPTOR_FIFO_DEPTH</name>
-   <value>32</value>
+   <value>128</value>
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.DMA_MODE</name>
@@ -21908,7 +21908,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="DESCRIPTOR_FIFO_DEPTH">
    <type>int</type>
-   <value>32</value>
+   <value>128</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -25814,7 +25814,7 @@ parameters are a RESULT of the module parameters. -->
 the requested settings for a module instance. -->
   <parameter name="DATA_WIDTH">
    <type>int</type>
-   <value>64</value>
+   <value>256</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -25880,7 +25880,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="BURSTCOUNT_WIDTH">
    <type>int</type>
-   <value>5</value>
+   <value>3</value>
    <derived>true</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -25888,7 +25888,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="MAX_BURST_SIZE">
    <type>int</type>
-   <value>16</value>
+   <value>4</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -25896,7 +25896,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="COMMAND_FIFO_DEPTH">
    <type>int</type>
-   <value>4</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -25904,7 +25904,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="RESPONSE_FIFO_DEPTH">
    <type>int</type>
-   <value>64</value>
+   <value>8</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>
@@ -26308,7 +26308,7 @@ parameters are a RESULT of the module parameters. -->
    </parameter>
    <parameter name="maximumPendingReadTransactions">
     <type>int</type>
-    <value>68</value>
+    <value>16</value>
     <derived>false</derived>
     <enabled>true</enabled>
     <visible>true</visible>
@@ -26461,7 +26461,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_readdata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -26473,13 +26473,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_burstcount</name>
     <direction>Input</direction>
-    <width>5</width>
+    <width>3</width>
     <role>burstcount</role>
    </port>
    <port>
     <name>s0_writedata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -26503,7 +26503,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>s0_byteenable</name>
     <direction>Input</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
@@ -26784,7 +26784,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_readdata</name>
     <direction>Input</direction>
-    <width>64</width>
+    <width>256</width>
     <role>readdata</role>
    </port>
    <port>
@@ -26796,13 +26796,13 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_burstcount</name>
     <direction>Output</direction>
-    <width>5</width>
+    <width>3</width>
     <role>burstcount</role>
    </port>
    <port>
     <name>m0_writedata</name>
     <direction>Output</direction>
-    <width>64</width>
+    <width>256</width>
     <role>writedata</role>
    </port>
    <port>
@@ -26826,7 +26826,7 @@ parameters are a RESULT of the module parameters. -->
    <port>
     <name>m0_byteenable</name>
     <direction>Output</direction>
-    <width>8</width>
+    <width>32</width>
     <role>byteenable</role>
    </port>
    <port>
@@ -58939,7 +58939,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="internalIrqMaskSystemInfo">
    <type>long</type>
-   <value>10485759</value>
+   <value>44040175</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>false</visible>
@@ -60321,7 +60321,7 @@ parameters are a RESULT of the module parameters. -->
     <moduleName>FTDI_USB3_0</moduleName>
     <slaveName>ftdi_interrupt_sender</slaveName>
     <name>FTDI_USB3_0.ftdi_interrupt_sender</name>
-    <interruptNumber>4</interruptNumber>
+    <interruptNumber>25</interruptNumber>
    </interrupt>
    <interrupt>
     <isBridge>false</isBridge>
@@ -74340,7 +74340,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.CMacro.TIMESTAMP</name>
-   <value>1569730357</value>
+   <value>1570079469</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.compatible</name>
@@ -74360,7 +74360,7 @@ the requested settings for a module instance. -->
   </assignment>
   <assignment>
    <name>embeddedsw.dts.params.timestamp</name>
-   <value>1569730357</value>
+   <value>1570079469</value>
   </assignment>
   <assignment>
    <name>embeddedsw.dts.vendor</name>
@@ -74376,7 +74376,7 @@ the requested settings for a module instance. -->
   </parameter>
   <parameter name="timestamp">
    <type>int</type>
-   <value>1569730357</value>
+   <value>1570079469</value>
    <derived>true</derived>
    <enabled>false</enabled>
    <visible>false</visible>
@@ -84682,7 +84682,7 @@ parameters are a RESULT of the module parameters. -->
    end="FTDI_USB3_0.ftdi_interrupt_sender">
   <parameter name="irqNumber">
    <type>int</type>
-   <value>4</value>
+   <value>25</value>
    <derived>false</derived>
    <enabled>true</enabled>
    <visible>true</visible>

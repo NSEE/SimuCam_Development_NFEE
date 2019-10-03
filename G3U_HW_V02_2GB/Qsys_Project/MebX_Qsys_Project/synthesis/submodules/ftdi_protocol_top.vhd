@@ -131,7 +131,7 @@ begin
 			rst_i                                => rst_i,
 			data_stop_i                          => ftdi_module_stop_i,
 			data_start_i                         => ftdi_module_start_i,
-			req_half_ccd_request_timeout_i       => req_half_ccd_request_timeout_i,
+			req_half_ccd_request_timeout_i       => (others => '0'),
 			req_half_ccd_fee_number_i            => req_half_ccd_fee_number_i,
 			req_half_ccd_ccd_number_i            => req_half_ccd_ccd_number_i,
 			req_half_ccd_ccd_side_i              => req_half_ccd_ccd_side_i,
@@ -251,6 +251,9 @@ begin
 
 	-- FTDI Rx Protocol Payload Reader Instantiation
 	ftdi_rx_protocol_payload_reader_ent_inst : entity work.ftdi_rx_protocol_payload_reader_ent
+		generic map(
+			g_DELAY_QQWORD_CLKDIV => 0 -- [100 MHz / 1 = 100 MHz = 10 ns]
+		)
 		port map(
 			clk_i                         => clk_i,
 			rst_i                         => rst_i,
@@ -260,6 +263,7 @@ begin
 			payload_reader_start_i        => s_payload_reader_start,
 			payload_reader_reset_i        => s_payload_reader_reset,
 			payload_length_bytes_i        => s_payload_reader_length_bytes,
+			payload_qqword_delay_i        => req_half_ccd_request_timeout_i,
 			rx_dc_data_fifo_rddata_data_i => rx_dc_data_fifo_rddata_data_i,
 			rx_dc_data_fifo_rddata_be_i   => rx_dc_data_fifo_rddata_be_i,
 			rx_dc_data_fifo_rdempty_i     => rx_dc_data_fifo_rdempty_i,

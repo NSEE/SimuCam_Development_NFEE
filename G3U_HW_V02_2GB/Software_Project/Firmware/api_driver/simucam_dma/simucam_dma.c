@@ -548,17 +548,17 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInByt
 
 	}
 
-	// Rounding up the size to the nearest multiple of 8 (8 bytes = 64b = size of memory access)
-	if (usiRoundedTransferSizeInBytes % 8) {
-		// Transfer size is not a multiple of 8
-		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / 8) + 1) * 8;
+	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
+	if (usiRoundedTransferSizeInBytes % 32) {
+		// Transfer size is not a multiple of 32
+		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / 32) + 1) * 32;
 	} else {
 		usiRoundedTransferSizeInBytes = usiTransferSizeInBytes;
 	}
 
-	// Verify if the base address is a multiple o 8 (8 bytes = 64b = size of memory access)
-	if (uliSrcAddrLow % 8) {
-		// Address is not a multiple of 8
+	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
+	if (uliSrcAddrLow % 32) {
+		// Address is not a multiple of 32
 		bAddressFlag = FALSE;
 	} else {
 		bAddressFlag = TRUE;
@@ -631,17 +631,17 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInByt
 
 	}
 
-	// Rounding up the size to the nearest multiple of 8 (8 bytes = 64b = size of memory access)
-	if (usiRoundedTransferSizeInBytes % 8) {
-		// Transfer size is not a multiple of 8
-		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / 8) + 1) * 8;
+	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
+	if (usiRoundedTransferSizeInBytes % 32) {
+		// Transfer size is not a multiple of 32
+		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / 32) + 1) * 32;
 	} else {
 		usiRoundedTransferSizeInBytes = usiTransferSizeInBytes;
 	}
 
-	// Verify if the base address is a multiple o 8 (8 bytes = 64b = size of memory access)
-	if (uliSrcAddrLow % 8) {
-		// Address is not a multiple of 8
+	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
+	if (uliSrcAddrLow % 32) {
+		// Address is not a multiple of 32
 		bAddressFlag = FALSE;
 	} else {
 		bAddressFlag = TRUE;

@@ -6,6 +6,9 @@ use work.ftdi_protocol_pkg.all;
 use work.ftdi_protocol_crc_pkg.all;
 
 entity ftdi_rx_protocol_payload_reader_ent is
+	generic(
+		g_DELAY_QQWORD_CLKDIV : natural range 0 to 65535 := 0 -- [100 MHz / 1 = 100 MHz = 10 ns]
+	);
 	port(
 		clk_i                         : in  std_logic;
 		rst_i                         : in  std_logic;
@@ -15,6 +18,7 @@ entity ftdi_rx_protocol_payload_reader_ent is
 		payload_reader_start_i        : in  std_logic;
 		payload_reader_reset_i        : in  std_logic;
 		payload_length_bytes_i        : in  std_logic_vector(31 downto 0);
+		payload_qqword_delay_i        : in  std_logic_vector(15 downto 0);
 		rx_dc_data_fifo_rddata_data_i : in  std_logic_vector(31 downto 0);
 		rx_dc_data_fifo_rddata_be_i   : in  std_logic_vector(3 downto 0);
 		rx_dc_data_fifo_rdempty_i     : in  std_logic;
@@ -58,6 +62,7 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 		FETCH_RX_DWORD_6,               -- fetch rx dword data 6 (32b)
 		FETCH_RX_DWORD_7,               -- fetch rx dword data 7 (32b)
 		WRITE_RX_QQWORD,                -- write rx qqword data (256b)
+		WAITING_QQWORD_DELAY,           -- wait until the qqword delay is finished
 		WRITE_DELAY,                    -- write delay
 		CHANGE_BUFFER,                  -- change rx buffer
 		LOAD_BUFFER,                    -- load rx buffer
@@ -80,7 +85,27 @@ architecture RTL of ftdi_rx_protocol_payload_reader_ent is
 	signal s_rx_dword_6 : std_logic_vector(31 downto 0);
 	signal s_rx_dword_7 : std_logic_vector(31 downto 0);
 
+	signal s_qqword_delay_clear    : std_logic;
+	signal s_qqword_delay_trigger  : std_logic;
+	signal s_qqword_delay_busy     : std_logic;
+	signal s_qqword_delay_finished : std_logic;
+
 begin
+
+	qqword_delay_block_ent_inst : entity work.delay_block_ent
+		generic map(
+			g_CLKDIV      => std_logic_vector(to_unsigned(g_DELAY_QQWORD_CLKDIV, 16)),
+			g_TIMER_WIDTH => payload_qqword_delay_i'length
+		)
+		port map(
+			clk_i            => clk_i,
+			rst_i            => rst_i,
+			clr_i            => s_qqword_delay_clear,
+			delay_trigger_i  => s_qqword_delay_trigger,
+			delay_timer_i    => payload_qqword_delay_i,
+			delay_busy_o     => s_qqword_delay_busy,
+			delay_finished_o => s_qqword_delay_finished
+		);
 
 	p_ftdi_tx_prot_payload_reader : process(clk_i, rst_i) is
 		variable v_ftdi_tx_prot_payload_reader_state : t_ftdi_tx_prot_payload_reader_fsm := STOPPED;
@@ -96,6 +121,8 @@ begin
 			s_payload_length_cnt                <= (others => '0');
 			s_payload_crc32_match               <= '0';
 			s_payload_eop_error                 <= '0';
+			s_qqword_delay_clear                <= '0';
+			s_qqword_delay_trigger              <= '0';
 			v_fetch_dword                       := '0';
 			v_read_dword                        := '0';
 			v_mask_cnt                          := 0;
@@ -132,6 +159,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -152,6 +181,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -177,6 +208,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					-- conditional state transition
 					-- check if the rx dc data fifo is not empty 
 					if (rx_dc_data_fifo_rdempty_i = '0') then
@@ -193,6 +226,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					-- conditional state transition
 					-- check if a start of package was detected
 					if (rx_dc_data_fifo_rddata_data_i = c_FTDI_PROT_START_OF_PAYLOAD) then
@@ -209,6 +244,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					-- conditional state transition
@@ -248,6 +285,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 				-- conditional state transition
 
 				-- state "FETCH_RX_DWORD_0"
@@ -259,6 +298,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -289,6 +330,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -319,6 +362,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -349,6 +394,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -379,6 +426,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -409,6 +458,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -439,6 +490,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -469,6 +522,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					if (v_mask_cnt < 33) then
 						v_mask_cnt := v_mask_cnt + 1;
 					else
@@ -499,7 +554,35 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
-				-- conditional state transition
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
+					-- conditional state transition
+					-- check if a qqword delay was specified
+					if (payload_qqword_delay_i /= std_logic_vector(to_unsigned(0, payload_qqword_delay_i'length))) then
+						-- a qqword delay was specified
+						s_qqword_delay_trigger              <= '1';
+						s_ftdi_tx_prot_payload_reader_state <= WAITING_QQWORD_DELAY;
+						v_ftdi_tx_prot_payload_reader_state := WAITING_QQWORD_DELAY;
+					end if;
+
+				-- state "WAITING_QQWORD_DELAY"
+				when WAITING_QQWORD_DELAY =>
+					-- wait until the qqword delay is finished
+					-- default state transition
+					s_ftdi_tx_prot_payload_reader_state <= WAITING_QQWORD_DELAY;
+					v_ftdi_tx_prot_payload_reader_state := WAITING_QQWORD_DELAY;
+					-- default internal signal values
+					s_payload_crc32_match               <= '0';
+					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
+					-- conditional state transition
+					-- check if the qqword delay is over
+					if (s_qqword_delay_finished = '1') then
+						-- delay finished
+						s_ftdi_tx_prot_payload_reader_state <= WRITE_DELAY;
+						v_ftdi_tx_prot_payload_reader_state := WRITE_DELAY;
+					end if;
 
 				-- state "WRITE_DELAY"
 				when WRITE_DELAY =>
@@ -510,6 +593,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '1';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					-- conditional state transition
@@ -561,6 +646,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					-- conditional state transition
 					if (unsigned(s_payload_length_cnt) < 4) then
 						s_payload_length_cnt                <= (others => '0');
@@ -578,6 +665,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 				-- conditional state transition
@@ -592,6 +681,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -612,6 +703,8 @@ begin
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -630,6 +723,8 @@ begin
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -649,6 +744,8 @@ begin
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -667,6 +764,8 @@ begin
 					-- default internal signal values
 					s_payload_crc32_match               <= '0';
 					s_payload_eop_error                 <= '0';
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					-- conditional state transition
 					-- check if the rx fifo is empty
 					if (rx_dc_data_fifo_rdempty_i = '1') then
@@ -683,6 +782,8 @@ begin
 					v_ftdi_tx_prot_payload_reader_state := FINISH_PAYLOAD_RX;
 					-- default internal signal values
 					s_payload_length_cnt                <= (others => '0');
+					s_qqword_delay_clear                <= '0';
+					s_qqword_delay_trigger              <= '0';
 					v_fetch_dword                       := '0';
 					v_read_dword                        := '0';
 					v_mask_cnt                          := 0;
@@ -1141,6 +1242,28 @@ begin
 					buffer_wrdata_o(223 downto 192) <= s_rx_dword_6;
 					buffer_wrdata_o(255 downto 224) <= s_rx_dword_7;
 					buffer_wrreq_o                  <= '1';
+				-- conditional output signals
+
+				-- state "WAITING_QQWORD_DELAY"
+				when WAITING_QQWORD_DELAY =>
+					-- wait until the qqword delay is finished
+					-- default output signals
+					payload_reader_busy_o    <= '1';
+					payload_crc32_match_o    <= '0';
+					payload_eop_error_o      <= '0';
+					payload_last_rx_buffer_o <= '0';
+					rx_dc_data_fifo_rdreq_o  <= '0';
+					buffer_data_loaded_o     <= '0';
+					buffer_wrdata_o          <= (others => '0');
+					buffer_wrreq_o           <= '0';
+					s_rx_dword_0             <= (others => '0');
+					s_rx_dword_1             <= (others => '0');
+					s_rx_dword_2             <= (others => '0');
+					s_rx_dword_3             <= (others => '0');
+					s_rx_dword_4             <= (others => '0');
+					s_rx_dword_5             <= (others => '0');
+					s_rx_dword_6             <= (others => '0');
+					s_rx_dword_7             <= (others => '0');
 				-- conditional output signals
 
 				-- state "WRITE_DELAY"

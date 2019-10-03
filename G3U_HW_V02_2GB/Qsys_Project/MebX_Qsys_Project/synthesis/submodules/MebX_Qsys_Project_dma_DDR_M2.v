@@ -53,7 +53,7 @@ module MebX_Qsys_Project_dma_DDR_M2 (
 		.MODE                        (0),
 		.RESPONSE_PORT               (2),
 		.DESCRIPTOR_INTERFACE        (0),
-		.DESCRIPTOR_FIFO_DEPTH       (32),
+		.DESCRIPTOR_FIFO_DEPTH       (128),
 		.ENHANCED_FEATURES           (1),
 		.DESCRIPTOR_WIDTH            (256),
 		.DESCRIPTOR_BYTEENABLE_WIDTH (32)

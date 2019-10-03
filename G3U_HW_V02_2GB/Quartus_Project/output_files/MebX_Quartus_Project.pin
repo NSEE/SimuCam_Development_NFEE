@@ -1320,10 +1320,10 @@ GND                          : N24       : gnd    :                   :         
 RESERVED_INPUT_WITH_WEAK_PULLUP : N25       :        :                   :         : 8A        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N26       :        :                   :         : 8A        :                
 altera_reserved_tms          : N27       : input  : 2.5 V             :         : 1A        : N              
-RESERVED_INPUT_WITH_WEAK_PULLUP : N28       :        :                   :         : 1A        :                
+FSM_A[0]                     : N28       : output : 2.5 V             :         : 1A        : N              
 LED_DE4[4]                   : N29       : output : 2.5 V             :         : 1A        : Y              
 LED_DE4[7]                   : N30       : output : 2.5 V             :         : 1A        : Y              
-FSM_A[0]                     : N31       : output : 2.5 V             :         : 1A        : N              
+RESERVED_INPUT_WITH_WEAK_PULLUP : N31       :        :                   :         : 1A        :                
 VCCIO1C                      : N32       : power  :                   : 2.5V    : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N33       :        :                   :         : 1C        :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : N34       :        :                   :         : 1C        :                
