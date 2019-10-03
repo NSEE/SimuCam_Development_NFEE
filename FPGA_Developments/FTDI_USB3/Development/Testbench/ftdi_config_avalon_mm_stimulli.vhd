@@ -143,7 +143,7 @@ begin
 					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_height      <= std_logic_vector(to_unsigned(16, 13));
 					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_ccd_width       <= std_logic_vector(to_unsigned(7, 12));
 					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_exposure_number <= std_logic_vector(to_unsigned(875, 16));
-					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_req_timeout     <= (others => '0');
+					avs_config_wr_regs_o.hccd_req_control_reg.req_hccd_req_timeout     <= std_logic_vector(to_unsigned(0, 16));
 					avs_config_wr_regs_o.hccd_req_control_reg.req_request_hccd         <= '1';
 
 				when 25 =>
