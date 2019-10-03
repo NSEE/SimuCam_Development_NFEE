@@ -63,7 +63,7 @@ void vDataControlTask(void *task_data) {
 				/* Transition state */
 				#if DEBUG_ON
 				if ( xDefaults.usiDebugLevel <= dlMajorMessage )
-					fprintf(fp,"NFEE Controller Task: Config Mode\n");
+					fprintf(fp,"Data Controller Task: Config Mode\n");
 				#endif
 
 				/* Anything that need be executed only once before the COnfig Mode
@@ -413,10 +413,12 @@ void vDataControlTask(void *task_data) {
 							}
 							#endif
 
-							/*Send The sem sync to Meb*/
-							error_code = OSSemPost(xSemCommInit);
-							if ( error_code != OS_ERR_NONE ) {
-								vFailSendSemaphoreFromDTC();
+							if ( xGlobal.bSyncReset == FALSE ) {
+								/*Send The sem sync to Meb*/
+								error_code = OSSemPost(xSemCommInit);
+								if ( error_code != OS_ERR_NONE ) {
+									vFailSendSemaphoreFromDTC();
+								}
 							}
 						}
 

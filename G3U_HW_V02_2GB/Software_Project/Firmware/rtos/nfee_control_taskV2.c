@@ -97,6 +97,7 @@ void vNFeeControlTaskV2(void *task_data) {
 				}
 
 				/* Clear message that maybe is in the FEEs Queues */
+				/*
 				for( ucIL = 0; ucIL < N_OF_NFEE; ucIL++)
 				{
 					error_codeCtrl = OSQFlush( xFeeQ[ ucIL ] );
@@ -104,6 +105,7 @@ void vNFeeControlTaskV2(void *task_data) {
 						vFailFlushQueue();
 					}
 				}
+				*/
 
 				bCmdSent = FALSE;
 				bDmaBack = TRUE;
@@ -150,7 +152,7 @@ void vNFeeControlTaskV2(void *task_data) {
 						ucWhoGetDMA = 255;
 					}
 				} else {
-					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 500, &error_codeCtrl);
+					uiCmdNFC.ulWord = (unsigned int)OSQPend(xQMaskFeeCtrl, 0, &error_codeCtrl);
 					if ( error_codeCtrl == OS_ERR_NONE ) {
 					/* Check if is some FEE giving the DMA back */
 						if ( uiCmdNFC.ucByte[2] == M_NFC_DMA_GIVEBACK ) {
@@ -203,9 +205,6 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
-	case M_NFC_CONFIG_RESET:
-
-		break;
 		case M_NFC_CONFIG_FORCED:
 		case M_NFC_CONFIG:
 			#if DEBUG_ON
@@ -220,6 +219,7 @@ void vPerformActionNFCConfig( unsigned int uiCmdParam, TNFee_Control *pxFeeCP ) 
 		case M_NFC_RUN:
 			pxFeeCP->sMode = sMebToRun;
 			break;
+		case M_NFC_CONFIG_RESET:
 		case M_NFC_DMA_GIVEBACK:
 		case M_NFC_DMA_REQUEST:
 			break;
@@ -238,9 +238,6 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 	uiCmdLocal.ulWord = uiCmdParam;
 
 	switch (uiCmdLocal.ucByte[2]) {
-		case M_NFC_CONFIG_RESET:
-			pxFeeCP->sMode = sMebToConfig;
-			break;
 
 		case M_NFC_CONFIG:
 		case M_NFC_CONFIG_FORCED:
@@ -253,7 +250,10 @@ void vPerformActionNFCRunning( unsigned int uiCmdParam, TNFee_Control *pxFeeCP )
 					bSendCmdQToNFeeInst_Prio( i, M_FEE_CONFIG_FORCED, 0, i  );
 				}
 			}
+			break;
 
+		case M_NFC_CONFIG_RESET:
+			pxFeeCP->sMode = sMebToConfig;
 			break;
 
 		case M_NFC_RUN:

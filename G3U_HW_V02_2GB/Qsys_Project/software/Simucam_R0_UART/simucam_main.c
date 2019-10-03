@@ -624,6 +624,7 @@ int main(void)
 	//vFillMemmoryPattern( &xSimMeb ); //todo: To remove
 	bSetPainelLeds( LEDS_OFF , LEDS_ST_ALL_MASK );
 
+	xGlobal.bSyncReset = FALSE;
 
 	/* Creating the initialization task*/
 	#if STACK_MONITOR

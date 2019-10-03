@@ -25,17 +25,21 @@ void vSyncResetTask( void *task_data ){
     div_t xDlyAdjusted;
     volatile unsigned char ucIL;
     unsigned int usiPreSyncTimeDif = 200; /*Sum of all Delays*/
-    xGlobal.bJustBeforSync = TRUE;
+    /*xGlobal.bJustBeforSync = TRUE;*/
+
 
 
     for(;;){
         /* Suspend task because of it's high PRIO */
         OSTaskSuspend(SYNC_RESET_HIGH_PRIO);
 
+        xGlobal.bSyncReset = TRUE;
+
         /* Receive delay time via qck */
-        usiResetDelayL = (unsigned int) OSQPend(xQueueSyncReset, 10, &iErrorCodeL);
+        usiResetDelayL = (unsigned int) OSQPend(xQueueSyncReset, 200, &iErrorCodeL);
 
         if (iErrorCodeL == OS_ERR_NONE) {
+
 
         	/* Stop the Sync (Stopping the simulation) */
         	bStopSync();
@@ -46,8 +50,6 @@ void vSyncResetTask( void *task_data ){
 			}
 			#endif
 
-        	pxMeb->ucActualDDR = 0;
-        	pxMeb->ucNextDDR = 1;
 
 			#if DEBUG_ON
 			if ( xDefaults.usiDebugLevel <= dlMajorMessage ) {
@@ -85,6 +87,10 @@ void vSyncResetTask( void *task_data ){
 				fprintf(fp,"++++ Restarting the sky to EP 0\n");
 			}
 			#endif
+
+        	pxMeb->ucActualDDR = 1;
+        	pxMeb->ucNextDDR = 0;
+
         	vSendCmdQToDataCTRL_PRIO( M_DATA_RUN_FORCED, 0, 0 );
         	OSTimeDlyHMSM(0, 0, 0, 50);
 
@@ -95,6 +101,7 @@ void vSyncResetTask( void *task_data ){
             /* Wait ufSynchDelay milliseconds adjusted minus the time needed for pre-sync*/
             OSTimeDlyHMSM(0, 0, xDlyAdjusted.quot, (xDlyAdjusted.rem));
 
+            xGlobal.bSyncReset = FALSE;
             /* Enable Sync */
 			bSyncCtrReset();
 			vSyncClearCounter();
@@ -102,7 +109,7 @@ void vSyncResetTask( void *task_data ){
         } else{
             #if DEBUG_ON        //TODO verif se esta tudo certo com o erro
                 if ( xDefaults.usiDebugLevel <= dlCriticalOnly ){
-                    fprintf(fp,"Sync Reset: Sync Reset Error\n");
+                    fprintf(fp,"Sync Reset: Sync Reset Error 3\n");
                 }
             #endif
         }
