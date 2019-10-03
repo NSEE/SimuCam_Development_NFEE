@@ -63,6 +63,11 @@ bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
         vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiEP;
         vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiHalfWidth;
         vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
+        if (0 == usiEP) {
+        	vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = 0;
+        } else {
+        	vpxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = 35;
+        }
         vpxFtdiModule->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
         bStatus = TRUE;
     }
