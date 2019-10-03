@@ -117,6 +117,14 @@ module MebX_Qsys_Project (
 	ssdp_ssdp1,
 	sync_in_conduit,
 	sync_out_conduit,
+	sync_spw1_conduit,
+	sync_spw2_conduit,
+	sync_spw3_conduit,
+	sync_spw4_conduit,
+	sync_spw5_conduit,
+	sync_spw6_conduit,
+	sync_spw7_conduit,
+	sync_spw8_conduit,
 	temp_scl_export,
 	temp_sda_export,
 	timer_1ms_external_port_export,
@@ -137,15 +145,7 @@ module MebX_Qsys_Project (
 	umft601a_pins_umft_wr_n_signal,
 	umft601a_pins_umft_rd_n_signal,
 	umft601a_pins_umft_oe_n_signal,
-	umft601a_pins_umft_siwu_n_signal,
-	sync_spw1_conduit,
-	sync_spw2_conduit,
-	sync_spw3_conduit,
-	sync_spw4_conduit,
-	sync_spw5_conduit,
-	sync_spw6_conduit,
-	sync_spw7_conduit,
-	sync_spw8_conduit);	
+	umft601a_pins_umft_siwu_n_signal);	
 
 	input	[3:0]	button_export;
 	input		clk50_clk;
@@ -264,6 +264,14 @@ module MebX_Qsys_Project (
 	output	[7:0]	ssdp_ssdp1;
 	input		sync_in_conduit;
 	output		sync_out_conduit;
+	output		sync_spw1_conduit;
+	output		sync_spw2_conduit;
+	output		sync_spw3_conduit;
+	output		sync_spw4_conduit;
+	output		sync_spw5_conduit;
+	output		sync_spw6_conduit;
+	output		sync_spw7_conduit;
+	output		sync_spw8_conduit;
 	output		temp_scl_export;
 	inout		temp_sda_export;
 	output		timer_1ms_external_port_export;
@@ -285,12 +293,4 @@ module MebX_Qsys_Project (
 	output		umft601a_pins_umft_rd_n_signal;
 	output		umft601a_pins_umft_oe_n_signal;
 	output		umft601a_pins_umft_siwu_n_signal;
-	output		sync_spw1_conduit;
-	output		sync_spw2_conduit;
-	output		sync_spw3_conduit;
-	output		sync_spw4_conduit;
-	output		sync_spw5_conduit;
-	output		sync_spw6_conduit;
-	output		sync_spw7_conduit;
-	output		sync_spw8_conduit;
 endmodule

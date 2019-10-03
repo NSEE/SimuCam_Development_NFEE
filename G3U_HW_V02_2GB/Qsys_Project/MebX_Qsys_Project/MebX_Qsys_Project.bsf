@@ -1261,7 +1261,7 @@ refer to the applicable agreement for further details.
 		(text "umft_rd_n_signal" (rect 389 3987 874 7984)(font "Arial" (color 0 0 0)))
 		(text "umft_oe_n_signal" (rect 389 4003 874 8016)(font "Arial" (color 0 0 0)))
 		(text "umft_siwu_n_signal" (rect 389 4019 886 8048)(font "Arial" (color 0 0 0)))
-		(text " MebX_Qsys_Project " (rect 836 4040 1786 8090)(font "Arial" ))
+		(text " system " (rect 893 4040 1834 8090)(font "Arial" ))
 		(line (pt 384 32)(pt 544 32)(line_width 1))
 		(line (pt 544 32)(pt 544 4040)(line_width 1))
 		(line (pt 384 4040)(pt 544 4040)(line_width 1))

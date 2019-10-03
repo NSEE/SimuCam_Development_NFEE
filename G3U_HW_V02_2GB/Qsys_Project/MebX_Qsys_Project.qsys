@@ -438,27 +438,6 @@
          type = "String";
       }
    }
-   element USB_3_FTDI_0.avalon_slave_config
-   {
-      datum baseAddress
-      {
-         value = "2147485696";
-         type = "String";
-      }
-   }
-   element USB_3_FTDI_0.avalon_slave_data
-   {
-      datum _lockedAddress
-      {
-         value = "1";
-         type = "boolean";
-      }
-      datum baseAddress
-      {
-         value = "8589934592";
-         type = "String";
-      }
-   }
    element clk_100
    {
       datum _sortIndex
@@ -2080,7 +2059,7 @@
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="128" />
   <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
+  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
   <parameter name="ERROR_WIDTH" value="8" />
@@ -2123,7 +2102,7 @@
   <parameter name="CHANNEL_WIDTH" value="8" />
   <parameter name="DATA_FIFO_DEPTH" value="128" />
   <parameter name="DATA_WIDTH" value="256" />
-  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="32" />
+  <parameter name="DESCRIPTOR_FIFO_DEPTH" value="128" />
   <parameter name="ENHANCED_FEATURES" value="1" />
   <parameter name="ERROR_ENABLE" value="0" />
   <parameter name="ERROR_WIDTH" value="8" />
@@ -2226,11 +2205,11 @@
    enabled="1">
   <parameter name="ADDRESS_UNITS" value="SYMBOLS" />
   <parameter name="ADDRESS_WIDTH" value="31" />
-  <parameter name="COMMAND_FIFO_DEPTH" value="4" />
-  <parameter name="DATA_WIDTH" value="64" />
+  <parameter name="COMMAND_FIFO_DEPTH" value="8" />
+  <parameter name="DATA_WIDTH" value="256" />
   <parameter name="MASTER_SYNC_DEPTH" value="2" />
-  <parameter name="MAX_BURST_SIZE" value="16" />
-  <parameter name="RESPONSE_FIFO_DEPTH" value="64" />
+  <parameter name="MAX_BURST_SIZE" value="4" />
+  <parameter name="RESPONSE_FIFO_DEPTH" value="8" />
   <parameter name="SLAVE_SYNC_DEPTH" value="2" />
   <parameter name="SYMBOL_WIDTH" value="8" />
   <parameter name="SYSINFO_ADDR_WIDTH" value="31" />
@@ -3014,7 +2993,7 @@
   <parameter name="instruction_master_high_performance_paddr_size" value="0" />
   <parameter name="instruction_master_paddr_base" value="0" />
   <parameter name="instruction_master_paddr_size" value="0" />
-  <parameter name="internalIrqMaskSystemInfo" value="10485759" />
+  <parameter name="internalIrqMaskSystemInfo" value="44040175" />
   <parameter name="io_regionbase" value="0" />
   <parameter name="io_regionsize" value="0" />
   <parameter name="master_addr_map" value="false" />
@@ -4617,7 +4596,7 @@
    version="18.1"
    start="nios2_gen2_0.irq"
    end="FTDI_USB3_0.ftdi_interrupt_sender">
-  <parameter name="irqNumber" value="4" />
+  <parameter name="irqNumber" value="25" />
  </connection>
  <connection
    kind="interrupt"

@@ -1057,8 +1057,14 @@ begin
 	measurements_channel(2)          <= s_spacewire_read_registers.fee_buffers_status_reg.fee_left_buffer_empty;
 	-- measurement 3 : left write signal
 	measurements_channel(3)          <= avalon_slave_L_buffer_write;
+	-- measurement 4 : right fee busy signal
+	measurements_channel(4)          <= s_spacewire_read_registers.fee_buffers_status_reg.fee_right_machine_busy;
+	-- measurement 5 : left fee busy signal
+	measurements_channel(5)          <= s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy;
+	-- measurement 6 : fee busy signal
+	measurements_channel(6)          <= (s_spacewire_read_registers.fee_buffers_status_reg.fee_right_machine_busy) or (s_spacewire_read_registers.fee_buffers_status_reg.fee_left_machine_busy);	
 	-- not used measurements will be logical 0
-	measurements_channel(7 downto 4) <= (others => '0');
+	measurements_channel(7) <= '0';
 
 	-- mock irq numbers (TODO: need to create generics later)
 	s_spacewire_read_registers.fee_buffers_irq_number_reg.fee_buffers_irq_number <= (others => '0');

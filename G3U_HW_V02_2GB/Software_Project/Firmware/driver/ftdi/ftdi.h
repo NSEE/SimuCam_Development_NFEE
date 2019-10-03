@@ -15,9 +15,10 @@
 #include "../../rtos/tasks_configurations.h"
 
 //! [constants definition]
-#define FTDI_RX_BUFFER_IRQ               4
+#define FTDI_RX_BUFFER_IRQ               25
 #define FTDI_MODULE_BASE_ADDR            FTDI_USB3_0_BASE
-#define FTDI_BUFFER_SIZE_TRANSFER	     8192
+#define FTDI_BUFFER_SIZE_TRANSFER        8192
+#define FTDI_WORD_SIZE_BYTES             32
 //! [constants definition]
 
 //! [public module structs definition]
