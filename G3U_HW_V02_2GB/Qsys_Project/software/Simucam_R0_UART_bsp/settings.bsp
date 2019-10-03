@@ -2,9 +2,9 @@
 <sch:Settings xmlns:sch="http://www.altera.com/embeddedsw/bsp/schema">
         <BspType>ucosii</BspType>
         <BspVersion>18.1</BspVersion>
-        <BspGeneratedTimeStamp>Oct 1, 2019 8:34:23 PM</BspGeneratedTimeStamp>
-        <BspGeneratedUnixTimeStamp>1569972863350</BspGeneratedUnixTimeStamp>
-        <BspGeneratedLocation>D:\nsee-dev-git\SimuCam_Development\G3U_HW_V02_2GB\Qsys_Project\software\Simucam_R0_UART_bsp</BspGeneratedLocation>
+        <BspGeneratedTimeStamp>Oct 3, 2019 7:10:32 PM</BspGeneratedTimeStamp>
+        <BspGeneratedUnixTimeStamp>1570140632772</BspGeneratedUnixTimeStamp>
+        <BspGeneratedLocation>.\</BspGeneratedLocation>
         <BspSettingsFile>settings.bsp</BspSettingsFile>
         <SopcDesignFile>..\..\MebX_Qsys_Project.sopcinfo</SopcDesignFile>
         <JdiFile>default</JdiFile>
@@ -1010,7 +1010,7 @@
                 <SettingName>ucosii.miscellaneous.os_max_events</SettingName>
                 <Identifier>OS_MAX_EVENTS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>64</Value>
+                <Value>128</Value>
                 <DefaultValue>60</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of event control blocks</Description>
@@ -1574,7 +1574,7 @@
                 <SettingName>ucosii.queue.os_max_qs</SettingName>
                 <Identifier>OS_MAX_QS</Identifier>
                 <Type>DecimalNumber</Type>
-                <Value>32</Value>
+                <Value>64</Value>
                 <DefaultValue>20</DefaultValue>
                 <DestinationFile>system_h_define</DestinationFile>
                 <Description>Maximum number of Queue Control Blocks</Description>
