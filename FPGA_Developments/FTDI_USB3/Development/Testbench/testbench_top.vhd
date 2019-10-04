@@ -35,15 +35,15 @@ architecture RTL of testbench_top is
 	signal s_avalon_slave_config_writedata   : std_logic_vector(31 downto 0);
 	signal s_avalon_slave_config_waitrequest : std_logic;
 	signal s_avalon_slave_config_byteenable  : std_logic_vector(3 downto 0);
-	signal s_avalon_slave_data_address       : std_logic_vector(7 downto 0);
+	signal s_avalon_slave_data_address       : std_logic_vector(8 downto 0);
 	signal s_avalon_slave_data_write         : std_logic;
 	signal s_avalon_slave_data_read          : std_logic;
 	signal s_avalon_slave_data_writedata     : std_logic_vector(255 downto 0);
 	signal s_avalon_slave_data_readdata      : std_logic_vector(255 downto 0);
 	signal s_avalon_slave_data_waitrequest   : std_logic;
 
-	signal s_tx_avalon_slave_data_address : std_logic_vector(7 downto 0);
-	signal s_rx_avalon_slave_data_address : std_logic_vector(7 downto 0);
+	signal s_tx_avalon_slave_data_address : std_logic_vector(8 downto 0);
+	signal s_rx_avalon_slave_data_address : std_logic_vector(8 downto 0);
 
 	--dummy
 
@@ -55,7 +55,7 @@ begin
 
 	tx_data_stimulli_inst : entity work.tx_data_stimulli
 		generic map(
-			g_ADDRESS_WIDTH => 8,
+			g_ADDRESS_WIDTH => 9,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -69,7 +69,7 @@ begin
 
 	rx_data_stimulli_inst : entity work.rx_data_stimulli
 		generic map(
-			g_ADDRESS_WIDTH => 8,
+			g_ADDRESS_WIDTH => 9,
 			g_DATA_WIDTH    => 256
 		)
 		port map(

@@ -12,7 +12,7 @@ entity data_buffer_ent is
 		double_buffer_start_i      : in  std_logic;
 		-- others
 		buffer_data_loaded_i       : in  std_logic;
-		buffer_cfg_length_i        : in  std_logic_vector(8 downto 0);
+		buffer_cfg_length_i        : in  std_logic_vector(9 downto 0);
 		buffer_wrdata_i            : in  std_logic_vector(255 downto 0);
 		buffer_wrreq_i             : in  std_logic;
 		buffer_rdreq_i             : in  std_logic;
@@ -20,20 +20,20 @@ entity data_buffer_ent is
 		buffer_0_wrable_o          : out std_logic;
 		buffer_0_rdable_o          : out std_logic;
 		buffer_0_empty_o           : out std_logic;
-		buffer_0_used_bytes_o      : out std_logic_vector(13 downto 0);
-		buffer_0_free_bytes_o      : out std_logic_vector(13 downto 0);
+		buffer_0_used_bytes_o      : out std_logic_vector(14 downto 0);
+		buffer_0_free_bytes_o      : out std_logic_vector(14 downto 0);
 		buffer_0_full_o            : out std_logic;
 		buffer_1_wrable_o          : out std_logic;
 		buffer_1_rdable_o          : out std_logic;
 		buffer_1_empty_o           : out std_logic;
-		buffer_1_used_bytes_o      : out std_logic_vector(13 downto 0);
-		buffer_1_free_bytes_o      : out std_logic_vector(13 downto 0);
+		buffer_1_used_bytes_o      : out std_logic_vector(14 downto 0);
+		buffer_1_free_bytes_o      : out std_logic_vector(14 downto 0);
 		buffer_1_full_o            : out std_logic;
 		double_buffer_wrable_o     : out std_logic;
 		double_buffer_rdable_o     : out std_logic;
 		double_buffer_empty_o      : out std_logic;
-		double_buffer_used_bytes_o : out std_logic_vector(13 downto 0);
-		double_buffer_free_bytes_o : out std_logic_vector(13 downto 0);
+		double_buffer_used_bytes_o : out std_logic_vector(14 downto 0);
+		double_buffer_free_bytes_o : out std_logic_vector(14 downto 0);
 		double_buffer_full_o       : out std_logic;
 		buffer_stat_almost_empty_o : out std_logic;
 		buffer_stat_almost_full_o  : out std_logic;
@@ -56,7 +56,7 @@ architecture RTL of data_buffer_ent is
 		empty : std_logic;
 		full  : std_logic;
 		q     : std_logic_vector(255 downto 0);
-		usedw : std_logic_vector(7 downto 0);
+		usedw : std_logic_vector(8 downto 0);
 	end record t_data_fifo;
 
 	-- data fifo 0 signals
@@ -459,26 +459,26 @@ begin
 
 	-- buffer 0 status
 	buffer_0_empty_o                        <= s_data_fifo_0.empty;
-	buffer_0_used_bytes_o(13 downto 5)      <= s_data_fifo_0_extended_usedw;
+	buffer_0_used_bytes_o(14 downto 5)      <= s_data_fifo_0_extended_usedw;
 	buffer_0_used_bytes_o(4 downto 0)       <= (others => '0');
-	buffer_0_free_bytes_o(13 downto 5)      <= std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_0_extended_usedw));
+	buffer_0_free_bytes_o(14 downto 5)      <= std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_0_extended_usedw));
 	buffer_0_free_bytes_o(4 downto 0)       <= (others => '0');
 	buffer_0_full_o                         <= s_data_fifo_0.full;
 	-- buffer 1 status
 	buffer_1_empty_o                        <= s_data_fifo_1.empty;
-	buffer_1_used_bytes_o(13 downto 5)      <= s_data_fifo_1_extended_usedw;
+	buffer_1_used_bytes_o(14 downto 5)      <= s_data_fifo_1_extended_usedw;
 	buffer_1_used_bytes_o(4 downto 0)       <= (others => '0');
-	buffer_1_free_bytes_o(13 downto 5)      <= std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_1_extended_usedw));
+	buffer_1_free_bytes_o(14 downto 5)      <= std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_1_extended_usedw));
 	buffer_1_free_bytes_o(4 downto 0)       <= (others => '0');
 	buffer_1_full_o                         <= s_data_fifo_1.full;
 	-- double buffer
 	double_buffer_empty_o                   <= (s_data_fifo_0.empty) and (s_data_fifo_1.empty);
-	double_buffer_used_bytes_o(13 downto 5) <= ((others => '0')) when (rst_i = '1')
+	double_buffer_used_bytes_o(14 downto 5) <= ((others => '0')) when (rst_i = '1')
 		else (s_data_fifo_0_extended_usedw) when (s_rd_data_buffer_selection = 0)
 		else (s_data_fifo_1_extended_usedw) when (s_rd_data_buffer_selection = 1)
 		else ((others => '0'));
 	double_buffer_used_bytes_o(4 downto 0)  <= (others => '0');
-	double_buffer_free_bytes_o(13 downto 5) <= (buffer_cfg_length_i) when (rst_i = '1')
+	double_buffer_free_bytes_o(14 downto 5) <= (buffer_cfg_length_i) when (rst_i = '1')
 		else (std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_0_extended_usedw))) when (s_rd_data_buffer_selection = 0)
 		else (std_logic_vector(unsigned(buffer_cfg_length_i) - unsigned(s_data_fifo_1_extended_usedw))) when (s_rd_data_buffer_selection = 1)
 		else (buffer_cfg_length_i);

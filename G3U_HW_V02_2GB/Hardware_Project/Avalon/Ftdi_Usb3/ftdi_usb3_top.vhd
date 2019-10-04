@@ -42,7 +42,7 @@ entity ftdi_usb3_top is
 		avalon_slave_config_writedata   : in    std_logic_vector(31 downto 0)  := (others => '0'); --                      .writedata
 		avalon_slave_config_waitrequest : out   std_logic; --                                      --                      .waitrequest
 		avalon_slave_config_byteenable  : in    std_logic_vector(3 downto 0)   := (others => '0'); --                      .byteenable
-		avalon_slave_data_address       : in    std_logic_vector(7 downto 0)   := (others => '0'); --     avalon_slave_data.address
+		avalon_slave_data_address       : in    std_logic_vector(8 downto 0)   := (others => '0'); --     avalon_slave_data.address
 		avalon_slave_data_write         : in    std_logic                      := '0'; --          --                      .write
 		avalon_slave_data_read          : in    std_logic                      := '0'; --          --                      .read
 		avalon_slave_data_writedata     : in    std_logic_vector(255 downto 0) := (others => '0'); --                      .writedata
@@ -236,7 +236,7 @@ begin
 			double_buffer_stop_i       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
 			double_buffer_start_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 			buffer_data_loaded_i       => s_tx_dbuffer_data_loaded,
-			buffer_cfg_length_i        => "100000000",
+			buffer_cfg_length_i        => "1000000000",
 			buffer_wrdata_i            => s_tx_dbuffer_wrdata,
 			buffer_wrreq_i             => s_tx_dbuffer_wrreq,
 			buffer_rdreq_i             => s_tx_dbuffer_rdreq,
@@ -314,7 +314,7 @@ begin
 			double_buffer_stop_i       => s_config_write_registers.ftdi_module_control_reg.ftdi_module_stop,
 			double_buffer_start_i      => s_config_write_registers.ftdi_module_control_reg.ftdi_module_start,
 			buffer_data_loaded_i       => s_rx_dbuffer_data_loaded,
-			buffer_cfg_length_i        => "100000000",
+			buffer_cfg_length_i        => "1000000000",
 			buffer_wrdata_i            => s_rx_dbuffer_wrdata,
 			buffer_wrreq_i             => s_rx_dbuffer_wrreq,
 			buffer_rdreq_i             => s_rx_dbuffer_rdreq,

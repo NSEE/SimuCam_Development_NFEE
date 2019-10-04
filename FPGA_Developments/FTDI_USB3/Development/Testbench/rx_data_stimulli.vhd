@@ -75,7 +75,7 @@ begin
 						s_counter <= (c_START_CNT);
 					else
 						if (s_counter = (c_START_CNT)) then
-							if (s_rd_addr < 255) then
+							if (s_rd_addr < ((2 ** g_ADDRESS_WIDTH) - 1)) then
 								s_rd_addr <= s_rd_addr + 1;
 								s_counter <= c_START_CNT - 1;
 							else
