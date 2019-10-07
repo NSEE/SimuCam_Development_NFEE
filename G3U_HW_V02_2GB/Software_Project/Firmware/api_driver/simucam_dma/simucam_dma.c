@@ -548,23 +548,23 @@ bool bFTDIDmaM1Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInByt
 
 	}
 
-	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
-	if (usiRoundedTransferSizeInBytes % 32) {
-		// Transfer size is not a multiple of 32
-		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / 32) + 1) * 32;
+	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
+	if (usiRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
+		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
+		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / FTDI_WORD_SIZE_BYTES) + 1) * FTDI_WORD_SIZE_BYTES;
 	} else {
 		usiRoundedTransferSizeInBytes = usiTransferSizeInBytes;
 	}
 
-	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
-	if (uliSrcAddrLow % 32) {
-		// Address is not a multiple of 32
+	// Verify if the base address is a multiple o FTDI_WORD_SIZE_BYTES
+	if (uliSrcAddrLow % FTDI_WORD_SIZE_BYTES) {
+		// Address is not a multiple of FTDI_WORD_SIZE_BYTES
 		bAddressFlag = FALSE;
 	} else {
 		bAddressFlag = TRUE;
 	}
 
-	if ((bOperationFlag) && (bAddressFlag) && (usiRoundedTransferSizeInBytes <= 8192)) {
+	if ((bOperationFlag) && (bAddressFlag) && (usiRoundedTransferSizeInBytes <= FTDI_BUFFER_SIZE_TRANSFER)) {
 
 		if (pxDmaM1Dev != NULL) {
 			// hold transfers for descriptor fifo space
@@ -631,23 +631,23 @@ bool bFTDIDmaM2Transfer(alt_u32 *uliDdrInitialAddr, alt_u16 usiTransferSizeInByt
 
 	}
 
-	// Rounding up the size to the nearest multiple of 32 (32 bytes = 256b = size of memory access)
-	if (usiRoundedTransferSizeInBytes % 32) {
-		// Transfer size is not a multiple of 32
-		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / 32) + 1) * 32;
+	// Rounding up the size to the nearest multiple of FTDI_WORD_SIZE_BYTES
+	if (usiRoundedTransferSizeInBytes % FTDI_WORD_SIZE_BYTES) {
+		// Transfer size is not a multiple of FTDI_WORD_SIZE_BYTES
+		usiRoundedTransferSizeInBytes = ((alt_u16) (usiTransferSizeInBytes / FTDI_WORD_SIZE_BYTES) + 1) * FTDI_WORD_SIZE_BYTES;
 	} else {
 		usiRoundedTransferSizeInBytes = usiTransferSizeInBytes;
 	}
 
-	// Verify if the base address is a multiple o 32 (32 bytes = 256b = size of memory access)
-	if (uliSrcAddrLow % 32) {
-		// Address is not a multiple of 32
+	// Verify if the base address is a multiple o FTDI_WORD_SIZE_BYTES
+	if (uliSrcAddrLow % FTDI_WORD_SIZE_BYTES) {
+		// Address is not a multiple of FTDI_WORD_SIZE_BYTES
 		bAddressFlag = FALSE;
 	} else {
 		bAddressFlag = TRUE;
 	}
 
-	if ((bOperationFlag) && (bAddressFlag) && (usiRoundedTransferSizeInBytes <= 8192)) {
+	if ((bOperationFlag) && (bAddressFlag) && (usiRoundedTransferSizeInBytes <= FTDI_BUFFER_SIZE_TRANSFER)) {
 		if (pxDmaM2Dev != NULL) {
 
 			while (0 != (IORD_ALTERA_MSGDMA_CSR_STATUS(pxDmaM2Dev->csr_base) & ALTERA_MSGDMA_CSR_DESCRIPTOR_BUFFER_FULL_MASK)) {

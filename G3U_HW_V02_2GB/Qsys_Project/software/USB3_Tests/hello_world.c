@@ -228,7 +228,7 @@ bool vFtdiInitIrq(void) {
 	// prototype.
 	pvHoldContext = (void*) &viFtdiHoldContext;
 	// Register the interrupt handler
-	alt_irq_register(4, pvHoldContext, vFtdiHandleIrq);
+	alt_irq_register(FTDI_RX_BUFFER_IRQ, pvHoldContext, vFtdiHandleIrq);
 	bStatus = TRUE;
 
 	return bStatus;

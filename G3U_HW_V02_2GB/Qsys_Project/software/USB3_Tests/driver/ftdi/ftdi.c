@@ -76,7 +76,7 @@ bool bFTDIRequestFullImage( alt_u8 ucFee, alt_u8 ucCCD, alt_u8 ucSide, alt_u16 u
 		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdExpNumber = usiEP;
 		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdWidth = usiHalfWidth;
 		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdCcdHeight = usiHeight;
-
+		pxFtdiModule->xFtdiHalfCcdReqControl.usiHalfCcdReqTimeout = 0;
 		pxFtdiModule->xFtdiHalfCcdReqControl.bRequestHalfCcd = TRUE;
 
 		bStatus = TRUE;
