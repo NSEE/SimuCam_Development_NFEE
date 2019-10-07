@@ -11,8 +11,7 @@
    <description preferredWidth="325" />
   </columns>
  </systemtable>
- <library
-   expandedCategories="Library/Basic Functions/Clocks; PLLs and Resets,Library/Qsys Interconnect/Memory-Mapped Alpha,Project,Library/Basic Functions/Configuration and Programming,Library/Basic Functions,Library,Library/Qsys Interconnect/Interrupt,Library/University Program/Clock,Library/Basic Functions/Bridges and Adaptors/Memory Mapped,Library/University Program,Library/Basic Functions/Simulation; Debug and Verification/Simulation,Library/Basic Functions/On Chip Memory,Library/Basic Functions/Bridges and Adaptors,Library/Qsys Interconnect,Library/Basic Functions/Simulation; Debug and Verification" />
+ <library expandedCategories="Project,Library" />
  <window width="1936" height="1056" x="-8" y="-8" />
  <hdlexample language="VHDL" />
  <generation synthesis="VHDL" />

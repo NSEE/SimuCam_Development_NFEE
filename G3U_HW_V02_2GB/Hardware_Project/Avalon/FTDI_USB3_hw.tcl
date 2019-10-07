@@ -253,7 +253,7 @@ set_interface_property avalon_slave_data PORT_NAME_MAP ""
 set_interface_property avalon_slave_data CMSIS_SVD_VARIABLES ""
 set_interface_property avalon_slave_data SVD_ADDRESS_GROUP ""
 
-add_interface_port avalon_slave_data avalon_slave_data_address address Input 9
+add_interface_port avalon_slave_data avalon_slave_data_address address Input 10
 add_interface_port avalon_slave_data avalon_slave_data_write write Input 1
 add_interface_port avalon_slave_data avalon_slave_data_read read Input 1
 add_interface_port avalon_slave_data avalon_slave_data_writedata writedata Input 256

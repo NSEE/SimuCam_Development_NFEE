@@ -302,7 +302,7 @@ begin
 						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_buffer_0_used_bytes(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(14 downto 8) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_buffer_0_used_bytes(14 downto 8);
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_buffer_0_used_bytes(15 downto 8);
 					end if;
 
 				when (16#24#) =>
@@ -329,7 +329,7 @@ begin
 						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_buffer_1_used_bytes(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(14 downto 8) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_buffer_1_used_bytes(14 downto 8);
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_buffer_1_used_bytes(15 downto 8);
 					end if;
 
 				when (16#28#) =>
@@ -356,7 +356,7 @@ begin
 						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_dbuffer_used_bytes(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(14 downto 8) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_dbuffer_used_bytes(14 downto 8);
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.rx_buffer_status_reg.rx_dbuffer_used_bytes(15 downto 8);
 					end if;
 
 				when (16#2C#) =>
@@ -383,7 +383,7 @@ begin
 						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_0_space_bytes(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(14 downto 8) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_0_space_bytes(14 downto 8);
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_0_space_bytes(15 downto 8);
 					end if;
 
 				when (16#30#) =>
@@ -410,7 +410,7 @@ begin
 						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_1_space_bytes(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(14 downto 8) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_1_space_bytes(14 downto 8);
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_buffer_1_space_bytes(15 downto 8);
 					end if;
 
 				when (16#34#) =>
@@ -437,7 +437,7 @@ begin
 						ftdi_config_avalon_mm_o.readdata(7 downto 0) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_dbuffer_space_bytes(7 downto 0);
 					end if;
 					if (ftdi_config_avalon_mm_i.byteenable(1) = '1') then
-						ftdi_config_avalon_mm_o.readdata(14 downto 8) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_dbuffer_space_bytes(14 downto 8);
+						ftdi_config_avalon_mm_o.readdata(15 downto 8) <= ftdi_config_rd_regs_i.tx_buffer_status_reg.tx_dbuffer_space_bytes(15 downto 8);
 					end if;
 
 				when (16#38#) =>

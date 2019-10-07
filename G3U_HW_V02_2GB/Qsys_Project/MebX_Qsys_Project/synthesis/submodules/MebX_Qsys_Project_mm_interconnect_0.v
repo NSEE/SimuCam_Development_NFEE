@@ -219,7 +219,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 		output wire [31:0]  FTDI_USB3_0_avalon_slave_config_writedata,                       //                                                          .writedata
 		output wire [3:0]   FTDI_USB3_0_avalon_slave_config_byteenable,                      //                                                          .byteenable
 		input  wire         FTDI_USB3_0_avalon_slave_config_waitrequest,                     //                                                          .waitrequest
-		output wire [8:0]   FTDI_USB3_0_avalon_slave_data_address,                           //                             FTDI_USB3_0_avalon_slave_data.address
+		output wire [9:0]   FTDI_USB3_0_avalon_slave_data_address,                           //                             FTDI_USB3_0_avalon_slave_data.address
 		output wire         FTDI_USB3_0_avalon_slave_data_write,                             //                                                          .write
 		output wire         FTDI_USB3_0_avalon_slave_data_read,                              //                                                          .read
 		input  wire [255:0] FTDI_USB3_0_avalon_slave_data_readdata,                          //                                                          .readdata
@@ -4622,7 +4622,7 @@ module MebX_Qsys_Project_mm_interconnect_0 (
 	);
 
 	altera_merlin_slave_translator #(
-		.AV_ADDRESS_W                   (9),
+		.AV_ADDRESS_W                   (10),
 		.AV_DATA_W                      (256),
 		.UAV_DATA_W                     (256),
 		.AV_BURSTCOUNT_W                (1),

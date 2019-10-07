@@ -74,7 +74,7 @@
 // ftdi tx/rx buffer
 #define SDMA_FTDI_BUFF_BASE_ADDR_LOW    0x00000000
 #define SDMA_FTDI_BUFF_BASE_ADDR_HIGH   0x00000002
-#define SDMA_FTDI_BUFF_SPAN             0x3FFF
+#define SDMA_FTDI_BUFF_SPAN             0x7FFF
 // ddr mem
 #define SDMA_M1_BASE_ADDR_LOW           0x00000000
 #define SDMA_M1_BASE_ADDR_HIGH          0x00000000

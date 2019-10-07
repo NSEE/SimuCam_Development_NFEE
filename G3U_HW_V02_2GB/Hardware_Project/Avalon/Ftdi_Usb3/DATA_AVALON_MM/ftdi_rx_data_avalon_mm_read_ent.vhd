@@ -75,7 +75,7 @@ begin
 			case (read_address_i) is
 				-- Case for access to all registers address
 
-				when 0 to 511 =>
+				when 0 to 1023 =>
 
 					-- check if the readdata is fetched
 					if (s_readdata_fetched = '1') then

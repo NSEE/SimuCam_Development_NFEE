@@ -31,7 +31,7 @@ architecture RTL of data_packet_hk_writer_ent is
 
 	constant c_HK_RESET_BYTE_ADDR : std_logic_vector(31 downto 0) := x"00000000";
 	constant c_HK_FIRST_BYTE_ADDR : std_logic_vector(31 downto 0) := x"00000700";
-	constant c_HK_LAST_BYTE_ADDR  : std_logic_vector(31 downto 0) := x"0000078C";
+	constant c_HK_LAST_BYTE_ADDR  : std_logic_vector(31 downto 0) := x"0000078F";
 
 	type t_housekeeping_writer_fsm is (
 		STOPPED,

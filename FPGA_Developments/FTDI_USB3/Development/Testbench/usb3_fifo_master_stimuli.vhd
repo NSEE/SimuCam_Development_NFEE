@@ -1243,7 +1243,7 @@ begin
 
 			case s_counter is
 
-				when 30 to 32 =>
+				when 29 to 32 =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
@@ -1262,7 +1262,7 @@ begin
 					s_umft601a_gpio_out     <= (others => '1');
 
 				when (33 + 8) =>
-					umft_rxf_n_pin_o        <= '0';
+					umft_rxf_n_pin_o        <= '1';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
 					s_umft601a_wakeup_n_out <= '1';
@@ -1270,7 +1270,7 @@ begin
 					s_umft601a_gpio_out     <= (others => '1');
 					v_data_cnt              := 0;
 
-				when 70 to 72 =>
+				when 69 to 72 =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
@@ -1289,7 +1289,7 @@ begin
 					s_umft601a_gpio_out     <= (others => '1');
 					
 				when (73 + 8) =>
-					umft_rxf_n_pin_o        <= '0';
+					umft_rxf_n_pin_o        <= '1';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
 					s_umft601a_wakeup_n_out <= '1';
@@ -1298,7 +1298,7 @@ begin
 					v_data_cnt              := 0;
 					s_counter               <= 5000;
 
-				when 5100 to 5102 =>
+				when 5099 to 5102 =>
 					umft_rxf_n_pin_o        <= '0';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
@@ -1330,7 +1330,7 @@ begin
 --					end if;
 
 				when (5103 + 1024) =>
-					umft_rxf_n_pin_o        <= '0';
+					umft_rxf_n_pin_o        <= '1';
 					umft_txe_n_pin_o        <= '1';
 					s_umft601a_data_out     <= (others => '0');
 					s_umft601a_wakeup_n_out <= '1';

@@ -86,7 +86,7 @@ architecture RTL of fee_master_data_manager_ent is
 	-- data packet header size [bytes]
 	constant c_DATA_PKT_HEADER_SIZE    : natural                       := 10;
 	-- hk packet data size [bytes]
-	constant c_HK_PKT_DATA_SIZE        : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(128, 16));
+	constant c_HK_PKT_DATA_SIZE        : std_logic_vector(15 downto 0) := std_logic_vector(to_unsigned(144, 16));
 	-- type field, mode bits
 	constant c_FULL_IMAGE_MODE         : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(0, 3));
 	constant c_FULL_IMAGE_PATTERN_MODE : std_logic_vector(2 downto 0)  := std_logic_vector(to_unsigned(1, 3));

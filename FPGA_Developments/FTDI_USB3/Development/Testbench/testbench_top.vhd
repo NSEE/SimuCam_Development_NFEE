@@ -35,15 +35,15 @@ architecture RTL of testbench_top is
 	signal s_avalon_slave_config_writedata   : std_logic_vector(31 downto 0);
 	signal s_avalon_slave_config_waitrequest : std_logic;
 	signal s_avalon_slave_config_byteenable  : std_logic_vector(3 downto 0);
-	signal s_avalon_slave_data_address       : std_logic_vector(8 downto 0);
+	signal s_avalon_slave_data_address       : std_logic_vector(9 downto 0);
 	signal s_avalon_slave_data_write         : std_logic;
 	signal s_avalon_slave_data_read          : std_logic;
 	signal s_avalon_slave_data_writedata     : std_logic_vector(255 downto 0);
 	signal s_avalon_slave_data_readdata      : std_logic_vector(255 downto 0);
 	signal s_avalon_slave_data_waitrequest   : std_logic;
 
-	signal s_tx_avalon_slave_data_address : std_logic_vector(8 downto 0);
-	signal s_rx_avalon_slave_data_address : std_logic_vector(8 downto 0);
+	signal s_tx_avalon_slave_data_address : std_logic_vector(9 downto 0);
+	signal s_rx_avalon_slave_data_address : std_logic_vector(9 downto 0);
 
 	--dummy
 
@@ -55,7 +55,7 @@ begin
 
 	tx_data_stimulli_inst : entity work.tx_data_stimulli
 		generic map(
-			g_ADDRESS_WIDTH => 9,
+			g_ADDRESS_WIDTH => 10,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -69,7 +69,7 @@ begin
 
 	rx_data_stimulli_inst : entity work.rx_data_stimulli
 		generic map(
-			g_ADDRESS_WIDTH => 9,
+			g_ADDRESS_WIDTH => 10,
 			g_DATA_WIDTH    => 256
 		)
 		port map(
@@ -104,11 +104,12 @@ begin
 		)
 		port map(
 			clock_sink_clk                  => clk100Avs,
+			ftdi_clock_sink_clk             => clk100Ftdi,
 			reset_sink_reset                => rst,
 			umft_data_bus                   => s_umft_data_bus,
 			umft_reset_n_pin                => s_umft_reset_n_pin,
 			umft_rxf_n_pin                  => s_umft_rxf_n_pin,
-			umft_clock_pin                  => clk100Ftdi,
+			umft_clock_pin                  => '0',
 			umft_wakeup_n_pin               => s_umft_wakeup_n_pin,
 			umft_be_bus                     => s_umft_be_bus,
 			umft_txe_n_pin                  => s_umft_txe_n_pin,
